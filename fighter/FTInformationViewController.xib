@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTInformationViewController">
+            <connections>
+                <outlet property="messageButton" destination="Teb-vS-iKf" id="Vk5-d4-cev"/>
+                <outlet property="searchButton" destination="529-d9-Laz" id="fZP-Lf-2dS"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VeT-pB-44g">
+                    <rect key="frame" x="15" y="20" width="34" height="34"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="34" id="348-TE-VXC"/>
+                        <constraint firstAttribute="height" constant="34" id="jho-9Y-ejC"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="头像-空"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="格斗家" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Guq-2c-nxL">
+                    <rect key="frame" x="59" y="28" width="55" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="55" id="Cy6-gn-4ZT"/>
+                        <constraint firstAttribute="height" constant="18" id="t7V-bX-bdp"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gjl-5p-Kdz" userLabel="分隔点">
+                    <rect key="frame" x="122" y="34" width="5" height="5"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="5" id="44y-rB-NCG"/>
+                        <constraint firstAttribute="height" constant="5" id="IEd-oE-YC6"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <real key="value" value="2.5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="拳迅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTZ-LA-h94">
+                    <rect key="frame" x="135" y="27" width="42" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="K0P-l3-Yzv"/>
+                        <constraint firstAttribute="width" constant="42" id="Po7-KR-zHv"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Teb-vS-iKf">
+                    <rect key="frame" x="281" y="25" width="24" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="KFv-Yh-bxc"/>
+                        <constraint firstAttribute="width" constant="24" id="dFQ-Xy-DRr"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="头部48按钮一堆-消息"/>
+                    <connections>
+                        <action selector="messageButtonClicked:" destination="-1" eventType="touchUpInside" id="V4y-9k-etI"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="529-d9-Laz">
+                    <rect key="frame" x="241" y="25" width="24" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="24" id="R8c-iq-9fH"/>
+                        <constraint firstAttribute="height" constant="24" id="ZC0-rV-irR"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="头部48按钮一堆-搜索"/>
+                    <connections>
+                        <action selector="searchButtonClicked:" destination="-1" eventType="touchUpInside" id="efO-D5-MDq"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Noj-vQ-ELp" userLabel="上方分割线">
+                    <rect key="frame" x="0.0" y="60" width="320" height="1"/>
+                    <color key="backgroundColor" red="0.15686274509803921" green="0.15686274509803921" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="gmN-11-qMb"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Teb-vS-iKf" secondAttribute="trailing" constant="15" id="1RE-0p-lt7"/>
+                <constraint firstItem="PTZ-LA-h94" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="27" id="1p1-7L-gxI"/>
+                <constraint firstItem="529-d9-Laz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="25" id="4Es-co-fne"/>
+                <constraint firstItem="Guq-2c-nxL" firstAttribute="leading" secondItem="VeT-pB-44g" secondAttribute="trailing" constant="10" id="6E7-Mz-JQs"/>
+                <constraint firstItem="Gjl-5p-Kdz" firstAttribute="leading" secondItem="Guq-2c-nxL" secondAttribute="trailing" constant="8" id="Hcc-Tz-32t"/>
+                <constraint firstAttribute="trailing" secondItem="Noj-vQ-ELp" secondAttribute="trailing" id="J7P-uA-q0s"/>
+                <constraint firstItem="VeT-pB-44g" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="Ufm-qP-QR7"/>
+                <constraint firstItem="VeT-pB-44g" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="aC7-5Y-ZEz"/>
+                <constraint firstItem="Noj-vQ-ELp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="60" id="bIl-3r-Htc"/>
+                <constraint firstItem="Teb-vS-iKf" firstAttribute="leading" secondItem="529-d9-Laz" secondAttribute="trailing" constant="16" id="h1h-0S-BvF"/>
+                <constraint firstItem="PTZ-LA-h94" firstAttribute="leading" secondItem="Gjl-5p-Kdz" secondAttribute="trailing" constant="8" id="hBa-vH-Lvc"/>
+                <constraint firstItem="Guq-2c-nxL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="28" id="kSu-rU-gkO"/>
+                <constraint firstItem="Noj-vQ-ELp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="mW0-5j-HLo"/>
+                <constraint firstItem="Gjl-5p-Kdz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="oui-tg-0op"/>
+                <constraint firstItem="Teb-vS-iKf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="25" id="sWb-JR-n9x"/>
+            </constraints>
+            <point key="canvasLocation" x="440" y="421"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="头像-空" width="34" height="34"/>
+        <image name="头部48按钮一堆-搜索" width="24" height="24"/>
+        <image name="头部48按钮一堆-消息" width="24" height="24"/>
+    </resources>
+</document>
