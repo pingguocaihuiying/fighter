@@ -28,6 +28,18 @@
 		E6B458D71CB75DB200FB4261 /* FTBoxingHallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458D51CB75DB200FB4261 /* FTBoxingHallViewController.m */; };
 		E6B458D81CB75DB200FB4261 /* FTBoxingHallViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6B458D61CB75DB200FB4261 /* FTBoxingHallViewController.xib */; };
 		E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458DA1CB75E5000FB4261 /* FTBaseTabBarViewController.m */; };
+		E6B458DE1CB7B2B100FB4261 /* FTTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458DD1CB7B2B100FB4261 /* FTTableViewController.m */; };
+		E6D74A471CB7B7EE00854337 /* UIButton+countDown.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A331CB7B7EE00854337 /* UIButton+countDown.m */; };
+		E6D74A481CB7B7EE00854337 /* UIColor+YBColorCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A351CB7B7EE00854337 /* UIColor+YBColorCategory.m */; };
+		E6D74A491CB7B7EE00854337 /* UILabel+StringFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A371CB7B7EE00854337 /* UILabel+StringFrame.m */; };
+		E6D74A4A1CB7B7EE00854337 /* UIView+YBAddtitions.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A391CB7B7EE00854337 /* UIView+YBAddtitions.m */; };
+		E6D74A4B1CB7B7EE00854337 /* UUID.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A3B1CB7B7EE00854337 /* UUID.m */; };
+		E6D74A4C1CB7B7EE00854337 /* HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A3D1CB7B7EE00854337 /* HUD.m */; };
+		E6D74A4D1CB7B7EE00854337 /* KeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A3F1CB7B7EE00854337 /* KeyChainStore.m */; };
+		E6D74A4E1CB7B7EE00854337 /* MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A411CB7B7EE00854337 /* MD5.m */; };
+		E6D74A4F1CB7B7EE00854337 /* Regex.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A431CB7B7EE00854337 /* Regex.m */; };
+		E6D74A501CB7B7EE00854337 /* ZJModelTool.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A461CB7B7EE00854337 /* ZJModelTool.m */; };
+		E6D74A5B1CB7B8C200854337 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A581CB7B8C200854337 /* MBProgressHUD.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +98,30 @@
 		E6B458D61CB75DB200FB4261 /* FTBoxingHallViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTBoxingHallViewController.xib; sourceTree = "<group>"; };
 		E6B458D91CB75E5000FB4261 /* FTBaseTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBaseTabBarViewController.h; sourceTree = "<group>"; };
 		E6B458DA1CB75E5000FB4261 /* FTBaseTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBaseTabBarViewController.m; sourceTree = "<group>"; };
+		E6B458DC1CB7B2B100FB4261 /* FTTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTableViewController.h; sourceTree = "<group>"; };
+		E6B458DD1CB7B2B100FB4261 /* FTTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTableViewController.m; sourceTree = "<group>"; };
+		E6D74A321CB7B7EE00854337 /* UIButton+countDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+countDown.h"; sourceTree = "<group>"; };
+		E6D74A331CB7B7EE00854337 /* UIButton+countDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+countDown.m"; sourceTree = "<group>"; };
+		E6D74A341CB7B7EE00854337 /* UIColor+YBColorCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+YBColorCategory.h"; sourceTree = "<group>"; };
+		E6D74A351CB7B7EE00854337 /* UIColor+YBColorCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+YBColorCategory.m"; sourceTree = "<group>"; };
+		E6D74A361CB7B7EE00854337 /* UILabel+StringFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+StringFrame.h"; sourceTree = "<group>"; };
+		E6D74A371CB7B7EE00854337 /* UILabel+StringFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+StringFrame.m"; sourceTree = "<group>"; };
+		E6D74A381CB7B7EE00854337 /* UIView+YBAddtitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+YBAddtitions.h"; sourceTree = "<group>"; };
+		E6D74A391CB7B7EE00854337 /* UIView+YBAddtitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+YBAddtitions.m"; sourceTree = "<group>"; };
+		E6D74A3A1CB7B7EE00854337 /* UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUID.h; sourceTree = "<group>"; };
+		E6D74A3B1CB7B7EE00854337 /* UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUID.m; sourceTree = "<group>"; };
+		E6D74A3C1CB7B7EE00854337 /* HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUD.h; sourceTree = "<group>"; };
+		E6D74A3D1CB7B7EE00854337 /* HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUD.m; sourceTree = "<group>"; };
+		E6D74A3E1CB7B7EE00854337 /* KeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyChainStore.h; sourceTree = "<group>"; };
+		E6D74A3F1CB7B7EE00854337 /* KeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainStore.m; sourceTree = "<group>"; };
+		E6D74A401CB7B7EE00854337 /* MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5.h; sourceTree = "<group>"; };
+		E6D74A411CB7B7EE00854337 /* MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD5.m; sourceTree = "<group>"; };
+		E6D74A421CB7B7EE00854337 /* Regex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Regex.h; sourceTree = "<group>"; };
+		E6D74A431CB7B7EE00854337 /* Regex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Regex.m; sourceTree = "<group>"; };
+		E6D74A451CB7B7EE00854337 /* ZJModelTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJModelTool.h; sourceTree = "<group>"; };
+		E6D74A461CB7B7EE00854337 /* ZJModelTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJModelTool.m; sourceTree = "<group>"; };
+		E6D74A571CB7B8C200854337 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		E6D74A581CB7B8C200854337 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +172,8 @@
 		E64EF1081CB6614000CAE340 /* fighter */ = {
 			isa = PBXGroup;
 			children = (
+				E6D74A511CB7B8C200854337 /* thirdCodes */,
+				E6D74A301CB7B7EE00854337 /* Tools */,
 				E6B458921CB7554F00FB4261 /* UI */,
 				E64EF10C1CB6614000CAE340 /* AppDelegate.h */,
 				E64EF10D1CB6614000CAE340 /* AppDelegate.m */,
@@ -209,6 +247,8 @@
 				E6B458CF1CB75DA200FB4261 /* FTInformationViewController.h */,
 				E6B458D01CB75DA200FB4261 /* FTInformationViewController.m */,
 				E6B458D11CB75DA200FB4261 /* FTInformationViewController.xib */,
+				E6B458DC1CB7B2B100FB4261 /* FTTableViewController.h */,
+				E6B458DD1CB7B2B100FB4261 /* FTTableViewController.m */,
 			);
 			name = Information;
 			sourceTree = "<group>";
@@ -251,6 +291,59 @@
 				E6B458D61CB75DB200FB4261 /* FTBoxingHallViewController.xib */,
 			);
 			name = BoxingHall;
+			sourceTree = "<group>";
+		};
+		E6D74A301CB7B7EE00854337 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				E6D74A311CB7B7EE00854337 /* Categorys */,
+				E6D74A3C1CB7B7EE00854337 /* HUD.h */,
+				E6D74A3D1CB7B7EE00854337 /* HUD.m */,
+				E6D74A3E1CB7B7EE00854337 /* KeyChainStore.h */,
+				E6D74A3F1CB7B7EE00854337 /* KeyChainStore.m */,
+				E6D74A401CB7B7EE00854337 /* MD5.h */,
+				E6D74A411CB7B7EE00854337 /* MD5.m */,
+				E6D74A421CB7B7EE00854337 /* Regex.h */,
+				E6D74A431CB7B7EE00854337 /* Regex.m */,
+				E6D74A441CB7B7EE00854337 /* ZJModelTool */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		E6D74A311CB7B7EE00854337 /* Categorys */ = {
+			isa = PBXGroup;
+			children = (
+				E6D74A321CB7B7EE00854337 /* UIButton+countDown.h */,
+				E6D74A331CB7B7EE00854337 /* UIButton+countDown.m */,
+				E6D74A341CB7B7EE00854337 /* UIColor+YBColorCategory.h */,
+				E6D74A351CB7B7EE00854337 /* UIColor+YBColorCategory.m */,
+				E6D74A361CB7B7EE00854337 /* UILabel+StringFrame.h */,
+				E6D74A371CB7B7EE00854337 /* UILabel+StringFrame.m */,
+				E6D74A381CB7B7EE00854337 /* UIView+YBAddtitions.h */,
+				E6D74A391CB7B7EE00854337 /* UIView+YBAddtitions.m */,
+				E6D74A3A1CB7B7EE00854337 /* UUID.h */,
+				E6D74A3B1CB7B7EE00854337 /* UUID.m */,
+			);
+			path = Categorys;
+			sourceTree = "<group>";
+		};
+		E6D74A441CB7B7EE00854337 /* ZJModelTool */ = {
+			isa = PBXGroup;
+			children = (
+				E6D74A451CB7B7EE00854337 /* ZJModelTool.h */,
+				E6D74A461CB7B7EE00854337 /* ZJModelTool.m */,
+			);
+			path = ZJModelTool;
+			sourceTree = "<group>";
+		};
+		E6D74A511CB7B8C200854337 /* thirdCodes */ = {
+			isa = PBXGroup;
+			children = (
+				E6D74A571CB7B8C200854337 /* MBProgressHUD.h */,
+				E6D74A581CB7B8C200854337 /* MBProgressHUD.m */,
+			);
+			name = thirdCodes;
+			path = Tools/thirdCodes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,7 +413,7 @@
 				TargetAttributes = {
 					E64EF1051CB6614000CAE340 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 2DN2BYVY4Q;
+						DevelopmentTeam = LQHT8X75PQ;
 					};
 					E64EF11E1CB6614100CAE340 = {
 						CreatedOnToolsVersion = 7.3;
@@ -391,17 +484,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6D74A4F1CB7B7EE00854337 /* Regex.m in Sources */,
 				E6B458CD1CB75D9600FB4261 /* FTMatchViewController.m in Sources */,
 				E64EF1111CB6614000CAE340 /* ViewController.m in Sources */,
+				E6D74A4E1CB7B7EE00854337 /* MD5.m in Sources */,
+				E6D74A4A1CB7B7EE00854337 /* UIView+YBAddtitions.m in Sources */,
 				E6B4589A1CB7563300FB4261 /* FTBaseViewController.m in Sources */,
+				E6D74A491CB7B7EE00854337 /* UILabel+StringFrame.m in Sources */,
+				E6D74A471CB7B7EE00854337 /* UIButton+countDown.m in Sources */,
 				E64EF10E1CB6614000CAE340 /* AppDelegate.m in Sources */,
 				E6B458D71CB75DB200FB4261 /* FTBoxingHallViewController.m in Sources */,
 				E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */,
 				E6B458C81CB75D8A00FB4261 /* FTFightKingViewController.m in Sources */,
+				E6D74A481CB7B7EE00854337 /* UIColor+YBColorCategory.m in Sources */,
+				E6B458DE1CB7B2B100FB4261 /* FTTableViewController.m in Sources */,
 				E6B458C31CB75D7A00FB4261 /* FTCoachViewController.m in Sources */,
 				E64EF10B1CB6614000CAE340 /* main.m in Sources */,
+				E6D74A5B1CB7B8C200854337 /* MBProgressHUD.m in Sources */,
 				E6B458D21CB75DA200FB4261 /* FTInformationViewController.m in Sources */,
+				E6D74A4C1CB7B7EE00854337 /* HUD.m in Sources */,
 				E6B458971CB7560400FB4261 /* FTBaseNavigationViewController.m in Sources */,
+				E6D74A501CB7B7EE00854337 /* ZJModelTool.m in Sources */,
+				E6D74A4D1CB7B7EE00854337 /* KeyChainStore.m in Sources */,
+				E6D74A4B1CB7B7EE00854337 /* UUID.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,10 +647,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/fighter/PrefixHeader.pch";
 				INFOPLIST_FILE = fighter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = liyz.fighter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapbar.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -554,10 +661,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/fighter/PrefixHeader.pch";
 				INFOPLIST_FILE = fighter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = liyz.fighter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapbar.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

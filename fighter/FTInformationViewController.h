@@ -11,6 +11,8 @@
 @interface FTInformationViewController : FTBaseViewController
 @property (weak, nonatomic) IBOutlet UIButton *searchButton;
 @property (weak, nonatomic) IBOutlet UIButton *messageButton;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIScrollView *currentScrollView;
+@property (weak, nonatomic) IBOutlet UIView *currentView;
+
 
 @end

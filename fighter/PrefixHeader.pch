@@ -9,9 +9,13 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
-
+//定义一些颜色
+#define Main_Text_Color
 #define Bar_Item_Title_Color [UIColor colorWithRed:125 / 255.0 green:125 / 255.0  blue:129 / 255.0 alpha:1]
 //#define Bar_Item_Select_Title_Color [UIColor colorWithRed:199 / 29.0 green:39 / 255.0  blue:129 / 255.0 alpha:1]
 #define Bar_Item_Select_Title_Color [UIColor redColor]
+
+//导入一些工具类
+#import "UIColor+YBColorCategory.h"
 
 #endif /* PrefixHeader_pch */
