@@ -21,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [self initSubViews];
     NSLog(@"资讯view did load");
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"底纹"]];
@@ -37,22 +38,11 @@
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self initView];
-    self.sourceArry = @[@[@"测试1",@"测试1",@"测试1",@"测试1",@"测试1",@"测试1"],@[@"测试2",@"测试2",@"测试2",@"测试2",@"测试2",@"测试2"],@[@"测试3",@"测试3",@"测试3",@"测试3",@"测试3",@"测试3"],@[@"测试4",@"测试4",@"测试4",@"测试4",@"测试4",@"测试4"],@[@"测试5",@"测试5",@"测试5",@"测试5",@"测试5",@"测试5"]];
+    self.sourceArry = @[@[@"测试1",@"测试1",@"测试1",@"测试1",@"测试1",@"测试1"],@[@"测试2",@"测试2",@"测试2",@"测试2",@"测试2",@"测试2"],@[@"测试3",@"测试3",@"测试3",@"测试3",@"测试3",@"测试3"],@[@"测试4",@"测试4",@"测试4",@"测试4",@"测试4",@"测试4"],@[@"测试5",@"测试5",@"测试5",@"测试5",@"测试5",@"测试5"],@[@"测试5",@"测试5",@"测试5",@"测试5",@"测试5",@"测试5"],@[@"测试5",@"测试5",@"测试5",@"测试5",@"测试5",@"测试5"]];
     
     [self initPageController];;
     
 }
-
-
-- (IBAction)searchButtonClicked:(id)sender {
-    NSLog(@"search button clicked.");
-}
-- (IBAction)messageButtonClicked:(id)sender {
-    NSLog(@"message button clicked.");
-}
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -63,21 +53,52 @@
 //视图加载
 - (void)initView
 {
-    NSArray *titles = @[@"全部",@"拳击",@"自由搏击",@"散打",@"泰拳"];
+    NSArray *titles = @[@"全部",@"拳击",@"自由搏击",@"散打",@"泰拳", @"kongfu", @"形意拳"];
+    float curContentWidth = 0;
     for (int i = 0; i < titles.count; i++) {
         UIButton *bt = [UIButton buttonWithType:UIButtonTypeCustom];
-        [bt setFrame:CGRectMake(80*i, 0, 80, 40)];
+
         [bt setTitle:titles[i] forState:UIControlStateNormal];
-        [bt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        bt.titleLabel.font = [UIFont systemFontOfSize:14];
+        [bt setTitleColor: Main_Text_Color forState:UIControlStateNormal];
         bt.tag = i+1;
+        
+        //设置button的宽度
+        NSString *content = bt.titleLabel.text;
+        UIFont *font = bt.titleLabel.font;
+        CGSize size = CGSizeMake(MAXFLOAT, 30.0f);
+        CGSize buttonSize = [content boundingRectWithSize:size
+                                                  options:NSStringDrawingTruncatesLastVisibleLine  | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                               attributes:@{ NSFontAttributeName:font}
+                                                  context:nil].size;
+        
+        [bt setFrame:CGRectMake(curContentWidth, 0, buttonSize.width, 40)];
+        
         [bt addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
-        bt.layer.borderWidth = 1;
         [_currentScrollView addSubview:bt];
+        
+        
+        //添加button下方的指示view
+        UIView *indexView = [[UIView alloc]initWithFrame:CGRectMake(0, 37, buttonSize.width, 3)];
+        indexView.backgroundColor = [UIColor redColor];
+        indexView.tag = 1000 + i;
+        indexView.hidden = YES;
+        [bt addSubview:indexView];
+        
+        
+        if (i != titles.count - 1) {
+            curContentWidth += buttonSize.width + 35;
+        }else{
+            curContentWidth += buttonSize.width;
+        }
+        
     }
     self.currentSelectIndex = 0;
+    _currentScrollView.showsHorizontalScrollIndicator = NO;
+    _currentScrollView.bounces = YES;
     
-    //
-    _currentScrollView.contentSize = CGSizeMake(80*titles.count, 50);
+    _currentScrollView.contentSize = CGSizeMake(curContentWidth, 40);
+    
 }
 
 - (void)initPageController
@@ -90,12 +111,11 @@
     [pageVC.view setFrame:_currentView.bounds];
     pageVC.delegate = self;
     pageVC.dataSource = self;
-    [pageVC setViewControllers:@[VC1] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:^(BOOL finished) {
+    [pageVC setViewControllers:@[VC1] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:^(BOOL finished) {
         NSLog(@" 设置完成 ");
     }];
     [self addChildViewController:pageVC];
     [_currentView addSubview:[pageVC view]];
-    pageVC.view.layer.borderWidth = 1;
 }
 
 
@@ -104,11 +124,13 @@
 //
 - (void)clickAction:(UIButton *)sender
 {
-    self.currentSelectIndex = sender.tag-1;
-    FTTableViewController *VC = [self controllerWithSourceIndex:sender.tag-1];
-    [self.pageViewController setViewControllers:@[VC] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:^(BOOL finished) {
-        NSLog(@" 设置完成 ");
-    }];
+    if(self.currentSelectIndex != sender.tag - 1){
+        self.currentSelectIndex = sender.tag-1;
+        FTTableViewController *VC = [self controllerWithSourceIndex:sender.tag-1];
+        [self.pageViewController setViewControllers:@[VC] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:^(BOOL finished) {
+            NSLog(@" 设置完成 ");
+        }];
+    }
 }
 
 
@@ -137,30 +159,33 @@
 - (void)setCurrentSelectIndex:(NSInteger)index
 {
     //取消上面的背景色
+    
     if (_currentSelectIndex != NSNotFound) {
-        UIButton *normalbt = (UIButton *)[_currentScrollView viewWithTag:_currentSelectIndex+1];
-        normalbt.backgroundColor = [UIColor clearColor];
+        UIView *indexView = [_currentScrollView viewWithTag:_currentSelectIndex + 1000];
+        indexView.hidden = YES;
     }
     
     _currentSelectIndex = index;
-    UIButton *selectbt = (UIButton *)[_currentScrollView viewWithTag:_currentSelectIndex+1];
-    selectbt.backgroundColor = [UIColor redColor];
+    UIView *indexView = [_currentScrollView viewWithTag:_currentSelectIndex + 1000];
+    indexView.hidden = NO;
     
-    //设置scrollView的偏移位置
-    CGRect frame = [self.view convertRect:selectbt.frame fromView:selectbt.superview];
-    if (frame.origin.x+80 > 320) {
-        NSInteger x = _currentScrollView.contentOffset.x;
-        [_currentScrollView setContentOffset:CGPointMake(frame.origin.x+80-320+x, 0) animated:YES];
-    }
-    else if (frame.origin.x < 0){
-        [_currentScrollView setContentOffset:CGPointZero animated:YES];
-    }
+    
+    
+//    //设置scrollView的偏移位置
+//    CGRect frame = [self.view convertRect:selectbt.frame fromView:selectbt.superview];
+//    if (frame.origin.x + selectbt.frame.size.width > SCREEN_WIDTH) {
+//        NSInteger x = _currentScrollView.contentOffset.x;
+//        [_currentScrollView setContentOffset:CGPointMake(frame.origin.x + selectbt.frame.size.width - SCREEN_WIDTH + x, 0) animated:YES];
+//    }
+//    else if (frame.origin.x < 0){
+//        [_currentScrollView setContentOffset:CGPointZero animated:YES];
+//    }
     
 }
 
 
 #pragma mark - UIPageViewControllerDataSource
-//
+
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
     NSInteger index = [self indexofController:(FTTableViewController *)viewController];
@@ -171,7 +196,6 @@
     return [self controllerWithSourceIndex:index];
 }
 
-//
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
     NSInteger index = [self indexofController:(FTTableViewController *)viewController];
@@ -200,6 +224,12 @@
     FTTableViewController *VC = [pageViewController.viewControllers lastObject];
     self.currentSelectIndex = [self indexofController:VC];
     //    NSLog(@" 动画结束 %@ ",pageViewController.viewControllers);
+}
+- (IBAction)searchButtonClicked:(id)sender {
+    NSLog(@"search button clicked.");
+}
+- (IBAction)messageButtonClicked:(id)sender {
+    NSLog(@"message button clicked.");
 }
 
 
