@@ -37,6 +37,10 @@
 		E64EF1191CB6614000CAE340 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E64EF1171CB6614000CAE340 /* LaunchScreen.storyboard */; };
 		E64EF1241CB6614100CAE340 /* fighterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E64EF1231CB6614100CAE340 /* fighterTests.m */; };
 		E64EF12F1CB6614100CAE340 /* fighterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E64EF12E1CB6614100CAE340 /* fighterUITests.m */; };
+		E65D08C71CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E65D08C51CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m */; };
+		E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E65D08C61CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib */; };
+		E65D08D41CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E65D08D21CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m */; };
+		E65D08D51CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E65D08D31CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.xib */; };
 		E6B458971CB7560400FB4261 /* FTBaseNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458961CB7560400FB4261 /* FTBaseNavigationViewController.m */; };
 		E6B4589A1CB7563300FB4261 /* FTBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458991CB7563300FB4261 /* FTBaseViewController.m */; };
 		E6B458A61CB7587D00FB4261 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6B458A51CB7587D00FB4261 /* Assets.xcassets */; };
@@ -63,8 +67,8 @@
 		E6D74A4F1CB7B7EE00854337 /* Regex.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A431CB7B7EE00854337 /* Regex.m */; };
 		E6D74A501CB7B7EE00854337 /* ZJModelTool.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A461CB7B7EE00854337 /* ZJModelTool.m */; };
 		E6D74A5B1CB7B8C200854337 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A581CB7B8C200854337 /* MBProgressHUD.m */; };
-		E6DB76131CBB9B430034253C /* FTBaseInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6DB76111CBB9B430034253C /* FTBaseInfoTableViewCell.m */; };
-		E6DB76141CBB9B430034253C /* FTBaseInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6DB76121CBB9B430034253C /* FTBaseInfoTableViewCell.xib */; };
+		E6DB76131CBB9B430034253C /* FTOneImageInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6DB76111CBB9B430034253C /* FTOneImageInfoTableViewCell.m */; };
+		E6DB76141CBB9B430034253C /* FTOneImageInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6DB76121CBB9B430034253C /* FTOneImageInfoTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +151,12 @@
 		E64EF12A1CB6614100CAE340 /* fighterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = fighterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E64EF12E1CB6614100CAE340 /* fighterUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = fighterUITests.m; sourceTree = "<group>"; };
 		E64EF1301CB6614100CAE340 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E65D08C41CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTThreeImageInfoTableViewCell.h; sourceTree = "<group>"; };
+		E65D08C51CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTThreeImageInfoTableViewCell.m; sourceTree = "<group>"; };
+		E65D08C61CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTThreeImageInfoTableViewCell.xib; sourceTree = "<group>"; };
+		E65D08D11CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTOneBigImageInfoTableViewCell.h; sourceTree = "<group>"; };
+		E65D08D21CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTOneBigImageInfoTableViewCell.m; sourceTree = "<group>"; };
+		E65D08D31CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTOneBigImageInfoTableViewCell.xib; sourceTree = "<group>"; };
 		E6B458931CB755C000FB4261 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		E6B458951CB7560400FB4261 /* FTBaseNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBaseNavigationViewController.h; sourceTree = "<group>"; };
 		E6B458961CB7560400FB4261 /* FTBaseNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBaseNavigationViewController.m; sourceTree = "<group>"; };
@@ -194,9 +204,9 @@
 		E6D74A461CB7B7EE00854337 /* ZJModelTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJModelTool.m; sourceTree = "<group>"; };
 		E6D74A571CB7B8C200854337 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		E6D74A581CB7B8C200854337 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		E6DB76101CBB9B430034253C /* FTBaseInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBaseInfoTableViewCell.h; sourceTree = "<group>"; };
-		E6DB76111CBB9B430034253C /* FTBaseInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBaseInfoTableViewCell.m; sourceTree = "<group>"; };
-		E6DB76121CBB9B430034253C /* FTBaseInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTBaseInfoTableViewCell.xib; sourceTree = "<group>"; };
+		E6DB76101CBB9B430034253C /* FTOneImageInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTOneImageInfoTableViewCell.h; sourceTree = "<group>"; };
+		E6DB76111CBB9B430034253C /* FTOneImageInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTOneImageInfoTableViewCell.m; sourceTree = "<group>"; };
+		E6DB76121CBB9B430034253C /* FTOneImageInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTOneImageInfoTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -359,6 +369,45 @@
 			path = fighterUITests;
 			sourceTree = "<group>";
 		};
+		E65D08D61CBCDC1800651B19 /* cell 2 */ = {
+			isa = PBXGroup;
+			children = (
+				E65D08C41CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.h */,
+				E65D08C51CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m */,
+				E65D08C61CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib */,
+			);
+			name = "cell 2";
+			sourceTree = "<group>";
+		};
+		E65D08D71CBCDC3700651B19 /* cell 1 */ = {
+			isa = PBXGroup;
+			children = (
+				E6DB76101CBB9B430034253C /* FTOneImageInfoTableViewCell.h */,
+				E6DB76111CBB9B430034253C /* FTOneImageInfoTableViewCell.m */,
+				E6DB76121CBB9B430034253C /* FTOneImageInfoTableViewCell.xib */,
+			);
+			name = "cell 1";
+			sourceTree = "<group>";
+		};
+		E65D08D81CBCDC3A00651B19 /* cell 3 */ = {
+			isa = PBXGroup;
+			children = (
+				E65D08D11CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.h */,
+				E65D08D21CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m */,
+				E65D08D31CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.xib */,
+			);
+			name = "cell 3";
+			sourceTree = "<group>";
+		};
+		E65D08D91CBCDCA000651B19 /* tableview */ = {
+			isa = PBXGroup;
+			children = (
+				E6B458DC1CB7B2B100FB4261 /* FTTableViewController.h */,
+				E6B458DD1CB7B2B100FB4261 /* FTTableViewController.m */,
+			);
+			name = tableview;
+			sourceTree = "<group>";
+		};
 		E6B458921CB7554F00FB4261 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -391,11 +440,10 @@
 				E6B458CF1CB75DA200FB4261 /* FTInformationViewController.h */,
 				E6B458D01CB75DA200FB4261 /* FTInformationViewController.m */,
 				E6B458D11CB75DA200FB4261 /* FTInformationViewController.xib */,
-				E6B458DC1CB7B2B100FB4261 /* FTTableViewController.h */,
-				E6B458DD1CB7B2B100FB4261 /* FTTableViewController.m */,
-				E6DB76101CBB9B430034253C /* FTBaseInfoTableViewCell.h */,
-				E6DB76111CBB9B430034253C /* FTBaseInfoTableViewCell.m */,
-				E6DB76121CBB9B430034253C /* FTBaseInfoTableViewCell.xib */,
+				E65D08D91CBCDCA000651B19 /* tableview */,
+				E65D08D71CBCDC3700651B19 /* cell 1 */,
+				E65D08D61CBCDC1800651B19 /* cell 2 */,
+				E65D08D81CBCDC3A00651B19 /* cell 3 */,
 			);
 			name = Information;
 			sourceTree = "<group>";
@@ -603,11 +651,13 @@
 			files = (
 				E6B458D81CB75DB200FB4261 /* FTBoxingHallViewController.xib in Resources */,
 				E6B458CE1CB75D9600FB4261 /* FTMatchViewController.xib in Resources */,
-				E6DB76141CBB9B430034253C /* FTBaseInfoTableViewCell.xib in Resources */,
+				E6DB76141CBB9B430034253C /* FTOneImageInfoTableViewCell.xib in Resources */,
 				E64EF1191CB6614000CAE340 /* LaunchScreen.storyboard in Resources */,
 				E6B458C41CB75D7A00FB4261 /* FTCoachViewController.xib in Resources */,
 				E64EF1141CB6614000CAE340 /* Main.storyboard in Resources */,
+				E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */,
 				E6B458A61CB7587D00FB4261 /* Assets.xcassets in Resources */,
+				E65D08D51CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.xib in Resources */,
 				E6B458C91CB75D8A00FB4261 /* FTFightKingViewController.xib in Resources */,
 				E6B458D31CB75DA200FB4261 /* FTInformationViewController.xib in Resources */,
 			);
@@ -648,12 +698,13 @@
 				E61B8A8E1CBB6C6E00AE37F9 /* SDWebImageDecoder.m in Sources */,
 				E61B8A951CBB6C6E00AE37F9 /* UIImage+MultiFormat.m in Sources */,
 				E61B8A8C1CBB6C6E00AE37F9 /* SDImageCache.m in Sources */,
+				E65D08C71CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m in Sources */,
 				E6B4589A1CB7563300FB4261 /* FTBaseViewController.m in Sources */,
 				E61B8A641CBB6C4900AE37F9 /* TAPageControl.m in Sources */,
 				E6D74A491CB7B7EE00854337 /* UILabel+StringFrame.m in Sources */,
 				E61B8A8D1CBB6C6E00AE37F9 /* SDWebImageCompat.m in Sources */,
 				E6D74A471CB7B7EE00854337 /* UIButton+countDown.m in Sources */,
-				E6DB76131CBB9B430034253C /* FTBaseInfoTableViewCell.m in Sources */,
+				E6DB76131CBB9B430034253C /* FTOneImageInfoTableViewCell.m in Sources */,
 				E61B8A941CBB6C6E00AE37F9 /* UIImage+GIF.m in Sources */,
 				E61B8A911CBB6C6E00AE37F9 /* SDWebImageManager.m in Sources */,
 				E64EF10E1CB6614000CAE340 /* AppDelegate.m in Sources */,
@@ -668,6 +719,7 @@
 				E61B8A991CBB6C6E00AE37F9 /* UIView+WebCacheOperation.m in Sources */,
 				E6D74A5B1CB7B8C200854337 /* MBProgressHUD.m in Sources */,
 				E61B8A8A1CBB6C6E00AE37F9 /* MKAnnotationView+WebCache.m in Sources */,
+				E65D08D41CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m in Sources */,
 				E61B8A981CBB6C6E00AE37F9 /* UIImageView+WebCache.m in Sources */,
 				E6B458D21CB75DA200FB4261 /* FTInformationViewController.m in Sources */,
 				E6D74A4C1CB7B7EE00854337 /* HUD.m in Sources */,

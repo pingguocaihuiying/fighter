@@ -8,8 +8,9 @@
 
 #import "FTInformationViewController.h"
 #import "FTTableViewController.h"
+#import "SDCycleScrollView.h"
 
-@interface FTInformationViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+@interface FTInformationViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate>
 
 @property(nonatomic,strong) NSArray *sourceArry;     //数据源
 @property(nonatomic,strong) UIPageViewController *pageViewController;   //翻页控制器
@@ -21,16 +22,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"底纹"]];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
     [self initSubViews];
 }
 
 - (void)initSubViews{
+        //设置背景
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"底纹"]];
+        //设置状态栏的颜色为白色
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        //设置右上角的按钮
     [self.searchButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-搜索pre"] forState:UIControlStateHighlighted];
     [self.messageButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
-    //设置分类栏
+        //设置分类栏
     [self setTypeNaviScrollView];
+        //设置轮播图
+    [self setCycleScrollView];
+    
 }
 
 - (void)setTypeNaviScrollView{
@@ -41,6 +49,34 @@
     
     [self initPageController];;
     
+}
+
+- (void)setCycleScrollView{
+    CGRect rOfCycleScrollView = _cycleScrollView.frame;
+    rOfCycleScrollView.size.width = SCREEN_WIDTH;
+    _cycleScrollView.frame = rOfCycleScrollView;
+
+    
+    //采用网络图片实现
+    NSArray *imagesURLStrings = @[
+                                  @"https://ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/super/whfpf%3D425%2C260%2C50/sign=a4b3d7085dee3d6d2293d48b252b5910/0e2442a7d933c89524cd5cd4d51373f0830200ea.jpg",
+                                  @"https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/super/whfpf%3D425%2C260%2C50/sign=a41eb338dd33c895a62bcb3bb72e47c2/5fdf8db1cb134954a2192ccb524e9258d1094a1e.jpg",
+                                  @"http://c.hiphotos.baidu.com/image/w%3D400/sign=c2318ff84334970a4773112fa5c8d1c0/b7fd5266d0160924c1fae5ccd60735fae7cd340d.jpg"
+                                  ];
+    
+    //图片配文字
+    NSArray *titles = @[@"test1 ",
+                        @"test2",
+                        @"test3",
+                        @"test4"
+                        ];
+
+    SDCycleScrollView  *cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:_cycleScrollView.bounds delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    cycleScrollView2.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    cycleScrollView2.titlesGroup = titles;
+    cycleScrollView2.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
+    [_cycleScrollView addSubview:cycleScrollView2];
+    cycleScrollView2.imageURLStringsGroup = imagesURLStrings;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -168,17 +204,18 @@
     UIView *indexView = [_currentScrollView viewWithTag:_currentSelectIndex + 1000];
     indexView.hidden = NO;
     
+    UIButton *selectbt = [_currentScrollView viewWithTag:_currentSelectIndex + 1];
     
     
 //    //设置scrollView的偏移位置
-//    CGRect frame = [self.view convertRect:selectbt.frame fromView:selectbt.superview];
-//    if (frame.origin.x + selectbt.frame.size.width > SCREEN_WIDTH) {
-//        NSInteger x = _currentScrollView.contentOffset.x;
-//        [_currentScrollView setContentOffset:CGPointMake(frame.origin.x + selectbt.frame.size.width - SCREEN_WIDTH + x, 0) animated:YES];
-//    }
-//    else if (frame.origin.x < 0){
-//        [_currentScrollView setContentOffset:CGPointZero animated:YES];
-//    }
+    CGRect frame = [self.view convertRect:selectbt.frame fromView:selectbt.superview];
+    if (frame.origin.x + selectbt.frame.size.width > SCREEN_WIDTH) {
+        NSInteger x = _currentScrollView.contentOffset.x;
+        [_currentScrollView setContentOffset:CGPointMake(frame.origin.x + selectbt.frame.size.width - SCREEN_WIDTH + x, 0) animated:YES];
+    }
+    else if (frame.origin.x < 0){
+        [_currentScrollView setContentOffset:CGPointZero animated:YES];
+    }
     
 }
 
@@ -231,5 +268,10 @@
     NSLog(@"message button clicked.");
 }
 
-
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
+{
+    NSLog(@"---点击了第%ld张图片", (long)index);
+    
+    [self.navigationController pushViewController:[NSClassFromString(@"DemoVCWithXib") new] animated:YES];
+}
 @end
