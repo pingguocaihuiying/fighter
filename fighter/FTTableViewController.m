@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.frame = CGRectMake(0, 200, 320, 400);
-//    self.tableView.frame = CGRectMake(0, 0, 0, 0);
+    
     self.tableView.backgroundColor = [UIColor whiteColor];
 }
 
@@ -100,6 +100,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
     return 180;
 }
 
