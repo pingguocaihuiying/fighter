@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FTBaseTableViewCell.h"
 
-@interface FTOneImageInfoTableViewCell : UITableViewCell
+@interface FTOneImageInfoTableViewCell : FTBaseTableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *fromLabel;
 @property (weak, nonatomic) IBOutlet UIButton *thumbButton;
 
@@ -19,5 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *myTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthOfTypeImageView;
+
+- (void)setWithBean:(FTNewsBean *)bean;
 
 @end

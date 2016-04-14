@@ -31,7 +31,7 @@
 - (void)setRootViewController{
     FTInformationViewController *infoVC = [FTInformationViewController new];
     FTBaseNavigationViewController *infoNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:infoVC];
-    infoNaviVC.tabBarItem.title = @"拳迅";
+    infoNaviVC.tabBarItem.title = @"拳讯";
 
     [infoNaviVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                     Bar_Item_Select_Title_Color, UITextAttributeTextColor,

@@ -17,6 +17,12 @@
 
 //导入一些工具类
 #import "UIColor+YBColorCategory.h"
+#import "MD5.h"
+#import "ZJModelTool.h"
+#import "UIImageView+WebCache.h"
+
+//导入一些常用类
+#import "FTNewsBean.h"
 
 //defin一些常量
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width

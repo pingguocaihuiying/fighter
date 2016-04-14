@@ -75,16 +75,17 @@ NSString * const ID = @"cycleCell";
 
 - (void)initialization
 {
-    _pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
-    _autoScrollTimeInterval = 2.0;
+    _pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    _autoScrollTimeInterval = 3.5;
     _titleLabelTextColor = [UIColor whiteColor];
-    _titleLabelTextFont= [UIFont systemFontOfSize:14];
-    _titleLabelBackgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-    _titleLabelHeight = 30;
+    _titleLabelTextFont= [UIFont boldSystemFontOfSize:16];
+//    _titleLabelBackgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    _titleLabelBackgroundColor = [UIColor clearColor];
+    _titleLabelHeight = 16;
     _autoScroll = YES;
     _infiniteLoop = YES;
     _showPageControl = YES;
-    _pageControlDotSize = CGSizeMake(10, 10);
+    _pageControlDotSize = CGSizeMake(15, 15);
     _pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
     _hidesForSinglePage = YES;
     _currentPageDotColor = [UIColor whiteColor];
@@ -492,6 +493,10 @@ NSString * const ID = @"cycleCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
+    cell.titleLabelTextColor = [UIColor whiteColor];
+    cell.titleLabelBackgroundColor = [UIColor clearColor];
+    cell.titleLabelTextFont = [UIFont boldSystemFontOfSize:16];
+    
     long itemIndex = indexPath.item % self.imagePathsGroup.count;
     
     NSString *imagePath = self.imagePathsGroup[itemIndex];

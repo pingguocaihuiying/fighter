@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FTBaseTableViewCell.h"
 
-@interface FTOneBigImageInfoTableViewCell : UITableViewCell
+@interface FTOneBigImageInfoTableViewCell : FTBaseTableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *fromLabel;
 @property (weak, nonatomic) IBOutlet UIButton *thumbButton;
 
