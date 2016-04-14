@@ -1,0 +1,32 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "4707EB6D9E723B81CF558ECDEAEC7B921170976F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "b3ea32e5-604c-4fca-b5db-6ae888a3e4b3++5760" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "b3ea32e5-604c-4fca-b5db-6ae888a3e4b3++5760" : 0,
+    "4707EB6D9E723B81CF558ECDEAEC7B921170976F" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7F313A56-97D3-4BFE-A856-6B7A82A6A8EF",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "b3ea32e5-604c-4fca-b5db-6ae888a3e4b3++5760" : "fighter\/fighter\/Tools\/thirdCodes\/SDWebImage\/",
+    "4707EB6D9E723B81CF558ECDEAEC7B921170976F" : "fighter\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "fighter",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "fighter.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git.mapbar.com:liyz\/fighter.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4707EB6D9E723B81CF558ECDEAEC7B921170976F"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/yangj.5166.info\/1000phone",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "b3ea32e5-604c-4fca-b5db-6ae888a3e4b3++5760"
+    }
+  ]
+}
