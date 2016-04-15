@@ -14,6 +14,7 @@
 #import "FTBoxingHallViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "FTBaseTabBarViewController.h"
+#import "Mobclick.h"
 
 @interface AppDelegate ()
 
@@ -23,9 +24,16 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //设置友盟相关的
+    [self setUMeng];
+    
     [self setRootViewController];
  
     return YES;
+}
+
+- (void)setUMeng{
+    [MobClick startWithAppkey:@"570739d767e58edb5300057b" reportPolicy:BATCH   channelId:@""];
 }
 
 - (void)setRootViewController{

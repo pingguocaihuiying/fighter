@@ -14,6 +14,8 @@
 #import "ZJModelTool.h"
 #import "AFNetworking.h"
 #import "FTNewsDetailViewController.h"
+#import "JHRefresh.h"
+
 
 
 
@@ -47,7 +49,7 @@
     [self.messageButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
     [self setOtherViews];
     [self getCycleData];
-    [self getData];
+    [self getDataWithGetType:@"All" andCurrId:@"-1"];
 }
 
 - (void)getCycleData{
@@ -69,7 +71,7 @@
 
         NSString *status = responseDic[@"status"];
         if ([status isEqualToString:@"success"]) {
-            NSLog(@"ok");
+//            NSLog(@"ok");
             self.cycleDataSourceArray = responseDic[@"data"];
 //            NSLog(@"%@", self.cycleDataSourceArray);
             [self setCycleScrollView];
@@ -82,11 +84,43 @@
     }];
 }
 
-- (void)getData{
+- (NSString *)getNewstype{
+    NSString *newsType = @"";
+    
+    if (self.currentSelectIndex == 0) {
+        newsType = @"All";
+    }else if (self.currentSelectIndex == 1) {
+        newsType = @"Boxing";
+    }else if (self.currentSelectIndex == 2) {
+        newsType = @"KickBoxing_Sanda";
+    }else if (self.currentSelectIndex == 3) {
+        newsType = @"MMA";
+    }else if (self.currentSelectIndex == 4) {
+        newsType = @"ThaiBoxing";
+    }else if (self.currentSelectIndex == 5) {
+        newsType = @"Taekwondo";
+    }else if (self.currentSelectIndex == 6) {
+        newsType = @"Judo";
+    }else if (self.currentSelectIndex == 7) {
+        newsType = @"Karate";
+    }else if (self.currentSelectIndex == 8) {
+        newsType = @"JeetKuneDo";
+    }else if (self.currentSelectIndex == 9) {
+        newsType = @"Wrestling";
+    }else if (self.currentSelectIndex == 10) {
+        newsType = @"Sumo";
+    }
+    
+    return newsType;
+}
+
+- (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)newsCurrId{
     NSString *urlString = [FTNetConfig host:Domain path:GetNewsURL];
-    NSString *newsType = @"All";
-    NSString *newsCurrId = @"-1";
-    NSString *getType = @"new";
+    NSString *newsType = [self getNewstype];
+
+    
+//    NSString *newsCurrId = @"-1";
+//    NSString *getType = @"new";
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",newsType, newsCurrId, getType, ts, @"quanjijia222222"]];
     
@@ -101,18 +135,35 @@
         
         NSString *status = responseDic[@"status"];
         if ([status isEqualToString:@"success"]) {
-            NSLog(@"ok");
             NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
-            NSMutableArray *hotArray = [NSMutableArray new];
-            for(NSDictionary *dic in mutableArray){
-                if ([dic[@"newsType"] isEqualToString:@"Hot"]) {
-                    [hotArray addObject:dic];
+            
+            if ([newsType isEqualToString:@"All"]) {
+                NSMutableArray *hotArray = [NSMutableArray new];
+                for(NSDictionary *dic in mutableArray){
+                    if ([dic[@"newsType"] isEqualToString:@"Hot"]) {
+                        [hotArray addObject:dic];
+                    }
                 }
+                [mutableArray removeObjectsInArray:hotArray];
             }
-            [mutableArray removeObjectsInArray:hotArray];
+            
+            
             self.tableViewDataSourceArray = mutableArray;
-            [self initPageController];
+//            [self initPageController];
+            self.tableViewController.sourceArrry = mutableArray;
+            if ([newsType isEqualToString:@"All"]) {
+                self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
+            }else{
+//                [self.tableViewController.tableView.tableHeaderView removeFromSuperview];
+                self.tableViewController.tableView.tableHeaderView = nil;
+            }
+            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+            [self.tableViewController.tableView footerEndRefreshing];
             [self.tableViewController.tableView reloadData];
+        }else if([status isEqualToString:@"error"]){
+            NSLog(@"message : %@", responseDic[@"message"]);
+            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+            [self.tableViewController.tableView footerEndRefreshing];
         }
 
         
@@ -129,8 +180,8 @@
 - (void)setTypeNaviScrollView{
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    [self initView];
-    self.sourceArry = @[@[@"测试1",@"测试1",@"测试1",@"测试1",@"测试1",@"测试1"],@[@"测试2",@"测试2",@"测试2",@"测试2",@"测试2",@"测试2"],@[@"测试3",@"测试3",@"测试3",@"测试3",@"测试3",@"测试3"],@[@"测试4",@"测试4",@"测试4",@"测试4",@"测试4",@"测试4"],@[@"测试5",@"测试5",@"测试5",@"测试5",@"测试5",@"测试5"],@[@"测试5",@"测试5",@"测试5",@"测试5",@"测试5",@"测试5"],@[@"测试5",@"测试5",@"测试5",@"测试5",@"测试5",@"测试5"], @[@"测试5",@"测试5",@"测试5",@"测试5",@"测试5",@"测试5"]];
+    [self initNewsTypeScrollView];
+//    self.sourceArry = @[@[@"测试1",@"测试1",@"测试1",@"测试1",@"测试1",@"测试1"],@[@"测试2",@"测试2",@"测试2",@"测试2",@"测试2",@"测试2"],@[@"测试3",@"测试3",@"测试3",@"测试3",@"测试3",@"测试3"],@[@"测试4",@"测试4",@"测试4",@"测试4",@"测试4",@"测试4"],@[@"测试5",@"测试5",@"测试5",@"测试5",@"测试5",@"测试5"],@[@"测试5",@"测试5",@"测试5",@"测试5",@"测试5",@"测试5"],@[@"测试5",@"测试5",@"测试5",@"测试5",@"测试5",@"测试5"], @[@"测试5",@"测试5",@"测试5",@"测试5",@"测试5",@"测试5"]];
     
     [self initPageController];
     
@@ -166,10 +217,10 @@
 }
 
 #pragma mark - 视图加载
-//视图加载
-- (void)initView
+//加载分类导航的scrollView
+- (void)initNewsTypeScrollView
 {
-    NSArray *titles = @[@"全部",@"拳击",@"自由搏击", @"散打", @"综合格斗",@"泰拳", @"跆拳道", @"柔道", @"空手道"];
+    NSArray *titles = @[@"全部",@"拳击",@"自由搏击", @"综合格斗",@"泰拳", @"跆拳道", @"柔道", @"空手道", @"截拳道", @"摔跤", @"相扑"];
     float curContentWidth = 0;
     for (int i = 0; i < titles.count; i++) {
         UIButton *bt = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -220,28 +271,60 @@
 {
     if(!self.tableViewController){
         self.tableViewController = [[FTTableViewController alloc]initWithStyle:UITableViewStylePlain];
+        self.tableViewController.FTdelegate = self;
+        self.tableViewController.order = 0;
+        //设置上拉、下拉刷新
+        [self setJHRefresh];
     }
     
     self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
     
     if (self.tableViewDataSourceArray) {
+        [self.tableViewController.tableView footerEndRefreshing];
     self.tableViewController.sourceArrry = self.tableViewDataSourceArray;
     }else{
-    self.tableViewController.sourceArrry = _sourceArry[0];
+//    self.tableViewController.sourceArrry = _sourceArry[0];
+        NSLog(@"没有数据源。");
     }
 
-    UIPageViewController *pageVC = [[UIPageViewController alloc]initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:@{UIPageViewControllerOptionInterPageSpacingKey:@0}];
-    self.pageViewController = pageVC;
-    [pageVC.view setFrame:_currentView.bounds];
-    pageVC.delegate = self;
-    pageVC.dataSource = self;
-    [pageVC setViewControllers:@[self.tableViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:^(BOOL finished) {
-        NSLog(@" 设置完成 ");
-    }];
-    [self addChildViewController:pageVC];
-    [_currentView addSubview:[pageVC view]];
+//    UIPageViewController *pageVC = [[UIPageViewController alloc]initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:@{UIPageViewControllerOptionInterPageSpacingKey:@0}];
+//    self.pageViewController = pageVC;
+//    [pageVC.view setFrame:_currentView.bounds];
+//    pageVC.delegate = self;
+//    pageVC.dataSource = self;
+//    [pageVC setViewControllers:@[self.tableViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:^(BOOL finished) {
+//        NSLog(@" 设置完成 ");
+//    }];
+//    [self addChildViewController:pageVC];
+//    [_currentView addSubview:[pageVC view]];
+    self.tableViewController.tableView.frame = self.currentView.bounds;
+    [self.currentView addSubview:self.tableViewController.tableView];
 }
 
+- (void)setJHRefresh{
+    //设置上拉刷新
+    __block typeof(self) sself = self;
+    [self.tableViewController.tableView addRefreshHeaderViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
+        //发请求的方法区域
+        NSLog(@"触发下拉刷新headerView");
+//        sself.npc = 0;
+        NSString *currId;
+        if (sself.tableViewController.tableView.dataSource ) {
+            currId = sself.tableViewController.sourceArrry[0][@"newsId"];
+        }else{
+            return;
+        }
+        
+        [sself getDataWithGetType:@"old" andCurrId:currId];
+
+    }];
+    //设置下拉刷新
+    [self.tableViewController.tableView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
+//        sself.npc += 1;
+        [sself getDataWithGetType:@"new" andCurrId:@"-1"];
+
+    }];
+}
 
 
 #pragma mark - 按钮事件
@@ -249,11 +332,21 @@
 - (void)clickAction:(UIButton *)sender
 {
     if(self.currentSelectIndex != sender.tag - 1){
-        self.currentSelectIndex = sender.tag-1;
-        FTTableViewController *tableVC = [self controllerWithSourceIndex:sender.tag-1];
-        [self.pageViewController setViewControllers:@[tableVC] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:^(BOOL finished) {
-            NSLog(@" 设置完成 ");
-        }];
+//        self.currentSelectIndex = sender.tag-1;
+//        FTTableViewController *tableVC = [self controllerWithSourceIndex:sender.tag-1];
+//        [self.pageViewController setViewControllers:@[tableVC] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:^(BOOL finished) {
+//            NSLog(@" 设置完成 ");
+//        }];
+        self.currentSelectIndex = sender.tag-1;//根据点击的按钮，设置当前的选中下标
+        
+        if (self.currentSelectIndex == 0) {
+            self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
+        }else{
+            self.tableViewController.tableView.tableHeaderView = nil;
+        }
+        [self.tableViewController.tableView reloadData];
+
+        [self getDataWithGetType:@"new" andCurrId:@"-1"];
     }
 }
 
@@ -266,19 +359,24 @@
         return nil;
     }
     NSLog(@"%ld", index);
-    FTTableViewController *tableVC = [[FTTableViewController alloc]initWithStyle:UITableViewStylePlain];
+//    FTTableViewController *tableVC = [[FTTableViewController alloc]initWithStyle:UITableViewStylePlain];
     if (index == 0) {
-        tableVC.tableView.tableHeaderView = self.cycleScrollView;
+        self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
+    }else{
+        [self.tableViewController.tableView.tableHeaderView removeFromSuperview];
+        self.tableViewController.tableView.tableHeaderView = nil;
     }
-    tableVC.sourceArrry = _sourceArry[index];
-    return tableVC;
+//    self.tableViewController.sourceArrry = _sourceArry[index];
+    self.tableViewController.order = index;
+    return self.tableViewController;
 }
 
 //返回当前的索引值
 - (NSInteger)indexofController:(FTTableViewController *)viewController
 {
-    NSInteger index = [self.sourceArry indexOfObject:viewController.sourceArrry];
-    return index;
+//    NSInteger index = [self.sourceArry indexOfObject:viewController.sourceArrry];
+//    return index;
+    return self.tableViewController.order;
 }
 
 #pragma mark - SET方法
@@ -299,19 +397,8 @@
     
     NSLog(@"scroll");
     
-//    //设置scrollView的偏移位置
-//    CGRect frame = [self.view convertRect:selectbt.frame fromView:selectbt.superview];
-    CGRect frame = selectbt.frame;
-    if (frame.origin.x + frame.size.width > SCREEN_WIDTH - 49) {
-        NSLog(@"要滚出去了");
-        NSInteger x = _currentScrollView.contentOffset.x;
-//        [_currentScrollView setContentOffset:CGPointMake(frame.origin.x + selectbt.frame.size.width - SCREEN_WIDTH + x, 0) animated:YES];
-                [_currentScrollView setContentOffset:CGPointMake(200, 0) animated:YES];
-//        _currentScrollView.contentOffset = CGPointMake(200, 0);
-    }
-    else if (frame.origin.x < 0){
-        [_currentScrollView setContentOffset:CGPointZero animated:YES];
-    }
+//    设置scrollView的偏移位置
+
     
 }
 
@@ -366,10 +453,25 @@
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
-    NSLog(@"---点击了第%ld张图片", (long)index);
+//    NSLog(@"---点击了第%ld张图片", (long)index);
     FTNewsDetailViewController *newsDetailVC = [FTNewsDetailViewController new];
+
+
     newsDetailVC.urlString = self.cycleDataSourceArray[index][@"url"];
+        newsDetailVC.newsTitle = self.cycleDataSourceArray[index][@"title"];
     
     [self.navigationController pushViewController:newsDetailVC animated:YES];
 }
+
+- (void)fttableView:(FTTableViewController *)tableView didSelectWithIndex:(NSIndexPath *)indexPath{
+    NSLog(@"第%ld个cell被点击了。", indexPath.row);
+    if (self.tableViewDataSourceArray) {
+        FTNewsDetailViewController *newsDetailVC = [FTNewsDetailViewController new];
+        newsDetailVC.urlString = tableView.sourceArrry[indexPath.row][@"url"];
+        newsDetailVC.newsTitle = tableView.sourceArrry[indexPath.row][@"title"];
+        
+        [self.navigationController pushViewController:newsDetailVC animated:YES];
+    }
+}
+
 @end

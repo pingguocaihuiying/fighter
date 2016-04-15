@@ -11,5 +11,7 @@
 @interface FTNewsDetailViewController : FTBaseViewController
 
 @property (nonatomic ,copy)NSString *urlString;
+@property (nonatomic ,copy)NSString *newsTitle;
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
 
 @end

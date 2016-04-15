@@ -65,7 +65,7 @@
     FTBaseTableViewCell *cell = [FTBaseTableViewCell new];
 
     if ([dic isKindOfClass:[NSDictionary class]]) {//如果有网络数据源
-        NSLog(@"网络数据已经加载");
+//        NSLog(@"网络数据已经加载");
         NSString *layout = dic[@"layout"];
             //如果是大图
         if ([layout isEqualToString:@"1"]) {//大图
@@ -137,9 +137,15 @@
             return 163;
         }
     }
-    
     return 119;
 }
 
+- (void)tableView:(FTTableViewController *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    NSLog(@"cell clicked.");
+    if([self.FTdelegate respondsToSelector:@selector(fttableView:didSelectWithIndex:)]){
+    [self.FTdelegate fttableView:self didSelectWithIndex:indexPath];
+    }
+    
+}
 
 @end
