@@ -15,7 +15,7 @@
 
 @interface FTTableViewController : UITableViewController
 //数据源
-@property(nonatomic,strong) NSArray *sourceArrry;
+@property(nonatomic,strong) NSArray *sourceArray;
 
 //代理，用于点击cell的传值
 @property (nonatomic, weak) id<FTTableViewdelegate> FTdelegate;

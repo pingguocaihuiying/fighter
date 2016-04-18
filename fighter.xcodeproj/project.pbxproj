@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6035EB61CC08D2800B10D36 /* FTNewsDetail2ViewController.m */; };
+		E6035EB91CC08D2800B10D36 /* FTNewsDetail2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6035EB71CC08D2800B10D36 /* FTNewsDetail2ViewController.xib */; };
+		E6035EBE1CC0C39500B10D36 /* FTCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6035EBC1CC0C39500B10D36 /* FTCommentViewController.m */; };
+		E6035EBF1CC0C39500B10D36 /* FTCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6035EBD1CC0C39500B10D36 /* FTCommentViewController.xib */; };
 		E61B8A611CBB6C4900AE37F9 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = E61B8A541CBB6C4900AE37F9 /* TAAbstractDotView.m */; };
 		E61B8A621CBB6C4900AE37F9 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = E61B8A561CBB6C4900AE37F9 /* TAAnimatedDotView.m */; };
 		E61B8A631CBB6C4900AE37F9 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = E61B8A581CBB6C4900AE37F9 /* TADotView.m */; };
@@ -118,6 +122,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E6035EB51CC08D2800B10D36 /* FTNewsDetail2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNewsDetail2ViewController.h; sourceTree = "<group>"; };
+		E6035EB61CC08D2800B10D36 /* FTNewsDetail2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNewsDetail2ViewController.m; sourceTree = "<group>"; };
+		E6035EB71CC08D2800B10D36 /* FTNewsDetail2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTNewsDetail2ViewController.xib; sourceTree = "<group>"; };
+		E6035EBB1CC0C39500B10D36 /* FTCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCommentViewController.h; sourceTree = "<group>"; };
+		E6035EBC1CC0C39500B10D36 /* FTCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCommentViewController.m; sourceTree = "<group>"; };
+		E6035EBD1CC0C39500B10D36 /* FTCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTCommentViewController.xib; sourceTree = "<group>"; };
 		E61B8A531CBB6C4900AE37F9 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
 		E61B8A541CBB6C4900AE37F9 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
 		E61B8A551CBB6C4900AE37F9 /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
@@ -325,6 +335,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E6035EBA1CC0C36C00B10D36 /* comment */ = {
+			isa = PBXGroup;
+			children = (
+				E6035EBB1CC0C39500B10D36 /* FTCommentViewController.h */,
+				E6035EBC1CC0C39500B10D36 /* FTCommentViewController.m */,
+				E6035EBD1CC0C39500B10D36 /* FTCommentViewController.xib */,
+			);
+			name = comment;
+			sourceTree = "<group>";
+		};
 		E61B8A511CBB6C4900AE37F9 /* SDCycleScrollView */ = {
 			isa = PBXGroup;
 			children = (
@@ -488,6 +508,9 @@
 				E6956E9F1CBE0AF0008DEEDB /* FTNewsDetailViewController.h */,
 				E6956EA01CBE0AF0008DEEDB /* FTNewsDetailViewController.m */,
 				E6956EA11CBE0AF0008DEEDB /* FTNewsDetailViewController.xib */,
+				E6035EB51CC08D2800B10D36 /* FTNewsDetail2ViewController.h */,
+				E6035EB61CC08D2800B10D36 /* FTNewsDetail2ViewController.m */,
+				E6035EB71CC08D2800B10D36 /* FTNewsDetail2ViewController.xib */,
 			);
 			name = detail;
 			sourceTree = "<group>";
@@ -643,6 +666,7 @@
 			children = (
 				E65F90B71CBDF9F6005CA3E6 /* main */,
 				E65F90B81CBDF9FF005CA3E6 /* detail */,
+				E6035EBA1CC0C36C00B10D36 /* comment */,
 				E65D08D91CBCDCA000651B19 /* tableview */,
 				E6E580B01CBE521A00272242 /* basecell */,
 				E65D08D71CBCDC3700651B19 /* cell 1 */,
@@ -914,8 +938,10 @@
 				E64EF1141CB6614000CAE340 /* Main.storyboard in Resources */,
 				E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */,
 				E6B458A61CB7587D00FB4261 /* Assets.xcassets in Resources */,
+				E6035EBF1CC0C39500B10D36 /* FTCommentViewController.xib in Resources */,
 				E65D08D51CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.xib in Resources */,
 				E6B458C91CB75D8A00FB4261 /* FTFightKingViewController.xib in Resources */,
+				E6035EB91CC08D2800B10D36 /* FTNewsDetail2ViewController.xib in Resources */,
 				E6B458D31CB75DA200FB4261 /* FTInformationViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -980,6 +1006,7 @@
 				E66D6F141CBCE843008B015A /* AFSecurityPolicy.m in Sources */,
 				E66D6F111CBCE843008B015A /* AFHTTPRequestOperationManager.m in Sources */,
 				E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */,
+				E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */,
 				E66D6EFA1CBCE81C008B015A /* RBRequestOperationManager.m in Sources */,
 				E68050BF1CBF919A00678905 /* UIScrollView+JHExtension.m in Sources */,
 				E6E580A91CBE2F2D00272242 /* UIButton+WebCache.m in Sources */,
@@ -1008,6 +1035,7 @@
 				E6D74A501CB7B7EE00854337 /* ZJModelTool.m in Sources */,
 				E68050BD1CBF919A00678905 /* JHRefreshFooterView.m in Sources */,
 				E6D74A4D1CB7B7EE00854337 /* KeyChainStore.m in Sources */,
+				E6035EBE1CC0C39500B10D36 /* FTCommentViewController.m in Sources */,
 				E61B8A621CBB6C4900AE37F9 /* TAAnimatedDotView.m in Sources */,
 				E61B8A661CBB6C4900AE37F9 /* SDCycleScrollView.m in Sources */,
 				E66D6F171CBCE843008B015A /* AFURLResponseSerialization.m in Sources */,
@@ -1155,6 +1183,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/fighter/PrefixHeader.pch";
@@ -1175,6 +1204,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/fighter/PrefixHeader.pch";

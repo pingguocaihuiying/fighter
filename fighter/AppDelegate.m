@@ -27,7 +27,8 @@
     //设置友盟相关的
     [self setUMeng];
     
-    [self setRootViewController];
+//    [self setRootViewController];
+    [self setRootViewController2];
  
     return YES;
 }
@@ -99,6 +100,71 @@
     
     self.window.rootViewController = rootVC;
 }
+
+
+- (void)setRootViewController2{
+    FTInformationViewController *infoVC = [FTInformationViewController new];
+//    FTBaseNavigationViewController *infoNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:infoVC];
+    infoVC.tabBarItem.title = @"拳讯";
+    
+    [infoVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                   Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                   nil] forState:UIControlStateSelected];
+    infoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳讯"];
+    infoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳讯pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    FTMatchViewController *matchVC = [FTMatchViewController new];
+//    FTBaseNavigationViewController *matchNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:matchVC];
+    matchVC.tabBarItem.title = @"赛事";
+    [matchVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                    Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                    nil] forState:UIControlStateSelected];
+    
+    
+    matchVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-赛事"];
+    matchVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-赛事pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    FTFightKingViewController *fightKingVC = [FTFightKingViewController new];
+//    FTBaseNavigationViewController *fightKingNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:fightKingVC];
+    fightKingVC.tabBarItem.title = @"格斗王";
+    [fightKingVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                        Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                        nil] forState:UIControlStateSelected];
+    
+    fightKingVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-格斗王"];
+    fightKingVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-格斗王pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    FTCoachViewController *coachVC = [FTCoachViewController new];
+//    FTBaseNavigationViewController *coachNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:coachVC];
+    coachVC.tabBarItem.title = @"教练";
+    [coachVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                    Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                    nil] forState:UIControlStateSelected];
+    
+    coachVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-教练"];
+    coachVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-教练pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    FTBoxingHallViewController *boxingHallVC = [FTBoxingHallViewController new];
+//    FTBaseNavigationViewController *boxingHallNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:boxingHallVC];
+    boxingHallVC.tabBarItem.title = @"拳馆";
+    [boxingHallVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                         Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                         nil] forState:UIControlStateSelected];
+    
+    boxingHallVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳馆"];
+    boxingHallVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    //设置tabbar的属性
+    FTBaseTabBarViewController *rootVC = [FTBaseTabBarViewController new];
+    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:rootVC];
+    rootVC.tabBar.barTintColor = [UIColor blackColor];
+    rootVC.tabBar.translucent = NO;
+    
+    rootVC.viewControllers = @[infoVC, matchVC, fightKingVC, coachVC, boxingHallVC];
+    
+    self.window.rootViewController = navi;
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

@@ -514,6 +514,17 @@ NSString * const ID = @"cycleCell";
     } else if ([imagePath isKindOfClass:[UIImage class]]) {
         cell.imageView.image = (UIImage *)imagePath;
     }
+    UIImageView *bgImageView;
+    bgImageView = [cell viewWithTag:1111];
+    if (bgImageView == nil) {
+        bgImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"头图暗影遮罩-ios"]];
+        bgImageView.tag = 1111;
+        bgImageView.frame = cell.bounds;
+        [cell addSubview:bgImageView];
+    }
+    
+    
+    
     
     if (_titlesGroup.count && itemIndex < _titlesGroup.count) {
         cell.title = _titlesGroup[itemIndex];

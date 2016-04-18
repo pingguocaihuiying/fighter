@@ -15,6 +15,7 @@
 #import "AFNetworking.h"
 #import "FTNewsDetailViewController.h"
 #import "JHRefresh.h"
+#import "FTNewsDetail2ViewController.h"
 
 
 
@@ -26,7 +27,7 @@
 @property(nonatomic) NSInteger currentSelectIndex;
 @property (nonatomic, strong)SDCycleScrollView *cycleScrollView;
 @property (nonatomic, strong)NSArray *cycleDataSourceArray;
-@property (nonatomic, strong)NSArray *tableViewDataSourceArray;
+@property (nonatomic, strong)NSMutableArray *tableViewDataSourceArray;
 @property (nonatomic, strong)FTTableViewController *tableViewController;
 
 
@@ -39,9 +40,13 @@
     [self initSubViews];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.tabBarController.tabBar.hidden = NO;
+}
+
 - (void)initSubViews{
-        //设置背景
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"底纹"]];
+
         //设置状态栏的颜色为白色
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         //设置右上角的按钮
@@ -49,7 +54,7 @@
     [self.messageButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
     [self setOtherViews];
     [self getCycleData];
-    [self getDataWithGetType:@"All" andCurrId:@"-1"];
+    [self getDataWithGetType:@"new" andCurrId:@"-1"];
 }
 
 - (void)getCycleData{
@@ -147,10 +152,17 @@
                 [mutableArray removeObjectsInArray:hotArray];
             }
             
+            if (self.tableViewDataSourceArray == nil) {
+                self.tableViewDataSourceArray = [[NSMutableArray alloc]init];
+            }
+            if ([getType isEqualToString:@"new"]) {
+                self.tableViewDataSourceArray = mutableArray;
+            }else if([getType isEqualToString:@"old"]){
+                [self.tableViewDataSourceArray addObjectsFromArray:mutableArray];
+            }
+            //            [self initPageController];
             
-            self.tableViewDataSourceArray = mutableArray;
-//            [self initPageController];
-            self.tableViewController.sourceArrry = mutableArray;
+            self.tableViewController.sourceArray = self.tableViewDataSourceArray;
             if ([newsType isEqualToString:@"All"]) {
                 self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
             }else{
@@ -159,16 +171,19 @@
             }
             [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
             [self.tableViewController.tableView footerEndRefreshing];
+            
             [self.tableViewController.tableView reloadData];
         }else if([status isEqualToString:@"error"]){
             NSLog(@"message : %@", responseDic[@"message"]);
-            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+            
+            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
             [self.tableViewController.tableView footerEndRefreshing];
         }
 
         
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-        
+        [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+        [self.tableViewController.tableView footerEndRefreshing];
     }];
 }
 
@@ -181,34 +196,30 @@
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self initNewsTypeScrollView];
-//    self.sourceArry = @[@[@"测试1",@"测试1",@"测试1",@"测试1",@"测试1",@"测试1"],@[@"测试2",@"测试2",@"测试2",@"测试2",@"测试2",@"测试2"],@[@"测试3",@"测试3",@"测试3",@"测试3",@"测试3",@"测试3"],@[@"测试4",@"测试4",@"测试4",@"测试4",@"测试4",@"测试4"],@[@"测试5",@"测试5",@"测试5",@"测试5",@"测试5",@"测试5"],@[@"测试5",@"测试5",@"测试5",@"测试5",@"测试5",@"测试5"],@[@"测试5",@"测试5",@"测试5",@"测试5",@"测试5",@"测试5"], @[@"测试5",@"测试5",@"测试5",@"测试5",@"测试5",@"测试5"]];
-    
     [self initPageController];
     
 }
 
 - (void)setCycleScrollView{
-    NSArray *imagesURLStrings = [NSArray new];
+    NSMutableArray *imagesURLStrings = [NSMutableArray new];
+    NSMutableArray *titlesArray = [NSMutableArray new];
     if (self.cycleDataSourceArray) {
-         imagesURLStrings =@[
-                                     self.cycleDataSourceArray[0][@"img_big"],
-                                     self.cycleDataSourceArray[1][@"img_big"]
-                                     ];
+        for(NSDictionary *dic in self.cycleDataSourceArray){
+            [imagesURLStrings addObject:dic[@"img_big"]];
+            [titlesArray addObject:dic[@"title"]];
+            
+        }
     }
-    //图片配文字
-    NSArray *titles = @[@"test1 ",
-                        @"test2",
-                        @"test3",
-                        @"test4"
-                        ];
 
+    
       _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
-    _cycleScrollView.titlesGroup = titles;
+    _cycleScrollView.titlesGroup = titlesArray;
     _cycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
     _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点pre"];
     _cycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播点"];
     _cycleScrollView.imageURLStringsGroup = imagesURLStrings;
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -281,9 +292,9 @@
     
     if (self.tableViewDataSourceArray) {
         [self.tableViewController.tableView footerEndRefreshing];
-    self.tableViewController.sourceArrry = self.tableViewDataSourceArray;
+    self.tableViewController.sourceArray = self.tableViewDataSourceArray;
     }else{
-//    self.tableViewController.sourceArrry = _sourceArry[0];
+//    self.tableViewController.sourceArray = _sourceArry[0];
         NSLog(@"没有数据源。");
     }
 
@@ -302,30 +313,28 @@
 }
 
 - (void)setJHRefresh{
-    //设置上拉刷新
+    //设置下拉刷新
     __block typeof(self) sself = self;
     [self.tableViewController.tableView addRefreshHeaderViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
         //发请求的方法区域
         NSLog(@"触发下拉刷新headerView");
-//        sself.npc = 0;
+
+        
+        [sself getDataWithGetType:@"new" andCurrId:@"-1"];
+
+    }];
+    //设置上拉刷新
+    [self.tableViewController.tableView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
         NSString *currId;
-        if (sself.tableViewController.tableView.dataSource ) {
-            currId = sself.tableViewController.sourceArrry[0][@"newsId"];
+        if (sself.tableViewController.sourceArray && sself.tableViewController.sourceArray.count > 0) {
+            currId = [sself.tableViewController.sourceArray lastObject][@"newsId"];
         }else{
             return;
         }
         
         [sself getDataWithGetType:@"old" andCurrId:currId];
-
-    }];
-    //设置下拉刷新
-    [self.tableViewController.tableView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
-//        sself.npc += 1;
-        [sself getDataWithGetType:@"new" andCurrId:@"-1"];
-
     }];
 }
-
 
 #pragma mark - 按钮事件
 //
@@ -344,6 +353,7 @@
         }else{
             self.tableViewController.tableView.tableHeaderView = nil;
         }
+        self.tableViewController.sourceArray = nil;
         [self.tableViewController.tableView reloadData];
 
         [self getDataWithGetType:@"new" andCurrId:@"-1"];
@@ -374,7 +384,7 @@
 //返回当前的索引值
 - (NSInteger)indexofController:(FTTableViewController *)viewController
 {
-//    NSInteger index = [self.sourceArry indexOfObject:viewController.sourceArrry];
+//    NSInteger index = [self.sourceArry indexOfObject:viewController.sourceArray];
 //    return index;
     return self.tableViewController.order;
 }
@@ -433,7 +443,7 @@
 //即将转换开始的方法
 - (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers
 {
-    //    NSLog(@" 开始动画  %@ ",[pendingViewControllers valueForKey:@"sourceArrry"]);
+    //    NSLog(@" 开始动画  %@ ",[pendingViewControllers valueForKey:@"sourceArray"]);
 }
 
 
@@ -454,23 +464,29 @@
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
 //    NSLog(@"---点击了第%ld张图片", (long)index);
-    FTNewsDetailViewController *newsDetailVC = [FTNewsDetailViewController new];
-
-
-    newsDetailVC.urlString = self.cycleDataSourceArray[index][@"url"];
-        newsDetailVC.newsTitle = self.cycleDataSourceArray[index][@"title"];
+//    FTNewsDetailViewController *newsDetailVC = [FTNewsDetailViewController new];
+//    newsDetailVC.urlString = self.cycleDataSourceArray[index][@"url"];
+//        newsDetailVC.newsTitle = self.cycleDataSourceArray[index][@"title"];
     
-    [self.navigationController pushViewController:newsDetailVC animated:YES];
+    FTNewsDetail2ViewController *testViewController = [FTNewsDetail2ViewController new];
+    testViewController.urlString = self.cycleDataSourceArray[index][@"url"];
+    testViewController.newsTitle = self.cycleDataSourceArray[index][@"title"];
+    [self.navigationController pushViewController:testViewController animated:YES];
 }
 
 - (void)fttableView:(FTTableViewController *)tableView didSelectWithIndex:(NSIndexPath *)indexPath{
     NSLog(@"第%ld个cell被点击了。", indexPath.row);
     if (self.tableViewDataSourceArray) {
-        FTNewsDetailViewController *newsDetailVC = [FTNewsDetailViewController new];
-        newsDetailVC.urlString = tableView.sourceArrry[indexPath.row][@"url"];
-        newsDetailVC.newsTitle = tableView.sourceArrry[indexPath.row][@"title"];
+//        FTNewsDetailViewController *newsDetailVC = [FTNewsDetailViewController new];
+//        newsDetailVC.urlString = tableView.sourceArray[indexPath.row][@"url"];
+//        newsDetailVC.newsTitle = tableView.sourceArray[indexPath.row][@"title"];
         
-        [self.navigationController pushViewController:newsDetailVC animated:YES];
+        FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
+        newsDetailVC.urlString = tableView.sourceArray[indexPath.row][@"url"];
+        newsDetailVC.newsTitle = tableView.sourceArray[indexPath.row][@"title"];
+        
+//        [self.navigationController pushViewController:newsDetailVC animated:YES];
+        [self.tabBarController.navigationController pushViewController:newsDetailVC animated:YES];
     }
 }
 

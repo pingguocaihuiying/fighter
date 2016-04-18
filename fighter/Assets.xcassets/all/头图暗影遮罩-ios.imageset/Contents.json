@@ -4,19 +4,19 @@
       "resizing" : {
         "mode" : "9-part",
         "center" : {
-          "mode" : "stretch",
-          "width" : 127,
-          "height" : 140
+          "mode" : "tile",
+          "width" : 285,
+          "height" : 3
         },
         "cap-insets" : {
-          "bottom" : 21,
-          "top" : 22,
-          "right" : 17,
-          "left" : 31
+          "bottom" : 187,
+          "top" : 50,
+          "right" : 101,
+          "left" : 114
         }
       },
       "idiom" : "universal",
-      "filename" : "金属边框ios.png",
+      "filename" : "头图暗影遮罩-ios.png",
       "scale" : "1x"
     },
     {

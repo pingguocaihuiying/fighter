@@ -19,6 +19,8 @@ NSString *const JHRefreshHeaderStatusTextPulling = @"松开既可刷新";
 NSString *const JHRefreshHeaderStatusTextRefreshing = @"正在刷新。。。";
 NSString *const JHRefreshHeaderStatusTextSuccess = @"刷新成功";
 NSString *const JHRefreshHeaderStatusTextFailure = @"刷新失败";
+//美哟更多数据
+NSString *const JHRefreshHeaderStatusTextNoRecords = @"没有更多数据";
 
 NSString *const JHRefreshFooterStatusTextNormal = @"上拉加载更多";
 NSString *const JHRefreshFooterStatusTextPulling = @"松开既可加载";
@@ -171,6 +173,11 @@ NSString *const JHRefreshFooterStatusTextFailure = @"加载失败";
                 case JHRefreshResultFailure:
                 {
                     _statusLabel.text = JHRefreshHeaderStatusTextFailure;
+                }
+                    break;
+                case JHRefreshResultNoRecords:
+                {
+                    _statusLabel.text = JHRefreshHeaderStatusTextNoRecords;
                 }
                     break;
             }

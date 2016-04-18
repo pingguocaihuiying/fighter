@@ -22,7 +22,7 @@
 
 - (void)dealloc
 {
-    self.sourceArrry = nil;
+    self.sourceArray = nil;
     
 }
 
@@ -52,13 +52,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return _sourceArrry.count;
+    return _sourceArray.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSDictionary *dic = self.sourceArrry[indexPath.row];
+    NSDictionary *dic = self.sourceArray[indexPath.row];
 
     
     
@@ -128,7 +128,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSDictionary *dic = self.sourceArrry[indexPath.row];
+    NSDictionary *dic = self.sourceArray[indexPath.row];
     if ([dic isKindOfClass:[NSDictionary class]]) {
         NSString *layout = dic[@"layout"];
         if ([layout isEqualToString:@"1"]) {

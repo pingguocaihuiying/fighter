@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TAh-w7-EpN">
-                    <rect key="frame" x="0.0" y="78" width="320" height="490"/>
+                    <rect key="frame" x="0.0" y="519" width="320" height="49"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QBn-Jb-M84" userLabel="评">
                             <rect key="frame" x="28" y="10" width="24" height="24"/>
@@ -51,7 +51,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Wgh-K5-Lfj">
-                            <rect key="frame" x="154" y="233" width="12" height="24"/>
+                            <rect key="frame" x="154" y="13" width="12" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="12" id="L7g-M5-Mqt"/>
                                 <constraint firstAttribute="height" constant="24" id="i2p-LK-nHn"/>
@@ -67,10 +67,14 @@
                         <constraint firstItem="Wgh-K5-Lfj" firstAttribute="centerY" secondItem="TAh-w7-EpN" secondAttribute="centerY" id="Xf1-oU-o6h"/>
                         <constraint firstItem="QBn-Jb-M84" firstAttribute="top" secondItem="TAh-w7-EpN" secondAttribute="top" constant="10" id="auG-Ej-YTV"/>
                         <constraint firstItem="3dE-7z-77j" firstAttribute="leading" secondItem="QBn-Jb-M84" secondAttribute="trailing" constant="8" id="eyk-Xs-YmN"/>
-                        <constraint firstAttribute="height" constant="490" id="iyb-am-und"/>
+                        <constraint firstAttribute="height" constant="49" id="iyb-am-und"/>
                         <constraint firstItem="t8W-fE-xGS" firstAttribute="top" secondItem="TAh-w7-EpN" secondAttribute="top" constant="10" id="mtf-lg-lX3"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AjQ-dl-5vO">
+                    <rect key="frame" x="155" y="223" width="46" height="30"/>
+                    <state key="normal" title="Button"/>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>

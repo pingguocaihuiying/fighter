@@ -1,22 +1,25 @@
 //
-//  FTNewsDetailViewController.m
+//  TestViewController.m
 //  fighter
 //
-//  Created by Liyz on 4/13/16.
+//  Created by Liyz on 4/15/16.
 //  Copyright © 2016 Mapbar. All rights reserved.
 //
 
-#import "FTNewsDetailViewController.h"
+#import "FTNewsDetail2ViewController.h"
+#import "FTCommentViewController.h"
 
-@interface FTNewsDetailViewController ()<UIWebViewDelegate>
+@interface FTNewsDetail2ViewController ()<UIWebViewDelegate>
 
 @end
 
-@implementation FTNewsDetailViewController
+@implementation FTNewsDetail2ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setSubViews];
+    NSLog(@"SCREEN_WIDTH : %f, SCREEN_HEIGHT : %f",SCREEN_WIDTH, SCREEN_HEIGHT);
+    self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     [self setWebView];
 }
 
@@ -40,20 +43,16 @@
     //设置默认标题
     self.navigationItem.title = @"加载中...";
     
-    //设置webView
-
-    [self.view bringSubviewToFront:self.bottomView];
 }
 
 - (void)setWebView{
-    CGRect r = self.view.frame;
-    r.size.height -= 49;
-        UIWebView *webView = [[UIWebView alloc]initWithFrame:r];
-        webView.delegate = self;
+    UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49)];
+    webView.delegate = self;
     webView.backgroundColor = [UIColor clearColor];
     webView.scrollView.backgroundColor = [UIColor clearColor];
-        [self.view addSubview:webView];
-        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.urlString]]];
+    [self.view addSubview:webView];
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.urlString]]];
+    [self.view sendSubviewToBack:webView];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
@@ -62,29 +61,51 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     self.navigationController.navigationBarHidden = NO;
+    self.navigationController.tabBarController.tabBar.hidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
-        self.navigationController.navigationBarHidden = YES;
+
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)popVC{
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)commenButtonClicked:(id)sender {
+    NSLog(@"commenButtonClicked.");
+    FTCommentViewController *commentVc = [ FTCommentViewController new];
+    [self.navigationController pushViewController:commentVc animated:YES];
 }
 
 - (void)shareButtonClicked{
-    
+    self.bgView.hidden = NO;
 }
 - (IBAction)thumbButtonClicked:(id)sender {
+    self.hasThumbUp = !self.hasThumbUp;
+    if (self.hasThumbUp) {
+        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"点赞pre"] forState:UIControlStateNormal];
+    }else{
+        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateNormal];
+    }
 }
+- (IBAction)cancelShareButtonClicked:(id)sender {
+    self.bgView.hidden = YES;
+}
+
+
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

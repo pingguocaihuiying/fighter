@@ -30,7 +30,11 @@ typedef NS_ENUM(NSInteger, JHRefreshResult) {
     /**
      *  展示刷新失败界面，延时隐藏
      */
-    JHRefreshResultFailure
+    JHRefreshResultFailure,
+    /**
+     *  刷新成功，但没有数据
+     */
+    JHRefreshResultNoRecords
 };
 
 
