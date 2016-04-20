@@ -94,7 +94,6 @@
         }
         
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-        
     }];
 }
 

@@ -48,8 +48,11 @@
 - (void)setWebView{
     UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49)];
     webView.delegate = self;
-    webView.backgroundColor = [UIColor blackColor];
+    
+    //设置webview的背景色
+    webView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"底纹"]];
     webView.opaque = NO;
+    
     [self.view addSubview:webView];
     NSString *url = _bean.url;
     url = [self encodeToPercentEscapeString:url];
