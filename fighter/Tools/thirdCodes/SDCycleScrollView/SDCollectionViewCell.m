@@ -35,7 +35,7 @@
 
 @implementation SDCollectionViewCell
 {
-    __weak UILabel *_titleLabel;
+//    __weak UILabel *_titleLabel;
 }
 
 
@@ -102,7 +102,9 @@
     CGFloat titleLabelY = self.sd_height - titleLabelH;
 //    _titleLabel.frame = CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH);
     _titleLabel.frame = CGRectMake(25, 129, SCREEN_WIDTH - 25 * 2, 16);
+//    [_titleLabel.superview bringSubviewToFront:_titleLabel];
     _titleLabel.hidden = !_titleLabel.text;
+    
 }
 
 @end

@@ -18,14 +18,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="378" height="217"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="丹-亨德森合同即将打满，期待继续留在UFC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Lg-ZP-I0y">
-                        <rect key="frame" x="19" y="17" width="348" height="14"/>
+                        <rect key="frame" x="19" y="17" width="340" height="14"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="14" id="2vj-C3-HZW"/>
-                            <constraint firstAttribute="width" constant="348" id="pQ5-p3-PdT"/>
+                            <constraint firstAttribute="width" constant="340" id="pQ5-p3-PdT"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="pQ5-p3-PdT"/>
+                            </mask>
+                        </variation>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016.4.11 14:40" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fE9-kt-RsU">
                         <rect key="frame" x="19" y="39" width="100" height="10"/>
@@ -120,6 +125,7 @@
                     <constraint firstAttribute="bottom" secondItem="tVT-ev-0zZ" secondAttribute="bottom" constant="17" id="Sx6-lB-1r1"/>
                     <constraint firstItem="fE9-kt-RsU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="TU3-5c-6dg"/>
                     <constraint firstItem="JCT-2D-e87" firstAttribute="top" secondItem="8Lg-ZP-I0y" secondAttribute="bottom" constant="10" id="VRc-rD-h9V"/>
+                    <constraint firstAttribute="trailing" secondItem="8Lg-ZP-I0y" secondAttribute="trailing" constant="19" id="Zsd-ja-nkP"/>
                     <constraint firstItem="JCT-2D-e87" firstAttribute="top" secondItem="fE9-kt-RsU" secondAttribute="bottom" constant="10" id="azL-tf-VM5"/>
                     <constraint firstItem="zF2-zf-jVc" firstAttribute="leading" secondItem="ck1-QY-Wxl" secondAttribute="trailing" constant="10" id="dkd-7H-ZO3"/>
                     <constraint firstAttribute="bottom" secondItem="hOT-uO-fqt" secondAttribute="bottom" constant="18" id="ftj-c6-eKg"/>
@@ -157,6 +163,6 @@
         <image name="格斗标签-拳击" width="48" height="14"/>
         <image name="评" width="22" height="22"/>
         <image name="赞" width="22" height="22"/>
-        <image name="金属边框-改进ios" width="35" height="85"/>
+        <image name="金属边框-改进ios" width="134" height="134"/>
     </resources>
 </document>

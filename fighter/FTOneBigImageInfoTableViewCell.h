@@ -20,4 +20,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *myTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthOfTypeImageView;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLabelWidth;
 @end

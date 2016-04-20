@@ -57,21 +57,12 @@
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4q8-eI-Ots">
                         <rect key="frame" x="19" y="15" width="96" height="54"/>
-                        <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="96" id="3nQ-lV-573"/>
                             <constraint firstAttribute="height" constant="54" id="kFi-NQ-YuD"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="丹-亨德森合同即将打满，期待继续留在UFC" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqc-5J-GiX">
-                        <rect key="frame" x="123" y="15" width="209" height="36"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="36" id="zsI-8s-EG2"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016.4.11 14:40" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCe-BJ-eHY">
                         <rect key="frame" x="123" y="59" width="100" height="10"/>
                         <constraints>
@@ -104,6 +95,15 @@
                             <action selector="thumbButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="S9b-Ef-tII"/>
                         </connections>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="丹-亨德森合同即将打满，期待继续留在UFC" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqc-5J-GiX">
+                        <rect key="frame" x="123" y="15" width="209" height="36"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="36" id="zsI-8s-EG2"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="iiX-MB-ZdQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="3z1-fJ-tat"/>
@@ -149,6 +149,6 @@
         <image name="格斗标签-拳击" width="48" height="14"/>
         <image name="评" width="22" height="22"/>
         <image name="赞" width="22" height="22"/>
-        <image name="金属边框-改进ios" width="35" height="85"/>
+        <image name="金属边框-改进ios" width="134" height="134"/>
     </resources>
 </document>

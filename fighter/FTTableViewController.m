@@ -95,7 +95,8 @@
         }
         //改变cell的值
         FTNewsBean *bean = [FTNewsBean new];
-        [bean setValuesForKeysWithDictionary:dic];
+//        [bean setValuesForKeysWithDictionary:dic];//这种写法在服务器新增字段时，客户端会崩溃
+        [bean setValuesWithDic:dic];
         [cell setWithBean:bean];
     }else{//如果没有网络数据源
         NSLog(@"第一次加载，无网络数据");

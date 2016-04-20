@@ -22,6 +22,9 @@
 @property (nonatomic,copy) NSString *summary;
 @property (nonatomic,copy) NSString *img_small_two;
 @property (nonatomic,copy) NSString *newsType;
-//@property (nonatomic,copy) NSString *commentCount;
-//@property (nonatomic,copy) NSString *voteCount;
+@property (nonatomic,copy) NSString *commentCount;
+@property (nonatomic,copy) NSString *voteCount;
+
+- (void)setValuesWithDic:(NSDictionary *)dic;
+
 @end

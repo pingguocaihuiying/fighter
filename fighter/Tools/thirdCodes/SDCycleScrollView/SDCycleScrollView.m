@@ -43,7 +43,7 @@ NSString * const ID = @"cycleCell";
 @interface SDCycleScrollView () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 
-@property (nonatomic, weak) UICollectionView *mainView; // 显示图片的collectionView
+
 @property (nonatomic, weak) UICollectionViewFlowLayout *flowLayout;
 @property (nonatomic, strong) NSArray *imagePathsGroup;
 @property (nonatomic, weak) NSTimer *timer;
@@ -77,6 +77,8 @@ NSString * const ID = @"cycleCell";
 {
     _pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     _autoScrollTimeInterval = 3.5;
+//    _titleLabelTextColor = [UIColor whiteColor];
+//    _titleLabelTextColor = [UIColor redColor];
     _titleLabelTextColor = [UIColor whiteColor];
     _titleLabelTextFont= [UIFont boldSystemFontOfSize:16];
 //    _titleLabelBackgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
@@ -493,6 +495,7 @@ NSString * const ID = @"cycleCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
+//    cell.titleLabelTextColor = [UIColor redColor];
     cell.titleLabelTextColor = [UIColor whiteColor];
     cell.titleLabelBackgroundColor = [UIColor clearColor];
     cell.titleLabelTextFont = [UIFont boldSystemFontOfSize:16];
@@ -521,10 +524,11 @@ NSString * const ID = @"cycleCell";
         bgImageView.tag = 1111;
         bgImageView.frame = cell.bounds;
         [cell addSubview:bgImageView];
+//        [cell sendSubviewToBack:bgImageView];
+        
+//        [cell insertSubview:bgImageView belowSubview:cell.titleLabel];
+//        [cell insertSubview:bgImageView aboveSubview:cell.titleLabel];
     }
-    
-    
-    
     
     if (_titlesGroup.count && itemIndex < _titlesGroup.count) {
         cell.title = _titlesGroup[itemIndex];
@@ -534,11 +538,13 @@ NSString * const ID = @"cycleCell";
         cell.titleLabelBackgroundColor = self.titleLabelBackgroundColor;
         cell.titleLabelHeight = self.titleLabelHeight;
         cell.titleLabelTextColor = self.titleLabelTextColor;
+//        cell.titleLabelTextColor = [UIColor redColor];
         cell.titleLabelTextFont = self.titleLabelTextFont;
         cell.hasConfigured = YES;
         cell.imageView.contentMode = self.bannerImageViewContentMode;
         cell.clipsToBounds = YES;
     }
+//    [cell bringSubviewToFront:cell.titleLabel];
     
     return cell;
 }

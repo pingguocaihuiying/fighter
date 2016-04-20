@@ -22,6 +22,13 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *myTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *image2Width;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *image2Height;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *image3Width;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *image3Height;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLabelWidth;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthOfTypeImageView;
 @end

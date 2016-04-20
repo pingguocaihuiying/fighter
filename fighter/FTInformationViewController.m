@@ -13,14 +13,13 @@
 #import "FTNetConfig.h"
 #import "ZJModelTool.h"
 #import "AFNetworking.h"
-#import "FTNewsDetailViewController.h"
 #import "JHRefresh.h"
 #import "FTNewsDetail2ViewController.h"
+#import "FTFilterTableViewController.h"
+#import "FTNewsBean.h"
 
 
-
-
-@interface FTInformationViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate>
+@interface FTInformationViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate>
 
 @property(nonatomic,strong) NSArray *sourceArry;     //数据源
 @property(nonatomic,strong) UIPageViewController *pageViewController;   //翻页控制器
@@ -29,7 +28,7 @@
 @property (nonatomic, strong)NSArray *cycleDataSourceArray;
 @property (nonatomic, strong)NSMutableArray *tableViewDataSourceArray;
 @property (nonatomic, strong)FTTableViewController *tableViewController;
-
+@property (nonatomic, strong)NSArray *typeArray;
 
 @end
 
@@ -37,12 +36,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initTypeArray];
     [self initSubViews];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+//    self.tabBarController.navigationController.navigationBarHidden = YES;
     self.navigationController.navigationBarHidden = YES;
-    self.navigationController.tabBarController.tabBar.hidden = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+//        self.tabBarController.navigationController.navigationBarHidden = NO;
+    self.navigationController.navigationBarHidden = NO;
+}
+
+- (void)initTypeArray{
+    NSMutableArray *enableTypeArray = [[NSMutableArray alloc]initWithArray:@[@"全部", @"拳击", @"自由搏击", @"综合格斗", @"泰拳", @"跆拳道"]];
+    NSMutableArray *disableTypeArray= [[NSMutableArray alloc]initWithArray:@[@"柔道", @"空手道", @"截拳道", @"摔跤", @"相扑"]];
+    self.typeArray = @[enableTypeArray, disableTypeArray];
 }
 
 - (void)initSubViews{
@@ -70,18 +81,16 @@
     
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    NSLog(@"url : %@", urlString);
+    NSLog(@"轮播图url : %@", urlString);
     [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
 
         NSString *status = responseDic[@"status"];
         if ([status isEqualToString:@"success"]) {
-//            NSLog(@"ok");
             self.cycleDataSourceArray = responseDic[@"data"];
-//            NSLog(@"%@", self.cycleDataSourceArray);
+            
             [self setCycleScrollView];
             [self initPageController];
-//            [self.tableViewController.tableView reloadData];
         }
         
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
@@ -115,7 +124,6 @@
     }else if (self.currentSelectIndex == 10) {
         newsType = @"Sumo";
     }
-    
     return newsType;
 }
 
@@ -207,19 +215,20 @@
         for(NSDictionary *dic in self.cycleDataSourceArray){
             [imagesURLStrings addObject:dic[@"img_big"]];
             [titlesArray addObject:dic[@"title"]];
-            
+
         }
     }
-
-    
       _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
-    _cycleScrollView.titlesGroup = titlesArray;
+
+#pragma -mark -暂时隐藏轮播图的标题（没有给轮播图传title的值）
+//    _cycleScrollView.titlesGroup = titlesArray;
+    
     _cycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
     _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点pre"];
     _cycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播点"];
     _cycleScrollView.imageURLStringsGroup = imagesURLStrings;
-
+//    [_cycleScrollView.mainView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -231,8 +240,14 @@
 //加载分类导航的scrollView
 - (void)initNewsTypeScrollView
 {
-    NSArray *titles = @[@"全部",@"拳击",@"自由搏击", @"综合格斗",@"泰拳", @"跆拳道", @"柔道", @"空手道", @"截拳道", @"摔跤", @"相扑"];
+
+//    NSArray *titles = @[@"全部",@"拳击",@"自由搏击", @"综合格斗",@"泰拳", @"跆拳道", @"柔道", @"空手道", @"截拳道", @"摔跤", @"相扑"];
+
+     NSArray *titles = self.typeArray[0];
     float curContentWidth = 0;
+    for(UIView *view in [_currentScrollView subviews]){
+        [view removeFromSuperview];
+    }
     for (int i = 0; i < titles.count; i++) {
         UIButton *bt = [UIButton buttonWithType:UIButtonTypeCustom];
 
@@ -263,13 +278,13 @@
         indexView.hidden = YES;
         [bt addSubview:indexView];
         
+       
         
         if (i != titles.count - 1) {
             curContentWidth += buttonSize.width + 35;
         }else{
             curContentWidth += buttonSize.width;
         }
-        
     }
     self.currentSelectIndex = 0;
     _currentScrollView.showsHorizontalScrollIndicator = NO;
@@ -318,8 +333,6 @@
     [self.tableViewController.tableView addRefreshHeaderViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
         //发请求的方法区域
         NSLog(@"触发下拉刷新headerView");
-
-        
         [sself getDataWithGetType:@"new" andCurrId:@"-1"];
 
     }];
@@ -468,26 +481,54 @@
 //    newsDetailVC.urlString = self.cycleDataSourceArray[index][@"url"];
 //        newsDetailVC.newsTitle = self.cycleDataSourceArray[index][@"title"];
     
-    FTNewsDetail2ViewController *testViewController = [FTNewsDetail2ViewController new];
-    testViewController.urlString = self.cycleDataSourceArray[index][@"url"];
-    testViewController.newsTitle = self.cycleDataSourceArray[index][@"title"];
-    [self.navigationController pushViewController:testViewController animated:YES];
+    FTNewsDetail2ViewController *newsDetailViewController = [FTNewsDetail2ViewController new];
+//    testViewController.urlString = self.cycleDataSourceArray[index][@"url"];
+//    testViewController.newsTitle = self.cycleDataSourceArray[index][@"title"];
+    //获取对应的bean，传递给下个vc
+    NSDictionary *newsDic = self.cycleDataSourceArray[index];
+    FTNewsBean *bean = [FTNewsBean new];
+    [bean setValuesWithDic:newsDic];
+    
+    newsDetailViewController.bean = bean;
+    
+    [self.navigationController pushViewController:newsDetailViewController animated:YES];
 }
 
 - (void)fttableView:(FTTableViewController *)tableView didSelectWithIndex:(NSIndexPath *)indexPath{
-    NSLog(@"第%ld个cell被点击了。", indexPath.row);
+//    NSLog(@"第%ld个cell被点击了。", indexPath.row);
     if (self.tableViewDataSourceArray) {
 //        FTNewsDetailViewController *newsDetailVC = [FTNewsDetailViewController new];
 //        newsDetailVC.urlString = tableView.sourceArray[indexPath.row][@"url"];
 //        newsDetailVC.newsTitle = tableView.sourceArray[indexPath.row][@"title"];
         
         FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
-        newsDetailVC.urlString = tableView.sourceArray[indexPath.row][@"url"];
-        newsDetailVC.newsTitle = tableView.sourceArray[indexPath.row][@"title"];
+            //获取对应的bean，传递给下个vc
+        NSDictionary *newsDic = tableView.sourceArray[indexPath.row];
+        FTNewsBean *bean = [FTNewsBean new];
+        [bean setValuesWithDic:newsDic];
+        
+        newsDetailVC.bean = bean;
         
 //        [self.navigationController pushViewController:newsDetailVC animated:YES];
-        [self.tabBarController.navigationController pushViewController:newsDetailVC animated:YES];
+//        [self.tabBarController.navigationController pushViewController:newsDetailVC animated:YES];
+        [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
     }
+}
+- (IBAction)filterButton:(id)sender {
+    FTFilterTableViewController *filterTableViewController = [FTFilterTableViewController new];
+    
+    [self.typeArray[0] removeObjectAtIndex:0];
+    filterTableViewController.arr = self.typeArray;
+    filterTableViewController.delegate = self;
+    [self.tabBarController.navigationController pushViewController:filterTableViewController animated:YES];
+    filterTableViewController.navigationItem.title = @"选择类别";
+}
+
+//实现filterVC的代理，回调更新typeArray,刷新界面
+- (void)updateTypeArray:(NSArray *)typeArray{
+    [typeArray[0] insertObject:@"全部" atIndex:0];
+    self.typeArray = typeArray;
+    [self initSubViews];
 }
 
 @end

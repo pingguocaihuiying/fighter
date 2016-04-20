@@ -7,8 +7,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTCommentViewController">
             <connections>
-                <outlet property="bgImageView" destination="rEU-SU-dfh" id="UN8-XD-YYg"/>
-                <outlet property="commentTextView" destination="It0-bV-w1Q" id="xZJ-lg-ins"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,45 +14,8 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bOf-R6-OYP">
-                    <rect key="frame" x="6" y="64" width="308" height="180"/>
-                    <subviews>
-                        <imageView hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="金属边框-改进ios" translatesAutoresizingMaskIntoConstraints="NO" id="rEU-SU-dfh">
-                            <rect key="frame" x="0.0" y="0.0" width="308" height="180"/>
-                        </imageView>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="输入评论内容" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="It0-bV-w1Q">
-                            <rect key="frame" x="0.0" y="0.0" width="308" height="180"/>
-                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                        </textView>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="trailing" secondItem="It0-bV-w1Q" secondAttribute="trailing" id="2QS-Qc-g5N"/>
-                        <constraint firstAttribute="trailing" secondItem="rEU-SU-dfh" secondAttribute="trailing" id="Ewl-50-63D"/>
-                        <constraint firstItem="It0-bV-w1Q" firstAttribute="leading" secondItem="bOf-R6-OYP" secondAttribute="leading" id="Hgy-ow-3ED"/>
-                        <constraint firstItem="rEU-SU-dfh" firstAttribute="leading" secondItem="bOf-R6-OYP" secondAttribute="leading" id="Hla-WH-aGw"/>
-                        <constraint firstItem="It0-bV-w1Q" firstAttribute="top" secondItem="bOf-R6-OYP" secondAttribute="top" id="Hnh-Qe-9W4"/>
-                        <constraint firstAttribute="bottom" secondItem="It0-bV-w1Q" secondAttribute="bottom" id="KKg-Uh-3Yw"/>
-                        <constraint firstAttribute="height" constant="180" id="Omu-DR-IeY"/>
-                        <constraint firstItem="rEU-SU-dfh" firstAttribute="top" secondItem="bOf-R6-OYP" secondAttribute="top" id="QvU-27-lif"/>
-                        <constraint firstAttribute="bottom" secondItem="rEU-SU-dfh" secondAttribute="bottom" id="dG1-L0-s2Y"/>
-                    </constraints>
-                </view>
-            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstItem="bOf-R6-OYP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="6" id="For-Qn-il8"/>
-                <constraint firstAttribute="trailing" secondItem="bOf-R6-OYP" secondAttribute="trailing" constant="6" id="SMs-2q-CRW"/>
-                <constraint firstItem="bOf-R6-OYP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="v9q-gt-7iU"/>
-            </constraints>
             <point key="canvasLocation" x="475" y="362"/>
         </view>
     </objects>
-    <resources>
-        <image name="金属边框-改进ios" width="134" height="134"/>
-    </resources>
 </document>

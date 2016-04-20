@@ -21,6 +21,17 @@
     // Configure the view for the selected state
 }
 - (void)setWithBean:(FTNewsBean *)bean{
+    if (SCREEN_WIDTH == 320) {
+        self.imageWidth.constant = 85;
+        self.imageHeight.constant = 48;
+        self.image2Width.constant = 85;
+        self.image2Height.constant = 48;
+        self.image3Width.constant = 85;
+        self.image3Height.constant = 48;
+//        self.titleLabelWidth.constant = SCREEN_WIDTH - 50;
+
+    }
+    
     self.fromLabel.text = [NSString stringWithFormat:@"来源：%@", bean.author];
     NSString *newsTime = bean.newsTime;
     newsTime = [newsTime substringToIndex:newsTime.length - 3];
@@ -32,6 +43,12 @@
     [self.myImageView1 sd_setImageWithURL:[NSURL URLWithString:bean.img_small_one]];
     [self.myImageView2 sd_setImageWithURL:[NSURL URLWithString:bean.img_small_two]];
     [self.myImageView3 sd_setImageWithURL:[NSURL URLWithString:bean.img_small_three]];
+    
+    //设置评论数、点赞数
+    NSString *commentCount = [NSString stringWithFormat:@"%@", bean.commentCount];
+    NSString *voteCount = [NSString stringWithFormat:@"%@", bean.voteCount];
+    self.numOfCommentLabel.text = commentCount;
+    self.numOfthumbLabel.text = voteCount;
     
     //根据newsType去设置类型图片
     //    if ([bean.newsType isEqualToString:@"Sumo"]) {

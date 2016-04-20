@@ -7,6 +7,7 @@
 //
 
 #import "FTBaseViewController.h"
+#import "FTNewsBean.h"
 
 @interface FTNewsDetail2ViewController : FTBaseViewController
 @property (nonatomic ,copy)NSString *urlString;
@@ -14,4 +15,5 @@
 @property (nonatomic, strong) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UIButton *thumbsUpButton;
 @property (nonatomic, assign)BOOL hasThumbUp;
+@property (nonatomic, strong)FTNewsBean *bean;
 @end

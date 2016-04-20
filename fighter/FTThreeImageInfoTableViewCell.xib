@@ -14,8 +14,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="162"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="金属边框-改进ios" translatesAutoresizingMaskIntoConstraints="NO" id="hed-UZ-mJ1">
-                        <rect key="frame" x="0.0" y="-3" width="375" height="165"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="金属边框-改进ios" translatesAutoresizingMaskIntoConstraints="NO" id="hed-UZ-mJ1">
+                        <rect key="frame" x="0.0" y="3" width="375" height="159"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j6p-qj-lIP">
                         <rect key="frame" x="245" y="123" width="22" height="22"/>
@@ -43,14 +43,19 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="丹-亨德森合同即将打满，期待继续留在UFC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HxR-ng-cIe">
-                        <rect key="frame" x="19" y="17" width="348" height="14"/>
+                        <rect key="frame" x="19" y="17" width="337" height="14"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="348" id="GV3-ch-sX1"/>
+                            <constraint firstAttribute="width" constant="337" id="GV3-ch-sX1"/>
                             <constraint firstAttribute="height" constant="14" id="sGd-eP-ztS"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="GV3-ch-sX1"/>
+                            </mask>
+                        </variation>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hgi-Sa-SIG">
                         <rect key="frame" x="188" y="123" width="22" height="22"/>
@@ -118,14 +123,19 @@
                 <constraints>
                     <constraint firstItem="kmG-bv-ALf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="0bj-68-2Cf"/>
                     <constraint firstItem="kmG-bv-ALf" firstAttribute="top" secondItem="HxR-ng-cIe" secondAttribute="bottom" constant="8" id="351-KX-0d5"/>
+                    <constraint firstAttribute="trailing" secondItem="HxR-ng-cIe" secondAttribute="trailing" constant="19" id="3qd-wK-OEj"/>
                     <constraint firstItem="Uxs-gm-rsh" firstAttribute="top" secondItem="HxR-ng-cIe" secondAttribute="bottom" constant="28" id="8Wa-Wy-UK6"/>
+                    <constraint firstItem="hed-UZ-mJ1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="FGe-Iq-VuP"/>
+                    <constraint firstAttribute="trailing" secondItem="hed-UZ-mJ1" secondAttribute="trailing" id="HTa-VG-uqx"/>
                     <constraint firstItem="HxR-ng-cIe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="Lz1-T9-ABC"/>
                     <constraint firstAttribute="bottom" secondItem="hgi-Sa-SIG" secondAttribute="bottom" constant="17" id="Pxw-HS-g3G"/>
                     <constraint firstItem="R5E-sv-2je" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="SNH-Q4-00j"/>
                     <constraint firstItem="liG-wE-bZH" firstAttribute="leading" secondItem="hgi-Sa-SIG" secondAttribute="trailing" id="ay6-qI-3K0"/>
                     <constraint firstItem="H7h-OD-6dS" firstAttribute="top" secondItem="kmG-bv-ALf" secondAttribute="bottom" constant="10" id="br0-hc-opk"/>
+                    <constraint firstAttribute="bottom" secondItem="hed-UZ-mJ1" secondAttribute="bottom" id="dzH-DH-kui"/>
                     <constraint firstAttribute="bottom" secondItem="dIO-O5-Yvr" secondAttribute="bottom" constant="18" id="ep3-2b-N34"/>
                     <constraint firstAttribute="bottom" secondItem="Q0h-mR-9xl" secondAttribute="bottom" constant="21" id="eyk-16-x32"/>
+                    <constraint firstItem="hed-UZ-mJ1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="fQh-oP-tHr"/>
                     <constraint firstAttribute="bottom" secondItem="j6p-qj-lIP" secondAttribute="bottom" constant="17" id="hvg-oX-hgp"/>
                     <constraint firstAttribute="trailing" secondItem="Uxs-gm-rsh" secondAttribute="trailing" constant="19" id="iAL-ZS-bFG"/>
                     <constraint firstItem="JXK-OJ-kbN" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="lIJ-we-TCX"/>
@@ -142,6 +152,12 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="fromLabel" destination="R5E-sv-2je" id="PEM-tw-aZ6"/>
+                <outlet property="image2Height" destination="EXk-Im-Aqg" id="OdA-nO-txW"/>
+                <outlet property="image2Width" destination="haT-A1-bc0" id="tXX-la-nHz"/>
+                <outlet property="image3Height" destination="hOn-Ld-V1k" id="k5Z-rh-Ysb"/>
+                <outlet property="image3Width" destination="39s-5V-A5S" id="DhQ-Bu-Mj6"/>
+                <outlet property="imageHeight" destination="av2-hN-eTg" id="fms-aD-wNQ"/>
+                <outlet property="imageWidth" destination="nzt-PI-hzV" id="rlF-ai-6of"/>
                 <outlet property="myImageView1" destination="H7h-OD-6dS" id="qsw-jX-IHa"/>
                 <outlet property="myImageView2" destination="JXK-OJ-kbN" id="PHM-xj-Pfm"/>
                 <outlet property="myImageView3" destination="Uxs-gm-rsh" id="kw9-7a-cHa"/>
@@ -151,6 +167,7 @@
                 <outlet property="numOfthumbLabel" destination="liG-wE-bZH" id="FEr-PS-aq4"/>
                 <outlet property="thumbButton" destination="hgi-Sa-SIG" id="kS0-JC-naM"/>
                 <outlet property="timeLabel" destination="kmG-bv-ALf" id="lJ0-dB-UJl"/>
+                <outlet property="titleLabelWidth" destination="GV3-ch-sX1" id="inm-jP-f4o"/>
                 <outlet property="widthOfTypeImageView" destination="uix-DL-LME" id="KPT-vP-m2q"/>
             </connections>
             <point key="canvasLocation" x="-19.5" y="315.5"/>
@@ -160,6 +177,6 @@
         <image name="格斗标签-拳击" width="48" height="14"/>
         <image name="评" width="22" height="22"/>
         <image name="赞" width="22" height="22"/>
-        <image name="金属边框-改进ios" width="35" height="85"/>
+        <image name="金属边框-改进ios" width="134" height="134"/>
     </resources>
 </document>

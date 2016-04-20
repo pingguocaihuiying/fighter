@@ -25,7 +25,7 @@
     NSLog(@"comment button clicked.");
 }
 
-- (void)setWithBean:(FTNewsBean *)bean{
+- (void)setWithBean:(FTNewsBean *)bean{//根据bean设置cell的显示内容
     self.fromLabel.text = [NSString stringWithFormat:@"来源：%@", bean.author];
     NSString *newsTime = bean.newsTime;
     newsTime = [newsTime substringToIndex:newsTime.length - 3];
@@ -36,6 +36,12 @@
     self.myTitleLabel.text = bean.title;
     [self.myImageView sd_setImageWithURL:[NSURL URLWithString:bean.img_small_one]];
     
+        //设置评论数、点赞数
+    NSString *commentCount = [NSString stringWithFormat:@"%@", bean.commentCount];
+    NSString *voteCount = [NSString stringWithFormat:@"%@", bean.voteCount];
+    self.numOfCommentLabel.text = commentCount;
+    self.numOfthumbLabel.text = voteCount;
+
     //根据newsType去设置类型图片
 //    if ([bean.newsType isEqualToString:@"Sumo"]) {
 //        self.newsTypeImageView.image = [UIImage imageNamed:@"KickBoxing_Sanda"];
