@@ -15,8 +15,17 @@
 #import "FTBaseNavigationViewController.h"
 #import "FTBaseTabBarViewController.h"
 #import "Mobclick.h"
+#import "UMSocial.h"
+#import "WXApi.h"
+#import "UMSocialWechatHandler.h"
+#import "UMSocialSinaSSOHandler.h"
+#import "AFHTTPRequestOperationManager.h"
+#import "UUID.h"
+#import "FTNetConfig.h"
+#import "RBRequestOperationManager.h"
+#import "FTUserBean.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<WXApiDelegate>
 
 @end
 
@@ -24,8 +33,10 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    //设置友盟相关的
+    //设置友盟相关的的
     [self setUMeng];
+    //设置微信相关的
+    [self setWeiXin];
     
 //    [self setRootViewController];
     [self setRootViewController2];
@@ -34,73 +45,131 @@
 }
 
 - (void)setUMeng{
+    //友盟统计
     [MobClick startWithAppkey:@"570739d767e58edb5300057b" reportPolicy:BATCH   channelId:@""];
-}
-//
-//- (void)setRootViewController{
-//    FTInformationViewController *infoVC = [FTInformationViewController new];
-//    FTBaseNavigationViewController *infoNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:infoVC];
-//    infoNaviVC.tabBarItem.title = @"拳讯";
-//
-//    [infoNaviVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-//                                                    Bar_Item_Select_Title_Color, UITextAttributeTextColor,
-//                                                   nil] forState:UIControlStateSelected];
-//    infoNaviVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳讯"];
-//    infoNaviVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳讯pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    
-//    FTMatchViewController *matchVC = [FTMatchViewController new];
-//    FTBaseNavigationViewController *matchNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:matchVC];
-//    matchNaviVC.tabBarItem.title = @"赛事";
-//    [matchNaviVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-//                                                   Bar_Item_Select_Title_Color, UITextAttributeTextColor,
-//                                                   nil] forState:UIControlStateSelected];
-//
-//    
-//    matchNaviVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-赛事"];
-//    matchNaviVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-赛事pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    
-//    FTFightKingViewController *fightKingVC = [FTFightKingViewController new];
-//    FTBaseNavigationViewController *fightKingNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:fightKingVC];
-//    fightKingNaviVC.tabBarItem.title = @"格斗王";
-//    [fightKingNaviVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-//                                                   Bar_Item_Select_Title_Color, UITextAttributeTextColor,
-//                                                   nil] forState:UIControlStateSelected];
-//
-//    fightKingNaviVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-格斗王"];
-//    fightKingNaviVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-格斗王pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    
-//    FTCoachViewController *coachVC = [FTCoachViewController new];
-//    FTBaseNavigationViewController *coachNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:coachVC];
-//    coachNaviVC.tabBarItem.title = @"教练";
-//    [coachNaviVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-//                                                   Bar_Item_Select_Title_Color, UITextAttributeTextColor,
-//                                                   nil] forState:UIControlStateSelected];
-//
-//    coachNaviVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-教练"];
-//    coachNaviVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-教练pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    
-//    FTBoxingHallViewController *boxingHallVC = [FTBoxingHallViewController new];
-//    FTBaseNavigationViewController *boxingHallNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:boxingHallVC];
-//    boxingHallNaviVC.tabBarItem.title = @"拳馆";
-//    [boxingHallNaviVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-//                                                   Bar_Item_Select_Title_Color, UITextAttributeTextColor,
-//                                                   nil] forState:UIControlStateSelected];
-//
-//    boxingHallNaviVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳馆"];
-//    boxingHallNaviVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    
-//    //设置tabbar的属性
-//    FTBaseTabBarViewController *rootVC = [FTBaseTabBarViewController new];
-////    rootVC.tabBar.barStyle = UIBarStyleDefault;
-//    rootVC.tabBar.barTintColor = [UIColor blackColor];
-////    rootVC.tabBar.tintColor = [UIColor grayColor];
-//    rootVC.tabBar.translucent = NO;
-//    
-//    rootVC.viewControllers = @[infoNaviVC, matchNaviVC, fightKingNaviVC, coachNaviVC, boxingHallNaviVC];
-//    
-//    self.window.rootViewController = rootVC;
-//}
+    
+    
+    //友盟分享
+    [UMSocialData setAppKey:@"570739d767e58edb5300057b"];
+    
+    //设置微信AppId、appSecret，分享url
+    [UMSocialWechatHandler setWXAppId:WX_App_ID appSecret:WX_App_Secret url:@"http://www.umeng.com/social"];
+    
+    //打开新浪微博的SSO开关，设置新浪微博回调地址，这里必须要和你在新浪微博后台设置的回调地址一致。需要 #import "UMSocialSinaSSOHandler.h"
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"2201505639"
+                                              secret:@"cb1771445170f9c625224f6e1403ce48"
+                                         RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
 
+}
+
+- (void)setWeiXin{
+    //向微信注册
+    [WXApi registerApp:@"wxe69b91d3503144ca" withDescription:@"wechat"];
+}
+
+- (void)onResp:(BaseResp *)resp {
+    
+    // 向微信请求授权后,得到响应结果
+    if ([resp isKindOfClass:[SendAuthResp class]]) {
+        SendAuthResp *temp = (SendAuthResp *)resp;
+        
+        //如果
+        NSLog(@"temp state: %d", temp.errCode);
+        if (temp.errCode != 0) {
+            return;
+        }
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSString *accessUrlStr = [NSString stringWithFormat:@"%@/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code", WX_BASE_URL, WX_App_ID, WX_App_Secret, temp.code];
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        [manager GET:accessUrlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSDictionary *accessDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+//            NSLog(@"respinse dic : token : %@ openid : %@", accessDict[@"access_token"], accessDict[@"openid"]);
+            [self getWechatUserInfoWithToken:accessDict[@"access_token"] andOpenId:accessDict[@"openid"]];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"获取access_token时出错 = %@", error);
+        }];
+    }
+}
+
+- (void)getWechatUserInfoWithToken:(NSString *)token andOpenId:(NSString *)openId{
+    NSString *stringURL = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@", token, openId];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+    [manager GET:stringURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *userInfoDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        
+//        NSLog(@"openId : %@, unionId : %@", userInfoDic[@"openid"], userInfoDic[@"unionid"]);
+        NSString *openId = userInfoDic[@"openid"];
+        NSString *unionId = userInfoDic[@"unionid"];
+        NSString *timestampString = [NSString stringWithFormat:@"%.0lf",[[NSDate date] timeIntervalSince1970]];
+        NSString *imei = [UUID getUUID];
+        NSString *username = userInfoDic[@"nickname"];
+        NSString *keyToken = [NSString stringWithFormat:@"%@%@", WXLoginSecret_Key, timestampString];
+        NSString *keyTokenMD5 = [MD5 md5:keyToken];
+        NSString *province = userInfoDic[@"province"];
+        
+        NSDictionary *dic = @{@"openId" : openId,
+                              @"unionId" : unionId,
+                              @"timestamp" : timestampString,
+                              @"imei" : imei,
+                              @"username" : username,
+                              @"keyToken" : keyTokenMD5,
+                              @"city" : province};
+        
+        NSString *wxLoginURLString = [FTNetConfig host:Domain path:UserWXLoginURL];
+            NSLog(@"wxLoginURLString : %@", wxLoginURLString);
+        RBRequestOperationManager *manager = [RBRequestOperationManager manager];
+        [manager postToPath:wxLoginURLString params:dic success:^(NSDictionary *responseJson) {
+            bool status = [responseJson[@"status"] boolValue];
+            NSString *message = (NSString *)(NSDictionary *)responseJson[@"message"];
+            if (status == false) {
+                NSLog(@"微信注册失败,message:%@", message);
+                
+                return ;
+            }
+            [ZJModelTool createModelWithDictionary:responseJson[@"data"][@"user"] modelName:nil];
+            NSLog(@"微信注册成功,message:%@", message);
+                //发送通知，告诉评论页面微信登录成功
+            
+            [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"SUCESS"];
+            NSDictionary *userDic = responseJson[@"data"][@"user"];
+            FTUserBean *user = [FTUserBean new];
+            [user setValuesForKeysWithDictionary:userDic];
+            
+            NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
+            [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+        } dataError:^(NSString *errorCode, NSString *errorMessage) {
+            NSLog(@"errorMessage : %@", errorMessage);
+            //发送通知，告诉评论页面微信登录失败
+            [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"ERROR"];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"error : %@", error);
+        }];
+        
+        //微信登录成功后,发送通知给新闻详情页面，表示可以评论了
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"获取access_token时出错 = %@", error);
+    }];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    BOOL result = [UMSocialSnsService handleOpenURL:url];
+    if (result == FALSE) {
+        
+    }
+//    return result;
+    [WXApi handleOpenURL:url delegate:self];
+    return YES;
+}
 
 - (void)setRootViewController2{
     FTInformationViewController *infoVC = [FTInformationViewController new];

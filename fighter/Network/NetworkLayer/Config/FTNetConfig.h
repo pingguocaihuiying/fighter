@@ -18,7 +18,15 @@ extern NSString * const Domain;
 
 //获取资讯
 extern NSString * const GetNewsURL;
+//评论接口
+extern NSString *const CommentURL;
+//获取（点赞、关注等）状态
+extern NSString *const GetStateURL;
 
+//增加点赞接口
+extern NSString *const AddVoteURL;
+//删除点赞接口
+extern NSString *const DeleteVoteURL;
 #pragma mark - 用户接口
 extern NSString * const UserInterfaceHost;
 
@@ -52,3 +60,15 @@ extern NSString * const GetAchievementInfo;
 extern NSString * const SaveUserAppsURL;
 // 18.绑定手机号-用户是否绑定手机
 extern NSString * const IsUserBindPhoneURL;
+
+
+
+
+
+//获取评论、点赞等状态
+extern NSString * const GetStatusCheckKey;
+
+extern NSString * const AddVoteCheckKey;
+
+extern NSString * const DeleteVoteCheckKey;
+

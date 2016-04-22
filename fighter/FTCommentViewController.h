@@ -7,9 +7,16 @@
 //
 
 #import "FTBaseViewController.h"
+#import "FTNewsBean.h"
+
+@protocol CommentSuccessDelegate <NSObject>
+- (void)commentSuccess;
+@end
 
 @interface FTCommentViewController : FTBaseViewController
+@property (nonatomic, strong)FTNewsBean *newsBean;
 @property (weak, nonatomic) IBOutlet UITextView *commentTextView;
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
+@property (nonatomic, weak)id<CommentSuccessDelegate> delegate;
 
 @end

@@ -17,6 +17,7 @@
 #import "FTNewsDetail2ViewController.h"
 #import "FTFilterTableViewController.h"
 #import "FTNewsBean.h"
+#import "UIButton+LYZTitle.h"
 
 
 @interface FTInformationViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate>
@@ -51,7 +52,8 @@
 }
 
 - (void)initTypeArray{
-    NSMutableArray *enableTypeArray = [[NSMutableArray alloc]initWithArray:@[@"全部", @"拳击", @"自由搏击", @"综合格斗", @"泰拳", @"跆拳道"]];
+//    NSMutableArray *enableTypeArray = [[NSMutableArray alloc]initWithArray:@[@"全部", @"拳击", @"自由搏击", @"综合格斗", @"泰拳", @"跆拳道"]];
+    NSMutableArray *enableTypeArray = [[NSMutableArray alloc]initWithArray:@[@"全部", @"综合格斗(UFC)", @"拳击", @"摔跤(WWE)", @"女子格斗", @"泰拳", @" 跆拳道", @"柔道", @"相扑"]];
     NSMutableArray *disableTypeArray= [[NSMutableArray alloc]initWithArray:@[@"柔道", @"空手道", @"截拳道", @"摔跤", @"相扑"]];
     self.typeArray = @[enableTypeArray, disableTypeArray];
 }
@@ -76,7 +78,7 @@
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",newsType, newsCurrId, getType, ts, @"quanjijia222222"]];
     
-    urlString = [NSString stringWithFormat:@"%@?newsType=%@&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@", urlString, newsType, newsCurrId, getType, ts, checkSign];
+    urlString = [NSString stringWithFormat:@"%@?newsType=%@&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@", urlString, newsType, newsCurrId, getType, ts, checkSign, ShowType];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     //设置请求返回的数据类型为默认类型（NSData类型)
@@ -91,6 +93,11 @@
             
             [self setCycleScrollView];
             [self initPageController];
+            
+                //隐藏infoLabel
+            if (self.infoLabel.isHidden == NO) {
+                self.infoLabel.hidden = YES;
+            }
         }
         
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
@@ -99,28 +106,30 @@
 
 - (NSString *)getNewstype{
     NSString *newsType = @"";
-    
+        //根据当前button的下标来转换type
     if (self.currentSelectIndex == 0) {
         newsType = @"All";
     }else if (self.currentSelectIndex == 1) {
-        newsType = @"Boxing";
-    }else if (self.currentSelectIndex == 2) {
-        newsType = @"KickBoxing_Sanda";
-    }else if (self.currentSelectIndex == 3) {
         newsType = @"MMA";
-    }else if (self.currentSelectIndex == 4) {
+    }else if (self.currentSelectIndex == 2) {
         newsType = @"ThaiBoxing";
+    }else if (self.currentSelectIndex == 3) {
+        newsType = @"Wrestling";
+    }else if (self.currentSelectIndex == 4) {
+        newsType = @"FemaleWrestling";
     }else if (self.currentSelectIndex == 5) {
-        newsType = @"Taekwondo";
+        newsType = @"ThaiBoxing";
     }else if (self.currentSelectIndex == 6) {
-        newsType = @"Judo";
+        newsType = @"Taekwondo";
     }else if (self.currentSelectIndex == 7) {
-        newsType = @"Karate";
+        newsType = @"Judo";
     }else if (self.currentSelectIndex == 8) {
-        newsType = @"JeetKuneDo";
+        newsType = @"Sumo";
     }else if (self.currentSelectIndex == 9) {
+        //暂无
         newsType = @"Wrestling";
     }else if (self.currentSelectIndex == 10) {
+        //暂无
         newsType = @"Sumo";
     }
     return newsType;
@@ -136,7 +145,7 @@
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",newsType, newsCurrId, getType, ts, @"quanjijia222222"]];
     
-    urlString = [NSString stringWithFormat:@"%@?newsType=%@&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@", urlString, newsType, newsCurrId, getType, ts, checkSign];
+    urlString = [NSString stringWithFormat:@"%@?newsType=%@&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@", urlString, newsType, newsCurrId, getType, ts, checkSign, ShowType];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     //设置请求返回的数据类型为默认类型（NSData类型)
@@ -180,6 +189,10 @@
             [self.tableViewController.tableView footerEndRefreshing];
             
             [self.tableViewController.tableView reloadData];
+                //隐藏infoLabel
+            if (self.infoLabel.isHidden == NO) {
+                self.infoLabel.hidden = YES;
+            }
         }else if([status isEqualToString:@"error"]){
             NSLog(@"message : %@", responseDic[@"message"]);
             
@@ -239,9 +252,6 @@
 //加载分类导航的scrollView
 - (void)initNewsTypeScrollView
 {
-
-//    NSArray *titles = @[@"全部",@"拳击",@"自由搏击", @"综合格斗",@"泰拳", @"跆拳道", @"柔道", @"空手道", @"截拳道", @"摔跤", @"相扑"];
-
      NSArray *titles = self.typeArray[0];
     float curContentWidth = 0;
     for(UIView *view in [_currentScrollView subviews]){
@@ -333,6 +343,7 @@
         //发请求的方法区域
         NSLog(@"触发下拉刷新headerView");
         [sself getDataWithGetType:@"new" andCurrId:@"-1"];
+        [sself getCycleData];
 
     }];
     //设置上拉刷新
@@ -345,6 +356,7 @@
         }
         
         [sself getDataWithGetType:@"old" andCurrId:currId];
+        [sself getCycleData];
     }];
 }
 
@@ -476,19 +488,15 @@
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
 //    NSLog(@"---点击了第%ld张图片", (long)index);
-//    FTNewsDetailViewController *newsDetailVC = [FTNewsDetailViewController new];
-//    newsDetailVC.urlString = self.cycleDataSourceArray[index][@"url"];
-//        newsDetailVC.newsTitle = self.cycleDataSourceArray[index][@"title"];
     
     FTNewsDetail2ViewController *newsDetailViewController = [FTNewsDetail2ViewController new];
-//    testViewController.urlString = self.cycleDataSourceArray[index][@"url"];
-//    testViewController.newsTitle = self.cycleDataSourceArray[index][@"title"];
+
     //获取对应的bean，传递给下个vc
     NSDictionary *newsDic = self.cycleDataSourceArray[index];
     FTNewsBean *bean = [FTNewsBean new];
     [bean setValuesWithDic:newsDic];
     
-    newsDetailViewController.bean = bean;
+    newsDetailViewController.newsBean = bean;
     
     [self.navigationController pushViewController:newsDetailViewController animated:YES];
 }
@@ -496,9 +504,6 @@
 - (void)fttableView:(FTTableViewController *)tableView didSelectWithIndex:(NSIndexPath *)indexPath{
 //    NSLog(@"第%ld个cell被点击了。", indexPath.row);
     if (self.tableViewDataSourceArray) {
-//        FTNewsDetailViewController *newsDetailVC = [FTNewsDetailViewController new];
-//        newsDetailVC.urlString = tableView.sourceArray[indexPath.row][@"url"];
-//        newsDetailVC.newsTitle = tableView.sourceArray[indexPath.row][@"title"];
         
         FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
             //获取对应的bean，传递给下个vc
@@ -506,10 +511,8 @@
         FTNewsBean *bean = [FTNewsBean new];
         [bean setValuesWithDic:newsDic];
         
-        newsDetailVC.bean = bean;
-        
-//        [self.navigationController pushViewController:newsDetailVC animated:YES];
-//        [self.tabBarController.navigationController pushViewController:newsDetailVC animated:YES];
+        newsDetailVC.newsBean = bean;
+
         [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
     }
 }

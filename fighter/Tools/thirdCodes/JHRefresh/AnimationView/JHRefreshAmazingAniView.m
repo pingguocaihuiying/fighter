@@ -17,7 +17,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        _aniImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:JHRefreshSrcName(@"dropdown_anim__0001.png")]];
+        _aniImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:JHRefreshSrcName(@"上拉下拉小loading")]];
         _aniImgView.frame = CGRectMake(0, 0, 50, 50);
         _aniImgView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin;
         [self addSubview:_aniImgView];
@@ -65,9 +65,9 @@
     if(!_aniImgView.animationImages)
     {
         _aniImgView.animationImages = [NSArray arrayWithObjects:
-                                       [UIImage imageNamed:JHRefreshSrcName(@"dropdown_loading_01.png")],
-                                       [UIImage imageNamed:JHRefreshSrcName(@"dropdown_loading_02.png")],
-                                       [UIImage imageNamed:JHRefreshSrcName(@"dropdown_loading_03.png")],
+                                       [UIImage imageNamed:JHRefreshSrcName(@"上拉下拉小loading")],
+                                       [UIImage imageNamed:JHRefreshSrcName(@"上拉下拉小loading")],
+                                       [UIImage imageNamed:JHRefreshSrcName(@"上拉下拉小loading")],
                                        nil];
         _aniImgView.animationDuration = 0.6;
         _aniImgView.animationRepeatCount = 0;

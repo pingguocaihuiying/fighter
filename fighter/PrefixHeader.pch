@@ -10,7 +10,11 @@
 #define PrefixHeader_pch
 
 //定义一些颜色
+    //主要文字颜色
 #define Main_Text_Color [UIColor colorWithHex:0x828287]
+    //次要文本颜色
+#define Secondary_Text_Color [UIColor colorWithHex:0x828282]
+
 #define Bar_Item_Title_Color [UIColor colorWithRed:125 / 255.0 green:125 / 255.0  blue:129 / 255.0 alpha:1]
 //#define Bar_Item_Select_Title_Color [UIColor colorWithRed:199 / 29.0 green:39 / 255.0  blue:129 / 255.0 alpha:1]
 #define Bar_Item_Select_Title_Color [UIColor redColor]
@@ -20,6 +24,12 @@
 #import "MD5.h"
 #import "ZJModelTool.h"
 #import "UIImageView+WebCache.h"
+#import "AFNetworking.h"
+
+//导入配置信息类
+#import "FTNetConfig.h"
+#import "FTUserConfig.h"
+#import "FTConfig.h"
 
 //导入一些常用类
 #import "FTNewsBean.h"
@@ -27,5 +37,17 @@
 //defin一些常量
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+
+//定义UserDefaults的一些常量
+//已登陆的用户信息
+#define LoginUser @"loginUser"
+
+//微信相关
+#define WX_BASE_URL @"https://api.weixin.qq.com/sns"
+#define WX_App_ID @"wxe69b91d3503144ca"
+#define WX_App_Secret @"cadaab54424da8be313935d91f8fbbf4"
+#define WXLoginSecret_Key @"quanjijia123456"
+
+#define WXLoginResultNoti @"WXLoginResutlNoti"
 
 #endif /* PrefixHeader_pch */

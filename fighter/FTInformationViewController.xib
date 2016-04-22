@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="currentScrollView" destination="tIR-iR-zfc" id="dQ6-OX-9zZ"/>
                 <outlet property="currentView" destination="nkd-pB-8Hu" id="R1h-gp-6b9"/>
+                <outlet property="infoLabel" destination="Ge9-0f-sr1" id="O4y-Pu-7ad"/>
                 <outlet property="messageButton" destination="Teb-vS-iKf" id="Vk5-d4-cev"/>
                 <outlet property="searchButton" destination="529-d9-Laz" id="fZP-Lf-2dS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -28,7 +29,7 @@
                     <state key="normal" backgroundImage="头像-空"/>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="格斗家" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Guq-2c-nxL">
-                    <rect key="frame" x="25" y="28" width="55" height="18"/>
+                    <rect key="frame" x="16" y="28" width="55" height="18"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="55" id="Cy6-gn-4ZT"/>
                         <constraint firstAttribute="height" constant="18" id="t7V-bX-bdp"/>
@@ -38,7 +39,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gjl-5p-Kdz" userLabel="分隔点">
-                    <rect key="frame" x="88" y="34" width="5" height="5"/>
+                    <rect key="frame" x="79" y="34" width="5" height="5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="5" id="44y-rB-NCG"/>
@@ -51,7 +52,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="拳讯" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTZ-LA-h94">
-                    <rect key="frame" x="101" y="27" width="42" height="21"/>
+                    <rect key="frame" x="92" y="27" width="42" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="K0P-l3-Yzv"/>
                         <constraint firstAttribute="width" constant="42" id="Po7-KR-zHv"/>
@@ -97,7 +98,19 @@
                 </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nkd-pB-8Hu">
                     <rect key="frame" x="0.0" y="101" width="320" height="467"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="请检查网络" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ge9-0f-sr1" userLabel="InfoLabel">
+                            <rect key="frame" x="126" y="223" width="68" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="Ge9-0f-sr1" firstAttribute="centerY" secondItem="nkd-pB-8Hu" secondAttribute="centerY" id="cBv-pc-7hR"/>
+                        <constraint firstItem="Ge9-0f-sr1" firstAttribute="centerX" secondItem="nkd-pB-8Hu" secondAttribute="centerX" id="gFy-qe-tvJ"/>
+                    </constraints>
                 </view>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NH9-q9-RKA">
                     <rect key="frame" x="288" y="69" width="24" height="24"/>
@@ -116,7 +129,7 @@
                 <constraint firstAttribute="trailing" secondItem="Teb-vS-iKf" secondAttribute="trailing" constant="15" id="1RE-0p-lt7"/>
                 <constraint firstItem="PTZ-LA-h94" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="27" id="1p1-7L-gxI"/>
                 <constraint firstItem="529-d9-Laz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="25" id="4Es-co-fne"/>
-                <constraint firstItem="Guq-2c-nxL" firstAttribute="leading" secondItem="VeT-pB-44g" secondAttribute="trailing" constant="-24" id="6E7-Mz-JQs"/>
+                <constraint firstItem="Guq-2c-nxL" firstAttribute="leading" secondItem="VeT-pB-44g" secondAttribute="trailing" constant="-33" id="6E7-Mz-JQs"/>
                 <constraint firstItem="nkd-pB-8Hu" firstAttribute="top" secondItem="tIR-iR-zfc" secondAttribute="bottom" id="7fQ-CO-Knp"/>
                 <constraint firstAttribute="trailing" secondItem="nkd-pB-8Hu" secondAttribute="trailing" id="DZ5-uM-Tig"/>
                 <constraint firstItem="Gjl-5p-Kdz" firstAttribute="leading" secondItem="Guq-2c-nxL" secondAttribute="trailing" constant="8" id="Hcc-Tz-32t"/>

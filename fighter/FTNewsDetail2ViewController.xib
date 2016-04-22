@@ -8,8 +8,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTNewsDetail2ViewController">
             <connections>
                 <outlet property="bgView" destination="qns-6y-bLX" id="cM3-3n-z0I"/>
+                <outlet property="commentLabel" destination="IH5-RI-Pm8" id="ndQ-4j-i60"/>
                 <outlet property="thumbsUpButton" destination="a1r-3T-vph" id="nOW-99-VvB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="voteView" destination="uXf-a2-wlj" id="fVC-mW-ZhE"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -31,7 +33,7 @@
                                 <action selector="commenButtonClicked:" destination="-1" eventType="touchUpInside" id="ov0-Vh-M8o"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a1r-3T-vph" userLabel="赞">
+                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a1r-3T-vph" userLabel="赞">
                             <rect key="frame" x="226" y="12" width="24" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="24" id="rHc-XQ-6Cy"/>
@@ -42,6 +44,10 @@
                                 <action selector="thumbButtonClicked:" destination="-1" eventType="touchUpInside" id="YUZ-rT-ZV7"/>
                             </connections>
                         </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uXf-a2-wlj" userLabel="voteView">
+                            <rect key="frame" x="185" y="11" width="126" height="30"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我要评论" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IH5-RI-Pm8">
                             <rect key="frame" x="60" y="16" width="80" height="18"/>
                             <constraints>
@@ -69,8 +75,12 @@
                         <constraint firstItem="pQ7-Bi-DfZ" firstAttribute="centerX" secondItem="X4w-e8-K12" secondAttribute="centerX" id="Q7Z-Kj-ztj"/>
                         <constraint firstAttribute="bottom" secondItem="ERH-qn-H0K" secondAttribute="bottom" constant="13" id="RRG-ge-mci"/>
                         <constraint firstAttribute="height" constant="49" id="UIt-PP-J43"/>
+                        <constraint firstAttribute="bottom" secondItem="uXf-a2-wlj" secondAttribute="bottom" constant="8" id="hVD-V7-adv"/>
                         <constraint firstItem="pQ7-Bi-DfZ" firstAttribute="centerY" secondItem="X4w-e8-K12" secondAttribute="centerY" id="jI6-dS-We2"/>
+                        <constraint firstItem="uXf-a2-wlj" firstAttribute="leading" secondItem="pQ7-Bi-DfZ" secondAttribute="trailing" constant="19" id="k44-Dz-2XE"/>
                         <constraint firstItem="IH5-RI-Pm8" firstAttribute="leading" secondItem="ERH-qn-H0K" secondAttribute="trailing" constant="8" id="sOo-Mw-cfE"/>
+                        <constraint firstAttribute="trailing" secondItem="uXf-a2-wlj" secondAttribute="trailing" constant="9" id="tE4-4t-XEe"/>
+                        <constraint firstItem="uXf-a2-wlj" firstAttribute="top" secondItem="X4w-e8-K12" secondAttribute="top" constant="11" id="uiT-8M-AgF"/>
                     </constraints>
                 </view>
                 <view hidden="YES" alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qns-6y-bLX" userLabel="bgView">

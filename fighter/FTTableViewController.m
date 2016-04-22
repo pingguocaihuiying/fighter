@@ -138,7 +138,8 @@
             return 163;
         }
     }
-    return 119;
+//    return 119;
+        return 146 ;//一张小图的cell，图片等比例放大了1.5倍
 }
 
 - (void)tableView:(FTTableViewController *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

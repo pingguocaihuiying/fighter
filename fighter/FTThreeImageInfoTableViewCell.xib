@@ -23,7 +23,7 @@
                             <constraint firstAttribute="width" constant="22" id="d4A-IC-xey"/>
                             <constraint firstAttribute="height" constant="22" id="ibi-cq-NDo"/>
                         </constraints>
-                        <state key="normal" backgroundImage="评"/>
+                        <state key="normal" backgroundImage="评-改"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="来源：俺家住楼房" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5E-sv-2je">
                         <rect key="frame" x="19" y="127" width="96" height="12"/>
@@ -35,11 +35,11 @@
                         <color key="textColor" red="0.31372549020000001" green="0.31372549020000001" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="格斗标签-拳击" translatesAutoresizingMaskIntoConstraints="NO" id="Q0h-mR-9xl">
-                        <rect key="frame" x="320" y="127" width="48" height="14"/>
+                    <imageView userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="格斗标签-拳击" translatesAutoresizingMaskIntoConstraints="NO" id="Q0h-mR-9xl">
+                        <rect key="frame" x="300" y="127" width="68" height="14"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="14" id="BIY-4A-Jyi"/>
-                            <constraint firstAttribute="width" constant="48" id="uix-DL-LME"/>
+                            <constraint firstAttribute="width" constant="68" id="uix-DL-LME"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="丹-亨德森合同即将打满，期待继续留在UFC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HxR-ng-cIe">
@@ -63,7 +63,7 @@
                             <constraint firstAttribute="height" constant="22" id="bmJ-kF-UNK"/>
                             <constraint firstAttribute="width" constant="22" id="g61-yG-Igf"/>
                         </constraints>
-                        <state key="normal" backgroundImage="赞"/>
+                        <state key="normal" backgroundImage="赞-改"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(215)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="liG-wE-bZH">
                         <rect key="frame" x="210" y="123" width="25" height="21"/>
@@ -95,7 +95,7 @@
                         <color key="textColor" red="0.50980392159999999" green="0.50980392159999999" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JXK-OJ-kbN">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JXK-OJ-kbN">
                         <rect key="frame" x="139" y="59" width="96" height="54"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -103,7 +103,7 @@
                             <constraint firstAttribute="width" constant="96" id="haT-A1-bc0"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Uxs-gm-rsh">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Uxs-gm-rsh">
                         <rect key="frame" x="260" y="59" width="96" height="54"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -111,7 +111,7 @@
                             <constraint firstAttribute="height" constant="54" id="hOn-Ld-V1k"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="H7h-OD-6dS">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="H7h-OD-6dS">
                         <rect key="frame" x="19" y="59" width="96" height="54"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -175,8 +175,8 @@
     </objects>
     <resources>
         <image name="格斗标签-拳击" width="48" height="14"/>
-        <image name="评" width="22" height="22"/>
-        <image name="赞" width="22" height="22"/>
+        <image name="评-改" width="22" height="22"/>
+        <image name="赞-改" width="22" height="22"/>
         <image name="金属边框-改进ios" width="134" height="134"/>
     </resources>
 </document>

@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *currentScrollView;
 @property (weak, nonatomic) IBOutlet UIView *currentView;
 //@property (weak, nonatomic) IBOutlet UIScrollView *cycleScrollView;
+@property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 
 
 @end

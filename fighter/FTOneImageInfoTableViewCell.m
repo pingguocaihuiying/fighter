@@ -26,6 +26,10 @@
 }
 
 - (void)setWithBean:(FTNewsBean *)bean{//根据bean设置cell的显示内容
+    
+    //设置来源标签的颜色
+    self.fromLabel.textColor = Secondary_Text_Color;
+    
     self.fromLabel.text = [NSString stringWithFormat:@"来源：%@", bean.author];
     NSString *newsTime = bean.newsTime;
     newsTime = [newsTime substringToIndex:newsTime.length - 3];
@@ -34,7 +38,8 @@
     NSString *timeString = [self fixStringForDate:date];
     self.timeLabel.text = timeString;
     self.myTitleLabel.text = bean.title;
-    [self.myImageView sd_setImageWithURL:[NSURL URLWithString:bean.img_small_one]];
+    [self.myImageView sd_setImageWithURL:[NSURL URLWithString:bean.img_small_one] placeholderImage:[UIImage imageNamed:@"空图标小"]];
+    
     
         //设置评论数、点赞数
     NSString *commentCount = [NSString stringWithFormat:@"%@", bean.commentCount];
@@ -43,11 +48,25 @@
     self.numOfthumbLabel.text = voteCount;
 
     //根据newsType去设置类型图片
-//    if ([bean.newsType isEqualToString:@"Sumo"]) {
-//        self.newsTypeImageView.image = [UIImage imageNamed:@"KickBoxing_Sanda"];
-//    }
+    if ([bean.newsType isEqualToString:@"Boxing"]) {
+        self.newsTypeImageView.image = [UIImage imageNamed:@"格斗标签-拳击"];
+    }else if ([bean.newsType isEqualToString:@"MMA"]) {
+        self.newsTypeImageView.image = [UIImage imageNamed:@"格斗标签-综合格斗"];
+    }else if ([bean.newsType isEqualToString:@"ThaiBoxing"]) {
+        self.newsTypeImageView.image = [UIImage imageNamed:@"格斗标签-泰拳"];
+    }else if ([bean.newsType isEqualToString:@"Taekwondo"]) {
+        self.newsTypeImageView.image = [UIImage imageNamed:@"格斗标签-跆拳道"];
+    }else if ([bean.newsType isEqualToString:@"Judo"]) {
+        self.newsTypeImageView.image = [UIImage imageNamed:@"格斗标签-柔道"];
+    }else if ([bean.newsType isEqualToString:@"Wrestling"]) {
+        self.newsTypeImageView.image = [UIImage imageNamed:@"格斗标签-摔跤"];
+    }else if ([bean.newsType isEqualToString:@"Sumo"]) {
+        self.newsTypeImageView.image = [UIImage imageNamed:@"格斗标签-相扑"];
+    }else if ([bean.newsType isEqualToString:@"FemaleWrestling"]) {
+        self.newsTypeImageView.image = [UIImage imageNamed:@"格斗标签-女子格斗"];
+    }
     
-//    self.imageView.contentMode = UIViewContentModeRight;
+
     
 }
 - (NSString *)fixStringForDate:(NSDate *)date

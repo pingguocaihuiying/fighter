@@ -42,7 +42,7 @@
                         <color key="textColor" red="0.31372549020000001" green="0.31372549020000001" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JCT-2D-e87">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JCT-2D-e87">
                         <rect key="frame" x="19" y="59" width="340" height="112"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -67,10 +67,10 @@
                         <color key="textColor" red="0.31372549020000001" green="0.31372549020000001" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="格斗标签-拳击" translatesAutoresizingMaskIntoConstraints="NO" id="uiZ-fX-lMg">
-                        <rect key="frame" x="323" y="182" width="48" height="14"/>
+                    <imageView userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="格斗标签-拳击" translatesAutoresizingMaskIntoConstraints="NO" id="uiZ-fX-lMg">
+                        <rect key="frame" x="303" y="182" width="68" height="14"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="48" id="lZp-xZ-Pma"/>
+                            <constraint firstAttribute="width" constant="68" id="lZp-xZ-Pma"/>
                             <constraint firstAttribute="height" constant="14" id="xUK-Wj-aCO"/>
                         </constraints>
                     </imageView>
@@ -100,7 +100,7 @@
                             <constraint firstAttribute="height" constant="22" id="68j-Ui-Udp"/>
                             <constraint firstAttribute="width" constant="22" id="EdF-eg-mVw"/>
                         </constraints>
-                        <state key="normal" backgroundImage="评"/>
+                        <state key="normal" backgroundImage="评-改"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tVT-ev-0zZ" userLabel="赞">
                         <rect key="frame" x="184" y="178" width="22" height="22"/>
@@ -108,7 +108,7 @@
                             <constraint firstAttribute="width" constant="22" id="Nqj-vW-t5s"/>
                             <constraint firstAttribute="height" constant="22" id="lK0-Xs-2YH"/>
                         </constraints>
-                        <state key="normal" backgroundImage="赞"/>
+                        <state key="normal" backgroundImage="赞-改"/>
                     </button>
                 </subviews>
                 <constraints>
@@ -161,8 +161,8 @@
     </objects>
     <resources>
         <image name="格斗标签-拳击" width="48" height="14"/>
-        <image name="评" width="22" height="22"/>
-        <image name="赞" width="22" height="22"/>
+        <image name="评-改" width="22" height="22"/>
+        <image name="赞-改" width="22" height="22"/>
         <image name="金属边框-改进ios" width="134" height="134"/>
     </resources>
 </document>
