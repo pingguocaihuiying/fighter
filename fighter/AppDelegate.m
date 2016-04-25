@@ -94,7 +94,7 @@
         }];
     }
 }
-
+//test
 
 - (void)getWechatUserInfoWithToken:(NSString *)token andOpenId:(NSString *)openId{
     NSString *stringURL = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@", token, openId];
