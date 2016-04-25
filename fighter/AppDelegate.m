@@ -118,7 +118,7 @@
                               @"unionId" : unionId,
                               @"timestamp" : timestampString,
                               @"imei" : imei,
-                              @"username" : username,
+                              @"username" : [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
                               @"keyToken" : keyTokenMD5,
                               @"city" : province};
         

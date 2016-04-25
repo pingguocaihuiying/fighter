@@ -78,45 +78,54 @@
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     //获取网络请求地址url
-//    NSString *urlString = [FTNetConfig host:Domain path:CommentURL];
-//    NSString *userId = user.olduserid;
-//    NSString *objId = [NSString stringWithFormat:@"%@", _newsBean.newsId];
-//    NSString *loginToken = user.token;
-//    
-//    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-//    NSString *comment = self.textView.text;
-//    
-//    NSString *tableName = @"c-news";
-    
     NSString *urlString = [FTNetConfig host:Domain path:CommentURL];
-    NSString *userId = @"ba4a0cc5617540a28c5710a1bf6a6470";
-    NSString *objId = @"3";
-    NSString *loginToken = @"bb361143a18045df9674ae10f2b23dc9";
+    NSString *userId = user.olduserid;
+    NSString *objId = [NSString stringWithFormat:@"%@", _newsBean.newsId];
+    NSString *loginToken = user.token;
     
-    NSString *ts = @"1461305381716";
-    NSString *comment = @"评论简介简介空间看看看内丹固定";
+    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
+    NSString *comment = self.textView.text;
     
     NSString *tableName = @"c-news";
+    
+    
+//    NSString *urlString = [FTNetConfig host:Domain path:CommentURL];
+//    NSString *userId = @"ba4a0cc5617540a28c5710a1bf6a6470";
+//    NSString *objId = @"3";
+//    NSString *loginToken = @"bb361143a18045df9674ae10f2b23dc9";
+//    
+//    NSString *ts = @"1461305381716";
+//    NSString *comment = @"评论简介简介空间看看看内丹固定";
+//    
+//    NSString *tableName = @"c-news";
     
     NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@",comment, loginToken, objId, tableName, ts, userId, @"gedoujia12555521254"];
     
     checkSign = [MD5 md5:checkSign];
     NSLog(@"checkSign : %@", checkSign);
     comment = [comment stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&comment=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, comment, tableName];
+//    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&comment=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, comment, tableName];
     NSLog(@"评论url：%@", urlString);
     
     //创建AAFNetWorKing管理者
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    NSDictionary *dic = @{@"userId" : userId,
+                          @"objId" : objId,
+                          @"loginToken" : loginToken,
+                          @"ts" : ts,
+                          @"checkSign" : checkSign,
+                          @"comment" : comment,
+                          @"tableName" : tableName
+                          };
+    [manager POST:urlString parameters:dic success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
 
         if ([responseDic[@"status"] isEqualToString:@"success"]) {
             NSLog(@"评论成功");
+            [self popVC];
             [self.delegate commentSuccess];
+            
         }else{
             NSLog(@"评论失败");
                     NSLog(@"status : %@, message : %@", responseDic[@"status"], responseDic[@"message"]);

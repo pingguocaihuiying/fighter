@@ -11,7 +11,7 @@
 #import "UMSocial.h"
 #import "WXApi.h"
 #import "FTUserBean.h"
-
+#import "MBProgressHUD.h"
 
 @interface FTNewsDetail2ViewController ()<UIWebViewDelegate, UMSocialUIDelegate, CommentSuccessDelegate>
 {
@@ -162,6 +162,8 @@
             
         }else{
             NSLog(@"微信没有安装");
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//            [hud hideAnimated:YES];
         }
     }else{
         [self pushToCommentVC];
@@ -197,11 +199,6 @@
 - (IBAction)thumbButtonClicked:(id)sender {
     self.hasVote = !self.hasVote;
     [self updateVoteImageView];
-    if (self.hasVote) {
-        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"点赞pre"] forState:UIControlStateNormal];
-    }else{
-        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateNormal];
-    }
     self.voteView.userInteractionEnabled = NO;
     [self uploadVoteStatusToServer];
 }

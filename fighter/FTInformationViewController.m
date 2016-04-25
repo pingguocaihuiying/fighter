@@ -112,7 +112,7 @@
     }else if (self.currentSelectIndex == 1) {
         newsType = @"MMA";
     }else if (self.currentSelectIndex == 2) {
-        newsType = @"ThaiBoxing";
+        newsType = @"Boxing";
     }else if (self.currentSelectIndex == 3) {
         newsType = @"Wrestling";
     }else if (self.currentSelectIndex == 4) {
@@ -343,7 +343,10 @@
         //发请求的方法区域
         NSLog(@"触发下拉刷新headerView");
         [sself getDataWithGetType:@"new" andCurrId:@"-1"];
-        [sself getCycleData];
+        if (self.currentSelectIndex == 0) {//如果是“全部”标签，再刷新轮播图
+            [sself getCycleData];
+        }
+        
 
     }];
     //设置上拉刷新
@@ -356,7 +359,6 @@
         }
         
         [sself getDataWithGetType:@"old" andCurrId:currId];
-        [sself getCycleData];
     }];
 }
 

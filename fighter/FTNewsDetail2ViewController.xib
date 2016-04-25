@@ -28,7 +28,7 @@
                                 <constraint firstAttribute="height" constant="24" id="CZK-uv-q9s"/>
                                 <constraint firstAttribute="width" constant="24" id="zE8-xa-4xc"/>
                             </constraints>
-                            <state key="normal" backgroundImage="评"/>
+                            <state key="normal" backgroundImage="评论"/>
                             <connections>
                                 <action selector="commenButtonClicked:" destination="-1" eventType="touchUpInside" id="ov0-Vh-M8o"/>
                             </connections>
@@ -150,7 +150,7 @@
     <resources>
         <image name="斜线分割" width="12" height="24"/>
         <image name="点赞" width="24" height="24"/>
-        <image name="评" width="22" height="22"/>
+        <image name="评论" width="24" height="24"/>
         <image name="金属边框-改进ios" width="134" height="134"/>
     </resources>
 </document>
