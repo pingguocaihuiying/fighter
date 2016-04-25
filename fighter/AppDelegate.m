@@ -94,7 +94,7 @@
         }];
     }
 }
-//test22233
+
 
 - (void)getWechatUserInfoWithToken:(NSString *)token andOpenId:(NSString *)openId{
     NSString *stringURL = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@", token, openId];
@@ -119,13 +119,14 @@
                               @"unionId" : unionId,
                               @"timestamp" : timestampString,
                               @"imei" : imei,
-                              @"username" : [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+                              @"username" : username,
                               @"keyToken" : keyTokenMD5,
                               @"city" : province};
         
         NSString *wxLoginURLString = [FTNetConfig host:Domain path:UserWXLoginURL];
             NSLog(@"wxLoginURLString : %@", wxLoginURLString);
         RBRequestOperationManager *manager = [RBRequestOperationManager manager];
+        
         [manager postToPath:wxLoginURLString params:dic success:^(NSDictionary *responseJson) {
             bool status = [responseJson[@"status"] boolValue];
             NSString *message = (NSString *)(NSDictionary *)responseJson[@"message"];
