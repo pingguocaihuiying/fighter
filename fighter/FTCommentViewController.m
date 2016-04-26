@@ -92,7 +92,7 @@
     FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:CommentURL];
-    urlString = @"http://10.11.1.117:8080/pugilist_admin/api/comment/add$UserComment.do";
+//    urlString = @"http://10.11.1.117:8080/pugilist_admin/api/comment/add$UserComment.do";
     NSString *userId = user.olduserid;
     NSString *objId = [NSString stringWithFormat:@"%@", _newsBean.newsId];
     NSString *loginToken = user.token;
@@ -158,12 +158,5 @@
         //        HUD = nil;
     }];
 }
-//屏蔽emoji表情输入
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString*)string{
-    NSLog(@"键盘：%@", [[UITextInputMode currentInputMode]primaryLanguage]);
-    if ([[[UITextInputMode currentInputMode]primaryLanguage] isEqualToString:@"emoji"]) {
-        return NO;
-    }
-    return YES;
-}
+
 @end
