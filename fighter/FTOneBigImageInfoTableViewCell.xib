@@ -93,6 +93,11 @@
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" red="0.50980392159999999" green="0.50980392159999999" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Vmm-rL-0uS"/>
+                            </mask>
+                        </variation>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zF2-zf-jVc" userLabel="评">
                         <rect key="frame" x="241" y="179" width="22" height="22"/>

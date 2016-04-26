@@ -31,16 +31,15 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //设置友盟相关的的
     [self setUMeng];
     //设置微信相关的
     [self setWeiXin];
     
-//    [self setRootViewController];
+    //    [self setRootViewController];
     [self setRootViewController2];
- 
+    
     return YES;
 }
 
@@ -59,7 +58,7 @@
     [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"2201505639"
                                               secret:@"cb1771445170f9c625224f6e1403ce48"
                                          RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
-
+    
 }
 
 - (void)setWeiXin{
@@ -86,7 +85,7 @@
         [manager GET:accessUrlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             NSDictionary *accessDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-//            NSLog(@"respinse dic : token : %@ openid : %@", accessDict[@"access_token"], accessDict[@"openid"]);
+            //            NSLog(@"respinse dic : token : %@ openid : %@", accessDict[@"access_token"], accessDict[@"openid"]);
             [self getWechatUserInfoWithToken:accessDict[@"access_token"] andOpenId:accessDict[@"openid"]];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -95,17 +94,13 @@
     }
 }
 
-
 - (void)getWechatUserInfoWithToken:(NSString *)token andOpenId:(NSString *)openId{
     NSString *stringURL = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@", token, openId];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-
     [manager GET:stringURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *userInfoDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        
-//        NSLog(@"openId : %@, unionId : %@", userInfoDic[@"openid"], userInfoDic[@"unionid"]);
         NSString *openId = userInfoDic[@"openid"];
         NSString *unionId = userInfoDic[@"unionid"];
         NSString *timestampString = [NSString stringWithFormat:@"%.0lf",[[NSDate date] timeIntervalSince1970]];
@@ -114,7 +109,7 @@
         NSString *keyToken = [NSString stringWithFormat:@"%@%@", WXLoginSecret_Key, timestampString];
         NSString *keyTokenMD5 = [MD5 md5:keyToken];
         NSString *province = userInfoDic[@"province"];
-        
+        username = [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *dic = @{@"openId" : openId,
                               @"unionId" : unionId,
                               @"timestamp" : timestampString,
@@ -124,39 +119,75 @@
                               @"city" : province};
         
         NSString *wxLoginURLString = [FTNetConfig host:Domain path:UserWXLoginURL];
-            NSLog(@"wxLoginURLString : %@", wxLoginURLString);
-        RBRequestOperationManager *manager = [RBRequestOperationManager manager];
-        
-        [manager postToPath:wxLoginURLString params:dic success:^(NSDictionary *responseJson) {
-            bool status = [responseJson[@"status"] boolValue];
-            NSString *message = (NSString *)(NSDictionary *)responseJson[@"message"];
-            if (status == false) {
-                NSLog(@"微信注册失败,message:%@", message);
-                
-                return ;
-            }
-            [ZJModelTool createModelWithDictionary:responseJson[@"data"][@"user"] modelName:nil];
-            NSLog(@"微信注册成功,message:%@", message);
-                //发送通知，告诉评论页面微信登录成功
+                wxLoginURLString = [NSString stringWithFormat:@"%@?openId=%@&unionId=%@&timestamp=%@&imei=%@&username=%@&keyToken=%@&city=%@", wxLoginURLString, openId, unionId, timestampString, imei, username, keyTokenMD5, province];
+        NSLog(@"wxLoginURLString : %@", wxLoginURLString);
+//        wxLoginURLString = @"www.baidu.com";
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        [manager GET:wxLoginURLString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
-            [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"SUCESS"];
+            NSDictionary *responseJson = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                bool status = [responseJson[@"status"] boolValue];
+                NSString *message = (NSString *)(NSDictionary *)responseJson[@"message"];
+                if (status == false) {
+                    NSLog(@"微信注册失败,message:%@", message);
+    
+                    return ;
+                }
+            NSLog(@"微信注册成功,message:%@", message);
+            
+
+
             NSDictionary *userDic = responseJson[@"data"][@"user"];
             FTUserBean *user = [FTUserBean new];
             [user setValuesForKeysWithDictionary:userDic];
-            
+
             NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
             [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
             [[NSUserDefaults standardUserDefaults]synchronize];
-        } dataError:^(NSString *errorCode, NSString *errorMessage) {
-            NSLog(@"errorMessage : %@", errorMessage);
+            //发送通知，告诉评论页面微信登录成功
+            [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"SUCESS"];
+
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"获取access_token时出错 = %@", error);
             //发送通知，告诉评论页面微信登录失败
             [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"ERROR"];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"error : %@", error);
         }];
         
+//        RBRequestOperationManager *manager = [RBRequestOperationManager manager];
+        
+//        [manager postToPath:wxLoginURLString params:dic success:^(NSDictionary *responseJson) {
+//            bool status = [responseJson[@"status"] boolValue];
+//            NSString *message = (NSString *)(NSDictionary *)responseJson[@"message"];
+//            if (status == false) {
+//                NSLog(@"微信注册失败,message:%@", message);
+//                
+//                return ;
+//            }
+//            [ZJModelTool createModelWithDictionary:responseJson[@"data"][@"user"] modelName:nil];
+//            NSLog(@"微信注册成功,message:%@", message);
+//            //发送通知，告诉评论页面微信登录成功
+//            
+//            
+//            NSDictionary *userDic = responseJson[@"data"][@"user"];
+//            FTUserBean *user = [FTUserBean new];
+//            [user setValuesForKeysWithDictionary:userDic];
+//            
+//            NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
+//            [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
+//            [[NSUserDefaults standardUserDefaults]synchronize];
+//            
+//            [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"SUCESS"];
+//        } dataError:^(NSString *errorCode, NSString *errorMessage) {
+//            NSLog(@"errorMessage : %@", errorMessage);
+//            //发送通知，告诉评论页面微信登录失败
+//            [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"ERROR"];
+//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//            NSLog(@"error : %@", error);
+//        }];
+        
         //微信登录成功后,发送通知给新闻详情页面，表示可以评论了
-
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"获取access_token时出错 = %@", error);
     }];
@@ -168,77 +199,76 @@
     if (result == FALSE) {
         
     }
-//    return result;
+    //    return result;
     [WXApi handleOpenURL:url delegate:self];
     return YES;
 }
 
 - (void)setRootViewController2{
     FTInformationViewController *infoVC = [FTInformationViewController new];
-//    FTBaseNavigationViewController *infoNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:infoVC];
+    //    FTBaseNavigationViewController *infoNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:infoVC];
     infoVC.tabBarItem.title = @"拳讯";
     
     [infoVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                   Bar_Item_Select_Title_Color, UITextAttributeTextColor,
-                                                   nil] forState:UIControlStateSelected];
+                                               Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                               nil] forState:UIControlStateSelected];
     infoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳讯"];
     infoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳讯pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     FTMatchViewController *matchVC = [FTMatchViewController new];
-//    FTBaseNavigationViewController *matchNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:matchVC];
+    //    FTBaseNavigationViewController *matchNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:matchVC];
     matchVC.tabBarItem.title = @"赛事";
     [matchVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                    Bar_Item_Select_Title_Color, UITextAttributeTextColor,
-                                                    nil] forState:UIControlStateSelected];
+                                                Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                nil] forState:UIControlStateSelected];
     
     
     matchVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-赛事"];
     matchVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-赛事pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     FTFightKingViewController *fightKingVC = [FTFightKingViewController new];
-//    FTBaseNavigationViewController *fightKingNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:fightKingVC];
+    //    FTBaseNavigationViewController *fightKingNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:fightKingVC];
     fightKingVC.tabBarItem.title = @"格斗王";
     [fightKingVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                        Bar_Item_Select_Title_Color, UITextAttributeTextColor,
-                                                        nil] forState:UIControlStateSelected];
+                                                    Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                    nil] forState:UIControlStateSelected];
     
     fightKingVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-格斗王"];
     fightKingVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-格斗王pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     FTCoachViewController *coachVC = [FTCoachViewController new];
-//    FTBaseNavigationViewController *coachNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:coachVC];
+    //    FTBaseNavigationViewController *coachNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:coachVC];
     coachVC.tabBarItem.title = @"教练";
     [coachVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                    Bar_Item_Select_Title_Color, UITextAttributeTextColor,
-                                                    nil] forState:UIControlStateSelected];
+                                                Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                nil] forState:UIControlStateSelected];
     
     coachVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-教练"];
     coachVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-教练pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     FTBoxingHallViewController *boxingHallVC = [FTBoxingHallViewController new];
-//    FTBaseNavigationViewController *boxingHallNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:boxingHallVC];
+    //    FTBaseNavigationViewController *boxingHallNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:boxingHallVC];
     boxingHallVC.tabBarItem.title = @"拳馆";
     [boxingHallVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                         Bar_Item_Select_Title_Color, UITextAttributeTextColor,
-                                                         nil] forState:UIControlStateSelected];
+                                                     Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                     nil] forState:UIControlStateSelected];
     
     boxingHallVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳馆"];
     boxingHallVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
 #pragma -mark 第一版不用tabbar，直接用拳讯作为rootVC
-//    
-//    //设置tabbar的属性
-//    FTBaseTabBarViewController *tabBartVC = [FTBaseTabBarViewController new];
-//
-//    tabBartVC.tabBar.barTintColor = [UIColor blackColor];
-//    tabBartVC.tabBar.translucent = NO;
-//    tabBartVC.viewControllers = @[infoVC, matchVC, fightKingVC, coachVC, boxingHallVC];
+    //
+    //    //设置tabbar的属性
+    //    FTBaseTabBarViewController *tabBartVC = [FTBaseTabBarViewController new];
+    //
+    //    tabBartVC.tabBar.barTintColor = [UIColor blackColor];
+    //    tabBartVC.tabBar.translucent = NO;
+    //    tabBartVC.viewControllers = @[infoVC, matchVC, fightKingVC, coachVC, boxingHallVC];
     
     FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:infoVC];
-//    self.window.rootViewController = navi;
+    //    self.window.rootViewController = navi;
     self.window.rootViewController = navi;
 }
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

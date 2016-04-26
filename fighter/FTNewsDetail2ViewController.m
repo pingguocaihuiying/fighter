@@ -32,12 +32,12 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-        //
+    
     self.navigationController.navigationBarHidden = NO;
 //    self.navigationController.tabBarController.tabBar.hidden = YES;
     
     //注册通知，接收微信登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pushToCommentVC) name:WXLoginResultNoti object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginSucess:) name:WXLoginResultNoti object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -148,7 +148,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)commenButtonClicked:(id)sender {
-    
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
@@ -161,9 +160,8 @@
             [WXApi sendReq:req];
             
         }else{
-            NSLog(@"微信没有安装");
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//            [hud hideAnimated:YES];
+            NSLog(@"目前只支持微信登录，请安装微信");
+            [self showHUDWithMessage:@"目前只支持微信登录，请安装微信"];
         }
     }else{
         [self pushToCommentVC];
@@ -197,10 +195,28 @@
 #pragma -mark 点赞按钮被点击
 
 - (IBAction)thumbButtonClicked:(id)sender {
-    self.hasVote = !self.hasVote;
-    [self updateVoteImageView];
-    self.voteView.userInteractionEnabled = NO;
-    [self uploadVoteStatusToServer];
+    
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    if (!localUser) {
+        NSLog(@"微信登录");
+        if ([WXApi isWXAppInstalled] ) {
+            SendAuthReq *req = [[SendAuthReq alloc] init];
+            req.scope = @"snsapi_userinfo";
+            req.state = @"fighter";
+            [WXApi sendReq:req];
+            
+        }else{
+            NSLog(@"目前只支持微信登录，请安装微信");
+            [self showHUDWithMessage:@"目前只支持微信登录，请安装微信"];
+        }
+    }else{
+        self.hasVote = !self.hasVote;
+        [self updateVoteImageView];
+        self.voteView.userInteractionEnabled = NO;
+        [self uploadVoteStatusToServer];
+    }
 }
 
 - (void)updateVoteImageView{
@@ -245,9 +261,10 @@
             int voteCount = [_newsBean.voteCount intValue];
             if (self.hasVote) {
                 voteCount++;
-                
             }else{
-                voteCount--;
+                if (voteCount > 0) {
+                    voteCount--;
+                }
             }
             _newsBean.voteCount = [NSString stringWithFormat:@"%d", voteCount];
             NSString *jsMethodString = [NSString stringWithFormat:@"updateLike(%d)", voteCount];
@@ -255,8 +272,6 @@
             [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
             
         }
-        
-        //success
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
         //failure
         self.voteView.userInteractionEnabled = YES;
@@ -280,6 +295,16 @@
     return outputStr;
 }
 
+- (void)wxLoginSucess:(NSNotification *)noti{
+    NSString *msg = [noti object];
+    if ([msg isEqualToString:@"SUCESS"]) {
+        [self showHUDWithMessage:@"微信登录成功，可以评论或点赞了"];
+    }else{
+        [self showHUDWithMessage:@"微信登录失败"];
+    }
+    
+}
+
 - (void)pushToCommentVC{
     
     FTCommentViewController *commentVC = [ FTCommentViewController new];
@@ -295,6 +320,19 @@
     NSLog(@"js method : %@", jsMethodString);
     _newsBean.commentCount = [NSString stringWithFormat:@"%d", commentCount];
     [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
+}
+- (void)showHUDWithMessage:(NSString *)message{
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:HUD];
+    HUD.labelText = message;
+    HUD.mode = MBProgressHUDModeCustomView;
+    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
+    [HUD showAnimated:YES whileExecutingBlock:^{
+        sleep(2);
+    } completionBlock:^{
+        [HUD removeFromSuperview];
+//        HUD = nil;
+    }];
 }
 
 @end

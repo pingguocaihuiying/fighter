@@ -10,8 +10,11 @@
 #import "AFNetworking.h"
 #import "FTNetConfig.h"
 #import "FTUserBean.h"
+#import "MBProgressHUD.h"
+#import "HUD.h"
+#import "NSString+EmojiFilter.h"
 
-@interface FTCommentViewController ()
+@interface FTCommentViewController ()<UITextViewDelegate>
 @property (nonnull, strong)UITextView *textView;
 @end
 
@@ -24,6 +27,8 @@
 }
 
 - (void)setSubViews{
+    //设置textView的代理
+    self.textView.delegate = self;
     [self setLeftAndRightButtons];
     [self setBgOfTextView];
 }
@@ -75,37 +80,31 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)commentButtonClicked{
+    NSString *comment = self.textView.text;
+    NSString *trimmedComment = [comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSLog(@"trimmedComment : %@",trimmedComment) ;
+    //如果评论内容过长或过短，给出提示
+    if (comment.length < 10 || comment.length > 100) {
+        [self showHUDWithMessage:@"评论内容需在10~100字之间" isPop:NO];
+        return;
+    }
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:CommentURL];
+    urlString = @"http://10.11.1.117:8080/pugilist_admin/api/comment/add$UserComment.do";
     NSString *userId = user.olduserid;
     NSString *objId = [NSString stringWithFormat:@"%@", _newsBean.newsId];
     NSString *loginToken = user.token;
-    
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *comment = self.textView.text;
-    
     NSString *tableName = @"c-news";
-    
-    
-//    NSString *urlString = [FTNetConfig host:Domain path:CommentURL];
-//    NSString *userId = @"ba4a0cc5617540a28c5710a1bf6a6470";
-//    NSString *objId = @"3";
-//    NSString *loginToken = @"bb361143a18045df9674ae10f2b23dc9";
-//    
-//    NSString *ts = @"1461305381716";
-//    NSString *comment = @"评论简介简介空间看看看内丹固定";
-//    
-//    NSString *tableName = @"c-news";
     
     NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@",comment, loginToken, objId, tableName, ts, userId, @"gedoujia12555521254"];
     
     checkSign = [MD5 md5:checkSign];
-    NSLog(@"checkSign : %@", checkSign);
     comment = [comment stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 //    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&comment=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, comment, tableName];
-    NSLog(@"评论url：%@", urlString);
+//    NSLog(@"评论url：%@", urlString);
     
     //创建AAFNetWorKing管理者
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -123,19 +122,48 @@
 
         if ([responseDic[@"status"] isEqualToString:@"success"]) {
             NSLog(@"评论成功");
-            [self popVC];
-            [self.delegate commentSuccess];
+            [self showHUDWithMessage:@"评论成功" isPop:YES];
+
             
         }else{
             NSLog(@"评论失败");
                     NSLog(@"status : %@, message : %@", responseDic[@"status"], responseDic[@"message"]);
+            NSString *failueMessage = [NSString stringWithFormat:@"评论失败，%@", responseDic[@"message"]];
+            [self showHUDWithMessage:failueMessage isPop:NO];
         }
         
         //success
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
         NSLog(@"评论失败，failure: %@", error);
+        [self showHUDWithMessage:@"评论失败，请检查网络" isPop:NO];
     }];
     //设置请求返回的数据类型为默认类型（NSData类型)
     
+}
+- (void)showHUDWithMessage:(NSString *)message isPop:(BOOL)isPop{
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:HUD];
+    HUD.labelText = message;
+    HUD.mode = MBProgressHUDModeCustomView;
+    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
+    [HUD showAnimated:YES whileExecutingBlock:^{
+        sleep(2);
+    } completionBlock:^{
+        [HUD removeFromSuperview];
+        if (isPop) {
+            [self popVC];
+            [self.delegate commentSuccess];
+        }
+        
+        //        HUD = nil;
+    }];
+}
+//屏蔽emoji表情输入
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString*)string{
+    NSLog(@"键盘：%@", [[UITextInputMode currentInputMode]primaryLanguage]);
+    if ([[[UITextInputMode currentInputMode]primaryLanguage] isEqualToString:@"emoji"]) {
+        return NO;
+    }
+    return YES;
 }
 @end
