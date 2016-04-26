@@ -83,7 +83,7 @@
     NSString *comment = self.textView.text;
     NSString *trimmedComment = [comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSLog(@"trimmedComment : %@",trimmedComment) ;
-    //如果评论内容过长或过短，给出提示
+    //如果评论内容过长或过短，给出提示 test git
     if (comment.length < 10 || comment.length > 100) {
         [self showHUDWithMessage:@"评论内容需在10~100字之间" isPop:NO];
         return;
