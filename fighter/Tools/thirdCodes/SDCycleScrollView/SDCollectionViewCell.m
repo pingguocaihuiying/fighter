@@ -80,6 +80,18 @@
     _titleLabel = titleLabel;
     _titleLabel.hidden = YES;
     [self.contentView addSubview:titleLabel];
+
+#pragma -mark 设置轮播图的遮罩层
+    
+            UIImageView *bgView;
+            bgView = [self.contentView viewWithTag:1111];
+            if (bgView == nil) {
+                bgView = [[UIImageView alloc]initWithFrame:self.contentView.bounds];
+                bgView.tag = 1111;
+                bgView.image = [UIImage imageNamed:@"头图暗影遮罩-ios"];
+                [self.contentView insertSubview:bgView belowSubview:_titleLabel];
+        }
+
 }
 
 - (void)setTitle:(NSString *)title
@@ -94,15 +106,11 @@
     [super layoutSubviews];
     
     _imageView.frame = self.bounds;
-    
-//    CGFloat titleLabelW = self.sd_width;
 
     CGFloat titleLabelH = _titleLabelHeight;
     CGFloat titleLabelX = 0;
     CGFloat titleLabelY = self.sd_height - titleLabelH;
-//    _titleLabel.frame = CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH);
     _titleLabel.frame = CGRectMake(25, 129, SCREEN_WIDTH - 25 * 2, 16);
-//    [_titleLabel.superview bringSubviewToFront:_titleLabel];
     _titleLabel.hidden = !_titleLabel.text;
     
 }

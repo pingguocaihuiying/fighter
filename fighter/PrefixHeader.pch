@@ -12,8 +12,8 @@
 //定义一些颜色
     //主要文字颜色
 #define Main_Text_Color [UIColor colorWithHex:0x828287]
-    //次要文本颜色
-#define Secondary_Text_Color [UIColor colorWithHex:0x828282]
+    //次要文本颜色  ABB6AF
+#define Secondary_Text_Color [UIColor colorWithHex:0xABB6AF]
 
 #define Bar_Item_Title_Color [UIColor colorWithRed:125 / 255.0 green:125 / 255.0  blue:129 / 255.0 alpha:1]
 //#define Bar_Item_Select_Title_Color [UIColor colorWithRed:199 / 29.0 green:39 / 255.0  blue:129 / 255.0 alpha:1]
