@@ -14,7 +14,7 @@
 #import "HUD.h"
 #import "NSString+EmojiFilter.h"
 
-@interface FTCommentViewController ()<UITextViewDelegate>
+@interface FTCommentViewController () <UITextViewDelegate>
 @property (nonnull, strong)UITextView *textView;
 @end
 
@@ -59,6 +59,7 @@
     _textView = [[UITextView alloc] initWithFrame:textViewFrame];
     _textView.backgroundColor = [UIColor clearColor];
     _textView.scrollEnabled = NO;
+    _textView.delegate = self;//设置代理
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(6, 64 + 14, SCREEN_WIDTH - 6 * 2,300)];
     
@@ -138,7 +139,6 @@
         [self showHUDWithMessage:@"评论失败，请检查网络" isPop:NO];
     }];
     //设置请求返回的数据类型为默认类型（NSData类型)
-    
 }
 - (void)showHUDWithMessage:(NSString *)message isPop:(BOOL)isPop{
     MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
@@ -157,6 +157,104 @@
         
         //        HUD = nil;
     }];
+}
+
+
+
+#pragma mark - UITextViewDelegate 
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+
+//    if ([[[UITextInputMode currentInputMode]primaryLanguage] isEqualToString:@"emoji"]) {
+//        return NO;
+//    }
+    //屏蔽系统表情
+    if ([[UIApplication sharedApplication] textInputMode].primaryLanguage == nil){
+        return NO;
+    }
+    
+    //屏蔽输入法表情
+    if (text.length > 0) {
+        
+        if ([self isContainsEmoji:text]) {
+            return NO;
+        }else {
+            return YES;
+        }
+        
+    }
+    return YES;
+}
+
+
+#pragma mark - private Method
+
+
+//判断string 是否包含输入法表情
+- (BOOL)isContainsEmoji:(NSString *)string {
+    
+    __block BOOL isEomji = NO;
+    
+    [string enumerateSubstringsInRange:NSMakeRange(0, [string length]) options:NSStringEnumerationByComposedCharacterSequences usingBlock:
+     
+     ^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+         
+         const unichar hs = [substring characterAtIndex:0];
+         
+         if (0xd800 <= hs && hs <= 0xdbff) {
+             
+             if (substring.length > 1) {
+                 
+                 const unichar ls = [substring characterAtIndex:1];
+                 
+                 const int uc = ((hs - 0xd800) * 0x400) + (ls - 0xdc00) + 0x10000;
+                 
+                 if (0x1d000 <= uc && uc <= 0x1f77f) {
+                     
+                     isEomji = YES;
+                     
+                 }
+                 
+             }
+             
+         } else if (substring.length > 1) {
+             
+             const unichar ls = [substring characterAtIndex:1];
+             
+             if (ls == 0x20e3) {
+                 
+                 isEomji = YES;
+                 
+             }
+             
+         } else {
+             
+             if (0x2100 <= hs && hs <= 0x27ff && hs != 0x263b) {
+                 
+                 isEomji = YES;
+                 
+             } else if (0x2B05 <= hs && hs <= 0x2b07) {
+                 
+                 isEomji = YES;
+                 
+             } else if (0x2934 <= hs && hs <= 0x2935) {
+                 
+                 isEomji = YES;
+                 
+             } else if (0x3297 <= hs && hs <= 0x3299) {
+                 
+                 isEomji = YES;
+                 
+             } else if (hs == 0xa9 || hs == 0xae || hs == 0x303d || hs == 0x3030 || hs == 0x2b55 || hs == 0x2b1c || hs == 0x2b1b || hs == 0x2b50|| hs == 0x231a ) {
+                 
+                 isEomji = YES;
+                 
+             }}
+         
+     }];
+    
+    return isEomji;
+    
 }
 
 @end
