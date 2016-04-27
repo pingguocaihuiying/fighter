@@ -42,21 +42,6 @@
                         <color key="textColor" red="0.31372549020000001" green="0.31372549020000001" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JCT-2D-e87">
-                        <rect key="frame" x="19" y="59" width="340" height="112"/>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="96" id="653-6c-xew"/>
-                            <constraint firstAttribute="height" constant="112" id="6HO-kK-1ke"/>
-                            <constraint firstAttribute="height" constant="54" id="9QO-m3-Djv"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="653-6c-xew"/>
-                                <exclude reference="9QO-m3-Djv"/>
-                            </mask>
-                        </variation>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="来源：俺家住楼房" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cu7-1c-VZh">
                         <rect key="frame" x="19" y="182" width="96" height="12"/>
                         <constraints>
@@ -115,6 +100,21 @@
                         </constraints>
                         <state key="normal" backgroundImage="赞-改"/>
                     </button>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="空图标大" translatesAutoresizingMaskIntoConstraints="NO" id="JCT-2D-e87">
+                        <rect key="frame" x="19" y="59" width="340" height="112"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="96" id="653-6c-xew"/>
+                            <constraint firstAttribute="height" constant="112" id="6HO-kK-1ke"/>
+                            <constraint firstAttribute="height" constant="54" id="9QO-m3-Djv"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="653-6c-xew"/>
+                                <exclude reference="9QO-m3-Djv"/>
+                            </mask>
+                        </variation>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="zF2-zf-jVc" secondAttribute="bottom" constant="16" id="2aJ-HV-U4T"/>
@@ -166,6 +166,7 @@
     </objects>
     <resources>
         <image name="格斗标签-拳击" width="48" height="14"/>
+        <image name="空图标大" width="120" height="36"/>
         <image name="评-改" width="22" height="22"/>
         <image name="赞-改" width="22" height="22"/>
         <image name="金属边框-改进ios" width="134" height="134"/>
