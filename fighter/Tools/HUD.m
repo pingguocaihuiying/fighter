@@ -11,16 +11,16 @@
 
 @implementation HUD
 + (void)showMessage:(NSString *)message inView:(UIView *)view{
-    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:view];
-    [view addSubview:HUD];
-    HUD.labelText = message;
-    HUD.mode = MBProgressHUDModeCustomView;
-    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:view];
+    [view addSubview:hud];
+    hud.labelText = message;
+    hud.mode = MBProgressHUDModeCustomView;
+    hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
     
-    [HUD showAnimated:YES whileExecutingBlock:^{
+    [hud showAnimated:YES whileExecutingBlock:^{
         sleep(2);
     } completionBlock:^{
-        [HUD removeFromSuperview];
+        [hud removeFromSuperview];
 //        self->hud = nil;
     }];
 

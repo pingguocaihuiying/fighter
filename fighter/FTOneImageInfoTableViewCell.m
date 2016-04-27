@@ -37,6 +37,7 @@
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
     NSString *timeString = [self fixStringForDate:date];
     self.timeLabel.text = timeString;
+    self.timeLabel.textColor = Secondary_Text_Color;
     self.myTitleLabel.text = bean.title;
     [self.myImageView sd_setImageWithURL:[NSURL URLWithString:bean.img_small_one] placeholderImage:[UIImage imageNamed:@"空图标小"]];
     
@@ -65,9 +66,6 @@
     }else if ([bean.newsType isEqualToString:@"FemaleWrestling"]) {
         self.newsTypeImageView.image = [UIImage imageNamed:@"格斗标签-女子格斗"];
     }
-    
-
-    
 }
 - (NSString *)fixStringForDate:(NSDate *)date
 {

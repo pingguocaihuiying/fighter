@@ -230,11 +230,11 @@
 
         }
     }
-      _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+      _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180) delegate:self placeholderImage:[UIImage imageNamed:@"空图标大"]];
     _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
 
 #pragma -mark -暂时隐藏轮播图的标题（没有给轮播图传title的值）
-//    _cycleScrollView.titlesGroup = titlesArray;
+    _cycleScrollView.titlesGroup = titlesArray;
     
     _cycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
     _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点pre"];
