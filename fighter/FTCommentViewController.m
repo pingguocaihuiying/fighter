@@ -140,6 +140,24 @@
     }];
     //设置请求返回的数据类型为默认类型（NSData类型)
 }
+- (void)showHUDWithMessage:(NSString *)message isPop:(BOOL)isPop{
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:HUD];
+    HUD.labelText = message;
+    HUD.mode = MBProgressHUDModeCustomView;
+    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
+    [HUD showAnimated:YES whileExecutingBlock:^{
+        sleep(2);
+    } completionBlock:^{
+        [HUD removeFromSuperview];
+        if (isPop) {
+            [self popVC];
+            [self.delegate commentSuccess];
+        }
+        
+        //        HUD = nil;
+    }];
+}
 
 
 
