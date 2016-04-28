@@ -23,6 +23,8 @@
 		3DC412171CD039D70030C229 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4120D1CD039D70030C229 /* ViewController+MASAdditions.m */; };
 		3DC4121D1CD060190030C229 /* FTDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4121B1CD060190030C229 /* FTDrawerViewController.m */; };
 		3DC4121E1CD060190030C229 /* FTDrawerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4121C1CD060190030C229 /* FTDrawerViewController.xib */; };
+		3DC412211CD0B94A0030C229 /* FTDrawerCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC412201CD0B94A0030C229 /* FTDrawerCollectionCell.m */; };
+		3DC412251CD0C3780030C229 /* NSString+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC412241CD0C3780030C229 /* NSString+Size.m */; };
 		E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6035EB61CC08D2800B10D36 /* FTNewsDetail2ViewController.m */; };
 		E6035EB91CC08D2800B10D36 /* FTNewsDetail2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6035EB71CC08D2800B10D36 /* FTNewsDetail2ViewController.xib */; };
 		E6035EBE1CC0C39500B10D36 /* FTCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6035EBC1CC0C39500B10D36 /* FTCommentViewController.m */; };
@@ -220,6 +222,11 @@
 		3DC4121A1CD060190030C229 /* FTDrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerViewController.h; sourceTree = "<group>"; };
 		3DC4121B1CD060190030C229 /* FTDrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDrawerViewController.m; sourceTree = "<group>"; };
 		3DC4121C1CD060190030C229 /* FTDrawerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTDrawerViewController.xib; sourceTree = "<group>"; };
+		3DC4121F1CD0B94A0030C229 /* FTDrawerCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerCollectionCell.h; sourceTree = "<group>"; };
+		3DC412201CD0B94A0030C229 /* FTDrawerCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDrawerCollectionCell.m; sourceTree = "<group>"; };
+		3DC412231CD0C3780030C229 /* NSString+Size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Size.h"; sourceTree = "<group>"; };
+		3DC412241CD0C3780030C229 /* NSString+Size.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Size.m"; sourceTree = "<group>"; };
+		3DC412491CD0E8200030C229 /* UIKeyboardInputMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIKeyboardInputMode.h; sourceTree = "<group>"; };
 		E6035EB51CC08D2800B10D36 /* FTNewsDetail2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNewsDetail2ViewController.h; sourceTree = "<group>"; };
 		E6035EB61CC08D2800B10D36 /* FTNewsDetail2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNewsDetail2ViewController.m; sourceTree = "<group>"; };
 		E6035EB71CC08D2800B10D36 /* FTNewsDetail2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTNewsDetail2ViewController.xib; sourceTree = "<group>"; };
@@ -589,6 +596,8 @@
 				3DC411EF1CCF80DD0030C229 /* FTDrawerTableViewHeader.m */,
 				3DC411F11CCF810A0030C229 /* FTDrawerTableViewFooter.h */,
 				3DC411F21CCF810A0030C229 /* FTDrawerTableViewFooter.m */,
+				3DC4121F1CD0B94A0030C229 /* FTDrawerCollectionCell.h */,
+				3DC412201CD0B94A0030C229 /* FTDrawerCollectionCell.m */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -609,6 +618,7 @@
 				E6035EBB1CC0C39500B10D36 /* FTCommentViewController.h */,
 				E6035EBC1CC0C39500B10D36 /* FTCommentViewController.m */,
 				E6035EBD1CC0C39500B10D36 /* FTCommentViewController.xib */,
+				3DC412491CD0E8200030C229 /* UIKeyboardInputMode.h */,
 			);
 			name = comment;
 			sourceTree = "<group>";
@@ -1196,6 +1206,8 @@
 				E65EFC281CC8ADFD0039EE8A /* UIButton+LYZTitle.m */,
 				E6DF6B891CCE32F600219766 /* NSString+EmojiFilter.h */,
 				E6DF6B8A1CCE32F600219766 /* NSString+EmojiFilter.m */,
+				3DC412231CD0C3780030C229 /* NSString+Size.h */,
+				3DC412241CD0C3780030C229 /* NSString+Size.m */,
 			);
 			path = Categorys;
 			sourceTree = "<group>";
@@ -1537,8 +1549,10 @@
 				E61B8A661CBB6C4900AE37F9 /* SDCycleScrollView.m in Sources */,
 				E66D6F171CBCE843008B015A /* AFURLResponseSerialization.m in Sources */,
 				E66D6EFB1CBCE81C008B015A /* FTNetConfig.m in Sources */,
+				3DC412251CD0C3780030C229 /* NSString+Size.m in Sources */,
 				E68050B91CBF919A00678905 /* JHRefreshCommonAniView.m in Sources */,
 				E6D74A4B1CB7B7EE00854337 /* UUID.m in Sources */,
+				3DC412211CD0B94A0030C229 /* FTDrawerCollectionCell.m in Sources */,
 				E6E580A21CBE2F2D00272242 /* SDImageCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1691,8 +1705,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1715,7 +1729,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fighter.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "feebb810-2dbb-4bd6-9627-a6c9a0b6e350";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1724,8 +1738,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: peng qu (LQHT8X75PQ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1748,7 +1762,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fighter.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "feebb810-2dbb-4bd6-9627-a6c9a0b6e350";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

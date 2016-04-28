@@ -13,6 +13,7 @@
 #import "MBProgressHUD.h"
 #import "HUD.h"
 #import "NSString+EmojiFilter.h"
+#import "UIKeyboardInputMode.h"
 
 @interface FTCommentViewController () <UITextViewDelegate>
 @property (nonnull, strong)UITextView *textView;
@@ -166,32 +167,67 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
 
-//    if ([[[UITextInputMode currentInputMode]primaryLanguage] isEqualToString:@"emoji"]) {
+//    NSLog(@"[UIApplication sharedApplication] textInputMode].primaryLanguage:%@",[[UIApplication sharedApplication] textInputMode].primaryLanguage);
+
+    
+//    //屏蔽系统表情
+//    if ([[UIApplication sharedApplication] textInputMode].primaryLanguage == nil){
 //        return NO;
 //    }
-    //屏蔽系统表情
-    if ([[UIApplication sharedApplication] textInputMode].primaryLanguage == nil){
-        return NO;
-    }
     
-    //屏蔽输入法表情
-    if (text.length > 0) {
-        
-        if ([self isContainsEmoji:text]) {
-            return NO;
-        }else {
-            return YES;
+//    //不支持系统表情的输入
+//    if ([[[UITextInputMode currentInputMode ]primaryLanguage] isEqualToString:@"emoji"]) {
+//        return NO;
+//    }
+    
+    
+    
+    UIKeyboardInputModeController *key = [UIKeyboardInputModeController sharedInputModeController];
+    
+    //当前输入法
+    UIKeyboardInputMode *currentInputMode = [key currentInputMode];
+    
+    //第三方扩展输入法
+    NSArray *extensionInputModes = [key extensionInputModes];
+    
+    if ([extensionInputModes containsObject:currentInputMode]) {
+//        NSLog(@"current input mode (%@) is the 3rd party input mode", currentInputMode.identifier);
+        //屏蔽输入法表情
+        if (text.length > 0) {
+            
+            if ([self isContainsEmoji:text]) {
+                
+                return NO;
+            }else {
+                
+                return YES;
+            }
+            
         }
-        
+    } else {
+        //屏蔽系统表情
+        if ([[UIApplication sharedApplication] textInputMode].primaryLanguage == nil){
+            return NO;
+        }
+
+//        NSLog(@"current input mode (%@) is build-in input mode", currentInputMode.identifier);
     }
     return YES;
 }
 
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView {
 
+    NSLog(@"should end edit");
+    return YES;
+}
 #pragma mark - private Method
 
 
-//判断string 是否包含输入法表情
+/*
+ * 判断string 是否包含输入法表情
+ * 
+ * 系统九宫格中文输入法测试包含表情
+ */
 - (BOOL)isContainsEmoji:(NSString *)string {
     
     __block BOOL isEomji = NO;
