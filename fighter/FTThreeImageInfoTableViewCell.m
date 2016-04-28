@@ -45,9 +45,9 @@
     self.timeLabel.text = timeString;
     self.timeLabel.textColor = Secondary_Text_Color;
     self.myTitleLabel.text = bean.title;
-    [self.myImageView1 sd_setImageWithURL:[NSURL URLWithString:bean.img_small_one] placeholderImage:[UIImage imageNamed:@"空图标小"]];
-    [self.myImageView2 sd_setImageWithURL:[NSURL URLWithString:bean.img_small_two] placeholderImage:[UIImage imageNamed:@"空图标小"]];
-    [self.myImageView3 sd_setImageWithURL:[NSURL URLWithString:bean.img_small_three] placeholderImage:[UIImage imageNamed:@"空图标小"]];
+    [self.myImageView1 sd_setImageWithURL:[NSURL URLWithString:bean.img_small_one] ];
+    [self.myImageView2 sd_setImageWithURL:[NSURL URLWithString:bean.img_small_two]];
+    [self.myImageView3 sd_setImageWithURL:[NSURL URLWithString:bean.img_small_three]];
     
     //设置评论数、点赞数
     NSString *commentCount = [NSString stringWithFormat:@"%@", bean.commentCount];

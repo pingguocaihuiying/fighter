@@ -12,6 +12,7 @@
 #import "WXApi.h"
 #import "FTUserBean.h"
 #import "MBProgressHUD.h"
+#import "WXApi.h"
 
 @interface FTNewsDetail2ViewController ()<UIWebViewDelegate, UMSocialUIDelegate, CommentSuccessDelegate>
 {
@@ -58,7 +59,6 @@
     NSString *tableName = @"v-news";
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, GetStatusCheckKey]];
     
-    
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
 //    NSLog(@"get vote urlString : %@", urlString);
     //创建AAFNetWorKing管理者
@@ -103,11 +103,18 @@
     self.navigationItem.leftBarButtonItem = leftButton;
     
     //设置分享按钮
-        UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-分享"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(shareButtonClicked)];
+//        UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-分享"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(shareButtonClicked)];
+//    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-分享"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(shareButtonClicked)];
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithTitle:@"转发" style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonClicked)];
+    
         self.navigationController.navigationBar.tintColor = [UIColor colorWithHex:0x828287];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 //    [shareButton setImageInsets:UIEdgeInsetsMake(0, -20, 0, 20)];
-    self.navigationItem.rightBarButtonItem = shareButton;
+        //如果用户安装了微信，再显示转发按钮
+    if([WXApi isWXAppInstalled]){
+    self.navigationItem.rightBarButtonItem = shareButton;        
+    }
+
     
     //设置默认标题
     self.navigationItem.title = @"拳讯";
@@ -209,7 +216,7 @@
             
         }else{
             NSLog(@"目前只支持微信登录，请安装微信");
-            [self showHUDWithMessage:@"目前只支持微信登录，请安装微信"];
+            [self showHUDWithMessage:@"目前只支持微信登录点赞，请安装微信"];
         }
     }else{
         self.hasVote = !self.hasVote;
@@ -270,12 +277,11 @@
             NSString *jsMethodString = [NSString stringWithFormat:@"updateLike(%d)", voteCount];
             NSLog(@"js method : %@", jsMethodString);
             [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
-            
         }
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
         //failure
         self.voteView.userInteractionEnabled = YES;
-        NSLog(@"vote failure.");
+        NSLog(@"vote failure ：%@", error);
     }];
     //设置请求返回的数据类型为默认类型（NSData类型)
 }
@@ -302,7 +308,6 @@
     }else{
         [self showHUDWithMessage:@"微信登录失败"];
     }
-    
 }
 
 - (void)pushToCommentVC{

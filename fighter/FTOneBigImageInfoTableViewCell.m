@@ -38,7 +38,10 @@
     self.timeLabel.text = timeString;
     self.timeLabel.textColor = Secondary_Text_Color;
     self.myTitleLabel.text = bean.title;
-    [self.myImageView sd_setImageWithURL:[NSURL URLWithString:bean.img_big] placeholderImage:[UIImage imageNamed:@"空图标大"]];
+    
+    self.myImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.myImageView sd_setImageWithURL:[NSURL URLWithString:bean.img_big]];
+//    [self.myImageView sd_setImageWithURL:[NSURL URLWithString:bean.img_big]];
     
     //设置评论数、点赞数
     NSString *commentCount = [NSString stringWithFormat:@"%@", bean.commentCount];

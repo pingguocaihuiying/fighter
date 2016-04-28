@@ -101,6 +101,10 @@
     [manager GET:stringURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *userInfoDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        for(NSString *key in [userInfoDic allKeys]){
+            NSLog(@"key:%@", key);
+        }
+        
         NSString *openId = userInfoDic[@"openid"];
         NSString *unionId = userInfoDic[@"unionid"];
         NSString *timestampString = [NSString stringWithFormat:@"%.0lf",[[NSDate date] timeIntervalSince1970]];
@@ -109,6 +113,9 @@
         NSString *keyToken = [NSString stringWithFormat:@"%@%@", WXLoginSecret_Key, timestampString];
         NSString *keyTokenMD5 = [MD5 md5:keyToken];
         NSString *province = userInfoDic[@"province"];
+        NSString *headpic = userInfoDic[@"headimgurl"];
+        headpic = [self encodeToPercentEscapeString:headpic];
+        NSString *stemfrom = @"iOS";
         username = [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *dic = @{@"openId" : openId,
                               @"unionId" : unionId,
@@ -119,7 +126,8 @@
                               @"city" : province};
         
         NSString *wxLoginURLString = [FTNetConfig host:Domain path:UserWXLoginURL];
-                wxLoginURLString = [NSString stringWithFormat:@"%@?openId=%@&unionId=%@&timestamp=%@&imei=%@&username=%@&keyToken=%@&city=%@", wxLoginURLString, openId, unionId, timestampString, imei, username, keyTokenMD5, province];
+                wxLoginURLString = [NSString stringWithFormat:@"%@?openId=%@&unionId=%@&timestamp=%@&imei=%@&username=%@&keyToken=%@&city=%@&headpic=%@&stemfrom=%@", wxLoginURLString, openId, unionId, timestampString, imei, username, keyTokenMD5, province, headpic, stemfrom];
+//        wxLoginURLString = [NSString stringWithFormat:@"%@?openId=%@&unionId=%@&timestamp=%@&imei=%@&username=%@&keyToken=%@&city=%@", wxLoginURLString, openId, unionId, timestampString, imei, username, keyTokenMD5, province];
         NSLog(@"wxLoginURLString : %@", wxLoginURLString);
 //        wxLoginURLString = @"www.baidu.com";
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -153,40 +161,6 @@
             //发送通知，告诉评论页面微信登录失败
             [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"ERROR"];
         }];
-        
-//        RBRequestOperationManager *manager = [RBRequestOperationManager manager];
-        
-//        [manager postToPath:wxLoginURLString params:dic success:^(NSDictionary *responseJson) {
-//            bool status = [responseJson[@"status"] boolValue];
-//            NSString *message = (NSString *)(NSDictionary *)responseJson[@"message"];
-//            if (status == false) {
-//                NSLog(@"微信注册失败,message:%@", message);
-//                
-//                return ;
-//            }
-//            [ZJModelTool createModelWithDictionary:responseJson[@"data"][@"user"] modelName:nil];
-//            NSLog(@"微信注册成功,message:%@", message);
-//            //发送通知，告诉评论页面微信登录成功
-//            
-//            
-//            NSDictionary *userDic = responseJson[@"data"][@"user"];
-//            FTUserBean *user = [FTUserBean new];
-//            [user setValuesForKeysWithDictionary:userDic];
-//            
-//            NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
-//            [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
-//            [[NSUserDefaults standardUserDefaults]synchronize];
-//            
-//            [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"SUCESS"];
-//        } dataError:^(NSString *errorCode, NSString *errorMessage) {
-//            NSLog(@"errorMessage : %@", errorMessage);
-//            //发送通知，告诉评论页面微信登录失败
-//            [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"ERROR"];
-//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            NSLog(@"error : %@", error);
-//        }];
-        
-        //微信登录成功后,发送通知给新闻详情页面，表示可以评论了
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"获取access_token时出错 = %@", error);
@@ -292,4 +266,16 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+//url转码
+
+- (NSString *)encodeToPercentEscapeString: (NSString *) input
+{
+    NSString *outputStr = (NSString *)
+    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                              (CFStringRef)input,
+                                                              NULL,
+                                                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                              kCFStringEncodingUTF8));
+    return outputStr;
+}
 @end

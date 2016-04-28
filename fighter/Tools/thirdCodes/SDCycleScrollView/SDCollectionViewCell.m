@@ -110,7 +110,7 @@
     CGFloat titleLabelH = _titleLabelHeight;
     CGFloat titleLabelX = 0;
     CGFloat titleLabelY = self.sd_height - titleLabelH;
-    _titleLabel.frame = CGRectMake(25, 129, SCREEN_WIDTH - 25 * 2, 16);
+    _titleLabel.frame = CGRectMake(0, 129, SCREEN_WIDTH - 25 * 2, 16);
     _titleLabel.hidden = !_titleLabel.text;
     
 }
