@@ -164,7 +164,7 @@ NSString * const ID = @"cycleCell";
         self.backgroundImageView = bgImageView;
     }
     
-    self.backgroundImageView.image = placeholderImage;
+//    self.backgroundImageView.image = placeholderImage;
 }
 
 - (void)setPageControlDotSize:(CGSize)pageControlDotSize
@@ -506,7 +506,10 @@ NSString * const ID = @"cycleCell";
     
     if ([imagePath isKindOfClass:[NSString class]]) {
         if ([imagePath hasPrefix:@"http"]) {
-            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeholderImage];
+//            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeholderImage];
+            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath]];
+            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:[UIImage imageNamed:@"轮播大图-空"]];
+            
         } else {
             UIImage *image = [UIImage imageNamed:imagePath];
             if (!image) {
@@ -517,6 +520,14 @@ NSString * const ID = @"cycleCell";
     } else if ([imagePath isKindOfClass:[UIImage class]]) {
         cell.imageView.image = (UIImage *)imagePath;
     }
+    
+#pragma -mark 插入了占位图imageView
+//    //            //占位图的逻辑宽高是：120*36
+//    UIImageView *placeholdImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@""]];
+//    placeholdImageView.backgroundColor = [UIColor redColor];
+//    placeholdImageView.frame = CGRectMake((cell.frame.size.width - 120) / 2, 50, 120, 36);
+//    [cell insertSubview:placeholdImageView belowSubview:cell.imageView];
+//    //            [cell sendSubviewToBack:placeholdImageView];
     
     if (_titlesGroup.count && itemIndex < _titlesGroup.count) {
         cell.title = _titlesGroup[itemIndex];
@@ -529,7 +540,9 @@ NSString * const ID = @"cycleCell";
 //        cell.titleLabelTextColor = [UIColor redColor];
         cell.titleLabelTextFont = self.titleLabelTextFont;
         cell.hasConfigured = YES;
-        cell.imageView.contentMode = self.bannerImageViewContentMode;
+//        cell.imageView.contentMode = self.bannerImageViewContentMode;
+        //改变imageview的显示模式
+        cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
         cell.clipsToBounds = YES;
     }
 //    [cell bringSubviewToFront:cell.titleLabel];
