@@ -40,7 +40,7 @@
     self.myTitleLabel.text = bean.title;
     
     self.myImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.myImageView sd_setImageWithURL:[NSURL URLWithString:bean.img_big] placeholderImage:[UIImage imageNamed:@"空图标大"]];
+    [self.myImageView sd_setImageWithURL:[NSURL URLWithString:bean.img_big]];
 //    [self.myImageView sd_setImageWithURL:[NSURL URLWithString:bean.img_big]];
     
     //设置评论数、点赞数

@@ -114,6 +114,7 @@
         NSString *keyTokenMD5 = [MD5 md5:keyToken];
         NSString *province = userInfoDic[@"province"];
         NSString *headpic = userInfoDic[@"headimgurl"];
+        headpic = [self encodeToPercentEscapeString:headpic];
         NSString *stemfrom = @"iOS";
         username = [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *dic = @{@"openId" : openId,
@@ -265,4 +266,16 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+//url转码
+
+- (NSString *)encodeToPercentEscapeString: (NSString *) input
+{
+    NSString *outputStr = (NSString *)
+    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                              (CFStringRef)input,
+                                                              NULL,
+                                                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                              kCFStringEncodingUTF8));
+    return outputStr;
+}
 @end

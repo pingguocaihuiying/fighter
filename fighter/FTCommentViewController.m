@@ -59,7 +59,8 @@
     _textView = [[UITextView alloc] initWithFrame:textViewFrame];
     _textView.backgroundColor = [UIColor clearColor];
     _textView.scrollEnabled = NO;
-    _textView.delegate = self;//设置代理
+        //因为屏蔽emoji表情的功能有问题（也会屏蔽掉苹果的九宫格输入法），暂时不用屏蔽功能
+//    _textView.delegate = self;//设置代理
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(6, 64 + 14, SCREEN_WIDTH - 6 * 2,300)];
     
@@ -84,7 +85,7 @@
     NSString *comment = self.textView.text;
     NSString *trimmedComment = [comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSLog(@"trimmedComment : %@",trimmedComment) ;
-    //如果评论内容过长或过短，给出提示 test git
+    //如果评论内容过长或过短，给出提示
     if (comment.length < 10 || comment.length > 100) {
         [self showHUDWithMessage:@"评论内容需在10~100字之间" isPop:NO];
         return;
@@ -105,7 +106,7 @@
     checkSign = [MD5 md5:checkSign];
     comment = [comment stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 //    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&comment=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, comment, tableName];
-//    NSLog(@"评论url：%@", urlString);
+    NSLog(@"评论url：%@", urlString);
     
     //创建AAFNetWorKing管理者
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -118,6 +119,7 @@
                           @"comment" : comment,
                           @"tableName" : tableName
                           };
+    
     [manager POST:urlString parameters:dic success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
 
@@ -158,7 +160,6 @@
         //        HUD = nil;
     }];
 }
-
 
 
 #pragma mark - UITextViewDelegate 
