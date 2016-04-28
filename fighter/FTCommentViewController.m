@@ -60,8 +60,7 @@
     _textView = [[UITextView alloc] initWithFrame:textViewFrame];
     _textView.backgroundColor = [UIColor clearColor];
     _textView.scrollEnabled = NO;
-        //因为屏蔽emoji表情的功能有问题（也会屏蔽掉苹果的九宫格输入法），暂时不用屏蔽功能
-//    _textView.delegate = self;//设置代理
+    _textView.delegate = self;//设置代理
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(6, 64 + 14, SCREEN_WIDTH - 6 * 2,300)];
     
@@ -84,6 +83,15 @@
 }
 - (void)commentButtonClicked{
     NSString *comment = self.textView.text;
+    //提示评论为空，或者全部空格
+    if ([self isEmpty:comment]) {
+        [self showHUDWithMessage:@"评论内容不能全部为空" isPop:NO];
+        return;
+    }
+    
+    //去除评论两端空格
+    comment = [comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
     NSString *trimmedComment = [comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSLog(@"trimmedComment : %@",trimmedComment) ;
     //如果评论内容过长或过短，给出提示
@@ -291,7 +299,25 @@
      }];
     
     return isEomji;
-    
 }
 
+//判断内容是否全部为空格  yes 全部为空格  no 不是
+- (BOOL) isEmpty:(NSString *) str {
+    
+    if (!str) {
+        return true;
+    } else {
+        //A character set containing only the whitespace characters space (U+0020) and tab (U+0009) and the newline and nextline characters (U+000A–U+000D, U+0085).
+        NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+        
+        //Returns a new string made by removing from both ends of the receiver characters contained in a given character set.
+        NSString *trimedString = [str stringByTrimmingCharactersInSet:set];
+        
+        if ([trimedString length] == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
 @end
