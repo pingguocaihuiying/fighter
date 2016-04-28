@@ -29,7 +29,7 @@
 
 - (void)setSubViews{
     //设置textView的代理
-    self.textView.delegate = self;
+//    self.textView.delegate = self;
     [self setLeftAndRightButtons];
     [self setBgOfTextView];
 }
