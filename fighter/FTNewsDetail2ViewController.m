@@ -40,7 +40,7 @@
 //    self.navigationController.tabBarController.tabBar.hidden = YES;
     
     //注册通知，接收微信登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginSucess:) name:WXLoginResultNoti object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginResponse:) name:WXLoginResultNoti object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -181,18 +181,35 @@
 - (void)shareButtonClicked{
 
     //注意：分享到微信好友、微信朋友圈、微信收藏、QQ空间、QQ好友、来往好友、来往朋友圈、易信好友、易信朋友圈、Facebook、Twitter、Instagram等平台需要参考各自的集成方法
-    //如果需要分享回调，请将delegate对象设置self，并实现下面的回调方法
-        NSString *shareText = [NSString stringWithFormat:@"%@ %@", _newsBean.title, self.webViewUrlString];
-    [UMSocialSnsService presentSnsIconSheetView:self
-                                         appKey:@"570739d767e58edb5300057b"
-                                      shareText:shareText
-                                     shareImage:[UIImage imageNamed:@"AppIcon"]
-                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,nil]
-                                       delegate:self];
+//    //如果需要分享回调，请将delegate对象设置self，并实现下面的回调方法
+//        NSString *shareText = [NSString stringWithFormat:@"%@ %@", _newsBean.title, self.webViewUrlString];
+//    [UMSocialSnsService presentSnsIconSheetView:self
+//                                         appKey:@"570739d767e58edb5300057b"
+//                                      shareText:shareText
+//                                     shareImage:[UIImage imageNamed:@"AppIcon"]
+//                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,nil]
+//                                       delegate:self];
+    /*
+     *暂时采用微信的分享
+     */
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = _newsBean.title;
+    message.description = _newsBean.summary;
+    [message setThumbImage:[UIImage imageNamed:@"微信用@200"]];
+    WXWebpageObject *webpageObject = [WXWebpageObject object];
+    webpageObject.webpageUrl = self.webViewUrlString;
+    message.mediaObject = webpageObject;
+    
+    SendMessageToWXReq *req = [SendMessageToWXReq new];
+    req.bText = NO;
+    req.message = message;
+    req.scene = WXSceneSession;
+    [WXApi sendReq:req];
 }
 
 -(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
 {
+    
     //根据`responseCode`得到发送结果,如果分享成功
     if(response.responseCode == UMSResponseCodeSuccess)
     {
@@ -359,11 +376,11 @@
     return outputStr;
 }
 
-- (void)wxLoginSucess:(NSNotification *)noti{
+- (void)wxLoginResponse:(NSNotification *)noti{
     NSString *msg = [noti object];
     if ([msg isEqualToString:@"SUCESS"]) {
         [self showHUDWithMessage:@"微信登录成功，可以评论或点赞了"];
-    }else{
+    }else if ([msg isEqualToString:@"ERROR"]){
         [self showHUDWithMessage:@"微信登录失败"];
     }
 }

@@ -143,8 +143,6 @@
                     return ;
                 }
             NSLog(@"微信注册成功,message:%@", message);
-            
-
 
             NSDictionary *userDic = responseJson[@"data"][@"user"];
             FTUserBean *user = [FTUserBean new];
