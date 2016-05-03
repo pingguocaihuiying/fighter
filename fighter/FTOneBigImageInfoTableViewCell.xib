@@ -100,6 +100,10 @@
                         </constraints>
                         <state key="normal" backgroundImage="赞-改"/>
                     </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q3J-Jn-4rr" userLabel="placeholdBgView">
+                        <rect key="frame" x="19" y="59" width="340" height="112"/>
+                        <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="空图标小" translatesAutoresizingMaskIntoConstraints="NO" id="8gy-ce-L6c" userLabel="placeHold">
                         <rect key="frame" x="162" y="107" width="54" height="16"/>
                         <constraints>
@@ -132,6 +136,7 @@
                     <constraint firstItem="8Lg-ZP-I0y" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="Jby-Lo-J0U"/>
                     <constraint firstItem="fE9-kt-RsU" firstAttribute="top" secondItem="8Lg-ZP-I0y" secondAttribute="bottom" constant="8" id="LgY-Bv-at9"/>
                     <constraint firstAttribute="bottom" secondItem="cu7-1c-VZh" secondAttribute="bottom" constant="23" id="LpK-pX-78i"/>
+                    <constraint firstItem="q3J-Jn-4rr" firstAttribute="centerY" secondItem="JCT-2D-e87" secondAttribute="centerY" id="Lzc-59-HCW"/>
                     <constraint firstAttribute="trailing" secondItem="uiZ-fX-lMg" secondAttribute="trailing" constant="7" id="OAV-bu-eQW"/>
                     <constraint firstItem="ck1-QY-Wxl" firstAttribute="leading" secondItem="tVT-ev-0zZ" secondAttribute="trailing" id="P6B-U8-k2Z"/>
                     <constraint firstAttribute="bottom" secondItem="tVT-ev-0zZ" secondAttribute="bottom" constant="17" id="Sx6-lB-1r1"/>
@@ -149,9 +154,12 @@
                     <constraint firstAttribute="trailing" secondItem="JCT-2D-e87" secondAttribute="trailing" constant="19" id="p81-7j-uCK"/>
                     <constraint firstAttribute="trailing" secondItem="L9I-WB-mnW" secondAttribute="trailing" id="q6d-BM-vnE"/>
                     <constraint firstItem="8Lg-ZP-I0y" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="17" id="rb6-4k-ZoI"/>
+                    <constraint firstItem="q3J-Jn-4rr" firstAttribute="width" secondItem="JCT-2D-e87" secondAttribute="width" id="sVQ-mA-ZCY"/>
                     <constraint firstItem="L9I-WB-mnW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ske-Co-8fN"/>
+                    <constraint firstItem="q3J-Jn-4rr" firstAttribute="height" secondItem="JCT-2D-e87" secondAttribute="height" id="uHJ-rj-ZUA"/>
                     <constraint firstAttribute="bottom" secondItem="L9I-WB-mnW" secondAttribute="bottom" id="uu1-m4-aSP"/>
                     <constraint firstItem="L9I-WB-mnW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="v4y-aB-C5Q"/>
+                    <constraint firstItem="q3J-Jn-4rr" firstAttribute="centerX" secondItem="JCT-2D-e87" secondAttribute="centerX" id="xdT-kx-N8A"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">

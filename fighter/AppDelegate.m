@@ -157,8 +157,6 @@
                     return ;
                 }
             NSLog(@"微信注册成功,message:%@", message);
-            
-
 
             NSDictionary *userDic = responseJson[@"data"][@"user"];
             FTUserBean *user = [FTUserBean new];
@@ -216,13 +214,13 @@
     
     FTFightKingViewController *fightKingVC = [FTFightKingViewController new];
     //    FTBaseNavigationViewController *fightKingNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:fightKingVC];
-    fightKingVC.tabBarItem.title = @"格斗王";
+    fightKingVC.tabBarItem.title = @"视频";
     [fightKingVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                     Bar_Item_Select_Title_Color, UITextAttributeTextColor,
                                                     nil] forState:UIControlStateSelected];
     
-    fightKingVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-格斗王"];
-    fightKingVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-格斗王pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    fightKingVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-视频"];
+    fightKingVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-视频pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     FTCoachViewController *coachVC = [FTCoachViewController new];
     //    FTBaseNavigationViewController *coachNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:coachVC];
@@ -245,16 +243,15 @@
     boxingHallVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
 #pragma -mark 第一版不用tabbar，直接用拳讯作为rootVC
-    //
-    //    //设置tabbar的属性
-    //    FTBaseTabBarViewController *tabBartVC = [FTBaseTabBarViewController new];
-    //
-    //    tabBartVC.tabBar.barTintColor = [UIColor blackColor];
-    //    tabBartVC.tabBar.translucent = NO;
-    //    tabBartVC.viewControllers = @[infoVC, matchVC, fightKingVC, coachVC, boxingHallVC];
     
-    FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:infoVC];
-    //    self.window.rootViewController = navi;
+        //设置tabbar的属性
+        FTBaseTabBarViewController *tabBartVC = [FTBaseTabBarViewController new];
+    
+        tabBartVC.tabBar.barTintColor = [UIColor blackColor];
+        tabBartVC.tabBar.translucent = NO;
+        tabBartVC.viewControllers = @[infoVC, matchVC, fightKingVC, coachVC, boxingHallVC];
+    
+    FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:tabBartVC];
     self.window.rootViewController = navi;
 }
 
