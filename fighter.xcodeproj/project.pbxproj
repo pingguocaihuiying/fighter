@@ -1705,40 +1705,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/fighter/OtherSDK/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-				);
-				GCC_PREFIX_HEADER = "$(SRCROOT)/fighter/PrefixHeader.pch";
-				INFOPLIST_FILE = fighter/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/fighter/OtherSDK/noAD_UMAnalytics_Sdk_3.6.7",
-					"$(PROJECT_DIR)/fighter/OtherSDK/UMSocial_Sdk_5.0.1",
-					"$(PROJECT_DIR)/fighter/OtherSDK/UMSocial_Sdk_Extra_Frameworks/AlipayShare",
-					"$(PROJECT_DIR)/fighter/OtherSDK/UMSocial_Sdk_Extra_Frameworks/SinaSSO",
-					"$(PROJECT_DIR)/fighter/OtherSDK/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
-					"$(PROJECT_DIR)/fighter/OtherSDK/UMSocial_Sdk_Extra_Frameworks/Wechat",
-					"$(PROJECT_DIR)/fighter/OtherSDK/UMSocial_Sdk_Extra_Frameworks/YiXin",
-				);
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.fighter.fighter;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "190e17e3-78af-4b6f-870b-67da5f104d6d";
-			};
-			name = Debug;
-		};
-		E64EF1351CB6614100CAE340 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: peng qu (LQHT8X75PQ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: peng qu (LQHT8X75PQ)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1762,7 +1729,40 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fighter.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "190e17e3-78af-4b6f-870b-67da5f104d6d";
+				PROVISIONING_PROFILE = "c10c791b-700b-43a5-8002-99f83e357690";
+			};
+			name = Debug;
+		};
+		E64EF1351CB6614100CAE340 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: peng qu (LQHT8X75PQ)";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/fighter/OtherSDK/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+				);
+				GCC_PREFIX_HEADER = "$(SRCROOT)/fighter/PrefixHeader.pch";
+				INFOPLIST_FILE = fighter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/fighter/OtherSDK/noAD_UMAnalytics_Sdk_3.6.7",
+					"$(PROJECT_DIR)/fighter/OtherSDK/UMSocial_Sdk_5.0.1",
+					"$(PROJECT_DIR)/fighter/OtherSDK/UMSocial_Sdk_Extra_Frameworks/AlipayShare",
+					"$(PROJECT_DIR)/fighter/OtherSDK/UMSocial_Sdk_Extra_Frameworks/SinaSSO",
+					"$(PROJECT_DIR)/fighter/OtherSDK/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+					"$(PROJECT_DIR)/fighter/OtherSDK/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/fighter/OtherSDK/UMSocial_Sdk_Extra_Frameworks/YiXin",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fighter.fighter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c10c791b-700b-43a5-8002-99f83e357690";
 			};
 			name = Release;
 		};
