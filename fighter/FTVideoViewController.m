@@ -1,18 +1,18 @@
 //
-//  FTFightKingViewController.m
+//  FTVideoViewController.m
 //  fighter
 //
-//  Created by Liyz on 4/8/16.
+//  Created by Liyz on 5/3/16.
 //  Copyright © 2016 Mapbar. All rights reserved.
 //
 
-#import "FTFightKingViewController.h"
+#import "FTVideoViewController.h"
 
-@interface FTFightKingViewController ()
+@interface FTVideoViewController ()
 
 @end
 
-@implementation FTFightKingViewController
+@implementation FTVideoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

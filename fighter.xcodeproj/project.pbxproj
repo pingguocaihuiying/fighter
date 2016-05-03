@@ -126,8 +126,6 @@
 		E6B458A61CB7587D00FB4261 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6B458A51CB7587D00FB4261 /* Assets.xcassets */; };
 		E6B458C31CB75D7A00FB4261 /* FTCoachViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458C11CB75D7A00FB4261 /* FTCoachViewController.m */; };
 		E6B458C41CB75D7A00FB4261 /* FTCoachViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6B458C21CB75D7A00FB4261 /* FTCoachViewController.xib */; };
-		E6B458C81CB75D8A00FB4261 /* FTFightKingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458C61CB75D8A00FB4261 /* FTFightKingViewController.m */; };
-		E6B458C91CB75D8A00FB4261 /* FTFightKingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6B458C71CB75D8A00FB4261 /* FTFightKingViewController.xib */; };
 		E6B458CD1CB75D9600FB4261 /* FTMatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458CB1CB75D9600FB4261 /* FTMatchViewController.m */; };
 		E6B458CE1CB75D9600FB4261 /* FTMatchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6B458CC1CB75D9600FB4261 /* FTMatchViewController.xib */; };
 		E6B458D21CB75DA200FB4261 /* FTInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458D01CB75DA200FB4261 /* FTInformationViewController.m */; };
@@ -149,6 +147,8 @@
 		E6D74A5B1CB7B8C200854337 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A581CB7B8C200854337 /* MBProgressHUD.m */; };
 		E6DB76131CBB9B430034253C /* FTOneImageInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6DB76111CBB9B430034253C /* FTOneImageInfoTableViewCell.m */; };
 		E6DB76141CBB9B430034253C /* FTOneImageInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6DB76121CBB9B430034253C /* FTOneImageInfoTableViewCell.xib */; };
+		E6DCE72B1CD8492C0082831D /* FTVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6DCE7291CD8492C0082831D /* FTVideoViewController.m */; };
+		E6DCE72C1CD8492C0082831D /* FTVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6DCE72A1CD8492C0082831D /* FTVideoViewController.xib */; };
 		E6DF6B8B1CCE32F600219766 /* NSString+EmojiFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = E6DF6B8A1CCE32F600219766 /* NSString+EmojiFilter.m */; };
 		E6E580A01CBE2F2D00272242 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E580801CBE2F2D00272242 /* MKAnnotationView+WebCache.m */; };
 		E6E580A11CBE2F2D00272242 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E580821CBE2F2D00272242 /* NSData+ImageContentType.m */; };
@@ -420,9 +420,6 @@
 		E6B458C01CB75D7A00FB4261 /* FTCoachViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCoachViewController.h; sourceTree = "<group>"; };
 		E6B458C11CB75D7A00FB4261 /* FTCoachViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCoachViewController.m; sourceTree = "<group>"; };
 		E6B458C21CB75D7A00FB4261 /* FTCoachViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTCoachViewController.xib; sourceTree = "<group>"; };
-		E6B458C51CB75D8A00FB4261 /* FTFightKingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTFightKingViewController.h; sourceTree = "<group>"; };
-		E6B458C61CB75D8A00FB4261 /* FTFightKingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTFightKingViewController.m; sourceTree = "<group>"; };
-		E6B458C71CB75D8A00FB4261 /* FTFightKingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTFightKingViewController.xib; sourceTree = "<group>"; };
 		E6B458CA1CB75D9600FB4261 /* FTMatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTMatchViewController.h; sourceTree = "<group>"; };
 		E6B458CB1CB75D9600FB4261 /* FTMatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTMatchViewController.m; sourceTree = "<group>"; };
 		E6B458CC1CB75D9600FB4261 /* FTMatchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTMatchViewController.xib; sourceTree = "<group>"; };
@@ -461,6 +458,9 @@
 		E6DB76101CBB9B430034253C /* FTOneImageInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTOneImageInfoTableViewCell.h; sourceTree = "<group>"; };
 		E6DB76111CBB9B430034253C /* FTOneImageInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTOneImageInfoTableViewCell.m; sourceTree = "<group>"; };
 		E6DB76121CBB9B430034253C /* FTOneImageInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTOneImageInfoTableViewCell.xib; sourceTree = "<group>"; };
+		E6DCE7281CD8492C0082831D /* FTVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTVideoViewController.h; sourceTree = "<group>"; };
+		E6DCE7291CD8492C0082831D /* FTVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTVideoViewController.m; sourceTree = "<group>"; };
+		E6DCE72A1CD8492C0082831D /* FTVideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTVideoViewController.xib; sourceTree = "<group>"; };
 		E6DF6B891CCE32F600219766 /* NSString+EmojiFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+EmojiFilter.h"; sourceTree = "<group>"; };
 		E6DF6B8A1CCE32F600219766 /* NSString+EmojiFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+EmojiFilter.m"; sourceTree = "<group>"; };
 		E6E5807F1CBE2F2D00272242 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
@@ -1093,8 +1093,8 @@
 			isa = PBXGroup;
 			children = (
 				E6B4589B1CB7569E00FB4261 /* Information */,
+				E6DCE7271CD849060082831D /* 视频 */,
 				E6B458B41CB759AE00FB4261 /* Coach */,
-				E6B458AE1CB7591600FB4261 /* FightKing */,
 				E6B458A81CB758EA00FB4261 /* Match */,
 				E6B458BF1CB75C7000FB4261 /* BoxingHall */,
 				E6B458941CB755CF00FB4261 /* Base */,
@@ -1140,16 +1140,6 @@
 				E6B458CC1CB75D9600FB4261 /* FTMatchViewController.xib */,
 			);
 			name = Match;
-			sourceTree = "<group>";
-		};
-		E6B458AE1CB7591600FB4261 /* FightKing */ = {
-			isa = PBXGroup;
-			children = (
-				E6B458C51CB75D8A00FB4261 /* FTFightKingViewController.h */,
-				E6B458C61CB75D8A00FB4261 /* FTFightKingViewController.m */,
-				E6B458C71CB75D8A00FB4261 /* FTFightKingViewController.xib */,
-			);
-			name = FightKing;
 			sourceTree = "<group>";
 		};
 		E6B458B41CB759AE00FB4261 /* Coach */ = {
@@ -1234,6 +1224,16 @@
 			);
 			name = thirdCodes;
 			path = Tools/thirdCodes;
+			sourceTree = "<group>";
+		};
+		E6DCE7271CD849060082831D /* 视频 */ = {
+			isa = PBXGroup;
+			children = (
+				E6DCE7281CD8492C0082831D /* FTVideoViewController.h */,
+				E6DCE7291CD8492C0082831D /* FTVideoViewController.m */,
+				E6DCE72A1CD8492C0082831D /* FTVideoViewController.xib */,
+			);
+			name = "视频";
 			sourceTree = "<group>";
 		};
 		E6E5807E1CBE2F2D00272242 /* SDWebImage */ = {
@@ -1417,6 +1417,7 @@
 				E611850A1CC76B3400F23EC7 /* ios-social-sdk-like.html in Resources */,
 				E61184911CC75E1600F23EC7 /* UMSShareListController.xib in Resources */,
 				E64EF1141CB6614000CAE340 /* Main.storyboard in Resources */,
+				E6DCE72C1CD8492C0082831D /* FTVideoViewController.xib in Resources */,
 				E61184901CC75E1600F23EC7 /* UMSnsAccountViewController.xib in Resources */,
 				E611850F1CC76B3400F23EC7 /* ios-social-sdk-share-quick.html in Resources */,
 				E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */,
@@ -1427,7 +1428,6 @@
 				E61185061CC76B3400F23EC7 /* iOS-social-analytics-releasenote.html in Resources */,
 				E68EC50C1CC4B85D00A338C8 /* FTFilterTableViewController.xib in Resources */,
 				E61185071CC76B3400F23EC7 /* iOS-social-releasenote.html in Resources */,
-				E6B458C91CB75D8A00FB4261 /* FTFightKingViewController.xib in Resources */,
 				E6035EB91CC08D2800B10D36 /* FTNewsDetail2ViewController.xib in Resources */,
 				E6B458D31CB75DA200FB4261 /* FTInformationViewController.xib in Resources */,
 				E61185011CC76B3300F23EC7 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
@@ -1513,7 +1513,6 @@
 				E6E580A91CBE2F2D00272242 /* UIButton+WebCache.m in Sources */,
 				3DC412101CD039D70030C229 /* MASConstraintMaker.m in Sources */,
 				E6E580A31CBE2F2D00272242 /* SDWebImageCompat.m in Sources */,
-				E6B458C81CB75D8A00FB4261 /* FTFightKingViewController.m in Sources */,
 				3DC4120F1CD039D70030C229 /* MASConstraint.m in Sources */,
 				E65EFC291CC8ADFD0039EE8A /* UIButton+LYZTitle.m in Sources */,
 				3DC411F01CCF80DD0030C229 /* FTDrawerTableViewHeader.m in Sources */,
@@ -1531,6 +1530,7 @@
 				E6E580AA1CBE2F2D00272242 /* UIImage+GIF.m in Sources */,
 				E6B458D21CB75DA200FB4261 /* FTInformationViewController.m in Sources */,
 				E66D6F181CBCE843008B015A /* AFURLSessionManager.m in Sources */,
+				E6DCE72B1CD8492C0082831D /* FTVideoViewController.m in Sources */,
 				E66D6F131CBCE843008B015A /* AFNetworkReachabilityManager.m in Sources */,
 				E6E580A61CBE2F2D00272242 /* SDWebImageDownloaderOperation.m in Sources */,
 				3DC4121D1CD060190030C229 /* FTDrawerViewController.m in Sources */,

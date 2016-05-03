@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "FTInformationViewController.h"
-#import "FTFightKingViewController.h"
+#import "FTVideoViewController.h"
 #import "FTMatchViewController.h"
 #import "FTCoachViewController.h"
 #import "FTBoxingHallViewController.h"
@@ -198,15 +198,15 @@
     matchVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-赛事"];
     matchVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-赛事pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    FTFightKingViewController *fightKingVC = [FTFightKingViewController new];
+    FTVideoViewController *videoVC = [FTVideoViewController new];
     //    FTBaseNavigationViewController *fightKingNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:fightKingVC];
-    fightKingVC.tabBarItem.title = @"视频";
-    [fightKingVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+    videoVC.tabBarItem.title = @"视频";
+    [videoVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                     Bar_Item_Select_Title_Color, UITextAttributeTextColor,
                                                     nil] forState:UIControlStateSelected];
     
-    fightKingVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-视频"];
-    fightKingVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-视频pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    videoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-视频"];
+    videoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-视频pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     FTCoachViewController *coachVC = [FTCoachViewController new];
     //    FTBaseNavigationViewController *coachNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:coachVC];
@@ -235,7 +235,7 @@
     
         tabBartVC.tabBar.barTintColor = [UIColor blackColor];
         tabBartVC.tabBar.translucent = NO;
-        tabBartVC.viewControllers = @[infoVC, matchVC, fightKingVC, coachVC, boxingHallVC];
+        tabBartVC.viewControllers = @[infoVC, matchVC, videoVC, coachVC, boxingHallVC];
     
     FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:tabBartVC];
     self.window.rootViewController = navi;
