@@ -14,6 +14,7 @@
 #import "WXApi.h"
 #import "FTUserBean.h"
 #import "MBProgressHUD.h"
+#import "UIImageView+WebCache.h"
 
 @interface FTDrawerViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
 
@@ -37,13 +38,28 @@ static NSString *const tableCellId = @"tableCellId";
     [self setLoginedView];
     
     [self setLoginView];
+    
+    [self showLoginedViewData];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    
+    self.navigationController.navigationBarHidden = NO;
+    //    self.navigationController.tabBarController.tabBar.hidden = YES;
+    
+    //注册通知，接收微信登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginResponse:) name:WXLoginResultNoti object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    //销毁通知
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 
 - (void) setLoginedView {
     
     NSLog(@"serSubviews");
-    
     
     [self.drawerView setBackgroundColor:[UIColor colorWithHex:0x191919]];
     //    [self setSubviews];
@@ -65,7 +81,7 @@ static NSString *const tableCellId = @"tableCellId";
     self.tableView.delegate = self;
     self.tableView.scrollEnabled = NO;
     self.tableView.backgroundColor = [UIColor clearColor];
-    self.tableView.separatorColor = [UIColor grayColor];
+    self.tableView.separatorColor = [UIColor colorWithHex:0x505050];
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)])
     {
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
@@ -100,8 +116,13 @@ static NSString *const tableCellId = @"tableCellId";
     
     [self.loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
+    
+    //微信快捷登录按钮
     [self.weichatLoginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.weichatLoginBtn setTitleColor:[UIColor colorWithHex:0xcccccc] forState:UIControlStateHighlighted];
+    [self.weichatLoginBtn addTarget:self action:@selector(weichatBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
     
     [self.tipLabel setTextColor:[UIColor colorWithHex:0x505050]];
     
@@ -129,18 +150,125 @@ static NSString *const tableCellId = @"tableCellId";
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-    if (!localUser) {
-        NSLog(@"微信登录");
-        if ([WXApi isWXAppInstalled] ) {
-            SendAuthReq *req = [[SendAuthReq alloc] init];
-            req.scope = @"snsapi_userinfo";
-            req.state = @"fighter";
-            [WXApi sendReq:req];
-            
-        }else{
-            NSLog(@"目前只支持微信登录，请安装微信");
-            [self showHUDWithMessage:@"目前只支持微信登录，请安装微信"];
+    if (localUser) {
+        
+        [self setLoginedViewData:localUser];
+        
+    }else {
+    
+        [self.loginView setHidden:NO];//隐藏登录界面
+    }
+}
+
+- (void) setLoginedViewData:(FTUserBean *)localUser {
+
+    if (localUser) {
+        
+        [self.loginView setHidden:YES];//隐藏登录界面
+        
+        [self setAvatarImageViewImageWithString:localUser.headpic];
+        [self setNameLabelText:localUser.username];
+        [self setAgeLabelText:localUser.birthday];
+        [self setSexLabelText:localUser.sex];
+        [self setHeightLabelText:localUser.height];
+        [self setWeightLabelText:localUser.weight];
+        
+    }
+    
+}
+
+#pragma mark - setter
+
+- (void) setAvatarImageViewImageWithString:(NSString *)urlString {
+    
+    [self.avatarImageView  sd_setImageWithURL:[NSURL URLWithString:urlString]
+                             placeholderImage:[UIImage imageNamed:@"头像_空"]];
+    
+}
+
+- (void) setNameLabelText:(NSString *) text {
+    
+    if (text.length <= 0 || text == nil) {
+        [self.nameLabel setText:@"用户名未设置"];
+        [self.nameLabel setTextColor:[UIColor colorWithHex:0x505050]];
+    }else {
+        [self.nameLabel setText:text];
+    }
+    
+}
+- (void) setSexLabelText:(NSString *) text {
+
+    if (text.length <= 0 || text == nil) {
+        [self.sexLabel setText:@"男"];
+    }else {
+        [self.sexLabel setText:text];
+    }
+}
+
+- (void) setAgeLabelText:(NSString *) text {
+    
+    if (text.length <= 0 || text == nil) {
+        [self.ageLabel setText:@"18岁"];
+    }else {
+        [self.ageLabel setText:text];
+    }
+}
+
+- (void) setHeightLabelText:(NSString *) text {
+    
+    if (text.length <= 0 || text == nil) {
+        [self.heightLabel setText:@"身高：-- cm"];
+    }else {
+        [self.heightLabel setText:[NSString stringWithFormat:@"身高：%@cm",text]];
+    }
+}
+
+- (void) setWeightLabelText:(NSString *) text {
+    
+    if (text.length <= 0 || text == nil) {
+        [self.weightLabel setText:@"体重：-- kg"];
+    }else {
+        [self.weightLabel setText:[NSString stringWithFormat:@"体重：%@kg",text]];
+    }
+}
+
+
+
+
+#pragma mark - response methods
+
+//微信快捷登录按钮
+- (IBAction)weichatBtnAction:(id)sender {
+    
+    NSLog(@"微信登录");
+    if ([WXApi isWXAppInstalled] ) {
+        SendAuthReq *req = [[SendAuthReq alloc] init];
+        req.scope = @"snsapi_userinfo";
+        req.state = @"fighter";
+        [WXApi sendReq:req];
+
+    }else{
+        NSLog(@"目前只支持微信登录，请安装微信");
+        [self showHUDWithMessage:@"未安装微信！"];
+    }
+    
+    NSLog(@"微信快捷按钮");
+}
+
+//
+- (void)wxLoginResponse:(NSNotification *)noti{
+    NSString *msg = [noti object];
+    if ([msg isEqualToString:@"SUCESS"]) {
+        [self showHUDWithMessage:@"微信登录成功，可以评论或点赞了"];
+        
+        //从本地读取存储的用户信息
+        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+        if (localUser) {
+            [self setLoginedViewData:localUser];
         }
+    }else if ([msg isEqualToString:@"ERROR"]){
+        [self showHUDWithMessage:@"微信登录失败"];
     }
 }
 
@@ -261,7 +389,7 @@ static NSString *const tableCellId = @"tableCellId";
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 
     UIView *header = [[UIView alloc]init];
-    header.backgroundColor = [UIColor grayColor];
+    header.backgroundColor = [UIColor colorWithHex:0x505050];
     return header;
 }
 

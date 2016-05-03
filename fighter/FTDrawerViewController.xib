@@ -92,7 +92,7 @@
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="身高 ：175cm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hiu-t4-qR9">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="身高 ：175cm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hiu-t4-qR9">
                             <rect key="frame" x="61" y="183" width="80" height="12"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="12" id="Ylh-IE-CbX"/>
@@ -102,7 +102,7 @@
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="体重 ：75kg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cM-N5-Uxg">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="体重 ：75kg" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cM-N5-Uxg">
                             <rect key="frame" x="178" y="183" width="80" height="12"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="12" id="Bm3-7z-Bdh"/>
@@ -145,6 +145,11 @@
                         </tableView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="头像-空" translatesAutoresizingMaskIntoConstraints="NO" id="CCa-tj-QxX">
                             <rect key="frame" x="122" y="42" width="76" height="76"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="39"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cjm-Rk-cB2">
                             <rect key="frame" x="140" y="498" width="40" height="40"/>
@@ -212,6 +217,9 @@
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <state key="normal" title="注册/登录"/>
+                            <connections>
+                                <action selector="weichatBtnAction:" destination="-1" eventType="touchUpInside" id="bgz-Rl-Yak"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="171-2Q-268">
                             <rect key="frame" x="100" y="176" width="120" height="14"/>

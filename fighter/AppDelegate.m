@@ -40,17 +40,9 @@
     //设置微信相关的
     [self setWeiXin];
     
-    //    [self setRootViewController];
+//        [self setRootViewController];
 //    [self setRootViewController2];
-//    @try{
-//        
-//    }
-//    @catch(NSException *exception) {
-//        NSLog(@"exception:%@", exception);
-//    }
-//    @finally {
-//        
-//    }
+
     
     FTDrawerViewController *drawerVC = [[FTDrawerViewController alloc]init];
     self.window.rootViewController = drawerVC;
