@@ -41,11 +41,11 @@
     [self setWeiXin];
     
 //        [self setRootViewController];
-//    [self setRootViewController2];
+    [self setRootViewController2];
 
     
-    FTDrawerViewController *drawerVC = [[FTDrawerViewController alloc]init];
-    self.window.rootViewController = drawerVC;
+//    FTDrawerViewController *drawerVC = [[FTDrawerViewController alloc]init];
+//    self.window.rootViewController = drawerVC;
     return YES;
 }
 
