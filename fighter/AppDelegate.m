@@ -25,6 +25,9 @@
 #import "RBRequestOperationManager.h"
 #import "FTUserBean.h"
 
+
+#import "FTDrawerViewController.h"
+
 @interface AppDelegate ()<WXApiDelegate>
 
 @end
@@ -38,8 +41,19 @@
     [self setWeiXin];
     
     //    [self setRootViewController];
-    [self setRootViewController2];
+//    [self setRootViewController2];
+//    @try{
+//        
+//    }
+//    @catch(NSException *exception) {
+//        NSLog(@"exception:%@", exception);
+//    }
+//    @finally {
+//        
+//    }
     
+    FTDrawerViewController *drawerVC = [[FTDrawerViewController alloc]init];
+    self.window.rootViewController = drawerVC;
     return YES;
 }
 

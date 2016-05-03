@@ -14,8 +14,8 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 
 
-@property (nonatomic, copy) NSString *title;
+@property (nonatomic, assign) NSInteger fightType;
 @property (nonatomic, strong) UIImage *backImg;
 
-
+- (void) setBackImgView ;
 @end

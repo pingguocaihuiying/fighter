@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface FTDrawerTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *title;
-@property (weak, nonatomic) IBOutlet UIImageView *image;
+@property (weak, nonatomic) IBOutlet UILabel *cellTitle;
+@property (weak, nonatomic) IBOutlet UIImageView *cellImage;
 
+- (void) setTitleWithString:(NSString *)string;
 @end

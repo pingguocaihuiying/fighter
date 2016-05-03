@@ -25,6 +25,7 @@
 		3DC4121E1CD060190030C229 /* FTDrawerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC4121C1CD060190030C229 /* FTDrawerViewController.xib */; };
 		3DC412211CD0B94A0030C229 /* FTDrawerCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC412201CD0B94A0030C229 /* FTDrawerCollectionCell.m */; };
 		3DC412251CD0C3780030C229 /* NSString+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC412241CD0C3780030C229 /* NSString+Size.m */; };
+		3DE95B501CD326B7005BF85C /* FTCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95B4F1CD326B7005BF85C /* FTCollectionViewLayout.m */; };
 		E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6035EB61CC08D2800B10D36 /* FTNewsDetail2ViewController.m */; };
 		E6035EB91CC08D2800B10D36 /* FTNewsDetail2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6035EB71CC08D2800B10D36 /* FTNewsDetail2ViewController.xib */; };
 		E6035EBE1CC0C39500B10D36 /* FTCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6035EBC1CC0C39500B10D36 /* FTCommentViewController.m */; };
@@ -227,6 +228,8 @@
 		3DC412231CD0C3780030C229 /* NSString+Size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Size.h"; sourceTree = "<group>"; };
 		3DC412241CD0C3780030C229 /* NSString+Size.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Size.m"; sourceTree = "<group>"; };
 		3DC412491CD0E8200030C229 /* UIKeyboardInputMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIKeyboardInputMode.h; sourceTree = "<group>"; };
+		3DE95B4E1CD326B7005BF85C /* FTCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCollectionViewLayout.h; sourceTree = "<group>"; };
+		3DE95B4F1CD326B7005BF85C /* FTCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCollectionViewLayout.m; sourceTree = "<group>"; };
 		E6035EB51CC08D2800B10D36 /* FTNewsDetail2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNewsDetail2ViewController.h; sourceTree = "<group>"; };
 		E6035EB61CC08D2800B10D36 /* FTNewsDetail2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNewsDetail2ViewController.m; sourceTree = "<group>"; };
 		E6035EB71CC08D2800B10D36 /* FTNewsDetail2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTNewsDetail2ViewController.xib; sourceTree = "<group>"; };
@@ -608,6 +611,8 @@
 				3DC4121A1CD060190030C229 /* FTDrawerViewController.h */,
 				3DC4121B1CD060190030C229 /* FTDrawerViewController.m */,
 				3DC4121C1CD060190030C229 /* FTDrawerViewController.xib */,
+				3DE95B4E1CD326B7005BF85C /* FTCollectionViewLayout.h */,
+				3DE95B4F1CD326B7005BF85C /* FTCollectionViewLayout.m */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -1488,6 +1493,7 @@
 				E68050BB1CBF919A00678905 /* JHRefreshBaseView.m in Sources */,
 				E65F90B61CBDF106005CA3E6 /* NetWorking.m in Sources */,
 				E66D6F161CBCE843008B015A /* AFURLRequestSerialization.m in Sources */,
+				3DE95B501CD326B7005BF85C /* FTCollectionViewLayout.m in Sources */,
 				E68050B71CBF919A00678905 /* JHRefreshAmazingAniView.m in Sources */,
 				E6D74A491CB7B7EE00854337 /* UILabel+StringFrame.m in Sources */,
 				E6DF6B8B1CCE32F600219766 /* NSString+EmojiFilter.m in Sources */,
