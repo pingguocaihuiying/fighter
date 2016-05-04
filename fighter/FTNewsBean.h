@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FTBaseBean.h"
 
-@interface FTNewsBean : NSObject
+@interface FTNewsBean : FTBaseBean
 
 @property (nonatomic,copy) NSString *layout;
 @property (nonatomic,copy) NSString *newsTime;

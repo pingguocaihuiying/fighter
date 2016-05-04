@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FTBaseBean.h"
 
 @interface FTBaseTableViewCell : UITableViewCell
 
 
 
-- (void)setWithBean:(FTNewsBean *)bean;
+- (void)setWithBean:(FTBaseBean *)bean;
 
 @end
 

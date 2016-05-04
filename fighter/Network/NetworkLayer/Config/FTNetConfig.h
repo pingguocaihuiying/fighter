@@ -27,6 +27,9 @@ extern NSString *const GetStateURL;
 extern NSString *const AddVoteURL;
 //删除点赞接口
 extern NSString *const DeleteVoteURL;
+//获取视频接口地址: 域名/api/news/getVideos.do
+extern NSString *const GetVideoURL;
+
 #pragma mark - 用户接口
 extern NSString * const UserInterfaceHost;
 

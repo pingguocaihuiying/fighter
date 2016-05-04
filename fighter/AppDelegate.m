@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "FTInformationViewController.h"
-#import "FTVideoViewController.h"
 #import "FTMatchViewController.h"
 #import "FTCoachViewController.h"
 #import "FTBoxingHallViewController.h"
@@ -24,6 +23,7 @@
 #import "FTNetConfig.h"
 #import "RBRequestOperationManager.h"
 #import "FTUserBean.h"
+#import "FTVideoViewController.h"
 
 @interface AppDelegate ()<WXApiDelegate>
 

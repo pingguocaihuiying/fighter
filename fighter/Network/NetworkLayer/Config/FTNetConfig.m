@@ -36,6 +36,10 @@ NSString *const AddVoteURL = @"/api/comment/add$Vote.do";
 //删除点赞接口
 NSString *const DeleteVoteURL = @"/api/comment/delete$Vote.do";
 
+//获取视频接口地址: 域名/api/news/getVideos.do
+NSString *const GetVideoURL = @"/api/videos/getVideos.do";
+
+
 //NSString * const UserInterfaceHost = @"http://121.42.44.216/integral_adminTest";
 NSString * const UserInterfaceHost = @"http://192.168.85.45/integral_adminTest";  //测试注册用，不能用于微信登录、微信支付
 

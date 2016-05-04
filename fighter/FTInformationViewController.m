@@ -48,7 +48,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
 //        self.tabBarController.navigationController.navigationBarHidden = NO;
-    self.navigationController.navigationBarHidden = NO;
+//    self.navigationController.navigationBarHidden = NO;
 }
 
 - (void)initTypeArray{
@@ -306,6 +306,7 @@
 {
     if(!self.tableViewController){
         self.tableViewController = [[FTTableViewController alloc]initWithStyle:UITableViewStylePlain];
+        self.tableViewController.newsOrVideo = @"news";
         self.tableViewController.FTdelegate = self;
         self.tableViewController.order = 0;
         //设置上拉、下拉刷新
@@ -498,7 +499,7 @@
     FTNewsBean *bean = [FTNewsBean new];
     [bean setValuesWithDic:newsDic];
     
-    newsDetailViewController.newsBean = bean;
+    newsDetailViewController.bean = bean;
     
     [self.navigationController pushViewController:newsDetailViewController animated:YES];
 }

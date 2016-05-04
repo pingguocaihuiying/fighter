@@ -50,8 +50,8 @@
     [self.myImageView3 sd_setImageWithURL:[NSURL URLWithString:bean.img_small_three]];
     
     //设置评论数、点赞数
-    NSString *commentCount = [NSString stringWithFormat:@"%@", bean.commentCount];
-    NSString *voteCount = [NSString stringWithFormat:@"%@", bean.voteCount];
+    NSString *commentCount = [NSString stringWithFormat:@"(%@)", bean.commentCount];
+    NSString *voteCount = [NSString stringWithFormat:@"(%@)", bean.voteCount];
     self.numOfCommentLabel.text = commentCount;
     self.numOfthumbLabel.text = voteCount;
     

@@ -12,7 +12,10 @@
 #import "FTThreeImageInfoTableViewCell.h"
 #import "FTOneBigImageInfoTableViewCell.h"
 #import "FTBaseTableViewCell.h"
-
+#import "FTVideoTableViewCell.h"
+#import "FTBaseBean.h"
+#import "FTVideoBean.h"
+#import "FTNewsBean.h"
 
 @interface FTTableViewController ()
 
@@ -92,9 +95,23 @@
                 cell.backgroundColor = [UIColor clearColor];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
+        }else if(layout == nil){//如果为nil，则是视频
+            NSLog(@"layout is nil");
+            static NSString *cellider4 = @"cell4";
+            cell = [tableView dequeueReusableCellWithIdentifier:cellider4];
+            if (cell == nil) {
+                cell = [[[NSBundle mainBundle]loadNibNamed:@"FTVideoTableViewCell" owner:self options:nil]firstObject];
+                cell.backgroundColor = [UIColor clearColor];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
         }
         //改变cell的值
-        FTNewsBean *bean = [FTNewsBean new];
+        FTBaseBean *bean;
+        if ([layout isEqualToString:@"1"] | [layout isEqualToString:@"2"] | [layout isEqualToString:@"3"]) {
+            bean = [FTNewsBean new];
+        }if (layout == nil) {
+            bean = [FTVideoBean new];
+        }
 //        [bean setValuesForKeysWithDictionary:dic];//这种写法在服务器新增字段时，客户端会崩溃
         [bean setValuesWithDic:dic];
         [cell setWithBean:bean];
@@ -137,9 +154,11 @@
         }else if([layout isEqualToString:@"3"]){
             return 163;
         }
-    }
-//    return 119;
+        else if([layout isEqualToString:@"2"]){
         return 146 ;//一张小图的cell，图片等比例放大了1.5倍
+        }
+    }
+    return 130;//130是视频界面的cell高度
 }
 
 - (void)tableView:(FTTableViewController *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

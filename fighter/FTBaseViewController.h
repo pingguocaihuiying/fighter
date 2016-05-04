@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FTBaseBean.h"
 
 @interface FTBaseViewController : UIViewController
-
+@property (nonatomic, strong)FTBaseBean *bean;
 @end
