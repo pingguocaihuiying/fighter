@@ -101,7 +101,7 @@
                                 <rect key="frame" x="60" y="0.0" width="50" height="22"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KVM-Lg-WwX" userLabel="赞图标">
-                                        <rect key="frame" x="0.0" y="0.0" width="22" height="22"/>
+                                        <rect key="frame" x="3" y="0.0" width="22" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="22" id="6Aa-Pn-EJI"/>
                                             <constraint firstAttribute="height" constant="22" id="kGm-ZS-kGe"/>
@@ -109,7 +109,7 @@
                                         <state key="normal" backgroundImage="赞-改"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(23)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8SK-DH-yKe" userLabel="赞次数">
-                                        <rect key="frame" x="22" y="0.0" width="25" height="21"/>
+                                        <rect key="frame" x="25" y="0.0" width="25" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="BcF-vm-xUU"/>
                                             <constraint firstAttribute="width" constant="25" id="G1j-Fu-VA1"/>
@@ -122,6 +122,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="8SK-DH-yKe" firstAttribute="leading" secondItem="KVM-Lg-WwX" secondAttribute="trailing" id="8tH-qu-fnp"/>
+                                    <constraint firstAttribute="trailing" secondItem="8SK-DH-yKe" secondAttribute="trailing" id="EDG-Lg-yn3"/>
                                     <constraint firstItem="8SK-DH-yKe" firstAttribute="top" secondItem="jSS-ON-2Vi" secondAttribute="top" id="JrB-Td-oMi"/>
                                     <constraint firstItem="KVM-Lg-WwX" firstAttribute="top" secondItem="jSS-ON-2Vi" secondAttribute="top" id="TDV-Dv-NmH"/>
                                     <constraint firstItem="KVM-Lg-WwX" firstAttribute="leading" secondItem="jSS-ON-2Vi" secondAttribute="leading" id="UBQ-fc-goE"/>
@@ -132,6 +133,7 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="UBQ-fc-goE"/>
                                         <exclude reference="st2-F8-Lt1"/>
                                         <exclude reference="zxN-Ey-h4h"/>
                                     </mask>

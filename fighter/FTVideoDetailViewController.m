@@ -193,11 +193,11 @@
     NSString *url = _videoBean.url;
     NSLog(@"视频url：%@", url);
     url = [self encodeToPercentEscapeString:url];
-    
+//    _videoBean.viewCount = @"100";
     NSString *title = _videoBean.title;
     title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-    _webViewUrlString = [NSString stringWithFormat:@"http://www.loufang.studio/page/news_page.html?objId=%@&title=%@&author=%@&newsTime=%@&commentCount=%@&voteCount=%@&url=%@&tableName=%@&type=%@", _videoBean.vediosId, title, [_videoBean.author stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], _videoBean.videosTime, _videoBean.commentCount, _videoBean.voteCount,url , @"c-news", _videoBean.videosType];
+    _webViewUrlString = [NSString stringWithFormat:@"http://www.loufang.studio/page/video_page.html?objId=%@&title=%@&author=%@&newsTime=%@&commentCount=%@&voteCount=%@&url=%@&tableName=%@&type=%@&videoLength=%@&viewCount=%@", _videoBean.vediosId, title, [_videoBean.author stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], _videoBean.videosTime, _videoBean.commentCount, _videoBean.voteCount,url , @"c-video", _videoBean.videosType, _videoBean.videoLength,_videoBean.viewCount];
     NSLog(@"webview url：%@", _webViewUrlString);
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webViewUrlString]]];
     [self.view sendSubviewToBack:_webView];
