@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTInformationViewController">
@@ -10,6 +10,7 @@
                 <outlet property="currentScrollView" destination="tIR-iR-zfc" id="dQ6-OX-9zZ"/>
                 <outlet property="currentView" destination="nkd-pB-8Hu" id="R1h-gp-6b9"/>
                 <outlet property="infoLabel" destination="Ge9-0f-sr1" id="O4y-Pu-7ad"/>
+                <outlet property="leftNavButton" destination="VeT-pB-44g" id="KLk-vz-VcC"/>
                 <outlet property="messageButton" destination="Teb-vS-iKf" id="Vk5-d4-cev"/>
                 <outlet property="searchButton" destination="529-d9-Laz" id="fZP-Lf-2dS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -20,13 +21,21 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VeT-pB-44g" userLabel="用户">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VeT-pB-44g">
                     <rect key="frame" x="15" y="20" width="34" height="34"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="34" id="348-TE-VXC"/>
                         <constraint firstAttribute="height" constant="34" id="jho-9Y-ejC"/>
                     </constraints>
                     <state key="normal" backgroundImage="头像-空"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="17"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="leftButtonItemClick:" destination="-1" eventType="touchUpInside" id="We0-du-6Xw"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="格斗家" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Guq-2c-nxL">
                     <rect key="frame" x="59" y="28" width="55" height="18"/>

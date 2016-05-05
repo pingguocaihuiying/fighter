@@ -46,6 +46,7 @@ NSString *const AddViewCountURL = @"/api/videos/upVideoViewN.do";
 //NSString * const UserInterfaceHost = @"http://121.42.44.216/integral_adminTest";
 NSString * const UserInterfaceHost = @"http://192.168.85.45/integral_adminTest";  //测试注册用，不能用于微信登录、微信支付
 
+//
 NSString * const GetPhoneCodeURL = @"/api/newuser/getPhoneCode.do";
 
 NSString * const RegisterUserURL = @"/api/newuser/registerUser.do";

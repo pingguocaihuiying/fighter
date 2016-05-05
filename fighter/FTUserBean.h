@@ -46,9 +46,10 @@
 @property (nonatomic,copy) NSString *remorks;
 @property (nonatomic,copy) NSString *unionuserid;
 @property (nonatomic,copy) NSString *cardNo;
-@property (nonatomic,copy) NSString *headpic;
+@property (nonatomic,copy) NSString *headpic;//头像
 @property (nonatomic,copy) NSString *password;
 @property (nonatomic,copy) NSString *lastlogintime;
 @property (nonatomic,copy) NSString *username;
-
+@property (nonatomic,copy) NSString *height;//身高
+@property (nonatomic,copy) NSString *weight;//体重
 @end
