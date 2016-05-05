@@ -19,9 +19,10 @@
 #import "FTVideoBean.h"
 #import "UIButton+LYZTitle.h"
 #import "UIButton+WebCache.h"
+#import "Mobclick.h"
 
 
-@interface FTVideoViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate>
+@interface FTVideoViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTVideoDetailDelegate>
 
 @property(nonatomic,strong) NSArray *sourceArry;     //数据源
 @property(nonatomic,strong) UIPageViewController *pageViewController;   //翻页控制器
@@ -47,6 +48,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    [MobClick event:@"mainPage_Video"];
     //    self.tabBarController.navigationController.navigationBarHidden = YES;
     self.navigationController.navigationBarHidden = YES;
 }
@@ -102,7 +104,11 @@
     self.newestButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 5, 55);
     self.newestButton.imageEdgeInsets = UIEdgeInsetsMake(0, 80, 4, 0);
 }
+
+#pragma -mark 最新最热按钮被点击
 - (IBAction)hotButtonClicked:(id)sender {
+    
+    [MobClick event:@"videoPage_Hot"];
     //设置背景
     self.containerOfNewOrHotView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"二标签-左选中"]];
     
@@ -117,6 +123,9 @@
     [self getDataWithGetType:@"new" andCurrId:@"-1"];
 }
 - (IBAction)newestButtonClicked:(id)sender {
+    
+    [MobClick event:@"videoPage_New"];
+    
     self.containerOfNewOrHotView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"二标签-右选中"]];
     
     //改变右边按钮的标题颜色、图片
@@ -573,10 +582,25 @@
         [bean setValuesWithDic:newsDic];
         
         videoDetailVC.videoBean = bean;
+        videoDetailVC.indexPath = indexPath;
+        videoDetailVC.delegate = self;
         
         [self.navigationController pushViewController:videoDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
     }
 }
+
+- (void)updateCountWithVideoBean:(FTVideoBean *)videoBean indexPath:(NSIndexPath *)indexPath{
+    
+    NSDictionary *dic = self.tableViewController.sourceArray[indexPath.row];
+    [dic setValue:[NSString stringWithFormat:@"%@", videoBean.voteCount] forKey:@"voteCount"];
+    [dic setValue:[NSString stringWithFormat:@"%@", videoBean.viewCount] forKey:@"viewCount"];
+    [dic setValue:[NSString stringWithFormat:@"%@", videoBean.commentCount] forKey:@"commentCount"];
+    
+    self.tableViewController.sourceArray[indexPath.row] = dic;
+    [self.tableViewController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
+    
+}
+
 - (IBAction)filterButton:(id)sender {
     FTFilterTableViewController *filterTableViewController = [FTFilterTableViewController new];
     

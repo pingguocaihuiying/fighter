@@ -92,5 +92,9 @@
 }
 - (IBAction)playButtonClicked:(id)sender {
     NSLog(@"播放按钮被点击");
+    if([self.clickedDelegate respondsToSelector:@selector(clickedWithIndex:)]){
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.tag inSection:0];
+        [self.clickedDelegate clickedWithIndex:indexPath];
+    }
 }
 @end

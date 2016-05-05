@@ -16,8 +16,9 @@
 #import "FTBaseBean.h"
 #import "FTVideoBean.h"
 #import "FTNewsBean.h"
+#import "FTVideoTableViewCell.h"
 
-@interface FTTableViewController ()
+@interface FTTableViewController ()<FTTableViewCellClickedDelegate>
 
 @end
 
@@ -103,7 +104,10 @@
                 cell = [[[NSBundle mainBundle]loadNibNamed:@"FTVideoTableViewCell" owner:self options:nil]firstObject];
                 cell.backgroundColor = [UIColor clearColor];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
             }
+            cell.tag = indexPath.row;
+            cell.clickedDelegate = self;
         }
         //改变cell的值
         FTBaseBean *bean;
@@ -169,4 +173,8 @@
     
 }
 
+- (void)clickedWithIndex:(NSIndexPath *)indexPath{
+    NSLog(@"index : %@", indexPath);
+    [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+}
 @end

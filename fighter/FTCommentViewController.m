@@ -79,6 +79,9 @@
     // Dispose of any resources that can be recreated.
 }
 - (void)popVC{
+    if ([self.delegate respondsToSelector:@selector(updateCountWithVideoBean: indexPath:)] ){
+        
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)commentButtonClicked{

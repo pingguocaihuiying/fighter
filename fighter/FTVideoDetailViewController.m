@@ -125,13 +125,11 @@
 
 - (void)setSubViews{
     //给“我要评论”label增加监听事件
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(commenButtonClicked:)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(commentButtonClicked:)];
     [self.commentLabel addGestureRecognizer:tap];
     self.commentLabel.userInteractionEnabled = YES;
     
     [self setEvnetListenerOfBottomViews];
-    
-  
     
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     
@@ -144,7 +142,7 @@
     //设置分享按钮
     //        UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-分享"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(shareButtonClicked)];
     //    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-分享"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(shareButtonClicked)];
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithTitle:@"转发" style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonClicked)];
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithTitle:@"转发" style:UIBarButtonItemStylePlain target:self action:@selector(topShareButtonClicked)];
     
     self.navigationController.navigationBar.tintColor = [UIColor colorWithHex:0x828287];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
@@ -171,11 +169,11 @@
     self.favourateView.userInteractionEnabled = YES;
     
     //分享
-    UITapGestureRecognizer *tapOfShareView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(shareButtonClicked)];
+    UITapGestureRecognizer *tapOfShareView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(bottomShareButtonClicked)];
     [self.shareView addGestureRecognizer:tapOfShareView];
     
     //评论
-    UITapGestureRecognizer *tapOfCommentView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(commenButtonClicked:)];
+    UITapGestureRecognizer *tapOfCommentView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(commentButtonClicked:)];
     [self.commentView addGestureRecognizer:tapOfCommentView];
 }
 
@@ -213,12 +211,11 @@
 }
 
 - (void)popVC{
+    [self.delegate updateCountWithVideoBean:_videoBean indexPath:self.indexPath];
     [self.navigationController popViewControllerAnimated:YES];
 }
-- (IBAction)shareButtonClicked:(id)sender {
-    [self shareButtonClicked];
-}
-- (IBAction)commenButtonClicked:(id)sender {
+
+- (IBAction)commentButtonClicked:(id)sender {
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
@@ -240,7 +237,30 @@
     
 }
 
+#pragma -mark 分享事件
+
+- (IBAction)bottomShareButtonClicked:(id)sender {
+    [self bottomShareButtonClicked];
+}
+
+/**
+ *  上方的分享按钮被点击
+ */
+- (void)topShareButtonClicked{
+    [MobClick event:@"videoPage_DetailPage_shareUp"];
+    [self shareButtonClicked];
+}
+
+/**
+ *  下方的分享按钮被点击
+ */
+- (void)bottomShareButtonClicked{
+    [MobClick event:@"videoPage_DetailPage_shareDown"];
+    [self shareButtonClicked];
+}
+
 - (void)shareButtonClicked{
+    
     
     //注意：分享到微信好友、微信朋友圈、微信收藏、QQ空间、QQ好友、来往好友、来往朋友圈、易信好友、易信朋友圈、Facebook、Twitter、Instagram等平台需要参考各自的集成方法
     //    //如果需要分享回调，请将delegate对象设置self，并实现下面的回调方法
@@ -330,7 +350,7 @@
 #pragma -mark 点赞按钮被点击
 
 - (IBAction)thumbButtonClicked:(id)sender {
-    
+    [MobClick event:@"videoPage_DetailPage_Zambia"];
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
@@ -357,7 +377,7 @@
 #pragma -mark 收藏按钮被点击
 
 - (IBAction)favourateButtonClicked:(id)sender {
-    
+    [MobClick event:@"videoPage_DetailPage_Collection"];
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
@@ -578,6 +598,9 @@
         //
         if ([responseDic[@"status"] isEqualToString:@"success"]) {
             NSLog(@"%@, %@", responseDic[@"status"], responseDic[@"message"]);
+            int viewCount = [_videoBean.viewCount intValue];
+            viewCount++;
+            _videoBean.viewCount = [NSString stringWithFormat:@"%d", viewCount];
         }else{
             NSLog(@"%@, %@", responseDic[@"status"], responseDic[@"message"]);
         }

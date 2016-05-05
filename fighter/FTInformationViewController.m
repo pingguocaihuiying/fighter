@@ -19,9 +19,10 @@
 #import "FTNewsBean.h"
 #import "UIButton+LYZTitle.h"
 #import "UIButton+WebCache.h"
+#import "Mobclick.h"
 
 
-@interface FTInformationViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate>
+@interface FTInformationViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTnewsDetailDelegate>
 
 @property(nonatomic,strong) NSArray *sourceArry;     //数据源
 @property(nonatomic,strong) UIPageViewController *pageViewController;   //翻页控制器
@@ -43,6 +44,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    [MobClick event:@"mainPage_BoxingNews"];
 //    self.tabBarController.navigationController.navigationBarHidden = YES;
     self.navigationController.navigationBarHidden = YES;
     
@@ -537,6 +539,8 @@
         [bean setValuesWithDic:newsDic];
         
         newsDetailVC.newsBean = bean;
+        newsDetailVC.delegate = self;
+        newsDetailVC.indexPath = indexPath;
 
         [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
     }
@@ -558,4 +562,14 @@
     [self initSubViews];
 }
 
+- (void)updateCountWithNewsBean:(FTNewsBean *)newsBean indexPath:(NSIndexPath *)indexPath{
+    
+    NSDictionary *dic = self.tableViewController.sourceArray[indexPath.row];
+    [dic setValue:[NSString stringWithFormat:@"%@", newsBean.voteCount] forKey:@"voteCount"];
+    [dic setValue:[NSString stringWithFormat:@"%@", newsBean.commentCount] forKey:@"commentCount"];
+    
+    self.tableViewController.sourceArray[indexPath.row] = dic;
+    [self.tableViewController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
+    
+}
 @end
