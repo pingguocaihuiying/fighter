@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FTBaseBean.h"
 
-@interface FTUserBean : NSObject<NSCoding>
+@interface FTUserBean : FTBaseBean<NSCoding>
 //@property (nonatomic, copy)NSString *uid;
 //@property (nonatomic, copy)NSString *tel;
 //@property (nonatomic, copy)NSString *username;

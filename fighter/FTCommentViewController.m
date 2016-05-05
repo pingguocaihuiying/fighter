@@ -13,7 +13,7 @@
 #import "MBProgressHUD.h"
 #import "HUD.h"
 #import "NSString+EmojiFilter.h"
-#import "UIKeyboardInputMode.h"
+
 
 @interface FTCommentViewController () <UITextViewDelegate>
 @property (nonnull, strong)UITextView *textView;
@@ -29,7 +29,7 @@
 
 - (void)setSubViews{
     //设置textView的代理
-    self.textView.delegate = self;
+//    self.textView.delegate = self;
     [self setLeftAndRightButtons];
     [self setBgOfTextView];
 }
@@ -105,10 +105,19 @@
     NSString *urlString = [FTNetConfig host:Domain path:CommentURL];
 //    urlString = @"http://10.11.1.117:8080/pugilist_admin/api/comment/add$UserComment.do";
     NSString *userId = user.olduserid;
-    NSString *objId = [NSString stringWithFormat:@"%@", _newsBean.newsId];
+    NSString *objId;
+    objId= [NSString stringWithFormat:@"%@", _newsBean.newsId];
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = @"c-news";
+    NSString *tableName;
+    if (self.newsBean) {
+        tableName = @"c-news";
+        objId= [NSString stringWithFormat:@"%@", _newsBean.newsId];
+    }else if(self.videoBean){
+        tableName = @"c-video";
+        objId= [NSString stringWithFormat:@"%@", _videoBean.vediosId];
+    }
+    
     
     NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@",comment, loginToken, objId, tableName, ts, userId, @"gedoujia12555521254"];
     
@@ -173,55 +182,7 @@
 
 #pragma mark - UITextViewDelegate 
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
 
-//    NSLog(@"[UIApplication sharedApplication] textInputMode].primaryLanguage:%@",[[UIApplication sharedApplication] textInputMode].primaryLanguage);
-
-    
-//    //屏蔽系统表情
-//    if ([[UIApplication sharedApplication] textInputMode].primaryLanguage == nil){
-//        return NO;
-//    }
-    
-//    //不支持系统表情的输入
-//    if ([[[UITextInputMode currentInputMode ]primaryLanguage] isEqualToString:@"emoji"]) {
-//        return NO;
-//    }
-    
-    
-    
-    UIKeyboardInputModeController *key = [UIKeyboardInputModeController sharedInputModeController];
-    
-    //当前输入法
-    UIKeyboardInputMode *currentInputMode = [key currentInputMode];
-    
-    //第三方扩展输入法
-    NSArray *extensionInputModes = [key extensionInputModes];
-    
-    if ([extensionInputModes containsObject:currentInputMode]) {
-//        NSLog(@"current input mode (%@) is the 3rd party input mode", currentInputMode.identifier);
-        //屏蔽输入法表情
-        if (text.length > 0) {
-            
-            if ([self isContainsEmoji:text]) {
-                
-                return NO;
-            }else {
-                
-                return YES;
-            }
-            
-        }
-    } else {
-        //屏蔽系统表情
-        if ([[UIApplication sharedApplication] textInputMode].primaryLanguage == nil){
-            return NO;
-        }
-
-//        NSLog(@"current input mode (%@) is build-in input mode", currentInputMode.identifier);
-    }
-    return YES;
-}
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView {
 

@@ -16,6 +16,7 @@
 @interface FTTableViewController : UITableViewController
 //数据源
 @property(nonatomic,strong) NSArray *sourceArray;
+@property (nonatomic, copy)NSString *newsOrVideo;//值为“news”、“video”，用于区分新闻、视频
 
 //代理，用于点击cell的传值
 @property (nonatomic, weak) id<FTTableViewdelegate> FTdelegate;

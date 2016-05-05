@@ -36,6 +36,13 @@ NSString *const AddVoteURL = @"/api/comment/add$Vote.do";
 //删除点赞接口
 NSString *const DeleteVoteURL = @"/api/comment/delete$Vote.do";
 
+//获取视频接口地址: 域名/api/news/getVideos.do
+NSString *const GetVideoURL = @"/api/videos/getVideos.do";
+
+//收藏的接口: 域名/api/videos/upVideoViewN.do
+NSString *const AddViewCountURL = @"/api/videos/upVideoViewN.do";
+
+
 //NSString * const UserInterfaceHost = @"http://121.42.44.216/integral_adminTest";
 NSString * const UserInterfaceHost = @"http://192.168.85.45/integral_adminTest";  //测试注册用，不能用于微信登录、微信支付
 
@@ -73,10 +80,11 @@ NSString * const IsUserBindPhoneURL = @"/api/newuser/isUserBindPhone.do";
 
 
 
-//获取状态的校验码
+//校验码
 NSString * const GetStatusCheckKey =  @"gedoujia25fdsgfd55fdsafsag21254";
 
  NSString * const AddVoteCheckKey =    @"gedoujia1255525522255521254";
 
  NSString * const DeleteVoteCheckKey = @"gedoujia125ggrfdsgfd5521254";
-
+//增加视频观看数
+NSString * const UpVideoViewNCheckKey =  @"quanjijia222222";

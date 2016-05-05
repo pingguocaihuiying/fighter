@@ -162,6 +162,14 @@
 		E68EC50B1CC4B85D00A338C8 /* FTFilterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68EC5091CC4B85D00A338C8 /* FTFilterTableViewController.m */; };
 		E68EC50C1CC4B85D00A338C8 /* FTFilterTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E68EC50A1CC4B85D00A338C8 /* FTFilterTableViewController.xib */; };
 		E6956EA61CBE21A1008DEEDB /* FTNewsBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6956EA51CBE21A1008DEEDB /* FTNewsBean.m */; };
+		E6A9DDA41CD8842E00CB9518 /* FTVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A9DDA21CD8842E00CB9518 /* FTVideoViewController.m */; };
+		E6A9DDA91CD8879A00CB9518 /* FTVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6A9DDA81CD8879A00CB9518 /* FTVideoViewController.xib */; };
+		E6A9DDAC1CD89EE900CB9518 /* FTVideoBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A9DDAB1CD89EE900CB9518 /* FTVideoBean.m */; };
+		E6A9DDB61CD9833200CB9518 /* FTVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A9DDB41CD9833200CB9518 /* FTVideoTableViewCell.m */; };
+		E6A9DDB71CD9833200CB9518 /* FTVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6A9DDB51CD9833200CB9518 /* FTVideoTableViewCell.xib */; };
+		E6A9DDBA1CD99E7700CB9518 /* FTBaseBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A9DDB91CD99E7700CB9518 /* FTBaseBean.m */; };
+		E6A9DDBF1CD9C88600CB9518 /* FTVideoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A9DDBD1CD9C88600CB9518 /* FTVideoDetailViewController.m */; };
+		E6A9DDC01CD9C88600CB9518 /* FTVideoDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6A9DDBE1CD9C88600CB9518 /* FTVideoDetailViewController.xib */; };
 		E6B458971CB7560400FB4261 /* FTBaseNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458961CB7560400FB4261 /* FTBaseNavigationViewController.m */; };
 		E6B4589A1CB7563300FB4261 /* FTBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458991CB7563300FB4261 /* FTBaseViewController.m */; };
 		E6B458A61CB7587D00FB4261 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6B458A51CB7587D00FB4261 /* Assets.xcassets */; };
@@ -188,8 +196,6 @@
 		E6D74A5B1CB7B8C200854337 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A581CB7B8C200854337 /* MBProgressHUD.m */; };
 		E6DB76131CBB9B430034253C /* FTOneImageInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6DB76111CBB9B430034253C /* FTOneImageInfoTableViewCell.m */; };
 		E6DB76141CBB9B430034253C /* FTOneImageInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6DB76121CBB9B430034253C /* FTOneImageInfoTableViewCell.xib */; };
-		E6DCE73C1CD85B320082831D /* FTVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6DCE73A1CD85B320082831D /* FTVideoViewController.m */; };
-		E6DCE73D1CD85B320082831D /* FTVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6DCE73B1CD85B320082831D /* FTVideoViewController.xib */; };
 		E6DF6B8B1CCE32F600219766 /* NSString+EmojiFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = E6DF6B8A1CCE32F600219766 /* NSString+EmojiFilter.m */; };
 		E6E580A01CBE2F2D00272242 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E580801CBE2F2D00272242 /* MKAnnotationView+WebCache.m */; };
 		E6E580A11CBE2F2D00272242 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E580821CBE2F2D00272242 /* NSData+ImageContentType.m */; };
@@ -515,6 +521,19 @@
 		E68EC50E1CC4CBCA00A338C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		E6956EA41CBE21A1008DEEDB /* FTNewsBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNewsBean.h; sourceTree = "<group>"; };
 		E6956EA51CBE21A1008DEEDB /* FTNewsBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNewsBean.m; sourceTree = "<group>"; };
+		E6A9DDA11CD8842E00CB9518 /* FTVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTVideoViewController.h; sourceTree = "<group>"; };
+		E6A9DDA21CD8842E00CB9518 /* FTVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTVideoViewController.m; sourceTree = "<group>"; };
+		E6A9DDA81CD8879A00CB9518 /* FTVideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTVideoViewController.xib; sourceTree = "<group>"; };
+		E6A9DDAA1CD89EE900CB9518 /* FTVideoBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTVideoBean.h; sourceTree = "<group>"; };
+		E6A9DDAB1CD89EE900CB9518 /* FTVideoBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTVideoBean.m; sourceTree = "<group>"; };
+		E6A9DDB31CD9833200CB9518 /* FTVideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTVideoTableViewCell.h; sourceTree = "<group>"; };
+		E6A9DDB41CD9833200CB9518 /* FTVideoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTVideoTableViewCell.m; sourceTree = "<group>"; };
+		E6A9DDB51CD9833200CB9518 /* FTVideoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTVideoTableViewCell.xib; sourceTree = "<group>"; };
+		E6A9DDB81CD99E7700CB9518 /* FTBaseBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBaseBean.h; sourceTree = "<group>"; };
+		E6A9DDB91CD99E7700CB9518 /* FTBaseBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBaseBean.m; sourceTree = "<group>"; };
+		E6A9DDBC1CD9C88600CB9518 /* FTVideoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTVideoDetailViewController.h; sourceTree = "<group>"; };
+		E6A9DDBD1CD9C88600CB9518 /* FTVideoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTVideoDetailViewController.m; sourceTree = "<group>"; };
+		E6A9DDBE1CD9C88600CB9518 /* FTVideoDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTVideoDetailViewController.xib; sourceTree = "<group>"; };
 		E6B458931CB755C000FB4261 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		E6B458951CB7560400FB4261 /* FTBaseNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBaseNavigationViewController.h; sourceTree = "<group>"; };
 		E6B458961CB7560400FB4261 /* FTBaseNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBaseNavigationViewController.m; sourceTree = "<group>"; };
@@ -562,9 +581,6 @@
 		E6DB76101CBB9B430034253C /* FTOneImageInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTOneImageInfoTableViewCell.h; sourceTree = "<group>"; };
 		E6DB76111CBB9B430034253C /* FTOneImageInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTOneImageInfoTableViewCell.m; sourceTree = "<group>"; };
 		E6DB76121CBB9B430034253C /* FTOneImageInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTOneImageInfoTableViewCell.xib; sourceTree = "<group>"; };
-		E6DCE7391CD85B320082831D /* FTVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTVideoViewController.h; sourceTree = "<group>"; };
-		E6DCE73A1CD85B320082831D /* FTVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTVideoViewController.m; sourceTree = "<group>"; };
-		E6DCE73B1CD85B320082831D /* FTVideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTVideoViewController.xib; sourceTree = "<group>"; };
 		E6DF6B891CCE32F600219766 /* NSString+EmojiFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+EmojiFilter.h"; sourceTree = "<group>"; };
 		E6DF6B8A1CCE32F600219766 /* NSString+EmojiFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+EmojiFilter.m"; sourceTree = "<group>"; };
 		E6E5807F1CBE2F2D00272242 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
@@ -839,7 +855,6 @@
 				E6035EBB1CC0C39500B10D36 /* FTCommentViewController.h */,
 				E6035EBC1CC0C39500B10D36 /* FTCommentViewController.m */,
 				E6035EBD1CC0C39500B10D36 /* FTCommentViewController.xib */,
-				3DC412491CD0E8200030C229 /* UIKeyboardInputMode.h */,
 			);
 			name = comment;
 			sourceTree = "<group>";
@@ -1151,6 +1166,10 @@
 				E6956EA51CBE21A1008DEEDB /* FTNewsBean.m */,
 				E61185961CC78BF400F23EC7 /* FTUserBean.h */,
 				E61185971CC78BF400F23EC7 /* FTUserBean.m */,
+				E6A9DDAA1CD89EE900CB9518 /* FTVideoBean.h */,
+				E6A9DDAB1CD89EE900CB9518 /* FTVideoBean.m */,
+				E6A9DDB81CD99E7700CB9518 /* FTBaseBean.h */,
+				E6A9DDB91CD99E7700CB9518 /* FTBaseBean.m */,
 			);
 			name = Bean;
 			sourceTree = "<group>";
@@ -1311,6 +1330,26 @@
 			name = filter;
 			sourceTree = "<group>";
 		};
+		E6A9DDAD1CD8A0D200CB9518 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				E6A9DDB31CD9833200CB9518 /* FTVideoTableViewCell.h */,
+				E6A9DDB41CD9833200CB9518 /* FTVideoTableViewCell.m */,
+				E6A9DDB51CD9833200CB9518 /* FTVideoTableViewCell.xib */,
+			);
+			name = cell;
+			sourceTree = "<group>";
+		};
+		E6A9DDBB1CD9C85F00CB9518 /* 详情 */ = {
+			isa = PBXGroup;
+			children = (
+				E6A9DDBC1CD9C88600CB9518 /* FTVideoDetailViewController.h */,
+				E6A9DDBD1CD9C88600CB9518 /* FTVideoDetailViewController.m */,
+				E6A9DDBE1CD9C88600CB9518 /* FTVideoDetailViewController.xib */,
+			);
+			name = "详情";
+			sourceTree = "<group>";
+		};
 		E6B458921CB7554F00FB4261 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -1454,6 +1493,8 @@
 			isa = PBXGroup;
 			children = (
 				E6DCE72D1CD84F7C0082831D /* main */,
+				E6A9DDAD1CD8A0D200CB9518 /* cell */,
+				E6A9DDBB1CD9C85F00CB9518 /* 详情 */,
 			);
 			name = "视频";
 			sourceTree = "<group>";
@@ -1461,9 +1502,9 @@
 		E6DCE72D1CD84F7C0082831D /* main */ = {
 			isa = PBXGroup;
 			children = (
-				E6DCE7391CD85B320082831D /* FTVideoViewController.h */,
-				E6DCE73A1CD85B320082831D /* FTVideoViewController.m */,
-				E6DCE73B1CD85B320082831D /* FTVideoViewController.xib */,
+				E6A9DDA11CD8842E00CB9518 /* FTVideoViewController.h */,
+				E6A9DDA21CD8842E00CB9518 /* FTVideoViewController.m */,
+				E6A9DDA81CD8879A00CB9518 /* FTVideoViewController.xib */,
 			);
 			name = main;
 			sourceTree = "<group>";
@@ -1625,6 +1666,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E61185091CC76B3400F23EC7 /* ios-social-sdk-comment-quick.html in Resources */,
+				E6A9DDA91CD8879A00CB9518 /* FTVideoViewController.xib in Resources */,
 				E611850B1CC76B3400F23EC7 /* ios-social-sdk-login-detail.html in Resources */,
 				3D4B192B1CD9FD670022DFB0 /* microphone@2x.png in Resources */,
 				E68050BA1CBF919A00678905 /* JHRefresh.bundle in Resources */,
@@ -1639,6 +1681,7 @@
 				3D4B19291CD9FD670022DFB0 /* bubble_min@2x.png in Resources */,
 				E611848D1CC75E1600F23EC7 /* UMShareEditViewController.xib in Resources */,
 				E6B458CE1CB75D9600FB4261 /* FTMatchViewController.xib in Resources */,
+				E6A9DDC01CD9C88600CB9518 /* FTVideoDetailViewController.xib in Resources */,
 				E611850D1CC76B3400F23EC7 /* ios-social-sdk-shake.html in Resources */,
 				3D4B19301CD9FD670022DFB0 /* ToolViewInputVoiceHL@2x.png in Resources */,
 				E6DB76141CBB9B430034253C /* FTOneImageInfoTableViewCell.xib in Resources */,
@@ -1712,6 +1755,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E65EFC201CC89BD40039EE8A /* FTUserConfig.m in Sources */,
+				E6A9DDBF1CD9C88600CB9518 /* FTVideoDetailViewController.m in Sources */,
 				E6E580A41CBE2F2D00272242 /* SDWebImageDecoder.m in Sources */,
 				E6E580A81CBE2F2D00272242 /* SDWebImagePrefetcher.m in Sources */,
 				E66D6F101CBCE843008B015A /* AFHTTPRequestOperation.m in Sources */,
@@ -1780,6 +1824,7 @@
 				E65EFC291CC8ADFD0039EE8A /* UIButton+LYZTitle.m in Sources */,
 				3D4B193A1CD9FD670022DFB0 /* UMChatTableViewCell.m in Sources */,
 				3DC411F01CCF80DD0030C229 /* FTDrawerTableViewHeader.m in Sources */,
+				E6A9DDB61CD9833200CB9518 /* FTVideoTableViewCell.m in Sources */,
 				E6D74A481CB7B7EE00854337 /* UIColor+YBColorCategory.m in Sources */,
 				3DC4120E1CD039D70030C229 /* MASCompositeConstraint.m in Sources */,
 				E6B458DE1CB7B2B100FB4261 /* FTTableViewController.m in Sources */,
@@ -1787,6 +1832,7 @@
 				E6956EA61CBE21A1008DEEDB /* FTNewsBean.m in Sources */,
 				3D4B193E1CD9FD670022DFB0 /* UMRadialView.m in Sources */,
 				E6B458C31CB75D7A00FB4261 /* FTCoachViewController.m in Sources */,
+				E6A9DDA41CD8842E00CB9518 /* FTVideoViewController.m in Sources */,
 				E64EF10B1CB6614000CAE340 /* main.m in Sources */,
 				E61185981CC78BF400F23EC7 /* FTUserBean.m in Sources */,
 				E6E580A51CBE2F2D00272242 /* SDWebImageDownloader.m in Sources */,
@@ -1798,13 +1844,13 @@
 				E6B458D21CB75DA200FB4261 /* FTInformationViewController.m in Sources */,
 				3DE95BA71CD86FA4005BF85C /* FTLoginViewController.m in Sources */,
 				E66D6F181CBCE843008B015A /* AFURLSessionManager.m in Sources */,
-				E6DCE73C1CD85B320082831D /* FTVideoViewController.m in Sources */,
 				E66D6F131CBCE843008B015A /* AFNetworkReachabilityManager.m in Sources */,
 				E6E580A61CBE2F2D00272242 /* SDWebImageDownloaderOperation.m in Sources */,
 				3DC4121D1CD060190030C229 /* FTDrawerViewController.m in Sources */,
 				E6D74A4C1CB7B7EE00854337 /* HUD.m in Sources */,
 				E6E580AB1CBE2F2D00272242 /* UIImage+MultiFormat.m in Sources */,
 				E6E580AF1CBE2F2D00272242 /* UIView+WebCacheOperation.m in Sources */,
+				E6A9DDBA1CD99E7700CB9518 /* FTBaseBean.m in Sources */,
 				E6B458971CB7560400FB4261 /* FTBaseNavigationViewController.m in Sources */,
 				E68050B81CBF919A00678905 /* JHRefreshAniBaseView.m in Sources */,
 				E61B8A651CBB6C4900AE37F9 /* SDCollectionViewCell.m in Sources */,
