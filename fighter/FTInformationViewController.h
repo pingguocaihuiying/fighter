@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIView *currentView;
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 
+@property (weak, nonatomic) IBOutlet UIButton *leftNavButton;
 
 @end

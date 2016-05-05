@@ -16,6 +16,7 @@
 #import "FTBaseTabBarViewController.h"
 #import "Mobclick.h"
 #import "UMSocial.h"
+#import "UMFeedback.h"
 #import "WXApi.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocialSinaSSOHandler.h"
@@ -25,8 +26,8 @@
 #import "RBRequestOperationManager.h"
 #import "FTUserBean.h"
 
-
 #import "FTDrawerViewController.h"
+#import "MainViewController.h"
 
 @interface AppDelegate ()<WXApiDelegate>
 
@@ -41,11 +42,16 @@
     [self setWeiXin];
     
 //        [self setRootViewController];
-    [self setRootViewController2];
+//    [self setRootViewController2];
 
     
 //    FTDrawerViewController *drawerVC = [[FTDrawerViewController alloc]init];
 //    self.window.rootViewController = drawerVC;
+
+    MainViewController *sl = [[MainViewController alloc]init];
+    FTBaseNavigationViewController *_navi=[[FTBaseNavigationViewController alloc]initWithRootViewController:sl];
+    self.window.rootViewController=sl;
+    
     return YES;
 }
 
@@ -56,6 +62,9 @@
     
     //友盟分享
     [UMSocialData setAppKey:@"570739d767e58edb5300057b"];
+    
+    //友盟反馈
+    [UMFeedback setAppkey:@"570739d767e58edb5300057b"];
     
     //设置微信AppId、appSecret，分享url
     [UMSocialWechatHandler setWXAppId:WX_App_ID appSecret:WX_App_Secret url:@"http://www.umeng.com/social"];
@@ -269,8 +278,8 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-//url转码
 
+//url转码
 - (NSString *)encodeToPercentEscapeString: (NSString *) input
 {
     NSString *outputStr = (NSString *)

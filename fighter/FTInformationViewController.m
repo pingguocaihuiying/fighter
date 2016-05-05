@@ -18,6 +18,7 @@
 #import "FTFilterTableViewController.h"
 #import "FTNewsBean.h"
 #import "UIButton+LYZTitle.h"
+#import "UIButton+WebCache.h"
 
 
 @interface FTInformationViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate>
@@ -44,6 +45,7 @@
 - (void)viewWillAppear:(BOOL)animated{
 //    self.tabBarController.navigationController.navigationBarHidden = YES;
     self.navigationController.navigationBarHidden = YES;
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -65,6 +67,15 @@
         //设置右上角的按钮
     [self.searchButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-搜索pre"] forState:UIControlStateHighlighted];
     [self.messageButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
+    
+    //设置左上角按钮
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    [self.leftNavButton.layer setMasksToBounds:YES];
+    self.leftNavButton.layer.cornerRadius = 17.0;
+    [self.leftNavButton sd_setBackgroundImageWithURL:[NSURL URLWithString:localUser.headpic]
+                                            forState:UIControlStateNormal
+                                    placeholderImage:[UIImage imageNamed:@"头像-空"]];
     [self setOtherViews];
     [self getCycleData];
     [self getDataWithGetType:@"new" andCurrId:@"-1"];
@@ -383,6 +394,18 @@
         [self.tableViewController.tableView reloadData];
 
         [self getDataWithGetType:@"new" andCurrId:@"-1"];
+    }
+}
+
+
+- (IBAction)leftButtonItemClick:(id)sender {
+    
+    
+    
+    NSLog(@"information left click did");
+    if ([self.drawerDelegate respondsToSelector:@selector(leftButtonClicked:)]) {
+        
+        [self.drawerDelegate leftButtonClicked:sender];
     }
 }
 

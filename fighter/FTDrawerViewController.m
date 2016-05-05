@@ -15,12 +15,35 @@
 #import "FTUserBean.h"
 #import "MBProgressHUD.h"
 #import "UIImageView+WebCache.h"
+#import "FTLoginViewController.h"
+#import "FTBaseNavigationViewController.h"
+
+#import "FTInformationViewController.h"
+#import "FTVideoViewController.h"
+#import "FTMatchViewController.h"
+#import "FTCoachViewController.h"
+#import "FTBoxingHallViewController.h"
+#import "FTBaseNavigationViewController.h"
+#import "FTBaseTabBarViewController.h"
+#import "Mobclick.h"
+#import "UMSocial.h"
+#import "WXApi.h"
+#import "UMSocialWechatHandler.h"
+#import "UMSocialSinaSSOHandler.h"
+#import "AFHTTPRequestOperationManager.h"
+#import "UUID.h"
+#import "FTNetConfig.h"
+#import "RBRequestOperationManager.h"
+#import "UIButton+WebCache.h"
+#import "FTUserCenterViewController.h"
+#import "UMFeedback.h"
 
 @interface FTDrawerViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
 
 //@property (nonatomic, strong) NSMutableArray *interestsArray;
 
 //@property (nonatomic, strong) FTDrawerTableViewHeader *header;
+@property (nonatomic , weak) UIButton *leftBtn;
 @end
 
 static NSString *const colllectionCellId = @"colllectionCellId";
@@ -39,30 +62,49 @@ static NSString *const tableCellId = @"tableCellId";
     
     [self setLoginView];
     
-    [self showLoginedViewData];
+    [self hiddenViews];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    
-    self.navigationController.navigationBarHidden = NO;
-    //    self.navigationController.tabBarController.tabBar.hidden = YES;
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
     //注册通知，接收微信登录成功的消息
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginResponse:) name:WXLoginResultNoti object:nil];
+    
+    //添加监听器，监听login
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showLoginedViewData) name:@"loginAction" object:nil];
+    [self showLoginedViewData];
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
+
+
+- (void) viewWillDisappear:(BOOL)animated {
+    
     //销毁通知
     [[NSNotificationCenter defaultCenter]removeObserver:self];
+    
 }
+
+//hidden the some view that current version app does not need
+- (void) hiddenViews {
+    
+    [self.collectionView setHidden:YES];
+    [self.tableView setHidden:YES];
+    [self.settingBtn setHidden:YES];
+    
+}
+
 
 
 - (void) setLoginedView {
     
     NSLog(@"serSubviews");
     
+    [self.view setBackgroundColor:[UIColor colorWithHex:0x191919]];
     [self.drawerView setBackgroundColor:[UIColor colorWithHex:0x191919]];
-    //    [self setSubviews];
+    
+    
     //切换图层，把头像边框放到上层
     [self.drawerView sendSubviewToBack:self.avatarImageView];
     
@@ -109,7 +151,6 @@ static NSString *const tableCellId = @"tableCellId";
 
 
 //设置登录视图
-
 - (void) setLoginView {
     
     [self.loginView setBackgroundColor:[UIColor colorWithHex:0x191919]];
@@ -122,11 +163,11 @@ static NSString *const tableCellId = @"tableCellId";
     [self.weichatLoginBtn setTitleColor:[UIColor colorWithHex:0xcccccc] forState:UIControlStateHighlighted];
     [self.weichatLoginBtn addTarget:self action:@selector(weichatBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    
-    
     [self.tipLabel setTextColor:[UIColor colorWithHex:0x505050]];
     
     
+    [self.abountUsBtn setTitleColor:[UIColor colorWithHex:0xcccccc] forState:UIControlStateHighlighted];
+    [self.feedbackBtn setTitleColor:[UIColor colorWithHex:0xcccccc] forState:UIControlStateHighlighted];
     
 //    CGFloat offsetW = [UIScreen mainScreen].bounds.size.width *0.3;
 //    //子view的右边缘离父view的右边缘40个像素
@@ -147,12 +188,15 @@ static NSString *const tableCellId = @"tableCellId";
 
 //
 - (void) showLoginedViewData {
+    
+    NSLog(@"show Login View");
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     if (localUser) {
         
         [self setLoginedViewData:localUser];
+        [self.loginView setHidden:YES];//隐藏登录界面
         
     }else {
     
@@ -173,6 +217,12 @@ static NSString *const tableCellId = @"tableCellId";
         [self setHeightLabelText:localUser.height];
         [self setWeightLabelText:localUser.weight];
         
+        if(self.leftBtn){
+            [self.leftBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
+                                    forState:UIControlStateNormal
+                            placeholderImage:[UIImage imageNamed:@"头像-空"]];
+
+        }
     }
     
 }
@@ -182,7 +232,7 @@ static NSString *const tableCellId = @"tableCellId";
 - (void) setAvatarImageViewImageWithString:(NSString *)urlString {
     
     [self.avatarImageView  sd_setImageWithURL:[NSURL URLWithString:urlString]
-                             placeholderImage:[UIImage imageNamed:@"头像_空"]];
+                             placeholderImage:[UIImage imageNamed:@"头像-空"]];
     
 }
 
@@ -240,7 +290,6 @@ static NSString *const tableCellId = @"tableCellId";
 //微信快捷登录按钮
 - (IBAction)weichatBtnAction:(id)sender {
     
-    NSLog(@"微信登录");
     if ([WXApi isWXAppInstalled] ) {
         SendAuthReq *req = [[SendAuthReq alloc] init];
         req.scope = @"snsapi_userinfo";
@@ -259,7 +308,7 @@ static NSString *const tableCellId = @"tableCellId";
 - (void)wxLoginResponse:(NSNotification *)noti{
     NSString *msg = [noti object];
     if ([msg isEqualToString:@"SUCESS"]) {
-        [self showHUDWithMessage:@"微信登录成功，可以评论或点赞了"];
+        [self showHUDWithMessage:@"微信登录成功"];
         
         //从本地读取存储的用户信息
         NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
@@ -267,9 +316,98 @@ static NSString *const tableCellId = @"tableCellId";
         if (localUser) {
             [self setLoginedViewData:localUser];
         }
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }else if ([msg isEqualToString:@"ERROR"]){
         [self showHUDWithMessage:@"微信登录失败"];
     }
+}
+
+- (IBAction)loginBtnAction:(id)sender {
+    NSLog(@"loginBtn action Did");
+    //移动statebar
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  0.1* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        NSString *key = [[NSString alloc] initWithData:[NSData dataWithBytes:(unsigned char []){0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x42, 0x61, 0x72}
+                                                                      length:9]
+                                              encoding:NSASCIIStringEncoding];
+        id object = [UIApplication sharedApplication];
+        UIView *statusBar;
+        if ([object respondsToSelector:NSSelectorFromString(key)]) {
+            statusBar = [object valueForKey:key];
+        }
+        statusBar.transform = CGAffineTransformMakeTranslation( 0 , 0);
+    });
+    
+    
+    FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+    loginVC.title = @"登录";
+    FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+    baseNav.navigationBarHidden = NO;
+    baseNav.navigationBar.barTintColor = [UIColor blackColor];
+    [self presentViewController:baseNav animated:YES completion:^{
+        [self showLoginedViewData];
+    }];
+    
+//    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:NO];
+}
+- (IBAction)abountUsAction:(id)sender {
+    
+}
+
+- (IBAction)feedBackAction:(id)sender {
+    
+//    [self presentModalViewController:[UMFeedback feedbackModalViewController]
+//                                animated:YES];
+    
+    UIViewController *feedback = [UMFeedback feedbackViewController];
+    self.navigationController.navigationBar.hidden = NO;
+    [feedback.view setBackgroundColor:[UIColor colorWithHex:0x191919]];
+    
+    for (int i= 0;  i<[feedback.view subviews].count;i++) {
+        UIView *view = [[feedback.view subviews] objectAtIndex:i];
+        CGRect frame = view.frame;
+        [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+        NSLog(@"%d\n:%@\nframe:(%f,%f,%f,%f)",i,view,frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
+        if (i < 5) {
+            [view.layer setMasksToBounds:YES];
+            CGPoint point = CGPointMake(frame.origin.x, frame.origin.y+60);
+            CGSize  size  = CGSizeMake(frame.size.width, frame.size.height +30);
+            view.frame = (CGRect){ point,size};
+        }
+    }
+    
+    [self.navigationController pushViewController:feedback
+                                         animated:YES];
+//    [self.navigationController presentViewController:[UMFeedback feedbackViewController] animated:YES completion:nil];
+
+}
+
+//编辑按钮事件
+- (IBAction)editingBtnAction:(id)sender {
+   
+    //移动statebar
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  0.1* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        NSString *key = [[NSString alloc] initWithData:[NSData dataWithBytes:(unsigned char []){0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x42, 0x61, 0x72}
+                                                                      length:9]
+                                              encoding:NSASCIIStringEncoding];
+        id object = [UIApplication sharedApplication];
+        UIView *statusBar;
+        if ([object respondsToSelector:NSSelectorFromString(key)]) {
+            statusBar = [object valueForKey:key];
+        }
+        statusBar.transform = CGAffineTransformMakeTranslation( 0 , 0);
+    });
+
+    FTUserCenterViewController *userCenter = [[FTUserCenterViewController alloc]init];
+    userCenter.title = @"个人资料";
+    FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:userCenter];
+    baseNav.navigationBarHidden = NO;
+//    baseNav.navigationBar.barTintColor = [UIColor blackColor];
+    [self presentViewController:baseNav animated:YES completion:nil];
+    
+}
+
+//设置按钮事件
+- (IBAction)settingBtnAction:(id)sender {
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -460,6 +598,18 @@ static NSString *const tableCellId = @"tableCellId";
 }
 
 
+#pragma  mark - FTDynamicsDelegate
+
+- (void) leftButtonClicked:(UIButton *) button {
+
+    self.leftBtn = button;
+    [self.dynamicsDrawerViewController setPaneState:FTDynamicsDrawerPaneStateOpen
+                                       inDirection:FTDynamicsDrawerDirectionLeft
+                                          animated:YES
+                             allowUserInterruption:YES
+                                        completion:nil];
+}
+
 #pragma mark - private methods
 
 - (void)showHUDWithMessage:(NSString *)message{
@@ -476,5 +626,79 @@ static NSString *const tableCellId = @"tableCellId";
     }];
 }
 
+
+- (void) setHomeViewController {
+
+    
+    FTInformationViewController *infoVC = [FTInformationViewController new];
+    //    FTBaseNavigationViewController *infoNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:infoVC];
+    infoVC.tabBarItem.title = @"拳讯";
+    
+    [infoVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                               Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                               nil] forState:UIControlStateSelected];
+    infoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳讯"];
+    infoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳讯pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    infoVC.drawerDelegate = self;
+    
+    FTMatchViewController *matchVC = [FTMatchViewController new];
+    //    FTBaseNavigationViewController *matchNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:matchVC];
+    matchVC.tabBarItem.title = @"赛事";
+    [matchVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                nil] forState:UIControlStateSelected];
+    
+    
+    matchVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-赛事"];
+    matchVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-赛事pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    FTVideoViewController *videoVC = [FTVideoViewController new];
+    //    FTBaseNavigationViewController *fightKingNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:fightKingVC];
+    videoVC.tabBarItem.title = @"视频";
+    [videoVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                nil] forState:UIControlStateSelected];
+    
+    videoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-视频"];
+    videoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-视频pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    FTCoachViewController *coachVC = [FTCoachViewController new];
+    //    FTBaseNavigationViewController *coachNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:coachVC];
+    coachVC.tabBarItem.title = @"教练";
+    [coachVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                nil] forState:UIControlStateSelected];
+    
+    coachVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-教练"];
+    coachVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-教练pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    FTBoxingHallViewController *boxingHallVC = [FTBoxingHallViewController new];
+    //    FTBaseNavigationViewController *boxingHallNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:boxingHallVC];
+    boxingHallVC.tabBarItem.title = @"拳馆";
+    [boxingHallVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                     Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                     nil] forState:UIControlStateSelected];
+    
+    boxingHallVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳馆"];
+    boxingHallVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    
+    //设置tabbar的属性
+    FTBaseTabBarViewController *tabBartVC = [FTBaseTabBarViewController new];
+    
+    tabBartVC.tabBar.barTintColor = [UIColor blackColor];
+    tabBartVC.tabBar.translucent = NO;
+    tabBartVC.viewControllers = @[infoVC, matchVC, videoVC, coachVC, boxingHallVC];
+    
+    FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:tabBartVC];
+    
+    
+    [self.dynamicsDrawerViewController  setPaneViewController:navi];
+}
+
+- (void) dealloc {
+    
+    [self removeObserver:self forKeyPath:@"login"];
+}
 
 @end

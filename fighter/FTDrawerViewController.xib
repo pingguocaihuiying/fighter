@@ -8,12 +8,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTDrawerViewController">
             <connections>
                 <outlet property="CollectionLayout" destination="uMT-CV-RH1" id="yDh-V3-ZtB"/>
+                <outlet property="abountUsBtn" destination="oNO-cP-F7i" id="BQr-vD-QR5"/>
                 <outlet property="ageLabel" destination="guS-Ia-5ah" id="qTh-f9-CSt"/>
                 <outlet property="avatarImageView" destination="CCa-tj-QxX" id="7bb-GV-vM2"/>
                 <outlet property="collectionLayout" destination="uMT-CV-RH1" id="RKn-6N-NmK"/>
                 <outlet property="collectionView" destination="INQ-kt-DaJ" id="SrJ-S4-SQ7"/>
                 <outlet property="drawerView" destination="2TV-v2-Wgu" id="bbr-Uo-L6Z"/>
                 <outlet property="editingBtn" destination="xoE-3k-RJX" id="dmu-Vx-bML"/>
+                <outlet property="feedbackBtn" destination="IZa-hq-Ioe" id="e7o-Zt-tgD"/>
                 <outlet property="heightLabel" destination="Hiu-t4-qR9" id="Jt1-HY-Uib"/>
                 <outlet property="loginBtn" destination="S4L-Qx-Dq1" id="xr1-Cz-QEj"/>
                 <outlet property="loginView" destination="fcN-LQ-B3u" id="fbu-eU-EAO"/>
@@ -61,6 +63,9 @@
                                     <integer key="value" value="12"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="editingBtnAction:" destination="-1" eventType="touchUpInside" id="LDD-D4-cFh"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="特伦斯-克劳福德" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FWT-jF-UaN">
                             <rect key="frame" x="70" y="135" width="180" height="16"/>
@@ -164,6 +169,36 @@
                                     <integer key="value" value="20"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="settingBtnAction:" destination="-1" eventType="touchUpInside" id="iHI-Ow-CmD"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oNO-cP-F7i">
+                            <rect key="frame" x="100" y="371" width="120" height="16"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="120" id="eRo-wI-Iah"/>
+                                <constraint firstAttribute="height" constant="16" id="hj0-UT-2YR"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <state key="normal" title="关于我们">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="abountUsAction:" destination="-1" eventType="touchUpInside" id="vRH-1d-xej"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IZa-hq-Ioe">
+                            <rect key="frame" x="100" y="402" width="120" height="16"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="120" id="Jc6-B4-5dA"/>
+                                <constraint firstAttribute="height" constant="16" id="q1o-z3-b3Z"/>
+                            </constraints>
+                            <state key="normal" title="用户反馈">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="feedBackAction:" destination="-1" eventType="touchUpInside" id="f3G-JU-QbP"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.12732554248883243" green="0.12918950280120908" blue="0.13873106060606055" alpha="1" colorSpace="calibratedRGB"/>
@@ -186,11 +221,15 @@
                         <constraint firstItem="FOf-te-ukt" firstAttribute="top" secondItem="1wU-10-oix" secondAttribute="bottom" constant="10" id="Txc-8z-XVb"/>
                         <constraint firstItem="PuJ-hd-UMy" firstAttribute="trailing" secondItem="2TV-v2-Wgu" secondAttribute="trailing" id="UEd-r0-4aL"/>
                         <constraint firstItem="wMV-CD-tle" firstAttribute="centerX" secondItem="2TV-v2-Wgu" secondAttribute="centerX" id="W5e-dm-4kR"/>
+                        <constraint firstItem="IZa-hq-Ioe" firstAttribute="centerX" secondItem="oNO-cP-F7i" secondAttribute="centerX" id="ajw-Dl-cqt"/>
                         <constraint firstItem="cjm-Rk-cB2" firstAttribute="centerX" secondItem="2TV-v2-Wgu" secondAttribute="centerX" id="akf-sI-TOb"/>
                         <constraint firstItem="1wU-10-oix" firstAttribute="top" secondItem="FWT-jF-UaN" secondAttribute="bottom" constant="10" id="cDF-Df-RSx"/>
+                        <constraint firstItem="IZa-hq-Ioe" firstAttribute="bottom" secondItem="cjm-Rk-cB2" secondAttribute="top" constant="-80" id="d8e-SO-0DI"/>
                         <constraint firstItem="INQ-kt-DaJ" firstAttribute="top" secondItem="FOf-te-ukt" secondAttribute="bottom" constant="25" id="dPb-tG-hxT"/>
+                        <constraint firstItem="cjm-Rk-cB2" firstAttribute="centerX" secondItem="oNO-cP-F7i" secondAttribute="centerX" id="dXW-cl-TX9"/>
                         <constraint firstItem="8cM-N5-Uxg" firstAttribute="centerY" secondItem="Hiu-t4-qR9" secondAttribute="centerY" id="fqK-ua-cVe"/>
                         <constraint firstItem="8cM-N5-Uxg" firstAttribute="leading" secondItem="FOf-te-ukt" secondAttribute="trailing" constant="15" id="i3D-TL-rxA"/>
+                        <constraint firstItem="oNO-cP-F7i" firstAttribute="bottom" secondItem="IZa-hq-Ioe" secondAttribute="top" constant="-15" id="iOF-6S-t0U"/>
                         <constraint firstItem="guS-Ia-5ah" firstAttribute="top" secondItem="FWT-jF-UaN" secondAttribute="bottom" constant="10" id="jTc-Fi-2xf"/>
                         <constraint firstItem="cjm-Rk-cB2" firstAttribute="bottom" secondItem="2TV-v2-Wgu" secondAttribute="bottom" constant="-30" id="nLo-yG-iLM"/>
                         <constraint firstItem="PuJ-hd-UMy" firstAttribute="leading" secondItem="2TV-v2-Wgu" secondAttribute="leading" constant="15" id="qBb-u4-yTH"/>
@@ -218,21 +257,25 @@
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <state key="normal" title="注册/登录"/>
                             <connections>
-                                <action selector="weichatBtnAction:" destination="-1" eventType="touchUpInside" id="bgz-Rl-Yak"/>
+                                <action selector="loginBtnAction:" destination="-1" eventType="touchUpInside" id="QWe-Pg-56s"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="171-2Q-268">
-                            <rect key="frame" x="100" y="176" width="120" height="14"/>
+                            <rect key="frame" x="80" y="176" width="160" height="14"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="14" id="J2h-98-UgX"/>
-                                <constraint firstAttribute="width" constant="120" id="MIe-hc-LpN"/>
+                                <constraint firstAttribute="width" constant="160" id="MIe-hc-LpN"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="93" maxY="0.0"/>
+                            <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="20" minY="0.0" maxX="123" maxY="0.0"/>
                             <state key="normal" title="微信快捷登录" image="微信">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="highlighted" title="微信快捷登录" image="微信pre"/>
+                            <connections>
+                                <action selector="weichatBtnAction:" destination="-1" eventType="touchUpInside" id="d8Y-8f-bzD"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="无感兴趣的项目" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sC2-Uq-CJ4">
                             <rect key="frame" x="80" y="215" width="160" height="14"/>
@@ -241,7 +284,7 @@
                                 <constraint firstAttribute="height" constant="14" id="mP2-3S-7i5"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>

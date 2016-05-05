@@ -59,6 +59,7 @@
         return NO;
     }
 }
+
 //以上集合一起，并兼容14开头的 ***暂时没有加上14开头的验证
 + (BOOL)isMobileNumber:(NSString *)mobileNum
 {

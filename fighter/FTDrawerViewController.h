@@ -7,15 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FTDynamicsDrawerViewController.h"
 
-@interface FTDrawerViewController : UIViewController
-
+@interface FTDrawerViewController : UIViewController < FTDynamicsTransDelegate >
+@property (nonatomic, weak) FTDynamicsDrawerViewController *dynamicsDrawerViewController;
 
 @property (weak, nonatomic) IBOutlet UIView *drawerView;
 
 //头像
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
-
 //用户编辑按钮
 @property (weak, nonatomic) IBOutlet UIButton *editingBtn;
 //用户名label
@@ -45,5 +45,12 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *weichatLoginBtn;
 @property (weak, nonatomic) IBOutlet UILabel *tipLabel;
+
+
+@property (weak, nonatomic) IBOutlet UIButton *abountUsBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *feedbackBtn;
+
+- (void) setHomeViewController ;
 
 @end
