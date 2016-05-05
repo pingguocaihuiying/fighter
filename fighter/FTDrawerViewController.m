@@ -217,14 +217,14 @@ static NSString *const tableCellId = @"tableCellId";
         [self setHeightLabelText:localUser.height];
         [self setWeightLabelText:localUser.weight];
         
-        if(self.leftBtn){
+        if(self.leftBtn && localUser.headpic){
             [self.leftBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
                                     forState:UIControlStateNormal
                             placeholderImage:[UIImage imageNamed:@"头像-空"]];
 
         }
     }
-    
+
 }
 
 #pragma mark - setter
@@ -651,6 +651,7 @@ static NSString *const tableCellId = @"tableCellId";
     
     matchVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-赛事"];
     matchVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-赛事pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    matchVC.drawerDelegate = self;
     
     FTVideoViewController *videoVC = [FTVideoViewController new];
     //    FTBaseNavigationViewController *fightKingNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:fightKingVC];
@@ -661,6 +662,7 @@ static NSString *const tableCellId = @"tableCellId";
     
     videoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-视频"];
     videoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-视频pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    videoVC.drawerDelegate = self;
     
     FTCoachViewController *coachVC = [FTCoachViewController new];
     //    FTBaseNavigationViewController *coachNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:coachVC];
@@ -671,6 +673,7 @@ static NSString *const tableCellId = @"tableCellId";
     
     coachVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-教练"];
     coachVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-教练pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    coachVC.drawerDelegate = self;
     
     FTBoxingHallViewController *boxingHallVC = [FTBoxingHallViewController new];
     //    FTBaseNavigationViewController *boxingHallNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:boxingHallVC];
@@ -681,7 +684,7 @@ static NSString *const tableCellId = @"tableCellId";
     
     boxingHallVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳馆"];
     boxingHallVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
+    boxingHallVC.drawerDelegate = self;
     
     //设置tabbar的属性
     FTBaseTabBarViewController *tabBartVC = [FTBaseTabBarViewController new];

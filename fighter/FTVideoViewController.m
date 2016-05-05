@@ -18,6 +18,7 @@
 #import "FTFilterTableViewController.h"
 #import "FTVideoBean.h"
 #import "UIButton+LYZTitle.h"
+#import "UIButton+WebCache.h"
 
 
 @interface FTVideoViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate>
@@ -69,9 +70,28 @@
     //设置右上角的按钮
     [self.searchButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-搜索pre"] forState:UIControlStateHighlighted];
     [self.messageButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
+    
+    //设置左上角按钮
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    [self.leftBtn.layer setMasksToBounds:YES];
+    self.leftBtn.layer.cornerRadius = 17.0;
+    [self.leftBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:localUser.headpic]
+                                            forState:UIControlStateNormal
+                                    placeholderImage:[UIImage imageNamed:@"头像-空"]];
+    
     //设置最热or最新
     [self setNewOrHot];
     [self setOtherViews];
+
+}
+- (IBAction)leftBtnAction:(id)sender {
+    
+    NSLog(@"information left click did");
+    if ([self.drawerDelegate respondsToSelector:@selector(leftButtonClicked:)]) {
+        
+        [self.drawerDelegate leftButtonClicked:sender];
+    }
 
 }
 
@@ -110,6 +130,7 @@
     //重新加载数据
     [self getDataWithGetType:@"new" andCurrId:@"-1"];
 }
+
 
 - (void)getCycleData{
     NSString *urlString = [FTNetConfig host:Domain path:GetVideoURL];

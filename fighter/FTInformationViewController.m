@@ -299,7 +299,6 @@
         [bt addSubview:indexView];
         
        
-        
         if (i != titles.count - 1) {
             curContentWidth += buttonSize.width + 35;
         }else{
