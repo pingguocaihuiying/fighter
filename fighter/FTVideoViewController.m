@@ -41,6 +41,8 @@
     self.videosTag = @"0";
     [self initTypeArray];
     [self initSubViews];
+    [self getCycleData];
+    [self getDataWithGetType:@"new" andCurrId:@"-1"];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -67,8 +69,45 @@
     //设置右上角的按钮
     [self.searchButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-搜索pre"] forState:UIControlStateHighlighted];
     [self.messageButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
+    //设置最热or最新
+    [self setNewOrHot];
     [self setOtherViews];
-    [self getCycleData];
+
+}
+
+- (void)setNewOrHot{
+    self.containerOfNewOrHotView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"二标签-左选中"]];
+    self.hotButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 5, 50);
+    self.hotButton.imageEdgeInsets = UIEdgeInsetsMake(0, 85, 4, 0);
+    self.newestButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 5, 55);
+    self.newestButton.imageEdgeInsets = UIEdgeInsetsMake(0, 80, 4, 0);
+}
+- (IBAction)hotButtonClicked:(id)sender {
+    //设置背景
+    self.containerOfNewOrHotView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"二标签-左选中"]];
+    
+    //改变左边按钮的标题颜色、图片
+    [self.hotButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [self.hotButton setImage:[UIImage imageNamed:@"标签图标-最热-pre"] forState:UIControlStateNormal];
+    //改变右边按钮的标题颜色、图片
+    [self.newestButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.newestButton setImage:[UIImage imageNamed:@"标签图标-最新"] forState:UIControlStateNormal];
+    
+    //重新加载数据
+    [self getDataWithGetType:@"new" andCurrId:@"-1"];
+}
+- (IBAction)newestButtonClicked:(id)sender {
+    self.containerOfNewOrHotView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"二标签-右选中"]];
+    
+    //改变右边按钮的标题颜色、图片
+        [self.newestButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [self.newestButton setImage:[UIImage imageNamed:@"标签图标-最新-pre"] forState:UIControlStateNormal];
+    
+    //改变左边按钮的标题颜色、图片
+    [self.hotButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.hotButton setImage:[UIImage imageNamed:@"标签图标-最热"] forState:UIControlStateNormal];
+    
+    //重新加载数据
     [self getDataWithGetType:@"new" andCurrId:@"-1"];
 }
 
@@ -533,5 +572,28 @@
     self.typeArray = typeArray;
     [self initSubViews];
 }
+//筛选按钮被点击后，在最热和最新之间切换
+//- (IBAction)filterButtonClicked:(id)sender withEvent:(UIEvent *)event {
+//    NSLog(@"event : %@", event);
+//    if ([self.videosTag isEqualToString:@"0"]) {
+//        self.videosTag = @"1";
+//        [self.filterButton setBackgroundImage:[UIImage imageNamed:@"二标签-右选中"] forState:UIControlStateNormal];
+//        
+//        self.hotestLabel.textColor = [UIColor whiteColor];
+//        self.hotestImageView.image = [UIImage imageNamed:@"标签图标-最热"];
+//        self.newestLabel.textColor = [UIColor redColor];
+//        self.newestImageView.image = [UIImage imageNamed:@"标签图标-最新-pre"];
+//
+//    }else if ([self.videosTag isEqualToString:@"1"]){
+//        self.videosTag = @"0";
+//        [self.filterButton setBackgroundImage:[UIImage imageNamed:@"二标签-左选中"] forState:UIControlStateNormal];
+//        self.hotestLabel.textColor = [UIColor redColor];
+//        self.hotestImageView.image = [UIImage imageNamed:@"标签图标-最热-pre"];
+//        self.newestLabel.textColor = [UIColor whiteColor];
+//        self.newestImageView.image = [UIImage imageNamed:@"标签图标-最新"];
+//
+//    }
+//    [self getDataWithGetType:@"new" andCurrId:@"-1"];
+//}
 
 @end

@@ -16,5 +16,10 @@
 @property (weak, nonatomic) IBOutlet UIView *currentView;
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 
+//下面是“最热”、“最新”相关的
+@property (weak, nonatomic) IBOutlet UIView *containerOfNewOrHotView;
+@property (weak, nonatomic) IBOutlet UIButton *hotButton;
+@property (weak, nonatomic) IBOutlet UIButton *newestButton;
+
 
 @end

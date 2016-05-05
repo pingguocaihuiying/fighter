@@ -98,7 +98,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jSS-ON-2Vi" userLabel="赞containerView">
-                                <rect key="frame" x="60" y="0.0" width="50" height="22"/>
+                                <rect key="frame" x="65" y="0.0" width="50" height="22"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KVM-Lg-WwX" userLabel="赞图标">
                                         <rect key="frame" x="3" y="0.0" width="22" height="22"/>
@@ -160,7 +160,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="5Eu-99-UfK"/>
-                            <constraint firstItem="jSS-ON-2Vi" firstAttribute="centerX" secondItem="Gwe-TB-7Iw" secondAttribute="centerX" id="6AL-bQ-Tzi"/>
+                            <constraint firstItem="jSS-ON-2Vi" firstAttribute="centerX" secondItem="Gwe-TB-7Iw" secondAttribute="centerX" constant="5" id="6AL-bQ-Tzi"/>
                             <constraint firstItem="djQ-Ld-t06" firstAttribute="leading" secondItem="BBz-lU-9Gr" secondAttribute="trailing" id="9wD-Dc-Ujf"/>
                             <constraint firstItem="xQP-Iu-bjd" firstAttribute="leading" secondItem="yK3-ml-RFc" secondAttribute="trailing" id="A8o-m8-ABs"/>
                             <constraint firstItem="jSS-ON-2Vi" firstAttribute="top" secondItem="Gwe-TB-7Iw" secondAttribute="top" id="CH4-jr-Nyc"/>
