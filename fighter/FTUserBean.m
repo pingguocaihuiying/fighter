@@ -43,6 +43,9 @@
     [aCoder encodeObject:self.unionuserid forKey:@"unionuserid"];
     [aCoder encodeObject:self.wxopenId forKey:@"wxopenId"];
     [aCoder encodeObject:self.effect forKey:@"effect"];
+    
+    [aCoder encodeObject:self.height forKey:@"height"];
+    [aCoder encodeObject:self.weight forKey:@"weight"];
 
 }
 
@@ -75,6 +78,8 @@
         self.wxopenId = [aDecoder decodeObjectForKey:@"wxopenId"];
         self.effect = [aDecoder decodeObjectForKey:@"effect"];
         
+        self.height = [aDecoder decodeObjectForKey:@"height"];
+        self.weight = [aDecoder decodeObjectForKey:@"weight"];
     }
     return self;
 }

@@ -21,5 +21,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *hotButton;
 @property (weak, nonatomic) IBOutlet UIButton *newestButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *leftBtn;
 
 @end
