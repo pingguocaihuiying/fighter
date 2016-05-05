@@ -560,7 +560,9 @@
     NSString *addViewCountUrlString = [FTNetConfig host:Domain path:AddViewCountURL];
 
     NSString *videosId = _videoBean.vediosId;
-    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
+    NSString *ts = [NSString stringWithFormat:@"%.3f", [[NSDate date] timeIntervalSince1970]];
+    ts = [ts stringByReplacingOccurrencesOfString:@"." withString:@""];
+    
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@", videosId, ts, UpVideoViewNCheckKey]];
     addViewCountUrlString = [NSString stringWithFormat:@"%@?&videosId=%@&ts=%@&checkSign=%@", addViewCountUrlString, videosId, ts, checkSign];
         NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);

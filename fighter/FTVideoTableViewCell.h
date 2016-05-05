@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "FTBaseTableViewCell.h"
 
+@protocol FTTableViewCellClickedDelegate <NSObject>
+
+- (void)clickedWithIndex:(NSInteger)index;
+
+@end
+
 @interface FTVideoTableViewCell : FTBaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *fromLabel;
@@ -21,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *myTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numOfWatch;
 @property (weak, nonatomic) IBOutlet UILabel *durationOfVideoLabel;
+
+@property (nonatomic, weak)id<FTTableViewCellClickedDelegate> clickedDelegate;
 
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 

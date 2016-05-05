@@ -90,4 +90,7 @@
     NSString *fixString = [dateFormatter stringFromDate:date];
     return fixString;
 }
+- (IBAction)playButtonClicked:(id)sender {
+    NSLog(@"播放按钮被点击");
+}
 @end

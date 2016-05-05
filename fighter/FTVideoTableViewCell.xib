@@ -49,6 +49,9 @@
                             <constraint firstAttribute="width" constant="40" id="0tg-wx-Rmo"/>
                             <constraint firstAttribute="height" constant="40" id="pKC-5k-26y"/>
                         </constraints>
+                        <connections>
+                            <action selector="playButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hrQ-h2-O6f"/>
+                        </connections>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="格斗标签-综合格斗" translatesAutoresizingMaskIntoConstraints="NO" id="Qb5-bN-YRm">
                         <rect key="frame" x="300" y="52" width="68" height="14"/>
