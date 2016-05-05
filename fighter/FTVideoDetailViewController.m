@@ -32,6 +32,7 @@
     [self getVoteInfo];
     [self getStarInfo];
     [self setLoadingImageView];
+    [self addViewCount];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -543,8 +544,6 @@
     [self.navigationController pushViewController:commentVC animated:YES];
 }
 
-
-
 - (void)commentSuccess{
     int commentCount = [_videoBean.commentCount intValue];
     commentCount++;
@@ -553,6 +552,40 @@
     _videoBean.commentCount = [NSString stringWithFormat:@"%d", commentCount];
     [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
 }
+/**
+ *  增加视频的播放数
+ */
+- (void)addViewCount{
+    //获取网络请求地址url
+    NSString *addViewCountUrlString = [FTNetConfig host:Domain path:AddViewCountURL];
+
+    NSString *videosId = _videoBean.vediosId;
+    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@", videosId, ts, UpVideoViewNCheckKey]];
+    addViewCountUrlString = [NSString stringWithFormat:@"%@?&videosId=%@&ts=%@&checkSign=%@", addViewCountUrlString, videosId, ts, checkSign];
+        NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);
+    //创建AAFNetWorKing管理者
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:addViewCountUrlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        //success
+        //        NSLog(@"get vote info sucess. vote status : %@", responseDic[@"message"]);
+        //
+        if ([responseDic[@"status"] isEqualToString:@"success"]) {
+            NSLog(@"%@, %@", responseDic[@"status"], responseDic[@"message"]);
+        }else{
+            NSLog(@"%@, %@", responseDic[@"status"], responseDic[@"message"]);
+        }
+        
+        [self updateVoteImageView];
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        NSLog(@"向服务器增加视频数失败，error：%@", error);
+    }];
+}
+
 - (void)showHUDWithMessage:(NSString *)message{
     MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:HUD];
@@ -566,6 +599,7 @@
         //        HUD = nil;
     }];
 }
+
 
 
 @end
