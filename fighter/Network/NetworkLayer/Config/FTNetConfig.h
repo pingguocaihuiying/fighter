@@ -67,7 +67,14 @@ extern NSString * const GetAchievementInfo;
 extern NSString * const SaveUserAppsURL;
 // 18.绑定手机号-用户是否绑定手机
 extern NSString * const IsUserBindPhoneURL;
-
+// 19.用户退出登录
+extern NSString * const UserLogoutURL;
+// 20.绑定手机号
+extern NSString * const BindingPhoneURL;
+// 21.检查用户是否绑定手机
+extern NSString * const ISBindingPhoneURL;
+// 22.修改密码
+extern NSString * const UpdatePassWordURL;
 
 
 

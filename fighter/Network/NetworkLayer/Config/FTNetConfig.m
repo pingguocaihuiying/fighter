@@ -53,6 +53,8 @@ NSString * const RegisterUserURL = @"/api/newuser/registerUser.do";
 
 NSString * const UserLoginURL = @"/api/newuser/userLogin.do";
 
+NSString * const UserLogoutURL = @"/api/newuser/userLogout.do";
+
 NSString * const UserWXLoginURL = @"/api/newuser/userWXLogin.do";
 
 NSString * const UpdateUserURL = @"/api/newuser/updateUser.do";
@@ -77,7 +79,11 @@ NSString * const SaveUserAppsURL = @"/api/newuser/saveUserApps.do";
 
 NSString * const IsUserBindPhoneURL = @"/api/newuser/isUserBindPhone.do";
 
+NSString * const BindingPhoneURL = @"/api/app/binding.do";
 
+NSString * const ISBindingPhoneURL = @"/api/newuser/isUserBindPhone.do";
+
+NSString * const UpdatePassWordURL = @"/api/newuser/updatePassword.do";
 
 
 //校验码

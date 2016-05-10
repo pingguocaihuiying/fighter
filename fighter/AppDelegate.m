@@ -157,18 +157,33 @@
     
                     return ;
                 }
-            NSLog(@"微信注册成功,message:%@", message);
+            
 
+            NSLog(@"微信注册成功,message:%@", message);
+            NSLog(@"微信登录信息:%@",responseJson[@"data"][@"user"]);
             NSDictionary *userDic = responseJson[@"data"][@"user"];
             FTUserBean *user = [FTUserBean new];
             [user setValuesForKeysWithDictionary:userDic];
-
-            NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
+            
+            //从本地读取存储的用户信息
+            NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+            FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+            
+            if (localUser) {//手机已经登录
+                localUser.wxopenId = user.openId;
+                localUser.wxName = user.username;
+                localUser.wxHeaderPic = user.headpic;
+            }else {
+            
+                localUser = user;
+            }
+            
+            NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
             [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
             [[NSUserDefaults standardUserDefaults]synchronize];
             //发送通知，告诉评论页面微信登录成功
-            [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"SUCESS"];
-
+//            [[NSNotificationCenter defaultCenter] postNotificationName:WXLoginResultNoti object:@"SUCESS"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"loginAction" object:nil];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"获取access_token时出错 = %@", error);
             //发送通知，告诉评论页面微信登录失败

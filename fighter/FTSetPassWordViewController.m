@@ -7,14 +7,14 @@
 //
 
 #import "FTSetPassWordViewController.h"
-#import "MBProgressHUD.h"
 #import "NetWorking.h"
 #import "FTUserBean.h"
+#import "MBProgressHUD.h"
 
 @interface UIWindow (MBProgressHUD)
 - (void)showHUDWithMessage:(NSString *)message;
 @end
-@implementation UIView (ViewHierarchyAction)
+@implementation UIWindow (MBProgressHUD)
 - (void)showHUDWithMessage:(NSString *)message{
     
     MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self];
@@ -83,13 +83,21 @@
     [self.passwordTextField resignFirstResponder];
     [self.passwordTextField2 resignFirstResponder];
     
+
+    NSRange _range = [self.passwordTextField.text rangeOfString:@" "];
+    if (_range.location != NSNotFound) {
+        //有空格
+        [self showHUDWithMessage:@"密码不能包含空格"];
+        return;
+    }
+    
     if (![self.passwordTextField.text isEqualToString: self.passwordTextField2.text]) {
         [self showHUDWithMessage:@"两次输入密码不一致"];
         return;
     }
     
-    if ([self.passwordTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0 ) {
-        [self showHUDWithMessage:@"密码不能为空"];
+    if (self.passwordTextField.text.length <6 || self.passwordTextField.text.length >18) {
+        [self showHUDWithMessage:@"密码必须为6-18位"];
         return;
     }
     
@@ -113,7 +121,6 @@
                                     if (status == true) {
                                         
                                         [[UIApplication sharedApplication].keyWindow showHUDWithMessage:message];
-//                                        [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                                         
                                         NSDictionary *userDataDic = dict[@"data"];
                                         NSDictionary *userDic = userDataDic[@"userLogin"];
@@ -126,27 +133,17 @@
                                         [[NSUserDefaults standardUserDefaults]setObject:userData forKey:@"userLogin"];
                                         [[NSUserDefaults standardUserDefaults]synchronize];
                                         
-                                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  0.1* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                                            NSString *key = [[NSString alloc] initWithData:[NSData dataWithBytes:(unsigned char []){0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x42, 0x61, 0x72}
-                                                                                                          length:9]
-                                                                                  encoding:NSASCIIStringEncoding];
-                                            id object = [UIApplication sharedApplication];
-                                            UIView *statusBar;
-                                            if ([object respondsToSelector:NSSelectorFromString(key)]) {
-                                                statusBar = [object valueForKey:key];
-                                            }
-                                            statusBar.transform = CGAffineTransformMakeTranslation(SCREEN_WIDTH *0.7 , 0);
-                                        });
+                                        
                                         [self.navigationController popViewControllerAnimated:YES];
 //                                        [self dismissViewControllerAnimated:YES completion:nil];
                                         
                                     }else {
                                         
                                         [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                                        //[self showHUDWithMessage:@"注册失败，稍后再试"];
+                                        
                                     }
                                 }else {
-                                    [self showHUDWithMessage:@"注册失败，稍后再试"];
+                                    [self showHUDWithMessage:@"修改失败，稍后再试"];
                                     
                                 }
 
@@ -163,7 +160,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-    
 }
 
 - (void)showHUDWithMessage:(NSString *)message{

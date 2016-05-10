@@ -13,3 +13,5 @@
 @end
 
 extern NSString * const ShowType;
+
+extern NSString * const APPID;

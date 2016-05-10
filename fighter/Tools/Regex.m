@@ -22,9 +22,9 @@
     NSString * MOBILE = @"^1(3[0-9]|5[0-35-9]|8[025-9])\\d{8}$";
     /**
      10 * 中国移动：China Mobile
-     11 * 134[0-8],135,136,137,138,139,150,151,157,158,159,182,187,188
+     11 * 134[0-8],135,136,137,138,139,150,151,157,158,159,182,183,187,188
      12 */
-    NSString * CM = @"^1(34[0-8]|(3[5-9]|5[017-9]|8[278])\\d)\\d{7}$";
+    NSString * CM = @"^1(34[0-8]|(3[5-9]|5[017-9]|8[2378])\\d)\\d{7}$";
     /**
      15 * 中国联通：China Unicom
      16 * 130,131,132,152,155,156,185,186
@@ -70,4 +70,14 @@
     BOOL isMatch = [self isMobileNumber:mobileNum];
     return isMatch;
 }
-@end
+
+
+// 正则匹配用户密码 6 - 18 位数字和字母组合
++ (BOOL)checkPassword:(NSString *) password
+{
+    NSString *pattern = @"^(?![ 0 - 9 ]+$)(?![a-zA-Z]+$)[a-zA-Z0- 9 ]{ 6 , 18 }";
+    NSPredicate *pred = [NSPredicate predicateWithFormat: @"SELF MATCHES %@",pattern];
+    BOOL isMatch = [pred evaluateWithObject:password];
+    return isMatch;
+    
+}@end

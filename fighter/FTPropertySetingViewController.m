@@ -7,8 +7,10 @@
 //
 
 #import "FTPropertySetingViewController.h"
+#import "NetWorking.h"
+#import "MBProgressHUD.h"
 
-@interface FTPropertySetingViewController ()
+@interface FTPropertySetingViewController () <UITextFieldDelegate>
 
 @end
 
@@ -43,18 +45,88 @@
     
     [self.propertyTextField setTextColor:[UIColor colorWithHex:0xb4b4b4]];
     [self.propertyTextField setBackgroundColor:[UIColor clearColor]];
+    [self.propertyTextField setDelegate:self];
 }
 
 
 - (void) leftBtnAction:(id) sender {
-
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateUser" object:self];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void) rightBtnAction:(id) sender {
     [self.propertyTextField resignFirstResponder];
     
-    [self.navigationController popViewControllerAnimated:YES];
+    NSRange _range = [self.propertyTextField.text rangeOfString:@" "];
+    if (_range.location != NSNotFound) {
+        //有空格
+        [self showHUDWithMessage:@"昵称不能包含空格"];
+        return;
+    }
+
+    if (self.propertyTextField.text.length == 0) {
+        [self showHUDWithMessage:@"用户名不能为空"];
+        return;
+    }
+    
+    NSString *propertValue = [self.propertyTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSStringEncoding enc =     CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingISOLatin1);
+    [propertValue stringByAddingPercentEscapesUsingEncoding:enc];
+    
+    NetWorking *net = [NetWorking new];
+    [net updateUserByGet:propertValue Key:@"username" option:^(NSDictionary *dict) {
+        NSLog(@"dict:%@",dict);
+        if (dict != nil) {
+            
+            bool status = [dict[@"status"] boolValue];
+            NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+            
+            if (status == true) {
+                
+                [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                
+                //从本地读取存储的用户信息
+                NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+                FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+                localUser.username = self.propertyTextField.text;
+                
+                //将用户信息保存在本地
+                NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
+                [[NSUserDefaults standardUserDefaults]setObject:userData forKey:@"loginUser"];
+                [[NSUserDefaults standardUserDefaults]synchronize];
+                
+                //返回操作
+                [self leftBtnAction:nil];
+                
+                
+            }else {
+                NSLog(@"message : %@", [dict[@"message"] class]);
+                [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            }
+        }else {
+            [self showHUDWithMessage:@" 用户名修改成功，请稍后再试"];
+            
+        }
+    }];
+
+    
+
+}
+
+#pragma mark - private methods
+- (void)showHUDWithMessage:(NSString *)message{
+    
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:HUD];
+    HUD.label.text = message;
+    HUD.mode = MBProgressHUDModeCustomView;
+    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
+    [HUD showAnimated:YES];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  2* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [HUD removeFromSuperview];
+    });
 }
 
 
