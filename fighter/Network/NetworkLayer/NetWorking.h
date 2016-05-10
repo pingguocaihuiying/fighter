@@ -75,4 +75,18 @@
 
 //微信登录请求
 - (void) weixinRequest;
+
+//请求微信的token和openId
+- (void) requestWeixinTokenAdnOpenId:(NSString *)code
+                              option:(void (^)(NSDictionary *dict))option;
+
+//获取微信用户信息
+- (void) requestWeixinUserInfoWithToken:(NSString *)token
+                                 openId:(NSString *)openId
+                                 option:(void(^)(NSDictionary *dict)) option;
+
+//向服务器注册微信用户，或者登录微信用户
+- (void) requestWeixinUser:(NSDictionary *)wxInfoDic
+                    option:(void (^)(NSDictionary *dict))option;
+
 @end

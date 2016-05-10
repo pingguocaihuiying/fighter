@@ -12,4 +12,7 @@
 + (BOOL)isMobileNumber:(NSString *)mobileNum;
 - (BOOL)isMobileNumber:(NSString *)mobileNum;
 + (BOOL)checkPassword:(NSString *) password;
+
+//检查密码必须是数字字母下滑下组合
++ (BOOL) checkPasswordForm:(NSString *)password;
 @end

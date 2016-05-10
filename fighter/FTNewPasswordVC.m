@@ -93,13 +93,20 @@
         return;
     }
     
+    if (![Regex checkPasswordForm:self.passwordTextField.text]) {
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"密码必须为数字字母下划线"];
+        return;
+    }
+    
     NetWorking *net = [NetWorking new];
     
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [net updatePassword:self.oldPassword
             newPassword:self.passwordTextField.text
                  option:^(NSDictionary *dict) {
     
-                           
+                     
+                     
                            NSLog(@"dict:%@",dict);
                            if (dict != nil) {
                                
@@ -108,35 +115,35 @@
                                
                                if (status == true) {
                                    
-                                   //                                   [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                                   
-//                                   NSDictionary *userDataDic = dict[@"data"];
-//                                   NSDictionary *userDic = userDataDic[@"user"];
-//
-//                                   FTUserBean *user = [FTUserBean new];
-//                                   [user setValuesForKeysWithDictionary:userDic];
-//                                   
-//                                   //将用户信息保存在本地
-//                                   NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
-//                                   [[NSUserDefaults standardUserDefaults]setObject:userData forKey:@"loginUser"];
-//                                   [[NSUserDefaults standardUserDefaults]synchronize];
-                                   
-                                   [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"密码修改成功"];
-                                   
-                                   
-//                                   FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
-//                                   loginVC.title = @"登录";
-//                                   [self.navigationController pushViewController:loginVC animated:YES];
-
+                                    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                   NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+                                   FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+                                
+                                   [net loginWithPhoneNumber:localUser.tel
+                                                    password:self.passwordTextField.text
+                                                      option:^(NSDictionary *loginDict) {
+                                                          
+                                                          NSDictionary *lginDataDic = loginDict[@"data"];
+                                                          NSDictionary *userDic = lginDataDic[@"user"];
+                                                          
+                                                          FTUserBean *user = [FTUserBean new];
+                                                          [user setValuesForKeysWithDictionary:userDic];
+                                                          
+                                                          //将用户信息保存在本地
+                                                          NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
+                                                          [[NSUserDefaults standardUserDefaults]setObject:userData forKey:@"loginUser"];
+                                                          [[NSUserDefaults standardUserDefaults]synchronize];
+                                                      }];
+                                   [MBProgressHUD hideHUDForView:self.view animated:YES];
                                    [self.navigationController popToRootViewControllerAnimated:YES];
                                }else {
                                    NSLog(@"message : %@", [dict[@"message"] class]);
                                    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                                   
+                                 [MBProgressHUD hideHUDForView:self.view animated:YES];
                                }
                            }else {
                                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
-                               
+                               [MBProgressHUD hideHUDForView:self.view animated:YES];
                            }
                            
                        }];

@@ -161,6 +161,24 @@
     [self.acountTextField resignFirstResponder];
     [self.checkCodeTextField resignFirstResponder];
     
+    NSRange _range = [self.acountTextField.text rangeOfString:@" "];
+    if (_range.location != NSNotFound) {
+        //有空格
+        [self showHUDWithMessage:@"手机号不能包含空格"];
+        return;
+    }
+    
+    if (self.acountTextField.text.length == 0 ) {
+        [self showHUDWithMessage:@"手机号不能为空"];
+        return ;
+    }else {
+        if(self.acountTextField.text.length  != 11){
+            [self showHUDWithMessage:@"手机号长度不正确"];
+            return;
+        }
+    }
+
+    
     if ([self.checkCodeTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0 ) {
         [self showHUDWithMessage:@"验证码不能为空"];
         return ;

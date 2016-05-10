@@ -397,142 +397,54 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 }
 
 
-//注册登录微信用户
+//请求微信的token和openId
 - (void) requestWeixinTokenAdnOpenId:(NSString *)code
                               option:(void (^)(NSDictionary *dict))option {
 
     NSString *accessUrlStr = [NSString stringWithFormat:@"%@/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code", WX_BASE_URL, WX_App_ID, WX_App_Secret, code];
     
-    [self getRequestWithUrl:accessUrlStr parameters:nil option:^(NSDictionary *dict) {
-            if(dict) {
-                //获取到token 和openId后登陆
-                [self getWechatUserInfoWithToken:dict[@"access_token"] andOpenId:dict[@"openid"]];
-            }
-        
-    }];
+    [self getRequestWithUrl:accessUrlStr parameters:nil option:option];
 }
 
-- (void)onResp:(BaseResp *)resp {
+
+//获取微信用户信息
+- (void) requestWeixinUserInfoWithToken:(NSString *)token
+                                 openId:(NSString *)openId
+                                 option:(void(^)(NSDictionary *dict)) option {
+    NSString *userinfoURL = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@", token, openId];
+
+    [self getRequestWithUrl:userinfoURL parameters:nil option:option];
+}
+
+
+
+//向服务器注册微信用户，或者登录微信用户
+- (void) requestWeixinUser:(NSDictionary *)wxInfoDic
+                    option:(void (^)(NSDictionary *dict))option{
     
-    // 向微信请求授权后,得到响应结果
-    if ([resp isKindOfClass:[SendAuthResp class]]) {
-        SendAuthResp *temp = (SendAuthResp *)resp;
-        
-        //如果
-        NSLog(@"temp state: %d", temp.errCode);
-        if (temp.errCode != 0) {
-            return;
-        }
-        
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        
-        NSString *accessUrlStr = [NSString stringWithFormat:@"%@/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code", WX_BASE_URL, WX_App_ID, WX_App_Secret, temp.code];
-        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        [manager GET:accessUrlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            NSDictionary *accessDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-            
-            [self getWechatUserInfoWithToken:accessDict[@"access_token"] andOpenId:accessDict[@"openid"]];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"获取access_token时出错 = %@", error);
-        }];
-        
-//
+    for(NSString *key in [wxInfoDic allKeys]){
+        NSLog(@"key:%@", key);
     }
+    
+    NSString *openId = wxInfoDic[@"openid"];
+    NSString *unionId = wxInfoDic[@"unionid"];
+    NSString *timestampString = [NSString stringWithFormat:@"%.0lf",[[NSDate date] timeIntervalSince1970]];
+    NSString *imei = [UUID getUUID];
+    NSString *username = wxInfoDic[@"nickname"];
+    NSString *keyToken = [NSString stringWithFormat:@"%@%@", WXLoginSecret_Key, timestampString];
+    NSString *keyTokenMD5 = [MD5 md5:keyToken];
+    NSString *province = wxInfoDic[@"province"];
+    NSString *headpic = wxInfoDic[@"headimgurl"];
+    headpic = [self encodeToPercentEscapeString:headpic];
+    NSString *stemfrom = @"iOS";
+    username = [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *wxLoginURLString = [FTNetConfig host:Domain path:UserWXLoginURL];
+    wxLoginURLString = [NSString stringWithFormat:@"%@?openId=%@&unionId=%@&timestamp=%@&imei=%@&username=%@&keyToken=%@&city=%@&headpic=%@&stemfrom=%@", wxLoginURLString, openId, unionId, timestampString, imei, username, keyTokenMD5, province, headpic, stemfrom];
+
+    
+    [self getRequestWithUrl:wxLoginURLString parameters:nil option:option];
 }
-
-//微信
-- (void)getWechatUserInfoWithToken:(NSString *)token andOpenId:(NSString *)openId{
-    NSString *stringURL = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@", token, openId];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [manager GET:stringURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSDictionary *userInfoDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        for(NSString *key in [userInfoDic allKeys]){
-            NSLog(@"key:%@", key);
-        }
-        
-        NSString *openId = userInfoDic[@"openid"];
-        NSString *unionId = userInfoDic[@"unionid"];
-        NSString *timestampString = [NSString stringWithFormat:@"%.0lf",[[NSDate date] timeIntervalSince1970]];
-        NSString *imei = [UUID getUUID];
-        NSString *username = userInfoDic[@"nickname"];
-        NSString *keyToken = [NSString stringWithFormat:@"%@%@", WXLoginSecret_Key, timestampString];
-        NSString *keyTokenMD5 = [MD5 md5:keyToken];
-        NSString *province = userInfoDic[@"province"];
-        NSString *headpic = userInfoDic[@"headimgurl"];
-        headpic = [self encodeToPercentEscapeString:headpic];
-        NSString *stemfrom = @"iOS";
-        username = [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//        NSDictionary *dic = @{@"openId" : openId,
-//                              @"unionId" : unionId,
-//                              @"timestamp" : timestampString,
-//                              @"imei" : imei,
-//                              @"username" : username,
-//                              @"keyToken" : keyTokenMD5,
-//                              @"city" : province};
-        
-        NSString *wxLoginURLString = [FTNetConfig host:Domain path:UserWXLoginURL];
-        wxLoginURLString = [NSString stringWithFormat:@"%@?openId=%@&unionId=%@&timestamp=%@&imei=%@&username=%@&keyToken=%@&city=%@&headpic=%@&stemfrom=%@", wxLoginURLString, openId, unionId, timestampString, imei, username, keyTokenMD5, province, headpic, stemfrom];
-        
-        NSLog(@"wxLoginURLString : %@", wxLoginURLString);
-       
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        [manager GET:wxLoginURLString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            NSDictionary *responseJson = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-            bool status = [responseJson[@"status"] boolValue];
-            NSString *message = (NSString *)(NSDictionary *)responseJson[@"message"];
-            if (status == false) {
-                NSLog(@"微信注册失败,message:%@", message);
-                
-                return ;
-            }
-            NSLog(@"微信注册成功,message:%@", message);
-            
-            NSDictionary *userDic = responseJson[@"data"][@"user"];
-            FTUserBean *user = [FTUserBean new];
-            [user setValuesForKeysWithDictionary:userDic];
-            
-            
-            //从本地读取存储的用户信息
-            NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-            FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-            
-            if (localUser) {//手机已经登录
-                localUser.wxopenId = user.openId;
-                localUser.wxName = user.username;
-                localUser.wxHeaderPic = user.headpic;
-            }else {
-                
-                localUser = user;
-                localUser.wxopenId = user.openId;
-                localUser.wxName = user.username;
-                localUser.wxHeaderPic = user.headpic;
-            }
-            
-            NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
-            [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
-            [[NSUserDefaults standardUserDefaults]synchronize];
-            //发送通知，告诉评论页面微信登录成功
-            [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"SUCESS"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"loginAction" object:nil];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"获取access_token时出错 = %@", error);
-            //发送通知，告诉评论页面微信登录失败
-            [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"ERROR"];
-        }];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"获取access_token时出错 = %@", error);
-    }];
-}
-
-
 
 
 //url转码

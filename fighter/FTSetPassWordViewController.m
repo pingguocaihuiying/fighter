@@ -10,6 +10,7 @@
 #import "NetWorking.h"
 #import "FTUserBean.h"
 #import "MBProgressHUD.h"
+#import "Regex.h"
 
 @interface UIWindow (MBProgressHUD)
 - (void)showHUDWithMessage:(NSString *)message;
@@ -101,6 +102,11 @@
         return;
     }
     
+    if (![Regex checkPasswordForm:self.passwordTextField.text]) {
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"密码必须为数字字母下划线"];
+        return;
+    }
+
     if (self.userId == nil) {
         NSLog(@"userid 为 nill,将return");
         return;
