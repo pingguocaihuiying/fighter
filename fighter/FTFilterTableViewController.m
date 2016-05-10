@@ -43,6 +43,8 @@
     
     //设置背景
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"底纹"]];
+    
+    //
 }
 
 
@@ -78,6 +80,7 @@
     cell.textLabel.text = self.arr[indexPath.section][indexPath.row];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.backgroundColor = [UIColor clearColor];
+    cell.textLabel.textColor = [UIColor whiteColor];
     return cell;
 }
 
@@ -111,26 +114,27 @@
         //从第一个列表中删除元素
         [self.arr[0] removeObject:removeItem];
             //用动画刷新tableView
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
         
         //把删除的元素加入第二个列表
         [self.arr[1] addObject:removeItem];
             //计算新插入的元素的indexPath
         NSArray *tempArray = self.arr[1];
         NSIndexPath *indexPath2 = [NSIndexPath indexPathForRow:tempArray.count - 1 inSection:1];
-        [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath2] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath2] withRowAnimation:UITableViewRowAnimationNone];
 
     }else if(editingStyle==UITableViewCellEditingStyleInsert){
         id insertItem = self.arr[indexPath.section][indexPath.row];
         //从原列表中删除元素
         [self.arr[1] removeObject:insertItem];
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
         //把删除的元素加入第二个列表
         [self.arr[0] addObject:insertItem];
         //计算新插入的元素的indexPath
         NSArray *tempArray = self.arr[0];
         NSIndexPath *indexPath2 = [NSIndexPath indexPathForRow:tempArray.count - 1 inSection:0];
-        [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath2] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath2] withRowAnimation:UITableViewRowAnimationNone];
     }
 }
 

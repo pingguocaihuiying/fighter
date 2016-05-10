@@ -38,16 +38,18 @@
 @implementation FTInformationViewController
 
 - (void)viewDidLoad {
+//        NSLog(@"拳讯 view的宽度：%f,高度：%f",self.view.frame.size.width, self.view.frame.size.height);
     [super viewDidLoad];
-    [self initTypeArray];
+    [self initTypeArray];//初始化标签数据
     [self initSubViews];
+    [self getCycleData];//初次加载轮播图数据
+    [self getDataWithGetType:@"new" andCurrId:@"-1"];//初次加载数据
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [MobClick event:@"mainPage_BoxingNews"];
 //    self.tabBarController.navigationController.navigationBarHidden = YES;
     self.navigationController.navigationBarHidden = YES;
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -58,7 +60,8 @@
 - (void)initTypeArray{
 //    NSMutableArray *enableTypeArray = [[NSMutableArray alloc]initWithArray:@[@"全部", @"拳击", @"自由搏击", @"综合格斗", @"泰拳", @"跆拳道"]];
     NSMutableArray *enableTypeArray = [[NSMutableArray alloc]initWithArray:@[@"全部", @"综合格斗(UFC)", @"拳击", @"摔跤(WWE)", @"女子格斗", @"泰拳", @" 跆拳道", @"柔道", @"相扑"]];
-    NSMutableArray *disableTypeArray= [[NSMutableArray alloc]initWithArray:@[@"柔道", @"空手道", @"截拳道", @"摔跤", @"相扑"]];
+//    NSMutableArray *disableTypeArray= [[NSMutableArray alloc]initWithArray:@[@"柔道", @"空手道", @"截拳道", @"摔跤", @"相扑"]];
+    NSMutableArray *disableTypeArray= [[NSMutableArray alloc]init];
     self.typeArray = @[enableTypeArray, disableTypeArray];
 }
 
@@ -79,8 +82,6 @@
                                             forState:UIControlStateNormal
                                     placeholderImage:[UIImage imageNamed:@"头像-空"]];
     [self setOtherViews];
-    [self getCycleData];
-    [self getDataWithGetType:@"new" andCurrId:@"-1"];
 }
 
 - (void)getCycleData{
@@ -388,6 +389,7 @@
         self.currentSelectIndex = sender.tag-1;//根据点击的按钮，设置当前的选中下标
         
         if (self.currentSelectIndex == 0) {
+            
             self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
         }else{
             self.tableViewController.tableView.tableHeaderView = nil;
@@ -523,7 +525,7 @@
     FTNewsBean *bean = [FTNewsBean new];
     [bean setValuesWithDic:newsDic];
     
-    newsDetailViewController.bean = bean;
+    newsDetailViewController.newsBean = bean;
     
     [self.navigationController pushViewController:newsDetailViewController animated:YES];
 }
@@ -541,6 +543,7 @@
         newsDetailVC.newsBean = bean;
         newsDetailVC.delegate = self;
         newsDetailVC.indexPath = indexPath;
+        
 
         [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
     }

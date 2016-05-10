@@ -96,7 +96,7 @@
     NSString *objId = _videoBean.vediosId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = @"v-video";
+    NSString *tableName = @"col-video";
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, GetStatusCheckKey]];
     
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
@@ -211,7 +211,9 @@
 }
 
 - (void)popVC{
+    
     [self.delegate updateCountWithVideoBean:_videoBean indexPath:self.indexPath];
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -305,7 +307,7 @@
     //背景框imageview
     _loadingBgImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"loading背景"]];
     //    _loadingBgImageView.frame = CGRectMake(20, 100, 100, 100);
-    _loadingBgImageView.center = self.view.center;
+    _loadingBgImageView.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
     [self.view addSubview:_loadingBgImageView];
     //声明数组，用来存储所有动画图片
     _loadingImageView = [UIImageView new];
@@ -473,52 +475,45 @@
 }
 
 //把收藏信息更新至服务器
-
+#pragma -mark 更新收藏信息至服务器
 - (void)uploadStarStatusToServer{
     
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     //获取网络请求地址url
-    NSString *urlString = [FTNetConfig host:Domain path:_hasVote ? AddVoteURL : DeleteVoteURL];
+    NSString *urlString = [FTNetConfig host:Domain path:self.hasStar ? AddStarURL : DeleteStarURL];
     
     NSString *userId = user.olduserid;
     NSString *objId = _videoBean.vediosId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = @"v-video";
-    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, self.hasVote ? AddVoteCheckKey: DeleteVoteCheckKey]];
+    NSString *tableName = @"col-video";
+    NSString *query = @"delete-col";
+//    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, self.hasStar ?  @"" : query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
+        NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
+    NSLog(@"check sign : %@", checkSign);
+    checkSign = [MD5 md5:checkSign];
     
     
-    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
+    
+    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@&query=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName, query];
     //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
     //创建AAFNetWorKing管理者
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
+    NSLog(@"收藏url：%@", urlString);
     [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"vote status : %@", responseDic[@"status"]);
+        NSLog(@"收藏状态 status : %@, message : %@", responseDic[@"status"], responseDic[@"message"]);
         self.favourateView.userInteractionEnabled = YES;
         if ([responseDic[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
-            int voteCount = [_videoBean.voteCount intValue];
-            if (self.hasVote) {
-                voteCount++;
-            }else{
-                if (voteCount > 0) {
-                    voteCount--;
-                }
-            }
-            _videoBean.voteCount = [NSString stringWithFormat:@"%d", voteCount];
-            NSString *jsMethodString = [NSString stringWithFormat:@"updateLike(%d)", voteCount];
-            NSLog(@"js method : %@", jsMethodString);
-            [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
         }
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
         //failure
         self.voteView.userInteractionEnabled = YES;
-        NSLog(@"vote failure ：%@", error);
+        NSLog(@"收藏 failure ：%@", error);
     }];
     
 }

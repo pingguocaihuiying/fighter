@@ -90,6 +90,7 @@
                 bgView.tag = 1111;
                 bgView.image = [UIImage imageNamed:@"头图暗影遮罩-ios"];
                 [self.contentView insertSubview:bgView belowSubview:_titleLabel];
+                bgView.alpha = 0.3;
         }
 
 }

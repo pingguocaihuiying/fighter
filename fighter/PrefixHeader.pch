@@ -53,5 +53,8 @@
 
 #define WXLoginResultNoti @"WXLoginResutlNoti"
 
+//和750的比例
+#define SCALE  (SCREEN_WIDTH / (750 / 2))
+
 #endif /* PrefixHeader_pch */
 
