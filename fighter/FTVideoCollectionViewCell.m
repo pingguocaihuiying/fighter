@@ -35,7 +35,7 @@
     self.comentCountLabel.text = commentCount;
     self.voteCount.text = voteCount;
     self.viewCountlabel.text = [NSString stringWithFormat:@"(%@)", bean.viewCount];
-    
+    NSLog(@"videotype : %@", bean.videosType);
     //根据newsType去设置类型图片
     if ([bean.videosType isEqualToString:@"Boxing"]) {
         self.videoTypeImageView.image = [UIImage imageNamed:@"格斗标签-拳击"];
@@ -53,6 +53,8 @@
         self.videoTypeImageView.image = [UIImage imageNamed:@"格斗标签-相扑"];
     }else if ([bean.videosType isEqualToString:@"FemaleWrestling"]) {
         self.videoTypeImageView.image = [UIImage imageNamed:@"格斗标签-女子格斗"];
+    }else{//如果类型不属于这些标签，则不显示
+        self.videoTypeImageView.image = nil;
     }
 }
 

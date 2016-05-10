@@ -47,7 +47,7 @@
     self.videosTag = @"0";
     [self initTypeArray];
     [self initSubViews];
-    [self getCycleData];//第一次加载轮播图数据
+//    [self getCycleData];//第一次加载轮播图数据
     [self getDataWithGetType:@"new" andCurrId:@"-1"];//第一次加载数据
 }
 
@@ -218,10 +218,10 @@
     
     urlString = [NSString stringWithFormat:@"%@?videosType=%@&videosCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&videosTag=%@", urlString, videoType, videoCurrId, getType, ts, checkSign, ShowType, self.videosTag];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
+    NSLog(@"");
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    NSLog(@"news's url : %@", urlString);
+    NSLog(@"get video list url: %@", urlString);
     [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSString *status = responseDic[@"status"];
@@ -501,17 +501,12 @@
 
 - (void)setJHRefresh{
     __unsafe_unretained __typeof(self) weakSelf = self;
-    
-    
+
     // 下拉刷新
     self.collectionView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [weakSelf getDataWithGetType:@"new" andCurrId:@"-1"];
-
     }];
-    
-    
-    
-    
+
     [self.collectionView.mj_header beginRefreshing];
     
     // 上拉刷新
@@ -519,35 +514,26 @@
                 NSString *currId;
                 if (weakSelf.tableViewDataSourceArray && weakSelf.tableViewDataSourceArray.count > 0) {
                     currId = [weakSelf.tableViewDataSourceArray lastObject][@"vediosId"];
+                    //如果当前是按“最热”来，需要找到最小的id座位current id
+                    if ([self.videosTag isEqualToString:@"0"]) {
+                        int minId = [currId intValue];
+                        for (NSDictionary *videoInfo in weakSelf.tableViewDataSourceArray) {
+                            int videoId = [videoInfo[@""] intValue];
+                            if (videoId < minId) {
+                                minId = videoId;
+                            }
+                        }
+                        currId = [NSString stringWithFormat:@"%d", minId];
+                    }
+                    
                 }else{
                     return;
                 }
+        NSLog(@"");
                 [weakSelf getDataWithGetType:@"old" andCurrId:currId];
     }];
-    // 默认先隐藏footer
+    // 显示footer
     self.collectionView.mj_footer.hidden = NO;
-//    __unsafe_unretained __typeof(self) weakSelf = self;
-//    
-//    // 下拉刷新
-//    self.collectionView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-//        // 刷新数据
-//        [weakSelf getDataWithGetType:@"new" andCurrId:@"-1"];
-//        [weakSelf.collectionView.mj_header beginRefreshing];
-//    }];
-////    设置上拉刷新
-//    [self.collectionView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
-//        NSString *currId;
-//        if (weakSelf.tableViewDataSourceArray && weakSelf.tableViewDataSourceArray.count > 0) {
-//            currId = [weakSelf.tableViewDataSourceArray lastObject][@"vediosId"];
-//        }else{
-//            return;
-//        }
-//        [weakSelf getDataWithGetType:@"old" andCurrId:currId];
-//        [weakSelf.collectionView.mj_footer beginRefreshing];
-//        
-//    }];
-//    // 默认先隐藏footer
-//    self.collectionView.mj_footer.hidden = NO;
 }
 
 #pragma mark - 按钮事件
