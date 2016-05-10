@@ -72,12 +72,13 @@ static NSString *const tableCellId = @"tableCellId";
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    //注册通知，接收微信登录成功的消息
+//    //注册通知，接收微信登录成功的消息
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginResponse:) name:WXLoginResultNoti object:nil];
     
     //添加监听器，监听login
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showLoginedViewData) name:@"loginAction" object:nil];
     [self showLoginedViewData];
+    
 }
 
 
@@ -183,24 +184,10 @@ static NSString *const tableCellId = @"tableCellId";
     [self.abountUsBtn setTitleColor:[UIColor colorWithHex:0xcccccc] forState:UIControlStateHighlighted];
     [self.feedbackBtn setTitleColor:[UIColor colorWithHex:0xcccccc] forState:UIControlStateHighlighted];
     
-//    CGFloat offsetW = [UIScreen mainScreen].bounds.size.width *0.3;
-//    //子view的右边缘离父view的右边缘40个像素
-//    NSLayoutConstraint *rightContraint = [NSLayoutConstraint constraintWithItem:self.loginView
-//                                                                      attribute:NSLayoutAttributeRight
-//                                                                      relatedBy:NSLayoutRelationEqual
-//                                                                         toItem:self.view
-//                                                                      attribute:NSLayoutAttributeRight
-//                                                                     multiplier:1.0
-//                                                                       constant:-offsetW];
-//    
-//    //把约束添加到父视图上
-//    [self.loginView setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    [self.view addConstraint:rightContraint];
-
 }
 
 
-//
+//登陆后更新用户中心数据
 - (void) showLoginedViewData {
     
     NSLog(@"show Login View");
@@ -308,37 +295,26 @@ static NSString *const tableCellId = @"tableCellId";
     NetWorking *net = [[NetWorking alloc]init];
     [net weixinRequest];
     
-//    if ([WXApi isWXAppInstalled] ) {
-//        SendAuthReq *req = [[SendAuthReq alloc] init];
-//        req.scope = @"snsapi_userinfo";
-//        req.state = @"fighter";
-//        [WXApi sendReq:req];
-//
-//    }else{
-//        NSLog(@"目前只支持微信登录，请安装微信");
-//        [self showHUDWithMessage:@"未安装微信！"];
-//    }
-    
     NSLog(@"微信快捷按钮");
 }
 
-//
-//- (void)wxLoginResponse:(NSNotification *)noti{
-//    NSString *msg = [noti object];
-//    if ([msg isEqualToString:@"SUCESS"]) {
-//        [self showHUDWithMessage:@"微信登录成功"];
-//        
-//        //从本地读取存储的用户信息
-//        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-//        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-//        if (localUser) {
-//            [self setLoginedViewData:localUser];
-//        }
-//        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-//    }else if ([msg isEqualToString:@"ERROR"]){
-//        [self showHUDWithMessage:@"微信登录失败"];
-//    }
-//}
+//微信登录响应
+- (void)wxLoginResponse:(NSNotification *)noti{
+    NSString *msg = [noti object];
+    if ([msg isEqualToString:@"SUCESS"]) {
+        [self showHUDWithMessage:@"微信登录成功"];
+        
+        //从本地读取存储的用户信息
+        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+        if (localUser) {
+            [self setLoginedViewData:localUser];
+        }
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }else if ([msg isEqualToString:@"ERROR"]){
+        [self showHUDWithMessage:@"微信登录失败"];
+    }
+}
 
 - (IBAction)loginBtnAction:(id)sender {
     NSLog(@"loginBtn action Did");
@@ -432,6 +408,7 @@ static NSString *const tableCellId = @"tableCellId";
     
     return cell;
 }
+
 
 #pragma mark UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -612,19 +589,17 @@ static NSString *const tableCellId = @"tableCellId";
 
 #pragma mark - private methods
 - (void)showHUDWithMessage:(NSString *)message{
+    
     MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:HUD];
-    HUD.labelText = message;
+    HUD.label.text = message;
     HUD.mode = MBProgressHUDModeCustomView;
     HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
-    [HUD showAnimated:YES whileExecutingBlock:^{
-        sleep(2);
-    } completionBlock:^{
+    [HUD showAnimated:YES];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  2* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [HUD removeFromSuperview];
-        //        HUD = nil;
-    }];
+    });
 }
-
 
 - (void) setHomeViewController {
 
@@ -693,8 +668,6 @@ static NSString *const tableCellId = @"tableCellId";
     tabBartVC.viewControllers = @[infoVC, matchVC, videoVC, coachVC, boxingHallVC];
     
     FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:tabBartVC];
-    
-    
     [self.dynamicsDrawerViewController  setPaneViewController:navi];
 }
 

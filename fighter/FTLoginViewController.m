@@ -192,19 +192,13 @@
                             }];
 
 }
-//微信快捷登录
 
+//微信快捷登录 响应
 - (void)wxLoginResponse:(NSNotification *)noti{
     NSString *msg = [noti object];
     if ([msg isEqualToString:@"SUCESS"]) {
         [self showHUDWithMessage:@"微信登录成功，可以评论或点赞了"];
         
-//        //从本地读取存储的用户信息
-//        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-//        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-//        if (localUser) {
-//            [self setLoginedViewData:localUser];
-//        }
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }else if ([msg isEqualToString:@"ERROR"]){
         [self showHUDWithMessage:@"微信登录失败"];
@@ -213,16 +207,9 @@
 
 - (IBAction)weichatBtnAction:(id)sender {
     
-    if ([WXApi isWXAppInstalled] ) {
-        SendAuthReq *req = [[SendAuthReq alloc] init];
-        req.scope = @"snsapi_userinfo";
-        req.state = @"fighter";
-        [WXApi sendReq:req];
-        
-    }else{
-        NSLog(@"目前只支持微信登录，请安装微信");
-        [self showHUDWithMessage:@"未安装微信！"];
-    }
+    //请求微信登录
+    NetWorking *net = [[NetWorking alloc]init];
+    [net weixinRequest];
 
 }
 

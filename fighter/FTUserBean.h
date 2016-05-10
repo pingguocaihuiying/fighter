@@ -61,6 +61,7 @@
 //微信
 @property (nonatomic, copy) NSString *wxHeaderPic;//微信头像
 @property (nonatomic, copy) NSString *wxName;//微信昵称
+@property (nonatomic, copy) NSString *wxAccess;//
 
 
 //计算年龄

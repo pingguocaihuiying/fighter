@@ -10,6 +10,24 @@
 
 @interface NetWorking : NSObject
 
+
+//get请求
+- (void) getRequestWithUrl:(NSString *)urlString
+                parameters:(NSDictionary *)dic
+                    option:(void (^)(NSDictionary *dict))option;
+
+//post请求
+- (void) postRequestWithUrl:(NSString *)urlString
+                 parameters:(NSDictionary *)dic
+                     option:(void (^)(NSDictionary *dict))option;
+
+//post请求上传二进制数据
+- (void) postUploadDataWithURL:(NSString *)urlString
+                    parameters:(NSDictionary *)dic
+              appendParameters:(NSDictionary *)appendDic
+                        option:(void (^)(NSDictionary *dict))option;
+
+
 //获取短信验证码
 - (void) getCheckCodeWithPhoneNumber:(NSString *)phonenum option:(void (^)(NSDictionary *dict))option;
 
