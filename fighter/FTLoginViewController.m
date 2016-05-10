@@ -33,6 +33,13 @@
 
 - (void) setSubViews {
 
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    backBtn.bounds = CGRectMake(0, 0, 35, 35);
+    [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-取消"] forState:UIControlStateNormal];
+    [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-取消pre"] forState:UIControlStateHighlighted];
+    [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
+    
     //导航栏右侧按钮
     UIButton *registBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [registBtn setTitle:@"注册" forState:UIControlStateNormal];
@@ -94,41 +101,15 @@
     
 }
 
+#pragma mark - response
+- (void) backBtnAction:(id) sender {
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void) turnRegistVCAction:(id) sender {
     
-    NSLog(@"regsit btn action begin ");
-    
-//    @try {
-//        
-//        FTRegistViewController *registVC = [[FTRegistViewController alloc]init];
-//        registVC.title = @"注册";
-//        FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:registVC];
-//        baseNav.navigationBarHidden = NO;
-//        baseNav.navigationBar.barTintColor = [UIColor blackColor];
-//        [self.navigationController  presentViewController:baseNav animated:YES completion:nil];
-////        [self.navigationController pushViewController:registVC animated:YES];
-//    }
-//    @catch (NSException *exception) {
-//        NSLog(@"exception:%@",exception);
-//    }
-//    @finally {
-//        
-//    }
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  0.1* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-//        NSString *key = [[NSString alloc] initWithData:[NSData dataWithBytes:(unsigned char []){0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x42, 0x61, 0x72}
-//                                                                      length:9]
-//                                              encoding:NSASCIIStringEncoding];
-//        id object = [UIApplication sharedApplication];
-//        UIView *statusBar;
-//        if ([object respondsToSelector:NSSelectorFromString(key)]) {
-//            statusBar = [object valueForKey:key];
-//        }
-//        statusBar.transform = CGAffineTransformMakeTranslation(SCREEN_WIDTH *0.7 , 0);
-//    });
-//    
-//    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-    
-    NSLog(@"regist btn action end");
+   
     FTRegistViewController *registVC = [[FTRegistViewController alloc]init];
     registVC.title = @"注册";
 //    FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:registVC];
@@ -180,7 +161,7 @@
                                         [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                                         
                                         NSDictionary *userDataDic = dict[@"data"];
-                                        NSDictionary *userDic = userDataDic[@"userLogin"];
+                                        NSDictionary *userDic = userDataDic[@"user"];
                                         
                                         FTUserBean *user = [FTUserBean new];
                                         [user setValuesForKeysWithDictionary:userDic];
@@ -190,18 +171,7 @@
                                         [[NSUserDefaults standardUserDefaults]setObject:userData forKey:@"loginUser"];
                                         [[NSUserDefaults standardUserDefaults]synchronize];
                                         
-                                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                            
-                                            NSString *key = [[NSString alloc] initWithData:[NSData dataWithBytes:(unsigned char []){0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x42, 0x61, 0x72}
-                                                                                                          length:9]
-                                                                                  encoding:NSASCIIStringEncoding];
-                                            id object = [UIApplication sharedApplication];
-                                            UIView *statusBar;
-                                            if ([object respondsToSelector:NSSelectorFromString(key)]) {
-                                                statusBar = [object valueForKey:key];
-                                            }
-                                            statusBar.transform = CGAffineTransformMakeTranslation(SCREEN_WIDTH *0.7 , 0);
-                                        });
+                                        
                                         
                                         [self.navigationController dismissViewControllerAnimated:YES completion:^{
                                             

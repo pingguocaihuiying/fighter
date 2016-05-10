@@ -37,6 +37,9 @@
 #import "UIButton+WebCache.h"
 #import "FTUserCenterViewController.h"
 #import "UMFeedback.h"
+#import "FTSettingViewController.h"
+#import "NetWorking.h"
+
 
 @interface FTDrawerViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
 
@@ -91,7 +94,7 @@ static NSString *const tableCellId = @"tableCellId";
     
     [self.collectionView setHidden:YES];
     [self.tableView setHidden:YES];
-    [self.settingBtn setHidden:YES];
+    [self.settingBtn setHidden:NO];
     
 }
 
@@ -107,6 +110,10 @@ static NSString *const tableCellId = @"tableCellId";
     
     //切换图层，把头像边框放到上层
     [self.drawerView sendSubviewToBack:self.avatarImageView];
+    
+    //设置头像圆角
+    [self.avatarImageView.layer setMasksToBounds:YES];
+    [self.avatarImageView.layer setCornerRadius:39];
     
     //设置身高、体重label字体颜色
     self.heightLabel.textColor = [UIColor colorWithHex:0xb4b4b4];
@@ -218,8 +225,10 @@ static NSString *const tableCellId = @"tableCellId";
         [self.loginView setHidden:YES];//隐藏登录界面
         
         [self setAvatarImageViewImageWithString:localUser.headpic];
-        [self setNameLabelText:localUser.username];
-        [self setAgeLabelText:localUser.birthday];
+        [self setNameLabelText:[localUser.username stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//        [self setNameLabelText:localUser.username ];
+        [self setAgeLabelText:localUser.age];
+        [self setSexLabelText:[localUser.sex  stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         [self setSexLabelText:localUser.sex];
         [self setHeightLabelText:localUser.height];
         [self setWeightLabelText:localUser.weight];
@@ -231,11 +240,9 @@ static NSString *const tableCellId = @"tableCellId";
 
         }
     }
-
 }
 
 #pragma mark - setter
-
 - (void) setAvatarImageViewImageWithString:(NSString *)urlString {
     
     [self.avatarImageView  sd_setImageWithURL:[NSURL URLWithString:urlString]
@@ -259,6 +266,7 @@ static NSString *const tableCellId = @"tableCellId";
         [self.sexLabel setText:@"男"];
     }else {
         [self.sexLabel setText:text];
+        NSLog(@"sex:%@",[text stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
     }
 }
 
@@ -267,7 +275,7 @@ static NSString *const tableCellId = @"tableCellId";
     if (text.length <= 0 || text == nil) {
         [self.ageLabel setText:@"18岁"];
     }else {
-        [self.ageLabel setText:text];
+        [self.ageLabel setText:[NSString stringWithFormat:@"%@岁",text]];
     }
 }
 
@@ -293,57 +301,47 @@ static NSString *const tableCellId = @"tableCellId";
 
 
 #pragma mark - response methods
-
 //微信快捷登录按钮
 - (IBAction)weichatBtnAction:(id)sender {
     
-    if ([WXApi isWXAppInstalled] ) {
-        SendAuthReq *req = [[SendAuthReq alloc] init];
-        req.scope = @"snsapi_userinfo";
-        req.state = @"fighter";
-        [WXApi sendReq:req];
-
-    }else{
-        NSLog(@"目前只支持微信登录，请安装微信");
-        [self showHUDWithMessage:@"未安装微信！"];
-    }
+    
+    NetWorking *net = [[NetWorking alloc]init];
+    [net weixinRequest];
+    
+//    if ([WXApi isWXAppInstalled] ) {
+//        SendAuthReq *req = [[SendAuthReq alloc] init];
+//        req.scope = @"snsapi_userinfo";
+//        req.state = @"fighter";
+//        [WXApi sendReq:req];
+//
+//    }else{
+//        NSLog(@"目前只支持微信登录，请安装微信");
+//        [self showHUDWithMessage:@"未安装微信！"];
+//    }
     
     NSLog(@"微信快捷按钮");
 }
 
 //
-- (void)wxLoginResponse:(NSNotification *)noti{
-    NSString *msg = [noti object];
-    if ([msg isEqualToString:@"SUCESS"]) {
-        [self showHUDWithMessage:@"微信登录成功"];
-        
-        //从本地读取存储的用户信息
-        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-        if (localUser) {
-            [self setLoginedViewData:localUser];
-        }
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-    }else if ([msg isEqualToString:@"ERROR"]){
-        [self showHUDWithMessage:@"微信登录失败"];
-    }
-}
+//- (void)wxLoginResponse:(NSNotification *)noti{
+//    NSString *msg = [noti object];
+//    if ([msg isEqualToString:@"SUCESS"]) {
+//        [self showHUDWithMessage:@"微信登录成功"];
+//        
+//        //从本地读取存储的用户信息
+//        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+//        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+//        if (localUser) {
+//            [self setLoginedViewData:localUser];
+//        }
+//        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+//    }else if ([msg isEqualToString:@"ERROR"]){
+//        [self showHUDWithMessage:@"微信登录失败"];
+//    }
+//}
 
 - (IBAction)loginBtnAction:(id)sender {
     NSLog(@"loginBtn action Did");
-    //移动statebar
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  0.1* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        NSString *key = [[NSString alloc] initWithData:[NSData dataWithBytes:(unsigned char []){0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x42, 0x61, 0x72}
-                                                                      length:9]
-                                              encoding:NSASCIIStringEncoding];
-        id object = [UIApplication sharedApplication];
-        UIView *statusBar;
-        if ([object respondsToSelector:NSSelectorFromString(key)]) {
-            statusBar = [object valueForKey:key];
-        }
-        statusBar.transform = CGAffineTransformMakeTranslation( 0 , 0);
-    });
-    
     
     FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
     loginVC.title = @"登录";
@@ -391,19 +389,7 @@ static NSString *const tableCellId = @"tableCellId";
 //编辑按钮事件
 - (IBAction)editingBtnAction:(id)sender {
    
-    //移动statebar
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  0.1* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        NSString *key = [[NSString alloc] initWithData:[NSData dataWithBytes:(unsigned char []){0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x42, 0x61, 0x72}
-                                                                      length:9]
-                                              encoding:NSASCIIStringEncoding];
-        id object = [UIApplication sharedApplication];
-        UIView *statusBar;
-        if ([object respondsToSelector:NSSelectorFromString(key)]) {
-            statusBar = [object valueForKey:key];
-        }
-        statusBar.transform = CGAffineTransformMakeTranslation( 0 , 0);
-    });
-
+    
     FTUserCenterViewController *userCenter = [[FTUserCenterViewController alloc]init];
     userCenter.title = @"个人资料";
     FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:userCenter];
@@ -415,6 +401,13 @@ static NSString *const tableCellId = @"tableCellId";
 
 //设置按钮事件
 - (IBAction)settingBtnAction:(id)sender {
+    
+    FTSettingViewController *settingVC = [[FTSettingViewController alloc]init];
+    settingVC.title = @"设置";
+    FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:settingVC];
+    baseNav.navigationBarHidden = NO;
+
+    [self presentViewController:baseNav animated:YES completion:nil];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -618,7 +611,6 @@ static NSString *const tableCellId = @"tableCellId";
 }
 
 #pragma mark - private methods
-
 - (void)showHUDWithMessage:(NSString *)message{
     MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:HUD];
@@ -708,7 +700,7 @@ static NSString *const tableCellId = @"tableCellId";
 
 - (void) dealloc {
     
-    [self removeObserver:self forKeyPath:@"login"];
+    [self removeObserver:self forKeyPath:@"loginAction"];
 }
 
 @end

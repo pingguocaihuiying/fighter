@@ -11,4 +11,5 @@
 @interface Regex : NSObject
 + (BOOL)isMobileNumber:(NSString *)mobileNum;
 - (BOOL)isMobileNumber:(NSString *)mobileNum;
++ (BOOL)checkPassword:(NSString *) password;
 @end

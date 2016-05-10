@@ -19,6 +19,8 @@
     //修正selv
     //设置背景
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"底纹"]];
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor whiteColor]}];
     //设置渐变
 //        NSLog(@"base view的宽度：%f,高度：%f",self.view.frame.size.width, self.view.frame.size.height);
 //    NSLog(@"self view frame height : %f", self.view.frame.size.height);

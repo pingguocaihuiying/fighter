@@ -95,7 +95,14 @@
     [self.acountTextField resignFirstResponder];
     [self.checkCodeTextField resignFirstResponder];
     
-    if ([self.acountTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0 ) {
+    NSRange _range = [self.acountTextField.text rangeOfString:@" "];
+    if (_range.location != NSNotFound) {
+        //有空格
+        [self showHUDWithMessage:@"手机号不能包含空格"];
+        return;
+    }
+    
+    if (self.acountTextField.text.length == 0 ) {
         [self showHUDWithMessage:@"手机号不能为空"];
         return ;
     }else {
@@ -104,6 +111,7 @@
             return;
         }
     }
+    
     
 //    if ( ![[Regex new] isMobileNumber:self.acountTextField.text]) {
 //        [self showHUDWithMessage:@"手机号不正确"];

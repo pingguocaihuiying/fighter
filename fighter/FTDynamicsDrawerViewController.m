@@ -179,7 +179,7 @@ typedef void (^ViewActionBlock)(UIView *view);
     _currentLeftMenuDirection = FTDynamicsDrawerDirectionNone;
     
     self.paneViewSlideOffAnimationEnabled = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone);
-    self.shouldAlignStatusBarToPaneView = YES;
+    self.shouldAlignStatusBarToPaneView = NO;
     
     self.drawerViewControllers = [NSMutableDictionary new];
     self.revealWidth = [NSMutableDictionary new];

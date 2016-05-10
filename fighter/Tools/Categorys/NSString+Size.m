@@ -16,4 +16,15 @@
     NSDictionary *attrs = @{NSFontAttributeName : font};
     return [self boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
 }
+
+
+//返回字符串所占用的尺寸.
+-(CGSize)sizeWithFont:(UIFont *)font height:(CGFloat) height
+{
+    CGSize size = CGSizeMake(MAXFLOAT, height);
+    
+    NSDictionary *attrs = @{NSFontAttributeName : font};
+    return [self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
+}
+
 @end
