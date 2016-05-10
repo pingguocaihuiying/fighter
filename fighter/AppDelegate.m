@@ -28,6 +28,7 @@
 
 #import "FTDrawerViewController.h"
 #import "MainViewController.h"
+#import "Networking.h"
 
 @interface AppDelegate ()<WXApiDelegate>
 
@@ -42,15 +43,15 @@
     [self setWeiXin];
     
 //        [self setRootViewController];
-    [self setRootViewController2];
+//    [self setRootViewController2];
 
     
 //    FTDrawerViewController *drawerVC = [[FTDrawerViewController alloc]init];
 //    self.window.rootViewController = drawerVC;
 
-//    MainViewController *sl = [[MainViewController alloc]init];
-//    FTBaseNavigationViewController *_navi=[[FTBaseNavigationViewController alloc]initWithRootViewController:sl];
-//    self.window.rootViewController=sl;
+    MainViewController *sl = [[MainViewController alloc]init];
+    FTBaseNavigationViewController *_navi=[[FTBaseNavigationViewController alloc]initWithRootViewController:sl];
+    self.window.rootViewController=sl;
     
     return YES;
 }
@@ -92,6 +93,8 @@
         if (temp.errCode != 0) {
             return;
         }
+        
+        
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         

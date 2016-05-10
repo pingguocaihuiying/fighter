@@ -76,17 +76,19 @@
     NSString *tel = localUser.tel;
     NSString *password = self.passwordTextField.text;
     
-    if ([password isEqualToString:@""] || [tel isEqualToString:@""]) {
-        NSLog(@"密码必须填写");
-        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"密码必须填写"];
-        return;
-    }
-    
     if (password.length < 6 || password.length > 18) {
         NSLog(@"密码必须填写");
         [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"密码必须为6-18位"];
         return;
     }
+    
+    if ([tel isEqualToString:@""]) {
+        NSLog(@"密码必须填写");
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"未绑定手机"];
+        return;
+    }
+    
+    
     
     NetWorking *net = [NetWorking new];
     [net loginWithPhoneNumber:tel
