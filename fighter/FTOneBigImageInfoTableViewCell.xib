@@ -16,6 +16,7 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="金属边框-改进ios" translatesAutoresizingMaskIntoConstraints="NO" id="L9I-WB-mnW">
                         <rect key="frame" x="0.0" y="0.0" width="378" height="217"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="丹-亨德森合同即将打满，期待继续留在UFC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Lg-ZP-I0y">
                         <rect key="frame" x="19" y="17" width="340" height="14"/>
@@ -127,6 +128,7 @@
                         </variation>
                     </imageView>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="zF2-zf-jVc" secondAttribute="bottom" constant="16" id="2aJ-HV-U4T"/>
                     <constraint firstItem="zF2-zf-jVc" firstAttribute="leading" secondItem="ck1-QY-Wxl" secondAttribute="trailing" constant="10" id="Ak0-UW-5sH"/>

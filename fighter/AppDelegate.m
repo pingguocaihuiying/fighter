@@ -56,15 +56,16 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     //设置微信相关的
     [self setWeiXin];
     
-//        [self setRootViewController];
+    //屏蔽个人中心时打开这里
 //    [self setRootViewController2];
 
     
 //    FTDrawerViewController *drawerVC = [[FTDrawerViewController alloc]init];
 //    self.window.rootViewController = drawerVC;
-
+    
+    //启动个人中心的功能
     MainViewController *sl = [[MainViewController alloc]init];
-    FTBaseNavigationViewController *_navi=[[FTBaseNavigationViewController alloc]initWithRootViewController:sl];
+//    FTBaseNavigationViewController *_navi=[[FTBaseNavigationViewController alloc]initWithRootViewController:sl];
     self.window.rootViewController=sl;
     
     return YES;
