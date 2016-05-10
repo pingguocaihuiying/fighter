@@ -111,7 +111,7 @@
 
 #pragma -mark 最新最热按钮被点击
 - (IBAction)hotButtonClicked:(id)sender {
-    
+    self.videosTag = @"0";
     [MobClick event:@"videoPage_Hot"];
     //设置背景
     self.containerOfNewOrHotView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"二标签-左选中"]];
@@ -127,7 +127,7 @@
     [self getDataWithGetType:@"new" andCurrId:@"-1"];
 }
 - (IBAction)newestButtonClicked:(id)sender {
-    
+    self.videosTag = @"1";
     [MobClick event:@"videoPage_New"];
     
     self.containerOfNewOrHotView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"二标签-右选中"]];

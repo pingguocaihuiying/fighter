@@ -41,16 +41,17 @@
     //设置微信相关的
     [self setWeiXin];
     
-//        [self setRootViewController];
-    [self setRootViewController2];
+    //屏蔽个人中心时打开这里
+//    [self setRootViewController2];
 
     
 //    FTDrawerViewController *drawerVC = [[FTDrawerViewController alloc]init];
 //    self.window.rootViewController = drawerVC;
-
-//    MainViewController *sl = [[MainViewController alloc]init];
+    
+    //启动个人中心的功能
+    MainViewController *sl = [[MainViewController alloc]init];
 //    FTBaseNavigationViewController *_navi=[[FTBaseNavigationViewController alloc]initWithRootViewController:sl];
-//    self.window.rootViewController=sl;
+    self.window.rootViewController=sl;
     
     return YES;
 }

@@ -38,6 +38,10 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.tableView.showsVerticalScrollIndicator = NO;
+    [self.tableView registerNib:[UINib nibWithNibName:@"FTOneBigImageInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell1"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"FTThreeImageInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell2"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"FTOneImageInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell3"];
+//    [self.tableView registerNib:[UINib nibWithNibName:@"FTVideoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell4"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,6 +88,9 @@
             static NSString *cellider2 = @"cell2";
             cell = [tableView dequeueReusableCellWithIdentifier:cellider2];
             if (cell == nil) {
+                static int count = 0;
+                count ++;
+                NSLog(@"count : %d", count);
                 cell = [[[NSBundle mainBundle]loadNibNamed:@"FTThreeImageInfoTableViewCell" owner:self options:nil]firstObject];
                 cell.backgroundColor = [UIColor clearColor];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -96,18 +103,18 @@
                 cell.backgroundColor = [UIColor clearColor];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
-        }else if(layout == nil){//如果为nil，则是视频
+        }else if(layout == nil){//如果为nil，则是视频 //视频的改为了collectionview，这里不用了先
             NSLog(@"layout is nil");
-            static NSString *cellider4 = @"cell4";
-            cell = [tableView dequeueReusableCellWithIdentifier:cellider4];
-            if (cell == nil) {
-                cell = [[[NSBundle mainBundle]loadNibNamed:@"FTVideoTableViewCell" owner:self options:nil]firstObject];
-                cell.backgroundColor = [UIColor clearColor];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                
-            }
-            cell.tag = indexPath.row;
-            cell.clickedDelegate = self;
+//            static NSString *cellider4 = @"cell4";
+//            cell = [tableView dequeueReusableCellWithIdentifier:cellider4];
+//            if (cell == nil) {
+//                cell = [[[NSBundle mainBundle]loadNibNamed:@"FTVideoTableViewCell" owner:self options:nil]firstObject];
+//                cell.backgroundColor = [UIColor clearColor];
+//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//                
+//            }
+//            cell.tag = indexPath.row;
+//            cell.clickedDelegate = self;
         }
         //改变cell的值
         FTBaseBean *bean;
