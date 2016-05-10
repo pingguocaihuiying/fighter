@@ -28,6 +28,7 @@
 
 #import "FTDrawerViewController.h"
 #import "MainViewController.h"
+#import "Networking.h"
 
 @interface AppDelegate ()<WXApiDelegate>
 
@@ -93,6 +94,8 @@
         if (temp.errCode != 0) {
             return;
         }
+        
+        
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         

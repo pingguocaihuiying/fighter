@@ -367,28 +367,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     
-//    [dic setObject:@"-1" forKey:@"userId"];
-//    [dic setObject:@"-1"forKey:@"username"];
-//    [dic setObject:@"-1"forKey:@"realname"];
-//    [dic setObject:@"-1" forKey:@"stemfrom"];
-//    [dic setObject:@"-1" forKey:@"telmodel"];
-//    [dic setObject:@"-1"forKey:@"imei"];
-//    [dic setObject:@"-1"forKey:@"email"];
-//    [dic setObject:@"-1" forKey:@"remarks"];
-//    [dic setObject:@"-1" forKey:@"sex"];
-//    [dic setObject:@"-1" forKey:@"birthday"];
-//    [dic setObject:@"-1" forKey:@"tel"];//电话号码
-//    [dic setObject:@"-1" forKey:@"checkCode"];//验证码
-//    [dic setObject:@"-1" forKey:@"type"];
-//    [dic setObject:@"-1" forKey:@"cardType"];
-//    [dic setObject:@"-1" forKey:@"cardNo"];
-//    [dic setObject:@"-1" forKey:@"openId"];
-//    [dic setObject:@"-1" forKey:@"unionId"];
-    
-    //更新字段
-//    [dic setObject:@"-1" forKey:@"height"];
-//    [dic setObject:@"-1" forKey:@"weight"];
-    
     NSString *token = localUser.token;
     NSString *olduserid = localUser.olduserid;
     //必选字段
@@ -398,12 +376,11 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     //添加修改字段
     [dic setObject:value forKey:key];
     
-    
     return dic;
-
 }
 
 
+//向微信请求数据
 - (void) weixinRequest {
 
     if ([WXApi isWXAppInstalled] ) {
@@ -417,6 +394,22 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"未安装微信！"];
     }
 
+}
+
+
+//注册登录微信用户
+- (void) requestWeixinTokenAdnOpenId:(NSString *)code
+                              option:(void (^)(NSDictionary *dict))option {
+
+    NSString *accessUrlStr = [NSString stringWithFormat:@"%@/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code", WX_BASE_URL, WX_App_ID, WX_App_Secret, code];
+    
+    [self getRequestWithUrl:accessUrlStr parameters:nil option:^(NSDictionary *dict) {
+            if(dict) {
+                //获取到token 和openId后登陆
+                [self getWechatUserInfoWithToken:dict[@"access_token"] andOpenId:dict[@"openid"]];
+            }
+        
+    }];
 }
 
 - (void)onResp:(BaseResp *)resp {
@@ -445,13 +438,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             NSLog(@"获取access_token时出错 = %@", error);
         }];
         
-//        [self getRequestWithUrl:accessUrlStr parameters:nil option:^(NSDictionary *dict) {
-//            if(dict) {
-//                //获取到token 和openId后登陆
-//                [self getWechatUserInfoWithToken:dict[@"access_token"] andOpenId:dict[@"openid"]];
-//            }
-//            
-//        }];
+//
     }
 }
 

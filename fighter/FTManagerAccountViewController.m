@@ -139,6 +139,7 @@
             wxVC.title = @"绑定微信";
             [self.navigationController pushViewController:wxVC animated:YES];
         }else {//手机登录未绑定微信, 用微信登录绑定微信
+            
             NetWorking *net = [[NetWorking alloc]init];
             [net weixinRequest];
             [self.tableView reloadData];
@@ -156,22 +157,24 @@
             NSLog(@"dict:%@",dict);
             if (dict != nil) {
                 
-                bool status = [dict[@"status"] boolValue];
+                
+                NSString *data = [dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                 NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
                 
-                if (status == true) {
+                
+                if ([data isEqualToString:@"用户已绑定手机"]) {
                     
                     [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                     
                     FTOldPasswordVC *oldPasswordVC = [[FTOldPasswordVC alloc]init];
                     oldPasswordVC.title = @"旧密码";
                     [self.navigationController pushViewController:oldPasswordVC animated:YES];
-                    
                 }else {
+                
                     NSLog(@"message : %@", [dict[@"message"] class]);
                     [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                    
                 }
+                
             }else {
                 [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
                 
