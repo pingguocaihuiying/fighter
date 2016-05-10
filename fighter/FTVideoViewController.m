@@ -19,9 +19,12 @@
 #import "FTVideoBean.h"
 #import "UIButton+LYZTitle.h"
 #import "UIButton+WebCache.h"
+#import "Mobclick.h"
+#import "FTVideoCollectionViewCell.h"
+#import "MJRefresh.h"
 
 
-@interface FTVideoViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate>
+@interface FTVideoViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTVideoDetailDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property(nonatomic,strong) NSArray *sourceArry;     //数据源
 @property(nonatomic,strong) UIPageViewController *pageViewController;   //翻页控制器
@@ -32,6 +35,8 @@
 @property (nonatomic, strong)FTTableViewController *tableViewController;
 @property (nonatomic, strong)NSArray *typeArray;
 @property (nonatomic, copy)NSString *videosTag;
+
+@property (nonatomic, strong)UICollectionView *collectionView;
 @end
 
 @implementation FTVideoViewController
@@ -42,11 +47,12 @@
     self.videosTag = @"0";
     [self initTypeArray];
     [self initSubViews];
-    [self getCycleData];
-    [self getDataWithGetType:@"new" andCurrId:@"-1"];
+    [self getCycleData];//第一次加载轮播图数据
+    [self getDataWithGetType:@"new" andCurrId:@"-1"];//第一次加载数据
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    [MobClick event:@"mainPage_Video"];
     //    self.tabBarController.navigationController.navigationBarHidden = YES;
     self.navigationController.navigationBarHidden = YES;
 }
@@ -102,7 +108,11 @@
     self.newestButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 5, 55);
     self.newestButton.imageEdgeInsets = UIEdgeInsetsMake(0, 80, 4, 0);
 }
+
+#pragma -mark 最新最热按钮被点击
 - (IBAction)hotButtonClicked:(id)sender {
+    
+    [MobClick event:@"videoPage_Hot"];
     //设置背景
     self.containerOfNewOrHotView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"二标签-左选中"]];
     
@@ -117,6 +127,9 @@
     [self getDataWithGetType:@"new" andCurrId:@"-1"];
 }
 - (IBAction)newestButtonClicked:(id)sender {
+    
+    [MobClick event:@"videoPage_New"];
+    
     self.containerOfNewOrHotView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"二标签-右选中"]];
     
     //改变右边按钮的标题颜色、图片
@@ -153,7 +166,7 @@
         if ([status isEqualToString:@"success"]) {
             self.cycleDataSourceArray = responseDic[@"data"];
             
-            [self setCycleScrollView];
+//            [self setCycleScrollView];
             [self initPageController];
             
             //隐藏infoLabel
@@ -242,10 +255,10 @@
                 //                [self.tableViewController.tableView.tableHeaderView removeFromSuperview];
                 self.tableViewController.tableView.tableHeaderView = nil;
             }
-            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
-            [self.tableViewController.tableView footerEndRefreshing];
-            
-            [self.tableViewController.tableView reloadData];
+            [self.collectionView.mj_header endRefreshing];
+            [self.collectionView.mj_footer endRefreshing];
+            [self.collectionView reloadData];
+
             //隐藏infoLabel
             if (self.infoLabel.isHidden == NO) {
                 self.infoLabel.hidden = YES;
@@ -253,14 +266,16 @@
         }else if([status isEqualToString:@"error"]){
             NSLog(@"message : %@", responseDic[@"message"]);
             
-            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
-            [self.tableViewController.tableView footerEndRefreshing];
+            [self.collectionView.mj_header endRefreshing];
+            [self.collectionView.mj_footer endRefreshing];
+            [self.collectionView reloadData];
         }
         
         
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-        [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
-        [self.tableViewController.tableView footerEndRefreshing];
+        [self.collectionView.mj_header endRefreshing];
+        [self.collectionView.mj_footer endRefreshing];
+        [self.collectionView reloadData];
         NSLog(@"error : %@", error);
     }];
 }
@@ -278,28 +293,28 @@
     
 }
 
-- (void)setCycleScrollView{
-    NSMutableArray *imagesURLStrings = [NSMutableArray new];
-    NSMutableArray *titlesArray = [NSMutableArray new];
-    if (self.cycleDataSourceArray) {
-        for(NSDictionary *dic in self.cycleDataSourceArray){
-            [imagesURLStrings addObject:dic[@"img_big"]];
-            [titlesArray addObject:dic[@"title"]];
-            
-        }
-    }
-    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180 * SCREEN_WIDTH / 375) delegate:self placeholderImage:[UIImage imageNamed:@"空图标大"]];
-    _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
-    
-#pragma -mark -暂时隐藏轮播图的标题（没有给轮播图传title的值）
-    _cycleScrollView.titlesGroup = titlesArray;
-    
-    _cycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
-    _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点pre"];
-    _cycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播点"];
-    _cycleScrollView.imageURLStringsGroup = imagesURLStrings;
-    //    [_cycleScrollView.mainView reloadData];
-}
+//- (void)setCycleScrollView{
+//    NSMutableArray *imagesURLStrings = [NSMutableArray new];
+//    NSMutableArray *titlesArray = [NSMutableArray new];
+//    if (self.cycleDataSourceArray) {
+//        for(NSDictionary *dic in self.cycleDataSourceArray){
+//            [imagesURLStrings addObject:dic[@"img_big"]];
+//            [titlesArray addObject:dic[@"title"]];
+//            
+//        }
+//    }
+//    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180 * SCREEN_WIDTH / 375) delegate:self placeholderImage:[UIImage imageNamed:@"空图标大"]];
+//    _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+//    
+//#pragma -mark -暂时隐藏轮播图的标题（没有给轮播图传title的值）
+//    _cycleScrollView.titlesGroup = titlesArray;
+//    
+//    _cycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
+//    _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点pre"];
+//    _cycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播点"];
+//    _cycleScrollView.imageURLStringsGroup = imagesURLStrings;
+//    //    [_cycleScrollView.mainView reloadData];
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -362,19 +377,23 @@
 
 - (void)initPageController
 {
-    if(!self.tableViewController){
-        self.tableViewController = [[FTTableViewController alloc]initWithStyle:UITableViewStylePlain];
-        self.tableViewController.newsOrVideo = @"video";
-        self.tableViewController.FTdelegate = self;
-        self.tableViewController.order = 0;
-        //设置上拉、下拉刷新
-        [self setJHRefresh];
+//    if(!self.tableViewController){
+//        self.tableViewController = [[FTTableViewController alloc]initWithStyle:UITableViewStylePlain];
+//        
+//        self.tableViewController.newsOrVideo = @"video";
+//        self.tableViewController.FTdelegate = self;
+//        self.tableViewController.order = 0;
+//        //设置上拉、下拉刷新
+//        [self setJHRefresh];
+//    }
+    if (self.collectionView == nil) {
+        [self initCollectionView];
     }
     
     self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
     
     if (self.tableViewDataSourceArray) {
-        [self.tableViewController.tableView footerEndRefreshing];
+        [self.collectionView footerEndRefreshing];
         self.tableViewController.sourceArray = self.tableViewDataSourceArray;
     }else{
         //    self.tableViewController.sourceArray = _sourceArry[0];
@@ -395,30 +414,140 @@
     [self.currentView addSubview:self.tableViewController.tableView];
 }
 
+#pragma -mark -初始化collectionView
+- (void)initCollectionView{
+    //创建一个collectionView的属性设置处理器
+    UICollectionViewFlowLayout *flow = [UICollectionViewFlowLayout new];
+    
+    //行间距
+    flow.minimumLineSpacing = 15 * SCALE;
+    //列间距
+//    flow.minimumInteritemSpacing = 17 * SCALE;
+    
+    //cell大小设置
+    float width = 164 * SCALE;
+    float height = 143 * SCALE;
+    flow.itemSize = CGSizeMake(width, height);
+    NSLog(@"cell宽：%f, 高：%f。屏幕宽度：%f,self.view的宽度：%f", width, height, SCREEN_WIDTH, self.view.frame.size.width);
+//    NSLog(@"child view的宽度：%f,高度：%f",self.view.frame.size.width, self.view.frame.size.height);
+    //section内嵌距离设置
+    flow.sectionInset = UIEdgeInsetsMake(0, 14 * SCALE, 0, 14 * SCALE);
+    
+    //滚动方向
+    //flow.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    
+    _collectionView = [[UICollectionView alloc]initWithFrame:self.view.bounds collectionViewLayout:flow];
+    
+    _collectionView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    NSLog(@"collectionView的宽度:%f", _collectionView.frame.size.width);
+    _collectionView.backgroundColor = [UIColor clearColor];
+    [self.currentView addSubview:_collectionView];
+    
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
+    
+    //注册一个collectionViewCCell队列
+    [_collectionView registerNib:[UINib nibWithNibName:@"FTVideoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
+    [self setJHRefresh];
+    
+}
+//有多少组
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return  1;
+}
+
+//选中触发的方法
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"section : %ld, row : %ld", indexPath.section, indexPath.row);
+    if (self.tableViewDataSourceArray) {
+        
+        FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
+        //获取对应的bean，传递给下个vc
+        NSDictionary *newsDic = self.tableViewDataSourceArray[indexPath.row];
+        FTVideoBean *bean = [FTVideoBean new];
+        [bean setValuesWithDic:newsDic];
+        
+        videoDetailVC.videoBean = bean;
+        NSIndexPath *theIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
+        NSLog(@"section : %ld, row : %ld", indexPath.section, indexPath.row);
+        videoDetailVC.indexPath = theIndexPath;
+        
+        videoDetailVC.delegate = self;
+        
+        [self.navigationController pushViewController:videoDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+    }
+}
+
+//某组有多少行
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return self.tableViewDataSourceArray.count;
+}
+
+//返回cell
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    FTVideoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    if (cell == nil) {
+        NSLog(@"cell is nil");
+        cell = [[[NSBundle mainBundle]loadNibNamed:@"FTVideoCollectionViewCell" owner:self options:nil]firstObject];
+    }
+//    cell.backgroundColor = [UIColor clearColor];
+    FTVideoBean *videoBean = [FTVideoBean new];
+//    [videoBean setValuesWithDic:self.tableViewDataSourceArray[indexPath.row]];
+    [videoBean setValuesWithDic:self.tableViewDataSourceArray[indexPath.row]];
+    [cell setWithBean:videoBean];
+    return cell;
+}
+
+
 - (void)setJHRefresh{
-    //设置下拉刷新
-    __block typeof(self) sself = self;
-    [self.tableViewController.tableView addRefreshHeaderViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
-        //发请求的方法区域
-        NSLog(@"触发下拉刷新headerView");
-        [sself getDataWithGetType:@"new" andCurrId:@"-1"];
-        if (self.currentSelectIndex == 0) {//如果是“全部”标签，再刷新轮播图
-            [sself getCycleData];
-        }
-        
-        
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    
+    
+    // 下拉刷新
+    self.collectionView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf getDataWithGetType:@"new" andCurrId:@"-1"];
+
     }];
-    //设置上拉刷新
-    [self.tableViewController.tableView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
-        NSString *currId;
-        if (sself.tableViewController.sourceArray && sself.tableViewController.sourceArray.count > 0) {
-            currId = [sself.tableViewController.sourceArray lastObject][@"vediosId"];
-        }else{
-            return;
-        }
-        
-        [sself getDataWithGetType:@"old" andCurrId:currId];
+    
+    
+    
+    
+    [self.collectionView.mj_header beginRefreshing];
+    
+    // 上拉刷新
+    self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+                NSString *currId;
+                if (weakSelf.tableViewDataSourceArray && weakSelf.tableViewDataSourceArray.count > 0) {
+                    currId = [weakSelf.tableViewDataSourceArray lastObject][@"vediosId"];
+                }else{
+                    return;
+                }
+                [weakSelf getDataWithGetType:@"old" andCurrId:currId];
     }];
+    // 默认先隐藏footer
+    self.collectionView.mj_footer.hidden = NO;
+//    __unsafe_unretained __typeof(self) weakSelf = self;
+//    
+//    // 下拉刷新
+//    self.collectionView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        // 刷新数据
+//        [weakSelf getDataWithGetType:@"new" andCurrId:@"-1"];
+//        [weakSelf.collectionView.mj_header beginRefreshing];
+//    }];
+////    设置上拉刷新
+//    [self.collectionView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
+//        NSString *currId;
+//        if (weakSelf.tableViewDataSourceArray && weakSelf.tableViewDataSourceArray.count > 0) {
+//            currId = [weakSelf.tableViewDataSourceArray lastObject][@"vediosId"];
+//        }else{
+//            return;
+//        }
+//        [weakSelf getDataWithGetType:@"old" andCurrId:currId];
+//        [weakSelf.collectionView.mj_footer beginRefreshing];
+//        
+//    }];
+//    // 默认先隐藏footer
+//    self.collectionView.mj_footer.hidden = NO;
 }
 
 #pragma mark - 按钮事件
@@ -574,9 +703,25 @@
         
         videoDetailVC.videoBean = bean;
         
+        videoDetailVC.indexPath = indexPath;
+        videoDetailVC.delegate = self;
+        
         [self.navigationController pushViewController:videoDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
     }
 }
+
+- (void)updateCountWithVideoBean:(FTVideoBean *)videoBean indexPath:(NSIndexPath *)indexPath{
+    
+    NSDictionary *dic = self.tableViewDataSourceArray[indexPath.row];
+    [dic setValue:[NSString stringWithFormat:@"%@", videoBean.voteCount] forKey:@"voteCount"];
+    [dic setValue:[NSString stringWithFormat:@"%@", videoBean.viewCount] forKey:@"viewCount"];
+    [dic setValue:[NSString stringWithFormat:@"%@", videoBean.commentCount] forKey:@"commentCount"];
+    NSLog(@"indexPath.row : %ld", indexPath.row);
+    self.tableViewDataSourceArray[indexPath.row] = dic;
+//    [self.tableViewController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
+    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+}
+
 - (IBAction)filterButton:(id)sender {
     FTFilterTableViewController *filterTableViewController = [FTFilterTableViewController new];
     
@@ -593,28 +738,6 @@
     self.typeArray = typeArray;
     [self initSubViews];
 }
-//筛选按钮被点击后，在最热和最新之间切换
-//- (IBAction)filterButtonClicked:(id)sender withEvent:(UIEvent *)event {
-//    NSLog(@"event : %@", event);
-//    if ([self.videosTag isEqualToString:@"0"]) {
-//        self.videosTag = @"1";
-//        [self.filterButton setBackgroundImage:[UIImage imageNamed:@"二标签-右选中"] forState:UIControlStateNormal];
-//        
-//        self.hotestLabel.textColor = [UIColor whiteColor];
-//        self.hotestImageView.image = [UIImage imageNamed:@"标签图标-最热"];
-//        self.newestLabel.textColor = [UIColor redColor];
-//        self.newestImageView.image = [UIImage imageNamed:@"标签图标-最新-pre"];
-//
-//    }else if ([self.videosTag isEqualToString:@"1"]){
-//        self.videosTag = @"0";
-//        [self.filterButton setBackgroundImage:[UIImage imageNamed:@"二标签-左选中"] forState:UIControlStateNormal];
-//        self.hotestLabel.textColor = [UIColor redColor];
-//        self.hotestImageView.image = [UIImage imageNamed:@"标签图标-最热-pre"];
-//        self.newestLabel.textColor = [UIColor whiteColor];
-//        self.newestImageView.image = [UIImage imageNamed:@"标签图标-最新"];
-//
-//    }
-//    [self getDataWithGetType:@"new" andCurrId:@"-1"];
-//}
+
 
 @end

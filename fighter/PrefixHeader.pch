@@ -34,6 +34,9 @@
 //导入一些常用类
 #import "FTNewsBean.h"
 
+//导入友盟统计的类
+#import "Mobclick.h"
+
 //defin一些常量
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
@@ -50,4 +53,8 @@
 
 #define WXLoginResultNoti @"WXLoginResutlNoti"
 
+//和750的比例
+#define SCALE  (SCREEN_WIDTH / (750 / 2))
+
 #endif /* PrefixHeader_pch */
+

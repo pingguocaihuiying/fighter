@@ -142,19 +142,26 @@ static NSString *const tableCellId = @"tableCellId";
     
     CGFloat offsetW = [UIScreen mainScreen].bounds.size.width *0.3;
     
-    //子view的右边缘离父view的右边缘40个像素
-    NSLayoutConstraint *rightContraint = [NSLayoutConstraint constraintWithItem:self.drawerView
-                                                                      attribute:NSLayoutAttributeRight
-                                                                      relatedBy:NSLayoutRelationEqual
-                                                                         toItem:self.view
-                                                                      attribute:NSLayoutAttributeRight
-                                                                     multiplier:1.0
-                                                                       constant:-offsetW];
-    
-    //把约束添加到父视图上
-    [self.drawerView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.view addConstraint:rightContraint];
-}
+    @try {
+        //把约束添加到父视图上
+        [self.drawerView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        //子view的右边缘离父view的右边缘40个像素
+        NSLayoutConstraint *rightContraint = [NSLayoutConstraint constraintWithItem:self.drawerView
+                                                                          attribute:NSLayoutAttributeRight
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:self.view
+                                                                          attribute:NSLayoutAttributeRight
+                                                                         multiplier:1.0
+                                                                           constant:-offsetW];
+        
+        
+        [self.view addConstraint:rightContraint];
+    } @catch (NSException *exception) {
+        NSLog(@"exception : %@", exception);
+    } @finally {
+        
+    }
+   }
 
 
 //设置登录视图

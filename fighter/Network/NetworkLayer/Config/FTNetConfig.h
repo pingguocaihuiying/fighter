@@ -30,9 +30,13 @@ extern NSString *const DeleteVoteURL;
 //获取视频接口地址: 域名/api/news/getVideos.do
 extern NSString *const GetVideoURL;
 
-//收藏的接口: 域名/api/videos/upVideoViewN.do
+//增加观看数的接口: 域名/api/videos/upVideoViewN.do
 extern NSString *const AddViewCountURL;
 
+//增加收藏的接口地址: 域名/api/base/save$Base.do
+extern NSString *const AddStarURL;
+//删除收藏的接口地址:域名/api/ base/ delete$Base.do
+extern NSString *const DeleteStarURL;
 
 #pragma mark - 用户接口
 extern NSString * const UserInterfaceHost;
@@ -87,5 +91,9 @@ extern NSString * const AddVoteCheckKey;
 extern NSString * const DeleteVoteCheckKey;
 //增加视频观看数
 extern NSString * const UpVideoViewNCheckKey;
+//收藏
+extern NSString * const AddStarCheckKey;
+//取消收藏
+extern NSString * const DeleteStarCheckKey;
 
 

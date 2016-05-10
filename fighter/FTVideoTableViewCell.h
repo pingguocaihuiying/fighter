@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "FTBaseTableViewCell.h"
 
+
+
 @interface FTVideoTableViewCell : FTBaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *fromLabel;
@@ -21,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *myTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numOfWatch;
 @property (weak, nonatomic) IBOutlet UILabel *durationOfVideoLabel;
+
 
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 

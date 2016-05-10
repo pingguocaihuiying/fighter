@@ -9,7 +9,17 @@
 #import "FTBaseViewController.h"
 #import "FTVideoBean.h"
 
+@protocol FTVideoDetailDelegate <NSObject>
+
+- (void)updateCountWithVideoBean:(FTVideoBean *)videoBean indexPath:(NSIndexPath *)indexPath;
+
+@end
+
+
 @interface FTVideoDetailViewController : FTBaseViewController
+
+@property (nonatomic, weak)id<FTVideoDetailDelegate> delegate;
+
 @property (nonatomic ,copy)NSString *webViewUrlString;
 @property (nonatomic ,copy)NSString *newsTitle;
 @property (nonatomic, strong) IBOutlet UIView *bgView;
@@ -23,4 +33,7 @@
 @property (weak, nonatomic) IBOutlet UIView *commentView;
 @property (weak, nonatomic) IBOutlet UIView *voteView;
 @property (weak, nonatomic) IBOutlet UIButton *starButton;
+
+@property (nonatomic, strong)NSIndexPath *indexPath;
+
 @end

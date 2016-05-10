@@ -23,6 +23,15 @@
 @property (nonatomic,copy) NSString *commentCount;
 @property (nonatomic,copy) NSString *videoLength;
 @property (nonatomic,copy) NSString *viewCount;
+//新增字段：
+//coachid 教练相关id，没有则为0
+//boxerid 拳手相关id，没有则为0
+//isTeach 是否为教学视频：0不是1是
+//boxinghallid 拳馆相关id，没有则为0
+@property (nonatomic,copy) NSString *coachid;
+@property (nonatomic,copy) NSString *boxerid;
+@property (nonatomic,copy) NSString *isTeach;
+@property (nonatomic,copy) NSString *boxinghallid;
 
 - (void)setValuesWithDic:(NSDictionary *)dic;
 

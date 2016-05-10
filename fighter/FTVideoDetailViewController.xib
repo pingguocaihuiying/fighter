@@ -66,7 +66,7 @@
                                     </constraints>
                                     <state key="normal" backgroundImage="详情页底部按钮一堆-分享"/>
                                     <connections>
-                                        <action selector="shareButtonClicked:" destination="-1" eventType="touchUpInside" id="qwo-Qt-1QX"/>
+                                        <action selector="bottomShareButtonClicked:" destination="-1" eventType="touchUpInside" id="1IM-Pw-PfU"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -94,7 +94,7 @@
                                     </constraints>
                                     <state key="normal" backgroundImage="详情页底部按钮一堆-评论"/>
                                     <connections>
-                                        <action selector="commenButtonClicked:" destination="-1" eventType="touchUpInside" id="9gz-uF-xEw"/>
+                                        <action selector="commentButtonClicked:" destination="-1" eventType="touchUpInside" id="yNx-hY-geC"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -120,7 +120,7 @@
                                         <constraint firstAttribute="height" constant="24" id="0AZ-Ad-hTx"/>
                                         <constraint firstAttribute="width" constant="24" id="EVf-4F-pcE"/>
                                     </constraints>
-                                    <state key="normal" backgroundImage="详情页底部按钮一堆-赞"/>
+                                    <state key="normal" backgroundImage="详情页底部按钮一堆-赞-1"/>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -233,7 +233,7 @@
         <image name="详情页底部按钮一堆-分享" width="24" height="24"/>
         <image name="详情页底部按钮一堆-收藏" width="24" height="24"/>
         <image name="详情页底部按钮一堆-评论" width="24" height="24"/>
-        <image name="详情页底部按钮一堆-赞" width="24" height="24"/>
+        <image name="详情页底部按钮一堆-赞-1" width="24" height="24"/>
         <image name="金属边框-改进ios" width="134" height="134"/>
     </resources>
 </document>

@@ -13,6 +13,7 @@
 #import "FTUserBean.h"
 #import "MBProgressHUD.h"
 #import "WXApi.h"
+#import "Mobclick.h"
 
 @interface FTNewsDetail2ViewController ()<UIWebViewDelegate, UMSocialUIDelegate, CommentSuccessDelegate>
 {
@@ -154,9 +155,12 @@
 }
 
 - (void)popVC{
+    [self.delegate updateCountWithNewsBean:_newsBean indexPath:self.indexPath];
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)commenButtonClicked:(id)sender {
+    [MobClick event:@"videoPage_DetailPage_Comment"];
+        [MobClick event:@"newsPage_DetailPage_Comment"];
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
@@ -178,8 +182,10 @@
 
 }
 
-- (void)shareButtonClicked{
 
+- (void)shareButtonClicked{
+    //友盟分享事件统计
+    [MobClick event:@"newsPage_DetailPage_share"];
     //注意：分享到微信好友、微信朋友圈、微信收藏、QQ空间、QQ好友、来往好友、来往朋友圈、易信好友、易信朋友圈、Facebook、Twitter、Instagram等平台需要参考各自的集成方法
 //    //如果需要分享回调，请将delegate对象设置self，并实现下面的回调方法
 //        NSString *shareText = [NSString stringWithFormat:@"%@ %@", _newsBean.title, self.webViewUrlString];
@@ -268,6 +274,7 @@
 #pragma -mark 点赞按钮被点击
 
 - (IBAction)thumbButtonClicked:(id)sender {
+    [MobClick event:@"newsPage_DetailPage_Zambia"];
     
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];

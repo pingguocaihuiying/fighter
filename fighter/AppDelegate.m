@@ -42,15 +42,15 @@
     [self setWeiXin];
     
 //        [self setRootViewController];
-//    [self setRootViewController2];
+    [self setRootViewController2];
 
     
 //    FTDrawerViewController *drawerVC = [[FTDrawerViewController alloc]init];
 //    self.window.rootViewController = drawerVC;
 
-    MainViewController *sl = [[MainViewController alloc]init];
-    FTBaseNavigationViewController *_navi=[[FTBaseNavigationViewController alloc]initWithRootViewController:sl];
-    self.window.rootViewController=sl;
+//    MainViewController *sl = [[MainViewController alloc]init];
+//    FTBaseNavigationViewController *_navi=[[FTBaseNavigationViewController alloc]initWithRootViewController:sl];
+//    self.window.rootViewController=sl;
     
     return YES;
 }
