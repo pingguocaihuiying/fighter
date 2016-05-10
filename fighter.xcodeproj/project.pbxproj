@@ -2179,6 +2179,7 @@
 				E6DF6B8B1CCE32F600219766 /* NSString+EmojiFilter.m in Sources */,
 				3D4B19581CDB0CD90022DFB0 /* FTPropertySetingViewController.m in Sources */,
 				3D5FB4B91CDC41A500FC1809 /* FTAlbumsViewController.m in Sources */,
+				E668BABE1CE0565700071998 /* UIScrollView+MJRefresh.m in Sources */,
 				E6D74A471CB7B7EE00854337 /* UIButton+countDown.m in Sources */,
 				3DC412141CD039D70030C229 /* NSArray+MASAdditions.m in Sources */,
 				E668BABF1CE0565700071998 /* UIView+MJExtension.m in Sources */,
