@@ -201,13 +201,17 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    BOOL result = [UMSocialSnsService handleOpenURL:url];
-    if (result == FALSE) {
-        
+    if([UMSocialSnsService handleOpenURL:url]){
+        return YES;
     }
-    //    return result;
-    [WXApi handleOpenURL:url delegate:self];
-    return YES;
+
+    if([WXApi handleOpenURL:url delegate:self]){
+        return YES;
+    }
+    if ([url.description isEqualToString:@"gogogofight://"]) {
+        return YES;
+    }
+    return NO;
 }
 
 - (void)setRootViewController2{

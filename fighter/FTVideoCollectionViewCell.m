@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    NSLog(@"awake from nib");
+    
     self.cellWidthConstraint.constant = self.cellWidthConstraint.constant * SCALE;
     self.cellHeightConstraint.constant = self.cellHeightConstraint.constant * SCALE;
     self.titleLabelTopConstraint.constant = self.titleLabelTopConstraint.constant * SCALE;
@@ -35,7 +35,7 @@
     self.comentCountLabel.text = commentCount;
     self.voteCount.text = voteCount;
     self.viewCountlabel.text = [NSString stringWithFormat:@"(%@)", bean.viewCount];
-    NSLog(@"videotype : %@", bean.videosType);
+    
     //根据newsType去设置类型图片
     if ([bean.videosType isEqualToString:@"Boxing"]) {
         self.videoTypeImageView.image = [UIImage imageNamed:@"格斗标签-拳击"];

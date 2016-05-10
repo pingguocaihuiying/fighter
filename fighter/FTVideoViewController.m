@@ -35,6 +35,7 @@
 @property (nonatomic, strong)FTTableViewController *tableViewController;
 @property (nonatomic, strong)NSArray *typeArray;
 @property (nonatomic, copy)NSString *videosTag;
+@property (nonatomic, copy)NSString *currentVideoType;
 
 @property (nonatomic, strong)UICollectionView *collectionView;
 @end
@@ -207,10 +208,19 @@
         //暂无
         videoType = @"Sumo";
     }
+    self.currentVideoType = videoType;
     return videoType;
 }
 
 - (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)videoCurrId{
+    //判断是否时当前标签刷新，如果不是，则晴空数据源，刷新列表，如果时当前列表，则暂不清空数据和刷新列表
+    NSString *oldVideoType = self.currentVideoType;
+    NSString *newVideotype = [self getVideoType];
+    if (![oldVideoType isEqualToString:newVideotype]) {
+        [self.tableViewDataSourceArray removeAllObjects];
+        [self.collectionView reloadData];
+    }
+    
     NSString *urlString = [FTNetConfig host:Domain path:GetVideoURL];
     NSString *videoType = [self getVideoType];
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
@@ -425,6 +435,10 @@
 //    flow.minimumInteritemSpacing = 17 * SCALE;
     
     //cell大小设置
+    NSLog(@"scale : %.0f", SCALE);
+    NSLog(@"screen width  : %.0f", SCREEN_WIDTH);
+    
+//    float width = 164 * SCALE;
     float width = 164 * SCALE;
     float height = 143 * SCALE;
     flow.itemSize = CGSizeMake(width, height);
@@ -436,9 +450,9 @@
     //滚动方向
     //flow.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
-    _collectionView = [[UICollectionView alloc]initWithFrame:self.view.bounds collectionViewLayout:flow];
+    _collectionView = [[UICollectionView alloc]initWithFrame:self.currentView.bounds collectionViewLayout:flow];
     
-    _collectionView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//    _collectionView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     NSLog(@"collectionView的宽度:%f", _collectionView.frame.size.width);
     _collectionView.backgroundColor = [UIColor clearColor];
     [self.currentView addSubview:_collectionView];
@@ -541,6 +555,8 @@
 - (void)clickAction:(UIButton *)sender
 {
     if(self.currentSelectIndex != sender.tag - 1){
+        //修改点击标签的逻辑为：不是每次都加载。
+        
         //        self.currentSelectIndex = sender.tag-1;
         //        FTTableViewController *tableVC = [self controllerWithSourceIndex:sender.tag-1];
         //        [self.pageViewController setViewControllers:@[tableVC] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:^(BOOL finished) {
