@@ -70,13 +70,17 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     
-//    [self.tableView registerNib:[UINib nibWithNibName:@"FTDrawerTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellId"];
-////    [self.tableView registerClass:[FTDrawerTableViewCell class] forCellReuseIdentifier:@"cellId"];
-//    self.tableView.dataSource = self;
-//    self.tableView.delegate = self;
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    if (!localUser) {
+        [self.logoutBtn setHidden:YES];
+    }else {
+    
+        [self.logoutBtn setHidden:NO];
+    }
     
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     

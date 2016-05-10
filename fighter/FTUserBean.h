@@ -38,6 +38,7 @@
 @property (nonatomic,copy) NSString *cardType;
 @property (nonatomic,copy) NSString *stemfrom;
 @property (nonatomic,copy) NSString *wxopenId;
+
 @property (nonatomic,copy) NSString *telmodel;
 @property (nonatomic,copy) NSString *token;
 @property (nonatomic,copy) NSString *email;
@@ -61,7 +62,8 @@
 //微信
 @property (nonatomic, copy) NSString *wxHeaderPic;//微信头像
 @property (nonatomic, copy) NSString *wxName;//微信昵称
-@property (nonatomic, copy) NSString *wxAccess;//
+@property (nonatomic, copy) NSString *wxToken;//
+
 
 
 //计算年龄

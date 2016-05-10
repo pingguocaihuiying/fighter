@@ -33,7 +33,7 @@
     
     [self.speraterView setBackgroundColor:[UIColor colorWithHex:0x505050]];
     
-    self.titleLabel.text = @"输入新的手机号：";
+    self.titleLabel.text = @"输入短信验证码：";
     self.remarkLabel.text = @"下次可直接用新的手机号登录";
     [self.remarkLabel setTextColor:[UIColor colorWithHex:0x828287]];
     [self.remarkLabel setHidden:YES];

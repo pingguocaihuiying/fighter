@@ -25,11 +25,17 @@
     // Do any additional setup after loading the view from its nib.
     
     //添加监听器，监听login
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showLoginedViewData) name:@"loginAction" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showWeiXinNameAndHeader) name:WXLoginResultNoti object:nil];
     
     [self initSubviews];
 }
 
+
+- (void) viewWillAppear:(BOOL)animated {
+    
+    [self.tableView reloadData];
+    
+}
 
 - (void) initSubviews {
     
@@ -53,6 +59,8 @@
 }
 
 
+
+
 #pragma mark - response
 
 - (void) backBtnAction:(id)sender {
@@ -65,6 +73,54 @@
     
 }
 
+- (void) showWeiXinNameAndHeader {
+    
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    NetWorking *net = [[NetWorking alloc]init];
+    [net updateUserWithValue:localUser.wxopenId Key:@"openId" option:^(NSDictionary *dict) {
+        NSLog(@"dict:%@",dict);
+        if (dict != nil) {
+            
+            bool status = [dict[@"status"] boolValue];
+            NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+            
+            if (status == true) {
+                
+                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                
+                NSDictionary *userDataDic = dict[@"data"];
+                NSDictionary *userDic = userDataDic[@"user"];
+                
+                FTUserBean *user = [FTUserBean new];
+                [user setValuesForKeysWithDictionary:userDic];
+                
+                //将用户信息保存在本地
+                NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
+                [[NSUserDefaults standardUserDefaults]setObject:userData forKey:@"loginUser"];
+                [[NSUserDefaults standardUserDefaults]synchronize];
+                
+                [self.tableView reloadData];
+                FTWeixinInfoVC *wxVC = [[FTWeixinInfoVC alloc]init];
+                //    wxVC.headerUrl = localUser.wxHeaderPic;
+                //    wxVC.username = localUser.wxName;
+                wxVC.title = @"绑定微信";
+                [self.navigationController pushViewController:wxVC animated:YES];
+            }else {
+                NSLog(@"message : %@", [dict[@"message"] class]);
+                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                
+            }
+        }else {
+            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@" 微信登录失败"];
+            
+        }
+    }];
+    
+    
+}
 
 
 #pragma mark - tableView datasouce and delegate
@@ -111,7 +167,13 @@
             cell.remarkLabel.text = @"未绑定";
         }
     }if (indexPath.row == 2) {
-        cell.titleLabel.text = @"更改密码：";
+        if(localUser.openId.length > 0){
+            cell.titleLabel.text = @"设置密码：";
+        }else {
+        
+            cell.titleLabel.text = @"更改密码：";
+        }
+       
     }
     
     return cell;
@@ -127,22 +189,16 @@
     
     if (indexPath.row == 0) {
         
-        FTWeixinInfoVC *wxVC = [[FTWeixinInfoVC alloc]init];
-        if (localUser.openId.length > 0) { //微信登录
-            wxVC.headerUrl = localUser.headpic;
-            wxVC.username = localUser.username;
+        if(localUser.wxopenId.length >0) {
+            FTWeixinInfoVC *wxVC = [[FTWeixinInfoVC alloc]init];
             wxVC.title = @"绑定微信";
             [self.navigationController pushViewController:wxVC animated:YES];
-        }else if (localUser.wxopenId.length > 0) { //手机登录,已经绑定微信
-            wxVC.headerUrl = localUser.wxHeaderPic;
-            wxVC.username = localUser.wxName;
-            wxVC.title = @"绑定微信";
-            [self.navigationController pushViewController:wxVC animated:YES];
+            
         }else {//手机登录未绑定微信, 用微信登录绑定微信
             
             NetWorking *net = [[NetWorking alloc]init];
             [net weixinRequest];
-            [self.tableView reloadData];
+            
         }
         
     }else  if (indexPath.row == 1) {

@@ -80,4 +80,23 @@
     BOOL isMatch = [pred evaluateWithObject:password];
     return isMatch;
     
-}@end
+}
+
+
+//检查密码必须是数字字母下滑下组合
++ (BOOL) checkPasswordForm:(NSString *)password {
+
+//    BOOL isLegal = NO;
+    
+    NSCharacterSet *s = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_"];
+    s = [s invertedSet];
+    
+    NSRange r = [password rangeOfCharacterFromSet:s];
+    if (r.location !=NSNotFound) {
+        NSLog(@"the string contains illegal characters");
+        return NO;
+    }
+    return YES;
+}
+
+@end

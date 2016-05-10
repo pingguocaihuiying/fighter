@@ -17,11 +17,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    
 
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+
+ [self initSubviews];
     
-    [self initSubviews];
 }
 
 - (void) initSubviews {
@@ -32,6 +34,13 @@
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回pre"] forState:UIControlStateHighlighted];
     [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
+    
+    
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    self.headerUrl = localUser.wxHeaderPic;
+    self.username = localUser.wxName;
     
     [self.wXHeaderImageView.layer setMasksToBounds:YES];
     self.wXHeaderImageView.layer.cornerRadius = 40;
