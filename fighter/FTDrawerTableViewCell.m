@@ -33,7 +33,7 @@
 
 
 - (void) setTitleWithString:(NSString *)string {
-
+    
     self.cellTitle.text = string;
 }
 @end

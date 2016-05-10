@@ -14,3 +14,6 @@
 
 //发布版为0，预览版为1
 NSString * const ShowType = @"1";
+
+
+NSString * const APPID = @"1108272405";
