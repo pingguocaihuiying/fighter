@@ -7,8 +7,8 @@
 //
 
 #import "FTBaseViewController.h"
-
-@interface FTWeixinInfoVC : FTBaseViewController
+#import "FTUserViewController.h"
+@interface FTWeixinInfoVC : FTUserViewController
 
 @property (weak, nonatomic) IBOutlet UIImageView *wXHeaderImageView;
 

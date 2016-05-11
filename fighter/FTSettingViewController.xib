@@ -40,7 +40,6 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="0.42468367379999999" green="1" blue="0.33681247809999998" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="ppP-wr-W1p" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="BHi-bW-xjk"/>
                 <constraint firstItem="79P-no-SXU" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" constant="-4" id="CFG-iI-wkF"/>

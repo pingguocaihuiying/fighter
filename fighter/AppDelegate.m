@@ -199,13 +199,13 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
                                         localUser.unionId = user.unionId;
                                         localUser.wxName = user.username;
                                         localUser.wxHeaderPic = user.headpic;
+                                    }else {
+                                        localUser = user;
+                                        localUser.wxopenId = user.openId;
+                                        localUser.unionId = user.unionId;
+                                        localUser.wxName = user.username;
+                                        localUser.wxHeaderPic = user.headpic;
                                     }
-//                                    else {
-//                                        localUser = user;
-//                                        localUser.wxopenId = user.openId;
-//                                        localUser.wxName = user.username;
-//                                        localUser.wxHeaderPic = user.headpic;
-//                                    }
                                     
                                     NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
                                     [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];

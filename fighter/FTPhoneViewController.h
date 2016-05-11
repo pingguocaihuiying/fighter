@@ -7,8 +7,9 @@
 //
 
 #import "FTBaseViewController.h"
+#import "FTUserViewController.h"
 
-@interface FTPhoneViewController : FTBaseViewController
+@interface FTPhoneViewController : FTUserViewController
 @property (weak, nonatomic) IBOutlet UIView *speraterView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;

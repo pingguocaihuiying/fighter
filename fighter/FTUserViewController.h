@@ -6,8 +6,8 @@
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
-#import "FTBaseViewController.h"
+//#import "FTBaseViewController.h"
 
-@interface FTUserViewController : FTBaseViewController
+@interface FTUserViewController : UIViewController
 
 @end

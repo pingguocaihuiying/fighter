@@ -158,8 +158,8 @@
     </objects>
     <resources>
         <image name="G格斗家-注册背景@750" width="750" height="1334"/>
-        <image name="主要按钮背景ios" width="60" height="42"/>
-        <image name="主要按钮背景ios-pre" width="21" height="21"/>
+        <image name="主要按钮背景ios" width="31" height="60"/>
+        <image name="主要按钮背景ios-pre" width="31" height="60"/>
         <image name="注册登录-微信" width="27" height="22"/>
         <image name="注册登录-微信bg" width="308" height="44"/>
         <image name="注册登录-微信bg-pre" width="21" height="44"/>

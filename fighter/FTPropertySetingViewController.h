@@ -7,8 +7,9 @@
 //
 
 #import "FTBaseViewController.h"
+#import "FTUserViewController.h"
 
-@interface FTPropertySetingViewController : FTBaseViewController
+@interface FTPropertySetingViewController : FTUserViewController
 
 @property (weak, nonatomic) IBOutlet UIImageView *borderImageView;
 

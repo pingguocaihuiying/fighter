@@ -16,6 +16,8 @@
     MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self];
     [self addSubview:HUD];
     HUD.label.text = message;
+    HUD.label.numberOfLines = 0;
+//    HUD.label.lineBreakMode = 
     HUD.mode = MBProgressHUDModeCustomView;
     HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
     [HUD showAnimated:YES];

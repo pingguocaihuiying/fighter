@@ -100,6 +100,7 @@
                     [self.navigationController popToViewController:[array objectAtIndex:1] animated:YES];
                 }else {
                     NSLog(@"message : %@", [dict[@"message"] class]);
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
                     [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                     
                 }

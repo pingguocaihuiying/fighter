@@ -6,9 +6,10 @@
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
-#import "FTBaseViewController.h"
+//#import "FTBaseViewController.h"
+#import "FTUserViewController.h"
 
-@interface FTInputCheckCodeViewController : FTBaseViewController
+@interface FTInputCheckCodeViewController : FTUserViewController
 
 @property (weak, nonatomic) IBOutlet UIView *speraterView;
 

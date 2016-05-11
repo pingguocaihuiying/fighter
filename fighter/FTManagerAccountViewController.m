@@ -122,6 +122,18 @@
                 NSLog(@"message : %@", [dict[@"message"] class]);
                 [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                 
+                //从本地读取存储的用户信息
+                NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+                FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+                localUser.openId = nil;
+                localUser.wxopenId = nil;
+                localUser.wxHeaderPic = nil;
+                localUser.wxName = nil;
+                
+                //将用户信息保存在本地
+                NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
+                [[NSUserDefaults standardUserDefaults]setObject:userData forKey:@"loginUser"];
+                [[NSUserDefaults standardUserDefaults]synchronize];
             }
         }else {
             [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@" 微信登录失败"];

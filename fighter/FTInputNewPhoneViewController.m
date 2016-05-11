@@ -72,10 +72,10 @@
         }
     }
     
-    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NetWorking *net = [NetWorking new];
     [net getCheckCodeWithPhoneNumber:self.phoneTextfield.text option:^(NSDictionary *dict) {
-        
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSLog(@"dict:%@",dict);
         if (dict != nil) {
             
