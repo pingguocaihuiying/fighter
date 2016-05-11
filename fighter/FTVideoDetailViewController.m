@@ -13,6 +13,8 @@
 #import "FTUserBean.h"
 #import "MBProgressHUD.h"
 #import "WXApi.h"
+#import "FTLoginViewController.h"
+#import "FTBaseNavigationViewController.h"
 
 @interface FTVideoDetailViewController ()<UIWebViewDelegate, UMSocialUIDelegate, CommentSuccessDelegate>
 {
@@ -229,17 +231,18 @@
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     if (!localUser) {
-        NSLog(@"微信登录");
-        if ([WXApi isWXAppInstalled] ) {
-            SendAuthReq *req = [[SendAuthReq alloc] init];
-            req.scope = @"snsapi_userinfo";
-            req.state = @"fighter";
-            [WXApi sendReq:req];
-            
-        }else{
-            NSLog(@"目前只支持微信登录，请安装微信");
-            [self showHUDWithMessage:@"目前只支持微信登录，请安装微信"];
-        }
+        [self login];
+//        NSLog(@"微信登录");
+//        if ([WXApi isWXAppInstalled] ) {
+//            SendAuthReq *req = [[SendAuthReq alloc] init];
+//            req.scope = @"snsapi_userinfo";
+//            req.state = @"fighter";
+//            [WXApi sendReq:req];
+//            
+//        }else{
+//            NSLog(@"目前只支持微信登录，请安装微信");
+//            [self showHUDWithMessage:@"目前只支持微信登录，请安装微信"];
+//        }
     }else{
         [self pushToCommentVC];
     }
@@ -283,19 +286,26 @@
     /*
      *暂时采用微信的分享
      */
-    WXMediaMessage *message = [WXMediaMessage message];
-    message.title = _videoBean.title;
-    message.description = _videoBean.summary;
-    [message setThumbImage:[UIImage imageNamed:@"微信用@200"]];
-    WXWebpageObject *webpageObject = [WXWebpageObject object];
-    webpageObject.webpageUrl = self.webViewUrlString;
-    message.mediaObject = webpageObject;
-    
-    SendMessageToWXReq *req = [SendMessageToWXReq new];
-    req.bText = NO;
-    req.message = message;
-    req.scene = WXSceneSession;
-    [WXApi sendReq:req];
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    if (!localUser) {
+        [self login];
+    }else{
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = _videoBean.title;
+        message.description = _videoBean.summary;
+        [message setThumbImage:[UIImage imageNamed:@"微信用@200"]];
+        WXWebpageObject *webpageObject = [WXWebpageObject object];
+        webpageObject.webpageUrl = self.webViewUrlString;
+        message.mediaObject = webpageObject;
+        
+        SendMessageToWXReq *req = [SendMessageToWXReq new];
+        req.bText = NO;
+        req.message = message;
+        req.scene = WXSceneSession;
+        [WXApi sendReq:req];
+    }
+
 }
 
 -(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
@@ -364,17 +374,7 @@
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     if (!localUser) {
-        NSLog(@"微信登录");
-        if ([WXApi isWXAppInstalled] ) {
-            SendAuthReq *req = [[SendAuthReq alloc] init];
-            req.scope = @"snsapi_userinfo";
-            req.state = @"fighter";
-            [WXApi sendReq:req];
-            
-        }else{
-            NSLog(@"目前只支持微信登录，请安装微信");
-            [self showHUDWithMessage:@"目前只支持微信登录点赞，请安装微信"];
-        }
+        [self login];
     }else{
         self.hasVote = !self.hasVote;
         [self updateVoteImageView];
@@ -391,17 +391,18 @@
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     if (!localUser) {
-        NSLog(@"微信登录");
-        if ([WXApi isWXAppInstalled] ) {
-            SendAuthReq *req = [[SendAuthReq alloc] init];
-            req.scope = @"snsapi_userinfo";
-            req.state = @"fighter";
-            [WXApi sendReq:req];
-            
-        }else{
-            NSLog(@"目前只支持微信登录，请安装微信");
-            [self showHUDWithMessage:@"目前只支持微信登录点赞，请安装微信"];
-        }
+        [self login];
+//        NSLog(@"微信登录");
+//        if ([WXApi isWXAppInstalled] ) {
+//            SendAuthReq *req = [[SendAuthReq alloc] init];
+//            req.scope = @"snsapi_userinfo";
+//            req.state = @"fighter";
+//            [WXApi sendReq:req];
+//            
+//        }else{
+//            NSLog(@"目前只支持微信登录，请安装微信");
+//            [self showHUDWithMessage:@"目前只支持微信登录点赞，请安装微信"];
+//        }
     }else{
         self.hasStar = !self.hasStar;
 //        [self updateVoteImageView];
@@ -611,6 +612,13 @@
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
         NSLog(@"向服务器增加视频数失败，error：%@", error);
     }];
+}
+
+- (void)login{
+    FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+    loginVC.title = @"登录";
+    FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)showHUDWithMessage:(NSString *)message{
