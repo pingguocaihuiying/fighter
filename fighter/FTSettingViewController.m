@@ -300,8 +300,12 @@
 //        [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:ShowType];
 //        [[NSUserDefaults standardUserDefaults]synchronize];
 //    }
-    
-    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"点击了屏幕5次"];
+    [FTNetConfig changePreviewVersion];
+    if ([[FTNetConfig showType] integerValue] == 1) {
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"已经切换为正式版"];
+    }else {
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"已经切换为预览版"];
+    }
     
 }
 

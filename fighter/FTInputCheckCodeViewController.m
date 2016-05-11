@@ -10,6 +10,7 @@
 #import "MBProgressHUD.h"
 #import "UIWindow+MBProgressHUD.h"
 #import "NetWorking.h"
+#import "FTNewPasswordVC.h"
 
 @interface FTInputCheckCodeViewController ()
 
@@ -78,7 +79,7 @@
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     
-    if (localUser.tel.length > 0) {//已经绑定过手机的用户：直接修改绑定手机
+    if (localUser.tel.length > 0) {//2.1 已经绑定过手机的用户：直接修改绑定手机
         
         NetWorking *net = [NetWorking new];
         [net bindingPhoneNumber:self.phoneNum checkCode:self.checkCodeTextField.text option:^(NSDictionary *dict) {
@@ -91,6 +92,7 @@
                 
                 if (status == true) {
                     
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
                     [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                     
                     NSArray *array = [NSArray arrayWithArray:self.navigationController.viewControllers];
@@ -102,12 +104,13 @@
                     
                 }
             }else {
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
                 
             }
         }];
 
-    }else {//未绑定手机用户，绑定手机后修改密码
+    }else {//2.2 未绑定手机用户，绑定手机后修改密码
         
         NetWorking *net = [NetWorking new];
         [net bindingPhoneNumber:self.phoneNum checkCode:self.checkCodeTextField.text option:^(NSDictionary *dict) {
@@ -120,8 +123,15 @@
                 
                 if (status == true) {
                     
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
                     [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                     
+                    // 3. 绑定手机后跳转到设置密码接口
+                    FTNewPasswordVC *newPasswordVC = [[FTNewPasswordVC alloc]init];
+                    newPasswordVC.title = @"设置密码";
+                    newPasswordVC.oldPassword = @"-1";
+//                    newPasswordVC.checkCode = self.checkCodeTextField.text;
+                    [self.navigationController pushViewController:newPasswordVC animated:YES];
                     
                 }else {
                     NSLog(@"message : %@", [dict[@"message"] class]);
@@ -129,6 +139,7 @@
                     
                 }
             }else {
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
                 
             }
