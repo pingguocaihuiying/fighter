@@ -518,10 +518,10 @@ allowUserInterruption:(BOOL)allowUserInterruption
             fraction = ((self.openStateRevealWidth - self.paneView.frame.origin.x) / self.openStateRevealWidth);
             break;
         case FTDynamicsDrawerDirectionBottom:
-            fraction = (1.0 - (fabsf(self.paneView.frame.origin.y) / self.openStateRevealWidth));
+            fraction = (1.0 - (fabs(self.paneView.frame.origin.y) / self.openStateRevealWidth));
             break;
         case FTDynamicsDrawerDirectionRight:
-            fraction = (1.0 - (fabsf(self.paneView.frame.origin.x) / self.openStateRevealWidth));
+            fraction = (1.0 - (fabs(self.paneView.frame.origin.x) / self.openStateRevealWidth));
             break;
         default:
             break;
@@ -762,7 +762,9 @@ allowUserInterruption:(BOOL)allowUserInterruption
             [activeStylers unionSet:stylers];
         }
     }
+    
     for (id <FTDrawerStyler> styler in activeStylers) {
+        
         if ([styler respondsToSelector:@selector(dynamicsDrawerViewController:didUpdatePaneClosedFraction:forDirection:)]) {
             [styler dynamicsDrawerViewController:self
                      didUpdatePaneClosedFraction:[self paneViewClosedFraction]
@@ -958,7 +960,7 @@ allowUserInterruption:(BOOL)allowUserInterruption
                         return;
                     }
                     // Reached the velocity threshold so update to the appropriate state
-                    if (fabsf(panVelocity) > PaneViewVelocityThreshold) {
+                    if (fabs(panVelocity) > PaneViewVelocityThreshold) {
                         FTDynamicsDrawerPaneState state = 0;
                         if (self.currentLeftMenuDirection & (FTDynamicsDrawerDirectionTop | FTDynamicsDrawerDirectionLeft)) {
                             state = ((panVelocity > 0) ? FTDynamicsDrawerPaneStateOpen : FTDynamicsDrawerPaneStateClosed);
@@ -968,7 +970,7 @@ allowUserInterruption:(BOOL)allowUserInterruption
                             NSAssert(NO, @"Invalid state, reveal direction niether positive nor negative");
                         }
                         if ([[[UIDevice currentDevice] systemVersion] floatValue] >=7.0) {
-                            [self addDynamicsBehaviorsToCreatePaneState:state pushMagnitude:(fabsf(panVelocity) * PaneViewVelocityMultiplier) pushAngle:[self gravityAngleForState:state direction:self.currentLeftMenuDirection] pushElasticity:self.elasticity];
+                            [self addDynamicsBehaviorsToCreatePaneState:state pushMagnitude:(fabs(panVelocity) * PaneViewVelocityMultiplier) pushAngle:[self gravityAngleForState:state direction:self.currentLeftMenuDirection] pushElasticity:self.elasticity];
                         }else{
                             [UIView animateWithDuration:0.6f animations:^{
                                 self.paneView.frame = (CGRect){[self paneViewOriginForPaneState:state], self.paneView.frame.size};
@@ -1024,17 +1026,20 @@ allowUserInterruption:(BOOL)allowUserInterruption
 - (BOOL)paneDragRevealEnabledForDirection:(FTDynamicsDrawerDirection)direction
 {
     NSNumber *paneDragRevealEnabled;
-    @try {
-        NSAssert(LeftMenuDirectionIsCardinal(direction), @"Only accepts singular directions when querying for drag reveal enabled");
-        paneDragRevealEnabled = self.paneDragRevealEnabled[@(direction)];
-        if (!paneDragRevealEnabled) paneDragRevealEnabled = @(YES);
-    }
-    @catch (NSException *exception) {
-        NSLog(@"exception :%@",exception);
-    }
-    @finally {
-        
-    }
+//    @try {
+//        NSAssert(LeftMenuDirectionIsCardinal(direction), @"Only accepts singular directions when querying for drag reveal enabled");
+//        paneDragRevealEnabled = self.paneDragRevealEnabled[@(direction)];
+//        if (!paneDragRevealEnabled) paneDragRevealEnabled = @(YES);
+//    }
+//    @catch (NSException *exception) {
+//        NSLog(@"exception :%@",exception);
+//    }
+//    @finally {
+//        
+//    }
+    NSAssert(LeftMenuDirectionIsCardinal(direction), @"Only accepts singular directions when querying for drag reveal enabled");
+    paneDragRevealEnabled = self.paneDragRevealEnabled[@(direction)];
+    if (!paneDragRevealEnabled) paneDragRevealEnabled = @(YES);
     
     //    NSNumber *paneDragRevealEnabled = self.paneDragRevealEnabled[@(direction)];
     //    if (!paneDragRevealEnabled) paneDragRevealEnabled = @(YES);
@@ -1067,6 +1072,7 @@ allowUserInterruption:(BOOL)allowUserInterruption
     return [paneTapToCloseEnabled boolValue];
 }
 
+
 - (void)registerTouchForwardingClass:(Class)touchForwardingClass
 {
     NSAssert([touchForwardingClass isSubclassOfClass:[UIView class]], @"Registered touch forwarding classes must be a subclass of UIView");
@@ -1076,7 +1082,6 @@ allowUserInterruption:(BOOL)allowUserInterruption
 #pragma mark - system delegates
 
 #pragma mark  UIDynamicAnimatorDelegates
-
 - (void)dynamicAnimatorDidPause:(UIDynamicAnimator *)animator
 {
     // When dynamic animator has paused, a pane state has been reached, so remove all behaviors
@@ -1102,8 +1107,8 @@ allowUserInterruption:(BOOL)allowUserInterruption
     }
 }
 
-#pragma mark  UIGestureRecognizerDelegate
 
+#pragma mark  UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     if (gestureRecognizer == self.panePanGestureRecognizer) {

@@ -90,6 +90,9 @@ NSString * const ISBindingPhoneURL = @"/api/newuser/isUserBindPhone.do";
 
 NSString * const UpdatePassWordURL = @"/api/newuser/updatePassword.do";
 
+NSString * const BindingPhoneCheckCodeURL = @"/api/newuser/updatePassword.do";
+
+
 
 //校验码
 NSString * const GetStatusCheckKey =  @"gedoujia25fdsgfd55fdsafsag21254";

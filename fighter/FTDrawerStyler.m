@@ -25,26 +25,26 @@
     return [self new];
 }
 
-- (void)dynamicsDrawerViewController:(FTDynamicsDrawerViewController *)drawerViewController
-         didUpdatePaneClosedFraction:(CGFloat)paneClosedFraction
+- (void)dynamicsDrawerViewController:(FTDynamicsDrawerViewController *)dynamicsDrawerViewController
+         didUpdatePaneClosedFraction:(CGFloat) paneClosedFraction
                         forDirection:(FTDynamicsDrawerDirection)direction
 {
     //    NSLog(@"*****************************");
     //    NSLog(@"**********   %f,%ld   ***********",paneClosedFraction,(long)direction);
     //    NSLog(@"*****************************");
-    CGFloat paneRevealWidth = [drawerViewController revealWidthForDirection:direction];
+    CGFloat paneRevealWidth = [dynamicsDrawerViewController revealWidthForDirection:direction];
     CGFloat translate = ((paneRevealWidth * paneClosedFraction) * self.parallaxOffsetFraction);
     
     if (direction & (FTDynamicsDrawerDirectionTop | FTDynamicsDrawerDirectionLeft)) {
         translate = -translate;
     }
-    CGAffineTransform drawerViewTransform = drawerViewController.drawerView.transform;
+    CGAffineTransform drawerViewTransform = dynamicsDrawerViewController.drawerView.transform;
     if (direction & FTDynamicsDrawerDirectionHorizontal) {
         drawerViewTransform.tx = CGAffineTransformMakeTranslation(translate, 0.0).tx;
     } else if (direction & FTDynamicsDrawerDirectionVertical) {
         drawerViewTransform.ty = CGAffineTransformMakeTranslation(0.0, translate).ty;
     }
-    drawerViewController.drawerView.transform = drawerViewTransform;
+    dynamicsDrawerViewController.drawerView.transform = drawerViewTransform;
 }
 
 - (void)stylerWasRemovedFromDynamicsDrawerViewController:(FTDynamicsDrawerViewController *)drawerViewController
@@ -84,12 +84,14 @@
     return [self new];
 }
 
-- (void)dynamicsDrawerViewController:(FTDynamicsDrawerViewController *)drawerViewController didUpdatePaneClosedFraction:(CGFloat)paneClosedFraction forDirection:(FTDynamicsDrawerDirection)direction
+- (void)dynamicsDrawerViewController:(FTDynamicsDrawerViewController *)dynamicsDrawerViewController
+         didUpdatePaneClosedFraction:(CGFloat) paneClosedFraction
+                        forDirection:(FTDynamicsDrawerDirection)direction
 {
     //    NSLog(@"************** DrawerFadeStyler ***************");
     //    NSLog(@"**********   %f,%ld   ***********",paneClosedFraction,(long)direction);
     //    NSLog(@"*****************************");
-    drawerViewController.drawerView.alpha = ((1.0 - self.closedAlpha) * (1.0  - paneClosedFraction));
+    dynamicsDrawerViewController.drawerView.alpha = ((1.0 - self.closedAlpha) * (1.0  - paneClosedFraction));
 }
 
 - (void)stylerWasRemovedFromDynamicsDrawerViewController:(FTDynamicsDrawerViewController *)drawerViewController
@@ -120,7 +122,9 @@
     return [self new];
 }
 
-- (void)dynamicsDrawerViewController:(FTDynamicsDrawerViewController *)drawerViewController didUpdatePaneClosedFraction:(CGFloat)paneClosedFraction forDirection:(FTDynamicsDrawerDirection)direction
+- (void)dynamicsDrawerViewController:(FTDynamicsDrawerViewController *)dynamicsDrawerViewController
+         didUpdatePaneClosedFraction:(CGFloat) paneClosedFraction
+                        forDirection:(FTDynamicsDrawerDirection)direction
 {
     //    NSLog(@"*********** DrawerScaleStyler ******************");
     //    NSLog(@"**********   %f,%ld   ***********",paneClosedFraction,(long)direction);
@@ -128,10 +132,10 @@
     
     CGFloat scale = (1.0 - (paneClosedFraction * self.closedScale));
     CGAffineTransform scaleTransform = CGAffineTransformMakeScale(scale, scale);
-    CGAffineTransform drawerViewTransform = drawerViewController.drawerView.transform;
+    CGAffineTransform drawerViewTransform = dynamicsDrawerViewController.drawerView.transform;
     drawerViewTransform.a = scaleTransform.a;
     drawerViewTransform.d = scaleTransform.d;
-    drawerViewController.drawerView.transform = drawerViewTransform;
+    dynamicsDrawerViewController.drawerView.transform = drawerViewTransform;
 }
 
 - (void)stylerWasRemovedFromDynamicsDrawerViewController:(FTDynamicsDrawerViewController *)drawerViewController

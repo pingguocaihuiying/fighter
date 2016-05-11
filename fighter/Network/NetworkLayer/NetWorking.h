@@ -29,7 +29,14 @@
 
 
 //获取短信验证码
-- (void) getCheckCodeWithPhoneNumber:(NSString *)phonenum option:(void (^)(NSDictionary *dict))option;
+- (void) getCheckCodeWithPhoneNumber:(NSString *)phonenum
+                              option:(void (^)(NSDictionary *dict))option;
+
+
+//绑定手机时获取验证码
+- (void) getCheckCodeForNewBindingPhone:(NSString *)phoneNum
+                                 option:(void (^)(NSDictionary *dict))option;
+
 
 //手机号注册用户
 - (void) registUserWithPhoneNumber:(NSString *)phoneNum
@@ -64,6 +71,11 @@
 //绑定手机号码
 - (void) bindingPhoneNumber:(NSString *)phoneNum
                   checkCode:(NSString *)checkcode
+                     option:(void (^)(NSDictionary *dict))option;
+
+//绑定微信号
+- (void) bindingWeixin:(NSString *)openId
+//                  checkCode:(NSString *)checkcode
                      option:(void (^)(NSDictionary *dict))option;
 
 

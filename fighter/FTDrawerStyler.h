@@ -19,7 +19,9 @@
  @param paneClosedFraction The fraction that `MSDynamicsDrawerViewController` instance's pane is closed. `1.0` when closed, `0.0` when opened.
  @param direction The direction that the `MSDynamicsDrawerViewController` instance is opening in. Will not be masked.
  */
-- (void)dynamicsDrawerViewController:(FTDynamicsDrawerViewController *)dynamicsDrawerViewController didUpdatePaneClosedFraction:(CGFloat)paneClosedFraction forDirection:(FTDynamicsDrawerDirection)direction;
+- (void)dynamicsDrawerViewController:(FTDynamicsDrawerViewController *)dynamicsDrawerViewController
+         didUpdatePaneClosedFraction:(CGFloat) paneClosedFraction
+                        forDirection:(FTDynamicsDrawerDirection)direction;
 
 @optional
 

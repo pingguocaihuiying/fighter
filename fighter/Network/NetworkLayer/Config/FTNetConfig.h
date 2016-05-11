@@ -79,7 +79,8 @@ extern NSString * const BindingPhoneURL;
 extern NSString * const ISBindingPhoneURL;
 // 22.修改密码
 extern NSString * const UpdatePassWordURL;
-
+//23.绑定手机验证码
+extern NSString * const BindingPhoneCheckCodeURL;
 
 
 

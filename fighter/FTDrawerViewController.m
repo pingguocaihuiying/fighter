@@ -47,6 +47,7 @@
 
 //@property (nonatomic, strong) FTDrawerTableViewHeader *header;
 @property (nonatomic , weak) UIButton *leftBtn;
+@property (nonatomic , strong) NSMutableArray *leftBtnArray;
 @end
 
 static NSString *const colllectionCellId = @"colllectionCellId";
@@ -73,11 +74,11 @@ static NSString *const tableCellId = @"tableCellId";
     [super viewWillAppear:animated];
     
 //    //注册通知，接收微信登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginResponse:) name:WXLoginResultNoti object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginResponseInDrawer:) name:WXLoginResultNoti object:nil];
     
     //添加监听器，监听login
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showLoginedViewData) name:@"loginAction" object:nil];
-    [self showLoginedViewData];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showLoginedViewData:) name:@"loginAction" object:nil];
+    [self showLoginedViewData:nil];
     
 }
 
@@ -96,6 +97,11 @@ static NSString *const tableCellId = @"tableCellId";
     [self.collectionView setHidden:YES];
     [self.tableView setHidden:YES];
     [self.settingBtn setHidden:NO];
+    
+    [self.abountUsBtn setHidden:YES];
+    [self.abountUsBtn setEnabled:NO];
+    [self.feedbackBtn setHidden:YES];
+    [self.feedbackBtn setEnabled:NO];
     
 }
 
@@ -188,21 +194,47 @@ static NSString *const tableCellId = @"tableCellId";
 
 
 //登陆后更新用户中心数据
-- (void) showLoginedViewData {
-    
-    NSLog(@"show Login View");
+- (void) showLoginedViewData:(NSNotification *)noti {
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-    if (localUser) {
+    
+    NSString *msg = [noti object];
+    if ([msg isEqualToString:@"LOGOUT"]) {//退出登录
         
-        [self setLoginedViewData:localUser];
-        [self.loginView setHidden:YES];//隐藏登录界面
+        NSLog(@"执行退出登录");
+        [self.loginView setHidden:NO];//隐藏登录界面
+        for (UIButton *button in self.leftBtnArray)
+        {
+            [button setImage:[UIImage imageNamed:@"头像-空"] forState:UIControlStateNormal];
+        }
         
     }else {
     
-        [self.loginView setHidden:NO];//隐藏登录界面
+        NSLog(@"show Login View");
+        
+        if (localUser) {
+            
+            [self setLoginedViewData:localUser];
+            [self.loginView setHidden:YES];//隐藏登录界面
+            
+        }else {
+            
+            [self.loginView setHidden:NO];//隐藏登录界面
+        }
+        
+        if (localUser.headpic) {
+            
+            for (UIButton *button in self.leftBtnArray) {
+                
+                [button sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
+                                  forState:UIControlStateNormal
+                          placeholderImage:[UIImage imageNamed:@"头像-空"]];
+            }
+            
+        }
     }
+    
 }
 
 - (void) setLoginedViewData:(FTUserBean *)localUser {
@@ -220,12 +252,14 @@ static NSString *const tableCellId = @"tableCellId";
         [self setHeightLabelText:localUser.height];
         [self setWeightLabelText:localUser.weight];
         
-        if(self.leftBtn && localUser.headpic){
-            [self.leftBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
-                                    forState:UIControlStateNormal
-                            placeholderImage:[UIImage imageNamed:@"头像-空"]];
-
-        }
+//        if(self.leftBtn && localUser.headpic){
+//            [self.leftBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
+//                                    forState:UIControlStateNormal
+//                            placeholderImage:[UIImage imageNamed:@"头像-空"]];
+//
+//        }
+        
+        
     }
 }
 
@@ -299,18 +333,20 @@ static NSString *const tableCellId = @"tableCellId";
 }
 
 //微信登录响应
-- (void)wxLoginResponse:(NSNotification *)noti{
+- (void)wxLoginResponseInDrawer:(NSNotification *)noti{
     NSString *msg = [noti object];
     if ([msg isEqualToString:@"SUCESS"]) {
         [self showHUDWithMessage:@"微信登录成功"];
         
-        //从本地读取存储的用户信息
-        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-        if (localUser) {
-            [self setLoginedViewData:localUser];
-        }
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        [self showLoginedViewData:nil];
+//        //从本地读取存储的用户信息
+//        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+//        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+//        if (localUser) {
+//            
+//            [self setLoginedViewData:localUser];
+//        }
+    
     }else if ([msg isEqualToString:@"ERROR"]){
         [self showHUDWithMessage:@"微信登录失败"];
     }
@@ -324,9 +360,7 @@ static NSString *const tableCellId = @"tableCellId";
     FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
     baseNav.navigationBarHidden = NO;
     baseNav.navigationBar.barTintColor = [UIColor blackColor];
-    [self presentViewController:baseNav animated:YES completion:^{
-        [self showLoginedViewData];
-    }];
+    [self presentViewController:baseNav animated:YES completion:nil];
     
 //    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:NO];
 }
@@ -579,6 +613,13 @@ static NSString *const tableCellId = @"tableCellId";
 
 - (void) leftButtonClicked:(UIButton *) button {
 
+    if (!self.leftBtnArray) {
+        
+        self.leftBtnArray = [[NSMutableArray alloc]init];
+        
+    }
+    [self.leftBtnArray addObject:button];
+    
     self.leftBtn = button;
     [self.dynamicsDrawerViewController setPaneState:FTDynamicsDrawerPaneStateOpen
                                        inDirection:FTDynamicsDrawerDirectionLeft
