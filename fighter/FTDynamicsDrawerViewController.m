@@ -832,7 +832,7 @@ allowUserInterruption:(BOOL)allowUserInterruption
     
     NSLog(@"panePanned self.currentLeftMenuDirection = %ld ",(long)self.currentLeftMenuDirection);
     @try {
-        NSAssert(LeftMenuDirectionIsCardinal(self.currentLeftMenuDirection), @"Invalid state, must be opened to close");
+//        NSAssert(LeftMenuDirectionIsCardinal(self.currentLeftMenuDirection), @"Invalid state, must be opened to close");
         
         if ([self paneDragRevealEnabledForDirection:self.currentLeftMenuDirection]) {
             switch (gestureRecognizer.state) {

@@ -26,10 +26,6 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="asI-zq-Syd">
                                 <rect key="frame" x="0.0" y="0.0" width="164" height="92"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="164" id="1us-6j-IfC"/>
-                                    <constraint firstAttribute="height" constant="92" id="xqd-Yh-GGX"/>
-                                </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7qN-4h-i8Q" userLabel="labelViewContainer">
                                 <rect key="frame" x="0.0" y="76" width="164" height="16"/>

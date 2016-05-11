@@ -118,7 +118,7 @@
         objId= [NSString stringWithFormat:@"%@", _newsBean.newsId];
     }else if(self.videoBean){
         tableName = @"c-video";
-        objId= [NSString stringWithFormat:@"%@", _videoBean.vediosId];
+        objId= [NSString stringWithFormat:@"%@", _videoBean.videosId];
     }
     
     

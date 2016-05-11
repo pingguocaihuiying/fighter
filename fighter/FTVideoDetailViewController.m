@@ -58,7 +58,7 @@
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
     NSString *userId = user.olduserid;
-    NSString *objId = _videoBean.vediosId;
+    NSString *objId = _videoBean.videosId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = @"v-video";
@@ -95,7 +95,7 @@
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
     NSString *userId = user.olduserid;
-    NSString *objId = _videoBean.vediosId;
+    NSString *objId = _videoBean.videosId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = @"col-video";
@@ -147,7 +147,14 @@
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithTitle:@"转发" style:UIBarButtonItemStylePlain target:self action:@selector(topShareButtonClicked)];
     
     self.navigationController.navigationBar.tintColor = [UIColor colorWithHex:0x828287];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont systemFontOfSize:16]}];
+    
+    NSDictionary* textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [UIFont systemFontOfSize:14],UITextAttributeFont,
+                                    nil];
+    
+    [[UIBarButtonItem appearance] setTitleTextAttributes:textAttributes forState:0];
+    
     //    [shareButton setImageInsets:UIEdgeInsetsMake(0, -20, 0, 20)];
     //如果用户安装了微信，再显示转发按钮
     if([WXApi isWXAppInstalled]){
@@ -156,7 +163,7 @@
     
     
     //设置默认标题
-    self.navigationItem.title = @"拳讯";
+    self.navigationItem.title = @"视频";
 }
 
 - (void)setEvnetListenerOfBottomViews{
@@ -197,7 +204,7 @@
     NSString *title = _videoBean.title;
     title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-    _webViewUrlString = [NSString stringWithFormat:@"http://www.loufang.studio/page/video_page.html?objId=%@&title=%@&author=%@&newsTime=%@&commentCount=%@&voteCount=%@&url=%@&tableName=%@&type=%@&videoLength=%@&viewCount=%@", _videoBean.vediosId, title, [_videoBean.author stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], _videoBean.videosTime, _videoBean.commentCount, _videoBean.voteCount,url , @"c-video", _videoBean.videosType, _videoBean.videoLength,_videoBean.viewCount];
+    _webViewUrlString = [NSString stringWithFormat:@"http://www.loufang.studio/page/video_page.html?objId=%@&title=%@&author=%@&newsTime=%@&commentCount=%@&voteCount=%@&url=%@&tableName=%@&type=%@&videoLength=%@&viewCount=%@", _videoBean.videosId, title, [_videoBean.author stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], _videoBean.videosTime, _videoBean.commentCount, _videoBean.voteCount,url , @"c-video", _videoBean.videosType, _videoBean.videoLength,_videoBean.viewCount];
     NSLog(@"webview url：%@", _webViewUrlString);
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webViewUrlString]]];
     [self.view sendSubviewToBack:_webView];
@@ -441,7 +448,7 @@
     NSString *urlString = [FTNetConfig host:Domain path:_hasVote ? AddVoteURL : DeleteVoteURL];
     
     NSString *userId = user.olduserid;
-    NSString *objId = _videoBean.vediosId;
+    NSString *objId = _videoBean.videosId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = @"v-video";
@@ -492,7 +499,7 @@
     NSString *urlString = [FTNetConfig host:Domain path:self.hasStar ? AddStarURL : DeleteStarURL];
     
     NSString *userId = user.olduserid;
-    NSString *objId = _videoBean.vediosId;
+    NSString *objId = _videoBean.videosId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = @"col-video";
@@ -582,7 +589,7 @@
     //获取网络请求地址url
     NSString *addViewCountUrlString = [FTNetConfig host:Domain path:AddViewCountURL];
 
-    NSString *videosId = _videoBean.vediosId;
+    NSString *videosId = _videoBean.videosId;
     NSString *ts = [NSString stringWithFormat:@"%.3f", [[NSDate date] timeIntervalSince1970]];
     ts = [ts stringByReplacingOccurrencesOfString:@"." withString:@""];
     
@@ -593,7 +600,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
+    NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);
     [manager GET:addViewCountUrlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         //success
