@@ -1026,20 +1026,8 @@ allowUserInterruption:(BOOL)allowUserInterruption
 - (BOOL)paneDragRevealEnabledForDirection:(FTDynamicsDrawerDirection)direction
 {
     NSNumber *paneDragRevealEnabled;
-//    @try {
-//        NSAssert(LeftMenuDirectionIsCardinal(direction), @"Only accepts singular directions when querying for drag reveal enabled");
-//        paneDragRevealEnabled = self.paneDragRevealEnabled[@(direction)];
-//        if (!paneDragRevealEnabled) paneDragRevealEnabled = @(YES);
-//    }
-//    @catch (NSException *exception) {
-//        NSLog(@"exception :%@",exception);
-//    }
-//    @finally {
-//        
-//    }
-    NSAssert(LeftMenuDirectionIsCardinal(direction), @"Only accepts singular directions when querying for drag reveal enabled");
-    paneDragRevealEnabled = self.paneDragRevealEnabled[@(direction)];
-    if (!paneDragRevealEnabled) paneDragRevealEnabled = @(YES);
+    @try {
+        NSAssert(LeftMenuDirectionIsCardinal(direction), @"Only accepts singular directions when querying for drag reveal enabled");
         paneDragRevealEnabled = self.paneDragRevealEnabled[@(direction)];
         if (!paneDragRevealEnabled) paneDragRevealEnabled = @(YES);
     }
