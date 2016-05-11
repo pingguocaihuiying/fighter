@@ -1037,7 +1037,6 @@ allowUserInterruption:(BOOL)allowUserInterruption
     @finally {
         
     }
-    
     //    NSNumber *paneDragRevealEnabled = self.paneDragRevealEnabled[@(direction)];
     //    if (!paneDragRevealEnabled) paneDragRevealEnabled = @(YES);
     return [paneDragRevealEnabled boolValue];

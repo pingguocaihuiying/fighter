@@ -16,6 +16,8 @@
 #import "Mobclick.h"
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
+#import "FTLoginViewController.h"
+#import "FTBaseNavigationViewController.h"
 
 @interface FTNewsDetail2ViewController ()<UIWebViewDelegate, UMSocialUIDelegate, CommentSuccessDelegate>
 {
@@ -173,10 +175,7 @@
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     if (!localUser) {
-        FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
-        loginVC.title = @"登录";
-        FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
-        [self.navigationController presentViewController:nav animated:YES completion:nil];
+        [self login];
     }else{
         [self pushToCommentVC];
     }
@@ -281,17 +280,7 @@
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     if (!localUser) {
-        NSLog(@"微信登录");
-        if ([WXApi isWXAppInstalled] ) {
-            SendAuthReq *req = [[SendAuthReq alloc] init];
-            req.scope = @"snsapi_userinfo";
-            req.state = @"fighter";
-            [WXApi sendReq:req];
-            
-        }else{
-            NSLog(@"目前只支持微信登录，请安装微信");
-            [self showHUDWithMessage:@"目前只支持微信登录点赞，请安装微信"];
-        }
+        [self login];
     }else{
         self.hasVote = !self.hasVote;
         [self updateVoteImageView];
@@ -411,6 +400,14 @@
     _newsBean.commentCount = [NSString stringWithFormat:@"%d", commentCount];
     [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
 }
+
+- (void)login{
+    FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+    loginVC.title = @"登录";
+    FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+
 - (void)showHUDWithMessage:(NSString *)message{
     MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:HUD];

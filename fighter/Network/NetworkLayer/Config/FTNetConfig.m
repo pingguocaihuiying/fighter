@@ -17,6 +17,28 @@
 {
     return [NSString stringWithFormat:@"%@%@",host,path];
 }
++ (NSString *)showType{
+    NSString *showType = [[NSUserDefaults standardUserDefaults]objectForKey:SHOWTYPE];
+    if ([showType isEqualToString:@"1"]) {
+        showType = @"1";
+    }else{
+        showType = @"0";
+    }
+    return showType;
+}
++ (void)changePreviewVersion{
+    
+    NSString *showType = [FTNetConfig showType];
+    if ([showType isEqualToString:@"0"]) {
+        showType = @"1";
+    }else if ([showType isEqualToString:@"1"]){
+        showType = @"0";
+    }
+    
+    [[NSUserDefaults standardUserDefaults]setObject:showType forKey:SHOWTYPE];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    NSLog(@"已切换版本，当前showType:%@", [FTNetConfig showType]);
+}
 @end
 
 //NSString * const Domain = @"http://www.loufang.studio/pugilist_adminTest";//测试环境
