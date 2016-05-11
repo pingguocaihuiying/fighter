@@ -11,6 +11,7 @@
 @interface FTNetConfig : NSObject
 + (NSString *)to:(NSString *)path;
 + (NSString *)host:(NSString *)host path:(NSString *)path;
++ (NSString *)showType;
 @end
 
 #pragma mark - 拳讯接口

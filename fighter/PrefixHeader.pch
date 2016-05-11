@@ -44,6 +44,7 @@
 //定义UserDefaults的一些常量
 //已登陆的用户信息
 #define LoginUser @"loginUser"
+#define SHOWTYPE @"showType"
 
 //微信相关
 #define WX_BASE_URL @"https://api.weixin.qq.com/sns"
