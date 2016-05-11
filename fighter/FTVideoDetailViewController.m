@@ -13,6 +13,8 @@
 #import "FTUserBean.h"
 #import "MBProgressHUD.h"
 #import "WXApi.h"
+#import "FTLoginViewController.h"
+#import "FTBaseNavigationViewController.h"
 
 @interface FTVideoDetailViewController ()<UIWebViewDelegate, UMSocialUIDelegate, CommentSuccessDelegate>
 {
@@ -229,17 +231,23 @@
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     if (!localUser) {
-        NSLog(@"微信登录");
-        if ([WXApi isWXAppInstalled] ) {
-            SendAuthReq *req = [[SendAuthReq alloc] init];
-            req.scope = @"snsapi_userinfo";
-            req.state = @"fighter";
-            [WXApi sendReq:req];
-            
-        }else{
-            NSLog(@"目前只支持微信登录，请安装微信");
-            [self showHUDWithMessage:@"目前只支持微信登录，请安装微信"];
-        }
+        
+        FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+        loginVC.title = @"登录";
+        FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+        [self.navigationController presentViewController:nav animated:YES completion:nil];
+        
+//        NSLog(@"微信登录");
+//        if ([WXApi isWXAppInstalled] ) {
+//            SendAuthReq *req = [[SendAuthReq alloc] init];
+//            req.scope = @"snsapi_userinfo";
+//            req.state = @"fighter";
+//            [WXApi sendReq:req];
+//            
+//        }else{
+//            NSLog(@"目前只支持微信登录，请安装微信");
+//            [self showHUDWithMessage:@"目前只支持微信登录，请安装微信"];
+//        }
     }else{
         [self pushToCommentVC];
     }

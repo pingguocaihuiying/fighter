@@ -78,7 +78,7 @@
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     [self.leftNavButton.layer setMasksToBounds:YES];
     self.leftNavButton.layer.cornerRadius = 17.0;
-    [self.leftNavButton sd_setBackgroundImageWithURL:[NSURL URLWithString:localUser.headpic]
+    [self.leftNavButton sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
                                             forState:UIControlStateNormal
                                     placeholderImage:[UIImage imageNamed:@"头像-空"]];
     [self setOtherViews];

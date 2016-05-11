@@ -154,10 +154,11 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
                 
                 if (tokenDic) {
                     
-                    //存储token openid
-                    [[NSUserDefaults standardUserDefaults] setObject:tokenDic[@"access_token"] forKey:@"wxToken"];
-                    [[NSUserDefaults standardUserDefaults] setObject:tokenDic[@"openid"] forKey:@"wxOpenId"];
-                    [[NSUserDefaults standardUserDefaults]synchronize];
+//                    //存储token openid
+//                    [[NSUserDefaults standardUserDefaults] setObject:tokenDic[@"access_token"] forKey:@"wxToken"];
+//                    [[NSUserDefaults standardUserDefaults] setObject:tokenDic[@"openid"] forKey:@"wxOpenId"];
+//                    [[NSUserDefaults standardUserDefaults]synchronize];
+                    
                     //2.请求微信用户信息
                     [net requestWeixinUserInfoWithToken:tokenDic[@"access_token"] openId:tokenDic[@"openid"] option:^(NSDictionary *userDict) {
                         
@@ -183,23 +184,28 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
                                     FTUserBean *user = [FTUserBean new];
                                     [user setValuesForKeysWithDictionary:userDic];
                                     
-                                    //从本地读取存储的用户信息
-                                    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-                                    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+//                                    //从本地读取存储的用户信息
+//                                    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+//                                    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
                                     
-                                    if (localUser) {//手机已经登录
-                                        localUser.wxopenId = user.openId;
-                                        localUser.wxName = user.username;
-                                        localUser.wxHeaderPic = user.headpic;
-                                    }else {
-                                        
-                                        localUser = user;
-                                        localUser.wxopenId = user.openId;
-                                        localUser.wxName = user.username;
-                                        localUser.wxHeaderPic = user.headpic;
-                                    }
+                                    //存储token openid
+                                    [[NSUserDefaults standardUserDefaults] setObject:user.openId forKey:@"wxopenId"];
+                                    [[NSUserDefaults standardUserDefaults] setObject:user.username forKey:@"wxName"];
+                                     [[NSUserDefaults standardUserDefaults] setObject:user.headpic forKey:@"wxHeaderPic"];
+                                    [[NSUserDefaults standardUserDefaults]synchronize];
+
+//                                    if (localUser) {//手机已经登录
+//                                        localUser.wxopenId = user.openId;
+//                                        localUser.wxName = user.username;
+//                                        localUser.wxHeaderPic = user.headpic;
+//                                    }else {
+//                                        localUser = user;
+//                                        localUser.wxopenId = user.openId;
+//                                        localUser.wxName = user.username;
+//                                        localUser.wxHeaderPic = user.headpic;
+//                                    }
                                     
-                                    NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
+                                    NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
                                     [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
                                     [[NSUserDefaults standardUserDefaults]synchronize];
                                     //发送通知，告诉评论页面微信登录成功
