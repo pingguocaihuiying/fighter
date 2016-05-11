@@ -191,6 +191,7 @@
 		E668BABD1CE0565700071998 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BAA81CE0565700071998 /* UIScrollView+MJExtension.m */; };
 		E668BABE1CE0565700071998 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BAAA1CE0565700071998 /* UIScrollView+MJRefresh.m */; };
 		E668BABF1CE0565700071998 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BAAC1CE0565700071998 /* UIView+MJExtension.m */; };
+		E668BBB11CE32BA200071998 /* FTRankingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BBB01CE32BA200071998 /* FTRankingListViewController.m */; };
 		E66D6EFA1CBCE81C008B015A /* RBRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6EF61CBCE81C008B015A /* RBRequestOperationManager.m */; };
 		E66D6EFB1CBCE81C008B015A /* FTNetConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6EF91CBCE81C008B015A /* FTNetConfig.m */; };
 		E66D6F101CBCE843008B015A /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6EFE1CBCE843008B015A /* AFHTTPRequestOperation.m */; };
@@ -621,6 +622,8 @@
 		E668BAAA1CE0565700071998 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		E668BAAB1CE0565700071998 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		E668BAAC1CE0565700071998 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		E668BBAF1CE32BA200071998 /* FTRankingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankingListViewController.h; sourceTree = "<group>"; };
+		E668BBB01CE32BA200071998 /* FTRankingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankingListViewController.m; sourceTree = "<group>"; };
 		E66D6EF51CBCE81C008B015A /* RBRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBRequestOperationManager.h; sourceTree = "<group>"; };
 		E66D6EF61CBCE81C008B015A /* RBRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBRequestOperationManager.m; sourceTree = "<group>"; };
 		E66D6EF81CBCE81C008B015A /* FTNetConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNetConfig.h; sourceTree = "<group>"; };
@@ -993,8 +996,8 @@
 		3D69470A1CE305EB00989440 /* 排行榜 */ = {
 			isa = PBXGroup;
 			children = (
-				3D69470B1CE3064900989440 /* FTButton.h */,
-				3D69470C1CE3064900989440 /* FTButton.m */,
+				E668BBB21CE32D2600071998 /* controller */,
+				E668BBB31CE32D3400071998 /* view */,
 			);
 			name = "排行榜";
 			sourceTree = "<group>";
@@ -1553,6 +1556,24 @@
 				E668BAA21CE0565700071998 /* MJRefreshStateHeader.m */,
 			);
 			path = Header;
+			sourceTree = "<group>";
+		};
+		E668BBB21CE32D2600071998 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				E668BBAF1CE32BA200071998 /* FTRankingListViewController.h */,
+				E668BBB01CE32BA200071998 /* FTRankingListViewController.m */,
+			);
+			name = controller;
+			sourceTree = "<group>";
+		};
+		E668BBB31CE32D3400071998 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				3D69470B1CE3064900989440 /* FTButton.h */,
+				3D69470C1CE3064900989440 /* FTButton.m */,
+			);
+			name = view;
 			sourceTree = "<group>";
 		};
 		E66D6EF21CBCE81C008B015A /* Network */ = {
@@ -2165,6 +2186,7 @@
 				3DC411F31CCF810A0030C229 /* FTDrawerTableViewFooter.m in Sources */,
 				E68050C11CBF919A00678905 /* UIView+JHExtension.m in Sources */,
 				E6E580B31CBE523B00272242 /* FTBaseTableViewCell.m in Sources */,
+				E668BBB11CE32BA200071998 /* FTRankingListViewController.m in Sources */,
 				3D4B19661CDB6CF80022DFB0 /* FTWeightPickerView.m in Sources */,
 				E6E580AC1CBE2F2D00272242 /* UIImage+WebP.m in Sources */,
 				E68EC50B1CC4B85D00A338C8 /* FTFilterTableViewController.m in Sources */,

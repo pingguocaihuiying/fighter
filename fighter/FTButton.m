@@ -18,7 +18,6 @@
 
 - (void) setButton {
 
-    
 }
 
 - (void)drawRect:(CGRect)rect {

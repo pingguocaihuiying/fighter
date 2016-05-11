@@ -20,7 +20,7 @@
 #import "UIButton+LYZTitle.h"
 #import "UIButton+WebCache.h"
 #import "Mobclick.h"
-
+#import "FTRankingListViewController.h"
 
 @interface FTInformationViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTnewsDetailDelegate>
 
@@ -32,6 +32,7 @@
 @property (nonatomic, strong)NSMutableArray *tableViewDataSourceArray;
 @property (nonatomic, strong)FTTableViewController *tableViewController;
 @property (nonatomic, strong)NSArray *typeArray;
+
 
 @end
 
@@ -510,6 +511,14 @@
 - (IBAction)searchButtonClicked:(id)sender {
     NSLog(@"search button clicked.");
 }
+
+#pragma -mark -排行榜按钮被点击
+- (IBAction)rankButtonClicked:(id)sender {
+    FTRankingListViewController *rankingListViewController = [FTRankingListViewController new];
+    [self.navigationController pushViewController:rankingListViewController animated:YES];
+    rankingListViewController.title = @"格斗之王";
+}
+
 - (IBAction)messageButtonClicked:(id)sender {
     NSLog(@"message button clicked.");
 }
