@@ -420,8 +420,6 @@
     //    }];
     //    [self addChildViewController:pageVC];
     //    [_currentView addSubview:[pageVC view]];
-    self.tableViewController.tableView.frame = self.currentView.bounds;
-    [self.currentView addSubview:self.tableViewController.tableView];
 }
 
 #pragma -mark -初始化collectionView
@@ -430,13 +428,17 @@
     UICollectionViewFlowLayout *flow = [UICollectionViewFlowLayout new];
     
     //行间距
-    flow.minimumLineSpacing = 15 * SCALE;
+//    flow.minimumLineSpacing = 15 * SCALE;
     //列间距
-//    flow.minimumInteritemSpacing = 17 * SCALE;
+    flow.minimumInteritemSpacing = 16 * SCALE;
     
     //cell大小设置
-    NSLog(@"scale : %.0f", SCALE);
+    NSLog(@"scale : %f", SCALE);
     NSLog(@"screen width  : %.0f", SCREEN_WIDTH);
+    
+//    CGRect r = self.view.frame;
+//    r.size.width = SCREEN_WIDTH;
+//    self.view.frame = r;
     
 //    float width = 164 * SCALE;
     float width = 164 * SCALE;
@@ -445,22 +447,29 @@
     NSLog(@"cell宽：%f, 高：%f。屏幕宽度：%f,self.view的宽度：%f", width, height, SCREEN_WIDTH, self.view.frame.size.width);
 //    NSLog(@"child view的宽度：%f,高度：%f",self.view.frame.size.width, self.view.frame.size.height);
     //section内嵌距离设置
-    flow.sectionInset = UIEdgeInsetsMake(0, 14 * SCALE, 0, 14 * SCALE);
+    flow.sectionInset = UIEdgeInsetsMake(0, 15 * SCALE, 0, 15 * SCALE);
     
-    //滚动方向
-    //flow.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
-    _collectionView = [[UICollectionView alloc]initWithFrame:self.currentView.bounds collectionViewLayout:flow];
-    
-//    _collectionView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    NSLog(@"collectionView的宽度:%f", _collectionView.frame.size.width);
+//    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.currentView.frame.size.width, self.currentView.frame.size.height + 500) collectionViewLayout:flow];
+        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.currentView.frame.size.width, SCREEN_HEIGHT - 150 - 49) collectionViewLayout:flow];
     _collectionView.backgroundColor = [UIColor clearColor];
+        CGRect r = _collectionView.frame;
+        r.size.width = SCREEN_WIDTH;
+        _collectionView.frame = r;
+    
+    NSLog(@"current view的y:%f", self.currentView.frame.origin.y);
+    NSLog(@"collectionView的y:%f", _collectionView.frame.origin.y);
+    
+    NSLog(@"current view的高度:%f", self.currentView.frame.size.height);
+    NSLog(@"collectionView的高度:%f", _collectionView.frame.size.height);
     [self.currentView addSubview:_collectionView];
     
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     
     //注册一个collectionViewCCell队列
+    
+    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"asdf"];
     [_collectionView registerNib:[UINib nibWithNibName:@"FTVideoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
     [self setJHRefresh];
     
@@ -499,16 +508,28 @@
 
 //返回cell
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    FTVideoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    if (cell == nil) {
-        NSLog(@"cell is nil");
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"FTVideoCollectionViewCell" owner:self options:nil]firstObject];
-    }
-//    cell.backgroundColor = [UIColor clearColor];
-    FTVideoBean *videoBean = [FTVideoBean new];
+//    FTVideoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+//    FTVideoCollectionViewCell *cell = [FTVideoCollectionViewCell new];
+//    if (cell == nil) {
+//        NSLog(@"cell is nil");
+//        cell = [[[NSBundle mainBundle]loadNibNamed:@"FTVideoCollectionViewCell" owner:self options:nil]firstObject];
+//    }
+//
+//    FTVideoBean *videoBean = [FTVideoBean new];
 //    [videoBean setValuesWithDic:self.tableViewDataSourceArray[indexPath.row]];
-    [videoBean setValuesWithDic:self.tableViewDataSourceArray[indexPath.row]];
-    [cell setWithBean:videoBean];
+//    [cell setWithBean:videoBean];
+//    return cell;
+//    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"asdf" forIndexPath:indexPath];
+    FTVideoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+        if (cell == nil) {
+            NSLog(@"cell is nil");
+            cell = [[[NSBundle mainBundle]loadNibNamed:@"FTVideoCollectionViewCell" owner:self options:nil]firstObject];
+        }
+    
+        FTVideoBean *videoBean = [FTVideoBean new];
+        [videoBean setValuesWithDic:self.tableViewDataSourceArray[indexPath.row]];
+        [cell setWithBean:videoBean];
+//    UICollectionViewCell *cell = [UICollectionViewCell new];
     return cell;
 }
 

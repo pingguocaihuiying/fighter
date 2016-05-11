@@ -111,7 +111,11 @@
 //        UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-分享"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(shareButtonClicked)];
 //    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-分享"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(shareButtonClicked)];
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithTitle:@"转发" style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonClicked)];
+    NSDictionary* textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [UIFont systemFontOfSize:14],UITextAttributeFont,
+                                    nil];
     
+    [[UIBarButtonItem appearance] setTitleTextAttributes:textAttributes forState:0];
         self.navigationController.navigationBar.tintColor = [UIColor colorWithHex:0x828287];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 //    [shareButton setImageInsets:UIEdgeInsetsMake(0, -20, 0, 20)];

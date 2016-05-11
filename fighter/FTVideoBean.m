@@ -17,7 +17,7 @@
     self.url = dic[@"url"];
     self.videosTime = dic[@"videosTime"];
     self.title = dic[@"title"];
-    self.vediosId = dic[@"vediosId"];
+    self.videosId = dic[@"videosId"];
     self.videosType = dic[@"videosType"];
     self.voteCount = dic[@"voteCount"];
     self.commentCount = dic[@"commentCount"];
