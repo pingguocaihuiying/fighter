@@ -54,6 +54,7 @@
 		3D5FB4B91CDC41A500FC1809 /* FTAlbumsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4B71CDC41A500FC1809 /* FTAlbumsViewController.m */; };
 		3D5FB4BE1CDC7E6600FC1809 /* FTImageCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4BC1CDC7E6600FC1809 /* FTImageCollectionCell.m */; };
 		3D5FB4BF1CDC7E6600FC1809 /* FTImageCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D5FB4BD1CDC7E6600FC1809 /* FTImageCollectionCell.xib */; };
+		3D69470D1CE3064900989440 /* FTButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D69470C1CE3064900989440 /* FTButton.m */; };
 		3D7B988E1CDD027400B80B8D /* Area.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D7B988D1CDD027400B80B8D /* Area.plist */; };
 		3D7B98901CDD1E5900B80B8D /* Area2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D7B988F1CDD1E5900B80B8D /* Area2.plist */; };
 		3D7B98971CDEE1E900B80B8D /* FTSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7B98951CDEE1E900B80B8D /* FTSettingViewController.m */; };
@@ -368,6 +369,8 @@
 		3D5FB4BB1CDC7E6600FC1809 /* FTImageCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTImageCollectionCell.h; sourceTree = "<group>"; };
 		3D5FB4BC1CDC7E6600FC1809 /* FTImageCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTImageCollectionCell.m; sourceTree = "<group>"; };
 		3D5FB4BD1CDC7E6600FC1809 /* FTImageCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTImageCollectionCell.xib; sourceTree = "<group>"; };
+		3D69470B1CE3064900989440 /* FTButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTButton.h; sourceTree = "<group>"; };
+		3D69470C1CE3064900989440 /* FTButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTButton.m; sourceTree = "<group>"; };
 		3D7B988D1CDD027400B80B8D /* Area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Area.plist; sourceTree = "<group>"; };
 		3D7B988F1CDD1E5900B80B8D /* Area2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Area2.plist; sourceTree = "<group>"; };
 		3D7B98941CDEE1E900B80B8D /* FTSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSettingViewController.h; sourceTree = "<group>"; };
@@ -975,6 +978,25 @@
 				3D5FB4871CDC251B00FC1809 /* FTCityPickerView.m */,
 			);
 			name = customPickView;
+			sourceTree = "<group>";
+		};
+		3D6947091CE305CD00989440 /* 用户中心 */ = {
+			isa = PBXGroup;
+			children = (
+				3D4B18E71CD8BC010022DFB0 /* userSetting */,
+				3DE95BA91CD86FB6005BF85C /* login */,
+				3DC411E81CCF734A0030C229 /* drawer */,
+			);
+			name = "用户中心";
+			sourceTree = "<group>";
+		};
+		3D69470A1CE305EB00989440 /* 排行榜 */ = {
+			isa = PBXGroup;
+			children = (
+				3D69470B1CE3064900989440 /* FTButton.h */,
+				3D69470C1CE3064900989440 /* FTButton.m */,
+			);
+			name = "排行榜";
 			sourceTree = "<group>";
 		};
 		3D7B98AB1CE05EDD00B80B8D /* acountManager */ = {
@@ -1697,6 +1719,8 @@
 		E6B458921CB7554F00FB4261 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				3D69470A1CE305EB00989440 /* 排行榜 */,
+				3D6947091CE305CD00989440 /* 用户中心 */,
 				E6B4589B1CB7569E00FB4261 /* 拳迅 */,
 				E6DCE7271CD849060082831D /* 视频 */,
 				E6B458B41CB759AE00FB4261 /* Coach */,
@@ -1723,9 +1747,6 @@
 		E6B4589B1CB7569E00FB4261 /* 拳迅 */ = {
 			isa = PBXGroup;
 			children = (
-				3D4B18E71CD8BC010022DFB0 /* userSetting */,
-				3DE95BA91CD86FB6005BF85C /* login */,
-				3DC411E81CCF734A0030C229 /* drawer */,
 				E65F90B71CBDF9F6005CA3E6 /* main */,
 				E68EC5071CC4B71400A338C8 /* filter */,
 				E65F90B81CBDF9FF005CA3E6 /* detail */,
@@ -2207,6 +2228,7 @@
 				E66D6F141CBCE843008B015A /* AFSecurityPolicy.m in Sources */,
 				3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */,
 				E66D6F111CBCE843008B015A /* AFHTTPRequestOperationManager.m in Sources */,
+				3D69470D1CE3064900989440 /* FTButton.m in Sources */,
 				E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */,
 				E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */,
 				3DC412121CD039D70030C229 /* MASViewAttribute.m in Sources */,
@@ -2473,7 +2495,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fighter.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c10c791b-700b-43a5-8002-99f83e357690";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -2508,7 +2530,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fighter.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c10c791b-700b-43a5-8002-99f83e357690";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

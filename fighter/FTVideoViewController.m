@@ -83,9 +83,9 @@
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     [self.leftBtn.layer setMasksToBounds:YES];
     self.leftBtn.layer.cornerRadius = 17.0;
-    [self.leftBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:localUser.headpic]
-                                            forState:UIControlStateNormal
-                                    placeholderImage:[UIImage imageNamed:@"头像-空"]];
+    [self.leftBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
+                            forState:UIControlStateNormal
+                    placeholderImage:[UIImage imageNamed:@"头像-空"]];
     
     //设置最热or最新
     [self setNewOrHot];

@@ -81,7 +81,7 @@
     //    self.navigationController.tabBarController.tabBar.hidden = YES;
     
     //注册通知，接收微信登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginResponse:) name:WXLoginResultNoti object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginResponseInLoginView:) name:WXLoginResultNoti object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -175,7 +175,7 @@
                                         
                                         [self.navigationController dismissViewControllerAnimated:YES completion:^{
                                             
-                                             [[NSNotificationCenter defaultCenter] postNotificationName:@"loginAction" object:self];
+                                             [[NSNotificationCenter defaultCenter] postNotificationName:@"loginAction" object:@"LOGIN"];
                                         
                                         }];
                                         
@@ -194,11 +194,11 @@
 }
 
 //微信快捷登录 响应
-- (void)wxLoginResponse:(NSNotification *)noti{
+- (void)wxLoginResponseInLoginView:(NSNotification *)noti{
     NSString *msg = [noti object];
     if ([msg isEqualToString:@"SUCESS"]) {
-        [self showHUDWithMessage:@"微信登录成功，可以评论或点赞了"];
-        
+        [self showHUDWithMessage:@"微信登录成功"];
+        NSLog(@"response in loginView");
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }else if ([msg isEqualToString:@"ERROR"]){
         [self showHUDWithMessage:@"微信登录失败"];
