@@ -57,5 +57,7 @@
 //和750的比例
 #define SCALE  (SCREEN_WIDTH / (750 / 2))
 
+//#define ShowType @"showType"
+
 #endif /* PrefixHeader_pch */
 

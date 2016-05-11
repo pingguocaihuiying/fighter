@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel2;
 
 @property (nonatomic, copy) NSString *oldPassword;
+@property (nonatomic, copy) NSString *checkCode;
 
 
 @end
