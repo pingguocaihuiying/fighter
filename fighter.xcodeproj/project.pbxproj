@@ -55,6 +55,7 @@
 		3D5FB4BE1CDC7E6600FC1809 /* FTImageCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4BC1CDC7E6600FC1809 /* FTImageCollectionCell.m */; };
 		3D5FB4BF1CDC7E6600FC1809 /* FTImageCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D5FB4BD1CDC7E6600FC1809 /* FTImageCollectionCell.xib */; };
 		3D69470D1CE3064900989440 /* FTButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D69470C1CE3064900989440 /* FTButton.m */; };
+		3D6947101CE3374000989440 /* FTUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D69470F1CE3374000989440 /* FTUserViewController.m */; };
 		3D7B988E1CDD027400B80B8D /* Area.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D7B988D1CDD027400B80B8D /* Area.plist */; };
 		3D7B98901CDD1E5900B80B8D /* Area2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D7B988F1CDD1E5900B80B8D /* Area2.plist */; };
 		3D7B98971CDEE1E900B80B8D /* FTSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7B98951CDEE1E900B80B8D /* FTSettingViewController.m */; };
@@ -371,6 +372,8 @@
 		3D5FB4BD1CDC7E6600FC1809 /* FTImageCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTImageCollectionCell.xib; sourceTree = "<group>"; };
 		3D69470B1CE3064900989440 /* FTButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTButton.h; sourceTree = "<group>"; };
 		3D69470C1CE3064900989440 /* FTButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTButton.m; sourceTree = "<group>"; };
+		3D69470E1CE3374000989440 /* FTUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserViewController.h; sourceTree = "<group>"; };
+		3D69470F1CE3374000989440 /* FTUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserViewController.m; sourceTree = "<group>"; };
 		3D7B988D1CDD027400B80B8D /* Area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Area.plist; sourceTree = "<group>"; };
 		3D7B988F1CDD1E5900B80B8D /* Area2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Area2.plist; sourceTree = "<group>"; };
 		3D7B98941CDEE1E900B80B8D /* FTSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSettingViewController.h; sourceTree = "<group>"; };
@@ -983,6 +986,7 @@
 		3D6947091CE305CD00989440 /* 用户中心 */ = {
 			isa = PBXGroup;
 			children = (
+				3D6947111CE3375000989440 /* base */,
 				3D4B18E71CD8BC010022DFB0 /* userSetting */,
 				3DE95BA91CD86FB6005BF85C /* login */,
 				3DC411E81CCF734A0030C229 /* drawer */,
@@ -997,6 +1001,15 @@
 				3D69470C1CE3064900989440 /* FTButton.m */,
 			);
 			name = "排行榜";
+			sourceTree = "<group>";
+		};
+		3D6947111CE3375000989440 /* base */ = {
+			isa = PBXGroup;
+			children = (
+				3D69470E1CE3374000989440 /* FTUserViewController.h */,
+				3D69470F1CE3374000989440 /* FTUserViewController.m */,
+			);
+			name = base;
 			sourceTree = "<group>";
 		};
 		3D7B98AB1CE05EDD00B80B8D /* acountManager */ = {
@@ -2249,6 +2262,7 @@
 				3D7B98BE1CE0898400B80B8D /* FTOldPasswordVC.m in Sources */,
 				3D7B98B91CE078D600B80B8D /* FTInputCheckCodeViewController.m in Sources */,
 				E6D74A481CB7B7EE00854337 /* UIColor+YBColorCategory.m in Sources */,
+				3D6947101CE3374000989440 /* FTUserViewController.m in Sources */,
 				3DC4120E1CD039D70030C229 /* MASCompositeConstraint.m in Sources */,
 				E6B458DE1CB7B2B100FB4261 /* FTTableViewController.m in Sources */,
 				3D4B193C1CD9FD670022DFB0 /* UMFullScreenPhotoView.m in Sources */,

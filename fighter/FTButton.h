@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger, FTButtonModel) {
 @property (nonatomic, assign) CGFloat ImageH;//图片高度
 @property (nonatomic, assign) CGFloat ImageW;//图片宽度
 
-//@property (nonatomic, assign) CGFloat 
+@property (nonatomic, assign) CGFloat space; //
 
 @property (nonatomic, assign) FTButtonModel buttonModel;
 
