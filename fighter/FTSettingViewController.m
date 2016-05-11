@@ -44,6 +44,9 @@
 //
     
     [self initSubviews];
+    
+    //设置点击事件
+    [self setTouchEvent];
 }
 
 - (void) initSubviews {
@@ -264,6 +267,48 @@
     }
     
 }
+
+
+
+
+//设置点击事件，连续点击屏幕5次可以切换app发布版和预览版
+- (void) setTouchEvent {
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
+    tap.numberOfTapsRequired = 5;
+    [self.view addGestureRecognizer:tap];
+    
+}
+
+//响应点击事件
+- (void) tapAction:(UITapGestureRecognizer *)gesture {
+    
+    CGPoint point = [gesture locationInView:self.view];
+    for (UIView *view in self.view.subviews) {
+        CGRect frame = [self.view convertRect:view.frame toView:self.view];
+        if (CGRectContainsPoint(frame, point)) {
+            return;
+        }
+    }
+    
+//    NSString *showType = [[NSUserDefaults standardUserDefaults] objectForKey:ShowType];
+//    if ([showType isEqualToString:@"1"]) {
+//        [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:ShowType];
+//        [[NSUserDefaults standardUserDefaults]synchronize];
+//        []
+//    }else {
+//        [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:ShowType];
+//        [[NSUserDefaults standardUserDefaults]synchronize];
+//    }
+    [FTNetConfig changePreviewVersion];
+    if ([[FTNetConfig showType] integerValue] == 1) {
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"已经切换为正式版"];
+    }else {
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"已经切换为预览版"];
+    }
+    
+}
+
 
 
 @end

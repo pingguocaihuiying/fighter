@@ -184,9 +184,9 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
                                     FTUserBean *user = [FTUserBean new];
                                     [user setValuesForKeysWithDictionary:userDic];
                                     
-//                                    //从本地读取存储的用户信息
-//                                    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-//                                    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+                                    //从本地读取存储的用户信息
+                                    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+                                    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
                                     
                                     //存储token openid
                                     [[NSUserDefaults standardUserDefaults] setObject:user.openId forKey:@"wxopenId"];
@@ -194,18 +194,20 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
                                      [[NSUserDefaults standardUserDefaults] setObject:user.headpic forKey:@"wxHeaderPic"];
                                     [[NSUserDefaults standardUserDefaults]synchronize];
 
-//                                    if (localUser) {//手机已经登录
-//                                        localUser.wxopenId = user.openId;
-//                                        localUser.wxName = user.username;
-//                                        localUser.wxHeaderPic = user.headpic;
-//                                    }else {
+                                    if (localUser) {//手机已经登录
+                                        localUser.openId = user.openId;
+                                        localUser.unionId = user.unionId;
+                                        localUser.wxName = user.username;
+                                        localUser.wxHeaderPic = user.headpic;
+                                    }
+//                                    else {
 //                                        localUser = user;
 //                                        localUser.wxopenId = user.openId;
 //                                        localUser.wxName = user.username;
 //                                        localUser.wxHeaderPic = user.headpic;
 //                                    }
                                     
-                                    NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
+                                    NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
                                     [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
                                     [[NSUserDefaults standardUserDefaults]synchronize];
                                     //发送通知，告诉评论页面微信登录成功
@@ -223,8 +225,8 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
                     }];
                 }
                 
-            }];
-        }
+        }];
+}
         
         
         

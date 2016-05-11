@@ -41,10 +41,18 @@
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
 //    self.headerUrl = localUser.wxHeaderPic;
 //    self.username = localUser.wxName;
-
-    self.headerUrl = localUser.headpic;
-    self.username = localUser.username;
-
+    if (localUser.wxHeaderPic.length > 0) {
+        self.headerUrl = localUser.wxHeaderPic;
+    }else {
+    
+        self.headerUrl = localUser.headpic;
+    }
+    
+    if (localUser.wxName.length > 0) {
+        self.username = localUser.wxName;
+    }else {
+        self.username = localUser.username;
+    }
     
     [self.wXHeaderImageView.layer setMasksToBounds:YES];
     self.wXHeaderImageView.layer.cornerRadius = 40;

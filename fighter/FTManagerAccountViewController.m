@@ -76,7 +76,6 @@
 - (void) showWeiXinNameAndHeader {
     
    
-    
     NSString *wxOpenId = [[NSUserDefaults standardUserDefaults]objectForKey:@"wxopenId"];
     NSString *wxName = [[NSUserDefaults standardUserDefaults]objectForKey:@"wxName"];
     NSString *wxHeaderPic = [[NSUserDefaults standardUserDefaults]objectForKey:@"wxHeaderPic"];
