@@ -12,6 +12,7 @@
 + (NSString *)to:(NSString *)path;
 + (NSString *)host:(NSString *)host path:(NSString *)path;
 + (NSString *)showType;
++ (void)changePreviewVersion;
 @end
 
 #pragma mark - 拳讯接口
