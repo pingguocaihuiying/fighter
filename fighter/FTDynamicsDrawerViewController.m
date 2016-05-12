@@ -830,7 +830,7 @@ allowUserInterruption:(BOOL)allowUserInterruption
     static CGPoint panStartLocationInPane;
     static CGFloat panVelocity;
     
-    NSLog(@"panePanned self.currentLeftMenuDirection = %ld ",(long)self.currentLeftMenuDirection);
+//    NSLog(@"panePanned self.currentLeftMenuDirection = %ld ",(long)self.currentLeftMenuDirection);
     @try {
 //        NSAssert(LeftMenuDirectionIsCardinal(self.currentLeftMenuDirection), @"Invalid state, must be opened to close");
         

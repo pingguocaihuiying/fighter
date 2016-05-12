@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    NSLog(@"awakeFromNib");
+//    NSLog(@"awakeFromNib");
     self.cellWidthConstraint.constant = self.cellWidthConstraint.constant * SCALE;
     self.cellHeightConstraint.constant = self.cellHeightConstraint.constant * SCALE;
     self.titleLabelTopConstraint.constant = self.titleLabelTopConstraint.constant * SCALE;
