@@ -8,8 +8,8 @@
 
 #import "FTBaseViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-
-@interface FTAssetsViewController : FTBaseViewController
+#import "FTUserViewController.h"
+@interface FTAssetsViewController : FTUserViewController
 
 @property (nonatomic, strong) ALAssetsGroup * assetsGroup;
 @property (nonatomic, strong) NSMutableArray * assets;

@@ -13,6 +13,7 @@
 #import "FTWeixinInfoVC.h"
 #import "NetWorking.h"
 #import "UIWindow+MBProgressHUD.h"
+#import "FTInputNewPhoneViewController.h"
 
 @interface FTManagerAccountViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -73,6 +74,8 @@
     
 }
 
+
+//绑定微信
 - (void) showWeiXinNameAndHeader {
     
    
@@ -180,18 +183,16 @@
         }
         
     }if (indexPath.row == 1) {
-        cell.titleLabel.text = @"手机绑定：";
+        
         if (localUser.tel.length > 0) {
+            cell.remarkLabel.text = @"更换手机";
             cell.remarkLabel.text = localUser.tel;
         }else {
+            cell.titleLabel.text = @"绑定手机：";
             cell.remarkLabel.text = @"未绑定";
         }
     }if (indexPath.row == 2) {
-//        if(localUser.openId.length > 0){
-//            cell.titleLabel.text = @"设置密码：";
-//        }else {
-//            cell.titleLabel.text = @"更改密码：";
-//        }
+        
         cell.titleLabel.text = @"更改密码：";
     }
     
@@ -220,9 +221,18 @@
         }
         
     }else  if (indexPath.row == 1) {
-        FTPhoneViewController * changePhoneVC = [[FTPhoneViewController alloc]init];
-        changePhoneVC.title = @"更改绑定手机";
-        [self.navigationController pushViewController:changePhoneVC animated:YES];
+        
+        if(localUser.tel.length > 0) {
+            FTPhoneViewController * changePhoneVC = [[FTPhoneViewController alloc]init];
+            changePhoneVC.title = @"更改绑定手机";
+            [self.navigationController pushViewController:changePhoneVC animated:YES];
+        }else {
+            FTInputNewPhoneViewController *inputNewPhoneVC = [[FTInputNewPhoneViewController alloc]init];
+            inputNewPhoneVC.title = @"绑定手机";
+            [self.navigationController pushViewController:inputNewPhoneVC animated:YES];
+            
+        }
+        
     }
     else  if (indexPath.row == 2) {
         

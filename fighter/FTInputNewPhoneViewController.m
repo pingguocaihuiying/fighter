@@ -23,7 +23,6 @@
     [self initSubviews];
 }
 
-
 - (void) initSubviews {
     
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -72,37 +71,79 @@
         }
     }
     
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NetWorking *net = [NetWorking new];
-    [net getCheckCodeWithPhoneNumber:self.phoneTextfield.text option:^(NSDictionary *dict) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        NSLog(@"dict:%@",dict);
-        if (dict != nil) {
-            
-            bool status = [dict[@"status"] boolValue];
-            NSString *message = [dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            NSLog(@"message:%@",message);
-            
-            if (status == true) {
-                
-                [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                
-                FTInputCheckCodeViewController *checkCodeVC = [[FTInputCheckCodeViewController alloc]init];
-                checkCodeVC.title = @"验证码";
-                checkCodeVC.phoneNum = self.phoneTextfield.text;
-                [self.navigationController pushViewController:checkCodeVC animated:YES];
-                
-            }else {
-                NSLog(@"message : %@", [dict[@"message"] class]);
-                [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                //                [self showHUDWithMessage:@"验证码发送失败，稍后再试"];
-            }
-        }else {
-            [self showHUDWithMessage:@"验证码发送失败，稍后再试"];
-            
-        }
+    if ([self.type isEqualToString:@"3"]) {//更改手机
         
-    }];
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        NetWorking *net = [NetWorking new];
+        [net getCheckCodeForNewPhone:self.phoneTextfield.text
+                                option:^(NSDictionary *dict) {
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            NSLog(@"dict:%@",dict);
+            if (dict != nil) {
+                
+                bool status = [dict[@"status"] boolValue];
+                NSString *message = [dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                NSLog(@"message:%@",message);
+                
+                if (status == true) {
+                    
+                    [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                    
+                    FTInputCheckCodeViewController *checkCodeVC = [[FTInputCheckCodeViewController alloc]init];
+                    checkCodeVC.title = @"验证码";
+                    checkCodeVC.type = self.type;
+                    checkCodeVC.phoneNum = self.phoneTextfield.text;
+                    [self.navigationController pushViewController:checkCodeVC animated:YES];
+                    
+                }else {
+                    NSLog(@"message : %@", [dict[@"message"] class]);
+                    [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                    //                [self showHUDWithMessage:@"验证码发送失败，稍后再试"];
+                }
+            }else {
+                [self showHUDWithMessage:@"验证码发送失败，稍后再试"];
+                
+            }
+            
+        }];
+
+        
+    }else if ([self.type isEqualToString:@"bindphone"]){//绑定手机
+        
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        NetWorking *net = [NetWorking new];
+        [net getCheckCodeWithPhoneNumber:self.phoneTextfield.text option:^(NSDictionary *dict) {
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            NSLog(@"dict:%@",dict);
+            if (dict != nil) {
+                
+                bool status = [dict[@"status"] boolValue];
+                NSString *message = [dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                NSLog(@"message:%@",message);
+                
+                if (status == true) {
+                    
+                    [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                    
+                    FTInputCheckCodeViewController *checkCodeVC = [[FTInputCheckCodeViewController alloc]init];
+                    checkCodeVC.title = @"验证码";
+                    checkCodeVC.type = self.type;
+                    checkCodeVC.phoneNum = self.phoneTextfield.text;
+                    [self.navigationController pushViewController:checkCodeVC animated:YES];
+                    
+                }else {
+                    NSLog(@"message : %@", [dict[@"message"] class]);
+                    [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                    //                [self showHUDWithMessage:@"验证码发送失败，稍后再试"];
+                }
+            }else {
+                [self showHUDWithMessage:@"验证码发送失败，稍后再试"];
+                
+            }
+            
+        }];
+    }
+    
     
 //    FTInputCheckCodeViewController *checkCodeVC = [[FTInputCheckCodeViewController alloc]init];
 //    checkCodeVC.title = @"验证码";

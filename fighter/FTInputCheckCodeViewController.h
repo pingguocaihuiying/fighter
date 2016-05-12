@@ -21,5 +21,7 @@
 
 @property (nonatomic,copy) NSString *phoneNum;
 
+@property (nonatomic,copy) NSString *type;
+
 
 @end

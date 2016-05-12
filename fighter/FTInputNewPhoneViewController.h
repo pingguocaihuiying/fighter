@@ -16,4 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *remarkLabel;
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextfield;
 
+@property (nonatomic, copy) NSString *type;
+
 @end

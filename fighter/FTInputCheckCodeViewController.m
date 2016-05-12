@@ -11,6 +11,7 @@
 #import "UIWindow+MBProgressHUD.h"
 #import "NetWorking.h"
 #import "FTNewPasswordVC.h"
+#import "FTInputNewPhoneViewController.h"
 
 @interface FTInputCheckCodeViewController ()
 
@@ -75,14 +76,17 @@
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //1.首先验证是否已经绑定过手机
-    //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+//    //从本地读取存储的用户信息
+//    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+//    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     
-    if (localUser.tel.length > 0) {//2.1 已经绑定过手机的用户：直接修改绑定手机
+    if ([self.type isEqualToString:@"2"]) {//2.1 已经绑定过手机的用户,先验证旧手机
         
         NetWorking *net = [NetWorking new];
-        [net bindingPhoneNumber:self.phoneNum checkCode:self.checkCodeTextField.text option:^(NSDictionary *dict) {
+        [net checkCodeForExistPhone:self.phoneNum
+                          checkCode:self.checkCodeTextField.text
+                                  option:^(NSDictionary *dict) {
+                              
             NSLog(@"dict:%@",dict);
             if (dict != nil) {
                 
@@ -94,10 +98,10 @@
                     
                     [MBProgressHUD hideHUDForView:self.view animated:YES];
                     [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                    FTInputNewPhoneViewController *newPhoneVC = [[FTInputNewPhoneViewController alloc]init];
+                    newPhoneVC.title = @"新手机";
+                    [self.navigationController pushViewController:newPhoneVC animated:YES];
                     
-                    NSArray *array = [NSArray arrayWithArray:self.navigationController.viewControllers];
-//                    [self.navigationController popToRootViewControllerAnimated:YES];
-                    [self.navigationController popToViewController:[array objectAtIndex:1] animated:YES];
                 }else {
                     NSLog(@"message : %@", [dict[@"message"] class]);
                     [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -111,7 +115,47 @@
             }
         }];
 
-    }else {//2.2 未绑定手机用户，绑定手机后修改密码
+    }if ([self.type isEqualToString:@"3"]) {//2.2 已经绑定过手机的用户：验证完旧手机，直接修改绑定手机
+        
+        NetWorking *net = [NetWorking new];
+        [net changgeBindingPhone:self.phoneNum
+                       checkCode:self.checkCodeTextField.text
+                          option:^(NSDictionary *dict) {
+                              
+                                NSLog(@"dict:%@",dict);
+                                if (dict != nil) {
+                                    
+                                    bool status = [dict[@"status"] boolValue];
+                                    NSString *message = [dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                                    NSLog(@"message:%@",message);
+                                    
+                                    if (status == true) {
+                                        
+                                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                        
+                                        
+                                        //更新本地数据
+                                        
+                                        
+                                        
+                                        NSArray *array = [NSArray arrayWithArray:self.navigationController.viewControllers];
+                                        
+                                        [self.navigationController popToViewController:[array objectAtIndex:1] animated:YES];
+                                    }else {
+                                        NSLog(@"message : %@", [dict[@"message"] class]);
+                                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                        
+                                    }
+                                }else {
+                                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
+                                    
+                                }
+        }];
+        
+    }else if ([self.type isEqualToString:@"bindphone"]){//2.3 未绑定手机用户，绑定手机后修改密码
         
         NetWorking *net = [NetWorking new];
         [net bindingPhoneNumber:self.phoneNum checkCode:self.checkCodeTextField.text option:^(NSDictionary *dict) {

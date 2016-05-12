@@ -8,6 +8,11 @@
 
 #import "FTPhoneViewController.h"
 #import "FTInputNewPhoneViewController.h"
+#import "FTInputCheckCodeViewController.h"
+#import "NetWorking.h"
+#import "MBProgressHUD.h"
+#import "Regex.h"
+#import "UIWindow+MBProgressHUD.h"
 
 @interface FTPhoneViewController ()
 
@@ -57,9 +62,61 @@
 
 - (IBAction)changePhoneNUmAction:(id)sender {
     
-    FTInputNewPhoneViewController *newPhoneVC = [[FTInputNewPhoneViewController alloc]init];
-    newPhoneVC.title = @"更改绑定手机";
-    [self.navigationController pushViewController:newPhoneVC animated:YES];
+//    FTInputNewPhoneViewController *newPhoneVC = [[FTInputNewPhoneViewController alloc]init];
+//    newPhoneVC.title = @"更改绑定手机";
+//    [self.navigationController pushViewController:newPhoneVC animated:YES];
+    
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //1.首先验证是否已经绑定过手机
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    if (localUser.tel.length > 0) {//2.1 已经绑定过手机的用户：直接修改绑定手机
+        
+        NetWorking *net = [NetWorking new];
+        [net getCheckCodeForExistPhone:localUser.tel
+                                    type:@"2"
+                                  option:^(NSDictionary *dict) {
+                                      NSLog(@"dict:%@",dict);
+                                      if (dict != nil) {
+                                          
+                                          bool status = [dict[@"status"] boolValue];
+                                          NSString *message = [dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                                          NSLog(@"message:%@",message);
+                                          
+                                          if (status == true) {
+                                              
+                                              [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                              [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                              
+                                              FTInputCheckCodeViewController *oldCheckCodeVC = [[FTInputCheckCodeViewController alloc]init];
+                                              oldCheckCodeVC.title = @"验证码";
+                                              oldCheckCodeVC.type = @"2";
+                                              oldCheckCodeVC.phoneNum = localUser.tel;
+                                              [self.navigationController pushViewController:oldCheckCodeVC animated:YES];
+                                              
+                                          }else {
+                                              NSLog(@"message : %@", [dict[@"message"] class]);
+                                              [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                              [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                              
+                                          }
+                                      }else {
+                                          [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                          [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
+                                          
+                                      }
+
+                                      
+            
+                                  }];
+    }
+    
+        
+    
+    
     
 }
 

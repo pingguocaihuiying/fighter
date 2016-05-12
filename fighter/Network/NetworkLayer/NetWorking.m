@@ -15,6 +15,7 @@
 @implementation NetWorking
 
 
+#pragma mark - 验证码
 //获取短信验证码
 - (void) getCheckCodeWithPhoneNumber:(NSString *)phoneNum option:(void (^)(NSDictionary *dict))option{
     
@@ -29,7 +30,8 @@
 
 
 //绑定手机时获取验证码
-- (void) getCheckCodeForNewBindingPhone:(NSString *)phoneNum option:(void (^)(NSDictionary *dict))option{
+- (void) getCheckCodeForNewBindingPhone:(NSString *)phoneNum
+                                 option:(void (^)(NSDictionary *dict))option{
     
     NSString *urlString = [FTNetConfig host:Domain path:SendSMSByTypeURL];
     
@@ -39,14 +41,45 @@
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     
-    [dic setObject:phoneNum forKey:@"userId"];
-    [dic setObject:localUser.olduserid forKey:@"phone"];
+    [dic setObject:localUser.olduserid forKey:@"userId"];
+    [dic setObject:phoneNum forKey:@"phone"];
     
     [self postRequestWithUrl:urlString parameters:dic option:option];
     
 }
 
 
+//更换手机时获取 旧手机号 验证码
+- (void) getCheckCodeForExistPhone:(NSString *)phoneNum
+                                type:(NSString *)type
+                              option:(void (^)(NSDictionary *dict))option{
+    
+    NSString *urlString = [FTNetConfig host:Domain path:SendSMSExistURL];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:phoneNum forKey:@"phone"];
+    [dic setObject:type forKey:@"type"];
+    
+    [self postRequestWithUrl:urlString parameters:dic option:option];
+}
+
+
+//更换手机时获取 新手机号 验证码
+- (void) getCheckCodeForNewPhone:(NSString *)phoneNum
+                          option:(void (^)(NSDictionary *dict))option {
+
+    NSString *urlString = [FTNetConfig host:Domain path:SendSMSNewURL];
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:phoneNum forKey:@"phone"];
+//    [dic setObject:type forKey:@"type"];
+    
+    [self postRequestWithUrl:urlString parameters:dic option:option];
+}
+
+
+
+
+#pragma mark - 注册，登录，退出登录
 //手机号注册用户
 - (void) registUserWithPhoneNumber:(NSString *)phoneNum
                           password:(NSString *)password
@@ -103,6 +136,31 @@
     
 }
 
+
+//退出登录
+- (void) loginOut:(void (^)(NSDictionary *dict))option {
+    
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    NSString *token = localUser.token;
+    NSLog(@"token:%@",token);
+    NSString *olduserid = localUser.olduserid;
+    
+    //必选字段
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:olduserid forKey:@"userId" ];
+    
+    NSString *loginOutURLString = [FTNetConfig host:Domain path:UserLogoutURL];
+    NSLog(@"loginOutURLString url:%@", loginOutURLString);
+    
+    [self postRequestWithUrl:loginOutURLString parameters:dic option:option];
+    
+}
+
+#pragma mark - 修改用户数据
 
 //修改用户数据  -get
 - (void) updateUserByGet:(NSString *)value
@@ -197,29 +255,8 @@
 }
 
 
-//退出登录
-- (void) loginOut:(void (^)(NSDictionary *dict))option {
 
-    //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-    
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-    NSString *token = localUser.token;
-    NSLog(@"token:%@",token);
-    NSString *olduserid = localUser.olduserid;
-    
-    //必选字段
-    [dic setObject:token forKey:@"token"];
-    [dic setObject:olduserid forKey:@"userId" ];
-    
-    NSString *loginOutURLString = [FTNetConfig host:Domain path:UserLogoutURL];
-    NSLog(@"loginOutURLString url:%@", loginOutURLString);
-    
-    [self postRequestWithUrl:loginOutURLString parameters:dic option:option];
-   
-}
-
+#pragma mark - 绑定手机、微信
 
 //检查用户是否绑定手机
 - (void) isBindingPhoneNum:(void (^)(NSDictionary *dict))option {
@@ -239,8 +276,6 @@
     
     [self postRequestWithUrl:isBindingURLString parameters:dic option:option];
 }
-
-
 
 
 
@@ -280,6 +315,72 @@
     [self postRequestWithUrl:bindingURLString parameters:dic option:option];
     
 }
+
+
+//验证 旧手机 验证码
+- (void) checkCodeForExistPhone:(NSString *)phoneNum
+                  checkCode:(NSString *)checkcode
+                     option:(void (^)(NSDictionary *dict))option{
+    
+    
+    //    NSString *bindingURLString = [FTNetConfig host:Domain path:BindingPhoneURL];
+    //暂时用更新用户接口
+    NSString *bindingURLString = [FTNetConfig host:Domain path:IsValidatePhone];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:@"2" forKey:@"type"];//phone
+    [dic setObject:phoneNum forKey:@"phone"];
+    [dic setObject:checkcode forKey:@"checkCode"];
+    
+    //    NSString *imei= [UUID getUUID];
+    //    [dic setObject:imei forKey:@"imei"];
+    //    [dic setObject:imei forKey:@"sequenceId"];
+    
+    NSLog(@"dic:%@",dic);
+    
+    [self postRequestWithUrl:bindingURLString parameters:dic option:option];
+    
+}
+
+
+//修改绑定手机
+- (void) changgeBindingPhone:(NSString *)phoneNum
+                    checkCode:(NSString *)checkcode
+                       option:(void (^)(NSDictionary *dict))option{
+    
+    
+    //    NSString *bindingURLString = [FTNetConfig host:Domain path:BindingPhoneURL];
+    //暂时用更新用户接口
+    NSString *bindingURLString = [FTNetConfig host:Domain path:UpdateUserURL];
+    
+    
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    
+    NSString *olduserid = localUser.olduserid;
+    NSString *token = localUser.token;
+    
+    //必选字段
+    [dic setObject:olduserid forKey:@"userid" ];
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:@"3" forKey:@"type"];//phone
+    [dic setObject:phoneNum forKey:@"phone"];
+    [dic setObject:checkcode forKey:@"checkCode"];
+    
+    //    NSString *imei= [UUID getUUID];
+    //    [dic setObject:imei forKey:@"imei"];
+    //    [dic setObject:imei forKey:@"sequenceId"];
+    
+    NSLog(@"dic:%@",dic);
+    
+    [self postRequestWithUrl:bindingURLString parameters:dic option:option];
+    
+}
+
+
 
 //绑定微信号
 - (void) bindingWeixin:(NSString *)openId
@@ -438,6 +539,9 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     return dic;
 }
 
+
+
+#pragma mark - 微信相关
 
 //向微信请求数据
 - (void) weixinRequest {
