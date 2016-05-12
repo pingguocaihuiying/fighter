@@ -41,7 +41,7 @@
 - (void) initSubviews {
     
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.bounds = CGRectMake(0, 0, 35, 35);
+    backBtn.bounds = CGRectMake(0, 0, 22, 22);
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回pre"] forState:UIControlStateHighlighted];
     [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -96,25 +96,20 @@
                 [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
                 
-//                NSDictionary *userDataDic = dict[@"data"];
-//                NSDictionary *userDic = userDataDic[@"user"];
-//                
-//                FTUserBean *user = [FTUserBean new];
-//                [user setValuesForKeysWithDictionary:userDic];
+                NSDictionary *userDataDic = dict[@"data"];
+                NSDictionary *userDic = userDataDic[@"user"];
+                FTUserBean *user = [FTUserBean new];
+                [user setValuesForKeysWithDictionary:userDic];
                 
-                //从本地读取存储的用户信息
-                NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-                FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+                //更新本地数据
+                user.wxopenId = wxOpenId;
+                user.wxHeaderPic = wxHeaderPic;
+                user.wxName = wxName;
                 
-                localUser.wxopenId = wxOpenId;
-                localUser.wxHeaderPic = wxHeaderPic;
-                localUser.wxName = wxName;
-                
-                //将用户信息保存在本地
-                NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
-                [[NSUserDefaults standardUserDefaults]setObject:userData forKey:@"loginUser"];
+                NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
+                [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
                 [[NSUserDefaults standardUserDefaults]synchronize];
-                
+            
                 [self.tableView reloadData];
                 FTWeixinInfoVC *wxVC = [[FTWeixinInfoVC alloc]init];
                 //    wxVC.headerUrl = localUser.wxHeaderPic;
@@ -185,7 +180,7 @@
     }if (indexPath.row == 1) {
         
         if (localUser.tel.length > 0) {
-            cell.remarkLabel.text = @"更换手机";
+            cell.titleLabel.text = @"更换手机";
             cell.remarkLabel.text = localUser.tel;
         }else {
             cell.titleLabel.text = @"绑定手机：";
@@ -229,6 +224,7 @@
         }else {
             FTInputNewPhoneViewController *inputNewPhoneVC = [[FTInputNewPhoneViewController alloc]init];
             inputNewPhoneVC.title = @"绑定手机";
+            inputNewPhoneVC.type = @"bindphone";
             [self.navigationController pushViewController:inputNewPhoneVC animated:YES];
             
         }

@@ -27,12 +27,22 @@
 
 - (void) initSubviews {
     
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.bounds = CGRectMake(0, 0, 35, 35);
-    [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
-    [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回pre"] forState:UIControlStateHighlighted];
-    [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
+   
+    //首次绑定手机时不能显示返回按钮
+    if (![self.oldPassword isEqualToString:@"-1"]) {
+        
+        UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        backBtn.bounds = CGRectMake(0, 0, 22, 22);
+        [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
+        [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回pre"] forState:UIControlStateHighlighted];
+        [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
+        
+        //隐藏系统默认返回按钮
+        [self.navigationItem setHidesBackButton:YES];
+    }
+    
+    
     
     [self.seperaterView1 setBackgroundColor:[UIColor colorWithHex:0x505050 ]];
     [self.seperaterView2 setBackgroundColor:[UIColor colorWithHex:0x505050 ]];
@@ -104,7 +114,7 @@
     [net updatePassword:self.oldPassword
             newPassword:self.passwordTextField.text
                  option:^(NSDictionary *dict) {
-    
+                     [MBProgressHUD hideHUDForView:self.view animated:YES];
                      
                      
                            NSLog(@"dict:%@",dict);
@@ -134,16 +144,16 @@
                                                           [[NSUserDefaults standardUserDefaults]setObject:userData forKey:@"loginUser"];
                                                           [[NSUserDefaults standardUserDefaults]synchronize];
                                                       }];
-                                   [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                   
                                    [self.navigationController popToRootViewControllerAnimated:YES];
                                }else {
                                    NSLog(@"message : %@", [dict[@"message"] class]);
                                    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                                 [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                 
                                }
                            }else {
                                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
-                               [MBProgressHUD hideHUDForView:self.view animated:YES];
+                               
                            }
                            
                        }];

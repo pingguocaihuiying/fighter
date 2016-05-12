@@ -28,7 +28,7 @@
 - (void) initSubviews {
     
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.bounds = CGRectMake(0, 0, 35, 35);
+    backBtn.bounds = CGRectMake(0, 0, 22, 22);
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回pre"] forState:UIControlStateHighlighted];
     [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -86,42 +86,7 @@
         [net checkCodeForExistPhone:self.phoneNum
                           checkCode:self.checkCodeTextField.text
                                   option:^(NSDictionary *dict) {
-                              
-            NSLog(@"dict:%@",dict);
-            if (dict != nil) {
-                
-                bool status = [dict[@"status"] boolValue];
-                NSString *message = [dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                NSLog(@"message:%@",message);
-                
-                if (status == true) {
-                    
-                    [MBProgressHUD hideHUDForView:self.view animated:YES];
-                    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                    FTInputNewPhoneViewController *newPhoneVC = [[FTInputNewPhoneViewController alloc]init];
-                    newPhoneVC.title = @"新手机";
-                    [self.navigationController pushViewController:newPhoneVC animated:YES];
-                    
-                }else {
-                    NSLog(@"message : %@", [dict[@"message"] class]);
-                    [MBProgressHUD hideHUDForView:self.view animated:YES];
-                    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                    
-                }
-            }else {
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
-                
-            }
-        }];
-
-    }if ([self.type isEqualToString:@"3"]) {//2.2 已经绑定过手机的用户：验证完旧手机，直接修改绑定手机
-        
-        NetWorking *net = [NetWorking new];
-        [net changgeBindingPhone:self.phoneNum
-                       checkCode:self.checkCodeTextField.text
-                          option:^(NSDictionary *dict) {
-                              
+                                [MBProgressHUD hideHUDForView:self.view animated:YES];
                                 NSLog(@"dict:%@",dict);
                                 if (dict != nil) {
                                     
@@ -131,25 +96,67 @@
                                     
                                     if (status == true) {
                                         
-                                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                        
+                                        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                        
+                                        //跳转到输入新手机界面
+                                        FTInputNewPhoneViewController *newPhoneVC = [[FTInputNewPhoneViewController alloc]init];
+                                        newPhoneVC.title = @"新手机";
+                                        newPhoneVC.type = @"3";
+                                        [self.navigationController pushViewController:newPhoneVC animated:YES];
+                                        
+                                    }else {
+                                        NSLog(@"message : %@", [dict[@"message"] class]);
+                                        
+                                        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                        
+                                    }
+                                }else {
+                                    
+                                    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
+                                    
+                                }
+        }];
+
+    }if ([self.type isEqualToString:@"3"]) {//2.2 已经绑定过手机的用户：验证完旧手机，直接修改绑定手机
+        
+        NetWorking *net = [NetWorking new];
+        [net changgeBindingPhone:self.phoneNum
+                       checkCode:self.checkCodeTextField.text
+                          option:^(NSDictionary *dict) {
+                                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                NSLog(@"dict:%@",dict);
+                                if (dict != nil) {
+                                    
+                                    bool status = [dict[@"status"] boolValue];
+                                    NSString *message = [dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                                    NSLog(@"message:%@",message);
+                                    
+                                    if (status == true) {
+                                        
+                                      
                                         [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                                         
                                         
                                         //更新本地数据
+                                        FTUserBean *user = [FTUserBean new];
+                                        [user setValuesForKeysWithDictionary:dict[@"user"]];
+                                        NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
+                                        [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
+                                        [[NSUserDefaults standardUserDefaults]synchronize];
                                         
-                                        
-                                        
+                                        //跳转回账户管理界面
                                         NSArray *array = [NSArray arrayWithArray:self.navigationController.viewControllers];
                                         
                                         [self.navigationController popToViewController:[array objectAtIndex:1] animated:YES];
                                     }else {
                                         NSLog(@"message : %@", [dict[@"message"] class]);
-                                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                       
                                         [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                                         
                                     }
                                 }else {
-                                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                   
                                     [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
                                     
                                 }
@@ -158,68 +165,86 @@
     }else if ([self.type isEqualToString:@"bindphone"]){//2.3 未绑定手机用户，绑定手机后修改密码
         
         NetWorking *net = [NetWorking new];
-        [net bindingPhoneNumber:self.phoneNum checkCode:self.checkCodeTextField.text option:^(NSDictionary *dict) {
-            NSLog(@"dict:%@",dict);
-            if (dict != nil) {
-                
-                bool status = [dict[@"status"] boolValue];
-                NSString *message = [dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                NSLog(@"message:%@",message);
-                
-                if (status == true) {
-                    
+        [net bindingPhoneNumber:self.phoneNum
+                      checkCode:self.checkCodeTextField.text
+                         option:^(NSDictionary *dict) {
                     [MBProgressHUD hideHUDForView:self.view animated:YES];
-                    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                    
-                    // 3. 绑定手机后跳转到设置密码接口
-                    FTNewPasswordVC *newPasswordVC = [[FTNewPasswordVC alloc]init];
-                    newPasswordVC.title = @"设置密码";
-                    newPasswordVC.oldPassword = @"-1";
-//                    newPasswordVC.checkCode = self.checkCodeTextField.text;
-                    [self.navigationController pushViewController:newPasswordVC animated:YES];
-                    
-                }else {
-                    NSLog(@"message : %@", [dict[@"message"] class]);
-                    
-                    [MBProgressHUD hideHUDForView:self.view animated:YES];
-                    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                    
-                }
-            }else {
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
-                
-            }
+                    NSLog(@"dict:%@",dict);
+                    if (dict != nil) {
+                        
+                        bool status = [dict[@"status"] boolValue];
+                        NSString *message = [dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                        NSLog(@"message:%@",message);
+                        
+                        if (status == true) {
+                            
+                            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                            
+                            //从本地读取存储的用户信息
+                            NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+                            FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+                            localUser.tel = self.phoneNum;
+                            
+//                            //解析返回json
+//                            NSDictionary *userDataDic = dict[@"data"];
+//                            NSDictionary *userDic = userDataDic[@"user"];
+//                            FTUserBean *user = [FTUserBean new];
+//                            [user setValuesForKeysWithDictionary:userDic];
+                            
+                            //更新本地数据
+                            NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
+                            [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
+                            [[NSUserDefaults standardUserDefaults]synchronize];
+                            
+                            
+                            // 3. 绑定手机后跳转到设置密码接口
+                            FTNewPasswordVC *newPasswordVC = [[FTNewPasswordVC alloc]init];
+                            newPasswordVC.title = @"设置密码";
+                            newPasswordVC.oldPassword = @"-1";
+                            [self.navigationController pushViewController:newPasswordVC animated:YES];
+                            
+                        }else {
+                            NSLog(@"message : %@", [dict[@"message"] class]);
+                            
+                            
+                            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                            
+                        }
+                    }else {
+                       
+                        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
+                        
+                    }
         }];
 
         
     }
     
     
-    NetWorking *net = [NetWorking new];
-    [net bindingPhoneNumber:self.phoneNum checkCode:self.checkCodeTextField.text option:^(NSDictionary *dict) {
-        NSLog(@"dict:%@",dict);
-        if (dict != nil) {
-            
-            bool status = [dict[@"status"] boolValue];
-            NSString *message = [dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            NSLog(@"message:%@",message);
-            
-            if (status == true) {
-                
-                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                
-//                [self.navigationController popToRootViewControllerAnimated:YES];
-            }else {
-                NSLog(@"message : %@", [dict[@"message"] class]);
-                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                
-            }
-        }else {
-            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
-            
-        }
-    }];
+//    NetWorking *net = [NetWorking new];
+//    [net bindingPhoneNumber:self.phoneNum checkCode:self.checkCodeTextField.text option:^(NSDictionary *dict) {
+//        NSLog(@"dict:%@",dict);
+//        if (dict != nil) {
+//            
+//            bool status = [dict[@"status"] boolValue];
+//            NSString *message = [dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//            NSLog(@"message:%@",message);
+//            
+//            if (status == true) {
+//                
+//                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//                
+////                [self.navigationController popToRootViewControllerAnimated:YES];
+//            }else {
+//                NSLog(@"message : %@", [dict[@"message"] class]);
+//                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//                
+//            }
+//        }else {
+//            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
+//            
+//        }
+//    }];
     
 // [self.navigationController popToRootViewControllerAnimated:YES];
 }

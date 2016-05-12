@@ -35,7 +35,7 @@
 - (void) initSubviews {
 
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.bounds = CGRectMake(0, 0, 35, 35);
+    backBtn.bounds = CGRectMake(0, 0, 22, 22);
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回pre"] forState:UIControlStateHighlighted];
     [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -79,6 +79,7 @@
         [net getCheckCodeForExistPhone:localUser.tel
                                     type:@"2"
                                   option:^(NSDictionary *dict) {
+                                      [MBProgressHUD hideHUDForView:self.view animated:YES];
                                       NSLog(@"dict:%@",dict);
                                       if (dict != nil) {
                                           
@@ -88,7 +89,6 @@
                                           
                                           if (status == true) {
                                               
-                                              [MBProgressHUD hideHUDForView:self.view animated:YES];
                                               [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                                               
                                               FTInputCheckCodeViewController *oldCheckCodeVC = [[FTInputCheckCodeViewController alloc]init];
@@ -99,17 +99,15 @@
                                               
                                           }else {
                                               NSLog(@"message : %@", [dict[@"message"] class]);
-                                              [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                             
                                               [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                                               
                                           }
                                       }else {
-                                          [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                         
                                           [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
                                           
                                       }
-
-                                      
             
                                   }];
     }

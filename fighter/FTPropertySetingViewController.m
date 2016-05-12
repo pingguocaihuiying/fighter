@@ -9,6 +9,7 @@
 #import "FTPropertySetingViewController.h"
 #import "NetWorking.h"
 #import "MBProgressHUD.h"
+#import "UIWindow+MBProgressHUD.h"
 
 @interface FTPropertySetingViewController () <UITextFieldDelegate>
 
@@ -29,7 +30,7 @@
     [self.navigationItem setHidesBackButton:YES];
     //左上角按钮
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftBtn.bounds = CGRectMake(0, 0, 35, 35);
+    leftBtn.bounds = CGRectMake(0, 0, 22, 22);
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-取消"] forState:UIControlStateNormal];
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-取消pre"] forState:UIControlStateHighlighted];
     [leftBtn addTarget:self action:@selector(leftBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -75,17 +76,18 @@
     NSStringEncoding enc =     CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingISOLatin1);
     [propertValue stringByAddingPercentEscapesUsingEncoding:enc];
     
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NetWorking *net = [NetWorking new];
     [net updateUserByGet:propertValue Key:@"username" option:^(NSDictionary *dict) {
         NSLog(@"dict:%@",dict);
         if (dict != nil) {
-            
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             bool status = [dict[@"status"] boolValue];
             NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
             
             if (status == true) {
                 
-                [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                 
                 //从本地读取存储的用户信息
                 NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
@@ -103,10 +105,10 @@
                 
             }else {
                 NSLog(@"message : %@", [dict[@"message"] class]);
-                [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                [[UIApplication sharedApplication].keyWindow  showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             }
         }else {
-            [self showHUDWithMessage:@" 用户名修改成功，请稍后再试"];
+            [[UIApplication sharedApplication].keyWindow  showHUDWithMessage:@" 用户名修改成功，请稍后再试"];
             
         }
     }];

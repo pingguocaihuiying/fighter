@@ -35,7 +35,7 @@
     [super viewDidLoad];
     
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.bounds = CGRectMake(0, 0, 35, 35);
+    backBtn.bounds = CGRectMake(0, 0, 22, 22);
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-取消"] forState:UIControlStateNormal];
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-取消pre"] forState:UIControlStateHighlighted];
     [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -122,12 +122,28 @@
                 }];
                 
             }else {
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"loginUser"];
+                [[NSUserDefaults standardUserDefaults]synchronize];
+                
+                [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"loginAction" object:@"LOGOUT"];
+                }];
+
                 NSLog(@"message : %@", [dict[@"message"] class]);
                 [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                 
             }
         }else {
             
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"loginUser"];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            
+            [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"loginAction" object:@"LOGOUT"];
+            }];
+
             [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
             
         }

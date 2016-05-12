@@ -43,6 +43,7 @@
     
     [dic setObject:localUser.olduserid forKey:@"userId"];
     [dic setObject:phoneNum forKey:@"phone"];
+    [dic setObject:@"bindphone" forKey:@"type"];
     
     [self postRequestWithUrl:urlString parameters:dic option:option];
     

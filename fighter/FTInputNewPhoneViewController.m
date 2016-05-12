@@ -10,6 +10,7 @@
 #import "MBProgressHUD.h"
 #import "NetWorking.h"
 #import "FTInputCheckCodeViewController.h"
+#import "UIWindow+MBProgressHUD.h"
 
 @interface FTInputNewPhoneViewController ()
 
@@ -26,7 +27,7 @@
 - (void) initSubviews {
     
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.bounds = CGRectMake(0, 0, 35, 35);
+    backBtn.bounds = CGRectMake(0, 0, 22, 22);
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回pre"] forState:UIControlStateHighlighted];
     [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -87,7 +88,7 @@
                 
                 if (status == true) {
                     
-                    [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                     
                     FTInputCheckCodeViewController *checkCodeVC = [[FTInputCheckCodeViewController alloc]init];
                     checkCodeVC.title = @"验证码";
@@ -97,11 +98,11 @@
                     
                 }else {
                     NSLog(@"message : %@", [dict[@"message"] class]);
-                    [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                     //                [self showHUDWithMessage:@"验证码发送失败，稍后再试"];
                 }
             }else {
-                [self showHUDWithMessage:@"验证码发送失败，稍后再试"];
+                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"验证码发送失败，稍后再试"];
                 
             }
             
@@ -112,34 +113,37 @@
         
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         NetWorking *net = [NetWorking new];
-        [net getCheckCodeWithPhoneNumber:self.phoneTextfield.text option:^(NSDictionary *dict) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            NSLog(@"dict:%@",dict);
-            if (dict != nil) {
-                
-                bool status = [dict[@"status"] boolValue];
-                NSString *message = [dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                NSLog(@"message:%@",message);
-                
-                if (status == true) {
-                    
-                    [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                    
-                    FTInputCheckCodeViewController *checkCodeVC = [[FTInputCheckCodeViewController alloc]init];
-                    checkCodeVC.title = @"验证码";
-                    checkCodeVC.type = self.type;
-                    checkCodeVC.phoneNum = self.phoneTextfield.text;
-                    [self.navigationController pushViewController:checkCodeVC animated:YES];
-                    
-                }else {
-                    NSLog(@"message : %@", [dict[@"message"] class]);
-                    [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                    //                [self showHUDWithMessage:@"验证码发送失败，稍后再试"];
-                }
-            }else {
-                [self showHUDWithMessage:@"验证码发送失败，稍后再试"];
-                
-            }
+        [net getCheckCodeForNewBindingPhone:self.phoneTextfield.text
+                                     option:^(NSDictionary *dict) {
+                                         
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    NSLog(@"dict:%@",dict);
+                    if (dict != nil) {
+                        
+                        bool status = [dict[@"status"] boolValue];
+                        NSString *message = [dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                        NSLog(@"message:%@",message);
+                        
+                       
+                        if (status == true) {
+                            
+                            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                            
+                            FTInputCheckCodeViewController *checkCodeVC = [[FTInputCheckCodeViewController alloc]init];
+                            checkCodeVC.title = @"验证码";
+                            checkCodeVC.type = self.type;
+                            checkCodeVC.phoneNum = self.phoneTextfield.text;
+                            [self.navigationController pushViewController:checkCodeVC animated:YES];
+                            
+                        }else {
+                            NSLog(@"message : %@", [dict[@"message"] class]);
+                            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                            //                [self showHUDWithMessage:@"验证码发送失败，稍后再试"];
+                        }
+                    }else {
+                        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"验证码发送失败，稍后再试"];
+                        
+                    }
             
         }];
     }

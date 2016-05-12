@@ -48,6 +48,10 @@
 //@property (nonatomic, strong) FTDrawerTableViewHeader *header;
 @property (nonatomic , weak) UIButton *leftBtn;
 @property (nonatomic , strong) NSMutableArray *leftBtnArray;
+
+@property (weak, nonatomic) IBOutlet UILabel *qqLabel;
+@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
+
 @end
 
 static NSString *const colllectionCellId = @"colllectionCellId";
@@ -67,8 +71,25 @@ static NSString *const tableCellId = @"tableCellId";
     [self setLoginView];
     
     [self hiddenViews];
+    
+    
+    [self setVersion];
+    
+    
 }
 
+
+- (void) setVersion {
+
+    [self.qqLabel setTextColor:[UIColor colorWithHex:0x828287]];
+    [self.versionLabel setTextColor:[UIColor colorWithHex:0x828287]];
+    
+    //iOS获取应用程序信息
+    NSDictionary *infoDictionary =[[NSBundle mainBundle]infoDictionary];
+    //版本号：
+    NSString *version = [infoDictionary objectForKey:@"CFBundleVersion"];
+    [self.versionLabel setText:[@"当前版本：" stringByAppendingString:version]];
+}
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
