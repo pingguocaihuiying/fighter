@@ -97,6 +97,10 @@
 		3DC412211CD0B94A0030C229 /* FTDrawerCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC412201CD0B94A0030C229 /* FTDrawerCollectionCell.m */; };
 		3DC412251CD0C3780030C229 /* NSString+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC412241CD0C3780030C229 /* NSString+Size.m */; };
 		3DC9A4E31CE59A0400E16D19 /* FTButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9A4E21CE59A0400E16D19 /* FTButton.m */; };
+		3DC9A4E91CE5CC6C00E16D19 /* FTRankBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9A4E71CE5CC6C00E16D19 /* FTRankBaseViewController.m */; };
+		3DC9A4EA1CE5CC6C00E16D19 /* FTRankBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC9A4E81CE5CC6C00E16D19 /* FTRankBaseViewController.xib */; };
+		3DC9A4EE1CE5CD0700E16D19 /* FTRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9A4EC1CE5CD0700E16D19 /* FTRankViewController.m */; };
+		3DC9A4EF1CE5CD0700E16D19 /* FTRankViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC9A4ED1CE5CD0700E16D19 /* FTRankViewController.xib */; };
 		3DE95B501CD326B7005BF85C /* FTCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95B4F1CD326B7005BF85C /* FTCollectionViewLayout.m */; };
 		3DE95BA01CD8675B005BF85C /* FTDrawerStyler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95B9F1CD8675B005BF85C /* FTDrawerStyler.m */; };
 		3DE95BA31CD868C6005BF85C /* FTDynamicsDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95BA21CD868C6005BF85C /* FTDynamicsDrawerViewController.m */; };
@@ -451,6 +455,12 @@
 		3DC412241CD0C3780030C229 /* NSString+Size.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Size.m"; sourceTree = "<group>"; };
 		3DC9A4E11CE59A0400E16D19 /* FTButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTButton.h; sourceTree = "<group>"; };
 		3DC9A4E21CE59A0400E16D19 /* FTButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTButton.m; sourceTree = "<group>"; };
+		3DC9A4E61CE5CC6C00E16D19 /* FTRankBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankBaseViewController.h; sourceTree = "<group>"; };
+		3DC9A4E71CE5CC6C00E16D19 /* FTRankBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankBaseViewController.m; sourceTree = "<group>"; };
+		3DC9A4E81CE5CC6C00E16D19 /* FTRankBaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRankBaseViewController.xib; sourceTree = "<group>"; };
+		3DC9A4EB1CE5CD0700E16D19 /* FTRankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankViewController.h; sourceTree = "<group>"; };
+		3DC9A4EC1CE5CD0700E16D19 /* FTRankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankViewController.m; sourceTree = "<group>"; };
+		3DC9A4ED1CE5CD0700E16D19 /* FTRankViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRankViewController.xib; sourceTree = "<group>"; };
 		3DE95B4E1CD326B7005BF85C /* FTCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCollectionViewLayout.h; sourceTree = "<group>"; };
 		3DE95B4F1CD326B7005BF85C /* FTCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCollectionViewLayout.m; sourceTree = "<group>"; };
 		3DE95B9E1CD8675B005BF85C /* FTDrawerStyler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerStyler.h; sourceTree = "<group>"; };
@@ -1009,6 +1019,7 @@
 		3D69470A1CE305EB00989440 /* 排行榜 */ = {
 			isa = PBXGroup;
 			children = (
+				3DC9A4E51CE5CB9A00E16D19 /* base */,
 				3DC9A4E41CE59A1500E16D19 /* customView */,
 				E668BBB21CE32D2600071998 /* controller */,
 				E668BBB31CE32D3400071998 /* view */,
@@ -1135,6 +1146,16 @@
 				3DC9A4E21CE59A0400E16D19 /* FTButton.m */,
 			);
 			name = customView;
+			sourceTree = "<group>";
+		};
+		3DC9A4E51CE5CB9A00E16D19 /* base */ = {
+			isa = PBXGroup;
+			children = (
+				3DC9A4E61CE5CC6C00E16D19 /* FTRankBaseViewController.h */,
+				3DC9A4E71CE5CC6C00E16D19 /* FTRankBaseViewController.m */,
+				3DC9A4E81CE5CC6C00E16D19 /* FTRankBaseViewController.xib */,
+			);
+			name = base;
 			sourceTree = "<group>";
 		};
 		3DE95BA91CD86FB6005BF85C /* login */ = {
@@ -1595,6 +1616,9 @@
 			children = (
 				E668BBAF1CE32BA200071998 /* FTRankingListViewController.h */,
 				E668BBB01CE32BA200071998 /* FTRankingListViewController.m */,
+				3DC9A4EB1CE5CD0700E16D19 /* FTRankViewController.h */,
+				3DC9A4EC1CE5CD0700E16D19 /* FTRankViewController.m */,
+				3DC9A4ED1CE5CD0700E16D19 /* FTRankViewController.xib */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -2147,6 +2171,7 @@
 				E611848B1CC75E1600F23EC7 /* UMSCommentInputController.xib in Resources */,
 				E61185081CC76B3400F23EC7 /* ios-social-sdk-comment-detail.html in Resources */,
 				3D4B19541CDAEF840022DFB0 /* FTTableViewCell4.xib in Resources */,
+				3DC9A4EF1CE5CD0700E16D19 /* FTRankViewController.xib in Resources */,
 				3D4B194A1CDACF9A0022DFB0 /* FTUserCenterViewController.xib in Resources */,
 				E611850C1CC76B3400F23EC7 /* ios-social-sdk-login-quick.html in Resources */,
 				E611850E1CC76B3400F23EC7 /* ios-social-sdk-share-detail.html in Resources */,
@@ -2161,6 +2186,7 @@
 				3D4B19591CDB0CD90022DFB0 /* FTPropertySetingViewController.xib in Resources */,
 				E61185101CC76B3400F23EC7 /* ios-social-sdk-socialbar.html in Resources */,
 				E611850A1CC76B3400F23EC7 /* ios-social-sdk-like.html in Resources */,
+				3DC9A4EA1CE5CC6C00E16D19 /* FTRankBaseViewController.xib in Resources */,
 				3D4B19271CD9FD670022DFB0 /* UMFeedbackLocalizable.strings in Resources */,
 				3D7B98AA1CE048F200B80B8D /* FTManagerAccountViewController.xib in Resources */,
 				E61184911CC75E1600F23EC7 /* UMSShareListController.xib in Resources */,
@@ -2331,6 +2357,7 @@
 				3D4B19691CDB7AE20022DFB0 /* FTSexPickerView.m in Sources */,
 				3D7B98A41CE0190600B80B8D /* FTAbountUsViewController.m in Sources */,
 				E6956EA61CBE21A1008DEEDB /* FTNewsBean.m in Sources */,
+				3DC9A4EE1CE5CD0700E16D19 /* FTRankViewController.m in Sources */,
 				3D4B193E1CD9FD670022DFB0 /* UMRadialView.m in Sources */,
 				3D7B98A01CDFA20D00B80B8D /* FTFiler.m in Sources */,
 				E6B458C31CB75D7A00FB4261 /* FTCoachViewController.m in Sources */,
@@ -2382,6 +2409,7 @@
 				E668BAB11CE0565700071998 /* MJRefreshHeader.m in Sources */,
 				3DE95BAD1CD8A042005BF85C /* FTRegistViewController.m in Sources */,
 				E6D74A4B1CB7B7EE00854337 /* UUID.m in Sources */,
+				3DC9A4E91CE5CC6C00E16D19 /* FTRankBaseViewController.m in Sources */,
 				3DC412211CD0B94A0030C229 /* FTDrawerCollectionCell.m in Sources */,
 				3D7B98A91CE048F200B80B8D /* FTManagerAccountViewController.m in Sources */,
 				E6E580A21CBE2F2D00272242 /* SDImageCache.m in Sources */,
