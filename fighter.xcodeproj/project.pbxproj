@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D2460981CE58A62009537F3 /* FTButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2460971CE58A62009537F3 /* FTButton.m */; };
 		3D4B18F51CD8BF340022DFB0 /* FTSetPassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B18F31CD8BF340022DFB0 /* FTSetPassWordViewController.m */; };
 		3D4B18F61CD8BF340022DFB0 /* FTSetPassWordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4B18F41CD8BF340022DFB0 /* FTSetPassWordViewController.xib */; };
 		3D4B18F91CD974B80022DFB0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B18F81CD974B80022DFB0 /* MainViewController.m */; };
@@ -298,6 +299,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D2460961CE58A62009537F3 /* FTButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTButton.h; sourceTree = "<group>"; };
+		3D2460971CE58A62009537F3 /* FTButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTButton.m; sourceTree = "<group>"; };
 		3D4B18F21CD8BF340022DFB0 /* FTSetPassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSetPassWordViewController.h; sourceTree = "<group>"; };
 		3D4B18F31CD8BF340022DFB0 /* FTSetPassWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTSetPassWordViewController.m; sourceTree = "<group>"; };
 		3D4B18F41CD8BF340022DFB0 /* FTSetPassWordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTSetPassWordViewController.xib; sourceTree = "<group>"; };
@@ -374,7 +377,6 @@
 		3D5FB4BB1CDC7E6600FC1809 /* FTImageCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTImageCollectionCell.h; sourceTree = "<group>"; };
 		3D5FB4BC1CDC7E6600FC1809 /* FTImageCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTImageCollectionCell.m; sourceTree = "<group>"; };
 		3D5FB4BD1CDC7E6600FC1809 /* FTImageCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTImageCollectionCell.xib; sourceTree = "<group>"; };
-		3D69470B1CE3064900989440 /* FTButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTButton.h; sourceTree = "<group>"; };
 		3D69470C1CE3064900989440 /* FTButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTButton.m; sourceTree = "<group>"; };
 		3D69470E1CE3374000989440 /* FTUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserViewController.h; sourceTree = "<group>"; };
 		3D69470F1CE3374000989440 /* FTUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserViewController.m; sourceTree = "<group>"; };
@@ -1002,6 +1004,8 @@
 				3D4B18E71CD8BC010022DFB0 /* userSetting */,
 				3DE95BA91CD86FB6005BF85C /* login */,
 				3DC411E81CCF734A0030C229 /* drawer */,
+				3D2460961CE58A62009537F3 /* FTButton.h */,
+				3D2460971CE58A62009537F3 /* FTButton.m */,
 			);
 			name = "用户中心";
 			sourceTree = "<group>";
@@ -2232,6 +2236,7 @@
 				3D4B19661CDB6CF80022DFB0 /* FTWeightPickerView.m in Sources */,
 				E6E580AC1CBE2F2D00272242 /* UIImage+WebP.m in Sources */,
 				E68EC50B1CC4B85D00A338C8 /* FTFilterTableViewController.m in Sources */,
+				3D2460981CE58A62009537F3 /* FTButton.m in Sources */,
 				E6B458CD1CB75D9600FB4261 /* FTMatchViewController.m in Sources */,
 				3D4B18F51CD8BF340022DFB0 /* FTSetPassWordViewController.m in Sources */,
 				E668BABD1CE0565700071998 /* UIScrollView+MJExtension.m in Sources */,
@@ -2563,7 +2568,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fighter.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c10c791b-700b-43a5-8002-99f83e357690";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -2598,7 +2603,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fighter.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c10c791b-700b-43a5-8002-99f83e357690";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

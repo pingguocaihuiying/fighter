@@ -12,8 +12,8 @@
 @implementation FTButton
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
  */
 
 // 自定义的初始化方法
@@ -33,7 +33,7 @@
 
 
 - (CGRect) contentRectForBounds:(CGRect)bounds {
-
+    
     return bounds;
 }
 
@@ -70,7 +70,7 @@
         case FTButtonModelNone:
             
             break;
-        
+            
         default:
             break;
     }
@@ -83,13 +83,13 @@
 ////2.改变title文字的位置,构造title的矩形即可
 //- (CGRect)titleRectForContentRect:(CGRect)contentRect
 //{
-//    
+//
 //    CGFloat imageX=(self.frame.size.width-boundingRect.size.width)/2;
 //    CGFloat imageY=contentRect.origin.y+10;
 //    CGFloat width=220;
 //    CGFloat height=25;
 //    return CGRectMake(imageX, imageY, width, height);
-//    
+//
 //}
 - (void)drawRect:(CGRect)rect {
     // Drawing code
