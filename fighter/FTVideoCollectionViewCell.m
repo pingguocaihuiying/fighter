@@ -15,8 +15,7 @@
 //    NSLog(@"awakeFromNib");
     self.cellWidthConstraint.constant = self.cellWidthConstraint.constant * SCALE;
     self.cellHeightConstraint.constant = self.cellHeightConstraint.constant * SCALE;
-    self.titleLabelTopConstraint.constant = 8 * SCALE;
-    NSLog(@"label距上方的高度:%f", self.titleLabelTopConstraint.constant);
+    self.titleLabelTopConstraint.constant = self.titleLabelTopConstraint.constant * SCALE;
 }
 
 - (void)setWithBean:(FTVideoBean *)bean{//根据bean设置cell的显示内容
