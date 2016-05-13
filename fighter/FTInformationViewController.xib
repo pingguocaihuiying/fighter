@@ -60,7 +60,7 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Teb-vS-iKf">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Teb-vS-iKf">
                     <rect key="frame" x="281" y="25" width="24" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="KFv-Yh-bxc"/>
@@ -71,7 +71,7 @@
                         <action selector="messageButtonClicked:" destination="-1" eventType="touchUpInside" id="V4y-9k-etI"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="529-d9-Laz">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="529-d9-Laz">
                     <rect key="frame" x="201" y="25" width="24" height="24"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="24" id="R8c-iq-9fH"/>
@@ -122,7 +122,7 @@
                         <action selector="filterButton:" destination="-1" eventType="touchUpInside" id="1fx-LP-LoE"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KvI-58-oKt" userLabel="排行榜">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KvI-58-oKt" userLabel="排行榜">
                     <rect key="frame" x="241" y="25" width="24" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="Od3-TE-I4i"/>

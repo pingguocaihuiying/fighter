@@ -66,7 +66,7 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B90-Sa-ZMR">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B90-Sa-ZMR">
                     <rect key="frame" x="281" y="25" width="24" height="24"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="24" id="LCZ-7T-6rB"/>
@@ -74,7 +74,7 @@
                     </constraints>
                     <state key="normal" backgroundImage="头部48按钮一堆-消息"/>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kGN-G7-Z3Y">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kGN-G7-Z3Y">
                     <rect key="frame" x="241" y="25" width="24" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="AIi-rJ-Feh"/>
