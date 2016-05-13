@@ -2607,9 +2607,9 @@
 					"$(PROJECT_DIR)/fighter/OtherSDK/UMengFeedback_SDK/UMOpus",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.fighter.fighter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c10c791b-700b-43a5-8002-99f83e357690";
+				PROVISIONING_PROFILE = "d3b1063b-e683-42c1-8c44-ac135da94143";
 			};
 			name = Debug;
 		};
@@ -2619,7 +2619,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: peng qu (LQHT8X75PQ)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2642,9 +2642,9 @@
 					"$(PROJECT_DIR)/fighter/OtherSDK/UMengFeedback_SDK/UMOpus",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.fighter.fighter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c10c791b-700b-43a5-8002-99f83e357690";
+				PROVISIONING_PROFILE = "d3b1063b-e683-42c1-8c44-ac135da94143";
 			};
 			name = Release;
 		};

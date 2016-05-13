@@ -27,7 +27,7 @@
                         <constraint firstAttribute="height" constant="34" id="K0Y-9l-0Qs"/>
                         <constraint firstAttribute="width" constant="34" id="Ldh-Od-jUC"/>
                     </constraints>
-                    <state key="normal" backgroundImage="头像-空">
+                    <state key="normal">
                         <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -183,7 +183,6 @@
         </view>
     </objects>
     <resources>
-        <image name="头像-空" width="34" height="34"/>
         <image name="头部48按钮一堆-搜索" width="24" height="24"/>
         <image name="头部48按钮一堆-更多" width="24" height="24"/>
         <image name="头部48按钮一堆-消息" width="24" height="24"/>

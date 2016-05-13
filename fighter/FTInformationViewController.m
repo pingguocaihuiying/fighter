@@ -409,6 +409,13 @@
         
         if (cacheBean) {//如果有当前标签的缓存，则接着对比时间
             
+            if (self.currentSelectIndex == 0) {
+                
+                self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
+            }else{
+                self.tableViewController.tableView.tableHeaderView = nil;
+            }
+            
             NSTimeInterval currentTS = [[NSDate date]timeIntervalSince1970];
             NSTimeInterval timeGap = currentTS - cacheBean.timeStamp;
             if (timeGap < 5 * 60) {//如果在5分钟内，而且videoTag一样，则用缓存
@@ -419,12 +426,7 @@
             }
         }
         
-        if (self.currentSelectIndex == 0) {
-            
-            self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
-        }else{
-            self.tableViewController.tableView.tableHeaderView = nil;
-        }
+
         self.tableViewController.sourceArray = nil;
         [self.tableViewController.tableView reloadData];
 
