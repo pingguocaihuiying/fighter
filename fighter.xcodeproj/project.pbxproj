@@ -297,7 +297,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-
 		3D4B18F21CD8BF340022DFB0 /* FTSetPassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSetPassWordViewController.h; sourceTree = "<group>"; };
 		3D4B18F31CD8BF340022DFB0 /* FTSetPassWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTSetPassWordViewController.m; sourceTree = "<group>"; };
 		3D4B18F41CD8BF340022DFB0 /* FTSetPassWordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTSetPassWordViewController.xib; sourceTree = "<group>"; };
@@ -1335,14 +1334,6 @@
 		E64EF0FD1CB6614000CAE340 = {
 			isa = PBXGroup;
 			children = (
-				E611849F1CC75F0C00F23EC7 /* libstdc++.tbd */,
-				E611849D1CC75EF900F23EC7 /* CoreTelephony.framework */,
-				E611849B1CC75EF200F23EC7 /* libsqlite3.tbd */,
-				E61184991CC75EE500F23EC7 /* CoreGraphics.framework */,
-				E61184971CC75EDD00F23EC7 /* libiconv.tbd */,
-				E61184951CC75ED000F23EC7 /* Security.framework */,
-				E61184931CC75EBE00F23EC7 /* SystemConfiguration.framework */,
-				E68050C91CBFB0D200678905 /* libz.tbd */,
 				E64EF1081CB6614000CAE340 /* fighter */,
 				E64EF1221CB6614100CAE340 /* fighterTests */,
 				E64EF12D1CB6614100CAE340 /* fighterUITests */,
@@ -1363,6 +1354,7 @@
 		E64EF1081CB6614000CAE340 /* fighter */ = {
 			isa = PBXGroup;
 			children = (
+				E685320A1CE59CFA00603D77 /* frameworks */,
 				E68050C21CBFA70200678905 /* OtherSDK */,
 				E66D6EF21CBCE81C008B015A /* Network */,
 				E6D74A511CB7B8C200854337 /* thirdCodes */,
@@ -1741,6 +1733,21 @@
 				E68050C61CBFA71900678905 /* MobClickSocialAnalytics.h */,
 			);
 			path = noAD_UMAnalytics_Sdk_3.6.7;
+			sourceTree = "<group>";
+		};
+		E685320A1CE59CFA00603D77 /* frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E611849F1CC75F0C00F23EC7 /* libstdc++.tbd */,
+				E611849D1CC75EF900F23EC7 /* CoreTelephony.framework */,
+				E611849B1CC75EF200F23EC7 /* libsqlite3.tbd */,
+				E61184991CC75EE500F23EC7 /* CoreGraphics.framework */,
+				E61184971CC75EDD00F23EC7 /* libiconv.tbd */,
+				E61184951CC75ED000F23EC7 /* Security.framework */,
+				E61184931CC75EBE00F23EC7 /* SystemConfiguration.framework */,
+				E68050C91CBFB0D200678905 /* libz.tbd */,
+			);
+			name = frameworks;
 			sourceTree = "<group>";
 		};
 		E68EC5071CC4B71400A338C8 /* filter */ = {

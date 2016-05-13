@@ -609,12 +609,15 @@
             NSTimeInterval timeGap = currentTS - cacheBean.timeStamp;
             NSString *videoTag = cacheBean.videoTag;
             if (timeGap < 5 * 60 && [videoTag isEqualToString:self.videosTag]) {//如果在5分钟内，而且videoTag一样，则用缓存
+                    //如果有可用缓存，则用缓存作为数据源，刷新collectionView
                 self.tableViewDataSourceArray = [[NSMutableArray alloc]initWithArray:cacheBean.dataArray];
-                
                 [self.collectionView reloadData];
                 return;
             }
         }
+        //如果没有可用缓存，则置空数据源，再去刷新
+        self.tableViewDataSourceArray = nil;
+        [self.collectionView reloadData];
         
         [self getDataWithGetType:@"new" andCurrId:@"-1"];
     }
