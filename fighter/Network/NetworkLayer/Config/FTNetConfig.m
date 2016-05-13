@@ -42,7 +42,9 @@
 @end
 
 //NSString * const Domain = @"http://www.loufang.studio/pugilist_adminTest";//测试环境
-NSString * const Domain = @"http://www.loufang.studio/pugilist_admin";//生产环境
+//NSString * const Domain = @"http://www.loufang.studio/pugilist_admin";//生产环境
+//  http://www.gogogofight.com/
+NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin";//生产环境
 
 //获取新闻
 NSString * const GetNewsURL = @"/api/news/getNews.do";
