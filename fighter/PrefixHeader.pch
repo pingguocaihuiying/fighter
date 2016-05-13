@@ -27,6 +27,7 @@
 #import "ZJModelTool.h"
 #import "UIImageView+WebCache.h"
 #import "AFNetworking.h"
+#import "UIView+YBAddtitions.h"
 
 //导入配置信息类
 #import "FTNetConfig.h"

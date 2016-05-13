@@ -166,6 +166,6 @@
         <image name="空图标小" width="52" height="16"/>
         <image name="评-改" width="22" height="22"/>
         <image name="赞-改" width="22" height="22"/>
-        <image name="金属边框-改进ios" width="134" height="134"/>
+        <image name="金属边框-改进ios" width="124" height="134"/>
     </resources>
 </document>

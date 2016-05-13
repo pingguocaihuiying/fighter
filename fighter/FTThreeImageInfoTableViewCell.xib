@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="金属边框-改进ios" translatesAutoresizingMaskIntoConstraints="NO" id="hed-UZ-mJ1">
-                        <rect key="frame" x="0.0" y="3" width="375" height="159"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="162"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j6p-qj-lIP">
                         <rect key="frame" x="245" y="123" width="22" height="22"/>
@@ -184,7 +184,7 @@
                     <constraint firstAttribute="bottom" secondItem="hed-UZ-mJ1" secondAttribute="bottom" id="dzH-DH-kui"/>
                     <constraint firstAttribute="bottom" secondItem="dIO-O5-Yvr" secondAttribute="bottom" constant="18" id="ep3-2b-N34"/>
                     <constraint firstAttribute="bottom" secondItem="Q0h-mR-9xl" secondAttribute="bottom" constant="21" id="eyk-16-x32"/>
-                    <constraint firstItem="hed-UZ-mJ1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="fQh-oP-tHr"/>
+                    <constraint firstItem="hed-UZ-mJ1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="fQh-oP-tHr"/>
                     <constraint firstItem="As9-RL-Tdr" firstAttribute="centerY" secondItem="Uxs-gm-rsh" secondAttribute="centerY" id="hJG-EV-dpX"/>
                     <constraint firstAttribute="bottom" secondItem="j6p-qj-lIP" secondAttribute="bottom" constant="17" id="hvg-oX-hgp"/>
                     <constraint firstAttribute="trailing" secondItem="Uxs-gm-rsh" secondAttribute="trailing" constant="19" id="iAL-ZS-bFG"/>
@@ -242,6 +242,6 @@
         <image name="空图标小" width="52" height="16"/>
         <image name="评-改" width="22" height="22"/>
         <image name="赞-改" width="22" height="22"/>
-        <image name="金属边框-改进ios" width="134" height="134"/>
+        <image name="金属边框-改进ios" width="124" height="134"/>
     </resources>
 </document>

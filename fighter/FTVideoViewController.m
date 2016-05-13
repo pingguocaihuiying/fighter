@@ -22,7 +22,8 @@
 #import "Mobclick.h"
 #import "FTVideoCollectionViewCell.h"
 #import "MJRefresh.h"
-
+#import "FTCache.h"
+#import "FTCacheBean.h"
 
 @interface FTVideoViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTVideoDetailDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -36,6 +37,7 @@
 @property (nonatomic, strong)NSArray *typeArray;
 @property (nonatomic, copy)NSString *videosTag;
 @property (nonatomic, copy)NSString *currentVideoType;
+
 
 @property (nonatomic, strong)UICollectionView *collectionView;
 @end
@@ -94,7 +96,7 @@
 }
 - (IBAction)leftBtnAction:(id)sender {
     
-    NSLog(@"information left click did");
+//    NSLog(@"information left click did");
     if ([self.drawerDelegate respondsToSelector:@selector(leftButtonClicked:)]) {
         
         [self.drawerDelegate leftButtonClicked:sender];
@@ -159,7 +161,7 @@
     
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    NSLog(@"轮播图url : %@", urlString);
+//    NSLog(@"轮播图url : %@", urlString);
     [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         
@@ -228,13 +230,14 @@
     
     urlString = [NSString stringWithFormat:@"%@?videosType=%@&videosCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&videosTag=%@", urlString, videoType, videoCurrId, getType, ts, checkSign, [FTNetConfig showType], self.videosTag];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSLog(@"");
+    
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSLog(@"get video list url: %@", urlString);
     [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSString *status = responseDic[@"status"];
+        NSLog(@"status : %@", status);
         if ([status isEqualToString:@"success"]) {
             NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
             
@@ -264,11 +267,16 @@
             }else{
                 //                [self.tableViewController.tableView.tableHeaderView removeFromSuperview];
                 self.tableViewController.tableView.tableHeaderView = nil;
+                
             }
+            
+            //将最新的数据“self.tableViewDataSourceArray”写入缓存列表
+            [self saveCache];
+            
             [self.collectionView.mj_header endRefreshing];
             [self.collectionView.mj_footer endRefreshing];
             [self.collectionView reloadData];
-
+            
             //隐藏infoLabel
             if (self.infoLabel.isHidden == NO) {
                 self.infoLabel.hidden = YES;
@@ -279,6 +287,7 @@
             [self.collectionView.mj_header endRefreshing];
             [self.collectionView.mj_footer endRefreshing];
             [self.collectionView reloadData];
+            self.collectionView.mj_footer.state = MJRefreshStateNoMoreData;
         }
         
         
@@ -288,6 +297,15 @@
         [self.collectionView reloadData];
         NSLog(@"error : %@", error);
     }];
+}
+
+- (void)saveCache{
+    FTCache *cache = [FTCache sharedInstance];
+    NSArray *dataArray = [[NSArray alloc]initWithArray:self.tableViewDataSourceArray];
+    FTCacheBean *cacheBean = [[FTCacheBean alloc] initWithTimeStamp:[[NSDate date] timeIntervalSince1970]  andDataArray:dataArray andVideoTag:self.videosTag];
+
+    [cache.videoDataDic setObject:cacheBean forKey:[NSString stringWithFormat:@"%ld", self.currentSelectIndex]];
+    
 }
 
 - (void)setOtherViews{
@@ -407,7 +425,7 @@
         self.tableViewController.sourceArray = self.tableViewDataSourceArray;
     }else{
         //    self.tableViewController.sourceArray = _sourceArry[0];
-        NSLog(@"没有数据源。");
+//        NSLog(@"没有数据源。");
     }
     
     //    UIPageViewController *pageVC = [[UIPageViewController alloc]initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:@{UIPageViewControllerOptionInterPageSpacingKey:@0}];
@@ -433,8 +451,8 @@
     flow.minimumInteritemSpacing = 16 * SCALE;
     
     //cell大小设置
-    NSLog(@"scale : %f", SCALE);
-    NSLog(@"screen width  : %.0f", SCREEN_WIDTH);
+//    NSLog(@"scale : %f", SCALE);
+//    NSLog(@"screen width  : %.0f", SCREEN_WIDTH);
     
 //    CGRect r = self.view.frame;
 //    r.size.width = SCREEN_WIDTH;
@@ -444,7 +462,7 @@
     float width = 164 * SCALE;
     float height = 143 * SCALE;
     flow.itemSize = CGSizeMake(width, height);
-    NSLog(@"cell宽：%f, 高：%f。屏幕宽度：%f,self.view的宽度：%f", width, height, SCREEN_WIDTH, self.view.frame.size.width);
+//    NSLog(@"cell宽：%f, 高：%f。屏幕宽度：%f,self.view的宽度：%f", width, height, SCREEN_WIDTH, self.view.frame.size.width);
 //    NSLog(@"child view的宽度：%f,高度：%f",self.view.frame.size.width, self.view.frame.size.height);
     //section内嵌距离设置
     flow.sectionInset = UIEdgeInsetsMake(0, 15 * SCALE, 0, 15 * SCALE);
@@ -457,11 +475,11 @@
         r.size.width = SCREEN_WIDTH;
         _collectionView.frame = r;
     
-    NSLog(@"current view的y:%f", self.currentView.frame.origin.y);
-    NSLog(@"collectionView的y:%f", _collectionView.frame.origin.y);
-    
-    NSLog(@"current view的高度:%f", self.currentView.frame.size.height);
-    NSLog(@"collectionView的高度:%f", _collectionView.frame.size.height);
+//    NSLog(@"current view的y:%f", self.currentView.frame.origin.y);
+//    NSLog(@"collectionView的y:%f", _collectionView.frame.origin.y);
+//    
+//    NSLog(@"current view的高度:%f", self.currentView.frame.size.height);
+//    NSLog(@"collectionView的高度:%f", _collectionView.frame.size.height);
     [self.currentView addSubview:_collectionView];
     
     _collectionView.delegate = self;
@@ -481,7 +499,7 @@
 
 //选中触发的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"section : %ld, row : %ld", indexPath.section, indexPath.row);
+//    NSLog(@"section : %ld, row : %ld", indexPath.section, indexPath.row);
     if (self.tableViewDataSourceArray) {
         
         FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
@@ -508,28 +526,13 @@
 
 //返回cell
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-//    FTVideoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-//    FTVideoCollectionViewCell *cell = [FTVideoCollectionViewCell new];
-//    if (cell == nil) {
-//        NSLog(@"cell is nil");
-//        cell = [[[NSBundle mainBundle]loadNibNamed:@"FTVideoCollectionViewCell" owner:self options:nil]firstObject];
-//    }
-//
-//    FTVideoBean *videoBean = [FTVideoBean new];
-//    [videoBean setValuesWithDic:self.tableViewDataSourceArray[indexPath.row]];
-//    [cell setWithBean:videoBean];
-//    return cell;
-//    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"asdf" forIndexPath:indexPath];
     FTVideoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
         if (cell == nil) {
-            NSLog(@"cell is nil");
             cell = [[[NSBundle mainBundle]loadNibNamed:@"FTVideoCollectionViewCell" owner:self options:nil]firstObject];
         }
-    
         FTVideoBean *videoBean = [FTVideoBean new];
         [videoBean setValuesWithDic:self.tableViewDataSourceArray[indexPath.row]];
         [cell setWithBean:videoBean];
-//    UICollectionViewCell *cell = [UICollectionViewCell new];
     return cell;
 }
 
@@ -548,7 +551,7 @@
     self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
                 NSString *currId;
                 if (weakSelf.tableViewDataSourceArray && weakSelf.tableViewDataSourceArray.count > 0) {
-                    currId = [weakSelf.tableViewDataSourceArray lastObject][@"vediosId"];
+                    currId = [weakSelf.tableViewDataSourceArray lastObject][@"videosId"];
                     //如果当前是按“最热”来，需要找到最小的id座位current id
                     if ([self.videosTag isEqualToString:@"0"]) {
                         int minId = [currId intValue];
@@ -564,11 +567,12 @@
                 }else{
                     return;
                 }
-        NSLog(@"");
+        
                 [weakSelf getDataWithGetType:@"old" andCurrId:currId];
     }];
     // 显示footer
     self.collectionView.mj_footer.hidden = NO;
+    
 }
 
 #pragma mark - 按钮事件
@@ -583,15 +587,34 @@
         //        [self.pageViewController setViewControllers:@[tableVC] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:^(BOOL finished) {
         //            NSLog(@" 设置完成 ");
         //        }];
+        
+        
+//        if (self.currentSelectIndex == 0) {
+//            self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
+//        }else{
+//            self.tableViewController.tableView.tableHeaderView = nil;
+//        }
+//        self.tableViewController.sourceArray = nil;
+//        [self.tableViewController.tableView reloadData];
+        
         self.currentSelectIndex = sender.tag-1;//根据点击的按钮，设置当前的选中下标
         
-        if (self.currentSelectIndex == 0) {
-            self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
-        }else{
-            self.tableViewController.tableView.tableHeaderView = nil;
+        //根据当前下标，先去缓存中查找是否有数据
+        FTCache *cache = [FTCache sharedInstance];
+        FTCacheBean *cacheBean = [cache.videoDataDic objectForKey:[NSString stringWithFormat:@"%ld", self.currentSelectIndex]];
+        
+        if (cacheBean) {//如果有当前标签的缓存，则接着对比时间
+            
+            NSTimeInterval currentTS = [[NSDate date]timeIntervalSince1970];
+            NSTimeInterval timeGap = currentTS - cacheBean.timeStamp;
+            NSString *videoTag = cacheBean.videoTag;
+            if (timeGap < 5 * 60 && [videoTag isEqualToString:self.videosTag]) {//如果在5分钟内，而且videoTag一样，则用缓存
+                self.tableViewDataSourceArray = [[NSMutableArray alloc]initWithArray:cacheBean.dataArray];
+                
+                [self.collectionView reloadData];
+                return;
+            }
         }
-        self.tableViewController.sourceArray = nil;
-        [self.tableViewController.tableView reloadData];
         
         [self getDataWithGetType:@"new" andCurrId:@"-1"];
     }
@@ -605,7 +628,7 @@
     if (self.sourceArry.count < index) {
         return nil;
     }
-    NSLog(@"%ld", index);
+//    NSLog(@"%ld", index);
     //    FTTableViewController *tableVC = [[FTTableViewController alloc]initWithStyle:UITableViewStylePlain];
     if (index == 0) {
         self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
@@ -642,7 +665,7 @@
     
     UIButton *selectbt = [_currentScrollView viewWithTag:_currentSelectIndex + 1];
     
-    NSLog(@"scroll");
+//    NSLog(@"scroll");
     
     //    设置scrollView的偏移位置
     
@@ -739,7 +762,7 @@
     [dic setValue:[NSString stringWithFormat:@"%@", videoBean.voteCount] forKey:@"voteCount"];
     [dic setValue:[NSString stringWithFormat:@"%@", videoBean.viewCount] forKey:@"viewCount"];
     [dic setValue:[NSString stringWithFormat:@"%@", videoBean.commentCount] forKey:@"commentCount"];
-    NSLog(@"indexPath.row : %ld", indexPath.row);
+//    NSLog(@"indexPath.row : %ld", indexPath.row);
     self.tableViewDataSourceArray[indexPath.row] = dic;
 //    [self.tableViewController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
     [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];

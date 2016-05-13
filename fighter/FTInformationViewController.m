@@ -20,7 +20,9 @@
 #import "UIButton+LYZTitle.h"
 #import "UIButton+WebCache.h"
 #import "Mobclick.h"
-
+#import "FTRankingListViewController.h"
+#import "FTCache.h"
+#import "FTCacheBean.h"
 
 @interface FTInformationViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTnewsDetailDelegate>
 
@@ -32,6 +34,7 @@
 @property (nonatomic, strong)NSMutableArray *tableViewDataSourceArray;
 @property (nonatomic, strong)FTTableViewController *tableViewController;
 @property (nonatomic, strong)NSArray *typeArray;
+
 
 @end
 
@@ -97,7 +100,7 @@
     
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    NSLog(@"轮播图url : %@", urlString);
+//    NSLog(@"轮播图url : %@", urlString);
     [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
 
@@ -164,7 +167,7 @@
     
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    NSLog(@"news's url : %@", urlString);
+//    NSLog(@"news's url : %@", urlString);
     [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         
@@ -203,6 +206,8 @@
             [self.tableViewController.tableView footerEndRefreshing];
             
             [self.tableViewController.tableView reloadData];
+            
+            [self saveCache];
                 //隐藏infoLabel
             if (self.infoLabel.isHidden == NO) {
                 self.infoLabel.hidden = YES;
@@ -219,6 +224,15 @@
         [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
         [self.tableViewController.tableView footerEndRefreshing];
     }];
+}
+
+- (void)saveCache{
+    FTCache *cache = [FTCache sharedInstance];
+    NSArray *dataArray = [[NSArray alloc]initWithArray:self.tableViewDataSourceArray];
+    FTCacheBean *cacheBean = [[FTCacheBean alloc] initWithTimeStamp:[[NSDate date] timeIntervalSince1970]  andDataArray:dataArray];
+    
+    [cache.newsDataDic setObject:cacheBean forKey:[NSString stringWithFormat:@"%ld", self.currentSelectIndex]];
+    
 }
 
 - (void)setOtherViews{
@@ -248,7 +262,7 @@
     _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
 
 #pragma -mark -暂时隐藏轮播图的标题（没有给轮播图传title的值）
-    _cycleScrollView.titlesGroup = titlesArray;
+//    _cycleScrollView.titlesGroup = titlesArray;
     
     _cycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
     _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点pre"];
@@ -388,6 +402,22 @@
 //        }];
         self.currentSelectIndex = sender.tag-1;//根据点击的按钮，设置当前的选中下标
         
+        //根据当前下标，先去缓存中查找是否有数据
+        FTCache *cache = [FTCache sharedInstance];
+        FTCacheBean *cacheBean = [cache.newsDataDic objectForKey:[NSString stringWithFormat:@"%ld", self.currentSelectIndex]];
+        
+        if (cacheBean) {//如果有当前标签的缓存，则接着对比时间
+            
+            NSTimeInterval currentTS = [[NSDate date]timeIntervalSince1970];
+            NSTimeInterval timeGap = currentTS - cacheBean.timeStamp;
+            if (timeGap < 5 * 60) {//如果在5分钟内，而且videoTag一样，则用缓存
+                self.tableViewDataSourceArray = [[NSMutableArray alloc]initWithArray:cacheBean.dataArray];
+                self.tableViewController.sourceArray = self.tableViewDataSourceArray;
+                [self.tableViewController.tableView reloadData];
+                return;
+            }
+        }
+        
         if (self.currentSelectIndex == 0) {
             
             self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
@@ -510,6 +540,14 @@
 - (IBAction)searchButtonClicked:(id)sender {
     NSLog(@"search button clicked.");
 }
+
+#pragma -mark -排行榜按钮被点击
+- (IBAction)rankButtonClicked:(id)sender {
+    FTRankingListViewController *rankingListViewController = [FTRankingListViewController new];
+    [self.navigationController pushViewController:rankingListViewController animated:YES];
+    rankingListViewController.title = @"格斗之王";
+}
+
 - (IBAction)messageButtonClicked:(id)sender {
     NSLog(@"message button clicked.");
 }

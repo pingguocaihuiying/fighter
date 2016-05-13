@@ -286,11 +286,7 @@
     /*
      *暂时采用微信的分享
      */
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-    if (!localUser) {
-        [self login];
-    }else{
+
         WXMediaMessage *message = [WXMediaMessage message];
         message.title = _videoBean.title;
         message.description = _videoBean.summary;
@@ -304,7 +300,7 @@
         req.message = message;
         req.scene = WXSceneSession;
         [WXApi sendReq:req];
-    }
+    
 
 }
 

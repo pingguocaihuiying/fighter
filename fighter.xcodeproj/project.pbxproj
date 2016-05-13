@@ -192,6 +192,10 @@
 		E668BABD1CE0565700071998 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BAA81CE0565700071998 /* UIScrollView+MJExtension.m */; };
 		E668BABE1CE0565700071998 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BAAA1CE0565700071998 /* UIScrollView+MJRefresh.m */; };
 		E668BABF1CE0565700071998 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BAAC1CE0565700071998 /* UIView+MJExtension.m */; };
+		E668BBB11CE32BA200071998 /* FTRankingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BBB01CE32BA200071998 /* FTRankingListViewController.m */; };
+		E668BBB71CE4353300071998 /* FTRankingListFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BBB61CE4353300071998 /* FTRankingListFilterView.m */; };
+		E668BBBB1CE44E6400071998 /* FTCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BBBA1CE44E6400071998 /* FTCache.m */; };
+		E668BBBE1CE4523600071998 /* FTCacheBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BBBD1CE4523600071998 /* FTCacheBean.m */; };
 		E66D6EFA1CBCE81C008B015A /* RBRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6EF61CBCE81C008B015A /* RBRequestOperationManager.m */; };
 		E66D6EFB1CBCE81C008B015A /* FTNetConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6EF91CBCE81C008B015A /* FTNetConfig.m */; };
 		E66D6F101CBCE843008B015A /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6EFE1CBCE843008B015A /* AFHTTPRequestOperation.m */; };
@@ -624,6 +628,14 @@
 		E668BAAA1CE0565700071998 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		E668BAAB1CE0565700071998 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		E668BAAC1CE0565700071998 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		E668BBAF1CE32BA200071998 /* FTRankingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankingListViewController.h; sourceTree = "<group>"; };
+		E668BBB01CE32BA200071998 /* FTRankingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankingListViewController.m; sourceTree = "<group>"; };
+		E668BBB51CE4353300071998 /* FTRankingListFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankingListFilterView.h; sourceTree = "<group>"; };
+		E668BBB61CE4353300071998 /* FTRankingListFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankingListFilterView.m; sourceTree = "<group>"; };
+		E668BBB91CE44E6400071998 /* FTCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCache.h; sourceTree = "<group>"; };
+		E668BBBA1CE44E6400071998 /* FTCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCache.m; sourceTree = "<group>"; };
+		E668BBBC1CE4523600071998 /* FTCacheBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCacheBean.h; sourceTree = "<group>"; };
+		E668BBBD1CE4523600071998 /* FTCacheBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCacheBean.m; sourceTree = "<group>"; };
 		E66D6EF51CBCE81C008B015A /* RBRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBRequestOperationManager.h; sourceTree = "<group>"; };
 		E66D6EF61CBCE81C008B015A /* RBRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBRequestOperationManager.m; sourceTree = "<group>"; };
 		E66D6EF81CBCE81C008B015A /* FTNetConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNetConfig.h; sourceTree = "<group>"; };
@@ -997,8 +1009,8 @@
 		3D69470A1CE305EB00989440 /* 排行榜 */ = {
 			isa = PBXGroup;
 			children = (
-				3D69470B1CE3064900989440 /* FTButton.h */,
-				3D69470C1CE3064900989440 /* FTButton.m */,
+				E668BBB21CE32D2600071998 /* controller */,
+				E668BBB31CE32D3400071998 /* view */,
 			);
 			name = "排行榜";
 			sourceTree = "<group>";
@@ -1568,6 +1580,43 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
+		E668BBB21CE32D2600071998 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				E668BBAF1CE32BA200071998 /* FTRankingListViewController.h */,
+				E668BBB01CE32BA200071998 /* FTRankingListViewController.m */,
+			);
+			name = controller;
+			sourceTree = "<group>";
+		};
+		E668BBB31CE32D3400071998 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				E668BBB41CE4340E00071998 /* 条件筛选 */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		E668BBB41CE4340E00071998 /* 条件筛选 */ = {
+			isa = PBXGroup;
+			children = (
+				E668BBB51CE4353300071998 /* FTRankingListFilterView.h */,
+				E668BBB61CE4353300071998 /* FTRankingListFilterView.m */,
+			);
+			name = "条件筛选";
+			sourceTree = "<group>";
+		};
+		E668BBB81CE44D3900071998 /* 缓存 */ = {
+			isa = PBXGroup;
+			children = (
+				E668BBB91CE44E6400071998 /* FTCache.h */,
+				E668BBBA1CE44E6400071998 /* FTCache.m */,
+				E668BBBC1CE4523600071998 /* FTCacheBean.h */,
+				E668BBBD1CE4523600071998 /* FTCacheBean.m */,
+			);
+			name = "缓存";
+			sourceTree = "<group>";
+		};
 		E66D6EF21CBCE81C008B015A /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -1806,6 +1855,7 @@
 		E6D74A301CB7B7EE00854337 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				E668BBB81CE44D3900071998 /* 缓存 */,
 				E6D74A311CB7B7EE00854337 /* Categorys */,
 				E6D74A3A1CB7B7EE00854337 /* UUID.h */,
 				E6D74A3B1CB7B7EE00854337 /* UUID.m */,
@@ -2178,6 +2228,7 @@
 				3DC411F31CCF810A0030C229 /* FTDrawerTableViewFooter.m in Sources */,
 				E68050C11CBF919A00678905 /* UIView+JHExtension.m in Sources */,
 				E6E580B31CBE523B00272242 /* FTBaseTableViewCell.m in Sources */,
+				E668BBB11CE32BA200071998 /* FTRankingListViewController.m in Sources */,
 				3D4B19661CDB6CF80022DFB0 /* FTWeightPickerView.m in Sources */,
 				E6E580AC1CBE2F2D00272242 /* UIImage+WebP.m in Sources */,
 				E68EC50B1CC4B85D00A338C8 /* FTFilterTableViewController.m in Sources */,
@@ -2259,6 +2310,7 @@
 				3D4B193A1CD9FD670022DFB0 /* UMChatTableViewCell.m in Sources */,
 				3DC411F01CCF80DD0030C229 /* FTDrawerTableViewHeader.m in Sources */,
 				E6A9DDB61CD9833200CB9518 /* FTVideoTableViewCell.m in Sources */,
+				E668BBB71CE4353300071998 /* FTRankingListFilterView.m in Sources */,
 				3D7B98BE1CE0898400B80B8D /* FTOldPasswordVC.m in Sources */,
 				3D7B98B91CE078D600B80B8D /* FTInputCheckCodeViewController.m in Sources */,
 				E6D74A481CB7B7EE00854337 /* UIColor+YBColorCategory.m in Sources */,
@@ -2295,6 +2347,7 @@
 				E6A9DDBA1CD99E7700CB9518 /* FTBaseBean.m in Sources */,
 				E6B458971CB7560400FB4261 /* FTBaseNavigationViewController.m in Sources */,
 				3D4B19631CDB59D60022DFB0 /* UIWindow+MBProgressHUD.m in Sources */,
+				E668BBBE1CE4523600071998 /* FTCacheBean.m in Sources */,
 				E68050B81CBF919A00678905 /* JHRefreshAniBaseView.m in Sources */,
 				E61B8A651CBB6C4900AE37F9 /* SDCollectionViewCell.m in Sources */,
 				E68050C01CBF919A00678905 /* UIScrollView+JHRefresh.m in Sources */,
@@ -2310,6 +2363,7 @@
 				E6E9E8941CDC718900976480 /* FTVideoCollectionViewCell.m in Sources */,
 				E668BAB81CE0565700071998 /* MJRefreshGifHeader.m in Sources */,
 				E61B8A661CBB6C4900AE37F9 /* SDCycleScrollView.m in Sources */,
+				E668BBBB1CE44E6400071998 /* FTCache.m in Sources */,
 				E66D6F171CBCE843008B015A /* AFURLResponseSerialization.m in Sources */,
 				E66D6EFB1CBCE81C008B015A /* FTNetConfig.m in Sources */,
 				3DC412251CD0C3780030C229 /* NSString+Size.m in Sources */,
@@ -2509,7 +2563,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fighter.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "c10c791b-700b-43a5-8002-99f83e357690";
 			};
 			name = Debug;
 		};
@@ -2544,7 +2598,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fighter.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "c10c791b-700b-43a5-8002-99f83e357690";
 			};
 			name = Release;
 		};
