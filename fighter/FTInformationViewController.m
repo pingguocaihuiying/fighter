@@ -85,6 +85,11 @@
     [self.leftNavButton sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
                                             forState:UIControlStateNormal
                                     placeholderImage:[UIImage imageNamed:@"头像-空"]];
+    if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
+        
+        [self.drawerDelegate addButtonToArray:self.leftNavButton];
+    }
+    
     [self setOtherViews];
 }
 

@@ -89,11 +89,16 @@
                             forState:UIControlStateNormal
                     placeholderImage:[UIImage imageNamed:@"头像-空"]];
     
+    if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
+        
+        [self.drawerDelegate addButtonToArray:self.leftBtn];
+    }
     //设置最热or最新
     [self setNewOrHot];
     [self setOtherViews];
 
 }
+
 - (IBAction)leftBtnAction:(id)sender {
     
 //    NSLog(@"information left click did");

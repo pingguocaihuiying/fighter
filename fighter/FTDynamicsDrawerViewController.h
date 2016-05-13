@@ -78,5 +78,7 @@ typedef void (^DrawerActionBlock)(FTDynamicsDrawerDirection maskedValue);
 
 - (void) leftButtonClicked:(UIButton *) button;
 
+- (void) addButtonToArray:(UIButton *)button;
+
 @end
 
