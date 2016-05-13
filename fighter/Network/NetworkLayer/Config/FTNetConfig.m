@@ -42,6 +42,7 @@
 @end
 
 //NSString * const Domain = @"http://www.loufang.studio/pugilist_adminTest";//测试环境
+//NSString * const Domain = @"http://10.11.1.49/pugilist_admin";//测试环境--余彧电脑
 NSString * const Domain = @"http://www.loufang.studio/pugilist_admin";//生产环境
 
 //获取新闻

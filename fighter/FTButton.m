@@ -42,55 +42,170 @@
 - (CGRect)imageRectForContentRect:(CGRect)contentRect
 {
     //1.获取按钮frame
-    CGRect frame  = contentRect;
+//    CGRect frame  = contentRect;
+    CGFloat width = contentRect.size.width;
+    CGFloat height = contentRect.size.height;
+    
+    CGFloat space = self.space;
+    CGFloat imageW = self.imageW;
+    CGFloat imageH = self.imageH;
     CGFloat imageX;
     CGFloat imageY;
     
-    //2.计算imageframe
     
     switch (self.buttonModel) {
         case FTButtonModelTopImage:
+        {
+        
             
+            CGFloat textH = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.titleLabel.font}].height;
+            
+            imageX = (width - imageH)/2;
+            imageY =  (height-textH - space - self.imageH)/2;
             break;
+            
+            
+        }
+           
         case FTButtonModelLeftImage:
+        {
+           
+            CGFloat textW = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.titleLabel.font}].width;
+            
+            imageX = (width-textW - space - imageW)/2;
+            imageY = (height- imageH)/2;
             
             break;
+        }
+            
         case FTButtonModelBottomImage:
+        {
             
+            
+            CGFloat textH = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.titleLabel.font}].height;
+            
+            imageX = (width - imageH)/2;
+            imageY =  height - (height-textH - space - self.imageH)/2 - imageH;;
             break;
+            
+            
+        }
+
         case FTButtonModelRightImage:
+        {
+            CGFloat textW = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.titleLabel.font}].width;
             
+            imageX = width - (width-textW - space - imageW)/2 - imageW;
+            imageY = (height- imageH)/2;
             break;
-        case FTButtonModelImage:
+        }
             
+        case FTButtonModelImage:
+            return contentRect;
             break;
         case FTButtonModelTitle:
-            
+            return contentRect;
             break;
         case FTButtonModelNone:
-            
+            return contentRect;
             break;
             
         default:
+        {
+            return contentRect;
+            break;
+        }
+            
+    }
+    
+    
+    return CGRectMake(imageX, imageY, imageW, imageH);
+    
+}
+//
+//2.改变title文字的位置,构造title的矩形即可
+- (CGRect)titleRectForContentRect:(CGRect)contentRect
+{
+
+    CGFloat width = contentRect.size.width;
+    CGFloat height = contentRect.size.height;
+    
+    CGFloat space = self.space;
+    CGFloat textW;
+    CGFloat textH;
+    CGFloat textX;
+    CGFloat textY;
+    
+    
+    switch (self.buttonModel) {
+        case FTButtonModelTopImage:
+        {
+            textW = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.titleLabel.font}].width;
+            textH = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.titleLabel.font}].height;
+            
+            textX = (width - textW)/2;
+            textY =  height - (height-textH - space - self.imageH)/2 - textH;;
+            break;
+        }
+            
+        case FTButtonModelLeftImage:
+        {
+            
+            textW = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.titleLabel.font}].width;
+            textH = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.titleLabel.font}].height;
+            
+            textX = width - (width-textW - space - self.imageW)/2 - textW;
+            textY = (height- textH)/2;
+            
+            break;
+        }
+            
+        case FTButtonModelBottomImage:
+        {
+            textW = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.titleLabel.font}].width;
+            textH = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.titleLabel.font}].height;
+            
+            textX = (width - textW)/2;
+            textY =  (height-textH - space - self.imageH)/2 ;;
+            break;
+            
+        }
+            
+        case FTButtonModelRightImage:
+        {
+            CGFloat textW = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.titleLabel.font}].width;
+            
+            textX = (width-textW - space - self.imageW)/2;
+            textY = (height- textH)/2;
+            break;
+        }
+            
+        case FTButtonModelImage:
+        {
+            return contentRect;
+        }
+            
+        case FTButtonModelTitle:
+        
+        {
+            return contentRect;
+        }
+            
+        case FTButtonModelNone:
+        {
+            return contentRect;
+        }
+            
+            
+        default:
+            return contentRect;
             break;
     }
     
     
-    return CGRectMake(imageX, imageY, _imageW, _imageH);
-    
+    return CGRectMake(textX, textY, textW, textH);
+
 }
-//
-////2.改变title文字的位置,构造title的矩形即可
-//- (CGRect)titleRectForContentRect:(CGRect)contentRect
-//{
-//
-//    CGFloat imageX=(self.frame.size.width-boundingRect.size.width)/2;
-//    CGFloat imageY=contentRect.origin.y+10;
-//    CGFloat width=220;
-//    CGFloat height=25;
-//    return CGRectMake(imageX, imageY, width, height);
-//
-//}
 - (void)drawRect:(CGRect)rect {
     // Drawing code
     
