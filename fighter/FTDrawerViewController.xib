@@ -138,7 +138,7 @@
                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </collectionViewFlowLayout>
                         </collectionView>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PuJ-hd-UMy">
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PuJ-hd-UMy">
                             <rect key="frame" x="15" y="330" width="305" height="94"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -189,15 +189,13 @@
                                 <action selector="abountUsAction:" destination="-1" eventType="touchUpInside" id="vRH-1d-xej"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IZa-hq-Ioe">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IZa-hq-Ioe">
                             <rect key="frame" x="100" y="357" width="120" height="16"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="120" id="Jc6-B4-5dA"/>
                                 <constraint firstAttribute="height" constant="16" id="q1o-z3-b3Z"/>
                             </constraints>
-                            <state key="normal" title="用户反馈">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
+                            <state key="normal" title="用户反馈"/>
                             <connections>
                                 <action selector="feedBackAction:" destination="-1" eventType="touchUpInside" id="f3G-JU-QbP"/>
                             </connections>

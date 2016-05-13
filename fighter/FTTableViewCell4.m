@@ -34,4 +34,17 @@
 
 }
 
+- (void ) drawRect:(CGRect)rect {
+    
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
+    CGContextFillRect(context, rect);
+    
+    CGContextSetStrokeColorWithColor(context, Cell_Space_Color.CGColor);
+    CGContextStrokeRect(context, CGRectMake(0, rect.size.height - 0.5, rect.size.width, 0.5));
+    
+}
+
 @end

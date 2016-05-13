@@ -60,7 +60,7 @@
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     [dic setObject:phoneNum forKey:@"phone"];
     [dic setObject:type forKey:@"type"];
-    
+    [dic setObject:[self userId] forKey:@"userId"];
     NSLog(@"dic:%@",dic);
     [self postRequestWithUrl:urlString parameters:dic option:option];
 }
@@ -75,6 +75,7 @@
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     [dic setObject:phoneNum forKey:@"phone"];
     [dic setObject:type forKey:@"type"];
+    [dic setObject:[self userId] forKey:@"userId"];
      NSLog(@"dic:%@",dic);
     [self postRequestWithUrl:urlString parameters:dic option:option];
 }
@@ -368,7 +369,7 @@
     [dic setObject:@"2" forKey:@"type"];//phone
     [dic setObject:phoneNum forKey:@"phone"];
     [dic setObject:checkcode forKey:@"checkCode"];
-    
+    [dic setObject:[self userId] forKey:@"userId"];
     //    NSString *imei= [UUID getUUID];
     //    [dic setObject:imei forKey:@"imei"];
     //    [dic setObject:imei forKey:@"sequenceId"];
@@ -644,7 +645,14 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     [self getRequestWithUrl:wxLoginURLString parameters:nil option:option];
 }
 
-
+- (NSString *) userId {
+    
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    return localUser.olduserid;
+}
 //url转码
 - (NSString *)encodeToPercentEscapeString: (NSString *) input
 {
