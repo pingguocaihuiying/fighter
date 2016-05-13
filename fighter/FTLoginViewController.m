@@ -14,8 +14,9 @@
 #import "FTRegistViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "NetWorking.h"
-#import "MBProgressHUD.h"
+#import "UIWindow+MBProgressHUD.h"
 #import "Regex.h"
+
 
 @interface FTLoginViewController ()
 
@@ -34,7 +35,7 @@
 - (void) setSubViews {
 
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.bounds = CGRectMake(0, 0, 35, 35);
+    backBtn.bounds = CGRectMake(0, 0, 22, 22);
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-取消"] forState:UIControlStateNormal];
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-取消pre"] forState:UIControlStateHighlighted];
     [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -49,8 +50,8 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:registBtn];
     
-    [self.seperaterView1 setBackgroundColor:[UIColor colorWithHex:0x505050 ]];
-    [self.seperaterView2 setBackgroundColor:[UIColor colorWithHex:0x505050 ]];
+    [self.seperaterView1 setBackgroundColor:Cell_Space_Color];
+    [self.seperaterView2 setBackgroundColor:Cell_Space_Color];
     
     [self.acountTextField setBackgroundColor:[UIColor clearColor]];
     [self.passwordTextField setBackgroundColor:[UIColor clearColor]];
@@ -144,12 +145,12 @@
 //        return;
 //    }
     
-    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NetWorking *net = [NetWorking new];
     [net loginWithPhoneNumber:self.acountTextField.text
                      password:self.passwordTextField.text
                        option:^(NSDictionary *dict) {
-                                
+                                 [MBProgressHUD hideHUDForView:self.view animated:YES];
                                 NSLog(@"dict:%@",dict);
                                 if (dict != nil) {
                                     
@@ -158,7 +159,7 @@
                                     
                                     if (status == true) {
                                         
-                                        [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                                         
                                         NSDictionary *userDataDic = dict[@"data"];
                                         NSDictionary *userDic = userDataDic[@"user"];
@@ -181,11 +182,11 @@
                                         
                                     }else {
                                         NSLog(@"message : %@", [dict[@"message"] class]);
-                                        [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                                         
                                     }
                                 }else {
-                                    [self showHUDWithMessage:@" 登录失败，请稍后再试"];
+                                    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
                                     
                                 }
                                 

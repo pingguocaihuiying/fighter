@@ -7,12 +7,15 @@
 //
 
 #import "FTBaseViewController.h"
+#import "FTUserViewController.h"
 
-@interface FTInputNewPhoneViewController : FTBaseViewController
+@interface FTInputNewPhoneViewController : FTUserViewController
 
 @property (weak, nonatomic) IBOutlet UIView *speraterView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *remarkLabel;
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextfield;
+
+@property (nonatomic, copy) NSString *type;
 
 @end

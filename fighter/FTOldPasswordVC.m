@@ -30,14 +30,14 @@
 - (void) initSubviews {
     
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.bounds = CGRectMake(0, 0, 35, 35);
+    backBtn.bounds = CGRectMake(0, 0, 22, 22);
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回pre"] forState:UIControlStateHighlighted];
     [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
     
-    [self.seperaterView1 setBackgroundColor:[UIColor colorWithHex:0x505050 ]];
-    [self.seperaterView2 setBackgroundColor:[UIColor colorWithHex:0x505050 ]];
+    [self.seperaterView1 setBackgroundColor:Cell_Space_Color];
+    [self.seperaterView2 setBackgroundColor:Cell_Space_Color];
     
     
     NSMutableDictionary *attr = [NSMutableDictionary dictionary];
@@ -89,12 +89,13 @@
     }
     
     
-    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NetWorking *net = [NetWorking new];
     [net loginWithPhoneNumber:tel
                      password:self.passwordTextField.text
                        option:^(NSDictionary *dict) {
                            
+                           [MBProgressHUD hideHUDForView:self.view animated:YES];
                            NSLog(@"dict:%@",dict);
                            if (dict != nil) {
                                
@@ -125,10 +126,12 @@
                                    
                                }else {
                                    NSLog(@"message : %@", [dict[@"message"] class]);
+                                   
                                    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                                    
                                }
                            }else {
+                               
                                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
                                
                            }

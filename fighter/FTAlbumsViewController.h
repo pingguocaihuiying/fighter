@@ -7,8 +7,10 @@
 //
 
 #import "FTBaseViewController.h"
+#import "FTUserViewController.h"
 
-@interface FTAlbumsViewController : FTBaseViewController
+@interface FTAlbumsViewController : FTUserViewController
+
 @property (nonatomic, strong) NSMutableArray * assetsGroups;
 
 @end

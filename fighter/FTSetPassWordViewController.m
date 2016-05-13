@@ -53,8 +53,8 @@
     [backBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
     
-    [self.seperaterView1 setBackgroundColor:[UIColor colorWithHex:0x505050 ]];
-    [self.seperaterView2 setBackgroundColor:[UIColor colorWithHex:0x505050 ]];
+    [self.seperaterView1 setBackgroundColor:Cell_Space_Color];
+    [self.seperaterView2 setBackgroundColor:Cell_Space_Color];
     
     [self.passwordTextField setBackgroundColor:[UIColor clearColor]];
     [self.passwordTextField2 setBackgroundColor:[UIColor clearColor]];
@@ -111,12 +111,14 @@
         NSLog(@"userid 为 nill,将return");
         return;
     }
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NetWorking *net = [NetWorking new];
     [net registUserWithPhoneNumber:self.userId
                           password:self.passwordTextField.text
                          checkCode:self.checkCode
                             option:^(NSDictionary *dict) {
-        
+                                
+                                [MBProgressHUD hideHUDForView:self.view animated:YES];
                                 NSLog(@"dict:%@",dict);
                                 if (dict != nil) {
                                     
@@ -145,11 +147,11 @@
                                         
                                     }else {
                                         
-                                        [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                                         
                                     }
                                 }else {
-                                    [self showHUDWithMessage:@"修改失败，稍后再试"];
+                                    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"修改失败，稍后再试"];
                                     
                                 }
 

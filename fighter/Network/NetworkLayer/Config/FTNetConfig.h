@@ -55,8 +55,8 @@ extern NSString * const UserWXLoginURL;
 extern NSString * const UpdateUserURL;
 // 7.更新用户头像
 extern NSString * const UpdateUserHeadPicURL;
-// 8.找回密码 发送验证码
-extern NSString * const SendSMSFindPwsURL;
+// 8.找回密码、更换手机 发送验证码
+extern NSString * const SendSMSExistURL;
 // 9.找回密码-发送新密码
 extern NSString * const SendSMSNewPwdURL;
 // 10.获取支付账户信息
@@ -81,9 +81,14 @@ extern NSString * const BindingPhoneURL;
 extern NSString * const ISBindingPhoneURL;
 // 22.修改密码
 extern NSString * const UpdatePassWordURL;
-//23.绑定手机验证码
-extern NSString * const BindingPhoneCheckCodeURL;
 
+//23.验证绑定手机验证码,绑定手机
+//extern NSString * const BindingPhoneCheckCodeURL;
+
+//24.获取新手机手机验证码
+extern NSString * const SendSMSNewURL;
+//25.验证已经绑定手机验证码
+extern NSString * const IsValidatePhone;
 
 
 //获取评论、点赞等状态

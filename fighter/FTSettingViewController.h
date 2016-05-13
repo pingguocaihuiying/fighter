@@ -7,7 +7,8 @@
 //
 
 #import "FTBaseViewController.h"
+#import "FTUserViewController.h"
 
-@interface FTSettingViewController : FTBaseViewController
+@interface FTSettingViewController : FTUserViewController
 
 @end

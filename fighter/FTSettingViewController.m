@@ -35,7 +35,7 @@
     [super viewDidLoad];
     
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.bounds = CGRectMake(0, 0, 35, 35);
+    backBtn.bounds = CGRectMake(0, 0, 22, 22);
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-取消"] forState:UIControlStateNormal];
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-取消pre"] forState:UIControlStateHighlighted];
     [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -49,14 +49,16 @@
     [self setTouchEvent];
 }
 
+
+
 - (void) initSubviews {
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"FTTableViewCell5" bundle:nil] forCellReuseIdentifier:@"cellId"];
-    //    [self.tableView registerClass:[FTDrawerTableViewCell class] forCellReuseIdentifier:@"cellId"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"FTTableViewCell5" bundle:nil] forCellReuseIdentifier:@"SettingCellId"];
+//        [self.tableView registerClass:[FTTableViewCell5 class] forCellReuseIdentifier:@"cellId"];
     //    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellId"];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     self.tableView.scrollEnabled = NO;
-    self.tableView.separatorColor = [UIColor colorWithHex:0x505050];
+    self.tableView.separatorColor = Cell_Space_Color;
     self.tableView.dataSource =self;
     self.tableView.delegate = self;
     
@@ -84,6 +86,20 @@
     }
     
 }
+
+
+-(void)viewDidLayoutSubviews {
+    
+    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+        
+    }
+    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)])  {
+        [self.tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
@@ -122,12 +138,28 @@
                 }];
                 
             }else {
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"loginUser"];
+                [[NSUserDefaults standardUserDefaults]synchronize];
+                
+                [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"loginAction" object:@"LOGOUT"];
+                }];
+
                 NSLog(@"message : %@", [dict[@"message"] class]);
                 [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                 
             }
         }else {
             
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"loginUser"];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            
+            [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"loginAction" object:@"LOGOUT"];
+            }];
+
             [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
             
         }
@@ -169,10 +201,21 @@
 //    return header;
 //}
 
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPat{
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]){
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSLog(@"cell for row");
-    FTTableViewCell5 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
+    FTTableViewCell5 *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingCellId"];
 //    FTTableViewCell5 *cell = [[[NSBundle mainBundle]loadNibNamed:@"FTTableViewCell5" owner:nil options:nil]firstObject];
     
     if (indexPath.row == 0) {
@@ -302,9 +345,9 @@
 //    }
     [FTNetConfig changePreviewVersion];
     if ([[FTNetConfig showType] integerValue] == 1) {
-        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"已经切换为正式版"];
-    }else {
         [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"已经切换为预览版"];
+    }else {
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"已经切换为正式版"];
     }
     
 }

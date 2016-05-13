@@ -15,6 +15,7 @@
 #import "Regex.h"
 #import "MD5.h"
 #import "MainViewController.h"
+#import "UIWindow+MBProgressHUD.h"
 
 
 @interface FTRegistViewController () <UITextFieldDelegate>
@@ -53,8 +54,8 @@
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:loginBtn];
         
-        [self.seperaterView1 setBackgroundColor:[UIColor colorWithHex:0x505050 ]];
-        [self.seperaterView2 setBackgroundColor:[UIColor colorWithHex:0x505050 ]];
+        [self.seperaterView1 setBackgroundColor:Cell_Space_Color];
+        [self.seperaterView2 setBackgroundColor:Cell_Space_Color];
         
         [self.acountTextField setBackgroundColor:[UIColor clearColor]];
         [self.checkCodeTextField setBackgroundColor:[UIColor clearColor]];
@@ -117,10 +118,12 @@
 //        [self showHUDWithMessage:@"手机号不正确"];
 //        return;
 //    }
-    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NetWorking *net = [NetWorking new];
-    [net getCheckCodeWithPhoneNumber:self.acountTextField.text option:^(NSDictionary *dict) {
-        
+    [net getCheckCodeWithPhoneNumber:self.acountTextField.text
+                              option:^(NSDictionary *dict) {
+                                  
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSLog(@"dict:%@",dict);
         if (dict != nil) {
             
@@ -139,16 +142,16 @@
                 self.userId = dict[@"data"];
                 NSLog(@"self.userId :%@",self.userId );
                 
-                [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                 
                 
             }else {
                 NSLog(@"message : %@", [dict[@"message"] class]);
-                [self showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 //                [self showHUDWithMessage:@"验证码发送失败，稍后再试"];
             }
         }else {
-            [self showHUDWithMessage:@"验证码发送失败，稍后再试"];
+            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
             
         }
 

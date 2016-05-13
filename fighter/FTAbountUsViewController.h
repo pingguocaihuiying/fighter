@@ -7,8 +7,9 @@
 //
 
 #import "FTBaseViewController.h"
+#import "FTUserViewController.h"
 
-@interface FTAbountUsViewController : FTBaseViewController
+@interface FTAbountUsViewController : FTUserViewController
 
 @property (weak, nonatomic) IBOutlet UIImageView *logoImageView;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel1;

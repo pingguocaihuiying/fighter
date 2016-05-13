@@ -88,7 +88,7 @@ NSString * const UpdateUserURL = @"/api/newuser/updateUser.do";
 
 NSString * const UpdateUserHeadPicURL = @"/api/newuser/updateUserHeadpic.do";
 
-NSString * const SendSMSFindPwsURL = @"/api/newuser/sendSMS_Old.do";
+NSString * const SendSMSExistURL = @"/api/newuser/sendSMS_Old.do";//给已绑定的手机发送验证码
 
 NSString * const SendSMSNewPwdURL = @"/api/newuser/findpassword.do";
 
@@ -112,7 +112,11 @@ NSString * const ISBindingPhoneURL = @"/api/newuser/isUserBindPhone.do";
 
 NSString * const UpdatePassWordURL = @"/api/newuser/updatePassword.do";
 
-NSString * const BindingPhoneCheckCodeURL = @"/api/newuser/updatePassword.do";
+//NSString * const BindingPhoneCheckCodeURL = @"/api/newuser/updatePassword.do";
+
+NSString * const SendSMSNewURL = @"/api/newuser/sendSMS_New.do";
+
+NSString * const IsValidatePhone =  @"/api/newuser/validatePhone.do";
 
 
 

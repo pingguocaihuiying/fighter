@@ -54,7 +54,7 @@
 		3D5FB4B91CDC41A500FC1809 /* FTAlbumsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4B71CDC41A500FC1809 /* FTAlbumsViewController.m */; };
 		3D5FB4BE1CDC7E6600FC1809 /* FTImageCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4BC1CDC7E6600FC1809 /* FTImageCollectionCell.m */; };
 		3D5FB4BF1CDC7E6600FC1809 /* FTImageCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D5FB4BD1CDC7E6600FC1809 /* FTImageCollectionCell.xib */; };
-		3D69470D1CE3064900989440 /* FTButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D69470C1CE3064900989440 /* FTButton.m */; };
+		3D6947101CE3374000989440 /* FTUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D69470F1CE3374000989440 /* FTUserViewController.m */; };
 		3D7B988E1CDD027400B80B8D /* Area.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D7B988D1CDD027400B80B8D /* Area.plist */; };
 		3D7B98901CDD1E5900B80B8D /* Area2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D7B988F1CDD1E5900B80B8D /* Area2.plist */; };
 		3D7B98971CDEE1E900B80B8D /* FTSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7B98951CDEE1E900B80B8D /* FTSettingViewController.m */; };
@@ -297,6 +297,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+
 		3D4B18F21CD8BF340022DFB0 /* FTSetPassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSetPassWordViewController.h; sourceTree = "<group>"; };
 		3D4B18F31CD8BF340022DFB0 /* FTSetPassWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTSetPassWordViewController.m; sourceTree = "<group>"; };
 		3D4B18F41CD8BF340022DFB0 /* FTSetPassWordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTSetPassWordViewController.xib; sourceTree = "<group>"; };
@@ -373,8 +374,8 @@
 		3D5FB4BB1CDC7E6600FC1809 /* FTImageCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTImageCollectionCell.h; sourceTree = "<group>"; };
 		3D5FB4BC1CDC7E6600FC1809 /* FTImageCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTImageCollectionCell.m; sourceTree = "<group>"; };
 		3D5FB4BD1CDC7E6600FC1809 /* FTImageCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTImageCollectionCell.xib; sourceTree = "<group>"; };
-		3D69470B1CE3064900989440 /* FTButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTButton.h; sourceTree = "<group>"; };
-		3D69470C1CE3064900989440 /* FTButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTButton.m; sourceTree = "<group>"; };
+		3D69470E1CE3374000989440 /* FTUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserViewController.h; sourceTree = "<group>"; };
+		3D69470F1CE3374000989440 /* FTUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserViewController.m; sourceTree = "<group>"; };
 		3D7B988D1CDD027400B80B8D /* Area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Area.plist; sourceTree = "<group>"; };
 		3D7B988F1CDD1E5900B80B8D /* Area2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Area2.plist; sourceTree = "<group>"; };
 		3D7B98941CDEE1E900B80B8D /* FTSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSettingViewController.h; sourceTree = "<group>"; };
@@ -995,8 +996,7 @@
 		3D6947091CE305CD00989440 /* 用户中心 */ = {
 			isa = PBXGroup;
 			children = (
-				3D69470B1CE3064900989440 /* FTButton.h */,
-				3D69470C1CE3064900989440 /* FTButton.m */,
+				3D6947111CE3375000989440 /* base */,
 				3D4B18E71CD8BC010022DFB0 /* userSetting */,
 				3DE95BA91CD86FB6005BF85C /* login */,
 				3DC411E81CCF734A0030C229 /* drawer */,
@@ -1011,6 +1011,15 @@
 				E668BBB31CE32D3400071998 /* view */,
 			);
 			name = "排行榜";
+			sourceTree = "<group>";
+		};
+		3D6947111CE3375000989440 /* base */ = {
+			isa = PBXGroup;
+			children = (
+				3D69470E1CE3374000989440 /* FTUserViewController.h */,
+				3D69470F1CE3374000989440 /* FTUserViewController.m */,
+			);
+			name = base;
 			sourceTree = "<group>";
 		};
 		3D7B98AB1CE05EDD00B80B8D /* acountManager */ = {
@@ -2281,7 +2290,6 @@
 				E66D6F141CBCE843008B015A /* AFSecurityPolicy.m in Sources */,
 				3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */,
 				E66D6F111CBCE843008B015A /* AFHTTPRequestOperationManager.m in Sources */,
-				3D69470D1CE3064900989440 /* FTButton.m in Sources */,
 				E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */,
 				E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */,
 				3DC412121CD039D70030C229 /* MASViewAttribute.m in Sources */,
@@ -2303,6 +2311,7 @@
 				3D7B98BE1CE0898400B80B8D /* FTOldPasswordVC.m in Sources */,
 				3D7B98B91CE078D600B80B8D /* FTInputCheckCodeViewController.m in Sources */,
 				E6D74A481CB7B7EE00854337 /* UIColor+YBColorCategory.m in Sources */,
+				3D6947101CE3374000989440 /* FTUserViewController.m in Sources */,
 				3DC4120E1CD039D70030C229 /* MASCompositeConstraint.m in Sources */,
 				E6B458DE1CB7B2B100FB4261 /* FTTableViewController.m in Sources */,
 				3D4B193C1CD9FD670022DFB0 /* UMFullScreenPhotoView.m in Sources */,
@@ -2551,7 +2560,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fighter.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c10c791b-700b-43a5-8002-99f83e357690";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -2586,7 +2595,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fighter.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c10c791b-700b-43a5-8002-99f83e357690";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

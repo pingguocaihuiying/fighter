@@ -7,8 +7,9 @@
 //
 
 #import "FTBaseViewController.h"
+#import "FTUserViewController.h"
 
-@interface FTOldPasswordVC : FTBaseViewController
+@interface FTOldPasswordVC : FTUserViewController
 
 
 @property (weak, nonatomic) IBOutlet UIView *seperaterView1;

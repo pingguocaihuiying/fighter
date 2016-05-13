@@ -22,11 +22,11 @@ typedef NS_ENUM(NSInteger, FTButtonModel) {
 
 @interface FTButton : UIButton
 
-@property (nonatomic, assign) CGFloat ImageH;//图片高度
-@property (nonatomic, assign) CGFloat ImageW;//图片宽度
+@property (nonatomic, assign) CGFloat imageH;//图片高度
+@property (nonatomic, assign) CGFloat imageW;//图片宽度
 
-//@property (nonatomic, assign) CGFloat 
+@property (nonatomic, assign) CGFloat space; //图片和title的间隔宽度
 
-@property (nonatomic, assign) FTButtonModel buttonModel;
+@property (nonatomic, assign) FTButtonModel buttonModel;//按钮的样式
 
 @end

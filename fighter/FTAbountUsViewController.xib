@@ -9,6 +9,8 @@
             <connections>
                 <outlet property="contentLabel1" destination="KJr-RR-Dee" id="kDs-P4-Htr"/>
                 <outlet property="contentLabel2" destination="hzF-3b-Ts0" id="egd-Qo-Skg"/>
+                <outlet property="copyrightEN" destination="evx-1k-ILp" id="cBf-0e-bK7"/>
+                <outlet property="copyrightZH" destination="iBD-j0-ieG" id="Y3a-ll-fAJ"/>
                 <outlet property="logoImageView" destination="4v8-oH-dbE" id="Xa1-F6-n8X"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -66,16 +68,34 @@
                     </attributedString>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="©2016 车库传奇  版权所有" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iBD-j0-ieG">
+                    <rect key="frame" x="5" y="539" width="310" height="14.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright ©2016 gogogofight. All Right Reserverd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evx-1k-ILp">
+                    <rect key="frame" x="5" y="553.5" width="310" height="14.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="evx-1k-ILp" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" constant="-5" id="29v-j6-WcI"/>
                 <constraint firstItem="hzF-3b-Ts0" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" constant="-15" id="2PP-yc-OtQ"/>
                 <constraint firstItem="hzF-3b-Ts0" firstAttribute="top" secondItem="KJr-RR-Dee" secondAttribute="bottom" constant="30" id="55t-DH-i0f"/>
+                <constraint firstItem="evx-1k-ILp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="5" id="AWS-pu-JZu"/>
                 <constraint firstItem="4v8-oH-dbE" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="B56-Np-WpT"/>
+                <constraint firstItem="iBD-j0-ieG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="5" id="E6m-3F-vxU"/>
                 <constraint firstItem="KJr-RR-Dee" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" constant="-15" id="ME1-NC-I1C"/>
                 <constraint firstItem="KJr-RR-Dee" firstAttribute="top" secondItem="4v8-oH-dbE" secondAttribute="bottom" id="MtF-6l-rd9"/>
                 <constraint firstItem="4v8-oH-dbE" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="75" id="Tsd-4j-0Wp"/>
                 <constraint firstItem="KJr-RR-Dee" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="ZjF-ni-4t5"/>
+                <constraint firstItem="iBD-j0-ieG" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" constant="-5" id="blK-Md-opN"/>
+                <constraint firstItem="iBD-j0-ieG" firstAttribute="bottom" secondItem="evx-1k-ILp" secondAttribute="top" id="dos-8d-LUS"/>
+                <constraint firstItem="evx-1k-ILp" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="hsc-UW-eim"/>
                 <constraint firstItem="hzF-3b-Ts0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="zhg-d6-A7d"/>
             </constraints>
             <point key="canvasLocation" x="204" y="251"/>

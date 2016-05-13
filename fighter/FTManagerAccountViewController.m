@@ -13,6 +13,7 @@
 #import "FTWeixinInfoVC.h"
 #import "NetWorking.h"
 #import "UIWindow+MBProgressHUD.h"
+#import "FTInputNewPhoneViewController.h"
 
 @interface FTManagerAccountViewController () <UITableViewDataSource,UITableViewDelegate>
 
@@ -40,7 +41,7 @@
 - (void) initSubviews {
     
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.bounds = CGRectMake(0, 0, 35, 35);
+    backBtn.bounds = CGRectMake(0, 0, 22, 22);
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回pre"] forState:UIControlStateHighlighted];
     [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -49,7 +50,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"FTTableViewCell5" bundle:nil] forCellReuseIdentifier:@"cellId"];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     self.tableView.scrollEnabled = NO;
-    self.tableView.separatorColor = [UIColor colorWithHex:0x505050];
+    self.tableView.separatorColor = Cell_Space_Color;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
@@ -73,6 +74,8 @@
     
 }
 
+
+//绑定微信
 - (void) showWeiXinNameAndHeader {
     
    
@@ -93,25 +96,20 @@
                 [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
                 
-//                NSDictionary *userDataDic = dict[@"data"];
-//                NSDictionary *userDic = userDataDic[@"user"];
-//                
-//                FTUserBean *user = [FTUserBean new];
-//                [user setValuesForKeysWithDictionary:userDic];
+                NSDictionary *userDataDic = dict[@"data"];
+                NSDictionary *userDic = userDataDic[@"user"];
+                FTUserBean *user = [FTUserBean new];
+                [user setValuesForKeysWithDictionary:userDic];
                 
-                //从本地读取存储的用户信息
-                NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-                FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+                //更新本地数据
+                user.wxopenId = wxOpenId;
+                user.wxHeaderPic = wxHeaderPic;
+                user.wxName = wxName;
                 
-                localUser.wxopenId = wxOpenId;
-                localUser.wxHeaderPic = wxHeaderPic;
-                localUser.wxName = wxName;
-                
-                //将用户信息保存在本地
-                NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
-                [[NSUserDefaults standardUserDefaults]setObject:userData forKey:@"loginUser"];
+                NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
+                [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
                 [[NSUserDefaults standardUserDefaults]synchronize];
-                
+            
                 [self.tableView reloadData];
                 FTWeixinInfoVC *wxVC = [[FTWeixinInfoVC alloc]init];
                 //    wxVC.headerUrl = localUser.wxHeaderPic;
@@ -122,6 +120,18 @@
                 NSLog(@"message : %@", [dict[@"message"] class]);
                 [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                 
+                //从本地读取存储的用户信息
+                NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+                FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+                localUser.openId = nil;
+                localUser.wxopenId = nil;
+                localUser.wxHeaderPic = nil;
+                localUser.wxName = nil;
+                
+                //将用户信息保存在本地
+                NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
+                [[NSUserDefaults standardUserDefaults]setObject:userData forKey:@"loginUser"];
+                [[NSUserDefaults standardUserDefaults]synchronize];
             }
         }else {
             [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@" 微信登录失败"];
@@ -168,18 +178,16 @@
         }
         
     }if (indexPath.row == 1) {
-        cell.titleLabel.text = @"手机绑定：";
+        
         if (localUser.tel.length > 0) {
+            cell.titleLabel.text = @"更换手机";
             cell.remarkLabel.text = localUser.tel;
         }else {
+            cell.titleLabel.text = @"绑定手机：";
             cell.remarkLabel.text = @"未绑定";
         }
     }if (indexPath.row == 2) {
-//        if(localUser.openId.length > 0){
-//            cell.titleLabel.text = @"设置密码：";
-//        }else {
-//            cell.titleLabel.text = @"更改密码：";
-//        }
+        
         cell.titleLabel.text = @"更改密码：";
     }
     
@@ -208,9 +216,19 @@
         }
         
     }else  if (indexPath.row == 1) {
-        FTPhoneViewController * changePhoneVC = [[FTPhoneViewController alloc]init];
-        changePhoneVC.title = @"更改绑定手机";
-        [self.navigationController pushViewController:changePhoneVC animated:YES];
+        
+        if(localUser.tel.length > 0) {
+            FTPhoneViewController * changePhoneVC = [[FTPhoneViewController alloc]init];
+            changePhoneVC.title = @"更改绑定手机";
+            [self.navigationController pushViewController:changePhoneVC animated:YES];
+        }else {
+            FTInputNewPhoneViewController *inputNewPhoneVC = [[FTInputNewPhoneViewController alloc]init];
+            inputNewPhoneVC.title = @"绑定手机";
+            inputNewPhoneVC.type = @"bindphone";
+            [self.navigationController pushViewController:inputNewPhoneVC animated:YES];
+            
+        }
+        
     }
     else  if (indexPath.row == 2) {
         

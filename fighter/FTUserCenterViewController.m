@@ -54,7 +54,7 @@
 - (void) initSubviews {
     
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.bounds = CGRectMake(0, 0, 35, 35);
+    backBtn.bounds = CGRectMake(0, 0, 22, 22);
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回pre"] forState:UIControlStateHighlighted];
     [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -70,12 +70,14 @@
                                     placeholderImage:[UIImage imageNamed:@"头像-空"]];
     
     
+    [self.tableView registerNib:[UINib nibWithNibName:@"FTTableViewCell4" bundle:nil] forCellReuseIdentifier:@"userCellId"];
     //tableView 设置代理
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.scrollEnabled = NO;
-    self.tableView.separatorColor = [UIColor colorWithHex:0x505050];
+    self.tableView.separatorColor = Cell_Space_Color;
     [self.tableView setBackgroundColor:[UIColor clearColor]];
+    
 }
 
 #pragma mark - response 
@@ -189,39 +191,36 @@
 //}
 
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UIEdgeInsets edgeInsets;
-    if (indexPath.row == 5) {
-         edgeInsets = UIEdgeInsetsMake(0, self.tableView.frame.size.width, 0, 0);
-        
-    }else {
-        edgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
-    }
-    
-    if ([cell respondsToSelector:@selector(setSeparatorInset:)])
-    {
-        [cell setSeparatorInset:edgeInsets];
-    }
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)])
-    {
-        [cell setLayoutMargins:edgeInsets];
-    }
-    
-}
+//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    UIEdgeInsets edgeInsets;
+////    if (indexPath.row == 5) {
+//////         edgeInsets = UIEdgeInsetsMake(0, self.tableView.frame.size.width, 0, 0);
+////        edgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+////        
+////    }else {
+////        edgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
+////    }
+//    edgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+//    
+//    if ([cell respondsToSelector:@selector(setSeparatorInset:)])
+//    {
+//        NSLog(@"cell ...............");
+//        [cell setSeparatorInset:UIEdgeInsetsZero];
+//    }
+//    if ([cell respondsToSelector:@selector(setLayoutMargins:)])
+//    {
+//        [cell setLayoutMargins:UIEdgeInsetsZero];
+//    }
+//    
+//}
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//    FTTableViewCell4 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
-     FTTableViewCell4 *cell = [[[NSBundle mainBundle]loadNibNamed:@"FTTableViewCell4" owner:nil options:nil]firstObject];
+    FTTableViewCell4 *cell = [tableView dequeueReusableCellWithIdentifier:@"userCellId"];
+//     FTTableViewCell4 *cell = [[[NSBundle mainBundle]loadNibNamed:@"FTTableViewCell4" owner:nil options:nil]firstObject];
     
-//    if (cell) {
-//        [cell.propertyContentLabel setTextColor:[UIColor colorWithHex:0xb4b4b4]];
-//        
-//        
-////        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    }
     
     if (indexPath.row == 0) {
         cell.UserPropertyLabel.text = @"姓名 ：";
@@ -229,23 +228,23 @@
         
     }else if (indexPath.row == 1) {
         cell.UserPropertyLabel.text = @"性别 ：";
-        cell.propertyContentLabel.text = @"男";
+        cell.propertyContentLabel.text = @"--";
         
     }else if (indexPath.row == 2) {
         cell.UserPropertyLabel.text = @"身高 ：";
-        cell.propertyContentLabel.text = @"180cm";
+        cell.propertyContentLabel.text = @"--cm";
         
     }else if (indexPath.row == 3) {
         cell.UserPropertyLabel.text = @"体重 ：";
-        cell.propertyContentLabel.text = @"80kg";
+        cell.propertyContentLabel.text = @"--kg";
        
     }else if (indexPath.row == 4) {
         cell.UserPropertyLabel.text = @"生日 ：";
-        cell.propertyContentLabel.text = @"1990-12-10";
+        cell.propertyContentLabel.text = @"--";
        
     }else if (indexPath.row == 5) {
         cell.UserPropertyLabel.text = @"所在地 ：";
-        cell.propertyContentLabel.text = @"北京";
+        cell.propertyContentLabel.text = @"--";
         
         
     }

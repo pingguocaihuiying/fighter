@@ -7,8 +7,9 @@
 //
 
 #import "FTBaseViewController.h"
+#import "FTUserViewController.h"
 
-@interface FTUserCenterViewController : FTBaseViewController
+@interface FTUserCenterViewController : FTUserViewController
 
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
 @property (weak, nonatomic) IBOutlet UIButton *avatarBtn;

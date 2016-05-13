@@ -9,6 +9,8 @@
 #import "FTAbountUsViewController.h"
 
 @interface FTAbountUsViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *copyrightZH;
+@property (weak, nonatomic) IBOutlet UILabel *copyrightEN;
 
 @end
 
@@ -23,7 +25,7 @@
 - (void) initSubviews {
 
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.bounds = CGRectMake(0, 0, 35, 35);
+    backBtn.bounds = CGRectMake(0, 0, 22, 22);
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
     [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回pre"] forState:UIControlStateHighlighted];
     [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -33,7 +35,7 @@
         self.contentLabel1.textColor = [UIColor colorWithHex:0xb4b4b4];
         NSMutableAttributedString * attributedString1 = [[NSMutableAttributedString alloc] initWithString:self.contentLabel1.text];
         NSMutableParagraphStyle * paragraphStyle1 = [[NSMutableParagraphStyle alloc] init];
-        [paragraphStyle1 setLineSpacing:8];
+        [paragraphStyle1 setLineSpacing:0];
         [attributedString1 addAttribute:NSParagraphStyleAttributeName value:paragraphStyle1 range:NSMakeRange(0, [self.contentLabel1.text length])];
         [self.contentLabel1 setAttributedText:attributedString1];
         [self.contentLabel1 sizeToFit];
@@ -41,7 +43,7 @@
         self.contentLabel2.textColor = [UIColor colorWithHex:0xb4b4b4];
         NSMutableAttributedString * attributedString2 = [[NSMutableAttributedString alloc] initWithString:self.contentLabel2.text];
         NSMutableParagraphStyle * paragraphStyle2 = [[NSMutableParagraphStyle alloc] init];
-        [paragraphStyle2 setLineSpacing:8];
+        [paragraphStyle2 setLineSpacing:0];
         [attributedString2 addAttribute:NSParagraphStyleAttributeName value:paragraphStyle2 range:NSMakeRange(0, [self. self.contentLabel2.text length])];
         [self. self.contentLabel2 setAttributedText:attributedString2];
         [self. self.contentLabel2 sizeToFit];
@@ -52,8 +54,10 @@
     @finally {
         
     }
-   
     
+    
+    [self.copyrightZH setTextColor:[UIColor colorWithHex:0x828287]];
+    [self.copyrightEN setTextColor:[UIColor colorWithHex:0x828287]];
    
 }
 

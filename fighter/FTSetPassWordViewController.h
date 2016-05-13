@@ -6,8 +6,9 @@
 //  Copyright © 2016年 Mapbar. All rights reserved.
 
 #import <UIKit/UIKit.h>
+#import "FTUserViewController.h"
 
-@interface FTSetPassWordViewController : UIViewController
+@interface FTSetPassWordViewController : FTUserViewController
 
 @property (weak, nonatomic) IBOutlet UIView *seperaterView1;
 

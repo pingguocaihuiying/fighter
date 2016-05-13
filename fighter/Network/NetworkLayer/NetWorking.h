@@ -11,6 +11,8 @@
 @interface NetWorking : NSObject
 
 
+/*****************************      封装请求      ********************************/
+
 //get请求
 - (void) getRequestWithUrl:(NSString *)urlString
                 parameters:(NSDictionary *)dic
@@ -21,12 +23,16 @@
                  parameters:(NSDictionary *)dic
                      option:(void (^)(NSDictionary *dict))option;
 
+
 //post请求上传二进制数据
 - (void) postUploadDataWithURL:(NSString *)urlString
                     parameters:(NSDictionary *)dic
               appendParameters:(NSDictionary *)appendDic
                         option:(void (^)(NSDictionary *dict))option;
 
+
+
+/*****************************    获取短信验证码   ********************************/
 
 //获取短信验证码
 - (void) getCheckCodeWithPhoneNumber:(NSString *)phonenum
@@ -37,7 +43,17 @@
 - (void) getCheckCodeForNewBindingPhone:(NSString *)phoneNum
                                  option:(void (^)(NSDictionary *dict))option;
 
+//更换手机时获取旧手机号验证码
+- (void) getCheckCodeForExistPhone:(NSString *)phoneNum
+                                type:(NSString *)type
+                              option:(void (^)(NSDictionary *dict))option;
 
+//更换手机时获取新手机号验证码
+- (void) getCheckCodeForNewPhone:(NSString *)phoneNum
+                            type:(NSString *)type
+                          option:(void (^)(NSDictionary *dict))option;
+
+/*****************************    注册登录   ***********************************/
 //手机号注册用户
 - (void) registUserWithPhoneNumber:(NSString *)phoneNum
                           password:(NSString *)password
@@ -49,6 +65,12 @@
 - (void) loginWithPhoneNumber:(NSString *)phoneNum
                      password:(NSString *)password
                        option:(void (^)(NSDictionary *dict))option;
+
+
+//用户退出登录
+- (void) loginOut:(void (^)(NSDictionary *dict))option ;
+
+/*****************************    更新用户   *********************************/
 
 //修改用户数据  --post
 - (void) updateUserWithValue:(NSString *)value
@@ -68,11 +90,10 @@
 //检查用户是否绑定手机
 - (void) isBindingPhoneNum:(void (^)(NSDictionary *dict))option;
 
-//绑定手机号码
-- (void) bindingPhoneNumber:(NSString *)phoneNum
-                  checkCode:(NSString *)checkcode
-                     option:(void (^)(NSDictionary *dict))option;
 
+
+
+/*****************************    微信   ******************************/
 //绑定微信号
 - (void) bindingWeixin:(NSString *)openId
 //                  checkCode:(NSString *)checkcode
@@ -82,8 +103,7 @@
 - (void) updatePassword:(NSString *) oldpass
             newPassword:(NSString *) newPass
                  option:(void (^)(NSDictionary *dict))option;
-//用户退出登录
-- (void) loginOut:(void (^)(NSDictionary *dict))option ;
+
 
 //微信登录请求
 - (void) weixinRequest;
@@ -100,5 +120,22 @@
 //向服务器注册微信用户，或者登录微信用户
 - (void) requestWeixinUser:(NSDictionary *)wxInfoDic
                     option:(void (^)(NSDictionary *dict))option;
+
+
+/***************************     binding phone     ***********************************/
+
+//绑定手机号码
+- (void) bindingPhoneNumber:(NSString *)phoneNum
+                  checkCode:(NSString *)checkcode
+                     option:(void (^)(NSDictionary *dict))option;
+//验证旧手机验证码
+- (void) checkCodeForExistPhone:(NSString *)phoneNum
+                    checkCode:(NSString *)checkcode
+                       option:(void (^)(NSDictionary *dict))option;
+
+//修改绑定手机
+- (void) changgeBindingPhone:(NSString *)phoneNum
+                   checkCode:(NSString *)checkcode
+                      option:(void (^)(NSDictionary *dict))option;
 
 @end
