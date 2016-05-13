@@ -23,6 +23,7 @@
 #import "FTRankingListViewController.h"
 #import "FTCache.h"
 #import "FTCacheBean.h"
+#import "FTRankViewController.h"
 
 @interface FTInformationViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTnewsDetailDelegate>
 
@@ -543,9 +544,15 @@
 
 #pragma -mark -排行榜按钮被点击
 - (IBAction)rankButtonClicked:(id)sender {
-    FTRankingListViewController *rankingListViewController = [FTRankingListViewController new];
-    [self.navigationController pushViewController:rankingListViewController animated:YES];
-    rankingListViewController.title = @"格斗之王";
+    
+    FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
+    rankHomeVC.title = @"格斗之王";
+    [self.navigationController pushViewController:rankHomeVC animated:YES];
+    
+
+//    FTRankingListViewController *rankingListViewController = [FTRankingListViewController new];
+//    [self.navigationController pushViewController:rankingListViewController animated:YES];
+//    rankingListViewController.title = @"格斗之王";
 }
 
 - (IBAction)messageButtonClicked:(id)sender {

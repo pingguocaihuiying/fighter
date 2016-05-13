@@ -207,7 +207,7 @@
         label.font=[UIFont systemFontOfSize:20];
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = [UIColor whiteColor];
-        label.text= [NSString stringWithFormat:@"%lu",row +1 ];
+        label.text= [NSString stringWithFormat:@"%ld",row +1 ];
         
         return label;
     }else {
@@ -232,7 +232,7 @@
     }
     
     //将选择器结果显示到label
-    _resultLabel.text = [NSString stringWithFormat:@"%ldkg",selectNum];
+    _resultLabel.text = [NSString stringWithFormat:@"%ldkg",(long)selectNum];
     
 }
 
