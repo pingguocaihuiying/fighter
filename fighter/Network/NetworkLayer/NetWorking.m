@@ -554,8 +554,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 
 
 
-
-
 - (NSDictionary *) setJsonDataWithKey:(NSString*)key   value:(NSString *)value {
 
     //从本地读取存储的用户信息
