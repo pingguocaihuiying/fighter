@@ -18,8 +18,9 @@
 #import "FTBaseNavigationViewController.h"
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
+#import "FTPhotoPickerView.h"
 
-@interface FTNewsDetail2ViewController ()<UIWebViewDelegate, UMSocialUIDelegate, CommentSuccessDelegate>
+@interface FTNewsDetail2ViewController ()<UIWebViewDelegate, UMSocialUIDelegate, CommentSuccessDelegate, FTPickerViewDelegate>
 {
     UIWebView *_webView;
     UIImageView *_loadingImageView;
@@ -147,7 +148,7 @@
     NSString *title = _newsBean.title;
     title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-    _webViewUrlString = [NSString stringWithFormat:@"http://www.loufang.studio/page/news_page.html?objId=%@&title=%@&author=%@&newsTime=%@&commentCount=%@&voteCount=%@&url=%@&tableName=%@&type=%@", _newsBean.newsId, title, [_newsBean.author stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], _newsBean.newsTime, _newsBean.commentCount, _newsBean.voteCount,url , @"c-news", _newsBean.newsType];
+    _webViewUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/news_page.html?objId=%@&title=%@&author=%@&newsTime=%@&commentCount=%@&voteCount=%@&url=%@&tableName=%@&type=%@", _newsBean.newsId, title, [_newsBean.author stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], _newsBean.newsTime, _newsBean.commentCount, _newsBean.voteCount,url , @"c-news", _newsBean.newsType];
     
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webViewUrlString]]];
     [self.view sendSubviewToBack:_webView];
@@ -198,6 +199,34 @@
     /*
      *暂时采用微信的分享
      */
+    
+    FTPhotoPickerView *pickerView = [FTPhotoPickerView new];
+    pickerView.resultLabel.text = @"分享到";
+    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享-微信"] forState:UIControlStateNormal];
+    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享-微信pre"] forState:UIControlStateHighlighted];
+    [pickerView.cameraBtn addTarget:self action:@selector(shareToWXSceneSession) forControlEvents:UIControlEventTouchUpInside];
+    
+    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享-朋友圈"] forState:UIControlStateNormal];
+    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享-朋友圈pre"] forState:UIControlStateHighlighted];
+    [pickerView.albumBtn addTarget:self action:@selector(shareToWXSceneTimeline) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:pickerView];
+//    
+
+}
+
+- (void)shareToWXSceneSession{
+        NSLog(@"WXSceneSession");
+    [self shareToWXWithType:WXSceneSession];
+}
+
+- (void)shareToWXSceneTimeline{
+    NSLog(@"WXSceneTimeline");
+    [self shareToWXWithType:WXSceneTimeline];
+    
+}
+
+- (void)shareToWXWithType:(int) scene{
     WXMediaMessage *message = [WXMediaMessage message];
     message.title = _newsBean.title;
     message.description = _newsBean.summary;
@@ -209,7 +238,7 @@
     SendMessageToWXReq *req = [SendMessageToWXReq new];
     req.bText = NO;
     req.message = message;
-    req.scene = WXSceneSession;
+    req.scene = scene;
     [WXApi sendReq:req];
 }
 

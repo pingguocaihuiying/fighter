@@ -15,6 +15,7 @@
 #import "WXApi.h"
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
+#import "FTPhotoPickerView.h"
 
 @interface FTVideoDetailViewController ()<UIWebViewDelegate, UMSocialUIDelegate, CommentSuccessDelegate>
 {
@@ -204,7 +205,7 @@
     NSString *title = _videoBean.title;
     title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-    _webViewUrlString = [NSString stringWithFormat:@"http://www.loufang.studio/page/video_page.html?objId=%@&title=%@&author=%@&newsTime=%@&commentCount=%@&voteCount=%@&url=%@&tableName=%@&type=%@&videoLength=%@&viewCount=%@", _videoBean.videosId, title, [_videoBean.author stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], _videoBean.videosTime, _videoBean.commentCount, _videoBean.voteCount,url , @"c-video", _videoBean.videosType, _videoBean.videoLength,_videoBean.viewCount];
+    _webViewUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/video_page.html?objId=%@&title=%@&author=%@&newsTime=%@&commentCount=%@&voteCount=%@&url=%@&tableName=%@&type=%@&videoLength=%@&viewCount=%@", _videoBean.videosId, title, [_videoBean.author stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], _videoBean.videosTime, _videoBean.commentCount, _videoBean.voteCount,url , @"c-video", _videoBean.videosType, _videoBean.videoLength,_videoBean.viewCount];
     NSLog(@"webview url：%@", _webViewUrlString);
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webViewUrlString]]];
     [self.view sendSubviewToBack:_webView];
@@ -287,23 +288,46 @@
      *暂时采用微信的分享
      */
 
-        WXMediaMessage *message = [WXMediaMessage message];
-        message.title = _videoBean.title;
-        message.description = _videoBean.summary;
-        [message setThumbImage:[UIImage imageNamed:@"微信用@200"]];
-        WXWebpageObject *webpageObject = [WXWebpageObject object];
-        webpageObject.webpageUrl = self.webViewUrlString;
-        message.mediaObject = webpageObject;
-        
-        SendMessageToWXReq *req = [SendMessageToWXReq new];
-        req.bText = NO;
-        req.message = message;
-        req.scene = WXSceneSession;
-        [WXApi sendReq:req];
+    FTPhotoPickerView *pickerView = [FTPhotoPickerView new];
+    pickerView.resultLabel.text = @"分享到";
+    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享-微信"] forState:UIControlStateNormal];
+    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享-微信pre"] forState:UIControlStateHighlighted];
+    [pickerView.cameraBtn addTarget:self action:@selector(shareToWXSceneSession) forControlEvents:UIControlEventTouchUpInside];
+    
+    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享-朋友圈"] forState:UIControlStateNormal];
+    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享-朋友圈pre"] forState:UIControlStateHighlighted];
+    [pickerView.albumBtn addTarget:self action:@selector(shareToWXSceneTimeline) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:pickerView];
     
 
 }
+- (void)shareToWXSceneSession{
+    NSLog(@"WXSceneSession");
+    [self shareToWXWithType:WXSceneSession];
+}
 
+- (void)shareToWXSceneTimeline{
+    NSLog(@"WXSceneTimeline");
+    [self shareToWXWithType:WXSceneTimeline];
+    
+}
+
+- (void)shareToWXWithType:(int) scene{
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = _videoBean.title;
+    message.description = _videoBean.summary;
+    [message setThumbImage:[UIImage imageNamed:@"微信用@200"]];
+    WXWebpageObject *webpageObject = [WXWebpageObject object];
+    webpageObject.webpageUrl = self.webViewUrlString;
+    message.mediaObject = webpageObject;
+    
+    SendMessageToWXReq *req = [SendMessageToWXReq new];
+    req.bText = NO;
+    req.message = message;
+    req.scene = scene;
+    [WXApi sendReq:req];
+}
 -(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
 {
     

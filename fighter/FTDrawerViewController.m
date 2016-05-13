@@ -727,7 +727,8 @@ static NSString *const tableCellId = @"tableCellId";
     
     tabBartVC.tabBar.barTintColor = [UIColor blackColor];
     tabBartVC.tabBar.translucent = NO;
-    tabBartVC.viewControllers = @[infoVC, matchVC, videoVC, coachVC, boxingHallVC];
+//    tabBartVC.viewControllers = @[infoVC, matchVC, videoVC, coachVC, boxingHallVC];
+    tabBartVC.viewControllers = @[infoVC, videoVC];
     
     FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:tabBartVC];
     [self.dynamicsDrawerViewController  setPaneViewController:navi];

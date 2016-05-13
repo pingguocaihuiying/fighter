@@ -11,6 +11,7 @@
 
 @interface FTPhotoPickerView : UIView
 
+@property (nonatomic, copy)NSString *info;
 @property (nonatomic ,strong) UILabel *resultLabel;
 @property (nonatomic, strong) UIButton *doneBtn;
 @property (nonatomic, weak) id<FTPickerViewDelegate> delegate;
