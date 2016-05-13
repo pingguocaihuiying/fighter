@@ -1,26 +1,26 @@
 {
   "images" : [
     {
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
       "resizing" : {
         "mode" : "9-part",
         "center" : {
           "mode" : "tile",
-          "width" : 1,
+          "width" : 61,
           "height" : 1
         },
         "cap-insets" : {
-          "bottom" : 103,
-          "top" : 30,
-          "right" : 20,
-          "left" : 113
+          "bottom" : 27,
+          "top" : 93,
+          "right" : 28,
+          "left" : 45
         }
       },
       "idiom" : "universal",
       "filename" : "金属边框-改进ios.png",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
       "scale" : "2x"
     },
     {

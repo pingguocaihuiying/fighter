@@ -50,7 +50,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"FTTableViewCell5" bundle:nil] forCellReuseIdentifier:@"cellId"];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     self.tableView.scrollEnabled = NO;
-    self.tableView.separatorColor = [UIColor colorWithHex:0x505050];
+    self.tableView.separatorColor = Cell_Space_Color;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     

@@ -152,6 +152,6 @@
         <image name="兴趣更多" width="18" height="18"/>
         <image name="兴趣更多pre" width="18" height="18"/>
         <image name="圆头像边框" width="80" height="80"/>
-        <image name="金属边框-改进ios" width="134" height="134"/>
+        <image name="金属边框-改进ios" width="67" height="60"/>
     </resources>
 </document>

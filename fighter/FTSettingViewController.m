@@ -49,14 +49,16 @@
     [self setTouchEvent];
 }
 
+
+
 - (void) initSubviews {
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"FTTableViewCell5" bundle:nil] forCellReuseIdentifier:@"cellId"];
-    //    [self.tableView registerClass:[FTDrawerTableViewCell class] forCellReuseIdentifier:@"cellId"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"FTTableViewCell5" bundle:nil] forCellReuseIdentifier:@"SettingCellId"];
+//        [self.tableView registerClass:[FTTableViewCell5 class] forCellReuseIdentifier:@"cellId"];
     //    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellId"];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     self.tableView.scrollEnabled = NO;
-    self.tableView.separatorColor = [UIColor colorWithHex:0x505050];
+    self.tableView.separatorColor = Cell_Space_Color;
     self.tableView.dataSource =self;
     self.tableView.delegate = self;
     
@@ -84,6 +86,20 @@
     }
     
 }
+
+
+-(void)viewDidLayoutSubviews {
+    
+    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+        
+    }
+    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)])  {
+        [self.tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
@@ -185,10 +201,21 @@
 //    return header;
 //}
 
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPat{
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]){
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSLog(@"cell for row");
-    FTTableViewCell5 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
+    FTTableViewCell5 *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingCellId"];
 //    FTTableViewCell5 *cell = [[[NSBundle mainBundle]loadNibNamed:@"FTTableViewCell5" owner:nil options:nil]firstObject];
     
     if (indexPath.row == 0) {

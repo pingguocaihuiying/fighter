@@ -33,7 +33,7 @@
     [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
     
-    [self.speraterView setBackgroundColor:[UIColor colorWithHex:0x505050]];
+    [self.speraterView setBackgroundColor:Cell_Space_Color];
     
     self.titleLabel.text = @"输入新的手机号：";
     self.remarkLabel.text = @"下次可直接用新的手机号登录";
@@ -72,11 +72,12 @@
         }
     }
     
-    if ([self.type isEqualToString:@"3"]) {//更改手机
+    if ([self.type isEqualToString:@"changephone"]) {//更改手机
         
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         NetWorking *net = [NetWorking new];
         [net getCheckCodeForNewPhone:self.phoneTextfield.text
+                                type:self.type
                                 option:^(NSDictionary *dict) {
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             NSLog(@"dict:%@",dict);

@@ -36,8 +36,8 @@
     [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
     
-    [self.seperaterView1 setBackgroundColor:[UIColor colorWithHex:0x505050 ]];
-    [self.seperaterView2 setBackgroundColor:[UIColor colorWithHex:0x505050 ]];
+    [self.seperaterView1 setBackgroundColor:Cell_Space_Color];
+    [self.seperaterView2 setBackgroundColor:Cell_Space_Color];
     
     
     NSMutableDictionary *attr = [NSMutableDictionary dictionary];

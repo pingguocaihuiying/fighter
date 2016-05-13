@@ -53,8 +53,8 @@
     [backBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
     
-    [self.seperaterView1 setBackgroundColor:[UIColor colorWithHex:0x505050 ]];
-    [self.seperaterView2 setBackgroundColor:[UIColor colorWithHex:0x505050 ]];
+    [self.seperaterView1 setBackgroundColor:Cell_Space_Color];
+    [self.seperaterView2 setBackgroundColor:Cell_Space_Color];
     
     [self.passwordTextField setBackgroundColor:[UIColor clearColor]];
     [self.passwordTextField2 setBackgroundColor:[UIColor clearColor]];

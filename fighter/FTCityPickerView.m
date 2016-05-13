@@ -126,7 +126,7 @@
     
     //分隔线
     _separatView = [[UIView alloc] init];
-    _separatView.backgroundColor = [UIColor colorWithHex:0x505050];
+    _separatView.backgroundColor = Cell_Space_Color;
     [_panelView addSubview:_separatView];
     
     //分割线

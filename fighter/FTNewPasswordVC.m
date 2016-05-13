@@ -27,6 +27,9 @@
 
 - (void) initSubviews {
     
+    NSLog(@"旧密码：%@",self.oldPassword);
+    //隐藏系统默认返回按钮
+    [self.navigationItem setHidesBackButton:YES];
    
     //首次绑定手机时不能显示返回按钮
     if (![self.oldPassword isEqualToString:@"-1"]) {
@@ -38,14 +41,12 @@
         [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
         
-        //隐藏系统默认返回按钮
-        [self.navigationItem setHidesBackButton:YES];
+        
     }
     
     
-    
-    [self.seperaterView1 setBackgroundColor:[UIColor colorWithHex:0x505050 ]];
-    [self.seperaterView2 setBackgroundColor:[UIColor colorWithHex:0x505050 ]];
+    [self.seperaterView1 setBackgroundColor:Cell_Space_Color];
+    [self.seperaterView2 setBackgroundColor:Cell_Space_Color];
 
     [self.passwordTextField setBackgroundColor:[UIColor clearColor]];
     [self.passwordTextField2 setBackgroundColor:[UIColor clearColor]];

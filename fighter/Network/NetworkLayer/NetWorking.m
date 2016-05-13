@@ -61,19 +61,21 @@
     [dic setObject:phoneNum forKey:@"phone"];
     [dic setObject:type forKey:@"type"];
     
+    NSLog(@"dic:%@",dic);
     [self postRequestWithUrl:urlString parameters:dic option:option];
 }
 
 
 //更换手机时获取 新手机号 验证码
 - (void) getCheckCodeForNewPhone:(NSString *)phoneNum
+                            type:(NSString *)type
                           option:(void (^)(NSDictionary *dict))option {
 
     NSString *urlString = [FTNetConfig host:Domain path:SendSMSNewURL];
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     [dic setObject:phoneNum forKey:@"phone"];
-//    [dic setObject:type forKey:@"type"];
-    
+    [dic setObject:type forKey:@"type"];
+     NSLog(@"dic:%@",dic);
     [self postRequestWithUrl:urlString parameters:dic option:option];
 }
 
@@ -233,10 +235,45 @@
                  option:(void (^)(NSDictionary *dict))option{
     
     NSString *updatePaasswordURL = [FTNetConfig host:Domain path:UpdatePassWordURL];
-    
+//    if([oldpass isEqualToString:@"-1"]) {
+//        NSString *oldpassword = oldpass;
+//        NSString *newpossword = [NSString stringWithFormat:@"%@%@", newPass, @"**#qwe"];
+//        
+//        NSString *passOld =  oldpassword;
+//        NSString *passNew=  [MD5 md5:newpossword];
+//        
+//        //从本地读取存储的用户信息
+//        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+//        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+//        
+//        NSDictionary *dic = @{@"oldpassword" : passOld,
+//                              @"newpossword" : passNew,
+//                              @"userid"  :localUser.olduserid
+//                              };
+//        NSLog(@"dic%@",dic);
+//        [self postRequestWithUrl:updatePaasswordURL parameters:dic option:option];
+//    }else {
+//        NSString *oldpassword = [NSString stringWithFormat:@"%@%@", oldpass, @"**#qwe"];
+//        NSString *newpossword = [NSString stringWithFormat:@"%@%@", newPass, @"**#qwe"];
+//        
+//        NSString *passOld =  [MD5 md5:oldpassword];
+//        NSString *passNew=  [MD5 md5:newpossword];
+//        
+//        //从本地读取存储的用户信息
+//        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+//        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+//        
+//        NSDictionary *dic = @{@"oldpassword" : passOld,
+//                              @"newpossword" : passNew,
+//                              @"userid"  :localUser.olduserid
+//                              };
+//        NSLog(@"dic%@",dic);
+//        [self postRequestWithUrl:updatePaasswordURL parameters:dic option:option];
+//    }
+//    
+    NSLog(@"oldpass:%@",oldpass);
     NSString *oldpassword = [NSString stringWithFormat:@"%@%@", oldpass, @"**#qwe"];
-    NSString *newpossword =
-     [NSString stringWithFormat:@"%@%@", newPass, @"**#qwe"];
+    NSString *newpossword = [NSString stringWithFormat:@"%@%@", newPass, @"**#qwe"];
     
     NSString *passOld =  [MD5 md5:oldpassword];
     NSString *passNew=  [MD5 md5:newpossword];
@@ -249,9 +286,8 @@
                           @"newpossword" : passNew,
                           @"userid"  :localUser.olduserid
                           };
-    
+    NSLog(@"dic%@",dic);
     [self postRequestWithUrl:updatePaasswordURL parameters:dic option:option];
-
 
 }
 
@@ -274,7 +310,7 @@
     
     //必选字段
     [dic setObject:olduserid forKey:@"userid" ];
-    
+    NSLog(@"dic%@",dic);
     [self postRequestWithUrl:isBindingURLString parameters:dic option:option];
 }
 
@@ -367,7 +403,7 @@
     //必选字段
     [dic setObject:olduserid forKey:@"userid" ];
     [dic setObject:token forKey:@"token"];
-    [dic setObject:@"3" forKey:@"type"];//phone
+    [dic setObject:@"changephone" forKey:@"type"];//phone
     [dic setObject:phoneNum forKey:@"phone"];
     [dic setObject:checkcode forKey:@"checkCode"];
     
@@ -407,7 +443,7 @@
     [dic setObject:unionId forKey:@"unionId" ];
     [dic setObject:openId forKey:@"openId" ];
     
-    
+    NSLog(@"dic%@",dic);
     
     [self postRequestWithUrl:bindingURLString parameters:dic option:option];
     

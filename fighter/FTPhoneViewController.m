@@ -41,7 +41,7 @@
     [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
     
-    [self.speraterView setBackgroundColor:[UIColor colorWithHex:0x505050]];
+    [self.speraterView setBackgroundColor:Cell_Space_Color];
     
     self.titleLabel.text = @"当前绑定手机：";
     [self.phoneLabel setTextColor:[UIColor colorWithHex:0xb4b4b4]];

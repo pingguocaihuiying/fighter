@@ -34,7 +34,7 @@
     [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
     
-    [self.speraterView setBackgroundColor:[UIColor colorWithHex:0x505050]];
+    [self.speraterView setBackgroundColor:Cell_Space_Color];
     
     self.titleLabel.text = @"输入短信验证码：";
     self.remarkLabel.text = @"下次可直接用新的手机号登录";
@@ -102,7 +102,7 @@
                                         //跳转到输入新手机界面
                                         FTInputNewPhoneViewController *newPhoneVC = [[FTInputNewPhoneViewController alloc]init];
                                         newPhoneVC.title = @"新手机";
-                                        newPhoneVC.type = @"3";
+                                        newPhoneVC.type = @"changephone";
                                         [self.navigationController pushViewController:newPhoneVC animated:YES];
                                         
                                     }else {
@@ -118,7 +118,7 @@
                                 }
         }];
 
-    }if ([self.type isEqualToString:@"3"]) {//2.2 已经绑定过手机的用户：验证完旧手机，直接修改绑定手机
+    }if ([self.type isEqualToString:@"changephone"]) {//2.2 已经绑定过手机的用户：验证完旧手机，直接修改绑定手机
         
         NetWorking *net = [NetWorking new];
         [net changgeBindingPhone:self.phoneNum
@@ -178,7 +178,7 @@
                         
                         if (status == true) {
                             
-                            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"绑定手机成功"];
                             
                             //从本地读取存储的用户信息
                             NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];

@@ -20,7 +20,7 @@
                     <rect key="frame" x="15" y="75" width="290" height="175"/>
                 </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="D7V-sL-5xs">
-                    <rect key="frame" x="30" y="90" width="260" height="140"/>
+                    <rect key="frame" x="34" y="90" width="252" height="140"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="140" id="kBC-U1-rIZ"/>
@@ -32,8 +32,8 @@
                 <constraint firstItem="Mfm-yE-zRK" firstAttribute="bottom" secondItem="D7V-sL-5xs" secondAttribute="bottom" constant="20" id="3D3-2D-3lg"/>
                 <constraint firstItem="D7V-sL-5xs" firstAttribute="top" secondItem="Mfm-yE-zRK" secondAttribute="top" constant="15" id="6Pa-52-qPs"/>
                 <constraint firstItem="Mfm-yE-zRK" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" constant="-15" id="OQj-nE-hdM"/>
-                <constraint firstItem="D7V-sL-5xs" firstAttribute="trailing" secondItem="Mfm-yE-zRK" secondAttribute="trailing" constant="-15" id="QHn-wU-aGR"/>
-                <constraint firstItem="D7V-sL-5xs" firstAttribute="leading" secondItem="Mfm-yE-zRK" secondAttribute="leading" constant="15" id="daJ-Od-mAz"/>
+                <constraint firstItem="D7V-sL-5xs" firstAttribute="trailing" secondItem="Mfm-yE-zRK" secondAttribute="trailing" constant="-19" id="QHn-wU-aGR"/>
+                <constraint firstItem="D7V-sL-5xs" firstAttribute="leading" secondItem="Mfm-yE-zRK" secondAttribute="leading" constant="19" id="daJ-Od-mAz"/>
                 <constraint firstItem="Mfm-yE-zRK" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="75" id="g1l-Sr-FbT"/>
                 <constraint firstItem="Mfm-yE-zRK" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="nMn-mM-qjF"/>
             </constraints>
@@ -41,6 +41,6 @@
         </view>
     </objects>
     <resources>
-        <image name="金属边框-改进ios" width="134" height="134"/>
+        <image name="金属边框-改进ios" width="67" height="60"/>
     </resources>
 </document>

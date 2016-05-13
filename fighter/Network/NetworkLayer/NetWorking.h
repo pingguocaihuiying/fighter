@@ -50,7 +50,8 @@
 
 //更换手机时获取新手机号验证码
 - (void) getCheckCodeForNewPhone:(NSString *)phoneNum
-                            option:(void (^)(NSDictionary *dict))option;
+                            type:(NSString *)type
+                          option:(void (^)(NSDictionary *dict))option;
 
 /*****************************    注册登录   ***********************************/
 //手机号注册用户
