@@ -180,7 +180,7 @@
     }if (indexPath.row == 1) {
         
         if (localUser.tel.length > 0) {
-            cell.titleLabel.text = @"更换手机";
+            cell.titleLabel.text = @"绑定手机";//更换手机 暂时不用
             cell.remarkLabel.text = localUser.tel;
         }else {
             cell.titleLabel.text = @"绑定手机：";
@@ -218,9 +218,11 @@
     }else  if (indexPath.row == 1) {
         
         if(localUser.tel.length > 0) {
-            FTPhoneViewController * changePhoneVC = [[FTPhoneViewController alloc]init];
-            changePhoneVC.title = @"更改绑定手机";
-            [self.navigationController pushViewController:changePhoneVC animated:YES];
+            
+            /**********    暂时屏蔽    *************/
+//            FTPhoneViewController * changePhoneVC = [[FTPhoneViewController alloc]init];
+//            changePhoneVC.title = @"更改绑定手机";
+//            [self.navigationController pushViewController:changePhoneVC animated:YES];
         }else {
             FTInputNewPhoneViewController *inputNewPhoneVC = [[FTInputNewPhoneViewController alloc]init];
             inputNewPhoneVC.title = @"绑定手机";
