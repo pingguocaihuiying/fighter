@@ -11,6 +11,7 @@
 @interface FTCache : NSObject
 
 @property (nonatomic, strong)NSMutableDictionary *videoDataDic;
+@property (nonatomic, strong)NSMutableDictionary *newsDataDic;
 
 + (instancetype)sharedInstance;
 

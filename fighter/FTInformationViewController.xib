@@ -37,18 +37,8 @@
                         <action selector="leftButtonItemClick:" destination="-1" eventType="touchUpInside" id="We0-du-6Xw"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="格斗家" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Guq-2c-nxL">
-                    <rect key="frame" x="59" y="28" width="55" height="18"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="55" id="Cy6-gn-4ZT"/>
-                        <constraint firstAttribute="height" constant="18" id="t7V-bX-bdp"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gjl-5p-Kdz" userLabel="分隔点">
-                    <rect key="frame" x="122" y="34" width="5" height="5"/>
+                    <rect key="frame" x="137" y="34" width="5" height="5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="5" id="44y-rB-NCG"/>
@@ -61,7 +51,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="拳讯" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTZ-LA-h94">
-                    <rect key="frame" x="135" y="27" width="42" height="21"/>
+                    <rect key="frame" x="150" y="27" width="42" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="K0P-l3-Yzv"/>
                         <constraint firstAttribute="width" constant="42" id="Po7-KR-zHv"/>
@@ -144,6 +134,13 @@
                         <action selector="searchButtonClicked:" destination="-1" eventType="touchUpInside" id="Edo-yA-fof"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="格斗家头部logo文字" translatesAutoresizingMaskIntoConstraints="NO" id="IyE-FE-Tys" userLabel="格斗家">
+                    <rect key="frame" x="57" y="28" width="72" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="72" id="4ds-eC-JYl"/>
+                        <constraint firstAttribute="height" constant="22" id="ZA9-As-dKD"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -151,11 +148,10 @@
                 <constraint firstItem="PTZ-LA-h94" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="27" id="1p1-7L-gxI"/>
                 <constraint firstItem="KvI-58-oKt" firstAttribute="leading" secondItem="529-d9-Laz" secondAttribute="trailing" constant="16" id="2Pk-ee-aQq"/>
                 <constraint firstItem="529-d9-Laz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="25" id="4Es-co-fne"/>
-                <constraint firstItem="Guq-2c-nxL" firstAttribute="leading" secondItem="VeT-pB-44g" secondAttribute="trailing" constant="10" id="6E7-Mz-JQs"/>
                 <constraint firstItem="nkd-pB-8Hu" firstAttribute="top" secondItem="tIR-iR-zfc" secondAttribute="bottom" id="7fQ-CO-Knp"/>
                 <constraint firstAttribute="trailing" secondItem="nkd-pB-8Hu" secondAttribute="trailing" id="DZ5-uM-Tig"/>
-                <constraint firstItem="Gjl-5p-Kdz" firstAttribute="leading" secondItem="Guq-2c-nxL" secondAttribute="trailing" constant="8" id="Hcc-Tz-32t"/>
                 <constraint firstAttribute="trailing" secondItem="Noj-vQ-ELp" secondAttribute="trailing" id="J7P-uA-q0s"/>
+                <constraint firstItem="IyE-FE-Tys" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="28" id="J7p-mM-1x9"/>
                 <constraint firstItem="tIR-iR-zfc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="K3Q-zu-5DQ"/>
                 <constraint firstAttribute="bottom" secondItem="nkd-pB-8Hu" secondAttribute="bottom" id="QNG-Bx-03y"/>
                 <constraint firstItem="VeT-pB-44g" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="Ufm-qP-QR7"/>
@@ -168,11 +164,12 @@
                 <constraint firstItem="NH9-q9-RKA" firstAttribute="leading" secondItem="tIR-iR-zfc" secondAttribute="trailing" constant="-11" id="djj-4G-3xK"/>
                 <constraint firstItem="Teb-vS-iKf" firstAttribute="leading" secondItem="KvI-58-oKt" secondAttribute="trailing" constant="16" id="eF6-gE-O9t"/>
                 <constraint firstItem="PTZ-LA-h94" firstAttribute="leading" secondItem="Gjl-5p-Kdz" secondAttribute="trailing" constant="8" id="hBa-vH-Lvc"/>
-                <constraint firstItem="Guq-2c-nxL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="28" id="kSu-rU-gkO"/>
+                <constraint firstItem="IyE-FE-Tys" firstAttribute="leading" secondItem="VeT-pB-44g" secondAttribute="trailing" constant="8" id="m3S-yW-kqM"/>
                 <constraint firstItem="Noj-vQ-ELp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="mW0-5j-HLo"/>
                 <constraint firstItem="Gjl-5p-Kdz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="oui-tg-0op"/>
                 <constraint firstItem="Teb-vS-iKf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="25" id="sWb-JR-n9x"/>
                 <constraint firstItem="tIR-iR-zfc" firstAttribute="top" secondItem="Noj-vQ-ELp" secondAttribute="bottom" id="yfO-aV-xoh"/>
+                <constraint firstItem="Gjl-5p-Kdz" firstAttribute="leading" secondItem="IyE-FE-Tys" secondAttribute="trailing" constant="8" id="z9V-Fq-Wi4"/>
             </constraints>
             <point key="canvasLocation" x="440" y="421"/>
         </view>
@@ -183,5 +180,6 @@
         <image name="头部48按钮一堆-搜索" width="24" height="24"/>
         <image name="头部48按钮一堆-更多" width="24" height="24"/>
         <image name="头部48按钮一堆-消息" width="24" height="24"/>
+        <image name="格斗家头部logo文字" width="72" height="22"/>
     </resources>
 </document>

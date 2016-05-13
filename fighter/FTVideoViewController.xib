@@ -34,18 +34,17 @@
                         <action selector="leftBtnAction:" destination="-1" eventType="touchUpInside" id="dPI-6q-inD"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="格斗家" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g2d-cn-HZu">
-                    <rect key="frame" x="59" y="28" width="55" height="18"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="格斗家头部logo文字" translatesAutoresizingMaskIntoConstraints="NO" id="drw-8n-X8q" userLabel="格斗家">
+                    <rect key="frame" x="60" y="28" width="72" height="22"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="55" id="Fb6-jU-2Qb"/>
-                        <constraint firstAttribute="height" constant="18" id="c4y-r5-Z8l"/>
+                        <constraint firstAttribute="height" constant="22" id="W8L-Q0-BWV"/>
+                        <constraint firstAttribute="width" constant="72" id="dDC-Rl-7Hj"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="72" id="uVW-Jv-BOr"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="wvk-ZY-ZMk"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mCF-Nk-Ecj" userLabel="分隔点">
-                    <rect key="frame" x="122" y="34" width="5" height="5"/>
+                    <rect key="frame" x="140" y="34" width="5" height="5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="5" id="NOl-tC-wn8"/>
@@ -58,7 +57,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="视频" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iv8-Nb-0hq">
-                    <rect key="frame" x="135" y="27" width="42" height="21"/>
+                    <rect key="frame" x="153" y="27" width="42" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="42" id="Y8o-Zm-RFz"/>
                         <constraint firstAttribute="height" constant="21" id="ntO-ak-AWD"/>
@@ -159,14 +158,15 @@
                 <constraint firstItem="qJs-6t-deF" firstAttribute="leading" secondItem="ZJh-iV-SHb" secondAttribute="trailing" constant="-11" id="7G0-jz-r2T"/>
                 <constraint firstItem="ljW-Cr-QBP" firstAttribute="centerX" secondItem="dcm-ao-ON0" secondAttribute="centerX" id="7Vf-y0-Jmz"/>
                 <constraint firstItem="mCF-Nk-Ecj" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" constant="34" id="9Tw-Qd-nLf"/>
+                <constraint firstItem="drw-8n-X8q" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" constant="28" id="9x7-xB-YJP"/>
                 <constraint firstItem="kGN-G7-Z3Y" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" constant="25" id="9zq-n9-1Dv"/>
                 <constraint firstAttribute="bottom" secondItem="WeY-QL-vxk" secondAttribute="bottom" id="Atb-xy-VWh"/>
-                <constraint firstItem="mCF-Nk-Ecj" firstAttribute="leading" secondItem="g2d-cn-HZu" secondAttribute="trailing" constant="8" id="B5m-ao-cVl"/>
                 <constraint firstItem="970-ML-Okc" firstAttribute="leading" secondItem="dcm-ao-ON0" secondAttribute="leading" constant="15" id="Bzh-j4-eub"/>
                 <constraint firstAttribute="trailing" secondItem="B90-Sa-ZMR" secondAttribute="trailing" constant="15" id="IIf-N5-M3G"/>
                 <constraint firstItem="qJs-6t-deF" firstAttribute="top" secondItem="ABi-mZ-eso" secondAttribute="bottom" constant="8" id="Rjq-Yk-t1z"/>
                 <constraint firstAttribute="trailing" secondItem="qJs-6t-deF" secondAttribute="trailing" constant="8" id="ScO-gZ-614"/>
                 <constraint firstAttribute="trailing" secondItem="ABi-mZ-eso" secondAttribute="trailing" id="WWf-V7-jWp"/>
+                <constraint firstItem="drw-8n-X8q" firstAttribute="leading" secondItem="970-ML-Okc" secondAttribute="trailing" constant="11" id="Xmq-ai-m21"/>
                 <constraint firstItem="970-ML-Okc" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" constant="20" id="XsP-nU-20Q"/>
                 <constraint firstItem="ljW-Cr-QBP" firstAttribute="top" secondItem="ZJh-iV-SHb" secondAttribute="bottom" constant="10" id="ZsE-PT-x9v"/>
                 <constraint firstItem="ZJh-iV-SHb" firstAttribute="leading" secondItem="dcm-ao-ON0" secondAttribute="leading" constant="15" id="a8n-5a-lbb"/>
@@ -174,11 +174,10 @@
                 <constraint firstItem="B90-Sa-ZMR" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" constant="25" id="bK8-ZO-I7d"/>
                 <constraint firstItem="WeY-QL-vxk" firstAttribute="leading" secondItem="dcm-ao-ON0" secondAttribute="leading" id="c5L-z5-IQI"/>
                 <constraint firstItem="ABi-mZ-eso" firstAttribute="leading" secondItem="dcm-ao-ON0" secondAttribute="leading" id="drV-Pt-xKn"/>
-                <constraint firstItem="g2d-cn-HZu" firstAttribute="leading" secondItem="970-ML-Okc" secondAttribute="trailing" constant="10" id="erH-8X-FbL"/>
                 <constraint firstItem="ABi-mZ-eso" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" constant="60" id="lik-xV-XVA"/>
                 <constraint firstAttribute="trailing" secondItem="WeY-QL-vxk" secondAttribute="trailing" id="nTm-g7-Fjf"/>
+                <constraint firstItem="mCF-Nk-Ecj" firstAttribute="leading" secondItem="drw-8n-X8q" secondAttribute="trailing" constant="8" id="o9o-KH-UyD"/>
                 <constraint firstItem="ZJh-iV-SHb" firstAttribute="top" secondItem="ABi-mZ-eso" secondAttribute="bottom" id="phI-cN-KYL"/>
-                <constraint firstItem="g2d-cn-HZu" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" constant="28" id="vgf-MS-mTJ"/>
             </constraints>
             <point key="canvasLocation" x="440" y="421"/>
         </view>
@@ -190,5 +189,6 @@
         <image name="头部48按钮一堆-消息" width="24" height="24"/>
         <image name="标签图标-最新" width="36" height="16"/>
         <image name="标签图标-最热-pre" width="36" height="16"/>
+        <image name="格斗家头部logo文字" width="72" height="22"/>
     </resources>
 </document>

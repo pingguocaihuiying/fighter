@@ -233,10 +233,11 @@
     
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    NSLog(@"get video list url: %@", urlString);
+    NSLog(@"get video list url: %@", urlString);
     [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSString *status = responseDic[@"status"];
+        NSLog(@"status : %@", status);
         if ([status isEqualToString:@"success"]) {
             NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
             
@@ -281,11 +282,12 @@
                 self.infoLabel.hidden = YES;
             }
         }else if([status isEqualToString:@"error"]){
-//            NSLog(@"message : %@", responseDic[@"message"]);
+            NSLog(@"message : %@", responseDic[@"message"]);
             
             [self.collectionView.mj_header endRefreshing];
             [self.collectionView.mj_footer endRefreshing];
             [self.collectionView reloadData];
+            self.collectionView.mj_footer.state = MJRefreshStateNoMoreData;
         }
         
         
@@ -549,7 +551,7 @@
     self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
                 NSString *currId;
                 if (weakSelf.tableViewDataSourceArray && weakSelf.tableViewDataSourceArray.count > 0) {
-                    currId = [weakSelf.tableViewDataSourceArray lastObject][@"vediosId"];
+                    currId = [weakSelf.tableViewDataSourceArray lastObject][@"videosId"];
                     //如果当前是按“最热”来，需要找到最小的id座位current id
                     if ([self.videosTag isEqualToString:@"0"]) {
                         int minId = [currId intValue];
@@ -570,6 +572,7 @@
     }];
     // 显示footer
     self.collectionView.mj_footer.hidden = NO;
+    
 }
 
 #pragma mark - 按钮事件

@@ -23,16 +23,10 @@
 - (instancetype)init{
     if (self = [super init]) {
         self.videoDataDic = [NSMutableDictionary new];
+        self.newsDataDic = [NSMutableDictionary new];
     }
     return self;
 }
 
-- (NSString *)description{
-    NSString *rst = @"";
-    rst = [NSString stringWithFormat:@"%@", self.videoDataDic];
-    for(FTCacheBean *bean in self.videoDataDic){
-        rst = [NSString stringWithFormat:@"%@%f%lu", rst, bean.timeStamp, bean.dataArray.count];
-    }
-    return rst;
-}
+
 @end

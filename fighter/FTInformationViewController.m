@@ -231,7 +231,7 @@
     NSArray *dataArray = [[NSArray alloc]initWithArray:self.tableViewDataSourceArray];
     FTCacheBean *cacheBean = [[FTCacheBean alloc] initWithTimeStamp:[[NSDate date] timeIntervalSince1970]  andDataArray:dataArray];
     
-    [cache.videoDataDic setObject:cacheBean forKey:[NSString stringWithFormat:@"%ld", self.currentSelectIndex]];
+    [cache.newsDataDic setObject:cacheBean forKey:[NSString stringWithFormat:@"%ld", self.currentSelectIndex]];
     
 }
 
@@ -404,7 +404,7 @@
         
         //根据当前下标，先去缓存中查找是否有数据
         FTCache *cache = [FTCache sharedInstance];
-        FTCacheBean *cacheBean = [cache.videoDataDic objectForKey:[NSString stringWithFormat:@"%ld", self.currentSelectIndex]];
+        FTCacheBean *cacheBean = [cache.newsDataDic objectForKey:[NSString stringWithFormat:@"%ld", self.currentSelectIndex]];
         
         if (cacheBean) {//如果有当前标签的缓存，则接着对比时间
             
