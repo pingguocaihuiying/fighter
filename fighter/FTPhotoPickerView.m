@@ -160,8 +160,8 @@
     __weak UIImageView *weakBackImg= _backImgView;
     [_doneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(weakBackImg.mas_bottom).with.offset(-20);
-        make.right.equalTo(weakBackImg.mas_right).with.offset(-40);
-        make.left.equalTo(weakBackImg.mas_left).with.offset(40);
+        make.right.equalTo(weakBackImg.mas_right).with.offset(-15);
+        make.left.equalTo(weakBackImg.mas_left).with.offset(15);
         make.height.equalTo(@45);
     }];
 }

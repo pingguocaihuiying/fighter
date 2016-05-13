@@ -1367,7 +1367,7 @@
 		E64EF1081CB6614000CAE340 /* fighter */ = {
 			isa = PBXGroup;
 			children = (
-				E685320A1CE59CFA00603D77 /* frameworks */,
+				E685320A1CE59CFA00603D77 /* Frameworks */,
 				E68050C21CBFA70200678905 /* OtherSDK */,
 				E66D6EF21CBCE81C008B015A /* Network */,
 				E6D74A511CB7B8C200854337 /* thirdCodes */,
@@ -1748,7 +1748,7 @@
 			path = noAD_UMAnalytics_Sdk_3.6.7;
 			sourceTree = "<group>";
 		};
-		E685320A1CE59CFA00603D77 /* frameworks */ = {
+		E685320A1CE59CFA00603D77 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				E611849F1CC75F0C00F23EC7 /* libstdc++.tbd */,
@@ -1760,7 +1760,7 @@
 				E61184931CC75EBE00F23EC7 /* SystemConfiguration.framework */,
 				E68050C91CBFB0D200678905 /* libz.tbd */,
 			);
-			name = frameworks;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		E68EC5071CC4B71400A338C8 /* filter */ = {
