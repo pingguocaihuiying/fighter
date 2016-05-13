@@ -7,6 +7,7 @@
 //
 
 #import "FTRankViewController.h"
+#import "FTButton.h"
 
 @interface FTRankViewController ()
 
@@ -16,6 +17,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
+    [self.view addSubview:headerView];
+    
+    CGFloat buttonW = (SCREEN_WIDTH - 12*2)/3;
+    for (int i = 0; i < 3; i++) {
+        
+        FTButton *button = [FTButton buttonWithType:UIButtonTypeCustom];
+        button.imageH = 10;
+        button.imageW = 13;
+        button.buttonModel = FTButtonModelRightImage;
+        button.space = 10;
+        
+//        [button ]
+        button.frame = CGRectMake((buttonW+12)*12, 0, buttonW, 40);
+    }
     
 }
 
