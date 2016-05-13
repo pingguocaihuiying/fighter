@@ -10,8 +10,10 @@
 #import "FTDrawerStyler.h"
 
 //defin一些常量
+
 #define LeftMenuDefaultOpenStateRevealWidthHorizontal [UIScreen mainScreen].bounds.size.width *0.7 ////267.0;
-#define LeftMenuDefaultOpenStateRevealWidthVertical 300
+#define LeftMenuDefaultOpenStateRevealWidthVertical [UIScreen mainScreen].bounds.size.width *0.7
+#define PaneViewDefaultOpenStateRevealWidthHorizontal [UIScreen mainScreen].bounds.size.width *0.3
 
 const CGFloat LeftMenuOpenAnimationOvershot = 30.0;
 const CGFloat PaneViewVelocityThreshold = 5.0;
@@ -662,7 +664,7 @@ allowUserInterruption:(BOOL)allowUserInterruption
     // Default values
     if (!revealWidth) {
         if (direction & FTDynamicsDrawerDirectionHorizontal) {
-            revealWidth = @(SCREEN_WIDTH *0.7);
+            revealWidth = @(LeftMenuDefaultOpenStateRevealWidthHorizontal);
         } else if (direction & FTDynamicsDrawerDirectionVertical) {
             revealWidth = @(LeftMenuDefaultOpenStateRevealWidthVertical);
         } else {
@@ -770,7 +772,7 @@ allowUserInterruption:(BOOL)allowUserInterruption
                      didUpdatePaneClosedFraction:[self paneViewClosedFraction]
                                     forDirection:self.currentLeftMenuDirection];
             
-            NSLog(@"styler did");
+//            NSLog(@"styler did");
         }
 //        [styler dynamicsDrawerViewController:self
 //                 didUpdatePaneClosedFraction:[self paneViewClosedFraction]
@@ -838,7 +840,8 @@ allowUserInterruption:(BOOL)allowUserInterruption
             switch (gestureRecognizer.state) {
                 case UIGestureRecognizerStateBegan: {
                     panStartLocationInPane = [gestureRecognizer locationInView:self.paneView];
-                    if(panStartLocationInPane.x > 40){
+//                    //设置侧滑栏能够响应的区域
+                    if(panStartLocationInPane.x > PaneViewDefaultOpenStateRevealWidthHorizontal){
                         panDrawerDirection = FTDynamicsDrawerDirectionNone;
                         return;
                     }
@@ -847,8 +850,9 @@ allowUserInterruption:(BOOL)allowUserInterruption
                     break;
                 }
                 case UIGestureRecognizerStateChanged: {
-                    NSLog(@"UIGestureRecognizerStateChanged.panStartLocationInPane.x = %f ",panStartLocationInPane.x );
-                    if(panStartLocationInPane.x > 40){
+//                    NSLog(@"UIGestureRecognizerStateChanged.panStartLocationInPane.x = %f ",panStartLocationInPane.x );
+                    //设置侧滑栏能够响应的区域
+                    if(panStartLocationInPane.x > PaneViewDefaultOpenStateRevealWidthHorizontal){
                         //                NSLog(@"UIGestureRecognizerStateChanged.panStartLocationInPane.x = %f ",panStartLocationInPane.x );
                         return;
                     }
@@ -933,9 +937,13 @@ allowUserInterruption:(BOOL)allowUserInterruption
                     else {
                         frameBounded = NO;
                     }
-                    if (self.paneView) {
-                        NSLog(@"updatedPaneFrame = %f,%f,%f,%f",updatedPaneFrame.origin.x,updatedPaneFrame.origin.y,updatedPaneFrame.size.width,updatedPaneFrame.size.height);
-                    }
+//                    if (self.paneView) {
+//                        NSLog(@"updatedPaneFrame = %f,%f,%f,%f",
+//                              updatedPaneFrame.origin.x,
+//                              updatedPaneFrame.origin.y,
+//                              updatedPaneFrame.size.width,
+//                              updatedPaneFrame.size.height);
+//                    }
                     self.paneView.frame = updatedPaneFrame;
                     // Velocity Calculation 计算速度
                     CGFloat updatedVelocity = 0.0;
@@ -950,7 +958,7 @@ allowUserInterruption:(BOOL)allowUserInterruption
                     if ((updatedVelocity != 0.0) && !frameBounded) {
                         panVelocity = updatedVelocity;
                     }
-                    NSLog(@"UIGestureRecognizerStateChanged");
+//                    NSLog(@"UIGestureRecognizerStateChanged");
                     break;
                 }
                 case UIGestureRecognizerStateEnded: {
