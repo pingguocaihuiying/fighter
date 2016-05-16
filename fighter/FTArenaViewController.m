@@ -9,6 +9,8 @@
 #import "FTArenaViewController.h"
 #import "NIDropDown.h"
 #import "QuartzCore/QuartzCore.h"
+#import "FTNWGetCategory.h"
+#import "FTLabelBean.h"
 
 @interface FTArenaViewController ()<NIDropDownDelegate>
 
@@ -26,6 +28,11 @@
     [super viewDidLoad];
     [self initBaseConfig];
     [self initSubviews];
+    NSArray *array = [FTNWGetCategory sharedCategories];
+    
+        for(FTLabelBean  *labelBean in array){
+            NSLog(@"label : %@", labelBean);
+        }
 }
 /**
  *  初始化一些默认数据

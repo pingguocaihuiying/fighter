@@ -40,6 +40,19 @@ extern NSString *const AddStarURL;
 //删除收藏的接口地址:域名/api/ base/ delete$Base.do
 extern NSString *const DeleteStarURL;
 
+//查询类别类型接口地址: 域名/api/category/ findCategoryByName.do
+extern NSString *const GetCategoryURL;
+
+
+
+
+
+
+
+
+
+
+
 #pragma mark - 用户接口
 extern NSString * const UserInterfaceHost;
 

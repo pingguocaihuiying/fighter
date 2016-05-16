@@ -71,6 +71,13 @@ NSString *const AddStarURL = @"/api/base/save$Base.do";
 //删除收藏的接口地址:域名/api/base/delete$Base.do
 NSString *const DeleteStarURL = @"/api/base/delete$Base.do";
 
+//获取类别接口地址: 域名/api/category/ findCategoryByName.do
+NSString *const GetCategoryURL = @"/api/category/findCategoryByName.do";
+
+
+
+
+
 
 //NSString * const UserInterfaceHost = @"http://121.42.44.216/integral_adminTest";
 NSString * const UserInterfaceHost = @"http://192.168.85.45/integral_adminTest";  //测试注册用，不能用于微信登录、微信支付
