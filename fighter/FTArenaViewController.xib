@@ -11,6 +11,7 @@
                 <outlet property="btnSelect" destination="Zh7-r6-0OY" id="Yt1-VO-OFi"/>
                 <outlet property="indexViewOfAllVideo" destination="DlS-AG-SAY" id="hVB-vq-gsI"/>
                 <outlet property="indexViewOfHot" destination="tC9-FB-xcv" id="nPt-iA-O6Y"/>
+                <outlet property="mainView" destination="r0A-ft-T8C" id="95c-FW-f0K"/>
                 <outlet property="view" destination="lFc-ST-nxN" id="Rw5-Pv-MGz"/>
             </connections>
         </placeholder>
@@ -213,6 +214,10 @@
                         <constraint firstItem="9bu-aN-Bvj" firstAttribute="width" secondItem="9hT-TK-gcO" secondAttribute="width" id="wZ9-JO-ALo"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r0A-ft-T8C" userLabel="mainView">
+                    <rect key="frame" x="0.0" y="111" width="320" height="457"/>
+                    <color key="backgroundColor" red="0.8768811821937561" green="0.83452242612838745" blue="0.058061815798282623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -224,16 +229,20 @@
                 <constraint firstItem="jSv-xD-Bnj" firstAttribute="top" secondItem="lFc-ST-nxN" secondAttribute="top" constant="34" id="Fvx-X2-dyc"/>
                 <constraint firstItem="6Gy-i7-skM" firstAttribute="top" secondItem="DG2-XC-jUm" secondAttribute="bottom" id="GGj-Sr-dSx"/>
                 <constraint firstItem="jSv-xD-Bnj" firstAttribute="leading" secondItem="13G-dH-Gex" secondAttribute="trailing" constant="8" id="Jdh-Vi-7gu"/>
+                <constraint firstAttribute="trailing" secondItem="r0A-ft-T8C" secondAttribute="trailing" id="MF6-QL-EI3"/>
                 <constraint firstItem="13G-dH-Gex" firstAttribute="top" secondItem="lFc-ST-nxN" secondAttribute="top" constant="28" id="Olc-Hl-Ffu"/>
                 <constraint firstItem="DG2-XC-jUm" firstAttribute="leading" secondItem="lFc-ST-nxN" secondAttribute="leading" id="RgN-ne-MrE"/>
                 <constraint firstItem="vwH-mG-1SH" firstAttribute="leading" secondItem="jSv-xD-Bnj" secondAttribute="trailing" constant="8" id="V2f-vs-f1d"/>
                 <constraint firstItem="DG2-XC-jUm" firstAttribute="top" secondItem="lFc-ST-nxN" secondAttribute="top" constant="60" id="bD6-8M-s4b"/>
                 <constraint firstItem="13G-dH-Gex" firstAttribute="leading" secondItem="1x3-r8-7ld" secondAttribute="trailing" constant="8" id="e8Z-BC-nwt"/>
+                <constraint firstItem="r0A-ft-T8C" firstAttribute="leading" secondItem="lFc-ST-nxN" secondAttribute="leading" id="f5x-RX-0pE"/>
                 <constraint firstItem="1x3-r8-7ld" firstAttribute="leading" secondItem="lFc-ST-nxN" secondAttribute="leading" constant="15" id="i5z-Uc-Tf0"/>
                 <constraint firstItem="1x3-r8-7ld" firstAttribute="top" secondItem="lFc-ST-nxN" secondAttribute="top" constant="20" id="idf-5e-SxU"/>
+                <constraint firstAttribute="bottom" secondItem="r0A-ft-T8C" secondAttribute="bottom" id="jC7-jf-vpf"/>
                 <constraint firstItem="MQH-Cl-W5q" firstAttribute="leading" secondItem="xRC-Id-lhW" secondAttribute="trailing" constant="16" id="jEZ-xm-mmQ"/>
                 <constraint firstAttribute="trailing" secondItem="DG2-XC-jUm" secondAttribute="trailing" id="jTq-9t-xYY"/>
                 <constraint firstItem="vwH-mG-1SH" firstAttribute="top" secondItem="lFc-ST-nxN" secondAttribute="top" constant="27" id="kf4-FL-D0u"/>
+                <constraint firstItem="r0A-ft-T8C" firstAttribute="top" secondItem="6Gy-i7-skM" secondAttribute="bottom" constant="10" id="veB-Rd-Zme"/>
             </constraints>
             <point key="canvasLocation" x="440" y="421"/>
         </view>

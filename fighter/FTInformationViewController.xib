@@ -89,7 +89,7 @@
                     <rect key="frame" x="0.0" y="101" width="320" height="467"/>
                     <subviews>
                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请检查网络" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ge9-0f-sr1" userLabel="InfoLabel">
-                            <rect key="frame" x="118" y="223" width="85" height="20.5"/>
+                            <rect key="frame" x="118" y="223" width="85" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>

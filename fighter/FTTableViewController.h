@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(int, FTCellType) {
+    FTCellTypeNews = 0,   // 拳讯
+    FTCellTypeArena = 1  // 格斗场
+};
+
 @class FTTableViewController;
 @protocol FTTableViewdelegate <NSObject>
 - (void)fttableView:(FTTableViewController *)tableView didSelectWithIndex:(NSIndexPath *)indexPath;
@@ -16,7 +21,8 @@
 @interface FTTableViewController : UITableViewController
 //数据源
 @property(nonatomic,strong) NSMutableArray *sourceArray;
-@property (nonatomic, copy)NSString *newsOrVideo;//值为“news”、“video”，用于区分新闻、视频
+//@property (nonatomic, copy)NSString *newsOrVideo;//值为“news”、“video”，用于区分新闻、视频
+@property (nonatomic, assign)FTCellType listType;//值为“news”、“video”，用于区分新闻、视频、格斗场
 
 //代理，用于点击cell的传值
 @property (nonatomic, weak) id<FTTableViewdelegate> FTdelegate;

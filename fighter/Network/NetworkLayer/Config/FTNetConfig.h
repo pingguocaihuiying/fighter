@@ -42,8 +42,8 @@ extern NSString *const DeleteStarURL;
 
 //查询类别类型接口地址: 域名/api/category/ findCategoryByName.do
 extern NSString *const GetCategoryURL;
-
-
+//获取格斗场内容list 
+extern NSString *const GetArenaListURL;
 
 
 

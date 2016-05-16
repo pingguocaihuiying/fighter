@@ -115,6 +115,8 @@
 //            }
 //            cell.tag = indexPath.row;
 //            cell.clickedDelegate = self;
+        }else if (_listType == FTCellTypeArena){
+            NSLog(@"格斗场类型的");
         }
         //改变cell的值
         FTBaseBean *bean;

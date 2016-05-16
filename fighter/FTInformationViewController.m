@@ -339,7 +339,8 @@
 {
     if(!self.tableViewController){
         self.tableViewController = [[FTTableViewController alloc]initWithStyle:UITableViewStylePlain];
-        self.tableViewController.newsOrVideo = @"news";
+        self.tableViewController.listType = FTCellTypeNews;
+    
         self.tableViewController.FTdelegate = self;
         self.tableViewController.order = 0;
         //设置上拉、下拉刷新
@@ -380,8 +381,6 @@
         if (self.currentSelectIndex == 0) {//如果是“全部”标签，再刷新轮播图
             [sself getCycleData];
         }
-        
-
     }];
     //设置上拉刷新
     [self.tableViewController.tableView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{

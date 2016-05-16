@@ -74,6 +74,8 @@ NSString *const DeleteStarURL = @"/api/base/delete$Base.do";
 //获取类别接口地址: 域名/api/category/ findCategoryByName.do
 NSString *const GetCategoryURL = @"/api/category/findCategoryByName.do";
 
+//获取格斗场内容list 
+NSString *const GetArenaListURL = @"/api/ base/listBase.do";
 
 
 
