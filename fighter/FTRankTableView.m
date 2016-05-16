@@ -167,7 +167,7 @@
             _imageView = [[UIImageView alloc]init];
             [_imageView setImage:[[UIImage imageNamed:@"下拉框bg新"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
             [_imageView setUserInteractionEnabled:YES];
-            [_imageView setFrame:CGRectMake(frame.origin.x, frame.origin.y+_offsetH, tableWidth, 0)];
+            [_imageView setFrame:CGRectMake(frame.origin.x+_offsetX, frame.origin.y+ _offsetY, tableWidth, 0)];
 
             if (!self.tableView) {
                 self.tableView = [[UITableView alloc]init];
@@ -177,7 +177,7 @@
                 [self.tableView setBackgroundColor:[UIColor clearColor]];
                 [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
                 [self.tableView registerNib:[UINib nibWithNibName:@"FTTableViewCell6" bundle:nil] forCellReuseIdentifier:@"cellId"];
-                [self.tableView setFrame:CGRectMake(frame.origin.x+5, 0, tableWidth-10, 0)];
+                [self.tableView setFrame:CGRectMake(5, 0, tableWidth-10, 0)];
             }
 
         }
@@ -189,7 +189,7 @@
             [_imageView setImage:[[UIImage imageNamed:@"下拉框bg新"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
             [_imageView setUserInteractionEnabled:YES];
 
-            [_imageView setFrame:CGRectMake(frame.origin.x, frame.origin.y+_offsetH, tableWidth, 0)];
+           [_imageView setFrame:CGRectMake(frame.origin.x+_offsetX, frame.origin.y+ _offsetY, tableWidth, 0)];
             
             if (!self.tableView) {
                 self.tableView = [[UITableView alloc]init];
@@ -200,7 +200,7 @@
                 [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
                 [self.tableView registerNib:[UINib nibWithNibName:@"FTTableViewCell6" bundle:nil] forCellReuseIdentifier:@"cellId"];
                 
-                [self.tableView setFrame:CGRectMake(frame.origin.x+5, 0, tableWidth-10, 0)];
+                [self.tableView setFrame:CGRectMake(5, 0, tableWidth-10, 0)];
             }
 
         }
@@ -211,7 +211,7 @@
             _imageView = [[UIImageView alloc]init];
             [_imageView setImage:[[UIImage imageNamed:@"下拉框bg新"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
             [_imageView setUserInteractionEnabled:YES];
-           [_imageView setFrame:CGRectMake(frame.origin.x, frame.origin.y+_offsetH, tableWidth, 0)];
+           [_imageView setFrame:CGRectMake(frame.origin.x+_offsetX, frame.origin.y+ _offsetY, tableWidth, 0)];
             
             if (!self.tableView) {
                 self.tableView = [[UITableView alloc]init];

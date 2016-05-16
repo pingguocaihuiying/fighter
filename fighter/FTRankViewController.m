@@ -139,7 +139,8 @@
                                                                          searchTableView.dataArray = [[NSArray alloc] initWithObjects:@"拳击",@"综合格斗综合格斗综合格斗",@"散打",@"自由搏击",@"跆拳道",@"截拳道",@"sadasdfasdfasdfsadfsafsadfsa",nil];
                                                                          
                                                                          searchTableView.tableW = button.frame.size.width;
-                                                                         searchTableView.offsetH = 40;
+                                                                         searchTableView.offsetY = 40;
+                                                                          searchTableView.offsetX = 5;
                                                                          
                                                                          
     }];

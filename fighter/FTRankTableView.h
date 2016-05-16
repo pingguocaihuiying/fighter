@@ -37,7 +37,8 @@ typedef NS_ENUM(NSInteger, FTAnimationDirection) {
 //@property (nonatomic, assign) CGFloat originX;//默认
 //@property (nonatomic, assign) CGFloat originY;//默认
 
-@property (nonatomic, assign) CGFloat offsetH;//高度偏移量
+@property (nonatomic, assign) CGFloat offsetX;//X轴偏移量
+@property (nonatomic, assign) CGFloat offsetY;//Y轴偏移量
 
 
 
