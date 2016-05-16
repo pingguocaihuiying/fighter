@@ -175,6 +175,7 @@
                                                                        type:FTRankTableViewTypeKind
                                                                      option:^(FTRankTableView *searchTableView) {
                                                                          searchTableView.dataArray = [[NSArray alloc] initWithObjects:@"拳击",@"综合格斗综合格斗综合格斗",@"散打",@"自由搏击",@"跆拳道",@"截拳道",@"sadasdfasdfasdfsadfsafsadfsa",nil];
+                                                                         searchTableView.offsetH = 14;
                                                                      }];
     
     [self.view addSubview:kindTableView];
