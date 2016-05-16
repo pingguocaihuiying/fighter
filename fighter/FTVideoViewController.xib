@@ -91,6 +91,7 @@
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZJh-iV-SHb">
                     <rect key="frame" x="15" y="61" width="284" height="40"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="w8e-cs-fbo"/>
                     </constraints>

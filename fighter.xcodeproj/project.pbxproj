@@ -248,6 +248,9 @@
 		E6B458D81CB75DB200FB4261 /* FTBoxingHallViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6B458D61CB75DB200FB4261 /* FTBoxingHallViewController.xib */; };
 		E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458DA1CB75E5000FB4261 /* FTBaseTabBarViewController.m */; };
 		E6B458DE1CB7B2B100FB4261 /* FTTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458DD1CB7B2B100FB4261 /* FTTableViewController.m */; };
+		E6D2F8D71CE95FB100160788 /* FTArenaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8D51CE95FB100160788 /* FTArenaViewController.m */; };
+		E6D2F8D81CE95FB100160788 /* FTArenaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6D2F8D61CE95FB100160788 /* FTArenaViewController.xib */; };
+		E6D2F8DD1CE965A100160788 /* NIDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8DC1CE965A100160788 /* NIDropDown.m */; };
 		E6D74A471CB7B7EE00854337 /* UIButton+countDown.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A331CB7B7EE00854337 /* UIButton+countDown.m */; };
 		E6D74A481CB7B7EE00854337 /* UIColor+YBColorCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A351CB7B7EE00854337 /* UIColor+YBColorCategory.m */; };
 		E6D74A491CB7B7EE00854337 /* UILabel+StringFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A371CB7B7EE00854337 /* UILabel+StringFrame.m */; };
@@ -738,6 +741,11 @@
 		E6B458DA1CB75E5000FB4261 /* FTBaseTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBaseTabBarViewController.m; sourceTree = "<group>"; };
 		E6B458DC1CB7B2B100FB4261 /* FTTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTableViewController.h; sourceTree = "<group>"; };
 		E6B458DD1CB7B2B100FB4261 /* FTTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTableViewController.m; sourceTree = "<group>"; };
+		E6D2F8D41CE95FB100160788 /* FTArenaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaViewController.h; sourceTree = "<group>"; };
+		E6D2F8D51CE95FB100160788 /* FTArenaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaViewController.m; sourceTree = "<group>"; };
+		E6D2F8D61CE95FB100160788 /* FTArenaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaViewController.xib; sourceTree = "<group>"; };
+		E6D2F8DB1CE965A100160788 /* NIDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDropDown.h; sourceTree = "<group>"; };
+		E6D2F8DC1CE965A100160788 /* NIDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDropDown.m; sourceTree = "<group>"; };
 		E6D74A321CB7B7EE00854337 /* UIButton+countDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+countDown.h"; sourceTree = "<group>"; };
 		E6D74A331CB7B7EE00854337 /* UIButton+countDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+countDown.m"; sourceTree = "<group>"; };
 		E6D74A341CB7B7EE00854337 /* UIColor+YBColorCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+YBColorCategory.h"; sourceTree = "<group>"; };
@@ -1827,6 +1835,7 @@
 				3D6947091CE305CD00989440 /* 用户中心 */,
 				E6B4589B1CB7569E00FB4261 /* 拳迅 */,
 				E6DCE7271CD849060082831D /* 视频 */,
+				E6D2F8D21CE95F0C00160788 /* 格斗场 */,
 				E6B458B41CB759AE00FB4261 /* Coach */,
 				E6B458A81CB758EA00FB4261 /* Match */,
 				E6B458BF1CB75C7000FB4261 /* BoxingHall */,
@@ -1894,9 +1903,44 @@
 			name = BoxingHall;
 			sourceTree = "<group>";
 		};
+		E6D2F8D21CE95F0C00160788 /* 格斗场 */ = {
+			isa = PBXGroup;
+			children = (
+				E6D2F8D31CE95F4600160788 /* main */,
+			);
+			name = "格斗场";
+			sourceTree = "<group>";
+		};
+		E6D2F8D31CE95F4600160788 /* main */ = {
+			isa = PBXGroup;
+			children = (
+				E6D2F8D41CE95FB100160788 /* FTArenaViewController.h */,
+				E6D2F8D51CE95FB100160788 /* FTArenaViewController.m */,
+				E6D2F8D61CE95FB100160788 /* FTArenaViewController.xib */,
+			);
+			name = main;
+			sourceTree = "<group>";
+		};
+		E6D2F8D91CE962D000160788 /* 获取标签分类 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "获取标签分类";
+			sourceTree = "<group>";
+		};
+		E6D2F8DA1CE9658200160788 /* 下拉框 */ = {
+			isa = PBXGroup;
+			children = (
+				E6D2F8DB1CE965A100160788 /* NIDropDown.h */,
+				E6D2F8DC1CE965A100160788 /* NIDropDown.m */,
+			);
+			name = "下拉框";
+			sourceTree = "<group>";
+		};
 		E6D74A301CB7B7EE00854337 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				E6D2F8D91CE962D000160788 /* 获取标签分类 */,
 				E668BBB81CE44D3900071998 /* 缓存 */,
 				E6D74A311CB7B7EE00854337 /* Categorys */,
 				E6D74A3A1CB7B7EE00854337 /* UUID.h */,
@@ -1949,6 +1993,7 @@
 		E6D74A511CB7B8C200854337 /* thirdCodes */ = {
 			isa = PBXGroup;
 			children = (
+				E6D2F8DA1CE9658200160788 /* 下拉框 */,
 				E668BA801CE0565700071998 /* MJRefresh */,
 				3DC411F41CD039D70030C229 /* Masonry */,
 				E680509D1CBF919A00678905 /* JHRefresh */,
@@ -2154,6 +2199,7 @@
 				E611850B1CC76B3400F23EC7 /* ios-social-sdk-login-detail.html in Resources */,
 				3D4B192B1CD9FD670022DFB0 /* microphone@2x.png in Resources */,
 				E68050BA1CBF919A00678905 /* JHRefresh.bundle in Resources */,
+				E6D2F8D81CE95FB100160788 /* FTArenaViewController.xib in Resources */,
 				3D7B988E1CDD027400B80B8D /* Area.plist in Resources */,
 				E611848A1CC75E1600F23EC7 /* UMSCommentDetailController.xib in Resources */,
 				3D4B19361CD9FD670022DFB0 /* umeng_fb_audio_play_03@2x.png in Resources */,
@@ -2352,6 +2398,8 @@
 				3D4B19381CD9FD670022DFB0 /* UMFeedbackViewController.m in Sources */,
 				E65EFC291CC8ADFD0039EE8A /* UIButton+LYZTitle.m in Sources */,
 				3D4B193A1CD9FD670022DFB0 /* UMChatTableViewCell.m in Sources */,
+				E6D2F8DD1CE965A100160788 /* NIDropDown.m in Sources */,
+				E6D2F8D71CE95FB100160788 /* FTArenaViewController.m in Sources */,
 				3DC411F01CCF80DD0030C229 /* FTDrawerTableViewHeader.m in Sources */,
 				E6A9DDB61CD9833200CB9518 /* FTVideoTableViewCell.m in Sources */,
 				E668BBB71CE4353300071998 /* FTRankingListFilterView.m in Sources */,
