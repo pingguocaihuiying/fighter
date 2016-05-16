@@ -78,6 +78,9 @@
 		3D7B98C41CE08DEE00B80B8D /* FTNewPasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D7B98C21CE08DEE00B80B8D /* FTNewPasswordVC.xib */; };
 		3D7B98C81CE0D76800B80B8D /* FTWeixinInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7B98C61CE0D76800B80B8D /* FTWeixinInfoVC.m */; };
 		3D7B98C91CE0D76800B80B8D /* FTWeixinInfoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D7B98C71CE0D76800B80B8D /* FTWeixinInfoVC.xib */; };
+		3D8D73B41CE95198009E2320 /* FTRankTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D73B31CE95198009E2320 /* FTRankTableView.m */; };
+		3D8D73BD1CE97404009E2320 /* FTTableViewCell6.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D73BB1CE97404009E2320 /* FTTableViewCell6.m */; };
+		3D8D73BE1CE97404009E2320 /* FTTableViewCell6.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D8D73BC1CE97404009E2320 /* FTTableViewCell6.xib */; };
 		3DC411EC1CCF74EC0030C229 /* FTDrawerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC411EA1CCF74EC0030C229 /* FTDrawerTableViewCell.m */; };
 		3DC411ED1CCF74EC0030C229 /* FTDrawerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC411EB1CCF74EC0030C229 /* FTDrawerTableViewCell.xib */; };
 		3DC411F01CCF80DD0030C229 /* FTDrawerTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC411EF1CCF80DD0030C229 /* FTDrawerTableViewHeader.m */; };
@@ -414,6 +417,11 @@
 		3D7B98C51CE0D76800B80B8D /* FTWeixinInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTWeixinInfoVC.h; sourceTree = "<group>"; };
 		3D7B98C61CE0D76800B80B8D /* FTWeixinInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTWeixinInfoVC.m; sourceTree = "<group>"; };
 		3D7B98C71CE0D76800B80B8D /* FTWeixinInfoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTWeixinInfoVC.xib; sourceTree = "<group>"; };
+		3D8D73B21CE95198009E2320 /* FTRankTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankTableView.h; sourceTree = "<group>"; };
+		3D8D73B31CE95198009E2320 /* FTRankTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankTableView.m; sourceTree = "<group>"; };
+		3D8D73BA1CE97404009E2320 /* FTTableViewCell6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTableViewCell6.h; sourceTree = "<group>"; };
+		3D8D73BB1CE97404009E2320 /* FTTableViewCell6.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTableViewCell6.m; sourceTree = "<group>"; };
+		3D8D73BC1CE97404009E2320 /* FTTableViewCell6.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTableViewCell6.xib; sourceTree = "<group>"; };
 		3DC411E91CCF74EC0030C229 /* FTDrawerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerTableViewCell.h; sourceTree = "<group>"; };
 		3DC411EA1CCF74EC0030C229 /* FTDrawerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDrawerTableViewCell.m; sourceTree = "<group>"; };
 		3DC411EB1CCF74EC0030C229 /* FTDrawerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTDrawerTableViewCell.xib; sourceTree = "<group>"; };
@@ -1629,6 +1637,11 @@
 			children = (
 				E668BBB51CE4353300071998 /* FTRankingListFilterView.h */,
 				E668BBB61CE4353300071998 /* FTRankingListFilterView.m */,
+				3D8D73B21CE95198009E2320 /* FTRankTableView.h */,
+				3D8D73B31CE95198009E2320 /* FTRankTableView.m */,
+				3D8D73BA1CE97404009E2320 /* FTTableViewCell6.h */,
+				3D8D73BB1CE97404009E2320 /* FTTableViewCell6.m */,
+				3D8D73BC1CE97404009E2320 /* FTTableViewCell6.xib */,
 			);
 			name = "条件筛选";
 			sourceTree = "<group>";
@@ -2208,6 +2221,7 @@
 				E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */,
 				3D4B19331CD9FD670022DFB0 /* umeng_fb_audio_dialog_content@2x.png in Resources */,
 				3D4B19311CD9FD670022DFB0 /* umeng_add_photo@2x.png in Resources */,
+				3D8D73BE1CE97404009E2320 /* FTTableViewCell6.xib in Resources */,
 				3D4B192D1CD9FD670022DFB0 /* ToolViewInputText@2x.png in Resources */,
 				3D5FB4931CDC311400FC1809 /* FTAssetsViewController.xib in Resources */,
 				E6B458A61CB7587D00FB4261 /* Assets.xcassets in Resources */,
@@ -2321,6 +2335,7 @@
 				E66D6F121CBCE843008B015A /* AFHTTPSessionManager.m in Sources */,
 				E68050BE1CBF919A00678905 /* JHRefreshHeaderView.m in Sources */,
 				E6DB76131CBB9B430034253C /* FTOneImageInfoTableViewCell.m in Sources */,
+				3D8D73BD1CE97404009E2320 /* FTTableViewCell6.m in Sources */,
 				E64EF10E1CB6614000CAE340 /* AppDelegate.m in Sources */,
 				3D4B18F91CD974B80022DFB0 /* MainViewController.m in Sources */,
 				3D7B98B41CE06F9800B80B8D /* FTInputNewPhoneViewController.m in Sources */,
@@ -2409,6 +2424,7 @@
 				E668BAB81CE0565700071998 /* MJRefreshGifHeader.m in Sources */,
 				E61B8A661CBB6C4900AE37F9 /* SDCycleScrollView.m in Sources */,
 				E668BBBB1CE44E6400071998 /* FTCache.m in Sources */,
+				3D8D73B41CE95198009E2320 /* FTRankTableView.m in Sources */,
 				E66D6F171CBCE843008B015A /* AFURLResponseSerialization.m in Sources */,
 				E66D6EFB1CBCE81C008B015A /* FTNetConfig.m in Sources */,
 				3DC412251CD0C3780030C229 /* NSString+Size.m in Sources */,
@@ -2607,7 +2623,7 @@
 					"$(PROJECT_DIR)/fighter/OtherSDK/UMengFeedback_SDK/UMOpus",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.fighter.fighter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -2642,7 +2658,7 @@
 					"$(PROJECT_DIR)/fighter/OtherSDK/UMengFeedback_SDK/UMOpus",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.fighter.fighter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
