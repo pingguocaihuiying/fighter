@@ -89,7 +89,7 @@
                     <rect key="frame" x="0.0" y="101" width="320" height="467"/>
                     <subviews>
                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请检查网络" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ge9-0f-sr1" userLabel="InfoLabel">
-                            <rect key="frame" x="118" y="223" width="85" height="21"/>
+                            <rect key="frame" x="118" y="223" width="85" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
@@ -112,7 +112,7 @@
                         <action selector="filterButton:" destination="-1" eventType="touchUpInside" id="1fx-LP-LoE"/>
                     </connections>
                 </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KvI-58-oKt" userLabel="排行榜">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KvI-58-oKt" userLabel="排行榜">
                     <rect key="frame" x="241" y="25" width="24" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="Od3-TE-I4i"/>

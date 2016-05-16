@@ -45,8 +45,8 @@
 @interface FTDrawerViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
 
 //@property (nonatomic, strong) NSMutableArray *interestsArray;
-
 //@property (nonatomic, strong) FTDrawerTableViewHeader *header;
+
 @property (nonatomic , weak) UIButton *leftBtn;
 @property (nonatomic , strong) NSMutableArray *leftBtnArray;
 
@@ -228,6 +228,7 @@ static NSString *const tableCellId = @"tableCellId";
         [self.loginView setHidden:NO];//隐藏登录界面
         for (UIButton *button in self.leftBtnArray)
         {
+            NSLog(@"退出登录，清空头像");
             [button setImage:[UIImage imageNamed:@"头像-空"] forState:UIControlStateNormal];
         }
         
@@ -633,16 +634,30 @@ static NSString *const tableCellId = @"tableCellId";
 
 #pragma  mark - FTDynamicsDelegate
 
-- (void) leftButtonClicked:(UIButton *) button {
-
+- (void) addButtonToArray:(UIButton *)button {
+    
     if (!self.leftBtnArray) {
         
         self.leftBtnArray = [[NSMutableArray alloc]init];
         
     }
-    [self.leftBtnArray addObject:button];
+     [self.leftBtnArray addObject:button];
     
-    self.leftBtn = button;
+}
+
+- (void) leftButtonClicked:(UIButton *) button {
+
+//    if (!self.leftBtnArray) {
+//        
+//        self.leftBtnArray = [[NSMutableArray alloc]init];
+//        
+//    }
+//    if(![self.leftBtnArray containsObject:button]){
+//        [self.leftBtnArray addObject:button];
+//    }
+//    [self.leftBtnArray addObject:button];
+    
+//    self.leftBtn = button;
     [self.dynamicsDrawerViewController setPaneState:FTDynamicsDrawerPaneStateOpen
                                        inDirection:FTDynamicsDrawerDirectionLeft
                                           animated:YES
@@ -678,6 +693,7 @@ static NSString *const tableCellId = @"tableCellId";
     infoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳讯pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     infoVC.drawerDelegate = self;
     
+    
     FTMatchViewController *matchVC = [FTMatchViewController new];
     //    FTBaseNavigationViewController *matchNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:matchVC];
     matchVC.tabBarItem.title = @"赛事";
@@ -700,6 +716,7 @@ static NSString *const tableCellId = @"tableCellId";
     videoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-视频"];
     videoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-视频pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     videoVC.drawerDelegate = self;
+    
     
     FTCoachViewController *coachVC = [FTCoachViewController new];
     //    FTBaseNavigationViewController *coachNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:coachVC];
