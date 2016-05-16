@@ -78,9 +78,15 @@
 - (void) initSubViews {
 
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 40)];
-//    headerView.backgroundColor = [UIColor colorWithHex:0x191919];
-    headerView.backgroundColor = [UIColor blackColor];
+    headerView.backgroundColor = [UIColor colorWithHex:0x131313];
+//    headerView.backgroundColor = [UIColor blackColor];
+//    [headerView  setTintColor:[UIColor blackColor]];
+//    headerView.backgroundColor = self.navigationController.navigationBar.backgroundColor;
     [self.view addSubview:headerView];
+    
+    UIView *sepataterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5)];
+    sepataterView.backgroundColor = [UIColor colorWithHex:0x282828];
+    [headerView addSubview:sepataterView];
     
     CGFloat buttonW = (SCREEN_WIDTH - 12*2)/3;
     
@@ -124,10 +130,18 @@
 
 #pragma mark - response 
 - (void) searchFighterKinds:(id)sender {
+    UIButton *button = sender;
+
     FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender
                                                                        type:FTRankTableViewTypeKind
                                                                      option:^(FTRankTableView *searchTableView) {
-        searchTableView.dataArray = [[NSArray alloc] initWithObjects:@"拳击",@"综合格斗综合格斗综合格斗",@"散打",@"自由搏击",@"跆拳道",@"截拳道",@"sadasdfasdfasdfsadfsafsadfsa",nil];
+                                                                         
+                                                                         searchTableView.dataArray = [[NSArray alloc] initWithObjects:@"拳击",@"综合格斗综合格斗综合格斗",@"散打",@"自由搏击",@"跆拳道",@"截拳道",@"sadasdfasdfasdfsadfsafsadfsa",nil];
+                                                                         
+                                                                         searchTableView.tableW = button.frame.size.width;
+                                                                         searchTableView.offsetH = 40;
+                                                                         
+                                                                         
     }];
     
     [self.view addSubview:kindTableView];
@@ -136,9 +150,6 @@
     
     [kindTableView setDirection:FTAnimationDirectionToTop];
     
-//    FTHeightPickerView *heightPicker = [[FTHeightPickerView alloc]init];
-//    heightPicker.delegate = self;
-//    [self.view addSubview:heightPicker];s
     
 }
 
@@ -146,6 +157,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 /*
 #pragma mark - Navigation

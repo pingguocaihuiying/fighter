@@ -28,7 +28,7 @@
         
         if (option) {
             __weak __typeof(&*self)weakSelf = self;
-            option(self);
+            option(weakSelf);
         }
         [self setFrame:[UIScreen mainScreen].bounds];
         [self setType:type];
@@ -130,7 +130,7 @@
 
   
     CGFloat width = 0.0;
-    NSLog(@"_dataArray.count:%d",self.dataArray.count);
+    NSLog(@"_dataArray.count:%lu",(unsigned long)self.dataArray.count);
     for (int i=0 ;i< _dataArray.count;i++)
     {
         NSString *str = [_dataArray objectAtIndex:i];
@@ -142,13 +142,13 @@
          NSLog(@"tempW width:%f",tempW);
     }
     
-    CGRect frame = [self convertRect:self.button.frame fromView:self.button];
-    if (width <= frame.size.width -40) {
-        width = frame.size.width -40;
+    if (width <= self.tableW -40) {
+        width = self.tableW -40;
     }else {
-    
+        
         width = width + 40;
     }
+    
     
     NSLog(@"table width:%f",width);
     return width;
@@ -157,7 +157,7 @@
 
 - (void) initSubviews {
 
-    CGFloat tableW = [self caculateTableWidth];
+    CGFloat tableWidth = [self caculateTableWidth];
     
     CGRect frame = [self convertRect:self.button.frame fromView:self.button];
     
@@ -167,8 +167,7 @@
             _imageView = [[UIImageView alloc]init];
             [_imageView setImage:[[UIImage imageNamed:@"下拉框bg新"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
             [_imageView setUserInteractionEnabled:YES];
-//                        [_imageView setFrame:CGRectMake(frame.origin.x, frame.origin.y+40, frame.size.width, 0)];
-            [_imageView setFrame:CGRectMake(frame.origin.x, frame.origin.y+40, tableW, 0)];
+            [_imageView setFrame:CGRectMake(frame.origin.x, frame.origin.y+_offsetH, tableWidth, 0)];
 
             if (!self.tableView) {
                 self.tableView = [[UITableView alloc]init];
@@ -178,9 +177,7 @@
                 [self.tableView setBackgroundColor:[UIColor clearColor]];
                 [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
                 [self.tableView registerNib:[UINib nibWithNibName:@"FTTableViewCell6" bundle:nil] forCellReuseIdentifier:@"cellId"];
-
-//                [self.tableView setFrame:CGRectMake(frame.origin.x+5, 0, frame.size.width-10, 0)];
-                [self.tableView setFrame:CGRectMake(frame.origin.x+5, 0, tableW-10, 0)];
+                [self.tableView setFrame:CGRectMake(frame.origin.x+5, 0, tableWidth-10, 0)];
             }
 
         }
@@ -191,7 +188,8 @@
             _imageView = [[UIImageView alloc]init];
             [_imageView setImage:[[UIImage imageNamed:@"下拉框bg新"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
             [_imageView setUserInteractionEnabled:YES];
-            [_imageView setFrame:CGRectMake(frame.origin.x, frame.origin.y+40, frame.size.width, 0)];
+
+            [_imageView setFrame:CGRectMake(frame.origin.x, frame.origin.y+_offsetH, tableWidth, 0)];
             
             if (!self.tableView) {
                 self.tableView = [[UITableView alloc]init];
@@ -202,7 +200,7 @@
                 [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
                 [self.tableView registerNib:[UINib nibWithNibName:@"FTTableViewCell6" bundle:nil] forCellReuseIdentifier:@"cellId"];
                 
-                [self.tableView setFrame:CGRectMake(frame.origin.x+5, 0, frame.size.width-10, 0)];
+                [self.tableView setFrame:CGRectMake(frame.origin.x+5, 0, tableWidth-10, 0)];
             }
 
         }
@@ -213,7 +211,7 @@
             _imageView = [[UIImageView alloc]init];
             [_imageView setImage:[[UIImage imageNamed:@"下拉框bg新"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
             [_imageView setUserInteractionEnabled:YES];
-            [_imageView setFrame:CGRectMake(frame.origin.x, frame.origin.y+40, frame.size.width, 0)];
+           [_imageView setFrame:CGRectMake(frame.origin.x, frame.origin.y+_offsetH, tableWidth, 0)];
             
             if (!self.tableView) {
                 self.tableView = [[UITableView alloc]init];
@@ -224,7 +222,7 @@
                 [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
                 [self.tableView registerNib:[UINib nibWithNibName:@"FTTableViewCell6" bundle:nil] forCellReuseIdentifier:@"cellId"];
                 
-                [self.tableView setFrame:CGRectMake(frame.origin.x+5, 0, frame.size.width-10, 0)];
+                [self.tableView setFrame:CGRectMake(frame.origin.x+5, 0, tableWidth-10, 0)];
             }
 
         }
@@ -264,7 +262,7 @@
     
     NSLog(@"cell for row");
     FTTableViewCell6 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
-    cell.backgroundColor = [UIColor clearColor];
+//    cell.backgroundColor = [UIColor clearColor];
 //    cell.contentLabel.text = @"拳击";
     cell.contentLabel.text = [_dataArray objectAtIndex:[indexPath row]];
     return cell;
