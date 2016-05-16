@@ -21,4 +21,5 @@ typedef NS_ENUM(NSInteger, FTPickerType) {
 @protocol FTPickerViewDelegate <NSObject>
 @optional
 - (void) didSelectedDate:(NSString *) date type:(FTPickerType) type;
+- (void) didRemovePickerView;
 @end

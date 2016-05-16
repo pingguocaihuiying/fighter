@@ -33,6 +33,14 @@ typedef NS_ENUM(NSInteger, FTAnimationDirection) {
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
 
+@property (nonatomic, assign) CGFloat tableW;//默认宽度
+//@property (nonatomic, assign) CGFloat originX;//默认
+//@property (nonatomic, assign) CGFloat originY;//默认
+
+@property (nonatomic, assign) CGFloat offsetH;//高度偏移量
+
+
+
 
 - (instancetype)initWithButton:(UIButton*)button
                           type:(FTRankTableViewType) type
