@@ -8,10 +8,11 @@
 
 #import "FTRankTableView.h"
 #import "FTTableViewCell6.h"
+#import "FTButton.h"
 
-@interface FTRankTableView ()
+@interface FTRankTableView () <UIGestureRecognizerDelegate>
 
-@property (nonatomic ,weak) UIButton *button;
+@property (nonatomic ,weak) FTButton *button;
 @property (nonatomic ,strong) UIImageView *imageView;
 
 @end
@@ -19,8 +20,8 @@
 
 @implementation FTRankTableView
 
-- (instancetype)initWithButton:(UIButton*)button
-                          type:(FTRankTableViewType) type
+- (instancetype)initWithButton:(FTButton*)button
+                          style:(FTRankTableViewStyle) style
                         option:(void(^)(FTRankTableView* searchTableView))option{
     
     self = [super init];
@@ -31,7 +32,7 @@
             option(weakSelf);
         }
         [self setFrame:[UIScreen mainScreen].bounds];
-        [self setType:type];
+        [self setStyle:style];
         self.button = button;
         
         [self setDirection:FTAnimationDirectionToToBottom];
@@ -50,13 +51,14 @@
 - (void) setTouchEvent {
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
-    
+    tap.delegate = self;
     [self addGestureRecognizer:tap];
     
 }
 
 - (void) tapAction:(UITapGestureRecognizer *)gesture {
     
+    NSLog(@"tap");
     CGPoint point = [gesture locationInView:self];
     CGRect frame = [self convertRect:self.imageView.frame toView:self];
    
@@ -73,13 +75,25 @@
         
     }
     
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    // 输出点击的view的类名
+//    NSLog(@"%@", NSStringFromClass([touch.view class]));
     
+    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+//        NSLog(@"%@",[touch.view class]);
+        return NO;
+    }
+    return  YES;
 }
 
 
 - (void) setAnimation {
 
-    NSLog(@"animation");
+//    NSLog(@"animation");
     
     CGRect frame = self.imageView.frame;
     CGRect tableFram = self.tableView.frame;
@@ -107,8 +121,8 @@
         {
 
             [UIView animateWithDuration:0.4 animations:^{
-                self.imageView.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, 45*5);
-                self.tableView.frame = CGRectMake(tableFram.origin.x, tableFram.origin.y, tableFram.size.width, 45*5);
+                self.imageView.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, _tableH);
+                self.tableView.frame = CGRectMake(tableFram.origin.x, tableFram.origin.y, tableFram.size.width, _tableH);
 
             } completion:^(BOOL finished) {
                 
@@ -130,7 +144,7 @@
 
   
     CGFloat width = 0.0;
-    NSLog(@"_dataArray.count:%lu",(unsigned long)self.dataArray.count);
+//    NSLog(@"_dataArray.count:%lu",(unsigned long)self.dataArray.count);
     for (int i=0 ;i< _dataArray.count;i++)
     {
         NSString *str = [_dataArray objectAtIndex:i];
@@ -139,18 +153,18 @@
         if (tempW > width) {
             width = tempW;
         }
-         NSLog(@"tempW width:%f",tempW);
+//         NSLog(@"tempW width:%f",tempW);
     }
     
-    if (width <= self.tableW -40) {
-        width = self.tableW -40;
+    if (width <= self.tableW -30) {
+        width = self.tableW;
     }else {
         
-        width = width + 40;
+        width = width + 30;
     }
     
     
-    NSLog(@"table width:%f",width);
+//    NSLog(@"table width:%f",width);
     return width;
     
 }
@@ -159,10 +173,11 @@
 
     CGFloat tableWidth = [self caculateTableWidth];
     
-    CGRect frame = [self convertRect:self.button.frame fromView:self.button];
+    CGRect frame = [self convertRect:self.button.frame fromView:self.button.superview];
+//    CGRect frame = self.button.frame;
     
-    switch (_type) {
-        case FTRankTableViewTypeKind:
+    switch (_style) {
+        case FTRankTableViewStyleLeft:
         {
             _imageView = [[UIImageView alloc]init];
             [_imageView setImage:[[UIImage imageNamed:@"下拉框bg新"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
@@ -173,23 +188,22 @@
                 self.tableView = [[UITableView alloc]init];
                 self.tableView.dataSource = self;
                 self.tableView.delegate = self;
-                self.tableView.scrollEnabled = YES;
                 [self.tableView setBackgroundColor:[UIColor clearColor]];
                 [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
                 [self.tableView registerNib:[UINib nibWithNibName:@"FTTableViewCell6" bundle:nil] forCellReuseIdentifier:@"cellId"];
-                [self.tableView setFrame:CGRectMake(5, 0, tableWidth-10, 0)];
+                [self.tableView setFrame:CGRectMake(0, 0, tableWidth, 0)];
             }
 
         }
             break;
-        case FTRankTableViewTypeMatch:
+        case FTRankTableViewStyleCenter:
         {
         
             _imageView = [[UIImageView alloc]init];
             [_imageView setImage:[[UIImage imageNamed:@"下拉框bg新"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
             [_imageView setUserInteractionEnabled:YES];
 
-           [_imageView setFrame:CGRectMake(frame.origin.x+_offsetX, frame.origin.y+ _offsetY, tableWidth, 0)];
+           [_imageView setFrame:CGRectMake(frame.origin.x+_offsetX-(tableWidth-_tableW)/2, frame.origin.y+ _offsetY, tableWidth, 0)];
             
             if (!self.tableView) {
                 self.tableView = [[UITableView alloc]init];
@@ -200,34 +214,35 @@
                 [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
                 [self.tableView registerNib:[UINib nibWithNibName:@"FTTableViewCell6" bundle:nil] forCellReuseIdentifier:@"cellId"];
                 
-                [self.tableView setFrame:CGRectMake(5, 0, tableWidth-10, 0)];
+                [self.tableView setFrame:CGRectMake(0, 0, tableWidth, 0)];
             }
 
         }
             break;
             
-        case FTRankTableViewTypeLevel:
+        case FTRankTableViewStyleRight:
         {
             _imageView = [[UIImageView alloc]init];
             [_imageView setImage:[[UIImage imageNamed:@"下拉框bg新"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
             [_imageView setUserInteractionEnabled:YES];
-           [_imageView setFrame:CGRectMake(frame.origin.x+_offsetX, frame.origin.y+ _offsetY, tableWidth, 0)];
+           [_imageView setFrame:CGRectMake(SCREEN_WIDTH - tableWidth+_offsetX, frame.origin.y+ _offsetY, tableWidth, 0)];
             
             if (!self.tableView) {
                 self.tableView = [[UITableView alloc]init];
                 self.tableView.dataSource = self;
                 self.tableView.delegate = self;
-                self.tableView.scrollEnabled = YES;
                 [self.tableView setBackgroundColor:[UIColor clearColor]];
                 [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
                 [self.tableView registerNib:[UINib nibWithNibName:@"FTTableViewCell6" bundle:nil] forCellReuseIdentifier:@"cellId"];
                 
-                [self.tableView setFrame:CGRectMake(frame.origin.x+5, 0, tableWidth-10, 0)];
+                [self.tableView setFrame:CGRectMake(0, 0, tableWidth, 0)];
+                
+                
             }
 
         }
             break;
-        case FTRankTableViewTypeNone:
+        case FTRankTableViewStyleNone:
         {
         
         }
@@ -254,13 +269,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 45 ;
+    return 40 ;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSLog(@"cell for row");
+    
     FTTableViewCell6 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
 //    cell.backgroundColor = [UIColor clearColor];
 //    cell.contentLabel.text = @"拳击";
@@ -270,10 +285,16 @@
 
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+   
     
+    [self.button setTitle:[_dataArray objectAtIndex:[indexPath row]] forState:UIControlStateNormal];
+//    [self.button set]
+    
+    if ([self.selectDelegate respondsToSelector:@selector(selectedValue:)]) {
+        
+        [self.selectDelegate selectedValue:[self.dataArray objectAtIndex:indexPath.row]];
+    }
    
 }
-
-
 
 @end

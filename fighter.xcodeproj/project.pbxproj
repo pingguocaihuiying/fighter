@@ -81,6 +81,8 @@
 		3D8D73B41CE95198009E2320 /* FTRankTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D73B31CE95198009E2320 /* FTRankTableView.m */; };
 		3D8D73BD1CE97404009E2320 /* FTTableViewCell6.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D73BB1CE97404009E2320 /* FTTableViewCell6.m */; };
 		3D8D73BE1CE97404009E2320 /* FTTableViewCell6.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D8D73BC1CE97404009E2320 /* FTTableViewCell6.xib */; };
+		3D8D73C21CE9DEFE009E2320 /* FTRankTableVIewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D73C01CE9DEFE009E2320 /* FTRankTableVIewCell.m */; };
+		3D8D73C31CE9DEFE009E2320 /* FTRankTableVIewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D8D73C11CE9DEFE009E2320 /* FTRankTableVIewCell.xib */; };
 		3DC411EC1CCF74EC0030C229 /* FTDrawerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC411EA1CCF74EC0030C229 /* FTDrawerTableViewCell.m */; };
 		3DC411ED1CCF74EC0030C229 /* FTDrawerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC411EB1CCF74EC0030C229 /* FTDrawerTableViewCell.xib */; };
 		3DC411F01CCF80DD0030C229 /* FTDrawerTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC411EF1CCF80DD0030C229 /* FTDrawerTableViewHeader.m */; };
@@ -422,6 +424,9 @@
 		3D8D73BA1CE97404009E2320 /* FTTableViewCell6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTableViewCell6.h; sourceTree = "<group>"; };
 		3D8D73BB1CE97404009E2320 /* FTTableViewCell6.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTableViewCell6.m; sourceTree = "<group>"; };
 		3D8D73BC1CE97404009E2320 /* FTTableViewCell6.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTableViewCell6.xib; sourceTree = "<group>"; };
+		3D8D73BF1CE9DEFE009E2320 /* FTRankTableVIewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankTableVIewCell.h; sourceTree = "<group>"; };
+		3D8D73C01CE9DEFE009E2320 /* FTRankTableVIewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankTableVIewCell.m; sourceTree = "<group>"; };
+		3D8D73C11CE9DEFE009E2320 /* FTRankTableVIewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRankTableVIewCell.xib; sourceTree = "<group>"; };
 		3DC411E91CCF74EC0030C229 /* FTDrawerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerTableViewCell.h; sourceTree = "<group>"; };
 		3DC411EA1CCF74EC0030C229 /* FTDrawerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDrawerTableViewCell.m; sourceTree = "<group>"; };
 		3DC411EB1CCF74EC0030C229 /* FTDrawerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTDrawerTableViewCell.xib; sourceTree = "<group>"; };
@@ -1642,6 +1647,9 @@
 				3D8D73BA1CE97404009E2320 /* FTTableViewCell6.h */,
 				3D8D73BB1CE97404009E2320 /* FTTableViewCell6.m */,
 				3D8D73BC1CE97404009E2320 /* FTTableViewCell6.xib */,
+				3D8D73BF1CE9DEFE009E2320 /* FTRankTableVIewCell.h */,
+				3D8D73C01CE9DEFE009E2320 /* FTRankTableVIewCell.m */,
+				3D8D73C11CE9DEFE009E2320 /* FTRankTableVIewCell.xib */,
 			);
 			name = "条件筛选";
 			sourceTree = "<group>";
@@ -2191,6 +2199,7 @@
 				3D7B98BA1CE078D600B80B8D /* FTInputCheckCodeViewController.xib in Resources */,
 				E611848B1CC75E1600F23EC7 /* UMSCommentInputController.xib in Resources */,
 				E61185081CC76B3400F23EC7 /* ios-social-sdk-comment-detail.html in Resources */,
+				3D8D73C31CE9DEFE009E2320 /* FTRankTableVIewCell.xib in Resources */,
 				3D4B19541CDAEF840022DFB0 /* FTTableViewCell4.xib in Resources */,
 				3DC9A4EF1CE5CD0700E16D19 /* FTRankViewController.xib in Resources */,
 				3D4B194A1CDACF9A0022DFB0 /* FTUserCenterViewController.xib in Resources */,
@@ -2317,6 +2326,7 @@
 				E66D6F161CBCE843008B015A /* AFURLRequestSerialization.m in Sources */,
 				3DE95B501CD326B7005BF85C /* FTCollectionViewLayout.m in Sources */,
 				E68050B71CBF919A00678905 /* JHRefreshAmazingAniView.m in Sources */,
+				3D8D73C21CE9DEFE009E2320 /* FTRankTableVIewCell.m in Sources */,
 				E668BAB51CE0565700071998 /* MJRefreshBackGifFooter.m in Sources */,
 				3DC9A4E31CE59A0400E16D19 /* FTButton.m in Sources */,
 				E6D74A491CB7B7EE00854337 /* UILabel+StringFrame.m in Sources */,

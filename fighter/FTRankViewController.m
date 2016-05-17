@@ -10,8 +10,9 @@
 #import "FTButton.h"
 #import "FTRankTableView.h"
 #import "FTHeightPickerView.h"
+#import "FTRankTableVIewCell.h"
 
-@interface FTRankViewController ()
+@interface FTRankViewController () <FTSelectCellDelegate, UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) FTButton *kindBtn;
 @property (nonatomic, strong) FTButton *matchBtn;
@@ -64,7 +65,7 @@
         if (size.width > buttonW - 30-10-13) {
             size = CGSizeMake(buttonW - 30-10-13, size.height);
         }
-
+        
         button.textH = size.height;
         button.textW = size.width;
 
@@ -79,12 +80,9 @@
 
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 40)];
     headerView.backgroundColor = [UIColor colorWithHex:0x131313];
-//    headerView.backgroundColor = [UIColor blackColor];
-//    [headerView  setTintColor:[UIColor blackColor]];
-//    headerView.backgroundColor = self.navigationController.navigationBar.backgroundColor;
-    [self.view addSubview:headerView];
+//    [self.view addSubview:headerView];
     
-    UIView *sepataterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5)];
+    UIView *sepataterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)];
     sepataterView.backgroundColor = [UIColor colorWithHex:0x282828];
     [headerView addSubview:sepataterView];
     
@@ -99,11 +97,13 @@
     //格斗赛事筛选按钮
     self.matchBtn = [self selectButton:@"WBA"];
     self.matchBtn .frame = CGRectMake((buttonW+12)* 1, 0, buttonW, 40);
-    [headerView addSubview:self.matchBtn ];
+     [self.matchBtn addTarget:self action:@selector(searchFighterMatchs:) forControlEvents:UIControlEventTouchUpInside];
+    [headerView addSubview:self.matchBtn];
     
     //格斗重量级筛选按钮
     self.levelBtn = [self selectButton:@"50kg级"];
     self.levelBtn .frame = CGRectMake((buttonW+12)* 2, 0, buttonW, 40);
+     [self.levelBtn addTarget:self action:@selector(searchFighterLevels:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:self.levelBtn ];
 
     
@@ -117,40 +117,151 @@
         
     }
     
+//    [self.tableView registerNib:[UINib nibWithNibName:@"FTRankTableVIewCell" bundle:nil] forCellReuseIdentifier:@"cellId"];
+//    self.tableView.dataSource = self;
+//    self.tableView.delegate = self;
+//    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
+    
 }
 
-- (void) viewWillAppear:(BOOL)animated {
-    NSLog(@"viewWillAppear");
-}
-
-- (void) viewDidAppear:(BOOL)animated {
-    NSLog(@"viewDidappear");
-}
 
 
 #pragma mark - response 
+
+//格斗项目检索
 - (void) searchFighterKinds:(id)sender {
     UIButton *button = sender;
 
     FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender
-                                                                       type:FTRankTableViewTypeKind
+                                                                      style:FTRankTableViewStyleLeft
                                                                      option:^(FTRankTableView *searchTableView) {
                                                                          
-                                                                         searchTableView.dataArray = [[NSArray alloc] initWithObjects:@"拳击",@"综合格斗综合格斗综合格斗",@"散打",@"自由搏击",@"跆拳道",@"截拳道",@"sadasdfasdfasdfsadfsafsadfsa",nil];
+                                                                         searchTableView.dataArray = [[NSArray alloc] initWithObjects:@"拳击",@"散打",@"自由搏击",@"跆拳道",@"截拳道",@"跆拳道",@"跆拳道",@"跆拳道",@"散打",@"散打",nil];
                                                                          
                                                                          searchTableView.tableW = button.frame.size.width;
+                                                                         searchTableView.tableH = 40*5;
+                                                                         
                                                                          searchTableView.offsetY = 40;
-                                                                          searchTableView.offsetX = 5;
+                                                                         searchTableView.offsetX = 5;
                                                                          
                                                                          
-    }];
+                                                                         
+                                                                     }];
     
     [self.view addSubview:kindTableView];
-    
+    kindTableView.selectDelegate = self;
     [kindTableView  setAnimation];
     
     [kindTableView setDirection:FTAnimationDirectionToTop];
     
+    
+}
+
+
+//赛事检索
+- (void) searchFighterMatchs:(id)sender {
+    UIButton *button = sender;
+    
+    FTRankTableView *matchableView = [[FTRankTableView alloc]initWithButton:sender
+                                                                       style:FTRankTableViewStyleCenter
+                                                                     option:^(FTRankTableView *searchTableView) {
+                                                                         
+                                                                         searchTableView.dataArray = [[NSArray alloc] initWithObjects:@"拳击",@"散打",@"自由搏击",@"跆拳道",@"截拳道",@"跆拳道",@"跆拳道",@"跆拳道跆拳道跆拳道跆拳道跆拳",@"散打",@"散打",nil];
+                                                                         
+                                                                         searchTableView.tableW = button.frame.size.width;
+                                                                         searchTableView.tableH = 40*5;
+                                                                         
+                                                                         searchTableView.offsetY = 40;
+                                                                         searchTableView.offsetX = 0;
+                                                                         
+                                                                         
+                                                                         
+                                                                     }];
+    
+    [self.view addSubview:matchableView];
+    matchableView.selectDelegate = self;
+    [matchableView  setAnimation];
+    
+    [matchableView setDirection:FTAnimationDirectionToTop];
+    
+    
+}
+
+
+//重量级检索
+- (void) searchFighterLevels:(id)sender {
+    UIButton *button = sender;
+    
+    FTRankTableView *levelTableView = [[FTRankTableView alloc]initWithButton:sender
+                                                                      style:FTRankTableViewStyleRight
+                                                                     option:^(FTRankTableView *searchTableView) {
+                                                                         
+                                                                         searchTableView.dataArray = [[NSArray alloc] initWithObjects:@"拳击",@"散打",@"自由搏击",@"跆拳道",@"截拳道",@"跆拳道",@"跆拳道",@"跆拳道跆拳道跆拳道跆拳道",@"散打",@"散打",nil];
+                                                                         
+                                                                         searchTableView.tableW = button.frame.size.width;
+                                                                         searchTableView.tableH = 40*5;
+                                                                         
+                                                                         searchTableView.offsetY = 40;
+                                                                         searchTableView.offsetX = -5;
+                                                                         
+                                                                         
+                                                                         
+                                                                     }];
+    
+    [self.view addSubview:levelTableView];
+     levelTableView.selectDelegate = self;
+    [levelTableView  setAnimation];
+    
+    [levelTableView setDirection:FTAnimationDirectionToTop];
+    
+    
+}
+
+#pragma mark FTSelectCellDelegate
+
+- (void) selectedValue:(NSDictionary *)dic {
+    
+    
+}
+
+#pragma mark - tableView datasouce and delegate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return 10;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 56 ;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    FTRankTableVIewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
+    //    cell.backgroundColor = [UIColor clearColor];
+    //    cell.contentLabel.text = @"拳击";
+//    cell.contentLabel.text = [_dataArray objectAtIndex:[indexPath row]];
+    return cell;
+}
+
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+//    [self.button setTitle:[_dataArray objectAtIndex:[indexPath row]] forState:UIControlStateNormal];
+//    //    [self.button set]
+//    
+//    if ([self.selectDelegate respondsToSelector:@selector(selectedValue:)]) {
+//        
+//        [self.selectDelegate selectedValue:[self.dataArray objectAtIndex:indexPath.row]];
+//    }
     
 }
 

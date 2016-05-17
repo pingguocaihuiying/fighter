@@ -37,5 +37,6 @@ typedef NS_ENUM(NSInteger, FTButtonModel) {
 + (instancetype) buttonWithType:(UIButtonType)buttonType option:(void(^)(FTButton *button))option;
 
 - (void) setImageAndText:(void(^)(FTButton *button))option;
+- (void) setTitle:(NSString *)title forState:(UIControlState)state;
 
 @end

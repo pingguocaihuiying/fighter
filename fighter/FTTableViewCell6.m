@@ -27,7 +27,7 @@
     //    [self.titleLabel setTextColor:[UIColor colorWithHex:0xb4b4b4]];/
     [self.contentLabel setTextColor:[UIColor colorWithHex:0xb4b4b4]];
     [self setBackgroundColor:[UIColor clearColor]];
-    self.selected = NO;
+//    self.selected = NO;
     //设置选中颜色
     UIView *aView = [[UIView alloc] initWithFrame:self.contentView.frame];
     aView.backgroundColor = [UIColor colorWithHex:0x3c3c3c];
@@ -44,7 +44,7 @@
     CGContextFillRect(context, rect);
     
     CGContextSetStrokeColorWithColor(context, [UIColor colorWithHex:0x3c3c3c].CGColor);
-    CGContextStrokeRect(context, CGRectMake(0, rect.size.height - 0.5, rect.size.width, 0.5));
+    CGContextStrokeRect(context, CGRectMake(15, rect.size.height - 0.25, rect.size.width-30, 0.25));
     
 }
 
