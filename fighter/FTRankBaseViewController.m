@@ -23,14 +23,14 @@
 // 设置跟视图控制器样式
 - (void) setRankBaseViewControllerStyle {
     
-    //删除继承自FTBaseViewcontroller中添加的这招图片（危险方法，不建议使用）
-    [[[self.view subviews] objectAtIndex:0] removeFromSuperview];
     
+    
+    //设置背景
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"底纹"]];
     
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
     //设置左侧按钮,在根上设置，以后继承（第一次尝试这么做）
-    
-    
 //    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    backBtn.bounds = CGRectMake(0, 0, 22, 22);
 //    [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];

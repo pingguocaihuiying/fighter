@@ -31,11 +31,25 @@
     aView.backgroundColor = [UIColor colorWithHex:0x191919];
     self.selectedBackgroundView = aView;
     
+    
+//    NSString *statement = @"NO.2";
+//    NSInteger len = statement.length;
+//    NSMutableAttributedString *stateAttr = [[NSMutableAttributedString alloc] initWithString:statement];
+//    
+//    [stateAttr addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Arial-BoldItalicMT" size:8] range:NSMakeRange(0, 3)];
+//    [stateAttr addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18] range:NSMakeRange(3, len-3)];
+//    
+//    self.rankLabel.text = statement;
+}
+
+
+- (void) setRankLabelText:(NSString *)text {
+
+    
 }
 
 
 - (void ) drawRect:(CGRect)rect {
-    
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -43,7 +57,7 @@
     CGContextFillRect(context, rect);
     
     CGContextSetStrokeColorWithColor(context, Cell_Space_Color.CGColor);
-    CGContextStrokeRect(context, CGRectMake(69, rect.size.height - 0.25, rect.size.width, 0.25));
+    CGContextStrokeRect(context, CGRectMake(69, rect.size.height - 0.25, rect.size.width-77, 0.25));
     
 }
 
