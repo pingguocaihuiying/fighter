@@ -101,10 +101,9 @@
 {
     if(!self.tableViewController){
         self.tableViewController = [[FTTableViewController alloc]initWithStyle:UITableViewStylePlain];
-        self.tableViewController.listType = FTCellTypeNews;
+        self.tableViewController.listType = FTCellTypeArena;
         
         self.tableViewController.FTdelegate = self;
-        self.tableViewController.order = 0;
         //设置上拉、下拉刷新
         [self setJHRefresh];
     }
@@ -175,7 +174,8 @@
                                                                        type:FTRankTableViewTypeKind
                                                                      option:^(FTRankTableView *searchTableView) {
                                                                          searchTableView.dataArray = [[NSArray alloc] initWithObjects:@"拳击",@"综合格斗综合格斗综合格斗",@"散打",@"自由搏击",@"跆拳道",@"截拳道",@"sadasdfasdfasdfsadfsafsadfsa",nil];
-                                                                         searchTableView.offsetH = 14;
+                                                                         searchTableView.offsetX = -40;
+                                                                         searchTableView.offsetY = 14;
                                                                      }];
     
     [self.view addSubview:kindTableView];
