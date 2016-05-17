@@ -45,9 +45,14 @@
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
 //定义UserDefaults的一些常量
+
 //已登陆的用户信息
 #define LoginUser @"loginUser"
+//showType区分正式版，和编辑预览版的字断
 #define SHOWTYPE @"showType"
+
+//类别（综合格斗、拳击、散打等等
+#define CATEGORIES @"categories"
 
 //微信相关
 #define WX_BASE_URL @"https://api.weixin.qq.com/sns"

@@ -39,6 +39,7 @@
 #import "UMFeedback.h"
 #import "FTSettingViewController.h"
 #import "NetWorking.h"
+#import "FTArenaViewController.h"
 
 
 @interface FTDrawerViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
@@ -739,13 +740,25 @@ static NSString *const tableCellId = @"tableCellId";
     boxingHallVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     boxingHallVC.drawerDelegate = self;
     
+    //格斗场
+    FTArenaViewController *arenaVC = [FTArenaViewController new];
+    arenaVC.tabBarItem.title = @"格斗场";
+    [arenaVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                     Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                     nil] forState:UIControlStateSelected];
+    
+    arenaVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳馆"];
+    arenaVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    arenaVC.drawerDelegate = self;
+    
     //设置tabbar的属性
     FTBaseTabBarViewController *tabBartVC = [FTBaseTabBarViewController new];
     
     tabBartVC.tabBar.barTintColor = [UIColor blackColor];
     tabBartVC.tabBar.translucent = NO;
 //    tabBartVC.viewControllers = @[infoVC, matchVC, videoVC, coachVC, boxingHallVC];
-    tabBartVC.viewControllers = @[infoVC, videoVC];
+    tabBartVC.viewControllers = @[infoVC, videoVC, arenaVC];
+//        tabBartVC.viewControllers = @[infoVC, videoVC];
     
     FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:tabBartVC];
     [self.dynamicsDrawerViewController  setPaneViewController:navi];

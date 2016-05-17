@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTVideoViewController">
@@ -27,7 +27,7 @@
                         <constraint firstAttribute="height" constant="34" id="K0Y-9l-0Qs"/>
                         <constraint firstAttribute="width" constant="34" id="Ldh-Od-jUC"/>
                     </constraints>
-                    <state key="normal" backgroundImage="头像-空">
+                    <state key="normal">
                         <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -35,7 +35,7 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="格斗家头部logo文字" translatesAutoresizingMaskIntoConstraints="NO" id="drw-8n-X8q" userLabel="格斗家">
-                    <rect key="frame" x="60" y="28" width="72" height="22"/>
+                    <rect key="frame" x="57" y="28" width="72" height="22"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="22" id="W8L-Q0-BWV"/>
                         <constraint firstAttribute="width" constant="72" id="dDC-Rl-7Hj"/>
@@ -44,7 +44,7 @@
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mCF-Nk-Ecj" userLabel="分隔点">
-                    <rect key="frame" x="140" y="34" width="5" height="5"/>
+                    <rect key="frame" x="137" y="34" width="5" height="5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="5" id="NOl-tC-wn8"/>
@@ -57,7 +57,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="视频" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iv8-Nb-0hq">
-                    <rect key="frame" x="153" y="27" width="42" height="21"/>
+                    <rect key="frame" x="150" y="27" width="42" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="42" id="Y8o-Zm-RFz"/>
                         <constraint firstAttribute="height" constant="21" id="ntO-ak-AWD"/>
@@ -91,6 +91,7 @@
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZJh-iV-SHb">
                     <rect key="frame" x="15" y="61" width="284" height="40"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="w8e-cs-fbo"/>
                     </constraints>
@@ -166,7 +167,7 @@
                 <constraint firstItem="qJs-6t-deF" firstAttribute="top" secondItem="ABi-mZ-eso" secondAttribute="bottom" constant="8" id="Rjq-Yk-t1z"/>
                 <constraint firstAttribute="trailing" secondItem="qJs-6t-deF" secondAttribute="trailing" constant="8" id="ScO-gZ-614"/>
                 <constraint firstAttribute="trailing" secondItem="ABi-mZ-eso" secondAttribute="trailing" id="WWf-V7-jWp"/>
-                <constraint firstItem="drw-8n-X8q" firstAttribute="leading" secondItem="970-ML-Okc" secondAttribute="trailing" constant="11" id="Xmq-ai-m21"/>
+                <constraint firstItem="drw-8n-X8q" firstAttribute="leading" secondItem="970-ML-Okc" secondAttribute="trailing" constant="8" id="Xmq-ai-m21"/>
                 <constraint firstItem="970-ML-Okc" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" constant="20" id="XsP-nU-20Q"/>
                 <constraint firstItem="ljW-Cr-QBP" firstAttribute="top" secondItem="ZJh-iV-SHb" secondAttribute="bottom" constant="10" id="ZsE-PT-x9v"/>
                 <constraint firstItem="ZJh-iV-SHb" firstAttribute="leading" secondItem="dcm-ao-ON0" secondAttribute="leading" constant="15" id="a8n-5a-lbb"/>
@@ -183,7 +184,6 @@
         </view>
     </objects>
     <resources>
-        <image name="头像-空" width="34" height="34"/>
         <image name="头部48按钮一堆-搜索" width="24" height="24"/>
         <image name="头部48按钮一堆-更多" width="24" height="24"/>
         <image name="头部48按钮一堆-消息" width="24" height="24"/>
