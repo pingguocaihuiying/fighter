@@ -32,6 +32,9 @@
         if (option) {
             __weak FTButton *weakSelf = button;
             option(weakSelf);
+            
+            button.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+            
         }
     }
     
@@ -62,7 +65,23 @@
 }
 
 
+- (void) setTitle:(NSString *)title forState:(UIControlState)state {
+    
+    CGSize size =  [title sizeWithAttributes:@{NSFontAttributeName:self.titleLabel.font}];
+    
+    if (size.width > self.frame.size.width - 30-10-13) {
+        size = CGSizeMake(self.frame.size.width - 30-10-13, size.height);
+    }
+    _textH = size.height;
+    _textW = size.width;
+    
+    [super setTitle:title forState:state];
+}
 
+
+
+
+#pragma mark - overwrite
 
 - (void) layoutSubviews {
     
@@ -79,9 +98,12 @@
 }
 
 
+
+
 - (CGRect) contentRectForBounds:(CGRect)bounds {
     
     NSLog(@"contentRectForBounds(%f,%f,%f,%f)",bounds.origin.x,bounds.origin.y,bounds.size.width ,bounds.size.height);
+    
     return bounds;
 }
 
@@ -90,7 +112,7 @@
 - (CGRect)imageRectForContentRect:(CGRect)contentRect
 {
     
-    NSLog(@"imageRectForContentRect(%f,%f,%f,%f)",contentRect.origin.x,contentRect.origin.y,contentRect.size.width ,contentRect.size.height);
+//    NSLog(@"imageRectForContentRect(%f,%f,%f,%f)",contentRect.origin.x,contentRect.origin.y,contentRect.size.width ,contentRect.size.height);
     //1.获取按钮frame
 //    CGRect frame  = contentRect;
     CGFloat width = contentRect.size.width;
@@ -102,8 +124,8 @@
     CGFloat imageX;
     CGFloat imageY;
     
-    NSLog(@"imageW:%f",_imageW);
-    NSLog(@"imageH:%f",_imageH);
+//    NSLog(@"imageW:%f",_imageW);
+//    NSLog(@"imageH:%f",_imageH);
     
     switch (_buttonModel) {
         case FTButtonModelTopImage:
@@ -162,10 +184,10 @@
 //2.改变title文字的位置,构造title的矩形即可
 - (CGRect)titleRectForContentRect:(CGRect)contentRect
 {
-     NSLog(@"titleRectForContentRect(%f,%f,%f,%f)",contentRect.origin.x,contentRect.origin.y,contentRect.size.width ,contentRect.size.height);
+//     NSLog(@"titleRectForContentRect(%f,%f,%f,%f)",contentRect.origin.x,contentRect.origin.y,contentRect.size.width ,contentRect.size.height);
 
-    NSLog(@"textW:%f",_textW);
-    NSLog(@"textH:%f",_textH);
+//    NSLog(@"textW:%f",_textW);
+//    NSLog(@"textH:%f",_textH);
     
     CGFloat width = contentRect.size.width;
     CGFloat height = contentRect.size.height;

@@ -10,4 +10,12 @@
 
 @interface FTRankViewController : FTRankBaseViewController
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scroView;
+
+@property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+
+
 @end
