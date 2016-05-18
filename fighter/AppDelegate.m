@@ -71,6 +71,10 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     return YES;
 }
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+    
+}
+
 - (void)setUMeng{
     //友盟统计
     [MobClick startWithAppkey:@"570739d767e58edb5300057b" reportPolicy:BATCH   channelId:@""];

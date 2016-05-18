@@ -27,11 +27,43 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setTopButton];
+    //收起键盘
+    UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped)];
+    tapGr.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapGr];
 }
+
+- (void)viewTapped{
+    [self.view endEditing:YES];
+}
+
 - (void)viewWillAppear:(BOOL)animated{
-    
+        //显示navigationBar
     self.navigationController.navigationBarHidden = NO;
+    //注册键盘弹起、收回的通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyBoardShow) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyBoardHide) name:UIKeyboardWillHideNotification object:nil];
 }
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+- (void)keyBoardShow{
+    NSLog(@"键盘弹出");
+    if ([self.contentTextView isFirstResponder]) {
+        CGRect rOfView = self.view.frame;
+        rOfView.origin.y = -200;
+        self.view.frame = rOfView;
+    }
+}
+- (void)keyBoardHide{
+    NSLog(@"键盘收回");
+    CGRect rOfView = self.view.frame;
+    rOfView.origin.y = 0;
+    self.view.frame = rOfView;
+}
+
 - (void)setTopButton{
     
     //设置返回按钮
@@ -40,8 +72,8 @@
         [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 0)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
-    //设置分享按钮
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonClicked)];
+    //设置发布按钮
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(newPostButtonClicked)];
     NSDictionary* textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [UIFont systemFontOfSize:14],UITextAttributeFont,
                                     nil];
@@ -50,6 +82,13 @@
     self.navigationController.navigationBar.tintColor = [UIColor colorWithHex:0x828287];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     //    [shareButton setImageInsets:UIEdgeInsetsMake(0, -20, 0, 20)];
+}
+/**
+ *  发布按钮被点击
+ */
+- (void)newPostButtonClicked{
+    NSString *title = self.titleTextField.text;
+    NSString *content = self.contentTextView.text;
 }
 
 - (void)popVC{
@@ -62,14 +101,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

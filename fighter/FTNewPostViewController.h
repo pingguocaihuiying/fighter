@@ -9,5 +9,7 @@
 #import "FTBaseViewController.h"
 
 @interface FTNewPostViewController : FTBaseViewController
+@property (weak, nonatomic) IBOutlet UITextField *titleTextField;
+@property (weak, nonatomic) IBOutlet UITextView *contentTextView;
 
 @end

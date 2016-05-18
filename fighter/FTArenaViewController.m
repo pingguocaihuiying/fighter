@@ -34,6 +34,8 @@
 #import "FTCacheBean.h"
 #import "FTRankViewController.h"
 #import "FTNewPostViewController.h"
+#import "FTLoginViewController.h"
+#import "FTBaseNavigationViewController.h"
 
 @interface FTArenaViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTnewsDetailDelegate, FTSelectCellDelegate>
 
@@ -206,10 +208,28 @@
 }
 - (IBAction)newBlogButtonClicked:(id)sender {
     NSLog(@"发新帖");
-    FTNewPostViewController *newPostViewController = [FTNewPostViewController new];
-    newPostViewController.title = @"发新帖";
-    [self.navigationController pushViewController:newPostViewController animated:YES];
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    if (!localUser) {
+        [self login];
+    }else{
+        FTNewPostViewController *newPostViewController = [FTNewPostViewController new];
+        newPostViewController.title = @"发新帖";
+        [self.navigationController pushViewController:newPostViewController animated:YES];
+        
+    }
+    
+    
 }
+
+- (void)login{
+    FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+    loginVC.title = @"登录";
+    FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+
  /**
   *  循环改变currentIndex的值
   */
