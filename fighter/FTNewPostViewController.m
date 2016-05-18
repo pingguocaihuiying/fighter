@@ -1,0 +1,75 @@
+//
+//  FTNewPostViewController.m
+//  fighter
+//
+//  Created by Liyz on 5/17/16.
+//  Copyright © 2016 Mapbar. All rights reserved.
+//
+
+#import "FTNewPostViewController.h"
+
+@interface FTNewPostViewController ()
+
+@end
+
+@implementation FTNewPostViewController
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    NSLog(@"initWithNibName");
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        
+    }
+    return self;
+}
+
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self setTopButton];
+}
+- (void)viewWillAppear:(BOOL)animated{
+    
+    self.navigationController.navigationBarHidden = NO;
+}
+- (void)setTopButton{
+    
+    //设置返回按钮
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(popVC)];
+    //把左边的返回按钮左移
+        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 0)];
+    self.navigationItem.leftBarButtonItem = leftButton;
+    
+    //设置分享按钮
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonClicked)];
+    NSDictionary* textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [UIFont systemFontOfSize:14],UITextAttributeFont,
+                                    nil];
+    self.navigationItem.rightBarButtonItem = shareButton;
+    [[UIBarButtonItem appearance] setTitleTextAttributes:textAttributes forState:0];
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithHex:0x828287];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    //    [shareButton setImageInsets:UIEdgeInsetsMake(0, -20, 0, 20)];
+}
+
+- (void)popVC{
+//    [self.delegate updateCountWithNewsBean:_newsBean indexPath:self.indexPath];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

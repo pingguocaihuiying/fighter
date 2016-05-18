@@ -218,6 +218,8 @@
 		E66D6F181CBCE843008B015A /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6F0F1CBCE843008B015A /* AFURLSessionManager.m */; };
 		E67872731CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E67872711CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m */; };
 		E67872741CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E67872721CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib */; };
+		E67872791CEB00980099CEE6 /* FTNewPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E67872771CEB00980099CEE6 /* FTNewPostViewController.m */; };
+		E678727A1CEB00980099CEE6 /* FTNewPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E67872781CEB00980099CEE6 /* FTNewPostViewController.xib */; };
 		E68050B71CBF919A00678905 /* JHRefreshAmazingAniView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68050A01CBF919A00678905 /* JHRefreshAmazingAniView.m */; };
 		E68050B81CBF919A00678905 /* JHRefreshAniBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68050A21CBF919A00678905 /* JHRefreshAniBaseView.m */; };
 		E68050B91CBF919A00678905 /* JHRefreshCommonAniView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68050A41CBF919A00678905 /* JHRefreshCommonAniView.m */; };
@@ -694,6 +696,9 @@
 		E67872701CEACEFC0099CEE6 /* FTArenaImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaImageTableViewCell.h; sourceTree = "<group>"; };
 		E67872711CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaImageTableViewCell.m; sourceTree = "<group>"; };
 		E67872721CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaImageTableViewCell.xib; sourceTree = "<group>"; };
+		E67872761CEB00980099CEE6 /* FTNewPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNewPostViewController.h; sourceTree = "<group>"; };
+		E67872771CEB00980099CEE6 /* FTNewPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNewPostViewController.m; sourceTree = "<group>"; };
+		E67872781CEB00980099CEE6 /* FTNewPostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTNewPostViewController.xib; sourceTree = "<group>"; };
 		E680509F1CBF919A00678905 /* JHRefreshAmazingAniView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHRefreshAmazingAniView.h; sourceTree = "<group>"; };
 		E68050A01CBF919A00678905 /* JHRefreshAmazingAniView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHRefreshAmazingAniView.m; sourceTree = "<group>"; };
 		E68050A11CBF919A00678905 /* JHRefreshAniBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHRefreshAniBaseView.h; sourceTree = "<group>"; };
@@ -1779,6 +1784,16 @@
 			name = "图片";
 			sourceTree = "<group>";
 		};
+		E67872751CEAFFBA0099CEE6 /* 发新帖 */ = {
+			isa = PBXGroup;
+			children = (
+				E67872761CEB00980099CEE6 /* FTNewPostViewController.h */,
+				E67872771CEB00980099CEE6 /* FTNewPostViewController.m */,
+				E67872781CEB00980099CEE6 /* FTNewPostViewController.xib */,
+			);
+			name = "发新帖";
+			sourceTree = "<group>";
+		};
 		E680509D1CBF919A00678905 /* JHRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -1964,8 +1979,8 @@
 		E6D2F8D21CE95F0C00160788 /* 格斗场Arena */ = {
 			isa = PBXGroup;
 			children = (
-				E6D2F8E81CEAA90600160788 /* Views */,
 				E6D2F8E71CEAA8F900160788 /* ViewController */,
+				E6D2F8E81CEAA90600160788 /* Views */,
 			);
 			name = "格斗场Arena";
 			sourceTree = "<group>";
@@ -2028,6 +2043,7 @@
 			isa = PBXGroup;
 			children = (
 				E6D2F8D31CE95F4600160788 /* main */,
+				E67872751CEAFFBA0099CEE6 /* 发新帖 */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -2310,6 +2326,7 @@
 				3D4B18F61CD8BF340022DFB0 /* FTSetPassWordViewController.xib in Resources */,
 				3DE95BA81CD86FA4005BF85C /* FTLoginViewController.xib in Resources */,
 				E6B458D81CB75DB200FB4261 /* FTBoxingHallViewController.xib in Resources */,
+				E678727A1CEB00980099CEE6 /* FTNewPostViewController.xib in Resources */,
 				E61184881CC75E1600F23EC7 /* UMSocialLocalizable.strings in Resources */,
 				3D7B98981CDEE1E900B80B8D /* FTSettingViewController.xib in Resources */,
 				3D5FB4BF1CDC7E6600FC1809 /* FTImageCollectionCell.xib in Resources */,
@@ -2429,6 +2446,7 @@
 				3D4B19661CDB6CF80022DFB0 /* FTWeightPickerView.m in Sources */,
 				E6E580AC1CBE2F2D00272242 /* UIImage+WebP.m in Sources */,
 				E68EC50B1CC4B85D00A338C8 /* FTFilterTableViewController.m in Sources */,
+				E67872791CEB00980099CEE6 /* FTNewPostViewController.m in Sources */,
 				E6B458CD1CB75D9600FB4261 /* FTMatchViewController.m in Sources */,
 				3D4B18F51CD8BF340022DFB0 /* FTSetPassWordViewController.m in Sources */,
 				E668BABD1CE0565700071998 /* UIScrollView+MJExtension.m in Sources */,

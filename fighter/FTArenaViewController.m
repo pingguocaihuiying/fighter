@@ -33,9 +33,9 @@
 #import "FTCache.h"
 #import "FTCacheBean.h"
 #import "FTRankViewController.h"
+#import "FTNewPostViewController.h"
 
-
-@interface FTArenaViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTnewsDetailDelegate>
+@interface FTArenaViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTnewsDetailDelegate, FTSelectCellDelegate>
 
 {
     NIDropDown *_dropDown;
@@ -170,19 +170,31 @@
 }
 
 - (void)setDropDown:(id)sender{
-    FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender
-                                                                       type:FTRankTableViewTypeKind
-                                                                     option:^(FTRankTableView *searchTableView) {
-                                                                         searchTableView.dataArray = [[NSArray alloc] initWithObjects:@"拳击",@"综合格斗综合格斗综合格斗",@"散打",@"自由搏击",@"跆拳道",@"截拳道",@"sadasdfasdfasdfsadfsafsadfsa",nil];
-                                                                         searchTableView.offsetX = -40;
-                                                                         searchTableView.offsetY = 14;
-                                                                     }];
-    
+//    FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender
+//                                                                       type:FTRankTableViewTypeKind
+//                                                                     option:^(FTRankTableView *searchTableView) {
+//                                                                         searchTableView.dataArray = [[NSArray alloc] initWithObjects:@"拳击",@"综合格斗综合格斗综合格斗",@"散打",@"自由搏击",@"跆拳道",@"截拳道",@"sadasdfasdfasdfsadfsafsadfsa",nil];
+//                                                                         searchTableView.offsetX = -40;
+//                                                                         searchTableView.offsetY = 14;
+//                                                                     }];
+    FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender style:FTRankTableViewStyleLeft option:^(FTRankTableView *searchTableView) {
+                                                                                 searchTableView.dataArray = [FTNWGetCategory sharedCategories];
+        
+                                                                                 searchTableView.offsetX = -10;
+                                                                                 searchTableView.offsetY = 28;
+        searchTableView.tableW = 100;
+        searchTableView.tableH = 350;
+    }];
+    kindTableView.selectDelegate = self;
     [self.view addSubview:kindTableView];
     
     [kindTableView  setAnimation];
     
     [kindTableView setDirection:FTAnimationDirectionToTop];
+}
+
+- (void) selectedValue:(NSDictionary *)value{
+    NSLog(@"%@", value[@"itemValueEn"]);
 }
 
 - (void) niDropDownDelegateMethod: (NIDropDown *) sender {
@@ -194,6 +206,9 @@
 }
 - (IBAction)newBlogButtonClicked:(id)sender {
     NSLog(@"发新帖");
+    FTNewPostViewController *newPostViewController = [FTNewPostViewController new];
+    newPostViewController.title = @"发新帖";
+    [self.navigationController pushViewController:newPostViewController animated:YES];
 }
  /**
   *  循环改变currentIndex的值
@@ -271,21 +286,24 @@
 }
 
 - (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)newsCurrId{
-    NSString *urlString = [FTNetConfig host:Domain path:GetNewsURL];
-    NSString *newsType = [self getNewstype];
+    NSString *urlString = [FTNetConfig host:Domain path:GetArenaListURL];
+    NSString *query = @"list-dam-blog-2";
+    NSString *labels = @"Boxing";
+    NSString *pageNum = @"1";
+    NSString *pageSize = @"10";
+    NSString *tableName = @"damageblog";
+//    NSString *newsType = [self getNewstype];
     
     
-    //    NSString *newsCurrId = @"-1";
-    //    NSString *getType = @"new";
-    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",newsType, newsCurrId, getType, ts, @"quanjijia222222"]];
+//    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",newsType, newsCurrId, getType, ts, @"quanjijia222222"]];
     
-    urlString = [NSString stringWithFormat:@"%@?newsType=%@&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@", urlString, newsType, newsCurrId, getType, ts, checkSign, [FTNetConfig showType]];
+//    urlString = [NSString stringWithFormat:@"%@?newsType=%@&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@", urlString, newsType, newsCurrId, getType, ts, checkSign, [FTNetConfig showType]];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
+    urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@", urlString, query, labels,pageNum ,pageSize, tableName];
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    //    NSLog(@"news's url : %@", urlString);
+        NSLog(@"arena list  url : %@", urlString);
+    
     [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         
@@ -293,15 +311,15 @@
         if ([status isEqualToString:@"success"]) {
             NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
             
-            if ([newsType isEqualToString:@"All"]) {
-                NSMutableArray *hotArray = [NSMutableArray new];
-                for(NSDictionary *dic in mutableArray){
-                    if ([dic[@"newsType"] isEqualToString:@"Hot"]) {
-                        [hotArray addObject:dic];
-                    }
-                }
-                [mutableArray removeObjectsInArray:hotArray];
-            }
+//            if ([newsType isEqualToString:@"All"]) {
+//                NSMutableArray *hotArray = [NSMutableArray new];
+//                for(NSDictionary *dic in mutableArray){
+//                    if ([dic[@"newsType"] isEqualToString:@"Hot"]) {
+//                        [hotArray addObject:dic];
+//                    }
+//                }
+//                [mutableArray removeObjectsInArray:hotArray];
+//            }
             
             if (self.tableViewDataSourceArray == nil) {
                 self.tableViewDataSourceArray = [[NSMutableArray alloc]init];
@@ -314,12 +332,12 @@
             //            [self initPageController];
             
             self.tableViewController.sourceArray = self.tableViewDataSourceArray;
-            if ([newsType isEqualToString:@"All"]) {
-                self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
-            }else{
-                //                [self.tableViewController.tableView.tableHeaderView removeFromSuperview];
-                self.tableViewController.tableView.tableHeaderView = nil;
-            }
+//            if ([newsType isEqualToString:@"All"]) {
+//                self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
+//            }else{
+//                //                [self.tableViewController.tableView.tableHeaderView removeFromSuperview];
+//                self.tableViewController.tableView.tableHeaderView = nil;
+//            }
             [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
             [self.tableViewController.tableView footerEndRefreshing];
             
@@ -332,6 +350,7 @@
             }
         }else if([status isEqualToString:@"error"]){
             NSLog(@"message : %@", responseDic[@"message"]);
+            NSLog(@"data : %@", responseDic[@"data"]);
             
             [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
             [self.tableViewController.tableView footerEndRefreshing];

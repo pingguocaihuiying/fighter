@@ -91,7 +91,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9hT-TK-gcO" userLabel="View1">
                             <rect key="frame" x="0.0" y="0.0" width="105" height="40"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zh7-r6-0OY">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zh7-r6-0OY">
                                     <rect key="frame" x="10" y="13" width="60" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="60" id="9Cg-fF-jNs"/>

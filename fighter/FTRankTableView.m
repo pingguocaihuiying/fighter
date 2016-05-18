@@ -147,7 +147,7 @@
 //    NSLog(@"_dataArray.count:%lu",(unsigned long)self.dataArray.count);
     for (int i=0 ;i< _dataArray.count;i++)
     {
-        NSString *str = [_dataArray objectAtIndex:i];
+        NSString *str = [_dataArray objectAtIndex:i][@"itemValue"];
         //计算文本长度
         CGFloat tempW =  [str sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}].width;
         if (tempW > width) {
@@ -279,7 +279,8 @@
     FTTableViewCell6 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
 //    cell.backgroundColor = [UIColor clearColor];
 //    cell.contentLabel.text = @"拳击";
-    cell.contentLabel.text = [_dataArray objectAtIndex:[indexPath row]];
+    cell.contentLabel.text = [_dataArray objectAtIndex:[indexPath row]][@"itemValue"];
+    
     return cell;
 }
 
@@ -287,7 +288,7 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    
     
-    [self.button setTitle:[_dataArray objectAtIndex:[indexPath row]] forState:UIControlStateNormal];
+    [self.button setTitle:[_dataArray objectAtIndex:[indexPath row]][@"itemValue"] forState:UIControlStateNormal];
 //    [self.button set]
     
     if ([self.selectDelegate respondsToSelector:@selector(selectedValue:)]) {

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTNewPostViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l1d-nH-I4C" userLabel="标题">
+                    <rect key="frame" x="4" y="74" width="592" height="50"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="金属边框-选择类别单切ios" translatesAutoresizingMaskIntoConstraints="NO" id="8ZR-NU-AJx">
+                            <rect key="frame" x="0.0" y="0.0" width="592" height="50"/>
+                        </imageView>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="添加一个拉风的标题" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="tLj-LH-XSi">
+                            <rect key="frame" x="15" y="8" width="562" height="30"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="10" id="Hrs-hn-yCr"/>
+                                <constraint firstAttribute="height" constant="14" id="x78-Zz-Bh0"/>
+                            </constraints>
+                            <color key="textColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="Hrs-hn-yCr"/>
+                                    <exclude reference="x78-Zz-Bh0"/>
+                                </mask>
+                            </variation>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="8ZR-NU-AJx" secondAttribute="bottom" id="2oe-M6-xmU"/>
+                        <constraint firstItem="8ZR-NU-AJx" firstAttribute="leading" secondItem="l1d-nH-I4C" secondAttribute="leading" id="7N7-tZ-2xl"/>
+                        <constraint firstItem="8ZR-NU-AJx" firstAttribute="top" secondItem="l1d-nH-I4C" secondAttribute="top" id="8er-fz-MYF"/>
+                        <constraint firstAttribute="trailing" secondItem="8ZR-NU-AJx" secondAttribute="trailing" id="G2W-hG-egb"/>
+                        <constraint firstItem="tLj-LH-XSi" firstAttribute="leading" secondItem="l1d-nH-I4C" secondAttribute="leading" constant="15" id="HvT-wG-bFT"/>
+                        <constraint firstAttribute="height" constant="50" id="OQp-0L-mUD"/>
+                        <constraint firstItem="tLj-LH-XSi" firstAttribute="centerY" secondItem="l1d-nH-I4C" secondAttribute="centerY" constant="-2" id="d4s-sk-y9S"/>
+                        <constraint firstItem="tLj-LH-XSi" firstAttribute="top" secondItem="l1d-nH-I4C" secondAttribute="top" constant="17" id="dxv-no-64x"/>
+                        <constraint firstAttribute="bottom" secondItem="tLj-LH-XSi" secondAttribute="bottom" constant="19" id="l6n-x0-X6s"/>
+                        <constraint firstAttribute="trailing" secondItem="tLj-LH-XSi" secondAttribute="trailing" constant="15" id="vNY-S1-0fE"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="dxv-no-64x"/>
+                            <exclude reference="l6n-x0-X6s"/>
+                        </mask>
+                    </variation>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mfo-UG-SS1">
+                    <rect key="frame" x="4" y="129" width="592" height="128"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="128" id="T32-1k-yLT"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="l1d-nH-I4C" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="4" id="Ato-tY-P9d"/>
+                <constraint firstItem="l1d-nH-I4C" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="74" id="GRZ-a5-3Vv"/>
+                <constraint firstAttribute="trailing" secondItem="l1d-nH-I4C" secondAttribute="trailing" constant="4" id="Q1w-aa-sde"/>
+                <constraint firstItem="mfo-UG-SS1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="4" id="UWQ-Yo-SjP"/>
+                <constraint firstAttribute="trailing" secondItem="mfo-UG-SS1" secondAttribute="trailing" constant="4" id="j8k-6z-cxI"/>
+                <constraint firstItem="mfo-UG-SS1" firstAttribute="top" secondItem="l1d-nH-I4C" secondAttribute="bottom" constant="5" id="pAt-jO-Hf2"/>
+                <constraint firstAttribute="bottom" secondItem="l1d-nH-I4C" secondAttribute="bottom" constant="100" id="qdc-xi-Eom"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="qdc-xi-Eom"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+    <resources>
+        <image name="金属边框-选择类别单切ios" width="17" height="33"/>
+    </resources>
+</document>

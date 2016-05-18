@@ -177,6 +177,10 @@
                     <constraint firstItem="aGM-Lu-yUN" firstAttribute="top" secondItem="N3P-eC-yh8" secondAttribute="bottom" constant="15" id="vDY-ab-okd"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="imageViewHeight" destination="KWM-iU-Y0d" id="CdX-at-ZCR"/>
+                <outlet property="imageViewWidth" destination="WcO-RF-4Kl" id="ohe-iQ-UrJ"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>

@@ -10,5 +10,7 @@
 #import "FTBaseTableViewCell.h"
 
 @interface FTArenaImageTableViewCell : FTBaseTableViewCell
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewWidth;
 
 @end
