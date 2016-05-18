@@ -8,6 +8,6 @@
 
 #import "FTBaseViewController.h"
 
-@interface FTRankBaseViewController : FTBaseViewController
+@interface FTRankBaseViewController : UIViewController
 
 @end

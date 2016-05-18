@@ -8,13 +8,13 @@
 
 #import "FTRankBaseViewController.h"
 
-@interface FTRankViewController : FTRankBaseViewController
+@interface FTRankViewController : FTRankBaseViewController < UITableViewDataSource,UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scroView;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
-@property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *tableImageView;
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 
 

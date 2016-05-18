@@ -11,29 +11,29 @@
 #import "FTRankTableView.h"
 #import "FTHeightPickerView.h"
 #import "FTRankTableVIewCell.h"
+#import "FTRankHeaderCell.h"
 
-@interface FTRankViewController () <FTSelectCellDelegate, UITableViewDataSource,UITableViewDelegate>
+@interface FTRankViewController ()  <FTSelectCellDelegate>
 
 @property (nonatomic, strong) FTButton *kindBtn;
 @property (nonatomic, strong) FTButton *matchBtn;
 @property (nonatomic, strong) FTButton *levelBtn;
+@property (nonatomic, strong) UITableView *headerTableView;
+
+@property (nonatomic, strong) NSMutableArray *dataArray;
 
 @end
 
 @implementation FTRankViewController
 
-- (void) loadView {
-    [super loadView];
-    NSLog(@"loadView");
-}
+
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     NSLog(@"viewDidLoad");
 
     self.title = @"格斗之王";
-    
-    
     
     
 //    [self setButton];
@@ -80,7 +80,7 @@
 
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 40)];
     headerView.backgroundColor = [UIColor colorWithHex:0x131313];
-//    [self.view addSubview:headerView];
+    [self.view addSubview:headerView];
     
     UIView *sepataterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)];
     sepataterView.backgroundColor = [UIColor colorWithHex:0x282828];
@@ -117,14 +117,83 @@
         
     }
     
-//    [self.tableView registerNib:[UINib nibWithNibName:@"FTRankTableVIewCell" bundle:nil] forCellReuseIdentifier:@"cellId"];
-//    self.tableView.dataSource = self;
-//    self.tableView.delegate = self;
-//    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     
+    
+    
+    
+    @try {
+        self.scrollView = [[UIScrollView alloc]init];
+        self.scrollView.frame = CGRectMake(0, 104, SCREEN_WIDTH, SCREEN_HEIGHT-104);
+        self.scrollView.backgroundColor = [UIColor clearColor];
+        self.scrollView.delegate = self;
+        [self.view addSubview:self.scrollView];
+        
+        //第一名视图
+        self.headerTableView = [[UITableView alloc]init];
+        self.headerTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH,180);
+        self.headerTableView.backgroundColor = [UIColor clearColor];
+        self.headerTableView.scrollEnabled = YES;
+        
+        [self.headerTableView registerNib:[UINib nibWithNibName:@"FTRankHeaderCell" bundle:nil] forCellReuseIdentifier:@"cellId"];
+        self.headerTableView.dataSource = self;
+        self.headerTableView.delegate = self;
+        [self.headerTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        
+        [self.scrollView addSubview:self.headerTableView];
+        
+        
+        //tableView 背景
+        self.tableImageView = [[UIImageView alloc]init];
+        self.tableImageView.image = [UIImage imageNamed:@"金属边框-改进ios"];
+        self.tableImageView.frame = CGRectMake(0, 180, SCREEN_WIDTH, SCREEN_HEIGHT);
+        self.tableImageView.userInteractionEnabled = YES;
+        [self.scrollView addSubview:self.tableImageView];
+        
+        //排名tableView
+        self.tableView = [[UITableView alloc]init];
+        self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 180-104);
+        self.tableView.backgroundColor = [UIColor clearColor];
+        self.tableView.scrollEnabled = YES;
+        
+        [self.tableView registerNib:[UINib nibWithNibName:@"FTRankTableVIewCell" bundle:nil] forCellReuseIdentifier:@"cellId"];
+        self.tableView.dataSource = self;
+        self.tableView.delegate = self;
+        [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        
+        [self.tableImageView addSubview:self.tableView];    }
+    @catch (NSException *exception) {
+        NSLog(@"exception:%@",exception);
+    }
+    @finally {
+        
+    }
+
 }
 
+
+- (void) fixViewSize {
+    
+    @try {
+        self.tableImageView.frame  = CGRectMake(0, 180, SCREEN_WIDTH, 56*17+5);
+        self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 56*17);
+        self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH,180+56*17);
+        self.scrollView.scrollEnabled = YES;
+    }
+    @catch (NSException *exception) {
+        NSLog(@"exception:%@",exception);
+    }
+    @finally {
+        
+    }
+    
+
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+
+    [self fixViewSize];
+}
 
 
 #pragma mark - response 
@@ -232,54 +301,65 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 10;
+    if (tableView == self.tableView) {
+        return 17;
+    }else {
+    
+        return 1;
+    }
+    
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 56 ;
+    if (tableView == self.tableView) {
+        return 56 ;
+    }else {
+        
+        return 180 ;
+    }
+    
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if (tableView == self.tableView) {
+        NSLog(@"cell");
+        FTRankTableVIewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
+        //    cell.backgroundColor = [UIColor clearColor];
+        //    cell.contentLabel.text = @"拳击";
+        //    cell.contentLabel.text = [_dataArray objectAtIndex:[indexPath row]];
+        return cell;
+    }else {
+        
+        FTRankHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
+        [cell setBriefLabelText:@"一段文字简介一段文字简介一段文字简介一段文字简介一段文字简介一段文字简介一段文字简介一段文字简介"];
+        return cell;
+    }
     
-    FTRankTableVIewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
-    //    cell.backgroundColor = [UIColor clearColor];
-    //    cell.contentLabel.text = @"拳击";
-//    cell.contentLabel.text = [_dataArray objectAtIndex:[indexPath row]];
-    return cell;
 }
 
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
-//    [self.button setTitle:[_dataArray objectAtIndex:[indexPath row]] forState:UIControlStateNormal];
-//    //    [self.button set]
-//    
-//    if ([self.selectDelegate respondsToSelector:@selector(selectedValue:)]) {
-//        
-//        [self.selectDelegate selectedValue:[self.dataArray objectAtIndex:indexPath.row]];
-//    }
+    NSLog(@"did select cell");
     
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+//- (void) backBtnAction:(id)sender {
+//
+//    testVCViewController *testVC = [[testVCViewController alloc]initWithNibName:@"testVCViewController" bundle:nil];
+//    testVC.title = @"test";
+//    [self.navigationController pushViewController:testVC animated:YES];
+//}
 
 @end
