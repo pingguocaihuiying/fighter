@@ -452,131 +452,6 @@
 
 
 
-#pragma mark - 封装请求
-//post请求
-- (void) postRequestWithUrl:(NSString *)urlString
-                 parameters:(NSDictionary *)dic
-                     option:(void (^)(NSDictionary *dict))option {
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    NSLog(@"RegisterUserURL url : %@", urlString);
-    [manager POST:urlString
-       parameters:dic
-          success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-              NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-              NSLog(@"responsedic:%@",responseDic);
-              
-              if (option) {
-                  option(responseDic);
-              }
-          }
-          failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-              NSLog(@"error:%@",error);
-              if (option) {
-                  option(nil);
-              }
-
-          }];
-}
-
-
-
-//post  请求上传二进制数据
-- (void) postUploadDataWithURL:(NSString *)urlString
-                    parameters:(NSDictionary *)dic
-              appendParameters:(NSDictionary *)appendDic
-                        option:(void (^)(NSDictionary *dict))option {
-
-
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    [manager POST:urlString
-       parameters:dic
-constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-    
-        for (NSString *key in [appendDic allKeys] ) {
-            
-            [formData appendPartWithFileURL:appendDic[key] name:key error:nil];
-        }
-    
-    }
-      success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-          
-          NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-          NSLog(@"responsedic:%@",responseDic);
-          
-          if (option) {
-              option(responseDic);
-          }
-          
-          
-      }
-      failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-          
-          if (option) {
-              option(nil);
-          }
-      }];
-
-    
-}
-
-
-//get请求
-- (void) getRequestWithUrl:(NSString *)urlString
-                parameters:(NSDictionary *)dic
-                    option:(void (^)(NSDictionary *dict))option {
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    NSLog(@"RegisterUserURL url : %@", urlString);
-    [manager GET:urlString
-       parameters:dic
-          success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-              NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-              NSLog(@"responsedic:%@",responseDic);
-              
-              if (option) {
-                  option(responseDic);
-              }
-          }
-          failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-              NSLog(@"error:%@",error);
-              if (option) {
-                  option(nil);
-              }
-          }];
-}
-
-
-
-- (NSDictionary *) setJsonDataWithKey:(NSString*)key   value:(NSString *)value {
-
-    //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-    
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-    
-    NSString *token = localUser.token;
-    NSString *olduserid = localUser.olduserid;
-    //必选字段
-    [dic setObject:token forKey:@"token"];
-    [dic setObject:olduserid forKey:@"userid" ];
-    
-    //添加修改字段
-    [dic setObject:value forKey:key];
-    
-    return dic;
-}
-
-
-
 #pragma mark - 微信相关
 
 //向微信请求数据
@@ -664,5 +539,180 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                                                               kCFStringEncodingUTF8));
     return outputStr;
 }
+
+#pragma mark - 排行榜
+
+//获取排行榜列表信息
+- (void) getRankListWithLabel:(NSString *)label
+                         race:(NSString *)race
+                FeatherWeight:(NSString *)featherWeight
+                      pageNum:(NSInteger)pagenum
+                       option:(void (^)(NSDictionary *dict))option {
+    
+    
+    
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    
+    //必选字段
+    [dic setObject:label forKey:@"label"];
+    
+    
+    if (race != nil) {
+       [dic setObject:race forKey:@"race" ];
+    }
+    
+    if (featherWeight != nil) {
+       [dic setObject:featherWeight forKey:@"featherWeight" ];
+    }
+    
+    if(pagenum >0){
+    
+        [dic setObject:[NSString stringWithFormat:@"%ld",pagenum] forKey:@"pageNum" ];
+    }
+    
+    NSString *rankListUrl = [FTNetConfig host:Domain path:GetRankListURL];
+    
+    [self postRequestWithUrl:rankListUrl parameters:dic option:option];
+}
+
+
+//获取排行榜标签
+- (void) getRankLabels:(void (^)(NSDictionary *dict))option {
+
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    
+    //必选字段
+    [dic setObject:@"rankitem" forKey:@"tableName"];
+    NSString *rankListUrl = [FTNetConfig host:Domain path:GetRankSearchItemURL];
+    NSLog(@"Url:%@",rankListUrl);
+    [self getRequestWithUrl:rankListUrl parameters:dic option:option];
+}
+
+
+#pragma mark - 封装请求
+//post请求
+- (void) postRequestWithUrl:(NSString *)urlString
+                 parameters:(NSDictionary *)dic
+                     option:(void (^)(NSDictionary *dict))option {
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    NSLog(@"RegisterUserURL url : %@", urlString);
+    [manager POST:urlString
+       parameters:dic
+          success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+              NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+              NSLog(@"responsedic:%@",responseDic);
+              
+              if (option) {
+                  option(responseDic);
+              }
+          }
+          failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+              NSLog(@"error:%@",error);
+              if (option) {
+                  option(nil);
+              }
+              
+          }];
+}
+
+
+
+//post  请求上传二进制数据
+- (void) postUploadDataWithURL:(NSString *)urlString
+                    parameters:(NSDictionary *)dic
+              appendParameters:(NSDictionary *)appendDic
+                        option:(void (^)(NSDictionary *dict))option {
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager POST:urlString
+       parameters:dic
+constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    
+    for (NSString *key in [appendDic allKeys] ) {
+        
+        [formData appendPartWithFileURL:appendDic[key] name:key error:nil];
+    }
+    
+}
+          success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+              
+              NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+              NSLog(@"responsedic:%@",responseDic);
+              
+              if (option) {
+                  option(responseDic);
+              }
+              
+              
+          }
+          failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+              
+              if (option) {
+                  option(nil);
+              }
+          }];
+    
+    
+}
+
+
+//get请求
+- (void) getRequestWithUrl:(NSString *)urlString
+                parameters:(NSDictionary *)dic
+                    option:(void (^)(NSDictionary *dict))option {
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    NSLog(@"RegisterUserURL url : %@", urlString);
+    [manager GET:urlString
+      parameters:dic
+         success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+             NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+             NSLog(@"responsedic:%@",responseDic);
+             
+             if (option) {
+                 option(responseDic);
+             }
+         }
+         failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             NSLog(@"error:%@",error);
+             if (option) {
+                 option(nil);
+             }
+         }];
+}
+
+
+
+- (NSDictionary *) setJsonDataWithKey:(NSString*)key   value:(NSString *)value {
+    
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    
+    NSString *token = localUser.token;
+    NSString *olduserid = localUser.olduserid;
+    //必选字段
+    [dic setObject:token forKey:@"token"];
+    [dic setObject:olduserid forKey:@"userid" ];
+    
+    //添加修改字段
+    [dic setObject:value forKey:key];
+    
+    return dic;
+}
+
+
 
 @end

@@ -10,7 +10,7 @@
 
 @interface NetWorking : NSObject
 
-
+#pragma mark - 封装请求
 /*****************************      封装请求      ********************************/
 
 //get请求
@@ -31,7 +31,7 @@
                         option:(void (^)(NSDictionary *dict))option;
 
 
-
+#pragma mark - 获取短信验证码
 /*****************************    获取短信验证码   ********************************/
 
 //获取短信验证码
@@ -53,6 +53,7 @@
                             type:(NSString *)type
                           option:(void (^)(NSDictionary *dict))option;
 
+#pragma mark - 注册登录
 /*****************************    注册登录   ***********************************/
 //手机号注册用户
 - (void) registUserWithPhoneNumber:(NSString *)phoneNum
@@ -70,6 +71,8 @@
 //用户退出登录
 - (void) loginOut:(void (^)(NSDictionary *dict))option ;
 
+
+#pragma mark -  更新用户
 /*****************************    更新用户   *********************************/
 
 //修改用户数据  --post
@@ -92,7 +95,7 @@
 
 
 
-
+#pragma mark -  微信
 /*****************************    微信   ******************************/
 //绑定微信号
 - (void) bindingWeixin:(NSString *)openId
@@ -121,8 +124,8 @@
 - (void) requestWeixinUser:(NSDictionary *)wxInfoDic
                     option:(void (^)(NSDictionary *dict))option;
 
-
-/***************************     binding phone     ***********************************/
+#pragma mark -  binding phone
+/***************************     binding phone    ********************************/
 
 //绑定手机号码
 - (void) bindingPhoneNumber:(NSString *)phoneNum
@@ -138,4 +141,17 @@
                    checkCode:(NSString *)checkcode
                       option:(void (^)(NSDictionary *dict))option;
 
+
+
+#pragma mark - 排行榜
+/***************************     排行榜     ***********************************/
+//获取排行榜列表信息
+- (void) getRankListWithLabel:(NSString *)label
+                         race:(NSString *)race
+                FeatherWeight:(NSString *)featherWeight
+                      pageNum:(NSInteger)pagenum
+                       option:(void (^)(NSDictionary *dict))option;
+
+//获取排行榜标签
+- (void) getRankLabels:(void (^)(NSDictionary *dict))option;
 @end

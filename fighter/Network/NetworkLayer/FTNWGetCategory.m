@@ -50,7 +50,7 @@
 //                [labelBean setValuesForKeysWithDictionary:dic];
 //                
 //                [tempArray addObject:labelBean];
-//            }
+//            }s
 //            NSArray *tempArr = [NSArray arrayWithArray:tempArray];
             [[NSUserDefaults standardUserDefaults]setObject:array forKey:CATEGORIES];
             [[NSUserDefaults standardUserDefaults]synchronize];
@@ -62,7 +62,9 @@
     return resultArray;
 }
 
+
 + (void)getCategoryWithOption:(void (^)(NSArray *array))option{
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];

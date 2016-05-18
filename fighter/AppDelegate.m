@@ -29,7 +29,7 @@
 #import "FTDrawerViewController.h"
 #import "MainViewController.h"
 #import "Networking.h"
-
+#import "DBManager.h"
 
 //微信请求类型
 typedef NS_ENUM(NSInteger, WXRequestType) {
@@ -56,6 +56,9 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     //设置微信相关的
     [self setWeiXin];
     
+    //设置数据库
+    [self setDatabase];
+    
     //屏蔽个人中心时打开这里
 //    [self setRootViewController2];
 
@@ -71,10 +74,19 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     return YES;
 }
 
+- (void) setDatabase {
+    
+    DBManager *dbManager = [DBManager shareDBManager];
+    [dbManager connect];
+    [dbManager createLabelsTable];
+    [dbManager close];
+    
+}
+
+
 - (void)setUMeng{
     //友盟统计
     [MobClick startWithAppkey:@"570739d767e58edb5300057b" reportPolicy:BATCH   channelId:@""];
-    
     
     //友盟分享
     [UMSocialData setAppKey:@"570739d767e58edb5300057b"];

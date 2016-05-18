@@ -17,7 +17,7 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="第一名背景" translatesAutoresizingMaskIntoConstraints="NO" id="hTp-qF-bh2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="178.5"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CKX-RG-9E5">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="第一名头像-凯恩" translatesAutoresizingMaskIntoConstraints="NO" id="CKX-RG-9E5">
                         <rect key="frame" x="96" y="0.0" width="200" height="180"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="200" id="JWN-FE-EQ7"/>
@@ -107,6 +107,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="第一名头像-凯恩" width="200" height="180"/>
         <image name="第一名文字" width="210" height="50"/>
         <image name="第一名背景" width="375" height="180"/>
     </resources>

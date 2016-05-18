@@ -48,6 +48,15 @@
 		3D4B19631CDB59D60022DFB0 /* UIWindow+MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B19621CDB59D60022DFB0 /* UIWindow+MBProgressHUD.m */; };
 		3D4B19661CDB6CF80022DFB0 /* FTWeightPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B19651CDB6CF80022DFB0 /* FTWeightPickerView.m */; };
 		3D4B19691CDB7AE20022DFB0 /* FTSexPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B19681CDB7AE20022DFB0 /* FTSexPickerView.m */; };
+		3D57D0431CEC0B560082BF24 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D0371CEC0B560082BF24 /* FMDatabase.m */; };
+		3D57D0441CEC0B560082BF24 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D0391CEC0B560082BF24 /* FMDatabaseAdditions.m */; };
+		3D57D0451CEC0B560082BF24 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D03B1CEC0B560082BF24 /* FMDatabasePool.m */; };
+		3D57D0461CEC0B560082BF24 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D03D1CEC0B560082BF24 /* FMDatabaseQueue.m */; };
+		3D57D0471CEC0B560082BF24 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D0401CEC0B560082BF24 /* FMResultSet.m */; };
+		3D57D0481CEC0B560082BF24 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D57D0411CEC0B560082BF24 /* LICENSE.txt */; };
+		3D57D0491CEC0B560082BF24 /* README.markdown in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D0421CEC0B560082BF24 /* README.markdown */; };
+		3D57D04D1CEC0C810082BF24 /* DBTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D04C1CEC0C810082BF24 /* DBTools.m */; };
+		3D57D0501CEC0E7F0082BF24 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D04F1CEC0E7F0082BF24 /* DBManager.m */; };
 		3D5FB4851CDC1F1D00FC1809 /* FTPhotoPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4841CDC1F1D00FC1809 /* FTPhotoPickerView.m */; };
 		3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4871CDC251B00FC1809 /* FTCityPickerView.m */; };
 		3D5FB4921CDC311400FC1809 /* FTAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4901CDC311400FC1809 /* FTAssetsViewController.m */; };
@@ -383,6 +392,23 @@
 		3D4B19671CDB7AE20022DFB0 /* FTSexPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSexPickerView.h; sourceTree = "<group>"; };
 		3D4B19681CDB7AE20022DFB0 /* FTSexPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTSexPickerView.m; sourceTree = "<group>"; };
 		3D4B196A1CDB7B770022DFB0 /* FTPickerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPickerViewDelegate.h; sourceTree = "<group>"; };
+		3D57D0361CEC0B560082BF24 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		3D57D0371CEC0B560082BF24 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		3D57D0381CEC0B560082BF24 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		3D57D0391CEC0B560082BF24 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		3D57D03A1CEC0B560082BF24 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		3D57D03B1CEC0B560082BF24 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		3D57D03C1CEC0B560082BF24 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		3D57D03D1CEC0B560082BF24 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		3D57D03E1CEC0B560082BF24 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		3D57D03F1CEC0B560082BF24 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		3D57D0401CEC0B560082BF24 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		3D57D0411CEC0B560082BF24 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		3D57D0421CEC0B560082BF24 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
+		3D57D04B1CEC0C810082BF24 /* DBTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBTools.h; sourceTree = "<group>"; };
+		3D57D04C1CEC0C810082BF24 /* DBTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBTools.m; sourceTree = "<group>"; };
+		3D57D04E1CEC0E7F0082BF24 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
+		3D57D04F1CEC0E7F0082BF24 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
 		3D5FB4831CDC1F1D00FC1809 /* FTPhotoPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPhotoPickerView.h; sourceTree = "<group>"; };
 		3D5FB4841CDC1F1D00FC1809 /* FTPhotoPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPhotoPickerView.m; sourceTree = "<group>"; };
 		3D5FB4861CDC251B00FC1809 /* FTCityPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCityPickerView.h; sourceTree = "<group>"; };
@@ -1010,6 +1036,37 @@
 			name = picker;
 			sourceTree = "<group>";
 		};
+		3D57D0351CEC0B560082BF24 /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				3D57D0361CEC0B560082BF24 /* FMDatabase.h */,
+				3D57D0371CEC0B560082BF24 /* FMDatabase.m */,
+				3D57D0381CEC0B560082BF24 /* FMDatabaseAdditions.h */,
+				3D57D0391CEC0B560082BF24 /* FMDatabaseAdditions.m */,
+				3D57D03A1CEC0B560082BF24 /* FMDatabasePool.h */,
+				3D57D03B1CEC0B560082BF24 /* FMDatabasePool.m */,
+				3D57D03C1CEC0B560082BF24 /* FMDatabaseQueue.h */,
+				3D57D03D1CEC0B560082BF24 /* FMDatabaseQueue.m */,
+				3D57D03E1CEC0B560082BF24 /* FMDB.h */,
+				3D57D03F1CEC0B560082BF24 /* FMResultSet.h */,
+				3D57D0401CEC0B560082BF24 /* FMResultSet.m */,
+				3D57D0411CEC0B560082BF24 /* LICENSE.txt */,
+				3D57D0421CEC0B560082BF24 /* README.markdown */,
+			);
+			path = FMDB;
+			sourceTree = "<group>";
+		};
+		3D57D04A1CEC0BC30082BF24 /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				3D57D04B1CEC0C810082BF24 /* DBTools.h */,
+				3D57D04C1CEC0C810082BF24 /* DBTools.m */,
+				3D57D04E1CEC0E7F0082BF24 /* DBManager.h */,
+				3D57D04F1CEC0E7F0082BF24 /* DBManager.m */,
+			);
+			name = DataBase;
+			sourceTree = "<group>";
+		};
 		3D5FB48E1CDC30C700FC1809 /* imagePicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -1432,6 +1489,7 @@
 			children = (
 				E685320A1CE59CFA00603D77 /* Frameworks */,
 				E68050C21CBFA70200678905 /* OtherSDK */,
+				3D57D04A1CEC0BC30082BF24 /* DataBase */,
 				E66D6EF21CBCE81C008B015A /* Network */,
 				E6D74A511CB7B8C200854337 /* thirdCodes */,
 				E6D74A301CB7B7EE00854337 /* Tools */,
@@ -2104,6 +2162,7 @@
 		E6D74A511CB7B8C200854337 /* thirdCodes */ = {
 			isa = PBXGroup;
 			children = (
+				3D57D0351CEC0B560082BF24 /* FMDB */,
 				E6D2F8DA1CE9658200160788 /* 下拉框 */,
 				E668BA801CE0565700071998 /* MJRefresh */,
 				3DC411F41CD039D70030C229 /* Masonry */,
@@ -2352,6 +2411,7 @@
 				3D4B19591CDB0CD90022DFB0 /* FTPropertySetingViewController.xib in Resources */,
 				E61185101CC76B3400F23EC7 /* ios-social-sdk-socialbar.html in Resources */,
 				E611850A1CC76B3400F23EC7 /* ios-social-sdk-like.html in Resources */,
+				3D57D0481CEC0B560082BF24 /* LICENSE.txt in Resources */,
 				3DC9A4EA1CE5CC6C00E16D19 /* FTRankBaseViewController.xib in Resources */,
 				3D4B19271CD9FD670022DFB0 /* UMFeedbackLocalizable.strings in Resources */,
 				3D7B98AA1CE048F200B80B8D /* FTManagerAccountViewController.xib in Resources */,
@@ -2434,6 +2494,7 @@
 				3DC411F31CCF810A0030C229 /* FTDrawerTableViewFooter.m in Sources */,
 				E68050C11CBF919A00678905 /* UIView+JHExtension.m in Sources */,
 				E6E580B31CBE523B00272242 /* FTBaseTableViewCell.m in Sources */,
+				3D57D0461CEC0B560082BF24 /* FMDatabaseQueue.m in Sources */,
 				E668BBB11CE32BA200071998 /* FTRankingListViewController.m in Sources */,
 				3D4B19661CDB6CF80022DFB0 /* FTWeightPickerView.m in Sources */,
 				E6E580AC1CBE2F2D00272242 /* UIImage+WebP.m in Sources */,
@@ -2448,6 +2509,7 @@
 				E668BAAD1CE0565700071998 /* MJRefreshAutoFooter.m in Sources */,
 				E6E580AE1CBE2F2D00272242 /* UIImageView+WebCache.m in Sources */,
 				3DC412171CD039D70030C229 /* ViewController+MASAdditions.m in Sources */,
+				3D57D04D1CEC0C810082BF24 /* DBTools.m in Sources */,
 				E65D08C71CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m in Sources */,
 				E6E580A71CBE2F2D00272242 /* SDWebImageManager.m in Sources */,
 				E6E580A11CBE2F2D00272242 /* NSData+ImageContentType.m in Sources */,
@@ -2472,10 +2534,12 @@
 				3DC9A4E31CE59A0400E16D19 /* FTButton.m in Sources */,
 				E6D74A491CB7B7EE00854337 /* UILabel+StringFrame.m in Sources */,
 				E6DF6B8B1CCE32F600219766 /* NSString+EmojiFilter.m in Sources */,
+				3D57D0501CEC0E7F0082BF24 /* DBManager.m in Sources */,
 				3D4B19581CDB0CD90022DFB0 /* FTPropertySetingViewController.m in Sources */,
 				3D5FB4B91CDC41A500FC1809 /* FTAlbumsViewController.m in Sources */,
 				E668BABE1CE0565700071998 /* UIScrollView+MJRefresh.m in Sources */,
 				E6D74A471CB7B7EE00854337 /* UIButton+countDown.m in Sources */,
+				3D57D0441CEC0B560082BF24 /* FMDatabaseAdditions.m in Sources */,
 				3DC412141CD039D70030C229 /* NSArray+MASAdditions.m in Sources */,
 				E668BABF1CE0565700071998 /* UIView+MJExtension.m in Sources */,
 				E6E580A01CBE2F2D00272242 /* MKAnnotationView+WebCache.m in Sources */,
@@ -2541,9 +2605,11 @@
 				E6A9DDA41CD8842E00CB9518 /* FTVideoViewController.m in Sources */,
 				E64EF10B1CB6614000CAE340 /* main.m in Sources */,
 				E61185981CC78BF400F23EC7 /* FTUserBean.m in Sources */,
+				3D57D0491CEC0B560082BF24 /* README.markdown in Sources */,
 				3D322AC91CEB171200039E2C /* FTRankHeaderCell.m in Sources */,
 				E6E580A51CBE2F2D00272242 /* SDWebImageDownloader.m in Sources */,
 				3DC412151CD039D70030C229 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				3D57D0451CEC0B560082BF24 /* FMDatabasePool.m in Sources */,
 				E6D74A5B1CB7B8C200854337 /* MBProgressHUD.m in Sources */,
 				3D4B193B1CD9FD670022DFB0 /* UMChatToolBar.m in Sources */,
 				E668BAB91CE0565700071998 /* MJRefreshNormalHeader.m in Sources */,
@@ -2584,6 +2650,8 @@
 				E66D6F171CBCE843008B015A /* AFURLResponseSerialization.m in Sources */,
 				E66D6EFB1CBCE81C008B015A /* FTNetConfig.m in Sources */,
 				3DC412251CD0C3780030C229 /* NSString+Size.m in Sources */,
+				3D57D0431CEC0B560082BF24 /* FMDatabase.m in Sources */,
+				3D57D0471CEC0B560082BF24 /* FMResultSet.m in Sources */,
 				E68050B91CBF919A00678905 /* JHRefreshCommonAniView.m in Sources */,
 				E668BAB71CE0565700071998 /* MJRefreshBackStateFooter.m in Sources */,
 				E668BAB11CE0565700071998 /* MJRefreshHeader.m in Sources */,

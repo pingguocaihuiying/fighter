@@ -102,7 +102,7 @@
 
 - (CGRect) contentRectForBounds:(CGRect)bounds {
     
-    NSLog(@"contentRectForBounds(%f,%f,%f,%f)",bounds.origin.x,bounds.origin.y,bounds.size.width ,bounds.size.height);
+//    NSLog(@"contentRectForBounds(%f,%f,%f,%f)",bounds.origin.x,bounds.origin.y,bounds.size.width ,bounds.size.height);
     
     return bounds;
 }
@@ -176,7 +176,7 @@
             
     }
     
-    NSLog(@"imageRect(%f,%f,%f,%f)",imageX,imageY,imageW,imageH);
+//    NSLog(@"imageRect(%f,%f,%f,%f)",imageX,imageY,imageW,imageH);
     return CGRectMake(imageX, imageY, imageW, imageH);
     
 }
@@ -253,13 +253,13 @@
     }
     
     
-    NSLog(@"textRect(%f,%f,%f,%f)",textX,textY,_textW,_textH);
+//    NSLog(@"textRect(%f,%f,%f,%f)",textX,textY,_textW,_textH);
     return CGRectMake(textX, textY, _textW, _textH);
 
 }
 
 - (void)drawRect:(CGRect)rect {
-    NSLog(@"drawRect");
+//    NSLog(@"drawRect");
     
     
 }

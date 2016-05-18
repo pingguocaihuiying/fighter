@@ -12,14 +12,28 @@
 #import "FTHeightPickerView.h"
 #import "FTRankTableVIewCell.h"
 #import "FTRankHeaderCell.h"
+#import "FTNWGetCategory.h"
+#import "FTLabelBean.h"
+#import "NetWorking.h"
+#import "DBManager.h"
+#import "UIWindow+MBProgressHUD.h"
 
 @interface FTRankViewController ()  <FTSelectCellDelegate>
 
 @property (nonatomic, strong) FTButton *kindBtn;
 @property (nonatomic, strong) FTButton *matchBtn;
 @property (nonatomic, strong) FTButton *levelBtn;
-@property (nonatomic, strong) UITableView *headerTableView;
 
+@property (nonatomic, strong) NSArray *kingArray;
+@property (nonatomic, strong) NSArray *matchArray;
+@property (nonatomic, strong) NSArray *levelArray;
+
+@property (nonatomic, copy) NSString *selectKind;
+@property (nonatomic, copy) NSString *selectMatch;
+@property (nonatomic, copy) NSString *selectLevel;
+@property (nonatomic, assign) NSInteger pageNum;
+
+@property (nonatomic, strong) UITableView *headerTableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
 @end
@@ -35,13 +49,80 @@
 
     self.title = @"格斗之王";
     
+    [self getRankListLabelArray];
     
-//    [self setButton];
+    [self initArray];
+    [self getContentDataFromWeb];
+    
     [self initSubViews];
     
 }
 
+//从数据库取筛选标签数据
+- (void) initArray {
+    
+    _kingArray = [[NSArray alloc]init];
+    _matchArray = [[NSArray alloc]init];
+    _levelArray = [[NSArray alloc]init];
+    
+    //从数据库取数据
+    DBManager *dbManager = [DBManager shareDBManager];
+    [dbManager connect];
+    _kingArray = [dbManager searchLabel];
+    
+    if (_kingArray.count > 0) {
+        
+        _matchArray = [dbManager searchItem:[_kingArray objectAtIndex:0] type:1];
+        _levelArray = [dbManager searchItem:[_kingArray objectAtIndex:0] type:2];
+    }
+    
+    [dbManager close];
+    
+    _selectKind = [_kingArray objectAtIndex:0];
+    _selectMatch = [_matchArray objectAtIndex:0];
+    _selectLevel = [_levelArray objectAtIndex:0];
+    
+    if (_selectKind == nil) {
+         _selectKind = @"分类";
+    }
+    if (_selectMatch == nil) {
+        _selectMatch = @"赛事";
+    }
+    if (_selectLevel == nil) {
+        _selectLevel = @"级别";
+    }
+}
 
+-(void) getContentDataFromWeb {
+
+    NetWorking *net = [[NetWorking alloc]init];
+    [net getRankListWithLabel:_selectKind
+                         race:_selectMatch
+                FeatherWeight:_selectLevel
+                      pageNum:_pageNum
+                       option:^(NSDictionary *dict) {
+                           
+                           
+                           if (dict != nil) {
+                               
+                               if ([dict[@"status"] isEqualToString:@"success"]) {
+                                   _dataArray = dict[@"data"];
+                                   
+                                   if(_dataArray.count > 0){
+                                       [self fixViewSize];
+                                   }
+                               }else {
+                               
+                                   [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                               }
+                           }else {
+                           
+                               [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                           }
+                           
+        
+                       }];
+}
 
 - (FTButton *) selectButton:(NSString *)title {
 
@@ -72,8 +153,8 @@
     }];
     
     return selectBtn;
-    
 }
+
 
 
 - (void) initSubViews {
@@ -89,19 +170,19 @@
     CGFloat buttonW = (SCREEN_WIDTH - 12*2)/3;
     
     //格斗种类筛选按钮
-    self.kindBtn = [self selectButton:@"拳击"];
+    self.kindBtn = [self selectButton:_selectKind];
     self.kindBtn.frame = CGRectMake((buttonW+12)* 0, 0, buttonW, 40);
     [self.kindBtn addTarget:self action:@selector(searchFighterKinds:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:self.kindBtn];
     
     //格斗赛事筛选按钮
-    self.matchBtn = [self selectButton:@"WBA"];
+    self.matchBtn = [self selectButton:_selectMatch];
     self.matchBtn .frame = CGRectMake((buttonW+12)* 1, 0, buttonW, 40);
      [self.matchBtn addTarget:self action:@selector(searchFighterMatchs:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:self.matchBtn];
     
     //格斗重量级筛选按钮
-    self.levelBtn = [self selectButton:@"50kg级"];
+    self.levelBtn = [self selectButton:_selectLevel];
     self.levelBtn .frame = CGRectMake((buttonW+12)* 2, 0, buttonW, 40);
      [self.levelBtn addTarget:self action:@selector(searchFighterLevels:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:self.levelBtn ];
@@ -116,10 +197,6 @@
         [headerView addSubview:imageView];
         
     }
-    
-    
-    
-    
     
     
     @try {
@@ -161,7 +238,8 @@
         self.tableView.delegate = self;
         [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         
-        [self.tableImageView addSubview:self.tableView];    }
+        [self.tableImageView addSubview:self.tableView];
+    }
     @catch (NSException *exception) {
         NSLog(@"exception:%@",exception);
     }
@@ -175,10 +253,19 @@
 - (void) fixViewSize {
     
     @try {
-        self.tableImageView.frame  = CGRectMake(0, 180, SCREEN_WIDTH, 56*17+5);
-        self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 56*17);
-        self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH,180+56*17);
-        self.scrollView.scrollEnabled = YES;
+        NSInteger count = self.dataArray.count;
+        if (count > 0) {
+            self.tableImageView.frame  = CGRectMake(0, 180, SCREEN_WIDTH, 56*(count-1)+5);
+            self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 56*(count-1));
+            self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH,180+56*count);
+            
+            [self.headerTableView reloadData];
+            [self.tableView reloadData];
+            [self.scrollView setHidden:NO];
+        }else {
+            [self.scrollView setHidden:YES];
+        }
+        
     }
     @catch (NSException *exception) {
         NSLog(@"exception:%@",exception);
@@ -187,7 +274,6 @@
         
     }
     
-
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -195,9 +281,36 @@
     [self fixViewSize];
 }
 
+#pragma mark - 获取列表信息
 
-#pragma mark - response 
+//获取列表筛选标签
+- (void) getRankListLabelArray {
+    
+    NetWorking *net = [[NetWorking alloc]init];
+    [net getRankLabels:^(NSDictionary *dict) {
+        NSLog(@"Labels:%@",dict);
+        if (dict != nil) {
+             NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+            if ([dict[@"status"] isEqualToString:@"success"]) {
+                NSArray *labels= dict[@"data"];
+                for (NSDictionary *dic in labels) {
+                    NSLog(@"item:%@",[dic[@"item"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+                    NSLog(@"label:%@",[dic[@"label"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+                    NSLog(@"label:%@",[dic[@"label"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+                    
+                    
+//                    DBManager *dbManager = [DBManager shareDBManager];
+//                    [dbManager connect];
+//                    [dbManager insertDataIntoLabels:dic];
+//                    [dbManager close];
+                    
+                }
+            }
+        }
+    }];
+}
 
+#pragma mark - response
 //格斗项目检索
 - (void) searchFighterKinds:(id)sender {
     UIButton *button = sender;
@@ -206,7 +319,11 @@
                                                                       style:FTRankTableViewStyleLeft
                                                                      option:^(FTRankTableView *searchTableView) {
                                                                          
-                                                                         searchTableView.dataArray = [[NSArray alloc] initWithObjects:@"拳击",@"散打",@"自由搏击",@"跆拳道",@"截拳道",@"跆拳道",@"跆拳道",@"跆拳道",@"散打",@"散打",nil];
+                                                
+                                                                         searchTableView.dataArray = _kingArray;
+                                                                         
+                                                                         //设置数据类型
+                                                                          searchTableView.dataType = FTDataTypeStringArray;
                                                                          
                                                                          searchTableView.tableW = button.frame.size.width;
                                                                          searchTableView.tableH = 40*5;
@@ -214,6 +331,9 @@
                                                                          searchTableView.offsetY = 40;
                                                                          searchTableView.offsetX = 5;
                                                                          
+                                                                         
+                                                                         searchTableView.cellH = 40;
+                                                                         [searchTableView caculateTableHeight];
                                                                          
                                                                          
                                                                      }];
@@ -236,7 +356,9 @@
                                                                        style:FTRankTableViewStyleCenter
                                                                      option:^(FTRankTableView *searchTableView) {
                                                                          
-                                                                         searchTableView.dataArray = [[NSArray alloc] initWithObjects:@"拳击",@"散打",@"自由搏击",@"跆拳道",@"截拳道",@"跆拳道",@"跆拳道",@"跆拳道跆拳道跆拳道跆拳道跆拳",@"散打",@"散打",nil];
+                                                                        searchTableView.dataArray = _matchArray;
+                                                                         //设置数据类型
+                                                                          searchTableView.dataType = FTDataTypeStringArray;
                                                                          
                                                                          searchTableView.tableW = button.frame.size.width;
                                                                          searchTableView.tableH = 40*5;
@@ -244,7 +366,9 @@
                                                                          searchTableView.offsetY = 40;
                                                                          searchTableView.offsetX = 0;
                                                                          
-                                                                         
+                                                                         searchTableView.cellH = 40;
+                                                                         [searchTableView caculateTableHeight];
+                                                                     
                                                                          
                                                                      }];
     
@@ -266,7 +390,9 @@
                                                                       style:FTRankTableViewStyleRight
                                                                      option:^(FTRankTableView *searchTableView) {
                                                                          
-                                                                         searchTableView.dataArray = [[NSArray alloc] initWithObjects:@"拳击",@"散打",@"自由搏击",@"跆拳道",@"截拳道",@"跆拳道",@"跆拳道",@"跆拳道跆拳道跆拳道跆拳道",@"散打",@"散打",nil];
+                                                                         searchTableView.dataArray = _levelArray;
+                                                                         //设置数据类型
+                                                                         searchTableView.dataType = FTDataTypeStringArray;
                                                                          
                                                                          searchTableView.tableW = button.frame.size.width;
                                                                          searchTableView.tableH = 40*5;
@@ -274,8 +400,8 @@
                                                                          searchTableView.offsetY = 40;
                                                                          searchTableView.offsetX = -5;
                                                                          
-                                                                         
-                                                                         
+                                                                         searchTableView.cellH = 40;
+                                                                         [searchTableView caculateTableHeight];
                                                                      }];
     
     [self.view addSubview:levelTableView];
@@ -289,10 +415,63 @@
 
 #pragma mark FTSelectCellDelegate
 
-- (void) selectedValue:(NSDictionary *)dic {
+- (void) selectedValue:(NSString *)value style:(FTRankTableViewStyle) style {
     
+    //从数据库取数据
+    DBManager *dbManager = [DBManager shareDBManager];
+    [dbManager connect];
+    
+    switch (style) {
+        case FTRankTableViewStyleLeft:
+        {
+           
+            _matchArray = [dbManager searchItem:value type:1];
+            _levelArray = [dbManager searchItem:value type:2];
+            
+            _selectKind = value;
+            
+            if (_matchArray.count > 0) {
+                _selectMatch = [_matchArray objectAtIndex:0];
+                
+            }else {
+            
+                _selectMatch = @"全部";
+            }
+            
+            if (_levelArray.count > 0) {
+                _selectLevel = [_levelArray objectAtIndex:0];
+            }else {
+            
+                _selectLevel = @"全部";
+            }
+            
+            [self.matchBtn setTitle:_selectMatch forState:UIControlStateNormal];
+            [self.levelBtn setTitle:_selectLevel forState:UIControlStateNormal];
+        }
+            break;
+        case FTRankTableViewStyleCenter:
+        {
+            _selectMatch = value;
+            
+        }
+            break;
+        case FTRankTableViewStyleRight:
+        {
+            _selectLevel = value;
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    [dbManager close];
+    
+    [self getContentDataFromWeb];
     
 }
+
+
 
 #pragma mark - tableView datasouce and delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -302,7 +481,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (tableView == self.tableView) {
-        return 17;
+        return self.dataArray.count -1;
     }else {
     
         return 1;
@@ -317,49 +496,69 @@
         return 56 ;
     }else {
         
-        return 180 ;
+        return 180;
     }
-    
+
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    
+    
     if (tableView == self.tableView) {
+        
+        NSDictionary *dic = [self.dataArray objectAtIndex:indexPath.row+1];
+        NSString *headUrl = dic[@"headUrl"];
+        NSString *name = dic[@"name"];
+        NSString *rank  = dic[@"ranking"];
+        NSString *height = dic[@"height"];
+        NSString *weight = dic[@"weight"];
         NSLog(@"cell");
         FTRankTableVIewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
-        //    cell.backgroundColor = [UIColor clearColor];
-        //    cell.contentLabel.text = @"拳击";
-        //    cell.contentLabel.text = [_dataArray objectAtIndex:[indexPath row]];
+        [cell.avatarImageView  sd_setImageWithURL:[NSURL URLWithString:headUrl] placeholderImage:[UIImage imageNamed:@"头像-空"]];
+        [cell.nameLabel setText:name];
+        [cell.rankLabel setText:rank];
         return cell;
     }else {
         
+        NSDictionary *dic = [self.dataArray objectAtIndex:indexPath.row];
+        NSString *headUrl = dic[@"headUrl"];
+        NSString *name = dic[@"name"];
+        NSString *brief = dic[@"brief"];
+        NSString *height = dic[@"height"];
+        NSString *weight = dic[@"weight"];
+        
         FTRankHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
-        [cell setBriefLabelText:@"一段文字简介一段文字简介一段文字简介一段文字简介一段文字简介一段文字简介一段文字简介一段文字简介"];
+        if (brief != nil) {
+            [cell setBriefLabelText:brief];
+        }
+        
+        [cell.avatarImageView  sd_setImageWithURL:[NSURL URLWithString:headUrl] ];
+        [cell.nameLabel setText:name];
         return cell;
     }
-    
 }
 
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"did select cell");
+}
+
+
+
+#pragma mark - private methods
+- (NSArray *) fetchLabelsFromDatabase {
     
+    //从数据库取数据
+    DBManager *dbManager = [DBManager shareDBManager];
+    [dbManager connect];
+    NSArray *dataArray = [dbManager searchItem:@"拳击" type:1];
+    [dbManager close];
+    
+    return dataArray;
 }
 
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-//- (void) backBtnAction:(id)sender {
-//
-//    testVCViewController *testVC = [[testVCViewController alloc]initWithNibName:@"testVCViewController" bundle:nil];
-//    testVC.title = @"test";
-//    [self.navigationController pushViewController:testVC animated:YES];
-//}
 
 @end
