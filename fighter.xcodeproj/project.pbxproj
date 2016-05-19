@@ -277,8 +277,6 @@
 		E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458DA1CB75E5000FB4261 /* FTBaseTabBarViewController.m */; };
 		E6B458DE1CB7B2B100FB4261 /* FTTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458DD1CB7B2B100FB4261 /* FTTableViewController.m */; };
 		E6D2F8DD1CE965A100160788 /* NIDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8DC1CE965A100160788 /* NIDropDown.m */; };
-		E6D2F8E11CE98ABB00160788 /* FTNWGetCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8E01CE98ABB00160788 /* FTNWGetCategory.m */; };
-		E6D2F8E51CE99A5100160788 /* FTLabelBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8E41CE99A5100160788 /* FTLabelBean.m */; };
 		E6D74A471CB7B7EE00854337 /* UIButton+countDown.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A331CB7B7EE00854337 /* UIButton+countDown.m */; };
 		E6D74A481CB7B7EE00854337 /* UIColor+YBColorCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A351CB7B7EE00854337 /* UIColor+YBColorCategory.m */; };
 		E6D74A491CB7B7EE00854337 /* UILabel+StringFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A371CB7B7EE00854337 /* UILabel+StringFrame.m */; };
@@ -824,10 +822,6 @@
 		E6B458DD1CB7B2B100FB4261 /* FTTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTableViewController.m; sourceTree = "<group>"; };
 		E6D2F8DB1CE965A100160788 /* NIDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDropDown.h; sourceTree = "<group>"; };
 		E6D2F8DC1CE965A100160788 /* NIDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDropDown.m; sourceTree = "<group>"; };
-		E6D2F8DF1CE98ABB00160788 /* FTNWGetCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNWGetCategory.h; sourceTree = "<group>"; };
-		E6D2F8E01CE98ABB00160788 /* FTNWGetCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNWGetCategory.m; sourceTree = "<group>"; };
-		E6D2F8E31CE99A5100160788 /* FTLabelBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTLabelBean.h; sourceTree = "<group>"; };
-		E6D2F8E41CE99A5100160788 /* FTLabelBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTLabelBean.m; sourceTree = "<group>"; };
 		E6D74A321CB7B7EE00854337 /* UIButton+countDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+countDown.h"; sourceTree = "<group>"; };
 		E6D74A331CB7B7EE00854337 /* UIButton+countDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+countDown.m"; sourceTree = "<group>"; };
 		E6D74A341CB7B7EE00854337 /* UIColor+YBColorCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+YBColorCategory.h"; sourceTree = "<group>"; };
@@ -2103,20 +2097,8 @@
 		E6D2F8DE1CE98A6200160788 /* 分类标签 */ = {
 			isa = PBXGroup;
 			children = (
-				E6D2F8E21CE99A1300160788 /* bean */,
-				E6D2F8DF1CE98ABB00160788 /* FTNWGetCategory.h */,
-				E6D2F8E01CE98ABB00160788 /* FTNWGetCategory.m */,
 			);
 			name = "分类标签";
-			sourceTree = "<group>";
-		};
-		E6D2F8E21CE99A1300160788 /* bean */ = {
-			isa = PBXGroup;
-			children = (
-				E6D2F8E31CE99A5100160788 /* FTLabelBean.h */,
-				E6D2F8E41CE99A5100160788 /* FTLabelBean.m */,
-			);
-			name = bean;
 			sourceTree = "<group>";
 		};
 		E6D74A301CB7B7EE00854337 /* Tools */ = {
@@ -2530,7 +2512,6 @@
 				3D7B98AF1CE05F3300B80B8D /* FTPhoneViewController.m in Sources */,
 				3D56CB321CED950600265A84 /* FSMEngine.m in Sources */,
 				3D4B195C1CDB4D890022DFB0 /* FTDatePickerView.m in Sources */,
-				E6D2F8E51CE99A5100160788 /* FTLabelBean.m in Sources */,
 				E68050BC1CBF919A00678905 /* JHRefreshConfig.m in Sources */,
 				E6B4589A1CB7563300FB4261 /* FTBaseViewController.m in Sources */,
 				E61B8A641CBB6C4900AE37F9 /* TAPageControl.m in Sources */,
@@ -2573,7 +2554,6 @@
 				3D4B19531CDAEF840022DFB0 /* FTTableViewCell4.m in Sources */,
 				3DE95BA31CD868C6005BF85C /* FTDynamicsDrawerViewController.m in Sources */,
 				E6A9DDAC1CD89EE900CB9518 /* FTVideoBean.m in Sources */,
-				E6D2F8E11CE98ABB00160788 /* FTNWGetCategory.m in Sources */,
 				E6B458D71CB75DB200FB4261 /* FTBoxingHallViewController.m in Sources */,
 				E61B8A671CBB6C4900AE37F9 /* UIView+SDExtension.m in Sources */,
 				E668BABC1CE0565700071998 /* MJRefreshConst.m in Sources */,
