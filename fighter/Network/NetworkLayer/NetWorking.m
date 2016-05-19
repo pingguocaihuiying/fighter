@@ -236,42 +236,7 @@
                  option:(void (^)(NSDictionary *dict))option{
     
     NSString *updatePaasswordURL = [FTNetConfig host:Domain path:UpdatePassWordURL];
-//    if([oldpass isEqualToString:@"-1"]) {
-//        NSString *oldpassword = oldpass;
-//        NSString *newpossword = [NSString stringWithFormat:@"%@%@", newPass, @"**#qwe"];
-//        
-//        NSString *passOld =  oldpassword;
-//        NSString *passNew=  [MD5 md5:newpossword];
-//        
-//        //从本地读取存储的用户信息
-//        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-//        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-//        
-//        NSDictionary *dic = @{@"oldpassword" : passOld,
-//                              @"newpossword" : passNew,
-//                              @"userid"  :localUser.olduserid
-//                              };
-//        NSLog(@"dic%@",dic);
-//        [self postRequestWithUrl:updatePaasswordURL parameters:dic option:option];
-//    }else {
-//        NSString *oldpassword = [NSString stringWithFormat:@"%@%@", oldpass, @"**#qwe"];
-//        NSString *newpossword = [NSString stringWithFormat:@"%@%@", newPass, @"**#qwe"];
-//        
-//        NSString *passOld =  [MD5 md5:oldpassword];
-//        NSString *passNew=  [MD5 md5:newpossword];
-//        
-//        //从本地读取存储的用户信息
-//        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-//        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-//        
-//        NSDictionary *dic = @{@"oldpassword" : passOld,
-//                              @"newpossword" : passNew,
-//                              @"userid"  :localUser.olduserid
-//                              };
-//        NSLog(@"dic%@",dic);
-//        [self postRequestWithUrl:updatePaasswordURL parameters:dic option:option];
-//    }
-//    
+
     NSLog(@"oldpass:%@",oldpass);
     NSString *oldpassword = [NSString stringWithFormat:@"%@%@", oldpass, @"**#qwe"];
     NSString *newpossword = [NSString stringWithFormat:@"%@%@", newPass, @"**#qwe"];
@@ -562,7 +527,7 @@
        [dic setObject:race forKey:@"race" ];
     }
     
-    if (featherWeight != nil) {
+    if (featherWeight != nil && ![featherWeight isEqualToString:@"全部"]) {
        [dic setObject:featherWeight forKey:@"featherWeight" ];
     }
     
@@ -571,6 +536,7 @@
         [dic setObject:[NSString stringWithFormat:@"%ld",pagenum] forKey:@"pageNum" ];
     }
     
+    NSLog(@"dic:%@",dic);
     NSString *rankListUrl = [FTNetConfig host:Domain path:GetRankListURL];
     
     [self postRequestWithUrl:rankListUrl parameters:dic option:option];
