@@ -29,10 +29,10 @@
     [self setBackgroundColor:[UIColor clearColor]];
     
     
-//    //设置选中颜色
-//    UIView *aView = [[UIView alloc] initWithFrame:self.contentView.frame];
-//    aView.backgroundColor = [UIColor colorWithHex:0x191919];
-//    self.selectedBackgroundView = aView;
+    //设置选中颜色
+    UIView *aView = [[UIView alloc] initWithFrame:self.contentView.frame];
+    aView.backgroundColor = [UIColor colorWithHex:0x191919];
+    self.selectedBackgroundView = aView;
     
 //    NSString *statement = @"NO.2";
 //    NSInteger len = statement.length;

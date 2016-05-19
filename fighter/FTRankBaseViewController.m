@@ -8,6 +8,7 @@
 
 #import "FTRankBaseViewController.h"
 
+
 @interface FTRankBaseViewController ()
 
 @end
@@ -18,6 +19,16 @@
     [super viewDidLoad];
     
     [self setRankBaseViewControllerStyle];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(networkChanged:)
+                                                 name:kRealReachabilityChangedNotification
+                                               object:nil];
+    
+    self.netStatus = [GLobalRealReachability currentReachabilityStatus];
+    NSLog(@"currentStatus:%@,", @(_netStatus));
+
 }
 
 // 设置跟视图控制器样式
@@ -50,6 +61,64 @@
     [self.navigationController popViewControllerAnimated:YES];
 
 }
+
+#pragma mark - Reachability Methods
+
+
+/*!
+ * Called by Reachability whenever status changes.
+ */
+- (void)networkChanged:(NSNotification *)notification
+{
+    RealReachability *reachability = (RealReachability *)notification.object;
+    self.netStatus = [reachability currentReachabilityStatus];
+    ReachabilityStatus previousStatus = [reachability previousReachabilityStatus];
+    NSLog(@"networkChanged, currentStatus:%@, previousStatus:%@", @(_netStatus), @(previousStatus));
+    
+    if (self.netStatus == RealStatusNotReachable)
+    {
+        
+        NSLog(@"Network unreachable!");
+    }
+    
+    if (self.netStatus == RealStatusViaWiFi)
+    {
+       NSLog(@"Network wifi! Free!");
+    }
+    
+    if (self.netStatus == RealStatusViaWWAN)
+    {
+        NSLog(@"Network WWAN! In charge!");
+    }
+    
+    WWANAccessType accessType = [GLobalRealReachability currentWWANtype];
+    
+    if (_netStatus == RealStatusViaWWAN)
+    {
+        if (accessType == WWANType2G)
+        {
+            NSLog(@"RealReachabilityStatus2G");
+        }
+        else if (accessType == WWANType3G)
+        {
+            NSLog(@"RealReachabilityStatus3G");
+        }
+        else if (accessType == WWANType4G)
+        {
+           NSLog(@"RealReachabilityStatus4G");
+        }
+        else
+        {
+           NSLog(@"Unknown RealReachability WWAN Status, might be iOS6");
+        }
+    }
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

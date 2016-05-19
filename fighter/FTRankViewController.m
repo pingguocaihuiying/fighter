@@ -36,6 +36,7 @@
 @property (nonatomic, strong) UITableView *headerTableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UIImageView *placeholderImageView;
+@property (nonatomic, strong) UIImageView *shadow;
 @end
 
 @implementation FTRankViewController
@@ -47,7 +48,7 @@
     [super viewDidLoad];
     NSLog(@"viewDidLoad");
 
-    self.title = @"格斗之王";
+    self.title = @"排行榜";
     
     [self getRankListLabelArray];
     
@@ -122,7 +123,7 @@
                       pageNum:_pageNum
                        option:^(NSDictionary *dict) {
                            
-                           
+                           [self checkNetWokingStatus];
                            if (dict != nil) {
                                
                                if ([dict[@"status"] isEqualToString:@"success"]) {
@@ -134,17 +135,33 @@
                                    [self fixViewSize];
                                }else {
                                
-                                   [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//                                   [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                   
                                }
                            }else {
                            
-                               [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//                               [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[@"网络错误"stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                               
                            }
                            
         
                        }];
 }
 
+//检查网络连接情况
+- (void) checkNetWokingStatus {
+//    self.netStatus = [GLobalRealReachability currentReachabilityStatus];
+    if (self.netStatus == RealStatusNotReachable || self.netStatus == RealStatusUnknown ) {
+        if(self.placeholderImageView ) {
+            [self.placeholderImageView setImage:[UIImage imageNamed:@"无网络"]];
+        }
+    }else {
+        if(self.placeholderImageView ) {
+            [self.placeholderImageView setImage:[UIImage imageNamed:@"无数据"]];
+        }
+    }
+    
+}
 - (FTButton *) selectButton:(NSString *)title {
 
     CGFloat buttonW = (SCREEN_WIDTH - 12*2)/3;
@@ -241,9 +258,10 @@
         [self.scrollView addSubview:self.headerTableView];
         
         //tableView 背景阴影
-        UIImageView *shadow = [[UIImageView alloc]initWithFrame:CGRectMake(0, 180, SCREEN_WIDTH, 50)];
-        [shadow setImage:[UIImage imageNamed:@"排行第一名底部向下渐变"]];
-        [self.scrollView addSubview:shadow];
+        self.shadow = [[UIImageView alloc]initWithFrame:CGRectMake(0, 179, SCREEN_WIDTH, 50)];
+        [self.shadow setImage:[UIImage imageNamed:@"排行第一名底部向下渐变"]];
+        self.shadow.backgroundColor = [UIColor clearColor];
+        [self.scrollView addSubview:self.shadow];
         
         //tableView 背景
         self.tableImageView = [[UIImageView alloc]init];
@@ -251,8 +269,6 @@
         self.tableImageView.frame = CGRectMake(0, 180, SCREEN_WIDTH, SCREEN_HEIGHT);
         self.tableImageView.userInteractionEnabled = YES;
         [self.scrollView addSubview:self.tableImageView];
-        
-       
         
         
         //排名tableView
@@ -277,30 +293,57 @@
     
     
     self.placeholderImageView = [[UIImageView alloc]init];
-    [self.placeholderImageView setBounds:CGRectMake(0, 0, 240, 240)];
-    [self.placeholderImageView setCenter:self.view.center];
-    [self.placeholderImageView setImage:[UIImage imageNamed:@"无数据"]];
-    [self.view addSubview:self.placeholderImageView];
+//    [self.placeholderImageView setBounds:CGRectMake(0, 0, 240, 240)];
+//    self.placeholderImageView.center = self.scrollView.center;
+    [self.scrollView addSubview:self.placeholderImageView];
+    [self.placeholderImageView setFrame:CGRectMake((SCREEN_WIDTH- 240)/2, (SCREEN_HEIGHT-240)/2-104, 240, 240)];
+    
+//    [self.placeholderImageView setFrame:CGRectMake((SCREEN_WIDTH- 240)/2, (SCREEN_HEIGHT-240)/2, 240, 240)];
+//    [self.placeholderImageView setImage:[UIImage imageNamed:@"无数据"]];
+//    [self.view addSubview:self.placeholderImageView];
+//    [self.placeholderImageView setBackgroundColor:[UIColor whiteColor]];
     [self.placeholderImageView setHidden:YES];
 }
 
 
 - (void) fixViewSize {
     
+    
+    [self checkNetWokingStatus];
     @try {
         NSInteger count = self.dataArray.count;
         if (count > 0) {
+            self.headerTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 180);
             self.tableImageView.frame  = CGRectMake(0, 180, SCREEN_WIDTH, 56*(count-1)+5);
             self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 56*(count-1));
-            self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH,180+56*count);
+            
+            CGFloat h = 180+56*count;
+            
+            if (h <= self.scrollView.frame.size.height) {
+                h = self.scrollView.frame.size.height+1;
+            }
+            self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH,h);
             
             [self.headerTableView reloadData];
             [self.tableView reloadData];
-            [self.scrollView setHidden:NO];
-             [self.placeholderImageView setHidden:YES];
+//            [self.scrollView setHidden:NO];
+            [self.placeholderImageView setHidden:YES];
+//            [self.headerTableView setHidden:NO];
+//            [self.tableView setHidden:NO];
+            [self.shadow setHidden:NO];
+
         }else {
+            self.headerTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 0);
+            self.tableImageView.frame  = CGRectMake(0, 180, SCREEN_WIDTH, 0);
+            self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 0);
+            self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH,self.scrollView.frame.size.height+1);
+            
             [self.placeholderImageView setHidden:NO];
-            [self.scrollView setHidden:YES];
+//            [self.headerTableView setHidden:YES];
+//            [self.tableView setHidden:YES];
+            
+            [self.shadow setHidden:YES];
+//            [self.scrollView setHidden:YES];
         }
     }
     @catch (NSException *exception) {
@@ -565,7 +608,7 @@
         return cell;
     }else {
         NSDictionary *dic = [self.dataArray objectAtIndex:indexPath.row];
-        NSString *headUrl = dic[@"headUrl"];
+        NSString *headUrl = dic[@"background"];
         NSString *name = dic[@"name"];
         NSString *brief = dic[@"brief"];
         NSString *height = dic[@"height"];
@@ -576,7 +619,7 @@
             [cell setBriefLabelText:brief];
         }
         
-        [cell.avatarImageView  sd_setImageWithURL:[NSURL URLWithString:headUrl] ];
+        [cell.avatarImageView  sd_setImageWithURL:[NSURL URLWithString:headUrl] placeholderImage:[UIImage imageNamed:@"第一名-默认图"]];
         [cell.nameLabel setText:name];
         [cell.heightLabel setText:[height stringByAppendingString:@"cm"]];
         [cell.weightLabel setText:[weight stringByAppendingString:@"kg"]];
@@ -588,6 +631,10 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"did select cell");
+    if (tableView == self.tableView) {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        [cell setSelected:NO];
+    }
 }
 
 

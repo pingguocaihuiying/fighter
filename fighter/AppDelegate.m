@@ -30,6 +30,7 @@
 #import "MainViewController.h"
 #import "Networking.h"
 #import "DBManager.h"
+#import "RealReachability.h"
 
 //微信请求类型
 typedef NS_ENUM(NSInteger, WXRequestType) {
@@ -58,6 +59,9 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     
     //设置数据库
     [self setDatabase];
+    
+    //监听网络
+    [GLobalRealReachability startNotifier];
     
     //屏蔽个人中心时打开这里
 //    [self setRootViewController2];

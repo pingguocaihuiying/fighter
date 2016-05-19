@@ -7,7 +7,8 @@
 //
 
 #import "FTBaseViewController.h"
+#import "RealReachability.h"
 
 @interface FTRankBaseViewController : UIViewController
-
+@property (nonatomic, assign)ReachabilityStatus netStatus;
 @end

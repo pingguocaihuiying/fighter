@@ -48,9 +48,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123kg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qX0-s1-1n9">
-                        <rect key="frame" x="69" y="30" width="50" height="12"/>
+                        <rect key="frame" x="69" y="28" width="50" height="15"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="12" id="UGm-Ey-Anj"/>
+                            <constraint firstAttribute="height" constant="15" id="UGm-Ey-Anj"/>
                             <constraint firstAttribute="width" constant="50" id="ruf-WZ-cz2"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -58,9 +58,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="180cm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BlM-Gw-i6E">
-                        <rect key="frame" x="139" y="30" width="50" height="12"/>
+                        <rect key="frame" x="139" y="28" width="50" height="15"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="12" id="8rT-iL-fBJ"/>
+                            <constraint firstAttribute="height" constant="15" id="8rT-iL-fBJ"/>
                             <constraint firstAttribute="width" constant="50" id="zWA-fU-iR0"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -90,7 +90,7 @@
                     <constraint firstItem="dhp-e5-JNU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="trailing" constant="-72" id="7IB-0f-dtI"/>
                     <constraint firstItem="vKY-UU-m9g" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="BW7-Pr-Mnm"/>
                     <constraint firstItem="FPR-9x-LXX" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="E8d-la-Ktk"/>
-                    <constraint firstItem="qX0-s1-1n9" firstAttribute="top" secondItem="qsM-5Y-l3S" secondAttribute="bottom" constant="8" id="JNf-J8-iCn"/>
+                    <constraint firstItem="qX0-s1-1n9" firstAttribute="top" secondItem="qsM-5Y-l3S" secondAttribute="bottom" constant="6" id="JNf-J8-iCn"/>
                     <constraint firstItem="vKY-UU-m9g" firstAttribute="centerX" secondItem="OAe-j7-2Uq" secondAttribute="centerX" id="VY8-O2-7gc"/>
                     <constraint firstItem="vKY-UU-m9g" firstAttribute="centerY" secondItem="OAe-j7-2Uq" secondAttribute="centerY" id="Xe4-La-vZv"/>
                     <constraint firstItem="FPR-9x-LXX" firstAttribute="bottom" secondItem="dhp-e5-JNU" secondAttribute="bottom" id="Yhc-0Q-702"/>
@@ -110,7 +110,7 @@
                 <outlet property="rankLabel" destination="FPR-9x-LXX" id="Oz7-G8-hpn"/>
                 <outlet property="weightLabel" destination="qX0-s1-1n9" id="9ek-QX-7PQ"/>
             </connections>
-            <point key="canvasLocation" x="145" y="213"/>
+            <point key="canvasLocation" x="211" y="221"/>
         </tableViewCell>
     </objects>
     <resources>

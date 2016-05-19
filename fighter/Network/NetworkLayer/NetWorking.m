@@ -523,7 +523,7 @@
     [dic setObject:label forKey:@"label"];
     
     
-    if (race != nil) {
+    if (race != nil && ![race isEqualToString:@"全部"]) {
        [dic setObject:race forKey:@"race" ];
     }
     
@@ -532,8 +532,7 @@
     }
     
     if(pagenum >0){
-    
-        [dic setObject:[NSString stringWithFormat:@"%ld",pagenum] forKey:@"pageNum" ];
+      [dic setObject:[NSString stringWithFormat:@"%ld",pagenum] forKey:@"pageNum" ];
     }
     
     NSLog(@"dic:%@",dic);
