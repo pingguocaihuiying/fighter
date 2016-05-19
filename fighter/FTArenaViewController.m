@@ -95,6 +95,19 @@
 
 - (void)initSubviews{
     
+    //设置左上角按钮
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    [self.leftNavButton.layer setMasksToBounds:YES];
+    self.leftNavButton.layer.cornerRadius = 17.0;
+    [self.leftNavButton sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
+                            forState:UIControlStateNormal
+                    placeholderImage:[UIImage imageNamed:@"头像-空"]];
+    if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
+        
+        [self.drawerDelegate addButtonToArray:self.leftNavButton];
+    }
+    
 }
 
 - (void)initPageController
@@ -231,6 +244,7 @@
     [self.leftNavButton sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
                                   forState:UIControlStateNormal
                           placeholderImage:[UIImage imageNamed:@"头像-空"]];
+    
     if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
         
         [self.drawerDelegate addButtonToArray:self.leftNavButton];

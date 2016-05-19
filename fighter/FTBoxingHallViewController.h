@@ -9,5 +9,5 @@
 #import "FTBaseViewController.h"
 
 @interface FTBoxingHallViewController : FTBaseViewController
-
+@property (weak, nonatomic) IBOutlet UIButton *leftNavButton;
 @end

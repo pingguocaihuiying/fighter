@@ -7,6 +7,7 @@
 //
 
 #import "FTCoachViewController.h"
+#import "UIButton+WebCache.h"
 
 @interface FTCoachViewController ()
 
@@ -18,6 +19,39 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
+
+
+- (void) initSubviews {
+    //设置左上角按钮
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    [self.leftNavButton.layer setMasksToBounds:YES];
+    self.leftNavButton.layer.cornerRadius = 17.0;
+    [self.leftNavButton sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
+                                  forState:UIControlStateNormal
+                          placeholderImage:[UIImage imageNamed:@"头像-空"]];
+    
+    if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
+        
+        [self.drawerDelegate addButtonToArray:self.leftNavButton];
+    }
+
+
+}
+
+
+#pragma mark 按钮事件
+- (IBAction)leftButtonItemClick:(id)sender {
+    
+    
+    
+    NSLog(@"information left click did");
+    if ([self.drawerDelegate respondsToSelector:@selector(leftButtonClicked:)]) {
+        
+        [self.drawerDelegate leftButtonClicked:sender];
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
