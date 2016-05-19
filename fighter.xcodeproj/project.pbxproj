@@ -276,7 +276,6 @@
 		E6B458D81CB75DB200FB4261 /* FTBoxingHallViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6B458D61CB75DB200FB4261 /* FTBoxingHallViewController.xib */; };
 		E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458DA1CB75E5000FB4261 /* FTBaseTabBarViewController.m */; };
 		E6B458DE1CB7B2B100FB4261 /* FTTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458DD1CB7B2B100FB4261 /* FTTableViewController.m */; };
-		E6D2F8DD1CE965A100160788 /* NIDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8DC1CE965A100160788 /* NIDropDown.m */; };
 		E6D74A471CB7B7EE00854337 /* UIButton+countDown.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A331CB7B7EE00854337 /* UIButton+countDown.m */; };
 		E6D74A481CB7B7EE00854337 /* UIColor+YBColorCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A351CB7B7EE00854337 /* UIColor+YBColorCategory.m */; };
 		E6D74A491CB7B7EE00854337 /* UILabel+StringFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A371CB7B7EE00854337 /* UILabel+StringFrame.m */; };
@@ -820,8 +819,6 @@
 		E6B458DA1CB75E5000FB4261 /* FTBaseTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBaseTabBarViewController.m; sourceTree = "<group>"; };
 		E6B458DC1CB7B2B100FB4261 /* FTTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTableViewController.h; sourceTree = "<group>"; };
 		E6B458DD1CB7B2B100FB4261 /* FTTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTableViewController.m; sourceTree = "<group>"; };
-		E6D2F8DB1CE965A100160788 /* NIDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDropDown.h; sourceTree = "<group>"; };
-		E6D2F8DC1CE965A100160788 /* NIDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDropDown.m; sourceTree = "<group>"; };
 		E6D74A321CB7B7EE00854337 /* UIButton+countDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+countDown.h"; sourceTree = "<group>"; };
 		E6D74A331CB7B7EE00854337 /* UIButton+countDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+countDown.m"; sourceTree = "<group>"; };
 		E6D74A341CB7B7EE00854337 /* UIColor+YBColorCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+YBColorCategory.h"; sourceTree = "<group>"; };
@@ -2085,15 +2082,6 @@
 			name = "获取标签分类";
 			sourceTree = "<group>";
 		};
-		E6D2F8DA1CE9658200160788 /* 下拉框 */ = {
-			isa = PBXGroup;
-			children = (
-				E6D2F8DB1CE965A100160788 /* NIDropDown.h */,
-				E6D2F8DC1CE965A100160788 /* NIDropDown.m */,
-			);
-			name = "下拉框";
-			sourceTree = "<group>";
-		};
 		E6D2F8DE1CE98A6200160788 /* 分类标签 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2159,7 +2147,6 @@
 			children = (
 				3D56CB141CED950600265A84 /* RealReachability */,
 				3D57D0351CEC0B560082BF24 /* FMDB */,
-				E6D2F8DA1CE9658200160788 /* 下拉框 */,
 				E668BA801CE0565700071998 /* MJRefresh */,
 				3DC411F41CD039D70030C229 /* Masonry */,
 				E680509D1CBF919A00678905 /* JHRefresh */,
@@ -2579,7 +2566,6 @@
 				3D4B19381CD9FD670022DFB0 /* UMFeedbackViewController.m in Sources */,
 				E65EFC291CC8ADFD0039EE8A /* UIButton+LYZTitle.m in Sources */,
 				3D4B193A1CD9FD670022DFB0 /* UMChatTableViewCell.m in Sources */,
-				E6D2F8DD1CE965A100160788 /* NIDropDown.m in Sources */,
 				3DC411F01CCF80DD0030C229 /* FTDrawerTableViewHeader.m in Sources */,
 				E6A9DDB61CD9833200CB9518 /* FTVideoTableViewCell.m in Sources */,
 				E668BBB71CE4353300071998 /* FTRankingListFilterView.m in Sources */,
