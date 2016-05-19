@@ -212,6 +212,9 @@ static NSString *const tableCellId = @"tableCellId";
     [self.abountUsBtn setTitleColor:[UIColor colorWithHex:0xcccccc] forState:UIControlStateHighlighted];
     [self.feedbackBtn setTitleColor:[UIColor colorWithHex:0xcccccc] forState:UIControlStateHighlighted];
     
+    if (![WXApi isWXAppInstalled] ) {
+        [self.weichatLoginBtn setHidden:YES];
+    }
 }
 
 

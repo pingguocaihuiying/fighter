@@ -14,6 +14,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="178.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="排行第一名底部向下渐变" translatesAutoresizingMaskIntoConstraints="NO" id="dHb-nF-ESS">
+                        <rect key="frame" x="0.0" y="0.5" width="320" height="178.5"/>
+                    </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="第一名背景" translatesAutoresizingMaskIntoConstraints="NO" id="hTp-qF-bh2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="178.5"/>
                     </imageView>
@@ -84,15 +87,19 @@
                     <constraint firstItem="reA-eq-2DR" firstAttribute="bottom" secondItem="hTp-qF-bh2" secondAttribute="bottom" constant="-20" id="EjZ-nh-32X"/>
                     <constraint firstItem="CKX-RG-9E5" firstAttribute="centerY" secondItem="hTp-qF-bh2" secondAttribute="centerY" id="HNm-ye-a6I"/>
                     <constraint firstAttribute="bottom" secondItem="hTp-qF-bh2" secondAttribute="bottom" id="NsL-6s-IP9"/>
+                    <constraint firstItem="dHb-nF-ESS" firstAttribute="bottom" secondItem="hTp-qF-bh2" secondAttribute="bottom" id="PBd-oF-zqG"/>
                     <constraint firstItem="9IB-s5-JXo" firstAttribute="leading" secondItem="O9m-Lu-Aez" secondAttribute="trailing" constant="15" id="SLg-nd-vNi"/>
                     <constraint firstItem="O9m-Lu-Aez" firstAttribute="bottom" secondItem="Uo4-jN-7eh" secondAttribute="bottom" id="V7A-CE-owg"/>
                     <constraint firstItem="CKX-RG-9E5" firstAttribute="trailing" secondItem="hTp-qF-bh2" secondAttribute="trailing" constant="-24" id="Y9f-aP-nFh"/>
                     <constraint firstItem="O9m-Lu-Aez" firstAttribute="leading" secondItem="Uo4-jN-7eh" secondAttribute="leading" constant="100" id="ZE4-k1-uUt"/>
                     <constraint firstItem="reA-eq-2DR" firstAttribute="leading" secondItem="Uo4-jN-7eh" secondAttribute="leading" id="j8s-SU-7Dq"/>
                     <constraint firstItem="reA-eq-2DR" firstAttribute="leading" secondItem="hTp-qF-bh2" secondAttribute="leading" constant="24" id="lUv-RI-fF8"/>
+                    <constraint firstItem="dHb-nF-ESS" firstAttribute="top" secondItem="hTp-qF-bh2" secondAttribute="top" id="mqD-Ck-URv"/>
+                    <constraint firstItem="dHb-nF-ESS" firstAttribute="trailing" secondItem="hTp-qF-bh2" secondAttribute="trailing" id="pHN-yD-N0e"/>
                     <constraint firstItem="hTp-qF-bh2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="soG-hL-nXC"/>
                     <constraint firstItem="Uo4-jN-7eh" firstAttribute="bottom" secondItem="reA-eq-2DR" secondAttribute="top" constant="-12" id="ss2-fG-wR7"/>
                     <constraint firstItem="9IB-s5-JXo" firstAttribute="bottom" secondItem="O9m-Lu-Aez" secondAttribute="bottom" id="uuF-rg-B98"/>
+                    <constraint firstItem="dHb-nF-ESS" firstAttribute="leading" secondItem="hTp-qF-bh2" secondAttribute="leading" id="yS8-jX-Zew"/>
                     <constraint firstItem="SpQ-mT-byE" firstAttribute="leading" secondItem="Uo4-jN-7eh" secondAttribute="leading" constant="100" id="yWR-t3-nIM"/>
                 </constraints>
             </tableViewCellContentView>
@@ -107,6 +114,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="排行第一名底部向下渐变" width="100" height="100"/>
         <image name="第一名头像-凯恩" width="200" height="180"/>
         <image name="第一名文字" width="210" height="50"/>
         <image name="第一名背景" width="375" height="180"/>

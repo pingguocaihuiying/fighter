@@ -73,6 +73,11 @@
     [self.passwordTextField setTextColor:[UIColor whiteColor]];
     [self.passwordTextField setKeyboardType:UIKeyboardTypeNamePhonePad];
     [self.passwordTextField setSecureTextEntry:YES];
+    
+    
+    if (![WXApi isWXAppInstalled] ) {
+        [self.weichatLoginBtn setHidden:YES];
+    }
 }
 
 

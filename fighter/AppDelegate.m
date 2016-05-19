@@ -74,12 +74,43 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     return YES;
 }
 
+
 - (void) setDatabase {
     
-    DBManager *dbManager = [DBManager shareDBManager];
-    [dbManager connect];
-    [dbManager createLabelsTable];
-    [dbManager close];
+    BOOL exist = [[[NSUserDefaults standardUserDefaults] objectForKey:@"labels"] boolValue];
+    
+    if (!exist) {
+        DBManager *dbManager = [DBManager shareDBManager];
+        [dbManager connect];
+        [dbManager createLabelsTable];
+        [dbManager close];
+        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"labels"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+        
+        NetWorking *net = [[NetWorking alloc]init];
+        [net getRankLabels:^(NSDictionary *dict) {
+            if (dict != nil) {
+                if ([dict[@"status"] isEqualToString:@"success"]) {
+                    
+                    DBManager *dbManager = [DBManager shareDBManager];
+                    [dbManager connect];
+                    [dbManager createLabelsTable];
+                    
+                    NSArray *labels= dict[@"data"];
+                    for (NSDictionary *dic in labels) {
+                        
+                        [dbManager insertDataIntoLabels:dic];
+                        
+                    }
+                    
+                    [dbManager close];
+                    
+                }
+            }
+        }];
+
+    }
+    
     
 }
 

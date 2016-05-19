@@ -35,7 +35,7 @@
 
 @property (nonatomic, strong) UITableView *headerTableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
-
+@property (nonatomic, strong) UIImageView *placeholderImageView;
 @end
 
 @implementation FTRankViewController
@@ -74,23 +74,43 @@
         
         _matchArray = [dbManager searchItem:[_kingArray objectAtIndex:0] type:1];
         _levelArray = [dbManager searchItem:[_kingArray objectAtIndex:0] type:2];
+        
     }
-    
     [dbManager close];
     
-    _selectKind = [_kingArray objectAtIndex:0];
-    _selectMatch = [_matchArray objectAtIndex:0];
-    _selectLevel = [_levelArray objectAtIndex:0];
     
-    if (_selectKind == nil) {
-         _selectKind = @"分类";
+    [self updateSelectTitle];
+    
+    if(_dataArray.count > 0) {
+        [self fixViewSize];
     }
-    if (_selectMatch == nil) {
+}
+
+//更新筛选标签
+-(void) updateSelectTitle {
+
+    if (_kingArray.count > 0) {
+        _selectKind = [_kingArray objectAtIndex:0];
+        [_kindBtn setTitle:_selectKind forState:UIControlStateNormal];
+    }else {
+        _selectKind = @"类别";
+    }
+    if (_matchArray.count > 0) {
+        _selectMatch = [_matchArray objectAtIndex:0];
+        [_matchBtn setTitle:_selectMatch forState:UIControlStateNormal];
+        
+    }else {
         _selectMatch = @"赛事";
     }
-    if (_selectLevel == nil) {
+    
+    if (_levelArray.count > 0) {
+        _selectLevel = [_levelArray objectAtIndex:0];
+        [_levelBtn setTitle:_selectLevel forState:UIControlStateNormal];
+        
+    }else {
         _selectLevel = @"级别";
     }
+
 }
 
 -(void) getContentDataFromWeb {
@@ -108,9 +128,10 @@
                                if ([dict[@"status"] isEqualToString:@"success"]) {
                                    _dataArray = dict[@"data"];
                                    
-                                   if(_dataArray.count > 0){
-                                       [self fixViewSize];
-                                   }
+//                                   if(_dataArray.count > 0){
+//                                       [self fixViewSize];
+//                                   }
+                                   [self fixViewSize];
                                }else {
                                
                                    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -210,7 +231,7 @@
         self.headerTableView = [[UITableView alloc]init];
         self.headerTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH,180);
         self.headerTableView.backgroundColor = [UIColor clearColor];
-        self.headerTableView.scrollEnabled = YES;
+        self.headerTableView.scrollEnabled = NO;
         
         [self.headerTableView registerNib:[UINib nibWithNibName:@"FTRankHeaderCell" bundle:nil] forCellReuseIdentifier:@"cellId"];
         self.headerTableView.dataSource = self;
@@ -219,6 +240,10 @@
         
         [self.scrollView addSubview:self.headerTableView];
         
+        //tableView 背景阴影
+        UIImageView *shadow = [[UIImageView alloc]initWithFrame:CGRectMake(0, 180, SCREEN_WIDTH, 50)];
+        [shadow setImage:[UIImage imageNamed:@"排行第一名底部向下渐变"]];
+        [self.scrollView addSubview:shadow];
         
         //tableView 背景
         self.tableImageView = [[UIImageView alloc]init];
@@ -227,11 +252,14 @@
         self.tableImageView.userInteractionEnabled = YES;
         [self.scrollView addSubview:self.tableImageView];
         
+       
+        
+        
         //排名tableView
         self.tableView = [[UITableView alloc]init];
         self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 180-104);
         self.tableView.backgroundColor = [UIColor clearColor];
-        self.tableView.scrollEnabled = YES;
+        self.tableView.scrollEnabled = NO;
         
         [self.tableView registerNib:[UINib nibWithNibName:@"FTRankTableVIewCell" bundle:nil] forCellReuseIdentifier:@"cellId"];
         self.tableView.dataSource = self;
@@ -246,7 +274,14 @@
     @finally {
         
     }
-
+    
+    
+    self.placeholderImageView = [[UIImageView alloc]init];
+    [self.placeholderImageView setBounds:CGRectMake(0, 0, 240, 240)];
+    [self.placeholderImageView setCenter:self.view.center];
+    [self.placeholderImageView setImage:[UIImage imageNamed:@"无数据"]];
+    [self.view addSubview:self.placeholderImageView];
+    [self.placeholderImageView setHidden:YES];
 }
 
 
@@ -262,10 +297,11 @@
             [self.headerTableView reloadData];
             [self.tableView reloadData];
             [self.scrollView setHidden:NO];
+             [self.placeholderImageView setHidden:YES];
         }else {
+            [self.placeholderImageView setHidden:NO];
             [self.scrollView setHidden:YES];
         }
-        
     }
     @catch (NSException *exception) {
         NSLog(@"exception:%@",exception);
@@ -292,19 +328,24 @@
         if (dict != nil) {
              NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
             if ([dict[@"status"] isEqualToString:@"success"]) {
+                
+                DBManager *dbManager = [DBManager shareDBManager];
+                [dbManager connect];
+                [dbManager createLabelsTable];
+                
                 NSArray *labels= dict[@"data"];
                 for (NSDictionary *dic in labels) {
-                    NSLog(@"item:%@",[dic[@"item"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-                    NSLog(@"label:%@",[dic[@"label"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-                    NSLog(@"label:%@",[dic[@"label"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+//                    NSLog(@"item:%@",[dic[@"item"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+//                    NSLog(@"label:%@",[dic[@"label"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+//                    NSLog(@"label:%@",[dic[@"label"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
                     
-                    
-//                    DBManager *dbManager = [DBManager shareDBManager];
-//                    [dbManager connect];
-//                    [dbManager insertDataIntoLabels:dic];
-//                    [dbManager close];
+                   
+                    [dbManager insertDataIntoLabels:dic];
                     
                 }
+                
+                [dbManager close];
+                [self initArray];
             }
         }
     }];
@@ -511,7 +552,7 @@
         NSDictionary *dic = [self.dataArray objectAtIndex:indexPath.row+1];
         NSString *headUrl = dic[@"headUrl"];
         NSString *name = dic[@"name"];
-        NSString *rank  = dic[@"ranking"];
+        NSString *rank  = [NSString stringWithFormat:@"%@",dic[@"ranking"]] ;
         NSString *height = dic[@"height"];
         NSString *weight = dic[@"weight"];
         NSLog(@"cell");
@@ -519,9 +560,10 @@
         [cell.avatarImageView  sd_setImageWithURL:[NSURL URLWithString:headUrl] placeholderImage:[UIImage imageNamed:@"头像-空"]];
         [cell.nameLabel setText:name];
         [cell.rankLabel setText:rank];
+        [cell.heightLabel setText:[height stringByAppendingString:@"cm"]];
+        [cell.weightLabel setText:[weight stringByAppendingString:@"kg"]];
         return cell;
     }else {
-        
         NSDictionary *dic = [self.dataArray objectAtIndex:indexPath.row];
         NSString *headUrl = dic[@"headUrl"];
         NSString *name = dic[@"name"];
@@ -536,6 +578,8 @@
         
         [cell.avatarImageView  sd_setImageWithURL:[NSURL URLWithString:headUrl] ];
         [cell.nameLabel setText:name];
+        [cell.heightLabel setText:[height stringByAppendingString:@"cm"]];
+        [cell.weightLabel setText:[weight stringByAppendingString:@"kg"]];
         return cell;
     }
 }

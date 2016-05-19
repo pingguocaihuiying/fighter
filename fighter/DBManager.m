@@ -128,6 +128,7 @@ static DBManager * _sharedDBManager = nil;
     
     if (existTable) {
         // TODO:是否更新数据库
+         NSLog(@"数据库labels表创建成功");
         //        [AppDelegate showStatusWithText:@"数据库已经存在" duration:2];
     } else {
         // TODO: 插入新的数据库
@@ -153,13 +154,33 @@ static DBManager * _sharedDBManager = nil;
     NSString *label = dic[@"label"];
     NSNumber *type = [NSNumber numberWithInteger:[dic[@"type"] integerValue]];
     
-    BOOL result = [_dataBase executeUpdate:@"INSERT INTO labels (id, item,label,type) VALUES (?,?,?,?)", idNum, item, label,type];
+    //1.判断数据是否已经存在
+    FMResultSet * set = [_dataBase executeQuery:@"select id from labels where id = ?",idNum];
+    [set next];
+    NSInteger count = [set intForColumnIndex:0];
+    BOOL exist = !!count;
     
-    if (result) {
-        NSLog(@"插入数据成功");
-    }else {
-        NSLog(@"插入数据失败");
+    //2.如果已经存在则更新数据
+    if(exist) {
+        
+        BOOL result = [_dataBase executeUpdate:@"UPDATE labels set item = ?,label= ?,type = ? where id = ?" , item,label,type,idNum];
+        
+        if (result) {
+            NSLog(@"更新数据成功");
+        }else {
+            NSLog(@"更新数据失败");
+        }
+    
+    }else {//3.如果数据不存在则插入数据
+        BOOL result = [_dataBase executeUpdate:@"INSERT INTO labels (id, item,label,type) VALUES (?,?,?,?)", idNum, item, label,type];
+        
+        if (result) {
+            NSLog(@"插入数据成功");
+        }else {
+            NSLog(@"插入数据失败");
+        }
     }
+    
 }
 
 

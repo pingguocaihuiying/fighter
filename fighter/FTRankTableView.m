@@ -370,7 +370,7 @@
         if (self.dataArray.count>0 && self.dataArray.count < 8) {
             _tableH = _cellH *self.dataArray.count;
         }else if (self.dataArray == nil || self.dataArray.count <=0){
-            _tableH = _cellH*6;
+            _tableH = _cellH;
         }
     }
     
