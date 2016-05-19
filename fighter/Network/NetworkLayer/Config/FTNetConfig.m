@@ -45,6 +45,7 @@
 //NSString * const Domain = @"http://www.loufang.studio/pugilist_admin";//生产环境
 //  http://www.gogogofight.com/
 NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin";//生产环境
+//NSString * const Domain = @"http://10.11.1.117:8080/pugilist_admin";//何后台开发环境
 
 //获取新闻
 NSString * const GetNewsURL = @"/api/news/getNews.do";
@@ -76,6 +77,9 @@ NSString *const GetCategoryURL = @"/api/category/findCategoryByName.do";
 
 //获取格斗场内容list 
 NSString *const GetArenaListURL = @"/api/base/listBase.do";
+
+//格斗场发新帖//接口地址: 域名/api/base/save$Base.do
+NSString *const NewPostURL = @"/api/base/save$Base.do";
 
 
 
@@ -144,4 +148,7 @@ NSString * const UpVideoViewNCheckKey =  @"quanjijia222222";
 NSString * const AddStarCheckKey =  @"gedoujia1gdshjjgfkd52261225550";
     //取消收藏
 NSString * const DeleteStarCheckKey =  @"gedoujia1ggghfdjskfgl1250";
+
+//发新帖 gedoujia1gdshjjgfkd52261225550
+NSString * const NewPostCheckKey =  @"gedoujia1gdshjjgfkd52261225550";
                                          

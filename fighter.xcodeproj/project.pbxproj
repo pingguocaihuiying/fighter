@@ -259,6 +259,9 @@
 		E6B458D81CB75DB200FB4261 /* FTBoxingHallViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6B458D61CB75DB200FB4261 /* FTBoxingHallViewController.xib */; };
 		E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458DA1CB75E5000FB4261 /* FTBaseTabBarViewController.m */; };
 		E6B458DE1CB7B2B100FB4261 /* FTTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458DD1CB7B2B100FB4261 /* FTTableViewController.m */; };
+		E6C4D7ED1CEC5E7B00D73BFC /* FTUserTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7EC1CEC5E7B00D73BFC /* FTUserTools.m */; };
+		E6C4D7F11CEC5FCE00D73BFC /* FTArenaNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7F01CEC5FCE00D73BFC /* FTArenaNetwork.m */; };
+		E6C4D7F61CEC695600D73BFC /* FTSelectedCategoriesView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7F51CEC695600D73BFC /* FTSelectedCategoriesView.m */; };
 		E6D2F8D71CE95FB100160788 /* FTArenaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8D51CE95FB100160788 /* FTArenaViewController.m */; };
 		E6D2F8D81CE95FB100160788 /* FTArenaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6D2F8D61CE95FB100160788 /* FTArenaViewController.xib */; };
 		E6D2F8DD1CE965A100160788 /* NIDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8DC1CE965A100160788 /* NIDropDown.m */; };
@@ -773,6 +776,12 @@
 		E6B458DA1CB75E5000FB4261 /* FTBaseTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBaseTabBarViewController.m; sourceTree = "<group>"; };
 		E6B458DC1CB7B2B100FB4261 /* FTTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTableViewController.h; sourceTree = "<group>"; };
 		E6B458DD1CB7B2B100FB4261 /* FTTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTableViewController.m; sourceTree = "<group>"; };
+		E6C4D7EB1CEC5E7B00D73BFC /* FTUserTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserTools.h; sourceTree = "<group>"; };
+		E6C4D7EC1CEC5E7B00D73BFC /* FTUserTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserTools.m; sourceTree = "<group>"; };
+		E6C4D7EF1CEC5FCE00D73BFC /* FTArenaNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaNetwork.h; sourceTree = "<group>"; };
+		E6C4D7F01CEC5FCE00D73BFC /* FTArenaNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaNetwork.m; sourceTree = "<group>"; };
+		E6C4D7F41CEC695600D73BFC /* FTSelectedCategoriesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSelectedCategoriesView.h; sourceTree = "<group>"; };
+		E6C4D7F51CEC695600D73BFC /* FTSelectedCategoriesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTSelectedCategoriesView.m; sourceTree = "<group>"; };
 		E6D2F8D41CE95FB100160788 /* FTArenaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaViewController.h; sourceTree = "<group>"; };
 		E6D2F8D51CE95FB100160788 /* FTArenaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaViewController.m; sourceTree = "<group>"; };
 		E6D2F8D61CE95FB100160788 /* FTArenaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaViewController.xib; sourceTree = "<group>"; };
@@ -1984,9 +1993,45 @@
 			name = BoxingHall;
 			sourceTree = "<group>";
 		};
+		E6C4D7EA1CEC5E2000D73BFC /* 获取本地用户信息 */ = {
+			isa = PBXGroup;
+			children = (
+				E6C4D7EB1CEC5E7B00D73BFC /* FTUserTools.h */,
+				E6C4D7EC1CEC5E7B00D73BFC /* FTUserTools.m */,
+			);
+			name = "获取本地用户信息";
+			sourceTree = "<group>";
+		};
+		E6C4D7EE1CEC5FB200D73BFC /* network */ = {
+			isa = PBXGroup;
+			children = (
+				E6C4D7EF1CEC5FCE00D73BFC /* FTArenaNetwork.h */,
+				E6C4D7F01CEC5FCE00D73BFC /* FTArenaNetwork.m */,
+			);
+			name = network;
+			sourceTree = "<group>";
+		};
+		E6C4D7F21CEC68ED00D73BFC /* 发新帖 */ = {
+			isa = PBXGroup;
+			children = (
+				E6C4D7F31CEC68F800D73BFC /* 标签展示 */,
+			);
+			name = "发新帖";
+			sourceTree = "<group>";
+		};
+		E6C4D7F31CEC68F800D73BFC /* 标签展示 */ = {
+			isa = PBXGroup;
+			children = (
+				E6C4D7F41CEC695600D73BFC /* FTSelectedCategoriesView.h */,
+				E6C4D7F51CEC695600D73BFC /* FTSelectedCategoriesView.m */,
+			);
+			name = "标签展示";
+			sourceTree = "<group>";
+		};
 		E6D2F8D21CE95F0C00160788 /* 格斗场Arena */ = {
 			isa = PBXGroup;
 			children = (
+				E6C4D7EE1CEC5FB200D73BFC /* network */,
 				E6D2F8E71CEAA8F900160788 /* ViewController */,
 				E6D2F8E81CEAA90600160788 /* Views */,
 			);
@@ -2001,13 +2046,6 @@
 				E6D2F8D61CE95FB100160788 /* FTArenaViewController.xib */,
 			);
 			name = main;
-			sourceTree = "<group>";
-		};
-		E6D2F8D91CE962D000160788 /* 获取标签分类 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "获取标签分类";
 			sourceTree = "<group>";
 		};
 		E6D2F8DA1CE9658200160788 /* 下拉框 */ = {
@@ -2059,6 +2097,7 @@
 		E6D2F8E81CEAA90600160788 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E6C4D7F21CEC68ED00D73BFC /* 发新帖 */,
 				E6D2F8E61CEAA8BF00160788 /* cell */,
 			);
 			name = Views;
@@ -2067,7 +2106,7 @@
 		E6D74A301CB7B7EE00854337 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				E6D2F8D91CE962D000160788 /* 获取标签分类 */,
+				E6C4D7EA1CEC5E2000D73BFC /* 获取本地用户信息 */,
 				E668BBB81CE44D3900071998 /* 缓存 */,
 				E6D74A311CB7B7EE00854337 /* Categorys */,
 				E6D74A3A1CB7B7EE00854337 /* UUID.h */,
@@ -2526,6 +2565,7 @@
 				E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */,
 				3DC412121CD039D70030C229 /* MASViewAttribute.m in Sources */,
 				E66D6EFA1CBCE81C008B015A /* RBRequestOperationManager.m in Sources */,
+				E6C4D7F61CEC695600D73BFC /* FTSelectedCategoriesView.m in Sources */,
 				E68050BF1CBF919A00678905 /* UIScrollView+JHExtension.m in Sources */,
 				E668BAB01CE0565700071998 /* MJRefreshFooter.m in Sources */,
 				E6E580A91CBE2F2D00272242 /* UIButton+WebCache.m in Sources */,
@@ -2548,6 +2588,7 @@
 				3D6947101CE3374000989440 /* FTUserViewController.m in Sources */,
 				3DC4120E1CD039D70030C229 /* MASCompositeConstraint.m in Sources */,
 				E6B458DE1CB7B2B100FB4261 /* FTTableViewController.m in Sources */,
+				E6C4D7ED1CEC5E7B00D73BFC /* FTUserTools.m in Sources */,
 				3D4B193C1CD9FD670022DFB0 /* UMFullScreenPhotoView.m in Sources */,
 				3D4B19691CDB7AE20022DFB0 /* FTSexPickerView.m in Sources */,
 				3D7B98A41CE0190600B80B8D /* FTAbountUsViewController.m in Sources */,
@@ -2569,6 +2610,7 @@
 				E6E580AA1CBE2F2D00272242 /* UIImage+GIF.m in Sources */,
 				E6B458D21CB75DA200FB4261 /* FTInformationViewController.m in Sources */,
 				3DE95BA71CD86FA4005BF85C /* FTLoginViewController.m in Sources */,
+				E6C4D7F11CEC5FCE00D73BFC /* FTArenaNetwork.m in Sources */,
 				E66D6F181CBCE843008B015A /* AFURLSessionManager.m in Sources */,
 				E66D6F131CBCE843008B015A /* AFNetworkReachabilityManager.m in Sources */,
 				E6E580A61CBE2F2D00272242 /* SDWebImageDownloaderOperation.m in Sources */,

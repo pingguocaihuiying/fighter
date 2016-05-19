@@ -36,6 +36,9 @@
 
 //导入一些常用类
 #import "FTNewsBean.h"
+#import "FTUserTools.h"
+#import "UIView+YBAddtitions.h"
+#import "FTUserBean.h"
 
 //导入友盟统计的类
 #import "Mobclick.h"

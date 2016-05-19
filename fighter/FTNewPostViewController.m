@@ -7,6 +7,8 @@
 //
 
 #import "FTNewPostViewController.h"
+#import "FTSelectedCategoriesView.h"
+#import "FTArenaNetwork.h"
 
 @interface FTNewPostViewController ()
 
@@ -26,11 +28,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setHideKeyboardEvent];
+    [self setSubViews];
+}
+
+- (void)setSubViews{
+    //设置顶部的按钮
     [self setTopButton];
-    //收起键盘
+    
+    //设置下方的”项目标签“
+    [self setPostCategories];
+}
+
+- (void)setHideKeyboardEvent{
+    //点击空白收起键盘
     UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped)];
     tapGr.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapGr];
+}
+
+- (void)setPostCategories{
+    NSLog(@"bottom : %f", self.contentTextView.bottom);
+    FTSelectedCategoriesView *selectCategoriesView = [[FTSelectedCategoriesView alloc]initWithFrame:CGRectMake(4, self.contentTextViewContainer.bottom + 5, SCREEN_WIDTH - 4 * 2, 17 + 15 * 1 + 21)];
+//    selectCategoriesView.backgroundColor = [UIColor redColor];
+    [self.view addSubview:selectCategoriesView];
 }
 
 - (void)viewTapped{
@@ -87,8 +108,49 @@
  *  发布按钮被点击
  */
 - (void)newPostButtonClicked{
+    FTArenaNetwork *arenaNetwork = [FTArenaNetwork new];
+    FTUserBean *localUser = [FTUserTools getLocalUser];//获取本地用户
+    
+    NSString *userId = localUser.olduserid;
+//    NSString *userId = @"2345";
+    
+    NSString *loginToken = localUser.token;
+    NSString *ts = [NSString stringWithFormat:@"%f", [[NSDate date]timeIntervalSince1970]];
+    
     NSString *title = self.titleTextField.text;
     NSString *content = self.contentTextView.text;
+    NSString *tableName = @"damageblog";
+    NSString *nickname = localUser.username;
+    NSString *headUrl = localUser.headpic;
+    NSString *urlPrefix = @"";
+    NSString *pictureUrlNames = @"";
+    NSString *videoUrlNames = @"";
+    NSString *thumbUrl = @"";
+    NSString *labels = @"Boxing";
+    
+//    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@", content, headUrl, loginToken,nickname,pictureUrlNames,tableName,thumbUrl,title,ts,urlPrefix,userId,videoUrlNames ,NewPostCheckKey]];
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@", content, labels, loginToken,pictureUrlNames,tableName,thumbUrl,title,ts,urlPrefix,userId,videoUrlNames ,NewPostCheckKey]];
+    
+    NSDictionary *dic = @{
+                          @"userId":userId,
+                          @"loginToken":loginToken,
+                          @"ts":ts,
+                          @"title":title,
+                          @"content":content,
+                          @"tableName":tableName,
+//                          @"nickname":nickname,
+//                          @"headUrl":headUrl,
+                          @"urlPrefix":urlPrefix,
+                          @"pictureUrlNames":pictureUrlNames,
+                          @"videoUrlNames":videoUrlNames,
+                          @"thumbUrl":thumbUrl,
+                          @"labels":labels,
+                          @"checkSign":checkSign
+                          };
+    
+    [arenaNetwork newPostWithDic:dic andOption:^(NSDictionary *dict) {
+        NSLog(@"status : %@, message : %@", dict[@"status"], dict[@"message"]);
+    }];
 }
 
 - (void)popVC{
