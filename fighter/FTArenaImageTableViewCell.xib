@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -16,7 +16,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="金属边框-改进ios" translatesAutoresizingMaskIntoConstraints="NO" id="MAF-s2-avg">
-                        <rect key="frame" x="0.0" y="0.0" width="342" height="201"/>
+                        <rect key="frame" x="0.0" y="0.0" width="342" height="196"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="32岁欧文斯" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N3P-eC-yh8" userLabel="title">
                         <rect key="frame" x="19" y="17" width="304" height="16"/>
@@ -98,7 +98,7 @@
                             <constraint firstAttribute="width" constant="32" id="9VM-9I-p6l"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S98-3P-Dd6">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="身份一堆-裁判" translatesAutoresizingMaskIntoConstraints="NO" id="S98-3P-Dd6" userLabel="身份">
                         <rect key="frame" x="139" y="160" width="34" height="14"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="34" id="Oq2-p8-CZ0"/>
@@ -113,7 +113,7 @@
                         </constraints>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aGM-Lu-yUN">
-                        <rect key="frame" x="19" y="48" width="164" height="92"/>
+                        <rect key="frame" x="89" y="48" width="164" height="92"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YpN-VV-Azu" userLabel="placeholdBgView">
                                 <rect key="frame" x="0.0" y="0.0" width="164" height="92"/>
@@ -149,7 +149,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="YNe-Cc-9Cp" firstAttribute="leading" secondItem="I4f-fZ-TTv" secondAttribute="trailing" constant="8" id="1ar-FJ-A9a"/>
-                    <constraint firstAttribute="bottom" secondItem="MAF-s2-avg" secondAttribute="bottom" id="4UB-lh-PwY"/>
+                    <constraint firstAttribute="bottom" secondItem="MAF-s2-avg" secondAttribute="bottom" constant="5" id="4UB-lh-PwY"/>
                     <constraint firstItem="N3P-eC-yh8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="5TN-j8-Oai"/>
                     <constraint firstItem="AtB-Fj-5ws" firstAttribute="top" secondItem="NOA-75-P4H" secondAttribute="bottom" constant="8" id="7cd-zg-iE3"/>
                     <constraint firstItem="MAF-s2-avg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="7hA-Ws-lO8"/>
@@ -167,6 +167,7 @@
                     <constraint firstItem="z0a-sI-49I" firstAttribute="leading" secondItem="I4f-fZ-TTv" secondAttribute="trailing" constant="8" id="QhF-oT-8dQ"/>
                     <constraint firstItem="S98-3P-Dd6" firstAttribute="top" secondItem="z0a-sI-49I" secondAttribute="top" id="RAJ-Zt-qhO"/>
                     <constraint firstItem="NOA-75-P4H" firstAttribute="centerY" secondItem="S98-3P-Dd6" secondAttribute="centerY" id="UyW-SW-Eqa"/>
+                    <constraint firstItem="aGM-Lu-yUN" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="W6q-QQ-RBc"/>
                     <constraint firstItem="pYp-mf-lmb" firstAttribute="leading" secondItem="Mgv-S9-cNo" secondAttribute="trailing" constant="14" id="X0f-yD-qtb"/>
                     <constraint firstAttribute="trailingMargin" secondItem="NOA-75-P4H" secondAttribute="trailing" constant="7" id="aPR-ie-3xp"/>
                     <constraint firstItem="Mgv-S9-cNo" firstAttribute="centerY" secondItem="pYp-mf-lmb" secondAttribute="centerY" id="aRX-r9-Y1p"/>
@@ -176,6 +177,11 @@
                     <constraint firstItem="N3P-eC-yh8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="17" id="mp4-0q-iFv"/>
                     <constraint firstItem="aGM-Lu-yUN" firstAttribute="top" secondItem="N3P-eC-yh8" secondAttribute="bottom" constant="15" id="vDY-ab-okd"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="HwJ-kf-P65"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="imageViewHeight" destination="KWM-iU-Y0d" id="CdX-at-ZCR"/>
@@ -188,6 +194,7 @@
         <image name="空图标小" width="52" height="16"/>
         <image name="评-改" width="22" height="22"/>
         <image name="赞-改" width="22" height="22"/>
+        <image name="身份一堆-裁判" width="34" height="14"/>
         <image name="金属边框-改进ios" width="67" height="60"/>
     </resources>
 </document>

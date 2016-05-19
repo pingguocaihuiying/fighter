@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="金属边框-改进ios" translatesAutoresizingMaskIntoConstraints="NO" id="Db9-DG-dUH">
-                        <rect key="frame" x="0.0" y="0.0" width="342" height="179"/>
+                        <rect key="frame" x="0.0" y="0.0" width="342" height="174"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="32岁欧文斯" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUv-8h-bqb" userLabel="title">
                         <rect key="frame" x="19" y="17" width="304" height="16"/>
@@ -142,7 +142,7 @@
                     <constraint firstItem="RLO-dr-dc3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="gNb-ag-sRj"/>
                     <constraint firstItem="AUv-8h-bqb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="h9I-wM-RVQ"/>
                     <constraint firstItem="Db9-DG-dUH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="iVU-Yo-bFy"/>
-                    <constraint firstAttribute="bottom" secondItem="Db9-DG-dUH" secondAttribute="bottom" id="j84-QY-bW0"/>
+                    <constraint firstAttribute="bottom" secondItem="Db9-DG-dUH" secondAttribute="bottom" constant="5" id="j84-QY-bW0"/>
                     <constraint firstItem="AEU-VN-Q5h" firstAttribute="top" secondItem="Ta1-2b-abj" secondAttribute="bottom" constant="8" id="jFR-Cr-bbw"/>
                     <constraint firstItem="4HW-4B-n6d" firstAttribute="leading" secondItem="PdL-gg-71O" secondAttribute="trailing" id="loC-cv-E6u"/>
                     <constraint firstItem="AEU-VN-Q5h" firstAttribute="leading" secondItem="RLO-dr-dc3" secondAttribute="trailing" constant="8" id="nYu-lZ-24r"/>

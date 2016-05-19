@@ -189,12 +189,12 @@
 
         
         if ([@"" isEqualToString:@"2"]) {//如果是文本类型的cell
-            height = 180;
+            height = 185;
         }else{//如果是带图片的cell
-        height = 212;
+        height = 217;
             //图片原始高度
-            CGFloat imageHeight = 92;
-            height = (height - imageHeight) + imageHeight * SCALE;
+//            CGFloat imageHeight = 92;
+//            height = (height - imageHeight) + imageHeight * SCALE;
         }
     }
     

@@ -13,7 +13,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.imageViewWidth.constant *= SCALE;
-    self.imageViewHeight.constant *= SCALE;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
