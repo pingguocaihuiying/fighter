@@ -139,6 +139,12 @@ NSString * const IsValidatePhone =  @"/api/newuser/validatePhone.do";
 
 
 
+//排行榜
+NSString * const GetRankListURL = @"/api/ranking/list.do";//排行榜
+NSString * const GetRankSearchItemURL = @"/api/ranking/getRankSearchItems.do";//排行帅选项
+
+
+
 //校验码
 NSString * const GetStatusCheckKey =  @"gedoujia25fdsgfd55fdsafsag21254";
     //增加投票

@@ -12,16 +12,29 @@
 #import "FTHeightPickerView.h"
 #import "FTRankTableVIewCell.h"
 #import "FTRankHeaderCell.h"
+#import "NetWorking.h"
+#import "DBManager.h"
+#import "UIWindow+MBProgressHUD.h"
 
 @interface FTRankViewController ()  <FTSelectCellDelegate>
 
 @property (nonatomic, strong) FTButton *kindBtn;
 @property (nonatomic, strong) FTButton *matchBtn;
 @property (nonatomic, strong) FTButton *levelBtn;
+
+@property (nonatomic, strong) NSArray *kingArray;
+@property (nonatomic, strong) NSArray *matchArray;
+@property (nonatomic, strong) NSArray *levelArray;
+
+@property (nonatomic, copy) NSString *selectKind;
+@property (nonatomic, copy) NSString *selectMatch;
+@property (nonatomic, copy) NSString *selectLevel;
+@property (nonatomic, assign) NSInteger pageNum;
+
 @property (nonatomic, strong) UITableView *headerTableView;
-
 @property (nonatomic, strong) NSMutableArray *dataArray;
-
+@property (nonatomic, strong) UIImageView *placeholderImageView;
+@property (nonatomic, strong) UIImageView *shadow;
 @end
 
 @implementation FTRankViewController
@@ -33,16 +46,120 @@
     [super viewDidLoad];
     NSLog(@"viewDidLoad");
 
-    self.title = @"格斗之王";
+    self.title = @"排行榜";
     
+    [self getRankListLabelArray];
     
-//    [self setButton];
+    [self initArray];
+    [self getContentDataFromWeb];
+    
     [self initSubViews];
     
 }
 
+//从数据库取筛选标签数据
+- (void) initArray {
+    
+    _kingArray = [[NSArray alloc]init];
+    _matchArray = [[NSArray alloc]init];
+    _levelArray = [[NSArray alloc]init];
+    
+    //从数据库取数据
+    DBManager *dbManager = [DBManager shareDBManager];
+    [dbManager connect];
+    _kingArray = [dbManager searchLabel];
+    
+    if (_kingArray.count > 0) {
+        
+        _matchArray = [dbManager searchItem:[_kingArray objectAtIndex:0] type:1];
+        _levelArray = [dbManager searchItem:[_kingArray objectAtIndex:0] type:2];
+        
+    }
+    [dbManager close];
+    
+    
+    [self updateSelectTitle];
+    
+    if(_dataArray.count > 0) {
+        [self fixViewSize];
+    }
+}
 
+//更新筛选标签
+-(void) updateSelectTitle {
 
+    if (_kingArray.count > 0) {
+        _selectKind = [_kingArray objectAtIndex:0];
+        [_kindBtn setTitle:_selectKind forState:UIControlStateNormal];
+    }else {
+        _selectKind = @"类别";
+    }
+    if (_matchArray.count > 0) {
+        _selectMatch = [_matchArray objectAtIndex:0];
+        [_matchBtn setTitle:_selectMatch forState:UIControlStateNormal];
+        
+    }else {
+        _selectMatch = @"赛事";
+    }
+    
+    if (_levelArray.count > 0) {
+        _selectLevel = [_levelArray objectAtIndex:0];
+        [_levelBtn setTitle:_selectLevel forState:UIControlStateNormal];
+        
+    }else {
+        _selectLevel = @"级别";
+    }
+
+}
+
+-(void) getContentDataFromWeb {
+
+    NetWorking *net = [[NetWorking alloc]init];
+    [net getRankListWithLabel:_selectKind
+                         race:_selectMatch
+                FeatherWeight:_selectLevel
+                      pageNum:_pageNum
+                       option:^(NSDictionary *dict) {
+                           
+                           [self checkNetWokingStatus];
+                           if (dict != nil) {
+                               
+                               if ([dict[@"status"] isEqualToString:@"success"]) {
+                                   _dataArray = dict[@"data"];
+                                   
+//                                   if(_dataArray.count > 0){
+//                                       [self fixViewSize];
+//                                   }
+                                   [self fixViewSize];
+                               }else {
+                               
+//                                   [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                   
+                               }
+                           }else {
+                           
+//                               [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[@"网络错误"stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                               
+                           }
+                           
+        
+                       }];
+}
+
+//检查网络连接情况
+- (void) checkNetWokingStatus {
+//    self.netStatus = [GLobalRealReachability currentReachabilityStatus];
+    if (self.netStatus == RealStatusNotReachable || self.netStatus == RealStatusUnknown ) {
+        if(self.placeholderImageView ) {
+            [self.placeholderImageView setImage:[UIImage imageNamed:@"无网络"]];
+        }
+    }else {
+        if(self.placeholderImageView ) {
+            [self.placeholderImageView setImage:[UIImage imageNamed:@"无数据"]];
+        }
+    }
+    
+}
 - (FTButton *) selectButton:(NSString *)title {
 
     CGFloat buttonW = (SCREEN_WIDTH - 12*2)/3;
@@ -72,8 +189,8 @@
     }];
     
     return selectBtn;
-    
 }
+
 
 
 - (void) initSubViews {
@@ -89,19 +206,19 @@
     CGFloat buttonW = (SCREEN_WIDTH - 12*2)/3;
     
     //格斗种类筛选按钮
-    self.kindBtn = [self selectButton:@"拳击"];
+    self.kindBtn = [self selectButton:_selectKind];
     self.kindBtn.frame = CGRectMake((buttonW+12)* 0, 0, buttonW, 40);
     [self.kindBtn addTarget:self action:@selector(searchFighterKinds:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:self.kindBtn];
     
     //格斗赛事筛选按钮
-    self.matchBtn = [self selectButton:@"WBA"];
+    self.matchBtn = [self selectButton:_selectMatch];
     self.matchBtn .frame = CGRectMake((buttonW+12)* 1, 0, buttonW, 40);
      [self.matchBtn addTarget:self action:@selector(searchFighterMatchs:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:self.matchBtn];
     
     //格斗重量级筛选按钮
-    self.levelBtn = [self selectButton:@"50kg级"];
+    self.levelBtn = [self selectButton:_selectLevel];
     self.levelBtn .frame = CGRectMake((buttonW+12)* 2, 0, buttonW, 40);
      [self.levelBtn addTarget:self action:@selector(searchFighterLevels:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:self.levelBtn ];
@@ -118,10 +235,6 @@
     }
     
     
-    
-    
-    
-    
     @try {
         self.scrollView = [[UIScrollView alloc]init];
         self.scrollView.frame = CGRectMake(0, 104, SCREEN_WIDTH, SCREEN_HEIGHT-104);
@@ -133,7 +246,7 @@
         self.headerTableView = [[UITableView alloc]init];
         self.headerTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH,180);
         self.headerTableView.backgroundColor = [UIColor clearColor];
-        self.headerTableView.scrollEnabled = YES;
+        self.headerTableView.scrollEnabled = NO;
         
         [self.headerTableView registerNib:[UINib nibWithNibName:@"FTRankHeaderCell" bundle:nil] forCellReuseIdentifier:@"cellId"];
         self.headerTableView.dataSource = self;
@@ -142,6 +255,11 @@
         
         [self.scrollView addSubview:self.headerTableView];
         
+        //tableView 背景阴影
+        self.shadow = [[UIImageView alloc]initWithFrame:CGRectMake(0, 179, SCREEN_WIDTH, 50)];
+        [self.shadow setImage:[UIImage imageNamed:@"排行第一名底部向下渐变"]];
+        self.shadow.backgroundColor = [UIColor clearColor];
+        [self.scrollView addSubview:self.shadow];
         
         //tableView 背景
         self.tableImageView = [[UIImageView alloc]init];
@@ -150,35 +268,81 @@
         self.tableImageView.userInteractionEnabled = YES;
         [self.scrollView addSubview:self.tableImageView];
         
+        
         //排名tableView
         self.tableView = [[UITableView alloc]init];
         self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 180-104);
         self.tableView.backgroundColor = [UIColor clearColor];
-        self.tableView.scrollEnabled = YES;
+        self.tableView.scrollEnabled = NO;
         
         [self.tableView registerNib:[UINib nibWithNibName:@"FTRankTableVIewCell" bundle:nil] forCellReuseIdentifier:@"cellId"];
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
         [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         
-        [self.tableImageView addSubview:self.tableView];    }
+        [self.tableImageView addSubview:self.tableView];
+    }
     @catch (NSException *exception) {
         NSLog(@"exception:%@",exception);
     }
     @finally {
         
     }
-
+    
+    
+    self.placeholderImageView = [[UIImageView alloc]init];
+//    [self.placeholderImageView setBounds:CGRectMake(0, 0, 240, 240)];
+//    self.placeholderImageView.center = self.scrollView.center;
+    [self.scrollView addSubview:self.placeholderImageView];
+    [self.placeholderImageView setFrame:CGRectMake((SCREEN_WIDTH- 240)/2, (SCREEN_HEIGHT-240)/2-104, 240, 240)];
+    
+//    [self.placeholderImageView setFrame:CGRectMake((SCREEN_WIDTH- 240)/2, (SCREEN_HEIGHT-240)/2, 240, 240)];
+//    [self.placeholderImageView setImage:[UIImage imageNamed:@"无数据"]];
+//    [self.view addSubview:self.placeholderImageView];
+//    [self.placeholderImageView setBackgroundColor:[UIColor whiteColor]];
+    [self.placeholderImageView setHidden:YES];
 }
 
 
 - (void) fixViewSize {
     
+    
+    [self checkNetWokingStatus];
     @try {
-        self.tableImageView.frame  = CGRectMake(0, 180, SCREEN_WIDTH, 56*17+5);
-        self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 56*17);
-        self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH,180+56*17);
-        self.scrollView.scrollEnabled = YES;
+        NSInteger count = self.dataArray.count;
+        if (count > 0) {
+            self.headerTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 180);
+            self.tableImageView.frame  = CGRectMake(0, 180, SCREEN_WIDTH, 56*(count-1)+5);
+            self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 56*(count-1));
+            
+            CGFloat h = 180+56*count;
+            
+            if (h <= self.scrollView.frame.size.height) {
+                h = self.scrollView.frame.size.height+1;
+            }
+            self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH,h);
+            
+            [self.headerTableView reloadData];
+            [self.tableView reloadData];
+//            [self.scrollView setHidden:NO];
+            [self.placeholderImageView setHidden:YES];
+//            [self.headerTableView setHidden:NO];
+//            [self.tableView setHidden:NO];
+            [self.shadow setHidden:NO];
+
+        }else {
+            self.headerTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 0);
+            self.tableImageView.frame  = CGRectMake(0, 180, SCREEN_WIDTH, 0);
+            self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 0);
+            self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH,self.scrollView.frame.size.height+1);
+            
+            [self.placeholderImageView setHidden:NO];
+//            [self.headerTableView setHidden:YES];
+//            [self.tableView setHidden:YES];
+            
+            [self.shadow setHidden:YES];
+//            [self.scrollView setHidden:YES];
+        }
     }
     @catch (NSException *exception) {
         NSLog(@"exception:%@",exception);
@@ -187,7 +351,6 @@
         
     }
     
-
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -195,9 +358,41 @@
     [self fixViewSize];
 }
 
+#pragma mark - 获取列表信息
 
-#pragma mark - response 
+//获取列表筛选标签
+- (void) getRankListLabelArray {
+    
+    NetWorking *net = [[NetWorking alloc]init];
+    [net getRankLabels:^(NSDictionary *dict) {
+        NSLog(@"Labels:%@",dict);
+        if (dict != nil) {
+             NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+            if ([dict[@"status"] isEqualToString:@"success"]) {
+                
+                DBManager *dbManager = [DBManager shareDBManager];
+                [dbManager connect];
+                [dbManager createLabelsTable];
+                
+                NSArray *labels= dict[@"data"];
+                for (NSDictionary *dic in labels) {
+//                    NSLog(@"item:%@",[dic[@"item"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+//                    NSLog(@"label:%@",[dic[@"label"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+//                    NSLog(@"label:%@",[dic[@"label"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+                    
+                   
+                    [dbManager insertDataIntoLabels:dic];
+                    
+                }
+                
+                [dbManager close];
+                [self initArray];
+            }
+        }
+    }];
+}
 
+#pragma mark - response
 //格斗项目检索
 - (void) searchFighterKinds:(id)sender {
     UIButton *button = sender;
@@ -206,7 +401,11 @@
                                                                       style:FTRankTableViewStyleLeft
                                                                      option:^(FTRankTableView *searchTableView) {
                                                                          
-                                                                         searchTableView.dataArray = [[NSArray alloc] initWithObjects:@"拳击",@"散打",@"自由搏击",@"跆拳道",@"截拳道",@"跆拳道",@"跆拳道",@"跆拳道",@"散打",@"散打",nil];
+                                                
+                                                                         searchTableView.dataArray = _kingArray;
+                                                                         
+                                                                         //设置数据类型
+                                                                          searchTableView.dataType = FTDataTypeStringArray;
                                                                          
                                                                          searchTableView.tableW = button.frame.size.width;
                                                                          searchTableView.tableH = 40*5;
@@ -214,6 +413,9 @@
                                                                          searchTableView.offsetY = 40;
                                                                          searchTableView.offsetX = 5;
                                                                          
+                                                                         
+                                                                         searchTableView.cellH = 40;
+                                                                         [searchTableView caculateTableHeight];
                                                                          
                                                                          
                                                                      }];
@@ -236,7 +438,9 @@
                                                                        style:FTRankTableViewStyleCenter
                                                                      option:^(FTRankTableView *searchTableView) {
                                                                          
-                                                                         searchTableView.dataArray = [[NSArray alloc] initWithObjects:@"拳击",@"散打",@"自由搏击",@"跆拳道",@"截拳道",@"跆拳道",@"跆拳道",@"跆拳道跆拳道跆拳道跆拳道跆拳",@"散打",@"散打",nil];
+                                                                        searchTableView.dataArray = _matchArray;
+                                                                         //设置数据类型
+                                                                          searchTableView.dataType = FTDataTypeStringArray;
                                                                          
                                                                          searchTableView.tableW = button.frame.size.width;
                                                                          searchTableView.tableH = 40*5;
@@ -244,7 +448,9 @@
                                                                          searchTableView.offsetY = 40;
                                                                          searchTableView.offsetX = 0;
                                                                          
-                                                                         
+                                                                         searchTableView.cellH = 40;
+                                                                         [searchTableView caculateTableHeight];
+                                                                     
                                                                          
                                                                      }];
     
@@ -266,7 +472,9 @@
                                                                       style:FTRankTableViewStyleRight
                                                                      option:^(FTRankTableView *searchTableView) {
                                                                          
-                                                                         searchTableView.dataArray = [[NSArray alloc] initWithObjects:@"拳击",@"散打",@"自由搏击",@"跆拳道",@"截拳道",@"跆拳道",@"跆拳道",@"跆拳道跆拳道跆拳道跆拳道",@"散打",@"散打",nil];
+                                                                         searchTableView.dataArray = _levelArray;
+                                                                         //设置数据类型
+                                                                         searchTableView.dataType = FTDataTypeStringArray;
                                                                          
                                                                          searchTableView.tableW = button.frame.size.width;
                                                                          searchTableView.tableH = 40*5;
@@ -274,8 +482,8 @@
                                                                          searchTableView.offsetY = 40;
                                                                          searchTableView.offsetX = -5;
                                                                          
-                                                                         
-                                                                         
+                                                                         searchTableView.cellH = 40;
+                                                                         [searchTableView caculateTableHeight];
                                                                      }];
     
     [self.view addSubview:levelTableView];
@@ -289,10 +497,63 @@
 
 #pragma mark FTSelectCellDelegate
 
-- (void) selectedValue:(NSDictionary *)dic {
+- (void) selectedValue:(NSString *)value style:(FTRankTableViewStyle) style {
     
+    //从数据库取数据
+    DBManager *dbManager = [DBManager shareDBManager];
+    [dbManager connect];
+    
+    switch (style) {
+        case FTRankTableViewStyleLeft:
+        {
+           
+            _matchArray = [dbManager searchItem:value type:1];
+            _levelArray = [dbManager searchItem:value type:2];
+            
+            _selectKind = value;
+            
+            if (_matchArray.count > 0) {
+                _selectMatch = [_matchArray objectAtIndex:0];
+                
+            }else {
+            
+                _selectMatch = @"全部";
+            }
+            
+            if (_levelArray.count > 0) {
+                _selectLevel = [_levelArray objectAtIndex:0];
+            }else {
+            
+                _selectLevel = @"全部";
+            }
+            
+            [self.matchBtn setTitle:_selectMatch forState:UIControlStateNormal];
+            [self.levelBtn setTitle:_selectLevel forState:UIControlStateNormal];
+        }
+            break;
+        case FTRankTableViewStyleCenter:
+        {
+            _selectMatch = value;
+            
+        }
+            break;
+        case FTRankTableViewStyleRight:
+        {
+            _selectLevel = value;
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    [dbManager close];
+    
+    [self getContentDataFromWeb];
     
 }
+
+
 
 #pragma mark - tableView datasouce and delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -302,7 +563,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (tableView == self.tableView) {
-        return 17;
+        return self.dataArray.count -1;
     }else {
     
         return 1;
@@ -317,49 +578,76 @@
         return 56 ;
     }else {
         
-        return 180 ;
+        return 180;
     }
-    
+
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    
+    
     if (tableView == self.tableView) {
+        
+        NSDictionary *dic = [self.dataArray objectAtIndex:indexPath.row+1];
+        NSString *headUrl = dic[@"headUrl"];
+        NSString *name = dic[@"name"];
+        NSString *rank  = [NSString stringWithFormat:@"%@",dic[@"ranking"]] ;
+        NSString *height = dic[@"height"];
+        NSString *weight = dic[@"weight"];
         NSLog(@"cell");
         FTRankTableVIewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
-        //    cell.backgroundColor = [UIColor clearColor];
-        //    cell.contentLabel.text = @"拳击";
-        //    cell.contentLabel.text = [_dataArray objectAtIndex:[indexPath row]];
+        [cell.avatarImageView  sd_setImageWithURL:[NSURL URLWithString:headUrl] placeholderImage:[UIImage imageNamed:@"头像-空"]];
+        [cell.nameLabel setText:name];
+        [cell.rankLabel setText:rank];
+        [cell.heightLabel setText:[height stringByAppendingString:@"cm"]];
+        [cell.weightLabel setText:[weight stringByAppendingString:@"kg"]];
         return cell;
     }else {
+        NSDictionary *dic = [self.dataArray objectAtIndex:indexPath.row];
+        NSString *headUrl = dic[@"background"];
+        NSString *name = dic[@"name"];
+        NSString *brief = dic[@"brief"];
+        NSString *height = dic[@"height"];
+        NSString *weight = dic[@"weight"];
         
         FTRankHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
-        [cell setBriefLabelText:@"一段文字简介一段文字简介一段文字简介一段文字简介一段文字简介一段文字简介一段文字简介一段文字简介"];
+        if (brief != nil) {
+            [cell setBriefLabelText:brief];
+        }
+        
+        [cell.avatarImageView  sd_setImageWithURL:[NSURL URLWithString:headUrl] placeholderImage:[UIImage imageNamed:@"第一名-默认图"]];
+        [cell.nameLabel setText:name];
+        [cell.heightLabel setText:[height stringByAppendingString:@"cm"]];
+        [cell.weightLabel setText:[weight stringByAppendingString:@"kg"]];
         return cell;
     }
-    
 }
 
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"did select cell");
+    if (tableView == self.tableView) {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        [cell setSelected:NO];
+    }
+}
+
+
+
+#pragma mark - private methods
+- (NSArray *) fetchLabelsFromDatabase {
     
+    //从数据库取数据
+    DBManager *dbManager = [DBManager shareDBManager];
+    [dbManager connect];
+    NSArray *dataArray = [dbManager searchItem:@"拳击" type:1];
+    [dbManager close];
+    
+    return dataArray;
 }
 
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-//- (void) backBtnAction:(id)sender {
-//
-//    testVCViewController *testVC = [[testVCViewController alloc]initWithNibName:@"testVCViewController" bundle:nil];
-//    testVC.title = @"test";
-//    [self.navigationController pushViewController:testVC animated:YES];
-//}
 
 @end

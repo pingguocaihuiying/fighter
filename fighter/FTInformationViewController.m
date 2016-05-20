@@ -552,7 +552,7 @@
 - (IBAction)rankButtonClicked:(id)sender {
     
     FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
-    rankHomeVC.title = @"格斗之王";
+//    rankHomeVC.title = @"排行榜";
     [self.navigationController pushViewController:rankHomeVC animated:YES];
     
 

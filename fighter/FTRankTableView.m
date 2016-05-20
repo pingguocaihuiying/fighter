@@ -39,7 +39,6 @@
         [self initSubviews];
         [self setTouchEvent];
         
-      
     }
     
     return self;
@@ -66,7 +65,7 @@
     if (!CGRectContainsPoint(frame, point)) {
 
          CGRect tableFram = self.tableView.frame;
-        [UIView animateWithDuration:0.4 animations:^{
+        [UIView animateWithDuration:0.2 animations:^{
             self.imageView.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, 0);
             self.tableView.frame = CGRectMake(tableFram.origin.x, tableFram.origin.y, tableFram.size.width, 0);
         } completion:^(BOOL finished) {
@@ -84,7 +83,6 @@
     
     // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
     if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
-//        NSLog(@"%@",[touch.view class]);
         return NO;
     }
     return  YES;
@@ -140,34 +138,6 @@
     
 }
 
-- (CGFloat) caculateTableWidth {
-
-  
-    CGFloat width = 0.0;
-//    NSLog(@"_dataArray.count:%lu",(unsigned long)self.dataArray.count);
-    for (int i=0 ;i< _dataArray.count;i++)
-    {
-        NSString *str = [_dataArray objectAtIndex:i][@"itemValue"];
-        //计算文本长度
-        CGFloat tempW =  [str sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}].width;
-        if (tempW > width) {
-            width = tempW;
-        }
-//         NSLog(@"tempW width:%f",tempW);
-    }
-    
-    if (width <= self.tableW -30) {
-        width = self.tableW;
-    }else {
-        
-        width = width + 30;
-    }
-    
-    
-//    NSLog(@"table width:%f",width);
-    return width;
-    
-}
 
 - (void) initSubviews {
 
@@ -256,7 +226,6 @@
     [_imageView addSubview:self.tableView];
 }
 
-
 #pragma mark - tableView datasouce and delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -264,22 +233,24 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    
+    if (self.dataArray == nil || self.dataArray.count <1) {
+        return 1;
+    }
     return self.dataArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (_cellH > 0) {
+        return _cellH;
+    }
     return 40 ;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
     FTTableViewCell6 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
-//    cell.backgroundColor = [UIColor clearColor];
-//    cell.contentLabel.text = @"拳击";
-    cell.contentLabel.text = [_dataArray objectAtIndex:[indexPath row]][@"itemValue"];
+    cell.contentLabel.text = [self cellTextAtIndex:[indexPath row]];
     
     return cell;
 }
@@ -288,14 +259,121 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    
     
-    [self.button setTitle:[_dataArray objectAtIndex:[indexPath row]][@"itemValue"] forState:UIControlStateNormal];
-//    [self.button set]
-    
-    if ([self.selectDelegate respondsToSelector:@selector(selectedValue:)]) {
-        
-        [self.selectDelegate selectedValue:[self.dataArray objectAtIndex:indexPath.row]];
+    switch (_dataType) {
+        case FTDataTypeDicArray:
+        {
+            [self.button setTitle:[_dataArray objectAtIndex:[indexPath row]][@"itemValue"] forState:UIControlStateNormal];
+            
+            if ([self.selectDelegate respondsToSelector:@selector(selectedValue:)]) {
+                
+                [self.selectDelegate selectedValue:[self.dataArray objectAtIndex:indexPath.row]];
+            }
+
+            
+        }
+            break;
+        case FTDataTypeStringArray:
+        {
+            if (self.dataArray.count >0) {
+                NSString *text = [[_dataArray objectAtIndex:[indexPath row]] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                [self.button setTitle:text forState:UIControlStateNormal];
+                
+                if ([self.selectDelegate respondsToSelector:@selector(selectedValue:style:)]) {
+                    
+                    [self.selectDelegate selectedValue:[self.dataArray objectAtIndex:indexPath.row]
+                                                 style:self.style];
+                }
+            }
+           
+        }
+            
+        default:
+            break;
     }
-   
+    
+    
+    CGRect frame = [self convertRect:self.imageView.frame toView:self];
+    
+    CGRect tableFram = self.tableView.frame;
+    [UIView animateWithDuration:0.2 animations:^{
+        self.imageView.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, 0);
+        self.tableView.frame = CGRectMake(tableFram.origin.x, tableFram.origin.y, tableFram.size.width, 0);
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+    }];
+    
+}
+
+
+#pragma mark - private method
+
+- (NSString *) cellTextAtIndex:(NSInteger )index {
+    
+    NSString *cellText;
+    switch (_dataType) {
+        case FTDataTypeDicArray:
+        {
+            cellText = [_dataArray objectAtIndex:index][@"itemValue"];
+        }
+            break;
+        case FTDataTypeStringArray:
+        {
+            if (self.dataArray == nil || self.dataArray.count <1) {
+                cellText = @"全部";
+            }else {
+            
+                cellText = [[_dataArray objectAtIndex:index] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            }
+            
+        }
+            
+        default:
+            break;
+    }
+    
+    return cellText;
+    
+}
+
+
+- (CGFloat) caculateTableWidth {
+    
+    
+    CGFloat width = 0.0;
+    //    NSLog(@"_dataArray.count:%lu",(unsigned long)self.dataArray.count);
+    for (int i=0 ;i< _dataArray.count;i++)
+    {
+        
+        NSString *str = [self cellTextAtIndex:i];
+        //计算文本长度
+        CGFloat tempW =  [str sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}].width;
+        if (tempW > width) {
+            width = tempW;
+        }
+        //         NSLog(@"tempW width:%f",tempW);
+    }
+    
+    if (width <= self.tableW -30) {
+        width = self.tableW;
+    }else {
+        
+        width = width + 30;
+    }
+    
+    //    NSLog(@"table width:%f",width);
+    return width;
+}
+
+- (void) caculateTableHeight {
+
+    if (_cellH >0) {
+        if (self.dataArray.count>0 && self.dataArray.count < 8) {
+            _tableH = _cellH *self.dataArray.count;
+        }else if (self.dataArray == nil || self.dataArray.count <=0){
+            _tableH = _cellH;
+        }
+    }
+    
 }
 
 @end

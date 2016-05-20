@@ -8,6 +8,7 @@
 
 #import "FTRankBaseViewController.h"
 
+
 @interface FTRankBaseViewController ()
 
 @end
@@ -18,6 +19,16 @@
     [super viewDidLoad];
     
     [self setRankBaseViewControllerStyle];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(networkChanged:)
+                                                 name:kRealReachabilityChangedNotification
+                                               object:nil];
+    
+    self.netStatus = [GLobalRealReachability currentReachabilityStatus];
+    NSLog(@"currentStatus:%@,", @(_netStatus));
+
 }
 
 // 设置跟视图控制器样式
@@ -31,21 +42,12 @@
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
     //设置左侧按钮,在根上设置，以后继承（第一次尝试这么做）
-//    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    backBtn.bounds = CGRectMake(0, 0, 22, 22);
-//    [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
-//    [backBtn setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回pre"] forState:UIControlStateHighlighted];
-//    [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
-    
-    //设置返回按钮
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
                                    initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                    style:UIBarButtonItemStyleDone
                                    target:self
                                    action:@selector(backBtnAction:)];
-    //    把左边的返回按钮左移
+    //把左边的返回按钮左移
     [leftButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     self.navigationItem.leftBarButtonItem = leftButton;
 //    
@@ -59,6 +61,64 @@
     [self.navigationController popViewControllerAnimated:YES];
 
 }
+
+#pragma mark - Reachability Methods
+
+
+/*!
+ * Called by Reachability whenever status changes.
+ */
+- (void)networkChanged:(NSNotification *)notification
+{
+    RealReachability *reachability = (RealReachability *)notification.object;
+    self.netStatus = [reachability currentReachabilityStatus];
+    ReachabilityStatus previousStatus = [reachability previousReachabilityStatus];
+    NSLog(@"networkChanged, currentStatus:%@, previousStatus:%@", @(_netStatus), @(previousStatus));
+    
+    if (self.netStatus == RealStatusNotReachable)
+    {
+        
+        NSLog(@"Network unreachable!");
+    }
+    
+    if (self.netStatus == RealStatusViaWiFi)
+    {
+       NSLog(@"Network wifi! Free!");
+    }
+    
+    if (self.netStatus == RealStatusViaWWAN)
+    {
+        NSLog(@"Network WWAN! In charge!");
+    }
+    
+    WWANAccessType accessType = [GLobalRealReachability currentWWANtype];
+    
+    if (_netStatus == RealStatusViaWWAN)
+    {
+        if (accessType == WWANType2G)
+        {
+            NSLog(@"RealReachabilityStatus2G");
+        }
+        else if (accessType == WWANType3G)
+        {
+            NSLog(@"RealReachabilityStatus3G");
+        }
+        else if (accessType == WWANType4G)
+        {
+           NSLog(@"RealReachabilityStatus4G");
+        }
+        else
+        {
+           NSLog(@"Unknown RealReachability WWAN Status, might be iOS6");
+        }
+    }
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

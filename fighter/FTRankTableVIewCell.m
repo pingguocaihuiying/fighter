@@ -23,6 +23,9 @@
     [self.weightLabel setTextColor:Main_Text_Color];
     [self.heightLabel setTextColor:Main_Text_Color];
     
+    [self.avatarImageView.layer setMasksToBounds:YES];
+    self.avatarImageView.layer.cornerRadius = 20;
+    
     [self setBackgroundColor:[UIColor clearColor]];
     
     
@@ -30,7 +33,6 @@
     UIView *aView = [[UIView alloc] initWithFrame:self.contentView.frame];
     aView.backgroundColor = [UIColor colorWithHex:0x191919];
     self.selectedBackgroundView = aView;
-    
     
 //    NSString *statement = @"NO.2";
 //    NSInteger len = statement.length;

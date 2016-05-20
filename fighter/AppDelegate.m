@@ -29,7 +29,8 @@
 #import "FTDrawerViewController.h"
 #import "MainViewController.h"
 #import "Networking.h"
-
+#import "DBManager.h"
+#import "RealReachability.h"
 
 //微信请求类型
 typedef NS_ENUM(NSInteger, WXRequestType) {
@@ -56,6 +57,12 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     //设置微信相关的
     [self setWeiXin];
     
+    //设置数据库
+    [self setDatabase];
+    
+    //监听网络
+    [GLobalRealReachability startNotifier];
+    
     //屏蔽个人中心时打开这里
 //    [self setRootViewController2];
 
@@ -71,14 +78,50 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     return YES;
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+
+- (void) setDatabase {
+    
+    BOOL exist = [[[NSUserDefaults standardUserDefaults] objectForKey:@"labels"] boolValue];
+    
+    if (!exist) {
+        DBManager *dbManager = [DBManager shareDBManager];
+        [dbManager connect];
+        [dbManager createLabelsTable];
+        [dbManager close];
+        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"labels"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+        
+        NetWorking *net = [[NetWorking alloc]init];
+        [net getRankLabels:^(NSDictionary *dict) {
+            if (dict != nil) {
+                if ([dict[@"status"] isEqualToString:@"success"]) {
+                    
+                    DBManager *dbManager = [DBManager shareDBManager];
+                    [dbManager connect];
+                    [dbManager createLabelsTable];
+                    
+                    NSArray *labels= dict[@"data"];
+                    for (NSDictionary *dic in labels) {
+                        
+                        [dbManager insertDataIntoLabels:dic];
+                        
+                    }
+                    
+                    [dbManager close];
+                    
+                }
+            }
+        }];
+
+    }
+    
     
 }
+
 
 - (void)setUMeng{
     //友盟统计
     [MobClick startWithAppkey:@"570739d767e58edb5300057b" reportPolicy:BATCH   channelId:@""];
-    
     
     //友盟分享
     [UMSocialData setAppKey:@"570739d767e58edb5300057b"];

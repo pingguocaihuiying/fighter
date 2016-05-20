@@ -26,10 +26,17 @@ typedef NS_ENUM(NSInteger, FTAnimationDirection) {
     
 };
 
+typedef NS_ENUM(NSInteger, FTDataType) {
+    FTDataTypeDicArray = 0,   // 系统默认方向
+    FTDataTypeStringArray,  //
+};
+
 
 @protocol FTSelectCellDelegate <NSObject>
-
+@optional
 - (void) selectedValue:(NSDictionary *)value;
+
+- (void) selectedValue:(NSString *)value style:(FTRankTableViewStyle) style;
 
 @end
 
@@ -38,11 +45,16 @@ typedef NS_ENUM(NSInteger, FTAnimationDirection) {
 
 @property (nonatomic, assign) FTRankTableViewStyle style;
 @property (nonatomic, assign) FTAnimationDirection direction;
+@property (nonatomic, assign) FTDataType dataType;
+
+
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArray;
 
 @property (nonatomic, assign) CGFloat tableW;//默认宽度
 @property (nonatomic, assign) CGFloat tableH;//默认高度
+
+@property (nonatomic, assign) CGFloat cellH;
 //@property (nonatomic, assign) CGFloat originX;//默认
 //@property (nonatomic, assign) CGFloat originY;//默认
 
@@ -57,4 +69,5 @@ typedef NS_ENUM(NSInteger, FTAnimationDirection) {
                         option:(void(^)(FTRankTableView* searchTableView))option;
 
 - (void) setAnimation ;
+- (void) caculateTableHeight;
 @end

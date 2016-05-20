@@ -212,6 +212,9 @@ static NSString *const tableCellId = @"tableCellId";
     [self.abountUsBtn setTitleColor:[UIColor colorWithHex:0xcccccc] forState:UIControlStateHighlighted];
     [self.feedbackBtn setTitleColor:[UIColor colorWithHex:0xcccccc] forState:UIControlStateHighlighted];
     
+    if (![WXApi isWXAppInstalled] ) {
+        [self.weichatLoginBtn setHidden:YES];
+    }
 }
 
 
@@ -750,6 +753,7 @@ static NSString *const tableCellId = @"tableCellId";
     arenaVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳馆"];
     arenaVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     arenaVC.drawerDelegate = self;
+    
     
     //设置tabbar的属性
     FTBaseTabBarViewController *tabBartVC = [FTBaseTabBarViewController new];

@@ -106,6 +106,12 @@ extern NSString * const SendSMSNewURL;
 extern NSString * const IsValidatePhone;
 
 
+//排行榜
+extern NSString * const GetRankListURL;
+
+extern NSString * const GetRankSearchItemURL;
+
+
 //获取评论、点赞等状态
 extern NSString * const GetStatusCheckKey;
 

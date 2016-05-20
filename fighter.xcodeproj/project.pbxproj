@@ -48,6 +48,27 @@
 		3D4B19631CDB59D60022DFB0 /* UIWindow+MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B19621CDB59D60022DFB0 /* UIWindow+MBProgressHUD.m */; };
 		3D4B19661CDB6CF80022DFB0 /* FTWeightPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B19651CDB6CF80022DFB0 /* FTWeightPickerView.m */; };
 		3D4B19691CDB7AE20022DFB0 /* FTSexPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B19681CDB7AE20022DFB0 /* FTSexPickerView.m */; };
+		3D56CB311CED950600265A84 /* LocalConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D56CB171CED950600265A84 /* LocalConnection.m */; };
+		3D56CB321CED950600265A84 /* FSMEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D56CB1B1CED950600265A84 /* FSMEngine.m */; };
+		3D56CB331CED950600265A84 /* FSMStateUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D56CB1D1CED950600265A84 /* FSMStateUtil.m */; };
+		3D56CB341CED950600265A84 /* ReachState.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D56CB1F1CED950600265A84 /* ReachState.m */; };
+		3D56CB351CED950600265A84 /* ReachStateLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D56CB211CED950600265A84 /* ReachStateLoading.m */; };
+		3D56CB361CED950600265A84 /* ReachStateUnloaded.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D56CB231CED950600265A84 /* ReachStateUnloaded.m */; };
+		3D56CB371CED950600265A84 /* ReachStateUnReachable.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D56CB251CED950600265A84 /* ReachStateUnReachable.m */; };
+		3D56CB381CED950600265A84 /* ReachStateWIFI.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D56CB271CED950600265A84 /* ReachStateWIFI.m */; };
+		3D56CB391CED950600265A84 /* ReachStateWWAN.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D56CB291CED950600265A84 /* ReachStateWWAN.m */; };
+		3D56CB3A1CED950600265A84 /* PingFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D56CB2C1CED950600265A84 /* PingFoundation.m */; };
+		3D56CB3B1CED950600265A84 /* PingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D56CB2E1CED950600265A84 /* PingHelper.m */; };
+		3D56CB3C1CED950600265A84 /* RealReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D56CB301CED950600265A84 /* RealReachability.m */; };
+		3D57D0431CEC0B560082BF24 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D0371CEC0B560082BF24 /* FMDatabase.m */; };
+		3D57D0441CEC0B560082BF24 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D0391CEC0B560082BF24 /* FMDatabaseAdditions.m */; };
+		3D57D0451CEC0B560082BF24 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D03B1CEC0B560082BF24 /* FMDatabasePool.m */; };
+		3D57D0461CEC0B560082BF24 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D03D1CEC0B560082BF24 /* FMDatabaseQueue.m */; };
+		3D57D0471CEC0B560082BF24 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D0401CEC0B560082BF24 /* FMResultSet.m */; };
+		3D57D0481CEC0B560082BF24 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3D57D0411CEC0B560082BF24 /* LICENSE.txt */; };
+		3D57D0491CEC0B560082BF24 /* README.markdown in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D0421CEC0B560082BF24 /* README.markdown */; };
+		3D57D04D1CEC0C810082BF24 /* DBTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D04C1CEC0C810082BF24 /* DBTools.m */; };
+		3D57D0501CEC0E7F0082BF24 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D04F1CEC0E7F0082BF24 /* DBManager.m */; };
 		3D5FB4851CDC1F1D00FC1809 /* FTPhotoPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4841CDC1F1D00FC1809 /* FTPhotoPickerView.m */; };
 		3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4871CDC251B00FC1809 /* FTCityPickerView.m */; };
 		3D5FB4921CDC311400FC1809 /* FTAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4901CDC311400FC1809 /* FTAssetsViewController.m */; };
@@ -57,6 +78,9 @@
 		3D5FB4BE1CDC7E6600FC1809 /* FTImageCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4BC1CDC7E6600FC1809 /* FTImageCollectionCell.m */; };
 		3D5FB4BF1CDC7E6600FC1809 /* FTImageCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D5FB4BD1CDC7E6600FC1809 /* FTImageCollectionCell.xib */; };
 		3D6947101CE3374000989440 /* FTUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D69470F1CE3374000989440 /* FTUserViewController.m */; };
+		3D6DA0D21CEE93CD00BAA8F0 /* FTNWGetCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6DA0D11CEE93CD00BAA8F0 /* FTNWGetCategory.m */; };
+		3D6DA0D91CEE951E00BAA8F0 /* FTArenaTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6DA0D81CEE951E00BAA8F0 /* FTArenaTextTableViewCell.m */; };
+		3D6DA0DD1CEE9EA100BAA8F0 /* NIDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6DA0DC1CEE9EA100BAA8F0 /* NIDropDown.m */; };
 		3D7B988E1CDD027400B80B8D /* Area.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D7B988D1CDD027400B80B8D /* Area.plist */; };
 		3D7B98901CDD1E5900B80B8D /* Area2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D7B988F1CDD1E5900B80B8D /* Area2.plist */; };
 		3D7B98971CDEE1E900B80B8D /* FTSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7B98951CDEE1E900B80B8D /* FTSettingViewController.m */; };
@@ -267,10 +291,7 @@
 		E6D09E961CEDDDCF00B7C43E /* FTQiniuNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D09E951CEDDDCF00B7C43E /* FTQiniuNetwork.m */; };
 		E6D2F8D71CE95FB100160788 /* FTArenaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8D51CE95FB100160788 /* FTArenaViewController.m */; };
 		E6D2F8D81CE95FB100160788 /* FTArenaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6D2F8D61CE95FB100160788 /* FTArenaViewController.xib */; };
-		E6D2F8DD1CE965A100160788 /* NIDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8DC1CE965A100160788 /* NIDropDown.m */; };
-		E6D2F8E11CE98ABB00160788 /* FTNWGetCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8E01CE98ABB00160788 /* FTNWGetCategory.m */; };
 		E6D2F8E51CE99A5100160788 /* FTLabelBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8E41CE99A5100160788 /* FTLabelBean.m */; };
-		E6D2F8EC1CEAA9F300160788 /* FTArenaTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8EA1CEAA9F300160788 /* FTArenaTextTableViewCell.m */; };
 		E6D2F8ED1CEAA9F300160788 /* FTArenaTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6D2F8EB1CEAA9F300160788 /* FTArenaTextTableViewCell.xib */; };
 		E6D74A471CB7B7EE00854337 /* UIButton+countDown.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A331CB7B7EE00854337 /* UIButton+countDown.m */; };
 		E6D74A481CB7B7EE00854337 /* UIColor+YBColorCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A351CB7B7EE00854337 /* UIColor+YBColorCategory.m */; };
@@ -391,6 +412,48 @@
 		3D4B19671CDB7AE20022DFB0 /* FTSexPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSexPickerView.h; sourceTree = "<group>"; };
 		3D4B19681CDB7AE20022DFB0 /* FTSexPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTSexPickerView.m; sourceTree = "<group>"; };
 		3D4B196A1CDB7B770022DFB0 /* FTPickerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPickerViewDelegate.h; sourceTree = "<group>"; };
+		3D56CB161CED950600265A84 /* LocalConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalConnection.h; sourceTree = "<group>"; };
+		3D56CB171CED950600265A84 /* LocalConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalConnection.m; sourceTree = "<group>"; };
+		3D56CB191CED950600265A84 /* FSMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSMDefines.h; sourceTree = "<group>"; };
+		3D56CB1A1CED950600265A84 /* FSMEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSMEngine.h; sourceTree = "<group>"; };
+		3D56CB1B1CED950600265A84 /* FSMEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSMEngine.m; sourceTree = "<group>"; };
+		3D56CB1C1CED950600265A84 /* FSMStateUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSMStateUtil.h; sourceTree = "<group>"; };
+		3D56CB1D1CED950600265A84 /* FSMStateUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSMStateUtil.m; sourceTree = "<group>"; };
+		3D56CB1E1CED950600265A84 /* ReachState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachState.h; sourceTree = "<group>"; };
+		3D56CB1F1CED950600265A84 /* ReachState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachState.m; sourceTree = "<group>"; };
+		3D56CB201CED950600265A84 /* ReachStateLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachStateLoading.h; sourceTree = "<group>"; };
+		3D56CB211CED950600265A84 /* ReachStateLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachStateLoading.m; sourceTree = "<group>"; };
+		3D56CB221CED950600265A84 /* ReachStateUnloaded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachStateUnloaded.h; sourceTree = "<group>"; };
+		3D56CB231CED950600265A84 /* ReachStateUnloaded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachStateUnloaded.m; sourceTree = "<group>"; };
+		3D56CB241CED950600265A84 /* ReachStateUnReachable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachStateUnReachable.h; sourceTree = "<group>"; };
+		3D56CB251CED950600265A84 /* ReachStateUnReachable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachStateUnReachable.m; sourceTree = "<group>"; };
+		3D56CB261CED950600265A84 /* ReachStateWIFI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachStateWIFI.h; sourceTree = "<group>"; };
+		3D56CB271CED950600265A84 /* ReachStateWIFI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachStateWIFI.m; sourceTree = "<group>"; };
+		3D56CB281CED950600265A84 /* ReachStateWWAN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachStateWWAN.h; sourceTree = "<group>"; };
+		3D56CB291CED950600265A84 /* ReachStateWWAN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachStateWWAN.m; sourceTree = "<group>"; };
+		3D56CB2B1CED950600265A84 /* PingFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingFoundation.h; sourceTree = "<group>"; };
+		3D56CB2C1CED950600265A84 /* PingFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingFoundation.m; sourceTree = "<group>"; };
+		3D56CB2D1CED950600265A84 /* PingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingHelper.h; sourceTree = "<group>"; };
+		3D56CB2E1CED950600265A84 /* PingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PingHelper.m; sourceTree = "<group>"; };
+		3D56CB2F1CED950600265A84 /* RealReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealReachability.h; sourceTree = "<group>"; };
+		3D56CB301CED950600265A84 /* RealReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealReachability.m; sourceTree = "<group>"; };
+		3D57D0361CEC0B560082BF24 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		3D57D0371CEC0B560082BF24 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		3D57D0381CEC0B560082BF24 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		3D57D0391CEC0B560082BF24 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		3D57D03A1CEC0B560082BF24 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		3D57D03B1CEC0B560082BF24 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		3D57D03C1CEC0B560082BF24 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		3D57D03D1CEC0B560082BF24 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		3D57D03E1CEC0B560082BF24 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		3D57D03F1CEC0B560082BF24 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		3D57D0401CEC0B560082BF24 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		3D57D0411CEC0B560082BF24 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		3D57D0421CEC0B560082BF24 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
+		3D57D04B1CEC0C810082BF24 /* DBTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBTools.h; sourceTree = "<group>"; };
+		3D57D04C1CEC0C810082BF24 /* DBTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBTools.m; sourceTree = "<group>"; };
+		3D57D04E1CEC0E7F0082BF24 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
+		3D57D04F1CEC0E7F0082BF24 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
 		3D5FB4831CDC1F1D00FC1809 /* FTPhotoPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPhotoPickerView.h; sourceTree = "<group>"; };
 		3D5FB4841CDC1F1D00FC1809 /* FTPhotoPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPhotoPickerView.m; sourceTree = "<group>"; };
 		3D5FB4861CDC251B00FC1809 /* FTCityPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCityPickerView.h; sourceTree = "<group>"; };
@@ -407,6 +470,12 @@
 		3D5FB4BD1CDC7E6600FC1809 /* FTImageCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTImageCollectionCell.xib; sourceTree = "<group>"; };
 		3D69470E1CE3374000989440 /* FTUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserViewController.h; sourceTree = "<group>"; };
 		3D69470F1CE3374000989440 /* FTUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserViewController.m; sourceTree = "<group>"; };
+		3D6DA0CC1CEE933E00BAA8F0 /* FTArenaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FTArenaViewController.h; sourceTree = "<group>"; };
+		3D6DA0CF1CEE939000BAA8F0 /* FTNWGetCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNWGetCategory.h; sourceTree = "<group>"; };
+		3D6DA0D11CEE93CD00BAA8F0 /* FTNWGetCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNWGetCategory.m; sourceTree = "<group>"; };
+		3D6DA0D81CEE951E00BAA8F0 /* FTArenaTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaTextTableViewCell.m; sourceTree = "<group>"; };
+		3D6DA0DB1CEE9EA100BAA8F0 /* NIDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDropDown.h; sourceTree = "<group>"; };
+		3D6DA0DC1CEE9EA100BAA8F0 /* NIDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDropDown.m; sourceTree = "<group>"; };
 		3D7B988D1CDD027400B80B8D /* Area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Area.plist; sourceTree = "<group>"; };
 		3D7B988F1CDD1E5900B80B8D /* Area2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Area2.plist; sourceTree = "<group>"; };
 		3D7B98941CDEE1E900B80B8D /* FTSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSettingViewController.h; sourceTree = "<group>"; };
@@ -794,13 +863,8 @@
 		E6D2F8D41CE95FB100160788 /* FTArenaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaViewController.h; sourceTree = "<group>"; };
 		E6D2F8D51CE95FB100160788 /* FTArenaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaViewController.m; sourceTree = "<group>"; };
 		E6D2F8D61CE95FB100160788 /* FTArenaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaViewController.xib; sourceTree = "<group>"; };
-		E6D2F8DB1CE965A100160788 /* NIDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDropDown.h; sourceTree = "<group>"; };
-		E6D2F8DC1CE965A100160788 /* NIDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDropDown.m; sourceTree = "<group>"; };
-		E6D2F8DF1CE98ABB00160788 /* FTNWGetCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNWGetCategory.h; sourceTree = "<group>"; };
-		E6D2F8E01CE98ABB00160788 /* FTNWGetCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNWGetCategory.m; sourceTree = "<group>"; };
 		E6D2F8E31CE99A5100160788 /* FTLabelBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTLabelBean.h; sourceTree = "<group>"; };
 		E6D2F8E41CE99A5100160788 /* FTLabelBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTLabelBean.m; sourceTree = "<group>"; };
-		E6D2F8E91CEAA9F300160788 /* FTArenaTextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaTextTableViewCell.h; sourceTree = "<group>"; };
 		E6D2F8EA1CEAA9F300160788 /* FTArenaTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaTextTableViewCell.m; sourceTree = "<group>"; };
 		E6D2F8EB1CEAA9F300160788 /* FTArenaTextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaTextTableViewCell.xib; sourceTree = "<group>"; };
 		E6D74A321CB7B7EE00854337 /* UIButton+countDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+countDown.h"; sourceTree = "<group>"; };
@@ -1033,6 +1097,93 @@
 			name = picker;
 			sourceTree = "<group>";
 		};
+		3D56CB141CED950600265A84 /* RealReachability */ = {
+			isa = PBXGroup;
+			children = (
+				3D56CB151CED950600265A84 /* Connection */,
+				3D56CB181CED950600265A84 /* FSM */,
+				3D56CB2A1CED950600265A84 /* Ping */,
+				3D56CB2F1CED950600265A84 /* RealReachability.h */,
+				3D56CB301CED950600265A84 /* RealReachability.m */,
+			);
+			path = RealReachability;
+			sourceTree = "<group>";
+		};
+		3D56CB151CED950600265A84 /* Connection */ = {
+			isa = PBXGroup;
+			children = (
+				3D56CB161CED950600265A84 /* LocalConnection.h */,
+				3D56CB171CED950600265A84 /* LocalConnection.m */,
+			);
+			path = Connection;
+			sourceTree = "<group>";
+		};
+		3D56CB181CED950600265A84 /* FSM */ = {
+			isa = PBXGroup;
+			children = (
+				3D56CB191CED950600265A84 /* FSMDefines.h */,
+				3D56CB1A1CED950600265A84 /* FSMEngine.h */,
+				3D56CB1B1CED950600265A84 /* FSMEngine.m */,
+				3D56CB1C1CED950600265A84 /* FSMStateUtil.h */,
+				3D56CB1D1CED950600265A84 /* FSMStateUtil.m */,
+				3D56CB1E1CED950600265A84 /* ReachState.h */,
+				3D56CB1F1CED950600265A84 /* ReachState.m */,
+				3D56CB201CED950600265A84 /* ReachStateLoading.h */,
+				3D56CB211CED950600265A84 /* ReachStateLoading.m */,
+				3D56CB221CED950600265A84 /* ReachStateUnloaded.h */,
+				3D56CB231CED950600265A84 /* ReachStateUnloaded.m */,
+				3D56CB241CED950600265A84 /* ReachStateUnReachable.h */,
+				3D56CB251CED950600265A84 /* ReachStateUnReachable.m */,
+				3D56CB261CED950600265A84 /* ReachStateWIFI.h */,
+				3D56CB271CED950600265A84 /* ReachStateWIFI.m */,
+				3D56CB281CED950600265A84 /* ReachStateWWAN.h */,
+				3D56CB291CED950600265A84 /* ReachStateWWAN.m */,
+			);
+			path = FSM;
+			sourceTree = "<group>";
+		};
+		3D56CB2A1CED950600265A84 /* Ping */ = {
+			isa = PBXGroup;
+			children = (
+				3D56CB2B1CED950600265A84 /* PingFoundation.h */,
+				3D56CB2C1CED950600265A84 /* PingFoundation.m */,
+				3D56CB2D1CED950600265A84 /* PingHelper.h */,
+				3D56CB2E1CED950600265A84 /* PingHelper.m */,
+			);
+			path = Ping;
+			sourceTree = "<group>";
+		};
+		3D57D0351CEC0B560082BF24 /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				3D57D0361CEC0B560082BF24 /* FMDatabase.h */,
+				3D57D0371CEC0B560082BF24 /* FMDatabase.m */,
+				3D57D0381CEC0B560082BF24 /* FMDatabaseAdditions.h */,
+				3D57D0391CEC0B560082BF24 /* FMDatabaseAdditions.m */,
+				3D57D03A1CEC0B560082BF24 /* FMDatabasePool.h */,
+				3D57D03B1CEC0B560082BF24 /* FMDatabasePool.m */,
+				3D57D03C1CEC0B560082BF24 /* FMDatabaseQueue.h */,
+				3D57D03D1CEC0B560082BF24 /* FMDatabaseQueue.m */,
+				3D57D03E1CEC0B560082BF24 /* FMDB.h */,
+				3D57D03F1CEC0B560082BF24 /* FMResultSet.h */,
+				3D57D0401CEC0B560082BF24 /* FMResultSet.m */,
+				3D57D0411CEC0B560082BF24 /* LICENSE.txt */,
+				3D57D0421CEC0B560082BF24 /* README.markdown */,
+			);
+			path = FMDB;
+			sourceTree = "<group>";
+		};
+		3D57D04A1CEC0BC30082BF24 /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				3D57D04B1CEC0C810082BF24 /* DBTools.h */,
+				3D57D04C1CEC0C810082BF24 /* DBTools.m */,
+				3D57D04E1CEC0E7F0082BF24 /* DBManager.h */,
+				3D57D04F1CEC0E7F0082BF24 /* DBManager.m */,
+			);
+			name = DataBase;
+			sourceTree = "<group>";
+		};
 		3D5FB48E1CDC30C700FC1809 /* imagePicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -1099,6 +1250,15 @@
 				3D69470F1CE3374000989440 /* FTUserViewController.m */,
 			);
 			name = base;
+			sourceTree = "<group>";
+		};
+		3D6DA0D31CEE942500BAA8F0 /* 下拉框 */ = {
+			isa = PBXGroup;
+			children = (
+				3D6DA0DB1CEE9EA100BAA8F0 /* NIDropDown.h */,
+				3D6DA0DC1CEE9EA100BAA8F0 /* NIDropDown.m */,
+			);
+			name = "下拉框";
 			sourceTree = "<group>";
 		};
 		3D7B98AB1CE05EDD00B80B8D /* acountManager */ = {
@@ -1464,6 +1624,7 @@
 			children = (
 				E685320A1CE59CFA00603D77 /* Frameworks */,
 				E68050C21CBFA70200678905 /* OtherSDK */,
+				3D57D04A1CEC0BC30082BF24 /* DataBase */,
 				E66D6EF21CBCE81C008B015A /* Network */,
 				E6D74A511CB7B8C200854337 /* thirdCodes */,
 				E6D74A301CB7B7EE00854337 /* Tools */,
@@ -1803,7 +1964,7 @@
 		E678726E1CEACEBA0099CEE6 /* 文本 */ = {
 			isa = PBXGroup;
 			children = (
-				E6D2F8E91CEAA9F300160788 /* FTArenaTextTableViewCell.h */,
+				3D6DA0D81CEE951E00BAA8F0 /* FTArenaTextTableViewCell.m */,
 				E6D2F8EA1CEAA9F300160788 /* FTArenaTextTableViewCell.m */,
 				E6D2F8EB1CEAA9F300160788 /* FTArenaTextTableViewCell.xib */,
 			);
@@ -2012,15 +2173,6 @@
 			name = BoxingHall;
 			sourceTree = "<group>";
 		};
-		E6C4D7EA1CEC5E2000D73BFC /* 获取本地用户信息 */ = {
-			isa = PBXGroup;
-			children = (
-				E6C4D7EB1CEC5E7B00D73BFC /* FTUserTools.h */,
-				E6C4D7EC1CEC5E7B00D73BFC /* FTUserTools.m */,
-			);
-			name = "获取本地用户信息";
-			sourceTree = "<group>";
-		};
 		E6C4D7EE1CEC5FB200D73BFC /* network */ = {
 			isa = PBXGroup;
 			children = (
@@ -2081,27 +2233,28 @@
 			isa = PBXGroup;
 			children = (
 				E6D2F8D41CE95FB100160788 /* FTArenaViewController.h */,
+				3D6DA0CC1CEE933E00BAA8F0 /* FTArenaViewController.h */,
 				E6D2F8D51CE95FB100160788 /* FTArenaViewController.m */,
 				E6D2F8D61CE95FB100160788 /* FTArenaViewController.xib */,
 			);
 			name = main;
 			sourceTree = "<group>";
 		};
-		E6D2F8DA1CE9658200160788 /* 下拉框 */ = {
+		E6D2F8D91CE962D000160788 /* 获取标签分类 */ = {
 			isa = PBXGroup;
 			children = (
-				E6D2F8DB1CE965A100160788 /* NIDropDown.h */,
-				E6D2F8DC1CE965A100160788 /* NIDropDown.m */,
+				E6C4D7EB1CEC5E7B00D73BFC /* FTUserTools.h */,
+				E6C4D7EC1CEC5E7B00D73BFC /* FTUserTools.m */,
 			);
-			name = "下拉框";
+			name = "获取标签分类";
 			sourceTree = "<group>";
 		};
 		E6D2F8DE1CE98A6200160788 /* 分类标签 */ = {
 			isa = PBXGroup;
 			children = (
 				E6D2F8E21CE99A1300160788 /* bean */,
-				E6D2F8DF1CE98ABB00160788 /* FTNWGetCategory.h */,
-				E6D2F8E01CE98ABB00160788 /* FTNWGetCategory.m */,
+				3D6DA0CF1CEE939000BAA8F0 /* FTNWGetCategory.h */,
+				3D6DA0D11CEE93CD00BAA8F0 /* FTNWGetCategory.m */,
 			);
 			name = "分类标签";
 			sourceTree = "<group>";
@@ -2145,7 +2298,7 @@
 		E6D74A301CB7B7EE00854337 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				E6C4D7EA1CEC5E2000D73BFC /* 获取本地用户信息 */,
+				E6D2F8D91CE962D000160788 /* 获取标签分类 */,
 				E668BBB81CE44D3900071998 /* 缓存 */,
 				E6D74A311CB7B7EE00854337 /* Categorys */,
 				E6D74A3A1CB7B7EE00854337 /* UUID.h */,
@@ -2198,7 +2351,9 @@
 		E6D74A511CB7B8C200854337 /* thirdCodes */ = {
 			isa = PBXGroup;
 			children = (
-				E6D2F8DA1CE9658200160788 /* 下拉框 */,
+				3D6DA0D31CEE942500BAA8F0 /* 下拉框 */,
+				3D56CB141CED950600265A84 /* RealReachability */,
+				3D57D0351CEC0B560082BF24 /* FMDB */,
 				E668BA801CE0565700071998 /* MJRefresh */,
 				3DC411F41CD039D70030C229 /* Masonry */,
 				E680509D1CBF919A00678905 /* JHRefresh */,
@@ -2447,6 +2602,7 @@
 				3D4B19591CDB0CD90022DFB0 /* FTPropertySetingViewController.xib in Resources */,
 				E61185101CC76B3400F23EC7 /* ios-social-sdk-socialbar.html in Resources */,
 				E611850A1CC76B3400F23EC7 /* ios-social-sdk-like.html in Resources */,
+				3D57D0481CEC0B560082BF24 /* LICENSE.txt in Resources */,
 				3DC9A4EA1CE5CC6C00E16D19 /* FTRankBaseViewController.xib in Resources */,
 				3D4B19271CD9FD670022DFB0 /* UMFeedbackLocalizable.strings in Resources */,
 				3D7B98AA1CE048F200B80B8D /* FTManagerAccountViewController.xib in Resources */,
@@ -2530,8 +2686,11 @@
 				3DC411F31CCF810A0030C229 /* FTDrawerTableViewFooter.m in Sources */,
 				E68050C11CBF919A00678905 /* UIView+JHExtension.m in Sources */,
 				E6E580B31CBE523B00272242 /* FTBaseTableViewCell.m in Sources */,
+				3D6DA0DD1CEE9EA100BAA8F0 /* NIDropDown.m in Sources */,
+				3D57D0461CEC0B560082BF24 /* FMDatabaseQueue.m in Sources */,
 				E668BBB11CE32BA200071998 /* FTRankingListViewController.m in Sources */,
 				3D4B19661CDB6CF80022DFB0 /* FTWeightPickerView.m in Sources */,
+				3D56CB391CED950600265A84 /* ReachStateWWAN.m in Sources */,
 				E6E580AC1CBE2F2D00272242 /* UIImage+WebP.m in Sources */,
 				E68EC50B1CC4B85D00A338C8 /* FTFilterTableViewController.m in Sources */,
 				E67872791CEB00980099CEE6 /* FTNewPostViewController.m in Sources */,
@@ -2544,12 +2703,15 @@
 				E6D74A4A1CB7B7EE00854337 /* UIView+YBAddtitions.m in Sources */,
 				E668BAAD1CE0565700071998 /* MJRefreshAutoFooter.m in Sources */,
 				E6E580AE1CBE2F2D00272242 /* UIImageView+WebCache.m in Sources */,
+				3D56CB311CED950600265A84 /* LocalConnection.m in Sources */,
 				3DC412171CD039D70030C229 /* ViewController+MASAdditions.m in Sources */,
+				3D57D04D1CEC0C810082BF24 /* DBTools.m in Sources */,
 				E65D08C71CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m in Sources */,
 				E6E580A71CBE2F2D00272242 /* SDWebImageManager.m in Sources */,
 				E6E580A11CBE2F2D00272242 /* NSData+ImageContentType.m in Sources */,
+				3D56CB331CED950600265A84 /* FSMStateUtil.m in Sources */,
 				3D7B98AF1CE05F3300B80B8D /* FTPhoneViewController.m in Sources */,
-				E6D2F8EC1CEAA9F300160788 /* FTArenaTextTableViewCell.m in Sources */,
+				3D56CB321CED950600265A84 /* FSMEngine.m in Sources */,
 				3D4B195C1CDB4D890022DFB0 /* FTDatePickerView.m in Sources */,
 				E6D2F8E51CE99A5100160788 /* FTLabelBean.m in Sources */,
 				E68050BC1CBF919A00678905 /* JHRefreshConfig.m in Sources */,
@@ -2560,6 +2722,7 @@
 				E68050BB1CBF919A00678905 /* JHRefreshBaseView.m in Sources */,
 				E65F90B61CBDF106005CA3E6 /* NetWorking.m in Sources */,
 				E6E9E88B1CDC464A00976480 /* FTVideoCollectionView.m in Sources */,
+				3D56CB371CED950600265A84 /* ReachStateUnReachable.m in Sources */,
 				E668BAB41CE0565700071998 /* MJRefreshAutoStateFooter.m in Sources */,
 				E66D6F161CBCE843008B015A /* AFURLRequestSerialization.m in Sources */,
 				3DE95B501CD326B7005BF85C /* FTCollectionViewLayout.m in Sources */,
@@ -2569,15 +2732,18 @@
 				3DC9A4E31CE59A0400E16D19 /* FTButton.m in Sources */,
 				E6D74A491CB7B7EE00854337 /* UILabel+StringFrame.m in Sources */,
 				E6DF6B8B1CCE32F600219766 /* NSString+EmojiFilter.m in Sources */,
+				3D57D0501CEC0E7F0082BF24 /* DBManager.m in Sources */,
 				3D4B19581CDB0CD90022DFB0 /* FTPropertySetingViewController.m in Sources */,
 				3D5FB4B91CDC41A500FC1809 /* FTAlbumsViewController.m in Sources */,
 				E668BABE1CE0565700071998 /* UIScrollView+MJRefresh.m in Sources */,
 				E6D74A471CB7B7EE00854337 /* UIButton+countDown.m in Sources */,
+				3D57D0441CEC0B560082BF24 /* FMDatabaseAdditions.m in Sources */,
 				3DC412141CD039D70030C229 /* NSArray+MASAdditions.m in Sources */,
 				E668BABF1CE0565700071998 /* UIView+MJExtension.m in Sources */,
 				E6E580A01CBE2F2D00272242 /* MKAnnotationView+WebCache.m in Sources */,
 				3D5FB4921CDC311400FC1809 /* FTAssetsViewController.m in Sources */,
 				3D4B193D1CD9FD670022DFB0 /* UMPostTableViewCell.m in Sources */,
+				3D56CB381CED950600265A84 /* ReachStateWIFI.m in Sources */,
 				3D7B989C1CDF896F00B80B8D /* FTTableViewCell5.m in Sources */,
 				3D4B195F1CDB56EF0022DFB0 /* FTHeightPickerView.m in Sources */,
 				E66D6F121CBCE843008B015A /* AFHTTPSessionManager.m in Sources */,
@@ -2591,7 +2757,6 @@
 				3D4B19531CDAEF840022DFB0 /* FTTableViewCell4.m in Sources */,
 				3DE95BA31CD868C6005BF85C /* FTDynamicsDrawerViewController.m in Sources */,
 				E6A9DDAC1CD89EE900CB9518 /* FTVideoBean.m in Sources */,
-				E6D2F8E11CE98ABB00160788 /* FTNWGetCategory.m in Sources */,
 				E6B458D71CB75DB200FB4261 /* FTBoxingHallViewController.m in Sources */,
 				E61B8A671CBB6C4900AE37F9 /* UIView+SDExtension.m in Sources */,
 				E668BABC1CE0565700071998 /* MJRefreshConst.m in Sources */,
@@ -2603,6 +2768,7 @@
 				3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */,
 				E66D6F111CBCE843008B015A /* AFHTTPRequestOperationManager.m in Sources */,
 				E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */,
+				3D6DA0D91CEE951E00BAA8F0 /* FTArenaTextTableViewCell.m in Sources */,
 				E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */,
 				3DC412121CD039D70030C229 /* MASViewAttribute.m in Sources */,
 				E66D6EFA1CBCE81C008B015A /* RBRequestOperationManager.m in Sources */,
@@ -2618,7 +2784,6 @@
 				3D4B19381CD9FD670022DFB0 /* UMFeedbackViewController.m in Sources */,
 				E65EFC291CC8ADFD0039EE8A /* UIButton+LYZTitle.m in Sources */,
 				3D4B193A1CD9FD670022DFB0 /* UMChatTableViewCell.m in Sources */,
-				E6D2F8DD1CE965A100160788 /* NIDropDown.m in Sources */,
 				E6D2F8D71CE95FB100160788 /* FTArenaViewController.m in Sources */,
 				3DC411F01CCF80DD0030C229 /* FTDrawerTableViewHeader.m in Sources */,
 				E6A9DDB61CD9833200CB9518 /* FTVideoTableViewCell.m in Sources */,
@@ -2639,11 +2804,14 @@
 				3D7B98A01CDFA20D00B80B8D /* FTFiler.m in Sources */,
 				E6B458C31CB75D7A00FB4261 /* FTCoachViewController.m in Sources */,
 				E6A9DDA41CD8842E00CB9518 /* FTVideoViewController.m in Sources */,
+				3D56CB341CED950600265A84 /* ReachState.m in Sources */,
 				E64EF10B1CB6614000CAE340 /* main.m in Sources */,
 				E61185981CC78BF400F23EC7 /* FTUserBean.m in Sources */,
+				3D57D0491CEC0B560082BF24 /* README.markdown in Sources */,
 				3D322AC91CEB171200039E2C /* FTRankHeaderCell.m in Sources */,
 				E6E580A51CBE2F2D00272242 /* SDWebImageDownloader.m in Sources */,
 				3DC412151CD039D70030C229 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				3D57D0451CEC0B560082BF24 /* FMDatabasePool.m in Sources */,
 				E6D74A5B1CB7B8C200854337 /* MBProgressHUD.m in Sources */,
 				3D4B193B1CD9FD670022DFB0 /* UMChatToolBar.m in Sources */,
 				E668BAB91CE0565700071998 /* MJRefreshNormalHeader.m in Sources */,
@@ -2659,7 +2827,9 @@
 				E6D74A4C1CB7B7EE00854337 /* HUD.m in Sources */,
 				E668BAB31CE0565700071998 /* MJRefreshAutoNormalFooter.m in Sources */,
 				E6E580AB1CBE2F2D00272242 /* UIImage+MultiFormat.m in Sources */,
+				3D6DA0D21CEE93CD00BAA8F0 /* FTNWGetCategory.m in Sources */,
 				E6E580AF1CBE2F2D00272242 /* UIView+WebCacheOperation.m in Sources */,
+				3D56CB3B1CED950600265A84 /* PingHelper.m in Sources */,
 				E6A9DDBA1CD99E7700CB9518 /* FTBaseBean.m in Sources */,
 				E6B458971CB7560400FB4261 /* FTBaseNavigationViewController.m in Sources */,
 				3D4B19631CDB59D60022DFB0 /* UIWindow+MBProgressHUD.m in Sources */,
@@ -2673,18 +2843,22 @@
 				3D7B98C31CE08DEE00B80B8D /* FTNewPasswordVC.m in Sources */,
 				E6035EBE1CC0C39500B10D36 /* FTCommentViewController.m in Sources */,
 				E668BAB61CE0565700071998 /* MJRefreshBackNormalFooter.m in Sources */,
+				3D56CB3A1CED950600265A84 /* PingFoundation.m in Sources */,
 				3D4B19491CDACF9A0022DFB0 /* FTUserCenterViewController.m in Sources */,
 				3DE95BA01CD8675B005BF85C /* FTDrawerStyler.m in Sources */,
 				E61B8A621CBB6C4900AE37F9 /* TAAnimatedDotView.m in Sources */,
 				E6E9E8941CDC718900976480 /* FTVideoCollectionViewCell.m in Sources */,
 				E67872731CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m in Sources */,
 				E668BAB81CE0565700071998 /* MJRefreshGifHeader.m in Sources */,
+				3D56CB3C1CED950600265A84 /* RealReachability.m in Sources */,
 				E61B8A661CBB6C4900AE37F9 /* SDCycleScrollView.m in Sources */,
 				E668BBBB1CE44E6400071998 /* FTCache.m in Sources */,
 				3D8D73B41CE95198009E2320 /* FTRankTableView.m in Sources */,
 				E66D6F171CBCE843008B015A /* AFURLResponseSerialization.m in Sources */,
 				E66D6EFB1CBCE81C008B015A /* FTNetConfig.m in Sources */,
 				3DC412251CD0C3780030C229 /* NSString+Size.m in Sources */,
+				3D57D0431CEC0B560082BF24 /* FMDatabase.m in Sources */,
+				3D57D0471CEC0B560082BF24 /* FMResultSet.m in Sources */,
 				E68050B91CBF919A00678905 /* JHRefreshCommonAniView.m in Sources */,
 				E668BAB71CE0565700071998 /* MJRefreshBackStateFooter.m in Sources */,
 				E668BAB11CE0565700071998 /* MJRefreshHeader.m in Sources */,
@@ -2696,7 +2870,9 @@
 				3D7B98A91CE048F200B80B8D /* FTManagerAccountViewController.m in Sources */,
 				E6E580A21CBE2F2D00272242 /* SDImageCache.m in Sources */,
 				3D5FB4851CDC1F1D00FC1809 /* FTPhotoPickerView.m in Sources */,
+				3D56CB351CED950600265A84 /* ReachStateLoading.m in Sources */,
 				3D5FB4B51CDC3AF300FC1809 /* FTImagPickerNavigationController.m in Sources */,
+				3D56CB361CED950600265A84 /* ReachStateUnloaded.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2857,8 +3033,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2883,7 +3059,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "96ec16b2-a549-4422-968b-9780963c8a8c";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -2892,8 +3068,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: peng qu (LQHT8X75PQ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2918,7 +3094,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "96ec16b2-a549-4422-968b-9780963c8a8c";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
