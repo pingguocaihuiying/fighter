@@ -75,12 +75,16 @@ NSString *const DeleteStarURL = @"/api/base/delete$Base.do";
 //获取类别接口地址: 域名/api/category/ findCategoryByName.do
 NSString *const GetCategoryURL = @"/api/category/findCategoryByName.do";
 
-//获取格斗场内容list 
-NSString *const GetArenaListURL = @"/api/base/listBase.do";
+//获取格斗场内容list
+NSString *const GetArenaListURL = @"/api/damblog/list.do";
+//NSString *const GetArenaListURL = @"/api/base/listBase.do";
+//http://www.gogogofight.com/pugilist_admin/api/base/listBase.do?tableName=damageblog&query=list-dam-blog-1
 
 //格斗场发新帖//接口地址: 域名/api/base/save$Base.do
 NSString *const NewPostURL = @"/api/base/save$Base.do";
 
+//接口地址:    域名/api/qiniu/get$QiNiuToken.do七牛获取token接口地址
+NSString *const GetQiniuToken = @"/api/qiniu/get$QiNiuToken.do";
 
 
 

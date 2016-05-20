@@ -67,7 +67,7 @@
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSString *getCategoryUrlString = [FTNetConfig host:Domain path:GetCategoryURL];
-    NSLog(@"getCategoryUrlString : %@", getCategoryUrlString);
+//    NSLog(@"getCategoryUrlString : %@", getCategoryUrlString);
     
     [manager POST:getCategoryUrlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSMutableArray *resultArray;

@@ -48,7 +48,8 @@ extern NSString *const GetArenaListURL;
 extern NSString *const NewPostURL;
 
 
-
+//接口地址:    域名/api/qiniu/get$QiNiuToken.do七牛获取token接口地址
+extern NSString *const GetQiniuToken;
 
 
 

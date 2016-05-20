@@ -18,6 +18,7 @@
 #import "FTNewsBean.h"
 #import "FTVideoTableViewCell.h"
 #import "FTArenaTextTableViewCell.h"
+#import "FTArenaBean.h"
 
 @interface FTTableViewController ()<FTTableViewCellClickedDelegate>
 
@@ -80,62 +81,82 @@
     FTBaseTableViewCell *cell = [FTBaseTableViewCell new];
 
     if ([dic isKindOfClass:[NSDictionary class]] && dic.count > 0) {//如果有网络数据源
-        NSLog(@"网络数据已经加载");
+//        NSLog(@"网络数据已经加载");
+        
+        //如果是新闻类型的
         if (self.listType == FTCellTypeNews) {
-            
-        }
-        NSString *layout = dic[@"layout"];
+            NSString *layout = dic[@"layout"];
             //如果是大图
-        if (self.listType == FTCellTypeNews) {
-            if ([layout isEqualToString:@"1"]) {//大图
-                static NSString *cellider1 = @"cell1";
-                cell = [tableView dequeueReusableCellWithIdentifier:cellider1];
-                if (cell == nil) {
-                    cell = [[[NSBundle mainBundle]loadNibNamed:@"FTOneBigImageInfoTableViewCell" owner:self options:nil]firstObject];
-                    cell.backgroundColor = [UIColor clearColor];
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                }
-            }else if ([layout isEqualToString:@"3"]) {//三图
-                static NSString *cellider2 = @"cell2";
-                cell = [tableView dequeueReusableCellWithIdentifier:cellider2];
-                if (cell == nil) {
-                    static int count = 0;
-                    count ++;
-                    NSLog(@"count : %d", count);
-                    cell = [[[NSBundle mainBundle]loadNibNamed:@"FTThreeImageInfoTableViewCell" owner:self options:nil]firstObject];
-                    cell.backgroundColor = [UIColor clearColor];
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                }
-            }else if ([layout isEqualToString:@"2"]) {//一图
-                static NSString *cellider3 = @"cell3";
-                cell = [tableView dequeueReusableCellWithIdentifier:cellider3];
-                if (cell == nil) {
-                    cell = [[[NSBundle mainBundle]loadNibNamed:@"FTOneImageInfoTableViewCell" owner:self options:nil]firstObject];
-                    cell.backgroundColor = [UIColor clearColor];
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            if (self.listType == FTCellTypeNews) {
+                if ([layout isEqualToString:@"1"]) {//大图
+                    static NSString *cellider1 = @"cell1";
+                    cell = [tableView dequeueReusableCellWithIdentifier:cellider1];
+                    if (cell == nil) {
+                        cell = [[[NSBundle mainBundle]loadNibNamed:@"FTOneBigImageInfoTableViewCell" owner:self options:nil]firstObject];
+                        cell.backgroundColor = [UIColor clearColor];
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    }
+                }else if ([layout isEqualToString:@"3"]) {//三图
+                    static NSString *cellider2 = @"cell2";
+                    cell = [tableView dequeueReusableCellWithIdentifier:cellider2];
+                    if (cell == nil) {
+                        static int count = 0;
+                        count ++;
+                        NSLog(@"count : %d", count);
+                        cell = [[[NSBundle mainBundle]loadNibNamed:@"FTThreeImageInfoTableViewCell" owner:self options:nil]firstObject];
+                        cell.backgroundColor = [UIColor clearColor];
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    }
+                }else if ([layout isEqualToString:@"2"]) {//一图
+                    static NSString *cellider3 = @"cell3";
+                    cell = [tableView dequeueReusableCellWithIdentifier:cellider3];
+                    if (cell == nil) {
+                        cell = [[[NSBundle mainBundle]loadNibNamed:@"FTOneImageInfoTableViewCell" owner:self options:nil]firstObject];
+                        cell.backgroundColor = [UIColor clearColor];
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    }
                 }
             }
         }
-
+        
+       //如果是格斗场类型的
         else if (self.listType == FTCellTypeArena){
             static NSString *celliderAreraText = @"cellArenaText";
             static NSString *celliderArenaImage = @"cellArenaImage";
-            cell = [tableView dequeueReusableCellWithIdentifier:celliderArenaImage];
-            if (cell == nil) {
-                NSLog(@"cell is nil");
-                cell = [[[NSBundle mainBundle]loadNibNamed:@"FTArenaTextTableViewCell" owner:self options:nil]firstObject];
-                cell.backgroundColor = [UIColor clearColor];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            if ([dic isKindOfClass:[NSDictionary class]]) {
+                NSString *videoUrl = dic[@"videoUrlNames"];
+                NSString *pictureUrl = dic[@"pictureUrlNames"];
+                
+                if ([videoUrl isEqualToString:@""] && [pictureUrl isEqualToString:@""]) {//如果是文本类型的cell
+                    cell = [tableView dequeueReusableCellWithIdentifier:celliderAreraText];
+                    if (cell == nil) {
+                        NSLog(@"cell is nil");
+                        cell = [[[NSBundle mainBundle]loadNibNamed:@"FTArenaTextTableViewCell" owner:self options:nil]firstObject];
+                        cell.backgroundColor = [UIColor clearColor];
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    }
+                }else{//如果是带图片的cell
+                    cell = [tableView dequeueReusableCellWithIdentifier:celliderArenaImage];
+                    if (cell == nil) {
+                        NSLog(@"cell is nil");
+                        cell = [[[NSBundle mainBundle]loadNibNamed:@"FTArenaImageTableViewCell" owner:self options:nil]firstObject];
+                        cell.backgroundColor = [UIColor clearColor];
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    }
+                }
             }
+            
+
             cell.backgroundColor = [UIColor clearColor];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         //改变cell的值
         FTBaseBean *bean;
-        if ([layout isEqualToString:@"1"] | [layout isEqualToString:@"2"] | [layout isEqualToString:@"3"]) {
+        if (_listType == FTCellTypeNews) {
             bean = [FTNewsBean new];
         }else if (_listType == FTCellTypeArena) {
-            bean = [FTVideoBean new];
+            bean = [FTArenaBean new];
         }
 //        [bean setValuesForKeysWithDictionary:dic];//这种写法在服务器新增字段时，客户端会崩溃
         [bean setValuesWithDic:dic];
@@ -186,20 +207,25 @@
             }
         }
     }else if(self.listType == FTCellTypeArena){
-
         
-        if ([@"" isEqualToString:@"2"]) {//如果是文本类型的cell
-            height = 185;
-        }else{//如果是带图片的cell
-        height = 217;
-            //图片原始高度
-//            CGFloat imageHeight = 92;
-//            height = (height - imageHeight) + imageHeight * SCALE;
+        if ([dic isKindOfClass:[NSDictionary class]]) {
+            NSString *videoUrl = dic[@"videoUrlNames"];
+            NSString *pictureUrl = dic[@"pictureUrlNames"];
+            
+            if ([videoUrl isEqualToString:@""] && [pictureUrl isEqualToString:@""]) {//如果是文本类型的cell
+                height = 185;
+            }else{//如果是带图片的cell
+                height = 217;
+                //图片原始高度
+                CGFloat imageHeight = 92;
+                height = (height - imageHeight) + imageHeight * SCALE;
+            }
         }
+
     }
     
     
-    NSLog(@"height : %f", height);
+//    NSLog(@"height : %f", height);
     return height;//130是视频界面的cell高度
 }
 
@@ -212,7 +238,7 @@
 }
 
 - (void)clickedWithIndex:(NSIndexPath *)indexPath{
-    NSLog(@"index : %@", indexPath);
+//    NSLog(@"index : %@", indexPath);
     [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 }
 @end

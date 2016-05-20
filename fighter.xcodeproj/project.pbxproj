@@ -162,6 +162,7 @@
 		E61185101CC76B3400F23EC7 /* ios-social-sdk-socialbar.html in Resources */ = {isa = PBXBuildFile; fileRef = E61184F81CC76B3300F23EC7 /* ios-social-sdk-socialbar.html */; };
 		E61185111CC76B3400F23EC7 /* markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = E61184F91CC76B3300F23EC7 /* markdown.css */; };
 		E61185981CC78BF400F23EC7 /* FTUserBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E61185971CC78BF400F23EC7 /* FTUserBean.m */; };
+		E6133A6C1CED6F8E00F53381 /* FTArenaBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6133A6B1CED6F8E00F53381 /* FTArenaBean.m */; };
 		E61B8A611CBB6C4900AE37F9 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = E61B8A541CBB6C4900AE37F9 /* TAAbstractDotView.m */; };
 		E61B8A621CBB6C4900AE37F9 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = E61B8A561CBB6C4900AE37F9 /* TAAnimatedDotView.m */; };
 		E61B8A631CBB6C4900AE37F9 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = E61B8A581CBB6C4900AE37F9 /* TADotView.m */; };
@@ -262,6 +263,8 @@
 		E6C4D7ED1CEC5E7B00D73BFC /* FTUserTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7EC1CEC5E7B00D73BFC /* FTUserTools.m */; };
 		E6C4D7F11CEC5FCE00D73BFC /* FTArenaNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7F01CEC5FCE00D73BFC /* FTArenaNetwork.m */; };
 		E6C4D7F61CEC695600D73BFC /* FTSelectedCategoriesView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7F51CEC695600D73BFC /* FTSelectedCategoriesView.m */; };
+		E6D09E921CEDA10000B7C43E /* FTTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D09E911CEDA10000B7C43E /* FTTools.m */; };
+		E6D09E961CEDDDCF00B7C43E /* FTQiniuNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D09E951CEDDDCF00B7C43E /* FTQiniuNetwork.m */; };
 		E6D2F8D71CE95FB100160788 /* FTArenaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8D51CE95FB100160788 /* FTArenaViewController.m */; };
 		E6D2F8D81CE95FB100160788 /* FTArenaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6D2F8D61CE95FB100160788 /* FTArenaViewController.xib */; };
 		E6D2F8DD1CE965A100160788 /* NIDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8DC1CE965A100160788 /* NIDropDown.m */; };
@@ -589,6 +592,8 @@
 		E61184F91CC76B3300F23EC7 /* markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = markdown.css; sourceTree = "<group>"; };
 		E61185961CC78BF400F23EC7 /* FTUserBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserBean.h; sourceTree = "<group>"; };
 		E61185971CC78BF400F23EC7 /* FTUserBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserBean.m; sourceTree = "<group>"; };
+		E6133A6A1CED6F8E00F53381 /* FTArenaBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaBean.h; sourceTree = "<group>"; };
+		E6133A6B1CED6F8E00F53381 /* FTArenaBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaBean.m; sourceTree = "<group>"; };
 		E61B8A531CBB6C4900AE37F9 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
 		E61B8A541CBB6C4900AE37F9 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
 		E61B8A551CBB6C4900AE37F9 /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
@@ -782,6 +787,10 @@
 		E6C4D7F01CEC5FCE00D73BFC /* FTArenaNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaNetwork.m; sourceTree = "<group>"; };
 		E6C4D7F41CEC695600D73BFC /* FTSelectedCategoriesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSelectedCategoriesView.h; sourceTree = "<group>"; };
 		E6C4D7F51CEC695600D73BFC /* FTSelectedCategoriesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTSelectedCategoriesView.m; sourceTree = "<group>"; };
+		E6D09E901CEDA10000B7C43E /* FTTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTools.h; sourceTree = "<group>"; };
+		E6D09E911CEDA10000B7C43E /* FTTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTools.m; sourceTree = "<group>"; };
+		E6D09E941CEDDDCF00B7C43E /* FTQiniuNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTQiniuNetwork.h; sourceTree = "<group>"; };
+		E6D09E951CEDDDCF00B7C43E /* FTQiniuNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTQiniuNetwork.m; sourceTree = "<group>"; };
 		E6D2F8D41CE95FB100160788 /* FTArenaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaViewController.h; sourceTree = "<group>"; };
 		E6D2F8D51CE95FB100160788 /* FTArenaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaViewController.m; sourceTree = "<group>"; };
 		E6D2F8D61CE95FB100160788 /* FTArenaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaViewController.xib; sourceTree = "<group>"; };
@@ -1392,6 +1401,15 @@
 			path = UMSocial_Sdk_Instructions;
 			sourceTree = "<group>";
 		};
+		E6133A6D1CED6F9C00F53381 /* bean */ = {
+			isa = PBXGroup;
+			children = (
+				E6133A6A1CED6F8E00F53381 /* FTArenaBean.h */,
+				E6133A6B1CED6F8E00F53381 /* FTArenaBean.m */,
+			);
+			name = bean;
+			sourceTree = "<group>";
+		};
 		E61B8A511CBB6C4900AE37F9 /* SDCycleScrollView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1714,6 +1732,7 @@
 		E66D6EF21CBCE81C008B015A /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				E6D09E931CEDDDB800B7C43E /* 七牛 */,
 				E66D6EF31CBCE81C008B015A /* NetworkLayer */,
 			);
 			path = Network;
@@ -2028,9 +2047,29 @@
 			name = "标签展示";
 			sourceTree = "<group>";
 		};
+		E6D09E8F1CEDA0CD00B7C43E /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				E6D09E901CEDA10000B7C43E /* FTTools.h */,
+				E6D09E911CEDA10000B7C43E /* FTTools.m */,
+			);
+			name = tools;
+			sourceTree = "<group>";
+		};
+		E6D09E931CEDDDB800B7C43E /* 七牛 */ = {
+			isa = PBXGroup;
+			children = (
+				E6D09E941CEDDDCF00B7C43E /* FTQiniuNetwork.h */,
+				E6D09E951CEDDDCF00B7C43E /* FTQiniuNetwork.m */,
+			);
+			name = "七牛";
+			sourceTree = "<group>";
+		};
 		E6D2F8D21CE95F0C00160788 /* 格斗场Arena */ = {
 			isa = PBXGroup;
 			children = (
+				E6D09E8F1CEDA0CD00B7C43E /* tools */,
+				E6133A6D1CED6F9C00F53381 /* bean */,
 				E6C4D7EE1CEC5FB200D73BFC /* network */,
 				E6D2F8E71CEAA8F900160788 /* ViewController */,
 				E6D2F8E81CEAA90600160788 /* Views */,
@@ -2486,6 +2525,7 @@
 				E668BAAF1CE0565700071998 /* MJRefreshComponent.m in Sources */,
 				E61B8A611CBB6C4900AE37F9 /* TAAbstractDotView.m in Sources */,
 				3DC412161CD039D70030C229 /* View+MASAdditions.m in Sources */,
+				E6D09E961CEDDDCF00B7C43E /* FTQiniuNetwork.m in Sources */,
 				E66D6F151CBCE843008B015A /* AFURLConnectionOperation.m in Sources */,
 				3DC411F31CCF810A0030C229 /* FTDrawerTableViewFooter.m in Sources */,
 				E68050C11CBF919A00678905 /* UIView+JHExtension.m in Sources */,
@@ -2547,6 +2587,7 @@
 				E64EF10E1CB6614000CAE340 /* AppDelegate.m in Sources */,
 				3D4B18F91CD974B80022DFB0 /* MainViewController.m in Sources */,
 				3D7B98B41CE06F9800B80B8D /* FTInputNewPhoneViewController.m in Sources */,
+				E6133A6C1CED6F8E00F53381 /* FTArenaBean.m in Sources */,
 				3D4B19531CDAEF840022DFB0 /* FTTableViewCell4.m in Sources */,
 				3DE95BA31CD868C6005BF85C /* FTDynamicsDrawerViewController.m in Sources */,
 				E6A9DDAC1CD89EE900CB9518 /* FTVideoBean.m in Sources */,
@@ -2647,6 +2688,7 @@
 				E68050B91CBF919A00678905 /* JHRefreshCommonAniView.m in Sources */,
 				E668BAB71CE0565700071998 /* MJRefreshBackStateFooter.m in Sources */,
 				E668BAB11CE0565700071998 /* MJRefreshHeader.m in Sources */,
+				E6D09E921CEDA10000B7C43E /* FTTools.m in Sources */,
 				3DE95BAD1CD8A042005BF85C /* FTRegistViewController.m in Sources */,
 				E6D74A4B1CB7B7EE00854337 /* UUID.m in Sources */,
 				3DC9A4E91CE5CC6C00E16D19 /* FTRankBaseViewController.m in Sources */,
