@@ -12,8 +12,6 @@
 #import "FTHeightPickerView.h"
 #import "FTRankTableVIewCell.h"
 #import "FTRankHeaderCell.h"
-#import "FTNWGetCategory.h"
-#import "FTLabelBean.h"
 #import "NetWorking.h"
 #import "DBManager.h"
 #import "UIWindow+MBProgressHUD.h"

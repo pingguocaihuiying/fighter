@@ -1035,7 +1035,7 @@ allowUserInterruption:(BOOL)allowUserInterruption
 {
     NSNumber *paneDragRevealEnabled;
     @try {
-        NSAssert(LeftMenuDirectionIsCardinal(direction), @"Only accepts singular directions when querying for drag reveal enabled");
+//        NSAssert(LeftMenuDirectionIsCardinal(direction), @"Only accepts singular directions when querying for drag reveal enabled");
         paneDragRevealEnabled = self.paneDragRevealEnabled[@(direction)];
         if (!paneDragRevealEnabled) paneDragRevealEnabled = @(YES);
     }

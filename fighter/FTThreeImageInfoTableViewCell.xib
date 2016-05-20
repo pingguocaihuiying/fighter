@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="金属边框-改进ios" translatesAutoresizingMaskIntoConstraints="NO" id="hed-UZ-mJ1">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="162"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="157"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j6p-qj-lIP">
                         <rect key="frame" x="245" y="123" width="22" height="22"/>
@@ -181,7 +181,7 @@
                     <constraint firstItem="ZMB-gI-OhD" firstAttribute="centerY" secondItem="JXK-OJ-kbN" secondAttribute="centerY" id="aXC-y9-KDF"/>
                     <constraint firstItem="liG-wE-bZH" firstAttribute="leading" secondItem="hgi-Sa-SIG" secondAttribute="trailing" id="ay6-qI-3K0"/>
                     <constraint firstItem="H7h-OD-6dS" firstAttribute="top" secondItem="kmG-bv-ALf" secondAttribute="bottom" constant="10" id="br0-hc-opk"/>
-                    <constraint firstAttribute="bottom" secondItem="hed-UZ-mJ1" secondAttribute="bottom" id="dzH-DH-kui"/>
+                    <constraint firstAttribute="bottom" secondItem="hed-UZ-mJ1" secondAttribute="bottom" constant="5" id="dzH-DH-kui"/>
                     <constraint firstAttribute="bottom" secondItem="dIO-O5-Yvr" secondAttribute="bottom" constant="18" id="ep3-2b-N34"/>
                     <constraint firstAttribute="bottom" secondItem="Q0h-mR-9xl" secondAttribute="bottom" constant="21" id="eyk-16-x32"/>
                     <constraint firstItem="hed-UZ-mJ1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="fQh-oP-tHr"/>

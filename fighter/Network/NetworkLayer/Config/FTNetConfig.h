@@ -44,7 +44,8 @@ extern NSString *const DeleteStarURL;
 extern NSString *const GetCategoryURL;
 //获取格斗场内容list 
 extern NSString *const GetArenaListURL;
-
+//格斗场发新帖
+extern NSString *const NewPostURL;
 
 
 
@@ -122,5 +123,6 @@ extern NSString * const UpVideoViewNCheckKey;
 extern NSString * const AddStarCheckKey;
 //取消收藏
 extern NSString * const DeleteStarCheckKey;
-
+//发新帖 gedoujia1gdshjjgfkd52261225550
+extern NSString * const NewPostCheckKey;
 
