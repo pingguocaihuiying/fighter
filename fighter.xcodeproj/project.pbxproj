@@ -2530,6 +2530,7 @@
 				E64EF1041CB6614000CAE340 /* Resources */,
 				06F73924D6D219EA6175A420 /* 📦 Embed Pods Frameworks */,
 				600E32FC56B17B3D80AB9B7B /* 📦 Copy Pods Resources */,
+				094A8CFEA1639A6F086997DE /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2760,6 +2761,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-fighter/Pods-fighter-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		094A8CFEA1639A6F086997DE /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-fighter/Pods-fighter-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4FB332F39A8646C733F20968 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2804,7 +2820,6 @@
 				E6E580A41CBE2F2D00272242 /* SDWebImageDecoder.m in Sources */,
 				E6E580A81CBE2F2D00272242 /* SDWebImagePrefetcher.m in Sources */,
 				3D7C6B7C1CF2A2380088400D /* BoxerVideoController.m in Sources */,
-				E66D6F101CBCE843008B015A /* AFHTTPRequestOperation.m in Sources */,
 				3D5FB4BE1CDC7E6600FC1809 /* FTImageCollectionCell.m in Sources */,
 				E6E580AD1CBE2F2D00272242 /* UIImageView+HighlightedWebCache.m in Sources */,
 				E6D74A4F1CB7B7EE00854337 /* Regex.m in Sources */,
