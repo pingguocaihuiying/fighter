@@ -143,12 +143,7 @@
     }];
     //设置上拉刷新
     [self.tableViewController.tableView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
-        NSString *currId;
-        if (sself.tableViewController.sourceArray && sself.tableViewController.sourceArray.count > 0) {
-            currId = [sself.tableViewController.sourceArray lastObject][@"newsId"];
-        }else{
-            return;
-        }
+        
         //上拉时追加数据，把pageNum＋1
         int pageNumInt = [sself.pageNum intValue];
         pageNumInt++;

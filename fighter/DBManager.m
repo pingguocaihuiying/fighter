@@ -549,7 +549,7 @@ static DBManager * _sharedDBManager = nil;
     }
     NSNumber *pageNum = [NSNumber numberWithInteger:currentPage*20];
     FMResultSet * rs;
-    rs = [_dataBase executeQuery:@" SELECT *  FROM arenas  ORDER BY id DESC limit ?,20",pageNum];
+    rs = [_dataBase executeQuery:@" SELECT *  FROM arenas  ORDER BY id DESC limit ?,10",pageNum];
     
     NSMutableArray *array = [[NSMutableArray alloc]init];
     

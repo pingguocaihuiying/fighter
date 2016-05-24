@@ -25,7 +25,7 @@
 - (void)setWithBean:(FTArenaBean *)bean{
     
     if ([bean.isReader isEqualToString:@"YES"]) {
-        [self.theTitle setTextColor:Nonmal_Text_Color];
+        [self.theTitle setTextColor: Main_Text_Color];
     }
 
     //调整正文行高

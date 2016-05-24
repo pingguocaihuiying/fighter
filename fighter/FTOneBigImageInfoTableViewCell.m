@@ -27,7 +27,7 @@
     
     
     if ([bean.isReader isEqualToString:@"YES"]) {
-        [self.myTitleLabel setTextColor:Nonmal_Text_Color];
+        [self.myTitleLabel setTextColor:Main_Text_Color];
     }else {
         [self.myTitleLabel setTextColor:[UIColor whiteColor]];
     }

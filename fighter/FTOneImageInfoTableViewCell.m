@@ -30,7 +30,7 @@
 - (void)setWithBean:(FTNewsBean *)bean{//根据bean设置cell的显示内容
     
     if ([bean.isReader isEqualToString:@"YES"]) {
-        [self.myTitleLabel setTextColor:Nonmal_Text_Color];
+        [self.myTitleLabel setTextColor:Main_Text_Color];
     }else {
         [self.myTitleLabel setTextColor:[UIColor whiteColor]];
     }

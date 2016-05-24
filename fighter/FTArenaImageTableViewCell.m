@@ -25,7 +25,7 @@
 - (void)setWithBean:(FTArenaBean *)bean{
     
     if ([bean.isReader isEqualToString:@"YES"]) {
-        [self.theTitle setTextColor:Nonmal_Text_Color];
+        [self.theTitle setTextColor:Main_Text_Color];
     }
     
     //根据数据源去设置显示内容
