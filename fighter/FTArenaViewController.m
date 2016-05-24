@@ -105,6 +105,19 @@
 
 - (void)initSubviews{
     
+    //设置左上角按钮
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    [self.leftBtn.layer setMasksToBounds:YES];
+    self.leftBtn.layer.cornerRadius = 17.0;
+    [self.leftBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
+                            forState:UIControlStateNormal
+                    placeholderImage:[UIImage imageNamed:@"头像-空"]];
+    if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
+        
+        [self.drawerDelegate addButtonToArray:self.leftBtn];
+    }
+    
 }
 
 - (void)initPageController
@@ -316,14 +329,14 @@
     //设置左上角按钮
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-    [self.leftNavButton.layer setMasksToBounds:YES];
-    self.leftNavButton.layer.cornerRadius = 17.0;
-    [self.leftNavButton sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
+    [self.leftBtn.layer setMasksToBounds:YES];
+    self.leftBtn.layer.cornerRadius = 17.0;
+    [self.leftBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
                                   forState:UIControlStateNormal
                           placeholderImage:[UIImage imageNamed:@"头像-空"]];
     if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
         
-        [self.drawerDelegate addButtonToArray:self.leftNavButton];
+        [self.drawerDelegate addButtonToArray:self.leftBtn];
     }
     
 }
@@ -502,18 +515,6 @@
 
 
 
-- (IBAction)leftButtonItemClick:(id)sender {
-    
-    
-    
-    NSLog(@"information left click did");
-    if ([self.drawerDelegate respondsToSelector:@selector(leftButtonClicked:)]) {
-        
-        [self.drawerDelegate leftButtonClicked:sender];
-    }
-}
-
-
 #pragma mark - PrivateAPI
 //
 - (FTTableViewController *)controllerWithSourceIndex:(NSInteger)index
@@ -589,7 +590,17 @@
     NSLog(@"search button clicked.");
 }
 
-#pragma -mark -排行榜按钮被点击
+#pragma mark - response
+- (IBAction)leftBtnClickAction:(id)sender {
+    
+    NSLog(@"information left click did");
+    if ([self.drawerDelegate respondsToSelector:@selector(leftButtonClicked:)]) {
+        
+        [self.drawerDelegate leftButtonClicked:sender];
+    }
+}
+
+#pragma mark 排行榜按钮被点击
 - (IBAction)rankButtonClicked:(id)sender {
     
     FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];

@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIView *indexViewOfAllVideo;
 @property (weak, nonatomic) IBOutlet UIView *indexViewOfHot;
 @property (weak, nonatomic) IBOutlet UIView *mainView;
-@property (weak, nonatomic) IBOutlet UIButton *leftNavButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *leftBtn;
 
 @end
