@@ -43,6 +43,7 @@
 #import "FTUserTools.h"
 #import "UIView+YBAddtitions.h"
 #import "FTUserBean.h"
+#import "FTTools.h"
 
 //导入友盟统计的类
 #import "Mobclick.h"

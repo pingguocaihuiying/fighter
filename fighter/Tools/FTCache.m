@@ -24,6 +24,7 @@
     if (self = [super init]) {
         self.videoDataDic = [NSMutableDictionary new];
         self.newsDataDic = [NSMutableDictionary new];
+        self.arenaDataDic = [NSMutableDictionary new];
     }
     return self;
 }

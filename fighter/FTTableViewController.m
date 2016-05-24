@@ -18,6 +18,7 @@
 #import "FTNewsBean.h"
 #import "FTVideoTableViewCell.h"
 #import "FTArenaTextTableViewCell.h"
+#import "FTArenaBean.h"
 
 @interface FTTableViewController ()<FTTableViewCellClickedDelegate>
 
@@ -279,6 +280,7 @@
 //            CGFloat imageHeight = 92;
 //            height = (height - imageHeight) + imageHeight * SCALE;
         }
+
     }
     
     
@@ -295,7 +297,7 @@
 }
 
 - (void)clickedWithIndex:(NSIndexPath *)indexPath{
-    NSLog(@"index : %@", indexPath);
+//    NSLog(@"index : %@", indexPath);
     [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 }
 @end

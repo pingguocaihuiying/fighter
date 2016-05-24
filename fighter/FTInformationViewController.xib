@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTInformationViewController">
@@ -113,7 +113,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KvI-58-oKt" userLabel="排行榜">
-                    <rect key="frame" x="241" y="25" width="24" height="24"/>
+                    <rect key="frame" x="281" y="25" width="24" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="Od3-TE-I4i"/>
                         <constraint firstAttribute="width" constant="24" id="nD5-HU-zJA"/>
@@ -145,24 +145,26 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Teb-vS-iKf" secondAttribute="trailing" constant="15" id="1RE-0p-lt7"/>
                 <constraint firstItem="PTZ-LA-h94" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="27" id="1p1-7L-gxI"/>
-                <constraint firstItem="KvI-58-oKt" firstAttribute="leading" secondItem="529-d9-Laz" secondAttribute="trailing" constant="16" id="2Pk-ee-aQq"/>
                 <constraint firstItem="529-d9-Laz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="25" id="4Es-co-fne"/>
+                <constraint firstItem="KvI-58-oKt" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="25" id="70d-9o-y1R"/>
                 <constraint firstItem="nkd-pB-8Hu" firstAttribute="top" secondItem="tIR-iR-zfc" secondAttribute="bottom" id="7fQ-CO-Knp"/>
                 <constraint firstAttribute="trailing" secondItem="nkd-pB-8Hu" secondAttribute="trailing" id="DZ5-uM-Tig"/>
                 <constraint firstAttribute="trailing" secondItem="Noj-vQ-ELp" secondAttribute="trailing" id="J7P-uA-q0s"/>
                 <constraint firstItem="IyE-FE-Tys" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="28" id="J7p-mM-1x9"/>
                 <constraint firstItem="tIR-iR-zfc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="K3Q-zu-5DQ"/>
+                <constraint firstAttribute="trailing" secondItem="KvI-58-oKt" secondAttribute="trailing" constant="15" id="Pb6-4f-dTW"/>
+                <constraint firstItem="529-d9-Laz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="25" id="Poq-HF-LPK"/>
                 <constraint firstAttribute="bottom" secondItem="nkd-pB-8Hu" secondAttribute="bottom" id="QNG-Bx-03y"/>
                 <constraint firstItem="VeT-pB-44g" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="Ufm-qP-QR7"/>
-                <constraint firstItem="KvI-58-oKt" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="25" id="WAs-ds-tMT"/>
                 <constraint firstItem="NH9-q9-RKA" firstAttribute="top" secondItem="Noj-vQ-ELp" secondAttribute="bottom" constant="8" id="Xjr-AL-uwY"/>
                 <constraint firstItem="nkd-pB-8Hu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Zt8-rs-2Cp"/>
                 <constraint firstItem="VeT-pB-44g" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="aC7-5Y-ZEz"/>
                 <constraint firstItem="Noj-vQ-ELp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="60" id="bIl-3r-Htc"/>
                 <constraint firstAttribute="trailing" secondItem="NH9-q9-RKA" secondAttribute="trailing" constant="8" id="c16-h1-HOZ"/>
+                <constraint firstItem="KvI-58-oKt" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="25" id="c18-sa-2is"/>
                 <constraint firstItem="NH9-q9-RKA" firstAttribute="leading" secondItem="tIR-iR-zfc" secondAttribute="trailing" constant="-11" id="djj-4G-3xK"/>
-                <constraint firstItem="Teb-vS-iKf" firstAttribute="leading" secondItem="KvI-58-oKt" secondAttribute="trailing" constant="16" id="eF6-gE-O9t"/>
                 <constraint firstItem="PTZ-LA-h94" firstAttribute="leading" secondItem="Gjl-5p-Kdz" secondAttribute="trailing" constant="8" id="hBa-vH-Lvc"/>
+                <constraint firstItem="KvI-58-oKt" firstAttribute="leading" secondItem="529-d9-Laz" secondAttribute="trailing" constant="56" id="ieM-ii-LqM"/>
                 <constraint firstItem="IyE-FE-Tys" firstAttribute="leading" secondItem="VeT-pB-44g" secondAttribute="trailing" constant="8" id="m3S-yW-kqM"/>
                 <constraint firstItem="Noj-vQ-ELp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="mW0-5j-HLo"/>
                 <constraint firstItem="Gjl-5p-Kdz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="oui-tg-0op"/>

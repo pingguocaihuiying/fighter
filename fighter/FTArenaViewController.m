@@ -37,7 +37,10 @@
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
 
-@interface FTArenaViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTnewsDetailDelegate, FTSelectCellDelegate>
+#import "FTArenaBean.h"
+#import "FTArenaPostsDetailViewController.h"
+
+@interface FTArenaViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTArenaDetailDelegate, FTSelectCellDelegate>
 
 {
     NIDropDown *_dropDown;
@@ -55,31 +58,27 @@
 
 @property (nonatomic, copy)NSString *currentIndexString;
 //@property (nonatomic, strong)FTTableViewController
+
+@property (nonatomic, copy)NSString *query;
+@property (nonatomic, copy)NSString *pageNum;
+@property (nonatomic, copy)NSString *pageSize;
+@property (nonatomic, copy)NSString *labels;
 @end
 
 @implementation FTArenaViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
-
-    
-                [self initPageController];
-    [self getDataWithGetType:@"new" andCurrId:@"-1"];//初次加载数据
-    
     [self initBaseConfig];
-    [self initSubviews];
-    NSArray *array = [FTNWGetCategory sharedCategories];
+    [self initPageController];
+    [self reloadDate];//初次加载数据
     
-        for(FTLabelBean  *labelBean in array){
-
-        }
+    
+    [self initSubviews];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [MobClick event:@"mainPage_BoxingNews"];
-    //    self.tabBarController.navigationController.navigationBarHidden = YES;
     self.navigationController.navigationBarHidden = YES;
 }
 
@@ -93,6 +92,10 @@
  */
 - (void)initBaseConfig{
     _currentIndexString = @"all";
+    _query = @"list-dam-blog-1";
+    _pageNum = @"1";
+    _pageSize = @"10";
+    _labels = @"";
 }
 
 - (void)initSubviews{
@@ -127,9 +130,10 @@
     //设置下拉刷新
     __block typeof(self) sself = self;
     [self.tableViewController.tableView addRefreshHeaderViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
-        //发请求的方法区域
-        NSLog(@"触发下拉刷新headerView");
-        [sself getDataWithGetType:@"new" andCurrId:@"-1"];
+        
+        //下拉时请求最新的一页数据
+        _pageNum = @"1";
+        [sself reloadDate];
     }];
     //设置上拉刷新
     [self.tableViewController.tableView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
@@ -139,8 +143,12 @@
         }else{
             return;
         }
-        
-        [sself getDataWithGetType:@"old" andCurrId:currId];
+        //上拉时追加数据，把pageNum＋1
+        int pageNumInt = [sself.pageNum intValue];
+        pageNumInt++;
+        _pageNum = [NSString stringWithFormat:@"%d", pageNumInt];
+
+        [sself reloadDate];
     }];
 }
 
@@ -168,22 +176,20 @@
         [self changeCurrentIndex];//改变currentIndex的值
         [self refreshIndexView];//刷新红色下标的显示
     }
-
+    _query = @"list-dam-blog-3";
+    [self reloadDate];
 }
 
+#pragma -mark -下拉框
 - (void)setDropDown:(id)sender{
-//    FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender
-//                                                                       type:FTRankTableViewTypeKind
-//                                                                     option:^(FTRankTableView *searchTableView) {
-//                                                                         searchTableView.dataArray = [[NSArray alloc] initWithObjects:@"拳击",@"综合格斗综合格斗综合格斗",@"散打",@"自由搏击",@"跆拳道",@"截拳道",@"sadasdfasdfasdfsadfsafsadfsa",nil];
-//                                                                         searchTableView.offsetX = -40;
-//                                                                         searchTableView.offsetY = 14;
-//                                                                     }];
+
     FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender style:FTRankTableViewStyleLeft option:^(FTRankTableView *searchTableView) {
-                                                                                 searchTableView.dataArray = [FTNWGetCategory sharedCategories];
+        NSMutableArray *tempArray = [[NSMutableArray alloc]initWithArray:[FTNWGetCategory sharedCategories]];
+        [tempArray insertObject:@{@"itemValue":@"全部视频", @"itemValueEn":@"All"} atIndex:0];
+         searchTableView.dataArray = tempArray;
         
-                                                                                 searchTableView.offsetX = -10;
-                                                                                 searchTableView.offsetY = 28;
+         searchTableView.offsetX = -10;
+         searchTableView.offsetY = 28;
         searchTableView.tableW = 100;
         searchTableView.tableH = 350;
     }];
@@ -196,7 +202,50 @@
 }
 
 - (void) selectedValue:(NSDictionary *)value{
-    NSLog(@"%@", value[@"itemValueEn"]);
+    
+        //如果点击的仍然是当前类别的，则跳过不刷新数据
+    NSLog(@"_labels : %@, itemValueEn : %@",_labels, value[@"itemValueEn"]);
+    if([_labels isEqualToString:value[@"itemValueEn"]]){
+        return;
+    }else if([_labels isEqualToString:@""] && [value[@"itemValueEn"] isEqualToString:@"All"]){
+        return;
+    }
+
+    //根据点击的标签，去设置不同的请求参数
+    if ([value[@"itemValue"] isEqualToString:@"全部视频"]) {
+        NSLog(@"全部视频%@", value[@"itemValueEn"]);
+        _query = @"list-dam-blog-1";
+        _labels = @"";
+    }else{
+        NSLog(@"%@", value[@"itemValueEn"]);
+        _query = @"list-dam-blog-2";
+        _labels = value[@"itemValueEn"];
+    }
+    
+    //先去找是否有缓存
+        //根据当前下标，先去缓存中查找是否有数据
+        FTCache *cache = [FTCache sharedInstance];
+        FTCacheBean *cacheBean = [cache.arenaDataDic objectForKey:[NSString stringWithFormat:@"%@", self.labels]];
+        
+        if (cacheBean) {//如果有当前标签的缓存，则接着对比时间
+            
+            NSTimeInterval currentTS = [[NSDate date]timeIntervalSince1970];
+            NSTimeInterval timeGap = currentTS - cacheBean.timeStamp;
+            if (timeGap < 5 * 60) {//如果在5分钟内，则用缓存
+                self.tableViewDataSourceArray = [[NSMutableArray alloc]initWithArray:cacheBean.dataArray];
+                self.tableViewController.sourceArray = self.tableViewDataSourceArray;
+                [self.tableViewController.tableView reloadData];
+                return;
+            }
+        }
+        self.tableViewController.sourceArray = nil;
+        [self.tableViewController.tableView reloadData];
+    
+
+    
+    //刷新数据
+    _pageNum = @"1";
+    [self reloadDate];
 }
 
 - (void) niDropDownDelegateMethod: (NIDropDown *) sender {
@@ -207,6 +256,8 @@
     _dropDown = nil;
 }
 - (IBAction)newBlogButtonClicked:(id)sender {
+
+    
     NSLog(@"发新帖");
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
@@ -305,59 +356,37 @@
     return newsType;
 }
 
-- (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)newsCurrId{
+- (void)reloadDate{
     NSString *urlString = [FTNetConfig host:Domain path:GetArenaListURL];
-    NSString *query = @"list-dam-blog-2";
-    NSString *labels = @"Boxing";
-    NSString *pageNum = @"1";
-    NSString *pageSize = @"10";
     NSString *tableName = @"damageblog";
-//    NSString *newsType = [self getNewstype];
-    
-    
-//    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",newsType, newsCurrId, getType, ts, @"quanjijia222222"]];
-    
-//    urlString = [NSString stringWithFormat:@"%@?newsType=%@&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@", urlString, newsType, newsCurrId, getType, ts, checkSign, [FTNetConfig showType]];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@", urlString, query, labels,pageNum ,pageSize, tableName];
+    urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName];
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         NSLog(@"arena list  url : %@", urlString);
-    
+
     [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         
         NSString *status = responseDic[@"status"];
+        NSString *message = responseDic[@"message"];
+        NSLog(@"status : %@, message : %@", status, message);
         if ([status isEqualToString:@"success"]) {
+            
             NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
             
-//            if ([newsType isEqualToString:@"All"]) {
-//                NSMutableArray *hotArray = [NSMutableArray new];
-//                for(NSDictionary *dic in mutableArray){
-//                    if ([dic[@"newsType"] isEqualToString:@"Hot"]) {
-//                        [hotArray addObject:dic];
-//                    }
-//                }
-//                [mutableArray removeObjectsInArray:hotArray];
-//            }
+//            [ZJModelTool createModelWithDictionary:mutableArray[0] modelName:nil];
             
             if (self.tableViewDataSourceArray == nil) {
                 self.tableViewDataSourceArray = [[NSMutableArray alloc]init];
             }
-            if ([getType isEqualToString:@"new"]) {
+            if ([_pageNum isEqualToString:@"1"]) {//如果是第一页数据，直接替换，不然追加
                 self.tableViewDataSourceArray = mutableArray;
-            }else if([getType isEqualToString:@"old"]){
+            }else{
                 [self.tableViewDataSourceArray addObjectsFromArray:mutableArray];
             }
-            //            [self initPageController];
             
             self.tableViewController.sourceArray = self.tableViewDataSourceArray;
-//            if ([newsType isEqualToString:@"All"]) {
-//                self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
-//            }else{
-//                //                [self.tableViewController.tableView.tableHeaderView removeFromSuperview];
-//                self.tableViewController.tableView.tableHeaderView = nil;
-//            }
             [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
             [self.tableViewController.tableView footerEndRefreshing];
             
@@ -376,7 +405,6 @@
             [self.tableViewController.tableView footerEndRefreshing];
         }
         
-        
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
         [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
         [self.tableViewController.tableView footerEndRefreshing];
@@ -388,13 +416,9 @@
     NSArray *dataArray = [[NSArray alloc]initWithArray:self.tableViewDataSourceArray];
     FTCacheBean *cacheBean = [[FTCacheBean alloc] initWithTimeStamp:[[NSDate date] timeIntervalSince1970]  andDataArray:dataArray];
     
-    [cache.newsDataDic setObject:cacheBean forKey:[NSString stringWithFormat:@"%ld", self.currentSelectIndex]];
+    [cache.arenaDataDic setObject:cacheBean forKey:[NSString stringWithFormat:@"%@", self.labels]];
     
 }
-
-
-
-
 
 
 
@@ -403,52 +427,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - 视图加载
-
-
-
-#pragma mark - 按钮事件
-//
-- (void)clickAction:(UIButton *)sender
-{
-    if(self.currentSelectIndex != sender.tag - 1){
-        //        self.currentSelectIndex = sender.tag-1;
-        //        FTTableViewController *tableVC = [self controllerWithSourceIndex:sender.tag-1];
-        //        [self.pageViewController setViewControllers:@[tableVC] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:^(BOOL finished) {
-        //            NSLog(@" 设置完成 ");
-        //        }];
-        self.currentSelectIndex = sender.tag-1;//根据点击的按钮，设置当前的选中下标
-        
-        //根据当前下标，先去缓存中查找是否有数据
-        FTCache *cache = [FTCache sharedInstance];
-        FTCacheBean *cacheBean = [cache.newsDataDic objectForKey:[NSString stringWithFormat:@"%ld", self.currentSelectIndex]];
-        
-        if (cacheBean) {//如果有当前标签的缓存，则接着对比时间
-            
-            if (self.currentSelectIndex == 0) {
-                
-                self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
-            }else{
-                self.tableViewController.tableView.tableHeaderView = nil;
-            }
-            
-            NSTimeInterval currentTS = [[NSDate date]timeIntervalSince1970];
-            NSTimeInterval timeGap = currentTS - cacheBean.timeStamp;
-            if (timeGap < 5 * 60) {//如果在5分钟内，而且videoTag一样，则用缓存
-                self.tableViewDataSourceArray = [[NSMutableArray alloc]initWithArray:cacheBean.dataArray];
-                self.tableViewController.sourceArray = self.tableViewDataSourceArray;
-                [self.tableViewController.tableView reloadData];
-                return;
-            }
-        }
-        
-        
-        self.tableViewController.sourceArray = nil;
-        [self.tableViewController.tableView reloadData];
-        
-        [self getDataWithGetType:@"new" andCurrId:@"-1"];
-    }
-}
 
 
 - (IBAction)leftButtonItemClick:(id)sender {
@@ -555,38 +533,23 @@
     NSLog(@"message button clicked.");
 }
 
-- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
-{
-    //    NSLog(@"---点击了第%ld张图片", (long)index);
-    
-    FTNewsDetail2ViewController *newsDetailViewController = [FTNewsDetail2ViewController new];
-    
-    //获取对应的bean，传递给下个vc
-    NSDictionary *newsDic = self.cycleDataSourceArray[index];
-    FTNewsBean *bean = [FTNewsBean new];
-    [bean setValuesWithDic:newsDic];
-    
-    newsDetailViewController.newsBean = bean;
-    
-    [self.navigationController pushViewController:newsDetailViewController animated:YES];
-}
 
 - (void)fttableView:(FTTableViewController *)tableView didSelectWithIndex:(NSIndexPath *)indexPath{
     //    NSLog(@"第%ld个cell被点击了。", indexPath.row);
     if (self.tableViewDataSourceArray) {
         
-        FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
+        FTArenaPostsDetailViewController *postsDetailVC = [FTArenaPostsDetailViewController new];
         //获取对应的bean，传递给下个vc
         NSDictionary *newsDic = tableView.sourceArray[indexPath.row];
-        FTNewsBean *bean = [FTNewsBean new];
+        FTArenaBean *bean = [FTArenaBean new];
         [bean setValuesWithDic:newsDic];
         
-        newsDetailVC.newsBean = bean;
-        newsDetailVC.delegate = self;
-        newsDetailVC.indexPath = indexPath;
+        postsDetailVC.arenaBean = bean;
+        postsDetailVC.delegate = self;
+        postsDetailVC.indexPath = indexPath;
         
         
-        [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+        [self.navigationController pushViewController:postsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
     }
 }
 - (IBAction)filterButton:(id)sender {
@@ -606,17 +569,17 @@
     [self initSubViews];
 }
 
-- (void)updateCountWithNewsBean:(FTNewsBean *)newsBean indexPath:(NSIndexPath *)indexPath{
+
+- (void)updateCountWithArenaBean:(FTArenaBean *)arenaBean indexPath:(NSIndexPath *)indexPath{
     
     NSDictionary *dic = self.tableViewController.sourceArray[indexPath.row];
-    [dic setValue:[NSString stringWithFormat:@"%@", newsBean.voteCount] forKey:@"voteCount"];
-    [dic setValue:[NSString stringWithFormat:@"%@", newsBean.commentCount] forKey:@"commentCount"];
+    [dic setValue:[NSString stringWithFormat:@"%@", arenaBean.voteCount] forKey:@"voteCount"];
+    [dic setValue:[NSString stringWithFormat:@"%@", arenaBean.commentCount] forKey:@"commentCount"];
     
     self.tableViewController.sourceArray[indexPath.row] = dic;
     [self.tableViewController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
     
 }
-
 
 
 @end

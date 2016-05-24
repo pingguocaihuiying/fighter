@@ -150,6 +150,7 @@
 		3DE95BA81CD86FA4005BF85C /* FTLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE95BA61CD86FA4005BF85C /* FTLoginViewController.xib */; };
 		3DE95BAD1CD8A042005BF85C /* FTRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95BAB1CD8A042005BF85C /* FTRegistViewController.m */; };
 		3DE95BAE1CD8A042005BF85C /* FTRegistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE95BAC1CD8A042005BF85C /* FTRegistViewController.xib */; };
+		7A2DCDAEA8165E71DDD876E4 /* Pods_fighter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC6E175F6D8F9BDF7F42A3E5 /* Pods_fighter.framework */; };
 		E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6035EB61CC08D2800B10D36 /* FTNewsDetail2ViewController.m */; };
 		E6035EB91CC08D2800B10D36 /* FTNewsDetail2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6035EB71CC08D2800B10D36 /* FTNewsDetail2ViewController.xib */; };
 		E6035EBE1CC0C39500B10D36 /* FTCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6035EBC1CC0C39500B10D36 /* FTCommentViewController.m */; };
@@ -197,6 +198,7 @@
 		E61185101CC76B3400F23EC7 /* ios-social-sdk-socialbar.html in Resources */ = {isa = PBXBuildFile; fileRef = E61184F81CC76B3300F23EC7 /* ios-social-sdk-socialbar.html */; };
 		E61185111CC76B3400F23EC7 /* markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = E61184F91CC76B3300F23EC7 /* markdown.css */; };
 		E61185981CC78BF400F23EC7 /* FTUserBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E61185971CC78BF400F23EC7 /* FTUserBean.m */; };
+		E6133A6C1CED6F8E00F53381 /* FTArenaBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6133A6B1CED6F8E00F53381 /* FTArenaBean.m */; };
 		E61B8A611CBB6C4900AE37F9 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = E61B8A541CBB6C4900AE37F9 /* TAAbstractDotView.m */; };
 		E61B8A621CBB6C4900AE37F9 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = E61B8A561CBB6C4900AE37F9 /* TAAnimatedDotView.m */; };
 		E61B8A631CBB6C4900AE37F9 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = E61B8A581CBB6C4900AE37F9 /* TADotView.m */; };
@@ -244,15 +246,7 @@
 		E668BBBE1CE4523600071998 /* FTCacheBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BBBD1CE4523600071998 /* FTCacheBean.m */; };
 		E66D6EFA1CBCE81C008B015A /* RBRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6EF61CBCE81C008B015A /* RBRequestOperationManager.m */; };
 		E66D6EFB1CBCE81C008B015A /* FTNetConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6EF91CBCE81C008B015A /* FTNetConfig.m */; };
-		E66D6F101CBCE843008B015A /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6EFE1CBCE843008B015A /* AFHTTPRequestOperation.m */; };
-		E66D6F111CBCE843008B015A /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6F001CBCE843008B015A /* AFHTTPRequestOperationManager.m */; };
-		E66D6F121CBCE843008B015A /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6F021CBCE843008B015A /* AFHTTPSessionManager.m */; };
-		E66D6F131CBCE843008B015A /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6F051CBCE843008B015A /* AFNetworkReachabilityManager.m */; };
-		E66D6F141CBCE843008B015A /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6F071CBCE843008B015A /* AFSecurityPolicy.m */; };
-		E66D6F151CBCE843008B015A /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6F091CBCE843008B015A /* AFURLConnectionOperation.m */; };
-		E66D6F161CBCE843008B015A /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6F0B1CBCE843008B015A /* AFURLRequestSerialization.m */; };
-		E66D6F171CBCE843008B015A /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6F0D1CBCE843008B015A /* AFURLResponseSerialization.m */; };
-		E66D6F181CBCE843008B015A /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6F0F1CBCE843008B015A /* AFURLSessionManager.m */; };
+		E66FF6291CF2A78B002C4F67 /* G格斗家-格斗场-最热.png in Resources */ = {isa = PBXBuildFile; fileRef = E66FF6281CF2A78B002C4F67 /* G格斗家-格斗场-最热.png */; };
 		E67872731CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E67872711CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m */; };
 		E67872741CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E67872721CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib */; };
 		E67872791CEB00980099CEE6 /* FTNewPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E67872771CEB00980099CEE6 /* FTNewPostViewController.m */; };
@@ -297,6 +291,8 @@
 		E6C4D7ED1CEC5E7B00D73BFC /* FTUserTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7EC1CEC5E7B00D73BFC /* FTUserTools.m */; };
 		E6C4D7F11CEC5FCE00D73BFC /* FTArenaNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7F01CEC5FCE00D73BFC /* FTArenaNetwork.m */; };
 		E6C4D7F61CEC695600D73BFC /* FTSelectedCategoriesView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7F51CEC695600D73BFC /* FTSelectedCategoriesView.m */; };
+		E6D09E921CEDA10000B7C43E /* FTTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D09E911CEDA10000B7C43E /* FTTools.m */; };
+		E6D09E961CEDDDCF00B7C43E /* FTQiniuNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D09E951CEDDDCF00B7C43E /* FTQiniuNetwork.m */; };
 		E6D2F8D71CE95FB100160788 /* FTArenaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8D51CE95FB100160788 /* FTArenaViewController.m */; };
 		E6D2F8D81CE95FB100160788 /* FTArenaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6D2F8D61CE95FB100160788 /* FTArenaViewController.xib */; };
 		E6D2F8E51CE99A5100160788 /* FTLabelBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8E41CE99A5100160788 /* FTLabelBean.m */; };
@@ -335,6 +331,8 @@
 		E6E9E88B1CDC464A00976480 /* FTVideoCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E9E88A1CDC464A00976480 /* FTVideoCollectionView.m */; };
 		E6E9E8941CDC718900976480 /* FTVideoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E9E8921CDC718900976480 /* FTVideoCollectionViewCell.m */; };
 		E6E9E8951CDC718900976480 /* FTVideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6E9E8931CDC718900976480 /* FTVideoCollectionViewCell.xib */; };
+		E6FE6A5D1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FE6A5B1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m */; };
+		E6FE6A5E1CEED3DC00D63847 /* FTArenaPostsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6FE6A5C1CEED3DC00D63847 /* FTArenaPostsDetailViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -602,6 +600,9 @@
 		3DE95BAA1CD8A042005BF85C /* FTRegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRegistViewController.h; sourceTree = "<group>"; };
 		3DE95BAB1CD8A042005BF85C /* FTRegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRegistViewController.m; sourceTree = "<group>"; };
 		3DE95BAC1CD8A042005BF85C /* FTRegistViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRegistViewController.xib; sourceTree = "<group>"; };
+		CC6E175F6D8F9BDF7F42A3E5 /* Pods_fighter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fighter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD48BE749B6F4D12F01B91BD /* Pods-fighter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fighter.release.xcconfig"; path = "Pods/Target Support Files/Pods-fighter/Pods-fighter.release.xcconfig"; sourceTree = "<group>"; };
+		DF679036E381CA6DC2307057 /* Pods-fighter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fighter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fighter/Pods-fighter.debug.xcconfig"; sourceTree = "<group>"; };
 		E6035EB51CC08D2800B10D36 /* FTNewsDetail2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNewsDetail2ViewController.h; sourceTree = "<group>"; };
 		E6035EB61CC08D2800B10D36 /* FTNewsDetail2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNewsDetail2ViewController.m; sourceTree = "<group>"; };
 		E6035EB71CC08D2800B10D36 /* FTNewsDetail2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTNewsDetail2ViewController.xib; sourceTree = "<group>"; };
@@ -686,6 +687,8 @@
 		E61184F91CC76B3300F23EC7 /* markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = markdown.css; sourceTree = "<group>"; };
 		E61185961CC78BF400F23EC7 /* FTUserBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserBean.h; sourceTree = "<group>"; };
 		E61185971CC78BF400F23EC7 /* FTUserBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserBean.m; sourceTree = "<group>"; };
+		E6133A6A1CED6F8E00F53381 /* FTArenaBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaBean.h; sourceTree = "<group>"; };
+		E6133A6B1CED6F8E00F53381 /* FTArenaBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaBean.m; sourceTree = "<group>"; };
 		E61B8A531CBB6C4900AE37F9 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
 		E61B8A541CBB6C4900AE37F9 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
 		E61B8A551CBB6C4900AE37F9 /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
@@ -779,25 +782,7 @@
 		E66D6EF61CBCE81C008B015A /* RBRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBRequestOperationManager.m; sourceTree = "<group>"; };
 		E66D6EF81CBCE81C008B015A /* FTNetConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNetConfig.h; sourceTree = "<group>"; };
 		E66D6EF91CBCE81C008B015A /* FTNetConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNetConfig.m; sourceTree = "<group>"; };
-		E66D6EFD1CBCE843008B015A /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
-		E66D6EFE1CBCE843008B015A /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
-		E66D6EFF1CBCE843008B015A /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
-		E66D6F001CBCE843008B015A /* AFHTTPRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperationManager.m; sourceTree = "<group>"; };
-		E66D6F011CBCE843008B015A /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
-		E66D6F021CBCE843008B015A /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
-		E66D6F031CBCE843008B015A /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
-		E66D6F041CBCE843008B015A /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
-		E66D6F051CBCE843008B015A /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
-		E66D6F061CBCE843008B015A /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
-		E66D6F071CBCE843008B015A /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
-		E66D6F081CBCE843008B015A /* AFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLConnectionOperation.h; sourceTree = "<group>"; };
-		E66D6F091CBCE843008B015A /* AFURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLConnectionOperation.m; sourceTree = "<group>"; };
-		E66D6F0A1CBCE843008B015A /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLRequestSerialization.h; sourceTree = "<group>"; };
-		E66D6F0B1CBCE843008B015A /* AFURLRequestSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLRequestSerialization.m; sourceTree = "<group>"; };
-		E66D6F0C1CBCE843008B015A /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLResponseSerialization.h; sourceTree = "<group>"; };
-		E66D6F0D1CBCE843008B015A /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
-		E66D6F0E1CBCE843008B015A /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
-		E66D6F0F1CBCE843008B015A /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		E66FF6281CF2A78B002C4F67 /* G格斗家-格斗场-最热.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "G格斗家-格斗场-最热.png"; sourceTree = "<group>"; };
 		E67872701CEACEFC0099CEE6 /* FTArenaImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaImageTableViewCell.h; sourceTree = "<group>"; };
 		E67872711CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaImageTableViewCell.m; sourceTree = "<group>"; };
 		E67872721CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaImageTableViewCell.xib; sourceTree = "<group>"; };
@@ -879,7 +864,10 @@
 		E6C4D7F01CEC5FCE00D73BFC /* FTArenaNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaNetwork.m; sourceTree = "<group>"; };
 		E6C4D7F41CEC695600D73BFC /* FTSelectedCategoriesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSelectedCategoriesView.h; sourceTree = "<group>"; };
 		E6C4D7F51CEC695600D73BFC /* FTSelectedCategoriesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTSelectedCategoriesView.m; sourceTree = "<group>"; };
-		E6D2F8D41CE95FB100160788 /* FTArenaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaViewController.h; sourceTree = "<group>"; };
+		E6D09E901CEDA10000B7C43E /* FTTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTools.h; sourceTree = "<group>"; };
+		E6D09E911CEDA10000B7C43E /* FTTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTools.m; sourceTree = "<group>"; };
+		E6D09E941CEDDDCF00B7C43E /* FTQiniuNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTQiniuNetwork.h; sourceTree = "<group>"; };
+		E6D09E951CEDDDCF00B7C43E /* FTQiniuNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTQiniuNetwork.m; sourceTree = "<group>"; };
 		E6D2F8D51CE95FB100160788 /* FTArenaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaViewController.m; sourceTree = "<group>"; };
 		E6D2F8D61CE95FB100160788 /* FTArenaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaViewController.xib; sourceTree = "<group>"; };
 		E6D2F8E31CE99A5100160788 /* FTLabelBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTLabelBean.h; sourceTree = "<group>"; };
@@ -953,6 +941,9 @@
 		E6E9E8911CDC718900976480 /* FTVideoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTVideoCollectionViewCell.h; sourceTree = "<group>"; };
 		E6E9E8921CDC718900976480 /* FTVideoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTVideoCollectionViewCell.m; sourceTree = "<group>"; };
 		E6E9E8931CDC718900976480 /* FTVideoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTVideoCollectionViewCell.xib; sourceTree = "<group>"; };
+		E6FE6A5A1CEED3DC00D63847 /* FTArenaPostsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaPostsDetailViewController.h; sourceTree = "<group>"; };
+		E6FE6A5B1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaPostsDetailViewController.m; sourceTree = "<group>"; };
+		E6FE6A5C1CEED3DC00D63847 /* FTArenaPostsDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaPostsDetailViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -982,6 +973,7 @@
 				E61184FB1CC76B3300F23EC7 /* libSocialAlipayShare.a in Frameworks */,
 				E68050C71CBFA71900678905 /* libMobClickLibrary.a in Frameworks */,
 				E61184FC1CC76B3300F23EC7 /* libSocialSinaSSO.a in Frameworks */,
+				7A2DCDAEA8165E71DDD876E4 /* Pods_fighter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1632,6 +1624,15 @@
 			path = UMSocial_Sdk_Instructions;
 			sourceTree = "<group>";
 		};
+		E6133A6D1CED6F9C00F53381 /* bean */ = {
+			isa = PBXGroup;
+			children = (
+				E6133A6A1CED6F8E00F53381 /* FTArenaBean.h */,
+				E6133A6B1CED6F8E00F53381 /* FTArenaBean.m */,
+			);
+			name = bean;
+			sourceTree = "<group>";
+		};
 		E61B8A511CBB6C4900AE37F9 /* SDCycleScrollView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1668,6 +1669,8 @@
 				E64EF1221CB6614100CAE340 /* fighterTests */,
 				E64EF12D1CB6614100CAE340 /* fighterUITests */,
 				E64EF1071CB6614000CAE340 /* Products */,
+				F52441DE9E75AABF04FAB793 /* Pods */,
+				FF4F6665A0FF96A7EF0453D8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1684,6 +1687,7 @@
 		E64EF1081CB6614000CAE340 /* fighter */ = {
 			isa = PBXGroup;
 			children = (
+				E66FF6281CF2A78B002C4F67 /* G格斗家-格斗场-最热.png */,
 				E685320A1CE59CFA00603D77 /* Frameworks */,
 				E68050C21CBFA70200678905 /* OtherSDK */,
 				3D57D04A1CEC0BC30082BF24 /* DataBase */,
@@ -1960,6 +1964,7 @@
 		E66D6EF21CBCE81C008B015A /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				E6D09E931CEDDDB800B7C43E /* 七牛 */,
 				E66D6EF31CBCE81C008B015A /* NetworkLayer */,
 			);
 			path = Network;
@@ -1999,32 +2004,6 @@
 				E65EFC2B1CC8B63C0039EE8A /* FTConfig.m */,
 			);
 			path = Config;
-			sourceTree = "<group>";
-		};
-		E66D6EFC1CBCE843008B015A /* AFNetworking */ = {
-			isa = PBXGroup;
-			children = (
-				E66D6EFD1CBCE843008B015A /* AFHTTPRequestOperation.h */,
-				E66D6EFE1CBCE843008B015A /* AFHTTPRequestOperation.m */,
-				E66D6EFF1CBCE843008B015A /* AFHTTPRequestOperationManager.h */,
-				E66D6F001CBCE843008B015A /* AFHTTPRequestOperationManager.m */,
-				E66D6F011CBCE843008B015A /* AFHTTPSessionManager.h */,
-				E66D6F021CBCE843008B015A /* AFHTTPSessionManager.m */,
-				E66D6F031CBCE843008B015A /* AFNetworking.h */,
-				E66D6F041CBCE843008B015A /* AFNetworkReachabilityManager.h */,
-				E66D6F051CBCE843008B015A /* AFNetworkReachabilityManager.m */,
-				E66D6F061CBCE843008B015A /* AFSecurityPolicy.h */,
-				E66D6F071CBCE843008B015A /* AFSecurityPolicy.m */,
-				E66D6F081CBCE843008B015A /* AFURLConnectionOperation.h */,
-				E66D6F091CBCE843008B015A /* AFURLConnectionOperation.m */,
-				E66D6F0A1CBCE843008B015A /* AFURLRequestSerialization.h */,
-				E66D6F0B1CBCE843008B015A /* AFURLRequestSerialization.m */,
-				E66D6F0C1CBCE843008B015A /* AFURLResponseSerialization.h */,
-				E66D6F0D1CBCE843008B015A /* AFURLResponseSerialization.m */,
-				E66D6F0E1CBCE843008B015A /* AFURLSessionManager.h */,
-				E66D6F0F1CBCE843008B015A /* AFURLSessionManager.m */,
-			);
-			path = AFNetworking;
 			sourceTree = "<group>";
 		};
 		E678726E1CEACEBA0099CEE6 /* 文本 */ = {
@@ -2265,9 +2244,29 @@
 			name = "标签展示";
 			sourceTree = "<group>";
 		};
+		E6D09E8F1CEDA0CD00B7C43E /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				E6D09E901CEDA10000B7C43E /* FTTools.h */,
+				E6D09E911CEDA10000B7C43E /* FTTools.m */,
+			);
+			name = tools;
+			sourceTree = "<group>";
+		};
+		E6D09E931CEDDDB800B7C43E /* 七牛 */ = {
+			isa = PBXGroup;
+			children = (
+				E6D09E941CEDDDCF00B7C43E /* FTQiniuNetwork.h */,
+				E6D09E951CEDDDCF00B7C43E /* FTQiniuNetwork.m */,
+			);
+			name = "七牛";
+			sourceTree = "<group>";
+		};
 		E6D2F8D21CE95F0C00160788 /* 格斗场Arena */ = {
 			isa = PBXGroup;
 			children = (
+				E6D09E8F1CEDA0CD00B7C43E /* tools */,
+				E6133A6D1CED6F9C00F53381 /* bean */,
 				E6C4D7EE1CEC5FB200D73BFC /* network */,
 				E6D2F8E71CEAA8F900160788 /* ViewController */,
 				E6D2F8E81CEAA90600160788 /* Views */,
@@ -2278,7 +2277,6 @@
 		E6D2F8D31CE95F4600160788 /* main */ = {
 			isa = PBXGroup;
 			children = (
-				E6D2F8D41CE95FB100160788 /* FTArenaViewController.h */,
 				3D6DA0CC1CEE933E00BAA8F0 /* FTArenaViewController.h */,
 				E6D2F8D51CE95FB100160788 /* FTArenaViewController.m */,
 				E6D2F8D61CE95FB100160788 /* FTArenaViewController.xib */,
@@ -2326,6 +2324,7 @@
 		E6D2F8E71CEAA8F900160788 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				E6FE6A591CEED34C00D63847 /* 详情 */,
 				E6D2F8D31CE95F4600160788 /* main */,
 				E67872751CEAFFBA0099CEE6 /* 发新帖 */,
 			);
@@ -2404,7 +2403,6 @@
 				3DC411F41CD039D70030C229 /* Masonry */,
 				E680509D1CBF919A00678905 /* JHRefresh */,
 				E6E5807E1CBE2F2D00272242 /* SDWebImage */,
-				E66D6EFC1CBCE843008B015A /* AFNetworking */,
 				E61B8A511CBB6C4900AE37F9 /* SDCycleScrollView */,
 				E6D74A571CB7B8C200854337 /* MBProgressHUD.h */,
 				E6D74A581CB7B8C200854337 /* MBProgressHUD.m */,
@@ -2492,6 +2490,33 @@
 			name = collectionView;
 			sourceTree = "<group>";
 		};
+		E6FE6A591CEED34C00D63847 /* 详情 */ = {
+			isa = PBXGroup;
+			children = (
+				E6FE6A5A1CEED3DC00D63847 /* FTArenaPostsDetailViewController.h */,
+				E6FE6A5B1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m */,
+				E6FE6A5C1CEED3DC00D63847 /* FTArenaPostsDetailViewController.xib */,
+			);
+			name = "详情";
+			sourceTree = "<group>";
+		};
+		F52441DE9E75AABF04FAB793 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DF679036E381CA6DC2307057 /* Pods-fighter.debug.xcconfig */,
+				CD48BE749B6F4D12F01B91BD /* Pods-fighter.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FF4F6665A0FF96A7EF0453D8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CC6E175F6D8F9BDF7F42A3E5 /* Pods_fighter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2499,9 +2524,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E64EF1331CB6614100CAE340 /* Build configuration list for PBXNativeTarget "fighter" */;
 			buildPhases = (
+				4FB332F39A8646C733F20968 /* 📦 Check Pods Manifest.lock */,
 				E64EF1021CB6614000CAE340 /* Sources */,
 				E64EF1031CB6614000CAE340 /* Frameworks */,
 				E64EF1041CB6614000CAE340 /* Resources */,
+				06F73924D6D219EA6175A420 /* 📦 Embed Pods Frameworks */,
+				600E32FC56B17B3D80AB9B7B /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2656,6 +2684,7 @@
 				3D7B98AA1CE048F200B80B8D /* FTManagerAccountViewController.xib in Resources */,
 				E61184911CC75E1600F23EC7 /* UMSShareListController.xib in Resources */,
 				E67872741CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib in Resources */,
+				E66FF6291CF2A78B002C4F67 /* G格斗家-格斗场-最热.png in Resources */,
 				E64EF1141CB6614000CAE340 /* Main.storyboard in Resources */,
 				3D7B989D1CDF896F00B80B8D /* FTTableViewCell5.xib in Resources */,
 				3D4B192E1CD9FD670022DFB0 /* ToolViewInputTextHL@2x.png in Resources */,
@@ -2667,6 +2696,7 @@
 				E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */,
 				3D4B19331CD9FD670022DFB0 /* umeng_fb_audio_dialog_content@2x.png in Resources */,
 				3D4B19311CD9FD670022DFB0 /* umeng_add_photo@2x.png in Resources */,
+				E6FE6A5E1CEED3DC00D63847 /* FTArenaPostsDetailViewController.xib in Resources */,
 				3D8D73BE1CE97404009E2320 /* FTTableViewCell6.xib in Resources */,
 				3D4B192D1CD9FD670022DFB0 /* ToolViewInputText@2x.png in Resources */,
 				3D5FB4931CDC311400FC1809 /* FTAssetsViewController.xib in Resources */,
@@ -2714,6 +2744,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		06F73924D6D219EA6175A420 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-fighter/Pods-fighter-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4FB332F39A8646C733F20968 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		600E32FC56B17B3D80AB9B7B /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-fighter/Pods-fighter-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E64EF1021CB6614000CAE340 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -2734,7 +2812,7 @@
 				E668BAAF1CE0565700071998 /* MJRefreshComponent.m in Sources */,
 				E61B8A611CBB6C4900AE37F9 /* TAAbstractDotView.m in Sources */,
 				3DC412161CD039D70030C229 /* View+MASAdditions.m in Sources */,
-				E66D6F151CBCE843008B015A /* AFURLConnectionOperation.m in Sources */,
+				E6D09E961CEDDDCF00B7C43E /* FTQiniuNetwork.m in Sources */,
 				3DC411F31CCF810A0030C229 /* FTDrawerTableViewFooter.m in Sources */,
 				E68050C11CBF919A00678905 /* UIView+JHExtension.m in Sources */,
 				E6E580B31CBE523B00272242 /* FTBaseTableViewCell.m in Sources */,
@@ -2778,9 +2856,9 @@
 				E6E9E88B1CDC464A00976480 /* FTVideoCollectionView.m in Sources */,
 				3D56CB371CED950600265A84 /* ReachStateUnReachable.m in Sources */,
 				E668BAB41CE0565700071998 /* MJRefreshAutoStateFooter.m in Sources */,
-				E66D6F161CBCE843008B015A /* AFURLRequestSerialization.m in Sources */,
 				3DE95B501CD326B7005BF85C /* FTCollectionViewLayout.m in Sources */,
 				E68050B71CBF919A00678905 /* JHRefreshAmazingAniView.m in Sources */,
+				E6FE6A5D1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m in Sources */,
 				3D8D73C21CE9DEFE009E2320 /* FTRankTableVIewCell.m in Sources */,
 				E668BAB51CE0565700071998 /* MJRefreshBackGifFooter.m in Sources */,
 				3DC9A4E31CE59A0400E16D19 /* FTButton.m in Sources */,
@@ -2801,13 +2879,13 @@
 				3D6DA0E71CEEE24100BAA8F0 /* FTBoxerHeaderView.m in Sources */,
 				3D7B989C1CDF896F00B80B8D /* FTTableViewCell5.m in Sources */,
 				3D4B195F1CDB56EF0022DFB0 /* FTHeightPickerView.m in Sources */,
-				E66D6F121CBCE843008B015A /* AFHTTPSessionManager.m in Sources */,
 				E68050BE1CBF919A00678905 /* JHRefreshHeaderView.m in Sources */,
 				E6DB76131CBB9B430034253C /* FTOneImageInfoTableViewCell.m in Sources */,
 				3D8D73BD1CE97404009E2320 /* FTTableViewCell6.m in Sources */,
 				E64EF10E1CB6614000CAE340 /* AppDelegate.m in Sources */,
 				3D4B18F91CD974B80022DFB0 /* MainViewController.m in Sources */,
 				3D7B98B41CE06F9800B80B8D /* FTInputNewPhoneViewController.m in Sources */,
+				E6133A6C1CED6F8E00F53381 /* FTArenaBean.m in Sources */,
 				3D4B19531CDAEF840022DFB0 /* FTTableViewCell4.m in Sources */,
 				3DE95BA31CD868C6005BF85C /* FTDynamicsDrawerViewController.m in Sources */,
 				E6A9DDAC1CD89EE900CB9518 /* FTVideoBean.m in Sources */,
@@ -2818,9 +2896,7 @@
 				3D7B98971CDEE1E900B80B8D /* FTSettingViewController.m in Sources */,
 				E65EFC2C1CC8B63C0039EE8A /* FTConfig.m in Sources */,
 				3DC412111CD039D70030C229 /* MASLayoutConstraint.m in Sources */,
-				E66D6F141CBCE843008B015A /* AFSecurityPolicy.m in Sources */,
 				3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */,
-				E66D6F111CBCE843008B015A /* AFHTTPRequestOperationManager.m in Sources */,
 				E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */,
 				3D6DA0D91CEE951E00BAA8F0 /* FTArenaTextTableViewCell.m in Sources */,
 				E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */,
@@ -2874,8 +2950,6 @@
 				E6B458D21CB75DA200FB4261 /* FTInformationViewController.m in Sources */,
 				3DE95BA71CD86FA4005BF85C /* FTLoginViewController.m in Sources */,
 				E6C4D7F11CEC5FCE00D73BFC /* FTArenaNetwork.m in Sources */,
-				E66D6F181CBCE843008B015A /* AFURLSessionManager.m in Sources */,
-				E66D6F131CBCE843008B015A /* AFNetworkReachabilityManager.m in Sources */,
 				E6E580A61CBE2F2D00272242 /* SDWebImageDownloaderOperation.m in Sources */,
 				3DC4121D1CD060190030C229 /* FTDrawerViewController.m in Sources */,
 				E6D74A4C1CB7B7EE00854337 /* HUD.m in Sources */,
@@ -2909,7 +2983,6 @@
 				E61B8A661CBB6C4900AE37F9 /* SDCycleScrollView.m in Sources */,
 				E668BBBB1CE44E6400071998 /* FTCache.m in Sources */,
 				3D8D73B41CE95198009E2320 /* FTRankTableView.m in Sources */,
-				E66D6F171CBCE843008B015A /* AFURLResponseSerialization.m in Sources */,
 				E66D6EFB1CBCE81C008B015A /* FTNetConfig.m in Sources */,
 				3DC412251CD0C3780030C229 /* NSString+Size.m in Sources */,
 				3D57D0431CEC0B560082BF24 /* FMDatabase.m in Sources */,
@@ -2917,6 +2990,7 @@
 				E68050B91CBF919A00678905 /* JHRefreshCommonAniView.m in Sources */,
 				E668BAB71CE0565700071998 /* MJRefreshBackStateFooter.m in Sources */,
 				E668BAB11CE0565700071998 /* MJRefreshHeader.m in Sources */,
+				E6D09E921CEDA10000B7C43E /* FTTools.m in Sources */,
 				3DE95BAD1CD8A042005BF85C /* FTRegistViewController.m in Sources */,
 				E6D74A4B1CB7B7EE00854337 /* UUID.m in Sources */,
 				3DC9A4E91CE5CC6C00E16D19 /* FTRankBaseViewController.m in Sources */,
@@ -3084,6 +3158,7 @@
 		};
 		E64EF1341CB6614100CAE340 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF679036E381CA6DC2307057 /* Pods-fighter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -3110,7 +3185,10 @@
 					"$(PROJECT_DIR)/fighter/OtherSDK/UMengFeedback_SDK",
 					"$(PROJECT_DIR)/fighter/OtherSDK/UMengFeedback_SDK/UMOpus",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -3119,6 +3197,7 @@
 		};
 		E64EF1351CB6614100CAE340 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD48BE749B6F4D12F01B91BD /* Pods-fighter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -3145,7 +3224,10 @@
 					"$(PROJECT_DIR)/fighter/OtherSDK/UMengFeedback_SDK",
 					"$(PROJECT_DIR)/fighter/OtherSDK/UMengFeedback_SDK/UMOpus",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

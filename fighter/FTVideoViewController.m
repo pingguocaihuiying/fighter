@@ -119,6 +119,7 @@
 
 #pragma -mark 最新最热按钮被点击
 - (IBAction)hotButtonClicked:(id)sender {
+    //服务器：0是最热，1是最新
     self.videosTag = @"0";
     [MobClick event:@"videoPage_Hot"];
     //设置背景

@@ -121,6 +121,11 @@
     }else if(self.videoBean){
         tableName = @"c-video";
         objId= [NSString stringWithFormat:@"%@", _videoBean.videosId];
+    }else if(self.arenaBean){
+        objId= [NSString stringWithFormat:@"%@", _arenaBean.postsId];
+        tableName = @"c-damageblog";
+    }else{
+        NSLog(@"error : 没有找到bean");
     }
     
     
@@ -134,6 +139,9 @@
     //创建AAFNetWorKing管理者
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSLog(@"userId : %@, objId : %@, loginToken : %@, ts : %@, checkSign : %@, comment : %@, tableName : %@, ", userId ,objId , loginToken,ts ,checkSign ,comment,tableName);
+    
     NSDictionary *dic = @{@"userId" : userId,
                           @"objId" : objId,
                           @"loginToken" : loginToken,

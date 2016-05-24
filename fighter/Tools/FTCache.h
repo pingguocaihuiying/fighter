@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong)NSMutableDictionary *videoDataDic;
 @property (nonatomic, strong)NSMutableDictionary *newsDataDic;
+@property (nonatomic, strong)NSMutableDictionary *arenaDataDic;
 
 + (instancetype)sharedInstance;
 
