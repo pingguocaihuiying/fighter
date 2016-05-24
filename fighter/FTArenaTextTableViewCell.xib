@@ -65,7 +65,7 @@
                         <state key="normal" backgroundImage="评-改"/>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="格斗标签-综合格斗" translatesAutoresizingMaskIntoConstraints="NO" id="CfI-TS-sF8">
-                        <rect key="frame" x="267" y="129" width="68" height="14"/>
+                        <rect key="frame" x="267" y="130" width="68" height="14"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="68" id="fth-jS-Vnn"/>
                             <constraint firstAttribute="height" constant="14" id="wfe-zA-dtV"/>
@@ -80,11 +80,11 @@
                         <color key="textColor" red="0.50980392159999999" green="0.50980392159999999" blue="0.50980392159999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pj2-pH-RNN">
-                        <rect key="frame" x="139" y="129" width="34" height="14"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="身份圆形-拳" translatesAutoresizingMaskIntoConstraints="NO" id="pj2-pH-RNN">
+                        <rect key="frame" x="139" y="129" width="15" height="15"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="34" id="0hj-pv-jsA"/>
-                            <constraint firstAttribute="height" constant="14" id="Egg-7F-hhy"/>
+                            <constraint firstAttribute="width" constant="15" id="0hj-pv-jsA"/>
+                            <constraint firstAttribute="height" constant="15" id="Egg-7F-hhy"/>
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PdL-gg-71O" userLabel="赞Button">
@@ -182,6 +182,7 @@
         <image name="格斗标签-综合格斗" width="68" height="14"/>
         <image name="评-改" width="22" height="22"/>
         <image name="赞-改" width="22" height="22"/>
+        <image name="身份圆形-拳" width="15" height="15"/>
         <image name="金属边框-改进ios" width="67" height="60"/>
     </resources>
 </document>

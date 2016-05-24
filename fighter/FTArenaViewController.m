@@ -36,9 +36,11 @@
 #import "FTNewPostViewController.h"
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
-#import "FTQiniuNetwork.h"
 
-@interface FTArenaViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTnewsDetailDelegate, FTSelectCellDelegate>
+#import "FTArenaBean.h"
+#import "FTArenaPostsDetailViewController.h"
+
+@interface FTArenaViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTArenaDetailDelegate, FTSelectCellDelegate>
 
 {
     NIDropDown *_dropDown;
@@ -254,11 +256,7 @@
     _dropDown = nil;
 }
 - (IBAction)newBlogButtonClicked:(id)sender {
-    __block NSString *qiniuToken;
-//    [FTQiniuNetwork getQiniuTokenWithOption:^(NSString *token) {
-//        qiniuToken = token;
-//        NSLog(@"qiniuToken : %@", qiniuToken);
-//    }];
+
     
     NSLog(@"发新帖");
     //从本地读取存储的用户信息
@@ -540,18 +538,18 @@
     //    NSLog(@"第%ld个cell被点击了。", indexPath.row);
     if (self.tableViewDataSourceArray) {
         
-        FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
+        FTArenaPostsDetailViewController *postsDetailVC = [FTArenaPostsDetailViewController new];
         //获取对应的bean，传递给下个vc
         NSDictionary *newsDic = tableView.sourceArray[indexPath.row];
-        FTNewsBean *bean = [FTNewsBean new];
+        FTArenaBean *bean = [FTArenaBean new];
         [bean setValuesWithDic:newsDic];
         
-        newsDetailVC.newsBean = bean;
-        newsDetailVC.delegate = self;
-        newsDetailVC.indexPath = indexPath;
+        postsDetailVC.arenaBean = bean;
+        postsDetailVC.delegate = self;
+        postsDetailVC.indexPath = indexPath;
         
         
-        [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+        [self.navigationController pushViewController:postsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
     }
 }
 - (IBAction)filterButton:(id)sender {
@@ -571,17 +569,17 @@
     [self initSubViews];
 }
 
-- (void)updateCountWithNewsBean:(FTNewsBean *)newsBean indexPath:(NSIndexPath *)indexPath{
+
+- (void)updateCountWithArenaBean:(FTArenaBean *)arenaBean indexPath:(NSIndexPath *)indexPath{
     
     NSDictionary *dic = self.tableViewController.sourceArray[indexPath.row];
-    [dic setValue:[NSString stringWithFormat:@"%@", newsBean.voteCount] forKey:@"voteCount"];
-    [dic setValue:[NSString stringWithFormat:@"%@", newsBean.commentCount] forKey:@"commentCount"];
+    [dic setValue:[NSString stringWithFormat:@"%@", arenaBean.voteCount] forKey:@"voteCount"];
+    [dic setValue:[NSString stringWithFormat:@"%@", arenaBean.commentCount] forKey:@"commentCount"];
     
     self.tableViewController.sourceArray[indexPath.row] = dic;
     [self.tableViewController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
     
 }
-
 
 
 @end

@@ -8,6 +8,7 @@
 
 #import "FTTools.h"
 #import "FTNWGetCategory.h"
+#import "MBProgressHUD.h"
 
 @implementation FTTools
 + (NSString *)getChLabelNameWithEnLabelName:(NSString *)labelNameEn{
@@ -31,5 +32,18 @@
     }
     
     return labelNameCh;
+}
+
++ (void)showHUDWithMessage:(NSString *)message andView:(UIView *)view{
+    
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:view];
+    [view addSubview:HUD];
+    HUD.label.text = message;
+    HUD.mode = MBProgressHUDModeCustomView;
+    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
+    [HUD showAnimated:YES];
+    sleep(1.5);
+        [HUD removeFromSuperview];
+    
 }
 @end

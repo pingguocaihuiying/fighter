@@ -33,13 +33,23 @@
     
     self.commentCountLabel.text = [NSString stringWithFormat:@"(%@)", commentCount];
     self.likeCountLabel.text = [NSString stringWithFormat:@"(%@)", voteCount];
-    self.authorLabel.text = bean.createName;
+    self.authorLabel.text = bean.nickname;
     self.timeLabel.text = bean.createTime;
     
-    if (bean.videoUrlNames) {
-        [self.theImageView sd_setImageWithURL:[NSURL URLWithString:bean.videoUrlNames]];
-    }else if(bean.pictureUrlNames){
-        [self.theImageView sd_setImageWithURL:[NSURL URLWithString:bean.pictureUrlNames]];
+
+    if (bean.videoUrlNames && ![bean.videoUrlNames isEqualToString:@""]) {
+        NSString *firstVideoUrlString = [[bean.videoUrlNames componentsSeparatedByString:@","]firstObject];
+
+        firstVideoUrlString = [NSString stringWithFormat:@"%@?imageView2/2/w/200", firstVideoUrlString];
+        NSString *imageUrlString = [NSString stringWithFormat:@"%@/%@", bean.urlPrefix, firstVideoUrlString];
+        NSLog(@"videoUrlString : %@", imageUrlString);
+        [self.theImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlString]];
+    }else if(bean.pictureUrlNames && ![bean.pictureUrlNames isEqualToString:@""]){
+        NSString *firstImageUrlString = [[bean.pictureUrlNames componentsSeparatedByString:@","]firstObject];
+        firstImageUrlString = [NSString stringWithFormat:@"%@?vframe/png/offset/0/w/200/h/100", firstImageUrlString];
+        NSString *imageUrlString = [NSString stringWithFormat:@"%@/%@", bean.urlPrefix, firstImageUrlString];
+        NSLog(@"imageUrlString : %@", imageUrlString);
+        [self.theImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlString]];
     }
     //根据newsType去设置类型图片
         NSLog(@"label : %@", bean.labels);

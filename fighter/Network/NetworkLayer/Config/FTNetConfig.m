@@ -83,7 +83,7 @@ NSString *const GetArenaListURL = @"/api/damblog/list.do";
 //格斗场发新帖//接口地址: 域名/api/base/save$Base.do
 NSString *const NewPostURL = @"/api/base/save$Base.do";
 
-//接口地址:    域名/api/qiniu/get$QiNiuToken.do七牛获取token接口地址
+//接口地址:    域名/api/qiniu/get$QiNiuToken.do七牛获取token接口地址名
 NSString *const GetQiniuToken = @"/api/qiniu/get$QiNiuToken.do";
 
 

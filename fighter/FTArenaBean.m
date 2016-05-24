@@ -27,7 +27,7 @@
 
 
 - (void)setValuesWithDic:(NSDictionary *)dic{
-    self.uid = dic[@"id"];
+    self.postsId = dic[@"id"];
     self.updateTime = dic[@"updateTime"];
     self.createName = dic[@"createName"];
     self.labels = dic[@"labels"];
@@ -43,7 +43,17 @@
     self.content = dic[@"content"];
     self.headUrl = dic[@"headUrl"];
     self.commentCount = dic[@"commentCount"];
+//    self.commentCount = [NSString stringWithFormat:@"%@", self.commentCount];
+    if (self.commentCount == nil) {
+        self.commentCount = @"0";
+    }
     self.voteCount = dic[@"voteCount"];
+//    self.voteCount = [NSString stringWithFormat:@"%@", self.voteCount];
+    if (self.voteCount == nil) {
+        self.voteCount = @"0";
+    }
+    self.nickname = dic[@"nickname"];
+    self.viewCount = dic[@"viewCount"];
 }
 
 @end

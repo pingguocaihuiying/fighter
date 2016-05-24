@@ -11,5 +11,5 @@
 @interface FTTools : NSObject
 
 + (NSString *)getChLabelNameWithEnLabelName:(NSString *)labelNameEn;
-
++ (void)showHUDWithMessage:(NSString *)message andView:(UIView *)view;
 @end

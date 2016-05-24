@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -10,9 +10,9 @@
                 <outlet property="containerOfNewOrHotView" destination="ljW-Cr-QBP" id="9JB-n0-9pM"/>
                 <outlet property="currentScrollView" destination="ZJh-iV-SHb" id="RRP-Zh-RLy"/>
                 <outlet property="currentView" destination="WeY-QL-vxk" id="fsf-12-YSc"/>
-                <outlet property="hotButton" destination="V3y-Hy-QYx" id="XrF-zz-i2t"/>
+                <outlet property="hotButton" destination="fGJ-cl-XUy" id="18d-zS-no4"/>
                 <outlet property="leftBtn" destination="970-ML-Okc" id="Hx2-fd-ZsW"/>
-                <outlet property="newestButton" destination="fGJ-cl-XUy" id="48c-nY-sVM"/>
+                <outlet property="newestButton" destination="V3y-Hy-QYx" id="abT-d0-ICb"/>
                 <outlet property="view" destination="dcm-ao-ON0" id="tx0-sa-ZZD"/>
             </connections>
         </placeholder>
@@ -82,6 +82,14 @@
                     </constraints>
                     <state key="normal" backgroundImage="头部48按钮一堆-搜索"/>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nBu-WR-qHs" userLabel="排行榜">
+                    <rect key="frame" x="281" y="25" width="24" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="24" id="WPp-51-ExN"/>
+                        <constraint firstAttribute="height" constant="24" id="Yun-xb-MmO"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="头部48按钮一堆-排行"/>
+                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ABi-mZ-eso" userLabel="上方分割线">
                     <rect key="frame" x="0.0" y="60" width="320" height="1"/>
                     <color key="backgroundColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -107,32 +115,32 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ljW-Cr-QBP" userLabel="containerViewOf最热和最新">
                     <rect key="frame" x="6" y="111" width="308" height="35"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V3y-Hy-QYx" userLabel="最热">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V3y-Hy-QYx" userLabel="最新">
                             <rect key="frame" x="0.0" y="0.0" width="152" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="152" id="AfQ-Tq-VPC"/>
                                 <constraint firstAttribute="height" constant="35" id="Wb5-g8-fIM"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <state key="normal" title="最热" image="标签图标-最热-pre">
+                            <state key="normal" title="最新" image="标签图标-最热-pre">
                                 <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
-                                <action selector="hotButtonClicked:" destination="-1" eventType="touchUpInside" id="RJd-Od-Vdr"/>
+                                <action selector="newestButtonClicked:" destination="-1" eventType="touchUpInside" id="E5G-ui-WYq"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGJ-cl-XUy" userLabel="最新">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGJ-cl-XUy" userLabel="最热">
                             <rect key="frame" x="152" y="0.0" width="152" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="35" id="KIy-em-hXp"/>
                                 <constraint firstAttribute="width" constant="152" id="t79-oh-OcP"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <state key="normal" title="最新" image="标签图标-最新">
+                            <state key="normal" title="最热" image="标签图标-最新">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="newestButtonClicked:" destination="-1" eventType="touchUpInside" id="eWA-iv-O7z"/>
+                                <action selector="hotButtonClicked:" destination="-1" eventType="touchUpInside" id="alv-IS-BGF"/>
                             </connections>
                         </button>
                     </subviews>
@@ -156,6 +164,7 @@
                 <constraint firstItem="iv8-Nb-0hq" firstAttribute="leading" secondItem="mCF-Nk-Ecj" secondAttribute="trailing" constant="8" id="0C2-8b-vjP"/>
                 <constraint firstItem="WeY-QL-vxk" firstAttribute="top" secondItem="ljW-Cr-QBP" secondAttribute="bottom" constant="5" id="0h2-QS-iIa"/>
                 <constraint firstItem="B90-Sa-ZMR" firstAttribute="leading" secondItem="kGN-G7-Z3Y" secondAttribute="trailing" constant="16" id="3iH-Mn-PV7"/>
+                <constraint firstAttribute="trailing" secondItem="nBu-WR-qHs" secondAttribute="trailing" constant="15" id="5VV-eM-Kev"/>
                 <constraint firstItem="qJs-6t-deF" firstAttribute="leading" secondItem="ZJh-iV-SHb" secondAttribute="trailing" constant="-11" id="7G0-jz-r2T"/>
                 <constraint firstItem="ljW-Cr-QBP" firstAttribute="centerX" secondItem="dcm-ao-ON0" secondAttribute="centerX" id="7Vf-y0-Jmz"/>
                 <constraint firstItem="mCF-Nk-Ecj" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" constant="34" id="9Tw-Qd-nLf"/>
@@ -167,6 +176,7 @@
                 <constraint firstItem="qJs-6t-deF" firstAttribute="top" secondItem="ABi-mZ-eso" secondAttribute="bottom" constant="8" id="Rjq-Yk-t1z"/>
                 <constraint firstAttribute="trailing" secondItem="qJs-6t-deF" secondAttribute="trailing" constant="8" id="ScO-gZ-614"/>
                 <constraint firstAttribute="trailing" secondItem="ABi-mZ-eso" secondAttribute="trailing" id="WWf-V7-jWp"/>
+                <constraint firstItem="nBu-WR-qHs" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" constant="25" id="WqG-vS-4Rr"/>
                 <constraint firstItem="drw-8n-X8q" firstAttribute="leading" secondItem="970-ML-Okc" secondAttribute="trailing" constant="8" id="Xmq-ai-m21"/>
                 <constraint firstItem="970-ML-Okc" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" constant="20" id="XsP-nU-20Q"/>
                 <constraint firstItem="ljW-Cr-QBP" firstAttribute="top" secondItem="ZJh-iV-SHb" secondAttribute="bottom" constant="10" id="ZsE-PT-x9v"/>
@@ -184,6 +194,7 @@
         </view>
     </objects>
     <resources>
+        <image name="头部48按钮一堆-排行" width="24" height="24"/>
         <image name="头部48按钮一堆-搜索" width="24" height="24"/>
         <image name="头部48按钮一堆-更多" width="24" height="24"/>
         <image name="头部48按钮一堆-消息" width="24" height="24"/>

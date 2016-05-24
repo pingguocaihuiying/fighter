@@ -42,7 +42,7 @@
 
     self.commentCountLabel.text = [NSString stringWithFormat:@"(%@)", commentCount];
     self.likeCountLabel.text = [NSString stringWithFormat:@"(%@)", voteCount];
-    self.authorLabel.text = bean.createName;
+    self.authorLabel.text = bean.nickname;
     self.timeLabel.text = bean.createTime;
 //    NSLog(@"label : %@", bean.labels);
     //根据newsType去设置类型图片

@@ -12,5 +12,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextView *contentTextView;
 @property (weak, nonatomic) IBOutlet UIView *contentTextViewContainer;
+@property (weak, nonatomic) IBOutlet UIButton *addLabelButton;
+@property (weak, nonatomic) IBOutlet UIView *mediaPickerView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *meidiaPickerViewHeight;
 
 @end
