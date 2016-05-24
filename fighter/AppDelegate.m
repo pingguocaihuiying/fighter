@@ -87,6 +87,7 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
         DBManager *dbManager = [DBManager shareDBManager];
         [dbManager connect];
         [dbManager createLabelsTable];
+        [dbManager createNewsTable];
         [dbManager close];
         [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"labels"];
         [[NSUserDefaults standardUserDefaults]synchronize];

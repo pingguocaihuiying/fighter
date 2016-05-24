@@ -16,6 +16,7 @@
 
 - (void)setValuesWithDic:(NSDictionary *)dic{
     
+    self.layout = dic[@"id"];
     self.layout = dic[@"layout"];
     self.newsTime = dic[@"newsTime"];
     self.img_small_three = dic[@"img_small_three"];

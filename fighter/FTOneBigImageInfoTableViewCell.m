@@ -24,6 +24,14 @@
 }
 
 - (void)setWithBean:(FTNewsBean *)bean{
+    
+    
+    if ([bean.isReader isEqualToString:@"YES"]) {
+        [self.myTitleLabel setTextColor:Nonmal_Text_Color];
+    }else {
+        [self.myTitleLabel setTextColor:[UIColor whiteColor]];
+    }
+    
     //设置来源标签的颜色
     self.fromLabel.textColor = Secondary_Text_Color;
     

@@ -15,6 +15,8 @@
 #import "NetWorking.h"
 #import "DBManager.h"
 #import "UIWindow+MBProgressHUD.h"
+#import "FTBoxerCenter.h"
+
 
 @interface FTRankViewController ()  <FTSelectCellDelegate>
 
@@ -240,6 +242,7 @@
         self.scrollView.frame = CGRectMake(0, 104, SCREEN_WIDTH, SCREEN_HEIGHT-104);
         self.scrollView.backgroundColor = [UIColor clearColor];
         self.scrollView.delegate = self;
+        self.scrollView.bounces = YES;
         [self.view addSubview:self.scrollView];
         
         //第一名视图
@@ -633,6 +636,13 @@
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         [cell setSelected:NO];
     }
+    
+    
+    //跳转拳手个人中心页面
+    
+    FTBoxerCenter *boxerVC = [[FTBoxerCenter alloc]init];
+    [self.navigationController pushViewController:boxerVC animated:YES];
+    
 }
 
 
