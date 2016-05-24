@@ -24,6 +24,10 @@
 }
 - (void)setWithBean:(FTArenaBean *)bean{
     
+    if ([bean.isReader isEqualToString:@"YES"]) {
+        [self.theTitle setTextColor:Nonmal_Text_Color];
+    }
+    
     //根据数据源去设置显示内容
     self.theTitle.text = bean.title;
     self.sumupLabel.text = bean.content;

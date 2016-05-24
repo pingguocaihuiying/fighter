@@ -24,6 +24,10 @@
 }
 - (void)setWithBean:(FTArenaBean *)bean{
     
+    if ([bean.isReader isEqualToString:@"YES"]) {
+        [self.theTitle setTextColor:Nonmal_Text_Color];
+    }
+
     //调整正文行高
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.sumupLabel.text];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];

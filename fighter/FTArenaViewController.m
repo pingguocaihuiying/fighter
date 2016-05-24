@@ -39,8 +39,10 @@
 
 #import "FTArenaBean.h"
 #import "FTArenaPostsDetailViewController.h"
+#import "NetWorking.h"
+#import "DBManager.h"
 
-@interface FTArenaViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTArenaDetailDelegate, FTSelectCellDelegate>
+@interface FTArenaViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTArenaDetailDelegate, FTSelectCellDelegate,FTTableViewdelegate>
 
 {
     NIDropDown *_dropDown;
@@ -71,7 +73,10 @@
     [super viewDidLoad];
     [self initBaseConfig];
     [self initPageController];
-    [self reloadDate];//初次加载数据
+    
+    [self getDataFromDB];
+    [self getDataFromWeb];//初次加载数据
+//    [self reloadDate];
     
     
     [self initSubviews];
@@ -133,7 +138,8 @@
         
         //下拉时请求最新的一页数据
         _pageNum = @"1";
-        [sself reloadDate];
+//        [sself reloadDate];
+        [sself getDataFromWeb];
     }];
     //设置上拉刷新
     [self.tableViewController.tableView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
@@ -148,7 +154,8 @@
         pageNumInt++;
         _pageNum = [NSString stringWithFormat:@"%d", pageNumInt];
 
-        [sself reloadDate];
+//        [sself reloadDate];
+        [sself getDataFromWeb];
     }];
 }
 
@@ -177,7 +184,8 @@
         [self refreshIndexView];//刷新红色下标的显示
     }
     _query = @"list-dam-blog-3";
-    [self reloadDate];
+//    [self reloadDate];
+    [self getDataFromWeb];
 }
 
 #pragma -mark -下拉框
@@ -245,7 +253,8 @@
     
     //刷新数据
     _pageNum = @"1";
-    [self reloadDate];
+//    [self reloadDate];
+    [self getDataFromWeb];
 }
 
 - (void) niDropDownDelegateMethod: (NIDropDown *) sender {
@@ -356,7 +365,76 @@
     return newsType;
 }
 
+#pragma mark -get data
+-(void) getDataFromDB {
+    
+    //从数据库取数据
+    DBManager *dbManager = [DBManager shareDBManager];
+    [dbManager connect];
+    NSMutableArray *mutableArray =[dbManager searchArenasWithPage:[_pageNum integerValue]];
+    [dbManager close];
+    
+    
+    if (self.tableViewDataSourceArray == nil) {
+        self.tableViewDataSourceArray = [[NSMutableArray alloc]init];
+    }
+    if ([_pageNum isEqualToString:@"1"]) {//如果是第一页数据，直接替换，不然追加
+        self.tableViewDataSourceArray = mutableArray;
+    }else{
+        [self.tableViewDataSourceArray addObjectsFromArray:mutableArray];
+    }
+    
+    self.tableViewController.sourceArray = self.tableViewDataSourceArray;
+    [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+    [self.tableViewController.tableView footerEndRefreshing];
+    
+    [self.tableViewController.tableView reloadData];
+    
+    [self saveCache];
+    //隐藏infoLabel
+    if (self.infoLabel.isHidden == NO) {
+        self.infoLabel.hidden = YES;
+    }
+}
+
+-(void) getDataFromWeb {
+    
+    NSString *urlString = [FTNetConfig host:Domain path:GetArenaListURL];
+    NSString *tableName = @"damageblog";
+    
+    urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName];
+    
+    NetWorking *net = [[NetWorking alloc]init];
+    [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
+        
+        if (responseDic != nil) {
+            NSString *status = responseDic[@"status"];
+            NSLog(@"AreaDic:%@",responseDic);
+            if ([status isEqualToString:@"success"]) {
+                NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
+                DBManager *dbManager = [DBManager shareDBManager];
+                [dbManager connect];
+                
+                for (NSDictionary *dic in mutableArray)  {
+                    [dbManager insertDataIntoArenas:dic];
+                }
+                
+                [self getDataFromDB];
+            }else {
+                
+                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+                [self.tableViewController.tableView footerEndRefreshing];
+            }
+
+        }else {
+            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+            [self.tableViewController.tableView footerEndRefreshing];
+        }
+    }];
+}
+
 - (void)reloadDate{
+    
     NSString *urlString = [FTNetConfig host:Domain path:GetArenaListURL];
     NSString *tableName = @"damageblog";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -540,10 +618,22 @@
         
         FTArenaPostsDetailViewController *postsDetailVC = [FTArenaPostsDetailViewController new];
         //获取对应的bean，传递给下个vc
-        NSDictionary *newsDic = tableView.sourceArray[indexPath.row];
-        FTArenaBean *bean = [FTArenaBean new];
-        [bean setValuesWithDic:newsDic];
+//        NSDictionary *newsDic = tableView.sourceArray[indexPath.row];
+//        FTArenaBean *bean = [FTArenaBean new];
+//        [bean setValuesWithDic:newsDic];
         
+        
+        FTArenaBean *bean = tableView.sourceArray[indexPath.row];
+        //标记已读
+        if (![bean.isReader isEqualToString:@"YES"]) {
+            bean.isReader = @"YES";
+            //从数据库取数据
+            DBManager *dbManager = [DBManager shareDBManager];
+            [dbManager connect];
+            [dbManager updateArenasById:bean.postsId isReader:YES];
+            [dbManager close];
+            
+        }
         postsDetailVC.arenaBean = bean;
         postsDetailVC.delegate = self;
         postsDetailVC.indexPath = indexPath;

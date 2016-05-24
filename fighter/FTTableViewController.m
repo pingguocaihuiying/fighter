@@ -113,6 +113,7 @@
         
         return cell;
     }else if (self.listType == FTCellTypeArena){
+        
         static NSString *celliderAreraText = @"cellArenaText";
         static NSString *celliderArenaImage = @"cellArenaImage";
         cell = [tableView dequeueReusableCellWithIdentifier:celliderArenaImage];
@@ -127,11 +128,11 @@
         
        
         
-        NSDictionary *dic = self.sourceArray[indexPath.row];
+//        NSDictionary *dic = self.sourceArray[indexPath.row];
         //改变cell的值
-        FTVideoBean *bean = [FTVideoBean new];
+        FTVideoBean *bean = self.sourceArray[indexPath.row];
         
-        [bean setValuesWithDic:dic];
+//        [bean setValuesWithDic:dic];
         [cell setWithBean:bean];
 
     }else{//如果没有网络数据源
@@ -246,9 +247,8 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     CGFloat height = 0;
     
-    
     if (self.listType == FTCellTypeNews) {
-        FTNewsBean * bean = self.sourceArray[indexPath.row];
+        FTNewsBean *bean = self.sourceArray[indexPath.row];
         NSString *layout = bean.layout;
         if ([layout isEqualToString:@"1"]) {
             height = 218;
@@ -258,31 +258,20 @@
         else if([layout isEqualToString:@"2"]){
             height = 146 ;//一张小图的cell，图片等比例放大了1.5倍
         }
-//        if ([dic isKindOfClass:[NSDictionary class]]) {
-//            NSString *layout = dic[@"layout"];
-//            if ([layout isEqualToString:@"1"]) {
-//                height = 218;
-//            }else if([layout isEqualToString:@"3"]){
-//                height = 163;
-//            }
-//            else if([layout isEqualToString:@"2"]){
-//                height = 146 ;//一张小图的cell，图片等比例放大了1.5倍
-//            }
-//        }
     }else if(self.listType == FTCellTypeArena){
-        NSDictionary* dic = self.sourceArray[indexPath.row];
-        if ([dic isKindOfClass:[NSDictionary class]]) {
-            NSString *videoUrl = dic[@"videoUrlNames"];
-            NSString *pictureUrl = dic[@"pictureUrlNames"];
-            
-            if ([videoUrl isEqualToString:@""] && [pictureUrl isEqualToString:@""]) {//如果是文本类型的cell
-                height = 185;
-            }else{//如果是带图片的cell
-                height = 217;
-                //图片原始高度
-                CGFloat imageHeight = 92;
-                height = (height - imageHeight) + imageHeight * SCALE;
-            }
+        
+       FTArenaBean *bean = self.sourceArray[indexPath.row];
+        
+        NSString *videoUrl =bean.videoUrlNames;
+        NSString *pictureUrl = bean.pictureUrlNames;
+        
+        if ([videoUrl isEqualToString:@""] && [pictureUrl isEqualToString:@""]) {//如果是文本类型的cell
+            height = 185;
+        }else{//如果是带图片的cell
+            height = 217;
+            //图片原始高度
+            CGFloat imageHeight = 92;
+            height = (height - imageHeight) + imageHeight * SCALE;
         }
 
     }
