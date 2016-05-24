@@ -72,20 +72,9 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    @try {
-    }
-    @catch (NSException *exception) {
-        NSLog(@"excetion:%@",exception);
-    }
-    @finally {
-        
-    }
     
    
     FTBaseTableViewCell *cell;
-    NSLog(@"count:%ld",(long)_sourceArray.count);
-    NSLog(@"row:%ld",(long)indexPath.row);
-    NSLog(@"count:%ld",(long)_sourceArray.count);
     if (self.listType == FTCellTypeNews) {
         
         FTNewsBean *bean = self.sourceArray[indexPath.row];

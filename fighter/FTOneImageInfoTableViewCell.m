@@ -29,9 +29,6 @@
 
 - (void)setWithBean:(FTNewsBean *)bean{//根据bean设置cell的显示内容
     
-    if (bean != nil) {
-        NSLog(@"title:%@",bean.title);
-    }
     if ([bean.isReader isEqualToString:@"YES"]) {
         [self.myTitleLabel setTextColor:Nonmal_Text_Color];
     }else {
