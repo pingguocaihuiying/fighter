@@ -130,23 +130,22 @@
     //设置下拉刷新
     __block typeof(self) sself = self;
     [self.tableViewController.tableView addRefreshHeaderViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
-        
+        NSLog(@"触发下拉刷新headerView");
         //下拉时请求最新的一页数据
         _pageNum = @"1";
         [sself reloadDate];
     }];
     //设置上拉刷新
     [self.tableViewController.tableView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
-        NSString *currId;
-        if (sself.tableViewController.sourceArray && sself.tableViewController.sourceArray.count > 0) {
-            currId = [sself.tableViewController.sourceArray lastObject][@"newsId"];
-        }else{
-            return;
+                NSLog(@"上拉刷新");
+        //如果没有本地数据，pageNum不＋1
+        if (self.tableViewController.sourceArray.count > 0) {
+            //上拉时追加数据，把pageNum＋1
+            int pageNumInt = [sself.pageNum intValue];
+            pageNumInt++;
+            _pageNum = [NSString stringWithFormat:@"%d", pageNumInt];
         }
-        //上拉时追加数据，把pageNum＋1
-        int pageNumInt = [sself.pageNum intValue];
-        pageNumInt++;
-        _pageNum = [NSString stringWithFormat:@"%d", pageNumInt];
+
 
         [sself reloadDate];
     }];
@@ -380,7 +379,7 @@
             if (self.tableViewDataSourceArray == nil) {
                 self.tableViewDataSourceArray = [[NSMutableArray alloc]init];
             }
-            if ([_pageNum isEqualToString:@"1"]) {//如果是第一页数据，直接替换，不然追加
+            if ([_pageNum isEqualToString:@"1"] && mutableArray.count > 0) {//如果是1⃣️第一页数据2⃣️加载到的数据不为空，直接替换，不然追加
                 self.tableViewDataSourceArray = mutableArray;
             }else{
                 [self.tableViewDataSourceArray addObjectsFromArray:mutableArray];

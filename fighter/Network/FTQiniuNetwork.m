@@ -9,7 +9,7 @@
 #import "FTQiniuNetwork.h"
 
 @implementation FTQiniuNetwork
-+(NSString *)getQiniuTokenWithOption:(void (^)(NSString *))option{
++ (NSString *)getQiniuTokenWithMediaType:(NSString *)mediaType andOption:(void (^)(NSString *token))option{
     NSString *qiniuToken = @"";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //设置请求返回的数据类型为默认类型（NSData类型)

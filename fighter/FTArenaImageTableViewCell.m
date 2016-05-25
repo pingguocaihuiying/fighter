@@ -46,13 +46,14 @@
         [self.theImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlString]];
     }else if(bean.pictureUrlNames && ![bean.pictureUrlNames isEqualToString:@""]){
         NSString *firstImageUrlString = [[bean.pictureUrlNames componentsSeparatedByString:@","]firstObject];
-        firstImageUrlString = [NSString stringWithFormat:@"%@?vframe/png/offset/0/w/200/h/100", firstImageUrlString];
+//        firstImageUrlString = [NSString stringWithFormat:@"%@?vframe/png/offset/0/w/200/h/100", firstImageUrlString];
+        firstImageUrlString = [NSString stringWithFormat:@"%@?imageView2/2/w/200", firstImageUrlString];
         NSString *imageUrlString = [NSString stringWithFormat:@"%@/%@", bean.urlPrefix, firstImageUrlString];
         NSLog(@"imageUrlString : %@", imageUrlString);
         [self.theImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlString]];
     }
     //根据newsType去设置类型图片
-        NSLog(@"label : %@", bean.labels);
+//        NSLog(@"label : %@", bean.labels);
     self.typeImageView.image = [UIImage imageNamed:[FTTools getChLabelNameWithEnLabelName:bean.labels]];
     
 }

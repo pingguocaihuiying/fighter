@@ -7,15 +7,15 @@
 //
 
 #import "FTNewPostViewController.h"
-#import "FTSelectedCategoriesView.h"
 #import "FTArenaNetwork.h"
 #import "FTQiniuNetwork.h"
 #import "QiniuSDK.h"
 #import <AVFoundation/AVFoundation.h>
 #import "MBProgressHUD.h"
 #import <objc/runtime.h>
+#import "FTArenaChooseLabelView.h"
 
-@interface FTNewPostViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface FTNewPostViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, FTArenaChooseLabelDelegate>
 @property (nonatomic, strong)UICollectionView *mediaCollcetionView;
 @property (nonatomic, strong)NSMutableArray *dataArray;
 
@@ -25,6 +25,8 @@
 
 @property (nonatomic, strong)NSMutableArray *imageURLArray;
 @property (nonatomic, strong)NSMutableArray *videoURLArray;
+@property (nonatomic, strong)FTArenaChooseLabelView *chooseLabelView;
+@property (nonatomic, strong)NSString *typeOfLabel;
 @end
 
 @implementation FTNewPostViewController
@@ -71,9 +73,7 @@
     [self setTopButton];
     
     [self setMediaPickerView];
-    
-    //设置下方的”项目标签“
-//    [self setPostCategories];
+
 }
 
 - (void)setHideKeyboardEvent{
@@ -356,11 +356,7 @@
     [_mediaCollcetionView reloadData];
 }
 
-- (void)setPostCategories{
-    NSLog(@"bottom : %f", self.contentTextView.bottom);
-    FTSelectedCategoriesView *selectCategoriesView = [[FTSelectedCategoriesView alloc]initWithFrame:CGRectMake(4, self.contentTextViewContainer.bottom + 5, SCREEN_WIDTH - 4 * 2, 17 + 15 * 1 + 21)];
-    [self.view addSubview:selectCategoriesView];
-}
+
 
 - (void)hideKeyboard{
     [self.view endEditing:YES];
@@ -417,9 +413,16 @@
  */
 #pragma -mark -发新帖
 - (void)newPostButtonClicked{
+    if (_typeOfLabel == nil || [_typeOfLabel isEqualToString:@""] ) {
+        [self showHUDWithMessage:@"请先选择一个项目分类" isPop:NO];
+        return;
+    }
     [self hideKeyboard];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [FTQiniuNetwork getQiniuTokenWithOption:^(NSString *token) {
+    
+    for(NSDictionary *dic in _dataArray){
+    
+    [FTQiniuNetwork getQiniuTokenWithMediaType:dic[@"type"] andOption:^(NSString *token) {//***获取token
         NSLog(@"token : %@", token);
         
         QNUploadManager *upManager = [[QNUploadManager alloc] init];
@@ -430,10 +433,10 @@
             _videoURLArray = [[NSMutableArray alloc]initWithCapacity:5];
         }
         
-        for(NSDictionary *dic in _dataArray){
-            if (!dic[@"data"]) {
-                break;
-            }
+        
+            if (dic[@"data"]) {
+                
+            
             NSData *mediaData = dic[@"data"];
             NSString *userId = [FTUserTools getLocalUser].olduserid;
             NSString *ts = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
@@ -445,7 +448,7 @@
                 [_videoURLArray addObject:key];
             }
 //            NSDictionary *optionDic = @{@"persistentOps":@"avthumb/mp4"};
-            QNUploadOption *option = [[QNUploadOption alloc]initWithMime:nil progressHandler:nil params:@{@"persistentOps":@"avthumb/mp4"} checkCrc:NO cancellationSignal:nil];
+//            QNUploadOption *option = [[QNUploadOption alloc]initWithMime:nil progressHandler:nil params:nil checkCrc:NO cancellationSignal:nil];
             
             [upManager putData:mediaData key:key token:token
                       complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
@@ -455,15 +458,15 @@
                           NSLog(@"resp : %@", resp);
                           NSLog(@"key : %@", key);
                           
-                      } option:option];
-        }
+                      } option:nil];
         
+            }
         //把数据上传到格斗家的服务器上
-        [self uploadPostsToServer];
+        
 
-    }];
-
-
+    }];//***获取token block回调结束
+    }
+    [self uploadPostsToServer];
 }
 
 - (void)uploadPostsToServer{
@@ -491,7 +494,7 @@
     }
     
     NSString *thumbUrl = @"";
-    NSString *labels = @"Boxing";
+    NSString *labels = _typeOfLabel;
     
     //    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@", content, headUrl, loginToken,nickname,pictureUrlNames,tableName,thumbUrl,title,ts,urlPrefix,userId,videoUrlNames ,NewPostCheckKey]];
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@", content, labels, loginToken,pictureUrlNames,tableName,thumbUrl,title,ts,urlPrefix,userId,videoUrlNames ,NewPostCheckKey]];
@@ -518,7 +521,7 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         
         if ([dict[@"status"] isEqualToString:@"success"]) {
-            [self showHUDWithMessage:dict[@"发布成功"]isPop:YES];
+            [self showHUDWithMessage:@"发布成功"isPop:YES];
         }else{
             [self showHUDWithMessage:dict[@"message"]isPop:NO];
         }
@@ -544,12 +547,32 @@
 }
 #pragma -mark -添加标签按钮被点击
 - (IBAction)addLabelButtonClicked:(id)sender {
-    
+    if (_chooseLabelView == nil) {
+     _chooseLabelView = [[FTArenaChooseLabelView alloc]init];
+        _chooseLabelView.delegate = self;
+        [self.view addSubview:_chooseLabelView];
+    }else{
+        _chooseLabelView.hidden = NO;
+    }
 }
+
 
 - (void)popVC{
 //    [self.delegate updateCountWithNewsBean:_newsBean indexPath:self.indexPath];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma -mark -处理选择标签的回调
+- (void)chooseLabel:itemValueEn{
+    NSLog(@"itemValueEn: %@", itemValueEn);
+    
+    if (![itemValueEn isEqualToString:@""]) {
+        _typeImageView.hidden = NO;
+        _typeOfLabel = itemValueEn;
+        _typeImageView.image = [UIImage imageNamed:[FTTools getChLabelNameWithEnLabelName:itemValueEn]];
+        [_addLabelButton setImage:[UIImage imageNamed:@"修改标签"] forState:UIControlStateNormal];
+    }
+    _chooseLabelView.hidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {

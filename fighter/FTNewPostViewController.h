@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *addLabelButton;
 @property (weak, nonatomic) IBOutlet UIView *mediaPickerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *meidiaPickerViewHeight;
+@property (weak, nonatomic) IBOutlet UIImageView *typeImageView;
 
 @end
