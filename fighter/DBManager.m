@@ -184,7 +184,7 @@ static DBManager * _sharedDBManager = nil;
         BOOL result = [_dataBase executeUpdate:@"UPDATE labels set item = ?,label= ?,type = ? where id = ?" , item,label,type,idNum];
         
         if (result) {
-            NSLog(@"更新数据成功");
+//            NSLog(@"更新数据成功");
         }else {
             NSLog(@"更新数据失败");
         }
@@ -193,7 +193,7 @@ static DBManager * _sharedDBManager = nil;
         BOOL result = [_dataBase executeUpdate:@"INSERT INTO labels (id, item,label,type) VALUES (?,?,?,?)", idNum, item, label,type];
         
         if (result) {
-            NSLog(@"插入数据成功");
+//            NSLog(@"插入数据成功");
         }else {
             NSLog(@"插入数据失败");
         }

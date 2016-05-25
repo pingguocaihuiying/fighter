@@ -531,7 +531,7 @@
        [dic setObject:featherWeight forKey:@"featherWeight" ];
     }
     
-    if(pagenum >0){
+    if(pagenum > 0){
       [dic setObject:[NSString stringWithFormat:@"%ld",pagenum] forKey:@"pageNum" ];
     }
     

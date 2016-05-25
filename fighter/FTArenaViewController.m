@@ -41,6 +41,7 @@
 #import "FTArenaPostsDetailViewController.h"
 #import "NetWorking.h"
 #import "DBManager.h"
+#import "FTRankViewController.h"
 
 @interface FTArenaViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTArenaDetailDelegate, FTSelectCellDelegate,FTTableViewdelegate>
 
@@ -393,8 +394,7 @@
     }
     
     self.tableViewController.sourceArray = self.tableViewDataSourceArray;
-    [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
-    [self.tableViewController.tableView footerEndRefreshing];
+    
     
     [self.tableViewController.tableView reloadData];
     
@@ -428,14 +428,18 @@
                 }
                 
                 [self getDataFromDB];
-            }else {
                 
                 [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+                [self.tableViewController.tableView footerEndRefreshing];
+            }else {
+                [self getDataFromDB];
+                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
                 [self.tableViewController.tableView footerEndRefreshing];
             }
 
         }else {
-            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+            [self getDataFromDB];
+            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
             [self.tableViewController.tableView footerEndRefreshing];
         }
     }];
@@ -600,17 +604,20 @@
     }
 }
 
+- (IBAction)rankBtnAction:(id)sender {
+    FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
+    //    rankHomeVC.title = @"排行榜";
+    [self.navigationController pushViewController:rankHomeVC animated:YES];
+}
+
+
 #pragma mark 排行榜按钮被点击
 - (IBAction)rankButtonClicked:(id)sender {
     
     FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
-    rankHomeVC.title = @"格斗之王";
+    
     [self.navigationController pushViewController:rankHomeVC animated:YES];
     
-    
-    //    FTRankingListViewController *rankingListViewController = [FTRankingListViewController new];
-    //    [self.navigationController pushViewController:rankingListViewController animated:YES];
-    //    rankingListViewController.title = @"格斗之王";
 }
 
 - (IBAction)messageButtonClicked:(id)sender {

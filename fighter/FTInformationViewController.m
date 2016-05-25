@@ -189,8 +189,7 @@
        
         self.tableViewController.tableView.tableHeaderView = nil;
     }
-    [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
-    [self.tableViewController.tableView footerEndRefreshing];
+    
     
     [self.tableViewController.tableView reloadData];
     
@@ -213,19 +212,34 @@
     
     NetWorking *net = [[NetWorking alloc]init];
     [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
-        NSString *status = responseDic[@"status"];
-        if ([status isEqualToString:@"success"]) {
-            NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
-//            NSLog(@"NewDic :%@",responseDic);
-            DBManager *dbManager = [DBManager shareDBManager];
-            [dbManager connect];
-            
-           for (NSDictionary *dic in mutableArray)  {
-                 [dbManager insertDataIntoNews:dic];
+        
+        if (responseDic != nil) {
+            NSString *status = responseDic[@"status"];
+            if ([status isEqualToString:@"success"]) {
+                NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
+                DBManager *dbManager = [DBManager shareDBManager];
+                [dbManager connect];
+                
+               for (NSDictionary *dic in mutableArray)  {
+                     [dbManager insertDataIntoNews:dic];
+                }
+                
+                [self getDataFromDBWithType:getType currentPage:self.currentPage];
+                
+                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+                [self.tableViewController.tableView footerEndRefreshing];
+            }else {
+                [self getDataFromDBWithType:getType currentPage:self.currentPage];
+                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+                [self.tableViewController.tableView footerEndRefreshing];
+
             }
             
-            
+        }else {
             [self getDataFromDBWithType:getType currentPage:self.currentPage];
+            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+            [self.tableViewController.tableView footerEndRefreshing];
+
         }
     }];
     

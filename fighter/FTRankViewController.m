@@ -16,7 +16,7 @@
 #import "DBManager.h"
 #import "UIWindow+MBProgressHUD.h"
 #import "FTBoxerCenter.h"
-
+#import "JHRefresh.h"
 
 @interface FTRankViewController ()  <FTSelectCellDelegate>
 
@@ -127,20 +127,27 @@
                            if (dict != nil) {
                                
                                if ([dict[@"status"] isEqualToString:@"success"]) {
-                                   _dataArray = dict[@"data"];
                                    
-//                                   if(_dataArray.count > 0){
-//                                       [self fixViewSize];
-//                                   }
+                                   if (_pageNum == 0) {
+                                       _dataArray = dict[@"data"];
+                                   }else {
+                                       [_dataArray addObjectsFromArray:dict[@"data"]];
+                                   }
+                                   
                                    [self fixViewSize];
+                                   
+                                   [self.scrollView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+                                   [self.scrollView  footerEndRefreshing];
                                }else {
                                
-//                                   [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                   [self.scrollView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+                                   [self.scrollView  footerEndRefreshing];
                                    
                                }
                            }else {
                            
-//                               [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[@"网络错误"stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                               [self.scrollView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+                               [self.scrollView  footerEndRefreshing];
                                
                            }
                            
@@ -236,13 +243,13 @@
         
     }
     
-    
     @try {
         self.scrollView = [[UIScrollView alloc]init];
         self.scrollView.frame = CGRectMake(0, 104, SCREEN_WIDTH, SCREEN_HEIGHT-104);
         self.scrollView.backgroundColor = [UIColor clearColor];
         self.scrollView.delegate = self;
         self.scrollView.bounces = YES;
+        [self jHRefreshAction];//加载上下拉刷新
         [self.view addSubview:self.scrollView];
         
         //第一名视图
@@ -362,6 +369,25 @@
 }
 
 #pragma mark - 获取列表信息
+
+- (void) jHRefreshAction {
+
+    //设置下拉刷新
+    __block typeof(self) sself = self;
+    [self.scrollView addRefreshHeaderViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
+        //发请求的方法区域
+        NSLog(@"触发下拉刷新headerView");
+        sself.pageNum = 0;
+        [sself getContentDataFromWeb];
+        
+    }];
+    //设置上拉刷新
+    [self.scrollView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
+        NSLog(@"触发上拉刷新headerView");
+        sself.pageNum ++;
+        [sself getContentDataFromWeb];
+    }];
+}
 
 //获取列表筛选标签
 - (void) getRankListLabelArray {
@@ -552,8 +578,8 @@
     
     [dbManager close];
     
+    _pageNum = 0;
     [self getContentDataFromWeb];
-    
 }
 
 
@@ -599,7 +625,7 @@
         NSString *rank  = [NSString stringWithFormat:@"%@",dic[@"ranking"]] ;
         NSString *height = dic[@"height"];
         NSString *weight = dic[@"weight"];
-        NSLog(@"cell");
+//        NSLog(@"cell");
         FTRankTableVIewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
         [cell.avatarImageView  sd_setImageWithURL:[NSURL URLWithString:headUrl] placeholderImage:[UIImage imageNamed:@"头像-空"]];
         [cell.nameLabel setText:name];

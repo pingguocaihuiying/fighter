@@ -31,6 +31,7 @@
 #import "Networking.h"
 #import "DBManager.h"
 #import "RealReachability.h"
+#import "IXPushSdk.h"
 
 //微信请求类型
 typedef NS_ENUM(NSInteger, WXRequestType) {
@@ -56,7 +57,8 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     [self setUMeng];
     //设置微信相关的
     [self setWeiXin];
-    
+    //设置爱心推
+    [self setIXPushWithApplication:application options:launchOptions];
     //设置数据库
     [self setDatabase];
     
@@ -79,16 +81,17 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 }
 
 
+#pragma  mark - app 相关设置
 - (void) setDatabase {
     
-    BOOL exist = [[[NSUserDefaults standardUserDefaults] objectForKey:@"labels"] boolValue];
+    BOOL exist = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tabels"] boolValue];
     
     if (!exist) {
         DBManager *dbManager = [DBManager shareDBManager];
         [dbManager connect];
         [dbManager createAllTables];
         [dbManager close];
-        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"labels"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"tabels"];
         [[NSUserDefaults standardUserDefaults]synchronize];
         
         NetWorking *net = [[NetWorking alloc]init];
@@ -137,6 +140,7 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
                                               secret:@"cb1771445170f9c625224f6e1403ce48"
                                          RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
+    
 }
 
 - (void)setWeiXin{
@@ -144,6 +148,40 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     [WXApi registerApp:@"wxe69b91d3503144ca" withDescription:@"wechat"];
 }
 
+
+- (void)  setIXPushWithApplication:(UIApplication *)application options:(NSDictionary *)launchOptions {
+    //设置爱心推
+#ifdef __IPHONE_8_0
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0){
+        UIMutableUserNotificationAction *action = [[UIMutableUserNotificationAction alloc] init];
+        action.identifier = @"acceptAction";
+        action.title=@"Accept";
+        action.activationMode = UIUserNotificationActivationModeForeground;
+        
+        UIMutableUserNotificationAction *action2 = [[UIMutableUserNotificationAction alloc] init];
+        action2.identifier = @"rejectAction";
+        action2.title=@"Reject";
+        action2.activationMode = UIUserNotificationActivationModeBackground;
+        action2.authenticationRequired = YES;
+        action2.destructive = YES;
+        
+        UIMutableUserNotificationCategory *categorys = [[UIMutableUserNotificationCategory alloc] init];
+        categorys.identifier = @"Category";
+        [categorys setActions:@[action,action2] forContext:(UIUserNotificationActionContextMinimal)];
+        
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound) categories:[NSSet setWithObjects:categorys, nil]];
+        [IXPushSdkApi register:launchOptions settings:settings];
+    } else {
+        [IXPushSdkApi register:launchOptions types:(UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge)];
+    }
+#else
+    [PushSdkApi register:launchOptions types:(UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge)];
+#endif
+}
+
+
+
+#pragma mark - 微信注册登录响应方法
 - (void)onResp:(BaseResp *)resp {
     
     // 向微信请求授权后,得到响应结果
@@ -397,6 +435,29 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     return NO;
 }
 
+
+- (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken
+{
+    
+    [IXPushSdkApi registerDeviceToken:deviceToken
+                              channel:@"iOS" version:@"1.0" appId:1670128310];
+    
+}
+
+
+- (void) application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(nonnull NSError *)error {
+    
+    NSLog(@"register fail********************,%@",error);
+}
+
+// 对收到的消息进行处理:
+- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    NSLog(@"Notification info:%@",userInfo);
+    [IXPushSdkApi handleNotification:userInfo];
+}
+
+
 - (void)setRootViewController2{
     FTInformationViewController *infoVC = [FTInformationViewController new];
     //    FTBaseNavigationViewController *infoNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:infoVC];
@@ -449,7 +510,7 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     boxingHallVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳馆"];
     boxingHallVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-#pragma -mark 第一版不用tabbar，直接用拳讯作为rootVC
+
     
         //设置tabbar的属性
         FTBaseTabBarViewController *tabBartVC = [FTBaseTabBarViewController new];

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3D322AC91CEB171200039E2C /* FTRankHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D322AC71CEB171200039E2C /* FTRankHeaderCell.m */; };
 		3D322ACA1CEB171200039E2C /* FTRankHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D322AC81CEB171200039E2C /* FTRankHeaderCell.xib */; };
+		3D4782551CF537A6003A64C9 /* libIXPushSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4782541CF537A6003A64C9 /* libIXPushSdk.a */; };
 		3D4B18F51CD8BF340022DFB0 /* FTSetPassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B18F31CD8BF340022DFB0 /* FTSetPassWordViewController.m */; };
 		3D4B18F61CD8BF340022DFB0 /* FTSetPassWordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4B18F41CD8BF340022DFB0 /* FTSetPassWordViewController.xib */; };
 		3D4B18F91CD974B80022DFB0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B18F81CD974B80022DFB0 /* MainViewController.m */; };
@@ -356,6 +357,8 @@
 		3D322AC61CEB171200039E2C /* FTRankHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankHeaderCell.h; sourceTree = "<group>"; };
 		3D322AC71CEB171200039E2C /* FTRankHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankHeaderCell.m; sourceTree = "<group>"; };
 		3D322AC81CEB171200039E2C /* FTRankHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRankHeaderCell.xib; sourceTree = "<group>"; };
+		3D4782531CF537A6003A64C9 /* IXPushSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IXPushSdk.h; sourceTree = "<group>"; };
+		3D4782541CF537A6003A64C9 /* libIXPushSdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libIXPushSdk.a; sourceTree = "<group>"; };
 		3D4B18F21CD8BF340022DFB0 /* FTSetPassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSetPassWordViewController.h; sourceTree = "<group>"; };
 		3D4B18F31CD8BF340022DFB0 /* FTSetPassWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTSetPassWordViewController.m; sourceTree = "<group>"; };
 		3D4B18F41CD8BF340022DFB0 /* FTSetPassWordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTSetPassWordViewController.xib; sourceTree = "<group>"; };
@@ -958,6 +961,7 @@
 				E61184A01CC75F0C00F23EC7 /* libstdc++.tbd in Frameworks */,
 				E611849E1CC75EF900F23EC7 /* CoreTelephony.framework in Frameworks */,
 				E61184FD1CC76B3300F23EC7 /* libWeiboSDK.a in Frameworks */,
+				3D4782551CF537A6003A64C9 /* libIXPushSdk.a in Frameworks */,
 				E61185021CC76B3300F23EC7 /* libSocialWechat.a in Frameworks */,
 				E611849C1CC75EF200F23EC7 /* libsqlite3.tbd in Frameworks */,
 				E611849A1CC75EE500F23EC7 /* CoreGraphics.framework in Frameworks */,
@@ -994,6 +998,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D4782521CF537A6003A64C9 /* IXPush */ = {
+			isa = PBXGroup;
+			children = (
+				3D4782531CF537A6003A64C9 /* IXPushSdk.h */,
+				3D4782541CF537A6003A64C9 /* libIXPushSdk.a */,
+			);
+			path = IXPush;
+			sourceTree = "<group>";
+		};
 		3D4B18E71CD8BC010022DFB0 /* userSetting */ = {
 			isa = PBXGroup;
 			children = (
@@ -2078,6 +2091,7 @@
 		E68050C21CBFA70200678905 /* OtherSDK */ = {
 			isa = PBXGroup;
 			children = (
+				3D4782521CF537A6003A64C9 /* IXPush */,
 				3D4B18FD1CD9FD670022DFB0 /* UMengFeedback_SDK */,
 				E61184C41CC76B1000F23EC7 /* 友盟分享 */,
 				E68050C31CBFA71900678905 /* noAD_UMAnalytics_Sdk_3.6.7 */,
@@ -2589,6 +2603,11 @@
 					E64EF1051CB6614000CAE340 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = LQHT8X75PQ;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					E64EF11E1CB6614100CAE340 = {
 						CreatedOnToolsVersion = 7.3;
@@ -3199,6 +3218,7 @@
 					"$(PROJECT_DIR)/fighter/OtherSDK/UMSocial_Sdk_Extra_Frameworks/YiXin",
 					"$(PROJECT_DIR)/fighter/OtherSDK/UMengFeedback_SDK",
 					"$(PROJECT_DIR)/fighter/OtherSDK/UMengFeedback_SDK/UMOpus",
+					"$(PROJECT_DIR)/fighter/OtherSDK/IXPush",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -3238,6 +3258,7 @@
 					"$(PROJECT_DIR)/fighter/OtherSDK/UMSocial_Sdk_Extra_Frameworks/YiXin",
 					"$(PROJECT_DIR)/fighter/OtherSDK/UMengFeedback_SDK",
 					"$(PROJECT_DIR)/fighter/OtherSDK/UMengFeedback_SDK/UMOpus",
+					"$(PROJECT_DIR)/fighter/OtherSDK/IXPush",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
