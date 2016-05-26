@@ -45,6 +45,9 @@
     self.content = dic[@"content"];
     self.headUrl = dic[@"headUrl"];
     self.commentCount = dic[@"commentCount"];
+    self.createTimeTamp = dic[@"createTimeTamp"];
+    self.updateTimeTamp = dic[@"updateTimeTamp"];
+    
 //    self.commentCount = [NSString stringWithFormat:@"%@", self.commentCount];
     if (self.commentCount == nil) {
         self.commentCount = @"0";

@@ -24,8 +24,10 @@
 #import "FTCache.h"
 #import "FTCacheBean.h"
 #import "FTRankViewController.h"
+#import "DBManager.h"
+#import "NetWorking.h"
 
-@interface FTInformationViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTnewsDetailDelegate>
+@interface FTInformationViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTnewsDetailDelegate,FTTableViewdelegate>
 
 @property(nonatomic,strong) NSArray *sourceArry;     //数据源
 @property(nonatomic,strong) UIPageViewController *pageViewController;   //翻页控制器
@@ -35,6 +37,8 @@
 @property (nonatomic, strong)NSMutableArray *tableViewDataSourceArray;
 @property (nonatomic, strong)FTTableViewController *tableViewController;
 @property (nonatomic, strong)NSArray *typeArray;
+
+@property (nonatomic) NSInteger currentPage;
 
 
 @end
@@ -47,6 +51,7 @@
     [self initTypeArray];//初始化标签数据
     [self initSubViews];
     [self getCycleData];//初次加载轮播图数据
+    [self getDataFromDBWithType:@"new" currentPage:self.currentPage];
     [self getDataWithGetType:@"new" andCurrId:@"-1"];//初次加载数据
 }
 
@@ -158,6 +163,41 @@
     return newsType;
 }
 
+- (void)getDataFromDBWithType:(NSString *)getType currentPage:(NSInteger) currentPage {
+    
+    NSString *newsType = [self getNewstype];
+    //从数据库取数据
+    DBManager *dbManager = [DBManager shareDBManager];
+    [dbManager connect];
+    NSMutableArray *mutableArray =[dbManager searchNewsWithType:newsType  page:currentPage];
+    [dbManager close];
+    
+    
+    if (self.tableViewDataSourceArray == nil) {
+        self.tableViewDataSourceArray = [[NSMutableArray alloc]init];
+    }
+    if ([getType isEqualToString:@"new"]) {
+        self.tableViewDataSourceArray = mutableArray;
+    }else if([getType isEqualToString:@"old"]){
+        [self.tableViewDataSourceArray addObjectsFromArray:mutableArray];
+    }
+    
+    self.tableViewController.sourceArray = self.tableViewDataSourceArray;
+    if ([newsType isEqualToString:@"All"]) {
+        self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
+    }else{
+       
+        self.tableViewController.tableView.tableHeaderView = nil;
+    }
+    
+    
+    [self.tableViewController.tableView reloadData];
+    
+    //隐藏infoLabel
+    if (self.infoLabel.isHidden == NO) {
+        self.infoLabel.hidden = YES;
+    }
+}
 - (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)newsCurrId{
     NSString *urlString = [FTNetConfig host:Domain path:GetNewsURL];
     NSString *newsType = [self getNewstype];
@@ -169,68 +209,104 @@
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",newsType, newsCurrId, getType, ts, @"quanjijia222222"]];
     
     urlString = [NSString stringWithFormat:@"%@?newsType=%@&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@", urlString, newsType, newsCurrId, getType, ts, checkSign, [FTNetConfig showType]];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    NSLog(@"news's url : %@", urlString);
-    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+    NetWorking *net = [[NetWorking alloc]init];
+    [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
         
-        NSString *status = responseDic[@"status"];
-        if ([status isEqualToString:@"success"]) {
-            NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
-            
-            if ([newsType isEqualToString:@"All"]) {
-                NSMutableArray *hotArray = [NSMutableArray new];
-                for(NSDictionary *dic in mutableArray){
-                    if ([dic[@"newsType"] isEqualToString:@"Hot"]) {
-                        [hotArray addObject:dic];
-                    }
+        if (responseDic != nil) {
+            NSString *status = responseDic[@"status"];
+            if ([status isEqualToString:@"success"]) {
+                NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
+                DBManager *dbManager = [DBManager shareDBManager];
+                [dbManager connect];
+                
+               for (NSDictionary *dic in mutableArray)  {
+                     [dbManager insertDataIntoNews:dic];
                 }
-                [mutableArray removeObjectsInArray:hotArray];
-            }
-            
-            if (self.tableViewDataSourceArray == nil) {
-                self.tableViewDataSourceArray = [[NSMutableArray alloc]init];
-            }
-            if ([getType isEqualToString:@"new"]) {
-                self.tableViewDataSourceArray = mutableArray;
-            }else if([getType isEqualToString:@"old"]){
-                [self.tableViewDataSourceArray addObjectsFromArray:mutableArray];
-            }
-            //            [self initPageController];
-            
-            self.tableViewController.sourceArray = self.tableViewDataSourceArray;
-            if ([newsType isEqualToString:@"All"]) {
-                self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
-            }else{
-//                [self.tableViewController.tableView.tableHeaderView removeFromSuperview];
-                self.tableViewController.tableView.tableHeaderView = nil;
-            }
-            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
-            [self.tableViewController.tableView footerEndRefreshing];
-            
-            [self.tableViewController.tableView reloadData];
-            
-            [self saveCache];
-                //隐藏infoLabel
-            if (self.infoLabel.isHidden == NO) {
-                self.infoLabel.hidden = YES;
-            }
-        }else if([status isEqualToString:@"error"]){
-            NSLog(@"message : %@", responseDic[@"message"]);
-            
-            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
-            [self.tableViewController.tableView footerEndRefreshing];
-        }
+                
+                [self getDataFromDBWithType:getType currentPage:self.currentPage];
+                
+                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+                [self.tableViewController.tableView footerEndRefreshing];
+            }else {
+                [self getDataFromDBWithType:getType currentPage:self.currentPage];
+                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+                [self.tableViewController.tableView footerEndRefreshing];
 
-        
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-        [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
-        [self.tableViewController.tableView footerEndRefreshing];
+            }
+            
+        }else {
+            [self getDataFromDBWithType:getType currentPage:self.currentPage];
+            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+            [self.tableViewController.tableView footerEndRefreshing];
+
+        }
     }];
+    
+    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    //设置请求返回的数据类型为默认类型（NSData类型)
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+////    NSLog(@"news's url : %@", urlString);
+//    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+//        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+//        
+//        NSString *status = responseDic[@"status"];
+//        if ([status isEqualToString:@"success"]) {
+//            NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
+//            NSLog(@"NewDic :%@",responseDic);
+//            if ([newsType isEqualToString:@"All"]) {
+//                NSMutableArray *hotArray = [NSMutableArray new];
+//                for(NSDictionary *dic in mutableArray){
+//                    if ([dic[@"newsType"] isEqualToString:@"Hot"]) {
+//                        [hotArray addObject:dic];
+//                    }
+//                }
+//                [mutableArray removeObjectsInArray:hotArray];
+//            }
+//            
+//            if (self.tableViewDataSourceArray == nil) {
+//                self.tableViewDataSourceArray = [[NSMutableArray alloc]init];
+//            }
+//            if ([getType isEqualToString:@"new"]) {
+//                self.tableViewDataSourceArray = mutableArray;
+//            }else if([getType isEqualToString:@"old"]){
+//                [self.tableViewDataSourceArray addObjectsFromArray:mutableArray];
+//            }
+//            //            [self initPageController];
+//            
+//            self.tableViewController.sourceArray = self.tableViewDataSourceArray;
+//            if ([newsType isEqualToString:@"All"]) {
+//                self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
+//            }else{
+////                [self.tableViewController.tableView.tableHeaderView removeFromSuperview];
+//                self.tableViewController.tableView.tableHeaderView = nil;
+//            }
+//            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+//            [self.tableViewController.tableView footerEndRefreshing];
+//            
+//            [self.tableViewController.tableView reloadData];
+//            
+//            [self saveCache];
+//                //隐藏infoLabel
+//            if (self.infoLabel.isHidden == NO) {
+//                self.infoLabel.hidden = YES;
+//            }
+//        }else if([status isEqualToString:@"error"]){
+//            NSLog(@"message : %@", responseDic[@"message"]);
+//            
+//            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+//            [self.tableViewController.tableView footerEndRefreshing];
+//        }
+//
+//        
+//    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+//        [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+//        [self.tableViewController.tableView footerEndRefreshing];
+//    }];
 }
+
 
 - (void)saveCache{
     FTCache *cache = [FTCache sharedInstance];
@@ -377,6 +453,7 @@
     [self.tableViewController.tableView addRefreshHeaderViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
         //发请求的方法区域
         NSLog(@"触发下拉刷新headerView");
+        sself.currentPage = 0;
         [sself getDataWithGetType:@"new" andCurrId:@"-1"];
         if (self.currentSelectIndex == 0) {//如果是“全部”标签，再刷新轮播图
             [sself getCycleData];
@@ -384,9 +461,12 @@
     }];
     //设置上拉刷新
     [self.tableViewController.tableView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
+        NSLog(@"触发上拉刷新headerView");
+        sself.currentPage ++;
         NSString *currId;
         if (sself.tableViewController.sourceArray && sself.tableViewController.sourceArray.count > 0) {
-            currId = [sself.tableViewController.sourceArray lastObject][@"newsId"];
+            FTNewsBean *bean = [sself.tableViewController.sourceArray lastObject];
+            currId = bean.Id;
         }else{
             return;
         }
@@ -499,7 +579,6 @@
     
 //    设置scrollView的偏移位置
 
-    
 }
 
 
@@ -512,6 +591,7 @@
         return nil;
     }
     index--;
+    self.currentPage = 0;
     return [self controllerWithSourceIndex:index];
 }
 
@@ -522,6 +602,7 @@
         return nil;
     }
     index++;
+    self.currentPage = 0;
     if (index == [self.sourceArry count]) {
         return nil;
     }
@@ -555,7 +636,6 @@
 //    rankHomeVC.title = @"排行榜";
     [self.navigationController pushViewController:rankHomeVC animated:YES];
     
-
 //    FTRankingListViewController *rankingListViewController = [FTRankingListViewController new];
 //    [self.navigationController pushViewController:rankingListViewController animated:YES];
 //    rankingListViewController.title = @"格斗之王";
@@ -581,15 +661,29 @@
     [self.navigationController pushViewController:newsDetailViewController animated:YES];
 }
 
+
 - (void)fttableView:(FTTableViewController *)tableView didSelectWithIndex:(NSIndexPath *)indexPath{
 //    NSLog(@"第%ld个cell被点击了。", indexPath.row);
     if (self.tableViewDataSourceArray) {
         
         FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
             //获取对应的bean，传递给下个vc
-        NSDictionary *newsDic = tableView.sourceArray[indexPath.row];
-        FTNewsBean *bean = [FTNewsBean new];
-        [bean setValuesWithDic:newsDic];
+//        NSDictionary *newsDic = tableView.sourceArray[indexPath.row];
+//        FTNewsBean *bean = [FTNewsBean new];
+//        [bean setValuesWithDic:newsDic];
+        
+        
+        FTNewsBean *bean = tableView.sourceArray[indexPath.row];
+        //标记已读
+        if (![bean.isReader isEqualToString:@"YES"]) {
+            bean.isReader = @"YES";
+            //从数据库取数据
+            DBManager *dbManager = [DBManager shareDBManager];
+            [dbManager connect];
+            [dbManager updateNewsById:bean.Id isReader:YES];
+            [dbManager close];
+
+        }
         
         newsDetailVC.newsBean = bean;
         newsDetailVC.delegate = self;
@@ -618,11 +712,12 @@
 
 - (void)updateCountWithNewsBean:(FTNewsBean *)newsBean indexPath:(NSIndexPath *)indexPath{
     
-    NSDictionary *dic = self.tableViewController.sourceArray[indexPath.row];
-    [dic setValue:[NSString stringWithFormat:@"%@", newsBean.voteCount] forKey:@"voteCount"];
-    [dic setValue:[NSString stringWithFormat:@"%@", newsBean.commentCount] forKey:@"commentCount"];
-    
-    self.tableViewController.sourceArray[indexPath.row] = dic;
+//    NSDictionary *dic = self.tableViewController.sourceArray[indexPath.row];
+//    [dic setValue:[NSString stringWithFormat:@"%@", newsBean.voteCount] forKey:@"voteCount"];
+//    [dic setValue:[NSString stringWithFormat:@"%@", newsBean.commentCount] forKey:@"commentCount"];
+
+  
+    self.tableViewController.sourceArray[indexPath.row] = newsBean;
     [self.tableViewController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
     
 }

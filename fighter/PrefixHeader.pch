@@ -15,7 +15,11 @@
     //次要文本颜色  ABB6AF
 #define Secondary_Text_Color [UIColor colorWithHex:0xABB6AF]
 
+//分割线颜色
 #define Cell_Space_Color [UIColor colorWithHex:0x282828]
+
+//常用控件字体颜色
+#define Nonmal_Text_Color [UIColor colorWithHex:0xb4b4b4]
 
 #define Bar_Item_Title_Color [UIColor colorWithRed:125 / 255.0 green:125 / 255.0  blue:129 / 255.0 alpha:1]
 //#define Bar_Item_Select_Title_Color [UIColor colorWithRed:199 / 29.0 green:39 / 255.0  blue:129 / 255.0 alpha:1]

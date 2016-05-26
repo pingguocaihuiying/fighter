@@ -24,6 +24,7 @@
 #import "MJRefresh.h"
 #import "FTCache.h"
 #import "FTCacheBean.h"
+#import "FTRankViewController.h"
 
 @interface FTVideoViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTVideoDetailDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -99,15 +100,6 @@
 
 }
 
-- (IBAction)leftBtnAction:(id)sender {
-    
-//    NSLog(@"information left click did");
-    if ([self.drawerDelegate respondsToSelector:@selector(leftButtonClicked:)]) {
-        
-        [self.drawerDelegate leftButtonClicked:sender];
-    }
-
-}
 
 - (void)setNewOrHot{
     self.containerOfNewOrHotView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"二标签-左选中"]];
@@ -723,6 +715,27 @@
     self.currentSelectIndex = [self indexofController:VC];
     //    NSLog(@" 动画结束 %@ ",pageViewController.viewControllers);
 }
+
+#pragma mark - response
+
+- (IBAction)leftBtnAction:(id)sender {
+    
+    //    NSLog(@"information left click did");
+    if ([self.drawerDelegate respondsToSelector:@selector(leftButtonClicked:)]) {
+        
+        [self.drawerDelegate leftButtonClicked:sender];
+    }
+    
+}
+
+
+- (IBAction)rankBtnAction:(id)sender {
+    
+    FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
+    
+    [self.navigationController pushViewController:rankHomeVC animated:YES];
+}
+
 - (IBAction)searchButtonClicked:(id)sender {
     NSLog(@"search button clicked.");
 }

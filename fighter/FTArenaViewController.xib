@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -11,6 +11,7 @@
                 <outlet property="btnSelect" destination="Zh7-r6-0OY" id="Yt1-VO-OFi"/>
                 <outlet property="indexViewOfAllVideo" destination="DlS-AG-SAY" id="hVB-vq-gsI"/>
                 <outlet property="indexViewOfHot" destination="tC9-FB-xcv" id="nPt-iA-O6Y"/>
+                <outlet property="leftBtn" destination="1x3-r8-7ld" id="8Tg-8J-IuZ"/>
                 <outlet property="mainView" destination="r0A-ft-T8C" id="95c-FW-f0K"/>
                 <outlet property="view" destination="lFc-ST-nxN" id="Rw5-Pv-MGz"/>
             </connections>
@@ -29,6 +30,9 @@
                     <state key="normal" image="头像-空">
                         <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="leftBtnClickAction:" destination="-1" eventType="touchUpInside" id="2da-6h-zvA"/>
+                    </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="格斗家头部logo文字" translatesAutoresizingMaskIntoConstraints="NO" id="13G-dH-Gex" userLabel="格斗家">
                     <rect key="frame" x="57" y="28" width="72" height="22"/>
@@ -85,6 +89,9 @@
                         <constraint firstAttribute="height" constant="24" id="Zv5-nP-SwM"/>
                     </constraints>
                     <state key="normal" backgroundImage="头部48按钮一堆-排行"/>
+                    <connections>
+                        <action selector="rankBtnAction:" destination="-1" eventType="touchUpInside" id="Frg-6g-bGk"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DG2-XC-jUm" userLabel="上方分割线">
                     <rect key="frame" x="0.0" y="60" width="320" height="1"/>

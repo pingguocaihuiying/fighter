@@ -531,7 +531,7 @@
        [dic setObject:featherWeight forKey:@"featherWeight" ];
     }
     
-    if(pagenum >0){
+    if(pagenum > 0){
       [dic setObject:[NSString stringWithFormat:@"%ld",pagenum] forKey:@"pageNum" ];
     }
     
@@ -642,7 +642,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
       parameters:dic
          success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
              NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-             NSLog(@"responsedic:%@",responseDic);
+//             NSLog(@"responsedic:%@",responseDic);
              
              if (option) {
                  option(responseDic);

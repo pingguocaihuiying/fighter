@@ -33,6 +33,8 @@
 // 关闭数据库
 - (void) close;
 
+// 创建所有关联表
+-(void) createAllTables ;
 
 #pragma mark - labels table
 
@@ -62,4 +64,55 @@
  * @param type 类型
  */
 -(NSMutableArray *) searchItem:(NSString *)label type:(NSInteger)type;
+
+#pragma mark - news table
+
+/**
+ * @brief 创建news表
+ */
+- (void) createNewsTable;
+
+/**
+ * @brief 插入news表数据
+ */
+- (void) insertDataIntoNews:(NSDictionary *)dic;
+
+/**
+ * @brief 查询news表所有字段
+ * @param news 查询限制字段
+ *
+ */
+-(NSMutableArray *) searchNewsWithType:(NSString *)type  page:(NSInteger )currentPage;
+
+/**
+ * @brief 更新news表所有字段
+ * @param news表主键
+ * @param 是否已读字段
+ *
+ */
+- (void) updateNewsById:(NSString *)Id isReader:(BOOL)isReader;
+
+
+#pragma mark - news table
+
+/**
+ * @brief 插入arenas表数据
+ */
+- (void) insertDataIntoArenas:(NSDictionary *)dic;
+
+/**
+ * @brief 查询arenas表所有字段
+ * @param arenas 查询限制字段
+ *
+ */
+-(NSMutableArray *) searchArenasWithPage:(NSInteger )currentPage;
+
+/**
+ * @brief 更新arenas表所有字段
+ * @param arenas表主键
+ * @param 是否已读字段
+ *
+ */
+- (void) updateArenasById:(NSString *)Id isReader:(BOOL)isReader;
+
 @end

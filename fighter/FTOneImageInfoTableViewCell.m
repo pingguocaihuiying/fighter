@@ -29,6 +29,12 @@
 
 - (void)setWithBean:(FTNewsBean *)bean{//根据bean设置cell的显示内容
     
+    if ([bean.isReader isEqualToString:@"YES"]) {
+        [self.myTitleLabel setTextColor:Main_Text_Color];
+    }else {
+        [self.myTitleLabel setTextColor:[UIColor whiteColor]];
+    }
+    
     //设置来源标签的颜色
     self.fromLabel.textColor = Secondary_Text_Color;
     
@@ -46,7 +52,7 @@
     [self.myImageView sd_setImageWithURL:[NSURL URLWithString:bean.img_small_one]];
     
     
-        //设置评论数、点赞数
+    //设置评论数、点赞数
     NSString *commentCount = [NSString stringWithFormat:@"(%@)", bean.commentCount];
     NSString *voteCount = [NSString stringWithFormat:@"(%@)", bean.voteCount];
     self.numOfCommentLabel.text = commentCount;
@@ -70,6 +76,9 @@
     }else if ([bean.newsType isEqualToString:@"FemaleWrestling"]) {
         self.newsTypeImageView.image = [UIImage imageNamed:@"格斗标签-女子格斗"];
     }
+    
+    
+    
 }
 - (NSString *)fixStringForDate:(NSDate *)date
 {

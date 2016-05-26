@@ -39,8 +39,11 @@
 
 #import "FTArenaBean.h"
 #import "FTArenaPostsDetailViewController.h"
+#import "NetWorking.h"
+#import "DBManager.h"
+#import "FTRankViewController.h"
 
-@interface FTArenaViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTArenaDetailDelegate, FTSelectCellDelegate>
+@interface FTArenaViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTArenaDetailDelegate, FTSelectCellDelegate,FTTableViewdelegate>
 
 {
     NIDropDown *_dropDown;
@@ -71,7 +74,10 @@
     [super viewDidLoad];
     [self initBaseConfig];
     [self initPageController];
-    [self reloadDate];//初次加载数据
+    
+    [self getDataFromDB];
+    [self getDataFromWeb];//初次加载数据
+//    [self reloadDate];
     
     
     [self initSubviews];
@@ -99,6 +105,19 @@
 }
 
 - (void)initSubviews{
+    
+    //设置左上角按钮
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    [self.leftBtn.layer setMasksToBounds:YES];
+    self.leftBtn.layer.cornerRadius = 17.0;
+    [self.leftBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
+                            forState:UIControlStateNormal
+                    placeholderImage:[UIImage imageNamed:@"头像-空"]];
+    if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
+        
+        [self.drawerDelegate addButtonToArray:self.leftBtn];
+    }
     
 }
 
@@ -133,7 +152,8 @@
         NSLog(@"触发下拉刷新headerView");
         //下拉时请求最新的一页数据
         _pageNum = @"1";
-        [sself reloadDate];
+//        [sself reloadDate];
+        [sself getDataFromWeb];
     }];
     //设置上拉刷新
     [self.tableViewController.tableView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
@@ -147,7 +167,8 @@
         }
 
 
-        [sself reloadDate];
+//        [sself reloadDate];
+        [sself getDataFromWeb];
     }];
 }
 
@@ -176,16 +197,23 @@
         [self refreshIndexView];//刷新红色下标的显示
     }
     _query = @"list-dam-blog-3";
-    [self reloadDate];
+//    [self reloadDate];
+    [self getDataFromWeb];
 }
 
 #pragma -mark -下拉框
 - (void)setDropDown:(id)sender{
 
+    UIButton *button = sender;
+    CGRect frame = [self.view convertRect:button.frame fromView:button.superview];
+    
     FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender style:FTRankTableViewStyleLeft option:^(FTRankTableView *searchTableView) {
         NSMutableArray *tempArray = [[NSMutableArray alloc]initWithArray:[FTNWGetCategory sharedCategories]];
         [tempArray insertObject:@{@"itemValue":@"全部视频", @"itemValueEn":@"All"} atIndex:0];
          searchTableView.dataArray = tempArray;
+        
+        searchTableView.Btnframe = frame;
+        searchTableView.tableW =frame.size.width;
         
          searchTableView.offsetX = -10;
          searchTableView.offsetY = 28;
@@ -244,7 +272,8 @@
     
     //刷新数据
     _pageNum = @"1";
-    [self reloadDate];
+//    [self reloadDate];
+    [self getDataFromWeb];
 }
 
 - (void) niDropDownDelegateMethod: (NIDropDown *) sender {
@@ -311,14 +340,14 @@
     //设置左上角按钮
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-    [self.leftNavButton.layer setMasksToBounds:YES];
-    self.leftNavButton.layer.cornerRadius = 17.0;
-    [self.leftNavButton sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
+    [self.leftBtn.layer setMasksToBounds:YES];
+    self.leftBtn.layer.cornerRadius = 17.0;
+    [self.leftBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
                                   forState:UIControlStateNormal
                           placeholderImage:[UIImage imageNamed:@"头像-空"]];
     if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
         
-        [self.drawerDelegate addButtonToArray:self.leftNavButton];
+        [self.drawerDelegate addButtonToArray:self.leftBtn];
     }
     
 }
@@ -355,7 +384,79 @@
     return newsType;
 }
 
+#pragma mark -get data
+-(void) getDataFromDB {
+    
+    //从数据库取数据
+    DBManager *dbManager = [DBManager shareDBManager];
+    [dbManager connect];
+    NSMutableArray *mutableArray =[dbManager searchArenasWithPage:[_pageNum integerValue]];
+    [dbManager close];
+    
+    
+    if (self.tableViewDataSourceArray == nil) {
+        self.tableViewDataSourceArray = [[NSMutableArray alloc]init];
+    }
+    if ([_pageNum isEqualToString:@"1"]) {//如果是第一页数据，直接替换，不然追加
+        self.tableViewDataSourceArray = mutableArray;
+    }else{
+        [self.tableViewDataSourceArray addObjectsFromArray:mutableArray];
+    }
+    
+    self.tableViewController.sourceArray = self.tableViewDataSourceArray;
+    
+    
+    [self.tableViewController.tableView reloadData];
+    
+    [self saveCache];
+    //隐藏infoLabel
+    if (self.infoLabel.isHidden == NO) {
+        self.infoLabel.hidden = YES;
+    }
+}
+
+-(void) getDataFromWeb {
+    
+    NSString *urlString = [FTNetConfig host:Domain path:GetArenaListURL];
+    NSString *tableName = @"damageblog";
+    
+    urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName];
+    
+    NetWorking *net = [[NetWorking alloc]init];
+    [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
+        
+        if (responseDic != nil) {
+            NSString *status = responseDic[@"status"];
+            NSLog(@"AreaDic:%@",responseDic);
+            if ([status isEqualToString:@"success"]) {
+                NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
+                DBManager *dbManager = [DBManager shareDBManager];
+                [dbManager connect];
+                
+                for (NSDictionary *dic in mutableArray)  {
+                    [dbManager insertDataIntoArenas:dic];
+                }
+                
+                [self getDataFromDB];
+                
+                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+                [self.tableViewController.tableView footerEndRefreshing];
+            }else {
+                [self getDataFromDB];
+                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+                [self.tableViewController.tableView footerEndRefreshing];
+            }
+
+        }else {
+            [self getDataFromDB];
+            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+            [self.tableViewController.tableView footerEndRefreshing];
+        }
+    }];
+}
+
 - (void)reloadDate{
+    
     NSString *urlString = [FTNetConfig host:Domain path:GetArenaListURL];
     NSString *tableName = @"damageblog";
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -426,18 +527,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-
-- (IBAction)leftButtonItemClick:(id)sender {
-    
-    
-    
-    NSLog(@"information left click did");
-    if ([self.drawerDelegate respondsToSelector:@selector(leftButtonClicked:)]) {
-        
-        [self.drawerDelegate leftButtonClicked:sender];
-    }
-}
 
 
 #pragma mark - PrivateAPI
@@ -515,17 +604,30 @@
     NSLog(@"search button clicked.");
 }
 
-#pragma -mark -排行榜按钮被点击
+#pragma mark - response
+- (IBAction)leftBtnClickAction:(id)sender {
+    
+    NSLog(@"information left click did");
+    if ([self.drawerDelegate respondsToSelector:@selector(leftButtonClicked:)]) {
+        
+        [self.drawerDelegate leftButtonClicked:sender];
+    }
+}
+
+- (IBAction)rankBtnAction:(id)sender {
+    FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
+    //    rankHomeVC.title = @"排行榜";
+    [self.navigationController pushViewController:rankHomeVC animated:YES];
+}
+
+
+#pragma mark 排行榜按钮被点击
 - (IBAction)rankButtonClicked:(id)sender {
     
     FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
-    rankHomeVC.title = @"格斗之王";
+    
     [self.navigationController pushViewController:rankHomeVC animated:YES];
     
-    
-    //    FTRankingListViewController *rankingListViewController = [FTRankingListViewController new];
-    //    [self.navigationController pushViewController:rankingListViewController animated:YES];
-    //    rankingListViewController.title = @"格斗之王";
 }
 
 - (IBAction)messageButtonClicked:(id)sender {
@@ -539,10 +641,22 @@
         
         FTArenaPostsDetailViewController *postsDetailVC = [FTArenaPostsDetailViewController new];
         //获取对应的bean，传递给下个vc
-        NSDictionary *newsDic = tableView.sourceArray[indexPath.row];
-        FTArenaBean *bean = [FTArenaBean new];
-        [bean setValuesWithDic:newsDic];
+//        NSDictionary *newsDic = tableView.sourceArray[indexPath.row];
+//        FTArenaBean *bean = [FTArenaBean new];
+//        [bean setValuesWithDic:newsDic];
         
+        
+        FTArenaBean *bean = tableView.sourceArray[indexPath.row];
+        //标记已读
+        if (![bean.isReader isEqualToString:@"YES"]) {
+            bean.isReader = @"YES";
+            //从数据库取数据
+            DBManager *dbManager = [DBManager shareDBManager];
+            [dbManager connect];
+            [dbManager updateArenasById:bean.postsId isReader:YES];
+            [dbManager close];
+            
+        }
         postsDetailVC.arenaBean = bean;
         postsDetailVC.delegate = self;
         postsDetailVC.indexPath = indexPath;

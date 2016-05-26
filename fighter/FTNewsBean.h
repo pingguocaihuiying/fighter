@@ -11,6 +11,7 @@
 
 @interface FTNewsBean : FTBaseBean
 
+@property (nonatomic,copy) NSString *Id;
 @property (nonatomic,copy) NSString *layout;
 @property (nonatomic,copy) NSString *newsTime;
 @property (nonatomic,copy) NSString *img_small_three;
@@ -25,6 +26,7 @@
 @property (nonatomic,copy) NSString *newsType;
 @property (nonatomic,copy) NSString *commentCount;
 @property (nonatomic,copy) NSString *voteCount;
+@property (nonatomic,copy) NSString *isReader;
 
 - (void)setValuesWithDic:(NSDictionary *)dic;
 
