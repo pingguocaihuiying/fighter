@@ -754,7 +754,6 @@ static NSString *const tableCellId = @"tableCellId";
     arenaVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     arenaVC.drawerDelegate = self;
     
-    
     //设置tabbar的属性
     FTBaseTabBarViewController *tabBartVC = [FTBaseTabBarViewController new];
     
