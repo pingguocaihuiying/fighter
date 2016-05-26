@@ -375,7 +375,7 @@ static DBManager * _sharedDBManager = nil;
     
     while ([rs next]) {
         FTNewsBean *bean = [[FTNewsBean alloc]init];
-        bean.Id = [rs stringForColumn:@"newsId"];
+        bean.newsId = [rs stringForColumn:@"newsId"];
         bean.author = [rs stringForColumn:@"author"];
         bean.img_big = [rs stringForColumn:@"img_big"];
         bean.img_small_one = [rs stringForColumn:@"img_small_one"];
@@ -497,7 +497,7 @@ static DBManager * _sharedDBManager = nil;
                    idNum];
         
         if (result) {
-            //            NSLog(@"更新数据成功");
+            NSLog(@"更新数据成功");
         }else {
             NSLog(@"更新数据失败");
         }
@@ -540,7 +540,7 @@ static DBManager * _sharedDBManager = nil;
  * @param 分页查询页数，因为服务器端第一页从1开始，所以在sql中先减去1
  *
  */
--(NSMutableArray *) searchArenasWithPage:(NSInteger )currentPage {
+-(NSMutableArray *) searchArenasWithPage:(NSInteger )currentPage  label:(NSString *) label{
     NSLog(@"currentPage:%ld",(long)currentPage);
     if (currentPage <=1) {
         currentPage = 0;
@@ -549,7 +549,13 @@ static DBManager * _sharedDBManager = nil;
     }
     NSNumber *pageNum = [NSNumber numberWithInteger:currentPage*20];
     FMResultSet * rs;
-    rs = [_dataBase executeQuery:@" SELECT *  FROM arenas  ORDER BY id DESC limit ?,10",pageNum];
+    
+    if (label == nil || [label isEqualToString:@"全部视频"] ) {
+        rs = [_dataBase executeQuery:@" SELECT *  FROM arenas  ORDER BY id DESC limit ?,10",pageNum];
+    }else {
+        rs = [_dataBase executeQuery:@" SELECT *  FROM arenas where labels = ?  ORDER BY id DESC limit ?,10",label ,pageNum];
+    }
+    
     
     NSMutableArray *array = [[NSMutableArray alloc]init];
     

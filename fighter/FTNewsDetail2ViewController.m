@@ -143,13 +143,23 @@
     _webView.opaque = NO;
     
     [self.view addSubview:_webView];
-    NSString *url = _newsBean.url;
-    url = [self encodeToPercentEscapeString:url];
-    NSString *title = _newsBean.title;
-    title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+   
+    if(self.webUrlString == nil || self.webUrlString.length <= 0) {
     
-    _webViewUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/news_page.html?objId=%@&title=%@&author=%@&newsTime=%@&commentCount=%@&voteCount=%@&url=%@&tableName=%@&type=%@", _newsBean.newsId, title, [_newsBean.author stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], _newsBean.newsTime, _newsBean.commentCount, _newsBean.voteCount,url , @"c-news", _newsBean.newsType];
+        NSString *url = _newsBean.url;
+        url = [self encodeToPercentEscapeString:url];
+        NSString *title = _newsBean.title;
+        title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        _webViewUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/news_page.html?objId=%@&title=%@&author=%@&newsTime=%@&commentCount=%@&voteCount=%@&url=%@&tableName=%@&type=%@", _newsBean.newsId, title, [_newsBean.author stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], _newsBean.newsTime, _newsBean.commentCount, _newsBean.voteCount,url , @"c-news", _newsBean.newsType];
+    }else {
     
+        _webViewUrlString = _webUrlString;
+    }
+   
+    
+    
+    NSLog(@"webString:%@",_webViewUrlString);
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webViewUrlString]]];
     [self.view sendSubviewToBack:_webView];
 }
@@ -328,7 +338,6 @@
 }
 
 //把点赞信息更新至服务器
-
 - (void)uploadVoteStatusToServer{
     
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
@@ -383,7 +392,7 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     NSString *requestURL = [NSString stringWithFormat:@"%@", request.URL];
-//    NSLog(@"requestURL : %@", requestURL);
+    NSLog(@"requestURL : %@", requestURL);
     if ([requestURL isEqualToString:@"js-call:onload"]) {
         [self disableLoadingAnimation];
     }

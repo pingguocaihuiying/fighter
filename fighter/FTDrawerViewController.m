@@ -766,6 +766,33 @@ static NSString *const tableCellId = @"tableCellId";
     
     FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:tabBartVC];
     [self.dynamicsDrawerViewController  setPaneViewController:navi];
+    
+}
+
+//推送响应方法
+- (void) push:(NSDictionary *)dic {
+
+    FTBaseNavigationViewController *navi = (FTBaseNavigationViewController *)self.dynamicsDrawerViewController.paneViewController;
+    
+    FTBaseTabBarViewController *tabBartVC = [navi.viewControllers firstObject];
+    
+    if ([dic[@"urlType"] isEqualToString:@"news"]) {
+        [tabBartVC setSelectedIndex:0];
+        
+        FTInformationViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:0];
+        [infoVC pushToDetailController:dic];
+    }else if ([dic[@"urlType"] isEqualToString:@"video"]) {
+        [tabBartVC setSelectedIndex:1];
+        
+        FTVideoViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:0];
+        [infoVC pushToDetailController:dic];
+    }else if ([dic[@"urlType"] isEqualToString:@"arenas"]) {
+        [tabBartVC setSelectedIndex:2];
+        
+        FTArenaViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:0];
+        [infoVC pushToDetailController:dic];
+    }
+    
 }
 
 - (void) dealloc {

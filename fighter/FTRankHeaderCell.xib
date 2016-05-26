@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="180.5"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CKX-RG-9E5">
-                        <rect key="frame" x="96" y="1" width="200" height="180"/>
+                        <rect key="frame" x="110" y="1" width="200" height="180"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="200" id="JWN-FE-EQ7"/>
                             <constraint firstAttribute="height" constant="180" id="W3c-wM-siS"/>
@@ -29,7 +29,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="h7R-TH-aeh"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -60,8 +60,8 @@
                             <constraint firstAttribute="height" constant="48" id="fjD-Gn-aGc"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="reA-eq-2DR">
-                        <rect key="frame" x="16" y="126.5" width="200" height="42"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="reA-eq-2DR">
+                        <rect key="frame" x="16" y="170.5" width="200" height="0.0"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="200" id="RdO-Yu-NpV"/>
                         </constraints>
@@ -82,7 +82,7 @@
                     <constraint firstItem="reA-eq-2DR" firstAttribute="bottom" secondItem="hTp-qF-bh2" secondAttribute="bottom" constant="-10" id="MDO-HB-4MC"/>
                     <constraint firstItem="hTp-qF-bh2" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottom" constant="2" id="NsL-6s-IP9"/>
                     <constraint firstItem="SpQ-mT-byE" firstAttribute="top" secondItem="hTp-qF-bh2" secondAttribute="top" constant="20" id="X7s-hI-UTI"/>
-                    <constraint firstItem="CKX-RG-9E5" firstAttribute="trailing" secondItem="hTp-qF-bh2" secondAttribute="trailing" constant="-24" id="Y9f-aP-nFh"/>
+                    <constraint firstItem="CKX-RG-9E5" firstAttribute="trailing" secondItem="hTp-qF-bh2" secondAttribute="trailing" constant="-10" id="Y9f-aP-nFh"/>
                     <constraint firstItem="Uo4-jN-7eh" firstAttribute="top" secondItem="O9m-Lu-Aez" secondAttribute="bottom" constant="15" id="YNj-D6-urE"/>
                     <constraint firstItem="Uo4-jN-7eh" firstAttribute="leading" secondItem="hTp-qF-bh2" secondAttribute="leading" constant="12" id="cmX-LB-Gti"/>
                     <constraint firstItem="9IB-s5-JXo" firstAttribute="top" secondItem="O9m-Lu-Aez" secondAttribute="top" id="qhi-i9-j69"/>

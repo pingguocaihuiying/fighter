@@ -778,6 +778,15 @@
     }
 }
 
+#pragma mark push响应方法
+- (void) pushToDetailController:(NSDictionary *)dic {
+    
+    FTVideoDetailViewController *newsDetailVC = [FTVideoDetailViewController new];
+    newsDetailVC.webUrlString = dic[@"url"];
+    [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+    
+}
+
 - (void)updateCountWithVideoBean:(FTVideoBean *)videoBean indexPath:(NSIndexPath *)indexPath{
     
     NSDictionary *dic = self.tableViewDataSourceArray[indexPath.row];
