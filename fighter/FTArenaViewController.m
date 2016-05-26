@@ -100,7 +100,7 @@
     _currentIndexString = @"all";
     _query = @"list-dam-blog-1";
     _pageNum = @"1";
-    _pageSize = @"3";
+    _pageSize = @"1";
     _labels = @"";
 }
 
