@@ -604,8 +604,6 @@
 		3DE95BAB1CD8A042005BF85C /* FTRegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRegistViewController.m; sourceTree = "<group>"; };
 		3DE95BAC1CD8A042005BF85C /* FTRegistViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRegistViewController.xib; sourceTree = "<group>"; };
 		CC6E175F6D8F9BDF7F42A3E5 /* Pods_fighter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fighter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD48BE749B6F4D12F01B91BD /* Pods-fighter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fighter.release.xcconfig"; path = "Pods/Target Support Files/Pods-fighter/Pods-fighter.release.xcconfig"; sourceTree = "<group>"; };
-		DF679036E381CA6DC2307057 /* Pods-fighter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fighter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fighter/Pods-fighter.debug.xcconfig"; sourceTree = "<group>"; };
 		E6035EB51CC08D2800B10D36 /* FTNewsDetail2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNewsDetail2ViewController.h; sourceTree = "<group>"; };
 		E6035EB61CC08D2800B10D36 /* FTNewsDetail2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNewsDetail2ViewController.m; sourceTree = "<group>"; };
 		E6035EB71CC08D2800B10D36 /* FTNewsDetail2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTNewsDetail2ViewController.xib; sourceTree = "<group>"; };
@@ -1682,7 +1680,6 @@
 				E64EF1221CB6614100CAE340 /* fighterTests */,
 				E64EF12D1CB6614100CAE340 /* fighterUITests */,
 				E64EF1071CB6614000CAE340 /* Products */,
-				F52441DE9E75AABF04FAB793 /* Pods */,
 				FF4F6665A0FF96A7EF0453D8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -2514,15 +2511,6 @@
 			name = "详情";
 			sourceTree = "<group>";
 		};
-		F52441DE9E75AABF04FAB793 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				DF679036E381CA6DC2307057 /* Pods-fighter.debug.xcconfig */,
-				CD48BE749B6F4D12F01B91BD /* Pods-fighter.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		FF4F6665A0FF96A7EF0453D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -3195,7 +3183,6 @@
 		};
 		E64EF1341CB6614100CAE340 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF679036E381CA6DC2307057 /* Pods-fighter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -3235,7 +3222,6 @@
 		};
 		E64EF1351CB6614100CAE340 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CD48BE749B6F4D12F01B91BD /* Pods-fighter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
