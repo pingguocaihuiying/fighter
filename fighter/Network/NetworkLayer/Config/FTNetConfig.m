@@ -68,7 +68,7 @@ NSString *const GetVideoURL = @"/api/videos/getVideos.do";
 NSString *const AddViewCountURL = @"/api/videos/upVideoViewN.do";
 
 //增加格斗场帖子阅读数
-NSString *const AddArenaViewCountCountURL = @"/api/view/add$View.do";
+NSString *const AddArenaViewCountCountURL = @"/api/view/addView.do";
 
 //增加收藏的接口地址: 域名/api/base/save$Base.do
 NSString *const AddStarURL = @"/api/base/save$Base.do";

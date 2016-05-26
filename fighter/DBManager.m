@@ -474,7 +474,7 @@ static DBManager * _sharedDBManager = nil;
     //2.如果已经存在则更新数据
     if(exist) {
         
-        BOOL result = [_dataBase executeUpdate:@"UPDATE arenas set content = ?,createName= ?,createTime= ?,createTimeTamp = ?,headUrl = ?,isDelated = ?,labels = ?,nickname = ?,thumbUrl = ?,title = ?,updateName = ?,updateTime = ?,updateTimeTamp = ?,urlPrefix = ?,userId = ?,videoUrlNames = ?,commentCount = ?,voteCount = ?,viewCount = ?,isReader = ?, where id = ?"  , content,
+        BOOL result = [_dataBase executeUpdate:@"UPDATE arenas set content = ?,createName= ?,createTime= ?,createTimeTamp = ?,headUrl = ?,isDelated = ?,labels = ?,nickname = ?,thumbUrl = ?,title = ?,updateName = ?,updateTime = ?,updateTimeTamp = ?,urlPrefix = ?,userId = ?,videoUrlNames = ?,commentCount = ?,voteCount = ?,viewCount = ?,isReader = ? where id = ?"  , content,
                    createName,
                    createTime,
                    createTimeTamp,

@@ -32,6 +32,9 @@
     self.createName = dic[@"createName"];
     self.labels = dic[@"labels"];
     self.videoUrlNames = dic[@"videoUrlNames"];
+    if (self.videoUrlNames == nil) {
+        self.videoUrlNames = @"";
+    }
     self.createTimeTamp = dic[@"createTimeTamp"];
     self.updateTimeTamp = dic[@"updateTimeTamp"];
     self.title = dic[@"title"];

@@ -609,13 +609,9 @@
 - (void)addViewCount{
     //获取网络请求地址url
     NSString *addViewCountUrlString = [FTNetConfig host:Domain path:AddArenaViewCountCountURL];
-    
-    NSString *videosId = _arenaBean.postsId;
-    NSString *ts = [NSString stringWithFormat:@"%.3f", [[NSDate date] timeIntervalSince1970]];
-    ts = [ts stringByReplacingOccurrencesOfString:@"." withString:@""];
-    
-    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@", videosId, ts, UpVideoViewNCheckKey]];
-    addViewCountUrlString = [NSString stringWithFormat:@"%@?&videosId=%@&ts=%@&checkSign=%@", addViewCountUrlString, videosId, ts, checkSign];
+    NSString *objId = _arenaBean.postsId;
+    NSString *tableName = @"ve-damageblog";
+    addViewCountUrlString = [NSString stringWithFormat:@"%@?&objId=%@&tableName=%@", addViewCountUrlString, objId, tableName];
     NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);
     //创建AAFNetWorKing管理者
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

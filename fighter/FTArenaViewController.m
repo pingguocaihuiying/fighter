@@ -422,11 +422,14 @@
     urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName];
     
     NetWorking *net = [[NetWorking alloc]init];
+    
+    NSLog(@"arena list url :  %@", urlString);
+    
     [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
         
         if (responseDic != nil) {
             NSString *status = responseDic[@"status"];
-            NSLog(@"AreaDic:%@",responseDic);
+//            NSLog(@"AreaDic:%@",responseDic);
             if ([status isEqualToString:@"success"]) {
                 NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
                 DBManager *dbManager = [DBManager shareDBManager];

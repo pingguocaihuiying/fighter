@@ -2341,8 +2341,8 @@
 		E6D2F8E71CEAA8F900160788 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E6FE6A591CEED34C00D63847 /* 详情 */,
 				E6D2F8D31CE95F4600160788 /* main */,
+				E6FE6A591CEED34C00D63847 /* 详情 */,
 				E67872751CEAFFBA0099CEE6 /* 发新帖 */,
 			);
 			name = ViewController;
