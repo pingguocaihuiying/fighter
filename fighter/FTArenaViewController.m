@@ -386,7 +386,7 @@
     //从数据库取数据
     DBManager *dbManager = [DBManager shareDBManager];
     [dbManager connect];
-    NSMutableArray *mutableArray =[dbManager searchArenasWithPage:[_pageNum integerValue]];
+    NSMutableArray *mutableArray =[dbManager searchArenasWithPage:[_pageNum integerValue] label:_labels];
     [dbManager close];
     
     
@@ -418,6 +418,7 @@
     
     urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName];
     
+    NSLog(@"urlString:%@",urlString);
     NetWorking *net = [[NetWorking alloc]init];
     [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
         
@@ -661,6 +662,16 @@
         [self.navigationController pushViewController:postsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
     }
 }
+
+#pragma mark push响应方法
+- (void) pushToDetailController:(NSDictionary *)dic {
+    
+    FTArenaPostsDetailViewController *newsDetailVC = [FTArenaPostsDetailViewController new];
+    newsDetailVC.webUrlString = dic[@"url"];
+    [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+    
+}
+
 - (IBAction)filterButton:(id)sender {
     FTFilterTableViewController *filterTableViewController = [FTFilterTableViewController new];
     

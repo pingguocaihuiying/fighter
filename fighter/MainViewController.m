@@ -31,10 +31,17 @@ FTDrawerViewController *drawerVC;
 //    [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
+
+
+
+- (void) pushMessage:(NSDictionary *)dic{
+
+    
+    [drawerVC push:dic[@"click_param"]];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
-    
 }
 
 /*

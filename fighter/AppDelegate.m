@@ -47,6 +47,7 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 @interface AppDelegate ()<WXApiDelegate>
 
 @property (nonatomic, assign)WXRequestType wxRequestType;
+@property (nonatomic, strong) MainViewController *mianVC;
 
 @end
 
@@ -66,8 +67,32 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     [GLobalRealReachability startNotifier];
     
     
-    NSDictionary *dic = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     
+    //屏蔽个人中心时打开这里
+//    [self setRootViewController2];
+
+    
+
+    
+    //启动个人中心的功能
+    _mianVC = [[MainViewController alloc]init];
+    
+    self.window.rootViewController=_mianVC;
+    NSLog(@"push info:");
+//    //推送消息
+//    NSDictionary *dic = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+//    if (dic != nil) {
+//        NSLog(@"push info:%@",dic);
+//        
+//        //        NSString *objId = dic[@"param"];
+//        //        NSString *url = dic[@"url"];
+//        //        NSString *urlType = dic[@"urlType"];
+//        
+//        [_mianVC pushMessage:dic[@"extra"]];
+//        
+//    }
+    
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
     /**
      Notification info:{
      aps =     {
@@ -87,24 +112,9 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
      "ixintui.push.id" = 100000029;
      }
      **/
-    if (dic != nil) {
-        NSLog(@"push info:%@",dic);
-    }
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
-    
-    //屏蔽个人中心时打开这里
-//    [self setRootViewController2];
 
     
-//    FTDrawerViewController *drawerVC = [[FTDrawerViewController alloc]init];
-//    self.window.rootViewController = drawerVC;
-    
-    //启动个人中心的功能
-    MainViewController *sl = [[MainViewController alloc]init];
-//    FTBaseNavigationViewController *_navi=[[FTBaseNavigationViewController alloc]initWithRootViewController:sl];
-    self.window.rootViewController=sl;
-    
-    
+
    
     
     return YES;
@@ -392,6 +402,8 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 
     NSLog(@"Notification info:%@",userInfo);
     [IXPushSdkApi handleNotification:userInfo];
+    
+    [_mianVC pushMessage:userInfo[@"extra"]];
 }
 
 //// 对收到的消息进行处理:

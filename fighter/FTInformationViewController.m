@@ -693,6 +693,16 @@
         [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
     }
 }
+
+#pragma mark push响应方法
+- (void) pushToDetailController:(NSDictionary *)dic {
+
+    FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
+    newsDetailVC.webUrlString = dic[@"url"];
+    [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+
+}
+
 - (IBAction)filterButton:(id)sender {
     FTFilterTableViewController *filterTableViewController = [FTFilterTableViewController new];
     

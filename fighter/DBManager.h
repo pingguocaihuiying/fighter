@@ -105,7 +105,7 @@
  * @param arenas 查询限制字段
  *
  */
--(NSMutableArray *) searchArenasWithPage:(NSInteger )currentPage;
+-(NSMutableArray *) searchArenasWithPage:(NSInteger )currentPage  label:(NSString *) label;
 
 /**
  * @brief 更新arenas表所有字段

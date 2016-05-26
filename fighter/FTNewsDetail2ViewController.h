@@ -28,4 +28,7 @@
 @property (nonatomic, weak)id<FTnewsDetailDelegate> delegate;
 
 @property (nonatomic, strong)NSIndexPath *indexPath;
+
+@property (nonatomic ,copy)NSString *webUrlString;//push 传递地址
+
 @end

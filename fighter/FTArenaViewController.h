@@ -24,4 +24,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *leftBtn;
 
+
+#pragma mark push响应方法
+- (void) pushToDetailController:(NSDictionary *)dic;
+
 @end
