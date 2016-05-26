@@ -698,7 +698,9 @@
 - (void) pushToDetailController:(NSDictionary *)dic {
 
     FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
-    newsDetailVC.webUrlString = dic[@"url"];
+    NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-news",dic[@"objId"]];
+    
+    newsDetailVC.webUrlString = [@"http://www.gogogofight.com/page/news_page.html?" stringByAppendingString:str];
     [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
 
 }
