@@ -766,6 +766,21 @@ static NSString *const tableCellId = @"tableCellId";
     FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:tabBartVC];
     [self.dynamicsDrawerViewController  setPaneViewController:navi];
     
+    
+    [self checkPush];
+}
+
+
+- (void) checkPush {
+
+    NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"pushMessageDic"];
+    if (dic != nil) {
+        
+        [self push:dic];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"pushMessageDic"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
 }
 
 //推送响应方法

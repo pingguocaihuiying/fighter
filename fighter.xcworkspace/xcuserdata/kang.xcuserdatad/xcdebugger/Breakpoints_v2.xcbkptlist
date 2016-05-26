@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fighter/FTDrawerViewController.m"
-            timestampString = "485937920.772133"
+            timestampString = "485956567.41293"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "773"
-            endingLineNumber = "773"
+            startingLineNumber = "787"
+            endingLineNumber = "787"
             landmarkName = "-push:"
             landmarkType = "5">
          </BreakpointContent>

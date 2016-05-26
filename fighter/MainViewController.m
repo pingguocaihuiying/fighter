@@ -29,6 +29,12 @@ FTDrawerViewController *drawerVC;
     [drawerVC setHomeViewController];
     
 //    [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+//    if (self.isPush) {
+//        [drawerVC push:self.pushDic];
+//        self.pushDic = nil;
+//        self.isPush = NO;
+//    }
 }
 
 

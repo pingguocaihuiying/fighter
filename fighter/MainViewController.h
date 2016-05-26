@@ -10,6 +10,8 @@
 
 @interface MainViewController : FTDynamicsDrawerViewController
 
+//@property (nonatomic,assign)BOOL isPush;
+//@property (nonatomic,strong)NSDictionary *pushDic;
 
 - (void) pushMessage:(NSDictionary *)dic;
 

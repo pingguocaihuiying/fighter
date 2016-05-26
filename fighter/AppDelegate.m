@@ -47,7 +47,7 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 @interface AppDelegate ()<WXApiDelegate>
 
 @property (nonatomic, assign)WXRequestType wxRequestType;
-@property (nonatomic, strong) MainViewController *mianVC;
+@property (nonatomic, strong) MainViewController *mainVC;
 
 @end
 
@@ -72,27 +72,23 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 //    [self setRootViewController2];
 
     
-
-    
     //启动个人中心的功能
-    _mianVC = [[MainViewController alloc]init];
-    
-    self.window.rootViewController=_mianVC;
-    NSLog(@"push info:");
-//    //推送消息
-//    NSDictionary *dic = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-//    if (dic != nil) {
-//        NSLog(@"push info:%@",dic);
-//        
-//        //        NSString *objId = dic[@"param"];
-//        //        NSString *url = dic[@"url"];
-//        //        NSString *urlType = dic[@"urlType"];
-//        
-//        [_mianVC pushMessage:dic[@"extra"]];
-//        
-//    }
-    
+    _mainVC = [[MainViewController alloc]init];
+    self.window.rootViewController=_mainVC;
+    //推送消息
+    NSDictionary *dic = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (dic != nil) {
+        
+        NSLog(@"push info:%@",dic);
+
+        [[NSUserDefaults standardUserDefaults] setObject:dic[@"extra"][@"click_param"] forKey:@"pushMessageDic"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+    }
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    NSLog(@"push info:");
+    
+    
     /**
      Notification info:{
      aps =     {
@@ -404,7 +400,6 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     [IXPushSdkApi handleNotification:userInfo];
     
     
-    
     switch (application.applicationState) {
         case UIApplicationStateActive:
         {
@@ -413,7 +408,7 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
             break;
         case UIApplicationStateInactive:
         {
-            [_mianVC pushMessage:userInfo[@"extra"]];
+            [_mainVC pushMessage:userInfo[@"extra"]];
         }
             break;
         case UIApplicationStateBackground:
