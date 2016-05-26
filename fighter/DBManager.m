@@ -409,7 +409,7 @@ static DBManager * _sharedDBManager = nil;
     BOOL result = [_dataBase executeUpdate:@"UPDATE news set isReader = ? where newsId = ?" ,isreader, idNum];
     
     if (result) {
-        NSLog(@"更新数据成功");
+//        NSLog(@"更新数据成功");
     }else {
         NSLog(@"更新数据失败");
     }
@@ -497,7 +497,7 @@ static DBManager * _sharedDBManager = nil;
                    idNum];
         
         if (result) {
-            NSLog(@"更新数据成功");
+//            NSLog(@"更新数据成功");
         }else {
             NSLog(@"更新数据失败");
         }

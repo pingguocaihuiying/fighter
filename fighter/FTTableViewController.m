@@ -18,6 +18,7 @@
 #import "FTNewsBean.h"
 #import "FTVideoTableViewCell.h"
 #import "FTArenaTextTableViewCell.h"
+#import "FTArenaImageTableViewCell.h"
 #import "FTArenaBean.h"
 
 @interface FTTableViewController ()<FTTableViewCellClickedDelegate>
@@ -117,12 +118,15 @@
         static NSString *celliderAreraText = @"cellArenaText";
         static NSString *celliderArenaImage = @"cellArenaImage";
         cell = [tableView dequeueReusableCellWithIdentifier:celliderArenaImage];
-        if (cell == nil) {
-            NSLog(@"cell is nil");
-            cell = [[[NSBundle mainBundle]loadNibNamed:@"FTArenaTextTableViewCell" owner:self options:nil]firstObject];
-            cell.backgroundColor = [UIColor clearColor];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+         FTArenaBean *bean = self.sourceArray[indexPath.row];
+        
+        if ([bean.pictureUrlNames isEqualToString:@""] && [bean.videoUrlNames isEqualToString:@""]) {
+        cell = [tableView dequeueReusableCellWithIdentifier:celliderAreraText];
+        }else{
+        cell = [tableView dequeueReusableCellWithIdentifier:celliderArenaImage];
         }
+        
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -130,7 +134,7 @@
         
 //        NSDictionary *dic = self.sourceArray[indexPath.row];
         //改变cell的值
-        FTVideoBean *bean = self.sourceArray[indexPath.row];
+        
         
 //        [bean setValuesWithDic:dic];
         [cell setWithBean:bean];

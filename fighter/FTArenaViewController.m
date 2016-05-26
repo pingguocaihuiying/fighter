@@ -100,7 +100,7 @@
     _currentIndexString = @"all";
     _query = @"list-dam-blog-1";
     _pageNum = @"1";
-    _pageSize = @"10";
+    _pageSize = @"3";
     _labels = @"";
 }
 
@@ -421,7 +421,7 @@
     
     urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName];
     
-    NSLog(@"urlString:%@",urlString);
+//    NSLog(@"urlString:%@",urlString);
     NetWorking *net = [[NetWorking alloc]init];
     
     NSLog(@"arena list url :  %@", urlString);
