@@ -166,7 +166,6 @@
             _pageNum = [NSString stringWithFormat:@"%d", pageNumInt];
         }
 
-
 //        [sself reloadDate];
         [sself getDataFromWeb];
     }];
