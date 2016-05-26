@@ -425,7 +425,7 @@ static DBManager * _sharedDBManager = nil;
  */
 - (void) createArenasTable {
     
-    NSString * sql = @"CREATE TABLE 'arenas' ('id' INTEGER PRIMARY KEY NOT NULL UNIQUE, 'content' TEXT, 'createName' TEXT, 'createTime' TEXT, 'createTimeTamp' INTEGER, 'headUrl' TEXT, 'isDelated' BOOLEAN DEFAULT 0, 'labels' TEXT, 'nickname' TEXT, 'thumbUrl' TEXT, 'title' TEXT, 'updateName' TEXT, 'updateTime' TEXT, 'updateTimeTamp' INTEGER, 'urlPrefix' TEXT, 'userId' TEXT, 'videoUrlNames' TEXT,'commentCount' INTEGER DEFAULT 0, 'voteCount' INTEGER DEFAULT 0, 'viewCount' INTEGER DEFAULT 0,'isReader' BOOLEAN DEFAULT 0);";
+    NSString * sql = @"CREATE TABLE 'arenas' ('id' INTEGER PRIMARY KEY NOT NULL UNIQUE, 'content' TEXT, 'createName' TEXT, 'createTime' TEXT, 'createTimeTamp' INTEGER, 'headUrl' TEXT, 'isDelated' BOOLEAN DEFAULT 0, 'labels' TEXT, 'nickname' TEXT, 'thumbUrl' TEXT, 'title' TEXT, 'updateName' TEXT, 'updateTime' TEXT, 'updateTimeTamp' INTEGER, 'urlPrefix' TEXT, 'userId' TEXT,pictureUrlNames TEXT, 'videoUrlNames' TEXT,'commentCount' INTEGER DEFAULT 0, 'voteCount' INTEGER DEFAULT 0, 'viewCount' INTEGER DEFAULT 0,'isReader' BOOLEAN DEFAULT 0);";
     
     [self createTable:@"arenas" sql:sql];
 }
@@ -459,6 +459,7 @@ static DBManager * _sharedDBManager = nil;
     NSString *updateTime = dic[@"updateTime"];
     NSString *urlPrefix = dic[@"urlPrefix"];
     NSString *userId = dic[@"userId"];
+    NSString *pictureUrlNames = dic[@"pictureUrlNames"];
     NSString *videoUrlNames = dic[@"videoUrlNames"];
     
     
@@ -474,7 +475,7 @@ static DBManager * _sharedDBManager = nil;
     //2.如果已经存在则更新数据
     if(exist) {
         
-        BOOL result = [_dataBase executeUpdate:@"UPDATE arenas set content = ?,createName= ?,createTime= ?,createTimeTamp = ?,headUrl = ?,isDelated = ?,labels = ?,nickname = ?,thumbUrl = ?,title = ?,updateName = ?,updateTime = ?,updateTimeTamp = ?,urlPrefix = ?,userId = ?,videoUrlNames = ?,commentCount = ?,voteCount = ?,viewCount = ?,isReader = ? where id = ?"  , content,
+        BOOL result = [_dataBase executeUpdate:@"UPDATE arenas set content = ?,createName= ?,createTime= ?,createTimeTamp = ?,headUrl = ?,isDelated = ?,labels = ?,nickname = ?,thumbUrl = ?,title = ?,updateName = ?,updateTime = ?,updateTimeTamp = ?,urlPrefix = ?,userId = ?,pictureUrlNames =?,videoUrlNames = ?,commentCount = ?,voteCount = ?,viewCount = ?,isReader = ? where id = ?"  , content,
                    createName,
                    createTime,
                    createTimeTamp,
@@ -489,6 +490,7 @@ static DBManager * _sharedDBManager = nil;
                    updateTimeTamp,
                    urlPrefix,
                    userId,
+                   pictureUrlNames,
                    videoUrlNames,
                    commentCount,
                    voteCount,
@@ -503,7 +505,7 @@ static DBManager * _sharedDBManager = nil;
         }
         
     }else {//3.如果数据不存在则插入数据
-        BOOL result = [_dataBase executeUpdate:@"INSERT INTO arenas (id,content,createName,createTime,createTimeTamp,headUrl,isDelated,labels,nickname,thumbUrl,title,updateName,updateTime,updateTimeTamp,urlPrefix,userId,videoUrlNames,commentCount,voteCount,viewCount,isReader) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        BOOL result = [_dataBase executeUpdate:@"INSERT INTO arenas (id,content,createName,createTime,createTimeTamp,headUrl,isDelated,labels,nickname,thumbUrl,title,updateName,updateTime,updateTimeTamp,urlPrefix,userId,pictureUrlNames,videoUrlNames,commentCount,voteCount,viewCount,isReader) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                        idNum,
                        content,
                        createName,
@@ -520,6 +522,7 @@ static DBManager * _sharedDBManager = nil;
                        updateTimeTamp,
                        urlPrefix,
                        userId,
+                       pictureUrlNames,
                        videoUrlNames,
                        commentCount,
                        voteCount,
@@ -550,7 +553,7 @@ static DBManager * _sharedDBManager = nil;
     NSNumber *pageNum = [NSNumber numberWithInteger:currentPage*20];
     FMResultSet * rs;
     
-    if (label == nil || [label isEqualToString:@"全部视频"] ) {
+    if (label == nil || [label isEqualToString:@"全部视频"] || label.length == 0) {
         rs = [_dataBase executeQuery:@" SELECT *  FROM arenas  ORDER BY id DESC limit ?,10",pageNum];
     }else {
         rs = [_dataBase executeQuery:@" SELECT *  FROM arenas where labels = ?  ORDER BY id DESC limit ?,10",label ,pageNum];
@@ -581,7 +584,7 @@ static DBManager * _sharedDBManager = nil;
         bean.userId = [rs stringForColumn:@"userId"];
         bean.videoUrlNames = [rs stringForColumn:@"videoUrlNames"];
        
-        
+        bean.pictureUrlNames = [rs stringForColumn:@"pictureUrlNames"];
         bean.commentCount = [rs stringForColumn:@"commentCount"];
         bean.voteCount = [rs stringForColumn:@"voteCount"];
         bean.viewCount = [rs stringForColumn:@"viewCount"];

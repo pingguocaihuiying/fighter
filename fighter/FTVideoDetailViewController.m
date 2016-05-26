@@ -213,6 +213,8 @@
     }else {
         
         _webViewUrlString = _webUrlString;
+        NSLog(@"webview url：%@", _webViewUrlString);
+
     }
    
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webViewUrlString]]];
@@ -222,6 +224,8 @@
 //webView加载完成
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     
+    NSLog(@"webViewDidFinishLoad ****************");
+    [self disableLoadingAnimation];
 }
 
 - (void)didReceiveMemoryWarning {

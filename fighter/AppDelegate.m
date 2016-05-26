@@ -403,7 +403,28 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     NSLog(@"Notification info:%@",userInfo);
     [IXPushSdkApi handleNotification:userInfo];
     
-    [_mianVC pushMessage:userInfo[@"extra"]];
+    
+    
+    switch (application.applicationState) {
+        case UIApplicationStateActive:
+        {
+//            [_mianVC pushMessage:userInfo[@"extra"]];
+        }
+            break;
+        case UIApplicationStateInactive:
+        {
+            [_mianVC pushMessage:userInfo[@"extra"]];
+        }
+            break;
+        case UIApplicationStateBackground:
+        {
+//            [_mianVC pushMessage:userInfo[@"extra"]];
+        }
+            break;
+        default:
+            break;
+    }
+    
 }
 
 //// 对收到的消息进行处理:

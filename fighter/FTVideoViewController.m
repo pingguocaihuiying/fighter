@@ -782,7 +782,11 @@
 - (void) pushToDetailController:(NSDictionary *)dic {
     
     FTVideoDetailViewController *newsDetailVC = [FTVideoDetailViewController new];
-    newsDetailVC.webUrlString = dic[@"url"];
+    NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=%@",dic[@"objId"],@"c-videos"];
+    
+    newsDetailVC.webUrlString = [@"http://www.gogogofight.com/page/video_page.html?" stringByAppendingString:str];
+    
+//    NSLog(@"webUrlString = %@",[@"http://www.gogogofight.com/page/video_page.html?" stringByAppendingString:str]);
     [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
     
 }
