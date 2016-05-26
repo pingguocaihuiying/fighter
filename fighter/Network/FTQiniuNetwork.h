@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface FTQiniuNetwork : NSObject
-+ (NSString *)getQiniuTokenWithOption:(void (^)(NSString *token))option;
++ (NSString *)getQiniuTokenWithMediaType:(NSString *)mediaType andKey:(NSString *)key andOption:(void (^)(NSString *token))option;
 @end

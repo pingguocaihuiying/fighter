@@ -51,9 +51,9 @@
     _mainContentView.backgroundColor = [[UIColor alloc]initWithRed:30 / 255.0 green:30 / 255.0 blue:30 / 255.0 alpha:1];
     
     //添加金属边框的背景
-    UIImageView *bgImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"金属边框-改进ios"]];
+    UIImageView *bgImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"弹出框背景"]];
     bgImageView.frame = _mainContentView.bounds;
-//    [_mainContentView addSubview:bgImageView];
+    [_mainContentView addSubview:bgImageView];
     //添加标题
     _titleLabel = [[UILabel alloc]init];
     _titleLabel.width = 100;

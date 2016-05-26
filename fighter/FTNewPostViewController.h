@@ -16,5 +16,6 @@
 @property (weak, nonatomic) IBOutlet UIView *mediaPickerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *meidiaPickerViewHeight;
 @property (weak, nonatomic) IBOutlet UIImageView *typeImageView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end

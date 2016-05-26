@@ -15,4 +15,5 @@
 @property (nonatomic, weak) id<FTDynamicsTransDelegate> drawerDelegate;
 
 @property (nonatomic, strong)FTBaseBean *bean;
+@property (nonatomic, strong)UIImageView *bottomGradualChangeView;
 @end

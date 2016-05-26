@@ -32,6 +32,8 @@
     self.createName = dic[@"createName"];
     self.labels = dic[@"labels"];
     self.videoUrlNames = dic[@"videoUrlNames"];
+    self.createTimeTamp = dic[@"createTimeTamp"];
+    self.updateTimeTamp = dic[@"updateTimeTamp"];
     self.title = dic[@"title"];
     self.userId = dic[@"userId"];
     self.createTime = dic[@"createTime"];

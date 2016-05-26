@@ -23,5 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *authorIdentifierImageView;
 @property (weak, nonatomic) IBOutlet UILabel *likeCountLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *theImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *playVideoImageview;
+@property (weak, nonatomic) IBOutlet UIImageView *placeHoldImageView;
 
 @end
