@@ -555,6 +555,11 @@
 }
 
 
+#pragma mark - 视频
+
+#pragma mark - news 
+
+
 #pragma mark - 封装请求
 //post请求
 - (void) postRequestWithUrl:(NSString *)urlString
