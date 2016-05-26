@@ -55,6 +55,7 @@ typedef NS_ENUM(NSInteger, FTDataType) {
 @property (nonatomic, assign) CGFloat tableH;//默认高度
 
 @property (nonatomic, assign) CGFloat cellH;
+@property (nonatomic, assign) CGRect Btnframe;
 //@property (nonatomic, assign) CGFloat originX;//默认
 //@property (nonatomic, assign) CGFloat originY;//默认
 

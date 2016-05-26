@@ -96,16 +96,17 @@
     CGRect frame = self.imageView.frame;
     CGRect tableFram = self.tableView.frame;
     
+    __weak typeof (&*self) sself = self;
     switch (self.direction) {
         case FTAnimationDirectionToTop:
         {
             
             [UIView animateWithDuration:0.4 animations:^{
-                self.imageView.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, 0);
-                self.tableView.frame = CGRectMake(tableFram.origin.x, tableFram.origin.y, tableFram.size.width, 0);
+                sself.imageView.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, 0);
+//                sself.tableView.frame = CGRectMake(tableFram.origin.x, tableFram.origin.y, tableFram.size.width, 0);
             } completion:^(BOOL finished) {
-                if (self.direction == FTAnimationDirectionToTop) {
-                    [self removeFromSuperview];
+                if (sself.direction == FTAnimationDirectionToTop) {
+                    [sself removeFromSuperview];
                 }
             }];
         }
@@ -118,9 +119,9 @@
         case FTAnimationDirectionToToBottom:
         {
 
-            [UIView animateWithDuration:0.4 animations:^{
-                self.imageView.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, _tableH);
-                self.tableView.frame = CGRectMake(tableFram.origin.x, tableFram.origin.y, tableFram.size.width, _tableH);
+            [UIView animateWithDuration:0.2 animations:^{
+                sself.imageView.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, sself.tableH);
+                sself.tableView.frame = CGRectMake(tableFram.origin.x, tableFram.origin.y, tableFram.size.width, sself.tableH);
 
             } completion:^(BOOL finished) {
                 
@@ -143,9 +144,10 @@
 
     CGFloat tableWidth = [self caculateTableWidth];
     
-    CGRect frame = [self convertRect:self.button.frame fromView:self.button.superview];
-//    CGRect frame = self.button.frame;
-    
+    //由于ios上面button左边转换不正常原因，现在用frame直接传值
+    CGRect frame = self.Btnframe;
+//    NSLog(@"frame(%f,%f,%f,%f)",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
+
     switch (_style) {
         case FTRankTableViewStyleLeft:
         {

@@ -200,10 +200,16 @@
 #pragma -mark -下拉框
 - (void)setDropDown:(id)sender{
 
+    UIButton *button = sender;
+    CGRect frame = [self.view convertRect:button.frame fromView:button.superview];
+    
     FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender style:FTRankTableViewStyleLeft option:^(FTRankTableView *searchTableView) {
         NSMutableArray *tempArray = [[NSMutableArray alloc]initWithArray:[FTNWGetCategory sharedCategories]];
         [tempArray insertObject:@{@"itemValue":@"全部视频", @"itemValueEn":@"All"} atIndex:0];
          searchTableView.dataArray = tempArray;
+        
+        searchTableView.Btnframe = frame;
+        searchTableView.tableW =frame.size.width;
         
          searchTableView.offsetX = -10;
          searchTableView.offsetY = 28;

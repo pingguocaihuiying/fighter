@@ -65,6 +65,33 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     //监听网络
     [GLobalRealReachability startNotifier];
     
+    
+    NSDictionary *dic = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    
+    /**
+     Notification info:{
+     aps =     {
+     alert = 123456;
+     badge = 1;
+     "content-available" = 1;
+     sound = default;
+     };
+     extra =     {
+     "click_action" = 3;
+     "click_param" =         {
+     objId = 209;
+     url = "http://www.gogogofight.com/pugilist_system/ueditor/html/1464142462003_pu.html";
+     urlType = news;
+     };
+     };
+     "ixintui.push.id" = 100000029;
+     }
+     **/
+    if (dic != nil) {
+        NSLog(@"push info:%@",dic);
+    }
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    
     //屏蔽个人中心时打开这里
 //    [self setRootViewController2];
 
@@ -76,6 +103,9 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     MainViewController *sl = [[MainViewController alloc]init];
 //    FTBaseNavigationViewController *_navi=[[FTBaseNavigationViewController alloc]initWithRootViewController:sl];
     self.window.rootViewController=sl;
+    
+    
+   
     
     return YES;
 }
@@ -177,6 +207,15 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 #else
     [PushSdkApi register:launchOptions types:(UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge)];
 #endif
+    
+    
+    if ([IXPushSdkApi isRegistered]) {
+        NSLog(@"push is registered");
+    } else {
+        NSLog(@"push is unregistered");
+    }
+    
+    
 }
 
 
@@ -310,114 +349,11 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
                     }];
                 }
                 
-        }];
-}
+            }];
+        }
         
-        
-        
-//        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//        
-//        NSString *accessUrlStr = [NSString stringWithFormat:@"%@/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code", WX_BASE_URL, WX_App_ID, WX_App_Secret, temp.code];
-//        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-//        [manager GET:accessUrlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            
-//            NSDictionary *accessDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-//            //            NSLog(@"respinse dic : token : %@ openid : %@", accessDict[@"access_token"], accessDict[@"openid"]);
-//            [self getWechatUserInfoWithToken:accessDict[@"access_token"] andOpenId:accessDict[@"openid"]];
-//            
-//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            NSLog(@"获取access_token时出错 = %@", error);
-//        }];
     }
 }
-
-//- (void)getWechatUserInfoWithToken:(NSString *)token andOpenId:(NSString *)openId{
-//    NSString *stringURL = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@", token, openId];
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    [manager GET:stringURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        
-//        NSDictionary *userInfoDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-//        
-//        for(NSString *key in [userInfoDic allKeys]){
-//            NSLog(@"key:%@", key);
-//        }
-//        
-//        NSString *openId = userInfoDic[@"openid"];
-//        NSString *unionId = userInfoDic[@"unionid"];
-//        NSString *timestampString = [NSString stringWithFormat:@"%.0lf",[[NSDate date] timeIntervalSince1970]];
-//        NSString *imei = [UUID getUUID];
-//        NSString *username = userInfoDic[@"nickname"];
-//        NSString *keyToken = [NSString stringWithFormat:@"%@%@", WXLoginSecret_Key, timestampString];
-//        NSString *keyTokenMD5 = [MD5 md5:keyToken];
-//        NSString *province = userInfoDic[@"province"];
-//        NSString *headpic = userInfoDic[@"headimgurl"];
-//        headpic = [self encodeToPercentEscapeString:headpic];
-//        NSString *stemfrom = @"iOS";
-//        username = [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//        NSDictionary *dic = @{@"openId" : openId,
-//                              @"unionId" : unionId,
-//                              @"timestamp" : timestampString,
-//                              @"imei" : imei,
-//                              @"username" : username,
-//                              @"keyToken" : keyTokenMD5,
-//                              @"city" : province};
-//        
-//        NSString *wxLoginURLString = [FTNetConfig host:Domain path:UserWXLoginURL];
-//                wxLoginURLString = [NSString stringWithFormat:@"%@?openId=%@&unionId=%@&timestamp=%@&imei=%@&username=%@&keyToken=%@&city=%@&headpic=%@&stemfrom=%@", wxLoginURLString, openId, unionId, timestampString, imei, username, keyTokenMD5, province, headpic, stemfrom];
-////        wxLoginURLString = [NSString stringWithFormat:@"%@?openId=%@&unionId=%@&timestamp=%@&imei=%@&username=%@&keyToken=%@&city=%@", wxLoginURLString, openId, unionId, timestampString, imei, username, keyTokenMD5, province];
-//        NSLog(@"wxLoginURLString : %@", wxLoginURLString);
-////        wxLoginURLString = @"www.baidu.com";
-//        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-//        [manager GET:wxLoginURLString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            
-//            NSDictionary *responseJson = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-//                bool status = [responseJson[@"status"] boolValue];
-//                NSString *message = (NSString *)(NSDictionary *)responseJson[@"message"];
-//                if (status == false) {
-//                    NSLog(@"微信注册失败,message:%@", message);
-//    
-//                    return ;
-//                }
-//            
-//
-//            NSLog(@"微信注册成功,message:%@", message);
-//            NSLog(@"微信登录信息:%@",responseJson[@"data"][@"user"]);
-//            NSDictionary *userDic = responseJson[@"data"][@"user"];
-//            FTUserBean *user = [FTUserBean new];
-//            [user setValuesForKeysWithDictionary:userDic];
-//            
-//            //从本地读取存储的用户信息
-//            NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-//            FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-//            
-//            if (localUser) {//手机已经登录
-//                localUser.wxopenId = user.openId;
-//                localUser.wxName = user.username;
-//                localUser.wxHeaderPic = user.headpic;
-//            }else {
-//            
-//                localUser = user;
-//            }
-//            
-//            NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
-//            [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
-//            [[NSUserDefaults standardUserDefaults]synchronize];
-//            //发送通知，告诉评论页面微信登录成功
-////            [[NSNotificationCenter defaultCenter] postNotificationName:WXLoginResultNoti object:@"SUCESS"];
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"loginAction" object:nil];
-//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            NSLog(@"获取access_token时出错 = %@", error);
-//            //发送通知，告诉评论页面微信登录失败
-//            [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"ERROR"];
-//        }];
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"获取access_token时出错 = %@", error);
-//    }];
-//}
-//
 
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
@@ -438,10 +374,10 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 
 - (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken
 {
-    
+    NSLog(@"deviceToken:%@",deviceToken);
     [IXPushSdkApi registerDeviceToken:deviceToken
-                              channel:@"iOS" version:@"1.0" appId:1670128310];
-    
+                              channel:@"test" version:@"1.0" appId:1670128310];
+ 
 }
 
 
@@ -450,12 +386,22 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     NSLog(@"register fail********************,%@",error);
 }
 
+
 // 对收到的消息进行处理:
-- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{
+- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+
     NSLog(@"Notification info:%@",userInfo);
     [IXPushSdkApi handleNotification:userInfo];
 }
+
+//// 对收到的消息进行处理:
+//- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+//{
+//    NSLog(@"Notification info:%@",userInfo);
+//    [IXPushSdkApi handleNotification:userInfo];
+//    completionHandler(UIBackgroundFetchResultNewData);
+//    
+//}
 
 
 - (void)setRootViewController2{
@@ -530,6 +476,9 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+    
+//     NSLog(@"to background");
+     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }

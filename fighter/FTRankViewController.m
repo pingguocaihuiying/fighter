@@ -128,7 +128,7 @@
                                
                                if ([dict[@"status"] isEqualToString:@"success"]) {
                                    
-                                   if (_pageNum == 0) {
+                                   if (_pageNum == 0|| _pageNum == 1) {
                                        _dataArray = dict[@"data"];
                                    }else {
                                        [_dataArray addObjectsFromArray:dict[@"data"]];
@@ -425,8 +425,9 @@
 //格斗项目检索
 - (void) searchFighterKinds:(id)sender {
     UIButton *button = sender;
-
-    FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender
+    CGRect frame = [self.view convertRect:button.frame fromView:button.superview];
+//    NSLog(@"frame(%f,%f,%f,%f)",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
+    FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:button
                                                                       style:FTRankTableViewStyleLeft
                                                                      option:^(FTRankTableView *searchTableView) {
                                                                          
@@ -436,7 +437,8 @@
                                                                          //设置数据类型
                                                                           searchTableView.dataType = FTDataTypeStringArray;
                                                                          
-                                                                         searchTableView.tableW = button.frame.size.width;
+                                                                         searchTableView.Btnframe = frame;
+                                                                         searchTableView.tableW =frame.size.width;
                                                                          searchTableView.tableH = 40*5;
                                                                          
                                                                          searchTableView.offsetY = 40;
@@ -462,7 +464,8 @@
 //赛事检索
 - (void) searchFighterMatchs:(id)sender {
     UIButton *button = sender;
-    
+    CGRect frame = [self.view convertRect:button.frame fromView:button.superview];
+//    NSLog(@"frame(%f,%f,%f,%f)",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
     FTRankTableView *matchableView = [[FTRankTableView alloc]initWithButton:sender
                                                                        style:FTRankTableViewStyleCenter
                                                                      option:^(FTRankTableView *searchTableView) {
@@ -471,7 +474,8 @@
                                                                          //设置数据类型
                                                                           searchTableView.dataType = FTDataTypeStringArray;
                                                                          
-                                                                         searchTableView.tableW = button.frame.size.width;
+                                                                         searchTableView.Btnframe = frame;
+                                                                         searchTableView.tableW =frame.size.width;
                                                                          searchTableView.tableH = 40*5;
                                                                          
                                                                          searchTableView.offsetY = 40;
@@ -496,7 +500,8 @@
 //重量级检索
 - (void) searchFighterLevels:(id)sender {
     UIButton *button = sender;
-    
+    CGRect frame = [self.view convertRect:button.frame fromView:button.superview];
+//    NSLog(@"frame(%f,%f,%f,%f)",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
     FTRankTableView *levelTableView = [[FTRankTableView alloc]initWithButton:sender
                                                                       style:FTRankTableViewStyleRight
                                                                      option:^(FTRankTableView *searchTableView) {
@@ -505,7 +510,8 @@
                                                                          //设置数据类型
                                                                          searchTableView.dataType = FTDataTypeStringArray;
                                                                          
-                                                                         searchTableView.tableW = button.frame.size.width;
+                                                                         searchTableView.Btnframe = frame;
+                                                                         searchTableView.tableW =frame.size.width;
                                                                          searchTableView.tableH = 40*5;
                                                                          
                                                                          searchTableView.offsetY = 40;
