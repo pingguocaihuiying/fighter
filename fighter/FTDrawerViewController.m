@@ -784,12 +784,12 @@ static NSString *const tableCellId = @"tableCellId";
     }else if ([dic[@"urlType"] isEqualToString:@"video"]) {
         [tabBartVC setSelectedIndex:1];
         
-        FTVideoViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:0];
+        FTVideoViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:1];
         [infoVC pushToDetailController:dic];
     }else if ([dic[@"urlType"] isEqualToString:@"arenas"]) {
         [tabBartVC setSelectedIndex:2];
         
-        FTArenaViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:0];
+        FTArenaViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:2];
         [infoVC pushToDetailController:dic];
     }
     
