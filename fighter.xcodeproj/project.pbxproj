@@ -279,12 +279,12 @@
 		E6B458D81CB75DB200FB4261 /* FTBoxingHallViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6B458D61CB75DB200FB4261 /* FTBoxingHallViewController.xib */; };
 		E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458DA1CB75E5000FB4261 /* FTBaseTabBarViewController.m */; };
 		E6B458DE1CB7B2B100FB4261 /* FTTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458DD1CB7B2B100FB4261 /* FTTableViewController.m */; };
+		E6B7D2001CF6A750004191A3 /* FTArenaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B7D1FE1CF6A750004191A3 /* FTArenaViewController.m */; };
+		E6B7D2011CF6A750004191A3 /* FTArenaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6B7D1FF1CF6A750004191A3 /* FTArenaViewController.xib */; };
 		E6C4D7ED1CEC5E7B00D73BFC /* FTUserTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7EC1CEC5E7B00D73BFC /* FTUserTools.m */; };
 		E6C4D7F11CEC5FCE00D73BFC /* FTArenaNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7F01CEC5FCE00D73BFC /* FTArenaNetwork.m */; };
 		E6D09E921CEDA10000B7C43E /* FTTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D09E911CEDA10000B7C43E /* FTTools.m */; };
 		E6D09E961CEDDDCF00B7C43E /* FTQiniuNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D09E951CEDDDCF00B7C43E /* FTQiniuNetwork.m */; };
-		E6D2F8D71CE95FB100160788 /* FTArenaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8D51CE95FB100160788 /* FTArenaViewController.m */; };
-		E6D2F8D81CE95FB100160788 /* FTArenaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6D2F8D61CE95FB100160788 /* FTArenaViewController.xib */; };
 		E6D2F8E51CE99A5100160788 /* FTLabelBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8E41CE99A5100160788 /* FTLabelBean.m */; };
 		E6D2F8ED1CEAA9F300160788 /* FTArenaTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6D2F8EB1CEAA9F300160788 /* FTArenaTextTableViewCell.xib */; };
 		E6D74A471CB7B7EE00854337 /* UIButton+countDown.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A331CB7B7EE00854337 /* UIButton+countDown.m */; };
@@ -466,7 +466,6 @@
 		3D5FB4BD1CDC7E6600FC1809 /* FTImageCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTImageCollectionCell.xib; sourceTree = "<group>"; };
 		3D69470E1CE3374000989440 /* FTUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserViewController.h; sourceTree = "<group>"; };
 		3D69470F1CE3374000989440 /* FTUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserViewController.m; sourceTree = "<group>"; };
-		3D6DA0CC1CEE933E00BAA8F0 /* FTArenaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FTArenaViewController.h; sourceTree = "<group>"; };
 		3D6DA0CF1CEE939000BAA8F0 /* FTNWGetCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNWGetCategory.h; sourceTree = "<group>"; };
 		3D6DA0D11CEE93CD00BAA8F0 /* FTNWGetCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNWGetCategory.m; sourceTree = "<group>"; };
 		3D6DA0D81CEE951E00BAA8F0 /* FTArenaTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaTextTableViewCell.m; sourceTree = "<group>"; };
@@ -834,6 +833,9 @@
 		E6B458DA1CB75E5000FB4261 /* FTBaseTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBaseTabBarViewController.m; sourceTree = "<group>"; };
 		E6B458DC1CB7B2B100FB4261 /* FTTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTableViewController.h; sourceTree = "<group>"; };
 		E6B458DD1CB7B2B100FB4261 /* FTTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTableViewController.m; sourceTree = "<group>"; };
+		E6B7D1FD1CF6A750004191A3 /* FTArenaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaViewController.h; sourceTree = "<group>"; };
+		E6B7D1FE1CF6A750004191A3 /* FTArenaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaViewController.m; sourceTree = "<group>"; };
+		E6B7D1FF1CF6A750004191A3 /* FTArenaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaViewController.xib; sourceTree = "<group>"; };
 		E6C4D7EB1CEC5E7B00D73BFC /* FTUserTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserTools.h; sourceTree = "<group>"; };
 		E6C4D7EC1CEC5E7B00D73BFC /* FTUserTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserTools.m; sourceTree = "<group>"; };
 		E6C4D7EF1CEC5FCE00D73BFC /* FTArenaNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaNetwork.h; sourceTree = "<group>"; };
@@ -842,8 +844,6 @@
 		E6D09E911CEDA10000B7C43E /* FTTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTools.m; sourceTree = "<group>"; };
 		E6D09E941CEDDDCF00B7C43E /* FTQiniuNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTQiniuNetwork.h; sourceTree = "<group>"; };
 		E6D09E951CEDDDCF00B7C43E /* FTQiniuNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTQiniuNetwork.m; sourceTree = "<group>"; };
-		E6D2F8D51CE95FB100160788 /* FTArenaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaViewController.m; sourceTree = "<group>"; };
-		E6D2F8D61CE95FB100160788 /* FTArenaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaViewController.xib; sourceTree = "<group>"; };
 		E6D2F8E31CE99A5100160788 /* FTLabelBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTLabelBean.h; sourceTree = "<group>"; };
 		E6D2F8E41CE99A5100160788 /* FTLabelBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTLabelBean.m; sourceTree = "<group>"; };
 		E6D2F8EA1CEAA9F300160788 /* FTArenaTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaTextTableViewCell.m; sourceTree = "<group>"; };
@@ -2195,9 +2195,9 @@
 		E6D2F8D31CE95F4600160788 /* main */ = {
 			isa = PBXGroup;
 			children = (
-				3D6DA0CC1CEE933E00BAA8F0 /* FTArenaViewController.h */,
-				E6D2F8D51CE95FB100160788 /* FTArenaViewController.m */,
-				E6D2F8D61CE95FB100160788 /* FTArenaViewController.xib */,
+				E6B7D1FD1CF6A750004191A3 /* FTArenaViewController.h */,
+				E6B7D1FE1CF6A750004191A3 /* FTArenaViewController.m */,
+				E6B7D1FF1CF6A750004191A3 /* FTArenaViewController.xib */,
 			);
 			name = main;
 			sourceTree = "<group>";
@@ -2552,7 +2552,6 @@
 				E611850B1CC76B3400F23EC7 /* ios-social-sdk-login-detail.html in Resources */,
 				3D4B192B1CD9FD670022DFB0 /* microphone@2x.png in Resources */,
 				E68050BA1CBF919A00678905 /* JHRefresh.bundle in Resources */,
-				E6D2F8D81CE95FB100160788 /* FTArenaViewController.xib in Resources */,
 				3D7B988E1CDD027400B80B8D /* Area.plist in Resources */,
 				E611848A1CC75E1600F23EC7 /* UMSCommentDetailController.xib in Resources */,
 				3D4B19361CD9FD670022DFB0 /* umeng_fb_audio_play_03@2x.png in Resources */,
@@ -2601,6 +2600,7 @@
 				3D7B98AA1CE048F200B80B8D /* FTManagerAccountViewController.xib in Resources */,
 				E61184911CC75E1600F23EC7 /* UMSShareListController.xib in Resources */,
 				E67872741CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib in Resources */,
+				E6B7D2011CF6A750004191A3 /* FTArenaViewController.xib in Resources */,
 				E66FF6291CF2A78B002C4F67 /* G格斗家-格斗场-最热.png in Resources */,
 				E64EF1141CB6614000CAE340 /* Main.storyboard in Resources */,
 				3D7B989D1CDF896F00B80B8D /* FTTableViewCell5.xib in Resources */,
@@ -2740,6 +2740,7 @@
 				E668BABD1CE0565700071998 /* UIScrollView+MJExtension.m in Sources */,
 				E64EF1111CB6614000CAE340 /* ViewController.m in Sources */,
 				E668BABA1CE0565700071998 /* MJRefreshStateHeader.m in Sources */,
+				E6B7D2001CF6A750004191A3 /* FTArenaViewController.m in Sources */,
 				E6D74A4E1CB7B7EE00854337 /* MD5.m in Sources */,
 				E6D74A4A1CB7B7EE00854337 /* UIView+YBAddtitions.m in Sources */,
 				E668BAAD1CE0565700071998 /* MJRefreshAutoFooter.m in Sources */,
@@ -2821,7 +2822,6 @@
 				3D4B19381CD9FD670022DFB0 /* UMFeedbackViewController.m in Sources */,
 				E65EFC291CC8ADFD0039EE8A /* UIButton+LYZTitle.m in Sources */,
 				3D4B193A1CD9FD670022DFB0 /* UMChatTableViewCell.m in Sources */,
-				E6D2F8D71CE95FB100160788 /* FTArenaViewController.m in Sources */,
 				3DC411F01CCF80DD0030C229 /* FTDrawerTableViewHeader.m in Sources */,
 				E6A9DDB61CD9833200CB9518 /* FTVideoTableViewCell.m in Sources */,
 				E668BBB71CE4353300071998 /* FTRankingListFilterView.m in Sources */,
