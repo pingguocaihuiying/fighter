@@ -294,7 +294,7 @@ static DBManager * _sharedDBManager = nil;
     NSNumber *voteCount = [NSNumber numberWithInteger:[dic[@"voteCount"] integerValue]];
     NSNumber *layout = [NSNumber numberWithInteger:[dic[@"layout"] integerValue]];
     NSNumber *newsTime = [NSNumber numberWithInteger:[dic[@"newsTime"] integerValue]];
-    NSNumber *isReader = [NSNumber numberWithBool:NO];
+//    NSNumber *isReader = [NSNumber numberWithBool:NO];
     
     //1.判断数据是否已经存在
     FMResultSet * set = [_dataBase executeQuery:@"select newsId from news where newsId = ?",idNum];
@@ -313,8 +313,8 @@ static DBManager * _sharedDBManager = nil;
                        img_small_two,
                        newsType,
                        summary,
-                       url ,
-                       title ,
+                       url,
+                       title,
                        commentCount ,
                        voteCount ,
                        layout ,
@@ -328,7 +328,7 @@ static DBManager * _sharedDBManager = nil;
         }
         
     }else {//3.如果数据不存在则插入数据
-        BOOL result = [_dataBase executeUpdate:@"INSERT INTO news (newsId, author,img_big, img_small_one ,img_small_three,img_small_two, newsType,summary,url ,title ,commentCount , voteCount ,layout ,newsTime,isReader) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        BOOL result = [_dataBase executeUpdate:@"INSERT INTO news (newsId, author,img_big, img_small_one ,img_small_three,img_small_two, newsType,summary,url ,title ,commentCount , voteCount ,layout ,newsTime) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                        idNum,
                        author,
                        img_big,
@@ -342,8 +342,7 @@ static DBManager * _sharedDBManager = nil;
                        commentCount ,
                        voteCount ,
                        layout ,
-                       newsTime,
-                       isReader
+                       newsTime
                        ];
         
         if (result) {
@@ -406,6 +405,7 @@ static DBManager * _sharedDBManager = nil;
     
     NSNumber * idNum = [NSNumber numberWithLong:[Id integerValue]];
     NSNumber * isreader = [NSNumber numberWithBool:isReader];
+    NSLog(@"isReader:%d",isReader);
     BOOL result = [_dataBase executeUpdate:@"UPDATE news set isReader = ? where newsId = ?" ,isreader, idNum];
     
     if (result) {

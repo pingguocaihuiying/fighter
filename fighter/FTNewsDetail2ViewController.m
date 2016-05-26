@@ -126,7 +126,7 @@
     if([WXApi isWXAppInstalled]){
     self.navigationItem.rightBarButtonItem = shareButton;        
     }
-
+    
     
     //设置默认标题
     self.navigationItem.title = @"拳讯";
@@ -159,7 +159,7 @@
    
     
     
-    NSLog(@"webString:%@",_webViewUrlString);
+//    NSLog(@"webString:%@",_webViewUrlString);
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webViewUrlString]]];
     [self.view sendSubviewToBack:_webView];
 }
@@ -389,7 +389,7 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     NSString *requestURL = [NSString stringWithFormat:@"%@", request.URL];
-    NSLog(@"requestURL : %@", requestURL);
+//    NSLog(@"requestURL : %@", requestURL);
     if ([requestURL isEqualToString:@"js-call:onload"]) {
         [self disableLoadingAnimation];
     }

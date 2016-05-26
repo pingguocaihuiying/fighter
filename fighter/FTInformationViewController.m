@@ -521,8 +521,6 @@
 
 - (IBAction)leftButtonItemClick:(id)sender {
     
-    
-    
     NSLog(@"information left click did");
     if ([self.drawerDelegate respondsToSelector:@selector(leftButtonClicked:)]) {
         
@@ -680,9 +678,8 @@
             //从数据库取数据
             DBManager *dbManager = [DBManager shareDBManager];
             [dbManager connect];
-            [dbManager updateNewsById:bean.Id isReader:YES];
+            [dbManager updateNewsById:bean.newsId isReader:YES];
             [dbManager close];
-
         }
         
         newsDetailVC.newsBean = bean;
