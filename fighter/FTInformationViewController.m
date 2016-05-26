@@ -102,7 +102,7 @@
     NSString *urlString = [FTNetConfig host:Domain path:GetNewsURL];
     NSString *newsType = @"Hot";
     NSString *newsCurrId = @"-1";
-    NSString *getType = @"new";
+    NSString *getType = @"0";
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",newsType, newsCurrId, getType, ts, @"quanjijia222222"]];
     

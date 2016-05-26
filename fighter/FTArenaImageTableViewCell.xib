@@ -98,7 +98,7 @@
                             <constraint firstAttribute="width" constant="32" id="9VM-9I-p6l"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="身份圆形-拳" translatesAutoresizingMaskIntoConstraints="NO" id="S98-3P-Dd6" userLabel="身份">
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="身份圆形-拳" translatesAutoresizingMaskIntoConstraints="NO" id="S98-3P-Dd6" userLabel="身份">
                         <rect key="frame" x="139" y="159" width="15" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="15" id="Oq2-p8-CZ0"/>

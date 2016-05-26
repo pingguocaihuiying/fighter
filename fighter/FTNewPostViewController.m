@@ -434,6 +434,9 @@
         [self showHUDWithMessage:@"请先选择一个项目分类" isPop:NO];
         return;
     }
+    
+    
+    
     [self hideKeyboard];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
