@@ -48,7 +48,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //设置videotag的默认值为0；
-    self.videosTag = @"0";
+    self.videosTag = @"1";
     [self initTypeArray];
     [self initSubViews];
 //    [self getCycleData];//第一次加载轮播图数据
@@ -213,7 +213,7 @@
 }
 
 - (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)videoCurrId{
-    //判断是否时当前标签刷新，如果不是，则晴空数据源，刷新列表，如果时当前列表，则暂不清空数据和刷新列表
+    //判断是否时当前标签刷新，如果不是，则清空数据源，刷新列表，如果时当前列表，则暂不清空数据和刷新列表
     NSString *oldVideoType = self.currentVideoType;
     NSString *newVideotype = [self getVideoType];
     if (![oldVideoType isEqualToString:newVideotype]) {

@@ -496,15 +496,18 @@
         self.voteView.userInteractionEnabled = YES;
         if ([responseDic[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
             int voteCount = [_arenaBean.voteCount intValue];
+            NSString *changeVoteCount = @"0";
             if (self.hasVote) {
                 voteCount++;
+                changeVoteCount = @"1";
             }else{
                 if (voteCount > 0) {
                     voteCount--;
+                    changeVoteCount = @"-1";
                 }
             }
             _arenaBean.voteCount = [NSString stringWithFormat:@"%d", voteCount];
-            NSString *jsMethodString = [NSString stringWithFormat:@"updateLike(%d)", voteCount];
+            NSString *jsMethodString = [NSString stringWithFormat:@"updateLike(%@)", changeVoteCount];
             NSLog(@"js method : %@", jsMethodString);
             [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
         }
@@ -569,9 +572,7 @@
     return YES;
 }
 
-- (IBAction)cancelShareButtonClicked:(id)sender {
-    self.bgView.hidden = YES;
-}
+
 
 - (NSString *)encodeToPercentEscapeString: (NSString *) input
 {
@@ -604,7 +605,9 @@
 - (void)commentSuccess{
     int commentCount = [_arenaBean.commentCount intValue];
     commentCount++;
-    NSString *jsMethodString = [NSString stringWithFormat:@"updateComment(%d)", commentCount];
+//    NSString *jsMethodString = [NSString stringWithFormat:@"updateComment(%d)", commentCount];
+    //评论成功后，参数传1
+        NSString *jsMethodString = [NSString stringWithFormat:@"updateComment(1)"];
     NSLog(@"js method : %@", jsMethodString);
     _arenaBean.commentCount = [NSString stringWithFormat:@"%d", commentCount];
     
@@ -615,14 +618,10 @@
  */
 - (void)addViewCount{
     //获取网络请求地址url
-    NSString *addViewCountUrlString = [FTNetConfig host:Domain path:AddViewCountURL];
-    
-    NSString *videosId = _arenaBean.postsId;
-    NSString *ts = [NSString stringWithFormat:@"%.3f", [[NSDate date] timeIntervalSince1970]];
-    ts = [ts stringByReplacingOccurrencesOfString:@"." withString:@""];
-    
-    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@", videosId, ts, UpVideoViewNCheckKey]];
-    addViewCountUrlString = [NSString stringWithFormat:@"%@?&videosId=%@&ts=%@&checkSign=%@", addViewCountUrlString, videosId, ts, checkSign];
+    NSString *addViewCountUrlString = [FTNetConfig host:Domain path:AddArenaViewCountCountURL];
+    NSString *objId = _arenaBean.postsId;
+    NSString *tableName = @"ve-damageblog";
+    addViewCountUrlString = [NSString stringWithFormat:@"%@?&objId=%@&tableName=%@", addViewCountUrlString, objId, tableName];
     NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);
     //创建AAFNetWorKing管理者
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

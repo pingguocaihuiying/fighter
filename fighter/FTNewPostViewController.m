@@ -7,15 +7,15 @@
 //
 
 #import "FTNewPostViewController.h"
-#import "FTSelectedCategoriesView.h"
 #import "FTArenaNetwork.h"
 #import "FTQiniuNetwork.h"
 #import "QiniuSDK.h"
 #import <AVFoundation/AVFoundation.h>
 #import "MBProgressHUD.h"
 #import <objc/runtime.h>
+#import "FTArenaChooseLabelView.h"
 
-@interface FTNewPostViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface FTNewPostViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, FTArenaChooseLabelDelegate>
 @property (nonatomic, strong)UICollectionView *mediaCollcetionView;
 @property (nonatomic, strong)NSMutableArray *dataArray;
 
@@ -25,6 +25,8 @@
 
 @property (nonatomic, strong)NSMutableArray *imageURLArray;
 @property (nonatomic, strong)NSMutableArray *videoURLArray;
+@property (nonatomic, strong)FTArenaChooseLabelView *chooseLabelView;
+@property (nonatomic, strong)NSString *typeOfLabel;
 @end
 
 @implementation FTNewPostViewController
@@ -56,7 +58,13 @@
     [self setSubViews];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    //设置scrollView的contentSize
+        _scrollView.contentSize = CGSizeMake(0, 750);
+    
+}
 - (void)initBaseData{
+
     if (_dataArray == nil) {
         _dataArray = [[NSMutableArray alloc]initWithCapacity:16];
         
@@ -67,13 +75,17 @@
 }
 
 - (void)setSubViews{
+    //去掉底部的遮罩层
+    self.bottomGradualChangeView.hidden = YES;
+    
+
+
+    
     //设置顶部的按钮
     [self setTopButton];
     
     [self setMediaPickerView];
-    
-    //设置下方的”项目标签“
-//    [self setPostCategories];
+
 }
 
 - (void)setHideKeyboardEvent{
@@ -129,16 +141,9 @@
     NSLog(@"%ld, %ld", indexPath.section, indexPath.row);
     NSData *data = _dataArray[indexPath.row][@"data"];
     if (data == nil) {
-        NSLog(@"data是空，添加按钮被点击");
-        //判断图片的张数和视频的个数，如果超出限制，则各处提示，不让继续添加
-        if([self getImageCount] >= 10){
-            [self showHUDWithMessage:@"图片最多为10张" isPop:NO];
-            return;
-        }
-        if([self getVideoCount] >= 5){
-            [self showHUDWithMessage:@"视频不能超过5个" isPop:NO];
-            return;
-        }
+        //data是空
+        NSLog(@"添加按钮被点击");
+
         UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍摄视频或照片", @"从本地选取视频或照片", nil];
         [actionSheet showInView:self.view];
         
@@ -210,6 +215,11 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     self.lastChosenMediaType = info[UIImagePickerControllerMediaType];
     if ([self.lastChosenMediaType isEqualToString:(NSString *)kUTTypeImage]) {
+        //判断图片的张数和视频的个数，如果超出限制，则各处提示，不让继续添加
+        if([self getImageCount] >= 10){
+            [self showHUDWithMessage:@"图片最多为10张" withImagePickerController:picker  isDismiss:YES];
+            return;
+        }
         UIImage *chosenImage = info[UIImagePickerControllerOriginalImage];
         
         //把获取的图片以字典方式添加进_dataArray
@@ -219,6 +229,13 @@
         [_mediaCollcetionView reloadData];
         
     }else if([self.lastChosenMediaType isEqualToString:(NSString *)kUTTypeMovie]){
+
+        NSLog(@"视频数量:%d", [self getVideoCount]);
+        if([self getVideoCount] >= 5){
+            [self showHUDWithMessage:@"视频不能超过5个" withImagePickerController:picker isDismiss:YES];
+            return;
+        }
+
         NSURL *videoURL = info[UIImagePickerControllerMediaURL];
         NSData *movieData = [NSData dataWithContentsOfURL:videoURL];
         
@@ -336,7 +353,7 @@
         UIButton *deleteButton = [[UIButton alloc]init];
         deleteButton.tag = 1003;
         deleteButton.frame = CGRectMake(cell.width - 18, 0, 18, 18);
-        [deleteButton setImage:[UIImage imageNamed:@"弹出框用-类别选择-选中"] forState:UIControlStateNormal];
+        [deleteButton setImage:[UIImage imageNamed:@"selected_del"] forState:UIControlStateNormal];
 
         objc_setAssociatedObject(deleteButton, @"index", [NSString stringWithFormat:@"%ld", indexPath.row], OBJC_ASSOCIATION_COPY_NONATOMIC);//给button赋值，用于传递点击cell的下标
         [deleteButton addTarget:self action:@selector(deleteButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -356,11 +373,7 @@
     [_mediaCollcetionView reloadData];
 }
 
-- (void)setPostCategories{
-    NSLog(@"bottom : %f", self.contentTextView.bottom);
-    FTSelectedCategoriesView *selectCategoriesView = [[FTSelectedCategoriesView alloc]initWithFrame:CGRectMake(4, self.contentTextViewContainer.bottom + 5, SCREEN_WIDTH - 4 * 2, 17 + 15 * 1 + 21)];
-    [self.view addSubview:selectCategoriesView];
-}
+
 
 - (void)hideKeyboard{
     [self.view endEditing:YES];
@@ -417,53 +430,73 @@
  */
 #pragma -mark -发新帖
 - (void)newPostButtonClicked{
+    if (_typeOfLabel == nil || [_typeOfLabel isEqualToString:@""] ) {
+        [self showHUDWithMessage:@"请先选择一个项目分类" isPop:NO];
+        return;
+    }
     [self hideKeyboard];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [FTQiniuNetwork getQiniuTokenWithOption:^(NSString *token) {
-        NSLog(@"token : %@", token);
-        
-        QNUploadManager *upManager = [[QNUploadManager alloc] init];
+    
+    for(NSDictionary *dic in _dataArray){
+        if(!dic[@"data"]){
+            [_dataArray removeObject:dic];
+        }
+    }
+    
+    for(NSDictionary *dic in _dataArray){
         if (!_imageURLArray) {
             _imageURLArray = [[NSMutableArray alloc]initWithCapacity:10];
         }
-        if (!_imageURLArray) {
+        if (!_videoURLArray) {
             _videoURLArray = [[NSMutableArray alloc]initWithCapacity:5];
         }
+        NSData *mediaData = dic[@"data"];
+        NSString *userId = [FTUserTools getLocalUser].olduserid;
+        NSString *ts = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
+        NSString *key;
         
-        for(NSDictionary *dic in _dataArray){
-            if (!dic[@"data"]) {
-                break;
-            }
-            NSData *mediaData = dic[@"data"];
-            NSString *userId = [FTUserTools getLocalUser].olduserid;
-            NSString *ts = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
-            NSString *key = [NSString stringWithFormat:@"%@%@", userId, ts];//key值取userId＋时间戳
+        NSString *type = dic[@"type"];
+        NSLog(@"type : %@", type);
+            //视频的key值要加上mp4作为后缀
+        if([type isEqualToString:@"image"]){
+            key = [NSString stringWithFormat:@"%@%@", userId, ts];//key值取userId＋时间戳
+        }else if([type isEqualToString:@"video"]){
+            key = [NSString stringWithFormat:@"%@%@mp4", userId, ts];//key值取userId＋时间戳+mp4
+        }
+        if([type isEqualToString:@"image"]){
+            [_imageURLArray addObject:key];
+        }else if([type isEqualToString:@"video"]){
+            [_videoURLArray addObject:key];
             
-            if([dic[@"type"] isEqualToString:@"image"]){
-                [_imageURLArray addObject:key];
-            }else if([dic[@"type"] isEqualToString:@"video"]){
-                [_videoURLArray addObject:key];
-            }
+        }
+        
+        [FTQiniuNetwork getQiniuTokenWithMediaType:dic[@"type"] andKey:key andOption:^(NSString *token) {//***获取token
+        NSLog(@"token : %@", token);
+        
+        QNUploadManager *upManager = [[QNUploadManager alloc] init];
+
+
+
 //            NSDictionary *optionDic = @{@"persistentOps":@"avthumb/mp4"};
-            QNUploadOption *option = [[QNUploadOption alloc]initWithMime:nil progressHandler:nil params:@{@"persistentOps":@"avthumb/mp4"} checkCrc:NO cancellationSignal:nil];
+//            QNUploadOption *option = [[QNUploadOption alloc]initWithMime:nil progressHandler:nil params:nil checkCrc:NO cancellationSignal:nil];
             
             [upManager putData:mediaData key:key token:token
                       complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-//                          NSLog(@"info : %@", info);
+                          NSLog(@"info : %@", info);
                           NSString *status = [NSString stringWithFormat:@"%d", info.statusCode];
                           NSLog(@"info status : %@", status);
                           NSLog(@"resp : %@", resp);
                           NSLog(@"key : %@", key);
                           
-                      } option:option];
-        }
+                      } option:nil];
         
+            
         //把数据上传到格斗家的服务器上
-        [self uploadPostsToServer];
+        
 
-    }];
-
-
+    }];//***获取token block回调结束
+    }
+    [self uploadPostsToServer];
 }
 
 - (void)uploadPostsToServer{
@@ -475,11 +508,14 @@
     NSString *loginToken = localUser.token;
     NSString *ts = [NSString stringWithFormat:@"%f", [[NSDate date]timeIntervalSince1970]];
     NSString *title = self.titleTextField.text;
+    if (title == nil || [title isEqualToString:@""]) {
+        [self showHUDWithMessage:@"标题不能为空" isPop:NO];
+    }
     NSString *content = self.contentTextView.text;
     NSString *tableName = @"damageblog";
     NSString *nickname = localUser.username;
     NSString *headUrl = localUser.headpic;
-    NSString *urlPrefix = @"http://7xtvwy.com1.z0.glb.clouddn.com";
+    NSString *urlPrefix = @"7xtvwy.com1.z0.glb.clouddn.com";
     NSString *pictureUrlNames = @"";
     if (_imageURLArray.count > 0) {
             pictureUrlNames = [_imageURLArray componentsJoinedByString:@","];
@@ -491,7 +527,7 @@
     }
     
     NSString *thumbUrl = @"";
-    NSString *labels = @"Boxing";
+    NSString *labels = _typeOfLabel;
     
     //    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@", content, headUrl, loginToken,nickname,pictureUrlNames,tableName,thumbUrl,title,ts,urlPrefix,userId,videoUrlNames ,NewPostCheckKey]];
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@", content, labels, loginToken,pictureUrlNames,tableName,thumbUrl,title,ts,urlPrefix,userId,videoUrlNames ,NewPostCheckKey]];
@@ -518,10 +554,30 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         
         if ([dict[@"status"] isEqualToString:@"success"]) {
-            [self showHUDWithMessage:dict[@"发布成功"]isPop:YES];
+            [self showHUDWithMessage:@"发布成功"isPop:YES];
         }else{
             [self showHUDWithMessage:dict[@"message"]isPop:NO];
         }
+    }];
+}
+//[self showHUDWithMessage:@"视频不能超过2个" isPop:NO withImagePickerController:picker isDismiss:YES];
+- (void)showHUDWithMessage:(NSString *)message withImagePickerController:(UIImagePickerController *)picker isDismiss:(BOOL)isDismiss{
+    if (isDismiss) {
+        [picker dismissViewControllerAnimated:YES completion:nil];
+    }
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    
+    [self.view addSubview:HUD];
+    HUD.labelText = message;
+    HUD.mode = MBProgressHUDModeCustomView;
+    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
+    [HUD showAnimated:YES whileExecutingBlock:^{
+        sleep(2);
+    } completionBlock:^{
+        [HUD removeFromSuperview];
+
+        
+        //        HUD = nil;
     }];
 }
 - (void)showHUDWithMessage:(NSString *)message isPop:(BOOL)isPop{
@@ -536,7 +592,7 @@
         [HUD removeFromSuperview];
         if (isPop) {
             [self popVC];
-//            [self.delegate commentSuccess];
+            //            [self.delegate commentSuccess];
         }
         
         //        HUD = nil;
@@ -544,12 +600,32 @@
 }
 #pragma -mark -添加标签按钮被点击
 - (IBAction)addLabelButtonClicked:(id)sender {
-    
+    if (_chooseLabelView == nil) {
+     _chooseLabelView = [[FTArenaChooseLabelView alloc]init];
+        _chooseLabelView.delegate = self;
+        [self.view addSubview:_chooseLabelView];
+    }else{
+        _chooseLabelView.hidden = NO;
+    }
 }
+
 
 - (void)popVC{
 //    [self.delegate updateCountWithNewsBean:_newsBean indexPath:self.indexPath];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma -mark -处理选择标签的回调
+- (void)chooseLabel:itemValueEn{
+    NSLog(@"itemValueEn: %@", itemValueEn);
+    
+    if (![itemValueEn isEqualToString:@""]) {
+        _typeImageView.hidden = NO;
+        _typeOfLabel = itemValueEn;
+        _typeImageView.image = [UIImage imageNamed:[FTTools getChLabelNameWithEnLabelName:itemValueEn]];
+        [_addLabelButton setImage:[UIImage imageNamed:@"修改标签"] forState:UIControlStateNormal];
+    }
+    _chooseLabelView.hidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {

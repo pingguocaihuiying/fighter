@@ -54,6 +54,9 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //启动时先加载标签分类
+    [FTNWGetCategory sharedCategories];
+    
     //设置友盟相关的的
     [self setUMeng];
     //设置微信相关的

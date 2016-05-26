@@ -51,6 +51,8 @@ extern NSString *const NewPostURL;
 //接口地址:    域名/api/qiniu/get$QiNiuToken.do七牛获取token接口地址
 extern NSString *const GetQiniuToken;
 
+//接口地址:    获取七牛图片上传token
+extern NSString *const GetQiniuVideoToken;
 
 
 
@@ -120,6 +122,9 @@ extern NSString * const AddVoteCheckKey;
 extern NSString * const DeleteVoteCheckKey;
 //增加视频观看数
 extern NSString * const UpVideoViewNCheckKey;
+//增加格斗场帖子阅读数
+extern NSString *const AddArenaViewCountCountURL;
+
 //收藏
 extern NSString * const AddStarCheckKey;
 //取消收藏

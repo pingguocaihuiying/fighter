@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -17,13 +17,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="164" height="92"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="空图标小" translatesAutoresizingMaskIntoConstraints="NO" id="67G-8K-aQx" userLabel="placeHold">
-                                <rect key="frame" x="55" y="38" width="54" height="16"/>
+                                <rect key="frame" x="55" y="28" width="54" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="8Bo-Ig-GKU"/>
                                     <constraint firstAttribute="width" constant="54" id="dQP-K1-X6u"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="asI-zq-Syd">
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="asI-zq-Syd">
                                 <rect key="frame" x="0.0" y="0.0" width="164" height="92"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
@@ -66,7 +66,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="0.0" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="92" id="6aB-1h-LBq"/>
                             <constraint firstAttribute="bottom" secondItem="asI-zq-Syd" secondAttribute="bottom" id="AR7-wK-ENb"/>
@@ -76,7 +76,7 @@
                             <constraint firstAttribute="trailing" secondItem="asI-zq-Syd" secondAttribute="trailing" id="J43-kC-yYW"/>
                             <constraint firstAttribute="trailing" secondItem="7qN-4h-i8Q" secondAttribute="trailing" id="M9o-uH-oCj"/>
                             <constraint firstItem="asI-zq-Syd" firstAttribute="top" secondItem="paz-m6-cBk" secondAttribute="top" id="RW7-06-cLa"/>
-                            <constraint firstItem="67G-8K-aQx" firstAttribute="centerY" secondItem="paz-m6-cBk" secondAttribute="centerY" id="WFu-QJ-Pf0"/>
+                            <constraint firstItem="67G-8K-aQx" firstAttribute="centerY" secondItem="paz-m6-cBk" secondAttribute="centerY" constant="-10" id="WFu-QJ-Pf0"/>
                             <constraint firstItem="7qN-4h-i8Q" firstAttribute="leading" secondItem="paz-m6-cBk" secondAttribute="leading" id="slQ-4O-gQR"/>
                             <constraint firstItem="67G-8K-aQx" firstAttribute="centerX" secondItem="paz-m6-cBk" secondAttribute="centerX" id="tWb-Yo-7H2"/>
                         </constraints>

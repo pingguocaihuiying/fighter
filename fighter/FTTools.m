@@ -29,6 +29,8 @@
         labelNameCh = @"格斗标签-相扑";
     }else if ([labelNameEn isEqualToString:@"FemaleWrestling"]) {
         labelNameCh = @"格斗标签-女子格斗";
+    }else if([labelNameEn isEqualToString:@"StreetFight"]){
+        labelNameCh = @"格斗标签-街斗";
     }
     
     return labelNameCh;

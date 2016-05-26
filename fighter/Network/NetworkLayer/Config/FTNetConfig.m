@@ -64,8 +64,11 @@ NSString *const DeleteVoteURL = @"/api/comment/delete$Vote.do";
 //获取视频接口地址: 域名/api/news/getVideos.do
 NSString *const GetVideoURL = @"/api/videos/getVideos.do";
 
-//收藏的接口: 域名/api/videos/upVideoViewN.do
+//增加视频观看数接口 域名/api/videos/upVideoViewN.do
 NSString *const AddViewCountURL = @"/api/videos/upVideoViewN.do";
+
+//增加格斗场帖子阅读数
+NSString *const AddArenaViewCountCountURL = @"/api/view/addView.do";
 
 //增加收藏的接口地址: 域名/api/base/save$Base.do
 NSString *const AddStarURL = @"/api/base/save$Base.do";
@@ -83,9 +86,10 @@ NSString *const GetArenaListURL = @"/api/damblog/list.do";
 //格斗场发新帖//接口地址: 域名/api/base/save$Base.do
 NSString *const NewPostURL = @"/api/base/save$Base.do";
 
-//接口地址:    域名/api/qiniu/get$QiNiuToken.do七牛获取token接口地址名
+//接口地址:    获取七牛图片上传token
 NSString *const GetQiniuToken = @"/api/qiniu/get$QiNiuToken.do";
-
+//接口地址:    获取七牛图片上传token        
+NSString *const GetQiniuVideoToken = @"/api/qiniu/get$QiNiuVideoToken.do";
 
 
 
