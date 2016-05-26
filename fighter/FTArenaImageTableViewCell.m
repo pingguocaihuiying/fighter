@@ -27,7 +27,7 @@
     //根据数据源去设置显示内容
     self.theTitle.text = bean.title;
     self.sumupLabel.text = bean.content;
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:bean.thumbUrl] placeholderImage:[UIImage imageNamed:@"头像-空"]];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:bean.headUrl] placeholderImage:[UIImage imageNamed:@"头像-空"]];
     NSString *commentCount = [NSString stringWithFormat:@"%@", bean.commentCount == nil ? @"0" : bean.commentCount];
     NSString *voteCount = [NSString stringWithFormat:@"%@", bean.voteCount == nil ? @"0" : bean.voteCount];
     
