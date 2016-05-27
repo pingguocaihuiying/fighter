@@ -464,8 +464,6 @@ static DBManager * _sharedDBManager = nil;
     
     
     
-    
-
     //1.判断数据是否已经存在
     FMResultSet * set = [_dataBase executeQuery:@"select id from arenas where id = ?",idNum];
     [set next];
