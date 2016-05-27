@@ -73,6 +73,10 @@
 - (void) createNewsTable;
 
 /**
+ * @brief 清除news表数据
+ */
+- (void) cleanNewsTable;
+/**
  * @brief 插入news表数据
  */
 - (void) insertDataIntoNews:(NSDictionary *)dic;
@@ -99,6 +103,13 @@
  * @brief 插入arenas表数据
  */
 - (void) insertDataIntoArenas:(NSDictionary *)dic;
+
+
+/**
+ * @brief 清除arenas表数据
+ */
+- (void) cleanArenasTable;
+
 
 /**
  * @brief 查询arenas表所有字段

@@ -424,20 +424,23 @@
     NSLog(@"urlString:%@",urlString);
     NetWorking *net = [[NetWorking alloc]init];
     
-    NSLog(@"arena list url :  %@", urlString);
-    
     [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
-        
+        NSLog(@"responseDic:  %@", responseDic);
         if (responseDic != nil) {
             NSString *status = responseDic[@"status"];
 //            NSLog(@"AreaDic:%@",responseDic);
             if ([status isEqualToString:@"success"]) {
                 NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
-                DBManager *dbManager = [DBManager shareDBManager];
-                [dbManager connect];
                 
-                for (NSDictionary *dic in mutableArray)  {
-                    [dbManager insertDataIntoArenas:dic];
+                //缓存数据到DB
+                if (mutableArray.count > 0) {
+                    DBManager *dbManager = [DBManager shareDBManager];
+                    [dbManager connect];
+                    [dbManager cleanArenasTable];
+                    
+                    for (NSDictionary *dic in mutableArray)  {
+                        [dbManager insertDataIntoArenas:dic];
+                    }
                 }
                 
                 [self getDataFromDB];

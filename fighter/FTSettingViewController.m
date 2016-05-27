@@ -126,7 +126,7 @@
             if (status == true) {
                 
                 //                                  [[UIApplication sharedApplication].keyWindow showHUDWithMessage:message];
-                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"退出成功"];
                 
                 
                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"loginUser"];
@@ -147,7 +147,7 @@
                 }];
 
                 NSLog(@"message : %@", [dict[@"message"] class]);
-                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"退出成功"];
                 
             }
         }else {
@@ -160,12 +160,10 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"loginAction" object:@"LOGOUT"];
             }];
 
-            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
+            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"退出成功"];
             
         }
     }];
-    
-    
 }
 
 - (void) backBtnAction:(id) sender {

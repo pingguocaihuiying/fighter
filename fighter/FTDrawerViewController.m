@@ -64,9 +64,7 @@ static NSString *const tableCellId = @"tableCellId";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    _interestsArray = @[ @[综合格斗],
-//                       @[sanda]]
-    
+
     [self setLoginedView];
     
     [self setLoginView];
@@ -76,7 +74,8 @@ static NSString *const tableCellId = @"tableCellId";
     
     [self setVersion];
     
-    
+    //设置监听器
+//    [self setNoti];
 }
 
 
@@ -90,18 +89,19 @@ static NSString *const tableCellId = @"tableCellId";
     //版本号：
     NSString *version = [infoDictionary objectForKey:@"CFBundleVersion"];
     [self.versionLabel setText:[@"当前版本：" stringByAppendingString:version]];
+    
+    
 }
 
-- (void) viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+#pragma mark 设置监听器
+- (void) setNoti {
     
-//    //注册通知，接收微信登录成功的消息
+    //注册通知，接收微信登录成功的消息
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginResponseInDrawer:) name:WXLoginResultNoti object:nil];
     
     //添加监听器，监听login
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showLoginedViewData:) name:@"loginAction" object:nil];
     [self showLoginedViewData:nil];
-    
 }
 
 
@@ -229,40 +229,38 @@ static NSString *const tableCellId = @"tableCellId";
         
         NSLog(@"执行退出登录");
         [self.loginView setHidden:NO];//隐藏登录界面
-        for (UIButton *button in self.leftBtnArray)
-        {
-            NSLog(@"退出登录，清空头像");
-            [button setImage:[UIImage imageNamed:@"头像-空"] forState:UIControlStateNormal];
-        }
-        
+
     }else {
     
         NSLog(@"show Login View");
         
         if (localUser) {
-            
             [self setLoginedViewData:localUser];
             [self.loginView setHidden:YES];//隐藏登录界面
-            
         }else {
             
             [self.loginView setHidden:NO];//隐藏登录界面
         }
-        
-        if (localUser.headpic) {
-            
-            for (UIButton *button in self.leftBtnArray) {
-                
-                [button sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
-                                  forState:UIControlStateNormal
-                          placeholderImage:[UIImage imageNamed:@"头像-空"]];
-            }
-            
-        }
     }
-    
+    //跟新头像
+    [self updateUserAvatar:localUser.headpic];
 }
 
+
+#pragma mark 更新用户头像
+- (void) updateUserAvatar:(NSString *)headpic {
+
+    
+    for (UIButton *button in self.leftBtnArray) {
+        
+        [button sd_setImageWithURL:[NSURL URLWithString:headpic]
+                          forState:UIControlStateNormal
+                  placeholderImage:[UIImage imageNamed:@"头像-空"]];
+    }
+}
+
+
+#pragma mark 更新用户中心数据
 - (void) setLoginedViewData:(FTUserBean *)localUser {
 
     if (localUser) {
@@ -278,16 +276,9 @@ static NSString *const tableCellId = @"tableCellId";
         [self setHeightLabelText:localUser.height];
         [self setWeightLabelText:localUser.weight];
         
-//        if(self.leftBtn && localUser.headpic){
-//            [self.leftBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
-//                                    forState:UIControlStateNormal
-//                            placeholderImage:[UIImage imageNamed:@"头像-空"]];
-//
-//        }
-        
-        
     }
 }
+
 
 #pragma mark - setter
 - (void) setAvatarImageViewImageWithString:(NSString *)urlString {

@@ -201,12 +201,15 @@
 
 //微信快捷登录 响应
 - (void)wxLoginResponseInLoginView:(NSNotification *)noti{
+    
     NSString *msg = [noti object];
     if ([msg isEqualToString:@"SUCESS"]) {
+        
         [self showHUDWithMessage:@"微信登录成功"];
-        NSLog(@"response in loginView");
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        
     }else if ([msg isEqualToString:@"ERROR"]){
+        
         [self showHUDWithMessage:@"微信登录失败"];
     }
 }

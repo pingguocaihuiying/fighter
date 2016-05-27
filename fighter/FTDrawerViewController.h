@@ -53,6 +53,10 @@
 
 - (void) setHomeViewController ;
 
+
+//设置监听器
+- (void) setNoti;
+
 //推送响应方法
 - (void) push:(NSDictionary *)dic;
 

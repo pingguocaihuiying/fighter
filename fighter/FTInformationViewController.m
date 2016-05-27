@@ -190,7 +190,6 @@
         self.tableViewController.tableView.tableHeaderView = nil;
     }
     
-    
     [self.tableViewController.tableView reloadData];
     
     //隐藏infoLabel
@@ -217,12 +216,23 @@
             NSString *status = responseDic[@"status"];
             if ([status isEqualToString:@"success"]) {
                 NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
-                DBManager *dbManager = [DBManager shareDBManager];
-                [dbManager connect];
                 
-               for (NSDictionary *dic in mutableArray)  {
-                     [dbManager insertDataIntoNews:dic];
+               
+                //缓存数据到DB
+                if (mutableArray.count > 0) {
+                    DBManager *dbManager = [DBManager shareDBManager];
+                    [dbManager connect];
+                    [dbManager cleanNewsTable];
+                    
+                    for (NSDictionary *dic in mutableArray)  {
+                        [dbManager insertDataIntoNews:dic];
+                    }
                 }
+                
+               
+                
+                //缓存数据
+                [self saveCache];
                 
                 [self getDataFromDBWithType:getType currentPage:self.currentPage];
                 
@@ -243,68 +253,6 @@
         }
     }];
     
-    
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    
-//    //设置请求返回的数据类型为默认类型（NSData类型)
-//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-////    NSLog(@"news's url : %@", urlString);
-//    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-//        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-//        
-//        NSString *status = responseDic[@"status"];
-//        if ([status isEqualToString:@"success"]) {
-//            NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
-//            NSLog(@"NewDic :%@",responseDic);
-//            if ([newsType isEqualToString:@"All"]) {
-//                NSMutableArray *hotArray = [NSMutableArray new];
-//                for(NSDictionary *dic in mutableArray){
-//                    if ([dic[@"newsType"] isEqualToString:@"Hot"]) {
-//                        [hotArray addObject:dic];
-//                    }
-//                }
-//                [mutableArray removeObjectsInArray:hotArray];
-//            }
-//            
-//            if (self.tableViewDataSourceArray == nil) {
-//                self.tableViewDataSourceArray = [[NSMutableArray alloc]init];
-//            }
-//            if ([getType isEqualToString:@"new"]) {
-//                self.tableViewDataSourceArray = mutableArray;
-//            }else if([getType isEqualToString:@"old"]){
-//                [self.tableViewDataSourceArray addObjectsFromArray:mutableArray];
-//            }
-//            //            [self initPageController];
-//            
-//            self.tableViewController.sourceArray = self.tableViewDataSourceArray;
-//            if ([newsType isEqualToString:@"All"]) {
-//                self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
-//            }else{
-////                [self.tableViewController.tableView.tableHeaderView removeFromSuperview];
-//                self.tableViewController.tableView.tableHeaderView = nil;
-//            }
-//            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
-//            [self.tableViewController.tableView footerEndRefreshing];
-//            
-//            [self.tableViewController.tableView reloadData];
-//            
-//            [self saveCache];
-//                //隐藏infoLabel
-//            if (self.infoLabel.isHidden == NO) {
-//                self.infoLabel.hidden = YES;
-//            }
-//        }else if([status isEqualToString:@"error"]){
-//            NSLog(@"message : %@", responseDic[@"message"]);
-//            
-//            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
-//            [self.tableViewController.tableView footerEndRefreshing];
-//        }
-//
-//        
-//    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-//        [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
-//        [self.tableViewController.tableView footerEndRefreshing];
-//    }];
 }
 
 
