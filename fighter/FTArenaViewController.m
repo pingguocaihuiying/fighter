@@ -173,9 +173,9 @@
 
 
 /**
- *  “全部视频”按钮被点击
+ *  “全部”按钮被点击
  *
- *  @param sender “全部视频”按钮
+ *  @param sender “全部”按钮
  */
 - (IBAction)allButtonClicked:(id)sender {
     if (![_currentIndexString isEqualToString:@"all"]) {
@@ -208,7 +208,7 @@
     
     FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender style:FTRankTableViewStyleLeft option:^(FTRankTableView *searchTableView) {
         NSMutableArray *tempArray = [[NSMutableArray alloc]initWithArray:[FTNWGetCategory sharedCategories]];
-        [tempArray insertObject:@{@"itemValue":@"全部视频", @"itemValueEn":@"All"} atIndex:0];
+        [tempArray insertObject:@{@"itemValue":@"全部项目", @"itemValueEn":@"All"} atIndex:0];
          searchTableView.dataArray = tempArray;
         
         searchTableView.Btnframe = frame;
@@ -238,8 +238,8 @@
     }
 
     //根据点击的标签，去设置不同的请求参数
-    if ([value[@"itemValue"] isEqualToString:@"全部视频"]) {
-        NSLog(@"全部视频%@", value[@"itemValueEn"]);
+    if ([value[@"itemValueEn"] isEqualToString:@"All"]) {
+        NSLog(@"All : %@", value[@"itemValueEn"]);
         _query = @"list-dam-blog-1";
         _labels = @"";
     }else{

@@ -278,6 +278,7 @@
 		E6A9DDBA1CD99E7700CB9518 /* FTBaseBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A9DDB91CD99E7700CB9518 /* FTBaseBean.m */; };
 		E6A9DDBF1CD9C88600CB9518 /* FTVideoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A9DDBD1CD9C88600CB9518 /* FTVideoDetailViewController.m */; };
 		E6A9DDC01CD9C88600CB9518 /* FTVideoDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6A9DDBE1CD9C88600CB9518 /* FTVideoDetailViewController.xib */; };
+		E6AD700F1CF80CFA00329D1E /* FTLYZButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AD700E1CF80CFA00329D1E /* FTLYZButton.m */; };
 		E6B458971CB7560400FB4261 /* FTBaseNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458961CB7560400FB4261 /* FTBaseNavigationViewController.m */; };
 		E6B4589A1CB7563300FB4261 /* FTBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458991CB7563300FB4261 /* FTBaseViewController.m */; };
 		E6B458A61CB7587D00FB4261 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6B458A51CB7587D00FB4261 /* Assets.xcassets */; };
@@ -842,6 +843,8 @@
 		E6A9DDBC1CD9C88600CB9518 /* FTVideoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTVideoDetailViewController.h; sourceTree = "<group>"; };
 		E6A9DDBD1CD9C88600CB9518 /* FTVideoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTVideoDetailViewController.m; sourceTree = "<group>"; };
 		E6A9DDBE1CD9C88600CB9518 /* FTVideoDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTVideoDetailViewController.xib; sourceTree = "<group>"; };
+		E6AD700D1CF80CFA00329D1E /* FTLYZButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTLYZButton.h; sourceTree = "<group>"; };
+		E6AD700E1CF80CFA00329D1E /* FTLYZButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTLYZButton.m; sourceTree = "<group>"; };
 		E6B458931CB755C000FB4261 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		E6B458951CB7560400FB4261 /* FTBaseNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBaseNavigationViewController.h; sourceTree = "<group>"; };
 		E6B458961CB7560400FB4261 /* FTBaseNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBaseNavigationViewController.m; sourceTree = "<group>"; };
@@ -2160,6 +2163,27 @@
 			name = "详情";
 			sourceTree = "<group>";
 		};
+		E6AD700B1CF80CD200329D1E /* view */ = {
+			isa = PBXGroup;
+			children = (
+				E6AD700C1CF80CE000329D1E /* 自定义带属性的button */,
+				E6E580B01CBE521A00272242 /* basecell */,
+				E65D08D71CBCDC3700651B19 /* cell 1 */,
+				E65D08D61CBCDC1800651B19 /* cell 2 */,
+				E65D08D81CBCDC3A00651B19 /* cell 3 */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		E6AD700C1CF80CE000329D1E /* 自定义带属性的button */ = {
+			isa = PBXGroup;
+			children = (
+				E6AD700D1CF80CFA00329D1E /* FTLYZButton.h */,
+				E6AD700E1CF80CFA00329D1E /* FTLYZButton.m */,
+			);
+			name = "自定义带属性的button";
+			sourceTree = "<group>";
+		};
 		E6B458921CB7554F00FB4261 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -2192,15 +2216,12 @@
 		E6B4589B1CB7569E00FB4261 /* 拳迅 */ = {
 			isa = PBXGroup;
 			children = (
+				E6AD700B1CF80CD200329D1E /* view */,
 				E65F90B71CBDF9F6005CA3E6 /* main */,
 				E68EC5071CC4B71400A338C8 /* filter */,
 				E65F90B81CBDF9FF005CA3E6 /* detail */,
 				E6035EBA1CC0C36C00B10D36 /* comment */,
 				E65D08D91CBCDCA000651B19 /* tableview */,
-				E6E580B01CBE521A00272242 /* basecell */,
-				E65D08D71CBCDC3700651B19 /* cell 1 */,
-				E65D08D61CBCDC1800651B19 /* cell 2 */,
-				E65D08D81CBCDC3A00651B19 /* cell 3 */,
 			);
 			name = "拳迅";
 			sourceTree = "<group>";
@@ -2920,6 +2941,7 @@
 				3D56CB381CED950600265A84 /* ReachStateWIFI.m in Sources */,
 				3D6DA0E71CEEE24100BAA8F0 /* FTBoxerHeaderView.m in Sources */,
 				3D7B989C1CDF896F00B80B8D /* FTTableViewCell5.m in Sources */,
+				E6AD700F1CF80CFA00329D1E /* FTLYZButton.m in Sources */,
 				3D4B195F1CDB56EF0022DFB0 /* FTHeightPickerView.m in Sources */,
 				E68050BE1CBF919A00678905 /* JHRefreshHeaderView.m in Sources */,
 				E6DB76131CBB9B430034253C /* FTOneImageInfoTableViewCell.m in Sources */,

@@ -13,21 +13,8 @@
 @implementation FTNWGetCategory
 
 + (NSArray *)sharedCategories{
-    
-
     NSArray *resultArray = [[NSUserDefaults standardUserDefaults]objectForKey:CATEGORIES];
-    if (resultArray == nil) {
-//        NSMutableArray *tempArray = [[NSMutableArray alloc]initWithArray:@[
-//                                   [[FTLabelBean alloc]initWithName:@"综合格斗(UFC)" andNameEn:@"MMA"],
-//                                   [[FTLabelBean alloc]initWithName:@"拳击" andNameEn:@"Boxing"],
-//                                   [[FTLabelBean alloc]initWithName:@"摔跤(WWE)" andNameEn:@"Wrestling"],
-//                                   [[FTLabelBean alloc]initWithName:@"女子格斗" andNameEn:@"FemaleWrestling"],
-//                                   [[FTLabelBean alloc]initWithName:@"街斗" andNameEn:@"StreetFight"],
-//                                   [[FTLabelBean alloc]initWithName:@"泰拳" andNameEn:@"ThaiBoxing"],
-//                                   [[FTLabelBean alloc]initWithName:@"跆拳道" andNameEn:@"Taekwondo"],
-//                                   [[FTLabelBean alloc]initWithName:@"相扑" andNameEn:@"Sumo"],
-//                                   [[FTLabelBean alloc]initWithName:@"柔道" andNameEn:@"Judo"]
-//                                                                           ]];
+    if (resultArray == nil) {//如果是第一次安装，先给一个默认的标签显示
         NSMutableArray *tempArray = [[NSMutableArray alloc]initWithArray:@[
                                                                            @{@"name":@"综合格斗(UFC)", @"nameEn":@"MMA"},
                                                                            @{@"name":@"拳击", @"nameEn":@"Boxing"},
@@ -44,23 +31,13 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [FTNWGetCategory getCategoryWithOption:^(NSArray *array) {
-//            NSMutableArray *tempArray = [[NSMutableArray alloc]init];
-//            for(NSDictionary *dic in array){
-//                FTLabelBean *labelBean = [FTLabelBean new];
-//                [labelBean setValuesForKeysWithDictionary:dic];
-//                
-//                [tempArray addObject:labelBean];
-//            }s
-//            NSArray *tempArr = [NSArray arrayWithArray:tempArray];
             [[NSUserDefaults standardUserDefaults]setObject:array forKey:CATEGORIES];
             [[NSUserDefaults standardUserDefaults]synchronize];
         }];
     });
-    [FTNWGetCategory getCategoryWithOption:^(NSArray *array) {
-        
-    }];
     return resultArray;
 }
+
 
 
 + (void)getCategoryWithOption:(void (^)(NSArray *array))option{
