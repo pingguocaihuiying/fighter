@@ -461,10 +461,13 @@
         NSString *type = dic[@"type"];
         NSLog(@"type : %@", type);
             //视频的key值要加上mp4作为后缀
+
+        NSString *timeString = [self fixStringForDate:[NSDate date]];
         if([type isEqualToString:@"image"]){
-            key = [NSString stringWithFormat:@"%@%@", userId, ts];//key值取userId＋时间戳
+                        key = [NSString stringWithFormat:@"%@_%@",timeString, userId];//key值取userId＋时间戳
         }else if([type isEqualToString:@"video"]){
-            key = [NSString stringWithFormat:@"%@%@mp4", userId, ts];//key值取userId＋时间戳+mp4
+//            key = [NSString stringWithFormat:@"%@%@mp4", userId, ts];//key值取userId＋时间戳+mp4
+            key = [NSString stringWithFormat:@"%@_%@mp4",timeString, userId];//key值取userId＋时间戳+mp4
         }
         if([type isEqualToString:@"image"]){
             [_imageURLArray addObject:key];
@@ -500,6 +503,15 @@
     }];//***获取token block回调结束
     }
     [self uploadPostsToServer];
+}
+
+- (NSString *)fixStringForDate:(NSDate *)date
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:kCFDateFormatterFullStyle];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd_HH:mm:ss"];
+    NSString *fixString = [dateFormatter stringFromDate:date];
+    return fixString;
 }
 
 - (void)uploadPostsToServer{

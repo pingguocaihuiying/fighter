@@ -34,8 +34,17 @@
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:bean.headUrl] placeholderImage:[UIImage imageNamed:@"头像-空"]];
     NSString *commentCount = [NSString stringWithFormat:@"%@", bean.commentCount == nil ? @"0" : bean.commentCount];
     NSString *voteCount = [NSString stringWithFormat:@"%@", bean.voteCount == nil ? @"0" : bean.voteCount];
+    NSString *viewCount = [NSString stringWithFormat:@"%@", bean.viewCount == nil ? @"0" : bean.viewCount];
     
-    self.commentCountLabel.text = [NSString stringWithFormat:@"(%@)", commentCount];
+    int comment2 = [commentCount intValue] * 10;
+    int voteCount2 = [voteCount intValue] * 5;
+    int viewCount2 = [viewCount intValue];
+    int allcount =  comment2 + voteCount2 + viewCount2;
+    self.commentCountLabel.text = [NSString stringWithFormat:@"(%d)", allcount];
+//    self.commentCountLabel.text = [NSString stringWithFormat:@"(%@)", commentCount];
+    
+    
+    
     self.likeCountLabel.text = [NSString stringWithFormat:@"(%@)", voteCount];
     self.authorLabel.text = bean.nickname;
     self.timeLabel.text = [self getTimeLabelTextTimeStamp:bean.createTimeTamp];
