@@ -114,12 +114,16 @@
         
         return cell;
     }else if (self.listType == FTCellTypeArena){
+        FTArenaBean *bean = self.sourceArray[indexPath.row];
         
         static NSString *celliderAreraText = @"cellArenaText";
         static NSString *celliderArenaImage = @"cellArenaImage";
-        cell = [tableView dequeueReusableCellWithIdentifier:celliderArenaImage];
         
-         FTArenaBean *bean = self.sourceArray[indexPath.row];
+        if ([bean.pictureUrlNames isEqualToString:@""] && [bean.videoUrlNames isEqualToString:@""]) {//文本
+        cell = [tableView dequeueReusableCellWithIdentifier:celliderAreraText];
+        }else{//图片
+        cell = [tableView dequeueReusableCellWithIdentifier:celliderArenaImage];
+        }
         
         if ([bean.pictureUrlNames isEqualToString:@""] && [bean.videoUrlNames isEqualToString:@""]) {
         cell = [tableView dequeueReusableCellWithIdentifier:celliderAreraText];
@@ -266,16 +270,18 @@
         
        FTArenaBean *bean = self.sourceArray[indexPath.row];
         
-        NSString *videoUrl =bean.videoUrlNames;
-        NSString *pictureUrl = bean.pictureUrlNames;
+        NSString *videoUrl = bean.videoUrlNames == nil ? @"" : bean.videoUrlNames;
+        NSString *pictureUrl = bean.pictureUrlNames == nil ? @"" : bean.pictureUrlNames;
         
         if ([videoUrl isEqualToString:@""] && [pictureUrl isEqualToString:@""]) {//如果是文本类型的cell
             height = 185;
+            NSLog(@"cell height : %f", height);
         }else{//如果是带图片的cell
             height = 217;
-            //图片原始高度
-            CGFloat imageHeight = 92;
+            
+            CGFloat imageHeight = 92;//图片原始高度
             height = (height - imageHeight) + imageHeight * SCALE;
+            
         }
 
     }

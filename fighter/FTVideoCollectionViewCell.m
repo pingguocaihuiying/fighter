@@ -38,25 +38,7 @@
     self.viewCountlabel.text = [NSString stringWithFormat:@"(%@)", bean.viewCount];
     
     //根据newsType去设置类型图片
-    if ([bean.videosType isEqualToString:@"Boxing"]) {
-        self.videoTypeImageView.image = [UIImage imageNamed:@"格斗标签-拳击"];
-    }else if ([bean.videosType isEqualToString:@"MMA"]) {
-        self.videoTypeImageView.image = [UIImage imageNamed:@"格斗标签-综合格斗"];
-    }else if ([bean.videosType isEqualToString:@"ThaiBoxing"]) {
-        self.videoTypeImageView.image = [UIImage imageNamed:@"格斗标签-泰拳"];
-    }else if ([bean.videosType isEqualToString:@"Taekwondo"]) {
-        self.videoTypeImageView.image = [UIImage imageNamed:@"格斗标签-跆拳道"];
-    }else if ([bean.videosType isEqualToString:@"Judo"]) {
-        self.videoTypeImageView.image = [UIImage imageNamed:@"格斗标签-柔道"];
-    }else if ([bean.videosType isEqualToString:@"Wrestling"]) {
-        self.videoTypeImageView.image = [UIImage imageNamed:@"格斗标签-摔跤"];
-    }else if ([bean.videosType isEqualToString:@"Sumo"]) {
-        self.videoTypeImageView.image = [UIImage imageNamed:@"格斗标签-相扑"];
-    }else if ([bean.videosType isEqualToString:@"FemaleWrestling"]) {
-        self.videoTypeImageView.image = [UIImage imageNamed:@"格斗标签-女子格斗"];
-    }else{//如果类型不属于这些标签，则不显示
-        self.videoTypeImageView.image = nil;
-    }
+    self.videoTypeImageView.image = [UIImage imageNamed:[FTTools getChLabelNameWithEnLabelName:bean.videosType]];
 }
 
 @end

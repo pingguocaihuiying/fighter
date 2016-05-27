@@ -31,6 +31,8 @@
         labelNameCh = @"格斗标签-女子格斗";
     }else if([labelNameEn isEqualToString:@"StreetFight"]){
         labelNameCh = @"格斗标签-街斗";
+    }else if([labelNameEn isEqualToString:@"Others"]){
+        labelNameCh = @"格斗标签-其他";
     }
     
     return labelNameCh;

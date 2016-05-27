@@ -80,7 +80,6 @@
 		3D5FB4BF1CDC7E6600FC1809 /* FTImageCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D5FB4BD1CDC7E6600FC1809 /* FTImageCollectionCell.xib */; };
 		3D6947101CE3374000989440 /* FTUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D69470F1CE3374000989440 /* FTUserViewController.m */; };
 		3D6DA0D21CEE93CD00BAA8F0 /* FTNWGetCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6DA0D11CEE93CD00BAA8F0 /* FTNWGetCategory.m */; };
-		3D6DA0D91CEE951E00BAA8F0 /* FTArenaTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6DA0D81CEE951E00BAA8F0 /* FTArenaTextTableViewCell.m */; };
 		3D6DA0DD1CEE9EA100BAA8F0 /* NIDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6DA0DC1CEE9EA100BAA8F0 /* NIDropDown.m */; };
 		3D6DA0E11CEEA96D00BAA8F0 /* FTBoxerCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6DA0DF1CEEA96D00BAA8F0 /* FTBoxerCenter.m */; };
 		3D6DA0E21CEEA96D00BAA8F0 /* FTBoxerCenter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D6DA0E01CEEA96D00BAA8F0 /* FTBoxerCenter.xib */; };
@@ -249,6 +248,8 @@
 		E668BBBE1CE4523600071998 /* FTCacheBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BBBD1CE4523600071998 /* FTCacheBean.m */; };
 		E66D6EFA1CBCE81C008B015A /* RBRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6EF61CBCE81C008B015A /* RBRequestOperationManager.m */; };
 		E66D6EFB1CBCE81C008B015A /* FTNetConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6EF91CBCE81C008B015A /* FTNetConfig.m */; };
+		E66EAEA21CF8217F006CD6CE /* FTArenaTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E66EAEA01CF8217F006CD6CE /* FTArenaTextTableViewCell.m */; };
+		E66EAEA31CF8217F006CD6CE /* FTArenaTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E66EAEA11CF8217F006CD6CE /* FTArenaTextTableViewCell.xib */; };
 		E66FF6291CF2A78B002C4F67 /* G格斗家-格斗场-最热.png in Resources */ = {isa = PBXBuildFile; fileRef = E66FF6281CF2A78B002C4F67 /* G格斗家-格斗场-最热.png */; };
 		E67872731CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E67872711CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m */; };
 		E67872741CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E67872721CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib */; };
@@ -299,7 +300,6 @@
 		E6D09E921CEDA10000B7C43E /* FTTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D09E911CEDA10000B7C43E /* FTTools.m */; };
 		E6D09E961CEDDDCF00B7C43E /* FTQiniuNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D09E951CEDDDCF00B7C43E /* FTQiniuNetwork.m */; };
 		E6D2F8E51CE99A5100160788 /* FTLabelBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D2F8E41CE99A5100160788 /* FTLabelBean.m */; };
-		E6D2F8ED1CEAA9F300160788 /* FTArenaTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6D2F8EB1CEAA9F300160788 /* FTArenaTextTableViewCell.xib */; };
 		E6D74A471CB7B7EE00854337 /* UIButton+countDown.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A331CB7B7EE00854337 /* UIButton+countDown.m */; };
 		E6D74A481CB7B7EE00854337 /* UIColor+YBColorCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A351CB7B7EE00854337 /* UIColor+YBColorCategory.m */; };
 		E6D74A491CB7B7EE00854337 /* UILabel+StringFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D74A371CB7B7EE00854337 /* UILabel+StringFrame.m */; };
@@ -483,7 +483,6 @@
 		3D69470F1CE3374000989440 /* FTUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserViewController.m; sourceTree = "<group>"; };
 		3D6DA0CF1CEE939000BAA8F0 /* FTNWGetCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNWGetCategory.h; sourceTree = "<group>"; };
 		3D6DA0D11CEE93CD00BAA8F0 /* FTNWGetCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNWGetCategory.m; sourceTree = "<group>"; };
-		3D6DA0D81CEE951E00BAA8F0 /* FTArenaTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaTextTableViewCell.m; sourceTree = "<group>"; };
 		3D6DA0DB1CEE9EA100BAA8F0 /* NIDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDropDown.h; sourceTree = "<group>"; };
 		3D6DA0DC1CEE9EA100BAA8F0 /* NIDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIDropDown.m; sourceTree = "<group>"; };
 		3D6DA0DE1CEEA96D00BAA8F0 /* FTBoxerCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBoxerCenter.h; sourceTree = "<group>"; };
@@ -789,6 +788,9 @@
 		E66D6EF61CBCE81C008B015A /* RBRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBRequestOperationManager.m; sourceTree = "<group>"; };
 		E66D6EF81CBCE81C008B015A /* FTNetConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNetConfig.h; sourceTree = "<group>"; };
 		E66D6EF91CBCE81C008B015A /* FTNetConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNetConfig.m; sourceTree = "<group>"; };
+		E66EAE9F1CF8217F006CD6CE /* FTArenaTextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaTextTableViewCell.h; sourceTree = "<group>"; };
+		E66EAEA01CF8217F006CD6CE /* FTArenaTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaTextTableViewCell.m; sourceTree = "<group>"; };
+		E66EAEA11CF8217F006CD6CE /* FTArenaTextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaTextTableViewCell.xib; sourceTree = "<group>"; };
 		E66FF6281CF2A78B002C4F67 /* G格斗家-格斗场-最热.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "G格斗家-格斗场-最热.png"; sourceTree = "<group>"; };
 		E67872701CEACEFC0099CEE6 /* FTArenaImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaImageTableViewCell.h; sourceTree = "<group>"; };
 		E67872711CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaImageTableViewCell.m; sourceTree = "<group>"; };
@@ -880,8 +882,6 @@
 		E6D09E951CEDDDCF00B7C43E /* FTQiniuNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTQiniuNetwork.m; sourceTree = "<group>"; };
 		E6D2F8E31CE99A5100160788 /* FTLabelBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTLabelBean.h; sourceTree = "<group>"; };
 		E6D2F8E41CE99A5100160788 /* FTLabelBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTLabelBean.m; sourceTree = "<group>"; };
-		E6D2F8EA1CEAA9F300160788 /* FTArenaTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaTextTableViewCell.m; sourceTree = "<group>"; };
-		E6D2F8EB1CEAA9F300160788 /* FTArenaTextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaTextTableViewCell.xib; sourceTree = "<group>"; };
 		E6D74A321CB7B7EE00854337 /* UIButton+countDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+countDown.h"; sourceTree = "<group>"; };
 		E6D74A331CB7B7EE00854337 /* UIButton+countDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+countDown.m"; sourceTree = "<group>"; };
 		E6D74A341CB7B7EE00854337 /* UIColor+YBColorCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+YBColorCategory.h"; sourceTree = "<group>"; };
@@ -2028,9 +2028,9 @@
 		E678726E1CEACEBA0099CEE6 /* 文本 */ = {
 			isa = PBXGroup;
 			children = (
-				3D6DA0D81CEE951E00BAA8F0 /* FTArenaTextTableViewCell.m */,
-				E6D2F8EA1CEAA9F300160788 /* FTArenaTextTableViewCell.m */,
-				E6D2F8EB1CEAA9F300160788 /* FTArenaTextTableViewCell.xib */,
+				E66EAE9F1CF8217F006CD6CE /* FTArenaTextTableViewCell.h */,
+				E66EAEA01CF8217F006CD6CE /* FTArenaTextTableViewCell.m */,
+				E66EAEA11CF8217F006CD6CE /* FTArenaTextTableViewCell.xib */,
 			);
 			name = "文本";
 			sourceTree = "<group>";
@@ -2757,6 +2757,7 @@
 				3D7B98C91CE0D76800B80B8D /* FTWeixinInfoVC.xib in Resources */,
 				E68EC50C1CC4B85D00A338C8 /* FTFilterTableViewController.xib in Resources */,
 				3D7B98B01CE05F3300B80B8D /* FTPhoneViewController.xib in Resources */,
+				E66EAEA31CF8217F006CD6CE /* FTArenaTextTableViewCell.xib in Resources */,
 				3D4B19371CD9FD670022DFB0 /* umeng_fb_audio_play_default@2x.png in Resources */,
 				3D322ACA1CEB171200039E2C /* FTRankHeaderCell.xib in Resources */,
 				3D4B19341CD9FD670022DFB0 /* umeng_fb_audio_play_01@2x.png in Resources */,
@@ -2767,7 +2768,6 @@
 				3D4B192C1CD9FD670022DFB0 /* save@2x.png in Resources */,
 				3D7C6B871CF2A2990088400D /* BoxerInfoController.xib in Resources */,
 				3D4B19351CD9FD670022DFB0 /* umeng_fb_audio_play_02@2x.png in Resources */,
-				E6D2F8ED1CEAA9F300160788 /* FTArenaTextTableViewCell.xib in Resources */,
 				E61185011CC76B3300F23EC7 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				3D4B19321CD9FD670022DFB0 /* umeng_fb_audio_dialog_cancel@2x.png in Resources */,
 				E611848C1CC75E1600F23EC7 /* UMSCommentInputControlleriPad.xib in Resources */,
@@ -2962,7 +2962,6 @@
 				3DC412111CD039D70030C229 /* MASLayoutConstraint.m in Sources */,
 				3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */,
 				E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */,
-				3D6DA0D91CEE951E00BAA8F0 /* FTArenaTextTableViewCell.m in Sources */,
 				E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */,
 				3DC412121CD039D70030C229 /* MASViewAttribute.m in Sources */,
 				E66D6EFA1CBCE81C008B015A /* RBRequestOperationManager.m in Sources */,
@@ -2995,6 +2994,7 @@
 				3D4B193E1CD9FD670022DFB0 /* UMRadialView.m in Sources */,
 				3D7B98A01CDFA20D00B80B8D /* FTFiler.m in Sources */,
 				E6B458C31CB75D7A00FB4261 /* FTCoachViewController.m in Sources */,
+				E66EAEA21CF8217F006CD6CE /* FTArenaTextTableViewCell.m in Sources */,
 				E6A9DDA41CD8842E00CB9518 /* FTVideoViewController.m in Sources */,
 				3D56CB341CED950600265A84 /* ReachState.m in Sources */,
 				E64EF10B1CB6614000CAE340 /* main.m in Sources */,

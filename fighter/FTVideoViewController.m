@@ -25,12 +25,13 @@
 #import "FTCache.h"
 #import "FTCacheBean.h"
 #import "FTRankViewController.h"
+#import "FTLYZButton.h"
 
 @interface FTVideoViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTVideoDetailDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property(nonatomic,strong) NSArray *sourceArry;     //数据源
 @property(nonatomic,strong) UIPageViewController *pageViewController;   //翻页控制器
-@property(nonatomic) NSInteger currentSelectIndex;
+@property (nonatomic, copy)NSString *currentItemValueEn;
 @property (nonatomic, strong)SDCycleScrollView *cycleScrollView;
 @property (nonatomic, strong)NSArray *cycleDataSourceArray;
 @property (nonatomic, strong)NSMutableArray *tableViewDataSourceArray;
@@ -68,7 +69,8 @@
 
 - (void)initTypeArray{
     //    NSMutableArray *enableTypeArray = [[NSMutableArray alloc]initWithArray:@[@"全部", @"拳击", @"自由搏击", @"综合格斗", @"泰拳", @"跆拳道"]];
-    NSMutableArray *enableTypeArray = [[NSMutableArray alloc]initWithArray:@[@"全部", @"综合格斗(UFC)", @"拳击", @"摔跤(WWE)", @"女子格斗", @"泰拳", @" 跆拳道", @"柔道", @"相扑"]];
+    NSMutableArray *enableTypeArray = [[NSMutableArray alloc]initWithArray:[FTNWGetCategory sharedCategories]];
+    [enableTypeArray insertObject:@{@"itemValueEn":@"All", @"itemValue":@"全部"} atIndex:0];
     NSMutableArray *disableTypeArray= [[NSMutableArray alloc]initWithArray:@[@"柔道", @"空手道", @"截拳道", @"摔跤", @"相扑"]];
     self.typeArray = @[enableTypeArray, disableTypeArray];
 }
@@ -180,49 +182,15 @@
     }];
 }
 
-- (NSString *)getVideoType{
-    NSString *videoType = @"";
-    //根据当前button的下标来转换type
-    if (self.currentSelectIndex == 0) {
-        videoType = @"All";
-    }else if (self.currentSelectIndex == 1) {
-        videoType = @"MMA";
-    }else if (self.currentSelectIndex == 2) {
-        videoType = @"Boxing";
-    }else if (self.currentSelectIndex == 3) {
-        videoType = @"Wrestling";
-    }else if (self.currentSelectIndex == 4) {
-        videoType = @"FemaleWrestling";
-    }else if (self.currentSelectIndex == 5) {
-        videoType = @"ThaiBoxing";
-    }else if (self.currentSelectIndex == 6) {
-        videoType = @"Taekwondo";
-    }else if (self.currentSelectIndex == 7) {
-        videoType = @"Judo";
-    }else if (self.currentSelectIndex == 8) {
-        videoType = @"Sumo";
-    }else if (self.currentSelectIndex == 9) {
-        //暂无
-        videoType = @"Wrestling";
-    }else if (self.currentSelectIndex == 10) {
-        //暂无
-        videoType = @"Sumo";
-    }
-    self.currentVideoType = videoType;
-    return videoType;
-}
-
 - (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)videoCurrId{
     //判断是否时当前标签刷新，如果不是，则清空数据源，刷新列表，如果时当前列表，则暂不清空数据和刷新列表
-    NSString *oldVideoType = self.currentVideoType;
-    NSString *newVideotype = [self getVideoType];
-    if (![oldVideoType isEqualToString:newVideotype]) {
+            //现在没有判断，直接先清空，再显示，因为有缓存的存在，所以不会耗费过多的内存
         [self.tableViewDataSourceArray removeAllObjects];
         [self.collectionView reloadData];
-    }
+    
     
     NSString *urlString = [FTNetConfig host:Domain path:GetVideoURL];
-    NSString *videoType = [self getVideoType];
+    NSString *videoType = _currentItemValueEn;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@",videoType, videoCurrId, self.videosTag, getType, ts, @"quanjijia222222"]];
     
@@ -302,7 +270,7 @@
     NSArray *dataArray = [[NSArray alloc]initWithArray:self.tableViewDataSourceArray];
     FTCacheBean *cacheBean = [[FTCacheBean alloc] initWithTimeStamp:[[NSDate date] timeIntervalSince1970]  andDataArray:dataArray andVideoTag:self.videosTag];
 
-    [cache.videoDataDic setObject:cacheBean forKey:[NSString stringWithFormat:@"%ld", self.currentSelectIndex]];
+    [cache.videoDataDic setObject:cacheBean forKey:[NSString stringWithFormat:@"%@", _currentItemValueEn]];
     
 }
 
@@ -351,15 +319,17 @@
 //加载分类导航的scrollView
 - (void)initNewsTypeScrollView
 {
-    NSArray *titles = self.typeArray[0];
+    NSArray *titlesArray = self.typeArray[0];
     float curContentWidth = 0;
     for(UIView *view in [_currentScrollView subviews]){
         [view removeFromSuperview];
     }
-    for (int i = 0; i < titles.count; i++) {
-        UIButton *bt = [UIButton buttonWithType:UIButtonTypeCustom];
-        
-        [bt setTitle:titles[i] forState:UIControlStateNormal];
+    for (int i = 0; i < titlesArray.count; i++) {
+        FTLYZButton *bt = [[FTLYZButton alloc]init];
+        NSDictionary *dic = titlesArray[i];
+        bt.itemValue = dic[@"itemValue"];
+        bt.itemValueEn = dic[@"itemValueEn"];
+        [bt setTitle:bt.itemValue forState:UIControlStateNormal];
         bt.titleLabel.font = [UIFont systemFontOfSize:14];
         [bt setTitleColor: Main_Text_Color forState:UIControlStateNormal];
         bt.tag = i+1;
@@ -380,21 +350,24 @@
         
         
         //添加button下方的指示view
-        UIView *indexView = [[UIView alloc]initWithFrame:CGRectMake(0, 37, buttonSize.width, 3)];
-        indexView.backgroundColor = [UIColor redColor];
-        indexView.tag = 1000 + i;
-        indexView.hidden = YES;
-        [bt addSubview:indexView];
+        bt.indexView = [[UIView alloc]initWithFrame:CGRectMake(0, 37, buttonSize.width, 3)];
+        bt.indexView.backgroundColor = [UIColor redColor];
+        bt.indexView.tag = 1000 + i;
+        bt.indexView.hidden = YES;
+        if ([bt.itemValueEn isEqualToString:@"All"]) {
+            bt.indexView.hidden = NO;
+        }
+        [bt addSubview:bt.indexView];
         
         
         
-        if (i != titles.count - 1) {
+        if (i != titlesArray.count - 1) {
             curContentWidth += buttonSize.width + 35;
         }else{
             curContentWidth += buttonSize.width;
         }
     }
-    self.currentSelectIndex = 0;
+    _currentItemValueEn = @"All";
     _currentScrollView.showsHorizontalScrollIndicator = NO;
     _currentScrollView.bounces = YES;
     
@@ -575,31 +548,17 @@
 
 #pragma mark - 按钮事件
 //
-- (void)clickAction:(UIButton *)sender
+- (void)clickAction:(FTLYZButton *)sender
 {
-    if(self.currentSelectIndex != sender.tag - 1){
-        //修改点击标签的逻辑为：不是每次都加载。
+    
         
-        //        self.currentSelectIndex = sender.tag-1;
-        //        FTTableViewController *tableVC = [self controllerWithSourceIndex:sender.tag-1];
-        //        [self.pageViewController setViewControllers:@[tableVC] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:^(BOOL finished) {
-        //            NSLog(@" 设置完成 ");
-        //        }];
-        
-        
-//        if (self.currentSelectIndex == 0) {
-//            self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
-//        }else{
-//            self.tableViewController.tableView.tableHeaderView = nil;
-//        }
-//        self.tableViewController.sourceArray = nil;
-//        [self.tableViewController.tableView reloadData];
-        
-        self.currentSelectIndex = sender.tag-1;//根据点击的按钮，设置当前的选中下标
-        
+    //根据点击的按钮，更新当前button的标签，并更新下标
+    self.currentItemValueEn = sender.itemValueEn;
+    [self updateButtonsIndex];
+    
         //根据当前下标，先去缓存中查找是否有数据
         FTCache *cache = [FTCache sharedInstance];
-        FTCacheBean *cacheBean = [cache.videoDataDic objectForKey:[NSString stringWithFormat:@"%ld", self.currentSelectIndex]];
+        FTCacheBean *cacheBean = [cache.videoDataDic objectForKey:[NSString stringWithFormat:@"%@", _currentItemValueEn]];
         
         if (cacheBean) {//如果有当前标签的缓存，则接着对比时间
             
@@ -618,7 +577,7 @@
         [self.collectionView reloadData];
         
         [self getDataWithGetType:@"new" andCurrId:@"-1"];
-    }
+    
 }
 
 
@@ -650,27 +609,21 @@
     return self.tableViewController.order;
 }
 
-#pragma mark - SET方法
-//设置当前的按钮颜色
-- (void)setCurrentSelectIndex:(NSInteger)index
-{
-    //取消上面的背景色
-    if (_currentSelectIndex != NSNotFound) {
-        UIView *indexView = [_currentScrollView viewWithTag:_currentSelectIndex + 1000];
-        indexView.hidden = YES;
+#pragma mark -  设置当前的按钮颜色
+
+- (void)updateButtonsIndex{
+    for(UIView *subview in[_currentScrollView subviews]){
+        if ([subview isKindOfClass:[FTLYZButton class]]) {
+            FTLYZButton *button = (FTLYZButton *)subview;
+            if ([button.itemValueEn isEqualToString:_currentItemValueEn]) {
+                button.indexView.hidden = NO;
+            }else{
+                if (button.indexView.isHidden == NO) {
+                    button.indexView.hidden = YES;
+                }
+            }
+        }
     }
-    
-    _currentSelectIndex = index;
-    UIView *indexView = [_currentScrollView viewWithTag:_currentSelectIndex + 1000];
-    indexView.hidden = NO;
-    
-    UIButton *selectbt = [_currentScrollView viewWithTag:_currentSelectIndex + 1];
-    
-//    NSLog(@"scroll");
-    
-    //    设置scrollView的偏移位置
-    
-    
 }
 
 
@@ -708,13 +661,7 @@
 }
 
 
-//动画结束后回调的方法
-- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)complete
-{
-    FTTableViewController *VC = [pageViewController.viewControllers lastObject];
-    self.currentSelectIndex = [self indexofController:VC];
-    //    NSLog(@" 动画结束 %@ ",pageViewController.viewControllers);
-}
+
 
 #pragma mark - response
 

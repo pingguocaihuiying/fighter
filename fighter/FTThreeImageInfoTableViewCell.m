@@ -64,24 +64,7 @@
     self.numOfthumbLabel.text = voteCount;
     
     //根据newsType去设置类型图片
-    if ([bean.newsType isEqualToString:@"Boxing"]) {
-        self.newsTypeImageView.image = [UIImage imageNamed:@"格斗标签-拳击"];
-    }else if ([bean.newsType isEqualToString:@"MMA"]) {
-        self.newsTypeImageView.image = [UIImage imageNamed:@"格斗标签-综合格斗"];
-    }else if ([bean.newsType isEqualToString:@"ThaiBoxing"]) {
-        self.newsTypeImageView.image = [UIImage imageNamed:@"格斗标签-泰拳"];
-    }else if ([bean.newsType isEqualToString:@"Taekwondo"]) {
-        self.newsTypeImageView.image = [UIImage imageNamed:@"格斗标签-跆拳道"];
-    }else if ([bean.newsType isEqualToString:@"Judo"]) {
-        self.newsTypeImageView.image = [UIImage imageNamed:@"格斗标签-柔道"];
-    }else if ([bean.newsType isEqualToString:@"Wrestling"]) {
-        self.newsTypeImageView.image = [UIImage imageNamed:@"格斗标签-摔跤"];
-    }else if ([bean.newsType isEqualToString:@"Sumo"]) {
-        self.newsTypeImageView.image = [UIImage imageNamed:@"格斗标签-相扑"];
-    }else if ([bean.newsType isEqualToString:@"FemaleWrestling"]) {
-        self.newsTypeImageView.image = [UIImage imageNamed:@"格斗标签-女子格斗"];
-    }
-    
+    self.newsTypeImageView.image = [UIImage imageNamed:[FTTools getChLabelNameWithEnLabelName:bean.newsType]];
 }
 - (NSString *)fixStringForDate:(NSDate *)date
 {

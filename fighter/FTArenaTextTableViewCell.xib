@@ -26,12 +26,24 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="头像-空" translatesAutoresizingMaskIntoConstraints="NO" id="RLO-dr-dc3" userLabel="headPic">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="格斗场专用小头像64-头像外圈" translatesAutoresizingMaskIntoConstraints="NO" id="RLO-dr-dc3" userLabel="headPicbg">
                         <rect key="frame" x="19" y="130" width="32" height="32"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="32" id="CfF-wf-mT0"/>
                             <constraint firstAttribute="width" constant="32" id="p4m-Tu-iEh"/>
                         </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IrQ-qY-ifY" userLabel="headPic">
+                        <rect key="frame" x="20" y="131" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="1eu-AP-TE5"/>
+                            <constraint firstAttribute="width" constant="30" id="OBy-NQ-3a4"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="15"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="萌萌的渊源讲" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ta1-2b-abj">
                         <rect key="frame" x="59" y="130" width="72" height="12"/>
@@ -138,6 +150,7 @@
                     <constraint firstItem="L3O-iU-RR7" firstAttribute="top" secondItem="CfI-TS-sF8" secondAttribute="bottom" constant="8" id="XVa-0Z-RcM"/>
                     <constraint firstItem="Ta1-2b-abj" firstAttribute="top" secondItem="QWR-Zf-fBO" secondAttribute="bottom" constant="18" id="ZXN-Zf-hFJ"/>
                     <constraint firstItem="QWR-Zf-fBO" firstAttribute="top" secondItem="AUv-8h-bqb" secondAttribute="bottom" constant="10" id="a10-oW-WkU"/>
+                    <constraint firstItem="IrQ-qY-ifY" firstAttribute="centerY" secondItem="RLO-dr-dc3" secondAttribute="centerY" id="egB-16-Rh2"/>
                     <constraint firstItem="Ta1-2b-abj" firstAttribute="leading" secondItem="RLO-dr-dc3" secondAttribute="trailing" constant="8" id="fmx-M9-D37"/>
                     <constraint firstItem="RLO-dr-dc3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="gNb-ag-sRj"/>
                     <constraint firstItem="AUv-8h-bqb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="h9I-wM-RVQ"/>
@@ -150,6 +163,7 @@
                     <constraint firstItem="RLO-dr-dc3" firstAttribute="top" secondItem="QWR-Zf-fBO" secondAttribute="bottom" constant="17" id="rQk-Xd-yC0"/>
                     <constraint firstAttribute="trailing" secondItem="L3O-iU-RR7" secondAttribute="trailing" constant="25" id="v0M-Lp-OV8"/>
                     <constraint firstItem="Oza-yQ-K19" firstAttribute="leading" secondItem="4HW-4B-n6d" secondAttribute="trailing" constant="10" id="vuh-zY-jNC"/>
+                    <constraint firstItem="IrQ-qY-ifY" firstAttribute="centerX" secondItem="RLO-dr-dc3" secondAttribute="centerX" id="x1e-NZ-SV2"/>
                     <constraint firstAttribute="trailing" secondItem="AUv-8h-bqb" secondAttribute="trailing" constant="19" id="yCj-dT-W3T"/>
                     <constraint firstItem="L3O-iU-RR7" firstAttribute="leading" secondItem="Oza-yQ-K19" secondAttribute="trailing" id="yHa-Xl-y0n"/>
                     <constraint firstItem="4HW-4B-n6d" firstAttribute="centerY" secondItem="Oza-yQ-K19" secondAttribute="centerY" id="zE9-AZ-rOG"/>
@@ -167,7 +181,7 @@
                 <outlet property="authorIdentifierImageView" destination="pj2-pH-RNN" id="2Su-uc-Shk"/>
                 <outlet property="authorLabel" destination="Ta1-2b-abj" id="AZZ-Nq-XMU"/>
                 <outlet property="commentCountLabel" destination="L3O-iU-RR7" id="h3I-FX-evN"/>
-                <outlet property="headImageView" destination="RLO-dr-dc3" id="6iU-zp-K69"/>
+                <outlet property="headImageView" destination="IrQ-qY-ifY" id="MNL-4b-mIb"/>
                 <outlet property="likeCountLabel" destination="4HW-4B-n6d" id="9Mj-KJ-DGd"/>
                 <outlet property="sumupLabel" destination="QWR-Zf-fBO" id="pcd-vu-TBy"/>
                 <outlet property="theTitle" destination="AUv-8h-bqb" id="eV4-Zm-VJ7"/>
@@ -178,7 +192,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="头像-空" width="34" height="34"/>
+        <image name="格斗场专用小头像64-头像外圈" width="32" height="32"/>
         <image name="格斗标签-综合格斗" width="68" height="14"/>
         <image name="评-改" width="22" height="22"/>
         <image name="赞-改" width="22" height="22"/>

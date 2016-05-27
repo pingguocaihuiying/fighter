@@ -230,12 +230,12 @@
 - (void) selectedValue:(NSDictionary *)value{
     
         //如果点击的仍然是当前类别的，则跳过不刷新数据
-    NSLog(@"_labels : %@, itemValueEn : %@",_labels, value[@"itemValueEn"]);
-    if([_labels isEqualToString:value[@"itemValueEn"]]){
-        return;
-    }else if([_labels isEqualToString:@""] && [value[@"itemValueEn"] isEqualToString:@"All"]){
-        return;
-    }
+//    NSLog(@"_labels : %@, itemValueEn : %@",_labels, value[@"itemValueEn"]);
+//    if([_labels isEqualToString:value[@"itemValueEn"]]){
+//        return;
+//    }else if([_labels isEqualToString:@""] && [value[@"itemValueEn"] isEqualToString:@"All"]){
+//        return;
+//    }
 
     //根据点击的标签，去设置不同的请求参数
     if ([value[@"itemValueEn"] isEqualToString:@"All"]) {
