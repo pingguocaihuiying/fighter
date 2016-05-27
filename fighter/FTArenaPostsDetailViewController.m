@@ -199,15 +199,25 @@
     _webView.opaque = NO;
     
     [self.view addSubview:_webView];
-    NSString *url = _arenaBean.videoUrlNames;
-    NSLog(@"视频url：%@", url);
-    url = [self encodeToPercentEscapeString:url];
-    //    _videoBean.viewCount = @"100";
-    NSString *title = _arenaBean.title;
-    title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-    _webViewUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/wrestle_news_page.html?id=%@&type=%@&tableName=damageblog", _arenaBean.postsId, _arenaBean.labels];
-    NSLog(@"webview url：%@", _webViewUrlString);
+    
+    if(self.webUrlString == nil || self.webUrlString.length <= 0) {
+        
+        NSString *url = _arenaBean.videoUrlNames;
+        NSLog(@"视频url：%@", url);
+        url = [self encodeToPercentEscapeString:url];
+        //    _videoBean.viewCount = @"100";
+        NSString *title = _arenaBean.title;
+        title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        _webViewUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/wrestle_news_page.html?id=%@&type=%@&tableName=damageblog", _arenaBean.postsId, _arenaBean.labels];
+        NSLog(@"webview url：%@", _webViewUrlString);
+    }else {
+        
+        _webViewUrlString = _webUrlString;
+    }
+    
+    
     
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webViewUrlString]]];
     [self.view sendSubviewToBack:_webView];

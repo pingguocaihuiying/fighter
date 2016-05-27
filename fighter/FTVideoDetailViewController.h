@@ -35,5 +35,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *starButton;
 
 @property (nonatomic, strong)NSIndexPath *indexPath;
+@property (nonatomic, strong)NSString *webUrlString;
 
 @end

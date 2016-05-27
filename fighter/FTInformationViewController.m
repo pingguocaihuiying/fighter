@@ -105,7 +105,7 @@
     NSString *urlString = [FTNetConfig host:Domain path:GetNewsURL];
     NSString *newsType = @"Hot";
     NSString *newsCurrId = @"-1";
-    NSString *getType = @"new";
+    NSString *getType = @"0";
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",newsType, newsCurrId, getType, ts, @"quanjijia222222"]];
     
@@ -612,6 +612,18 @@
         [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
     }
 }
+
+#pragma mark push响应方法
+- (void) pushToDetailController:(NSDictionary *)dic {
+
+    FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
+    NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-news",dic[@"objId"]];
+    
+    newsDetailVC.webUrlString = [@"http://www.gogogofight.com/page/news_page.html?" stringByAppendingString:str];
+    [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+
+}
+
 - (IBAction)filterButton:(id)sender {
     FTFilterTableViewController *filterTableViewController = [FTFilterTableViewController new];
     

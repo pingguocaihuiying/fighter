@@ -555,6 +555,11 @@
 }
 
 
+#pragma mark - 视频
+
+#pragma mark - news 
+
+
 #pragma mark - 封装请求
 //post请求
 - (void) postRequestWithUrl:(NSString *)urlString
@@ -564,7 +569,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    NSLog(@"RegisterUserURL url : %@", urlString);
+//    NSLog(@"RegisterUserURL url : %@", urlString);
     [manager POST:urlString
        parameters:dic
           success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -637,7 +642,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    NSLog(@"RegisterUserURL url : %@", urlString);
+//    NSLog(@"RegisterUserURL url : %@", urlString);
     [manager GET:urlString
       parameters:dic
          success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {

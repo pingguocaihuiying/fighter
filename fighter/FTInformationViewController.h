@@ -17,4 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *leftNavButton;
 
+
+#pragma mark push响应方法
+- (void) pushToDetailController:(NSDictionary *)dic;
 @end

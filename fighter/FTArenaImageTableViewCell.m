@@ -41,6 +41,7 @@
     self.timeLabel.text = [self getTimeLabelTextTimeStamp:bean.createTimeTamp];
 
     if (bean.videoUrlNames && ![bean.videoUrlNames isEqualToString:@""]) {//如果有视频图片，优先显示视频图片
+        NSLog(@"显示视频");
         NSString *firstVideoUrlString = [[bean.videoUrlNames componentsSeparatedByString:@","]firstObject];
 
         firstVideoUrlString = [NSString stringWithFormat:@"%@?vframe/png/offset/0/w/200/h/100", firstVideoUrlString];
@@ -56,8 +57,9 @@
         self.playVideoImageview.hidden = NO;
         
     }else if(bean.pictureUrlNames && ![bean.pictureUrlNames isEqualToString:@""]){//如果没有视频，再去找图片的缩略图
+        NSLog(@"显示图片缩略图");
         NSString *firstImageUrlString = [[bean.pictureUrlNames componentsSeparatedByString:@","]firstObject];
-        firstImageUrlString = [NSString stringWithFormat:@"%@?vframe/png/offset/0/w/200/h/100", firstImageUrlString];
+//        firstImageUrlString = [NSString stringWithFormat:@"%@?vframe/png/offset/0/w/200/h/100", firstImageUrlString];
         firstImageUrlString = [NSString stringWithFormat:@"%@?imageView2/2/w/200", firstImageUrlString];
         NSString *imageUrlString = [NSString stringWithFormat:@"%@/%@", bean.urlPrefix, firstImageUrlString];
         if (![imageUrlString hasPrefix:@"http://"]) {

@@ -26,6 +26,7 @@
     ;
 
     self.myTitleLabel.text = bean.title;
+    NSLog(@"视频list的 cell img%@", bean.img);
     [self.myImageView sd_setImageWithURL:[NSURL URLWithString:bean.img]];
     
     

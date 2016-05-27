@@ -10,4 +10,7 @@
 
 @interface MainViewController : FTDynamicsDrawerViewController
 
+
+- (void) pushMessage:(NSDictionary *)dic;
+
 @end
