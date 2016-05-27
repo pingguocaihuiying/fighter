@@ -173,9 +173,9 @@
 
 
 /**
- *  “全部视频”按钮被点击
+ *  “全部”按钮被点击
  *
- *  @param sender “全部视频”按钮
+ *  @param sender “全部”按钮
  */
 - (IBAction)allButtonClicked:(id)sender {
     if (![_currentIndexString isEqualToString:@"all"]) {
@@ -208,7 +208,7 @@
     
     FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender style:FTRankTableViewStyleLeft option:^(FTRankTableView *searchTableView) {
         NSMutableArray *tempArray = [[NSMutableArray alloc]initWithArray:[FTNWGetCategory sharedCategories]];
-        [tempArray insertObject:@{@"itemValue":@"全部视频", @"itemValueEn":@"All"} atIndex:0];
+        [tempArray insertObject:@{@"itemValue":@"全部项目", @"itemValueEn":@"All"} atIndex:0];
          searchTableView.dataArray = tempArray;
         
         searchTableView.Btnframe = frame;
@@ -230,16 +230,16 @@
 - (void) selectedValue:(NSDictionary *)value{
     
         //如果点击的仍然是当前类别的，则跳过不刷新数据
-    NSLog(@"_labels : %@, itemValueEn : %@",_labels, value[@"itemValueEn"]);
-    if([_labels isEqualToString:value[@"itemValueEn"]]){
-        return;
-    }else if([_labels isEqualToString:@""] && [value[@"itemValueEn"] isEqualToString:@"All"]){
-        return;
-    }
+//    NSLog(@"_labels : %@, itemValueEn : %@",_labels, value[@"itemValueEn"]);
+//    if([_labels isEqualToString:value[@"itemValueEn"]]){
+//        return;
+//    }else if([_labels isEqualToString:@""] && [value[@"itemValueEn"] isEqualToString:@"All"]){
+//        return;
+//    }
 
     //根据点击的标签，去设置不同的请求参数
-    if ([value[@"itemValue"] isEqualToString:@"全部视频"]) {
-        NSLog(@"全部视频%@", value[@"itemValueEn"]);
+    if ([value[@"itemValueEn"] isEqualToString:@"All"]) {
+        NSLog(@"All : %@", value[@"itemValueEn"]);
         _query = @"list-dam-blog-1";
         _labels = @"";
     }else{
@@ -421,7 +421,7 @@
     
     urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName];
     
-    NSLog(@"urlString:%@",urlString);
+//    NSLog(@"urlString:%@",urlString);
     NetWorking *net = [[NetWorking alloc]init];
     
     [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {

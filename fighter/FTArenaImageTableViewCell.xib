@@ -91,14 +91,31 @@
                             </mask>
                         </variation>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="头像-空" translatesAutoresizingMaskIntoConstraints="NO" id="I4f-fZ-TTv" userLabel="headPic">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="格斗场专用小头像64-头像外圈" translatesAutoresizingMaskIntoConstraints="NO" id="I4f-fZ-TTv" userLabel="headPicbg">
                         <rect key="frame" x="19" y="160" width="32" height="32"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="32" id="7lw-zH-y0K"/>
                             <constraint firstAttribute="width" constant="32" id="9VM-9I-p6l"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="15"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="身份圆形-拳" translatesAutoresizingMaskIntoConstraints="NO" id="S98-3P-Dd6" userLabel="身份">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Td-rY-PwG" userLabel="headPic">
+                        <rect key="frame" x="20" y="161" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="cyt-Xn-eOH"/>
+                            <constraint firstAttribute="height" constant="30" id="kfs-WE-BMi"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="15"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="身份圆形-拳" translatesAutoresizingMaskIntoConstraints="NO" id="S98-3P-Dd6" userLabel="身份">
                         <rect key="frame" x="139" y="159" width="15" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="15" id="Oq2-p8-CZ0"/>
@@ -172,6 +189,7 @@
                     <constraint firstAttribute="trailing" secondItem="MAF-s2-avg" secondAttribute="trailing" id="HpM-6m-olc"/>
                     <constraint firstItem="aGM-Lu-yUN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="HwJ-kf-P65"/>
                     <constraint firstItem="AtB-Fj-5ws" firstAttribute="leading" secondItem="pYp-mf-lmb" secondAttribute="trailing" id="MPz-bY-Zpk"/>
+                    <constraint firstItem="3Td-rY-PwG" firstAttribute="centerY" secondItem="I4f-fZ-TTv" secondAttribute="centerY" id="MZp-6S-FpD"/>
                     <constraint firstItem="S98-3P-Dd6" firstAttribute="leading" secondItem="z0a-sI-49I" secondAttribute="trailing" constant="8" id="OIq-wr-eku"/>
                     <constraint firstItem="z0a-sI-49I" firstAttribute="leading" secondItem="I4f-fZ-TTv" secondAttribute="trailing" constant="8" id="QhF-oT-8dQ"/>
                     <constraint firstItem="S98-3P-Dd6" firstAttribute="top" secondItem="z0a-sI-49I" secondAttribute="top" id="RAJ-Zt-qhO"/>
@@ -185,6 +203,7 @@
                     <constraint firstItem="S98-3P-Dd6" firstAttribute="centerY" secondItem="z0a-sI-49I" secondAttribute="centerY" id="jVO-Kj-ZBz"/>
                     <constraint firstAttribute="trailing" secondItem="N3P-eC-yh8" secondAttribute="trailing" constant="19" id="l8K-x7-wjI"/>
                     <constraint firstItem="N3P-eC-yh8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="17" id="mp4-0q-iFv"/>
+                    <constraint firstItem="3Td-rY-PwG" firstAttribute="centerX" secondItem="I4f-fZ-TTv" secondAttribute="centerX" id="nGq-dn-k6t"/>
                     <constraint firstItem="aGM-Lu-yUN" firstAttribute="top" secondItem="N3P-eC-yh8" secondAttribute="bottom" constant="15" id="vDY-ab-okd"/>
                 </constraints>
                 <variation key="default">
@@ -198,7 +217,7 @@
                 <outlet property="authorIdentifierImageView" destination="S98-3P-Dd6" id="1E9-wZ-mxL"/>
                 <outlet property="authorLabel" destination="z0a-sI-49I" id="Hmf-KE-Rne"/>
                 <outlet property="commentCountLabel" destination="AtB-Fj-5ws" id="AFV-V6-i3n"/>
-                <outlet property="headImageView" destination="I4f-fZ-TTv" id="iRu-E9-jjC"/>
+                <outlet property="headImageView" destination="3Td-rY-PwG" id="eMn-Qh-LiJ"/>
                 <outlet property="imageViewHeight" destination="KWM-iU-Y0d" id="CdX-at-ZCR"/>
                 <outlet property="imageViewWidth" destination="WcO-RF-4Kl" id="ohe-iQ-UrJ"/>
                 <outlet property="likeCountLabel" destination="Mgv-S9-cNo" id="fWs-Jc-jZR"/>
@@ -212,7 +231,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="头像-空" width="34" height="34"/>
+        <image name="格斗场专用小头像64-头像外圈" width="32" height="32"/>
         <image name="格斗标签-综合格斗" width="68" height="14"/>
         <image name="空图标小" width="52" height="16"/>
         <image name="视频集锦用-小播放按钮" width="28" height="28"/>

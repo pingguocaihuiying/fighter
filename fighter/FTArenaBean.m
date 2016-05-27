@@ -43,6 +43,9 @@
     self.updateName = dic[@"updateName"];
     self.isDelated = dic[@"isDelated"];
     self.pictureUrlNames = dic[@"pictureUrlNames"];
+    if (self.pictureUrlNames == nil) {
+        self.pictureUrlNames = @"";
+    }
     self.thumbUrl = dic[@"thumbUrl"];
     self.urlPrefix = dic[@"urlPrefix"];
     self.content = dic[@"content"];

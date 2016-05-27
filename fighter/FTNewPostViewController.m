@@ -434,6 +434,22 @@
         [self showHUDWithMessage:@"请先选择一个项目分类" isPop:NO];
         return;
     }
+    
+    //限制标题的长度
+    NSString *titleContent = self.titleTextField.text;
+    titleContent = [titleContent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if (titleContent.length < 6) {
+        [self showHUDWithMessage:@"标题长度不能少于6个字" isPop:NO];
+        return;
+    }
+    
+    //限制内容不能为空
+    NSString *content = self.titleTextField.text;
+    content = [content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if (content.length < 1) {
+        [self showHUDWithMessage:@"帖子内容不能为空" isPop:NO];
+        return;
+    }
     [self hideKeyboard];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
@@ -458,10 +474,13 @@
         NSString *type = dic[@"type"];
         NSLog(@"type : %@", type);
             //视频的key值要加上mp4作为后缀
+
+        NSString *timeString = [self fixStringForDate:[NSDate date]];
         if([type isEqualToString:@"image"]){
-            key = [NSString stringWithFormat:@"%@%@", userId, ts];//key值取userId＋时间戳
+                        key = [NSString stringWithFormat:@"%@_%@",timeString, userId];//key值取userId＋时间戳
         }else if([type isEqualToString:@"video"]){
-            key = [NSString stringWithFormat:@"%@%@mp4", userId, ts];//key值取userId＋时间戳+mp4
+//            key = [NSString stringWithFormat:@"%@%@mp4", userId, ts];//key值取userId＋时间戳+mp4
+            key = [NSString stringWithFormat:@"%@_%@mp4",timeString, userId];//key值取userId＋时间戳+mp4
         }
         if([type isEqualToString:@"image"]){
             [_imageURLArray addObject:key];
@@ -497,6 +516,15 @@
     }];//***获取token block回调结束
     }
     [self uploadPostsToServer];
+}
+
+- (NSString *)fixStringForDate:(NSDate *)date
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:kCFDateFormatterFullStyle];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd_HH:mm:ss"];
+    NSString *fixString = [dateFormatter stringFromDate:date];
+    return fixString;
 }
 
 - (void)uploadPostsToServer{

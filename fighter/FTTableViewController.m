@@ -18,6 +18,7 @@
 #import "FTNewsBean.h"
 #import "FTVideoTableViewCell.h"
 #import "FTArenaTextTableViewCell.h"
+#import "FTArenaImageTableViewCell.h"
 #import "FTArenaBean.h"
 
 @interface FTTableViewController ()<FTTableViewCellClickedDelegate>
@@ -113,16 +114,23 @@
         
         return cell;
     }else if (self.listType == FTCellTypeArena){
+        FTArenaBean *bean = self.sourceArray[indexPath.row];
         
         static NSString *celliderAreraText = @"cellArenaText";
         static NSString *celliderArenaImage = @"cellArenaImage";
+        
+        if ([bean.pictureUrlNames isEqualToString:@""] && [bean.videoUrlNames isEqualToString:@""]) {//文本
+        cell = [tableView dequeueReusableCellWithIdentifier:celliderAreraText];
+        }else{//图片
         cell = [tableView dequeueReusableCellWithIdentifier:celliderArenaImage];
-        if (cell == nil) {
-            NSLog(@"cell is nil");
-            cell = [[[NSBundle mainBundle]loadNibNamed:@"FTArenaTextTableViewCell" owner:self options:nil]firstObject];
-            cell.backgroundColor = [UIColor clearColor];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        
+        if ([bean.pictureUrlNames isEqualToString:@""] && [bean.videoUrlNames isEqualToString:@""]) {
+        cell = [tableView dequeueReusableCellWithIdentifier:celliderAreraText];
+        }else{
+        cell = [tableView dequeueReusableCellWithIdentifier:celliderArenaImage];
+        }
+        
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -130,7 +138,7 @@
         
 //        NSDictionary *dic = self.sourceArray[indexPath.row];
         //改变cell的值
-        FTVideoBean *bean = self.sourceArray[indexPath.row];
+        
         
 //        [bean setValuesWithDic:dic];
         [cell setWithBean:bean];
@@ -262,16 +270,18 @@
         
        FTArenaBean *bean = self.sourceArray[indexPath.row];
         
-        NSString *videoUrl =bean.videoUrlNames;
-        NSString *pictureUrl = bean.pictureUrlNames;
+        NSString *videoUrl = bean.videoUrlNames == nil ? @"" : bean.videoUrlNames;
+        NSString *pictureUrl = bean.pictureUrlNames == nil ? @"" : bean.pictureUrlNames;
         
         if ([videoUrl isEqualToString:@""] && [pictureUrl isEqualToString:@""]) {//如果是文本类型的cell
             height = 185;
+            NSLog(@"cell height : %f", height);
         }else{//如果是带图片的cell
             height = 217;
-            //图片原始高度
-            CGFloat imageHeight = 92;
+            
+            CGFloat imageHeight = 92;//图片原始高度
             height = (height - imageHeight) + imageHeight * SCALE;
+            
         }
 
     }

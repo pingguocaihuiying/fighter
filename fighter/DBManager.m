@@ -446,7 +446,7 @@ static DBManager * _sharedDBManager = nil;
 //    BOOL result = [_dataBase executeUpdate:@"UPDATE news set isReader = ? where newsId = ?" ,isreader, idNum];
     BOOL result = [_dataBase executeUpdate:@"INSERT INTO readCashe (objId,type) VALUES (?,'news')" ,idNum];
     if (result) {
-        NSLog(@"更新数据成功");
+//        NSLog(@"更新数据成功");
     }else {
         NSLog(@"更新数据失败");
     }

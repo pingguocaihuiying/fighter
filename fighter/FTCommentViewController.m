@@ -32,6 +32,8 @@
 //    self.textView.delegate = self;
     [self setLeftAndRightButtons];
     [self setBgOfTextView];
+    //自动弹出键盘
+    [_commentTextView becomeFirstResponder];
 }
 
 - (void)setLeftAndRightButtons{
