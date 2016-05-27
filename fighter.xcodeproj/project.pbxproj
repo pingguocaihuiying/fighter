@@ -198,7 +198,6 @@
 		E61185101CC76B3400F23EC7 /* ios-social-sdk-socialbar.html in Resources */ = {isa = PBXBuildFile; fileRef = E61184F81CC76B3300F23EC7 /* ios-social-sdk-socialbar.html */; };
 		E61185111CC76B3400F23EC7 /* markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = E61184F91CC76B3300F23EC7 /* markdown.css */; };
 		E61185981CC78BF400F23EC7 /* FTUserBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E61185971CC78BF400F23EC7 /* FTUserBean.m */; };
-		E612EFAD1CF4227700883D37 /* FTArenaChooseLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = E612EFAC1CF4227700883D37 /* FTArenaChooseLabelView.m */; };
 		E6133A6C1CED6F8E00F53381 /* FTArenaBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6133A6B1CED6F8E00F53381 /* FTArenaBean.m */; };
 		E616C77C1CF58D03006EFA0B /* libc++abi.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E616C77B1CF58D03006EFA0B /* libc++abi.tbd */; };
 		E61B8A611CBB6C4900AE37F9 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = E61B8A541CBB6C4900AE37F9 /* TAAbstractDotView.m */; };
@@ -685,8 +684,6 @@
 		E61184F91CC76B3300F23EC7 /* markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = markdown.css; sourceTree = "<group>"; };
 		E61185961CC78BF400F23EC7 /* FTUserBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserBean.h; sourceTree = "<group>"; };
 		E61185971CC78BF400F23EC7 /* FTUserBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserBean.m; sourceTree = "<group>"; };
-		E612EFAB1CF4227700883D37 /* FTArenaChooseLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaChooseLabelView.h; sourceTree = "<group>"; };
-		E612EFAC1CF4227700883D37 /* FTArenaChooseLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaChooseLabelView.m; sourceTree = "<group>"; };
 		E6133A6A1CED6F8E00F53381 /* FTArenaBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaBean.h; sourceTree = "<group>"; };
 		E6133A6B1CED6F8E00F53381 /* FTArenaBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaBean.m; sourceTree = "<group>"; };
 		E616C77B1CF58D03006EFA0B /* libc++abi.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++abi.tbd"; path = "usr/lib/libc++abi.tbd"; sourceTree = SDKROOT; };
@@ -2246,8 +2243,6 @@
 		E6C4D7F31CEC68F800D73BFC /* 标签选择 */ = {
 			isa = PBXGroup;
 			children = (
-				E612EFAB1CF4227700883D37 /* FTArenaChooseLabelView.h */,
-				E612EFAC1CF4227700883D37 /* FTArenaChooseLabelView.m */,
 			);
 			name = "标签选择";
 			sourceTree = "<group>";
@@ -3011,7 +3006,6 @@
 				E668BAB71CE0565700071998 /* MJRefreshBackStateFooter.m in Sources */,
 				E668BAB11CE0565700071998 /* MJRefreshHeader.m in Sources */,
 				E6D09E921CEDA10000B7C43E /* FTTools.m in Sources */,
-				E612EFAD1CF4227700883D37 /* FTArenaChooseLabelView.m in Sources */,
 				3DE95BAD1CD8A042005BF85C /* FTRegistViewController.m in Sources */,
 				E6D74A4B1CB7B7EE00854337 /* UUID.m in Sources */,
 				3DC9A4E91CE5CC6C00E16D19 /* FTRankBaseViewController.m in Sources */,
