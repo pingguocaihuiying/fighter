@@ -16,15 +16,16 @@
     NSArray *resultArray = [[NSUserDefaults standardUserDefaults]objectForKey:CATEGORIES];
     if (resultArray == nil) {//如果是第一次安装，先给一个默认的标签显示
         NSMutableArray *tempArray = [[NSMutableArray alloc]initWithArray:@[
-                                                                           @{@"name":@"综合格斗(UFC)", @"nameEn":@"MMA"},
-                                                                           @{@"name":@"拳击", @"nameEn":@"Boxing"},
-                                                                           @{@"name":@"摔跤(WWE)", @"nameEn":@"Wrestling"},
-                                                                           @{@"name":@"女子格斗", @"nameEn":@"FemaleWrestling"},
-                                                                           @{@"name":@"街斗", @"nameEn":@"StreetFight"},
-                                                                           @{@"name":@"泰拳", @"nameEn":@"ThaiBoxing"},
-                                                                           @{@"name":@"跆拳道", @"nameEn":@"Taekwondo"},
-                                                                           @{@"name":@"相扑", @"nameEn":@"Sumo"},
-                                                                           @{@"name":@"柔道", @"nameEn":@"Judo"}
+                                                                           @{@"itemValue":@"综合格斗(UFC)", @"itemValueEn":@"MMA"},
+                                                                           @{@"itemValue":@"拳击", @"itemValueEn":@"Boxing"},
+                                                                           @{@"itemValue":@"摔跤(WWE)", @"itemValueEn":@"Wrestling"},
+                                                                           @{@"itemValue":@"女子格斗", @"itemValueEn":@"FemaleWrestling"},
+                                                                           @{@"itemValue":@"街斗", @"itemValueEn":@"StreetFight"},
+                                                                           @{@"itemValue":@"泰拳", @"itemValueEn":@"ThaiBoxing"},
+                                                                           @{@"itemValue":@"跆拳道", @"itemValueEn":@"Taekwondo"},
+                                                                           @{@"itemValue":@"相扑", @"itemValueEn":@"Sumo"},
+                                                                           @{@"itemValue":@"柔道", @"itemValueEn":@"Judo"},
+                                                                           @{@"itemValue":@"其他", @"itemValueEn":@"Others"},
                                                                            ]];
         resultArray = tempArray;
     }
