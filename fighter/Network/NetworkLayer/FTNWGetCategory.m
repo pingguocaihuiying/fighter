@@ -56,7 +56,7 @@
             for(NSDictionary *dic in responseDic[@"data"]){
                 if ([dic[@"name"] isEqualToString:@"标签"]) {
                     if ([dic[@"itemValue"] isEqualToString:@"其它"] ) {
-                        continue;
+//                        continue;
                     }
                     [resultArray addObject:dic];
                 }

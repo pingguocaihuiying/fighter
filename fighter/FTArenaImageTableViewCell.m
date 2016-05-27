@@ -39,7 +39,14 @@
     self.likeCountLabel.text = [NSString stringWithFormat:@"(%@)", voteCount];
     self.authorLabel.text = bean.nickname;
     self.timeLabel.text = [self getTimeLabelTextTimeStamp:bean.createTimeTamp];
-
+    
+    if (bean.videoUrlNames == nil) {
+        bean.videoUrlNames = @"";
+    }
+    if (bean.pictureUrlNames == nil) {
+        bean.pictureUrlNames = @"";
+    }
+    
     if (bean.videoUrlNames && ![bean.videoUrlNames isEqualToString:@""]) {//如果有视频图片，优先显示视频图片
         NSLog(@"显示视频");
         NSString *firstVideoUrlString = [[bean.videoUrlNames componentsSeparatedByString:@","]firstObject];
