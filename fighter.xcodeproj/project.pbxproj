@@ -122,7 +122,6 @@
 		3D8D73C21CE9DEFE009E2320 /* FTRankTableVIewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D73C01CE9DEFE009E2320 /* FTRankTableVIewCell.m */; };
 		3D8D73C31CE9DEFE009E2320 /* FTRankTableVIewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D8D73C11CE9DEFE009E2320 /* FTRankTableVIewCell.xib */; };
 		3DC31DD01CF859EC001BC364 /* FTArenaChooseLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC31DCF1CF859EC001BC364 /* FTArenaChooseLabelView.m */; };
-		3DC31DD41CF85C76001BC364 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DC31DD31CF85C76001BC364 /* Assets.xcassets */; };
 		3DC411EC1CCF74EC0030C229 /* FTDrawerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC411EA1CCF74EC0030C229 /* FTDrawerTableViewCell.m */; };
 		3DC411ED1CCF74EC0030C229 /* FTDrawerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC411EB1CCF74EC0030C229 /* FTDrawerTableViewCell.xib */; };
 		3DC411F01CCF80DD0030C229 /* FTDrawerTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC411EF1CCF80DD0030C229 /* FTDrawerTableViewHeader.m */; };
@@ -256,6 +255,7 @@
 		E67872741CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E67872721CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib */; };
 		E67872791CEB00980099CEE6 /* FTNewPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E67872771CEB00980099CEE6 /* FTNewPostViewController.m */; };
 		E678727A1CEB00980099CEE6 /* FTNewPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E67872781CEB00980099CEE6 /* FTNewPostViewController.xib */; };
+		E67A923F1CFC1CCB00D4E275 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E67A923E1CFC1CCB00D4E275 /* Assets.xcassets */; };
 		E68050B71CBF919A00678905 /* JHRefreshAmazingAniView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68050A01CBF919A00678905 /* JHRefreshAmazingAniView.m */; };
 		E68050B81CBF919A00678905 /* JHRefreshAniBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68050A21CBF919A00678905 /* JHRefreshAniBaseView.m */; };
 		E68050B91CBF919A00678905 /* JHRefreshCommonAniView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68050A41CBF919A00678905 /* JHRefreshCommonAniView.m */; };
@@ -547,7 +547,6 @@
 		3D8D73C11CE9DEFE009E2320 /* FTRankTableVIewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRankTableVIewCell.xib; sourceTree = "<group>"; };
 		3DC31DCE1CF859EC001BC364 /* FTArenaChooseLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaChooseLabelView.h; sourceTree = "<group>"; };
 		3DC31DCF1CF859EC001BC364 /* FTArenaChooseLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaChooseLabelView.m; sourceTree = "<group>"; };
-		3DC31DD31CF85C76001BC364 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3DC411E91CCF74EC0030C229 /* FTDrawerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerTableViewCell.h; sourceTree = "<group>"; };
 		3DC411EA1CCF74EC0030C229 /* FTDrawerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDrawerTableViewCell.m; sourceTree = "<group>"; };
 		3DC411EB1CCF74EC0030C229 /* FTDrawerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTDrawerTableViewCell.xib; sourceTree = "<group>"; };
@@ -799,6 +798,7 @@
 		E67872761CEB00980099CEE6 /* FTNewPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNewPostViewController.h; sourceTree = "<group>"; };
 		E67872771CEB00980099CEE6 /* FTNewPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNewPostViewController.m; sourceTree = "<group>"; };
 		E67872781CEB00980099CEE6 /* FTNewPostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTNewPostViewController.xib; sourceTree = "<group>"; };
+		E67A923E1CFC1CCB00D4E275 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E680509F1CBF919A00678905 /* JHRefreshAmazingAniView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHRefreshAmazingAniView.h; sourceTree = "<group>"; };
 		E68050A01CBF919A00678905 /* JHRefreshAmazingAniView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHRefreshAmazingAniView.m; sourceTree = "<group>"; };
 		E68050A11CBF919A00678905 /* JHRefreshAniBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHRefreshAniBaseView.h; sourceTree = "<group>"; };
@@ -1739,7 +1739,7 @@
 		E64EF1091CB6614000CAE340 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				3DC31DD31CF85C76001BC364 /* Assets.xcassets */,
+				E67A923E1CFC1CCB00D4E275 /* Assets.xcassets */,
 				3D7B988D1CDD027400B80B8D /* Area.plist */,
 				3D7B988F1CDD1E5900B80B8D /* Area2.plist */,
 				E64EF10A1CB6614000CAE340 /* main.m */,
@@ -2751,7 +2751,7 @@
 				3D4B192D1CD9FD670022DFB0 /* ToolViewInputText@2x.png in Resources */,
 				3D5FB4931CDC311400FC1809 /* FTAssetsViewController.xib in Resources */,
 				3DC411ED1CCF74EC0030C229 /* FTDrawerTableViewCell.xib in Resources */,
-				3DC31DD41CF85C76001BC364 /* Assets.xcassets in Resources */,
+				E67A923F1CFC1CCB00D4E275 /* Assets.xcassets in Resources */,
 				3D7B98C41CE08DEE00B80B8D /* FTNewPasswordVC.xib in Resources */,
 				E6035EBF1CC0C39500B10D36 /* FTCommentViewController.xib in Resources */,
 				E65D08D51CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.xib in Resources */,
