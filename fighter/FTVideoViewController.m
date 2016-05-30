@@ -52,7 +52,6 @@
     self.videosTag = @"1";
     [self initTypeArray];
     [self initSubViews];
-//    [self getCycleData];//第一次加载轮播图数据
     [self getDataWithGetType:@"new" andCurrId:@"-1"];//第一次加载数据
 }
 
@@ -148,39 +147,6 @@
 }
 
 
-- (void)getCycleData{
-    NSString *urlString = [FTNetConfig host:Domain path:GetVideoURL];
-    NSString *videoType = @"Hot";
-    NSString *videoCurrId = @"-1";
-    NSString *getType = @"new";
-    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@",videoType, videoCurrId, self.videosTag, getType, ts, @"quanjijia222222"]];
-    
-    urlString = [NSString stringWithFormat:@"%@?videosType=%@&videosCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&videosTag=%@", urlString, videoType, videoCurrId, getType, ts, checkSign, [FTNetConfig showType], self.videosTag];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    NSLog(@"轮播图url : %@", urlString);
-    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        
-        NSString *status = responseDic[@"status"];
-        if ([status isEqualToString:@"success"]) {
-            self.cycleDataSourceArray = responseDic[@"data"];
-            
-//            [self setCycleScrollView];
-            [self initPageController];
-            
-            //隐藏infoLabel
-            if (self.infoLabel.isHidden == NO) {
-                self.infoLabel.hidden = YES;
-            }
-        }
-        
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-    }];
-}
 
 - (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)videoCurrId{
     //判断是否时当前标签刷新，如果不是，则清空数据源，刷新列表，如果时当前列表，则暂不清空数据和刷新列表
@@ -225,7 +191,6 @@
             }else if([getType isEqualToString:@"old"]){
                 [self.tableViewDataSourceArray addObjectsFromArray:mutableArray];
             }
-            //            [self initPageController];
             
             self.tableViewController.sourceArray = self.tableViewDataSourceArray;
             if ([videoType isEqualToString:@"All"]) {
