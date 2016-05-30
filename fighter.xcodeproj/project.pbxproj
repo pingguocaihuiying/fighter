@@ -2034,6 +2034,13 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
+		E6735AD11CFC408F0068782C /* 个人主页 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "个人主页";
+			sourceTree = "<group>";
+		};
 		E678726E1CEACEBA0099CEE6 /* 文本 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2196,6 +2203,7 @@
 		E6B458921CB7554F00FB4261 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E6735AD11CFC408F0068782C /* 个人主页 */,
 				3D69470A1CE305EB00989440 /* 排行榜 */,
 				3D6947091CE305CD00989440 /* 用户中心 */,
 				E6B4589B1CB7569E00FB4261 /* 拳迅 */,
