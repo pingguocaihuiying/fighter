@@ -700,7 +700,6 @@ static DBManager * _sharedDBManager = nil;
     }else {
         NSLog(@"更新数据失败");
     }
-    
 }
 
 
@@ -713,6 +712,182 @@ static DBManager * _sharedDBManager = nil;
     [self createTable:@"readCashe" sql:sql];
 }
 
+#pragma mark - videos table
 
+/**
+ * @brief 创建videos表
+ */
+- (void) createVideosTable {
+    
+    NSString * sql = @"CREATE TABLE 'videos' ('videosId' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, 'videoType' TEXT, 'videoTime' TEXT, 'title' TEXT, 'summary' TEXT, 'img' TEXT, 'url' TEXT, 'author' TEXT, 'commentCount' INTEGER DEFAULT 0, 'voteCount' INTEGER DEFAULT 0, 'videoLength' INTEGER DEFAULT 0, 'coachid' INTEGER DEFAULT 0, 'boxerid' INTEGER DEFAULT 0, 'isTeach' BOOLEAN DEFAULT 0, 'boxinghallid' INTEGER DEFAULT 0);";
+    
+    [self createTable:@"videos" sql:sql];
+}
+
+/**
+ * @brief 清除videos表数据
+ */
+- (void) cleanVideosTable {
+    
+    FMResultSet * set = [_dataBase executeQuery:@"delete from videos where 1=1"];
+    [set next];
+    NSInteger count = [set intForColumnIndex:0];
+    
+    if (!!count) {
+        NSLog(@"videos表清除失败");
+    } else {
+        NSLog(@"videos表清除成功");
+    }
+}
+
+/**
+ * @brief 插入videos表数据
+ */
+- (void) insertDataIntoVideos:(NSDictionary *)dic {
+    
+    
+    NSNumber *idNum = [NSNumber numberWithInteger:[dic[@"id"] integerValue]];
+    NSNumber *createTimeTamp = [NSNumber numberWithInteger:[dic[@"createTimeTamp"] integerValue]];
+    NSNumber *updateTimeTamp = [NSNumber numberWithInteger:[dic[@"updateTimeTamp"] integerValue]];
+    NSNumber *isDelated = [NSNumber numberWithBool:[dic[@"isDelated"] boolValue]];
+    
+    NSNumber *commentCount = [NSNumber numberWithInteger:[dic[@"commentCount"] integerValue]];
+    NSNumber *voteCount = [NSNumber numberWithInteger:[dic[@"voteCount"] integerValue]];
+    NSNumber *viewCount = [NSNumber numberWithInteger:[dic[@"viewCount"] integerValue]];
+    
+    NSString *content = dic[@"content"];
+    NSString *createName = dic[@"createName"];
+    NSString *createTime = dic[@"createTime"];
+    NSString *headUrl = dic[@"headUrl"];
+    NSString *labels = dic[@"labels"];
+    NSString *nickname = dic[@"nickname"];
+    NSString *thumbUrl = dic[@"thumbUrl"];
+    NSString *title = dic[@"title"];
+    NSString *updateName = dic[@"updateName"];
+    NSString *updateTime = dic[@"updateTime"];
+    NSString *urlPrefix = dic[@"urlPrefix"];
+    NSString *userId = dic[@"userId"];
+    NSString *pictureUrlNames = dic[@"pictureUrlNames"];
+    NSString *videoUrlNames = dic[@"videoUrlNames"];
+    
+    
+    //1.判断数据是否已读
+    FMResultSet * set = [_dataBase executeQuery:@"select objId from readCashe where objId = ?  and type = 'arena' ",idNum];
+    [set next];
+    
+    BOOL exist = [set intForColumnIndex:0] >0 ?YES:NO;
+    NSNumber *isReader = [NSNumber numberWithBool:exist];
+    
+    BOOL result = [_dataBase executeUpdate:@"INSERT INTO videos (id,content,createName,createTime,createTimeTamp,headUrl,isDelated,labels,nickname,thumbUrl,title,updateName,updateTime,updateTimeTamp,urlPrefix,userId,pictureUrlNames,videoUrlNames,commentCount,voteCount,viewCount,isReader) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                   idNum,
+                   content,
+                   createName,
+                   createTime,
+                   createTimeTamp,
+                   headUrl,
+                   isDelated,
+                   labels,
+                   nickname,
+                   thumbUrl,
+                   title,
+                   updateName,
+                   updateTime,
+                   updateTimeTamp,
+                   urlPrefix,
+                   userId,
+                   pictureUrlNames,
+                   videoUrlNames,
+                   commentCount,
+                   voteCount,
+                   viewCount,
+                   isReader
+                   ];
+    
+    if (result) {
+        NSLog(@"更新数据成功");
+    }else {
+        NSLog(@"更新数据失败");
+    }
+    
+    
+}
+
+/**
+ * @brief 查询videos表所有字段
+ * @param 分页查询页数，因为服务器端第一页从1开始，所以在sql中先减去1
+ *
+ */
+-(NSMutableArray *) searchVideosWithPage:(NSInteger )currentPage  label:(NSString *) label{
+    NSLog(@"currentPage:%ld",(long)currentPage);
+    if (currentPage <=1) {
+        currentPage = 0;
+    }else {
+        currentPage --;
+    }
+    NSNumber *pageNum = [NSNumber numberWithInteger:currentPage*20];
+    FMResultSet * rs;
+    
+    if (label == nil || [label isEqualToString:@"全部视频"] || label.length == 0) {
+        rs = [_dataBase executeQuery:@" SELECT *  FROM videos  ORDER BY id DESC limit ?,10",pageNum];
+    }else {
+        rs = [_dataBase executeQuery:@" SELECT *  FROM videos where labels = ?  ORDER BY id DESC limit ?,10",label ,pageNum];
+    }
+    
+    
+    NSMutableArray *array = [[NSMutableArray alloc]init];
+    
+    while ([rs next]) {
+        FTArenaBean *bean = [[FTArenaBean alloc]init];
+        bean.postsId = [rs stringForColumn:@"id"];
+        bean.content = [rs stringForColumn:@"content"];
+        bean.createName = [rs stringForColumn:@"createName"];
+        bean.createTime = [rs stringForColumn:@"createTime"];
+        bean.createTimeTamp = [rs stringForColumn:@"createTimeTamp"];
+        bean.headUrl = [rs stringForColumn:@"headUrl"];
+        bean.isDelated = [rs boolForColumn:@"isDelated"]==1?@"YES":@"NO";
+        bean.labels = [rs stringForColumn:@"labels"];
+        bean.nickname = [rs stringForColumn:@"nickname"];
+        bean.thumbUrl = [rs stringForColumn:@"thumbUrl"];
+        bean.title = [rs stringForColumn:@"title"];
+        
+        bean.updateName = [rs stringForColumn:@"updateName"];
+        bean.updateTime = [rs stringForColumn:@"updateTime"];
+        bean.updateTimeTamp = [rs stringForColumn:@"updateTimeTamp"];
+        
+        bean.urlPrefix = [rs stringForColumn:@"urlPrefix"];
+        bean.userId = [rs stringForColumn:@"userId"];
+        bean.videoUrlNames = [rs stringForColumn:@"videoUrlNames"];
+        
+        bean.pictureUrlNames = [rs stringForColumn:@"pictureUrlNames"];
+        bean.commentCount = [rs stringForColumn:@"commentCount"];
+        bean.voteCount = [rs stringForColumn:@"voteCount"];
+        bean.viewCount = [rs stringForColumn:@"viewCount"];
+        bean.isReader = [rs boolForColumn:@"isReader"]==1?@"YES":@"NO";
+        [array addObject:bean];
+    }
+    return array;
+}
+
+
+/**
+ * @brief 更新videos表所有字段
+ * @param videos表主键
+ * @param 是否已读字段
+ *
+ */
+- (void) updateVideosById:(NSString *)Id isReader:(BOOL)isReader {
+    
+    NSNumber * idNum = [NSNumber numberWithLong:[Id integerValue]];
+    
+    //    BOOL result = [_dataBase executeUpdate:@"UPDATE videos set isReader = ? where id = ?" ,isreader, idNum];
+    
+    BOOL result = [_dataBase executeUpdate:@"INSERT INTO readCashe (objId,type) VALUES (?,'video')" ,idNum];
+    
+    if (result) {
+        //        NSLog(@"更新数据成功");
+    }else {
+        NSLog(@"更新数据失败");
+    }
+}
 
 @end
