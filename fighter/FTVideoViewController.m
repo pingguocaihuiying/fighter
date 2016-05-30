@@ -149,10 +149,10 @@
 
 
 - (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)videoCurrId{
-    //判断是否时当前标签刷新，如果不是，则清空数据源，刷新列表，如果时当前列表，则暂不清空数据和刷新列表
+    //判断是否时当前标签刷新，如果不是，则清空数据源，刷新列表，如果是当前列表，则暂不清空数据和刷新列表
             //现在没有判断，直接先清空，再显示，因为有缓存的存在，所以不会耗费过多的内存
-        [self.tableViewDataSourceArray removeAllObjects];
-        [self.collectionView reloadData];
+//        [self.tableViewDataSourceArray removeAllObjects];
+//        [self.collectionView reloadData];
     
     
     NSString *urlString = [FTNetConfig host:Domain path:GetVideoURL];
@@ -252,29 +252,6 @@
     
 }
 
-//- (void)setCycleScrollView{
-//    NSMutableArray *imagesURLStrings = [NSMutableArray new];
-//    NSMutableArray *titlesArray = [NSMutableArray new];
-//    if (self.cycleDataSourceArray) {
-//        for(NSDictionary *dic in self.cycleDataSourceArray){
-//            [imagesURLStrings addObject:dic[@"img_big"]];
-//            [titlesArray addObject:dic[@"title"]];
-//            
-//        }
-//    }
-//    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180 * SCREEN_WIDTH / 375) delegate:self placeholderImage:[UIImage imageNamed:@"空图标大"]];
-//    _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
-//    
-//#pragma -mark -暂时隐藏轮播图的标题（没有给轮播图传title的值）
-//    _cycleScrollView.titlesGroup = titlesArray;
-//    
-//    _cycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
-//    _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点pre"];
-//    _cycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播点"];
-//    _cycleScrollView.imageURLStringsGroup = imagesURLStrings;
-//    //    [_cycleScrollView.mainView reloadData];
-//}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -341,15 +318,6 @@
 
 - (void)initPageController
 {
-//    if(!self.tableViewController){
-//        self.tableViewController = [[FTTableViewController alloc]initWithStyle:UITableViewStylePlain];
-//        
-//        self.tableViewController.newsOrVideo = @"video";
-//        self.tableViewController.FTdelegate = self;
-//        self.tableViewController.order = 0;
-//        //设置上拉、下拉刷新
-//        [self setJHRefresh];
-//    }
     if (self.collectionView == nil) {
         [self initCollectionView];
     }
@@ -360,20 +328,9 @@
         [self.collectionView footerEndRefreshing];
         self.tableViewController.sourceArray = self.tableViewDataSourceArray;
     }else{
-        //    self.tableViewController.sourceArray = _sourceArry[0];
-//        NSLog(@"没有数据源。");
+
     }
-    
-    //    UIPageViewController *pageVC = [[UIPageViewController alloc]initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:@{UIPageViewControllerOptionInterPageSpacingKey:@0}];
-    //    self.pageViewController = pageVC;
-    //    [pageVC.view setFrame:_currentView.bounds];
-    //    pageVC.delegate = self;
-    //    pageVC.dataSource = self;
-    //    [pageVC setViewControllers:@[self.tableViewController] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:^(BOOL finished) {
-    //        NSLog(@" 设置完成 ");
-    //    }];
-    //    [self addChildViewController:pageVC];
-    //    [_currentView addSubview:[pageVC view]];
+
 }
 
 #pragma -mark -初始化collectionView
