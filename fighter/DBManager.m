@@ -119,6 +119,8 @@ static DBManager * _sharedDBManager = nil;
     [self createNewsTable];
     [self createArenasTable];
     
+    [self createReaderCacheTable];
+    
 }
 
 
@@ -274,6 +276,23 @@ static DBManager * _sharedDBManager = nil;
 
 
 /**
+ * @brief 清除news表数据
+ */
+- (void) cleanNewsTable {
+    
+    FMResultSet * set = [_dataBase executeQuery:@"delete from news where 1=1"];
+    [set next];
+    NSInteger count = [set intForColumnIndex:0];
+    
+    if (!!count) {
+        NSLog(@"news表清除失败");
+    } else {
+        NSLog(@"news表清除成功");
+    }
+}
+
+
+/**
  * @brief 插入news表数据
  */
 - (void) insertDataIntoNews:(NSDictionary *)dic {
@@ -294,64 +313,82 @@ static DBManager * _sharedDBManager = nil;
     NSNumber *voteCount = [NSNumber numberWithInteger:[dic[@"voteCount"] integerValue]];
     NSNumber *layout = [NSNumber numberWithInteger:[dic[@"layout"] integerValue]];
     NSNumber *newsTime = [NSNumber numberWithInteger:[dic[@"newsTime"] integerValue]];
-    NSNumber *isReader = [NSNumber numberWithBool:NO];
+
     
-    //1.判断数据是否已经存在
-    FMResultSet * set = [_dataBase executeQuery:@"select newsId from news where newsId = ?",idNum];
+    //1.判断数据是否已读
+    FMResultSet * set = [_dataBase executeQuery:@"select objId from readCashe where objId = ?  and type = 'news' ",idNum];
     [set next];
-    NSInteger count = [set intForColumnIndex:0];
-    BOOL exist = !!count;
+   
+    BOOL exist = [set intForColumnIndex:0] >0 ?YES:NO;;
+    NSNumber *isReader = [NSNumber numberWithBool:exist];
     
-    //2.如果已经存在则更新数据
-    if(exist) {
-        
-        BOOL result = [_dataBase executeUpdate:@"UPDATE news set author = ?,img_big= ?,img_small_one = ?, img_small_three= ?, img_small_two= ?, newsType= ?, summary= ? ,url= ? ,title= ? ,commentCount= ? ,voteCount= ? ,layout= ? ,newsTime= ? where newsId = ?",
-                       author,
-                       img_big,
-                       img_small_one ,
-                       img_small_three,
-                       img_small_two,
-                       newsType,
-                       summary,
-                       url ,
-                       title ,
-                       commentCount ,
-                       voteCount ,
-                       layout ,
-                       newsTime,
-                       idNum];
-        
-        if (result) {
-//            NSLog(@"更新数据成功");
-        }else {
-            NSLog(@"更新数据失败");
-        }
-        
-    }else {//3.如果数据不存在则插入数据
-        BOOL result = [_dataBase executeUpdate:@"INSERT INTO news (newsId, author,img_big, img_small_one ,img_small_three,img_small_two, newsType,summary,url ,title ,commentCount , voteCount ,layout ,newsTime,isReader) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-                       idNum,
-                       author,
-                       img_big,
-                       img_small_one ,
-                       img_small_three,
-                       img_small_two,
-                       newsType,
-                       summary,
-                       url ,
-                       title ,
-                       commentCount ,
-                       voteCount ,
-                       layout ,
-                       newsTime,
-                       isReader
-                       ];
-        
-        if (result) {
-//            NSLog(@"插入数据成功");
-        }else {
-            NSLog(@"插入数据失败");
-        }
-    }
+    [_dataBase executeUpdate:@"INSERT INTO news (newsId, author,img_big, img_small_one ,img_small_three,img_small_two, newsType,summary,url ,title ,commentCount , voteCount ,layout ,newsTime,isReader) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+     idNum,
+     author,
+     img_big,
+     img_small_one ,
+     img_small_three,
+     img_small_two,
+     newsType,
+     summary,
+     url,
+     title,
+     commentCount ,
+     voteCount ,
+     layout ,
+     newsTime,
+     isReader
+     ];
+    
+    //插如数据
+//    if(exist) {
+//
+//        BOOL result = [_dataBase executeUpdate:@"UPDATE news set author = ?,img_big= ?,img_small_one = ?, img_small_three= ?, img_small_two= ?, newsType= ?, summary= ? ,url= ? ,title= ? ,commentCount= ? ,voteCount= ? ,layout= ? ,newsTime= ? where newsId = ?",
+//                       author,
+//                       img_big,
+//                       img_small_one ,
+//                       img_small_three,
+//                       img_small_two,
+//                       newsType,
+//                       summary,
+//                       url,
+//                       title,
+//                       commentCount ,
+//                       voteCount ,
+//                       layout ,
+//                       newsTime,
+//                       idNum];
+//        
+//        if (result) {
+////            NSLog(@"更新数据成功");
+//        }else {
+//            NSLog(@"更新数据失败");
+//        }
+//        
+//    }else {//3.如果数据不存在则插入数据
+//        BOOL result = [_dataBase executeUpdate:@"INSERT INTO news (newsId, author,img_big, img_small_one ,img_small_three,img_small_two, newsType,summary,url ,title ,commentCount , voteCount ,layout ,newsTime) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+//                       idNum,
+//                       author,
+//                       img_big,
+//                       img_small_one ,
+//                       img_small_three,
+//                       img_small_two,
+//                       newsType,
+//                       summary,
+//                       url ,
+//                       title ,
+//                       commentCount ,
+//                       voteCount ,
+//                       layout ,
+//                       newsTime
+//                       ];
+//        
+//        if (result) {
+////            NSLog(@"插入数据成功");
+//        }else {
+//            NSLog(@"插入数据失败");
+//        }
+//    }
 }
 
 /**
@@ -405,9 +442,9 @@ static DBManager * _sharedDBManager = nil;
 - (void) updateNewsById:(NSString *)Id isReader:(BOOL)isReader {
     
     NSNumber * idNum = [NSNumber numberWithLong:[Id integerValue]];
-    NSNumber * isreader = [NSNumber numberWithBool:isReader];
-    BOOL result = [_dataBase executeUpdate:@"UPDATE news set isReader = ? where newsId = ?" ,isreader, idNum];
-    
+    NSLog(@"isReader:%d",isReader);
+//    BOOL result = [_dataBase executeUpdate:@"UPDATE news set isReader = ? where newsId = ?" ,isreader, idNum];
+    BOOL result = [_dataBase executeUpdate:@"INSERT INTO readCashe (objId,type) VALUES (?,'news')" ,idNum];
     if (result) {
 //        NSLog(@"更新数据成功");
     }else {
@@ -430,6 +467,21 @@ static DBManager * _sharedDBManager = nil;
     [self createTable:@"arenas" sql:sql];
 }
 
+/**
+ * @brief 清除arenas表数据
+ */
+- (void) cleanArenasTable {
+   
+    FMResultSet * set = [_dataBase executeQuery:@"delete from arenas where 1=1"];
+    [set next];
+    NSInteger count = [set intForColumnIndex:0];
+    
+    if (!!count) {
+        NSLog(@"arenas表清除失败");
+    } else {
+        NSLog(@"arenas表清除成功");
+    }
+}
 
 /**
  * @brief 插入arenas表数据
@@ -441,7 +493,6 @@ static DBManager * _sharedDBManager = nil;
     NSNumber *createTimeTamp = [NSNumber numberWithInteger:[dic[@"createTimeTamp"] integerValue]];
     NSNumber *updateTimeTamp = [NSNumber numberWithInteger:[dic[@"updateTimeTamp"] integerValue]];
     NSNumber *isDelated = [NSNumber numberWithBool:[dic[@"isDelated"] boolValue]];
-    NSNumber *isReader = [NSNumber numberWithBool:NO];
     
     NSNumber *commentCount = [NSNumber numberWithInteger:[dic[@"commentCount"] integerValue]];
     NSNumber *voteCount = [NSNumber numberWithInteger:[dic[@"voteCount"] integerValue]];
@@ -463,19 +514,16 @@ static DBManager * _sharedDBManager = nil;
     NSString *videoUrlNames = dic[@"videoUrlNames"];
     
     
-    
-    
-
-    //1.判断数据是否已经存在
-    FMResultSet * set = [_dataBase executeQuery:@"select id from arenas where id = ?",idNum];
+    //1.判断数据是否已读
+    FMResultSet * set = [_dataBase executeQuery:@"select objId from readCashe where objId = ?  and type = 'arena' ",idNum];
     [set next];
-    NSInteger count = [set intForColumnIndex:0];
-    BOOL exist = !!count;
     
-    //2.如果已经存在则更新数据
-    if(exist) {
-        
-        BOOL result = [_dataBase executeUpdate:@"UPDATE arenas set content = ?,createName= ?,createTime= ?,createTimeTamp = ?,headUrl = ?,isDelated = ?,labels = ?,nickname = ?,thumbUrl = ?,title = ?,updateName = ?,updateTime = ?,updateTimeTamp = ?,urlPrefix = ?,userId = ?,pictureUrlNames =?,videoUrlNames = ?,commentCount = ?,voteCount = ?,viewCount = ?,isReader = ? where id = ?"  , content,
+    BOOL exist = [set intForColumnIndex:0] >0 ?YES:NO;
+    NSNumber *isReader = [NSNumber numberWithBool:exist];
+    
+   BOOL result = [_dataBase executeUpdate:@"INSERT INTO arenas (id,content,createName,createTime,createTimeTamp,headUrl,isDelated,labels,nickname,thumbUrl,title,updateName,updateTime,updateTimeTamp,urlPrefix,userId,pictureUrlNames,videoUrlNames,commentCount,voteCount,viewCount,isReader) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                   idNum,
+                   content,
                    createName,
                    createTime,
                    createTimeTamp,
@@ -495,47 +543,85 @@ static DBManager * _sharedDBManager = nil;
                    commentCount,
                    voteCount,
                    viewCount,
-                   isReader,
-                   idNum];
-        
-        if (result) {
-//            NSLog(@"更新数据成功");
-        }else {
-            NSLog(@"更新数据失败");
-        }
-        
-    }else {//3.如果数据不存在则插入数据
-        BOOL result = [_dataBase executeUpdate:@"INSERT INTO arenas (id,content,createName,createTime,createTimeTamp,headUrl,isDelated,labels,nickname,thumbUrl,title,updateName,updateTime,updateTimeTamp,urlPrefix,userId,pictureUrlNames,videoUrlNames,commentCount,voteCount,viewCount,isReader) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-                       idNum,
-                       content,
-                       createName,
-                       createTime,
-                       createTimeTamp,
-                       headUrl,
-                       isDelated,
-                       labels,
-                       nickname,
-                       thumbUrl,
-                       title,
-                       updateName,
-                       updateTime,
-                       updateTimeTamp,
-                       urlPrefix,
-                       userId,
-                       pictureUrlNames,
-                       videoUrlNames,
-                       commentCount,
-                       voteCount,
-                       viewCount,
-                       isReader
-                       ];
-        
-        if (result) {
-            //            NSLog(@"插入数据成功");
-        }else {
-            NSLog(@"插入数据失败");
-        }
+                   isReader
+                   ];
+
+    if (result) {
+        NSLog(@"更新数据成功");
+    }else {
+        NSLog(@"更新数据失败");
     }
+
+//    //1.判断数据是否已经存在
+//    FMResultSet * set = [_dataBase executeQuery:@"select id from arenas where id = ?",idNum];
+//    [set next];
+//    NSInteger count = [set intForColumnIndex:0];
+//    BOOL exist = !!count;
+//    
+//    //2.如果已经存在则更新数据
+//    if(exist) {
+//        
+//        BOOL result = [_dataBase executeUpdate:@"UPDATE arenas set content = ?,createName= ?,createTime= ?,createTimeTamp = ?,headUrl = ?,isDelated = ?,labels = ?,nickname = ?,thumbUrl = ?,title = ?,updateName = ?,updateTime = ?,updateTimeTamp = ?,urlPrefix = ?,userId = ?,pictureUrlNames =?,videoUrlNames = ?,commentCount = ?,voteCount = ?,viewCount = ?,isReader = ? where id = ?"  , content,
+//                   createName,
+//                   createTime,
+//                   createTimeTamp,
+//                   headUrl,
+//                   isDelated,
+//                   labels,
+//                   nickname,
+//                   thumbUrl,
+//                   title,
+//                   updateName,
+//                   updateTime,
+//                   updateTimeTamp,
+//                   urlPrefix,
+//                   userId,
+//                   pictureUrlNames,
+//                   videoUrlNames,
+//                   commentCount,
+//                   voteCount,
+//                   viewCount,
+//                   isReader,
+//                   idNum];
+//        
+//        if (result) {
+//            NSLog(@"更新数据成功");
+//        }else {
+//            NSLog(@"更新数据失败");
+//        }
+//
+//    }else {//3.如果数据不存在则插入数据
+//        BOOL result = [_dataBase executeUpdate:@"INSERT INTO arenas (id,content,createName,createTime,createTimeTamp,headUrl,isDelated,labels,nickname,thumbUrl,title,updateName,updateTime,updateTimeTamp,urlPrefix,userId,pictureUrlNames,videoUrlNames,commentCount,voteCount,viewCount,isReader) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+//                       idNum,
+//                       content,
+//                       createName,
+//                       createTime,
+//                       createTimeTamp,
+//                       headUrl,
+//                       isDelated,
+//                       labels,
+//                       nickname,
+//                       thumbUrl,
+//                       title,
+//                       updateName,
+//                       updateTime,
+//                       updateTimeTamp,
+//                       urlPrefix,
+//                       userId,
+//                       pictureUrlNames,
+//                       videoUrlNames,
+//                       commentCount,
+//                       voteCount,
+//                       viewCount,
+//                       isReader
+//                       ];
+//
+//        if (result) {
+//            //            NSLog(@"插入数据成功");
+//        }else {
+//            NSLog(@"插入数据失败");
+//        }
+//    }
 }
 
 /**
@@ -604,8 +690,10 @@ static DBManager * _sharedDBManager = nil;
 - (void) updateArenasById:(NSString *)Id isReader:(BOOL)isReader {
     
     NSNumber * idNum = [NSNumber numberWithLong:[Id integerValue]];
-    NSNumber * isreader = [NSNumber numberWithBool:isReader];
-    BOOL result = [_dataBase executeUpdate:@"UPDATE arenas set isReader = ? where id = ?" ,isreader, idNum];
+    
+//    BOOL result = [_dataBase executeUpdate:@"UPDATE arenas set isReader = ? where id = ?" ,isreader, idNum];
+    
+     BOOL result = [_dataBase executeUpdate:@"INSERT INTO readCashe (objId,type) VALUES (?,'arena')" ,idNum];
     
     if (result) {
 //        NSLog(@"更新数据成功");
@@ -614,6 +702,17 @@ static DBManager * _sharedDBManager = nil;
     }
     
 }
+
+
+#pragma mark - readeCashe table
+
+- (void) createReaderCacheTable {
+
+    NSString * sql = @"CREATE TABLE 'readCashe' ('cashId' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE DEFAULT 1, 'objId' INTEGER, 'type' TEXT, 'isReader' BOOLEAN DEFAULT 1)";
+    
+    [self createTable:@"readCashe" sql:sql];
+}
+
 
 
 @end

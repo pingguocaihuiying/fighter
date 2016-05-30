@@ -28,7 +28,7 @@ FTDrawerViewController *drawerVC;
     [self setDrawerViewController:drawerVC forDirection:FTDynamicsDrawerDirectionLeft];
     [drawerVC setHomeViewController];
     
-//    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [drawerVC setNoti];
 }
 
 

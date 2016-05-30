@@ -163,7 +163,6 @@
         self.tableViewController.tableView.tableHeaderView = nil;
     }
     
-    
     [self.tableViewController.tableView reloadData];
     
     //隐藏infoLabel
@@ -192,12 +191,23 @@
             NSString *status = responseDic[@"status"];
             if ([status isEqualToString:@"success"]) {
                 NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
-                DBManager *dbManager = [DBManager shareDBManager];
-                [dbManager connect];
                 
-               for (NSDictionary *dic in mutableArray)  {
-                     [dbManager insertDataIntoNews:dic];
+               
+                //缓存数据到DB
+                if (mutableArray.count > 0) {
+                    DBManager *dbManager = [DBManager shareDBManager];
+                    [dbManager connect];
+                    [dbManager cleanNewsTable];
+                    
+                    for (NSDictionary *dic in mutableArray)  {
+                        [dbManager insertDataIntoNews:dic];
+                    }
                 }
+                
+               
+                
+                //缓存数据
+                [self saveCache];
                 
                 [self getDataFromDBWithType:getType currentPage:self.currentPage];
                 
@@ -433,8 +443,6 @@
 
 - (IBAction)leftButtonItemClick:(id)sender {
     
-    
-    
     NSLog(@"information left click did");
     if ([self.drawerDelegate respondsToSelector:@selector(leftButtonClicked:)]) {
         
@@ -599,9 +607,8 @@
             //从数据库取数据
             DBManager *dbManager = [DBManager shareDBManager];
             [dbManager connect];
-            [dbManager updateNewsById:bean.Id isReader:YES];
+            [dbManager updateNewsById:bean.newsId isReader:YES];
             [dbManager close];
-
         }
         
         newsDetailVC.newsBean = bean;
