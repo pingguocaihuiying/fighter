@@ -11,6 +11,7 @@
 #import "FTNewsBean.h"
 #import "FTArenaBean.h"
 #import "FTVideoBean.h"
+#import "FTDynamicsDrawerViewController.h"
 
 #define DefaultDBName @"fighter.db"
 static DBManager * _sharedDBManager = nil;
@@ -118,7 +119,7 @@ static DBManager * _sharedDBManager = nil;
     [self createLabelsTable];
     [self createNewsTable];
     [self createArenasTable];
-    
+    [self createVideosTable];
     [self createReaderCacheTable];
     
 }
@@ -714,8 +715,10 @@ static DBManager * _sharedDBManager = nil;
 
 #pragma mark - videos table
 
+
+
 /**
- * @brief 创建videos表
+ *  创建videos表
  */
 - (void) createVideosTable {
     
@@ -725,7 +728,7 @@ static DBManager * _sharedDBManager = nil;
 }
 
 /**
- * @brief 清除videos表数据
+ *  清除videos表数据
  */
 - (void) cleanVideosTable {
     
@@ -740,8 +743,12 @@ static DBManager * _sharedDBManager = nil;
     }
 }
 
+
+
 /**
- * @brief 插入videos表数据
+ *  插入videos表数据
+ *
+ *  @param dic videoBean的字典对象
  */
 - (void) insertDataIntoVideos:(NSDictionary *)dic {
     
@@ -812,10 +819,15 @@ static DBManager * _sharedDBManager = nil;
     
 }
 
+
+
 /**
- * @brief 查询videos表所有字段
- * @param 分页查询页数，因为服务器端第一页从1开始，所以在sql中先减去1
+ *  查询videos表所有字段
  *
+ *  @param currentPage 分页查询页数,因为服务器端第一页从1开始，所以在sql中先减去1
+ *  @param label       项目标签
+ *
+ *  @return 返回结果值
  */
 -(NSMutableArray *) searchVideosWithPage:(NSInteger )currentPage  label:(NSString *) label{
     NSLog(@"currentPage:%ld",(long)currentPage);
@@ -869,18 +881,14 @@ static DBManager * _sharedDBManager = nil;
 }
 
 
-/**
- * @brief 更新videos表所有字段
- * @param videos表主键
- * @param 是否已读字段
- *
- */
-- (void) test
-{
 
-//    UIImage *imag = [UIImage image];
-    NSLog(@"nihaoadnaskdnaskdnaknk");
-}
+
+/**
+ *  更新videos表所有字段
+ *
+ *  @param Id       videos表主键
+ *  @param isReader 是否已读字段
+ */
 - (void) updateVideosById:(NSString *)Id isReader:(BOOL)isReader {
     
     NSNumber * idNum = [NSNumber numberWithLong:[Id integerValue]];

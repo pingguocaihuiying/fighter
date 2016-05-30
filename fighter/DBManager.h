@@ -126,4 +126,15 @@
  */
 - (void) updateArenasById:(NSString *)Id isReader:(BOOL)isReader;
 
+
+#pragma mark - videos table 
+
+- (void) cleanVideosTable;
+
+- (void) insertDataIntoVideos:(NSDictionary *)dic;
+
+-(NSMutableArray *) searchVideosWithPage:(NSInteger )currentPage  label:(NSString *) label;
+
+- (void) updateVideosById:(NSString *)Id isReader:(BOOL)isReader;
+
 @end
