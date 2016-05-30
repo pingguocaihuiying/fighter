@@ -670,10 +670,10 @@
     }
     
     
-    //跳转拳手个人中心页面
-    
-    FTBoxerCenter *boxerVC = [[FTBoxerCenter alloc]init];
-    [self.navigationController pushViewController:boxerVC animated:YES];
+//    //跳转拳手个人中心页面
+//    
+//    FTBoxerCenter *boxerVC = [[FTBoxerCenter alloc]init];
+//    [self.navigationController pushViewController:boxerVC animated:YES];
     
 }
 

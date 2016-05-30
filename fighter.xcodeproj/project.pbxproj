@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2EB9B28B8C5A080A21781FFA /* Pods_fighter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E48274DE7B43596DF74BCD1 /* Pods_fighter.framework */; };
 		3D322AC91CEB171200039E2C /* FTRankHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D322AC71CEB171200039E2C /* FTRankHeaderCell.m */; };
 		3D322ACA1CEB171200039E2C /* FTRankHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D322AC81CEB171200039E2C /* FTRankHeaderCell.xib */; };
 		3D4782551CF537A6003A64C9 /* libIXPushSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4782541CF537A6003A64C9 /* libIXPushSdk.a */; };
@@ -120,6 +121,8 @@
 		3D8D73BE1CE97404009E2320 /* FTTableViewCell6.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D8D73BC1CE97404009E2320 /* FTTableViewCell6.xib */; };
 		3D8D73C21CE9DEFE009E2320 /* FTRankTableVIewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D73C01CE9DEFE009E2320 /* FTRankTableVIewCell.m */; };
 		3D8D73C31CE9DEFE009E2320 /* FTRankTableVIewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D8D73C11CE9DEFE009E2320 /* FTRankTableVIewCell.xib */; };
+		3DC31DD01CF859EC001BC364 /* FTArenaChooseLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC31DCF1CF859EC001BC364 /* FTArenaChooseLabelView.m */; };
+		3DC31DD41CF85C76001BC364 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DC31DD31CF85C76001BC364 /* Assets.xcassets */; };
 		3DC411EC1CCF74EC0030C229 /* FTDrawerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC411EA1CCF74EC0030C229 /* FTDrawerTableViewCell.m */; };
 		3DC411ED1CCF74EC0030C229 /* FTDrawerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC411EB1CCF74EC0030C229 /* FTDrawerTableViewCell.xib */; };
 		3DC411F01CCF80DD0030C229 /* FTDrawerTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC411EF1CCF80DD0030C229 /* FTDrawerTableViewHeader.m */; };
@@ -197,7 +200,6 @@
 		E61185101CC76B3400F23EC7 /* ios-social-sdk-socialbar.html in Resources */ = {isa = PBXBuildFile; fileRef = E61184F81CC76B3300F23EC7 /* ios-social-sdk-socialbar.html */; };
 		E61185111CC76B3400F23EC7 /* markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = E61184F91CC76B3300F23EC7 /* markdown.css */; };
 		E61185981CC78BF400F23EC7 /* FTUserBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E61185971CC78BF400F23EC7 /* FTUserBean.m */; };
-		E612EFAD1CF4227700883D37 /* FTArenaChooseLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = E612EFAC1CF4227700883D37 /* FTArenaChooseLabelView.m */; };
 		E6133A6C1CED6F8E00F53381 /* FTArenaBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6133A6B1CED6F8E00F53381 /* FTArenaBean.m */; };
 		E616C77C1CF58D03006EFA0B /* libc++abi.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E616C77B1CF58D03006EFA0B /* libc++abi.tbd */; };
 		E61B8A611CBB6C4900AE37F9 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = E61B8A541CBB6C4900AE37F9 /* TAAbstractDotView.m */; };
@@ -354,6 +356,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3498F3EDE4F003CF3512E5B8 /* Pods-fighter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fighter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fighter/Pods-fighter.debug.xcconfig"; sourceTree = "<group>"; };
 		3D322AC61CEB171200039E2C /* FTRankHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankHeaderCell.h; sourceTree = "<group>"; };
 		3D322AC71CEB171200039E2C /* FTRankHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankHeaderCell.m; sourceTree = "<group>"; };
 		3D322AC81CEB171200039E2C /* FTRankHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRankHeaderCell.xib; sourceTree = "<group>"; };
@@ -542,6 +545,9 @@
 		3D8D73BF1CE9DEFE009E2320 /* FTRankTableVIewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankTableVIewCell.h; sourceTree = "<group>"; };
 		3D8D73C01CE9DEFE009E2320 /* FTRankTableVIewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankTableVIewCell.m; sourceTree = "<group>"; };
 		3D8D73C11CE9DEFE009E2320 /* FTRankTableVIewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRankTableVIewCell.xib; sourceTree = "<group>"; };
+		3DC31DCE1CF859EC001BC364 /* FTArenaChooseLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaChooseLabelView.h; sourceTree = "<group>"; };
+		3DC31DCF1CF859EC001BC364 /* FTArenaChooseLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaChooseLabelView.m; sourceTree = "<group>"; };
+		3DC31DD31CF85C76001BC364 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3DC411E91CCF74EC0030C229 /* FTDrawerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerTableViewCell.h; sourceTree = "<group>"; };
 		3DC411EA1CCF74EC0030C229 /* FTDrawerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDrawerTableViewCell.m; sourceTree = "<group>"; };
 		3DC411EB1CCF74EC0030C229 /* FTDrawerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTDrawerTableViewCell.xib; sourceTree = "<group>"; };
@@ -601,6 +607,8 @@
 		3DE95BAA1CD8A042005BF85C /* FTRegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRegistViewController.h; sourceTree = "<group>"; };
 		3DE95BAB1CD8A042005BF85C /* FTRegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRegistViewController.m; sourceTree = "<group>"; };
 		3DE95BAC1CD8A042005BF85C /* FTRegistViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRegistViewController.xib; sourceTree = "<group>"; };
+		618712783A5CE24E9E3317D9 /* Pods-fighter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fighter.release.xcconfig"; path = "Pods/Target Support Files/Pods-fighter/Pods-fighter.release.xcconfig"; sourceTree = "<group>"; };
+		8E48274DE7B43596DF74BCD1 /* Pods_fighter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fighter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6035EB51CC08D2800B10D36 /* FTNewsDetail2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNewsDetail2ViewController.h; sourceTree = "<group>"; };
 		E6035EB61CC08D2800B10D36 /* FTNewsDetail2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNewsDetail2ViewController.m; sourceTree = "<group>"; };
 		E6035EB71CC08D2800B10D36 /* FTNewsDetail2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTNewsDetail2ViewController.xib; sourceTree = "<group>"; };
@@ -685,8 +693,6 @@
 		E61184F91CC76B3300F23EC7 /* markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = markdown.css; sourceTree = "<group>"; };
 		E61185961CC78BF400F23EC7 /* FTUserBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserBean.h; sourceTree = "<group>"; };
 		E61185971CC78BF400F23EC7 /* FTUserBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserBean.m; sourceTree = "<group>"; };
-		E612EFAB1CF4227700883D37 /* FTArenaChooseLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaChooseLabelView.h; sourceTree = "<group>"; };
-		E612EFAC1CF4227700883D37 /* FTArenaChooseLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaChooseLabelView.m; sourceTree = "<group>"; };
 		E6133A6A1CED6F8E00F53381 /* FTArenaBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaBean.h; sourceTree = "<group>"; };
 		E6133A6B1CED6F8E00F53381 /* FTArenaBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaBean.m; sourceTree = "<group>"; };
 		E616C77B1CF58D03006EFA0B /* libc++abi.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++abi.tbd"; path = "usr/lib/libc++abi.tbd"; sourceTree = SDKROOT; };
@@ -977,6 +983,7 @@
 				E61184FB1CC76B3300F23EC7 /* libSocialAlipayShare.a in Frameworks */,
 				E68050C71CBFA71900678905 /* libMobClickLibrary.a in Frameworks */,
 				E61184FC1CC76B3300F23EC7 /* libSocialSinaSSO.a in Frameworks */,
+				2EB9B28B8C5A080A21781FFA /* Pods_fighter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1471,6 +1478,15 @@
 			name = login;
 			sourceTree = "<group>";
 		};
+		9901406240A732084B934A55 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3498F3EDE4F003CF3512E5B8 /* Pods-fighter.debug.xcconfig */,
+				618712783A5CE24E9E3317D9 /* Pods-fighter.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		E6035EBA1CC0C36C00B10D36 /* comment */ = {
 			isa = PBXGroup;
 			children = (
@@ -1682,6 +1698,7 @@
 				E64EF12D1CB6614100CAE340 /* fighterUITests */,
 				E64EF1071CB6614000CAE340 /* Products */,
 				FF4F6665A0FF96A7EF0453D8 /* Frameworks */,
+				9901406240A732084B934A55 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1722,6 +1739,7 @@
 		E64EF1091CB6614000CAE340 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3DC31DD31CF85C76001BC364 /* Assets.xcassets */,
 				3D7B988D1CDD027400B80B8D /* Area.plist */,
 				3D7B988F1CDD1E5900B80B8D /* Area2.plist */,
 				E64EF10A1CB6614000CAE340 /* main.m */,
@@ -2267,8 +2285,8 @@
 		E6C4D7F31CEC68F800D73BFC /* 标签选择 */ = {
 			isa = PBXGroup;
 			children = (
-				E612EFAB1CF4227700883D37 /* FTArenaChooseLabelView.h */,
-				E612EFAC1CF4227700883D37 /* FTArenaChooseLabelView.m */,
+				3DC31DCE1CF859EC001BC364 /* FTArenaChooseLabelView.h */,
+				3DC31DCF1CF859EC001BC364 /* FTArenaChooseLabelView.m */,
 			);
 			name = "标签选择";
 			sourceTree = "<group>";
@@ -2533,7 +2551,7 @@
 			isa = PBXGroup;
 			children = (
 				E616C77B1CF58D03006EFA0B /* libc++abi.tbd */,
-				CC6E175F6D8F9BDF7F42A3E5 /* Pods_fighter.framework */,
+				8E48274DE7B43596DF74BCD1 /* Pods_fighter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2545,6 +2563,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E64EF1331CB6614100CAE340 /* Build configuration list for PBXNativeTarget "fighter" */;
 			buildPhases = (
+				079F6CFBB5F630D52D2A57D4 /* Check Pods Manifest.lock */,
 				4FB332F39A8646C733F20968 /* 📦 Check Pods Manifest.lock */,
 				E64EF1021CB6614000CAE340 /* Sources */,
 				E64EF1031CB6614000CAE340 /* Frameworks */,
@@ -2552,6 +2571,7 @@
 				06F73924D6D219EA6175A420 /* 📦 Embed Pods Frameworks */,
 				600E32FC56B17B3D80AB9B7B /* 📦 Copy Pods Resources */,
 				094A8CFEA1639A6F086997DE /* Embed Pods Frameworks */,
+				F37DAC3E8C1FCFAC6495C54D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2731,6 +2751,7 @@
 				3D4B192D1CD9FD670022DFB0 /* ToolViewInputText@2x.png in Resources */,
 				3D5FB4931CDC311400FC1809 /* FTAssetsViewController.xib in Resources */,
 				3DC411ED1CCF74EC0030C229 /* FTDrawerTableViewCell.xib in Resources */,
+				3DC31DD41CF85C76001BC364 /* Assets.xcassets in Resources */,
 				3D7B98C41CE08DEE00B80B8D /* FTNewPasswordVC.xib in Resources */,
 				E6035EBF1CC0C39500B10D36 /* FTCommentViewController.xib in Resources */,
 				E65D08D51CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.xib in Resources */,
@@ -2789,6 +2810,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-fighter/Pods-fighter-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		079F6CFBB5F630D52D2A57D4 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		094A8CFEA1639A6F086997DE /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2827,6 +2863,21 @@
 			inputPaths = (
 			);
 			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-fighter/Pods-fighter-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F37DAC3E8C1FCFAC6495C54D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3009,6 +3060,7 @@
 				3D7C6B731CF29DDD0088400D /* FTSlideTabBar.m in Sources */,
 				E61B8A651CBB6C4900AE37F9 /* SDCollectionViewCell.m in Sources */,
 				E68050C01CBF919A00678905 /* UIScrollView+JHRefresh.m in Sources */,
+				3DC31DD01CF859EC001BC364 /* FTArenaChooseLabelView.m in Sources */,
 				E6D74A501CB7B7EE00854337 /* ZJModelTool.m in Sources */,
 				E68050BD1CBF919A00678905 /* JHRefreshFooterView.m in Sources */,
 				E6D74A4D1CB7B7EE00854337 /* KeyChainStore.m in Sources */,
@@ -3034,7 +3086,6 @@
 				E668BAB71CE0565700071998 /* MJRefreshBackStateFooter.m in Sources */,
 				E668BAB11CE0565700071998 /* MJRefreshHeader.m in Sources */,
 				E6D09E921CEDA10000B7C43E /* FTTools.m in Sources */,
-				E612EFAD1CF4227700883D37 /* FTArenaChooseLabelView.m in Sources */,
 				3DE95BAD1CD8A042005BF85C /* FTRegistViewController.m in Sources */,
 				E6D74A4B1CB7B7EE00854337 /* UUID.m in Sources */,
 				3DC9A4E91CE5CC6C00E16D19 /* FTRankBaseViewController.m in Sources */,
@@ -3155,7 +3206,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -3193,7 +3244,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -3202,6 +3253,7 @@
 		};
 		E64EF1341CB6614100CAE340 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3498F3EDE4F003CF3512E5B8 /* Pods-fighter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -3214,7 +3266,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/fighter/PrefixHeader.pch";
 				INFOPLIST_FILE = fighter/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3235,17 +3287,18 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "96ec16b2-a549-4422-968b-9780963c8a8c";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
 		E64EF1351CB6614100CAE340 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 618712783A5CE24E9E3317D9 /* Pods-fighter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: peng qu (LQHT8X75PQ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: peng qu (LQHT8X75PQ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3253,7 +3306,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/fighter/PrefixHeader.pch";
 				INFOPLIST_FILE = fighter/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3274,7 +3327,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "96ec16b2-a549-4422-968b-9780963c8a8c";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

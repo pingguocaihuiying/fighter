@@ -104,7 +104,10 @@ static NSString *const tableCellId = @"tableCellId";
     [self showLoginedViewData:nil];
 }
 
-
+- (void) viewWillAppear:(BOOL)animated {
+    
+    [self setNoti];
+}
 
 - (void) viewWillDisappear:(BOOL)animated {
     
@@ -190,6 +193,7 @@ static NSString *const tableCellId = @"tableCellId";
     } @finally {
         
     }
+    
    }
 
 

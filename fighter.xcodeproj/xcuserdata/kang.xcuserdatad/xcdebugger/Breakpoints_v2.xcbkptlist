@@ -158,54 +158,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "398"
-            endingLineNumber = "398">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[FTInformationViewController setJHRefresh]"
-                  moduleName = "fighter"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kang/Desktop/MapbarCode/fighter/fighter/FTInformationViewController.m"
-                  timestampString = "486001006.593407"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "452"
-                  endingLineNumber = "452"
-                  offsetFromSymbolStart = "28">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__Block_byref_object_copy_"
-                  moduleName = "fighter"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kang/Desktop/MapbarCode/fighter/fighter/FTInformationViewController.m"
-                  timestampString = "486001006.593618"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "452"
-                  endingLineNumber = "452"
-                  offsetFromSymbolStart = "24">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__Block_byref_object_dispose_"
-                  moduleName = "fighter"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kang/Desktop/MapbarCode/fighter/fighter/FTInformationViewController.m"
-                  timestampString = "486001006.593807"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "452"
-                  endingLineNumber = "452"
-                  offsetFromSymbolStart = "20">
-               </Location>
-            </Locations>
+            endingLineNumber = "398"
+            landmarkName = "-clickAction:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -249,7 +204,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "200"
-            endingLineNumber = "200">
+            endingLineNumber = "200"
+            landmarkName = "-getDataWithGetType:andCurrId:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
