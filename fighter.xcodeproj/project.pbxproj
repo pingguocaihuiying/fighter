@@ -3287,7 +3287,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6c9e2583-a6ac-4f21-93f8-4484e4812b73";
 			};
 			name = Debug;
 		};
@@ -3327,7 +3327,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6c9e2583-a6ac-4f21-93f8-4484e4812b73";
 			};
 			name = Release;
 		};
