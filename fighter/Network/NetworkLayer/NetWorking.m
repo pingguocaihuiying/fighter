@@ -556,6 +556,11 @@
 
 
 #pragma mark - 视频
+//获取排行榜标签
+- (void) getVideos:(NSString *) urlString  option:(void (^)(NSDictionary *dict))option {
+    
+    [self getRequestWithUrl:urlString parameters:nil option:option];
+}
 
 #pragma mark - news 
 

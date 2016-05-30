@@ -722,10 +722,11 @@ static DBManager * _sharedDBManager = nil;
  */
 - (void) createVideosTable {
     
-    NSString * sql = @"CREATE TABLE 'videos' ('videosId' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, 'videoType' TEXT, 'videoTime' TEXT, 'title' TEXT, 'summary' TEXT, 'img' TEXT, 'url' TEXT, 'author' TEXT, 'commentCount' INTEGER DEFAULT 0, 'voteCount' INTEGER DEFAULT 0, 'videoLength' INTEGER DEFAULT 0, 'coachid' INTEGER DEFAULT 0, 'boxerid' INTEGER DEFAULT 0, 'isTeach' BOOLEAN DEFAULT 0, 'boxinghallid' INTEGER DEFAULT 0);";
+    NSString * sql = @"CREATE TABLE 'videos' ('videosId' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, 'videosType' TEXT, 'videosTime' INTEGER, 'title' TEXT, 'summary' TEXT, 'img' TEXT, 'url' TEXT, 'author' TEXT, 'commentCount' INTEGER DEFAULT 0, 'voteCount' INTEGER DEFAULT 0, 'videoLength' INTEGER DEFAULT 0, 'coachid' INTEGER DEFAULT 0, 'boxerid' INTEGER DEFAULT 0, 'isTeach' BOOLEAN DEFAULT 0, 'boxinghallid' INTEGER DEFAULT 0);";
     
     [self createTable:@"videos" sql:sql];
 }
+
 
 /**
  *  清除videos表数据
@@ -753,60 +754,51 @@ static DBManager * _sharedDBManager = nil;
 - (void) insertDataIntoVideos:(NSDictionary *)dic {
     
     
-    NSNumber *idNum = [NSNumber numberWithInteger:[dic[@"id"] integerValue]];
-    NSNumber *createTimeTamp = [NSNumber numberWithInteger:[dic[@"createTimeTamp"] integerValue]];
-    NSNumber *updateTimeTamp = [NSNumber numberWithInteger:[dic[@"updateTimeTamp"] integerValue]];
-    NSNumber *isDelated = [NSNumber numberWithBool:[dic[@"isDelated"] boolValue]];
+    NSNumber *videosId = [NSNumber numberWithInteger:[dic[@"videosId"] integerValue]];
+    NSNumber *videosTime = [NSNumber numberWithInteger:[dic[@"videosTime"] integerValue]];
+    
+    NSNumber *coachid = [NSNumber numberWithInteger:[dic[@"coachid"] integerValue]];
+    NSNumber *boxerid = [NSNumber numberWithInteger:[dic[@"boxerid"] integerValue]];
+    NSNumber *boxinghallid = [NSNumber numberWithInteger:[dic[@"boxinghallid"] integerValue]];
+    NSNumber *videoLength = [NSNumber numberWithInteger:[dic[@"videoLength"] integerValue]];
+    NSNumber *isTeach = [NSNumber numberWithBool:[dic[@"isTeach"] boolValue]];
     
     NSNumber *commentCount = [NSNumber numberWithInteger:[dic[@"commentCount"] integerValue]];
     NSNumber *voteCount = [NSNumber numberWithInteger:[dic[@"voteCount"] integerValue]];
     NSNumber *viewCount = [NSNumber numberWithInteger:[dic[@"viewCount"] integerValue]];
     
-    NSString *content = dic[@"content"];
-    NSString *createName = dic[@"createName"];
-    NSString *createTime = dic[@"createTime"];
-    NSString *headUrl = dic[@"headUrl"];
-    NSString *labels = dic[@"labels"];
-    NSString *nickname = dic[@"nickname"];
-    NSString *thumbUrl = dic[@"thumbUrl"];
-    NSString *title = dic[@"title"];
-    NSString *updateName = dic[@"updateName"];
-    NSString *updateTime = dic[@"updateTime"];
-    NSString *urlPrefix = dic[@"urlPrefix"];
-    NSString *userId = dic[@"userId"];
-    NSString *pictureUrlNames = dic[@"pictureUrlNames"];
-    NSString *videoUrlNames = dic[@"videoUrlNames"];
     
+    NSString *videosType = dic[@"videosType"];
+    NSString *title = dic[@"title"];
+    NSString *summary = dic[@"summary"];
+    NSString *img = dic[@"img"];
+    NSString *url = dic[@"url"];
+    NSString *author = dic[@"author"];
     
     //1.判断数据是否已读
-    FMResultSet * set = [_dataBase executeQuery:@"select objId from readCashe where objId = ?  and type = 'arena' ",idNum];
+    FMResultSet * set = [_dataBase executeQuery:@"select objId from readCashe where objId = ?  and type = 'arena' ",videosId];
     [set next];
     
     BOOL exist = [set intForColumnIndex:0] >0 ?YES:NO;
     NSNumber *isReader = [NSNumber numberWithBool:exist];
     
-    BOOL result = [_dataBase executeUpdate:@"INSERT INTO videos (id,content,createName,createTime,createTimeTamp,headUrl,isDelated,labels,nickname,thumbUrl,title,updateName,updateTime,updateTimeTamp,urlPrefix,userId,pictureUrlNames,videoUrlNames,commentCount,voteCount,viewCount,isReader) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-                   idNum,
-                   content,
-                   createName,
-                   createTime,
-                   createTimeTamp,
-                   headUrl,
-                   isDelated,
-                   labels,
-                   nickname,
-                   thumbUrl,
+    BOOL result = [_dataBase executeUpdate:@"INSERT INTO videos (videosId,videosType,videosTime,title,summary,img,url,author,commentCount,voteCount,viewCount,videoLength,coachid,boxerid,boxinghallid,isTeach,isReader) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                   videosId,
+                   videosType,
+                   videosTime,
                    title,
-                   updateName,
-                   updateTime,
-                   updateTimeTamp,
-                   urlPrefix,
-                   userId,
-                   pictureUrlNames,
-                   videoUrlNames,
+                   summary,
+                   img,
+                   url,
+                   author,
                    commentCount,
                    voteCount,
                    viewCount,
+                   videoLength,
+                   coachid,
+                   boxerid,
+                   boxinghallid,
+                   isTeach,
                    isReader
                    ];
     
@@ -815,8 +807,6 @@ static DBManager * _sharedDBManager = nil;
     }else {
         NSLog(@"更新数据失败");
     }
-    
-    
 }
 
 
@@ -824,57 +814,45 @@ static DBManager * _sharedDBManager = nil;
 /**
  *  查询videos表所有字段
  *
- *  @param currentPage 分页查询页数,因为服务器端第一页从1开始，所以在sql中先减去1
- *  @param label       项目标签
+ *  @param videoType 项目标签
  *
  *  @return 返回结果值
  */
--(NSMutableArray *) searchVideosWithPage:(NSInteger )currentPage  label:(NSString *) label{
-    NSLog(@"currentPage:%ld",(long)currentPage);
-    if (currentPage <=1) {
-        currentPage = 0;
-    }else {
-        currentPage --;
-    }
-    NSNumber *pageNum = [NSNumber numberWithInteger:currentPage*20];
+-(NSMutableArray *) searchVideosWithType:(NSString *)videoType {
+
     FMResultSet * rs;
     
-    if (label == nil || [label isEqualToString:@"全部视频"] || label.length == 0) {
-        rs = [_dataBase executeQuery:@" SELECT *  FROM videos  ORDER BY id DESC limit ?,10",pageNum];
+    
+    if (videoType == nil || [videoType isEqualToString:@"All"] || videoType.length == 0) {
+        rs = [_dataBase executeQuery:@" SELECT *  FROM videos where videosType != 'Hot';"  ];
     }else {
-        rs = [_dataBase executeQuery:@" SELECT *  FROM videos where labels = ?  ORDER BY id DESC limit ?,10",label ,pageNum];
+        rs = [_dataBase executeQuery:@" SELECT *  FROM videos where videosType = ?",videoType];
     }
     
     
     NSMutableArray *array = [[NSMutableArray alloc]init];
     
     while ([rs next]) {
-        FTArenaBean *bean = [[FTArenaBean alloc]init];
-        bean.postsId = [rs stringForColumn:@"id"];
-        bean.content = [rs stringForColumn:@"content"];
-        bean.createName = [rs stringForColumn:@"createName"];
-        bean.createTime = [rs stringForColumn:@"createTime"];
-        bean.createTimeTamp = [rs stringForColumn:@"createTimeTamp"];
-        bean.headUrl = [rs stringForColumn:@"headUrl"];
-        bean.isDelated = [rs boolForColumn:@"isDelated"]==1?@"YES":@"NO";
-        bean.labels = [rs stringForColumn:@"labels"];
-        bean.nickname = [rs stringForColumn:@"nickname"];
-        bean.thumbUrl = [rs stringForColumn:@"thumbUrl"];
+        FTVideoBean *bean = [[FTVideoBean alloc]init];
+        bean.videosId = [rs stringForColumn:@"videosId"];
+        bean.videosType = [rs stringForColumn:@"videosType"];
+        bean.videosTime = [rs stringForColumn:@"videosTime"];
         bean.title = [rs stringForColumn:@"title"];
-        
-        bean.updateName = [rs stringForColumn:@"updateName"];
-        bean.updateTime = [rs stringForColumn:@"updateTime"];
-        bean.updateTimeTamp = [rs stringForColumn:@"updateTimeTamp"];
-        
-        bean.urlPrefix = [rs stringForColumn:@"urlPrefix"];
-        bean.userId = [rs stringForColumn:@"userId"];
-        bean.videoUrlNames = [rs stringForColumn:@"videoUrlNames"];
-        
-        bean.pictureUrlNames = [rs stringForColumn:@"pictureUrlNames"];
+        bean.summary = [rs stringForColumn:@"summary"];
+        bean.img = [rs stringForColumn:@"img"];
+        bean.url = [rs stringForColumn:@"url"];
+        bean.author = [rs stringForColumn:@"author"];
         bean.commentCount = [rs stringForColumn:@"commentCount"];
         bean.voteCount = [rs stringForColumn:@"voteCount"];
-        bean.viewCount = [rs stringForColumn:@"viewCount"];
-        bean.isReader = [rs boolForColumn:@"isReader"]==1?@"YES":@"NO";
+        bean.videoLength = [rs stringForColumn:@"videoLength"];
+        
+        bean.coachid = [rs stringForColumn:@"coachid"];
+        bean.boxerid = [rs stringForColumn:@"boxerid"];
+        bean.isTeach = [rs stringForColumn:@"isTeach"];
+        
+        bean.boxinghallid = [rs stringForColumn:@"boxinghallid"];
+        bean.isReader = [rs boolForColumn:@"isReader"] == 1?@"YES":@"NO";
+        
         [array addObject:bean];
     }
     return array;

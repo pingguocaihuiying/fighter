@@ -133,7 +133,7 @@
 
 - (void) insertDataIntoVideos:(NSDictionary *)dic;
 
--(NSMutableArray *) searchVideosWithPage:(NSInteger )currentPage  label:(NSString *) label;
+-(NSMutableArray *) searchVideosWithType:(NSString *)videoType ;
 
 - (void) updateVideosById:(NSString *)Id isReader:(BOOL)isReader;
 

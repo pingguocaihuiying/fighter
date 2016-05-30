@@ -154,4 +154,8 @@
 
 //获取排行榜标签
 - (void) getRankLabels:(void (^)(NSDictionary *dict))option;
+
+#pragma mark - 视频
+//获取排行榜标签
+- (void) getVideos:(NSString *) urlString  option:(void (^)(NSDictionary *dict))option;
 @end

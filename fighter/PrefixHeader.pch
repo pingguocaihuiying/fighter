@@ -75,6 +75,10 @@
 #define WB_App_ID @"3097376602"
 #define WB_App_Secret @"921bba0ec52253b495276d90468e0b43"
 
+//qq相关
+#define QQ_App_ID @"1105296095"
+#define QQ_App_Secret @"yXgKRmgLcOspLa74"
+
 //和750的比例
 #define SCALE  (SCREEN_WIDTH / (750 / 2))
 
