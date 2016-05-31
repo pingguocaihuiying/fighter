@@ -33,6 +33,8 @@
 @property (nonatomic,copy) NSString *isTeach;
 @property (nonatomic,copy) NSString *boxinghallid;
 
+@property (nonatomic,copy) NSString *isReader;
+
 - (void)setValuesWithDic:(NSDictionary *)dic;
 
 @end

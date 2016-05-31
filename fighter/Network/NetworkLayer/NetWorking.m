@@ -102,7 +102,7 @@
     
     NSString *appendedPassword = [NSString stringWithFormat:@"%@%@", password, @"**#qwe"];
     NSString *md5String = [MD5 md5:appendedPassword];
-    
+
     NSDictionary *dic = @{@"userId" : username,
                       @"imei" : imei,
                       @"sequenceId" : imei,
@@ -110,6 +110,7 @@
                       @"checkCode" : checkCode,
                       @"city" : @"-1",
                       @"recommCode" : @"-1",
+                      @"stemfrom":@"iOS"
                       };
     NSLog(@"dic : %@", dic);
     [self postRequestWithUrl:registURLString parameters:dic option:option];
@@ -556,6 +557,11 @@
 
 
 #pragma mark - 视频
+//获取排行榜标签
+- (void) getVideos:(NSString *) urlString  option:(void (^)(NSDictionary *dict))option {
+    
+    [self getRequestWithUrl:urlString parameters:nil option:option];
+}
 
 #pragma mark - news 
 

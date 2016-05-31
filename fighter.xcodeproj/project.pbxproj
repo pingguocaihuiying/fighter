@@ -71,6 +71,9 @@
 		3D57D0491CEC0B560082BF24 /* README.markdown in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D0421CEC0B560082BF24 /* README.markdown */; };
 		3D57D04D1CEC0C810082BF24 /* DBTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D04C1CEC0C810082BF24 /* DBTools.m */; };
 		3D57D0501CEC0E7F0082BF24 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D04F1CEC0E7F0082BF24 /* DBManager.m */; };
+		3D5A3CBD1CFD1E1000FDB3C4 /* FTShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */; };
+		3D5A3CEC1CFD569B00FDB3C4 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3D5A3CEA1CFD569B00FDB3C4 /* TencentOpenApi_IOS_Bundle.bundle */; };
+		3D5A3CED1CFD569B00FDB3C4 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D5A3CEB1CFD569B00FDB3C4 /* TencentOpenAPI.framework */; };
 		3D5FB4851CDC1F1D00FC1809 /* FTPhotoPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4841CDC1F1D00FC1809 /* FTPhotoPickerView.m */; };
 		3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4871CDC251B00FC1809 /* FTCityPickerView.m */; };
 		3D5FB4921CDC311400FC1809 /* FTAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4901CDC311400FC1809 /* FTAssetsViewController.m */; };
@@ -469,6 +472,10 @@
 		3D57D04C1CEC0C810082BF24 /* DBTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBTools.m; sourceTree = "<group>"; };
 		3D57D04E1CEC0E7F0082BF24 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		3D57D04F1CEC0E7F0082BF24 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
+		3D5A3CBB1CFD1E1000FDB3C4 /* FTShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTShareView.h; sourceTree = "<group>"; };
+		3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTShareView.m; sourceTree = "<group>"; };
+		3D5A3CEA1CFD569B00FDB3C4 /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
+		3D5A3CEB1CFD569B00FDB3C4 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		3D5FB4831CDC1F1D00FC1809 /* FTPhotoPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPhotoPickerView.h; sourceTree = "<group>"; };
 		3D5FB4841CDC1F1D00FC1809 /* FTPhotoPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPhotoPickerView.m; sourceTree = "<group>"; };
 		3D5FB4861CDC251B00FC1809 /* FTCityPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCityPickerView.h; sourceTree = "<group>"; };
@@ -985,6 +992,7 @@
 				E61184961CC75ED000F23EC7 /* Security.framework in Frameworks */,
 				3D4B19391CD9FD670022DFB0 /* libUMOpus.a in Frameworks */,
 				E61184941CC75EBE00F23EC7 /* SystemConfiguration.framework in Frameworks */,
+				3D5A3CED1CFD569B00FDB3C4 /* TencentOpenAPI.framework in Frameworks */,
 				E61185051CC76B3400F23EC7 /* libYixinSDK_V2.2.a in Frameworks */,
 				3D4B19281CD9FD670022DFB0 /* libUMFeedback.a in Frameworks */,
 				E61185041CC76B3400F23EC7 /* libSocialYiXin.a in Frameworks */,
@@ -1221,6 +1229,15 @@
 				3D57D04F1CEC0E7F0082BF24 /* DBManager.m */,
 			);
 			name = DataBase;
+			sourceTree = "<group>";
+		};
+		3D5A3CE91CFD42E500FDB3C4 /* Tencent */ = {
+			isa = PBXGroup;
+			children = (
+				3D5A3CEA1CFD569B00FDB3C4 /* TencentOpenApi_IOS_Bundle.bundle */,
+				3D5A3CEB1CFD569B00FDB3C4 /* TencentOpenAPI.framework */,
+			);
+			name = Tencent;
 			sourceTree = "<group>";
 		};
 		3D5FB48E1CDC30C700FC1809 /* imagePicker */ = {
@@ -2123,6 +2140,7 @@
 		E68050C21CBFA70200678905 /* OtherSDK */ = {
 			isa = PBXGroup;
 			children = (
+				3D5A3CE91CFD42E500FDB3C4 /* Tencent */,
 				3D4782521CF537A6003A64C9 /* IXPush */,
 				3D4B18FD1CD9FD670022DFB0 /* UMengFeedback_SDK */,
 				E61184C41CC76B1000F23EC7 /* 友盟分享 */,
@@ -2280,6 +2298,8 @@
 				E6B458991CB7563300FB4261 /* FTBaseViewController.m */,
 				E6B458D91CB75E5000FB4261 /* FTBaseTabBarViewController.h */,
 				E6B458DA1CB75E5000FB4261 /* FTBaseTabBarViewController.m */,
+				3D5A3CBB1CFD1E1000FDB3C4 /* FTShareView.h */,
+				3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -2792,6 +2812,7 @@
 				E611850A1CC76B3400F23EC7 /* ios-social-sdk-like.html in Resources */,
 				3D57D0481CEC0B560082BF24 /* LICENSE.txt in Resources */,
 				3D6DA0E21CEEA96D00BAA8F0 /* FTBoxerCenter.xib in Resources */,
+				3D5A3CEC1CFD569B00FDB3C4 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				3DC9A4EA1CE5CC6C00E16D19 /* FTRankBaseViewController.xib in Resources */,
 				3D4B19271CD9FD670022DFB0 /* UMFeedbackLocalizable.strings in Resources */,
 				3D7B98AA1CE048F200B80B8D /* FTManagerAccountViewController.xib in Resources */,
@@ -3054,6 +3075,7 @@
 				E61B8A671CBB6C4900AE37F9 /* UIView+SDExtension.m in Sources */,
 				E668BABC1CE0565700071998 /* MJRefreshConst.m in Sources */,
 				3DC412131CD039D70030C229 /* MASViewConstraint.m in Sources */,
+				3D5A3CBD1CFD1E1000FDB3C4 /* FTShareView.m in Sources */,
 				3D7B98971CDEE1E900B80B8D /* FTSettingViewController.m in Sources */,
 				E65EFC2C1CC8B63C0039EE8A /* FTConfig.m in Sources */,
 				E68D16171CFD819500AB5A8C /* UIImage+FTLYZImage.m in Sources */,
@@ -3330,6 +3352,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/fighter/OtherSDK/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+					"$(PROJECT_DIR)/fighter/OtherSDK",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/fighter/PrefixHeader.pch";
 				INFOPLIST_FILE = fighter/Info.plist;
@@ -3351,10 +3374,11 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
+					"-fobjc-arc",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6c9e2583-a6ac-4f21-93f8-4484e4812b73";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -3370,6 +3394,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/fighter/OtherSDK/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+					"$(PROJECT_DIR)/fighter/OtherSDK",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/fighter/PrefixHeader.pch";
 				INFOPLIST_FILE = fighter/Info.plist;
@@ -3391,10 +3416,11 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
+					"-fobjc-arc",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6c9e2583-a6ac-4f21-93f8-4484e4812b73";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
