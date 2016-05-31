@@ -41,6 +41,14 @@
 
 
 - (void)setWithBean:(FTVideoBean *)bean{//根据bean设置cell的显示内容
+    
+    
+    if ([bean.isReader isEqualToString:@"YES"]) {
+        [self.myTitleLabel setTextColor:Main_Text_Color];
+    }else {
+        [self.myTitleLabel setTextColor:[UIColor whiteColor]];
+    }
+    
     NSLog(@"titile宽度：%f", self.myTitleLabel.frame.size.width);
     CGRect r = self.myTitleLabel.frame;
     r.size.height = 28 / 2;

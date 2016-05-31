@@ -26,6 +26,8 @@
 #import "FTCacheBean.h"
 #import "FTRankViewController.h"
 #import "FTLYZButton.h"
+#import "DBManager.h"
+#import "NetWorking.h"
 
 @interface FTVideoViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTVideoDetailDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -146,7 +148,28 @@
     [self getDataWithGetType:@"new" andCurrId:@"-1"];
 }
 
+#pragma mark get data
 
+- (void) getDataFromDBWithVideoType:(NSString *)videosType  getType:(NSString *) getType {
+    
+    //从数据库取数据
+    DBManager *dbManager = [DBManager shareDBManager];
+    [dbManager connect];
+    NSMutableArray *mutableArray =[dbManager searchVideosWithType:videosType];
+    [dbManager close];
+    
+    if ([getType isEqualToString:@"new"]) {
+        self.tableViewDataSourceArray = mutableArray;
+    }else if([getType isEqualToString:@"old"]){
+        [self.tableViewDataSourceArray addObjectsFromArray:mutableArray];
+    }
+    
+//    //隐藏infoLabel
+//    if (self.infoLabel.isHidden == NO) {
+//        self.infoLabel.hidden = YES;
+//    }
+    
+}
 
 - (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)videoCurrId{
     //判断是否时当前标签刷新，如果不是，则清空数据源，刷新列表，如果是当前列表，则暂不清空数据和刷新列表
@@ -161,73 +184,124 @@
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@",videoType, videoCurrId, self.videosTag, getType, ts, @"quanjijia222222"]];
     
     urlString = [NSString stringWithFormat:@"%@?videosType=%@&videosCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&videosTag=%@", urlString, videoType, videoCurrId, getType, ts, checkSign, [FTNetConfig showType], self.videosTag];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    NSLog(@"get video list url: %@", urlString);
-    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        NSString *status = responseDic[@"status"];
-        NSLog(@"status : %@", status);
-        if ([status isEqualToString:@"success"]) {
-            NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
-            
-            if ([videoType isEqualToString:@"All"]) {
-                NSMutableArray *hotArray = [NSMutableArray new];
-                for(NSDictionary *dic in mutableArray){
-                    if ([dic[@"newsType"] isEqualToString:@"Hot"]) {
-                        [hotArray addObject:dic];
+    NetWorking *net = [[NetWorking alloc]init];
+    [net getVideos:urlString option:^(NSDictionary *responseDic) {
+        
+        if (responseDic != nil) {
+            NSString *status = responseDic[@"status"];
+            if ([status isEqualToString:@"success"]) {
+                NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
+                
+                
+                //缓存数据到DB
+                if (mutableArray.count > 0) {
+                    DBManager *dbManager = [DBManager shareDBManager];
+                    [dbManager connect];
+                    [dbManager cleanVideosTable];
+                    
+                    for (NSDictionary *dic in mutableArray)  {
+                        [dbManager insertDataIntoVideos:dic];
                     }
                 }
-                [mutableArray removeObjectsInArray:hotArray];
-            }
-            
-            if (self.tableViewDataSourceArray == nil) {
-                self.tableViewDataSourceArray = [[NSMutableArray alloc]init];
-            }
-            if ([getType isEqualToString:@"new"]) {
-                self.tableViewDataSourceArray = mutableArray;
-            }else if([getType isEqualToString:@"old"]){
-                [self.tableViewDataSourceArray addObjectsFromArray:mutableArray];
-            }
-            
-            self.tableViewController.sourceArray = self.tableViewDataSourceArray;
-            if ([videoType isEqualToString:@"All"]) {
-                self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
-            }else{
-                //                [self.tableViewController.tableView.tableHeaderView removeFromSuperview];
-                self.tableViewController.tableView.tableHeaderView = nil;
+                
+                [self getDataFromDBWithVideoType:videoType getType:getType];
+                
+                //缓存数据
+                [self saveCache];
+                
+                [self.collectionView.mj_header endRefreshing];
+                [self.collectionView.mj_footer endRefreshing];
+                [self.collectionView reloadData];
+
+            }else {
+                [self getDataFromDBWithVideoType:videoType getType:getType];
+                [self.collectionView.mj_header endRefreshing];
+                [self.collectionView.mj_footer endRefreshing];
+                [self.collectionView reloadData];
                 
             }
             
-            //将最新的数据“self.tableViewDataSourceArray”写入缓存列表
-            [self saveCache];
-            
+        }else {
+            [self getDataFromDBWithVideoType:videoType getType:getType];
             [self.collectionView.mj_header endRefreshing];
             [self.collectionView.mj_footer endRefreshing];
             [self.collectionView reloadData];
+
             
-            //隐藏infoLabel
-            if (self.infoLabel.isHidden == NO) {
-                self.infoLabel.hidden = YES;
-            }
-        }else if([status isEqualToString:@"error"]){
-            NSLog(@"message : %@", responseDic[@"message"]);
-            
-            [self.collectionView.mj_header endRefreshing];
-            [self.collectionView.mj_footer endRefreshing];
-            [self.collectionView reloadData];
-            self.collectionView.mj_footer.state = MJRefreshStateNoMoreData;
         }
+  }];
         
-        
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-        [self.collectionView.mj_header endRefreshing];
-        [self.collectionView.mj_footer endRefreshing];
-        [self.collectionView reloadData];
-        NSLog(@"error : %@", error);
-    }];
+  
+    
+    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    //设置请求返回的数据类型为默认类型（NSData类型)
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    NSLog(@"get video list url: %@", urlString);
+//    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+//        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+//        NSString *status = responseDic[@"status"];
+//        NSLog(@"status : %@", status);
+//        if ([status isEqualToString:@"success"]) {
+//            NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
+//            
+//            if ([videoType isEqualToString:@"All"]) {
+//                NSMutableArray *hotArray = [NSMutableArray new];
+//                for(NSDictionary *dic in mutableArray){
+//                    if ([dic[@"newsType"] isEqualToString:@"Hot"]) {
+//                        [hotArray addObject:dic];
+//                    }
+//                }
+//                [mutableArray removeObjectsInArray:hotArray];
+//            }
+//            
+//            if (self.tableViewDataSourceArray == nil) {
+//                self.tableViewDataSourceArray = [[NSMutableArray alloc]init];
+//            }
+//            if ([getType isEqualToString:@"new"]) {
+//                self.tableViewDataSourceArray = mutableArray;
+//            }else if([getType isEqualToString:@"old"]){
+//                [self.tableViewDataSourceArray addObjectsFromArray:mutableArray];
+//            }
+//            
+//            self.tableViewController.sourceArray = self.tableViewDataSourceArray;
+//            if ([videoType isEqualToString:@"All"]) {
+//                self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
+//            }else{
+//                //                [self.tableViewController.tableView.tableHeaderView removeFromSuperview];
+//                self.tableViewController.tableView.tableHeaderView = nil;
+//                
+//            }
+//            
+//            //将最新的数据“self.tableViewDataSourceArray”写入缓存列表
+//            [self saveCache];
+//            
+//            [self.collectionView.mj_header endRefreshing];
+//            [self.collectionView.mj_footer endRefreshing];
+//            [self.collectionView reloadData];
+//            
+//            //隐藏infoLabel
+//            if (self.infoLabel.isHidden == NO) {
+//                self.infoLabel.hidden = YES;
+//            }
+//        }else if([status isEqualToString:@"error"]){
+//            NSLog(@"message : %@", responseDic[@"message"]);
+//            
+//            [self.collectionView.mj_header endRefreshing];
+//            [self.collectionView.mj_footer endRefreshing];
+//            [self.collectionView reloadData];
+//            self.collectionView.mj_footer.state = MJRefreshStateNoMoreData;
+//        }
+//        
+//        
+//    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+//        [self.collectionView.mj_header endRefreshing];
+//        [self.collectionView.mj_footer endRefreshing];
+//        [self.collectionView reloadData];
+//        NSLog(@"error : %@", error);
+//    }];
 }
 
 - (void)saveCache{
@@ -397,9 +471,21 @@
         
         FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
         //获取对应的bean，传递给下个vc
-        NSDictionary *newsDic = self.tableViewDataSourceArray[indexPath.row];
-        FTVideoBean *bean = [FTVideoBean new];
-        [bean setValuesWithDic:newsDic];
+//        NSDictionary *newsDic = self.tableViewDataSourceArray[indexPath.row];
+//        FTVideoBean *bean = [FTVideoBean new];
+//        [bean setValuesWithDic:newsDic];
+        
+        FTVideoBean *bean = self.self.tableViewDataSourceArray[indexPath.row];
+        //标记已读
+        if (![bean.isReader isEqualToString:@"YES"]) {
+            bean.isReader = @"YES";
+            //从数据库取数据
+            DBManager *dbManager = [DBManager shareDBManager];
+            [dbManager connect];
+            [dbManager updateVideosById:bean.videosId isReader:YES];
+            [dbManager close];
+        }
+
         
         videoDetailVC.videoBean = bean;
         NSIndexPath *theIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
@@ -423,9 +509,10 @@
         if (cell == nil) {
             cell = [[[NSBundle mainBundle]loadNibNamed:@"FTVideoCollectionViewCell" owner:self options:nil]firstObject];
         }
-        FTVideoBean *videoBean = [FTVideoBean new];
-        [videoBean setValuesWithDic:self.tableViewDataSourceArray[indexPath.row]];
-        [cell setWithBean:videoBean];
+//        FTVideoBean *videoBean = [FTVideoBean new];
+//        [videoBean setValuesWithDic:self.tableViewDataSourceArray[indexPath.row]];
+    FTVideoBean *videoBean = self.tableViewDataSourceArray[indexPath.row];
+    [cell setWithBean:videoBean];
     return cell;
 }
 
@@ -444,7 +531,9 @@
     self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
                 NSString *currId;
                 if (weakSelf.tableViewDataSourceArray && weakSelf.tableViewDataSourceArray.count > 0) {
-                    currId = [weakSelf.tableViewDataSourceArray lastObject][@"videosId"];
+//                    currId = [weakSelf.tableViewDataSourceArray lastObject][@"videosId"];
+                     FTVideoBean *bean = [weakSelf.tableViewDataSourceArray lastObject];
+                    currId = bean.videosId;
                     //如果当前是按“最热”来，需要找到最小的id座位current id
                     if ([self.videosTag isEqualToString:@"0"]) {
                         int minId = [currId intValue];

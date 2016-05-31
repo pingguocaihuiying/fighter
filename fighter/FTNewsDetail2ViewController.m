@@ -220,10 +220,22 @@
     [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享-朋友圈pre"] forState:UIControlStateHighlighted];
     [pickerView.albumBtn addTarget:self action:@selector(shareToWXSceneTimeline) forControlEvents:UIControlEventTouchUpInside];
     
+//    FTPhotoPickerView *pickerView = [FTPhotoPickerView new];
+//    pickerView.resultLabel.text = @"分享到";
+//    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享96-QQ"] forState:UIControlStateNormal];
+//    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享96-QQpre"] forState:UIControlStateHighlighted];
+//    [pickerView.cameraBtn addTarget:self action:@selector(shareToWXSceneSession) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享96-新浪"] forState:UIControlStateNormal];
+//    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享96-新浪pre"] forState:UIControlStateHighlighted];
+//    [pickerView.albumBtn addTarget:self action:@selector(shareToWXSceneTimeline) forControlEvents:UIControlEventTouchUpInside];
+    
     [self.view addSubview:pickerView];
 //    
 
 }
+
+
 
 - (void)shareToWXSceneSession{
         NSLog(@"WXSceneSession");
@@ -235,6 +247,17 @@
     [self shareToWXWithType:WXSceneTimeline];
     
 }
+
+- (void) shareToTencentFriends {
+
+    
+}
+
+- (void) shareToTencentZone {
+    
+    
+}
+
 
 - (void)shareToWXWithType:(int) scene{
     WXMediaMessage *message = [WXMediaMessage message];
