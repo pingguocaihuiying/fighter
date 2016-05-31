@@ -32,6 +32,7 @@
 #import "UIImageView+WebCache.h"
 #import "AFNetworking.h"
 #import "UIView+YBAddtitions.h"
+#import "UILabel+FTLYZLabel.h"//调整行间距
 
 //导入配置信息类
 #import "FTNetConfig.h"

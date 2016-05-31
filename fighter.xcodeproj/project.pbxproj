@@ -271,6 +271,10 @@
 		E68050C71CBFA71900678905 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E68050C41CBFA71900678905 /* libMobClickLibrary.a */; };
 		E68050CA1CBFB0D200678905 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E68050C91CBFB0D200678905 /* libz.tbd */; };
 		E68D16091CFD25ED00AB5A8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E68D16081CFD25ED00AB5A8C /* Assets.xcassets */; };
+		E68D160D1CFD31F100AB5A8C /* FTHomepageMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D160B1CFD31F100AB5A8C /* FTHomepageMainViewController.m */; };
+		E68D160E1CFD31F100AB5A8C /* FTHomepageMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E68D160C1CFD31F100AB5A8C /* FTHomepageMainViewController.xib */; };
+		E68D16131CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D16121CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m */; };
+		E68D16171CFD819500AB5A8C /* UIImage+FTLYZImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D16161CFD819500AB5A8C /* UIImage+FTLYZImage.m */; };
 		E68EC50B1CC4B85D00A338C8 /* FTFilterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68EC5091CC4B85D00A338C8 /* FTFilterTableViewController.m */; };
 		E68EC50C1CC4B85D00A338C8 /* FTFilterTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E68EC50A1CC4B85D00A338C8 /* FTFilterTableViewController.xib */; };
 		E6956EA61CBE21A1008DEEDB /* FTNewsBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6956EA51CBE21A1008DEEDB /* FTNewsBean.m */; };
@@ -832,6 +836,13 @@
 		E68050C61CBFA71900678905 /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
 		E68050C91CBFB0D200678905 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		E68D16081CFD25ED00AB5A8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E68D160A1CFD31F100AB5A8C /* FTHomepageMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTHomepageMainViewController.h; path = UI/ViewController/FTHomepageMainViewController.h; sourceTree = "<group>"; };
+		E68D160B1CFD31F100AB5A8C /* FTHomepageMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTHomepageMainViewController.m; path = UI/ViewController/FTHomepageMainViewController.m; sourceTree = "<group>"; };
+		E68D160C1CFD31F100AB5A8C /* FTHomepageMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTHomepageMainViewController.xib; path = UI/ViewController/FTHomepageMainViewController.xib; sourceTree = "<group>"; };
+		E68D16111CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+FTLYZLabel.h"; path = "改变行高/UILabel+FTLYZLabel.h"; sourceTree = "<group>"; };
+		E68D16121CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+FTLYZLabel.m"; path = "改变行高/UILabel+FTLYZLabel.m"; sourceTree = "<group>"; };
+		E68D16151CFD819500AB5A8C /* UIImage+FTLYZImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+FTLYZImage.h"; path = "Categorys/图片模糊处理/UIImage+FTLYZImage.h"; sourceTree = "<group>"; };
+		E68D16161CFD819500AB5A8C /* UIImage+FTLYZImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+FTLYZImage.m"; path = "Categorys/图片模糊处理/UIImage+FTLYZImage.m"; sourceTree = "<group>"; };
 		E68EC5081CC4B85D00A338C8 /* FTFilterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTFilterTableViewController.h; sourceTree = "<group>"; };
 		E68EC5091CC4B85D00A338C8 /* FTFilterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTFilterTableViewController.m; sourceTree = "<group>"; };
 		E68EC50A1CC4B85D00A338C8 /* FTFilterTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTFilterTableViewController.xib; sourceTree = "<group>"; };
@@ -2166,6 +2177,9 @@
 		E68D16061CFD24DE00AB5A8C /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				E68D160A1CFD31F100AB5A8C /* FTHomepageMainViewController.h */,
+				E68D160B1CFD31F100AB5A8C /* FTHomepageMainViewController.m */,
+				E68D160C1CFD31F100AB5A8C /* FTHomepageMainViewController.xib */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -2173,8 +2187,35 @@
 		E68D16071CFD24EB00AB5A8C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E68D160F1CFD32E800AB5A8C /* 返回按钮 */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		E68D160F1CFD32E800AB5A8C /* 返回按钮 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "返回按钮";
+			sourceTree = "<group>";
+		};
+		E68D16101CFD7C7A00AB5A8C /* 改变行高 */ = {
+			isa = PBXGroup;
+			children = (
+				E68D16111CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.h */,
+				E68D16121CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m */,
+			);
+			name = "改变行高";
+			sourceTree = "<group>";
+		};
+		E68D16141CFD816500AB5A8C /* 图片模糊处理 */ = {
+			isa = PBXGroup;
+			children = (
+				E68D16151CFD819500AB5A8C /* UIImage+FTLYZImage.h */,
+				E68D16161CFD819500AB5A8C /* UIImage+FTLYZImage.m */,
+			);
+			name = "图片模糊处理";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		E68EC5071CC4B71400A338C8 /* filter */ = {
@@ -2431,6 +2472,7 @@
 		E6D74A301CB7B7EE00854337 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				E68D16101CFD7C7A00AB5A8C /* 改变行高 */,
 				E6D2F8D91CE962D000160788 /* 获取标签分类 */,
 				E668BBB81CE44D3900071998 /* 缓存 */,
 				E6D74A311CB7B7EE00854337 /* Categorys */,
@@ -2452,6 +2494,7 @@
 		E6D74A311CB7B7EE00854337 /* Categorys */ = {
 			isa = PBXGroup;
 			children = (
+				E68D16141CFD816500AB5A8C /* 图片模糊处理 */,
 				E6D74A321CB7B7EE00854337 /* UIButton+countDown.h */,
 				E6D74A331CB7B7EE00854337 /* UIButton+countDown.m */,
 				E6D74A341CB7B7EE00854337 /* UIColor+YBColorCategory.h */,
@@ -2779,6 +2822,7 @@
 				E64EF1141CB6614000CAE340 /* Main.storyboard in Resources */,
 				3D7B989D1CDF896F00B80B8D /* FTTableViewCell5.xib in Resources */,
 				3D4B192E1CD9FD670022DFB0 /* ToolViewInputTextHL@2x.png in Resources */,
+				E68D160E1CFD31F100AB5A8C /* FTHomepageMainViewController.xib in Resources */,
 				E61184901CC75E1600F23EC7 /* UMSnsAccountViewController.xib in Resources */,
 				3D7B98BF1CE0898400B80B8D /* FTOldPasswordVC.xib in Resources */,
 				3D7B98A51CE0190600B80B8D /* FTAbountUsViewController.xib in Resources */,
@@ -2950,6 +2994,7 @@
 				E6D09E961CEDDDCF00B7C43E /* FTQiniuNetwork.m in Sources */,
 				3DC411F31CCF810A0030C229 /* FTDrawerTableViewFooter.m in Sources */,
 				E68050C11CBF919A00678905 /* UIView+JHExtension.m in Sources */,
+				E68D160D1CFD31F100AB5A8C /* FTHomepageMainViewController.m in Sources */,
 				E6E580B31CBE523B00272242 /* FTBaseTableViewCell.m in Sources */,
 				3D6DA0DD1CEE9EA100BAA8F0 /* NIDropDown.m in Sources */,
 				3D57D0461CEC0B560082BF24 /* FMDatabaseQueue.m in Sources */,
@@ -3033,6 +3078,7 @@
 				3D5A3CBD1CFD1E1000FDB3C4 /* FTShareView.m in Sources */,
 				3D7B98971CDEE1E900B80B8D /* FTSettingViewController.m in Sources */,
 				E65EFC2C1CC8B63C0039EE8A /* FTConfig.m in Sources */,
+				E68D16171CFD819500AB5A8C /* UIImage+FTLYZImage.m in Sources */,
 				3DC412111CD039D70030C229 /* MASLayoutConstraint.m in Sources */,
 				3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */,
 				E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */,
@@ -3100,6 +3146,7 @@
 				E668BBBE1CE4523600071998 /* FTCacheBean.m in Sources */,
 				E68050B81CBF919A00678905 /* JHRefreshAniBaseView.m in Sources */,
 				3D7C6B731CF29DDD0088400D /* FTSlideTabBar.m in Sources */,
+				E68D16131CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m in Sources */,
 				E61B8A651CBB6C4900AE37F9 /* SDCollectionViewCell.m in Sources */,
 				E68050C01CBF919A00678905 /* UIScrollView+JHRefresh.m in Sources */,
 				3DC31DD01CF859EC001BC364 /* FTArenaChooseLabelView.m in Sources */,
