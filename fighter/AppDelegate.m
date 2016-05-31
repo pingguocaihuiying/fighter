@@ -32,7 +32,8 @@
 #import "DBManager.h"
 #import "RealReachability.h"
 #import "IXPushSdk.h"
-//#import "TencentOpenAPI.h"
+#import <TencentOpenAPI/TencentOAuth.h>
+#import "UMSocialQQHandler.h"
 
 
 //微信请求类型
@@ -46,7 +47,7 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 };
 
 
-@interface AppDelegate ()<WXApiDelegate>
+@interface AppDelegate ()<WXApiDelegate,TencentSessionDelegate>
 
 @property (nonatomic, assign)WXRequestType wxRequestType;
 @property (nonatomic, strong) MainViewController *mainVC;
@@ -63,6 +64,8 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     [self setUMeng];
     //设置微信相关的
     [self setWeiXin];
+    //设置qq相关
+    [self setTencent];
     //设置爱心推
     [self setIXPushWithApplication:application options:launchOptions];
     //设置数据库
@@ -176,6 +179,9 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     //设置微信AppId、appSecret，分享url
     [UMSocialWechatHandler setWXAppId:WX_App_ID appSecret:WX_App_Secret url:@"http://www.umeng.com/social"];
     
+    //设置QQ AppId、appSecret，分享url
+    [UMSocialQQHandler setQQWithAppId:QQ_App_ID appKey:QQ_App_Secret url:@"http://www.umeng.com/social"];
+    
     //打开新浪微博的SSO开关，设置新浪微博回调地址，这里必须要和你在新浪微博后台设置的回调地址一致。需要 #import "UMSocialSinaSSOHandler.h"
     [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"2201505639"
                                               secret:@"cb1771445170f9c625224f6e1403ce48"
@@ -189,7 +195,13 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     [WXApi registerApp:@"wxe69b91d3503144ca" withDescription:@"wechat"];
 }
 
+#pragma mark 设置qq
+- (void) setTencent {
 
+  TencentOAuth *tencentOAuth = [[TencentOAuth alloc] initWithAppId:QQ_App_ID andDelegate:self]; //注册
+}
+
+#pragma mark 设置爱心推
 - (void)  setIXPushWithApplication:(UIApplication *)application options:(NSDictionary *)launchOptions {
     //设置爱心推
 #ifdef __IPHONE_8_0
@@ -377,11 +389,20 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
         return YES;
     }
     
-//    if ([TencentOAuth HandleOpenURL:url]) {
-//        return YES;
-//    }
+    if ([TencentOAuth HandleOpenURL:url]) {
+        return YES;
+    }
     
     if ([url.description isEqualToString:@"gogogofight://"]) {
+        return YES;
+    }
+    return NO;
+}
+
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    
+    if ([TencentOAuth HandleOpenURL:url]) {
         return YES;
     }
     return NO;

@@ -1223,8 +1223,8 @@
 		3D5A3CE91CFD42E500FDB3C4 /* Tencent */ = {
 			isa = PBXGroup;
 			children = (
-				3D5A3CEA1CFD569B00FDB3C4 /* TencentOpenApi_IOS_Bundle.bundle */,
 				3D5A3CEB1CFD569B00FDB3C4 /* TencentOpenAPI.framework */,
+				3D5A3CEA1CFD569B00FDB3C4 /* TencentOpenApi_IOS_Bundle.bundle */,
 			);
 			name = Tencent;
 			sourceTree = "<group>";
