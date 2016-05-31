@@ -875,6 +875,12 @@ static DBManager * _sharedDBManager = nil;
  * @param 是否已读字段
  *
  */
+- (void) test
+{
+
+//    UIImage *imag = [UIImage image];
+    NSLog(@"nihaoadnaskdnaskdnaknk");
+}
 - (void) updateVideosById:(NSString *)Id isReader:(BOOL)isReader {
     
     NSNumber * idNum = [NSNumber numberWithLong:[Id integerValue]];
