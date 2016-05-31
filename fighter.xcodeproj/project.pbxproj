@@ -71,6 +71,7 @@
 		3D57D0491CEC0B560082BF24 /* README.markdown in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D0421CEC0B560082BF24 /* README.markdown */; };
 		3D57D04D1CEC0C810082BF24 /* DBTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D04C1CEC0C810082BF24 /* DBTools.m */; };
 		3D57D0501CEC0E7F0082BF24 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D04F1CEC0E7F0082BF24 /* DBManager.m */; };
+		3D5A3CBD1CFD1E1000FDB3C4 /* FTShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */; };
 		3D5FB4851CDC1F1D00FC1809 /* FTPhotoPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4841CDC1F1D00FC1809 /* FTPhotoPickerView.m */; };
 		3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4871CDC251B00FC1809 /* FTCityPickerView.m */; };
 		3D5FB4921CDC311400FC1809 /* FTAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4901CDC311400FC1809 /* FTAssetsViewController.m */; };
@@ -466,6 +467,8 @@
 		3D57D04C1CEC0C810082BF24 /* DBTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBTools.m; sourceTree = "<group>"; };
 		3D57D04E1CEC0E7F0082BF24 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		3D57D04F1CEC0E7F0082BF24 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
+		3D5A3CBB1CFD1E1000FDB3C4 /* FTShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTShareView.h; sourceTree = "<group>"; };
+		3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTShareView.m; sourceTree = "<group>"; };
 		3D5FB4831CDC1F1D00FC1809 /* FTPhotoPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPhotoPickerView.h; sourceTree = "<group>"; };
 		3D5FB4841CDC1F1D00FC1809 /* FTPhotoPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPhotoPickerView.m; sourceTree = "<group>"; };
 		3D5FB4861CDC251B00FC1809 /* FTCityPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCityPickerView.h; sourceTree = "<group>"; };
@@ -2218,6 +2221,8 @@
 				E6B458991CB7563300FB4261 /* FTBaseViewController.m */,
 				E6B458D91CB75E5000FB4261 /* FTBaseTabBarViewController.h */,
 				E6B458DA1CB75E5000FB4261 /* FTBaseTabBarViewController.m */,
+				3D5A3CBB1CFD1E1000FDB3C4 /* FTShareView.h */,
+				3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -2989,6 +2994,7 @@
 				E61B8A671CBB6C4900AE37F9 /* UIView+SDExtension.m in Sources */,
 				E668BABC1CE0565700071998 /* MJRefreshConst.m in Sources */,
 				3DC412131CD039D70030C229 /* MASViewConstraint.m in Sources */,
+				3D5A3CBD1CFD1E1000FDB3C4 /* FTShareView.m in Sources */,
 				3D7B98971CDEE1E900B80B8D /* FTSettingViewController.m in Sources */,
 				E65EFC2C1CC8B63C0039EE8A /* FTConfig.m in Sources */,
 				3DC412111CD039D70030C229 /* MASLayoutConstraint.m in Sources */,

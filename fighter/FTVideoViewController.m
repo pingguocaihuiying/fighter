@@ -573,7 +573,9 @@
     self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
                 NSString *currId;
                 if (weakSelf.tableViewDataSourceArray && weakSelf.tableViewDataSourceArray.count > 0) {
-                    currId = [weakSelf.tableViewDataSourceArray lastObject][@"videosId"];
+//                    currId = [weakSelf.tableViewDataSourceArray lastObject][@"videosId"];
+                     FTVideoBean *bean = [weakSelf.tableViewDataSourceArray lastObject];
+                    currId = bean.videosId;
                     //如果当前是按“最热”来，需要找到最小的id座位current id
                     if ([self.videosTag isEqualToString:@"0"]) {
                         int minId = [currId intValue];

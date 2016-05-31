@@ -722,7 +722,7 @@ static DBManager * _sharedDBManager = nil;
  */
 - (void) createVideosTable {
     
-    NSString * sql = @"CREATE TABLE 'videos' ('videosId' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, 'videosType' TEXT, 'videosTime' INTEGER, 'title' TEXT, 'summary' TEXT, 'img' TEXT, 'url' TEXT, 'author' TEXT, 'commentCount' INTEGER DEFAULT 0, 'voteCount' INTEGER DEFAULT 0, 'videoLength' INTEGER DEFAULT 0, 'coachid' INTEGER DEFAULT 0, 'boxerid' INTEGER DEFAULT 0, 'isTeach' BOOLEAN DEFAULT 0, 'boxinghallid' INTEGER DEFAULT 0);";
+    NSString * sql = @"CREATE TABLE 'videos' ('videosId' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, 'videosType' TEXT, 'videosTime' INTEGER, 'title' TEXT, 'summary' TEXT, 'img' TEXT, 'url' TEXT, 'author' TEXT, 'commentCount' INTEGER DEFAULT 0, 'voteCount' INTEGER DEFAULT 0,viewCount INTEGER DEFAULT 0, 'videoLength' INTEGER DEFAULT 0, 'coachid' INTEGER DEFAULT 0, 'boxerid' INTEGER DEFAULT 0, 'boxinghallid' INTEGER DEFAULT 0,'isTeach' BOOLEAN DEFAULT 0,isReader BOOLEAN DEFAULT 0);";
     
     [self createTable:@"videos" sql:sql];
 }
