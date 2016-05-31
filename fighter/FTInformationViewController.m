@@ -27,6 +27,7 @@
 #import "DBManager.h"
 #import "NetWorking.h"
 #import "FTLYZButton.h"
+#import "FTHomepageMainViewController.h"
 
 @interface FTInformationViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTnewsDetailDelegate,FTTableViewdelegate>
 
@@ -558,10 +559,11 @@
 
 #pragma -mark -排行榜按钮被点击
 - (IBAction)rankButtonClicked:(id)sender {
-    
+    FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
     FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
 //    rankHomeVC.title = @"排行榜";
-    [self.navigationController pushViewController:rankHomeVC animated:YES];
+//    [self.navigationController pushViewController:rankHomeVC animated:YES];
+    [self.navigationController pushViewController:homepageViewController animated:YES];
     
 //    FTRankingListViewController *rankingListViewController = [FTRankingListViewController new];
 //    [self.navigationController pushViewController:rankingListViewController animated:YES];
