@@ -20,8 +20,8 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - HappyDNS (0.3.1)
-  - Qiniu (7.0.19.1):
+  - HappyDNS (0.2.4)
+  - Qiniu (7.0.18):
     - AFNetworking (~> 2.0)
     - HappyDNS (~> 0.2)
 
@@ -30,7 +30,9 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
-  HappyDNS: f0227ea45c0e1f8363b74f71634d38a2f9ad3127
-  Qiniu: ceb88a496d556bdb8f8e0bddd83a1639dfe5f84b
+  HappyDNS: 86ab4be498cc5cc884002b248979cd130cfbe10e
+  Qiniu: 7a9c2a2bbdec02ae84b92051637e1e9ea3d182fb
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: bd20d6e747ec62f1054b3f15c4d59ac34a0ec1e1
+
+COCOAPODS: 1.0.0

@@ -250,7 +250,6 @@
 		E66D6EFB1CBCE81C008B015A /* FTNetConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6EF91CBCE81C008B015A /* FTNetConfig.m */; };
 		E66EAEA21CF8217F006CD6CE /* FTArenaTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E66EAEA01CF8217F006CD6CE /* FTArenaTextTableViewCell.m */; };
 		E66EAEA31CF8217F006CD6CE /* FTArenaTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E66EAEA11CF8217F006CD6CE /* FTArenaTextTableViewCell.xib */; };
-		E66FF6291CF2A78B002C4F67 /* G格斗家-格斗场-最热.png in Resources */ = {isa = PBXBuildFile; fileRef = E66FF6281CF2A78B002C4F67 /* G格斗家-格斗场-最热.png */; };
 		E67872731CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E67872711CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m */; };
 		E67872741CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E67872721CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib */; };
 		E67872791CEB00980099CEE6 /* FTNewPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E67872771CEB00980099CEE6 /* FTNewPostViewController.m */; };
@@ -791,7 +790,6 @@
 		E66EAE9F1CF8217F006CD6CE /* FTArenaTextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaTextTableViewCell.h; sourceTree = "<group>"; };
 		E66EAEA01CF8217F006CD6CE /* FTArenaTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaTextTableViewCell.m; sourceTree = "<group>"; };
 		E66EAEA11CF8217F006CD6CE /* FTArenaTextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaTextTableViewCell.xib; sourceTree = "<group>"; };
-		E66FF6281CF2A78B002C4F67 /* G格斗家-格斗场-最热.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "G格斗家-格斗场-最热.png"; sourceTree = "<group>"; };
 		E67872701CEACEFC0099CEE6 /* FTArenaImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaImageTableViewCell.h; sourceTree = "<group>"; };
 		E67872711CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaImageTableViewCell.m; sourceTree = "<group>"; };
 		E67872721CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaImageTableViewCell.xib; sourceTree = "<group>"; };
@@ -1715,7 +1713,6 @@
 		E64EF1081CB6614000CAE340 /* fighter */ = {
 			isa = PBXGroup;
 			children = (
-				E66FF6281CF2A78B002C4F67 /* G格斗家-格斗场-最热.png */,
 				E685320A1CE59CFA00603D77 /* Frameworks */,
 				E68050C21CBFA70200678905 /* OtherSDK */,
 				3D57D04A1CEC0BC30082BF24 /* DataBase */,
@@ -2587,8 +2584,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E64EF1331CB6614100CAE340 /* Build configuration list for PBXNativeTarget "fighter" */;
 			buildPhases = (
-				079F6CFBB5F630D52D2A57D4 /* Check Pods Manifest.lock */,
 				4FB332F39A8646C733F20968 /* 📦 Check Pods Manifest.lock */,
+				079F6CFBB5F630D52D2A57D4 /* Check Pods Manifest.lock */,
 				E64EF1021CB6614000CAE340 /* Sources */,
 				E64EF1031CB6614000CAE340 /* Frameworks */,
 				E64EF1041CB6614000CAE340 /* Resources */,
@@ -2758,7 +2755,6 @@
 				E61184911CC75E1600F23EC7 /* UMSShareListController.xib in Resources */,
 				E67872741CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib in Resources */,
 				E6B7D2011CF6A750004191A3 /* FTArenaViewController.xib in Resources */,
-				E66FF6291CF2A78B002C4F67 /* G格斗家-格斗场-最热.png in Resources */,
 				E64EF1141CB6614000CAE340 /* Main.storyboard in Resources */,
 				3D7B989D1CDF896F00B80B8D /* FTTableViewCell5.xib in Resources */,
 				3D4B192E1CD9FD670022DFB0 /* ToolViewInputTextHL@2x.png in Resources */,
