@@ -32,6 +32,8 @@
 #import "DBManager.h"
 #import "RealReachability.h"
 #import "IXPushSdk.h"
+//#import "TencentOpenAPI.h"
+
 
 //微信请求类型
 typedef NS_ENUM(NSInteger, WXRequestType) {
@@ -374,6 +376,11 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     if([WXApi handleOpenURL:url delegate:self]){
         return YES;
     }
+    
+//    if ([TencentOAuth HandleOpenURL:url]) {
+//        return YES;
+//    }
+    
     if ([url.description isEqualToString:@"gogogofight://"]) {
         return YES;
     }
@@ -490,10 +497,9 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 
     
         //设置tabbar的属性
-        FTBaseTabBarViewController *tabBartVC = [FTBaseTabBarViewController new];
-    
-        tabBartVC.tabBar.barTintColor = [UIColor blackColor];
-        tabBartVC.tabBar.translucent = NO;
+    FTBaseTabBarViewController *tabBartVC = [FTBaseTabBarViewController new];
+    tabBartVC.tabBar.barTintColor = [UIColor blackColor];
+    tabBartVC.tabBar.translucent = NO;
 //        tabBartVC.viewControllers = @[infoVC, matchVC, videoVC, coachVC, boxingHallVC];
             tabBartVC.viewControllers = @[infoVC, videoVC];
     

@@ -164,10 +164,11 @@
         [self.tableViewDataSourceArray addObjectsFromArray:mutableArray];
     }
     
+//    //隐藏infoLabel
+//    if (self.infoLabel.isHidden == NO) {
+//        self.infoLabel.hidden = YES;
+//    }
     
-    //缓存数据
-    [self saveCache];
-    [self.collectionView reloadData];
 }
 
 - (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)videoCurrId{
@@ -197,36 +198,36 @@
                 if (mutableArray.count > 0) {
                     DBManager *dbManager = [DBManager shareDBManager];
                     [dbManager connect];
-                    [dbManager cleanNewsTable];
+                    [dbManager cleanVideosTable];
                     
                     for (NSDictionary *dic in mutableArray)  {
                         [dbManager insertDataIntoVideos:dic];
                     }
                 }
                 
-                
-                
                 [self getDataFromDBWithVideoType:videoType getType:getType];
                 
-                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
-                [self.tableViewController.tableView footerEndRefreshing];
+                //缓存数据
+                [self saveCache];
                 
-                //隐藏infoLabel
-                if (self.infoLabel.isHidden == NO) {
-                    self.infoLabel.hidden = YES;
-                }
+                [self.collectionView.mj_header endRefreshing];
+                [self.collectionView.mj_footer endRefreshing];
+                [self.collectionView reloadData];
 
             }else {
                 [self getDataFromDBWithVideoType:videoType getType:getType];
-                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
-                [self.tableViewController.tableView footerEndRefreshing];
+                [self.collectionView.mj_header endRefreshing];
+                [self.collectionView.mj_footer endRefreshing];
+                [self.collectionView reloadData];
                 
             }
             
         }else {
             [self getDataFromDBWithVideoType:videoType getType:getType];
-            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
-            [self.tableViewController.tableView footerEndRefreshing];
+            [self.collectionView.mj_header endRefreshing];
+            [self.collectionView.mj_footer endRefreshing];
+            [self.collectionView reloadData];
+
             
         }
   }];
@@ -517,14 +518,14 @@
 //        FTVideoBean *bean = [FTVideoBean new];
 //        [bean setValuesWithDic:newsDic];
         
-        FTVideoBean *bean = self.sourceArry[indexPath.row];
+        FTVideoBean *bean = self.self.tableViewDataSourceArray[indexPath.row];
         //标记已读
         if (![bean.isReader isEqualToString:@"YES"]) {
             bean.isReader = @"YES";
             //从数据库取数据
             DBManager *dbManager = [DBManager shareDBManager];
             [dbManager connect];
-            [dbManager updateNewsById:bean.videosId isReader:YES];
+            [dbManager updateVideosById:bean.videosId isReader:YES];
             [dbManager close];
         }
 

@@ -443,14 +443,23 @@ static DBManager * _sharedDBManager = nil;
 - (void) updateNewsById:(NSString *)Id isReader:(BOOL)isReader {
     
     NSNumber * idNum = [NSNumber numberWithLong:[Id integerValue]];
-    NSLog(@"isReader:%d",isReader);
-//    BOOL result = [_dataBase executeUpdate:@"UPDATE news set isReader = ? where newsId = ?" ,isreader, idNum];
-    BOOL result = [_dataBase executeUpdate:@"INSERT INTO readCashe (objId,type) VALUES (?,'news')" ,idNum];
-    if (result) {
-//        NSLog(@"更新数据成功");
-    }else {
-        NSLog(@"更新数据失败");
+    
+    //1.判断数据是否已读
+    FMResultSet * set = [_dataBase executeQuery:@"select objId from readCashe where objId = ?  and type = 'arena' ",idNum];
+    [set next];
+    
+    BOOL exist = [set intForColumnIndex:0] >0 ?YES:NO;
+    
+    if (!exist) {
+        
+        BOOL result = [_dataBase executeUpdate:@"INSERT INTO readCashe (objId,type) VALUES (?,'news')" ,idNum];
+        if (result) {
+            //        NSLog(@"更新数据成功");
+        }else {
+            NSLog(@"更新数据失败");
+        }
     }
+    
 
 }
 
@@ -692,15 +701,25 @@ static DBManager * _sharedDBManager = nil;
     
     NSNumber * idNum = [NSNumber numberWithLong:[Id integerValue]];
     
-//    BOOL result = [_dataBase executeUpdate:@"UPDATE arenas set isReader = ? where id = ?" ,isreader, idNum];
     
-     BOOL result = [_dataBase executeUpdate:@"INSERT INTO readCashe (objId,type) VALUES (?,'arena')" ,idNum];
+    //1.判断数据是否已读
+    FMResultSet * set = [_dataBase executeQuery:@"select objId from readCashe where objId = ?  and type = 'arena' ",idNum];
+    [set next];
     
-    if (result) {
-//        NSLog(@"更新数据成功");
-    }else {
-        NSLog(@"更新数据失败");
+    BOOL exist = [set intForColumnIndex:0] >0 ?YES:NO;
+    
+    if (!exist) {
+    
+        BOOL result = [_dataBase executeUpdate:@"INSERT INTO readCashe (objId,type) VALUES (?,'arena')" ,idNum];
+        
+        if (result) {
+            //        NSLog(@"更新数据成功");
+        }else {
+            NSLog(@"更新数据失败");
+        }
     }
+    
+   
 }
 
 
@@ -776,7 +795,7 @@ static DBManager * _sharedDBManager = nil;
     NSString *author = dic[@"author"];
     
     //1.判断数据是否已读
-    FMResultSet * set = [_dataBase executeQuery:@"select objId from readCashe where objId = ?  and type = 'arena' ",videosId];
+    FMResultSet * set = [_dataBase executeQuery:@"select objId from readCashe where objId = ?  and type = 'video' ",videosId];
     [set next];
     
     BOOL exist = [set intForColumnIndex:0] >0 ?YES:NO;
@@ -803,7 +822,7 @@ static DBManager * _sharedDBManager = nil;
                    ];
     
     if (result) {
-        NSLog(@"更新数据成功");
+//        NSLog(@"更新数据成功");
     }else {
         NSLog(@"更新数据失败");
     }
@@ -844,6 +863,7 @@ static DBManager * _sharedDBManager = nil;
         bean.author = [rs stringForColumn:@"author"];
         bean.commentCount = [rs stringForColumn:@"commentCount"];
         bean.voteCount = [rs stringForColumn:@"voteCount"];
+        bean.viewCount = [rs stringForColumn:@"viewCount"];
         bean.videoLength = [rs stringForColumn:@"videoLength"];
         
         bean.coachid = [rs stringForColumn:@"coachid"];
@@ -871,15 +891,22 @@ static DBManager * _sharedDBManager = nil;
     
     NSNumber * idNum = [NSNumber numberWithLong:[Id integerValue]];
     
-    //    BOOL result = [_dataBase executeUpdate:@"UPDATE videos set isReader = ? where id = ?" ,isreader, idNum];
+    //1.判断数据是否已读
+    FMResultSet * set = [_dataBase executeQuery:@"select objId from readCashe where objId = ?  and type = 'video' ",idNum];
+    [set next];
     
-    BOOL result = [_dataBase executeUpdate:@"INSERT INTO readCashe (objId,type) VALUES (?,'video')" ,idNum];
+    BOOL exist = [set intForColumnIndex:0] >0 ?YES:NO;
     
-    if (result) {
-        //        NSLog(@"更新数据成功");
-    }else {
-        NSLog(@"更新数据失败");
+    if (!exist) {
+        BOOL result = [_dataBase executeUpdate:@"INSERT INTO readCashe (objId,type) VALUES (?,'video')" ,idNum];
+        
+        if (result) {
+            //        NSLog(@"更新数据成功");
+        }else {
+            NSLog(@"更新数据失败");
+        }
     }
+    
 }
 
 @end
