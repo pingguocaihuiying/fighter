@@ -2034,6 +2034,8 @@
 		E6735AD11CFC408F0068782C /* 个人主页 */ = {
 			isa = PBXGroup;
 			children = (
+				E68D16061CFD24DE00AB5A8C /* ViewController */,
+				E68D16071CFD24EB00AB5A8C /* Views */,
 			);
 			name = "个人主页";
 			sourceTree = "<group>";
@@ -2141,6 +2143,20 @@
 				E68050C91CBFB0D200678905 /* libz.tbd */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E68D16061CFD24DE00AB5A8C /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		E68D16071CFD24EB00AB5A8C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		E68EC5071CC4B71400A338C8 /* filter */ = {
