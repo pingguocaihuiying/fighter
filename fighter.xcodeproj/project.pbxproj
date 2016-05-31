@@ -72,8 +72,6 @@
 		3D57D04D1CEC0C810082BF24 /* DBTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D04C1CEC0C810082BF24 /* DBTools.m */; };
 		3D57D0501CEC0E7F0082BF24 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D04F1CEC0E7F0082BF24 /* DBManager.m */; };
 		3D5A3CBD1CFD1E1000FDB3C4 /* FTShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */; };
-		3D5A3CEC1CFD569B00FDB3C4 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3D5A3CEA1CFD569B00FDB3C4 /* TencentOpenApi_IOS_Bundle.bundle */; };
-		3D5A3CED1CFD569B00FDB3C4 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D5A3CEB1CFD569B00FDB3C4 /* TencentOpenAPI.framework */; };
 		3D5FB4851CDC1F1D00FC1809 /* FTPhotoPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4841CDC1F1D00FC1809 /* FTPhotoPickerView.m */; };
 		3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4871CDC251B00FC1809 /* FTCityPickerView.m */; };
 		3D5FB4921CDC311400FC1809 /* FTAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4901CDC311400FC1809 /* FTAssetsViewController.m */; };
@@ -155,6 +153,8 @@
 		3DE95BA81CD86FA4005BF85C /* FTLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE95BA61CD86FA4005BF85C /* FTLoginViewController.xib */; };
 		3DE95BAD1CD8A042005BF85C /* FTRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95BAB1CD8A042005BF85C /* FTRegistViewController.m */; };
 		3DE95BAE1CD8A042005BF85C /* FTRegistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE95BAC1CD8A042005BF85C /* FTRegistViewController.xib */; };
+		3DEB752F1CFD980C00F6FD8A /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3DEB752D1CFD980C00F6FD8A /* TencentOpenApi_IOS_Bundle.bundle */; };
+		3DEB75301CFD980C00F6FD8A /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DEB752E1CFD980C00F6FD8A /* TencentOpenAPI.framework */; };
 		E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6035EB61CC08D2800B10D36 /* FTNewsDetail2ViewController.m */; };
 		E6035EB91CC08D2800B10D36 /* FTNewsDetail2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6035EB71CC08D2800B10D36 /* FTNewsDetail2ViewController.xib */; };
 		E6035EBE1CC0C39500B10D36 /* FTCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6035EBC1CC0C39500B10D36 /* FTCommentViewController.m */; };
@@ -470,8 +470,6 @@
 		3D57D04F1CEC0E7F0082BF24 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
 		3D5A3CBB1CFD1E1000FDB3C4 /* FTShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTShareView.h; sourceTree = "<group>"; };
 		3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTShareView.m; sourceTree = "<group>"; };
-		3D5A3CEA1CFD569B00FDB3C4 /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
-		3D5A3CEB1CFD569B00FDB3C4 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		3D5FB4831CDC1F1D00FC1809 /* FTPhotoPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPhotoPickerView.h; sourceTree = "<group>"; };
 		3D5FB4841CDC1F1D00FC1809 /* FTPhotoPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPhotoPickerView.m; sourceTree = "<group>"; };
 		3D5FB4861CDC251B00FC1809 /* FTCityPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCityPickerView.h; sourceTree = "<group>"; };
@@ -612,6 +610,8 @@
 		3DE95BAA1CD8A042005BF85C /* FTRegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRegistViewController.h; sourceTree = "<group>"; };
 		3DE95BAB1CD8A042005BF85C /* FTRegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRegistViewController.m; sourceTree = "<group>"; };
 		3DE95BAC1CD8A042005BF85C /* FTRegistViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRegistViewController.xib; sourceTree = "<group>"; };
+		3DEB752D1CFD980C00F6FD8A /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
+		3DEB752E1CFD980C00F6FD8A /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		618712783A5CE24E9E3317D9 /* Pods-fighter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fighter.release.xcconfig"; path = "Pods/Target Support Files/Pods-fighter/Pods-fighter.release.xcconfig"; sourceTree = "<group>"; };
 		8E48274DE7B43596DF74BCD1 /* Pods_fighter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fighter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6035EB51CC08D2800B10D36 /* FTNewsDetail2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNewsDetail2ViewController.h; sourceTree = "<group>"; };
@@ -981,7 +981,7 @@
 				E61184961CC75ED000F23EC7 /* Security.framework in Frameworks */,
 				3D4B19391CD9FD670022DFB0 /* libUMOpus.a in Frameworks */,
 				E61184941CC75EBE00F23EC7 /* SystemConfiguration.framework in Frameworks */,
-				3D5A3CED1CFD569B00FDB3C4 /* TencentOpenAPI.framework in Frameworks */,
+				3DEB75301CFD980C00F6FD8A /* TencentOpenAPI.framework in Frameworks */,
 				E61185051CC76B3400F23EC7 /* libYixinSDK_V2.2.a in Frameworks */,
 				3D4B19281CD9FD670022DFB0 /* libUMFeedback.a in Frameworks */,
 				E61185041CC76B3400F23EC7 /* libSocialYiXin.a in Frameworks */,
@@ -1223,8 +1223,8 @@
 		3D5A3CE91CFD42E500FDB3C4 /* Tencent */ = {
 			isa = PBXGroup;
 			children = (
-				3D5A3CEB1CFD569B00FDB3C4 /* TencentOpenAPI.framework */,
-				3D5A3CEA1CFD569B00FDB3C4 /* TencentOpenApi_IOS_Bundle.bundle */,
+				3DEB752D1CFD980C00F6FD8A /* TencentOpenApi_IOS_Bundle.bundle */,
+				3DEB752E1CFD980C00F6FD8A /* TencentOpenAPI.framework */,
 			);
 			name = Tencent;
 			sourceTree = "<group>";
@@ -2764,12 +2764,12 @@
 				E64EF1191CB6614000CAE340 /* LaunchScreen.storyboard in Resources */,
 				E6B458C41CB75D7A00FB4261 /* FTCoachViewController.xib in Resources */,
 				E611848F1CC75E1600F23EC7 /* UMSLoginViewController.xib in Resources */,
+				3DEB752F1CFD980C00F6FD8A /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				3D4B19591CDB0CD90022DFB0 /* FTPropertySetingViewController.xib in Resources */,
 				E61185101CC76B3400F23EC7 /* ios-social-sdk-socialbar.html in Resources */,
 				E611850A1CC76B3400F23EC7 /* ios-social-sdk-like.html in Resources */,
 				3D57D0481CEC0B560082BF24 /* LICENSE.txt in Resources */,
 				3D6DA0E21CEEA96D00BAA8F0 /* FTBoxerCenter.xib in Resources */,
-				3D5A3CEC1CFD569B00FDB3C4 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				3DC9A4EA1CE5CC6C00E16D19 /* FTRankBaseViewController.xib in Resources */,
 				3D4B19271CD9FD670022DFB0 /* UMFeedbackLocalizable.strings in Resources */,
 				3D7B98AA1CE048F200B80B8D /* FTManagerAccountViewController.xib in Resources */,
