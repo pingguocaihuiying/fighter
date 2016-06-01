@@ -17,7 +17,11 @@
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic, strong) NSArray *preImages;
 
-@property (nonatomic, strong) UIButton *albumBtn;
-@property (nonatomic, strong) UIButton *cameraBtn;
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *summary;
+@property (nonatomic, strong) NSString *image;
+@property (nonatomic, strong) NSString *imageUrl;
+
 
 @end

@@ -16,6 +16,7 @@
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "FTPhotoPickerView.h"
+#import "FTShareView.h"
 
 @interface FTArenaPostsDetailViewController ()<UIWebViewDelegate, UMSocialUIDelegate, CommentSuccessDelegate>
 {
@@ -300,19 +301,30 @@
      *暂时采用微信的分享
      */
     
-    FTPhotoPickerView *pickerView = [FTPhotoPickerView new];
-    pickerView.resultLabel.text = @"分享到";
-    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享-微信"] forState:UIControlStateNormal];
-    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享-微信pre"] forState:UIControlStateHighlighted];
-    [pickerView.cameraBtn addTarget:self action:@selector(shareToWXSceneSession) forControlEvents:UIControlEventTouchUpInside];
+//    FTPhotoPickerView *pickerView = [FTPhotoPickerView new];
+//    pickerView.resultLabel.text = @"分享到";
+//    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享-微信"] forState:UIControlStateNormal];
+//    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享-微信pre"] forState:UIControlStateHighlighted];
+//    [pickerView.cameraBtn addTarget:self action:@selector(shareToWXSceneSession) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享-朋友圈"] forState:UIControlStateNormal];
+//    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享-朋友圈pre"] forState:UIControlStateHighlighted];
+//    [pickerView.albumBtn addTarget:self action:@selector(shareToWXSceneTimeline) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [self.view addSubview:pickerView];
     
-    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享-朋友圈"] forState:UIControlStateNormal];
-    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享-朋友圈pre"] forState:UIControlStateHighlighted];
-    [pickerView.albumBtn addTarget:self action:@selector(shareToWXSceneTimeline) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:pickerView];
+    NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=%@",_arenaBean.postsId,@"damageblog"];
+    _webUrlString = [@"http://www.gogogofight.com/page/wrestle_news_page.html?" stringByAppendingString:str];
     
+    FTShareView *shareView = [FTShareView new];
     
+    [shareView setUrl:_webUrlString];
+    [shareView setTitle:_arenaBean.title];
+//    [shareView setSummary:_arenaBean.summary];
+    [shareView setImage:@"微信用@200"];
+    [shareView setImageUrl:@"http://www.gogogofight.com/page/images/wechat_share.jpg"];
+    [self.view addSubview:shareView];
 }
 - (void)shareToWXSceneSession{
     NSLog(@"WXSceneSession");
