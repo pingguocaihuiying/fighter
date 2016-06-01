@@ -62,16 +62,16 @@
     //设置背景图片
 
     [_userBgImageView sd_setImageWithURL:[NSURL URLWithString:@"http://7xtvwy.com1.z0.glb.clouddn.com/2016-05-27%2017:00_2ece766d041b40d2ad7da8c08c15d97f"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        
+        _userBgImageView.image = [UIImage boxblurImage:image withBlurNumber:0.5];
 //        [UIImage blurImage:_userBgImageView];
         
-        UIVisualEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-        
-        UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-        
-        visualEffectView.frame = _userBgImageView.bounds;
-        
-        [_userBgImageView addSubview:visualEffectView];
+//        UIVisualEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+//        
+//        UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+//        
+//        visualEffectView.frame = _userBgImageView.bounds;
+//        
+//        [_userBgImageView addSubview:visualEffectView];
     }];
 }
 
