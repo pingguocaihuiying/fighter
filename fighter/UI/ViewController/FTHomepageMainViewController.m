@@ -9,9 +9,62 @@
 #import "FTHomepageMainViewController.h"
 #import "WXApi.h"
 #import "UIImage+FTLYZImage.h"
+#import "FTTableViewController.h"
+#import "FTArenaViewController.h"
+#import "NIDropDown.h"
+#import "QuartzCore/QuartzCore.h"
+#import "FTNWGetCategory.h"
+#import "FTLabelBean.h"
+#import "FTRankTableView.h"
+#import "FTTableViewController.h"
+#import "JHRefresh.h"
+#import "FTInformationViewController.h"
+#import "FTTableViewController.h"
+#import "SDCycleScrollView.h"
+#import "RBRequestOperationManager.h"
+#import "FTNetConfig.h"
+#import "ZJModelTool.h"
+#import "AFNetworking.h"
+#import "JHRefresh.h"
+#import "FTNewsDetail2ViewController.h"
+#import "FTFilterTableViewController.h"
+#import "FTNewsBean.h"
+#import "UIButton+LYZTitle.h"
+#import "UIButton+WebCache.h"
+#import "Mobclick.h"
+#import "FTRankingListViewController.h"
+#import "FTCache.h"
+#import "FTCacheBean.h"
+#import "FTRankViewController.h"
+#import "FTNewPostViewController.h"
+#import "FTLoginViewController.h"
+#import "FTBaseNavigationViewController.h"
+
+#import "FTArenaBean.h"
+#import "FTArenaPostsDetailViewController.h"
+#import "NetWorking.h"
+#import "DBManager.h"
+#import "FTRankViewController.h"
+
 
 @interface FTHomepageMainViewController ()
 @property (strong, nonatomic)UIScrollView *scrollView;
+@property (nonatomic, strong)FTTableViewController *tableViewController;
+@property (nonatomic, strong)NSMutableArray *tableViewDataSourceArray;
+@property (weak, nonatomic) IBOutlet UITableView *infoTableView;
+@property(nonatomic,strong) NSArray *sourceArry;     //数据源
+@property(nonatomic,strong) UIPageViewController *pageViewController;   //翻页控制器
+@property(nonatomic) NSInteger currentSelectIndex;
+@property (nonatomic, strong)SDCycleScrollView *cycleScrollView;
+@property (nonatomic, strong)NSArray *cycleDataSourceArray;
+@property (nonatomic, strong)NSArray *typeArray;
+
+@property (nonatomic, copy)NSString *currentIndexString;
+
+@property (nonatomic, copy)NSString *query;
+@property (nonatomic, copy)NSString *pageNum;
+@property (nonatomic, copy)NSString *pageSize;
+@property (nonatomic, copy)NSString *labels;
 @end
 
 @implementation FTHomepageMainViewController
@@ -31,6 +84,7 @@
     [self initBaseData];
     NSLog(@"briefIntroductionTextField : %@", _briefIntroductionTextField.text);
     [self initSubviews];
+    [self getDataFromWeb];//初次加载数据
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -41,6 +95,11 @@
  */
 - (void)initBaseData{
     _selectedType = FTHomepageDynamicInformation;
+    _currentIndexString = @"all";
+    _query = @"list-dam-blog-1";
+    _pageNum = @"1";
+    _pageSize = @"10";
+    _labels = @"";
 }
 
 - (void)initSubviews{
@@ -61,8 +120,11 @@
     }
     //设置背景图片
 
-    [_userBgImageView sd_setImageWithURL:[NSURL URLWithString:@"http://7xtvwy.com1.z0.glb.clouddn.com/2016-05-27%2017:00_2ece766d041b40d2ad7da8c08c15d97f"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        _userBgImageView.image = [UIImage boxblurImage:image withBlurNumber:0.5];
+    [_userBgImageView sd_setImageWithURL:[NSURL URLWithString:@"http://www.geedew.com/wp-content/uploads/2012/10/NodeJS-1038x576.jpg"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        UIImage *imageL = [UIImage image]
+//        _userBgImageView.image = [UIImage boxblurImage:_userBgImageView.image withBlurNumber:0.5];
+        _userBgImageView.image = [UIImage boxblurImage:[UIImage imageNamed:@"BingWallpaper-2016-04-25.jpg"] withBlurNumber:0.5];
+//        _userBgImageView.image = [UIImage imageNamed:@"BingWallpaper-2016-04-25.jpg"];
 //        [UIImage blurImage:_userBgImageView];
         
 //        UIVisualEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
@@ -120,7 +182,137 @@
             break;
     }
 }
+#pragma -mark 动态列表（类似格斗场列表）
+- (void)initPageController
+{
+    if(!self.tableViewController){
+        self.tableViewController = [[FTTableViewController alloc]initWithStyle:UITableViewStylePlain];
+        self.tableViewController.tableView = _infoTableView;
+        self.tableViewController.listType = FTCellTypeArena;
+        
+        self.tableViewController.FTdelegate = self;
+        //设置上拉、下拉刷新
+        [self setJHRefresh];
+    }
+    
+    
+    if (self.tableViewDataSourceArray) {
+        [self.tableViewController.tableView footerEndRefreshing];
+        self.tableViewController.sourceArray = self.tableViewDataSourceArray;
+    }else{
+        //    self.tableViewController.sourceArray = _sourceArry[0];
+        NSLog(@"没有数据源。");
+    }
+//    self.tableViewController.tableView.frame = self.mainView.bounds;
+//    [self.mainView addSubview:self.tableViewController.tableView];
+}
 
+- (void)setJHRefresh{
+    //设置下拉刷新
+    __block typeof(self) sself = self;
+    [self.tableViewController.tableView addRefreshHeaderViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
+        NSLog(@"触发下拉刷新headerView");
+        //下拉时请求最新的一页数据
+        _pageNum = @"1";
+        //        [sself reloadDate];
+        [sself getDataFromWeb];
+    }];
+    //设置上拉刷新
+    [self.tableViewController.tableView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
+        NSLog(@"上拉刷新");
+        //如果没有本地数据，pageNum不＋1
+        if (self.tableViewController.sourceArray.count > 0) {
+            //上拉时追加数据，把pageNum＋1
+            int pageNumInt = [sself.pageNum intValue];
+            pageNumInt++;
+            _pageNum = [NSString stringWithFormat:@"%d", pageNumInt];
+        }
+        
+        //        [sself reloadDate];
+        [sself getDataFromWeb];
+    }];
+}
+-(void) getDataFromWeb {
+    
+    NSString *urlString = [FTNetConfig host:Domain path:GetArenaListURL];
+    NSString *tableName = @"damageblog";
+    
+    urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName];
+    
+    //    NSLog(@"urlString:%@",urlString);
+    NetWorking *net = [[NetWorking alloc]init];
+    
+    [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
+        NSLog(@"responseDic:  %@", responseDic);
+        if (responseDic != nil) {
+            NSString *status = responseDic[@"status"];
+            //            NSLog(@"AreaDic:%@",responseDic);
+            if ([status isEqualToString:@"success"]) {
+                NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
+                
+                //缓存数据到DB
+                if (mutableArray.count > 0) {
+                    DBManager *dbManager = [DBManager shareDBManager];
+                    [dbManager connect];
+                    [dbManager cleanArenasTable];
+                    
+                    for (NSDictionary *dic in mutableArray)  {
+                        [dbManager insertDataIntoArenas:dic];
+                    }
+                }
+                
+                [self getDataFromDB];
+                
+                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+                [self.tableViewController.tableView footerEndRefreshing];
+            }else {
+                [self getDataFromDB];
+                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+                [self.tableViewController.tableView footerEndRefreshing];
+            }
+            
+        }else {
+            [self getDataFromDB];
+            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+            [self.tableViewController.tableView footerEndRefreshing];
+        }
+    }];
+}
+
+-(void) getDataFromDB {
+    
+    //从数据库取数据
+    DBManager *dbManager = [DBManager shareDBManager];
+    [dbManager connect];
+    NSMutableArray *mutableArray =[dbManager searchArenasWithPage:[_pageNum integerValue] label:_labels];
+    [dbManager close];
+    
+    
+    if (self.tableViewDataSourceArray == nil) {
+        self.tableViewDataSourceArray = [[NSMutableArray alloc]init];
+    }
+    if ([_pageNum isEqualToString:@"1"]) {//如果是第一页数据，直接替换，不然追加
+        self.tableViewDataSourceArray = mutableArray;
+    }else{
+        [self.tableViewDataSourceArray addObjectsFromArray:mutableArray];
+    }
+    
+    self.tableViewController.sourceArray = self.tableViewDataSourceArray;
+    
+    
+    [self.tableViewController.tableView reloadData];
+    
+    [self saveCache];
+
+}
+- (void)saveCache{
+    FTCache *cache = [FTCache sharedInstance];
+    NSArray *dataArray = [[NSArray alloc]initWithArray:self.tableViewDataSourceArray];
+    FTCacheBean *cacheBean = [[FTCacheBean alloc] initWithTimeStamp:[[NSDate date] timeIntervalSince1970]  andDataArray:dataArray];
+    
+    [cache.arenaDataDic setObject:cacheBean forKey:[NSString stringWithFormat:@"%@", self.labels]];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

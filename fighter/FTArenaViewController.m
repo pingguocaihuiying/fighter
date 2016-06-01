@@ -13,7 +13,6 @@
 #import "FTLabelBean.h"
 #import "FTRankTableView.h"
 #import "FTTableViewController.h"
-#import "FTTableViewController.h"
 #import "JHRefresh.h"
 #import "FTInformationViewController.h"
 #import "FTTableViewController.h"
@@ -43,7 +42,7 @@
 #import "DBManager.h"
 #import "FTRankViewController.h"
 
-@interface FTArenaViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTArenaDetailDelegate, FTSelectCellDelegate,FTTableViewdelegate>
+@interface FTArenaViewController ()<SDCycleScrollViewDelegate, FTFilterDelegate, FTArenaDetailDelegate, FTSelectCellDelegate,FTTableViewdelegate>
 
 {
     NIDropDown *_dropDown;
@@ -60,7 +59,6 @@
 @property (nonatomic, strong)NSArray *typeArray;
 
 @property (nonatomic, copy)NSString *currentIndexString;
-//@property (nonatomic, strong)FTTableViewController
 
 @property (nonatomic, copy)NSString *query;
 @property (nonatomic, copy)NSString *pageNum;
@@ -96,6 +94,7 @@
 /**
  *  初始化一些默认数据
  */
+
 - (void)initBaseConfig{
     _currentIndexString = @"all";
     _query = @"list-dam-blog-1";
@@ -267,8 +266,6 @@
         self.tableViewController.sourceArray = nil;
         [self.tableViewController.tableView reloadData];
     
-
-    
     //刷新数据
     _pageNum = @"1";
 //    [self reloadDate];
@@ -351,37 +348,6 @@
     
 }
 
-
-- (NSString *)getNewstype{
-    NSString *newsType = @"";
-    //根据当前button的下标来转换type
-    if (self.currentSelectIndex == 0) {
-        newsType = @"All";
-    }else if (self.currentSelectIndex == 1) {
-        newsType = @"MMA";
-    }else if (self.currentSelectIndex == 2) {
-        newsType = @"Boxing";
-    }else if (self.currentSelectIndex == 3) {
-        newsType = @"Wrestling";
-    }else if (self.currentSelectIndex == 4) {
-        newsType = @"FemaleWrestling";
-    }else if (self.currentSelectIndex == 5) {
-        newsType = @"ThaiBoxing";
-    }else if (self.currentSelectIndex == 6) {
-        newsType = @"Taekwondo";
-    }else if (self.currentSelectIndex == 7) {
-        newsType = @"Judo";
-    }else if (self.currentSelectIndex == 8) {
-        newsType = @"Sumo";
-    }else if (self.currentSelectIndex == 9) {
-        //暂无
-        newsType = @"Wrestling";
-    }else if (self.currentSelectIndex == 10) {
-        //暂无
-        newsType = @"Sumo";
-    }
-    return newsType;
-}
 
 #pragma mark -get data
 -(void) getDataFromDB {
@@ -555,40 +521,9 @@
     return self.tableViewController;
 }
 
-//返回当前的索引值
-- (NSInteger)indexofController:(FTTableViewController *)viewController
-{
-    //    NSInteger index = [self.sourceArry indexOfObject:viewController.sourceArray];
-    //    return index;
-    return self.tableViewController.order;
-}
 
 
 
-#pragma mark - UIPageViewControllerDataSource
-
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
-{
-    NSInteger index = [self indexofController:(FTTableViewController *)viewController];
-    if (index == 0 || index == NSNotFound) {
-        return nil;
-    }
-    index--;
-    return [self controllerWithSourceIndex:index];
-}
-
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
-{
-    NSInteger index = [self indexofController:(FTTableViewController *)viewController];
-    if (index == NSNotFound) {
-        return nil;
-    }
-    index++;
-    if (index == [self.sourceArry count]) {
-        return nil;
-    }
-    return [self controllerWithSourceIndex:index];
-}
 
 
 #pragma mark - UIPageViewControllerDelegate
@@ -599,13 +534,7 @@
 }
 
 
-//动画结束后回调的方法
-- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)complete
-{
-    FTTableViewController *VC = [pageViewController.viewControllers lastObject];
-    self.currentSelectIndex = [self indexofController:VC];
-    //    NSLog(@" 动画结束 %@ ",pageViewController.viewControllers);
-}
+
 - (IBAction)searchButtonClicked:(id)sender {
     NSLog(@"search button clicked.");
 }
