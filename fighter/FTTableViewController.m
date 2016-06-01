@@ -119,28 +119,24 @@
         static NSString *celliderAreraText = @"cellArenaText";
         static NSString *celliderArenaImage = @"cellArenaImage";
         
-        if ([bean.pictureUrlNames isEqualToString:@""] && [bean.videoUrlNames isEqualToString:@""]) {//文本
-        cell = [tableView dequeueReusableCellWithIdentifier:celliderAreraText];
-        }else{//图片
-        cell = [tableView dequeueReusableCellWithIdentifier:celliderArenaImage];
+        if (bean.pictureUrlNames == nil) {
+            bean.pictureUrlNames = @"";
         }
         
-        if ([bean.pictureUrlNames isEqualToString:@""] && [bean.videoUrlNames isEqualToString:@""]) {
-        cell = [tableView dequeueReusableCellWithIdentifier:celliderAreraText];
-        }else{
-        cell = [tableView dequeueReusableCellWithIdentifier:celliderArenaImage];
+        if (bean.videoUrlNames == nil) {
+            bean.videoUrlNames = @"";
         }
+        
+        if ([bean.pictureUrlNames isEqualToString:@""] && [bean.videoUrlNames isEqualToString:@""]) {//文本
+            cell = [tableView dequeueReusableCellWithIdentifier:celliderAreraText];
+        }else{//图片
+            cell = [tableView dequeueReusableCellWithIdentifier:celliderArenaImage];
+        }
+        
         
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-       
-        
-//        NSDictionary *dic = self.sourceArray[indexPath.row];
-        //改变cell的值
-        
-        
-//        [bean setValuesWithDic:dic];
+
         [cell setWithBean:bean];
 
     }else{//如果没有网络数据源
@@ -158,84 +154,6 @@
     }
         
     return cell;
-    
-    
-//    NSDictionary *dic = self.sourceArray[indexPath.row];
-//
-//
-//    if ([dic isKindOfClass:[NSDictionary class]] && dic.count > 0) {//如果有网络数据源
-//        NSLog(@"网络数据已经加载");
-//        
-//        NSString *layout = dic[@"layout"];
-//            //如果是大图
-//        if (self.listType == FTCellTypeNews) {
-//            if ([layout isEqualToString:@"1"]) {//大图
-//                static NSString *cellider1 = @"cell1";
-//                cell = [tableView dequeueReusableCellWithIdentifier:cellider1];
-//                if (cell == nil) {
-//                    cell = [[[NSBundle mainBundle]loadNibNamed:@"FTOneBigImageInfoTableViewCell" owner:self options:nil]firstObject];
-//                    cell.backgroundColor = [UIColor clearColor];
-//                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//                }
-//            }else if ([layout isEqualToString:@"3"]) {//三图
-//                static NSString *cellider2 = @"cell2";
-//                cell = [tableView dequeueReusableCellWithIdentifier:cellider2];
-//                if (cell == nil) {
-//                    static int count = 0;
-//                    count ++;
-//                    NSLog(@"count : %d", count);
-//                    cell = [[[NSBundle mainBundle]loadNibNamed:@"FTThreeImageInfoTableViewCell" owner:self options:nil]firstObject];
-//                    cell.backgroundColor = [UIColor clearColor];
-//                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//                }
-//            }else if ([layout isEqualToString:@"2"]) {//一图
-//                static NSString *cellider3 = @"cell3";
-//                cell = [tableView dequeueReusableCellWithIdentifier:cellider3];
-//                if (cell == nil) {
-//                    cell = [[[NSBundle mainBundle]loadNibNamed:@"FTOneImageInfoTableViewCell" owner:self options:nil]firstObject];
-//                    cell.backgroundColor = [UIColor clearColor];
-//                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//                }
-//            }
-//        }
-//
-//        else if (self.listType == FTCellTypeArena){
-//            static NSString *celliderAreraText = @"cellArenaText";
-//            static NSString *celliderArenaImage = @"cellArenaImage";
-//            cell = [tableView dequeueReusableCellWithIdentifier:celliderArenaImage];
-//            if (cell == nil) {
-//                NSLog(@"cell is nil");
-//                cell = [[[NSBundle mainBundle]loadNibNamed:@"FTArenaTextTableViewCell" owner:self options:nil]firstObject];
-//                cell.backgroundColor = [UIColor clearColor];
-//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//            }
-//            cell.backgroundColor = [UIColor clearColor];
-//            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        }
-//        //改变cell的值
-//        FTBaseBean *bean;
-//        if ([layout isEqualToString:@"1"] | [layout isEqualToString:@"2"] | [layout isEqualToString:@"3"]) {
-//            bean = [FTNewsBean new];
-//        }else if (_listType == FTCellTypeArena) {
-//            bean = [FTVideoBean new];
-//        }
-////        [bean setValuesForKeysWithDictionary:dic];//这种写法在服务器新增字段时，客户端会崩溃
-//        [bean setValuesWithDic:dic];
-//        [cell setWithBean:bean];
-//    }else{//如果没有网络数据源
-//        NSLog(@"第一次加载，无网络数据");
-//        static NSString *cellider = @"cell";
-//        cell = [tableView dequeueReusableCellWithIdentifier:cellider];
-//        if (cell == nil) {
-//            
-//            cell = [[FTOneImageInfoTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellider];
-//            cell = [[[NSBundle mainBundle]loadNibNamed:@"FTOneBigImageInfoTableViewCell" owner:self options:nil]firstObject];
-//            cell.backgroundColor = [UIColor clearColor];
-//            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        }
-//        return  nil;
-//    }
-//    return cell;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{

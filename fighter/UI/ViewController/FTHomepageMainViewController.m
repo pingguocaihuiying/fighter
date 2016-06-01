@@ -47,7 +47,7 @@
 #import "FTRankViewController.h"
 
 
-@interface FTHomepageMainViewController ()
+@interface FTHomepageMainViewController ()<FTArenaDetailDelegate, FTSelectCellDelegate,FTTableViewdelegate, UIScrollViewDelegate, UIScrollViewAccessibilityDelegate>
 @property (strong, nonatomic)UIScrollView *scrollView;
 @property (nonatomic, strong)FTTableViewController *tableViewController;
 @property (nonatomic, strong)NSMutableArray *tableViewDataSourceArray;
@@ -65,6 +65,7 @@
 @property (nonatomic, copy)NSString *pageNum;
 @property (nonatomic, copy)NSString *pageSize;
 @property (nonatomic, copy)NSString *labels;
+@property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @end
 
 @implementation FTHomepageMainViewController
@@ -72,17 +73,14 @@
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     NSLog(@"initWithNibName");
     if (self = [super initWithNibName: nibNameOrNil bundle:nibBundleOrNil]) {
-        NSLog(@"briefIntroductionTextField : %@", _briefIntroductionTextField.text);
+//        NSLog(@"briefIntroductionTextField : %@", _briefIntroductionTextField.text); //null
     }
     return self;
 }
 
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initBaseData];
-    NSLog(@"briefIntroductionTextField : %@", _briefIntroductionTextField.text);
     [self initSubviews];
     [self getDataFromWeb];//初次加载数据
 }
@@ -118,35 +116,38 @@
     if([WXApi isWXAppInstalled]){
         
     }
-    //设置背景图片
-
+    
+    //设置个人资料的背景图片
     [_userBgImageView sd_setImageWithURL:[NSURL URLWithString:@"http://www.geedew.com/wp-content/uploads/2012/10/NodeJS-1038x576.jpg"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//        UIImage *imageL = [UIImage image]
-//        _userBgImageView.image = [UIImage boxblurImage:_userBgImageView.image withBlurNumber:0.5];
         _userBgImageView.image = [UIImage boxblurImage:[UIImage imageNamed:@"BingWallpaper-2016-04-25.jpg"] withBlurNumber:0.5];
-//        _userBgImageView.image = [UIImage imageNamed:@"BingWallpaper-2016-04-25.jpg"];
-//        [UIImage blurImage:_userBgImageView];
-        
-//        UIVisualEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-//        
-//        UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-//        
-//        visualEffectView.frame = _userBgImageView.bounds;
-//        
-//        [_userBgImageView addSubview:visualEffectView];
+
     }];
+    //设置主scrollView的滚动逻辑
+    [self setMainScrollView];
+    //设置格斗场的tableview cell
+    [self initInfoTableView];
 }
-
-- (void)setScrollView{
-    _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49)];
-    _scrollView.backgroundColor = [UIColor clearColor];
-    _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, 1000);
-    [self.view addSubview:_scrollView];
-    
-    //头像
-    
+#pragma -mark 设置mainScrollView
+- (void)setMainScrollView{
+    _mainScrollView.delegate = self;
+    //默认tableview不滚动
+//    _infoTableView.scrollEnabled = NO;
+    NSLog(@"buttonsView.y : %f", _buttonsContainerView.frame.origin.y);
 }
-
+#pragma -mark scrollView滚动
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    CGFloat offsetY = scrollView.contentOffset.y;
+    NSLog(@"scrollView offset : %f", offsetY);
+        NSLog(@"buttonsView.y : %f", _buttonsContainerView.frame.origin.y);
+    if (offsetY >= 204 - 24 + 8) {
+        _buttonsContainerView.top = 224 + (offsetY - (204 - 24 + 8));
+        [[_buttonsContainerView superview] bringSubviewToFront:_buttonsContainerView];
+//        _mainScrollView.scrollEnabled = NO;
+//        _infoTableView.scrollEnabled = YES;
+    }else{
+        _buttonsContainerView.top = 224;
+    }
+}
 #pragma -mark -切换按钮的点击事件
 - (IBAction)dynamicInfomationButtonClicked:(id)sender {
     _selectedType = FTHomepageDynamicInformation;
@@ -183,11 +184,10 @@
     }
 }
 #pragma -mark 动态列表（类似格斗场列表）
-- (void)initPageController
+- (void)initInfoTableView;
 {
     if(!self.tableViewController){
         self.tableViewController = [[FTTableViewController alloc]initWithStyle:UITableViewStylePlain];
-        self.tableViewController.tableView = _infoTableView;
         self.tableViewController.listType = FTCellTypeArena;
         
         self.tableViewController.FTdelegate = self;
@@ -195,16 +195,15 @@
         [self setJHRefresh];
     }
     
-    
     if (self.tableViewDataSourceArray) {
-        [self.tableViewController.tableView footerEndRefreshing];
         self.tableViewController.sourceArray = self.tableViewDataSourceArray;
     }else{
-        //    self.tableViewController.sourceArray = _sourceArry[0];
         NSLog(@"没有数据源。");
     }
-//    self.tableViewController.tableView.frame = self.mainView.bounds;
-//    [self.mainView addSubview:self.tableViewController.tableView];
+    self.tableViewController.tableView = _infoTableView;
+    //注册cell用于重用
+    [_infoTableView registerNib:[UINib nibWithNibName:@"FTArenaTextTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellArenaText"];
+    [_infoTableView registerNib:[UINib nibWithNibName:@"FTArenaImageTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellArenaImage"];
 }
 
 - (void)setJHRefresh{
@@ -243,7 +242,7 @@
     NetWorking *net = [[NetWorking alloc]init];
     
     [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
-        NSLog(@"responseDic:  %@", responseDic);
+//        NSLog(@"responseDic:  %@", responseDic);
         if (responseDic != nil) {
             NSString *status = responseDic[@"status"];
             //            NSLog(@"AreaDic:%@",responseDic);
@@ -305,6 +304,39 @@
     [self saveCache];
 
 }
+#pragma -mark 动态tableview的cell点击事件
+- (void)fttableView:(FTTableViewController *)tableView didSelectWithIndex:(NSIndexPath *)indexPath{
+    //    NSLog(@"第%ld个cell被点击了。", indexPath.row);
+    if (self.tableViewDataSourceArray) {
+        
+        FTArenaPostsDetailViewController *postsDetailVC = [FTArenaPostsDetailViewController new];
+        //获取对应的bean，传递给下个vc
+        //        NSDictionary *newsDic = tableView.sourceArray[indexPath.row];
+        //        FTArenaBean *bean = [FTArenaBean new];
+        //        [bean setValuesWithDic:newsDic];
+        
+        
+        FTArenaBean *bean = tableView.sourceArray[indexPath.row];
+        //标记已读
+        if (![bean.isReader isEqualToString:@"YES"]) {
+            bean.isReader = @"YES";
+            //从数据库取数据
+            DBManager *dbManager = [DBManager shareDBManager];
+            [dbManager connect];
+            [dbManager updateArenasById:bean.postsId isReader:YES];
+            [dbManager close];
+            
+        }
+        postsDetailVC.arenaBean = bean;
+        postsDetailVC.delegate = self;
+        postsDetailVC.indexPath = indexPath;
+        
+        
+        [self.navigationController pushViewController:postsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+    }
+}
+
+
 - (void)saveCache{
     FTCache *cache = [FTCache sharedInstance];
     NSArray *dataArray = [[NSArray alloc]initWithArray:self.tableViewDataSourceArray];
@@ -313,6 +345,18 @@
     [cache.arenaDataDic setObject:cacheBean forKey:[NSString stringWithFormat:@"%@", self.labels]];
     
 }
+
+- (void)updateCountWithArenaBean:(FTArenaBean *)arenaBean indexPath:(NSIndexPath *)indexPath{
+    
+    NSDictionary *dic = self.tableViewController.sourceArray[indexPath.row];
+    [dic setValue:[NSString stringWithFormat:@"%@", arenaBean.voteCount] forKey:@"voteCount"];
+    [dic setValue:[NSString stringWithFormat:@"%@", arenaBean.commentCount] forKey:@"commentCount"];
+    
+    self.tableViewController.sourceArray[indexPath.row] = dic;
+    [self.tableViewController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -20,5 +20,6 @@ typedef NS_ENUM(NSInteger, FTHomepageTableViewType) {
 @property (weak, nonatomic) IBOutlet UIView *dynamicInfomationButtonIndexView;
 @property (weak, nonatomic) IBOutlet UIView *recordButtonIndexView;
 @property (weak, nonatomic) IBOutlet UIView *videoButtonIndexView;
+@property (weak, nonatomic) IBOutlet UIView *buttonsContainerView;
 
 @end

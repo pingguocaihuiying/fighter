@@ -42,7 +42,7 @@
 #import "DBManager.h"
 #import "FTRankViewController.h"
 
-@interface FTArenaViewController ()<SDCycleScrollViewDelegate, FTFilterDelegate, FTArenaDetailDelegate, FTSelectCellDelegate,FTTableViewdelegate>
+@interface FTArenaViewController ()<FTArenaDetailDelegate, FTSelectCellDelegate,FTTableViewdelegate>
 
 {
     NIDropDown *_dropDown;
@@ -391,7 +391,7 @@
     NetWorking *net = [[NetWorking alloc]init];
     
     [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
-        NSLog(@"responseDic:  %@", responseDic);
+//        NSLog(@"responseDic:  %@", responseDic);
         if (responseDic != nil) {
             NSString *status = responseDic[@"status"];
 //            NSLog(@"AreaDic:%@",responseDic);
