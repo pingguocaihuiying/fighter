@@ -100,6 +100,16 @@
 				<string>QQ1105296095</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com_weibo</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wb3097376602</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.3.0</string>
@@ -125,11 +135,11 @@
 		<string>mqqopensdkdataline</string>
 		<string>mqqgamebindinggroup</string>
 		<string>mqqopensdkgrouptribeshare</string>
-		<string>tencentapi.qzone.reqContent</string>
 		<string>tencentapi.qq.reqContent</string>
+		<string>tencentapi.qzone.reqContent</string>
 		<string>weixin</string>
+		<string>sinaweibohd</string>
 		<string>sinaweibo</string>
-		<string>weibosdk</string>
 		<string>weibosdk</string>
 		<string>weibosdk2.5</string>
 	</array>
