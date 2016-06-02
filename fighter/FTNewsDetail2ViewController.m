@@ -21,7 +21,7 @@
 #import "FTPhotoPickerView.h"
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <TencentOpenAPI/sdkdef.h>
-
+#import "FTShareView.h"
 
 
 @interface FTNewsDetail2ViewController ()<UIWebViewDelegate, UMSocialUIDelegate, CommentSuccessDelegate, FTPickerViewDelegate>
@@ -181,6 +181,7 @@
     [self.delegate updateCountWithNewsBean:_newsBean indexPath:self.indexPath];
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 - (IBAction)commenButtonClicked:(id)sender {
     
     [MobClick event:@"videoPage_DetailPage_Comment"];
@@ -214,16 +215,16 @@
      *暂时采用微信的分享
      */
     
-    FTPhotoPickerView *pickerView = [FTPhotoPickerView new];
-    pickerView.resultLabel.text = @"分享到";
-    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享-微信"] forState:UIControlStateNormal];
-    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享-微信pre"] forState:UIControlStateHighlighted];
-    [pickerView.cameraBtn addTarget:self action:@selector(shareToWXSceneSession) forControlEvents:UIControlEventTouchUpInside];
-    
-    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享-朋友圈"] forState:UIControlStateNormal];
-    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享-朋友圈pre"] forState:UIControlStateHighlighted];
-    [pickerView.albumBtn addTarget:self action:@selector(shareToWXSceneTimeline) forControlEvents:UIControlEventTouchUpInside];
-    
+//    FTPhotoPickerView *pickerView = [FTPhotoPickerView new];
+//    pickerView.resultLabel.text = @"分享到";
+//    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享-微信"] forState:UIControlStateNormal];
+//    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享-微信pre"] forState:UIControlStateHighlighted];
+//    [pickerView.cameraBtn addTarget:self action:@selector(shareToWXSceneSession) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享-朋友圈"] forState:UIControlStateNormal];
+//    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享-朋友圈pre"] forState:UIControlStateHighlighted];
+//    [pickerView.albumBtn addTarget:self action:@selector(shareToWXSceneTimeline) forControlEvents:UIControlEventTouchUpInside];
+//    
 //    FTPhotoPickerView *pickerView = [FTPhotoPickerView new];
 //    pickerView.resultLabel.text = @"分享到";
 //    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享96-QQ"] forState:UIControlStateNormal];
@@ -233,8 +234,20 @@
 //    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享96-新浪"] forState:UIControlStateNormal];
 //    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享96-新浪pre"] forState:UIControlStateHighlighted];
 //    [pickerView.albumBtn addTarget:self action:@selector(shareToTencentZone) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [self.view addSubview:pickerView];
     
-    [self.view addSubview:pickerView];
+    
+    NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-news",_newsBean.newsId];
+    _webUrlString = [@"http://www.gogogofight.com/page/news_page.html?" stringByAppendingString:str];
+    
+    FTShareView *shareView = [FTShareView new];
+    [shareView setUrl:_webUrlString];
+    [shareView setTitle:_newsBean.title];
+    [shareView setSummary:_newsBean.summary];
+    [shareView setImage:@"微信用@200"];
+    [shareView setImageUrl:@"http://www.gogogofight.com/page/images/wechat_share.jpg"];
+    [self.view addSubview:shareView];
 
 }
 
@@ -248,59 +261,9 @@
 - (void)shareToWXSceneTimeline{
     NSLog(@"WXSceneTimeline");
     [self shareToWXWithType:WXSceneTimeline];
-    
 }
 
-- (void) shareToTencentFriends {
-    
-    UIImage *image = [UIImage imageNamed:@"微信用@200"];
-    NSData* data;
-    if (UIImagePNGRepresentation(image) == nil) {
-        
-        data = UIImageJPEGRepresentation(image, 1);
-        
-    } else {
-        
-        data = UIImagePNGRepresentation(image);
-    }
-    
-    
-    //设置分享链接
-    NSURL* url = [NSURL URLWithString: _webViewUrlString];
-    
-    QQApiNewsObject* imgObj = [[QQApiNewsObject alloc]initWithURL:url
-                                                            title:_newsBean.title
-                                                      description:_newsBean.summary
-                                                 previewImageData:data
-                                                targetContentType:QQApiURLTargetTypeNews];
-    
-    SendMessageToQQReq* req = [SendMessageToQQReq reqWithContent:imgObj];
-    
-    QQApiSendResultCode sent = [QQApiInterface sendReq:req];
-    [self handleSendResult:sent];
-    
-}
 
-- (void) shareToTencentZone {
-    
-    
-    // 设置预览图片
-    NSURL *previewURL = [NSURL URLWithString:@"http://www.gogogofight.com/page/images/wechat_share.jpg"];
-    //设置分享链接
-    NSURL* url = [NSURL URLWithString: _webViewUrlString];
-    
-    QQApiNewsObject* imgObj = [QQApiNewsObject objectWithURL:url
-                                                       title: _newsBean.title
-                                                 description: _newsBean.summary
-                                             previewImageURL:previewURL];
-    
-    
-    
-    // 设置分享到 QZone 的标志位
-    [imgObj setCflag: kQQAPICtrlFlagQZoneShareOnStart ];
-    SendMessageToQQReq* req = [SendMessageToQQReq reqWithContent:imgObj];
-    [QQApiInterface sendReq:req];
-}
 
 - (void)addShareResponse:(APIResponse*) response {
 
@@ -325,57 +288,6 @@
 }
 
 
-- (void)handleSendResult:(QQApiSendResultCode)sendResult
-{
-    switch (sendResult)
-    {
-        case EQQAPIAPPNOTREGISTED:
-        {
-            UIAlertView *msgbox = [[UIAlertView alloc] initWithTitle:@"Error" message:@"App未注册" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-            [msgbox show];
-            
-            
-            break;
-        }
-        case EQQAPIMESSAGECONTENTINVALID:
-        case EQQAPIMESSAGECONTENTNULL:
-        case EQQAPIMESSAGETYPEINVALID:
-        {
-            UIAlertView *msgbox = [[UIAlertView alloc] initWithTitle:@"Error" message:@"发送参数错误" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-            [msgbox show];
-            
-            
-            break;
-        }
-        case EQQAPIQQNOTINSTALLED:
-        {
-            UIAlertView *msgbox = [[UIAlertView alloc] initWithTitle:@"Error" message:@"未安装手Q" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-            [msgbox show];
-            
-            break;
-        }
-        case EQQAPIQQNOTSUPPORTAPI:
-        {
-            UIAlertView *msgbox = [[UIAlertView alloc] initWithTitle:@"Error" message:@"API接口不支持" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-            [msgbox show];
-            
-            
-            break;
-        }
-        case EQQAPISENDFAILD:
-        {
-            UIAlertView *msgbox = [[UIAlertView alloc] initWithTitle:@"Error" message:@"发送失败" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
-            [msgbox show];
-            
-            
-            break;
-        }
-        default:
-        {
-            break;
-        }
-    }
-}
 
 -(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
 {
