@@ -15,6 +15,12 @@
     //次要文本颜色  ABB6AF
 #define Secondary_Text_Color [UIColor colorWithHex:0xABB6AF]
 
+//分割线颜色
+#define Cell_Space_Color [UIColor colorWithHex:0x282828]
+
+//常用控件字体颜色
+#define Nonmal_Text_Color [UIColor colorWithHex:0xb4b4b4]
+
 #define Bar_Item_Title_Color [UIColor colorWithRed:125 / 255.0 green:125 / 255.0  blue:129 / 255.0 alpha:1]
 //#define Bar_Item_Select_Title_Color [UIColor colorWithRed:199 / 29.0 green:39 / 255.0  blue:129 / 255.0 alpha:1]
 #define Bar_Item_Select_Title_Color [UIColor redColor]
@@ -25,6 +31,8 @@
 #import "ZJModelTool.h"
 #import "UIImageView+WebCache.h"
 #import "AFNetworking.h"
+#import "UIView+YBAddtitions.h"
+#import "UILabel+FTLYZLabel.h"//调整行间距
 
 //导入配置信息类
 #import "FTNetConfig.h"
@@ -33,14 +41,28 @@
 
 //导入一些常用类
 #import "FTNewsBean.h"
+#import "FTUserTools.h"
+#import "UIView+YBAddtitions.h"
+#import "FTUserBean.h"
+#import "FTTools.h"
+#import "FTNWGetCategory.h"
+
+//导入友盟统计的类
+#import "Mobclick.h"
 
 //defin一些常量
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
 //定义UserDefaults的一些常量
+
 //已登陆的用户信息
 #define LoginUser @"loginUser"
+//showType区分正式版，和编辑预览版的字断
+#define SHOWTYPE @"showType"
+
+//类别（综合格斗、拳击、散打等等
+#define CATEGORIES @"categories"
 
 //微信相关
 #define WX_BASE_URL @"https://api.weixin.qq.com/sns"
@@ -50,4 +72,18 @@
 
 #define WXLoginResultNoti @"WXLoginResutlNoti"
 
+//微博相关
+#define WB_App_ID @"3097376602"
+#define WB_App_Secret @"921bba0ec52253b495276d90468e0b43"
+
+//qq相关
+#define QQ_App_ID @"1105296095"
+#define QQ_App_Secret @"yXgKRmgLcOspLa74"
+
+//和750的比例
+#define SCALE  (SCREEN_WIDTH / (750 / 2))
+
+//#define ShowType @"showType"
+
 #endif /* PrefixHeader_pch */
+

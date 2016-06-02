@@ -28,16 +28,20 @@
 
 - (void)setSubViews{
     //设置textView的代理
-    self.textView.delegate = self;
+//    self.textView.delegate = self;
     [self setLeftAndRightButtons];
     [self setBgOfTextView];
+    //自动弹出键盘
+    [_commentTextView becomeFirstResponder];
 }
 
 - (void)setLeftAndRightButtons{
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     
     //设置返回按钮
+    //设置返回按钮
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-取消"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(popVC)];
+//    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-取消"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(popVC)];
     //把左边的返回按钮左移
     [leftButton setImageInsets:UIEdgeInsetsMake(0, -8, 0, 0)];
     self.navigationItem.leftBarButtonItem = leftButton;
@@ -78,13 +82,25 @@
     // Dispose of any resources that can be recreated.
 }
 - (void)popVC{
+    if ([self.delegate respondsToSelector:@selector(updateCountWithVideoBean: indexPath:)] ){
+        
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)commentButtonClicked{
     NSString *comment = self.textView.text;
+    //提示评论为空，或者全部空格
+    if ([self isEmpty:comment]) {
+        [self showHUDWithMessage:@"评论内容不能全部为空" isPop:NO];
+        return;
+    }
+    
+    //去除评论两端空格
+    comment = [comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
     NSString *trimmedComment = [comment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSLog(@"trimmedComment : %@",trimmedComment) ;
-    //如果评论内容过长或过短，给出提示 test git
+    //如果评论内容过长或过短，给出提示
     if (comment.length < 10 || comment.length > 100) {
         [self showHUDWithMessage:@"评论内容需在10~100字之间" isPop:NO];
         return;
@@ -95,21 +111,38 @@
     NSString *urlString = [FTNetConfig host:Domain path:CommentURL];
 //    urlString = @"http://10.11.1.117:8080/pugilist_admin/api/comment/add$UserComment.do";
     NSString *userId = user.olduserid;
-    NSString *objId = [NSString stringWithFormat:@"%@", _newsBean.newsId];
+    NSString *objId;
+    objId= [NSString stringWithFormat:@"%@", _newsBean.newsId];
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = @"c-news";
+    NSString *tableName;
+    if (self.newsBean) {
+        tableName = @"c-news";
+        objId= [NSString stringWithFormat:@"%@", _newsBean.newsId];
+    }else if(self.videoBean){
+        tableName = @"c-video";
+        objId= [NSString stringWithFormat:@"%@", _videoBean.videosId];
+    }else if(self.arenaBean){
+        objId= [NSString stringWithFormat:@"%@", _arenaBean.postsId];
+        tableName = @"c-damageblog";
+    }else{
+        NSLog(@"error : 没有找到bean");
+    }
+    
     
     NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@",comment, loginToken, objId, tableName, ts, userId, @"gedoujia12555521254"];
     
     checkSign = [MD5 md5:checkSign];
     comment = [comment stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 //    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&comment=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, comment, tableName];
-//    NSLog(@"评论url：%@", urlString);
+    NSLog(@"评论url：%@", urlString);
     
     //创建AAFNetWorKing管理者
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSLog(@"userId : %@, objId : %@, loginToken : %@, ts : %@, checkSign : %@, comment : %@, tableName : %@, ", userId ,objId , loginToken,ts ,checkSign ,comment,tableName);
+    
     NSDictionary *dic = @{@"userId" : userId,
                           @"objId" : objId,
                           @"loginToken" : loginToken,
@@ -118,6 +151,7 @@
                           @"comment" : comment,
                           @"tableName" : tableName
                           };
+    
     [manager POST:urlString parameters:dic success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
 
@@ -162,8 +196,6 @@
 }
 
 
-
-
 #pragma mark - UITextViewDelegate 
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -190,10 +222,21 @@
 }
 
 
+#pragma mark - UITextViewDelegate 
+
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView {
+
+    NSLog(@"should end edit");
+    return YES;
+}
 #pragma mark - private Method
 
 
-//判断string 是否包含输入法表情
+/*
+ * 判断string 是否包含输入法表情
+ * 
+ * 系统九宫格中文输入法测试包含表情
+ */
 - (BOOL)isContainsEmoji:(NSString *)string {
     
     __block BOOL isEomji = NO;
@@ -257,7 +300,25 @@
      }];
     
     return isEomji;
-    
 }
 
+//判断内容是否全部为空格  yes 全部为空格  no 不是
+- (BOOL) isEmpty:(NSString *) str {
+    
+    if (!str) {
+        return true;
+    } else {
+        //A character set containing only the whitespace characters space (U+0020) and tab (U+0009) and the newline and nextline characters (U+000A–U+000D, U+0085).
+        NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+        
+        //Returns a new string made by removing from both ends of the receiver characters contained in a given character set.
+        NSString *trimedString = [str stringByTrimmingCharactersInSet:set];
+        
+        if ([trimedString length] == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
 @end

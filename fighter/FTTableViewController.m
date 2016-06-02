@@ -12,9 +12,16 @@
 #import "FTThreeImageInfoTableViewCell.h"
 #import "FTOneBigImageInfoTableViewCell.h"
 #import "FTBaseTableViewCell.h"
+#import "FTVideoTableViewCell.h"
+#import "FTBaseBean.h"
+#import "FTVideoBean.h"
+#import "FTNewsBean.h"
+#import "FTVideoTableViewCell.h"
+#import "FTArenaTextTableViewCell.h"
+#import "FTArenaImageTableViewCell.h"
+#import "FTArenaBean.h"
 
-
-@interface FTTableViewController ()
+@interface FTTableViewController ()<FTTableViewCellClickedDelegate>
 
 @end
 
@@ -34,6 +41,16 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.tableView.showsVerticalScrollIndicator = NO;
+    if (self.listType == FTCellTypeNews) {
+        [self.tableView registerNib:[UINib nibWithNibName:@"FTOneBigImageInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell1"];
+        [self.tableView registerNib:[UINib nibWithNibName:@"FTThreeImageInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell2"];
+        [self.tableView registerNib:[UINib nibWithNibName:@"FTOneImageInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell3"];
+    }else if(self.listType == FTCellTypeArena){
+        [self.tableView registerNib:[UINib nibWithNibName:@"FTArenaTextTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellArenaText"];
+        [self.tableView registerNib:[UINib nibWithNibName:@"FTArenaImageTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellArenaImage"];
+    }
+    
+//    [self.tableView registerNib:[UINib nibWithNibName:@"FTVideoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell4"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,16 +75,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSDictionary *dic = self.sourceArray[indexPath.row];
-
-    
-    
-    FTBaseTableViewCell *cell = [FTBaseTableViewCell new];
-
-    if ([dic isKindOfClass:[NSDictionary class]]) {//如果有网络数据源
-//        NSLog(@"网络数据已经加载");
-        NSString *layout = dic[@"layout"];
-            //如果是大图
+   
+    FTBaseTableViewCell *cell;
+    if (self.listType == FTCellTypeNews) {
+        
+        FTNewsBean *bean = self.sourceArray[indexPath.row];
+        NSString *layout = bean.layout;
         if ([layout isEqualToString:@"1"]) {//大图
             static NSString *cellider1 = @"cell1";
             cell = [tableView dequeueReusableCellWithIdentifier:cellider1];
@@ -80,6 +93,9 @@
             static NSString *cellider2 = @"cell2";
             cell = [tableView dequeueReusableCellWithIdentifier:cellider2];
             if (cell == nil) {
+                static int count = 0;
+                count ++;
+                NSLog(@"count : %d", count);
                 cell = [[[NSBundle mainBundle]loadNibNamed:@"FTThreeImageInfoTableViewCell" owner:self options:nil]firstObject];
                 cell.backgroundColor = [UIColor clearColor];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -93,11 +109,36 @@
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
         }
-        //改变cell的值
-        FTNewsBean *bean = [FTNewsBean new];
-//        [bean setValuesForKeysWithDictionary:dic];//这种写法在服务器新增字段时，客户端会崩溃
-        [bean setValuesWithDic:dic];
+        
         [cell setWithBean:bean];
+        
+        return cell;
+    }else if (self.listType == FTCellTypeArena){
+        FTArenaBean *bean = self.sourceArray[indexPath.row];
+        
+        static NSString *celliderAreraText = @"cellArenaText";
+        static NSString *celliderArenaImage = @"cellArenaImage";
+        
+        if (bean.pictureUrlNames == nil) {
+            bean.pictureUrlNames = @"";
+        }
+        
+        if (bean.videoUrlNames == nil) {
+            bean.videoUrlNames = @"";
+        }
+        
+        if ([bean.pictureUrlNames isEqualToString:@""] && [bean.videoUrlNames isEqualToString:@""]) {//文本
+            cell = [tableView dequeueReusableCellWithIdentifier:celliderAreraText];
+        }else{//图片
+            cell = [tableView dequeueReusableCellWithIdentifier:celliderArenaImage];
+        }
+        
+        
+        cell.backgroundColor = [UIColor clearColor];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+        [cell setWithBean:bean];
+
     }else{//如果没有网络数据源
         NSLog(@"第一次加载，无网络数据");
         static NSString *cellider = @"cell";
@@ -109,7 +150,9 @@
             cell.backgroundColor = [UIColor clearColor];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        return  nil;
     }
+        
     return cell;
 }
 
@@ -124,22 +167,46 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
             return 0;
-//    return 180;
+//    return 380;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    CGFloat height = 0;
     
-    NSDictionary *dic = self.sourceArray[indexPath.row];
-    if ([dic isKindOfClass:[NSDictionary class]]) {
-        NSString *layout = dic[@"layout"];
+    if (self.listType == FTCellTypeNews) {
+        FTNewsBean *bean = self.sourceArray[indexPath.row];
+        NSString *layout = bean.layout;
         if ([layout isEqualToString:@"1"]) {
-            return 218;
+            height = 218;
         }else if([layout isEqualToString:@"3"]){
-            return 163;
+            height = 163;
         }
+        else if([layout isEqualToString:@"2"]){
+            height = 146 ;//一张小图的cell，图片等比例放大了1.5倍
+        }
+    }else if(self.listType == FTCellTypeArena){
+        
+       FTArenaBean *bean = self.sourceArray[indexPath.row];
+        
+        NSString *videoUrl = bean.videoUrlNames == nil ? @"" : bean.videoUrlNames;
+        NSString *pictureUrl = bean.pictureUrlNames == nil ? @"" : bean.pictureUrlNames;
+        
+        if ([videoUrl isEqualToString:@""] && [pictureUrl isEqualToString:@""]) {//如果是文本类型的cell
+            height = 185;
+            NSLog(@"cell height : %f", height);
+        }else{//如果是带图片的cell
+            height = 217;
+            
+            CGFloat imageHeight = 92;//图片原始高度
+            height = (height - imageHeight) + imageHeight * SCALE;
+            
+        }
+
     }
-//    return 119;
-        return 146 ;//一张小图的cell，图片等比例放大了1.5倍
+    
+    
+//    NSLog(@"height : %f", height);
+    return height;//130是视频界面的cell高度
 }
 
 - (void)tableView:(FTTableViewController *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -150,4 +217,8 @@
     
 }
 
+- (void)clickedWithIndex:(NSIndexPath *)indexPath{
+//    NSLog(@"index : %@", indexPath);
+    [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+}
 @end

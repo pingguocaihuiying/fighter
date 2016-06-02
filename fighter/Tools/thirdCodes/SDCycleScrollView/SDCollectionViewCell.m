@@ -90,6 +90,7 @@
                 bgView.tag = 1111;
                 bgView.image = [UIImage imageNamed:@"头图暗影遮罩-ios"];
                 [self.contentView insertSubview:bgView belowSubview:_titleLabel];
+                bgView.alpha = 0.3;
         }
 
 }
@@ -110,7 +111,7 @@
     CGFloat titleLabelH = _titleLabelHeight;
     CGFloat titleLabelX = 0;
     CGFloat titleLabelY = self.sd_height - titleLabelH;
-    _titleLabel.frame = CGRectMake(25, 129, SCREEN_WIDTH - 25 * 2, 16);
+    _titleLabel.frame = CGRectMake(0, 129, SCREEN_WIDTH - 25 * 2, 16);
     _titleLabel.hidden = !_titleLabel.text;
     
 }

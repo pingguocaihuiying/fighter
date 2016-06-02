@@ -13,8 +13,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *messageButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *currentScrollView;
 @property (weak, nonatomic) IBOutlet UIView *currentView;
-//@property (weak, nonatomic) IBOutlet UIScrollView *cycleScrollView;
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 
+@property (weak, nonatomic) IBOutlet UIButton *leftNavButton;
 
+
+#pragma mark push响应方法
+- (void) pushToDetailController:(NSDictionary *)dic;
 @end

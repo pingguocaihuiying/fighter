@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -11,21 +11,24 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="KGk-i7-Jjw" customClass="FTDrawerTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="378" height="46"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="378" height="46"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="378" height="45"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zeX-ty-Eap">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zeX-ty-Eap">
                         <rect key="frame" x="16" y="15" width="160" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="160" id="8Vf-Ko-2aj"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="右箭头" translatesAutoresizingMaskIntoConstraints="NO" id="AVG-ja-RiN">
-                        <rect key="frame" x="325" y="16" width="7" height="14"/>
+                        <rect key="frame" x="347" y="16" width="7" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="7" id="3Cd-2s-E3B"/>
+                            <constraint firstAttribute="height" constant="14" id="iIr-Op-fjA"/>
+                        </constraints>
                     </imageView>
                 </subviews>
                 <constraints>
@@ -33,12 +36,12 @@
                     <constraint firstItem="AVG-ja-RiN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="GQ7-kP-XjN"/>
                     <constraint firstItem="zeX-ty-Eap" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="GrH-zs-bi3"/>
                     <constraint firstItem="zeX-ty-Eap" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="iAN-G5-dmt"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="AVG-ja-RiN" secondAttribute="trailing" constant="38" id="rpX-Oz-vhZ"/>
+                    <constraint firstItem="AVG-ja-RiN" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="-16" id="rpX-Oz-vhZ"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="image" destination="AVG-ja-RiN" id="D9a-E5-v0A"/>
-                <outlet property="title" destination="zeX-ty-Eap" id="1sS-S8-big"/>
+                <outlet property="cellImage" destination="AVG-ja-RiN" id="7H4-ck-g3J"/>
+                <outlet property="cellTitle" destination="zeX-ty-Eap" id="dtz-MC-EbY"/>
             </connections>
             <point key="canvasLocation" x="503" y="283"/>
         </tableViewCell>

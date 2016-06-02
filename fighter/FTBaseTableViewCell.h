@@ -7,17 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FTBaseBean.h"
+
+@protocol FTTableViewCellClickedDelegate <NSObject>
+
+- (void)clickedWithIndex:(NSIndexPath *)indexPath;
+
+@end
 
 @interface FTBaseTableViewCell : UITableViewCell
 
 
+@property (nonatomic, weak)id<FTTableViewCellClickedDelegate> clickedDelegate;
 
-- (void)setWithBean:(FTNewsBean *)bean;
 
-@end
-
-@protocol baseTableViewCellDelegate <NSObject>
-
-//- (void)cellClickedWith
+- (void)setWithBean:(FTBaseBean *)bean;
 
 @end
+

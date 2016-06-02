@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -15,7 +15,8 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="金属边框-改进ios" translatesAutoresizingMaskIntoConstraints="NO" id="L9I-WB-mnW">
-                        <rect key="frame" x="0.0" y="0.0" width="378" height="217"/>
+                        <rect key="frame" x="0.0" y="0.0" width="378" height="212"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="丹-亨德森合同即将打满，期待继续留在UFC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Lg-ZP-I0y">
                         <rect key="frame" x="19" y="17" width="340" height="14"/>
@@ -42,21 +43,6 @@
                         <color key="textColor" red="0.31372549020000001" green="0.31372549020000001" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JCT-2D-e87">
-                        <rect key="frame" x="19" y="59" width="340" height="112"/>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="96" id="653-6c-xew"/>
-                            <constraint firstAttribute="height" constant="112" id="6HO-kK-1ke"/>
-                            <constraint firstAttribute="height" constant="54" id="9QO-m3-Djv"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="653-6c-xew"/>
-                                <exclude reference="9QO-m3-Djv"/>
-                            </mask>
-                        </variation>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="来源：俺家住楼房" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cu7-1c-VZh">
                         <rect key="frame" x="19" y="182" width="96" height="12"/>
                         <constraints>
@@ -115,7 +101,34 @@
                         </constraints>
                         <state key="normal" backgroundImage="赞-改"/>
                     </button>
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q3J-Jn-4rr" userLabel="placeholdBgView">
+                        <rect key="frame" x="19" y="59" width="340" height="112"/>
+                        <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="空图标小" translatesAutoresizingMaskIntoConstraints="NO" id="8gy-ce-L6c" userLabel="placeHold">
+                        <rect key="frame" x="162" y="107" width="54" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="HBT-2h-R9l"/>
+                            <constraint firstAttribute="width" constant="54" id="Ius-K7-gGW"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JCT-2D-e87">
+                        <rect key="frame" x="19" y="59" width="340" height="112"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="96" id="653-6c-xew"/>
+                            <constraint firstAttribute="height" constant="112" id="6HO-kK-1ke"/>
+                            <constraint firstAttribute="height" constant="54" id="9QO-m3-Djv"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="653-6c-xew"/>
+                                <exclude reference="9QO-m3-Djv"/>
+                            </mask>
+                        </variation>
+                    </imageView>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="zF2-zf-jVc" secondAttribute="bottom" constant="16" id="2aJ-HV-U4T"/>
                     <constraint firstItem="zF2-zf-jVc" firstAttribute="leading" secondItem="ck1-QY-Wxl" secondAttribute="trailing" constant="10" id="Ak0-UW-5sH"/>
@@ -125,11 +138,14 @@
                     <constraint firstItem="8Lg-ZP-I0y" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="Jby-Lo-J0U"/>
                     <constraint firstItem="fE9-kt-RsU" firstAttribute="top" secondItem="8Lg-ZP-I0y" secondAttribute="bottom" constant="8" id="LgY-Bv-at9"/>
                     <constraint firstAttribute="bottom" secondItem="cu7-1c-VZh" secondAttribute="bottom" constant="23" id="LpK-pX-78i"/>
+                    <constraint firstItem="q3J-Jn-4rr" firstAttribute="centerY" secondItem="JCT-2D-e87" secondAttribute="centerY" id="Lzc-59-HCW"/>
                     <constraint firstAttribute="trailing" secondItem="uiZ-fX-lMg" secondAttribute="trailing" constant="7" id="OAV-bu-eQW"/>
                     <constraint firstItem="ck1-QY-Wxl" firstAttribute="leading" secondItem="tVT-ev-0zZ" secondAttribute="trailing" id="P6B-U8-k2Z"/>
                     <constraint firstAttribute="bottom" secondItem="tVT-ev-0zZ" secondAttribute="bottom" constant="17" id="Sx6-lB-1r1"/>
                     <constraint firstItem="fE9-kt-RsU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="TU3-5c-6dg"/>
+                    <constraint firstItem="8gy-ce-L6c" firstAttribute="centerY" secondItem="JCT-2D-e87" secondAttribute="centerY" id="Tcd-Sg-HY2"/>
                     <constraint firstItem="JCT-2D-e87" firstAttribute="top" secondItem="8Lg-ZP-I0y" secondAttribute="bottom" constant="10" id="VRc-rD-h9V"/>
+                    <constraint firstItem="8gy-ce-L6c" firstAttribute="centerX" secondItem="JCT-2D-e87" secondAttribute="centerX" id="Y47-Ax-ezF"/>
                     <constraint firstAttribute="trailing" secondItem="8Lg-ZP-I0y" secondAttribute="trailing" constant="19" id="Zsd-ja-nkP"/>
                     <constraint firstItem="JCT-2D-e87" firstAttribute="top" secondItem="fE9-kt-RsU" secondAttribute="bottom" constant="10" id="azL-tf-VM5"/>
                     <constraint firstItem="zF2-zf-jVc" firstAttribute="leading" secondItem="ck1-QY-Wxl" secondAttribute="trailing" constant="10" id="dkd-7H-ZO3"/>
@@ -140,9 +156,12 @@
                     <constraint firstAttribute="trailing" secondItem="JCT-2D-e87" secondAttribute="trailing" constant="19" id="p81-7j-uCK"/>
                     <constraint firstAttribute="trailing" secondItem="L9I-WB-mnW" secondAttribute="trailing" id="q6d-BM-vnE"/>
                     <constraint firstItem="8Lg-ZP-I0y" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="17" id="rb6-4k-ZoI"/>
+                    <constraint firstItem="q3J-Jn-4rr" firstAttribute="width" secondItem="JCT-2D-e87" secondAttribute="width" id="sVQ-mA-ZCY"/>
                     <constraint firstItem="L9I-WB-mnW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ske-Co-8fN"/>
-                    <constraint firstAttribute="bottom" secondItem="L9I-WB-mnW" secondAttribute="bottom" id="uu1-m4-aSP"/>
+                    <constraint firstItem="q3J-Jn-4rr" firstAttribute="height" secondItem="JCT-2D-e87" secondAttribute="height" id="uHJ-rj-ZUA"/>
+                    <constraint firstAttribute="bottom" secondItem="L9I-WB-mnW" secondAttribute="bottom" constant="5" id="uu1-m4-aSP"/>
                     <constraint firstItem="L9I-WB-mnW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="v4y-aB-C5Q"/>
+                    <constraint firstItem="q3J-Jn-4rr" firstAttribute="centerX" secondItem="JCT-2D-e87" secondAttribute="centerX" id="xdT-kx-N8A"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
@@ -166,8 +185,9 @@
     </objects>
     <resources>
         <image name="格斗标签-拳击" width="48" height="14"/>
+        <image name="空图标小" width="52" height="16"/>
         <image name="评-改" width="22" height="22"/>
         <image name="赞-改" width="22" height="22"/>
-        <image name="金属边框-改进ios" width="134" height="134"/>
+        <image name="金属边框-改进ios" width="67" height="60"/>
     </resources>
 </document>

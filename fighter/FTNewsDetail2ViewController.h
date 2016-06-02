@@ -9,6 +9,12 @@
 #import "FTBaseViewController.h"
 #import "FTNewsBean.h"
 
+@protocol FTnewsDetailDelegate <NSObject>
+
+- (void)updateCountWithNewsBean:(FTNewsBean *)newsBean indexPath:(NSIndexPath *)indexPath;
+
+@end
+
 @interface FTNewsDetail2ViewController : FTBaseViewController
 @property (nonatomic ,copy)NSString *webViewUrlString;
 @property (nonatomic ,copy)NSString *newsTitle;
@@ -18,4 +24,11 @@
 @property (nonatomic, strong)FTNewsBean *newsBean;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UIView *voteView;
+
+@property (nonatomic, weak)id<FTnewsDetailDelegate> delegate;
+
+@property (nonatomic, strong)NSIndexPath *indexPath;
+
+@property (nonatomic ,copy)NSString *webUrlString;//push 传递地址
+
 @end

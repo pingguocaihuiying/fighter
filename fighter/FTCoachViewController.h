@@ -10,4 +10,6 @@
 
 @interface FTCoachViewController : FTBaseViewController
 
+@property (weak, nonatomic) IBOutlet UIButton *leftNavButton;
+
 @end

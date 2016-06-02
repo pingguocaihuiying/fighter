@@ -12,4 +12,6 @@
 
 @end
 
-extern NSString * const ShowType;
+//extern NSString * const ShowType;//该值改存进userdefaults
+
+extern NSString * const APPID;
