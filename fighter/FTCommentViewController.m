@@ -14,7 +14,6 @@
 #import "HUD.h"
 #import "NSString+EmojiFilter.h"
 
-
 @interface FTCommentViewController () <UITextViewDelegate>
 @property (nonnull, strong)UITextView *textView;
 @end
@@ -175,6 +174,8 @@
     }];
     //设置请求返回的数据类型为默认类型（NSData类型)
 }
+
+
 - (void)showHUDWithMessage:(NSString *)message isPop:(BOOL)isPop{
     MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:HUD];
@@ -197,7 +198,31 @@
 
 #pragma mark - UITextViewDelegate 
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
 
+//    if ([[[UITextInputMode currentInputMode]primaryLanguage] isEqualToString:@"emoji"]) {
+//        return NO;
+//    }
+    //屏蔽系统表情
+    if ([[UIApplication sharedApplication] textInputMode].primaryLanguage == nil){
+        return NO;
+    }
+    
+    //屏蔽输入法表情
+    if (text.length > 0) {
+        
+        if ([self isContainsEmoji:text]) {
+            return NO;
+        }else {
+            return YES;
+        }
+        
+    }
+    return YES;
+}
+
+
+#pragma mark - UITextViewDelegate 
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView {
 
