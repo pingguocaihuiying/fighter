@@ -327,7 +327,7 @@
     webpage.description = [NSString stringWithFormat:NSLocalizedString(_summary, nil), [[NSDate date] timeIntervalSince1970]];
     webpage.thumbnailData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:_image ofType:@"jpg"]];
 
-    NSLog(@"url:%@ length:%ld",[_url stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding],_url.length);
+    NSLog(@"url:%@ length:%ld",[_url stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding],(unsigned long)_url.length);
     webpage.webpageUrl = _url;
     message.mediaObject = webpage;
 
