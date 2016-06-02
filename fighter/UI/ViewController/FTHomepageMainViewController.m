@@ -49,9 +49,12 @@
 
 #import "FTVideoDetailViewController.h"
 #import "FTVideoCollectionViewCell.h"
+#import "FTRecordRankTableViewCell.h"
+#import "FTBaseTableViewCell.h"
+#import "FTHomepageRecordListTableViewCell.h"
 
 
-@interface FTHomepageMainViewController ()<FTArenaDetailDelegate, FTSelectCellDelegate,FTTableViewdelegate, UIScrollViewDelegate, UIScrollViewAccessibilityDelegate, UICollectionViewDelegate, UICollectionViewDataSource, FTVideoDetailDelegate>
+@interface FTHomepageMainViewController ()<FTArenaDetailDelegate, FTSelectCellDelegate,FTTableViewdelegate, UIScrollViewDelegate, UIScrollViewAccessibilityDelegate, UICollectionViewDelegate, UICollectionViewDataSource, FTVideoDetailDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic)UIScrollView *scrollView;
 @property (nonatomic, strong)FTTableViewController *tableViewController;
 @property (nonatomic, strong)NSMutableArray *tableViewDataSourceArray;
@@ -72,6 +75,7 @@
 @property (nonatomic, copy)NSString *pageSize;
 @property (nonatomic, copy)NSString *labels;
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
+@property (assign, nonatomic)BOOL hasInitRecordRank;
 
 @property (nonatomic, strong)NSMutableArray *collectionViewDataSourceArray;//视频collectionView的数据源
 @end
@@ -105,6 +109,7 @@
     _pageNum = @"1";
     _pageSize = @"10";
     _labels = @"";
+    _hasInitRecordRank = false;
 }
 
 - (void)initSubviews{
@@ -166,33 +171,48 @@
     _selectedType = FTHomepageVideo;
     [self refreshButtonsIndex];
 }
-
+#pragma -mark 更新对应的界面显示
 -(void)refreshButtonsIndex{
     switch (_selectedType) {
-        case FTHomepageDynamicInformation:
+        case FTHomepageDynamicInformation://格斗场列表
+            //显示当前下标
             _dynamicInfomationButtonIndexView.hidden = NO;
             _recordButtonIndexView.hidden = YES;
             _videoButtonIndexView.hidden = YES;
-            //显示格斗场列表，并隐藏其他
-            _videoCollectionView.hidden = YES;
-            _infoTableView.hidden = NO;
             
+            //显示格斗场列表，并隐藏其他
+            _infoTableView.hidden = NO;
+            _videoCollectionView.hidden = YES;
+            _recordRankTableView.hidden = YES;
+            _recordListTableView.hidden = YES;
             break;
-        case FTHomepageRecord:
+        case FTHomepageRecord://赛事
+            //显示当前下标
             _dynamicInfomationButtonIndexView.hidden = YES;
             _recordButtonIndexView.hidden = NO;
             _videoButtonIndexView.hidden = YES;
+            
+            //显示赛事相关的内容，隐藏其他
+            _recordRankTableView.hidden = NO;
+            _recordListTableView.hidden = NO;
+            _infoTableView.hidden = YES;
+            _videoCollectionView.hidden = YES;
+            
+            //处理赛事内容显示
+            [self setRecordContent];
             break;
-        case FTHomepageVideo:
+        case FTHomepageVideo://视频
+            //显示当前下标
             _dynamicInfomationButtonIndexView.hidden = YES;
             _recordButtonIndexView.hidden = YES;
             _videoButtonIndexView.hidden = NO;
             
-            
-            
             //隐藏其余tableView，显示collectionView，并设置
             _infoTableView.hidden = YES;
+            _recordRankTableView.hidden = YES;
+            _recordListTableView.hidden = YES;
             _videoCollectionView.hidden = NO;
+            
             [self initCollectionView];
             [self getDataWithGetType:@"new" andCurrId:@"-1"];//加载视频数据
             break;
@@ -334,8 +354,85 @@
     [super didReceiveMemoryWarning];
 }
 
-#pragma -mark  视频列表collectionView
+#pragma -mark ***  赛事  ***
+- (void)setRecordContent{
 
+    //设置赛事排行榜
+    if (!_hasInitRecordRank) {
+        //设置代理
+        _recordRankTableView.delegate = self;
+        _recordRankTableView.dataSource = self;
+        //加载一个cell用于复用
+        [_recordRankTableView registerNib:[UINib nibWithNibName:@"FTRecordRankTableViewCell" bundle:nil] forCellReuseIdentifier:@"recordRankCell"];
+        //设置高度
+        _recordRankTableViewHeight.constant = 22 + 32 * 4 + 7;
+        //添加背景
+        UIImageView *bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, _recordRankTableView.width, _recordRankTableViewHeight.constant)];
+        bgImageView.image = [UIImage imageNamed:@"金属边框-改进ios"];
+        [_recordRankTableView addSubview:bgImageView];
+        _hasInitRecordRank = true;
+    }
+    [_recordRankTableView reloadData];
+    
+    //设置赛事列表
+    _recordListTableView.delegate = self;
+    _recordListTableView.dataSource = self;
+    [_recordListTableView registerNib:[UINib nibWithNibName:@"FTHomepageRecordListTableViewCell" bundle:nil] forCellReuseIdentifier:@"recordListCell"];
+    [_recordListTableView reloadData];
+}
+//cell多少行
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (tableView == _recordRankTableView) {
+        return 5;
+    }else if(tableView == _recordListTableView){
+        return 10;
+    }
+    return 0;
+}
+//cell
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    FTBaseTableViewCell *cell;
+    if (tableView == _recordRankTableView) {//如果是赛事排行榜信息
+        
+        FTRecordRankTableViewCell *cell1 = (FTRecordRankTableViewCell *)([tableView dequeueReusableCellWithIdentifier:@"recordRankCell"]);
+        if (indexPath.row == 0) {//如果是第一行，调整字体为灰色
+            cell1.competitionNameLabel.textColor = [UIColor colorWithHex:0x646464];
+            cell1.curRankLabel.textColor = [UIColor colorWithHex:0x646464];
+            cell1.bestRankLabel.textColor = [UIColor colorWithHex:0x646464];
+            cell1.backgroundColor = [UIColor colorWithHex:0x191919];
+        }else{
+            cell1.competitionNameLabel.textColor = [UIColor whiteColor];
+            cell1.curRankLabel.textColor = [UIColor whiteColor];
+            cell1.bestRankLabel.textColor = [UIColor whiteColor];
+            cell1.backgroundColor = [UIColor clearColor];
+        }
+        //如果是第一个和最后一个，则不显示分割线
+        if (indexPath.row == 0 || indexPath.row == 4) {
+            cell1.separatorIndexView.hidden = YES;
+        }
+        return cell1;
+    }else if(tableView == _recordListTableView){
+        FTHomepageRecordListTableViewCell *cell2 = [tableView dequeueReusableCellWithIdentifier:@"recordListCell"];
+        return cell2;
+    }
+    return cell;
+}
+//cell高度
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == _recordRankTableView) {
+        if (indexPath.row == 0) {
+            return 22;
+        }else{
+            return 32;
+        }
+    }else if(tableView == _recordListTableView){
+        return 74 + 10;
+    }
+    return 0;
+}
+
+
+#pragma -mark  视频列表collectionView
 //加载视频数据
 - (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)videoCurrId{
     
@@ -480,6 +577,7 @@
     [cell setWithBean:videoBean];
     return cell;
 }
+//更新视频的点赞、评论数量
 - (void)updateCountWithVideoBean:(FTVideoBean *)videoBean indexPath:(NSIndexPath *)indexPath{
     
     NSDictionary *dic = self.collectionViewDataSourceArray[indexPath.row];

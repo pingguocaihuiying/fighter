@@ -21,5 +21,9 @@ typedef NS_ENUM(NSInteger, FTHomepageTableViewType) {
 @property (weak, nonatomic) IBOutlet UIView *recordButtonIndexView;
 @property (weak, nonatomic) IBOutlet UIView *videoButtonIndexView;
 @property (weak, nonatomic) IBOutlet UIView *buttonsContainerView;
+@property (weak, nonatomic) IBOutlet UIView *mainContentView;
+@property (weak, nonatomic) IBOutlet UITableView *recordRankTableView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *recordRankTableViewHeight;
+@property (weak, nonatomic) IBOutlet UITableView *recordListTableView;
 
 @end
