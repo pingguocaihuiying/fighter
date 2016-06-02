@@ -81,7 +81,6 @@
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     NSLog(@"initWithNibName");
     if (self = [super initWithNibName: nibNameOrNil bundle:nibBundleOrNil]) {
-//        NSLog(@"briefIntroductionTextField : %@", _briefIntroductionTextField.text); //null
     }
     return self;
 }
