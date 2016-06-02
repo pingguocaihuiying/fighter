@@ -15,6 +15,7 @@
                 <outlet property="recordButtonIndexView" destination="rQM-Rj-u8O" id="f8e-32-cjP"/>
                 <outlet property="userBgImageView" destination="5y6-lb-RmI" id="BdQ-bZ-LTW"/>
                 <outlet property="videoButtonIndexView" destination="BWH-tj-PNj" id="YKz-To-5Qa"/>
+                <outlet property="videoCollectionView" destination="bT8-1A-Nbz" id="1QJ-h1-Eoc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -227,6 +228,20 @@
                                     <color key="textColor" red="0.70588235290000001" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="A8K-mT-O4c">
+                                    <rect key="frame" x="0.0" y="274" width="320" height="726"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </tableView>
+                                <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bT8-1A-Nbz" userLabel="Video Collection View">
+                                    <rect key="frame" x="0.0" y="274" width="320" height="726"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1Fi-rF-lfC">
+                                        <size key="itemSize" width="50" height="50"/>
+                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </collectionViewFlowLayout>
+                                </collectionView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ps4-7u-wjc">
                                     <rect key="frame" x="80" y="118" width="224" height="1"/>
                                     <color key="backgroundColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
@@ -303,10 +318,6 @@
                                     <color key="textColor" red="0.70588235290000001" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="A8K-mT-O4c">
-                                    <rect key="frame" x="0.0" y="274" width="320" height="726"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </tableView>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="e86-Wv-mh9" firstAttribute="leading" secondItem="ALV-T0-N44" secondAttribute="trailing" constant="8" id="18i-nN-66L"/>
@@ -347,6 +358,7 @@
                                 <constraint firstItem="18S-B5-Pue" firstAttribute="centerY" secondItem="knz-hM-9pO" secondAttribute="centerY" id="XcK-e2-4CJ"/>
                                 <constraint firstItem="knz-hM-9pO" firstAttribute="leading" secondItem="EbA-3p-7sF" secondAttribute="trailing" constant="16" id="XgY-jz-6MB"/>
                                 <constraint firstItem="EbA-3p-7sF" firstAttribute="leading" secondItem="s7d-h9-jeL" secondAttribute="leading" constant="8" id="YhY-8t-1wc"/>
+                                <constraint firstAttribute="bottom" secondItem="bT8-1A-Nbz" secondAttribute="bottom" id="a4K-sf-eyH"/>
                                 <constraint firstItem="VNk-US-mKR" firstAttribute="top" secondItem="Wnl-A1-P1z" secondAttribute="bottom" constant="12" id="aFQ-pO-15m"/>
                                 <constraint firstItem="XbW-Ls-Alv" firstAttribute="top" secondItem="knz-hM-9pO" secondAttribute="bottom" constant="12" id="bwY-iF-zyA"/>
                                 <constraint firstItem="cOn-Bc-6De" firstAttribute="centerY" secondItem="sEd-is-Qw0" secondAttribute="centerY" id="bwj-GE-3Bc"/>
@@ -364,8 +376,11 @@
                                 <constraint firstItem="A8K-mT-O4c" firstAttribute="top" secondItem="w7F-5a-cpi" secondAttribute="bottom" constant="10" id="mCD-Vv-j30"/>
                                 <constraint firstItem="ZpP-5V-yCd" firstAttribute="leading" secondItem="jwk-7a-33r" secondAttribute="trailing" constant="8" id="oCW-x8-BII"/>
                                 <constraint firstItem="gpR-6S-Bw3" firstAttribute="leading" secondItem="Qi8-1h-yVk" secondAttribute="trailing" constant="8" id="p29-Uy-E81"/>
+                                <constraint firstAttribute="trailing" secondItem="bT8-1A-Nbz" secondAttribute="trailing" id="qdj-0A-Kui"/>
                                 <constraint firstItem="Wnl-A1-P1z" firstAttribute="top" secondItem="ALV-T0-N44" secondAttribute="bottom" constant="8" id="qpo-o8-4Vu"/>
                                 <constraint firstItem="UFQ-0x-QqQ" firstAttribute="leading" secondItem="gpR-6S-Bw3" secondAttribute="trailing" constant="8" id="rNY-7c-Xxd"/>
+                                <constraint firstItem="bT8-1A-Nbz" firstAttribute="top" secondItem="w7F-5a-cpi" secondAttribute="bottom" constant="10" id="sV1-5H-YUx"/>
+                                <constraint firstItem="bT8-1A-Nbz" firstAttribute="leading" secondItem="s7d-h9-jeL" secondAttribute="leading" id="ucI-34-ek9"/>
                                 <constraint firstItem="XbW-Ls-Alv" firstAttribute="leading" secondItem="knz-hM-9pO" secondAttribute="leading" id="wYn-kk-MXZ"/>
                                 <constraint firstItem="5y6-lb-RmI" firstAttribute="leading" secondItem="s7d-h9-jeL" secondAttribute="leading" id="zzx-cI-qcf"/>
                             </constraints>

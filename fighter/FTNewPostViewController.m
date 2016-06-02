@@ -85,6 +85,14 @@
     [self setTopButton];
     
     [self setMediaPickerView];
+    
+    //设置titleTextField的placeHold属性
+    // 描述占位文字属性
+    NSMutableDictionary *attr = [NSMutableDictionary dictionary];
+    attr[NSForegroundColorAttributeName] = [UIColor colorWithHex:0xb4b4b4];
+    //富文本属性
+    NSAttributedString *acountPlaceholder = [[NSAttributedString alloc] initWithString:@"添加一个拉风的标题..." attributes:attr];
+    [_titleTextField setAttributedPlaceholder:acountPlaceholder];
 
 }
 
