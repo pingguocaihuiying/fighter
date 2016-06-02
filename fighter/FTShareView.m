@@ -117,6 +117,7 @@
     //设置分享按钮
     [self setButtons];
     
+    
     //显示label
     _hintLabel = [[UILabel alloc]init];
     _hintLabel.font=[UIFont systemFontOfSize:16];
@@ -125,13 +126,6 @@
     _hintLabel.text = @"分享至";
     [_panelView addSubview:_hintLabel];
     
-//    [_hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(weakPanel.mas_top).with.offset(20);
-//        make.right.equalTo(weakPanel.mas_right).with.offset(-40);
-//        make.left.equalTo(weakPanel.mas_left).with.offset(40);
-//        make.height.equalTo(@15);
-//    }];
-
      __weak UIView *weakBtnView= _btnView;
     [_hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(weakBtnView.mas_top).with.offset(-20);
@@ -141,6 +135,8 @@
     }];
     
     
+    
+    //添加_panelView 约束
     __weak __typeof(self) weakSelf = self;
      __weak UILabel *weakLabel = _hintLabel;
     [_panelView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -152,6 +148,11 @@
     }];
 }
 
+
+
+/**
+ *  set share button in a UIView
+ */
 - (void) setButtons {
 
     _btnView = [[UIView alloc]init];
@@ -180,6 +181,10 @@
     }
 }
 
+
+/**
+ *  add tap touch event
+ */
 - (void) setTouchEvent {
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
@@ -223,6 +228,7 @@
 
     [self removeFromSuperview];
 }
+
 
 - (void) tapAction:(UITapGestureRecognizer *)gesture {
     
@@ -293,22 +299,6 @@
  */
 - (void) shareToSinaMicroBlog {
 
-//分享给微博好友
-//    WBMessageObject *message = [WBMessageObject message];
-//    WBWebpageObject *webpage = [WBWebpageObject object];
-//    webpage.objectID = @"";
-//    webpage.title = _title;
-//    webpage.description = [NSString stringWithFormat:NSLocalizedString(_summary, nil), [[NSDate date] timeIntervalSince1970]];
-//    webpage.thumbnailData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:_image ofType:@"jpg"]];
-//    
-//    NSLog(@"url:%@ length:%ld",[_url stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding],_url.length);
-//    webpage.webpageUrl = _url;
-//    message.mediaObject = webpage;
-//    
-//    WBShareMessageToContactRequest *request = [WBShareMessageToContactRequest requestWithMessage:message];
-//    request.userInfo = @{@"SendMessageFrom": @"SendMessageToWeiboViewController"};
-//    [WeiboSDK sendRequest:request];
-    
     //分享到微博博文
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     
@@ -317,35 +307,58 @@
 //    authRequest.scope = @"all";
     
     WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:[self messageToShare] authInfo:authRequest access_token:myDelegate.wbtoken];
-//    request.userInfo = @{@"ShareMessageFrom": @"SendMessageToWeiboViewController",
+    request.userInfo = @{@"ShareMessageFrom": @"格斗家"};
 //                         @"Other_Info_1": [NSNumber numberWithInt:123],
 //                         @"Other_Info_2": @[@"obj1", @"obj2"],
 //                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
-    //    request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
+    request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
     [WeiboSDK sendRequest:request];
-    
     
 }
 
 
+- (void) shareToSinaFriends {
 
+    //分享给微博好友
+    WBMessageObject *message = [WBMessageObject message];
+    WBWebpageObject *webpage = [WBWebpageObject object];
+    webpage.objectID = @"";
+    webpage.title = _title;
+    webpage.description = [NSString stringWithFormat:NSLocalizedString(_summary, nil), [[NSDate date] timeIntervalSince1970]];
+    webpage.thumbnailData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:_image ofType:@"jpg"]];
+
+    NSLog(@"url:%@ length:%ld",[_url stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding],_url.length);
+    webpage.webpageUrl = _url;
+    message.mediaObject = webpage;
+
+    WBShareMessageToContactRequest *request = [WBShareMessageToContactRequest requestWithMessage:message];
+    request.userInfo = @{@"ShareMessageFrom": @"格斗家"};
+    request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
+    [WeiboSDK sendRequest:request];
+}
+
+
+    
+/**
+ *  设置新浪微博分享信息
+ *
+ *  @return
+ */
 - (WBMessageObject *)messageToShare
 {
-    NSLog(@"url:%@ length:%ld",_url ,_url.length);
-    
     
     UIImage *image = [UIImage imageNamed:_image];
     NSData* data;
     data = UIImageJPEGRepresentation(image, 0.5);
     
-    NSLog(@"data.length:%ld",data.length);
+//    NSLog(@"data.length:%ld",data.length);
     
     WBMessageObject *message = [WBMessageObject message];
     WBWebpageObject *webpage = [WBWebpageObject object];
     webpage.objectID = @"identifier1";
     webpage.title = _title;
     webpage.description = _summary;
-    webpage.thumbnailData =data;
+    webpage.thumbnailData =data; //data size can`t be over 32 KB
     webpage.webpageUrl = _url;
     message.mediaObject = webpage;
     
