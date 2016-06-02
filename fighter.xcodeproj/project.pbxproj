@@ -2510,15 +2510,14 @@
 				E6D74A391CB7B7EE00854337 /* UIView+YBAddtitions.m */,
 				E65EFC271CC8ADFD0039EE8A /* UIButton+LYZTitle.h */,
 				E65EFC281CC8ADFD0039EE8A /* UIButton+LYZTitle.m */,
-<<<<<<< HEAD
-=======
+
 				E6DF6B891CCE32F600219766 /* NSString+EmojiFilter.h */,
 				E6DF6B8A1CCE32F600219766 /* NSString+EmojiFilter.m */,
 				3DC412231CD0C3780030C229 /* NSString+Size.h */,
 				3DC412241CD0C3780030C229 /* NSString+Size.m */,
 				3D4B19611CDB59D60022DFB0 /* UIWindow+MBProgressHUD.h */,
 				3D4B19621CDB59D60022DFB0 /* UIWindow+MBProgressHUD.m */,
->>>>>>> kangxq
+
 			);
 			path = Categorys;
 			sourceTree = "<group>";
@@ -3056,14 +3055,13 @@
 				E668BAB51CE0565700071998 /* MJRefreshBackGifFooter.m in Sources */,
 				3DC9A4E31CE59A0400E16D19 /* FTButton.m in Sources */,
 				E6D74A491CB7B7EE00854337 /* UILabel+StringFrame.m in Sources */,
-<<<<<<< HEAD
-=======
+
 				E6DF6B8B1CCE32F600219766 /* NSString+EmojiFilter.m in Sources */,
 				3D57D0501CEC0E7F0082BF24 /* DBManager.m in Sources */,
 				3D4B19581CDB0CD90022DFB0 /* FTPropertySetingViewController.m in Sources */,
 				3D5FB4B91CDC41A500FC1809 /* FTAlbumsViewController.m in Sources */,
 				E668BABE1CE0565700071998 /* UIScrollView+MJRefresh.m in Sources */,
->>>>>>> kangxq
+
 				E6D74A471CB7B7EE00854337 /* UIButton+countDown.m in Sources */,
 				3D57D0441CEC0B560082BF24 /* FMDatabaseAdditions.m in Sources */,
 				3DC412141CD039D70030C229 /* NSArray+MASAdditions.m in Sources */,
