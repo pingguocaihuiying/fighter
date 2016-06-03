@@ -15,8 +15,6 @@
 #import "UIWindow+MBProgressHUD.h"
 #import "NSString+Size.h"
 #import "FTTableViewCell5.h"
-#import "UMFeedback.h"
-#import "MobClick.h"
 #import "FTFiler.h"
 #import "FTAbountUsViewController.h"
 #import "FTManagerAccountViewController.h"

@@ -321,7 +321,8 @@
     [shareView setTitle:_videoBean.title];
     [shareView setSummary:_videoBean.summary];
     [shareView setImage:@"微信用@200"];
-    [shareView setImageUrl:@"http://www.gogogofight.com/page/images/wechat_share.jpg"];
+//    [shareView setImageUrl:@"http://www.gogogofight.com/page/images/wechat_share.jpg"];
+    [shareView setImageUrl:_videoBean.img];
     [self.view addSubview:shareView];
     
 

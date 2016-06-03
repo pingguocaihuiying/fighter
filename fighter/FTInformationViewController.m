@@ -19,7 +19,6 @@
 #import "FTNewsBean.h"
 #import "UIButton+LYZTitle.h"
 #import "UIButton+WebCache.h"
-#import "Mobclick.h"
 #import "FTRankingListViewController.h"
 #import "FTCache.h"
 #import "FTCacheBean.h"

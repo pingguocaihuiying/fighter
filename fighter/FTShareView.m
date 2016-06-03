@@ -13,7 +13,6 @@
 #import "WXApi.h"
 
 #import "WXApi.h"
-#import "Mobclick.h"
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <TencentOpenAPI/sdkdef.h>
 #import "WeiboSDK.h"
@@ -218,6 +217,7 @@
     }else if (btnTag == 1004) {
         //新浪微博
         [self shareToSinaMicroBlog];
+//        [self test];
     }
 
     [self removeFromSuperview];
@@ -303,17 +303,73 @@
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     
     WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
-//    authRequest.redirectURI = @"http://www.sina.com";
-//    authRequest.scope = @"all";
+    authRequest.redirectURI = _url;
+    authRequest.scope = [NSString stringWithFormat:@"%@,%@,%@",_title,_summary,_image];
     
-    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:[self messageToShare] authInfo:authRequest access_token:myDelegate.wbtoken];
-    request.userInfo = @{@"ShareMessageFrom": @"格斗家"};
-//                         @"Other_Info_1": [NSNumber numberWithInt:123],
-//                         @"Other_Info_2": @[@"obj1", @"obj2"],
-//                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
+    WBSendMessageToWeiboRequest *request =
+    [WBSendMessageToWeiboRequest requestWithMessage:[self messageToShare]
+                                           authInfo:authRequest
+                                       access_token:myDelegate.wbtoken];
+    
+    request.userInfo = @{@"ShareMessageFrom": @"--- 发自《格斗家》app",
+                         @"Other_Info_1": [NSNumber numberWithInt:123],
+                         @"Other_Info_2": @[@"obj1", @"obj2"],
+                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}
+                         };
     request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
     [WeiboSDK sendRequest:request];
     
+}
+
+
+- (UIViewController *) viewController {
+    
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
+}
+
+- (void) test {
+
+    //分享到微博博文
+    AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
+    WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
+    authRequest.redirectURI = _url;
+    authRequest.scope = [NSString stringWithFormat:@"%@,%@,%@",_title,_summary,_image];
+    
+    
+    //设置文本信息
+    WBMessageObject *message = [WBMessageObject message];
+    if (_summary) {
+        message.text = [@"“" stringByAppendingFormat:@"%@”,%@ \n  --- 发自《格斗家》app %@",_title,_summary,_url];
+    }else {
+        message.text = [@"“" stringByAppendingFormat:@"%@”\n  --- 发自《格斗家》app %@",_title,_url];
+    }
+    
+    NSLog(@"url:%@ length:%ld",_url,_url.length);
+    //设置媒体数据
+    WBVideoObject *webpage = [WBVideoObject object];
+    webpage.objectID = @"identifier1";
+    webpage.title = _title;
+    webpage.description = _summary;
+    webpage.videoUrl = _url;
+    webpage.videoStreamUrl = _url;
+    webpage.videoLowBandUrl = _url;
+    webpage.videoLowBandStreamUrl = _url;
+    message.mediaObject = webpage;
+    
+    WBSendMessageToWeiboRequest *request =
+    [WBSendMessageToWeiboRequest requestWithMessage:message
+                                           authInfo:authRequest
+                                       access_token:myDelegate.wbtoken];
+    
+    request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
+    [WeiboSDK sendRequest:request];
+
 }
 
 
@@ -337,7 +393,6 @@
     [WeiboSDK sendRequest:request];
 }
 
-
 /**
  *  设置新浪微博分享信息
  *
@@ -346,21 +401,38 @@
 - (WBMessageObject *)messageToShare
 {
     
-    UIImage *image = [UIImage imageNamed:_image];
-    NSData* data;
-    data = UIImageJPEGRepresentation(image, 0.5);
+//    UIImage *image = [UIImage imageNamed:_image];
+    NSMutableData* data = [NSMutableData data];
+    [data appendData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_imageUrl]]];
+//    [data appendData:UIImageJPEGRepresentation(image, 0.5)];
+//    data = UIImageJPEGRepresentation(image, 0.5);
     
-//    NSLog(@"data.length:%ld",data.length);
+    NSLog(@"_imageUrl:%@",_imageUrl);
     
+    //设置文本信息
     WBMessageObject *message = [WBMessageObject message];
-    WBWebpageObject *webpage = [WBWebpageObject object];
-    webpage.objectID = @"identifier1";
-    webpage.title = _title;
-    webpage.description = _summary;
-    webpage.thumbnailData =data; //data size can`t be over 32 KB
-    webpage.webpageUrl = _url;
-    message.mediaObject = webpage;
+    if (_summary) {
+         message.text = [@"“" stringByAppendingFormat:@"%@”,%@ \n  --- 发自《格斗家》app %@",_title,_summary,_url];
+    }else {
+         message.text = [@"“" stringByAppendingFormat:@"%@”\n  --- 发自《格斗家》app %@",_title,_url];
+    }
     
+//    message.text = [[_title stringByAppendingString:@"\n   --- 发自《格斗家》app"] stringByAppendingString: _url];
+   
+    //设置图片数据
+    WBImageObject *webImage = [WBImageObject object];
+    webImage.imageData = data;
+    message.imageObject = webImage;
+    
+    
+//    //设置媒体数据
+//    WBWebpageObject *webpage = [WBWebpageObject object];
+//    webpage.objectID = @"identifier1";
+//    webpage.title = _title;
+//    webpage.description = _summary;
+//    webpage.thumbnailData =data; //data size can`t be over 32 KB
+//    webpage.webpageUrl = _url;
+//    message.mediaObject = webpage;
     return message;
 }
 

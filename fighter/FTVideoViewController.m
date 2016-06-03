@@ -18,7 +18,6 @@
 #import "FTVideoBean.h"
 #import "UIButton+LYZTitle.h"
 #import "UIButton+WebCache.h"
-#import "Mobclick.h"
 #import "FTVideoCollectionViewCell.h"
 #import "MJRefresh.h"
 #import "FTCache.h"
