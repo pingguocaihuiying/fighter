@@ -213,6 +213,7 @@
 		E61B8A651CBB6C4900AE37F9 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E61B8A5C1CBB6C4900AE37F9 /* SDCollectionViewCell.m */; };
 		E61B8A661CBB6C4900AE37F9 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E61B8A5E1CBB6C4900AE37F9 /* SDCycleScrollView.m */; };
 		E61B8A671CBB6C4900AE37F9 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = E61B8A601CBB6C4900AE37F9 /* UIView+SDExtension.m */; };
+		E644E77E1D0123F700F39E45 /* FTHomepageUserBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E644E77D1D0123F700F39E45 /* FTHomepageUserBean.m */; };
 		E64EF10B1CB6614000CAE340 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E64EF10A1CB6614000CAE340 /* main.m */; };
 		E64EF10E1CB6614000CAE340 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E64EF10D1CB6614000CAE340 /* AppDelegate.m */; };
 		E64EF1111CB6614000CAE340 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E64EF1101CB6614000CAE340 /* ViewController.m */; };
@@ -727,6 +728,8 @@
 		E61B8A5E1CBB6C4900AE37F9 /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
 		E61B8A5F1CBB6C4900AE37F9 /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
 		E61B8A601CBB6C4900AE37F9 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
+		E644E77C1D0123F700F39E45 /* FTHomepageUserBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTHomepageUserBean.h; sourceTree = "<group>"; };
+		E644E77D1D0123F700F39E45 /* FTHomepageUserBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTHomepageUserBean.m; sourceTree = "<group>"; };
 		E64EF1061CB6614000CAE340 /* fighter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fighter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E64EF10A1CB6614000CAE340 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E64EF10C1CB6614000CAE340 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1729,6 +1732,15 @@
 			path = PageControl;
 			sourceTree = "<group>";
 		};
+		E644E7781D011F7C00F39E45 /* 个人主页用户 */ = {
+			isa = PBXGroup;
+			children = (
+				E644E77C1D0123F700F39E45 /* FTHomepageUserBean.h */,
+				E644E77D1D0123F700F39E45 /* FTHomepageUserBean.m */,
+			);
+			name = "个人主页用户";
+			sourceTree = "<group>";
+		};
 		E64EF0FD1CB6614000CAE340 = {
 			isa = PBXGroup;
 			children = (
@@ -1847,6 +1859,7 @@
 		E65D08DB1CBCDF0B00651B19 /* Bean */ = {
 			isa = PBXGroup;
 			children = (
+				E644E7781D011F7C00F39E45 /* 个人主页用户 */,
 				E6956EA41CBE21A1008DEEDB /* FTNewsBean.h */,
 				E6956EA51CBE21A1008DEEDB /* FTNewsBean.m */,
 				E61185961CC78BF400F23EC7 /* FTUserBean.h */,
@@ -2524,14 +2537,10 @@
 				E6D74A391CB7B7EE00854337 /* UIView+YBAddtitions.m */,
 				E65EFC271CC8ADFD0039EE8A /* UIButton+LYZTitle.h */,
 				E65EFC281CC8ADFD0039EE8A /* UIButton+LYZTitle.m */,
-
-				E6DF6B891CCE32F600219766 /* NSString+EmojiFilter.h */,
-				E6DF6B8A1CCE32F600219766 /* NSString+EmojiFilter.m */,
 				3DC412231CD0C3780030C229 /* NSString+Size.h */,
 				3DC412241CD0C3780030C229 /* NSString+Size.m */,
 				3D4B19611CDB59D60022DFB0 /* UIWindow+MBProgressHUD.h */,
 				3D4B19621CDB59D60022DFB0 /* UIWindow+MBProgressHUD.m */,
-
 			);
 			path = Categorys;
 			sourceTree = "<group>";
@@ -3083,13 +3092,10 @@
 				E668BAB51CE0565700071998 /* MJRefreshBackGifFooter.m in Sources */,
 				3DC9A4E31CE59A0400E16D19 /* FTButton.m in Sources */,
 				E6D74A491CB7B7EE00854337 /* UILabel+StringFrame.m in Sources */,
-
-				E6DF6B8B1CCE32F600219766 /* NSString+EmojiFilter.m in Sources */,
 				3D57D0501CEC0E7F0082BF24 /* DBManager.m in Sources */,
 				3D4B19581CDB0CD90022DFB0 /* FTPropertySetingViewController.m in Sources */,
 				3D5FB4B91CDC41A500FC1809 /* FTAlbumsViewController.m in Sources */,
 				E668BABE1CE0565700071998 /* UIScrollView+MJRefresh.m in Sources */,
-
 				E6D74A471CB7B7EE00854337 /* UIButton+countDown.m in Sources */,
 				3D57D0441CEC0B560082BF24 /* FMDatabaseAdditions.m in Sources */,
 				3DC412141CD039D70030C229 /* NSArray+MASAdditions.m in Sources */,
@@ -3215,6 +3221,7 @@
 				E68050B91CBF919A00678905 /* JHRefreshCommonAniView.m in Sources */,
 				E668BAB71CE0565700071998 /* MJRefreshBackStateFooter.m in Sources */,
 				E668BAB11CE0565700071998 /* MJRefreshHeader.m in Sources */,
+				E644E77E1D0123F700F39E45 /* FTHomepageUserBean.m in Sources */,
 				E6D09E921CEDA10000B7C43E /* FTTools.m in Sources */,
 				3DE95BAD1CD8A042005BF85C /* FTRegistViewController.m in Sources */,
 				E6D74A4B1CB7B7EE00854337 /* UUID.m in Sources */,

@@ -146,6 +146,7 @@ NSString * const IsValidatePhone =  @"/api/newuser/validatePhone.do";
 //排行榜
 NSString * const GetRankListURL = @"/api/ranking/list.do";//排行榜
 NSString * const GetRankSearchItemURL = @"/api/ranking/getRankSearchItems.do";//排行帅选项
+NSString * const GetHomepageUserInfo = @"/api/user/read.do";
 
 
 

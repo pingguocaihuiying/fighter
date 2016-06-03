@@ -52,7 +52,8 @@
 #import "FTRecordRankTableViewCell.h"
 #import "FTBaseTableViewCell.h"
 #import "FTHomepageRecordListTableViewCell.h"
-
+#import "NetWorking.h"
+#import "FTUserBean.h"
 
 @interface FTHomepageMainViewController ()<FTArenaDetailDelegate, FTSelectCellDelegate,FTTableViewdelegate, UIScrollViewDelegate, UIScrollViewAccessibilityDelegate, UICollectionViewDelegate, UICollectionViewDataSource, FTVideoDetailDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic)UIScrollView *scrollView;
@@ -91,14 +92,33 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self getHomepageUserInfo];
     [self initBaseData];
     [self initSubviews];
-    [self getDataFromWeb];//初次加载数据
+    
+    [self getDataFromWeb];//初次加载帖子数据
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     self.navigationController.navigationBarHidden = YES;
 }
+
+#pragma mark 获取用户的基本信息
+- (void)getHomepageUserInfo{
+    [NetWorking getHomepageUserInfoWithUserOldid:_olduserid andCallbackOption:^(FTUserBean *userBean) {
+        
+        self.sexLabel.text = userBean.sex;
+        self.nameLabel.text = userBean.name;
+        self.followCountLabel.text = [NSString stringWithFormat:@"%@", userBean.followCount];
+        self.fansCountLabel.text = [NSString stringWithFormat:@"%@", userBean.fansCount == nil ? @"0" : userBean.fansCount];
+        self.dynamicCountLabel.text = [NSString stringWithFormat:@"%@", userBean.dynamicCount == nil ? @"0" : userBean.dynamicCount];
+        self.addressLabel.text = [NSString stringWithFormat:@"%@", userBean.address];
+        self.briefLabel.text = userBean.address;
+        
+        
+    }];
+}
+
 /**
  *  初始化一些默认配置
  */

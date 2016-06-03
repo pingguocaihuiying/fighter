@@ -158,4 +158,7 @@
 #pragma mark - 视频
 //获取排行榜标签
 - (void) getVideos:(NSString *) urlString  option:(void (^)(NSDictionary *dict))option;
+
+//获取个人主页用户资料
++ (void)getHomepageUserInfoWithUserOldid:(NSString *)userOldid andCallbackOption:(void (^)(FTUserBean *userBean))userBeanOption;
 @end

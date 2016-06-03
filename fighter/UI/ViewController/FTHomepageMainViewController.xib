@@ -7,20 +7,33 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTHomepageMainViewController">
             <connections>
+                <outlet property="addressLabel" destination="Wnl-A1-P1z" id="cAz-wX-7V1"/>
+                <outlet property="ageLabel" destination="sEd-is-Qw0" id="jZV-ib-Q5j"/>
                 <outlet property="briefIntroductionTextField" destination="VNk-US-mKR" id="GRh-h5-cDH"/>
+                <outlet property="briefLabel" destination="VNk-US-mKR" id="c36-v2-FFJ"/>
                 <outlet property="buttonsContainerView" destination="w7F-5a-cpi" id="WIu-my-23f"/>
+                <outlet property="dynamicCountLabel" destination="Stx-Dh-b4u" id="1Vd-C6-I3f"/>
                 <outlet property="dynamicInfomationButtonIndexView" destination="EXM-It-hhX" id="hfX-K9-MTB"/>
+                <outlet property="fansCountLabel" destination="Qi8-1h-yVk" id="vao-oY-ksL"/>
+                <outlet property="followCountLabel" destination="hq1-y2-F0h" id="p4W-47-buq"/>
+                <outlet property="heightLabel" destination="YBY-EL-KI9" id="WLd-UK-qlu"/>
+                <outlet property="identityImageView1" destination="18S-B5-Pue" id="8ec-ri-Kiv"/>
+                <outlet property="identityImageView2" destination="D1B-ED-f4n" id="MgP-1b-k8H"/>
+                <outlet property="identityImageView3" destination="3CE-zB-fCa" id="pf1-gF-17S"/>
                 <outlet property="infoTableView" destination="A8K-mT-O4c" id="UEP-bf-F71"/>
                 <outlet property="mainContentView" destination="s7d-h9-jeL" id="QR8-nT-fNE"/>
                 <outlet property="mainScrollView" destination="5VW-nc-uEB" id="t33-lY-GAN"/>
+                <outlet property="nameLabel" destination="knz-hM-9pO" id="sfW-9J-VkX"/>
                 <outlet property="recordButtonIndexView" destination="rQM-Rj-u8O" id="f8e-32-cjP"/>
                 <outlet property="recordListTableView" destination="9vw-tQ-n1p" id="J0a-0R-lCH"/>
                 <outlet property="recordRankTableView" destination="SMp-Yu-Vuk" id="OQl-bg-3jo"/>
                 <outlet property="recordRankTableViewHeight" destination="MFt-DO-Nk8" id="Iv7-aD-9vo"/>
+                <outlet property="sexLabel" destination="ALV-T0-N44" id="ljv-eV-8tl"/>
                 <outlet property="userBgImageView" destination="5y6-lb-RmI" id="BdQ-bZ-LTW"/>
                 <outlet property="videoButtonIndexView" destination="BWH-tj-PNj" id="YKz-To-5Qa"/>
                 <outlet property="videoCollectionView" destination="bT8-1A-Nbz" id="1QJ-h1-Eoc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="weightLabel" destination="Iwk-Ae-DEH" id="BL2-NY-e0H"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -333,6 +346,20 @@
                                     <color key="textColor" red="0.70588235290000001" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="身份圆形-教" translatesAutoresizingMaskIntoConstraints="NO" id="D1B-ED-f4n">
+                                    <rect key="frame" x="235" y="66" width="15" height="15"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="15" id="E0I-rq-Q9u"/>
+                                        <constraint firstAttribute="height" constant="15" id="mWS-ct-WGy"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="身份圆形-教" translatesAutoresizingMaskIntoConstraints="NO" id="3CE-zB-fCa">
+                                    <rect key="frame" x="260" y="66" width="15" height="15"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="15" id="VhR-by-yyH"/>
+                                        <constraint firstAttribute="width" constant="15" id="eLc-zA-kJd"/>
+                                    </constraints>
+                                </imageView>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="e86-Wv-mh9" firstAttribute="leading" secondItem="ALV-T0-N44" secondAttribute="trailing" constant="8" id="18i-nN-66L"/>
@@ -340,7 +367,9 @@
                                 <constraint firstItem="jwk-7a-33r" firstAttribute="leading" secondItem="hq1-y2-F0h" secondAttribute="trailing" constant="8" id="2Fa-Cw-eHN"/>
                                 <constraint firstItem="ALV-T0-N44" firstAttribute="leading" secondItem="XbW-Ls-Alv" secondAttribute="leading" id="3FA-A5-g7D"/>
                                 <constraint firstItem="Stx-Dh-b4u" firstAttribute="leading" secondItem="UFQ-0x-QqQ" secondAttribute="trailing" id="8HR-3N-DKx"/>
+                                <constraint firstItem="3CE-zB-fCa" firstAttribute="centerY" secondItem="knz-hM-9pO" secondAttribute="centerY" id="8ku-iA-JMY"/>
                                 <constraint firstItem="hq1-y2-F0h" firstAttribute="top" secondItem="XbW-Ls-Alv" secondAttribute="top" id="94E-rz-iXy"/>
+                                <constraint firstItem="D1B-ED-f4n" firstAttribute="centerY" secondItem="knz-hM-9pO" secondAttribute="centerY" id="9Ir-LG-mix"/>
                                 <constraint firstItem="SMp-Yu-Vuk" firstAttribute="leading" secondItem="s7d-h9-jeL" secondAttribute="leading" constant="5" id="A0m-5h-O12"/>
                                 <constraint firstItem="cOn-Bc-6De" firstAttribute="leading" secondItem="sEd-is-Qw0" secondAttribute="trailing" constant="8" id="A9p-f9-Yi7"/>
                                 <constraint firstItem="UFQ-0x-QqQ" firstAttribute="centerY" secondItem="gpR-6S-Bw3" secondAttribute="centerY" id="AIv-MB-2r7"/>
@@ -348,8 +377,10 @@
                                 <constraint firstItem="kal-KM-SDI" firstAttribute="centerX" secondItem="EbA-3p-7sF" secondAttribute="centerX" id="BRJ-ks-LFf"/>
                                 <constraint firstItem="gpR-6S-Bw3" firstAttribute="centerY" secondItem="Qi8-1h-yVk" secondAttribute="centerY" id="BsF-2I-ShY"/>
                                 <constraint firstItem="sEd-is-Qw0" firstAttribute="leading" secondItem="e86-Wv-mh9" secondAttribute="trailing" constant="8" id="EHz-aB-HO3"/>
+                                <constraint firstItem="D1B-ED-f4n" firstAttribute="leading" secondItem="18S-B5-Pue" secondAttribute="trailing" constant="10" id="ELQ-eu-LSh"/>
                                 <constraint firstItem="sEd-is-Qw0" firstAttribute="centerY" secondItem="e86-Wv-mh9" secondAttribute="centerY" id="ELo-lW-veI"/>
                                 <constraint firstItem="9vw-tQ-n1p" firstAttribute="top" secondItem="SMp-Yu-Vuk" secondAttribute="bottom" constant="10" id="FoB-3E-aNP"/>
+                                <constraint firstItem="3CE-zB-fCa" firstAttribute="leading" secondItem="D1B-ED-f4n" secondAttribute="trailing" constant="10" id="KVi-K8-tw3"/>
                                 <constraint firstItem="knz-hM-9pO" firstAttribute="top" secondItem="EbA-3p-7sF" secondAttribute="top" id="KVj-aB-mTn"/>
                                 <constraint firstItem="5y6-lb-RmI" firstAttribute="top" secondItem="s7d-h9-jeL" secondAttribute="top" id="KmL-kU-0U6"/>
                                 <constraint firstItem="e86-Wv-mh9" firstAttribute="centerY" secondItem="ALV-T0-N44" secondAttribute="centerY" id="LPU-1Z-9ov"/>
