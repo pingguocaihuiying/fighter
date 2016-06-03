@@ -190,7 +190,6 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 //                                              secret:@"cb1771445170f9c625224f6e1403ce48"
 //                                         RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
-    
 }
 
 - (void)setWeiXin{
@@ -298,7 +297,7 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
                         
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"WeiXinNameAndHeader" object:nil];
                     }];
-                    
+
                 }
                 
             }];

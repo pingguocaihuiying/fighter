@@ -12,7 +12,7 @@
 #import "FTUserBean.h"
 #import "MBProgressHUD.h"
 #import "HUD.h"
-#import "NSString+EmojiFilter.h"
+//#import "NSString+EmojiFilter.h"
 
 @interface FTCommentViewController () <UITextViewDelegate>
 @property (nonnull, strong)UITextView *textView;

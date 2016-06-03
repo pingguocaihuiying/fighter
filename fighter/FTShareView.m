@@ -353,13 +353,19 @@
 //    NSLog(@"data.length:%ld",data.length);
     
     WBMessageObject *message = [WBMessageObject message];
-    WBWebpageObject *webpage = [WBWebpageObject object];
-    webpage.objectID = @"identifier1";
-    webpage.title = _title;
-    webpage.description = _summary;
-    webpage.thumbnailData =data; //data size can`t be over 32 KB
-    webpage.webpageUrl = _url;
-    message.mediaObject = webpage;
+    message.text = [_title stringByAppendingString:_url];
+    
+    WBImageObject *imageObj = [WBImageObject object];
+    imageObj.imageData = data;
+    message.imageObject = imageObj;
+    
+//    WBWebpageObject *webpage = [WBWebpageObject object];
+//    webpage.objectID = @"identifier1";
+//    webpage.title = _title;
+//    webpage.description = _summary;
+//    webpage.thumbnailData =data; //data size can`t be over 32 KB
+//    webpage.webpageUrl = _url;
+//    message.mediaObject = webpage;
     
     return message;
 }
