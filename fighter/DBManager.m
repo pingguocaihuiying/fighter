@@ -741,7 +741,7 @@ static DBManager * _sharedDBManager = nil;
  */
 - (void) createVideosTable {
     
-    NSString * sql = @"CREATE TABLE 'videos' ('videosId' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, 'videosType' TEXT, 'videosTime' INTEGER, 'title' TEXT, 'summary' TEXT, 'img' TEXT, 'url' TEXT, 'author' TEXT, 'commentCount' INTEGER DEFAULT 0, 'voteCount' INTEGER DEFAULT 0,viewCount INTEGER DEFAULT 0, 'videoLength' INTEGER DEFAULT 0, 'coachid' INTEGER DEFAULT 0, 'boxerid' INTEGER DEFAULT 0, 'boxinghallid' INTEGER DEFAULT 0,'isTeach' BOOLEAN DEFAULT 0,isReader BOOLEAN DEFAULT 0);";
+    NSString * sql = @"CREATE TABLE 'videos' ('videosId' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, 'videosType' TEXT, 'videosTime' INTEGER, 'title' TEXT, 'summary' TEXT, 'img' TEXT, 'url' TEXT, 'author' TEXT, 'commentCount' INTEGER DEFAULT 0, 'voteCount' INTEGER DEFAULT 0,viewCount INTEGER DEFAULT 0, 'videoLength' Text, 'coachid' INTEGER DEFAULT 0, 'boxerid' INTEGER DEFAULT 0, 'boxinghallid' INTEGER DEFAULT 0,'isTeach' BOOLEAN DEFAULT 0,isReader BOOLEAN DEFAULT 0);";
     
     [self createTable:@"videos" sql:sql];
 }
@@ -779,7 +779,6 @@ static DBManager * _sharedDBManager = nil;
     NSNumber *coachid = [NSNumber numberWithInteger:[dic[@"coachid"] integerValue]];
     NSNumber *boxerid = [NSNumber numberWithInteger:[dic[@"boxerid"] integerValue]];
     NSNumber *boxinghallid = [NSNumber numberWithInteger:[dic[@"boxinghallid"] integerValue]];
-    NSNumber *videoLength = [NSNumber numberWithInteger:[dic[@"videoLength"] integerValue]];
     NSNumber *isTeach = [NSNumber numberWithBool:[dic[@"isTeach"] boolValue]];
     
     NSNumber *commentCount = [NSNumber numberWithInteger:[dic[@"commentCount"] integerValue]];
@@ -793,6 +792,7 @@ static DBManager * _sharedDBManager = nil;
     NSString *img = dic[@"img"];
     NSString *url = dic[@"url"];
     NSString *author = dic[@"author"];
+    NSString *videoLength = dic[@"videoLength"];
     
     //1.判断数据是否已读
     FMResultSet * set = [_dataBase executeQuery:@"select objId from readCashe where objId = ?  and type = 'video' ",videosId];
