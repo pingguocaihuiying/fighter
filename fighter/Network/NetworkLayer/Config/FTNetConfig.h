@@ -124,6 +124,8 @@ extern NSString * const DeleteVoteCheckKey;
 extern NSString * const UpVideoViewNCheckKey;
 //增加格斗场帖子阅读数
 extern NSString *const AddArenaViewCountCountURL;
+//获取个人主页用户信息
+extern NSString *const GetHomepageUserInfo;
 
 //收藏
 extern NSString * const AddStarCheckKey;
@@ -131,4 +133,5 @@ extern NSString * const AddStarCheckKey;
 extern NSString * const DeleteStarCheckKey;
 //发新帖 gedoujia1gdshjjgfkd52261225550
 extern NSString * const NewPostCheckKey;
+
 

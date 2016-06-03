@@ -469,23 +469,10 @@
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     if (!localUser) {
         [self login];
-        //        NSLog(@"微信登录");
-        //        if ([WXApi isWXAppInstalled] ) {
-        //            SendAuthReq *req = [[SendAuthReq alloc] init];
-        //            req.scope = @"snsapi_userinfo";
-        //            req.state = @"fighter";
-        //            [WXApi sendReq:req];
-        //
-        //        }else{
-        //            NSLog(@"目前只支持微信登录，请安装微信");
-        //            [self showHUDWithMessage:@"目前只支持微信登录点赞，请安装微信"];
-        //        }
     }else{
         self.hasStar = !self.hasStar;
-        //        [self updateVoteImageView];
         [self updateStarImageView];
         self.favourateView.userInteractionEnabled = NO;
-        //        [self uploadVoteStatusToServer];
         [self uploadStarStatusToServer];
     }
 }
@@ -559,7 +546,6 @@
         self.voteView.userInteractionEnabled = YES;
         NSLog(@"vote failure ：%@", error);
     }];
-    
 }
 
 //把收藏信息更新至服务器
@@ -576,15 +562,16 @@
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = @"col-damageblog";
+    NSString *isDelated = @"0";
     NSString *query = @"delete-col";
     //    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, self.hasStar ?  @"" : query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
-    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
+    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@", isDelated, loginToken, objId, query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
     NSLog(@"check sign : %@", checkSign);
     checkSign = [MD5 md5:checkSign];
     
     
     
-    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@&query=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName, query];
+    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@&isDelated=%@&query=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName, isDelated, query];
     //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
     //创建AAFNetWorKing管理者
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

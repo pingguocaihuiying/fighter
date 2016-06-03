@@ -64,8 +64,18 @@
 @property (nonatomic, copy) NSString *wxName;//微信昵称
 //@property (nonatomic, copy) NSString *wxToken;//
 
-
-
+/**
+ *  个人主页新增的字断，没有进行归档 
+ */
+@property (nonatomic, copy)NSString *followCount;//关注数
+@property (nonatomic, copy)NSString *fansCount;//粉丝数
+@property (nonatomic, copy)NSString *dynamicCount;//动态数
+@property (nonatomic, copy)NSString *name;//name
+@property (nonatomic, copy)NSString *background;//个人用户目前没有;//背景图
+@property (nonatomic, copy)NSString* identity;//身份
+@property (nonatomic, copy)NSString* headUrl;//头像
+@property (nonatomic, copy)NSString *query;//身份标识
+@property (nonatomic, copy)NSString *brief;//简介
 //计算年龄
 - (NSString *) age;
 //格式化生日

@@ -558,17 +558,30 @@
 
 #pragma -mark -排行榜按钮被点击
 - (IBAction)rankButtonClicked:(id)sender {
-    FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
-    FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
-//    rankHomeVC.title = @"排行榜";
+    [self gotoHomepageWithUseroldid:nil];
+    
+
+//    FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
+////    rankHomeVC.title = @"排行榜";
+////    [self.navigationController pushViewController:rankHomeVC animated:YES];
 //    [self.navigationController pushViewController:rankHomeVC animated:YES];
-    [self.navigationController pushViewController:homepageViewController animated:YES];
     
 //    FTRankingListViewController *rankingListViewController = [FTRankingListViewController new];
 //    [self.navigationController pushViewController:rankingListViewController animated:YES];
 //    rankingListViewController.title = @"格斗之王";
+    
 }
-
+- (void)gotoHomepageWithUseroldid:(NSString *)olduserid{
+    if (!olduserid) {
+        //从本地读取存储的用户信息
+        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+        olduserid = localUser.olduserid;
+    }
+        FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
+    homepageViewController.olduserid = olduserid;
+    [self.navigationController pushViewController:homepageViewController animated:YES];
+}
 - (IBAction)messageButtonClicked:(id)sender {
     NSLog(@"message button clicked.");
 }

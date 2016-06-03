@@ -131,6 +131,8 @@
 		E64EF1191CB6614000CAE340 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E64EF1171CB6614000CAE340 /* LaunchScreen.storyboard */; };
 		E64EF1241CB6614100CAE340 /* fighterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E64EF1231CB6614100CAE340 /* fighterTests.m */; };
 		E64EF12F1CB6614100CAE340 /* fighterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E64EF12E1CB6614100CAE340 /* fighterUITests.m */; };
+		E6549DF61D000AEB00B27483 /* FTRecordRankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6549DF41D000AEB00B27483 /* FTRecordRankTableViewCell.m */; };
+		E6549DF71D000AEB00B27483 /* FTRecordRankTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6549DF51D000AEB00B27483 /* FTRecordRankTableViewCell.xib */; };
 		E65D08C71CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E65D08C51CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m */; };
 		E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E65D08C61CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib */; };
 		E65D08D41CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E65D08D21CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m */; };
@@ -214,6 +216,8 @@
 		E6DB76141CBB9B430034253C /* FTOneImageInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6DB76121CBB9B430034253C /* FTOneImageInfoTableViewCell.xib */; };
 		E6DF6B8B1CCE32F600219766 /* NSString+EmojiFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = E6DF6B8A1CCE32F600219766 /* NSString+EmojiFilter.m */; };
 		E6E580B31CBE523B00272242 /* FTBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E580B21CBE523B00272242 /* FTBaseTableViewCell.m */; };
+		E6E688E81D002FB700708C24 /* FTHomepageRecordListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E688E61D002FB700708C24 /* FTHomepageRecordListTableViewCell.m */; };
+		E6E688E91D002FB700708C24 /* FTHomepageRecordListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6E688E71D002FB700708C24 /* FTHomepageRecordListTableViewCell.xib */; };
 		E6E9E88B1CDC464A00976480 /* FTVideoCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E9E88A1CDC464A00976480 /* FTVideoCollectionView.m */; };
 		E6E9E8941CDC718900976480 /* FTVideoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E9E8921CDC718900976480 /* FTVideoCollectionViewCell.m */; };
 		E6E9E8951CDC718900976480 /* FTVideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6E9E8931CDC718900976480 /* FTVideoCollectionViewCell.xib */; };
@@ -436,6 +440,9 @@
 		E64EF12A1CB6614100CAE340 /* fighterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = fighterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E64EF12E1CB6614100CAE340 /* fighterUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = fighterUITests.m; sourceTree = "<group>"; };
 		E64EF1301CB6614100CAE340 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E6549DF31D000AEB00B27483 /* FTRecordRankTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTRecordRankTableViewCell.h; path = "UI/个人主页/Views/cell/FTRecordRankTableViewCell.h"; sourceTree = "<group>"; };
+		E6549DF41D000AEB00B27483 /* FTRecordRankTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTRecordRankTableViewCell.m; path = "UI/个人主页/Views/cell/FTRecordRankTableViewCell.m"; sourceTree = "<group>"; };
+		E6549DF51D000AEB00B27483 /* FTRecordRankTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTRecordRankTableViewCell.xib; path = "UI/个人主页/Views/cell/FTRecordRankTableViewCell.xib"; sourceTree = "<group>"; };
 		E65D08C41CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTThreeImageInfoTableViewCell.h; sourceTree = "<group>"; };
 		E65D08C51CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTThreeImageInfoTableViewCell.m; sourceTree = "<group>"; };
 		E65D08C61CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTThreeImageInfoTableViewCell.xib; sourceTree = "<group>"; };
@@ -587,6 +594,9 @@
 		E6DF6B8A1CCE32F600219766 /* NSString+EmojiFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+EmojiFilter.m"; sourceTree = "<group>"; };
 		E6E580B11CBE523B00272242 /* FTBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBaseTableViewCell.h; sourceTree = "<group>"; };
 		E6E580B21CBE523B00272242 /* FTBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBaseTableViewCell.m; sourceTree = "<group>"; };
+		E6E688E51D002FB700708C24 /* FTHomepageRecordListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTHomepageRecordListTableViewCell.h; path = "UI/个人主页/Views/cell/赛事list/FTHomepageRecordListTableViewCell.h"; sourceTree = "<group>"; };
+		E6E688E61D002FB700708C24 /* FTHomepageRecordListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTHomepageRecordListTableViewCell.m; path = "UI/个人主页/Views/cell/赛事list/FTHomepageRecordListTableViewCell.m"; sourceTree = "<group>"; };
+		E6E688E71D002FB700708C24 /* FTHomepageRecordListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTHomepageRecordListTableViewCell.xib; path = "UI/个人主页/Views/cell/赛事list/FTHomepageRecordListTableViewCell.xib"; sourceTree = "<group>"; };
 		E6E9E8891CDC464A00976480 /* FTVideoCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTVideoCollectionView.h; sourceTree = "<group>"; };
 		E6E9E88A1CDC464A00976480 /* FTVideoCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTVideoCollectionView.m; sourceTree = "<group>"; };
 		E6E9E8911CDC718900976480 /* FTVideoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTVideoCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1089,6 +1099,7 @@
 		E65D08DB1CBCDF0B00651B19 /* Bean */ = {
 			isa = PBXGroup;
 			children = (
+				E644E7781D011F7C00F39E45 /* 个人主页用户 */,
 				E6956EA41CBE21A1008DEEDB /* FTNewsBean.h */,
 				E6956EA51CBE21A1008DEEDB /* FTNewsBean.m */,
 				E61185961CC78BF400F23EC7 /* FTUserBean.h */,
@@ -1328,16 +1339,9 @@
 		E68D16071CFD24EB00AB5A8C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E68D160F1CFD32E800AB5A8C /* 返回按钮 */,
+				E68D16211D00098D00AB5A8C /* cell */,
 			);
 			name = Views;
-			sourceTree = "<group>";
-		};
-		E68D160F1CFD32E800AB5A8C /* 返回按钮 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "返回按钮";
 			sourceTree = "<group>";
 		};
 		E68D16101CFD7C7A00AB5A8C /* 改变行高 */ = {
@@ -1357,6 +1361,17 @@
 			);
 			name = "图片模糊处理";
 			path = ..;
+			sourceTree = "<group>";
+		};
+		E68D16211D00098D00AB5A8C /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				E6E688E41D002F7D00708C24 /* 赛事list */,
+				E6549DF31D000AEB00B27483 /* FTRecordRankTableViewCell.h */,
+				E6549DF41D000AEB00B27483 /* FTRecordRankTableViewCell.m */,
+				E6549DF51D000AEB00B27483 /* FTRecordRankTableViewCell.xib */,
+			);
+			name = cell;
 			sourceTree = "<group>";
 		};
 		E68EC5071CC4B71400A338C8 /* filter */ = {
@@ -1646,8 +1661,6 @@
 				E6D74A391CB7B7EE00854337 /* UIView+YBAddtitions.m */,
 				E65EFC271CC8ADFD0039EE8A /* UIButton+LYZTitle.h */,
 				E65EFC281CC8ADFD0039EE8A /* UIButton+LYZTitle.m */,
-				E6DF6B891CCE32F600219766 /* NSString+EmojiFilter.h */,
-				E6DF6B8A1CCE32F600219766 /* NSString+EmojiFilter.m */,
 				3DC412231CD0C3780030C229 /* NSString+Size.h */,
 				3DC412241CD0C3780030C229 /* NSString+Size.m */,
 				3D4B19611CDB59D60022DFB0 /* UIWindow+MBProgressHUD.h */,
@@ -1702,6 +1715,16 @@
 				E6E580B21CBE523B00272242 /* FTBaseTableViewCell.m */,
 			);
 			name = basecell;
+			sourceTree = "<group>";
+		};
+		E6E688E41D002F7D00708C24 /* 赛事list */ = {
+			isa = PBXGroup;
+			children = (
+				E6E688E51D002FB700708C24 /* FTHomepageRecordListTableViewCell.h */,
+				E6E688E61D002FB700708C24 /* FTHomepageRecordListTableViewCell.m */,
+				E6E688E71D002FB700708C24 /* FTHomepageRecordListTableViewCell.xib */,
+			);
+			name = "赛事list";
 			sourceTree = "<group>";
 		};
 		E6E9E8851CDC44D100976480 /* collectionView */ = {
@@ -1876,6 +1899,7 @@
 				E678727A1CEB00980099CEE6 /* FTNewPostViewController.xib in Resources */,
 				3D7B98981CDEE1E900B80B8D /* FTSettingViewController.xib in Resources */,
 				3D5FB4BF1CDC7E6600FC1809 /* FTImageCollectionCell.xib in Resources */,
+				E6549DF71D000AEB00B27483 /* FTRecordRankTableViewCell.xib in Resources */,
 				3D7B98901CDD1E5900B80B8D /* Area2.plist in Resources */,
 				E6B458CE1CB75D9600FB4261 /* FTMatchViewController.xib in Resources */,
 				E6A9DDC01CD9C88600CB9518 /* FTVideoDetailViewController.xib in Resources */,
@@ -2039,6 +2063,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6549DF61D000AEB00B27483 /* FTRecordRankTableViewCell.m in Sources */,
 				3D6DA0E11CEEA96D00BAA8F0 /* FTBoxerCenter.m in Sources */,
 				E65EFC201CC89BD40039EE8A /* FTUserConfig.m in Sources */,
 				E6A9DDBF1CD9C88600CB9518 /* FTVideoDetailViewController.m in Sources */,
@@ -2060,6 +2085,7 @@
 				E64EF1111CB6614000CAE340 /* ViewController.m in Sources */,
 				E6B7D2001CF6A750004191A3 /* FTArenaViewController.m in Sources */,
 				E6D74A4E1CB7B7EE00854337 /* MD5.m in Sources */,
+				E6E688E81D002FB700708C24 /* FTHomepageRecordListTableViewCell.m in Sources */,
 				E6D74A4A1CB7B7EE00854337 /* UIView+YBAddtitions.m in Sources */,
 				3D57D04D1CEC0C810082BF24 /* DBTools.m in Sources */,
 				E65D08C71CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m in Sources */,
@@ -2080,7 +2106,6 @@
 				3D8D73C21CE9DEFE009E2320 /* FTRankTableVIewCell.m in Sources */,
 				3DC9A4E31CE59A0400E16D19 /* FTButton.m in Sources */,
 				E6D74A491CB7B7EE00854337 /* UILabel+StringFrame.m in Sources */,
-				E6DF6B8B1CCE32F600219766 /* NSString+EmojiFilter.m in Sources */,
 				3D57D0501CEC0E7F0082BF24 /* DBManager.m in Sources */,
 				3D4B19581CDB0CD90022DFB0 /* FTPropertySetingViewController.m in Sources */,
 				3D5FB4B91CDC41A500FC1809 /* FTAlbumsViewController.m in Sources */,

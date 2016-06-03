@@ -9,5 +9,7 @@
 #import "FTBaseBean.h"
 
 @implementation FTBaseBean
-
+- (void)setValuesWithDic:(NSDictionary *)dic{
+    
+}
 @end

@@ -437,23 +437,10 @@
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     if (!localUser) {
         [self login];
-//        NSLog(@"微信登录");
-//        if ([WXApi isWXAppInstalled] ) {
-//            SendAuthReq *req = [[SendAuthReq alloc] init];
-//            req.scope = @"snsapi_userinfo";
-//            req.state = @"fighter";
-//            [WXApi sendReq:req];
-//            
-//        }else{
-//            NSLog(@"目前只支持微信登录，请安装微信");
-//            [self showHUDWithMessage:@"目前只支持微信登录点赞，请安装微信"];
-//        }
     }else{
         self.hasStar = !self.hasStar;
-//        [self updateVoteImageView];
         [self updateStarImageView];
         self.favourateView.userInteractionEnabled = NO;
-//        [self uploadVoteStatusToServer];
         [self uploadStarStatusToServer];
     }
 }

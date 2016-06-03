@@ -11,7 +11,6 @@
 @implementation FTUserBean
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
     if ([key isEqualToString:@"id"]) {
-        
         self.uid = [NSString stringWithFormat:@"%@", value];
     }
 }
@@ -121,11 +120,8 @@
             age = 0;
         }
         return [NSString stringWithFormat:@"%i",age];
-        
     }
-    
     return nil;
-    
 }
 
 - (NSString *) formaterBirthday {
@@ -147,5 +143,23 @@
     
 }
 
+- (void)setValuesWithDic:(NSDictionary *)dic{
+    [super setValuesWithDic:dic];
+    if (!self.query) {
+        self.query = @"0";
+    }
+    if (!self.sex || [self.sex isEqualToString:@""]) {
+        self.sex = @"男";
+    }else if ([self.sex isEqualToString:@"0"]){
+        self.sex = @"男";
+    }else if ([self.sex isEqualToString:@"1"]){
+        self.sex = @"女";
+    }
+    self.birthday = [NSString stringWithFormat:@"%@", self.birthday];
+    
+    if (!self.brief) {
+        self.brief = @"";
+    }
+}
 
 @end

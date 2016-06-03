@@ -8,7 +8,6 @@
 
 #import "FTVideoViewController.h"
 #import "FTTableViewController.h"
-#import "SDCycleScrollView.h"
 #import "RBRequestOperationManager.h"
 #import "FTNetConfig.h"
 #import "ZJModelTool.h"
@@ -28,14 +27,11 @@
 #import "DBManager.h"
 #import "NetWorking.h"
 
-@interface FTVideoViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTVideoDetailDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
+@interface FTVideoViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate, FTFilterDelegate, FTVideoDetailDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property(nonatomic,strong) NSArray *sourceArry;     //数据源
-@property(nonatomic,strong) UIPageViewController *pageViewController;   //翻页控制器
 @property (nonatomic, copy)NSString *currentItemValueEn;
-@property (nonatomic, strong)SDCycleScrollView *cycleScrollView;
 @property (nonatomic, strong)NSArray *cycleDataSourceArray;
-@property (nonatomic, strong)NSMutableArray *tableViewDataSourceArray;
+@property (nonatomic, strong)NSMutableArray *collectionViewDataSourceArray;
 @property (nonatomic, strong)FTTableViewController *tableViewController;
 @property (nonatomic, strong)NSArray *typeArray;
 @property (nonatomic, copy)NSString *videosTag;
@@ -150,7 +146,7 @@
 #pragma mark get data
 
 - (void) getDataFromDBWithVideoType:(NSString *)videosType  getType:(NSString *) getType {
-    
+
     //从数据库取数据
     DBManager *dbManager = [DBManager shareDBManager];
     [dbManager connect];
@@ -158,24 +154,13 @@
     [dbManager close];
     
     if ([getType isEqualToString:@"new"]) {
-        self.tableViewDataSourceArray = mutableArray;
+        self.collectionViewDataSourceArray = mutableArray;
     }else if([getType isEqualToString:@"old"]){
-        [self.tableViewDataSourceArray addObjectsFromArray:mutableArray];
+        [self.collectionViewDataSourceArray addObjectsFromArray:mutableArray];
     }
-    
-//    //隐藏infoLabel
-//    if (self.infoLabel.isHidden == NO) {
-//        self.infoLabel.hidden = YES;
-//    }
-    
 }
 
 - (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)videoCurrId{
-    //判断是否时当前标签刷新，如果不是，则清空数据源，刷新列表，如果是当前列表，则暂不清空数据和刷新列表
-            //现在没有判断，直接先清空，再显示，因为有缓存的存在，所以不会耗费过多的内存
-//        [self.tableViewDataSourceArray removeAllObjects];
-//        [self.collectionView reloadData];
-    
     
     NSString *urlString = [FTNetConfig host:Domain path:GetVideoURL];
     NSString *videoType = _currentItemValueEn;
@@ -230,82 +215,12 @@
             
         }
   }];
-        
-  
-    
-    
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    
-//    //设置请求返回的数据类型为默认类型（NSData类型)
-//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    NSLog(@"get video list url: %@", urlString);
-//    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-//        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-//        NSString *status = responseDic[@"status"];
-//        NSLog(@"status : %@", status);
-//        if ([status isEqualToString:@"success"]) {
-//            NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
-//            
-//            if ([videoType isEqualToString:@"All"]) {
-//                NSMutableArray *hotArray = [NSMutableArray new];
-//                for(NSDictionary *dic in mutableArray){
-//                    if ([dic[@"newsType"] isEqualToString:@"Hot"]) {
-//                        [hotArray addObject:dic];
-//                    }
-//                }
-//                [mutableArray removeObjectsInArray:hotArray];
-//            }
-//            
-//            if (self.tableViewDataSourceArray == nil) {
-//                self.tableViewDataSourceArray = [[NSMutableArray alloc]init];
-//            }
-//            if ([getType isEqualToString:@"new"]) {
-//                self.tableViewDataSourceArray = mutableArray;
-//            }else if([getType isEqualToString:@"old"]){
-//                [self.tableViewDataSourceArray addObjectsFromArray:mutableArray];
-//            }
-//            
-//            self.tableViewController.sourceArray = self.tableViewDataSourceArray;
-//            if ([videoType isEqualToString:@"All"]) {
-//                self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
-//            }else{
-//                //                [self.tableViewController.tableView.tableHeaderView removeFromSuperview];
-//                self.tableViewController.tableView.tableHeaderView = nil;
-//                
-//            }
-//            
-//            //将最新的数据“self.tableViewDataSourceArray”写入缓存列表
-//            [self saveCache];
-//            
-//            [self.collectionView.mj_header endRefreshing];
-//            [self.collectionView.mj_footer endRefreshing];
-//            [self.collectionView reloadData];
-//            
-//            //隐藏infoLabel
-//            if (self.infoLabel.isHidden == NO) {
-//                self.infoLabel.hidden = YES;
-//            }
-//        }else if([status isEqualToString:@"error"]){
-//            NSLog(@"message : %@", responseDic[@"message"]);
-//            
-//            [self.collectionView.mj_header endRefreshing];
-//            [self.collectionView.mj_footer endRefreshing];
-//            [self.collectionView reloadData];
-//            self.collectionView.mj_footer.state = MJRefreshStateNoMoreData;
-//        }
-//        
-//        
-//    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-//        [self.collectionView.mj_header endRefreshing];
-//        [self.collectionView.mj_footer endRefreshing];
-//        [self.collectionView reloadData];
-//        NSLog(@"error : %@", error);
-//    }];
+
 }
 
 - (void)saveCache{
     FTCache *cache = [FTCache sharedInstance];
-    NSArray *dataArray = [[NSArray alloc]initWithArray:self.tableViewDataSourceArray];
+    NSArray *dataArray = [[NSArray alloc]initWithArray:self.collectionViewDataSourceArray];
     FTCacheBean *cacheBean = [[FTCacheBean alloc] initWithTimeStamp:[[NSDate date] timeIntervalSince1970]  andDataArray:dataArray andVideoTag:self.videosTag];
 
     [cache.videoDataDic setObject:cacheBean forKey:[NSString stringWithFormat:@"%@", _currentItemValueEn]];
@@ -315,14 +230,15 @@
 - (void)setOtherViews{
     //设置分类栏
     [self setTypeNaviScrollView];
+    
+    //设置collectionView
+    [self setCollectionView];
 }
 
 - (void)setTypeNaviScrollView{
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self initNewsTypeScrollView];
-    [self initPageController];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -389,17 +305,15 @@
     _currentScrollView.contentSize = CGSizeMake(curContentWidth, 40);
 }
 
-- (void)initPageController
+- (void)setCollectionView
 {
     if (self.collectionView == nil) {
         [self initCollectionView];
     }
     
-    self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
-    
-    if (self.tableViewDataSourceArray) {
+    if (self.collectionViewDataSourceArray) {
         [self.collectionView footerEndRefreshing];
-        self.tableViewController.sourceArray = self.tableViewDataSourceArray;
+        self.tableViewController.sourceArray = self.collectionViewDataSourceArray;
     }else{
 
     }
@@ -416,44 +330,25 @@
     //列间距
     flow.minimumInteritemSpacing = 16 * SCALE;
     
-    //cell大小设置
-//    NSLog(@"scale : %f", SCALE);
-//    NSLog(@"screen width  : %.0f", SCREEN_WIDTH);
-    
-//    CGRect r = self.view.frame;
-//    r.size.width = SCREEN_WIDTH;
-//    self.view.frame = r;
-    
-//    float width = 164 * SCALE;
+
     float width = 164 * SCALE;
     float height = 143 * SCALE;
     flow.itemSize = CGSizeMake(width, height);
-//    NSLog(@"cell宽：%f, 高：%f。屏幕宽度：%f,self.view的宽度：%f", width, height, SCREEN_WIDTH, self.view.frame.size.width);
-//    NSLog(@"child view的宽度：%f,高度：%f",self.view.frame.size.width, self.view.frame.size.height);
     //section内嵌距离设置
     flow.sectionInset = UIEdgeInsetsMake(0, 15 * SCALE, 0, 15 * SCALE);
     
-    
-//    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.currentView.frame.size.width, self.currentView.frame.size.height + 500) collectionViewLayout:flow];
         _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.currentView.frame.size.width, SCREEN_HEIGHT - 150 - 49) collectionViewLayout:flow];
     _collectionView.backgroundColor = [UIColor clearColor];
         CGRect r = _collectionView.frame;
         r.size.width = SCREEN_WIDTH;
         _collectionView.frame = r;
     
-//    NSLog(@"current view的y:%f", self.currentView.frame.origin.y);
-//    NSLog(@"collectionView的y:%f", _collectionView.frame.origin.y);
-//    
-//    NSLog(@"current view的高度:%f", self.currentView.frame.size.height);
-//    NSLog(@"collectionView的高度:%f", _collectionView.frame.size.height);
     [self.currentView addSubview:_collectionView];
     
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     
     //注册一个collectionViewCCell队列
-    
-    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"asdf"];
     [_collectionView registerNib:[UINib nibWithNibName:@"FTVideoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
     [self setJHRefresh];
     
@@ -466,15 +361,15 @@
 //选中触发的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 //    NSLog(@"section : %ld, row : %ld", indexPath.section, indexPath.row);
-    if (self.tableViewDataSourceArray) {
+    if (self.collectionViewDataSourceArray) {
         
         FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
         //获取对应的bean，传递给下个vc
-//        NSDictionary *newsDic = self.tableViewDataSourceArray[indexPath.row];
+//        NSDictionary *newsDic = self.collectionViewDataSourceArray[indexPath.row];
 //        FTVideoBean *bean = [FTVideoBean new];
 //        [bean setValuesWithDic:newsDic];
         
-        FTVideoBean *bean = self.self.tableViewDataSourceArray[indexPath.row];
+        FTVideoBean *bean = self.self.collectionViewDataSourceArray[indexPath.row];
         //标记已读
         if (![bean.isReader isEqualToString:@"YES"]) {
             bean.isReader = @"YES";
@@ -499,7 +394,7 @@
 
 //某组有多少行
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.tableViewDataSourceArray.count;
+    return self.collectionViewDataSourceArray.count;
 }
 
 //返回cell
@@ -508,9 +403,7 @@
         if (cell == nil) {
             cell = [[[NSBundle mainBundle]loadNibNamed:@"FTVideoCollectionViewCell" owner:self options:nil]firstObject];
         }
-//        FTVideoBean *videoBean = [FTVideoBean new];
-//        [videoBean setValuesWithDic:self.tableViewDataSourceArray[indexPath.row]];
-    FTVideoBean *videoBean = self.tableViewDataSourceArray[indexPath.row];
+    FTVideoBean *videoBean = self.collectionViewDataSourceArray[indexPath.row];
     [cell setWithBean:videoBean];
     return cell;
 }
@@ -529,14 +422,14 @@
     // 上拉刷新
     self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
                 NSString *currId;
-                if (weakSelf.tableViewDataSourceArray && weakSelf.tableViewDataSourceArray.count > 0) {
-//                    currId = [weakSelf.tableViewDataSourceArray lastObject][@"videosId"];
-                     FTVideoBean *bean = [weakSelf.tableViewDataSourceArray lastObject];
+                if (weakSelf.collectionViewDataSourceArray && weakSelf.collectionViewDataSourceArray.count > 0) {
+//                    currId = [weakSelf.collectionViewDataSourceArray lastObject][@"videosId"];
+                     FTVideoBean *bean = [weakSelf.collectionViewDataSourceArray lastObject];
                     currId = bean.videosId;
                     //如果当前是按“最热”来，需要找到最小的id座位current id
                     if ([self.videosTag isEqualToString:@"0"]) {
                         int minId = [currId intValue];
-                        for (NSDictionary *videoInfo in weakSelf.tableViewDataSourceArray) {
+                        for (NSDictionary *videoInfo in weakSelf.collectionViewDataSourceArray) {
                             int videoId = [videoInfo[@""] intValue];
                             if (videoId < minId) {
                                 minId = videoId;
@@ -577,46 +470,17 @@
             NSString *videoTag = cacheBean.videoTag;
             if (timeGap < 5 * 60 && [videoTag isEqualToString:self.videosTag]) {//如果在5分钟内，而且videoTag一样，则用缓存
                     //如果有可用缓存，则用缓存作为数据源，刷新collectionView
-                self.tableViewDataSourceArray = [[NSMutableArray alloc]initWithArray:cacheBean.dataArray];
+                self.collectionViewDataSourceArray = [[NSMutableArray alloc]initWithArray:cacheBean.dataArray];
                 [self.collectionView reloadData];
                 return;
             }
         }
         //如果没有可用缓存，则置空数据源，再去刷新
-        self.tableViewDataSourceArray = nil;
+        self.collectionViewDataSourceArray = nil;
         [self.collectionView reloadData];
         
         [self getDataWithGetType:@"new" andCurrId:@"-1"];
     
-}
-
-
-#pragma mark - PrivateAPI
-//
-- (FTTableViewController *)controllerWithSourceIndex:(NSInteger)index
-{
-    if (self.sourceArry.count < index) {
-        return nil;
-    }
-//    NSLog(@"%ld", index);
-    //    FTTableViewController *tableVC = [[FTTableViewController alloc]initWithStyle:UITableViewStylePlain];
-    if (index == 0) {
-        self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
-    }else{
-        [self.tableViewController.tableView.tableHeaderView removeFromSuperview];
-        self.tableViewController.tableView.tableHeaderView = nil;
-    }
-    //    self.tableViewController.sourceArrry = _sourceArry[index];
-    self.tableViewController.order = index;
-    return self.tableViewController;
-}
-
-//返回当前的索引值
-- (NSInteger)indexofController:(FTTableViewController *)viewController
-{
-    //    NSInteger index = [self.sourceArry indexOfObject:viewController.sourceArray];
-    //    return index;
-    return self.tableViewController.order;
 }
 
 #pragma mark -  设置当前的按钮颜色
@@ -637,32 +501,6 @@
 }
 
 
-#pragma mark - UIPageViewControllerDataSource
-
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
-{
-    NSInteger index = [self indexofController:(FTTableViewController *)viewController];
-    if (index == 0 || index == NSNotFound) {
-        return nil;
-    }
-    index--;
-    return [self controllerWithSourceIndex:index];
-}
-
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
-{
-    NSInteger index = [self indexofController:(FTTableViewController *)viewController];
-    if (index == NSNotFound) {
-        return nil;
-    }
-    index++;
-    if (index == [self.sourceArry count]) {
-        return nil;
-    }
-    return [self controllerWithSourceIndex:index];
-}
-
-
 #pragma mark - UIPageViewControllerDelegate
 //即将转换开始的方法
 - (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers
@@ -676,8 +514,6 @@
 #pragma mark - response
 
 - (IBAction)leftBtnAction:(id)sender {
-    
-    //    NSLog(@"information left click did");
     if ([self.drawerDelegate respondsToSelector:@selector(leftButtonClicked:)]) {
         
         [self.drawerDelegate leftButtonClicked:sender];
@@ -699,26 +535,9 @@
 - (IBAction)messageButtonClicked:(id)sender {
     NSLog(@"message button clicked.");
 }
-
-- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
-{
-    //    NSLog(@"---点击了第%ld张图片", (long)index);
-    
-    FTVideoDetailViewController *videoDetailViewController = [FTVideoDetailViewController new];
-    
-    //获取对应的bean，传递给下个vc
-    NSDictionary *newsDic = self.cycleDataSourceArray[index];
-    FTVideoBean *bean = [FTVideoBean new];
-    [bean setValuesWithDic:newsDic];
-    
-    videoDetailViewController.bean = bean;
-    
-    [self.navigationController pushViewController:videoDetailViewController animated:YES];
-}
-
 - (void)fttableView:(FTTableViewController *)tableView didSelectWithIndex:(NSIndexPath *)indexPath{
     //    NSLog(@"第%ld个cell被点击了。", indexPath.row);
-    if (self.tableViewDataSourceArray) {
+    if (self.collectionViewDataSourceArray) {
         
         FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
         //获取对应的bean，传递给下个vc
@@ -748,12 +567,12 @@
 
 - (void)updateCountWithVideoBean:(FTVideoBean *)videoBean indexPath:(NSIndexPath *)indexPath{
     
-    NSDictionary *dic = self.tableViewDataSourceArray[indexPath.row];
+    NSDictionary *dic = self.collectionViewDataSourceArray[indexPath.row];
     [dic setValue:[NSString stringWithFormat:@"%@", videoBean.voteCount] forKey:@"voteCount"];
     [dic setValue:[NSString stringWithFormat:@"%@", videoBean.viewCount] forKey:@"viewCount"];
     [dic setValue:[NSString stringWithFormat:@"%@", videoBean.commentCount] forKey:@"commentCount"];
 //    NSLog(@"indexPath.row : %ld", indexPath.row);
-    self.tableViewDataSourceArray[indexPath.row] = dic;
+    self.collectionViewDataSourceArray[indexPath.row] = dic;
 //    [self.tableViewController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
     [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
 }

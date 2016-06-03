@@ -25,7 +25,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ni-n2-iJE" userLabel="bottomView">
                     <rect key="frame" x="0.0" y="551" width="600" height="49"/>
                     <subviews>
-                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rzr-Bx-a04" userLabel="收藏view">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rzr-Bx-a04" userLabel="收藏view">
                             <rect key="frame" x="0.0" y="0.0" width="132" height="49"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BaI-iB-tvu" userLabel="收藏">
@@ -168,63 +168,12 @@
                         <constraint firstAttribute="bottom" secondItem="2KM-AH-8Gz" secondAttribute="bottom" id="zS2-e5-TlH"/>
                     </constraints>
                 </view>
-                <view hidden="YES" alpha="0.80000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5kx-1v-FRX" userLabel="bgView">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEc-EJ-Ay6" userLabel="shareView">
-                            <rect key="frame" x="0.0" y="380" width="600" height="204"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kxd-vG-T9s">
-                                    <rect key="frame" x="0.0" y="-348" width="37" height="30"/>
-                                    <state key="normal" title="分享1"/>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Vn-zB-IHf">
-                                    <rect key="frame" x="0.0" y="-348" width="39" height="30"/>
-                                    <state key="normal" title="分享2"/>
-                                </button>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="金属边框-改进ios" translatesAutoresizingMaskIntoConstraints="NO" id="hYa-4q-ctf">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="204"/>
-                                </imageView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LoD-SV-JK2">
-                                    <rect key="frame" x="15" y="159" width="570" height="30"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="30" id="rzM-KN-x0V"/>
-                                    </constraints>
-                                    <state key="normal" title="取消">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="bottom" secondItem="hYa-4q-ctf" secondAttribute="bottom" id="824-JH-L3a"/>
-                                <constraint firstItem="hYa-4q-ctf" firstAttribute="top" secondItem="LEc-EJ-Ay6" secondAttribute="top" id="ErW-8w-W0f"/>
-                                <constraint firstItem="LoD-SV-JK2" firstAttribute="leading" secondItem="LEc-EJ-Ay6" secondAttribute="leading" constant="15" id="OzZ-px-x9F"/>
-                                <constraint firstAttribute="trailing" secondItem="hYa-4q-ctf" secondAttribute="trailing" id="Yjk-4c-ZzM"/>
-                                <constraint firstItem="hYa-4q-ctf" firstAttribute="leading" secondItem="LEc-EJ-Ay6" secondAttribute="leading" id="e1u-io-cK5"/>
-                                <constraint firstAttribute="trailing" secondItem="LoD-SV-JK2" secondAttribute="trailing" constant="15" id="iGg-9k-1jt"/>
-                                <constraint firstAttribute="height" constant="204" id="tpQ-kX-Bhr"/>
-                                <constraint firstAttribute="bottom" secondItem="LoD-SV-JK2" secondAttribute="bottom" constant="15" id="ucv-Yh-xcc"/>
-                            </constraints>
-                        </view>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="LEc-EJ-Ay6" firstAttribute="leading" secondItem="5kx-1v-FRX" secondAttribute="leading" id="5ll-Th-qzY"/>
-                        <constraint firstAttribute="trailing" secondItem="LEc-EJ-Ay6" secondAttribute="trailing" id="ExL-An-CwW"/>
-                        <constraint firstAttribute="bottom" secondItem="LEc-EJ-Ay6" secondAttribute="bottom" constant="16" id="ZEi-pP-lj7"/>
-                    </constraints>
-                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="2ni-n2-iJE" secondAttribute="bottom" id="HOo-d2-0Uw"/>
-                <constraint firstItem="5kx-1v-FRX" firstAttribute="top" secondItem="ERc-Cb-vg2" secondAttribute="top" id="LOr-5J-H6p"/>
                 <constraint firstAttribute="trailing" secondItem="2ni-n2-iJE" secondAttribute="trailing" id="M3T-bp-GjB"/>
-                <constraint firstItem="5kx-1v-FRX" firstAttribute="leading" secondItem="ERc-Cb-vg2" secondAttribute="leading" id="jsB-VG-EgH"/>
                 <constraint firstItem="2ni-n2-iJE" firstAttribute="leading" secondItem="ERc-Cb-vg2" secondAttribute="leading" id="mIv-97-M4x"/>
-                <constraint firstAttribute="bottom" secondItem="5kx-1v-FRX" secondAttribute="bottom" id="nbu-S5-8t7"/>
-                <constraint firstAttribute="trailing" secondItem="5kx-1v-FRX" secondAttribute="trailing" id="xvc-er-r1e"/>
             </constraints>
             <point key="canvasLocation" x="439" y="382"/>
         </view>
@@ -235,6 +184,5 @@
         <image name="详情页底部按钮一堆-收藏" width="24" height="24"/>
         <image name="详情页底部按钮一堆-评论" width="24" height="24"/>
         <image name="详情页底部按钮一堆-赞" width="24" height="24"/>
-        <image name="金属边框-改进ios" width="67" height="60"/>
     </resources>
 </document>

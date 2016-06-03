@@ -102,7 +102,6 @@
 }
 
 - (void)initSubviews{
-    
     //设置左上角按钮
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
