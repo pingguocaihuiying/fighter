@@ -176,7 +176,7 @@
             NSString *status = responseDic[@"status"];
             if ([status isEqualToString:@"success"]) {
                 NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
-                
+                NSLog(@"data:%@",responseDic[@"data"]);
                 
                 //缓存数据到DB
                 if (mutableArray.count > 0) {
