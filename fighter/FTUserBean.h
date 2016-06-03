@@ -74,7 +74,8 @@
 @property (nonatomic, copy)NSString *background;//个人用户目前没有;//背景图
 @property (nonatomic, copy)NSString* identity;//身份
 @property (nonatomic, copy)NSString* headUrl;//头像
-
+@property (nonatomic, copy)NSString *query;//身份标识
+@property (nonatomic, copy)NSString *brief;//简介
 //计算年龄
 - (NSString *) age;
 //格式化生日

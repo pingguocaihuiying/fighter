@@ -33,6 +33,7 @@
 #import "AFNetworking.h"
 #import "UIView+YBAddtitions.h"
 #import "UILabel+FTLYZLabel.h"//调整行间距
+#import "FTUserTools.h"//获取本地用户信息
 
 //导入配置信息类
 #import "FTNetConfig.h"

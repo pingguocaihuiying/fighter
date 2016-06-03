@@ -63,7 +63,7 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *videoCollectionView;
 
-@property(nonatomic,strong) NSArray *sourceArry;     //数据源
+
 @property(nonatomic) NSInteger currentSelectIndex;
 @property (nonatomic, strong)SDCycleScrollView *cycleScrollView;
 @property (nonatomic, strong)NSArray *cycleDataSourceArray;
@@ -106,19 +106,59 @@
 #pragma mark 获取用户的基本信息
 - (void)getHomepageUserInfo{
     [NetWorking getHomepageUserInfoWithUserOldid:_olduserid andCallbackOption:^(FTUserBean *userBean) {
-        
+        [_headImageView sd_setImageWithURL:[NSURL URLWithString:userBean.headUrl]];
         self.sexLabel.text = userBean.sex;
         self.nameLabel.text = userBean.name;
         self.followCountLabel.text = [NSString stringWithFormat:@"%@", userBean.followCount];
         self.fansCountLabel.text = [NSString stringWithFormat:@"%@", userBean.fansCount == nil ? @"0" : userBean.fansCount];
         self.dynamicCountLabel.text = [NSString stringWithFormat:@"%@", userBean.dynamicCount == nil ? @"0" : userBean.dynamicCount];
         self.addressLabel.text = [NSString stringWithFormat:@"%@", userBean.address];
-        self.briefLabel.text = userBean.address;
+        self.briefIntroductionTextField.text = userBean.brief;
+        NSString *ageStr = userBean.age;
+        if (!ageStr) {
+            ageStr = @"";
+        }
+        self.ageLabel.text = [NSString stringWithFormat:@"%@岁", [ageStr isEqualToString:@""] ? @"- " : userBean.age];
+        self.weightLabel.text = [NSString stringWithFormat:@"%@kg", userBean.weight == nil ? @"- " : userBean.weight];
+        self.heightLabel.text = [NSString stringWithFormat:@"%@cm", [userBean.height isEqualToString:@""]  ? @"- " : userBean.height];
         
-        
+        //处理三个按钮的可用状态
+        if ([userBean.query isEqualToString:@"0"]) {//普通用户
+            self.recordButton.hidden = NO;//显示战绩按钮
+            self.videoButton.hidden = NO;//显示视频按钮
+            [self.videoButton setTitle:@"视频"];//修改视频按钮的标题为“视频”
+        }else if ([userBean.query isEqualToString:@"1"]) {//拳手
+            self.identityImageView1.hidden = NO;
+            self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-拳"];
+        }else if ([userBean.query isEqualToString:@"2"]){//教练
+            self.identityImageView1.hidden = NO;
+            self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-教"];
+        }else if ([userBean.query isEqualToString:@"1,2"]){//拳手、教练
+            self.identityImageView1.hidden = NO;
+            self.identityImageView2.hidden = NO;
+            self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-教"];
+            self.identityImageView2.image = [UIImage imageNamed:@"身份圆形-拳"];
+        }
+        //处理右上角的“转发”或“修改”
+        FTUserBean *localUserBean = [FTUserTools getLocalUser];
+        _shareAndModifyProfileButton.hidden = NO;
+        if (localUserBean && [localUserBean.olduserid isEqualToString:self.olduserid]) {
+            [_shareAndModifyProfileButton setTitle:@"修改" forState:UIControlStateNormal];
+            [_shareAndModifyProfileButton addTarget:self action:@selector(modifyProfile) forControlEvents:UIControlEventTouchUpInside];
+        }else{
+            [_shareAndModifyProfileButton setTitle:@"转发" forState:UIControlStateNormal];
+            [_shareAndModifyProfileButton addTarget:self action:@selector(shareUserInfo) forControlEvents:UIControlEventTouchUpInside];
+        }
     }];
 }
-
+#pragma mark 修改个人资料
+- (void)modifyProfile{
+    NSLog(@"修改资料");
+}
+#pragma mark 转发
+- (void)shareUserInfo{
+    NSLog(@"转发");
+}
 /**
  *  初始化一些默认配置
  */
@@ -195,6 +235,12 @@
 -(void)refreshButtonsIndex{
     switch (_selectedType) {
         case FTHomepageDynamicInformation://格斗场列表
+            //如果没有格斗场数据，则显示空图片
+            if (self.tableViewDataSourceArray && self.tableViewDataSourceArray.count > 0) {
+                _noDynamicImageView.hidden = YES;
+            }else{
+                _noDynamicImageView.hidden = NO;
+            }
             //显示当前下标
             _dynamicInfomationButtonIndexView.hidden = NO;
             _recordButtonIndexView.hidden = YES;
@@ -208,11 +254,13 @@
             break;
         case FTHomepageRecord://赛事
             //显示当前下标
+            _noDynamicImageView.hidden = YES;
             _dynamicInfomationButtonIndexView.hidden = YES;
             _recordButtonIndexView.hidden = NO;
             _videoButtonIndexView.hidden = YES;
             
             //显示赛事相关的内容，隐藏其他
+            _noDynamicImageView.hidden = YES;
             _recordRankTableView.hidden = NO;
             _recordListTableView.hidden = NO;
             _infoTableView.hidden = YES;
@@ -266,7 +314,7 @@
     NSString *urlString = [FTNetConfig host:Domain path:GetArenaListURL];
     NSString *tableName = @"damageblog";
     
-    urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName];
+    urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@&userId=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName, _olduserid];
     NetWorking *net = [[NetWorking alloc]init];
     
     [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
@@ -278,6 +326,7 @@
                 
                 //缓存数据到DB
                 if (mutableArray.count > 0) {
+                    _noDynamicImageView.hidden = YES;
                     DBManager *dbManager = [DBManager shareDBManager];
                     [dbManager connect];
                     [dbManager cleanArenasTable];
@@ -322,7 +371,9 @@
     }
     
     self.tableViewController.sourceArray = self.tableViewDataSourceArray;
-    
+    if (self.tableViewDataSourceArray.count > 0) {
+        _noDynamicImageView.hidden = YES;
+    }
     
     [self.tableViewController.tableView reloadData];
 
