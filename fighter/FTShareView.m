@@ -334,35 +334,42 @@
 }
 
 - (void) test {
-//
-//    UIImage *image = [UIImage imageNamed:_image];
-//    NSData* data;
-//    data = UIImageJPEGRepresentation(image, 0.5);
-//
-//    
-//    //构造分享参数
-//    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-//    [shareParams SSDKSetupShareParamsByText:_summary
-//                                     images:_imageUrl
-//                                        url:[NSURL URLWithString:_url]
-//                                      title:_title
-//                                       type:SSDKContentTypeWebPage];
-//    
-//    //授权
-//    [ShareSDK authorize:SSDKPlatformTypeSinaWeibo
-//               settings:nil
-//         onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
-//             
-//         }];
-//    
-//    
-//    
-//    // 把分享内容和ULR拼接在一起
-//    NSString *sinaContent = [NSString stringWithFormat:@"%@%@", _summary, _url];
-    
-  
+
+    //分享到微博博文
+    AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
+    WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
+    authRequest.redirectURI = _url;
+    authRequest.scope = [NSString stringWithFormat:@"%@,%@,%@",_title,_summary,_image];
     
     
+    //设置文本信息
+    WBMessageObject *message = [WBMessageObject message];
+    if (_summary) {
+        message.text = [@"“" stringByAppendingFormat:@"%@”,%@ \n  --- 发自《格斗家》app %@",_title,_summary,_url];
+    }else {
+        message.text = [@"“" stringByAppendingFormat:@"%@”\n  --- 发自《格斗家》app %@",_title,_url];
+    }
+    
+    NSLog(@"url:%@ length:%ld",_url,_url.length);
+    //设置媒体数据
+    WBVideoObject *webpage = [WBVideoObject object];
+    webpage.objectID = @"identifier1";
+    webpage.title = _title;
+    webpage.description = _summary;
+    webpage.videoUrl = _url;
+    webpage.videoStreamUrl = _url;
+    webpage.videoLowBandUrl = _url;
+    webpage.videoLowBandStreamUrl = _url;
+    message.mediaObject = webpage;
+    
+    WBSendMessageToWeiboRequest *request =
+    [WBSendMessageToWeiboRequest requestWithMessage:message
+                                           authInfo:authRequest
+                                       access_token:myDelegate.wbtoken];
+    
+    request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
+    [WeiboSDK sendRequest:request];
+
 }
 
 
