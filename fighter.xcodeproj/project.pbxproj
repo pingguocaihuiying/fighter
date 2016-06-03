@@ -2319,9 +2319,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/fighter/OtherSDK",
-					"$(PROJECT_DIR)/fighter/OtherSDK/ShareSDK",
-					"$(PROJECT_DIR)/fighter/OtherSDK/ShareSDK/Support/Optional",
-					"$(PROJECT_DIR)/fighter/OtherSDK/ShareSDK/Support/Required",
 					"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
 					"$(PROJECT_DIR)/fighter/OtherSDK/tencentOpenAPI",
 				);
@@ -2370,15 +2367,7 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/fighter/OtherSDK/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/fighter/OtherSDK",
-					"$(PROJECT_DIR)/fighter/OtherSDK/ShareSDK",
-					"$(PROJECT_DIR)/fighter/OtherSDK/ShareSDK/Support/Optional",
-					"$(PROJECT_DIR)/fighter/OtherSDK/ShareSDK/Support/PlatformSDK/FacebookMessengerSDK",
-					"$(PROJECT_DIR)/fighter/OtherSDK/ShareSDK/Support/PlatformSDK/KaKaoSDK",
-					"$(PROJECT_DIR)/fighter/OtherSDK/ShareSDK/Support/PlatformSDK/QQSDK",
-					"$(PROJECT_DIR)/fighter/OtherSDK/ShareSDK/Support/PlatformSDK/RenRenSDK",
-					"$(PROJECT_DIR)/fighter/OtherSDK/ShareSDK/Support/Required",
 					"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
 					"$(PROJECT_DIR)/fighter/OtherSDK/tencentOpenAPI",
 				);
