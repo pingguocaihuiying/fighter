@@ -13,9 +13,7 @@
 #import "FTBoxingHallViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "FTBaseTabBarViewController.h"
-#import "Mobclick.h"
 #import "UMSocial.h"
-#import "UMFeedback.h"
 #import "WXApi.h"
 #import "UMSocialWechatHandler.h"
 //#import "UMSocialSinaSSOHandler.h"
@@ -35,7 +33,7 @@
 #import <TencentOpenAPI/TencentOAuth.h>
 //#import "UMSocialQQHandler.h"
 #import "WeiboSDK.h"
-#import <ShareSDK/ShareSDK.h>
+
 
 //微信请求类型
 typedef NS_ENUM(NSInteger, WXRequestType) {
@@ -171,7 +169,9 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 
 - (void)setUMeng{
     //友盟统计
-    [MobClick startWithAppkey:@"570739d767e58edb5300057b" reportPolicy:BATCH   channelId:@""];
+    UMConfigInstance.appKey = @"570739d767e58edb5300057b";
+    [MobClick startWithConfigure:UMConfigInstance];
+//    [MobClick startWithAppkey:@"570739d767e58edb5300057b" reportPolicy:BATCH   channelId:@""];
     
     //友盟分享
     [UMSocialData setAppKey:@"570739d767e58edb5300057b"];
@@ -195,27 +195,27 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 
 - (void) setShareSDK {
     
-    [ShareSDK registerApp:Mob_App_ID
-          activePlatforms:@[@(SSDKPlatformTypeSinaWeibo)]
-                 onImport:nil
-          onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo) {
-              
-              switch (platformType)
-              {
-                  case SSDKPlatformTypeSinaWeibo:
-                      
-                      //初始化新浪微博
-                      [appInfo SSDKSetupSinaWeiboByAppKey:WB_App_ID
-                                                appSecret:WB_App_Secret
-                                              redirectUri:@"http://www.sharesdk.cn"
-                                                 authType:SSDKAuthTypeWeb];
-                      
-                      break;
-                  default:
-                      break;
-              }
-              
-          }];
+//    [ShareSDK registerApp:Mob_App_ID
+//          activePlatforms:@[@(SSDKPlatformTypeSinaWeibo)]
+//                 onImport:nil
+//          onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo) {
+//              
+//              switch (platformType)
+//              {
+//                  case SSDKPlatformTypeSinaWeibo:
+//                      
+//                      //初始化新浪微博
+//                      [appInfo SSDKSetupSinaWeiboByAppKey:WB_App_ID
+//                                                appSecret:WB_App_Secret
+//                                              redirectUri:@"http://www.sharesdk.cn"
+//                                                 authType:SSDKAuthTypeWeb];
+//                      
+//                      break;
+//                  default:
+//                      break;
+//              }
+//              
+//          }];
     
 
     

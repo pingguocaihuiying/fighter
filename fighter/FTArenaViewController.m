@@ -7,7 +7,6 @@
 //
 
 #import "FTArenaViewController.h"
-#import "NIDropDown.h"
 #import "QuartzCore/QuartzCore.h"
 #import "FTNWGetCategory.h"
 #import "FTLabelBean.h"
@@ -27,7 +26,6 @@
 #import "FTNewsBean.h"
 #import "UIButton+LYZTitle.h"
 #import "UIButton+WebCache.h"
-#import "Mobclick.h"
 #import "FTRankingListViewController.h"
 #import "FTCache.h"
 #import "FTCacheBean.h"
@@ -42,10 +40,10 @@
 #import "DBManager.h"
 #import "FTRankViewController.h"
 
-@interface FTArenaViewController ()<FTArenaDetailDelegate, FTSelectCellDelegate,FTTableViewdelegate>
+@interface FTArenaViewController ()<FTArenaDetailDelegate, FTSelectCellDelegate,FTFilterDelegate,FTTableViewdelegate>
 
 {
-    NIDropDown *_dropDown;
+    
 }
 
 
@@ -272,13 +270,7 @@
     [self getDataFromWeb];
 }
 
-- (void) niDropDownDelegateMethod: (NIDropDown *) sender {
-    [self rel];
-    NSLog(@"%@", _btnSelect.titleLabel.text);
-}
-- (void)rel{
-    _dropDown = nil;
-}
+
 - (IBAction)newBlogButtonClicked:(id)sender {
 
     

@@ -323,7 +323,38 @@
     [shareView setTitle:_arenaBean.title];
 //    [shareView setSummary:_arenaBean.summary];
     [shareView setImage:@"微信用@200"];
-    [shareView setImageUrl:@"http://www.gogogofight.com/page/images/wechat_share.jpg"];
+    
+//    [shareView setImageUrl:@"http://www.gogogofight.com/page/images/wechat_share.jpg"];
+    
+    if (_arenaBean.videoUrlNames && ![_arenaBean.videoUrlNames isEqualToString:@""]) {//如果有视频图片，优先显示视频图片
+        NSLog(@"显示视频");
+        NSString *firstVideoUrlString = [[_arenaBean.videoUrlNames componentsSeparatedByString:@","]firstObject];
+        
+        firstVideoUrlString = [NSString stringWithFormat:@"%@?vframe/png/offset/0/w/200/h/100", firstVideoUrlString];
+        NSString *videoUrlString = [NSString stringWithFormat:@"%@/%@", _arenaBean.urlPrefix, firstVideoUrlString];
+        if (![videoUrlString hasPrefix:@"http://"]) {
+            videoUrlString = [NSString stringWithFormat:@"http://%@", videoUrlString];
+        }
+        
+         [shareView setImageUrl:videoUrlString];
+        NSLog(@"videoUrlString : %@", videoUrlString);
+    }else if(_arenaBean.pictureUrlNames && ![_arenaBean.pictureUrlNames isEqualToString:@""]){//如果没有视频，再去找图片的缩略图
+        NSLog(@"显示图片缩略图");
+        NSString *firstImageUrlString = [[_arenaBean.pictureUrlNames componentsSeparatedByString:@","]firstObject];
+        //        firstImageUrlString = [NSString stringWithFormat:@"%@?vframe/png/offset/0/w/200/h/100", firstImageUrlString];
+        firstImageUrlString = [NSString stringWithFormat:@"%@?imageView2/2/w/200", firstImageUrlString];
+        NSString *imageUrlString = [NSString stringWithFormat:@"%@/%@", _arenaBean.urlPrefix, firstImageUrlString];
+        if (![imageUrlString hasPrefix:@"http://"]) {
+            imageUrlString = [NSString stringWithFormat:@"http://%@", imageUrlString];
+        }
+        
+        [shareView setImageUrl:imageUrlString];
+    }else {
+    
+        [shareView setSummary:_arenaBean.content];
+    }
+    
+    
     [self.view addSubview:shareView];
 }
 - (void)shareToWXSceneSession{

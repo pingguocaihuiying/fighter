@@ -13,13 +13,10 @@
 #import "WXApi.h"
 
 #import "WXApi.h"
-#import "Mobclick.h"
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <TencentOpenAPI/sdkdef.h>
 #import "WeiboSDK.h"
 #import "AppDelegate.h"
-
-#import <ShareSDK/ShareSDK.h>
 
 
 @interface FTShareView ()
@@ -219,8 +216,8 @@
         [self shareToTencentZone];
     }else if (btnTag == 1004) {
         //新浪微博
-//        [self shareToSinaMicroBlog];
-        [self test];
+        [self shareToSinaMicroBlog];
+//        [self test];
     }
 
     [self removeFromSuperview];
@@ -337,31 +334,31 @@
 }
 
 - (void) test {
-
-    UIImage *image = [UIImage imageNamed:_image];
-    NSData* data;
-    data = UIImageJPEGRepresentation(image, 0.5);
-
-    
-    //构造分享参数
-    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    [shareParams SSDKSetupShareParamsByText:_summary
-                                     images:_imageUrl
-                                        url:[NSURL URLWithString:_url]
-                                      title:_title
-                                       type:SSDKContentTypeWebPage];
-    
-    //授权
-    [ShareSDK authorize:SSDKPlatformTypeSinaWeibo
-               settings:nil
-         onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
-             
-         }];
-    
-    
-    
-    // 把分享内容和ULR拼接在一起
-    NSString *sinaContent = [NSString stringWithFormat:@"%@%@", _summary, _url];
+//
+//    UIImage *image = [UIImage imageNamed:_image];
+//    NSData* data;
+//    data = UIImageJPEGRepresentation(image, 0.5);
+//
+//    
+//    //构造分享参数
+//    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+//    [shareParams SSDKSetupShareParamsByText:_summary
+//                                     images:_imageUrl
+//                                        url:[NSURL URLWithString:_url]
+//                                      title:_title
+//                                       type:SSDKContentTypeWebPage];
+//    
+//    //授权
+//    [ShareSDK authorize:SSDKPlatformTypeSinaWeibo
+//               settings:nil
+//         onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
+//             
+//         }];
+//    
+//    
+//    
+//    // 把分享内容和ULR拼接在一起
+//    NSString *sinaContent = [NSString stringWithFormat:@"%@%@", _summary, _url];
     
   
     
@@ -389,7 +386,6 @@
     [WeiboSDK sendRequest:request];
 }
 
-
 /**
  *  设置新浪微博分享信息
  *
@@ -398,30 +394,38 @@
 - (WBMessageObject *)messageToShare
 {
     
-    UIImage *image = [UIImage imageNamed:_image];
-    NSData* data;
-    data = UIImageJPEGRepresentation(image, 0.5);
+//    UIImage *image = [UIImage imageNamed:_image];
+    NSMutableData* data = [NSMutableData data];
+    [data appendData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_imageUrl]]];
+//    [data appendData:UIImageJPEGRepresentation(image, 0.5)];
+//    data = UIImageJPEGRepresentation(image, 0.5);
     
-//    NSLog(@"data.length:%ld",data.length);
+    NSLog(@"_imageUrl:%@",_imageUrl);
     
     //设置文本信息
     WBMessageObject *message = [WBMessageObject message];
-    message.text = _imageUrl;
+    if (_summary) {
+         message.text = [@"“" stringByAppendingFormat:@"%@”,%@ \n  --- 发自《格斗家》app %@",_title,_summary,_url];
+    }else {
+         message.text = [@"“" stringByAppendingFormat:@"%@”\n  --- 发自《格斗家》app %@",_title,_url];
+    }
+    
+//    message.text = [[_title stringByAppendingString:@"\n   --- 发自《格斗家》app"] stringByAppendingString: _url];
    
-//    //设置图片数据
-//    WBImageObject *webImage = [WBImageObject object];
-//    webImage.imageData = data;
-//    message.imageObject = webImage;
+    //设置图片数据
+    WBImageObject *webImage = [WBImageObject object];
+    webImage.imageData = data;
+    message.imageObject = webImage;
     
     
-    //设置媒体数据
-    WBWebpageObject *webpage = [WBWebpageObject object];
-    webpage.objectID = @"identifier1";
-    webpage.title = _title;
-    webpage.description = _summary;
-    webpage.thumbnailData =data; //data size can`t be over 32 KB
-    webpage.webpageUrl = _url;
-    message.mediaObject = webpage;
+//    //设置媒体数据
+//    WBWebpageObject *webpage = [WBWebpageObject object];
+//    webpage.objectID = @"identifier1";
+//    webpage.title = _title;
+//    webpage.description = _summary;
+//    webpage.thumbnailData =data; //data size can`t be over 32 KB
+//    webpage.webpageUrl = _url;
+//    message.mediaObject = webpage;
     return message;
 }
 

@@ -139,7 +139,7 @@
     
     if ([password isEqualToString:@""] || [username isEqualToString:@""]) {
         NSLog(@"用户名 密码必须全部填写");
-        [self showHUDWithMessage:@"用户名 密码必须全部填写"];
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"用户名 密码必须全部填写"];
         return;
     }
     
@@ -205,12 +205,12 @@
     NSString *msg = [noti object];
     if ([msg isEqualToString:@"SUCESS"]) {
         
-        [self showHUDWithMessage:@"微信登录成功"];
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"微信登录成功"];
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         
     }else if ([msg isEqualToString:@"ERROR"]){
         
-        [self showHUDWithMessage:@"微信登录失败"];
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"微信登录失败"];
     }
 }
 
@@ -224,18 +224,18 @@
 
 #pragma mark - private methods
 
-- (void)showHUDWithMessage:(NSString *)message{
-    
-    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:HUD];
-    HUD.label.text = message;
-    HUD.mode = MBProgressHUDModeCustomView;
-    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
-    [HUD showAnimated:YES];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  2* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [HUD removeFromSuperview];
-    });
-}
+//- (void)showHUDWithMessage:(NSString *)message{
+//    
+//    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+//    [self.view addSubview:HUD];
+//    HUD.label.text = message;
+//    HUD.mode = MBProgressHUDModeCustomView;
+//    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
+//    [HUD showAnimated:YES];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  2* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+//        [HUD removeFromSuperview];
+//    });
+//}
 
 //隐藏状态栏
 - (BOOL)prefersStatusBarHidden

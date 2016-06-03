@@ -13,7 +13,6 @@
 #import "FTUserBean.h"
 #import "MBProgressHUD.h"
 #import "WXApi.h"
-#import "Mobclick.h"
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "FTLoginViewController.h"
@@ -246,7 +245,19 @@
     [shareView setTitle:_newsBean.title];
     [shareView setSummary:_newsBean.summary];
     [shareView setImage:@"微信用@200"];
-    [shareView setImageUrl:@"http://www.gogogofight.com/page/images/wechat_share.jpg"];
+//    [shareView setImageUrl:@"http://www.gogogofight.com/page/images/wechat_share.jpg"];
+    
+    if ([_newsBean.layout isEqualToString:@"1"]) {//大图
+    
+        [shareView setImageUrl:_newsBean.img_big];
+    }else if ([_newsBean.layout isEqualToString:@"2"]) {//图
+        
+        [shareView setImageUrl:_newsBean.img_small_one];
+    }else if ([_newsBean.layout isEqualToString:@"1"]) {//3图
+        
+        [shareView setImageUrl:_newsBean.img_big];
+    }
+    
     [self.view addSubview:shareView];
 
 }

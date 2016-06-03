@@ -63,12 +63,12 @@
     NSRange _range = [self.propertyTextField.text rangeOfString:@" "];
     if (_range.location != NSNotFound) {
         //有空格
-        [self showHUDWithMessage:@"昵称不能包含空格"];
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"昵称不能包含空格"];
         return;
     }
 
     if (self.propertyTextField.text.length == 0) {
-        [self showHUDWithMessage:@"用户名不能为空"];
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"用户名不能为空"];
         return;
     }
     
@@ -117,19 +117,19 @@
 
 }
 
-#pragma mark - private methods
-- (void)showHUDWithMessage:(NSString *)message{
-    
-    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:HUD];
-    HUD.label.text = message;
-    HUD.mode = MBProgressHUDModeCustomView;
-    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
-    [HUD showAnimated:YES];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  2* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [HUD removeFromSuperview];
-    });
-}
+//#pragma mark - private methods
+//- (void)showHUDWithMessage:(NSString *)message{
+//    
+//    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+//    [self.view addSubview:HUD];
+//    HUD.label.text = message;
+//    HUD.mode = MBProgressHUDModeCustomView;
+//    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
+//    [HUD showAnimated:YES];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  2* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+//        [HUD removeFromSuperview];
+//    });
+//}
 
 
 - (void)didReceiveMemoryWarning {

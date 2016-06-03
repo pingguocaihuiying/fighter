@@ -33,11 +33,14 @@
 #import "AFNetworking.h"
 #import "UIView+YBAddtitions.h"
 #import "UILabel+FTLYZLabel.h"//调整行间距
+#import "MBProgressHUD.h"
+#import "UIWindow+MBProgressHUD.h"
 
 //导入配置信息类
 #import "FTNetConfig.h"
 #import "FTUserConfig.h"
 #import "FTConfig.h"
+
 
 //导入一些常用类
 #import "FTNewsBean.h"
@@ -48,7 +51,11 @@
 #import "FTNWGetCategory.h"
 
 //导入友盟统计的类
-#import <UMMobClick/Header/MobClick.h>
+#import <UMMobClick/MobClick.h>
+#import "UMFeedback.h"
+
+//Mob ShareSDK
+//#import <ShareSDK/ShareSDK.h>
 
 //defin一些常量
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
