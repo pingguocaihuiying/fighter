@@ -19,13 +19,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "fighter/Network/NetworkLayer/NetWorking.m"
-            timestampString = "486634813.064265"
+            filePath = "fighter/UI/ViewController/FTHomepageMainViewController.m"
+            timestampString = "486899999.133816"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "708"
-            endingLineNumber = "708"
-            landmarkName = "+getHomepageUserInfoWithUserOldid:andCallbackOption:"
+            startingLineNumber = "359"
+            endingLineNumber = "359"
+            landmarkName = "-getDataFromWeb"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

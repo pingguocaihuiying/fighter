@@ -63,8 +63,6 @@
 
 
 @property(nonatomic) NSInteger currentSelectIndex;
-@property (nonatomic, strong)SDCycleScrollView *cycleScrollView;
-@property (nonatomic, strong)NSArray *cycleDataSourceArray;
 @property (nonatomic, strong)NSArray *typeArray;
 
 @property (nonatomic, copy)NSString *currentIndexString;
@@ -75,6 +73,9 @@
 @property (nonatomic, copy)NSString *labels;
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (assign, nonatomic)BOOL hasInitRecordRank;
+@property (assign, nonatomic)BOOL hasFollow;//是否关注
+@property (nonatomic, copy)NSString *userid;//用于（取消）关注
+@property (nonatomic, copy)NSString *followTableName;//用于（取消）关注
 
 @property (nonatomic, strong)NSMutableArray *collectionViewDataSourceArray;//视频collectionView的数据源
 @end
@@ -116,19 +117,23 @@
         if (!ageStr) {
             ageStr = @"";
         }
+        _userid = userBean.userid;
         self.ageLabel.text = [NSString stringWithFormat:@"%@岁", [ageStr isEqualToString:@""] ? @"- " : userBean.age];
         self.weightLabel.text = [NSString stringWithFormat:@"%@kg", userBean.weight == nil ? @"- " : userBean.weight];
         self.heightLabel.text = [NSString stringWithFormat:@"%@cm", [userBean.height isEqualToString:@""]  ? @"- " : userBean.height];
         
         //处理三个按钮的可用状态
         if ([userBean.query isEqualToString:@"0"]) {//普通用户
+            _followTableName = @"f-user";
             self.recordButton.hidden = NO;//显示战绩按钮
             self.videoButton.hidden = NO;//显示视频按钮
             [self.videoButton setTitle:@"视频"];//修改视频按钮的标题为“视频”
         }else if ([userBean.query isEqualToString:@"1"]) {//拳手
+            _followTableName = @"f-boxer";
             self.identityImageView1.hidden = NO;
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-拳"];
         }else if ([userBean.query isEqualToString:@"2"]){//教练
+            _followTableName = @"f-coach";
             self.identityImageView1.hidden = NO;
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-教"];
         }else if ([userBean.query isEqualToString:@"1,2"]){//拳手、教练
@@ -137,15 +142,24 @@
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-教"];
             self.identityImageView2.image = [UIImage imageNamed:@"身份圆形-拳"];
         }
+        [self getFollowInfo];//获取关注信息
         //处理右上角的“转发”或“修改”
         FTUserBean *localUserBean = [FTUserTools getLocalUser];
         _shareAndModifyProfileButton.hidden = NO;
-        if (localUserBean && [localUserBean.olduserid isEqualToString:self.olduserid]) {
+        if (localUserBean && [localUserBean.olduserid isEqualToString:self.olduserid]) {//如果是自己的主页
             [_shareAndModifyProfileButton setTitle:@"修改" forState:UIControlStateNormal];
             [_shareAndModifyProfileButton addTarget:self action:@selector(modifyProfile) forControlEvents:UIControlEventTouchUpInside];
-        }else{
+            //显示“发新动态”，隐藏关注等
+            _bottomNewPostsView.hidden = NO;
+            _bottomFollowView.hidden = YES;
+        }else{//如果是别人的主页
+            
             [_shareAndModifyProfileButton setTitle:@"转发" forState:UIControlStateNormal];
             [_shareAndModifyProfileButton addTarget:self action:@selector(shareUserInfo) forControlEvents:UIControlEventTouchUpInside];
+            
+            //隐藏“发新动态”，显示关注等
+            _bottomNewPostsView.hidden = YES;
+            _bottomFollowView.hidden = NO;
         }
     }];
 }
@@ -165,12 +179,15 @@
     _currentIndexString = @"all";
     _query = @"list-dam-blog-1";
     _pageNum = @"1";
-    _pageSize = @"10";
+    _pageSize = @"100";
     _labels = @"";
     _hasInitRecordRank = false;
 }
 
 - (void)initSubviews{
+    //给下方的关注、评论等控件增加点击事件监听
+    [self addGesture];
+    
     //调整行高
     [UILabel setRowGapOfLabel:self.briefIntroductionTextField withValue:6];
 
@@ -197,17 +214,24 @@
     //设置格斗场的tableview cell
     [self initInfoTableView];
 }
+
+- (void)addGesture{
+    UITapGestureRecognizer *tapOfVoteView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(followViewClicked:)];
+    [_followView addGestureRecognizer:tapOfVoteView];
+    _followView.userInteractionEnabled = YES;
+}
+
 #pragma -mark 设置mainScrollView
 - (void)setMainScrollView{
     _mainScrollView.delegate = self;
-    NSLog(@"buttonsView.y : %f", _buttonsContainerView.frame.origin.y);
+//    NSLog(@"buttonsView.y : %f", _buttonsContainerView.frame.origin.y);
 }
 #pragma -mark scrollView滚动
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if(scrollView == _mainScrollView){//如果是mainScrollView
     CGFloat offsetY = scrollView.contentOffset.y;
-    NSLog(@"scrollView offset : %f", offsetY);
-        NSLog(@"buttonsView.y : %f", _buttonsContainerView.frame.origin.y);
+//    NSLog(@"scrollView offset : %f", offsetY);
+//        NSLog(@"buttonsView.y : %f", _buttonsContainerView.frame.origin.y);
     if (offsetY >= 204 - 24 + 8) {
         _buttonsContainerView.top = 224 + (offsetY - (204 - 24 + 8));
         [[_buttonsContainerView superview] bringSubviewToFront:_buttonsContainerView];
@@ -313,6 +337,7 @@
     NSString *tableName = @"damageblog";
     
     urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@&userId=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName, _olduserid];
+//        urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName];
     NetWorking *net = [[NetWorking alloc]init];
     
     [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
@@ -321,6 +346,16 @@
             NSString *status = responseDic[@"status"];
             if ([status isEqualToString:@"success"]) {
                 NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
+                
+                
+#pragma mark 从格斗场的数据中，筛选出属于“训练”类型的内容
+                NSMutableArray *tempArray = [NSMutableArray new];
+                for(NSDictionary *dic in mutableArray){
+                    if ([dic[@"labels"] isEqualToString:@"Train"]) {
+                        [tempArray addObject:dic];
+                    }
+                }
+                _collectionViewDataSourceArray = tempArray;
                 
                 //缓存数据到DB
                 if (mutableArray.count > 0) {
@@ -369,6 +404,9 @@
     }
     
     self.tableViewController.sourceArray = self.tableViewDataSourceArray;
+    
+
+    
     if (self.tableViewDataSourceArray.count > 0) {
         _noDynamicImageView.hidden = YES;
     }
@@ -386,8 +424,6 @@
         //        NSDictionary *newsDic = tableView.sourceArray[indexPath.row];
         //        FTArenaBean *bean = [FTArenaBean new];
         //        [bean setValuesWithDic:newsDic];
-        
-        
         FTArenaBean *bean = tableView.sourceArray[indexPath.row];
         //标记已读
         if (![bean.isReader isEqualToString:@"YES"]) {
@@ -550,8 +586,6 @@
             
         }
     }];
-    
-    
 }
 - (void) getDataFromDBWithVideoType:(NSString *)videosType  getType:(NSString *) getType {
     
@@ -576,7 +610,6 @@
     //列间距
     flow.minimumInteritemSpacing = 16 * SCALE;
     
-    
     float width = 164 * SCALE;
     float height = 143 * SCALE;
     flow.itemSize = CGSizeMake(width, height);
@@ -589,7 +622,6 @@
     
     //注册一个collectionViewCCell队列
     [_videoCollectionView registerNib:[UINib nibWithNibName:@"FTVideoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
-    
 }
 //有多少组
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -621,7 +653,7 @@
         
         videoDetailVC.videoBean = bean;
         NSIndexPath *theIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
-        NSLog(@"section : %ld, row : %ld", indexPath.section, indexPath.row);
+//        NSLog(@"section : %ld, row : %ld", indexPath.section, indexPath.row);
         videoDetailVC.indexPath = theIndexPath;
         
         videoDetailVC.delegate = self;
@@ -667,6 +699,113 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark 关注
+#pragma -mark 点赞按钮被点击
+
+- (IBAction)followViewClicked:(id)sender {
+        self.hasFollow = !self.hasFollow;
+        [self updateFollowImageView];
+        _followView.userInteractionEnabled = NO;
+        [self uploadVoteStatusToServer];
+}
+
+- (void)updateFollowImageView{
+    if (self.hasFollow) {
+        _followImageView.image = [UIImage imageNamed:@"关注pre"];
+        
+    }else{
+        _followImageView.image = [UIImage imageNamed:@"关注"];
+    }
+}
+
+//把点赞信息更新至服务器
+- (void)uploadVoteStatusToServer{
+    
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    //获取网络请求地址url
+    NSString *urlString = [FTNetConfig host:Domain path:_hasFollow ? AddFollowURL : DeleteFollowURL];
+    
+    NSString *userId = user.olduserid;
+    NSString *objId = _userid;
+    NSString *loginToken = user.token;
+    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
+    NSString *tableName = _followTableName;
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, self.hasFollow ? AddFollowCheckKey: CancelFollowCheckKey]];
+    
+    
+    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
+        NSLog(@"%@ : %@", self.hasFollow ? @"增加" : @"删除", urlString);
+    //创建AAFNetWorKing管理者
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"vote status : %@", responseDic[@"status"]);
+        NSLog(@"vote message : %@", responseDic[@"message"]);
+        
+        _followView.userInteractionEnabled = YES;
+        if ([responseDic[@"status"] isEqualToString:@"success"]) {//如果关注信息更新成功后，处理本地的赞数，并更新webview
+            int voteCount = [_fansCountLabel.text intValue];//获取旧的粉丝数，然后＋1或－1
+            if (self.hasFollow) {
+                voteCount++;
+            }else{
+                if (voteCount > 0) {
+                    voteCount--;
+                }
+            }
+            _fansCountLabel.text = [NSString stringWithFormat:@"%d", voteCount];
+            
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        //failure
+        _followView.userInteractionEnabled = YES;
+        NSLog(@"vote failure ：%@", error);
+    }];
+    
+}
+#pragma mark 从服务器获取是否已经关注
+- (void)getFollowInfo{
+    
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    //获取网络请求地址url
+    NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
+    NSString *userId = user.olduserid;
+    NSString *objId = _userid;
+    NSString *loginToken = user.token;
+    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
+    NSString *tableName = _followTableName;
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, GetStatusCheckKey]];
+    
+    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
+        NSLog(@"get vote urlString : %@", urlString);
+    //创建AAFNetWorKing管理者
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        //success
+                NSLog(@"get vote info sucess. vote status : %@", responseDic[@"message"]);
+        
+        if ([responseDic[@"message"] isEqualToString:@"true"]) {
+            self.hasFollow = YES;
+        }else{
+            self.hasFollow = NO;
+        }
+        
+        [self updateFollowImageView];
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        //failure
+    }];
+}
+
 - (void)popViewController{
     [self.navigationController popViewControllerAnimated:YES];
 }
