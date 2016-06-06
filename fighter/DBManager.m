@@ -690,7 +690,6 @@ static DBManager * _sharedDBManager = nil;
     return array;
 }
 
-
 /**
  * @brief 更新arenas表所有字段
  * @param arenas表主键
@@ -843,9 +842,9 @@ static DBManager * _sharedDBManager = nil;
     
     
     if (videoType == nil || [videoType isEqualToString:@"All"] || videoType.length == 0) {
-        rs = [_dataBase executeQuery:@" SELECT *  FROM videos where videosType != 'Hot';"  ];
+        rs = [_dataBase executeQuery:@" SELECT *  FROM videos where videosType != 'Hot' order by videosTime DESC;"];
     }else {
-        rs = [_dataBase executeQuery:@" SELECT *  FROM videos where videosType = ?",videoType];
+        rs = [_dataBase executeQuery:@" SELECT *  FROM videos where videosType = ? order by videosTime DESC",videoType];
     }
     
     
@@ -877,8 +876,6 @@ static DBManager * _sharedDBManager = nil;
     }
     return array;
 }
-
-
 
 
 /**
