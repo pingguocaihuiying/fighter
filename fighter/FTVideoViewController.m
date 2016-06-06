@@ -143,14 +143,16 @@
     [self getDataWithGetType:@"new" andCurrId:@"-1"];
 }
 
-#pragma mark get data
 
+
+#pragma mark get data
 - (void) getDataFromDBWithVideoType:(NSString *)videosType  getType:(NSString *) getType {
+    
 
     //从数据库取数据
     DBManager *dbManager = [DBManager shareDBManager];
     [dbManager connect];
-    NSMutableArray *mutableArray =[dbManager searchVideosWithType:videosType];
+    NSMutableArray *mutableArray =[dbManager searchVideosWithType:videosType hotTag:self.videosTag];
     [dbManager close];
     
     if ([getType isEqualToString:@"new"]) {
@@ -169,6 +171,7 @@
     
     urlString = [NSString stringWithFormat:@"%@?videosType=%@&videosCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&videosTag=%@", urlString, videoType, videoCurrId, getType, ts, checkSign, [FTNetConfig showType], self.videosTag];
     
+//    NSLog(@"urlString:%@",urlString);
     NetWorking *net = [[NetWorking alloc]init];
     [net getVideos:urlString option:^(NSDictionary *responseDic) {
         
@@ -176,7 +179,7 @@
             NSString *status = responseDic[@"status"];
             if ([status isEqualToString:@"success"]) {
                 NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
-                NSLog(@"data:%@",responseDic[@"data"]);
+//                NSLog(@"data:%@",responseDic[@"data"]);
                 
                 //缓存数据到DB
                 if (mutableArray.count > 0) {
@@ -187,19 +190,18 @@
                     for (NSDictionary *dic in mutableArray)  {
                         [dbManager insertDataIntoVideos:dic];
                     }
+                    
+                    [self getDataFromDBWithVideoType:videoType getType:getType];
+                    
+                    //缓存数据
+                    [self saveCache];
+                    
+                    [self.collectionView.mj_header endRefreshing];
+                    [self.collectionView.mj_footer endRefreshing];
+                    [self.collectionView reloadData];
                 }
                 
-                [self getDataFromDBWithVideoType:videoType getType:getType];
-                
-                //缓存数据
-                [self saveCache];
-                
-                [self.collectionView.mj_header endRefreshing];
-                [self.collectionView.mj_footer endRefreshing];
-                [self.collectionView reloadData];
-
             }else {
-                [self getDataFromDBWithVideoType:videoType getType:getType];
                 [self.collectionView.mj_header endRefreshing];
                 [self.collectionView.mj_footer endRefreshing];
                 [self.collectionView reloadData];
@@ -207,7 +209,6 @@
             }
             
         }else {
-            [self getDataFromDBWithVideoType:videoType getType:getType];
             [self.collectionView.mj_header endRefreshing];
             [self.collectionView.mj_footer endRefreshing];
             [self.collectionView reloadData];
@@ -426,22 +427,30 @@
 //                    currId = [weakSelf.collectionViewDataSourceArray lastObject][@"videosId"];
                      FTVideoBean *bean = [weakSelf.collectionViewDataSourceArray lastObject];
                     currId = bean.videosId;
+                    
                     //如果当前是按“最热”来，需要找到最小的id座位current id
                     if ([self.videosTag isEqualToString:@"0"]) {
                         int minId = [currId intValue];
-                        for (NSDictionary *videoInfo in weakSelf.collectionViewDataSourceArray) {
-                            int videoId = [videoInfo[@""] intValue];
+                        
+                        for (FTVideoBean  *bean in weakSelf.collectionViewDataSourceArray) {
+                            
+                            int videoId = [bean.videosId intValue];
                             if (videoId < minId) {
                                 minId = videoId;
                             }
                         }
+//                        for (NSDictionary *videoInfo in weakSelf.collectionViewDataSourceArray) {
+//                            int videoId = [videoInfo[@""] intValue];
+//                            if (videoId < minId) {
+//                                minId = videoId;
+//                            }
+//                        }
                         currId = [NSString stringWithFormat:@"%d", minId];
                     }
                     
                 }else{
                     return;
                 }
-        
                 [weakSelf getDataWithGetType:@"old" andCurrId:currId];
     }];
     // 显示footer
