@@ -355,7 +355,7 @@
     //从数据库取数据
     DBManager *dbManager = [DBManager shareDBManager];
     [dbManager connect];
-    NSMutableArray *mutableArray =[dbManager searchArenasWithPage:[_pageNum integerValue] label:_labels];
+    NSMutableArray *mutableArray =[dbManager searchArenasWithLabel:_labels hotTag:_query];
     [dbManager close];
     
     
@@ -551,14 +551,13 @@
         }
     }];
     
-    
 }
 - (void) getDataFromDBWithVideoType:(NSString *)videosType  getType:(NSString *) getType {
     
     //从数据库取数据
     DBManager *dbManager = [DBManager shareDBManager];
     [dbManager connect];
-    NSMutableArray *mutableArray =[dbManager searchVideosWithType:videosType];
+    NSMutableArray *mutableArray =[dbManager searchVideosWithType:videosType hotTag:nil];
     [dbManager close];
     
     if ([getType isEqualToString:@"new"]) {

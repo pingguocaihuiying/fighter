@@ -346,7 +346,7 @@
     //从数据库取数据
     DBManager *dbManager = [DBManager shareDBManager];
     [dbManager connect];
-    NSMutableArray *mutableArray =[dbManager searchArenasWithPage:[_pageNum integerValue] label:_labels];
+    NSMutableArray *mutableArray =[dbManager searchArenasWithLabel:_labels hotTag:_query];
     [dbManager close];
     
     
@@ -382,7 +382,7 @@
     NetWorking *net = [[NetWorking alloc]init];
     
     [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
-//        NSLog(@"responseDic:  %@", responseDic);
+        NSLog(@"responseDic:  %@", responseDic);
         if (responseDic != nil) {
             NSString *status = responseDic[@"status"];
 //            NSLog(@"AreaDic:%@",responseDic);
