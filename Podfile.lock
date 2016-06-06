@@ -1,0 +1,93 @@
+PODS:
+  - AFNetworking (2.6.3):
+    - AFNetworking/NSURLConnection (= 2.6.3)
+    - AFNetworking/NSURLSession (= 2.6.3)
+    - AFNetworking/Reachability (= 2.6.3)
+    - AFNetworking/Security (= 2.6.3)
+    - AFNetworking/Serialization (= 2.6.3)
+    - AFNetworking/UIKit (= 2.6.3)
+  - AFNetworking/NSURLConnection (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.3)
+  - AFNetworking/Security (2.6.3)
+  - AFNetworking/Serialization (2.6.3)
+  - AFNetworking/UIKit (2.6.3):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - FMDB (2.6.2):
+    - FMDB/standard (= 2.6.2)
+  - FMDB/standard (2.6.2)
+  - HappyDNS (0.3.5)
+  - Masonry (1.0.1)
+  - MBProgressHUD (0.9.2)
+  - MJRefresh (3.1.0)
+  - Qiniu (7.0.20):
+    - AFNetworking (~> 2.0)
+    - HappyDNS (~> 0.3)
+  - RealReachability (1.1.7):
+    - RealReachability/Connection (= 1.1.7)
+    - RealReachability/Ping (= 1.1.7)
+  - RealReachability/Connection (1.1.7)
+  - RealReachability/Ping (1.1.7)
+  - SDCycleScrollView (1.65):
+    - SDWebImage (~> 3.7)
+  - SDWebImage (3.7.6):
+    - SDWebImage/Core (= 3.7.6)
+  - SDWebImage/Core (3.7.6)
+  - TencentOpenAPIV2_3 (3.1.0)
+  - UMengAnalytics (4.0.4)
+  - UMengFeedback (2.3.4)
+  - UMengSocialCOM (5.2.1)
+  - WeiboSDK (3.1.4)
+
+DEPENDENCIES:
+  - AFNetworking (~> 2.6.3)
+  - FMDB (~> 2.6.2)
+  - Masonry (~> 1.0.1)
+  - MBProgressHUD (~> 0.9.2)
+  - MJRefresh (~> 3.1.0)
+  - Qiniu (~> 7.0.20)
+  - RealReachability (~> 1.1.7)
+  - SDCycleScrollView (~> 1.65)
+  - SDWebImage (~> 3.7.6)
+  - TencentOpenAPIV2_3 (~> 3.1.0)
+  - UMengAnalytics (~> 4.0.4)
+  - UMengFeedback (~> 2.3.4)
+  - UMengSocialCOM (~> 5.2.1)
+  - WeiboSDK (from `https://github.com/sinaweibosdk/weibo_ios_sdk.git`)
+
+EXTERNAL SOURCES:
+  WeiboSDK:
+    :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
+
+CHECKOUT OPTIONS:
+  WeiboSDK:
+    :commit: 024997bef30c81a787425739a32d3575a9264a5d
+    :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
+
+SPEC CHECKSUMS:
+  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
+  HappyDNS: 6f8cf46fa7c0b98a6591fe8ecb2e08d9907a6e8b
+  Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4
+  Qiniu: 8958e70c02fb563c8c04d555bb5041441c5f4216
+  RealReachability: 8b6644c6b3145f7552ed83bffb52c49b0f3b55e3
+  SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
+  SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
+  TencentOpenAPIV2_3: 39d78d050d2f91a06718ed648a75b3dae27bfa72
+  UMengAnalytics: 4ed421fb3bca63b26fc13c947743cabf3831d199
+  UMengFeedback: 5283cc0e324dffca4dd54c4abb3cbded56487817
+  UMengSocialCOM: 074c135ce349aa4c8848d3fb8458757bcb6ffb67
+  WeiboSDK: bceab625ec59b7039ba721cc4ba9f5868804f63e
+
+PODFILE CHECKSUM: 884bed54f159da1828afb2b16127d54a0bcea3b3
+
+COCOAPODS: 1.0.0

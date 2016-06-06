@@ -142,7 +142,7 @@
     //从数据库取数据
     DBManager *dbManager = [DBManager shareDBManager];
     [dbManager connect];
-    NSMutableArray *mutableArray =[dbManager searchNewsWithType:newsType  page:currentPage];
+    NSMutableArray *mutableArray =[dbManager searchNewsWithType:newsType];
     [dbManager close];
     
     

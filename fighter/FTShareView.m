@@ -29,8 +29,6 @@
 @property (nonatomic ,strong) UIImageView *backImgView;
 @property (nonatomic ,strong) UIView *btnView;
 
-
-
 @end
 
 @implementation FTShareView
@@ -245,25 +243,34 @@
  *  qq好友分享
  */
 - (void) shareToTencentFriends {
+//    
+//    UIImage *image = [UIImage imageNamed:_image];
+//    NSData* data;
+//    if (UIImagePNGRepresentation(image) == nil) {
+//        data = UIImageJPEGRepresentation(image, 1);
+//        
+//    } else {
+//        data = UIImagePNGRepresentation(image);
+//    }
+//    
+//    //设置分享链接
+//    NSURL* url = [NSURL URLWithString: _url];
+//    
+//    QQApiNewsObject* imgObj = [[QQApiNewsObject alloc]initWithURL:url
+//                                                            title:_title
+//                                                      description:_summary
+//                                                 previewImageData:data
+//                                                targetContentType:QQApiURLTargetTypeNews];
     
-    UIImage *image = [UIImage imageNamed:_image];
-    NSData* data;
-    if (UIImagePNGRepresentation(image) == nil) {
-        data = UIImageJPEGRepresentation(image, 1);
-        
-    } else {
-        data = UIImagePNGRepresentation(image);
-    }
-    
-    
+    // 设置预览图片
+    NSURL *previewURL = [NSURL URLWithString:_imageUrl];
     //设置分享链接
     NSURL* url = [NSURL URLWithString: _url];
     
-    QQApiNewsObject* imgObj = [[QQApiNewsObject alloc]initWithURL:url
-                                                            title:_title
-                                                      description:_summary
-                                                 previewImageData:data
-                                                targetContentType:QQApiURLTargetTypeNews];
+    QQApiNewsObject* imgObj = [QQApiNewsObject objectWithURL:url
+                                                       title: _title
+                                                 description: _summary
+                                             previewImageURL:previewURL];
     
     SendMessageToQQReq* req = [SendMessageToQQReq reqWithContent:imgObj];
     
@@ -402,10 +409,11 @@
 {
     
 //    UIImage *image = [UIImage imageNamed:_image];
-    NSMutableData* data = [NSMutableData data];
-    [data appendData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_imageUrl]]];
-//    [data appendData:UIImageJPEGRepresentation(image, 0.5)];
-//    data = UIImageJPEGRepresentation(image, 0.5);
+    NSData* data ;
+    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:_imageUrl]];
+    UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
+    data = UIImageJPEGRepresentation(image, 0.5);
+    
     
     NSLog(@"_imageUrl:%@",_imageUrl);
     
@@ -417,22 +425,25 @@
          message.text = [@"“" stringByAppendingFormat:@"%@”\n  --- 发自《格斗家》app %@",_title,_url];
     }
     
-//    message.text = [[_title stringByAppendingString:@"\n   --- 发自《格斗家》app"] stringByAppendingString: _url];
+    if ( data.length >0) {
+        //设置图片数据
+        WBImageObject *webImage = [WBImageObject object];
+        webImage.imageData = data;
+        message.imageObject = webImage;
+    }else {
+        
+        //设置媒体数据
+        WBWebpageObject *webpage = [WBWebpageObject object];
+        webpage.objectID = @"identifier1";
+        webpage.title = _title;
+        webpage.description = _summary;
+        webpage.thumbnailData =data; //data size can`t be over 32 KB
+        webpage.webpageUrl = _url;
+        message.mediaObject = webpage;
+
+    }
    
-    //设置图片数据
-    WBImageObject *webImage = [WBImageObject object];
-    webImage.imageData = data;
-    message.imageObject = webImage;
     
-    
-//    //设置媒体数据
-//    WBWebpageObject *webpage = [WBWebpageObject object];
-//    webpage.objectID = @"identifier1";
-//    webpage.title = _title;
-//    webpage.description = _summary;
-//    webpage.thumbnailData =data; //data size can`t be over 32 KB
-//    webpage.webpageUrl = _url;
-//    message.mediaObject = webpage;
     return message;
 }
 

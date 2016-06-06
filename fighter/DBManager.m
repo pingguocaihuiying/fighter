@@ -402,10 +402,52 @@ static DBManager * _sharedDBManager = nil;
     NSNumber *pageNum = [NSNumber numberWithInteger:currentPage*20];
     FMResultSet * rs;
     if (type == nil || [type isEqualToString:@"All"]  || [type isEqualToString:@"old"]) {
-        rs = [_dataBase executeQuery:@"SELECT *  FROM news where newsType != 'Hot' ORDER BY newsId DESC limit ?,20",pageNum];
+        rs = [_dataBase executeQuery:@"SELECT *  FROM news   ORDER BY newsId DESC limit ?,20 ;",pageNum];
         
     }else {
-         rs = [_dataBase executeQuery:@" SELECT *  FROM news where newsType= ? ORDER BY newsId DESC limit ?,20",type,pageNum];
+         rs = [_dataBase executeQuery:@" SELECT *  FROM news where newsType= ? ORDER BY newsId DESC limit ?,20 ;",type,pageNum];
+    }
+    
+    
+    NSMutableArray *array = [[NSMutableArray alloc]init];
+    
+    while ([rs next]) {
+        FTNewsBean *bean = [[FTNewsBean alloc]init];
+        bean.newsId = [rs stringForColumn:@"newsId"];
+        bean.author = [rs stringForColumn:@"author"];
+        bean.img_big = [rs stringForColumn:@"img_big"];
+        bean.img_small_one = [rs stringForColumn:@"img_small_one"];
+        bean.img_small_three = [rs stringForColumn:@"img_small_three"];
+        bean.img_small_two = [rs stringForColumn:@"img_small_two"];
+        bean.newsType = [rs stringForColumn:@"newsType"];
+        bean.summary = [rs stringForColumn:@"summary"];
+        bean.url = [rs stringForColumn:@"url"];
+        bean.title = [rs stringForColumn:@"title"];
+        bean.commentCount = [rs stringForColumn:@"commentCount"];
+        bean.voteCount = [rs stringForColumn:@"voteCount"];
+        bean.layout = [rs stringForColumn:@"layout"];
+        bean.newsTime = [rs stringForColumn:@"newsTime"];
+        bean.isReader = [rs boolForColumn:@"isReader"]==1?@"YES":@"NO";
+        [array addObject:bean];
+    }
+    return array;
+}
+
+/**
+ *  查询news表数据
+ *
+ *  @param type news类型
+ *
+ *  @return
+ */
+-(NSMutableArray *) searchNewsWithType:(NSString *)type {
+    
+    FMResultSet * rs;
+    if (type == nil || [type isEqualToString:@"All"]  || [type isEqualToString:@"old"]) {
+        rs = [_dataBase executeQuery:@"SELECT *  FROM news   ORDER BY newsId DESC;"];
+        
+    }else {
+        rs = [_dataBase executeQuery:@" SELECT *  FROM news where newsType= ? ORDER BY newsId DESC;",type];
     }
     
     
@@ -557,7 +599,7 @@ static DBManager * _sharedDBManager = nil;
                    ];
 
     if (result) {
-        NSLog(@"更新数据成功");
+//        NSLog(@"更新数据成功");
     }else {
         NSLog(@"更新数据失败");
     }
@@ -639,20 +681,24 @@ static DBManager * _sharedDBManager = nil;
  * @param 分页查询页数，因为服务器端第一页从1开始，所以在sql中先减去1
  *
  */
--(NSMutableArray *) searchArenasWithPage:(NSInteger )currentPage  label:(NSString *) label{
-    NSLog(@"currentPage:%ld",(long)currentPage);
-    if (currentPage <=1) {
-        currentPage = 0;
-    }else {
-        currentPage --;
-    }
-    NSNumber *pageNum = [NSNumber numberWithInteger:currentPage*20];
+-(NSMutableArray *) searchArenasWithLabel:(NSString *) label  hotTag:(NSString *)hotTag {
+    
     FMResultSet * rs;
     
-    if (label == nil || [label isEqualToString:@"全部视频"] || label.length == 0) {
-        rs = [_dataBase executeQuery:@" SELECT *  FROM arenas  ORDER BY id DESC limit ?,10",pageNum];
+    if ([self isHot:hotTag]) {
+        if (label == nil || [label isEqualToString:@"all"] || label.length ==0 ) {
+            rs = [_dataBase executeQuery:@" SELECT *  FROM arenas  order by (viewCount + commentCount*10 + voteCount*5) DESC , id DESC"];
+        }else {
+            rs = [_dataBase executeQuery:@" SELECT *  FROM arenas where labels = ?  order by (viewCount + commentCount*10 + voteCount*5) DESC ,id DESC ",label ];
+        }
+        
     }else {
-        rs = [_dataBase executeQuery:@" SELECT *  FROM arenas where labels = ?  ORDER BY id DESC limit ?,10",label ,pageNum];
+    
+        if (label == nil || [label isEqualToString:@"all"] || label.length ==0 ) {
+            rs = [_dataBase executeQuery:@" SELECT *  FROM arenas  ORDER BY id DESC;"];
+        }else {
+            rs = [_dataBase executeQuery:@" SELECT *  FROM arenas where labels = ?  ORDER BY id DESC;",label ];
+        }
     }
     
     
@@ -689,7 +735,6 @@ static DBManager * _sharedDBManager = nil;
     }
     return array;
 }
-
 
 /**
  * @brief 更新arenas表所有字段
@@ -830,6 +875,14 @@ static DBManager * _sharedDBManager = nil;
 
 
 
+- (BOOL) isHot:(NSString *)hotTag {
+    
+    if ([hotTag isEqualToString:@"0"] || [hotTag isEqualToString:@"list-dam-blog-3"]) {
+        return YES;
+    }
+    return NO;
+}
+
 /**
  *  查询videos表所有字段
  *
@@ -837,16 +890,25 @@ static DBManager * _sharedDBManager = nil;
  *
  *  @return 返回结果值
  */
--(NSMutableArray *) searchVideosWithType:(NSString *)videoType {
+-(NSMutableArray *) searchVideosWithType:(NSString *)videoType hotTag:(NSString *)hotTag {
 
     FMResultSet * rs;
     
-    
-    if (videoType == nil || [videoType isEqualToString:@"All"] || videoType.length == 0) {
-        rs = [_dataBase executeQuery:@" SELECT *  FROM videos where videosType != 'Hot';"  ];
+    if ([self isHot:hotTag]) {
+        if (videoType == nil || [videoType isEqualToString:@"All"] ) {
+            rs = [_dataBase executeQuery:@" SELECT *  FROM videos order by viewCount DESC;"];
+        }else {
+            rs = [_dataBase executeQuery:@" SELECT *  FROM videos where videosType = ? order by viewCount DESC",videoType];
+        }
     }else {
-        rs = [_dataBase executeQuery:@" SELECT *  FROM videos where videosType = ?",videoType];
+        
+        if (videoType == nil || [videoType isEqualToString:@"All"] ) {
+            rs = [_dataBase executeQuery:@" SELECT *  FROM videos  order by videosId DESC;"];
+        }else {
+            rs = [_dataBase executeQuery:@" SELECT *  FROM videos where videosType = ? order by videosId DESC",videoType];
+        }
     }
+    
     
     
     NSMutableArray *array = [[NSMutableArray alloc]init];
@@ -879,8 +941,6 @@ static DBManager * _sharedDBManager = nil;
 }
 
 
-
-
 /**
  *  更新videos表所有字段
  *
@@ -906,7 +966,6 @@ static DBManager * _sharedDBManager = nil;
             NSLog(@"更新数据失败");
         }
     }
-    
 }
 
 @end
