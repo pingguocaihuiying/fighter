@@ -44,5 +44,10 @@ typedef NS_ENUM(NSInteger, FTHomepageTableViewType) {
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
 @property (weak, nonatomic) IBOutlet UIImageView *noDynamicImageView;
 @property (weak, nonatomic) IBOutlet UIButton *shareAndModifyProfileButton;
+@property (weak, nonatomic) IBOutlet UIView *followView;
+@property (weak, nonatomic) IBOutlet UIImageView *followImageView;
+@property (weak, nonatomic) IBOutlet UIView *commentView;
+@property (weak, nonatomic) IBOutlet UIButton *bottomNewPostsView;
+@property (weak, nonatomic) IBOutlet UIView *bottomFollowView;
 
 @end

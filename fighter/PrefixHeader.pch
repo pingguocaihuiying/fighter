@@ -29,9 +29,10 @@
 #import "UIColor+YBColorCategory.h"
 #import "MD5.h"
 #import "ZJModelTool.h"
-#import "SDWebImage-umbrella.h"
-//#import "UIImageView+WebCache.h"
 #import "AFNetworking.h"
+#import <SDWebImage/SDImageCache.h>
+#import <SDWebImage/UIButton+WebCache.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 #import "UIView+YBAddtitions.h"
 #import "UILabel+FTLYZLabel.h"//调整行间距
 #import "MBProgressHUD.h"

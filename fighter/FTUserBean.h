@@ -25,7 +25,7 @@
 //@property (nonatomic, copy)NSString *lastlogintime;
 //@property (nonatomic, copy)NSString *imei;
 
-//@property (nonatomic,copy) NSString *userId;
+@property (nonatomic,copy) NSString *userid;//用于个人主页关注、取消关注
 @property (nonatomic,copy) NSString *birthday;
 @property (nonatomic,copy) NSString *unionId;
 @property (nonatomic,copy) NSString *openId;
@@ -76,6 +76,11 @@
 @property (nonatomic, copy)NSString* headUrl;//头像
 @property (nonatomic, copy)NSString *query;//身份标识
 @property (nonatomic, copy)NSString *brief;//简介
+@property (nonatomic, strong)NSArray *boxerRaceInfos;
+
+
+
+
 //计算年龄
 - (NSString *) age;
 //格式化生日

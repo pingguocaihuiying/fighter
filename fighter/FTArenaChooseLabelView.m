@@ -14,7 +14,7 @@
 @property (nonatomic, strong)UICollectionView *labelCollectionView;
 @property (nonatomic, strong)UILabel *titleLabel;
 @property (nonatomic, strong)UIButton *confirmButton;
-@property (nonatomic, strong)NSArray *dataArray;
+@property (nonatomic, strong)NSMutableArray *dataArray;
 @property (nonatomic, copy)NSString *curItemValueEn;
 @end
 
@@ -29,7 +29,9 @@
 }
 
 - (void)initBaseData{
-    _dataArray = [FTNWGetCategory sharedCategories];
+    _dataArray = [[NSMutableArray alloc ] initWithArray:[FTNWGetCategory sharedCategories]];
+    [_dataArray addObject:@{@"itemValue":@"训练", @"itemValueEn":@"Train"}];
+    
 }
 
 - (void)initSubviews{

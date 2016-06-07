@@ -378,7 +378,7 @@
     
     urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName];
     
-//    NSLog(@"urlString:%@",urlString);
+    NSLog(@"arena list urlString:%@",urlString);
     NetWorking *net = [[NetWorking alloc]init];
     
     [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {

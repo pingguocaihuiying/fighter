@@ -1599,13 +1599,13 @@
 			name = main;
 			sourceTree = "<group>";
 		};
-		E6D2F8D91CE962D000160788 /* 获取标签分类 */ = {
+		E6D2F8D91CE962D000160788 /* 本地用户 */ = {
 			isa = PBXGroup;
 			children = (
 				E6C4D7EB1CEC5E7B00D73BFC /* FTUserTools.h */,
 				E6C4D7EC1CEC5E7B00D73BFC /* FTUserTools.m */,
 			);
-			name = "获取标签分类";
+			name = "本地用户";
 			sourceTree = "<group>";
 		};
 		E6D2F8DE1CE98A6200160788 /* 分类标签 */ = {
@@ -1659,7 +1659,7 @@
 			isa = PBXGroup;
 			children = (
 				E68D16101CFD7C7A00AB5A8C /* 改变行高 */,
-				E6D2F8D91CE962D000160788 /* 获取标签分类 */,
+				E6D2F8D91CE962D000160788 /* 本地用户 */,
 				E668BBB81CE44D3900071998 /* 缓存 */,
 				E6D74A311CB7B7EE00854337 /* Categorys */,
 				E6D74A3A1CB7B7EE00854337 /* UUID.h */,

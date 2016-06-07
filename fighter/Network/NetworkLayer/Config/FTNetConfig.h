@@ -27,6 +27,12 @@ extern NSString *const GetStateURL;
 
 //增加点赞接口
 extern NSString *const AddVoteURL;
+
+//增加关注接口
+extern NSString *const AddFollowURL;
+//删除关注接口    接口地址: 域名
+extern NSString *const DeleteFollowURL;
+
 //删除点赞接口
 extern NSString *const DeleteVoteURL;
 //获取视频接口地址: 域名/api/news/getVideos.do
@@ -133,5 +139,10 @@ extern NSString * const AddStarCheckKey;
 extern NSString * const DeleteStarCheckKey;
 //发新帖 gedoujia1gdshjjgfkd52261225550
 extern NSString * const NewPostCheckKey;
+
+//增加关注
+extern NSString * const AddFollowCheckKey;
+//取消关注
+extern NSString * const CancelFollowCheckKey;
 
 

@@ -697,15 +697,16 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     assert(userOldid);
     NSDictionary *parameterDict = @{@"userId" : userOldid};
-    NSLog(@"urlString : %@", urlString);
+//    NSLog(@"urlString : %@", urlString);
     [manager POST:urlString parameters:parameterDict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
 //        [ZJModelTool createModelWithDictionary:responseObject modelName:nil];
                 NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"%@", responseDic[@"data"]);
+//        NSLog(@"%@", responseDic[@"data"]);
         NSDictionary *userDic = responseDic[@"data"];
         FTUserBean *userBean = [FTUserBean new];
         [userBean setValuesForKeysWithDictionary:userDic];
         [userBean setValuesWithDic:userDic];
+        userBean.boxerRaceInfos = userDic[@"boxerRaceInfos"];
         userBeanOption(userBean);
         
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
