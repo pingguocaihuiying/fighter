@@ -161,4 +161,7 @@
 
 //获取个人主页用户资料
 + (void)getHomepageUserInfoWithUserOldid:(NSString *)userOldid andCallbackOption:(void (^)(FTUserBean *userBean))userBeanOption;
+
+//获取评论
++ (void)getCommentsWithObjId:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^) (NSArray *array))option;
 @end

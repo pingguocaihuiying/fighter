@@ -183,7 +183,7 @@
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",newsType, newsCurrId, getType, ts, @"quanjijia222222"]];
     
     urlString = [NSString stringWithFormat:@"%@?newsType=%@&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@", urlString, newsType, newsCurrId, getType, ts, checkSign, [FTNetConfig showType]];
-    
+    NSLog(@"获取资讯 url ： %@", urlString);
     NetWorking *net = [[NetWorking alloc]init];
     [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
         

@@ -703,7 +703,13 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                 NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
 //        NSLog(@"%@", responseDic[@"data"]);
         NSDictionary *userDic = responseDic[@"data"];
+        //输出获取的user信息
+//        for(NSString *key in [userDic allKeys]){
+//            NSLog(@"key : %@, value : %@", key, userDic[key]);
+//        }
+        
         FTUserBean *userBean = [FTUserBean new];
+
         [userBean setValuesForKeysWithDictionary:userDic];
         [userBean setValuesWithDic:userDic];
         userBean.boxerRaceInfos = userDic[@"boxerRaceInfos"];
@@ -711,6 +717,29 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
         
+    }];
+}
+
++ (void)getCommentsWithObjId:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^)(NSArray *))option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetCommentsURL];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    assert(objId);
+    urlString = [NSString stringWithFormat:@"%@?objId=%@&tableName=%@", urlString, objId, tableName];
+    //    NSLog(@"urlString : %@", urlString);
+    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        //        [ZJModelTool createModelWithDictionary:responseObject modelName:nil];
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                NSLog(@"message : %@", responseDic[@"message"]);
+        NSArray *array = responseDic[@"data"];
+        
+        if (array) {
+            option(array);
+        }
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        option(nil);
     }];
 }
 

@@ -109,7 +109,6 @@
     FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:CommentURL];
-//    urlString = @"http://10.11.1.117:8080/pugilist_admin/api/comment/add$UserComment.do";
     NSString *userId = user.olduserid;
     NSString *objId;
     objId= [NSString stringWithFormat:@"%@", _newsBean.newsId];
@@ -125,6 +124,9 @@
     }else if(self.arenaBean){
         objId= [NSString stringWithFormat:@"%@", _arenaBean.postsId];
         tableName = @"c-damageblog";
+    }else if(_objId){
+        objId= _objId;
+        tableName = _tableName;
     }else{
         NSLog(@"error : 没有找到bean");
     }

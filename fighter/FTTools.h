@@ -12,4 +12,5 @@
 
 + (NSString *)getChLabelNameWithEnLabelName:(NSString *)labelNameEn;
 + (void)showHUDWithMessage:(NSString *)message andView:(UIView *)view;
++ (NSString *)fixStringForDate:(NSString *)timestampString;//日期转换
 @end

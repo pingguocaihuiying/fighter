@@ -201,8 +201,14 @@
     [self.view addSubview:_webView];
     
     if(self.webUrlString == nil || self.webUrlString.length <= 0) {
+        NSString *url = @"";
+        if (_videoBean) {
+                url = _videoBean.url;
+        }else{
+            
+        }
         
-        NSString *url = _videoBean.url;
+        
         NSLog(@"视频url：%@", url);
         url = [self encodeToPercentEscapeString:url];
     //    _videoBean.viewCount = @"100";

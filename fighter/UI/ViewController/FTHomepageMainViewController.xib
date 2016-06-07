@@ -476,9 +476,12 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="SRR-CG-pcP"/>
                             </constraints>
-                            <state key="normal" title="退出登录" backgroundImage="主要按钮背景ios"/>
+                            <state key="normal" title="发新动态" backgroundImage="主要按钮背景ios"/>
                             <state key="disabled" backgroundImage="主要按钮背景ios-pre"/>
-                            <state key="highlighted" title="退出登录" backgroundImage="主要按钮背景ios-pre"/>
+                            <state key="highlighted" title="发新动态" backgroundImage="主要按钮背景ios-pre"/>
+                            <connections>
+                                <action selector="newPostsButtonClicked:" destination="-1" eventType="touchUpInside" id="GVu-Gk-3HX"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -526,6 +529,9 @@
                                         <constraint firstAttribute="width" constant="24" id="PeE-7s-dbo"/>
                                     </constraints>
                                     <state key="normal" backgroundImage="详情页底部按钮一堆-评论"/>
+                                    <connections>
+                                        <action selector="commentButtonClicked:" destination="-1" eventType="touchUpInside" id="Lha-Xm-Cw7"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

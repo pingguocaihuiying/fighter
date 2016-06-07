@@ -133,6 +133,7 @@ extern NSString *const AddArenaViewCountCountURL;
 //获取个人主页用户信息
 extern NSString *const GetHomepageUserInfo;
 
+
 //收藏
 extern NSString * const AddStarCheckKey;
 //取消收藏
@@ -145,4 +146,6 @@ extern NSString * const AddFollowCheckKey;
 //取消关注
 extern NSString * const CancelFollowCheckKey;
 
+//获取评论
+extern NSString * const GetCommentsURL;
 

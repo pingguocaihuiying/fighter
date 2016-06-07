@@ -52,6 +52,9 @@
 #import "FTHomepageRecordListTableViewCell.h"
 #import "NetWorking.h"
 #import "FTUserBean.h"
+#import "FTHomepageCommentListViewController.h"
+#import "FTArenaBean.h"
+#import "FTArenaPostsDetailViewController.h"
 
 @interface FTHomepageMainViewController ()<FTArenaDetailDelegate, FTSelectCellDelegate,FTTableViewdelegate, UIScrollViewDelegate, UIScrollViewAccessibilityDelegate, UICollectionViewDelegate, UICollectionViewDataSource, FTVideoDetailDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic)UIScrollView *scrollView;
@@ -74,10 +77,11 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (assign, nonatomic)BOOL hasInitRecordRank;
 @property (assign, nonatomic)BOOL hasFollow;//是否关注
-@property (nonatomic, copy)NSString *userid;//用于（取消）关注
+@property (nonatomic, copy)NSString *userid;//用于（取消）关注、获取评论列表
 @property (nonatomic, copy)NSString *followTableName;//用于（取消）关注
 
 @property (nonatomic, strong)NSMutableArray *collectionViewDataSourceArray;//视频collectionView的数据源
+@property (nonatomic, copy)NSString *userIdentity;//用户身份  0:普通用户 1:拳手 2:教练
 @end
 
 @implementation FTHomepageMainViewController
@@ -108,6 +112,7 @@
         [_headImageView sd_setImageWithURL:[NSURL URLWithString:userBean.headUrl]];
         self.sexLabel.text = userBean.sex;
         self.nameLabel.text = userBean.name;
+
         self.followCountLabel.text = [NSString stringWithFormat:@"%@", userBean.followCount];
         self.fansCountLabel.text = [NSString stringWithFormat:@"%@", userBean.fansCount == nil ? @"0" : userBean.fansCount];
         self.dynamicCountLabel.text = [NSString stringWithFormat:@"%@", userBean.dynamicCount == nil ? @"0" : userBean.dynamicCount];
@@ -123,7 +128,13 @@
         self.heightLabel.text = [NSString stringWithFormat:@"%@cm", [userBean.height isEqualToString:@""]  ? @"- " : userBean.height];
         
         //处理三个按钮的可用状态
+        if (userBean.query) {
+            _userIdentity = userBean.query;
+        }else{
+            _userIdentity = @"0";
+        }
         if ([userBean.query isEqualToString:@"0"]) {//普通用户
+            
             _followTableName = @"f-user";
             self.recordButton.hidden = NO;//显示战绩按钮
             self.videoButton.hidden = NO;//显示视频按钮
@@ -143,20 +154,18 @@
             self.identityImageView2.image = [UIImage imageNamed:@"身份圆形-拳"];
         }
         [self getFollowInfo];//获取关注信息
-        //处理右上角的“转发”或“修改”
+        //处理右上角的“转发”或“修改”：如果是自己的主页，则是“修改”，如果是别人的，则显示转发
         FTUserBean *localUserBean = [FTUserTools getLocalUser];
         _shareAndModifyProfileButton.hidden = NO;
         if (localUserBean && [localUserBean.olduserid isEqualToString:self.olduserid]) {//如果是自己的主页
             [_shareAndModifyProfileButton setTitle:@"修改" forState:UIControlStateNormal];
             [_shareAndModifyProfileButton addTarget:self action:@selector(modifyProfile) forControlEvents:UIControlEventTouchUpInside];
             //显示“发新动态”，隐藏关注等
-            _bottomNewPostsView.hidden = NO;
-            _bottomFollowView.hidden = YES;
+            _bottomNewPostsView.hidden = YES;
+            _bottomFollowView.hidden = NO;
         }else{//如果是别人的主页
-            
             [_shareAndModifyProfileButton setTitle:@"转发" forState:UIControlStateNormal];
             [_shareAndModifyProfileButton addTarget:self action:@selector(shareUserInfo) forControlEvents:UIControlEventTouchUpInside];
-            
             //隐藏“发新动态”，显示关注等
             _bottomNewPostsView.hidden = YES;
             _bottomFollowView.hidden = NO;
@@ -304,7 +313,6 @@
             _videoCollectionView.hidden = NO;
             
             [self initCollectionView];
-            [self getDataWithGetType:@"new" andCurrId:@"-1"];//加载视频数据
             break;
         default:
             break;
@@ -348,14 +356,7 @@
                 NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
                 
                 
-#pragma mark 从格斗场的数据中，筛选出属于“训练”类型的内容
-                NSMutableArray *tempArray = [NSMutableArray new];
-                for(NSDictionary *dic in mutableArray){
-                    if ([dic[@"labels"] isEqualToString:@"Train"]) {
-                        [tempArray addObject:dic];
-                    }
-                }
-                _collectionViewDataSourceArray = tempArray;
+
                 
                 //缓存数据到DB
                 if (mutableArray.count > 0) {
@@ -393,6 +394,15 @@
     NSMutableArray *mutableArray =[dbManager searchArenasWithLabel:_labels hotTag:_query];
     [dbManager close];
     
+    //从格斗场的数据中，筛选出属于“训练”类型的内容**start***
+    NSMutableArray *tempArray = [NSMutableArray new];
+    for(FTArenaBean *bean in mutableArray){
+        if ([bean.labels isEqualToString:@"Train"]) {
+            [tempArray addObject:bean];
+        }
+    }
+    _collectionViewDataSourceArray = tempArray;
+    //从格斗场的数据中，筛选出属于“训练”类型的内容** end ***
     
     if (self.tableViewDataSourceArray == nil) {
         self.tableViewDataSourceArray = [[NSMutableArray alloc]init];
@@ -537,56 +547,6 @@
 }
 
 
-#pragma -mark  视频列表collectionView
-//加载视频数据
-- (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)videoCurrId{
-    
-    NSString *urlString = [FTNetConfig host:Domain path:GetVideoURL];
-    NSString *videoType = @"";
-    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@",videoType, videoCurrId, @"1", getType, ts, @"quanjijia222222"]];
-    
-    urlString = [NSString stringWithFormat:@"%@?videosType=%@&videosCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&videosTag=%@", urlString, videoType, videoCurrId, getType, ts, checkSign, [FTNetConfig showType], @"1"];
-    
-    NetWorking *net = [[NetWorking alloc]init];
-    [net getVideos:urlString option:^(NSDictionary *responseDic) {
-        
-        if (responseDic != nil) {
-            NSString *status = responseDic[@"status"];
-            if ([status isEqualToString:@"success"]) {
-                NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
-                
-                
-                //缓存数据到DB
-                if (mutableArray.count > 0) {
-                    DBManager *dbManager = [DBManager shareDBManager];
-                    [dbManager connect];
-                    [dbManager cleanVideosTable];
-                    
-                    for (NSDictionary *dic in mutableArray)  {
-                        [dbManager insertDataIntoVideos:dic];
-                    }
-                }
-                
-                [self getDataFromDBWithVideoType:videoType getType:getType];
-                
-                [_videoCollectionView reloadData];
-                
-            }else {
-                [self getDataFromDBWithVideoType:videoType getType:getType];
-                [_videoCollectionView reloadData];
-                
-            }
-            
-        }else {
-            [self getDataFromDBWithVideoType:videoType getType:getType];
-
-            [_videoCollectionView reloadData];
-            
-            
-        }
-    }];
-}
 - (void) getDataFromDBWithVideoType:(NSString *)videosType  getType:(NSString *) getType {
     
     //从数据库取数据
@@ -633,32 +593,32 @@
     //    NSLog(@"section : %ld, row : %ld", indexPath.section, indexPath.row);
     if (self.collectionViewDataSourceArray) {
         
-        FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
+        FTArenaPostsDetailViewController *postsDetailVC = [FTArenaPostsDetailViewController new];
         //获取对应的bean，传递给下个vc
         //        NSDictionary *newsDic = self.collectionViewDataSourceArray[indexPath.row];
         //        FTVideoBean *bean = [FTVideoBean new];
         //        [bean setValuesWithDic:newsDic];
         
-        FTVideoBean *bean = self.self.collectionViewDataSourceArray[indexPath.row];
+        FTArenaBean *bean = self.collectionViewDataSourceArray[indexPath.row];
         //标记已读
-        if (![bean.isReader isEqualToString:@"YES"]) {
-            bean.isReader = @"YES";
-            //从数据库取数据
-            DBManager *dbManager = [DBManager shareDBManager];
-            [dbManager connect];
-            [dbManager updateVideosById:bean.videosId isReader:YES];
-            [dbManager close];
-        }
+//        if (![bean.isReader isEqualToString:@"YES"]) {
+//            bean.isReader = @"YES";
+//            //从数据库取数据
+//            DBManager *dbManager = [DBManager shareDBManager];
+//            [dbManager connect];
+//            [dbManager updateVideosById:bean.videosId isReader:YES];
+//            [dbManager close];
+//        }
         
         
-        videoDetailVC.videoBean = bean;
+        postsDetailVC.arenaBean = bean;
         NSIndexPath *theIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
 //        NSLog(@"section : %ld, row : %ld", indexPath.section, indexPath.row);
-        videoDetailVC.indexPath = theIndexPath;
+        postsDetailVC.indexPath = theIndexPath;
         
-        videoDetailVC.delegate = self;
+        postsDetailVC.delegate = self;
         
-        [self.navigationController pushViewController:videoDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+        [self.navigationController pushViewController:postsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
     }
 }
 
@@ -674,8 +634,10 @@
         
         cell = [[[NSBundle mainBundle]loadNibNamed:@"FTVideoCollectionViewCell" owner:self options:nil]firstObject];
     }
-    FTVideoBean *videoBean = self.collectionViewDataSourceArray[indexPath.row];
-    [cell setWithBean:videoBean];
+//    NSDictionary *dic = _collectionViewDataSourceArray[indexPath.row];
+//    [cell setWithDic:dic];
+    FTArenaBean *arenaBean = _collectionViewDataSourceArray[indexPath.row];
+    [cell setWithArenaBean:arenaBean];
     return cell;
 }
 //更新视频的点赞、评论数量
@@ -804,6 +766,21 @@
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
         //failure
     }];
+}
+- (IBAction)newPostsButtonClicked:(id)sender {
+    FTNewPostViewController *newPostViewController = [FTNewPostViewController new];
+    newPostViewController.title = @"发新帖";
+    [self.navigationController pushViewController:newPostViewController animated:YES];
+}
+- (IBAction)commentButtonClicked:(id)sender {
+    FTHomepageCommentListViewController *commentListViewController = [FTHomepageCommentListViewController new];
+    commentListViewController.objId = _userid;
+    if ([_userIdentity isEqualToString:@"0"]) {
+        commentListViewController.tableName = @"c-user";
+    }else if([_userIdentity isEqualToString:@"1"]){
+        commentListViewController.tableName = @"c-boxer";
+    }
+    [self.navigationController pushViewController:commentListViewController animated:YES];
 }
 
 - (void)popViewController{

@@ -184,6 +184,10 @@
 		E6A9DDBF1CD9C88600CB9518 /* FTVideoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A9DDBD1CD9C88600CB9518 /* FTVideoDetailViewController.m */; };
 		E6A9DDC01CD9C88600CB9518 /* FTVideoDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6A9DDBE1CD9C88600CB9518 /* FTVideoDetailViewController.xib */; };
 		E6AD700F1CF80CFA00329D1E /* FTLYZButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E6AD700E1CF80CFA00329D1E /* FTLYZButton.m */; };
+		E6B239021D066C88001F86BE /* FTHomepageCommentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B239001D066C88001F86BE /* FTHomepageCommentListViewController.m */; };
+		E6B239031D066C88001F86BE /* FTHomepageCommentListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6B239011D066C88001F86BE /* FTHomepageCommentListViewController.xib */; };
+		E6B239081D067045001F86BE /* FTHomepageCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B239061D067045001F86BE /* FTHomepageCommentTableViewCell.m */; };
+		E6B239091D067045001F86BE /* FTHomepageCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6B239071D067045001F86BE /* FTHomepageCommentTableViewCell.xib */; };
 		E6B458971CB7560400FB4261 /* FTBaseNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458961CB7560400FB4261 /* FTBaseNavigationViewController.m */; };
 		E6B4589A1CB7563300FB4261 /* FTBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458991CB7563300FB4261 /* FTBaseViewController.m */; };
 		E6B458C31CB75D7A00FB4261 /* FTCoachViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458C11CB75D7A00FB4261 /* FTCoachViewController.m */; };
@@ -535,6 +539,12 @@
 		E6A9DDBE1CD9C88600CB9518 /* FTVideoDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTVideoDetailViewController.xib; sourceTree = "<group>"; };
 		E6AD700D1CF80CFA00329D1E /* FTLYZButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTLYZButton.h; sourceTree = "<group>"; };
 		E6AD700E1CF80CFA00329D1E /* FTLYZButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTLYZButton.m; sourceTree = "<group>"; };
+		E6B238FF1D066C88001F86BE /* FTHomepageCommentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTHomepageCommentListViewController.h; path = "UI/个人主页/评论列表/FTHomepageCommentListViewController.h"; sourceTree = "<group>"; };
+		E6B239001D066C88001F86BE /* FTHomepageCommentListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTHomepageCommentListViewController.m; path = "UI/个人主页/评论列表/FTHomepageCommentListViewController.m"; sourceTree = "<group>"; };
+		E6B239011D066C88001F86BE /* FTHomepageCommentListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTHomepageCommentListViewController.xib; path = "UI/个人主页/评论列表/FTHomepageCommentListViewController.xib"; sourceTree = "<group>"; };
+		E6B239051D067045001F86BE /* FTHomepageCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTHomepageCommentTableViewCell.h; sourceTree = "<group>"; };
+		E6B239061D067045001F86BE /* FTHomepageCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTHomepageCommentTableViewCell.m; sourceTree = "<group>"; };
+		E6B239071D067045001F86BE /* FTHomepageCommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTHomepageCommentTableViewCell.xib; sourceTree = "<group>"; };
 		E6B458931CB755C000FB4261 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		E6B458951CB7560400FB4261 /* FTBaseNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBaseNavigationViewController.h; sourceTree = "<group>"; };
 		E6B458961CB7560400FB4261 /* FTBaseNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBaseNavigationViewController.m; sourceTree = "<group>"; };
@@ -1338,9 +1348,8 @@
 		E68D16061CFD24DE00AB5A8C /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E68D160A1CFD31F100AB5A8C /* FTHomepageMainViewController.h */,
-				E68D160B1CFD31F100AB5A8C /* FTHomepageMainViewController.m */,
-				E68D160C1CFD31F100AB5A8C /* FTHomepageMainViewController.xib */,
+				E6B238FD1D066C09001F86BE /* main */,
+				E6B238FE1D066C13001F86BE /* 评论列表 */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -1353,13 +1362,13 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		E68D16101CFD7C7A00AB5A8C /* 改变行高 */ = {
+		E68D16101CFD7C7A00AB5A8C /* 改变行间距 */ = {
 			isa = PBXGroup;
 			children = (
 				E68D16111CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.h */,
 				E68D16121CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m */,
 			);
-			name = "改变行高";
+			name = "改变行间距";
 			sourceTree = "<group>";
 		};
 		E68D16141CFD816500AB5A8C /* 图片模糊处理 */ = {
@@ -1375,6 +1384,7 @@
 		E68D16211D00098D00AB5A8C /* cell */ = {
 			isa = PBXGroup;
 			children = (
+				E6B239041D067014001F86BE /* 评论 */,
 				E6E688E41D002F7D00708C24 /* 赛事list */,
 				E6549DF31D000AEB00B27483 /* FTRecordRankTableViewCell.h */,
 				E6549DF41D000AEB00B27483 /* FTRecordRankTableViewCell.m */,
@@ -1435,6 +1445,36 @@
 				E6AD700E1CF80CFA00329D1E /* FTLYZButton.m */,
 			);
 			name = "自定义带属性的button";
+			sourceTree = "<group>";
+		};
+		E6B238FD1D066C09001F86BE /* main */ = {
+			isa = PBXGroup;
+			children = (
+				E68D160A1CFD31F100AB5A8C /* FTHomepageMainViewController.h */,
+				E68D160B1CFD31F100AB5A8C /* FTHomepageMainViewController.m */,
+				E68D160C1CFD31F100AB5A8C /* FTHomepageMainViewController.xib */,
+			);
+			name = main;
+			sourceTree = "<group>";
+		};
+		E6B238FE1D066C13001F86BE /* 评论列表 */ = {
+			isa = PBXGroup;
+			children = (
+				E6B238FF1D066C88001F86BE /* FTHomepageCommentListViewController.h */,
+				E6B239001D066C88001F86BE /* FTHomepageCommentListViewController.m */,
+				E6B239011D066C88001F86BE /* FTHomepageCommentListViewController.xib */,
+			);
+			name = "评论列表";
+			sourceTree = "<group>";
+		};
+		E6B239041D067014001F86BE /* 评论 */ = {
+			isa = PBXGroup;
+			children = (
+				E6B239051D067045001F86BE /* FTHomepageCommentTableViewCell.h */,
+				E6B239061D067045001F86BE /* FTHomepageCommentTableViewCell.m */,
+				E6B239071D067045001F86BE /* FTHomepageCommentTableViewCell.xib */,
+			);
+			name = "评论";
 			sourceTree = "<group>";
 		};
 		E6B458921CB7554F00FB4261 /* UI */ = {
@@ -1637,7 +1677,7 @@
 		E6D74A301CB7B7EE00854337 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				E68D16101CFD7C7A00AB5A8C /* 改变行高 */,
+				E68D16101CFD7C7A00AB5A8C /* 改变行间距 */,
 				E6D2F8D91CE962D000160788 /* 本地用户 */,
 				E668BBB81CE44D3900071998 /* 缓存 */,
 				E6D74A311CB7B7EE00854337 /* Categorys */,
@@ -1919,6 +1959,7 @@
 				3D4B19541CDAEF840022DFB0 /* FTTableViewCell4.xib in Resources */,
 				3DC9A4EF1CE5CD0700E16D19 /* FTRankViewController.xib in Resources */,
 				3D4B194A1CDACF9A0022DFB0 /* FTUserCenterViewController.xib in Resources */,
+				E6B239031D066C88001F86BE /* FTHomepageCommentListViewController.xib in Resources */,
 				3DC4121E1CD060190030C229 /* FTDrawerViewController.xib in Resources */,
 				3DE95BAE1CD8A042005BF85C /* FTRegistViewController.xib in Resources */,
 				E6A9DDB71CD9833200CB9518 /* FTVideoTableViewCell.xib in Resources */,
@@ -1956,6 +1997,7 @@
 				E6035EB91CC08D2800B10D36 /* FTNewsDetail2ViewController.xib in Resources */,
 				E6B458D31CB75DA200FB4261 /* FTInformationViewController.xib in Resources */,
 				3D7C6B871CF2A2990088400D /* BoxerInfoController.xib in Resources */,
+				E6B239091D067045001F86BE /* FTHomepageCommentTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2109,11 +2151,13 @@
 				3D7B98C81CE0D76800B80B8D /* FTWeixinInfoVC.m in Sources */,
 				E68050BB1CBF919A00678905 /* JHRefreshBaseView.m in Sources */,
 				E65F90B61CBDF106005CA3E6 /* NetWorking.m in Sources */,
+				E6B239021D066C88001F86BE /* FTHomepageCommentListViewController.m in Sources */,
 				E6E9E88B1CDC464A00976480 /* FTVideoCollectionView.m in Sources */,
 				3DE95B501CD326B7005BF85C /* FTCollectionViewLayout.m in Sources */,
 				E68050B71CBF919A00678905 /* JHRefreshAmazingAniView.m in Sources */,
 				E6FE6A5D1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m in Sources */,
 				3D8D73C21CE9DEFE009E2320 /* FTRankTableVIewCell.m in Sources */,
+				E6B239081D067045001F86BE /* FTHomepageCommentTableViewCell.m in Sources */,
 				3DC9A4E31CE59A0400E16D19 /* FTButton.m in Sources */,
 				E6D74A491CB7B7EE00854337 /* UILabel+StringFrame.m in Sources */,
 				3D57D0501CEC0E7F0082BF24 /* DBManager.m in Sources */,
