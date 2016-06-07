@@ -402,10 +402,9 @@ static DBManager * _sharedDBManager = nil;
     NSNumber *pageNum = [NSNumber numberWithInteger:currentPage*20];
     FMResultSet * rs;
     if (type == nil || [type isEqualToString:@"All"]  || [type isEqualToString:@"old"]) {
-        rs = [_dataBase executeQuery:@"SELECT *  FROM news   ORDER BY newsId DESC limit ?,20 ;",pageNum];
-        
+        rs = [_dataBase executeQuery:@"SELECT *  FROM news where newsType != 'Hot'  ORDER BY newsId DESC limit ?,20 ;",pageNum];
     }else {
-         rs = [_dataBase executeQuery:@" SELECT *  FROM news where newsType= ? ORDER BY newsId DESC limit ?,20 ;",type,pageNum];
+         rs = [_dataBase executeQuery:@" SELECT *  FROM news where newsType = ? ORDER BY newsId DESC limit ?,20 ;",type,pageNum];
     }
     
     
@@ -444,7 +443,7 @@ static DBManager * _sharedDBManager = nil;
     
     FMResultSet * rs;
     if (type == nil || [type isEqualToString:@"All"]  || [type isEqualToString:@"old"]) {
-        rs = [_dataBase executeQuery:@"SELECT *  FROM news   ORDER BY newsId DESC;"];
+        rs = [_dataBase executeQuery:@"SELECT *  FROM news where newsType != 'Hot'   ORDER BY newsId DESC;"];
         
     }else {
         rs = [_dataBase executeQuery:@" SELECT *  FROM news where newsType= ? ORDER BY newsId DESC;",type];

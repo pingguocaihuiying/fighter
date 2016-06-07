@@ -243,37 +243,11 @@
  *  qq好友分享
  */
 - (void) shareToTencentFriends {
-//    
-//    UIImage *image = [UIImage imageNamed:_image];
-//    NSData* data;
-//    if (UIImagePNGRepresentation(image) == nil) {
-//        data = UIImageJPEGRepresentation(image, 1);
-//        
-//    } else {
-//        data = UIImagePNGRepresentation(image);
-//    }
-//    
-//    //设置分享链接
-//    NSURL* url = [NSURL URLWithString: _url];
-//    
-//    QQApiNewsObject* imgObj = [[QQApiNewsObject alloc]initWithURL:url
-//                                                            title:_title
-//                                                      description:_summary
-//                                                 previewImageData:data
-//                                                targetContentType:QQApiURLTargetTypeNews];
     
-    // 设置预览图片
-    NSURL *previewURL = [NSURL URLWithString:_imageUrl];
-    //设置分享链接
-    NSURL* url = [NSURL URLWithString: _url];
     
-    QQApiNewsObject* imgObj = [QQApiNewsObject objectWithURL:url
-                                                       title: _title
-                                                 description: _summary
-                                             previewImageURL:previewURL];
+    QQApiNewsObject* imgObj = [self setTencentReq];
     
     SendMessageToQQReq* req = [SendMessageToQQReq reqWithContent:imgObj];
-    
     QQApiSendResultCode sent = [QQApiInterface sendReq:req];
     [self handleSendResult:sent];
     
@@ -284,15 +258,9 @@
  */
 - (void) shareToTencentZone {
     
-    // 设置预览图片
-    NSURL *previewURL = [NSURL URLWithString:_imageUrl];
-    //设置分享链接
-    NSURL* url = [NSURL URLWithString: _url];
     
-    QQApiNewsObject* imgObj = [QQApiNewsObject objectWithURL:url
-                                                       title: _title
-                                                 description: _summary
-                                             previewImageURL:previewURL];
+    
+    QQApiNewsObject* imgObj = [self setTencentReq];
     
     // 设置分享到 QZone 的标志位
     [imgObj setCflag: kQQAPICtrlFlagQZoneShareOnStart ];
@@ -300,6 +268,38 @@
     QQApiSendResultCode sent = [QQApiInterface SendReqToQZone:req];
     [self handleSendResult:sent];
 }
+
+
+- (QQApiNewsObject *) setTencentReq {
+    
+//    // 设置预览图片
+//    NSURL *previewURL = [NSURL URLWithString:_imageUrl];
+//    //设置分享链接
+//    NSURL* url = [NSURL URLWithString: _url];
+//    
+//    QQApiNewsObject* imgObj = [QQApiNewsObject objectWithURL:url
+//                                                       title: _title
+//                                                 description: _summary
+//                                             previewImageURL:previewURL];
+
+    NSData* data ;
+    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:_imageUrl]];
+    UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
+    data = UIImageJPEGRepresentation(image, 0.5);
+    
+    //设置分享链接
+    NSURL* url = [NSURL URLWithString: _url];
+    
+    QQApiNewsObject* imgObj = [[QQApiNewsObject alloc]initWithURL:url
+                                                            title:_title
+                                                      description:_summary
+                                                 previewImageData:data
+                                                targetContentType:QQApiURLTargetTypeNews];
+
+    return imgObj;
+}
+
+
 
 /**
  *  新浪微博分享
@@ -318,27 +318,16 @@
                                            authInfo:authRequest
                                        access_token:myDelegate.wbtoken];
     
-    request.userInfo = @{@"ShareMessageFrom": @"--- 发自《格斗家》app",
-                         @"Other_Info_1": [NSNumber numberWithInt:123],
-                         @"Other_Info_2": @[@"obj1", @"obj2"],
-                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}
-                         };
+//    request.userInfo = @{@"ShareMessageFrom": @"--- 发自《格斗家》app",
+//                         @"Other_Info_1": [NSNumber numberWithInt:123],
+//                         @"Other_Info_2": @[@"obj1", @"obj2"],
+//                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}
+//                         };
     request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
     [WeiboSDK sendRequest:request];
     
 }
 
-
-- (UIViewController *) viewController {
-    
-    for (UIView* next = [self superview]; next; next = next.superview) {
-        UIResponder *nextResponder = [next nextResponder];
-        if ([nextResponder isKindOfClass:[UIViewController class]]) {
-            return (UIViewController *)nextResponder;
-        }
-    }
-    return nil;
-}
 
 - (void) test {
 
@@ -454,13 +443,33 @@
  */
 - (void)shareToWXWithType:(int) scene{
     
+    
+    
+    NSData *data = [self getImageDataForSDWebImageCachedKey];
+    
     WXMediaMessage *message = [WXMediaMessage message];
     message.title = _title;
     message.description = _summary;
-    [message setThumbImage:[UIImage imageNamed:@"微信用@200"]];
+    
+    if (data.length >0) {
+       [message setThumbData:data];
+    }else {
+        [message setThumbImage:[UIImage imageNamed:@"微信用@200"]];
+    }
+
+    
+    
+//    WXImageObject *imageObj = [WXImageObject object];
+//    imageObj.imageData = [self getImageDataForSDWebImageCachedKey];
+//    message.mediaObject = imageObj;
+    
     WXWebpageObject *webpageObject = [WXWebpageObject object];
     webpageObject.webpageUrl = _url;
     message.mediaObject = webpageObject;
+//
+//    WXVideoObject *videoObj = [WXVideoObject object];
+//    videoObj.videoUrl = _url;
+//    message.mediaObject = videoObj;
     
     SendMessageToWXReq *req = [SendMessageToWXReq new];
     req.bText = NO;
@@ -469,6 +478,24 @@
     [WXApi sendReq:req];
 }
 
+
+//获取SDWebImage缓存图片
+- (NSData *) getImageDataForSDWebImageCachedKey {
+
+    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:_imageUrl]];
+    UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
+    NSData *data = UIImageJPEGRepresentation(image, 0.6);
+   
+    
+    int i = 1;
+    while (data.length > 32*1000) {
+        NSLog(@"NSData.length:%ld",data.length);
+        data = UIImageJPEGRepresentation(image, 1-i/10);
+        i++;
+    }
+
+    return  data;
+}
 
 - (void)handleSendResult:(QQApiSendResultCode)sendResult
 {
@@ -501,8 +528,6 @@
         {
             UIAlertView *msgbox = [[UIAlertView alloc] initWithTitle:@"Error" message:@"API接口不支持" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
             [msgbox show];
-            
-            
             break;
         }
         case EQQAPISENDFAILD:
