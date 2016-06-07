@@ -192,7 +192,7 @@
             if ([status isEqualToString:@"success"]) {
                 NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
                 
-               
+//                NSLog(@"data:%@",responseDic[@"data"]);
                 //缓存数据到DB
                 if (mutableArray.count > 0) {
                     DBManager *dbManager = [DBManager shareDBManager];
@@ -202,26 +202,21 @@
                     for (NSDictionary *dic in mutableArray)  {
                         [dbManager insertDataIntoNews:dic];
                     }
+                    
+                    //缓存数据
+                    [self saveCache];
+                    
+                    [self getDataFromDBWithType:getType currentPage:self.currentPage];
                 }
-                
-               
-                
-                //缓存数据
-                [self saveCache];
-                
-                [self getDataFromDBWithType:getType currentPage:self.currentPage];
                 
                 [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
                 [self.tableViewController.tableView footerEndRefreshing];
             }else {
-                [self getDataFromDBWithType:getType currentPage:self.currentPage];
                 [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
                 [self.tableViewController.tableView footerEndRefreshing];
-
             }
             
         }else {
-            [self getDataFromDBWithType:getType currentPage:self.currentPage];
             [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
             [self.tableViewController.tableView footerEndRefreshing];
 
@@ -384,7 +379,7 @@
         NSString *currId;
         if (sself.tableViewController.sourceArray && sself.tableViewController.sourceArray.count > 0) {
             FTNewsBean *bean = [sself.tableViewController.sourceArray lastObject];
-            currId = bean.Id;
+            currId = bean.newsId;
         }else{
             return;
         }

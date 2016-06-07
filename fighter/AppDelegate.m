@@ -33,7 +33,7 @@
 #import <TencentOpenAPI/TencentOAuth.h>
 //#import "UMSocialQQHandler.h"
 #import "WeiboSDK.h"
-
+#import <PLStreamingKit/PLStreamingEnv.h>
 
 //微信请求类型
 typedef NS_ENUM(NSInteger, WXRequestType) {
@@ -75,7 +75,8 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     //监听网络
     [GLobalRealReachability startNotifier];
     
-    
+    //设置直播环境
+    [PLStreamingEnv initEnv];
     
     //屏蔽个人中心时打开这里
 //    [self setRootViewController2];
@@ -95,32 +96,6 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
         
     }
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
-    NSLog(@"push info:");
-    
-    
-    /**
-     Notification info:{
-     aps =     {
-     alert = 123456;
-     badge = 1;
-     "content-available" = 1;
-     sound = default;
-     };
-     extra =     {
-     "click_action" = 3;
-     "click_param" =         {
-     objId = 209;
-     url = "http://www.gogogofight.com/pugilist_system/ueditor/html/1464142462003_pu.html";
-     urlType = news;
-     };
-     };
-     "ixintui.push.id" = 100000029;
-     }
-     **/
-
-    
-
-   
     
     return YES;
 }
@@ -529,6 +504,7 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     }
     
 }
+
 
 //// 对收到的消息进行处理:
 //- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler

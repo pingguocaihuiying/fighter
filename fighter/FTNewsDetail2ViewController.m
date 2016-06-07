@@ -202,40 +202,6 @@
     //友盟分享事件统计
     [MobClick event:@"newsPage_DetailPage_share"];
     //注意：分享到微信好友、微信朋友圈、微信收藏、QQ空间、QQ好友、来往好友、来往朋友圈、易信好友、易信朋友圈、Facebook、Twitter、Instagram等平台需要参考各自的集成方法
-//    //如果需要分享回调，请将delegate对象设置self，并实现下面的回调方法
-//        NSString *shareText = [NSString stringWithFormat:@"%@ %@", _newsBean.title, self.webViewUrlString];
-//    [UMSocialSnsService presentSnsIconSheetView:self
-//                                         appKey:@"570739d767e58edb5300057b"
-//                                      shareText:shareText
-//                                     shareImage:[UIImage imageNamed:@"AppIcon"]
-//                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,nil]
-//                                       delegate:self];
-    /*
-     *暂时采用微信的分享
-     */
-    
-//    FTPhotoPickerView *pickerView = [FTPhotoPickerView new];
-//    pickerView.resultLabel.text = @"分享到";
-//    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享-微信"] forState:UIControlStateNormal];
-//    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享-微信pre"] forState:UIControlStateHighlighted];
-//    [pickerView.cameraBtn addTarget:self action:@selector(shareToWXSceneSession) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享-朋友圈"] forState:UIControlStateNormal];
-//    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享-朋友圈pre"] forState:UIControlStateHighlighted];
-//    [pickerView.albumBtn addTarget:self action:@selector(shareToWXSceneTimeline) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    FTPhotoPickerView *pickerView = [FTPhotoPickerView new];
-//    pickerView.resultLabel.text = @"分享到";
-//    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享96-QQ"] forState:UIControlStateNormal];
-//    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享96-QQpre"] forState:UIControlStateHighlighted];
-//    [pickerView.cameraBtn addTarget:self action:@selector(shareToTencentFriends) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享96-新浪"] forState:UIControlStateNormal];
-//    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享96-新浪pre"] forState:UIControlStateHighlighted];
-//    [pickerView.albumBtn addTarget:self action:@selector(shareToTencentZone) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [self.view addSubview:pickerView];
-    
     
     NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-news",_newsBean.newsId];
     _webUrlString = [@"http://www.gogogofight.com/page/news_page.html?" stringByAppendingString:str];
@@ -245,17 +211,13 @@
     [shareView setTitle:_newsBean.title];
     [shareView setSummary:_newsBean.summary];
     [shareView setImage:@"微信用@200"];
-//    [shareView setImageUrl:@"http://www.gogogofight.com/page/images/wechat_share.jpg"];
     
     if ([_newsBean.layout isEqualToString:@"1"]) {//大图
-    
         [shareView setImageUrl:_newsBean.img_big];
     }else if ([_newsBean.layout isEqualToString:@"2"]) {//图
-        
         [shareView setImageUrl:_newsBean.img_small_one];
-    }else if ([_newsBean.layout isEqualToString:@"1"]) {//3图
-        
-        [shareView setImageUrl:_newsBean.img_big];
+    }else if ([_newsBean.layout isEqualToString:@"3"]) {//3图
+        [shareView setImageUrl:_newsBean.img_small_one];
     }
     
     [self.view addSubview:shareView];

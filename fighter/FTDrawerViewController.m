@@ -440,6 +440,11 @@ static NSString *const tableCellId = @"tableCellId";
     [self presentViewController:baseNav animated:YES completion:nil];
 }
 
+#warning 临时个人主页入口
+- (IBAction)tempHomePageBtnAction:(id)sender {
+    
+}
+
 #pragma mark - UICollectionViewDataSource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
