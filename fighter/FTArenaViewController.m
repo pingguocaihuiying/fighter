@@ -382,7 +382,7 @@
     NetWorking *net = [[NetWorking alloc]init];
     
     [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
-        NSLog(@"responseDic:  %@", responseDic);
+//        NSLog(@"responseDic:  %@", responseDic);
         if (responseDic != nil) {
             NSString *status = responseDic[@"status"];
 //            NSLog(@"AreaDic:%@",responseDic);
@@ -398,20 +398,22 @@
                     for (NSDictionary *dic in mutableArray)  {
                         [dbManager insertDataIntoArenas:dic];
                     }
+                    
+                    [self getDataFromDB];
                 }
                 
-                [self getDataFromDB];
+                
                 
                 [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
                 [self.tableViewController.tableView footerEndRefreshing];
             }else {
-                [self getDataFromDB];
+//                [self getDataFromDB];
                 [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
                 [self.tableViewController.tableView footerEndRefreshing];
             }
 
         }else {
-            [self getDataFromDB];
+//            [self getDataFromDB];
             [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
             [self.tableViewController.tableView footerEndRefreshing];
         }

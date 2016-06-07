@@ -24,4 +24,6 @@ pod "TencentOpenAPIV2_3", "~> 3.1.0"
 #sina microblog sdk
 pod "WeiboSDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git"
 
+#直播SDK
+pod "PLCameraStreamingKit", "~> 1.7.1"
 end

@@ -38,7 +38,7 @@
 #import "MBProgressHUD.h"
 #import "UIWindow+MBProgressHUD.h"
 #import "FTUserTools.h"//获取本地用户信息
-
+#import "RealReachability-umbrella.h"
 
 //导入配置信息类
 #import "FTNetConfig.h"

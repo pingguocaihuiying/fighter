@@ -41,7 +41,7 @@
     
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
-    //设置左侧按钮,在根上设置，以后继承（第一次尝试这么做）
+    //设置左侧按钮
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
                                    initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                    style:UIBarButtonItemStyleDone
@@ -89,12 +89,7 @@
     if (self.netStatus == RealStatusViaWWAN)
     {
         NSLog(@"Network WWAN! In charge!");
-    }
-    
-    WWANAccessType accessType = [GLobalRealReachability currentWWANtype];
-    
-    if (_netStatus == RealStatusViaWWAN)
-    {
+        WWANAccessType accessType = [GLobalRealReachability currentWWANtype];
         if (accessType == WWANType2G)
         {
             NSLog(@"RealReachabilityStatus2G");
@@ -105,13 +100,15 @@
         }
         else if (accessType == WWANType4G)
         {
-           NSLog(@"RealReachabilityStatus4G");
+            NSLog(@"RealReachabilityStatus4G");
         }
         else
         {
-           NSLog(@"Unknown RealReachability WWAN Status, might be iOS6");
+            NSLog(@"Unknown RealReachability WWAN Status, might be iOS6");
         }
+
     }
+
 }
 
 - (void)dealloc
