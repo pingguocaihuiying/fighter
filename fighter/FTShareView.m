@@ -281,11 +281,6 @@
 //                                                       title: _title
 //                                                 description: _summary
 //                                             previewImageURL:previewURL];
-
-    NSData* data ;
-    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:_imageUrl]];
-    UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
-    data = UIImageJPEGRepresentation(image, 0.5);
     
     //设置分享链接
     NSURL* url = [NSURL URLWithString: _url];
@@ -293,7 +288,7 @@
     QQApiNewsObject* imgObj = [[QQApiNewsObject alloc]initWithURL:url
                                                             title:_title
                                                       description:_summary
-                                                 previewImageData:data
+                                                 previewImageData:[self getImageDataForSDWebImageCachedKey]
                                                 targetContentType:QQApiURLTargetTypeNews];
 
     return imgObj;
@@ -377,9 +372,8 @@
     webpage.objectID = @"";
     webpage.title = _title;
     webpage.description = [NSString stringWithFormat:NSLocalizedString(_summary, nil), [[NSDate date] timeIntervalSince1970]];
-    webpage.thumbnailData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:_image ofType:@"jpg"]];
+    webpage.thumbnailData = [self getImageDataForSDWebImageCachedKey];
 
-    NSLog(@"url:%@ length:%ld",[_url stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding],(unsigned long)_url.length);
     webpage.webpageUrl = _url;
     message.mediaObject = webpage;
 
@@ -396,16 +390,11 @@
  */
 - (WBMessageObject *)messageToShare
 {
-    
-//    UIImage *image = [UIImage imageNamed:_image];
-    NSData* data ;
-    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:_imageUrl]];
-    UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
-    data = UIImageJPEGRepresentation(image, 0.5);
-    
-    
-    NSLog(@"_imageUrl:%@",_imageUrl);
-    
+    NSData* data = [self getImageDataForSDWebImageCachedKey];
+
+    if (_summary.length > 48) {
+        _summary = [[_summary substringToIndex:47] stringByAppendingString:@"..."];
+    }
     //设置文本信息
     WBMessageObject *message = [WBMessageObject message];
     if (_summary) {
@@ -414,25 +403,20 @@
          message.text = [@"“" stringByAppendingFormat:@"%@”\n  --- 发自《格斗家》app %@",_title,_url];
     }
     
-    if ( data.length >0) {
-        //设置图片数据
-        WBImageObject *webImage = [WBImageObject object];
-        webImage.imageData = data;
-        message.imageObject = webImage;
-    }else {
-        
-        //设置媒体数据
-        WBWebpageObject *webpage = [WBWebpageObject object];
-        webpage.objectID = @"identifier1";
-        webpage.title = _title;
-        webpage.description = _summary;
-        webpage.thumbnailData =data; //data size can`t be over 32 KB
-        webpage.webpageUrl = _url;
-        message.mediaObject = webpage;
-
-    }
-   
+    //设置图片数据
+    WBImageObject *webImage = [WBImageObject object];
+    webImage.imageData = data;
+    message.imageObject = webImage;
     
+//    //设置媒体数据
+//    WBWebpageObject *webpage = [WBWebpageObject object];
+//    webpage.objectID = @"identifier1";
+//    webpage.title = _title;
+//    webpage.description = _summary;
+//    webpage.thumbnailData =data; //data size can`t be over 32 KB
+//    webpage.webpageUrl = _url;
+//    message.mediaObject = webpage;
+
     return message;
 }
 
@@ -443,21 +427,12 @@
  */
 - (void)shareToWXWithType:(int) scene{
     
-    
-    
-    NSData *data = [self getImageDataForSDWebImageCachedKey];
-    
     WXMediaMessage *message = [WXMediaMessage message];
     message.title = _title;
     message.description = _summary;
     
-    if (data.length >0) {
-       [message setThumbData:data];
-    }else {
-        [message setThumbImage:[UIImage imageNamed:@"微信用@200"]];
-    }
-
-    
+    NSData *data = [self getImageDataForSDWebImageCachedKey];
+    [message setThumbData:data];
     
 //    WXImageObject *imageObj = [WXImageObject object];
 //    imageObj.imageData = [self getImageDataForSDWebImageCachedKey];
@@ -484,12 +459,15 @@
 
     NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:_imageUrl]];
     UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
-    NSData *data = UIImageJPEGRepresentation(image, 0.6);
+    NSData *data = UIImageJPEGRepresentation(image, 1);
    
-    
+    if (data == nil || data.length == 0) {
+        UIImage *iconImg = [UIImage imageNamed:@"微信用@200"];
+        data = UIImageJPEGRepresentation(iconImg, 1);
+    }
     int i = 1;
     while (data.length > 32*1000) {
-        NSLog(@"NSData.length:%ld",data.length);
+//        NSLog(@"NSData.length:%ld",data.length);
         data = UIImageJPEGRepresentation(image, 1-i/10);
         i++;
     }

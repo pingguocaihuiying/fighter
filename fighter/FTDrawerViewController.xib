@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTDrawerViewController">
@@ -200,22 +200,34 @@
                                 <action selector="feedBackAction:" destination="-1" eventType="touchUpInside" id="f3G-JU-QbP"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="QQ群: 454849853" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqM-ce-kbm">
-                            <rect key="frame" x="5" y="529" width="310" height="15"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QQ群: 454849853" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqM-ce-kbm">
+                            <rect key="frame" x="5" y="529" width="310" height="14.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前版本：" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c3Z-QR-b02">
-                            <rect key="frame" x="5" y="548" width="310" height="15"/>
+                            <rect key="frame" x="5" y="548" width="310" height="14.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2I5-nU-0jg">
+                            <rect key="frame" x="16" y="245" width="288" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="Ncg-z8-Twk"/>
+                            </constraints>
+                            <state key="normal" title="个人主页" backgroundImage="主要按钮背景ios"/>
+                            <state key="highlighted" backgroundImage="主要按钮背景ios-pre"/>
+                            <connections>
+                                <action selector="tempHomePageBtnAction:" destination="-1" eventType="touchUpInside" id="CU5-Wu-jVl"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.12732554248883243" green="0.12918950280120908" blue="0.13873106060606055" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="wMV-CD-tle" firstAttribute="centerY" secondItem="xoE-3k-RJX" secondAttribute="centerY" id="0AJ-dq-Xho"/>
+                        <constraint firstItem="2I5-nU-0jg" firstAttribute="top" secondItem="8cM-N5-Uxg" secondAttribute="bottom" constant="50" id="2Ru-gH-Nvm"/>
                         <constraint firstItem="CCa-tj-QxX" firstAttribute="trailing" secondItem="wMV-CD-tle" secondAttribute="trailing" constant="-2" id="4J7-6e-PC5"/>
                         <constraint firstItem="INQ-kt-DaJ" firstAttribute="leading" secondItem="2TV-v2-Wgu" secondAttribute="leading" constant="5" id="5lS-NG-6Fl"/>
                         <constraint firstItem="FWT-jF-UaN" firstAttribute="centerX" secondItem="wMV-CD-tle" secondAttribute="centerX" id="6UH-ml-6I7"/>
@@ -227,10 +239,12 @@
                         <constraint firstItem="FOf-te-ukt" firstAttribute="centerX" secondItem="2TV-v2-Wgu" secondAttribute="centerX" id="D8m-sm-wZ3"/>
                         <constraint firstItem="xoE-3k-RJX" firstAttribute="leading" secondItem="wMV-CD-tle" secondAttribute="trailing" constant="24" id="FGR-8L-ewq"/>
                         <constraint firstItem="PuJ-hd-UMy" firstAttribute="top" secondItem="INQ-kt-DaJ" secondAttribute="bottom" constant="30" id="GMs-6g-o4b"/>
+                        <constraint firstItem="2I5-nU-0jg" firstAttribute="leading" secondItem="2TV-v2-Wgu" secondAttribute="leading" constant="16" id="GMy-qK-AzC"/>
                         <constraint firstItem="8cM-N5-Uxg" firstAttribute="centerY" secondItem="FOf-te-ukt" secondAttribute="centerY" id="JW1-ge-AEE"/>
                         <constraint firstItem="INQ-kt-DaJ" firstAttribute="trailing" secondItem="2TV-v2-Wgu" secondAttribute="trailing" constant="-5" id="Lmh-gU-vsQ"/>
                         <constraint firstItem="FWT-jF-UaN" firstAttribute="top" secondItem="wMV-CD-tle" secondAttribute="bottom" constant="15" id="M67-cr-uk4"/>
                         <constraint firstItem="c3Z-QR-b02" firstAttribute="top" secondItem="UqM-ce-kbm" secondAttribute="bottom" constant="5" id="OjK-i4-Kxn"/>
+                        <constraint firstAttribute="trailing" secondItem="2I5-nU-0jg" secondAttribute="trailing" constant="16" id="QgJ-vQ-QS5"/>
                         <constraint firstItem="Hiu-t4-qR9" firstAttribute="centerY" secondItem="FOf-te-ukt" secondAttribute="centerY" id="TTp-8b-RMd"/>
                         <constraint firstItem="FOf-te-ukt" firstAttribute="top" secondItem="1wU-10-oix" secondAttribute="bottom" constant="10" id="Txc-8z-XVb"/>
                         <constraint firstItem="c3Z-QR-b02" firstAttribute="leading" secondItem="UqM-ce-kbm" secondAttribute="leading" id="U2t-Yl-Qsh"/>
@@ -336,6 +350,8 @@
         </view>
     </objects>
     <resources>
+        <image name="主要按钮背景ios" width="30" height="30"/>
+        <image name="主要按钮背景ios-pre" width="30" height="30"/>
         <image name="圆头像边框" width="80" height="80"/>
         <image name="头像-空" width="34" height="34"/>
         <image name="帐号设置" width="40" height="40"/>

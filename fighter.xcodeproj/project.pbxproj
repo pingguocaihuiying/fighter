@@ -37,6 +37,7 @@
 		3D5FB4BE1CDC7E6600FC1809 /* FTImageCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4BC1CDC7E6600FC1809 /* FTImageCollectionCell.m */; };
 		3D5FB4BF1CDC7E6600FC1809 /* FTImageCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D5FB4BD1CDC7E6600FC1809 /* FTImageCollectionCell.xib */; };
 		3D6947101CE3374000989440 /* FTUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D69470F1CE3374000989440 /* FTUserViewController.m */; };
+		3D6CFF3A1D06A41200CAC12A /* FTAlivePushStreamVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6CFF391D06A41200CAC12A /* FTAlivePushStreamVC.m */; };
 		3D6DA0D21CEE93CD00BAA8F0 /* FTNWGetCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6DA0D11CEE93CD00BAA8F0 /* FTNWGetCategory.m */; };
 		3D6DA0E11CEEA96D00BAA8F0 /* FTBoxerCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6DA0DF1CEEA96D00BAA8F0 /* FTBoxerCenter.m */; };
 		3D6DA0E21CEEA96D00BAA8F0 /* FTBoxerCenter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D6DA0E01CEEA96D00BAA8F0 /* FTBoxerCenter.xib */; };
@@ -296,6 +297,8 @@
 		3D5FB4BD1CDC7E6600FC1809 /* FTImageCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTImageCollectionCell.xib; sourceTree = "<group>"; };
 		3D69470E1CE3374000989440 /* FTUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserViewController.h; sourceTree = "<group>"; };
 		3D69470F1CE3374000989440 /* FTUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserViewController.m; sourceTree = "<group>"; };
+		3D6CFF381D06A41200CAC12A /* FTAlivePushStreamVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTAlivePushStreamVC.h; sourceTree = "<group>"; };
+		3D6CFF391D06A41200CAC12A /* FTAlivePushStreamVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTAlivePushStreamVC.m; sourceTree = "<group>"; };
 		3D6DA0CF1CEE939000BAA8F0 /* FTNWGetCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNWGetCategory.h; sourceTree = "<group>"; };
 		3D6DA0D11CEE93CD00BAA8F0 /* FTNWGetCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNWGetCategory.m; sourceTree = "<group>"; };
 		3D6DA0DE1CEEA96D00BAA8F0 /* FTBoxerCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBoxerCenter.h; sourceTree = "<group>"; };
@@ -796,6 +799,23 @@
 				3D69470F1CE3374000989440 /* FTUserViewController.m */,
 			);
 			name = base;
+			sourceTree = "<group>";
+		};
+		3D6CFF361D06A36600CAC12A /* 直播 */ = {
+			isa = PBXGroup;
+			children = (
+				3D6CFF371D06A37800CAC12A /* main */,
+			);
+			name = "直播";
+			sourceTree = "<group>";
+		};
+		3D6CFF371D06A37800CAC12A /* main */ = {
+			isa = PBXGroup;
+			children = (
+				3D6CFF381D06A41200CAC12A /* FTAlivePushStreamVC.h */,
+				3D6CFF391D06A41200CAC12A /* FTAlivePushStreamVC.m */,
+			);
+			name = main;
 			sourceTree = "<group>";
 		};
 		3D7B98AB1CE05EDD00B80B8D /* acountManager */ = {
@@ -1440,6 +1460,7 @@
 		E6B458921CB7554F00FB4261 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				3D6CFF361D06A36600CAC12A /* 直播 */,
 				E6735AD11CFC408F0068782C /* 个人主页 */,
 				3D69470A1CE305EB00989440 /* 排行榜 */,
 				3D6947091CE305CD00989440 /* 用户中心 */,
@@ -2087,6 +2108,7 @@
 				E6E580B31CBE523B00272242 /* FTBaseTableViewCell.m in Sources */,
 				E668BBB11CE32BA200071998 /* FTRankingListViewController.m in Sources */,
 				3D4B19661CDB6CF80022DFB0 /* FTWeightPickerView.m in Sources */,
+				3D6CFF3A1D06A41200CAC12A /* FTAlivePushStreamVC.m in Sources */,
 				E68EC50B1CC4B85D00A338C8 /* FTFilterTableViewController.m in Sources */,
 				E67872791CEB00980099CEE6 /* FTNewPostViewController.m in Sources */,
 				E6B458CD1CB75D9600FB4261 /* FTMatchViewController.m in Sources */,
