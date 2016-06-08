@@ -397,19 +397,16 @@
     }
     //设置文本信息
     WBMessageObject *message = [WBMessageObject message];
-    message.text = [_title stringByAppendingString:_url];
+    if (_summary) {
+         message.text = [@"“" stringByAppendingFormat:@"%@”,%@ \n  --- 发自《格斗家》app %@",_title,_summary,_url];
+    }else {
+         message.text = [@"“" stringByAppendingFormat:@"%@”\n  --- 发自《格斗家》app %@",_title,_url];
+    }
     
-    WBImageObject *imageObj = [WBImageObject object];
-    imageObj.imageData = data;
-    message.imageObject = imageObj;
-    
-//    WBWebpageObject *webpage = [WBWebpageObject object];
-//    webpage.objectID = @"identifier1";
-//    webpage.title = _title;
-//    webpage.description = _summary;
-//    webpage.thumbnailData =data; //data size can`t be over 32 KB
-//    webpage.webpageUrl = _url;
-//    message.mediaObject = webpage;
+    //设置图片数据
+    WBImageObject *webImage = [WBImageObject object];
+    webImage.imageData = data;
+    message.imageObject = webImage;
     
 //    //设置媒体数据
 //    WBWebpageObject *webpage = [WBWebpageObject object];
