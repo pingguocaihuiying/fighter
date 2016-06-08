@@ -26,7 +26,7 @@
 @property (nonatomic,copy) NSString *pictureUrlNames;
 @property (nonatomic,copy) NSString *thumbUrl;
 @property (nonatomic,copy) NSString *urlPrefix;
-@property (nonatomic,copy) NSString *content;//"headUrl": "用户头像", commentCount：评论数   voteCount：点赞数
+@property (nonatomic,copy) NSString *content;
 @property (nonatomic,copy) NSString *headUrl;
 @property (nonatomic,copy) NSString *commentCount;
 @property (nonatomic,copy) NSString *voteCount;

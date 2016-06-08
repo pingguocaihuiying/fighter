@@ -19,7 +19,6 @@
 #import "FTNewsBean.h"
 #import "UIButton+LYZTitle.h"
 #import "UIButton+WebCache.h"
-#import "Mobclick.h"
 #import "FTRankingListViewController.h"
 #import "FTCache.h"
 #import "FTCacheBean.h"
@@ -143,7 +142,7 @@
     //从数据库取数据
     DBManager *dbManager = [DBManager shareDBManager];
     [dbManager connect];
-    NSMutableArray *mutableArray =[dbManager searchNewsWithType:newsType  page:currentPage];
+    NSMutableArray *mutableArray =[dbManager searchNewsWithType:newsType];
     [dbManager close];
     
     
@@ -193,7 +192,7 @@
             if ([status isEqualToString:@"success"]) {
                 NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
                 
-               
+//                NSLog(@"data:%@",responseDic[@"data"]);
                 //缓存数据到DB
                 if (mutableArray.count > 0) {
                     DBManager *dbManager = [DBManager shareDBManager];
@@ -203,26 +202,21 @@
                     for (NSDictionary *dic in mutableArray)  {
                         [dbManager insertDataIntoNews:dic];
                     }
+                    
+                    //缓存数据
+                    [self saveCache];
+                    
+                    [self getDataFromDBWithType:getType currentPage:self.currentPage];
                 }
-                
-               
-                
-                //缓存数据
-                [self saveCache];
-                
-                [self getDataFromDBWithType:getType currentPage:self.currentPage];
                 
                 [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
                 [self.tableViewController.tableView footerEndRefreshing];
             }else {
-                [self getDataFromDBWithType:getType currentPage:self.currentPage];
                 [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
                 [self.tableViewController.tableView footerEndRefreshing];
-
             }
             
         }else {
-            [self getDataFromDBWithType:getType currentPage:self.currentPage];
             [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
             [self.tableViewController.tableView footerEndRefreshing];
 
@@ -385,7 +379,7 @@
         NSString *currId;
         if (sself.tableViewController.sourceArray && sself.tableViewController.sourceArray.count > 0) {
             FTNewsBean *bean = [sself.tableViewController.sourceArray lastObject];
-            currId = bean.Id;
+            currId = bean.newsId;
         }else{
             return;
         }
@@ -559,17 +553,30 @@
 
 #pragma -mark -排行榜按钮被点击
 - (IBAction)rankButtonClicked:(id)sender {
-    FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
-    FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
-//    rankHomeVC.title = @"排行榜";
+    [self gotoHomepageWithUseroldid:nil];
+    
+
+//    FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
+////    rankHomeVC.title = @"排行榜";
+////    [self.navigationController pushViewController:rankHomeVC animated:YES];
 //    [self.navigationController pushViewController:rankHomeVC animated:YES];
-    [self.navigationController pushViewController:homepageViewController animated:YES];
     
 //    FTRankingListViewController *rankingListViewController = [FTRankingListViewController new];
 //    [self.navigationController pushViewController:rankingListViewController animated:YES];
 //    rankingListViewController.title = @"格斗之王";
+    
 }
-
+- (void)gotoHomepageWithUseroldid:(NSString *)olduserid{
+    if (!olduserid) {
+        //从本地读取存储的用户信息
+        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+        olduserid = localUser.olduserid;
+    }
+        FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
+    homepageViewController.olduserid = olduserid;
+    [self.navigationController pushViewController:homepageViewController animated:YES];
+}
 - (IBAction)messageButtonClicked:(id)sender {
     NSLog(@"message button clicked.");
 }

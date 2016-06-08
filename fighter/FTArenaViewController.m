@@ -7,7 +7,6 @@
 //
 
 #import "FTArenaViewController.h"
-#import "NIDropDown.h"
 #import "QuartzCore/QuartzCore.h"
 #import "FTNWGetCategory.h"
 #import "FTLabelBean.h"
@@ -27,7 +26,6 @@
 #import "FTNewsBean.h"
 #import "UIButton+LYZTitle.h"
 #import "UIButton+WebCache.h"
-#import "Mobclick.h"
 #import "FTRankingListViewController.h"
 #import "FTCache.h"
 #import "FTCacheBean.h"
@@ -42,10 +40,10 @@
 #import "DBManager.h"
 #import "FTRankViewController.h"
 
-@interface FTArenaViewController ()<FTArenaDetailDelegate, FTSelectCellDelegate,FTTableViewdelegate>
+@interface FTArenaViewController ()<FTArenaDetailDelegate, FTSelectCellDelegate,FTFilterDelegate,FTTableViewdelegate>
 
 {
-    NIDropDown *_dropDown;
+    
 }
 
 
@@ -271,13 +269,7 @@
     [self getDataFromWeb];
 }
 
-- (void) niDropDownDelegateMethod: (NIDropDown *) sender {
-    [self rel];
-    NSLog(@"%@", _btnSelect.titleLabel.text);
-}
-- (void)rel{
-    _dropDown = nil;
-}
+
 - (IBAction)newBlogButtonClicked:(id)sender {
 
     
@@ -354,7 +346,7 @@
     //从数据库取数据
     DBManager *dbManager = [DBManager shareDBManager];
     [dbManager connect];
-    NSMutableArray *mutableArray =[dbManager searchArenasWithPage:[_pageNum integerValue] label:_labels];
+    NSMutableArray *mutableArray =[dbManager searchArenasWithLabel:_labels hotTag:_query];
     [dbManager close];
     
     
@@ -386,7 +378,7 @@
     
     urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName];
     
-//    NSLog(@"urlString:%@",urlString);
+    NSLog(@"arena list urlString:%@",urlString);
     NetWorking *net = [[NetWorking alloc]init];
     
     [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
@@ -406,20 +398,22 @@
                     for (NSDictionary *dic in mutableArray)  {
                         [dbManager insertDataIntoArenas:dic];
                     }
+                    
+                    [self getDataFromDB];
                 }
                 
-                [self getDataFromDB];
+                
                 
                 [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
                 [self.tableViewController.tableView footerEndRefreshing];
             }else {
-                [self getDataFromDB];
+//                [self getDataFromDB];
                 [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
                 [self.tableViewController.tableView footerEndRefreshing];
             }
 
         }else {
-            [self getDataFromDB];
+//            [self getDataFromDB];
             [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
             [self.tableViewController.tableView footerEndRefreshing];
         }

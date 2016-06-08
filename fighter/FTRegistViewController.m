@@ -99,16 +99,16 @@
     NSRange _range = [self.acountTextField.text rangeOfString:@" "];
     if (_range.location != NSNotFound) {
         //有空格
-        [self showHUDWithMessage:@"手机号不能包含空格"];
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"手机号不能包含空格"];
         return;
     }
     
     if (self.acountTextField.text.length == 0 ) {
-        [self showHUDWithMessage:@"手机号不能为空"];
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"手机号不能为空"];
         return ;
     }else {
         if(self.acountTextField.text.length  != 11){
-            [self showHUDWithMessage:@"手机号长度不正确"];
+            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"手机号长度不正确"];
             return;
         }
     }
@@ -167,27 +167,27 @@
     NSRange _range = [self.acountTextField.text rangeOfString:@" "];
     if (_range.location != NSNotFound) {
         //有空格
-        [self showHUDWithMessage:@"手机号不能包含空格"];
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"手机号不能包含空格"];
         return;
     }
     
     if (self.acountTextField.text.length == 0 ) {
-        [self showHUDWithMessage:@"手机号不能为空"];
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"手机号不能为空"];
         return ;
     }else {
         if(self.acountTextField.text.length  != 11){
-            [self showHUDWithMessage:@"手机号长度不正确"];
+            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"手机号长度不正确"];
             return;
         }
     }
 
     
     if ([self.checkCodeTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0 ) {
-        [self showHUDWithMessage:@"验证码不能为空"];
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"验证码不能为空"];
         return ;
     }else {
         if(self.checkCodeTextField.text.length  != 6){
-            [self showHUDWithMessage:@"验证码不正确"];
+            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"验证码不正确"];
             return;
         }
     }
@@ -241,18 +241,18 @@
 }
 
 
-- (void)showHUDWithMessage:(NSString *)message{
-    
-    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:HUD];
-    HUD.label.text = message;
-    HUD.mode = MBProgressHUDModeCustomView;
-    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
-    [HUD showAnimated:YES];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  2* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [HUD removeFromSuperview];
-    });
-}
+//- (void)showHUDWithMessage:(NSString *)message{
+//    
+//    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+//    [self.view addSubview:HUD];
+//    HUD.label.text = message;
+//    HUD.mode = MBProgressHUDModeCustomView;
+//    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
+//    [HUD showAnimated:YES];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  2* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+//        [HUD removeFromSuperview];
+//    });
+//}
 
 #pragma mark -delegate 
 

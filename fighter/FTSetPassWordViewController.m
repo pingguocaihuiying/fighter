@@ -12,23 +12,25 @@
 #import "MBProgressHUD.h"
 #import "Regex.h"
 
-@interface UIWindow (MBProgressHUD)
-- (void)showHUDWithMessage:(NSString *)message;
-@end
-@implementation UIWindow (MBProgressHUD)
-- (void)showHUDWithMessage:(NSString *)message{
-    
-    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self];
-    [self addSubview:HUD];
-    HUD.label.text = message;
-    HUD.mode = MBProgressHUDModeCustomView;
-    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
-    [HUD showAnimated:YES];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  2* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [HUD removeFromSuperview];
-    });
-}
-@end
+//@interface UIWindow (MBProgressHUD)
+//- (void)showHUDWithMessage:(NSString *)message;
+//@end
+//@implementation UIWindow (MBProgressHUD)
+//- (void)showHUDWithMessage:(NSString *)message{
+//    
+//    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self];
+//    [self addSubview:HUD];
+//    [HUD setLabelText:message];
+////    HUD.label.text = message;
+//    HUD.mode = MBProgressHUDModeCustomView;
+//    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
+//    [HUD showAnimated:YES whileExecutingBlock:nil];
+//    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  2* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+//        [HUD removeFromSuperview];
+//    });
+//}
+//@end
 
 @interface FTSetPassWordViewController ()
 
@@ -88,17 +90,17 @@
     NSRange _range = [self.passwordTextField.text rangeOfString:@" "];
     if (_range.location != NSNotFound) {
         //有空格
-        [self showHUDWithMessage:@"密码不能包含空格"];
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"密码不能包含空格"];
         return;
     }
     
     if (![self.passwordTextField.text isEqualToString: self.passwordTextField2.text]) {
-        [self showHUDWithMessage:@"两次输入密码不一致"];
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"两次输入密码不一致"];
         return;
     }
     
     if (self.passwordTextField.text.length <6 || self.passwordTextField.text.length >18) {
-        [self showHUDWithMessage:@"密码必须为6-18位"];
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"密码必须为6-18位"];
         return;
     }
     
@@ -170,18 +172,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)showHUDWithMessage:(NSString *)message{
-    
-    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:HUD];
-    HUD.label.text = message;
-    HUD.mode = MBProgressHUDModeCustomView;
-    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
-    [HUD showAnimated:YES];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  2* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [HUD removeFromSuperview];
-    });
-}
+//- (void)showHUDWithMessage:(NSString *)message{
+//    
+//    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+//    [self.view addSubview:HUD];
+//    HUD.label.text = message;
+//    HUD.mode = MBProgressHUDModeCustomView;
+//    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
+//    [HUD showAnimated:YES];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  2* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+//        [HUD removeFromSuperview];
+//    });
+//}
 
 /*
 #pragma mark - Navigation

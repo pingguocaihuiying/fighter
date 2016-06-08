@@ -61,6 +61,11 @@ NSString *const AddVoteURL = @"/api/comment/add$Vote.do";
 //删除点赞接口
 NSString *const DeleteVoteURL = @"/api/comment/delete$Vote.do";
 
+//增加关注接口
+NSString *const AddFollowURL = @"/api/follow/add$Follow.do";
+//删除关注接口    接口地址: 域名
+NSString *const DeleteFollowURL = @"/api/follow/delete$Follow.do";
+
 //获取视频接口地址: 域名/api/news/getVideos.do
 NSString *const GetVideoURL = @"/api/videos/getVideos.do";
 
@@ -146,6 +151,7 @@ NSString * const IsValidatePhone =  @"/api/newuser/validatePhone.do";
 //排行榜
 NSString * const GetRankListURL = @"/api/ranking/list.do";//排行榜
 NSString * const GetRankSearchItemURL = @"/api/ranking/getRankSearchItems.do";//排行帅选项
+NSString * const GetHomepageUserInfo = @"/api/user/read.do";
 
 
 
@@ -155,6 +161,11 @@ NSString * const GetStatusCheckKey =  @"gedoujia25fdsgfd55fdsafsag21254";
  NSString * const AddVoteCheckKey =    @"gedoujia1255525522255521254";
     //删除投票
  NSString * const DeleteVoteCheckKey = @"gedoujia125ggrfdsgfd5521254";
+
+//增加关注
+NSString * const AddFollowCheckKey =    @"gedoujia11fdsafsag21254";
+//取消关注
+NSString * const CancelFollowCheckKey = @"gedoujia11fgfdghdfrdsafsag21254";
 
 //增加视频观看数
 NSString * const UpVideoViewNCheckKey =  @"quanjijia222222";

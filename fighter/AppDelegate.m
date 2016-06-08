@@ -13,9 +13,7 @@
 #import "FTBoxingHallViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "FTBaseTabBarViewController.h"
-#import "Mobclick.h"
 #import "UMSocial.h"
-#import "UMFeedback.h"
 #import "WXApi.h"
 #import "UMSocialWechatHandler.h"
 //#import "UMSocialSinaSSOHandler.h"
@@ -33,9 +31,9 @@
 #import "RealReachability.h"
 #import "IXPushSdk.h"
 #import <TencentOpenAPI/TencentOAuth.h>
-#import "UMSocialQQHandler.h"
+//#import "UMSocialQQHandler.h"
 #import "WeiboSDK.h"
-
+#import <PLStreamingKit/PLStreamingEnv.h>
 
 //微信请求类型
 typedef NS_ENUM(NSInteger, WXRequestType) {
@@ -48,7 +46,7 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 };
 
 
-@interface AppDelegate ()<WXApiDelegate,TencentSessionDelegate,WeiboSDKDelegate>
+@interface AppDelegate ()<WXApiDelegate,WeiboSDKDelegate>
 
 @property (nonatomic, assign)WXRequestType wxRequestType;
 @property (nonatomic, strong) MainViewController *mainVC;
@@ -77,7 +75,8 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     //监听网络
     [GLobalRealReachability startNotifier];
     
-    
+    //设置直播环境
+    [PLStreamingEnv initEnv];
     
     //屏蔽个人中心时打开这里
 //    [self setRootViewController2];
@@ -97,32 +96,6 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
         
     }
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
-    NSLog(@"push info:");
-    
-    
-    /**
-     Notification info:{
-     aps =     {
-     alert = 123456;
-     badge = 1;
-     "content-available" = 1;
-     sound = default;
-     };
-     extra =     {
-     "click_action" = 3;
-     "click_param" =         {
-     objId = 209;
-     url = "http://www.gogogofight.com/pugilist_system/ueditor/html/1464142462003_pu.html";
-     urlType = news;
-     };
-     };
-     "ixintui.push.id" = 100000029;
-     }
-     **/
-
-    
-
-   
     
     return YES;
 }
@@ -171,7 +144,9 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 
 - (void)setUMeng{
     //友盟统计
-    [MobClick startWithAppkey:@"570739d767e58edb5300057b" reportPolicy:BATCH   channelId:@""];
+    UMConfigInstance.appKey = @"570739d767e58edb5300057b";
+    [MobClick startWithConfigure:UMConfigInstance];
+//    [MobClick startWithAppkey:@"570739d767e58edb5300057b" reportPolicy:BATCH   channelId:@""];
     
     //友盟分享
     [UMSocialData setAppKey:@"570739d767e58edb5300057b"];
@@ -183,14 +158,44 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     [UMSocialWechatHandler setWXAppId:WX_App_ID appSecret:WX_App_Secret url:@"http://www.umeng.com/social"];
     
     //设置QQ AppId、appSecret，分享url
-    [UMSocialQQHandler setQQWithAppId:QQ_App_ID appKey:QQ_App_Secret url:@"http://www.umeng.com/social"];
+//    [UMSocialQQHandler setQQWithAppId:QQ_App_ID appKey:QQ_App_Secret url:@"http://www.umeng.com/social"];
     
-    //打开新浪微博的SSO开关，设置新浪微博回调地址，这里必须要和你在新浪微博后台设置的回调地址一致。需要 #import "UMSocialSinaSSOHandler.h"
-//    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"2201505639"
-//                                              secret:@"cb1771445170f9c625224f6e1403ce48"
+//    // 打开新浪微博的SSO开关，设置新浪微博回调地址，这里必须要和你在新浪微博后台设置的回调地址一致。需要 #import "UMSocialSinaSSOHandler.h"
+//    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:WB_App_ID
+//                                              secret:WB_App_Secret
 //                                         RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
 }
+
+- (void) setShareSDK {
+    
+//    [ShareSDK registerApp:Mob_App_ID
+//          activePlatforms:@[@(SSDKPlatformTypeSinaWeibo)]
+//                 onImport:nil
+//          onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo) {
+//              
+//              switch (platformType)
+//              {
+//                  case SSDKPlatformTypeSinaWeibo:
+//                      
+//                      //初始化新浪微博
+//                      [appInfo SSDKSetupSinaWeiboByAppKey:WB_App_ID
+//                                                appSecret:WB_App_Secret
+//                                              redirectUri:@"http://www.sharesdk.cn"
+//                                                 authType:SSDKAuthTypeWeb];
+//                      
+//                      break;
+//                  default:
+//                      break;
+//              }
+//              
+//          }];
+    
+
+    
+}
+
+
 
 - (void)setWeiXin{
     //向微信注册
@@ -201,6 +206,7 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 - (void) setTencent {
 
   TencentOAuth *tencentOAuth = [[TencentOAuth alloc] initWithAppId:QQ_App_ID andDelegate:nil]; //注册
+    tencentOAuth.localAppId = @"gogogofight";
 }
 
 #pragma mark 新浪微博
@@ -233,9 +239,10 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
         
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound) categories:[NSSet setWithObjects:categorys, nil]];
         [IXPushSdkApi register:launchOptions settings:settings];
-    } else {
-        [IXPushSdkApi register:launchOptions types:(UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge)];
     }
+//    else {
+//        [IXPushSdkApi register:launchOptions types:(UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge)];
+//    }
 #else
     [PushSdkApi register:launchOptions types:(UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeBadge)];
 #endif
@@ -496,6 +503,7 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     }
     
 }
+
 
 //// 对收到的消息进行处理:
 //- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler

@@ -87,7 +87,7 @@
  *
  */
 -(NSMutableArray *) searchNewsWithType:(NSString *)type  page:(NSInteger )currentPage;
-
+-(NSMutableArray *) searchNewsWithType:(NSString *)type ;
 /**
  * @brief 更新news表所有字段
  * @param news表主键
@@ -116,7 +116,7 @@
  * @param arenas 查询限制字段
  *
  */
--(NSMutableArray *) searchArenasWithPage:(NSInteger )currentPage  label:(NSString *) label;
+-(NSMutableArray *) searchArenasWithLabel:(NSString *) label  hotTag:(NSString *)hotTag;
 
 /**
  * @brief 更新arenas表所有字段
@@ -133,7 +133,7 @@
 
 - (void) insertDataIntoVideos:(NSDictionary *)dic;
 
--(NSMutableArray *) searchVideosWithType:(NSString *)videoType ;
+-(NSMutableArray *) searchVideosWithType:(NSString *)videoType hotTag:(NSString *)hotTag;
 
 - (void) updateVideosById:(NSString *)Id isReader:(BOOL)isReader;
 

@@ -32,8 +32,8 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [FTNWGetCategory getCategoryWithOption:^(NSArray *array) {
-//            [[NSUserDefaults standardUserDefaults]setObject:array forKey:CATEGORIES];
-//            [[NSUserDefaults standardUserDefaults]synchronize];
+            [[NSUserDefaults standardUserDefaults]setObject:array forKey:CATEGORIES];
+            [[NSUserDefaults standardUserDefaults]synchronize];
         }];
     });
     return resultArray;
@@ -48,16 +48,19 @@
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSString *getCategoryUrlString = [FTNetConfig host:Domain path:GetCategoryURL];
     NSLog(@"getCategoryUrlString : %@", getCategoryUrlString);
-    
-    [manager POST:getCategoryUrlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    NSDictionary *dic = @{@"function": @1};
+    [manager POST:getCategoryUrlString parameters:dic success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSMutableArray *resultArray;
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         if ([responseDic[@"status"] isEqualToString:@"success"]) {
             resultArray = [[NSMutableArray alloc]init];
             for(NSDictionary *dic in responseDic[@"data"]){
                 if ([dic[@"name"] isEqualToString:@"标签"]) {
-                    if ([dic[@"itemValue"] isEqualToString:@"其它"] ) {
-//                        continue;
+                    NSLog(@"itemValue : %@", dic[@"itemValue"]);
+                    NSLog(@"itemValueEn : %@", dic[@"itemValueEn"]);
+                    
+                    if ([dic[@"itemValue"] isEqualToString:@"训练"] ) {
+                        continue;
                     }
                     [resultArray addObject:dic];
                 }

@@ -25,7 +25,6 @@
 #import "FTBoxingHallViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "FTBaseTabBarViewController.h"
-#import "Mobclick.h"
 #import "UMSocial.h"
 #import "WXApi.h"
 #import "UMSocialWechatHandler.h"
@@ -36,7 +35,7 @@
 #import "RBRequestOperationManager.h"
 #import "UIButton+WebCache.h"
 #import "FTUserCenterViewController.h"
-#import "UMFeedback.h"
+
 #import "FTSettingViewController.h"
 #import "NetWorking.h"
 #import "FTArenaViewController.h"
@@ -357,7 +356,7 @@ static NSString *const tableCellId = @"tableCellId";
 - (void)wxLoginResponseInDrawer:(NSNotification *)noti{
     NSString *msg = [noti object];
     if ([msg isEqualToString:@"SUCESS"]) {
-        [self showHUDWithMessage:@"微信登录成功"];
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"微信登录成功"];
         
         [self showLoginedViewData:nil];
 //        //从本地读取存储的用户信息
@@ -369,7 +368,7 @@ static NSString *const tableCellId = @"tableCellId";
 //        }
     
     }else if ([msg isEqualToString:@"ERROR"]){
-        [self showHUDWithMessage:@"微信登录失败"];
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"微信登录失败"];
     }
 }
 
@@ -427,7 +426,6 @@ static NSString *const tableCellId = @"tableCellId";
     baseNav.navigationBarHidden = NO;
 //    baseNav.navigationBar.barTintColor = [UIColor blackColor];
     [self presentViewController:baseNav animated:YES completion:nil];
-    
 }
 
 //设置按钮事件
@@ -439,6 +437,11 @@ static NSString *const tableCellId = @"tableCellId";
     baseNav.navigationBarHidden = NO;
 
     [self presentViewController:baseNav animated:YES completion:nil];
+}
+
+#warning 临时个人主页入口
+- (IBAction)tempHomePageBtnAction:(id)sender {
+    
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -664,18 +667,18 @@ static NSString *const tableCellId = @"tableCellId";
 }
 
 #pragma mark - private methods
-- (void)showHUDWithMessage:(NSString *)message{
-    
-    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:HUD];
-    HUD.label.text = message;
-    HUD.mode = MBProgressHUDModeCustomView;
-    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
-    [HUD showAnimated:YES];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  2* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [HUD removeFromSuperview];
-    });
-}
+//- (void)showHUDWithMessage:(NSString *)message{
+//    
+//    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+//    [self.view addSubview:HUD];
+//    HUD.label.text = message;
+//    HUD.mode = MBProgressHUDModeCustomView;
+//    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
+//    [HUD showAnimated:YES];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  2* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+//        [HUD removeFromSuperview];
+//    });
+//}
 
 - (void) setHomeViewController {
 

@@ -13,7 +13,6 @@
 #import "WXApi.h"
 
 #import "WXApi.h"
-#import "Mobclick.h"
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <TencentOpenAPI/sdkdef.h>
 #import "WeiboSDK.h"
@@ -29,8 +28,6 @@
 @property (nonatomic ,strong) UIView *panelView;
 @property (nonatomic ,strong) UIImageView *backImgView;
 @property (nonatomic ,strong) UIView *btnView;
-
-
 
 @end
 
@@ -218,6 +215,7 @@
     }else if (btnTag == 1004) {
         //新浪微博
         [self shareToSinaMicroBlog];
+//        [self test];
     }
 
     [self removeFromSuperview];
@@ -246,27 +244,10 @@
  */
 - (void) shareToTencentFriends {
     
-    UIImage *image = [UIImage imageNamed:_image];
-    NSData* data;
-    if (UIImagePNGRepresentation(image) == nil) {
-        data = UIImageJPEGRepresentation(image, 1);
-        
-    } else {
-        data = UIImagePNGRepresentation(image);
-    }
     
-    
-    //设置分享链接
-    NSURL* url = [NSURL URLWithString: _url];
-    
-    QQApiNewsObject* imgObj = [[QQApiNewsObject alloc]initWithURL:url
-                                                            title:_title
-                                                      description:_summary
-                                                 previewImageData:data
-                                                targetContentType:QQApiURLTargetTypeNews];
+    QQApiNewsObject* imgObj = [self setTencentReq];
     
     SendMessageToQQReq* req = [SendMessageToQQReq reqWithContent:imgObj];
-    
     QQApiSendResultCode sent = [QQApiInterface sendReq:req];
     [self handleSendResult:sent];
     
@@ -277,15 +258,9 @@
  */
 - (void) shareToTencentZone {
     
-    // 设置预览图片
-    NSURL *previewURL = [NSURL URLWithString:_imageUrl];
-    //设置分享链接
-    NSURL* url = [NSURL URLWithString: _url];
     
-    QQApiNewsObject* imgObj = [QQApiNewsObject objectWithURL:url
-                                                       title: _title
-                                                 description: _summary
-                                             previewImageURL:previewURL];
+    
+    QQApiNewsObject* imgObj = [self setTencentReq];
     
     // 设置分享到 QZone 的标志位
     [imgObj setCflag: kQQAPICtrlFlagQZoneShareOnStart ];
@@ -293,6 +268,33 @@
     QQApiSendResultCode sent = [QQApiInterface SendReqToQZone:req];
     [self handleSendResult:sent];
 }
+
+
+- (QQApiNewsObject *) setTencentReq {
+    
+//    // 设置预览图片
+//    NSURL *previewURL = [NSURL URLWithString:_imageUrl];
+//    //设置分享链接
+//    NSURL* url = [NSURL URLWithString: _url];
+//    
+//    QQApiNewsObject* imgObj = [QQApiNewsObject objectWithURL:url
+//                                                       title: _title
+//                                                 description: _summary
+//                                             previewImageURL:previewURL];
+    
+    //设置分享链接
+    NSURL* url = [NSURL URLWithString: _url];
+    
+    QQApiNewsObject* imgObj = [[QQApiNewsObject alloc]initWithURL:url
+                                                            title:_title
+                                                      description:_summary
+                                                 previewImageData:[self getImageDataForSDWebImageCachedKey]
+                                                targetContentType:QQApiURLTargetTypeNews];
+
+    return imgObj;
+}
+
+
 
 /**
  *  新浪微博分享
@@ -303,17 +305,62 @@
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     
     WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
-//    authRequest.redirectURI = @"http://www.sina.com";
-//    authRequest.scope = @"all";
+    authRequest.redirectURI = _url;
+    authRequest.scope = [NSString stringWithFormat:@"%@,%@,%@",_title,_summary,_image];
     
-    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:[self messageToShare] authInfo:authRequest access_token:myDelegate.wbtoken];
-    request.userInfo = @{@"ShareMessageFrom": @"格斗家"};
+    WBSendMessageToWeiboRequest *request =
+    [WBSendMessageToWeiboRequest requestWithMessage:[self messageToShare]
+                                           authInfo:authRequest
+                                       access_token:myDelegate.wbtoken];
+    
+//    request.userInfo = @{@"ShareMessageFrom": @"--- 发自《格斗家》app",
 //                         @"Other_Info_1": [NSNumber numberWithInt:123],
 //                         @"Other_Info_2": @[@"obj1", @"obj2"],
-//                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
+//                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}
+//                         };
     request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
     [WeiboSDK sendRequest:request];
     
+}
+
+
+- (void) test {
+
+    //分享到微博博文
+    AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
+    WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
+    authRequest.redirectURI = _url;
+    authRequest.scope = [NSString stringWithFormat:@"%@,%@,%@",_title,_summary,_image];
+    
+    
+    //设置文本信息
+    WBMessageObject *message = [WBMessageObject message];
+    if (_summary) {
+        message.text = [@"“" stringByAppendingFormat:@"%@”,%@ \n  --- 发自《格斗家》app %@",_title,_summary,_url];
+    }else {
+        message.text = [@"“" stringByAppendingFormat:@"%@”\n  --- 发自《格斗家》app %@",_title,_url];
+    }
+    
+    NSLog(@"url:%@ length:%ld",_url,_url.length);
+    //设置媒体数据
+    WBVideoObject *webpage = [WBVideoObject object];
+    webpage.objectID = @"identifier1";
+    webpage.title = _title;
+    webpage.description = _summary;
+    webpage.videoUrl = _url;
+    webpage.videoStreamUrl = _url;
+    webpage.videoLowBandUrl = _url;
+    webpage.videoLowBandStreamUrl = _url;
+    message.mediaObject = webpage;
+    
+    WBSendMessageToWeiboRequest *request =
+    [WBSendMessageToWeiboRequest requestWithMessage:message
+                                           authInfo:authRequest
+                                       access_token:myDelegate.wbtoken];
+    
+    request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
+    [WeiboSDK sendRequest:request];
+
 }
 
 
@@ -325,9 +372,8 @@
     webpage.objectID = @"";
     webpage.title = _title;
     webpage.description = [NSString stringWithFormat:NSLocalizedString(_summary, nil), [[NSDate date] timeIntervalSince1970]];
-    webpage.thumbnailData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:_image ofType:@"jpg"]];
+    webpage.thumbnailData = [self getImageDataForSDWebImageCachedKey];
 
-    NSLog(@"url:%@ length:%ld",[_url stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding],(unsigned long)_url.length);
     webpage.webpageUrl = _url;
     message.mediaObject = webpage;
 
@@ -337,7 +383,6 @@
     [WeiboSDK sendRequest:request];
 }
 
-
 /**
  *  设置新浪微博分享信息
  *
@@ -345,13 +390,12 @@
  */
 - (WBMessageObject *)messageToShare
 {
-    
-    UIImage *image = [UIImage imageNamed:_image];
-    NSData* data;
-    data = UIImageJPEGRepresentation(image, 0.5);
-    
-//    NSLog(@"data.length:%ld",data.length);
-    
+    NSData* data = [self getImageDataForSDWebImageCachedKey];
+
+    if (_summary.length > 48) {
+        _summary = [[_summary substringToIndex:47] stringByAppendingString:@"..."];
+    }
+    //设置文本信息
     WBMessageObject *message = [WBMessageObject message];
     message.text = [_title stringByAppendingString:_url];
     
@@ -367,6 +411,15 @@
 //    webpage.webpageUrl = _url;
 //    message.mediaObject = webpage;
     
+//    //设置媒体数据
+//    WBWebpageObject *webpage = [WBWebpageObject object];
+//    webpage.objectID = @"identifier1";
+//    webpage.title = _title;
+//    webpage.description = _summary;
+//    webpage.thumbnailData =data; //data size can`t be over 32 KB
+//    webpage.webpageUrl = _url;
+//    message.mediaObject = webpage;
+
     return message;
 }
 
@@ -380,10 +433,21 @@
     WXMediaMessage *message = [WXMediaMessage message];
     message.title = _title;
     message.description = _summary;
-    [message setThumbImage:[UIImage imageNamed:@"微信用@200"]];
+    
+    NSData *data = [self getImageDataForSDWebImageCachedKey];
+    [message setThumbData:data];
+    
+//    WXImageObject *imageObj = [WXImageObject object];
+//    imageObj.imageData = [self getImageDataForSDWebImageCachedKey];
+//    message.mediaObject = imageObj;
+    
     WXWebpageObject *webpageObject = [WXWebpageObject object];
     webpageObject.webpageUrl = _url;
     message.mediaObject = webpageObject;
+//
+//    WXVideoObject *videoObj = [WXVideoObject object];
+//    videoObj.videoUrl = _url;
+//    message.mediaObject = videoObj;
     
     SendMessageToWXReq *req = [SendMessageToWXReq new];
     req.bText = NO;
@@ -392,6 +456,27 @@
     [WXApi sendReq:req];
 }
 
+
+//获取SDWebImage缓存图片
+- (NSData *) getImageDataForSDWebImageCachedKey {
+
+    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:_imageUrl]];
+    UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
+    NSData *data = UIImageJPEGRepresentation(image, 1);
+   
+    if (data == nil || data.length == 0) {
+        UIImage *iconImg = [UIImage imageNamed:@"微信用@200"];
+        data = UIImageJPEGRepresentation(iconImg, 1);
+    }
+    int i = 1;
+    while (data.length > 32*1000) {
+//        NSLog(@"NSData.length:%ld",data.length);
+        data = UIImageJPEGRepresentation(image, 1-i/10);
+        i++;
+    }
+
+    return  data;
+}
 
 - (void)handleSendResult:(QQApiSendResultCode)sendResult
 {
@@ -424,8 +509,6 @@
         {
             UIAlertView *msgbox = [[UIAlertView alloc] initWithTitle:@"Error" message:@"API接口不支持" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
             [msgbox show];
-            
-            
             break;
         }
         case EQQAPISENDFAILD:

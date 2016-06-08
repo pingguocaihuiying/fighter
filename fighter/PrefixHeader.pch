@@ -29,15 +29,22 @@
 #import "UIColor+YBColorCategory.h"
 #import "MD5.h"
 #import "ZJModelTool.h"
-#import "UIImageView+WebCache.h"
 #import "AFNetworking.h"
+#import <SDWebImage/SDImageCache.h>
+#import <SDWebImage/UIButton+WebCache.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 #import "UIView+YBAddtitions.h"
 #import "UILabel+FTLYZLabel.h"//调整行间距
+#import "MBProgressHUD.h"
+#import "UIWindow+MBProgressHUD.h"
+#import "FTUserTools.h"//获取本地用户信息
+#import "RealReachability-umbrella.h"
 
 //导入配置信息类
 #import "FTNetConfig.h"
 #import "FTUserConfig.h"
 #import "FTConfig.h"
+
 
 //导入一些常用类
 #import "FTNewsBean.h"
@@ -48,7 +55,11 @@
 #import "FTNWGetCategory.h"
 
 //导入友盟统计的类
-#import "Mobclick.h"
+#import <UMMobClick/MobClick.h>
+#import "UMFeedback.h"
+
+//Mob ShareSDK
+//#import <ShareSDK/ShareSDK.h>
 
 //defin一些常量
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
@@ -75,6 +86,10 @@
 //微博相关
 #define WB_App_ID @"3097376602"
 #define WB_App_Secret @"921bba0ec52253b495276d90468e0b43"
+
+//微博相关
+#define Mob_App_ID @"1374acb38a63a"
+#define Mob_App_Secret @"b5cbf02b604d984f527115748de70890"
 
 //qq相关
 #define QQ_App_ID @"1105296095"

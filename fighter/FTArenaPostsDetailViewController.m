@@ -323,7 +323,38 @@
     [shareView setTitle:_arenaBean.title];
 //    [shareView setSummary:_arenaBean.summary];
     [shareView setImage:@"微信用@200"];
-    [shareView setImageUrl:@"http://www.gogogofight.com/page/images/wechat_share.jpg"];
+    
+//    [shareView setImageUrl:@"http://www.gogogofight.com/page/images/wechat_share.jpg"];
+    
+    if (_arenaBean.videoUrlNames && ![_arenaBean.videoUrlNames isEqualToString:@""]) {//如果有视频图片，优先显示视频图片
+        NSLog(@"显示视频");
+        NSString *firstVideoUrlString = [[_arenaBean.videoUrlNames componentsSeparatedByString:@","]firstObject];
+        
+        firstVideoUrlString = [NSString stringWithFormat:@"%@?vframe/png/offset/0/w/200/h/100", firstVideoUrlString];
+        NSString *videoUrlString = [NSString stringWithFormat:@"%@/%@", _arenaBean.urlPrefix, firstVideoUrlString];
+        if (![videoUrlString hasPrefix:@"http://"]) {
+            videoUrlString = [NSString stringWithFormat:@"http://%@", videoUrlString];
+        }
+        
+         [shareView setImageUrl:videoUrlString];
+        NSLog(@"videoUrlString : %@", videoUrlString);
+    }else if(_arenaBean.pictureUrlNames && ![_arenaBean.pictureUrlNames isEqualToString:@""]){//如果没有视频，再去找图片的缩略图
+        NSLog(@"显示图片缩略图");
+        NSString *firstImageUrlString = [[_arenaBean.pictureUrlNames componentsSeparatedByString:@","]firstObject];
+        //        firstImageUrlString = [NSString stringWithFormat:@"%@?vframe/png/offset/0/w/200/h/100", firstImageUrlString];
+        firstImageUrlString = [NSString stringWithFormat:@"%@?imageView2/2/w/200", firstImageUrlString];
+        NSString *imageUrlString = [NSString stringWithFormat:@"%@/%@", _arenaBean.urlPrefix, firstImageUrlString];
+        if (![imageUrlString hasPrefix:@"http://"]) {
+            imageUrlString = [NSString stringWithFormat:@"http://%@", imageUrlString];
+        }
+        
+        [shareView setImageUrl:imageUrlString];
+    }else {
+    
+        [shareView setSummary:_arenaBean.content];
+    }
+    
+    
     [self.view addSubview:shareView];
 }
 - (void)shareToWXSceneSession{
@@ -438,23 +469,10 @@
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     if (!localUser) {
         [self login];
-        //        NSLog(@"微信登录");
-        //        if ([WXApi isWXAppInstalled] ) {
-        //            SendAuthReq *req = [[SendAuthReq alloc] init];
-        //            req.scope = @"snsapi_userinfo";
-        //            req.state = @"fighter";
-        //            [WXApi sendReq:req];
-        //
-        //        }else{
-        //            NSLog(@"目前只支持微信登录，请安装微信");
-        //            [self showHUDWithMessage:@"目前只支持微信登录点赞，请安装微信"];
-        //        }
     }else{
         self.hasStar = !self.hasStar;
-        //        [self updateVoteImageView];
         [self updateStarImageView];
         self.favourateView.userInteractionEnabled = NO;
-        //        [self uploadVoteStatusToServer];
         [self uploadStarStatusToServer];
     }
 }
@@ -528,7 +546,6 @@
         self.voteView.userInteractionEnabled = YES;
         NSLog(@"vote failure ：%@", error);
     }];
-    
 }
 
 //把收藏信息更新至服务器
@@ -545,15 +562,16 @@
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = @"col-damageblog";
+    NSString *isDelated = @"0";
     NSString *query = @"delete-col";
     //    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, self.hasStar ?  @"" : query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
-    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
+    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@", isDelated, loginToken, objId, query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
     NSLog(@"check sign : %@", checkSign);
     checkSign = [MD5 md5:checkSign];
     
     
     
-    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@&query=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName, query];
+    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@&isDelated=%@&query=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName, isDelated, query];
     //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
     //创建AAFNetWorKing管理者
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
