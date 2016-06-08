@@ -270,7 +270,7 @@ static DBManager * _sharedDBManager = nil;
  */
 - (void) createNewsTable {
     
-    NSString * sql = @"CREATE TABLE 'news' ('newsId' INTEGER PRIMARY KEY NOT NULL UNIQUE, 'author' TEXT, 'commentCount' INTEGER DEFAULT 0, 'img_big' TEXT, 'img_small_one' TEXT, 'img_small_three' TEXT, 'img_small_two' TEXT, 'layout' INTEGER, 'newsTime' INTEGER, 'newsType' TEXT, 'summary' TEXT, 'title' TEXT, 'url' TEXT, 'voteCount' TEXT DEFAULT 0, 'isReader' BOOLEAN);";
+    NSString * sql = @"CREATE TABLE 'news' ('newsId' INTEGER PRIMARY KEY NOT NULL UNIQUE, 'author' TEXT, 'commentCount' INTEGER DEFAULT 0, 'img_big' TEXT, 'img_small_one' TEXT, 'img_small_three' TEXT, 'img_small_two' TEXT, 'layout' INTEGER, 'newsTime' TEXT, 'newsType' TEXT, 'summary' TEXT, 'title' TEXT, 'url' TEXT, 'voteCount' TEXT DEFAULT 0, 'isReader' BOOLEAN);";
     
     [self createTable:@"news" sql:sql];
 }
@@ -313,8 +313,8 @@ static DBManager * _sharedDBManager = nil;
     NSNumber *commentCount = [NSNumber numberWithInteger:[dic[@"commentCount"] integerValue]];
     NSNumber *voteCount = [NSNumber numberWithInteger:[dic[@"voteCount"] integerValue]];
     NSNumber *layout = [NSNumber numberWithInteger:[dic[@"layout"] integerValue]];
-    NSNumber *newsTime = [NSNumber numberWithInteger:[dic[@"newsTime"] integerValue]];
-
+    NSString *newsTime = dic[@"newsTime"];
+    
     
     //1.判断数据是否已读
     FMResultSet * set = [_dataBase executeQuery:@"select objId from readCashe where objId = ?  and type = 'news' ",idNum];
