@@ -51,8 +51,6 @@ PODS:
     - RealReachability/Ping (= 1.1.7)
   - RealReachability/Connection (1.1.7)
   - RealReachability/Ping (1.1.7)
-  - SDCycleScrollView (1.65):
-    - SDWebImage (~> 3.7)
   - SDWebImage (3.7.6):
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
@@ -71,7 +69,6 @@ DEPENDENCIES:
   - PLCameraStreamingKit (~> 1.7.1)
   - Qiniu (~> 7.0.20)
   - RealReachability (~> 1.1.7)
-  - SDCycleScrollView (~> 1.65)
   - SDWebImage (~> 3.7.6)
   - TencentOpenAPIV2_3 (~> 3.1.0)
   - UMengAnalytics (~> 4.0.4)
@@ -101,7 +98,6 @@ SPEC CHECKSUMS:
   PLStreamingKit: 55c671786ebfa541105fa9d8df9e38fd28454210
   Qiniu: 8958e70c02fb563c8c04d555bb5041441c5f4216
   RealReachability: 8b6644c6b3145f7552ed83bffb52c49b0f3b55e3
-  SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   TencentOpenAPIV2_3: 39d78d050d2f91a06718ed648a75b3dae27bfa72
   UMengAnalytics: 4ed421fb3bca63b26fc13c947743cabf3831d199
@@ -109,6 +105,6 @@ SPEC CHECKSUMS:
   UMengSocialCOM: 074c135ce349aa4c8848d3fb8458757bcb6ffb67
   WeiboSDK: bceab625ec59b7039ba721cc4ba9f5868804f63e
 
-PODFILE CHECKSUM: c88baa3bd454a1153ba374e2754f428dcfbde20f
+PODFILE CHECKSUM: 9c9f311fbb3771a3d350fe7250545554e02a7344
 
 COCOAPODS: 1.0.0
