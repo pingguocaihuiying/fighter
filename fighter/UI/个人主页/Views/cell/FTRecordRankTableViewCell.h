@@ -15,4 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *curRankLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bestRankLabel;
 @property (weak, nonatomic) IBOutlet UIView *separatorIndexView;
+
+- (void)setWithDic:(NSDictionary *)dic;
 @end

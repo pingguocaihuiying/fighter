@@ -39,6 +39,7 @@
 #import "FTSettingViewController.h"
 #import "NetWorking.h"
 #import "FTArenaViewController.h"
+#import "FTHomepageMainViewController.h"
 
 
 @interface FTDrawerViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
@@ -442,9 +443,24 @@ static NSString *const tableCellId = @"tableCellId";
 
 #warning 临时个人主页入口
 - (IBAction)tempHomePageBtnAction:(id)sender {
-    
+    [self gotoHomepageWithUseroldid:nil];
 }
-
+- (void)gotoHomepageWithUseroldid:(NSString *)olduserid{
+    if (!olduserid) {
+        //从本地读取存储的用户信息
+        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+        olduserid = localUser.olduserid;
+    }
+    FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
+    homepageViewController.olduserid = olduserid;
+    
+    
+    FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:homepageViewController];
+    baseNav.navigationBarHidden = NO;
+    
+    [self presentViewController:baseNav animated:YES completion:nil];
+}
 #pragma mark - UICollectionViewDataSource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {

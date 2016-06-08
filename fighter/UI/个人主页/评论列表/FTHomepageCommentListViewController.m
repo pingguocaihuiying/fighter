@@ -25,7 +25,8 @@
 
 - (void)getCommentListData{
     [NetWorking getCommentsWithObjId:_objId andTableName:_tableName andOption:^(NSArray *array) {
-        _commentsDataArray = array;
+            _commentsDataArray = array;
+        
         [_commentTableView reloadData];
     }];
 }

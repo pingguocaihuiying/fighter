@@ -160,7 +160,7 @@
 - (void) getVideos:(NSString *) urlString  option:(void (^)(NSDictionary *dict))option;
 
 //获取个人主页用户资料
-+ (void)getHomepageUserInfoWithUserOldid:(NSString *)userOldid andCallbackOption:(void (^)(FTUserBean *userBean))userBeanOption;
++ (void)getHomepageUserInfoWithUserOldid:(NSString *)userOldid andBoxerId:(NSString *)boxerId andCoachId:(NSString *)coachId andCallbackOption:(void (^)(FTUserBean *userBean))userBeanOption;
 
 //获取评论
 + (void)getCommentsWithObjId:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^) (NSArray *array))option;

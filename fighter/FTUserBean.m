@@ -160,6 +160,8 @@
     if (!self.brief) {
         self.brief = @"";
     }
+    _boxerRaceInfos = dic[@"boxerRaceInfos"];
+    
 }
 
 @end

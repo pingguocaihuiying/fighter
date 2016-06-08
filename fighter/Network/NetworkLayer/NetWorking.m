@@ -690,15 +690,36 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     return dic;
 }
 
-+ (void)getHomepageUserInfoWithUserOldid:(NSString *)userOldid andCallbackOption:(void (^)(FTUserBean *userBean))userBeanOption{
++ (void)getHomepageUserInfoWithUserOldid:(NSString *)userOldid andBoxerId:(NSString *)boxerId andCoachId:(NSString *)coachId andCallbackOption:(void (^)(FTUserBean *userBean))userBeanOption{
     NSString *urlString = [FTNetConfig host:Domain path:GetHomepageUserInfo];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    assert(userOldid);
-    NSDictionary *parameterDict = @{@"userId" : userOldid};
-//    NSLog(@"urlString : %@", urlString);
-    [manager POST:urlString parameters:parameterDict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+//    assert(userOldid);
+    NSString *query = @"";
+    if (boxerId) {//如果boxerId和coachId都存在，
+        query = @"1";
+    }else if(coachId){
+        query = @"2";
+    }
+    
+    //如果有id为nil，则处理为@""，以便存入字典;
+    if (userOldid == nil) {
+        userOldid = @"";
+    }
+    if (boxerId == nil) {
+        boxerId = @"";
+    }
+    if (coachId == nil) {
+        coachId = @"";
+    }
+    NSDictionary *parameterDict = @{@"userId" : [NSString stringWithFormat:@"%@", userOldid], @"boxerId":[NSString stringWithFormat:@"%@", boxerId], @"coachId":[NSString stringWithFormat:@"%@", coachId]};
+    
+    
+    urlString = [NSString stringWithFormat:@"%@?userId=%@&boxerId=%@&coachId=%@", urlString, userOldid, boxerId, coachId];
+    NSLog(@"urlString : %@", urlString);
+    
+    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
 //        [ZJModelTool createModelWithDictionary:responseObject modelName:nil];
                 NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
 //        NSLog(@"%@", responseDic[@"data"]);
@@ -716,6 +737,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         userBeanOption(userBean);
         
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        NSLog(@"error : %@", error);
         
     }];
 }
@@ -734,7 +756,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                 NSLog(@"message : %@", responseDic[@"message"]);
         NSArray *array = responseDic[@"data"];
         
-        if (array) {
+        if (array && array != (id)[NSNull null]) {
             option(array);
         }
         

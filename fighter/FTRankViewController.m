@@ -17,6 +17,7 @@
 #import "UIWindow+MBProgressHUD.h"
 #import "FTBoxerCenter.h"
 #import "JHRefresh.h"
+#import "FTHomepageMainViewController.h"
 
 @interface FTRankViewController ()  <FTSelectCellDelegate>
 
@@ -668,13 +669,11 @@
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         [cell setSelected:NO];
     }
-    
-    
-//    //跳转拳手个人中心页面
-//    
-//    FTBoxerCenter *boxerVC = [[FTBoxerCenter alloc]init];
-//    [self.navigationController pushViewController:boxerVC animated:YES];
-    
+    NSString *boxerId = _dataArray[indexPath.row][@"boxerId"];
+    NSLog(@"boxerId : %@", boxerId);
+    FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
+    homepageMainVC.boxerId = boxerId;
+    [self.navigationController pushViewController:homepageMainVC animated:YES];
 }
 
 
