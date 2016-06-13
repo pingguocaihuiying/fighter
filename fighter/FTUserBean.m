@@ -52,7 +52,7 @@
     //微信
     [aCoder encodeObject:self.wxHeaderPic forKey:@"wxHeader"];
     [aCoder encodeObject:self.wxName forKey:@"wxName"];
-
+    [aCoder encodeObject:self.identity forKey:@"identity"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -92,7 +92,7 @@
         //微信
         self.wxHeaderPic = [aDecoder decodeObjectForKey:@"wxHeader"];
         self.wxName = [aDecoder decodeObjectForKey:@"wxName"];
-        self.identity = [aDecoder decodeObjectForKey:@"wxName"];
+        self.identity = [aDecoder decodeObjectForKey:@"identity"];
     }
     return self;
 }
