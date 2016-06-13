@@ -46,6 +46,8 @@
         [self setTouchEvent];
         
         
+        
+        
     }
     
     return self;
