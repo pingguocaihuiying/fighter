@@ -10,6 +10,8 @@
 #import "FTHomepageCommentTableViewCell.h"
 #import "NetWorking.h"
 #import "FTCommentViewController.h"
+#import "FTLoginViewController.h"
+#import "FTBaseNavigationViewController.h"
 
 @interface FTHomepageCommentListViewController ()<UITableViewDelegate, UITableViewDataSource, CommentSuccessDelegate>
 @property (nonatomic, strong)NSArray *commentsDataArray;
@@ -91,11 +93,27 @@
 
 - (void)commentViewClicke{
     NSLog(@"commentViewClicke");
-    FTCommentViewController *commentViewController = [FTCommentViewController new];
-    commentViewController.objId = _objId;
-    commentViewController.tableName = _tableName;
-    commentViewController.delegate = self;//设置代理，评论成功后回调，刷新页面
-    [self.navigationController pushViewController:commentViewController animated:YES];
+    
+    //要先登录才能操作
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    if (!localUser) {
+        [self login];
+    }else{
+        FTCommentViewController *commentViewController = [FTCommentViewController new];
+        commentViewController.objId = _objId;
+        commentViewController.tableName = _tableName;
+        commentViewController.delegate = self;//设置代理，评论成功后回调，刷新页面
+        [self.navigationController pushViewController:commentViewController animated:YES];
+    }
+
+}
+
+- (void)login{
+    FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+    loginVC.title = @"登录";
+    FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+    [self.navigationController presentViewController:nav animated:NO completion:nil];
 }
 
 - (void)popVC{

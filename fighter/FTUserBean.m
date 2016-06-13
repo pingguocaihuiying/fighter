@@ -92,6 +92,7 @@
         //微信
         self.wxHeaderPic = [aDecoder decodeObjectForKey:@"wxHeader"];
         self.wxName = [aDecoder decodeObjectForKey:@"wxName"];
+        self.identity = [aDecoder decodeObjectForKey:@"wxName"];
     }
     return self;
 }

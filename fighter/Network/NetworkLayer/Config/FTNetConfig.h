@@ -149,3 +149,6 @@ extern NSString * const CancelFollowCheckKey;
 //获取评论
 extern NSString * const GetCommentsURL;
 
+//获取拳手赛事信息
+extern NSString * const GetBoxerRaceInfoURL;
+

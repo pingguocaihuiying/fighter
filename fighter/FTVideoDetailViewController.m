@@ -213,9 +213,15 @@
         url = [self encodeToPercentEscapeString:url];
     //    _videoBean.viewCount = @"100";
         NSString *title = _videoBean.title;
+        NSString *objId = @"";
+        if (_urlId) {
+            objId = _urlId;
+        }else if(_videoBean){
+            objId = _videoBean.videosId;
+        }
         title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
-        _webViewUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/video_page.html?objId=%@&title=%@&author=%@&newsTime=%@&commentCount=%@&voteCount=%@&url=%@&tableName=%@&type=%@&videoLength=%@&viewCount=%@", _videoBean.videosId, title, [_videoBean.author stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], _videoBean.videosTime, _videoBean.commentCount, _videoBean.voteCount,url , @"c-video", _videoBean.videosType, _videoBean.videoLength,_videoBean.viewCount];
+        _webViewUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/video_page.html?objId=%@", objId];
         NSLog(@"webview url：%@", _webViewUrlString);
     }else {
         

@@ -172,7 +172,6 @@
 		E68D160E1CFD31F100AB5A8C /* FTHomepageMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E68D160C1CFD31F100AB5A8C /* FTHomepageMainViewController.xib */; };
 		E68D16131CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D16121CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m */; };
 		E68D16171CFD819500AB5A8C /* UIImage+FTLYZImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D16161CFD819500AB5A8C /* UIImage+FTLYZImage.m */; };
-		E68D161E1CFE7FBA00AB5A8C /* BingWallpaper-2016-04-25.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E68D161D1CFE7FBA00AB5A8C /* BingWallpaper-2016-04-25.jpg */; };
 		E68EC50B1CC4B85D00A338C8 /* FTFilterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68EC5091CC4B85D00A338C8 /* FTFilterTableViewController.m */; };
 		E68EC50C1CC4B85D00A338C8 /* FTFilterTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E68EC50A1CC4B85D00A338C8 /* FTFilterTableViewController.xib */; };
 		E6956EA61CBE21A1008DEEDB /* FTNewsBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6956EA51CBE21A1008DEEDB /* FTNewsBean.m */; };
@@ -520,7 +519,6 @@
 		E68D16121CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+FTLYZLabel.m"; path = "改变行高/UILabel+FTLYZLabel.m"; sourceTree = "<group>"; };
 		E68D16151CFD819500AB5A8C /* UIImage+FTLYZImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+FTLYZImage.h"; path = "Categorys/图片模糊处理/UIImage+FTLYZImage.h"; sourceTree = "<group>"; };
 		E68D16161CFD819500AB5A8C /* UIImage+FTLYZImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+FTLYZImage.m"; path = "Categorys/图片模糊处理/UIImage+FTLYZImage.m"; sourceTree = "<group>"; };
-		E68D161D1CFE7FBA00AB5A8C /* BingWallpaper-2016-04-25.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "BingWallpaper-2016-04-25.jpg"; sourceTree = "<group>"; };
 		E68EC5081CC4B85D00A338C8 /* FTFilterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTFilterTableViewController.h; sourceTree = "<group>"; };
 		E68EC5091CC4B85D00A338C8 /* FTFilterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTFilterTableViewController.m; sourceTree = "<group>"; };
 		E68EC50A1CC4B85D00A338C8 /* FTFilterTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTFilterTableViewController.xib; sourceTree = "<group>"; };
@@ -1023,7 +1021,6 @@
 		E64EF0FD1CB6614000CAE340 = {
 			isa = PBXGroup;
 			children = (
-				E68D161D1CFE7FBA00AB5A8C /* BingWallpaper-2016-04-25.jpg */,
 				E64EF1081CB6614000CAE340 /* fighter */,
 				E64EF1221CB6614100CAE340 /* fighterTests */,
 				E64EF12D1CB6614100CAE340 /* fighterUITests */,
@@ -2007,7 +2004,6 @@
 				E68D16091CFD25ED00AB5A8C /* Assets.xcassets in Resources */,
 				3D7B98C41CE08DEE00B80B8D /* FTNewPasswordVC.xib in Resources */,
 				E6035EBF1CC0C39500B10D36 /* FTCommentViewController.xib in Resources */,
-				E68D161E1CFE7FBA00AB5A8C /* BingWallpaper-2016-04-25.jpg in Resources */,
 				E65D08D51CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.xib in Resources */,
 				3D7B98C91CE0D76800B80B8D /* FTWeixinInfoVC.xib in Resources */,
 				E68EC50C1CC4B85D00A338C8 /* FTFilterTableViewController.xib in Resources */,
@@ -2366,7 +2362,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "6c9e2583-a6ac-4f21-93f8-4484e4812b73";
+				PROVISIONING_PROFILE = "bfd749dd-11da-4aa9-aef1-79f6a04889a2";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2404,7 +2400,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "6c9e2583-a6ac-4f21-93f8-4484e4812b73";
+				PROVISIONING_PROFILE = "bfd749dd-11da-4aa9-aef1-79f6a04889a2";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

@@ -157,6 +157,9 @@ NSString * const GetHomepageUserInfo = @"/api/user/read.do";
 //获取评论
 NSString * const GetCommentsURL =  @"/api/comment/listComment.do";
 
+//获取拳手赛事信息  
+NSString * const GetBoxerRaceInfoURL =  @"/api/boxer/getBoxerRaceDynamic.do";
+
 //校验码
 NSString * const GetStatusCheckKey =  @"gedoujia25fdsgfd55fdsafsag21254";
     //增加投票

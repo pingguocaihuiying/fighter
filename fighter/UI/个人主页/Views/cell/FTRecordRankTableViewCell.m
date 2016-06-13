@@ -46,20 +46,8 @@
     }
     else if ([rankStr isEqualToString:@"3"]){
         resultStr = @"季军";
-    }else if ([rankStr isEqualToString:@"4"]){
-        resultStr = @"No.4";
-    }else if ([rankStr isEqualToString:@"5"]){
-        resultStr = @"No.5";
-    }else if ([rankStr isEqualToString:@"6"]){
-        resultStr = @"No.6";
-    }else if ([rankStr isEqualToString:@"7"]){
-        resultStr = @"No.7";
-    }else if ([rankStr isEqualToString:@"8"]){
-        resultStr = @"No.8";
-    }else if ([rankStr isEqualToString:@"9"]){
-        resultStr = @"No.9";
-    }else if ([rankStr isEqualToString:@"10"]){
-        resultStr = @"No.10";
+    }else{
+        resultStr = [NSString stringWithFormat:@"No.%@", rankStr];
     }
     
     return resultStr;

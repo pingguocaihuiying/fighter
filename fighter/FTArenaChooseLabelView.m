@@ -30,7 +30,10 @@
 
 - (void)initBaseData{
     _dataArray = [[NSMutableArray alloc ] initWithArray:[FTNWGetCategory sharedCategories]];
-    [_dataArray addObject:@{@"itemValue":@"训练", @"itemValueEn":@"Train"}];
+    if (_isBoxerOrCoach) {//如果是拳手或教练，显示“训练”标签
+        [_dataArray addObject:@{@"itemValue":@"训练", @"itemValueEn":@"Train"}];    
+    }
+    
     
 }
 

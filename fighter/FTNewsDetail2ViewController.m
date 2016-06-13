@@ -153,11 +153,16 @@
     if(self.webUrlString == nil || self.webUrlString.length <= 0) {
     
         NSString *url = _newsBean.url;
+        NSString *objId = @"";
+        if (_newsBean) {
+            objId = _newsBean.newsId;
+        }else if(_urlId){
+            objId = _urlId;
+        }
         url = [self encodeToPercentEscapeString:url];
         NSString *title = _newsBean.title;
         title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        _webViewUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/news_page.html?objId=%@&title=%@&author=%@&newsTime=%@&commentCount=%@&voteCount=%@&url=%@&tableName=%@&type=%@", _newsBean.newsId, title, [_newsBean.author stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], _newsBean.newsTime, _newsBean.commentCount, _newsBean.voteCount,url , @"c-news", _newsBean.newsType];
+        _webViewUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/news_page.html?objId=%@", objId];
     }else {
     
         _webViewUrlString = _webUrlString;
@@ -185,8 +190,6 @@
 }
 
 - (IBAction)commenButtonClicked:(id)sender {
-    
-    [MobClick event:@"videoPage_DetailPage_Comment"];
     [MobClick event:@"newsPage_DetailPage_Comment"];
     
     //从本地读取存储的用户信息

@@ -16,16 +16,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "fighter/UI/&#x4e2a;&#x4eba;&#x4e3b;&#x9875;/Views/cell/FTRecordRankTableViewCell.m"
-            timestampString = "487079198.575622"
+            filePath = "fighter/FTVideoDetailViewController.m"
+            timestampString = "487424359.401875"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "-setWithDic:"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
+            landmarkName = "-setWebView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

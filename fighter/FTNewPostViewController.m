@@ -27,6 +27,7 @@
 @property (nonatomic, strong)NSMutableArray *videoURLArray;
 @property (nonatomic, strong)FTArenaChooseLabelView *chooseLabelView;
 @property (nonatomic, strong)NSString *typeOfLabel;
+@property (nonatomic, assign) BOOL isSyncToArena;
 @end
 
 @implementation FTNewPostViewController
@@ -72,15 +73,16 @@
         NSDictionary *defaultData = @{@"image":[UIImage imageNamed:@"添加图片"]};
         [_dataArray addObject:defaultData];
     }
+    
+    //默认不显示同步选项
+//    _isShowSyncView = NO;
+    //是否同步到格斗场，默认为否
+    _isSyncToArena = NO;
 }
 
 - (void)setSubViews{
     //去掉底部的遮罩层
     self.bottomGradualChangeView.hidden = YES;
-    
-
-
-    
     //设置顶部的按钮
     [self setTopButton];
     
@@ -93,8 +95,16 @@
     //富文本属性
     NSAttributedString *acountPlaceholder = [[NSAttributedString alloc] initWithString:@"添加一个拉风的标题..." attributes:attr];
     [_titleTextField setAttributedPlaceholder:acountPlaceholder];
-
+    
+    //是否同步到格斗场
+    if (_isShowSyncView) {
+        _syncView.hidden = NO;
+    }else{
+        _syncView.hidden = YES;
+    }
 }
+
+
 
 - (void)setHideKeyboardEvent{
     //点击空白收起键盘
@@ -146,7 +156,7 @@
 //选中触发的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSLog(@"%ld, %ld", indexPath.section, indexPath.row);
+    NSLog(@"%ld, %ld", (long)indexPath.section, indexPath.row);
     NSData *data = _dataArray[indexPath.row][@"data"];
     if (data == nil) {
         //data是空
@@ -547,6 +557,14 @@
     if (title == nil || [title isEqualToString:@""]) {
         [self showHUDWithMessage:@"标题不能为空" isPop:NO];
     }
+    
+    //如果是训练视频，限制必须传视频
+    if ([_typeOfLabel isEqualToString:@"Train"]) {
+        if (!_videoURLArray || _videoURLArray.count < 1) {
+            [self showHUDWithMessage:@"选择训练标签需要上传视频" isPop:NO];
+        }
+    }
+    
     NSString *content = self.contentTextView.text;
     NSString *tableName = @"damageblog";
     NSString *nickname = localUser.username;
@@ -566,7 +584,7 @@
     NSString *labels = _typeOfLabel;
     
     //    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@", content, headUrl, loginToken,nickname,pictureUrlNames,tableName,thumbUrl,title,ts,urlPrefix,userId,videoUrlNames ,NewPostCheckKey]];
-    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@", content, labels, loginToken,pictureUrlNames,tableName,thumbUrl,title,ts,urlPrefix,userId,videoUrlNames ,NewPostCheckKey]];
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@", content, labels, loginToken,pictureUrlNames, _isSyncToArena ? @"1" : @"", tableName,thumbUrl,title,ts,urlPrefix,userId,videoUrlNames ,NewPostCheckKey]];
     
     NSDictionary *dic = @{
                           @"userId":userId,
@@ -582,7 +600,8 @@
                           @"videoUrlNames":videoUrlNames,
                           @"thumbUrl":thumbUrl,
                           @"labels":labels,
-                          @"checkSign":checkSign
+                          @"checkSign":checkSign,
+                          @"source":_isSyncToArena ? @"1" : @""// 同步为1，不同步为空
                           };
     
     [arenaNetwork newPostWithDic:dic andOption:^(NSDictionary *dict) {
@@ -636,8 +655,19 @@
 }
 #pragma -mark -添加标签按钮被点击
 - (IBAction)addLabelButtonClicked:(id)sender {
+    
+
+
+    
     if (_chooseLabelView == nil) {
      _chooseLabelView = [[FTArenaChooseLabelView alloc]init];
+        
+        
+        //如果用户有identity字段，则说明不是普通用户（是拳手或教练）
+        FTUserBean *localUser = [FTUserTools getLocalUser];//获取本地用户
+        if (localUser.identity) {
+            _chooseLabelView.isBoxerOrCoach = YES;
+        }
         _chooseLabelView.delegate = self;
         [self.view addSubview:_chooseLabelView];
     }else{
@@ -669,5 +699,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)syncButtonClicked:(id)sender {//是否同步按钮被点击后，改变值，刷新界面显示
+    _isSyncToArena = !_isSyncToArena;
+    [self refreshSyncButton];
+}
+- (void)refreshSyncButton{
 
+    [_syncButton setBackgroundImage:[UIImage imageNamed:_isSyncToArena ? @"弹出框用-类别选择-选中" : @"弹出框用-类别选择-空"] forState:UIControlStateNormal];
+
+}
 @end
