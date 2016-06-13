@@ -17,6 +17,7 @@
 #import "FTBaseNavigationViewController.h"
 #import "FTPhotoPickerView.h"
 #import "FTShareView.h"
+#import "FTHomepageMainViewController.h"
 
 @interface FTVideoDetailViewController ()<UIWebViewDelegate, UMSocialUIDelegate, CommentSuccessDelegate>
 {
@@ -578,6 +579,12 @@
         NSLog(@"requestURL : %@", requestURL);
     if ([requestURL isEqualToString:@"js-call:onload"]) {
         [self disableLoadingAnimation];
+    }else if ([requestURL hasPrefix:@"js-call:userId="]) {
+        NSString *userId = [requestURL stringByReplacingOccurrencesOfString:@"js-call:userId=" withString:@""];
+        //        NSLog(@"userId : %@", userId);
+        FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
+        homepageMainVC.olduserid = userId;
+        [self.navigationController pushViewController:homepageMainVC animated:YES];
     }
     return YES;
 }
