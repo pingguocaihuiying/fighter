@@ -43,6 +43,7 @@
 #import "NetWorking.h"
 #import "DBManager.h"
 #import "FTRankViewController.h"
+#import "FTNewsBean.h"
 
 
 #import "FTVideoDetailViewController.h"
@@ -89,6 +90,7 @@
 @property (nonatomic, strong)NSArray *boxerRaceInfoDataArray;//拳手赛事数据
 @property (nonatomic, copy)NSString *standings;//拳手战况
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *recordRankTableViewHeightConstant;
+@property (nonatomic, strong) FTUserBean *userBean;//获取的用户信息
 @end
 
 @implementation FTHomepageMainViewController
@@ -120,6 +122,7 @@
 #pragma mark 获取用户的基本信息
 - (void)getHomepageUserInfo{
     [NetWorking getHomepageUserInfoWithUserOldid:_olduserid andBoxerId:_boxerId andCoachId:_coachId andCallbackOption:^(FTUserBean *userBean) {
+        _userBean = userBean;
         [_headImageView sd_setImageWithURL:[NSURL URLWithString:userBean.headUrl]];
         
         
@@ -281,14 +284,32 @@
         
 //        NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-news",_newsBean.newsId];
 //        _webUrlString = [@"http://www.gogogofight.com/page/news_page.html?" stringByAppendingString:str];
+    
+    //链接地址
         NSString *_webUrlString = @"";
         FTShareView *shareView = [FTShareView new];
         [shareView setUrl:_webUrlString];
-        [shareView setTitle:@"test标题"];
-        [shareView setSummary:@"简述"];
+    
+    //分享标题
+    NSString *title = _userBean.name;
+        //如果是拳手，再加上“［格斗家］认证拳手
+    if(_userBean.query && [_userBean.query isEqualToString:@"1"]){//1：拳手，2:教练，普通用户为空（nil）
+        title = [NSString stringWithFormat:@"%@%@", title, @"[格斗家] 认证拳手"];
+    }
+    
+    //分享简述
+    NSString *summaryString = @"";
+    if (_tableViewDataSourceArray && _tableViewDataSourceArray.count > 0) {//如果有动态，简述显示动态标题
+        FTArenaBean *firstArenaBean = [_tableViewDataSourceArray firstObject];
+        summaryString = firstArenaBean.title;
+    }else{//不然，显示"格斗家 xxx 的主页"
+        summaryString = [NSString stringWithFormat:@"格斗家 %@ 的主页", _userBean.name];
+    }
+        [shareView setTitle:title];
+        [shareView setSummary:summaryString];
         [shareView setImage:@"微信用@200"];
 //
-            [shareView setImageUrl:_webUrlString];
+            [shareView setUrl:_webUrlString];
     
         [self.view addSubview:shareView];
 }
@@ -736,18 +757,29 @@
             return;
         }else if ([type isEqualToString:@"1"]){//拳讯
             NSLog(@"拳讯");
-            
-            if (dic[@"urlId"]) {
-                FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
-                newsDetailVC.urlId = dic[@"urlId"];
-                [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
-            }
+            [NetWorking getNewsById:dic[@"urlId"] andOption:^(NSArray *array) {
+                if (dic[@"urlId"]) {
+                    FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
+                    newsDetailVC.urlId = dic[@"urlId"];
+                    FTNewsBean *newsBean = [FTNewsBean new];
+                    [newsBean setValuesWithDic:[array firstObject]];
+                    newsDetailVC.newsBean = newsBean;
+                    [self.navigationController pushViewController:newsDetailVC animated:YES];
+                }
+            }];
+
 
         }else if ([type isEqualToString:@"2"]){//视频
             NSLog(@"视频");
-            FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
-            videoDetailVC.urlId = dic[@"urlId"];
-            [self.navigationController pushViewController:videoDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+            [NetWorking getVideoById:dic[@"urlId"] andOption:^(NSArray *array) {
+                FTVideoBean *videoBean = [FTVideoBean new];
+                [videoBean setValuesWithDic:[array firstObject]];
+                FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
+                videoDetailVC.urlId = dic[@"urlId"];
+                videoDetailVC.videoBean = videoBean;
+                [self.navigationController pushViewController:videoDetailVC animated:YES];
+            }];
+
         }
     }
 }
@@ -979,6 +1011,7 @@
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
         NSLog(@"get vote urlString : %@", urlString);
     //创建AAFNetWorKing管理者
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];

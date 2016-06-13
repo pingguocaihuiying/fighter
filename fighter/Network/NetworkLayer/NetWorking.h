@@ -169,10 +169,10 @@
 + (void)getBoxerRaceInfoWithBoxerId:(NSString *)boxerId andOption:(void (^)(NSArray *array))option;
 
 //获取单个拳讯信息
-+ (void)getNewsByd:(NSString *)newsId andOption:(void (^)(NSArray *array))option;
++ (void)getNewsById:(NSString *)newsId andOption:(void (^)(NSArray *array))option;
 
 //获取单个视频信息
-+ (void)getVideoByd:(NSString *)videoId andOption:(void (^)(NSArray *array))option;
++ (void)getVideoById:(NSString *)videoId andOption:(void (^)(NSArray *array))option;
 @end
 
 

@@ -152,3 +152,9 @@ extern NSString * const GetCommentsURL;
 //获取拳手赛事信息
 extern NSString * const GetBoxerRaceInfoURL;
 
+// 获取单个拳讯信息
+extern NSString * const GetNewsByIdURL;
+
+// 获取单个视频信息
+extern NSString * const GetVideoByIdURL;
+
