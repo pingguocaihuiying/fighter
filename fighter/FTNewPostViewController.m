@@ -526,10 +526,6 @@
                           NSLog(@"key : %@", key);
                           
                       } option:nil];
-        
-            
-        //把数据上传到格斗家的服务器上
-        
 
     }];//***获取token block回调结束
     }
@@ -609,6 +605,8 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         
         if ([dict[@"status"] isEqualToString:@"success"]) {
+            
+            NSLog(@"帖子发成功了");
             [self showHUDWithMessage:@"发布成功"isPop:YES];
         }else{
             [self showHUDWithMessage:dict[@"message"]isPop:NO];

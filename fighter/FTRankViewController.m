@@ -670,9 +670,12 @@
         [cell setSelected:NO];
     }
     NSString *boxerId = _dataArray[indexPath.row][@"boxerId"];
+    NSString *userId = _dataArray[indexPath.row][@"userId"];
     NSLog(@"boxerId : %@", boxerId);
+    NSLog(@"userId : %@", userId);
     FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
     homepageMainVC.boxerId = boxerId;
+    homepageMainVC.olduserid = userId;
     [self.navigationController pushViewController:homepageMainVC animated:YES];
 }
 
