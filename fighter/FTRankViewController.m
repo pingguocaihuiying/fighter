@@ -665,11 +665,16 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"did select cell");
+    NSString *boxerId;
     if (tableView == self.tableView) {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         [cell setSelected:NO];
+        boxerId = _dataArray[indexPath.row +1][@"boxerId"];
+      
+    }else {
+         boxerId = _dataArray[indexPath.row ][@"boxerId"];
     }
-    NSString *boxerId = _dataArray[indexPath.row][@"boxerId"];
+    
     NSLog(@"boxerId : %@", boxerId);
     FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
     homepageMainVC.boxerId = boxerId;
