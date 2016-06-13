@@ -456,18 +456,25 @@
 
 //获取SDWebImage缓存图片
 - (NSData *) getImageDataForSDWebImageCachedKey {
-
-    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:_imageUrl]];
+    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:@"http://12345.jpg"]];
+//    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:_imageUrl]];
     UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
     NSData *data = UIImageJPEGRepresentation(image, 1);
    
     if (data == nil || data.length == 0) {
         UIImage *iconImg = [UIImage imageNamed:@"微信用@200"];
         data = UIImageJPEGRepresentation(iconImg, 1);
+        
+        int i = 1;
+        while (data.length > 32*1000) {
+            data = UIImageJPEGRepresentation(iconImg, 1-i/10);
+            i++;
+        }
+        return data;
     }
+    
     int i = 1;
     while (data.length > 32*1000) {
-//        NSLog(@"NSData.length:%ld",data.length);
         data = UIImageJPEGRepresentation(image, 1-i/10);
         i++;
     }
