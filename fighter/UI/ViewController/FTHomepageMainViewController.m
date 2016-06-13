@@ -310,7 +310,8 @@
     }
         [shareView setTitle:title];
         [shareView setSummary:summaryString];
-        [shareView setImage:@"微信用@200"];
+//        [shareView setImage:@"微信用@200"];
+    [shareView setImageUrl:_userBean.headUrl];
 //
             [shareView setUrl:_webUrlString];
     
@@ -587,7 +588,7 @@
 }
 #pragma -mark 动态tableview的cell点击事件
 - (void)fttableView:(FTTableViewController *)tableView didSelectWithIndex:(NSIndexPath *)indexPath{
-    //    NSLog(@"第%ld个cell被点击了。", indexPath.row);
+        NSLog(@"第%ld个cell被点击了。", indexPath.row);
     if (self.tableViewDataSourceArray) {
         
         FTArenaPostsDetailViewController *postsDetailVC = [FTArenaPostsDetailViewController new];
