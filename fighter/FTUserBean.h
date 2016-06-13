@@ -80,6 +80,10 @@
 @property (nonatomic, copy)NSString *standings;//战绩 
 @property (nonatomic, copy)NSString *boxerId;//拳手id
 @property (nonatomic, copy)NSString *coachId;//教练id
+@property (nonatomic, copy)NSString *win;//胜场
+@property (nonatomic, copy)NSString *fail;//负场
+@property (nonatomic, copy)NSString *draw;//打平场数
+@property (nonatomic, copy)NSString *knockout;//击倒数
 
 
 //计算年龄

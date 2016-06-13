@@ -730,7 +730,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //        }
         
         FTUserBean *userBean = [FTUserBean new];
-
+        NSLog(@"user dic birthday : %@", userDic[@"birthday"]);
         [userBean setValuesForKeysWithDictionary:userDic];
         [userBean setValuesWithDic:userDic];
         userBean.boxerRaceInfos = userDic[@"boxerRaceInfos"];

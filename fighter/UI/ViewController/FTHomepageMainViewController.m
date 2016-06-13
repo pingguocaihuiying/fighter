@@ -146,12 +146,15 @@
         }
         NSLog(@"ageStr : %@", ageStr);
         
+        FTUserBean *localUser = [FTUserTools getLocalUser];
+        NSLog(@"local age : %@", localUser.birthday);
+        
         if ([ageStr isEqualToString:@""]) {
             ageStr = @"-";
         }else{
             NSTimeInterval birthTimeStamp = [userBean.birthday doubleValue];
-            NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
-            double age = (birthTimeStamp - now) / 3600 / 24 / 365 / 1000;
+            NSTimeInterval now = [[NSDate date] timeIntervalSince1970] * 1000;
+            double age = (now - birthTimeStamp) / 3600 / 24 / 365 / 1000;
             ageStr = [NSString stringWithFormat:@"%.0lf", age];
         }
         if ([ageStr isEqualToString:@"-0"] || [ageStr isEqualToString:@"0"]) {
@@ -160,6 +163,7 @@
 //        NSLog(@"ageStr : %@", ageStr);
         self.ageLabel.text = [NSString stringWithFormat:@"%@岁", ageStr];
         
+//        self.ageLabel.text = [NSString stringWithFormat:@"%@岁", userBean.age];
         if (userBean.boxerId) {
             _boxerId = userBean.boxerId;
             //如果有boxerId，去查询拳手的赛事信息
@@ -280,7 +284,6 @@
     NSLog(@"转发");
         //友盟分享事件统计
         [MobClick event:@"newsPage_DetailPage_share"];
-        //注意：分享到微信好友、微信朋友圈、微信收藏、QQ空间、QQ好友、来往好友、来往朋友圈、易信好友、易信朋友圈、Facebook、Twitter、Instagram等平台需要参考各自的集成方法
         
 //        NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-news",_newsBean.newsId];
 //        _webUrlString = [@"http://www.gogogofight.com/page/news_page.html?" stringByAppendingString:str];
@@ -335,9 +338,11 @@
 
     //设置左上角的返回按钮
     UIButton *leftBackButton = [[UIButton alloc]init];
-    [leftBackButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
+//    [leftBackButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
+    [leftBackButton setImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
     [leftBackButton addTarget:self action:@selector(popViewController) forControlEvents:UIControlEventTouchUpInside];
-    leftBackButton.frame = CGRectMake(10, 30, 22, 22);
+//    leftBackButton.frame = CGRectMake(10, 30, 22, 22);
+    leftBackButton.frame = CGRectMake(-2, 19, 60, 44);
     [self.view addSubview:leftBackButton];
     [self.view bringSubviewToFront:leftBackButton];
     
@@ -681,9 +686,41 @@
         //战绩详情label
         UILabel *standingsDetailLabel = [[UILabel alloc]initWithFrame:CGRectMake(tableView.width - 150 - 14 - 10, 12, 150, 14)];
         standingsDetailLabel.textAlignment = NSTextAlignmentRight;
-        standingsDetailLabel.text = _standings;
+        
+        NSMutableAttributedString *standingStr = [[NSMutableAttributedString alloc]init];
+            //胜
+        NSMutableAttributedString *winCountStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@", _userBean.win == nil ? @"0" : _userBean.win]];
+        [winCountStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, winCountStr.length)];
+        NSMutableAttributedString *winStr = [[NSMutableAttributedString alloc]initWithString:@"胜 "];
+        [winStr addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, winStr.length)];
+        
+            //负
+        NSMutableAttributedString *failCountStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@", _userBean.fail == nil ? @"0" : _userBean.fail]];
+        [failCountStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, failCountStr.length)];
+        NSMutableAttributedString *failStr = [[NSMutableAttributedString alloc]initWithString:@"负 "];
+        [failStr addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, failStr.length)];
+            //平
+        NSMutableAttributedString *drawCountStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@", _userBean.draw == nil ? @"0" : _userBean.draw]];
+        NSMutableAttributedString *drawStr = [[NSMutableAttributedString alloc]initWithString:@"平 "];
+        [drawCountStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, drawCountStr.length)];
+        [drawStr addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, drawStr.length)];
+            //击倒
+        NSMutableAttributedString *knockoutCountStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@", _userBean.knockout == nil ? @"0" : _userBean.knockout]];
+        [knockoutCountStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, knockoutCountStr.length)];
+        NSMutableAttributedString *knockStr = [[NSMutableAttributedString alloc]initWithString:@"击倒"];
+        [knockStr addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, knockStr.length)];
+        
+        [standingStr appendAttributedString:winCountStr];
+        [standingStr appendAttributedString:winStr];
+        [standingStr appendAttributedString:failCountStr];
+        [standingStr appendAttributedString:failStr];
+        [standingStr appendAttributedString:drawCountStr];
+        [standingStr appendAttributedString:drawStr];
+        [standingStr appendAttributedString:knockoutCountStr];
+        [standingStr appendAttributedString:knockStr];
+        
+        standingsDetailLabel.attributedText = standingStr;
         standingsDetailLabel.font = [UIFont systemFontOfSize:14];
-        standingsDetailLabel.textColor = [UIColor whiteColor];
         [headerView addSubview:standingsDetailLabel];
         
         //底部分割线

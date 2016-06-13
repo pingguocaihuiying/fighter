@@ -1412,6 +1412,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E688E9A31D0E96F80084E88E /* 战绩 */ = {
+			isa = PBXGroup;
+			children = (
+				E6549DF31D000AEB00B27483 /* FTRecordRankTableViewCell.h */,
+				E6549DF41D000AEB00B27483 /* FTRecordRankTableViewCell.m */,
+				E6549DF51D000AEB00B27483 /* FTRecordRankTableViewCell.xib */,
+			);
+			name = "战绩";
+			sourceTree = "<group>";
+		};
+		E688E9A51D0EA0FB0084E88E /* 战绩（x胜x负x平x击倒） */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "战绩（x胜x负x平x击倒）";
+			sourceTree = "<group>";
+		};
 		E68D16061CFD24DE00AB5A8C /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1424,6 +1441,7 @@
 		E68D16071CFD24EB00AB5A8C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E688E9A51D0EA0FB0084E88E /* 战绩（x胜x负x平x击倒） */,
 				E68D16211D00098D00AB5A8C /* cell */,
 			);
 			name = Views;
@@ -1451,11 +1469,9 @@
 		E68D16211D00098D00AB5A8C /* cell */ = {
 			isa = PBXGroup;
 			children = (
+				E688E9A31D0E96F80084E88E /* 战绩 */,
 				E6B239041D067014001F86BE /* 评论 */,
 				E6E688E41D002F7D00708C24 /* 赛事list */,
-				E6549DF31D000AEB00B27483 /* FTRecordRankTableViewCell.h */,
-				E6549DF41D000AEB00B27483 /* FTRecordRankTableViewCell.m */,
-				E6549DF51D000AEB00B27483 /* FTRecordRankTableViewCell.xib */,
 			);
 			name = cell;
 			sourceTree = "<group>";

@@ -665,6 +665,8 @@
         
         //如果用户有identity字段，则说明不是普通用户（是拳手或教练）
         FTUserBean *localUser = [FTUserTools getLocalUser];//获取本地用户
+        
+        
         if (localUser.identity) {
             _chooseLabelView.isBoxerOrCoach = YES;
         }
