@@ -376,7 +376,7 @@
     NSString *urlString = [FTNetConfig host:Domain path:GetArenaListURL];
     NSString *tableName = @"damageblog";
     
-    urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName];
+    urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@&source=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName, @"1"];
     
     NSLog(@"arena list urlString:%@",urlString);
     NetWorking *net = [[NetWorking alloc]init];

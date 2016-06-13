@@ -52,6 +52,11 @@
 #import "FTHomepageRecordListTableViewCell.h"
 #import "NetWorking.h"
 #import "FTUserBean.h"
+#import "FTHomepageCommentListViewController.h"
+#import "FTArenaBean.h"
+#import "FTArenaPostsDetailViewController.h"
+#import "FTUserCenterViewController.h"
+#import "FTShareView.h"
 
 @interface FTHomepageMainViewController ()<FTArenaDetailDelegate, FTSelectCellDelegate,FTTableViewdelegate, UIScrollViewDelegate, UIScrollViewAccessibilityDelegate, UICollectionViewDelegate, UICollectionViewDataSource, FTVideoDetailDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic)UIScrollView *scrollView;
@@ -74,10 +79,16 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (assign, nonatomic)BOOL hasInitRecordRank;
 @property (assign, nonatomic)BOOL hasFollow;//是否关注
-@property (nonatomic, copy)NSString *userid;//用于（取消）关注
+@property (nonatomic, copy)NSString *userid;//用于（取消）关注、获取评论列表
 @property (nonatomic, copy)NSString *followTableName;//用于（取消）关注
 
 @property (nonatomic, strong)NSMutableArray *collectionViewDataSourceArray;//视频collectionView的数据源
+@property (nonatomic, copy)NSString *userIdentity;//用户身份  0:普通用户 1:拳手 2:教练
+
+@property (nonatomic, strong)NSMutableArray *boxerRankDataArray;//拳手战绩数据
+@property (nonatomic, strong)NSArray *boxerRaceInfoDataArray;//拳手赛事数据
+@property (nonatomic, copy)NSString *standings;//拳手战况
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *recordRankTableViewHeightConstant;
 @end
 
 @implementation FTHomepageMainViewController
@@ -102,48 +113,124 @@
     self.navigationController.navigationBarHidden = YES;
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    self.navigationController.navigationBarHidden = NO;
+}
+
 #pragma mark 获取用户的基本信息
 - (void)getHomepageUserInfo{
-    [NetWorking getHomepageUserInfoWithUserOldid:_olduserid andCallbackOption:^(FTUserBean *userBean) {
+    [NetWorking getHomepageUserInfoWithUserOldid:_olduserid andBoxerId:_boxerId andCoachId:_coachId andCallbackOption:^(FTUserBean *userBean) {
         [_headImageView sd_setImageWithURL:[NSURL URLWithString:userBean.headUrl]];
+        
+        
+        
         self.sexLabel.text = userBean.sex;
         self.nameLabel.text = userBean.name;
+
         self.followCountLabel.text = [NSString stringWithFormat:@"%@", userBean.followCount];
         self.fansCountLabel.text = [NSString stringWithFormat:@"%@", userBean.fansCount == nil ? @"0" : userBean.fansCount];
         self.dynamicCountLabel.text = [NSString stringWithFormat:@"%@", userBean.dynamicCount == nil ? @"0" : userBean.dynamicCount];
+        if (!userBean.address) {
+            userBean.address = @"";
+        }
         self.addressLabel.text = [NSString stringWithFormat:@"%@", userBean.address];
         self.briefIntroductionTextField.text = userBean.brief;
-        NSString *ageStr = userBean.age;
-        if (!ageStr) {
+        
+        //设置年龄
+        NSString *ageStr = userBean.birthday;
+        if (ageStr == nil) {
             ageStr = @"";
         }
+        NSLog(@"ageStr : %@", ageStr);
+        
+        if ([ageStr isEqualToString:@""]) {
+            ageStr = @"-";
+        }else{
+            NSTimeInterval birthTimeStamp = [userBean.birthday doubleValue];
+            NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+            double age = (birthTimeStamp - now) / 3600 / 24 / 365 / 1000;
+            ageStr = [NSString stringWithFormat:@"%.0lf", age];
+        }
+        if ([ageStr isEqualToString:@"-0"] || [ageStr isEqualToString:@"0"]) {
+            ageStr = @"-";
+        }
+//        NSLog(@"ageStr : %@", ageStr);
+        self.ageLabel.text = [NSString stringWithFormat:@"%@岁", ageStr];
+        
+        if (userBean.boxerId) {
+            _boxerId = userBean.boxerId;
+            //如果有boxerId，去查询拳手的赛事信息
+            [self getBoxerRaceInfo];
+        }
+        if(userBean.coachId){
+            _coachId = userBean.coachId;
+        }
         _userid = userBean.userid;
-        self.ageLabel.text = [NSString stringWithFormat:@"%@岁", [ageStr isEqualToString:@""] ? @"- " : userBean.age];
         self.weightLabel.text = [NSString stringWithFormat:@"%@kg", userBean.weight == nil ? @"- " : userBean.weight];
-        self.heightLabel.text = [NSString stringWithFormat:@"%@cm", [userBean.height isEqualToString:@""]  ? @"- " : userBean.height];
+        if (!userBean.height) {
+            userBean.height = @"";
+        }
+        self.heightLabel.text = [NSString stringWithFormat:@"%@cm", [userBean.height isEqualToString:@""] ? @"- " : userBean.height];
         
         //处理三个按钮的可用状态
-        if ([userBean.query isEqualToString:@"0"]) {//普通用户
+        if (userBean.query && ![userBean.query isEqualToString:@""]) {
+            _userIdentity = userBean.query;
+        }else{
+            _userIdentity = @"0";
+        }
+        NSLog(@"_userIdentity : %@", _userIdentity);
+        
+//        [_userBgImageView sd_setImageWithURL:[NSURL URLWithString:userBean.headUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//            _userBgImageView.image = [UIImage boxblurImage:image withBlurNumber:0.5];
+//            
+//        }];
+        
+        if ([_userIdentity isEqualToString:@"0"]) {//普通用户
+            
             _followTableName = @"f-user";
-            self.recordButton.hidden = NO;//显示战绩按钮
-            self.videoButton.hidden = NO;//显示视频按钮
+            
+            
+            //不显示战绩、视频项
+            self.recordButton.hidden = YES;//是否显示战绩按钮
+            self.videoButton.hidden = YES;//是否显示视频按钮
+            
             [self.videoButton setTitle:@"视频"];//修改视频按钮的标题为“视频”
-        }else if ([userBean.query isEqualToString:@"1"]) {//拳手
+        }else if ([_userIdentity isEqualToString:@"1"]) {//拳手
+            
+            //设置个人资料的背景图片
+            if (userBean.background != nil && ![userBean.background isEqualToString:@""]) {
+                [_userBgImageView sd_setImageWithURL:[NSURL URLWithString:userBean.headUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    _userBgImageView.image = [UIImage boxblurImage:image withBlurNumber:0.5];
+                    
+                }];
+            }
+
+            
+            //显示战绩、视频项
+            self.recordButton.hidden = NO;//是否显示战绩按钮
+            self.videoButton.hidden = NO;//是否显示视频按钮
+            
             _followTableName = @"f-boxer";
             self.identityImageView1.hidden = NO;
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-拳"];
-        }else if ([userBean.query isEqualToString:@"2"]){//教练
+        }else if ([_userIdentity isEqualToString:@"2"]){//教练
+            
+            //显示视频，不显示战绩
+            self.recordButton.hidden = YES;//是否显示战绩按钮
+            self.videoButton.hidden = YES;//是否显示视频按钮
+            
             _followTableName = @"f-coach";
             self.identityImageView1.hidden = NO;
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-教"];
-        }else if ([userBean.query isEqualToString:@"1,2"]){//拳手、教练
+        }else if ([_userIdentity isEqualToString:@"1,2"]){//拳手、教练
             self.identityImageView1.hidden = NO;
             self.identityImageView2.hidden = NO;
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-教"];
             self.identityImageView2.image = [UIImage imageNamed:@"身份圆形-拳"];
         }
+        
         [self getFollowInfo];//获取关注信息
-        //处理右上角的“转发”或“修改”
+        //处理右上角的“转发”或“修改”：如果是自己的主页，则是“修改”，如果是别人的，则显示转发
         FTUserBean *localUserBean = [FTUserTools getLocalUser];
         _shareAndModifyProfileButton.hidden = NO;
         if (localUserBean && [localUserBean.olduserid isEqualToString:self.olduserid]) {//如果是自己的主页
@@ -153,23 +240,57 @@
             _bottomNewPostsView.hidden = NO;
             _bottomFollowView.hidden = YES;
         }else{//如果是别人的主页
-            
             [_shareAndModifyProfileButton setTitle:@"转发" forState:UIControlStateNormal];
             [_shareAndModifyProfileButton addTarget:self action:@selector(shareUserInfo) forControlEvents:UIControlEventTouchUpInside];
-            
             //隐藏“发新动态”，显示关注等
             _bottomNewPostsView.hidden = YES;
             _bottomFollowView.hidden = NO;
         }
+        
+        //拳手战绩
+        _boxerRankDataArray = [[NSMutableArray alloc]initWithArray:userBean.boxerRaceInfos];
+            //添加一条空数据
+        [_boxerRankDataArray insertObject:[NSObject new] atIndex:0];
+        
+        //拳手战绩概括
+        _standings = userBean.standings;
     }];
 }
+
+- (void)getBoxerRaceInfo{
+    [NetWorking getBoxerRaceInfoWithBoxerId:_boxerId andOption:^(NSArray *array) {
+        _boxerRaceInfoDataArray = array;
+        [_recordListTableView reloadData];
+    }];
+}
+
 #pragma mark 修改个人资料
 - (void)modifyProfile{
     NSLog(@"修改资料");
+    FTUserCenterViewController *userCenter = [[FTUserCenterViewController alloc]init];
+    userCenter.title = @"个人资料";
+    [self.navigationController pushViewController:userCenter animated:YES];
 }
+
 #pragma mark 转发
 - (void)shareUserInfo{
     NSLog(@"转发");
+        //友盟分享事件统计
+        [MobClick event:@"newsPage_DetailPage_share"];
+        //注意：分享到微信好友、微信朋友圈、微信收藏、QQ空间、QQ好友、来往好友、来往朋友圈、易信好友、易信朋友圈、Facebook、Twitter、Instagram等平台需要参考各自的集成方法
+        
+//        NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-news",_newsBean.newsId];
+//        _webUrlString = [@"http://www.gogogofight.com/page/news_page.html?" stringByAppendingString:str];
+        NSString *_webUrlString = @"";
+        FTShareView *shareView = [FTShareView new];
+        [shareView setUrl:_webUrlString];
+        [shareView setTitle:@"test标题"];
+        [shareView setSummary:@"简述"];
+        [shareView setImage:@"微信用@200"];
+//
+            [shareView setImageUrl:_webUrlString];
+    
+        [self.view addSubview:shareView];
 }
 /**
  *  初始化一些默认配置
@@ -199,16 +320,7 @@
     [self.view addSubview:leftBackButton];
     [self.view bringSubviewToFront:leftBackButton];
     
-    //如果用户安装了微信，再显示转发按钮
-    if([WXApi isWXAppInstalled]){
-        
-    }
-    
-    //设置个人资料的背景图片
-    [_userBgImageView sd_setImageWithURL:[NSURL URLWithString:@"http://www.geedew.com/wp-content/uploads/2012/10/NodeJS-1038x576.jpg"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        _userBgImageView.image = [UIImage boxblurImage:[UIImage imageNamed:@"BingWallpaper-2016-04-25.jpg"] withBlurNumber:0.5];
 
-    }];
     //设置主scrollView的滚动逻辑
     [self setMainScrollView];
     //设置格斗场的tableview cell
@@ -304,7 +416,6 @@
             _videoCollectionView.hidden = NO;
             
             [self initCollectionView];
-            [self getDataWithGetType:@"new" andCurrId:@"-1"];//加载视频数据
             break;
         default:
             break;
@@ -341,35 +452,60 @@
     NetWorking *net = [[NetWorking alloc]init];
     
     [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
-
         if (responseDic != nil) {
             NSString *status = responseDic[@"status"];
             if ([status isEqualToString:@"success"]) {
                 NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
                 
-                
-#pragma mark 从格斗场的数据中，筛选出属于“训练”类型的内容
-                NSMutableArray *tempArray = [NSMutableArray new];
+                //把获取的字典转换为bean，再存入数组
+                NSMutableArray *tempTableViewArray = [NSMutableArray new];
                 for(NSDictionary *dic in mutableArray){
-                    if ([dic[@"labels"] isEqualToString:@"Train"]) {
-                        [tempArray addObject:dic];
+                    FTArenaBean *bean = [FTArenaBean new];
+                    [bean setValuesWithDic:dic];
+                    [tempTableViewArray addObject:bean];
+                }
+                
+                //从格斗场的数据中，筛选出属于“训练”类型的内容**start***
+                NSMutableArray *tempCollectionViewDataArray = [NSMutableArray new];
+                for(FTArenaBean *bean in tempTableViewArray){
+                    if ([bean.labels isEqualToString:@"Train"]) {
+                        [tempCollectionViewDataArray addObject:bean];
                     }
                 }
-                _collectionViewDataSourceArray = tempArray;
+                _collectionViewDataSourceArray = tempCollectionViewDataArray;
+                //从格斗场的数据中，筛选出属于“训练”类型的内容** end ***
                 
-                //缓存数据到DB
-                if (mutableArray.count > 0) {
+                if (self.tableViewDataSourceArray == nil) {
+                    self.tableViewDataSourceArray = [[NSMutableArray alloc]init];
+                }
+                if ([_pageNum isEqualToString:@"1"]) {//如果是第一页数据，直接替换，不然追加
+                    self.tableViewDataSourceArray = tempTableViewArray;
+                }else{
+                    [self.tableViewDataSourceArray addObjectsFromArray:tempTableViewArray];
+                }
+                
+                self.tableViewController.sourceArray = self.tableViewDataSourceArray;
+                
+                
+                
+                if (self.tableViewDataSourceArray.count > 0) {
                     _noDynamicImageView.hidden = YES;
-                    DBManager *dbManager = [DBManager shareDBManager];
-                    [dbManager connect];
-                    [dbManager cleanArenasTable];
-                    
-                    for (NSDictionary *dic in mutableArray)  {
-                        [dbManager insertDataIntoArenas:dic];
-                    }
                 }
                 
-                [self getDataFromDB];
+                [self.tableViewController.tableView reloadData];
+//                //缓存数据到DB
+//                if (mutableArray.count > 0) {
+//                    _noDynamicImageView.hidden = YES;
+//                    DBManager *dbManager = [DBManager shareDBManager];
+//                    [dbManager connect];
+//                    [dbManager cleanArenasTable];
+//                    
+//                    for (NSDictionary *dic in mutableArray)  {
+//                        [dbManager insertDataIntoArenas:dic];
+//                    }
+//                }
+                
+//                [self getDataFromDB];
                 
                 [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
                 [self.tableViewController.tableView footerEndRefreshing];
@@ -393,6 +529,15 @@
     NSMutableArray *mutableArray =[dbManager searchArenasWithLabel:_labels hotTag:_query];
     [dbManager close];
     
+    //从格斗场的数据中，筛选出属于“训练”类型的内容**start***
+    NSMutableArray *tempArray = [NSMutableArray new];
+    for(FTArenaBean *bean in mutableArray){
+        if ([bean.labels isEqualToString:@"Train"]) {
+            [tempArray addObject:bean];
+        }
+    }
+    _collectionViewDataSourceArray = tempArray;
+    //从格斗场的数据中，筛选出属于“训练”类型的内容** end ***
     
     if (self.tableViewDataSourceArray == nil) {
         self.tableViewDataSourceArray = [[NSMutableArray alloc]init];
@@ -470,9 +615,9 @@
         //加载一个cell用于复用
         [_recordRankTableView registerNib:[UINib nibWithNibName:@"FTRecordRankTableViewCell" bundle:nil] forCellReuseIdentifier:@"recordRankCell"];
         //设置高度
-        _recordRankTableViewHeight.constant = 22 + 32 * 4 + 7;
+        _recordRankTableViewHeight.constant =36 + 22 + 32 * (_boxerRankDataArray.count - 1) + 7;
         //添加背景
-        UIImageView *bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, _recordRankTableView.width, _recordRankTableViewHeight.constant)];
+        UIImageView *bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(8, 0, _recordRankTableView.width - 8 * 2, _recordRankTableViewHeight.constant)];
         bgImageView.image = [UIImage imageNamed:@"金属边框-改进ios"];
         [_recordRankTableView addSubview:bgImageView];
         _hasInitRecordRank = true;
@@ -487,13 +632,55 @@
 }
 //cell多少行
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
     if (tableView == _recordRankTableView) {
-        return 5;
+        if(_boxerRankDataArray){
+            return _boxerRankDataArray.count;
+        }
     }else if(tableView == _recordListTableView){
-        return 10;
+        return _boxerRaceInfoDataArray.count;
     }
     return 0;
 }
+
+//headerView
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *headerView = [UIView new];
+    headerView.frame = CGRectMake(0, 0, tableView.width, 36);
+    if (tableView == _recordRankTableView) {
+//        headerView.backgroundColor = [UIColor yellowColor];
+        
+        //固定文本“战绩”label
+        UILabel *standingsTitle = [[UILabel alloc]initWithFrame:CGRectMake(14 + 10, 12, 50, 14)];
+        standingsTitle.text = @"战绩";
+        standingsTitle.font = [UIFont systemFontOfSize:14];
+        standingsTitle.textColor = [UIColor whiteColor];
+        [headerView addSubview:standingsTitle];
+        
+        //战绩详情label
+        UILabel *standingsDetailLabel = [[UILabel alloc]initWithFrame:CGRectMake(tableView.width - 150 - 14 - 10, 12, 150, 14)];
+        standingsDetailLabel.textAlignment = NSTextAlignmentRight;
+        standingsDetailLabel.text = _standings;
+        standingsDetailLabel.font = [UIFont systemFontOfSize:14];
+        standingsDetailLabel.textColor = [UIColor whiteColor];
+        [headerView addSubview:standingsDetailLabel];
+        
+        //底部分割线
+        UIView *bottomSeparatorView = [[UIView alloc]initWithFrame:CGRectMake(10, headerView.height - 1, headerView.width - 20, 1)];
+        bottomSeparatorView.backgroundColor = [UIColor colorWithRed:40 / 255.0 green:40 / 255.0 blue:40 / 255.0 alpha:1];
+        [headerView addSubview:bottomSeparatorView];
+    }
+    return headerView;
+}
+
+//headerView height
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (tableView == _recordRankTableView) {
+        return 36;
+    }
+    return 0;
+}
+
 //cell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     FTBaseTableViewCell *cell;
@@ -504,12 +691,14 @@
             cell1.competitionNameLabel.textColor = [UIColor colorWithHex:0x646464];
             cell1.curRankLabel.textColor = [UIColor colorWithHex:0x646464];
             cell1.bestRankLabel.textColor = [UIColor colorWithHex:0x646464];
-            cell1.backgroundColor = [UIColor colorWithHex:0x191919];
-        }else{
+//            cell1.backgroundColor = [UIColor colorWithHex:0x191919];
+        }else{//如果不是第一行，动态显示内容
             cell1.competitionNameLabel.textColor = [UIColor whiteColor];
             cell1.curRankLabel.textColor = [UIColor whiteColor];
             cell1.bestRankLabel.textColor = [UIColor whiteColor];
             cell1.backgroundColor = [UIColor clearColor];
+            
+            [cell1 setWithDic:_boxerRankDataArray[indexPath.row]];
         }
         //如果是第一个和最后一个，则不显示分割线
         if (indexPath.row == 0 || indexPath.row == 4) {
@@ -518,6 +707,8 @@
         return cell1;
     }else if(tableView == _recordListTableView){
         FTHomepageRecordListTableViewCell *cell2 = [tableView dequeueReusableCellWithIdentifier:@"recordListCell"];
+        [cell2 setWithDic:_boxerRaceInfoDataArray[indexPath.row]];
+        cell2.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell2;
     }
     return cell;
@@ -535,57 +726,30 @@
     }
     return 0;
 }
-
-
-#pragma -mark  视频列表collectionView
-//加载视频数据
-- (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)videoCurrId{
-    
-    NSString *urlString = [FTNetConfig host:Domain path:GetVideoURL];
-    NSString *videoType = @"";
-    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@",videoType, videoCurrId, @"1", getType, ts, @"quanjijia222222"]];
-    
-    urlString = [NSString stringWithFormat:@"%@?videosType=%@&videosCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&videosTag=%@", urlString, videoType, videoCurrId, getType, ts, checkSign, [FTNetConfig showType], @"1"];
-    
-    NetWorking *net = [[NetWorking alloc]init];
-    [net getVideos:urlString option:^(NSDictionary *responseDic) {
-        
-        if (responseDic != nil) {
-            NSString *status = responseDic[@"status"];
-            if ([status isEqualToString:@"success"]) {
-                NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
-                
-                
-                //缓存数据到DB
-                if (mutableArray.count > 0) {
-                    DBManager *dbManager = [DBManager shareDBManager];
-                    [dbManager connect];
-                    [dbManager cleanVideosTable];
-                    
-                    for (NSDictionary *dic in mutableArray)  {
-                        [dbManager insertDataIntoVideos:dic];
-                    }
-                }
-                
-                [self getDataFromDBWithVideoType:videoType getType:getType];
-                
-                [_videoCollectionView reloadData];
-                
-            }else {
-                [self getDataFromDBWithVideoType:videoType getType:getType];
-                [_videoCollectionView reloadData];
-                
+//tableview点击事件
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == _recordListTableView) {
+        NSDictionary *dic = _boxerRaceInfoDataArray[indexPath.row];
+        NSString *type = dic[@"urlType"];
+        NSLog(@"type : %@", type);
+        if ([type isEqualToString:@"0"]) {//不跳转
+            return;
+        }else if ([type isEqualToString:@"1"]){//拳讯
+            NSLog(@"拳讯");
+            
+            if (dic[@"urlId"]) {
+                FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
+                newsDetailVC.urlId = dic[@"urlId"];
+                [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
             }
-            
-        }else {
-            [self getDataFromDBWithVideoType:videoType getType:getType];
 
-            [_videoCollectionView reloadData];
-            
-            
+        }else if ([type isEqualToString:@"2"]){//视频
+            NSLog(@"视频");
+            FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
+            videoDetailVC.urlId = dic[@"urlId"];
+            [self.navigationController pushViewController:videoDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
         }
-    }];
+    }
 }
 - (void) getDataFromDBWithVideoType:(NSString *)videosType  getType:(NSString *) getType {
     
@@ -633,32 +797,32 @@
     //    NSLog(@"section : %ld, row : %ld", indexPath.section, indexPath.row);
     if (self.collectionViewDataSourceArray) {
         
-        FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
+        FTArenaPostsDetailViewController *postsDetailVC = [FTArenaPostsDetailViewController new];
         //获取对应的bean，传递给下个vc
         //        NSDictionary *newsDic = self.collectionViewDataSourceArray[indexPath.row];
         //        FTVideoBean *bean = [FTVideoBean new];
         //        [bean setValuesWithDic:newsDic];
         
-        FTVideoBean *bean = self.self.collectionViewDataSourceArray[indexPath.row];
+        FTArenaBean *bean = self.collectionViewDataSourceArray[indexPath.row];
         //标记已读
-        if (![bean.isReader isEqualToString:@"YES"]) {
-            bean.isReader = @"YES";
-            //从数据库取数据
-            DBManager *dbManager = [DBManager shareDBManager];
-            [dbManager connect];
-            [dbManager updateVideosById:bean.videosId isReader:YES];
-            [dbManager close];
-        }
+//        if (![bean.isReader isEqualToString:@"YES"]) {
+//            bean.isReader = @"YES";
+//            //从数据库取数据
+//            DBManager *dbManager = [DBManager shareDBManager];
+//            [dbManager connect];
+//            [dbManager updateVideosById:bean.videosId isReader:YES];
+//            [dbManager close];
+//        }
         
         
-        videoDetailVC.videoBean = bean;
+        postsDetailVC.arenaBean = bean;
         NSIndexPath *theIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
 //        NSLog(@"section : %ld, row : %ld", indexPath.section, indexPath.row);
-        videoDetailVC.indexPath = theIndexPath;
+        postsDetailVC.indexPath = theIndexPath;
         
-        videoDetailVC.delegate = self;
+        postsDetailVC.delegate = self;
         
-        [self.navigationController pushViewController:videoDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+        [self.navigationController pushViewController:postsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
     }
 }
 
@@ -674,8 +838,10 @@
         
         cell = [[[NSBundle mainBundle]loadNibNamed:@"FTVideoCollectionViewCell" owner:self options:nil]firstObject];
     }
-    FTVideoBean *videoBean = self.collectionViewDataSourceArray[indexPath.row];
-    [cell setWithBean:videoBean];
+//    NSDictionary *dic = _collectionViewDataSourceArray[indexPath.row];
+//    [cell setWithDic:dic];
+    FTArenaBean *arenaBean = _collectionViewDataSourceArray[indexPath.row];
+    [cell setWithArenaBean:arenaBean];
     return cell;
 }
 //更新视频的点赞、评论数量
@@ -704,10 +870,25 @@
 #pragma -mark 点赞按钮被点击
 
 - (IBAction)followViewClicked:(id)sender {
+    //从本地读取存储的用户信息，判断是否登陆。登陆之后才能进行关注操作
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    if (!localUser) {
+        [self login];
+    }else{
         self.hasFollow = !self.hasFollow;
         [self updateFollowImageView];
         _followView.userInteractionEnabled = NO;
         [self uploadVoteStatusToServer];
+    }
+
+}
+
+- (void)login{
+    FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+    loginVC.title = @"登录";
+    FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+    [self.navigationController presentViewController:nav animated:NO completion:nil];
 }
 
 - (void)updateFollowImageView{
@@ -728,7 +909,14 @@
     NSString *urlString = [FTNetConfig host:Domain path:_hasFollow ? AddFollowURL : DeleteFollowURL];
     
     NSString *userId = user.olduserid;
-    NSString *objId = _userid;
+    NSString *objId;
+    if (_boxerId) {
+        objId = _boxerId;
+    }else if(_coachId){
+        objId = _coachId;
+    }else if(_userid){
+        objId = _userid;
+    }
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = _followTableName;
@@ -770,13 +958,19 @@
 }
 #pragma mark 从服务器获取是否已经关注
 - (void)getFollowInfo{
-    
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
     NSString *userId = user.olduserid;
-    NSString *objId = _userid;
+    NSString *objId;
+    if (_boxerId) {
+         objId = _boxerId;
+    }else if(_coachId){
+        objId = _coachId;
+    }else if(_userid){
+        objId = _userid;
+    }
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = _followTableName;
@@ -805,8 +999,33 @@
         //failure
     }];
 }
+- (IBAction)newPostsButtonClicked:(id)sender {
+    FTNewPostViewController *newPostViewController = [FTNewPostViewController new];
+    newPostViewController.isShowSyncView = YES;
+    newPostViewController.title = @"发新帖";
+    [self.navigationController pushViewController:newPostViewController animated:YES];
+}
+- (IBAction)commentButtonClicked:(id)sender {
+    FTHomepageCommentListViewController *commentListViewController = [FTHomepageCommentListViewController new];
+    if (_boxerId) {
+        commentListViewController.objId = _boxerId;
+    }else if(_coachId){
+        commentListViewController.objId = _coachId;
+    }else if(_userid){
+        commentListViewController.objId = _userid;
+    }
+    
+    
+    if ([_userIdentity isEqualToString:@"0"]) {
+        commentListViewController.tableName = @"c-user";
+    }else if([_userIdentity isEqualToString:@"1"]){
+        commentListViewController.tableName = @"c-boxer";
+    }
+    [self.navigationController pushViewController:commentListViewController animated:YES];
+}
 
 - (void)popViewController{
     [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 @end

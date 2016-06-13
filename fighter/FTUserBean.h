@@ -76,9 +76,10 @@
 @property (nonatomic, copy)NSString* headUrl;//头像
 @property (nonatomic, copy)NSString *query;//身份标识
 @property (nonatomic, copy)NSString *brief;//简介
-@property (nonatomic, strong)NSArray *boxerRaceInfos;
-
-
+@property (nonatomic, strong)NSArray *boxerRaceInfos;//赛事信息
+@property (nonatomic, copy)NSString *standings;//战绩 
+@property (nonatomic, copy)NSString *boxerId;//拳手id
+@property (nonatomic, copy)NSString *coachId;//教练id
 
 
 //计算年龄

@@ -52,10 +52,7 @@
     //微信
     [aCoder encodeObject:self.wxHeaderPic forKey:@"wxHeader"];
     [aCoder encodeObject:self.wxName forKey:@"wxName"];
-    
-    //身份信息
     [aCoder encodeObject:self.identity forKey:@"identity"];
-    
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -95,8 +92,6 @@
         //微信
         self.wxHeaderPic = [aDecoder decodeObjectForKey:@"wxHeader"];
         self.wxName = [aDecoder decodeObjectForKey:@"wxName"];
-        
-        //身份信息
         self.identity = [aDecoder decodeObjectForKey:@"identity"];
     }
     return self;
@@ -166,6 +161,8 @@
     if (!self.brief) {
         self.brief = @"";
     }
+    _boxerRaceInfos = dic[@"boxerRaceInfos"];
+    
 }
 
 @end

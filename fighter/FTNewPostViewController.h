@@ -17,5 +17,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *meidiaPickerViewHeight;
 @property (weak, nonatomic) IBOutlet UIImageView *typeImageView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-
+@property (weak, nonatomic) IBOutlet UIView *syncView;
+@property (weak, nonatomic) IBOutlet UIButton *syncButton;
+@property (nonatomic, assign) BOOL isShowSyncView;//默认不显示是否同步选项，从个人主页跳转过来时才显示
 @end

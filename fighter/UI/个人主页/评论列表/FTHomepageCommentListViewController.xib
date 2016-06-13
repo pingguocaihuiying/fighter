@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTHomepageCommentListViewController">
+            <connections>
+                <outlet property="commentTableView" destination="8yC-aK-DjZ" id="bNS-sY-KJa"/>
+                <outlet property="commentView" destination="klg-ie-Rjj" id="0Jp-1l-GjU"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8yC-aK-DjZ">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="550"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bEa-QT-6JR" userLabel="bottomSeparatorLineView">
+                    <rect key="frame" x="0.0" y="550" width="600" height="1"/>
+                    <color key="backgroundColor" red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="GLS-2n-ukZ"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lC0-S4-pT0">
+                    <rect key="frame" x="0.0" y="551" width="600" height="49"/>
+                    <subviews>
+                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="klg-ie-Rjj" userLabel="Comment View">
+                            <rect key="frame" x="23" y="6" width="527" height="38"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="我也说点什么..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cea-2o-uGL">
+                                    <rect key="frame" x="50" y="10" width="97" height="17"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="详情页底部按钮一堆-评论" translatesAutoresizingMaskIntoConstraints="NO" id="IGT-D2-029" userLabel="评">
+                                    <rect key="frame" x="16" y="7" width="24" height="24"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="cea-2o-uGL" firstAttribute="centerY" secondItem="klg-ie-Rjj" secondAttribute="centerY" id="3Ka-ze-pzX"/>
+                                <constraint firstItem="IGT-D2-029" firstAttribute="leading" secondItem="klg-ie-Rjj" secondAttribute="leading" constant="16" id="3sG-Ka-4TU"/>
+                                <constraint firstItem="cea-2o-uGL" firstAttribute="leading" secondItem="IGT-D2-029" secondAttribute="trailing" constant="10" id="XUB-mz-YKR"/>
+                                <constraint firstItem="IGT-D2-029" firstAttribute="centerY" secondItem="klg-ie-Rjj" secondAttribute="centerY" id="Z5w-GA-TBW"/>
+                                <constraint firstAttribute="height" constant="38" id="va2-oo-qlG"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="19"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="klg-ie-Rjj" firstAttribute="leading" secondItem="lC0-S4-pT0" secondAttribute="leading" constant="23" id="HvC-dG-hD1"/>
+                        <constraint firstItem="klg-ie-Rjj" firstAttribute="centerY" secondItem="lC0-S4-pT0" secondAttribute="centerY" id="hUd-6f-kR5"/>
+                        <constraint firstAttribute="trailing" secondItem="klg-ie-Rjj" secondAttribute="trailing" constant="50" id="kyL-3C-cMX"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="8yC-aK-DjZ" secondAttribute="trailing" id="3Tk-Fh-DLt"/>
+                <constraint firstItem="8yC-aK-DjZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="4hw-D3-V3r"/>
+                <constraint firstItem="lC0-S4-pT0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="6af-Ac-S9I"/>
+                <constraint firstItem="lC0-S4-pT0" firstAttribute="top" secondItem="bEa-QT-6JR" secondAttribute="bottom" id="8yu-Cl-5Gc"/>
+                <constraint firstAttribute="bottom" secondItem="lC0-S4-pT0" secondAttribute="bottom" id="9Gc-Zx-TQI"/>
+                <constraint firstItem="8yC-aK-DjZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="EOL-fU-enX"/>
+                <constraint firstAttribute="trailing" secondItem="lC0-S4-pT0" secondAttribute="trailing" id="EvF-V1-F96"/>
+                <constraint firstItem="bEa-QT-6JR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="JGv-ox-N4q"/>
+                <constraint firstAttribute="trailing" secondItem="bEa-QT-6JR" secondAttribute="trailing" id="LVa-yl-QQw"/>
+                <constraint firstAttribute="bottom" secondItem="bEa-QT-6JR" secondAttribute="bottom" constant="49" id="V1A-KM-TTq"/>
+                <constraint firstAttribute="bottom" secondItem="8yC-aK-DjZ" secondAttribute="bottom" constant="50" id="jAq-Hs-hhF"/>
+            </constraints>
+            <point key="canvasLocation" x="258" y="384"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="详情页底部按钮一堆-评论" width="24" height="24"/>
+    </resources>
+</document>

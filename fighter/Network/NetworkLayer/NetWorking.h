@@ -160,5 +160,19 @@
 - (void) getVideos:(NSString *) urlString  option:(void (^)(NSDictionary *dict))option;
 
 //获取个人主页用户资料
-+ (void)getHomepageUserInfoWithUserOldid:(NSString *)userOldid andCallbackOption:(void (^)(FTUserBean *userBean))userBeanOption;
++ (void)getHomepageUserInfoWithUserOldid:(NSString *)userOldid andBoxerId:(NSString *)boxerId andCoachId:(NSString *)coachId andCallbackOption:(void (^)(FTUserBean *userBean))userBeanOption;
+
+//获取评论
++ (void)getCommentsWithObjId:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^) (NSArray *array))option;
+
+//获取拳手赛事信息
++ (void)getBoxerRaceInfoWithBoxerId:(NSString *)boxerId andOption:(void (^)(NSArray *array))option;
+
+//获取单个拳讯信息
++ (void)getNewsByd:(NSString *)newsId andOption:(void (^)(NSArray *array))option;
+
+//获取单个视频信息
++ (void)getVideoByd:(NSString *)videoId andOption:(void (^)(NSArray *array))option;
 @end
+
+

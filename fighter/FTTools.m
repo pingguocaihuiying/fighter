@@ -33,11 +33,23 @@
         labelNameCh = @"格斗标签-街斗";
     }else if([labelNameEn isEqualToString:@"Others"]){
         labelNameCh = @"格斗标签-其他";
+    }else if([labelNameEn isEqualToString:@"Train"]){
+        labelNameCh = @"格斗标签-训练";
     }
     
     return labelNameCh;
 }
-
++ (NSString *)fixStringForDate:(NSString *)timestampString{
+    timestampString = [timestampString substringToIndex:timestampString.length - 3];
+    NSTimeInterval timeInterval = [timestampString doubleValue];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:kCFDateFormatterFullStyle];
+    [dateFormatter setDateFormat:@"yyyy.MM.dd HH:mm"];
+    NSString *fixString = [dateFormatter stringFromDate:date];
+    return fixString;
+}
 //+ (void)showHUDWithMessage:(NSString *)message andView:(UIView *)view{
 //    
 //    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:view];

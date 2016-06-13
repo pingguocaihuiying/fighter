@@ -16,4 +16,5 @@
 
 @interface FTArenaChooseLabelView : UIView
 @property (nonatomic, weak)id<FTArenaChooseLabelDelegate> delegate;
+@property (nonatomic, assign) BOOL isBoxerOrCoach;//如果是拳手或教练，显示“训练”标签
 @end

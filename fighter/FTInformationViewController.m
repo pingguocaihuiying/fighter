@@ -183,7 +183,7 @@
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",newsType, newsCurrId, getType, ts, @"quanjijia222222"]];
     
     urlString = [NSString stringWithFormat:@"%@?newsType=%@&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@", urlString, newsType, newsCurrId, getType, ts, checkSign, [FTNetConfig showType]];
-    
+    NSLog(@"获取资讯 url ： %@", urlString);
     NetWorking *net = [[NetWorking alloc]init];
     [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
         
@@ -563,18 +563,13 @@
 
 #pragma -mark -排行榜按钮被点击
 - (IBAction)rankButtonClicked:(id)sender {
-    [self gotoHomepageWithUseroldid:nil];
+//    [self gotoHomepageWithUseroldid:nil];
     
 
-//    FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
-////    rankHomeVC.title = @"排行榜";
-////    [self.navigationController pushViewController:rankHomeVC animated:YES];
+    FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
+//    rankHomeVC.title = @"排行榜";
 //    [self.navigationController pushViewController:rankHomeVC animated:YES];
-    
-//    FTRankingListViewController *rankingListViewController = [FTRankingListViewController new];
-//    [self.navigationController pushViewController:rankingListViewController animated:YES];
-//    rankingListViewController.title = @"格斗之王";
-    
+    [self.navigationController pushViewController:rankHomeVC animated:YES];
 }
 - (void)gotoHomepageWithUseroldid:(NSString *)olduserid{
     if (!olduserid) {
@@ -629,12 +624,10 @@
             [dbManager updateNewsById:bean.newsId isReader:YES];
             [dbManager close];
         }
-        
         newsDetailVC.newsBean = bean;
         newsDetailVC.delegate = self;
         newsDetailVC.indexPath = indexPath;
         
-
         [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
     }
 }

@@ -56,6 +56,9 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //更改webview的useragent
+    [self setWebviewUserAgent];
+    
     //启动时先加载标签分类
     [FTNWGetCategory sharedCategories];
     
@@ -98,6 +101,21 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     
     return YES;
+}
+
+- (void)setWebviewUserAgent{
+    //get the original user-agent of webview
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    NSString *oldAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    NSLog(@"old agent :%@", oldAgent);
+    
+    //add my info to the new agent
+    NSString *newAgent = [oldAgent stringByAppendingString:@" Gogogofight"];
+    NSLog(@"new agent :%@", newAgent);
+    
+    //regist the new agent
+    NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @"UserAgent", nil, nil];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
 }
 
 

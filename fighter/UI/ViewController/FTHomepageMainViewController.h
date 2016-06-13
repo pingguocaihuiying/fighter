@@ -26,6 +26,8 @@ typedef NS_ENUM(NSInteger, FTHomepageTableViewType) {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *recordRankTableViewHeight;
 @property (weak, nonatomic) IBOutlet UITableView *recordListTableView;
 @property (copy, nonatomic) NSString *olduserid;
+@property (nonatomic, copy) NSString *boxerId;//拳手id
+@property (nonatomic, copy) NSString *coachId;//教练id
 @property (weak, nonatomic) IBOutlet UILabel *followCountLabel;//关注数
 @property (weak, nonatomic) IBOutlet UILabel *fansCountLabel;//粉丝数
 @property (weak, nonatomic) IBOutlet UILabel *dynamicCountLabel;//动态数

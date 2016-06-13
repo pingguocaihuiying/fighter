@@ -16,16 +16,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "fighter/UI/ViewController/FTHomepageMainViewController.m"
-            timestampString = "486899999.133816"
+            filePath = "fighter/FTVideoDetailViewController.m"
+            timestampString = "487424359.401875"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "359"
-            endingLineNumber = "359"
-            landmarkName = "-getDataFromWeb"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
+            landmarkName = "-setWebView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

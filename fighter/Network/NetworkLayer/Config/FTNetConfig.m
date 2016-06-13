@@ -154,6 +154,11 @@ NSString * const GetRankSearchItemURL = @"/api/ranking/getRankSearchItems.do";//
 NSString * const GetHomepageUserInfo = @"/api/user/read.do";
 
 
+//获取评论
+NSString * const GetCommentsURL =  @"/api/comment/listComment.do";
+
+//获取拳手赛事信息  
+NSString * const GetBoxerRaceInfoURL =  @"/api/boxer/getBoxerRaceDynamic.do";
 
 //校验码
 NSString * const GetStatusCheckKey =  @"gedoujia25fdsgfd55fdsafsag21254";
@@ -176,4 +181,5 @@ NSString * const DeleteStarCheckKey =  @"gedoujia1ggghfdjskfgl1250";
 
 //发新帖 gedoujia1gdshjjgfkd52261225550
 NSString * const NewPostCheckKey =  @"gedoujia1gdshjjgfkd52261225550";
-                                         
+
+

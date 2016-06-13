@@ -8,6 +8,7 @@
 
 #import "FTBaseViewController.h"
 #import "FTVideoBean.h"
+#import "FTArenaBean.h"
 
 @protocol FTVideoDetailDelegate <NSObject>
 
@@ -27,6 +28,7 @@
 @property (nonatomic, assign)BOOL hasVote;
 @property (nonatomic, assign)BOOL hasStar;
 @property (nonatomic, strong)FTVideoBean *videoBean;
+@property (nonatomic, strong) FTArenaBean *arenaBean;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UIView *favourateView;
 @property (weak, nonatomic) IBOutlet UIView *shareView;
@@ -36,5 +38,5 @@
 
 @property (nonatomic, strong)NSIndexPath *indexPath;
 @property (nonatomic, strong)NSString *webUrlString;
-
+@property (nonatomic ,copy)NSString *urlId;//从个人主页跳转过来用到的拳讯或视频id
 @end

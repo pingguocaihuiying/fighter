@@ -13,6 +13,8 @@
                 <outlet property="mediaPickerView" destination="hkQ-gO-N2a" id="ePy-2M-5Ox"/>
                 <outlet property="meidiaPickerViewHeight" destination="51N-ue-UTS" id="2Mu-NU-Vo7"/>
                 <outlet property="scrollView" destination="hFQ-NO-DZU" id="2So-mO-ff5"/>
+                <outlet property="syncButton" destination="idb-Tb-IHO" id="CLv-xB-Pu7"/>
+                <outlet property="syncView" destination="abp-O4-uj2" id="4KL-Qw-dP1"/>
                 <outlet property="titleTextField" destination="mk0-AJ-ePu" id="Ywq-ef-dBE"/>
                 <outlet property="typeImageView" destination="P1v-iR-G48" id="Mb2-6c-nhJ"/>
                 <outlet property="view" destination="DB6-rQ-Gtq" id="rPh-Rp-bLI"/>
@@ -159,6 +161,40 @@
                                         </mask>
                                     </variation>
                                 </view>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="abp-O4-uj2">
+                                    <rect key="frame" x="15" y="410" width="240" height="18"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="idb-Tb-IHO">
+                                            <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="18" id="NEV-wr-zGl"/>
+                                                <constraint firstAttribute="width" constant="18" id="jdn-sz-0Mg"/>
+                                            </constraints>
+                                            <state key="normal" backgroundImage="弹出框用-类别选择-空"/>
+                                            <connections>
+                                                <action selector="syncButtonClicked:" destination="-1" eventType="touchUpInside" id="G81-Bj-MYs"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="同步到格斗场" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qx-r5-aiU">
+                                            <rect key="frame" x="26" y="3" width="72" height="12"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="12" id="jdG-h2-JDk"/>
+                                                <constraint firstAttribute="width" constant="72" id="sWg-Fc-W7L"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="idb-Tb-IHO" firstAttribute="top" secondItem="abp-O4-uj2" secondAttribute="top" id="8UB-Zc-99R"/>
+                                        <constraint firstItem="8qx-r5-aiU" firstAttribute="centerY" secondItem="idb-Tb-IHO" secondAttribute="centerY" id="U7j-3u-rk8"/>
+                                        <constraint firstItem="idb-Tb-IHO" firstAttribute="leading" secondItem="abp-O4-uj2" secondAttribute="leading" id="apF-Gc-n0W"/>
+                                        <constraint firstAttribute="height" constant="18" id="lgE-6o-iZR"/>
+                                        <constraint firstAttribute="width" constant="240" id="u4e-5P-Yfk"/>
+                                        <constraint firstItem="8qx-r5-aiU" firstAttribute="leading" secondItem="idb-Tb-IHO" secondAttribute="trailing" constant="8" id="zRp-bo-fgD"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -174,10 +210,12 @@
                                 <constraint firstAttribute="trailing" secondItem="NqL-s0-2Ch" secondAttribute="trailing" constant="4" id="UyP-dX-qhk"/>
                                 <constraint firstItem="hkQ-gO-N2a" firstAttribute="top" secondItem="NqL-s0-2Ch" secondAttribute="bottom" constant="5" id="Z5j-yu-BJJ"/>
                                 <constraint firstAttribute="trailing" secondItem="6I4-la-hWE" secondAttribute="trailing" constant="4" id="amY-Ff-T6e"/>
+                                <constraint firstItem="abp-O4-uj2" firstAttribute="top" secondItem="msl-Ii-sPk" secondAttribute="bottom" constant="10" id="dgg-8a-vj1"/>
                                 <constraint firstItem="6I4-la-hWE" firstAttribute="top" secondItem="RCk-Ad-XUM" secondAttribute="bottom" constant="20" id="k9c-EZ-hUB"/>
                                 <constraint firstAttribute="trailing" secondItem="msl-Ii-sPk" secondAttribute="trailing" constant="4" id="pF6-qb-a6z"/>
                                 <constraint firstAttribute="trailing" secondItem="hkQ-gO-N2a" secondAttribute="trailing" constant="4" id="r1e-Jw-S0g"/>
                                 <constraint firstItem="RCk-Ad-XUM" firstAttribute="top" secondItem="kYW-3x-WJ4" secondAttribute="top" constant="263" id="xna-Ro-aU4"/>
+                                <constraint firstItem="abp-O4-uj2" firstAttribute="leading" secondItem="kYW-3x-WJ4" secondAttribute="leading" constant="15" id="yGj-vA-e10"/>
                                 <constraint firstItem="NqL-s0-2Ch" firstAttribute="leading" secondItem="kYW-3x-WJ4" secondAttribute="leading" constant="4" id="zk2-Aj-ujU"/>
                             </constraints>
                             <variation key="default">
@@ -209,6 +247,7 @@
         </view>
     </objects>
     <resources>
+        <image name="弹出框用-类别选择-空" width="18" height="18"/>
         <image name="格斗标签-综合格斗" width="68" height="14"/>
         <image name="添加标签" width="18" height="18"/>
         <image name="金属边框-改进ios" width="67" height="60"/>

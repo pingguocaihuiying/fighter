@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "FTVideoBean.h"
+#import "FTArenaBean.h"
 
 @interface FTVideoCollectionViewCell : UICollectionViewCell
 
@@ -23,4 +24,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *voteCount;
 @property (weak, nonatomic) IBOutlet UILabel *comentCountLabel;
 - (void)setWithBean:(FTVideoBean *)bean;
+- (void)setWithArenaBean:(FTArenaBean *)bean;
+- (void)setWithDic:(NSDictionary *)dic;
 @end

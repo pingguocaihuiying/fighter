@@ -10,5 +10,12 @@
 #import "FTBaseTableViewCell.h"
 
 @interface FTHomepageRecordListTableViewCell : FTBaseTableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *raceTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *opponentNameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *raceResultImageView;
+@property (weak, nonatomic) IBOutlet UILabel *theTimelabel;
+@property (weak, nonatomic) IBOutlet UIImageView *typeImageView;
+
+- (void)setWithDic:(NSDictionary *)dic;
 
 @end

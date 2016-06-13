@@ -31,4 +31,6 @@
 
 @property (nonatomic ,copy)NSString *webUrlString;//push 传递地址
 
+@property (nonatomic ,copy)NSString *urlId;//从个人主页跳转过来用到的拳讯或视频id
+
 @end

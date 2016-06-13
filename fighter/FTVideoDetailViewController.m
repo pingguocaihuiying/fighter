@@ -201,15 +201,27 @@
     [self.view addSubview:_webView];
     
     if(self.webUrlString == nil || self.webUrlString.length <= 0) {
+        NSString *url = @"";
+        if (_videoBean) {
+                url = _videoBean.url;
+        }else{
+            
+        }
         
-        NSString *url = _videoBean.url;
+        
         NSLog(@"视频url：%@", url);
         url = [self encodeToPercentEscapeString:url];
     //    _videoBean.viewCount = @"100";
         NSString *title = _videoBean.title;
+        NSString *objId = @"";
+        if (_urlId) {
+            objId = _urlId;
+        }else if(_videoBean){
+            objId = _videoBean.videosId;
+        }
         title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
-        _webViewUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/video_page.html?objId=%@&title=%@&author=%@&newsTime=%@&commentCount=%@&voteCount=%@&url=%@&tableName=%@&type=%@&videoLength=%@&viewCount=%@", _videoBean.videosId, title, [_videoBean.author stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], _videoBean.videosTime, _videoBean.commentCount, _videoBean.voteCount,url , @"c-video", _videoBean.videosType, _videoBean.videoLength,_videoBean.viewCount];
+        _webViewUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/video_page.html?objId=%@", objId];
         NSLog(@"webview url：%@", _webViewUrlString);
     }else {
         
@@ -563,7 +575,7 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     NSString *requestURL = [NSString stringWithFormat:@"%@", request.URL];
-    //    NSLog(@"requestURL : %@", requestURL);
+        NSLog(@"requestURL : %@", requestURL);
     if ([requestURL isEqualToString:@"js-call:onload"]) {
         [self disableLoadingAnimation];
     }

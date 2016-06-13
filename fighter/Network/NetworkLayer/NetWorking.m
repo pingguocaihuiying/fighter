@@ -690,28 +690,147 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     return dic;
 }
 
-+ (void)getHomepageUserInfoWithUserOldid:(NSString *)userOldid andCallbackOption:(void (^)(FTUserBean *userBean))userBeanOption{
++ (void)getHomepageUserInfoWithUserOldid:(NSString *)userOldid andBoxerId:(NSString *)boxerId andCoachId:(NSString *)coachId andCallbackOption:(void (^)(FTUserBean *userBean))userBeanOption{
     NSString *urlString = [FTNetConfig host:Domain path:GetHomepageUserInfo];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    assert(userOldid);
-    NSDictionary *parameterDict = @{@"userId" : userOldid};
-//    NSLog(@"urlString : %@", urlString);
-    [manager POST:urlString parameters:parameterDict success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+//    assert(userOldid);
+    NSString *query = @"";
+    if (boxerId) {//如果boxerId和coachId都存在，
+        query = @"1";
+    }else if(coachId){
+        query = @"2";
+    }
+    
+    //如果有id为nil，则处理为@""，以便存入字典;
+    if (userOldid == nil) {
+        userOldid = @"";
+    }
+    if (boxerId == nil) {
+        boxerId = @"";
+    }
+    if (coachId == nil) {
+        coachId = @"";
+    }
+    NSDictionary *parameterDict = @{@"userId" : [NSString stringWithFormat:@"%@", userOldid], @"boxerId":[NSString stringWithFormat:@"%@", boxerId], @"coachId":[NSString stringWithFormat:@"%@", coachId]};
+    
+    
+    urlString = [NSString stringWithFormat:@"%@?userId=%@&boxerId=%@&coachId=%@", urlString, userOldid, boxerId, coachId];
+    NSLog(@"urlString : %@", urlString);
+    
+    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
 //        [ZJModelTool createModelWithDictionary:responseObject modelName:nil];
                 NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
 //        NSLog(@"%@", responseDic[@"data"]);
         NSDictionary *userDic = responseDic[@"data"];
+        //输出获取的user信息
+//        for(NSString *key in [userDic allKeys]){
+//            NSLog(@"key : %@, value : %@", key, userDic[key]);
+//        }
+        
         FTUserBean *userBean = [FTUserBean new];
+
         [userBean setValuesForKeysWithDictionary:userDic];
         [userBean setValuesWithDic:userDic];
         userBean.boxerRaceInfos = userDic[@"boxerRaceInfos"];
         userBeanOption(userBean);
         
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        NSLog(@"error : %@", error);
         
     }];
 }
 
++ (void)getCommentsWithObjId:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^)(NSArray *))option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetCommentsURL];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    assert(objId);
+    urlString = [NSString stringWithFormat:@"%@?objId=%@&tableName=%@", urlString, objId, tableName];
+    //    NSLog(@"urlString : %@", urlString);
+    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        //        [ZJModelTool createModelWithDictionary:responseObject modelName:nil];
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                NSLog(@"message : %@", responseDic[@"message"]);
+        NSArray *array = responseDic[@"data"];
+        
+        if (array && array != (id)[NSNull null]) {
+            option(array);
+        }
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        option(nil);
+    }];
+}
++ (void)getBoxerRaceInfoWithBoxerId:(NSString *)boxerId andOption:(void (^)(NSArray *array))option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetBoxerRaceInfoURL];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    assert(boxerId);
+    urlString = [NSString stringWithFormat:@"%@?boxerId=%@", urlString, boxerId];
+    //    NSLog(@"urlString : %@", urlString);
+    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        //        [ZJModelTool createModelWithDictionary:responseObject modelName:nil];
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"message : %@", responseDic[@"message"]);
+        NSArray *array = responseDic[@"data"];
+        
+        if (array && array != (id)[NSNull null]) {
+            option(array);
+        }
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        option(nil);
+    }];
+}
+//获取单个拳讯信息
++ (void)getNewsByd:(NSString *)newsId andOption:(void (^)(NSArray *array))option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetBoxerRaceInfoURL];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    assert(newsId);
+    urlString = [NSString stringWithFormat:@"%@?boxerId=%@", urlString, newsId];
+    //    NSLog(@"urlString : %@", urlString);
+    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        //        [ZJModelTool createModelWithDictionary:responseObject modelName:nil];
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"message : %@", responseDic[@"message"]);
+        NSArray *array = responseDic[@"data"];
+        
+        if (array && array != (id)[NSNull null]) {
+            option(array);
+        }
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        option(nil);
+    }];
+}
+
+//获取单个视频信息
++ (void)getVideoByd:(NSString *)videoId andOption:(void (^)(NSArray *array))option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetBoxerRaceInfoURL];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    assert(videoId);
+    urlString = [NSString stringWithFormat:@"%@?boxerId=%@", urlString, videoId];
+    //    NSLog(@"urlString : %@", urlString);
+    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        //        [ZJModelTool createModelWithDictionary:responseObject modelName:nil];
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"message : %@", responseDic[@"message"]);
+        NSArray *array = responseDic[@"data"];
+        
+        if (array && array != (id)[NSNull null]) {
+            option(array);
+        }
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        option(nil);
+    }];
+}
 @end
