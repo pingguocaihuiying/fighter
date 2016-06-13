@@ -427,7 +427,6 @@ static NSString *const tableCellId = @"tableCellId";
     baseNav.navigationBarHidden = NO;
 //    baseNav.navigationBar.barTintColor = [UIColor blackColor];
     [self presentViewController:baseNav animated:YES completion:nil];
-    
 }
 
 //设置按钮事件

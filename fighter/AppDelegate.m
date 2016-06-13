@@ -183,7 +183,6 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 //                                              secret:WB_App_Secret
 //                                         RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
-    
 }
 
 - (void) setShareSDK {
@@ -323,7 +322,7 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
                         
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"WeiXinNameAndHeader" object:nil];
                     }];
-                    
+
                 }
                 
             }];

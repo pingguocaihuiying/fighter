@@ -141,8 +141,8 @@
     </objects>
     <resources>
         <image name="G格斗家-注册背景@750" width="750" height="1334"/>
-        <image name="主要按钮背景ios" width="31" height="60"/>
-        <image name="主要按钮背景ios-pre" width="31" height="60"/>
-        <image name="金属边框-改进ios" width="134" height="134"/>
+        <image name="主要按钮背景ios" width="30" height="30"/>
+        <image name="主要按钮背景ios-pre" width="30" height="30"/>
+        <image name="金属边框-改进ios" width="67" height="60"/>
     </resources>
 </document>

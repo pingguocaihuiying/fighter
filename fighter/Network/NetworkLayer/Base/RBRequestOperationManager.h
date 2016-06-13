@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Liuonion. All rights reserved.
 //
 
-#import "AFHTTPRequestOperationManager.h"
+//#import "AFHTTPRequestOperationManager.h"
 
 @interface RBRequestOperationManager : AFHTTPRequestOperationManager
 

@@ -3,7 +3,7 @@ use_frameworks!
 target "fighter" do
 pod "AFNetworking", "~> 2.6.3"
 pod "SDWebImage", "~> 3.7.6"
-pod "SDCycleScrollView", "~> 1.65"
+#pod "SDCycleScrollView", "~> 1.65"
 pod "MJRefresh", "~> 3.1.0"
 pod "FMDB", "~> 2.6.2"
 pod "RealReachability", "~> 1.1.7"

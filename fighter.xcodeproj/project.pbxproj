@@ -111,6 +111,13 @@
 		3DF90BB11CFED21C00BD83F8 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF90BB01CFED21C00BD83F8 /* CoreText.framework */; };
 		3DF90BB31CFED23C00BD83F8 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF90BB21CFED23C00BD83F8 /* ImageIO.framework */; };
 		3DF90BB51CFED25800BD83F8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF90BB41CFED25800BD83F8 /* QuartzCore.framework */; };
+		3DFC414E1D083A3F0067AC72 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC41411D083A3F0067AC72 /* TAAbstractDotView.m */; };
+		3DFC414F1D083A3F0067AC72 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC41431D083A3F0067AC72 /* TAAnimatedDotView.m */; };
+		3DFC41501D083A3F0067AC72 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC41451D083A3F0067AC72 /* TADotView.m */; };
+		3DFC41511D083A3F0067AC72 /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC41471D083A3F0067AC72 /* TAPageControl.m */; };
+		3DFC41521D083A3F0067AC72 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC41491D083A3F0067AC72 /* SDCollectionViewCell.m */; };
+		3DFC41531D083A3F0067AC72 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC414B1D083A3F0067AC72 /* SDCycleScrollView.m */; };
+		3DFC41541D083A3F0067AC72 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC414D1D083A3F0067AC72 /* UIView+SDExtension.m */; };
 		E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6035EB61CC08D2800B10D36 /* FTNewsDetail2ViewController.m */; };
 		E6035EB91CC08D2800B10D36 /* FTNewsDetail2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6035EB71CC08D2800B10D36 /* FTNewsDetail2ViewController.xib */; };
 		E6035EBE1CC0C39500B10D36 /* FTCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6035EBC1CC0C39500B10D36 /* FTCommentViewController.m */; };
@@ -411,6 +418,20 @@
 		3DF90BB01CFED21C00BD83F8 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		3DF90BB21CFED23C00BD83F8 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		3DF90BB41CFED25800BD83F8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		3DFC41401D083A3F0067AC72 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
+		3DFC41411D083A3F0067AC72 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
+		3DFC41421D083A3F0067AC72 /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
+		3DFC41431D083A3F0067AC72 /* TAAnimatedDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAnimatedDotView.m; sourceTree = "<group>"; };
+		3DFC41441D083A3F0067AC72 /* TADotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TADotView.h; sourceTree = "<group>"; };
+		3DFC41451D083A3F0067AC72 /* TADotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TADotView.m; sourceTree = "<group>"; };
+		3DFC41461D083A3F0067AC72 /* TAPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAPageControl.h; sourceTree = "<group>"; };
+		3DFC41471D083A3F0067AC72 /* TAPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAPageControl.m; sourceTree = "<group>"; };
+		3DFC41481D083A3F0067AC72 /* SDCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCollectionViewCell.h; sourceTree = "<group>"; };
+		3DFC41491D083A3F0067AC72 /* SDCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCollectionViewCell.m; sourceTree = "<group>"; };
+		3DFC414A1D083A3F0067AC72 /* SDCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCycleScrollView.h; sourceTree = "<group>"; };
+		3DFC414B1D083A3F0067AC72 /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
+		3DFC414C1D083A3F0067AC72 /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
+		3DFC414D1D083A3F0067AC72 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		618712783A5CE24E9E3317D9 /* Pods-fighter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fighter.release.xcconfig"; path = "Pods/Target Support Files/Pods-fighter/Pods-fighter.release.xcconfig"; sourceTree = "<group>"; };
 		8E48274DE7B43596DF74BCD1 /* Pods_fighter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fighter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6035EB51CC08D2800B10D36 /* FTNewsDetail2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNewsDetail2ViewController.h; sourceTree = "<group>"; };
@@ -979,6 +1000,35 @@
 				3DE95BAC1CD8A042005BF85C /* FTRegistViewController.xib */,
 			);
 			name = login;
+			sourceTree = "<group>";
+		};
+		3DFC413E1D083A3F0067AC72 /* SDCycleScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				3DFC413F1D083A3F0067AC72 /* PageControl */,
+				3DFC41481D083A3F0067AC72 /* SDCollectionViewCell.h */,
+				3DFC41491D083A3F0067AC72 /* SDCollectionViewCell.m */,
+				3DFC414A1D083A3F0067AC72 /* SDCycleScrollView.h */,
+				3DFC414B1D083A3F0067AC72 /* SDCycleScrollView.m */,
+				3DFC414C1D083A3F0067AC72 /* UIView+SDExtension.h */,
+				3DFC414D1D083A3F0067AC72 /* UIView+SDExtension.m */,
+			);
+			path = SDCycleScrollView;
+			sourceTree = "<group>";
+		};
+		3DFC413F1D083A3F0067AC72 /* PageControl */ = {
+			isa = PBXGroup;
+			children = (
+				3DFC41401D083A3F0067AC72 /* TAAbstractDotView.h */,
+				3DFC41411D083A3F0067AC72 /* TAAbstractDotView.m */,
+				3DFC41421D083A3F0067AC72 /* TAAnimatedDotView.h */,
+				3DFC41431D083A3F0067AC72 /* TAAnimatedDotView.m */,
+				3DFC41441D083A3F0067AC72 /* TADotView.h */,
+				3DFC41451D083A3F0067AC72 /* TADotView.m */,
+				3DFC41461D083A3F0067AC72 /* TAPageControl.h */,
+				3DFC41471D083A3F0067AC72 /* TAPageControl.m */,
+			);
+			path = PageControl;
 			sourceTree = "<group>";
 		};
 		9901406240A732084B934A55 /* Pods */ = {
@@ -1748,6 +1798,7 @@
 		E6D74A511CB7B8C200854337 /* thirdCodes */ = {
 			isa = PBXGroup;
 			children = (
+				3DFC413E1D083A3F0067AC72 /* SDCycleScrollView */,
 				E680509D1CBF919A00678905 /* JHRefresh */,
 			);
 			name = thirdCodes;
@@ -2150,6 +2201,7 @@
 				E68EC50B1CC4B85D00A338C8 /* FTFilterTableViewController.m in Sources */,
 				E67872791CEB00980099CEE6 /* FTNewPostViewController.m in Sources */,
 				E6B458CD1CB75D9600FB4261 /* FTMatchViewController.m in Sources */,
+				3DFC41511D083A3F0067AC72 /* TAPageControl.m in Sources */,
 				3D4B18F51CD8BF340022DFB0 /* FTSetPassWordViewController.m in Sources */,
 				3D7C6B811CF2A26D0088400D /* BoxerMatchController.m in Sources */,
 				E64EF1111CB6614000CAE340 /* ViewController.m in Sources */,
@@ -2161,6 +2213,7 @@
 				E65D08C71CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m in Sources */,
 				3D7B98AF1CE05F3300B80B8D /* FTPhoneViewController.m in Sources */,
 				3D4B195C1CDB4D890022DFB0 /* FTDatePickerView.m in Sources */,
+				3DFC414E1D083A3F0067AC72 /* TAAbstractDotView.m in Sources */,
 				E6D2F8E51CE99A5100160788 /* FTLabelBean.m in Sources */,
 				3D7C6B861CF2A2990088400D /* BoxerInfoController.m in Sources */,
 				E68050BC1CBF919A00678905 /* JHRefreshConfig.m in Sources */,
@@ -2172,6 +2225,7 @@
 				E6B239021D066C88001F86BE /* FTHomepageCommentListViewController.m in Sources */,
 				E6E9E88B1CDC464A00976480 /* FTVideoCollectionView.m in Sources */,
 				3DE95B501CD326B7005BF85C /* FTCollectionViewLayout.m in Sources */,
+				3DFC41521D083A3F0067AC72 /* SDCollectionViewCell.m in Sources */,
 				E68050B71CBF919A00678905 /* JHRefreshAmazingAniView.m in Sources */,
 				E6FE6A5D1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m in Sources */,
 				3D8D73C21CE9DEFE009E2320 /* FTRankTableVIewCell.m in Sources */,
@@ -2194,6 +2248,7 @@
 				3D4B18F91CD974B80022DFB0 /* MainViewController.m in Sources */,
 				3D7B98B41CE06F9800B80B8D /* FTInputNewPhoneViewController.m in Sources */,
 				E6133A6C1CED6F8E00F53381 /* FTArenaBean.m in Sources */,
+				3DFC41541D083A3F0067AC72 /* UIView+SDExtension.m in Sources */,
 				3D4B19531CDAEF840022DFB0 /* FTTableViewCell4.m in Sources */,
 				3DE95BA31CD868C6005BF85C /* FTDynamicsDrawerViewController.m in Sources */,
 				E6A9DDAC1CD89EE900CB9518 /* FTVideoBean.m in Sources */,
@@ -2224,6 +2279,7 @@
 				3D7B98A01CDFA20D00B80B8D /* FTFiler.m in Sources */,
 				E6B458C31CB75D7A00FB4261 /* FTCoachViewController.m in Sources */,
 				E66EAEA21CF8217F006CD6CE /* FTArenaTextTableViewCell.m in Sources */,
+				3DFC41531D083A3F0067AC72 /* SDCycleScrollView.m in Sources */,
 				E6A9DDA41CD8842E00CB9518 /* FTVideoViewController.m in Sources */,
 				E64EF10B1CB6614000CAE340 /* main.m in Sources */,
 				E61185981CC78BF400F23EC7 /* FTUserBean.m in Sources */,
@@ -2231,6 +2287,7 @@
 				E65D08D41CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m in Sources */,
 				E6B458D21CB75DA200FB4261 /* FTInformationViewController.m in Sources */,
 				3DE95BA71CD86FA4005BF85C /* FTLoginViewController.m in Sources */,
+				3DFC414F1D083A3F0067AC72 /* TAAnimatedDotView.m in Sources */,
 				E6C4D7F11CEC5FCE00D73BFC /* FTArenaNetwork.m in Sources */,
 				3DC4121D1CD060190030C229 /* FTDrawerViewController.m in Sources */,
 				E6D74A4C1CB7B7EE00854337 /* HUD.m in Sources */,
@@ -2249,6 +2306,7 @@
 				E6D74A4D1CB7B7EE00854337 /* KeyChainStore.m in Sources */,
 				3D7B98C31CE08DEE00B80B8D /* FTNewPasswordVC.m in Sources */,
 				E6035EBE1CC0C39500B10D36 /* FTCommentViewController.m in Sources */,
+				3DFC41501D083A3F0067AC72 /* TADotView.m in Sources */,
 				3D4B19491CDACF9A0022DFB0 /* FTUserCenterViewController.m in Sources */,
 				3DE95BA01CD8675B005BF85C /* FTDrawerStyler.m in Sources */,
 				E6E9E8941CDC718900976480 /* FTVideoCollectionViewCell.m in Sources */,
@@ -2415,6 +2473,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

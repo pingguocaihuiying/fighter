@@ -258,7 +258,9 @@
 
         }
     }
-      _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180 * SCREEN_WIDTH / 375) delegate:self placeholderImage:[UIImage imageNamed:@"空图标大"]];
+      _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180 * SCREEN_WIDTH / 375)
+                                                            delegate:self
+                                                    placeholderImage:[UIImage imageNamed:@"空图标大"]];
     _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
 
 #pragma -mark -暂时隐藏轮播图的标题（没有给轮播图传title的值）
@@ -269,6 +271,14 @@
     _cycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播点"];
     _cycleScrollView.imageURLStringsGroup = imagesURLStrings;
 //    [_cycleScrollView.mainView reloadData];
+    
+//    //轮播图添加遮罩
+//    UIImageView *shadowView = [[UIImageView alloc]initWithFrame:_cycleScrollView.frame];
+//    shadowView.image = [UIImage imageNamed:@"头图暗影遮罩-ios"];
+//    shadowView.alpha = 0.8;
+////    [_cycleScrollView addSubview:shadowView];
+//    
+//    [_cycleScrollView insertSubview:shadowView atIndex:1];
 }
 
 - (void)didReceiveMemoryWarning {
