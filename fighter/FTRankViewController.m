@@ -666,13 +666,15 @@
     
     NSLog(@"did select cell");
     NSString *boxerId;
+    NSString *userId;
     if (tableView == self.tableView) {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         [cell setSelected:NO];
         boxerId = _dataArray[indexPath.row +1][@"boxerId"];
-      
+        userId= _dataArray[indexPath.row +1][@"userId"];
     }else {
-         boxerId = _dataArray[indexPath.row ][@"boxerId"];
+        boxerId = _dataArray[indexPath.row ][@"boxerId"];
+        userId= _dataArray[indexPath.row][@"userId"];
     }
     
     NSLog(@"boxerId : %@", boxerId);
