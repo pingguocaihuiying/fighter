@@ -108,7 +108,7 @@
     [self initBaseData];
     [self initSubviews];
     
-    [self getDataFromWeb];//初次加载帖子数据
+   
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -239,8 +239,9 @@
         [self getFollowInfo];//获取关注信息
         //处理右上角的“转发”或“修改”：如果是自己的主页，则是“修改”，如果是别人的，则显示转发
         FTUserBean *localUserBean = [FTUserTools getLocalUser];
-        _shareAndModifyProfileButton.hidden = NO;
+        
         if (localUserBean && [localUserBean.olduserid isEqualToString:self.olduserid]) {//如果是自己的主页
+            _shareAndModifyProfileButton.hidden = NO;
             [_shareAndModifyProfileButton setTitle:@"修改" forState:UIControlStateNormal];
             [_shareAndModifyProfileButton addTarget:self action:@selector(modifyProfile) forControlEvents:UIControlEventTouchUpInside];
             //显示“发新动态”，隐藏关注等
@@ -261,6 +262,8 @@
         
         //拳手战绩概括
         _standings = userBean.standings;
+        
+         [self getDataFromWeb];//初次加载帖子数据
     }];
 }
 

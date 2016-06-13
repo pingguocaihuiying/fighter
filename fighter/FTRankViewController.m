@@ -676,8 +676,10 @@
     }
     
     NSLog(@"boxerId : %@", boxerId);
+    NSLog(@"userId : %@", userId);
     FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
     homepageMainVC.boxerId = boxerId;
+    homepageMainVC.olduserid = userId;
     [self.navigationController pushViewController:homepageMainVC animated:YES];
 }
 

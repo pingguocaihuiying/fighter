@@ -713,9 +713,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     if (coachId == nil) {
         coachId = @"";
     }
-    NSDictionary *parameterDict = @{@"userId" : [NSString stringWithFormat:@"%@", userOldid], @"boxerId":[NSString stringWithFormat:@"%@", boxerId], @"coachId":[NSString stringWithFormat:@"%@", coachId]};
-    
-    
     urlString = [NSString stringWithFormat:@"%@?userId=%@&boxerId=%@&coachId=%@", urlString, userOldid, boxerId, coachId];
     NSLog(@"urlString : %@", urlString);
     
