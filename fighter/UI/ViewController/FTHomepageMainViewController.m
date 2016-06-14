@@ -284,6 +284,7 @@
 
 #pragma mark 转发
 - (void)shareUserInfo{
+    [MobClick event:@"rankingPage_HomePage_ShareUp"];
     NSLog(@"转发");
         //友盟分享事件统计
         [MobClick event:@"newsPage_DetailPage_share"];
@@ -384,14 +385,17 @@
 }
 #pragma -mark -切换按钮的点击事件
 - (IBAction)dynamicInfomationButtonClicked:(id)sender {
+    [MobClick event:@"rankingPage_HomePage_Match"];
     _selectedType = FTHomepageDynamicInformation;
     [self refreshButtonsIndex];
 }
 - (IBAction)recordButtonClicked:(id)sender {
+    [MobClick event:@"rankingPage_HomePage_Match"];
     _selectedType = FTHomepageRecord;
     [self refreshButtonsIndex];
 }
 - (IBAction)videoButtonClicked:(id)sender {
+    [MobClick event:@"rankingPage_HomePage_VideoAll"];
     _selectedType = FTHomepageVideo;
     [self refreshButtonsIndex];
 }
@@ -946,6 +950,7 @@
 #pragma -mark 点赞按钮被点击
 
 - (IBAction)followViewClicked:(id)sender {
+    [MobClick event:@"rankingPage_HomePage_Follow"];
     //从本地读取存储的用户信息，判断是否登陆。登陆之后才能进行关注操作
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
@@ -1083,6 +1088,7 @@
     [self.navigationController pushViewController:newPostViewController animated:YES];
 }
 - (IBAction)commentButtonClicked:(id)sender {
+    [MobClick event:@"rankingPage_HomePage_Message"];
     FTHomepageCommentListViewController *commentListViewController = [FTHomepageCommentListViewController new];
     if (_boxerId) {
         commentListViewController.objId = _boxerId;

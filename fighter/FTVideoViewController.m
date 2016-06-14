@@ -113,7 +113,7 @@
     self.videosTag = @"0";
     [MobClick event:@"videoPage_Hot"];
     //设置背景
-    self.containerOfNewOrHotView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"二标签-左选中"]];
+    self.containerOfNewOrHotView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"二标签-右选中"]];
     
     //改变左边按钮的标题颜色、图片
     [self.hotButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
@@ -129,7 +129,7 @@
     self.videosTag = @"1";
     [MobClick event:@"videoPage_New"];
     
-    self.containerOfNewOrHotView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"二标签-右选中"]];
+    self.containerOfNewOrHotView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"二标签-左选中"]];
     
     //改变右边按钮的标题颜色、图片
         [self.newestButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
