@@ -206,7 +206,7 @@
             
             //设置个人资料的背景图片
             if (userBean.background != nil && ![userBean.background isEqualToString:@""]) {
-                [_userBgImageView sd_setImageWithURL:[NSURL URLWithString:userBean.headUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                [_userBgImageView sd_setImageWithURL:[NSURL URLWithString:userBean.background] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     _userBgImageView.image = [UIImage boxblurImage:image withBlurNumber:0.5];
                     
                 }];
@@ -480,11 +480,13 @@
     urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@&userId=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName, _olduserid];
 //        urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName];
     NetWorking *net = [[NetWorking alloc]init];
+    NSLog(@"个人中心获取帖子列表 url ： %@", urlString);
     
     [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
         if (responseDic != nil) {
             NSString *status = responseDic[@"status"];
             if ([status isEqualToString:@"success"]) {
+                [self refreshButtonsIndex ];
                 NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
                 
                 //把获取的字典转换为bean，再存入数组
@@ -859,6 +861,7 @@
     
     //注册一个collectionViewCCell队列
     [_videoCollectionView registerNib:[UINib nibWithNibName:@"FTVideoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
+    [_videoCollectionView reloadData];
 }
 //有多少组
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
