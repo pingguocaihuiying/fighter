@@ -141,29 +141,25 @@
         
         //设置年龄
         NSString *ageStr = userBean.birthday;
-        if (ageStr == nil) {
-            ageStr = @"";
-        }
-        NSLog(@"ageStr : %@", ageStr);
-        
-        FTUserBean *localUser = [FTUserTools getLocalUser];
-        NSLog(@"local age : %@", localUser.birthday);
-        
-        if ([ageStr isEqualToString:@""]) {
+        if (ageStr == nil || [ageStr isEqualToString:@"(null)"]) {
             ageStr = @"-";
         }else{
-            NSTimeInterval birthTimeStamp = [userBean.birthday doubleValue];
-            NSTimeInterval now = [[NSDate date] timeIntervalSince1970] * 1000;
-            double age = (now - birthTimeStamp) / 3600 / 24 / 365 / 1000;
-            ageStr = [NSString stringWithFormat:@"%.0lf", age];
+            if ([ageStr isEqualToString:@""]) {
+                ageStr = @"-";
+            }else{
+                NSTimeInterval birthTimeStamp = [userBean.birthday doubleValue];
+                NSTimeInterval now = [[NSDate date] timeIntervalSince1970] * 1000;
+                double age = (now - birthTimeStamp) / 3600 / 24 / 365 / 1000;
+                ageStr = [NSString stringWithFormat:@"%.0lf", age];
+            }
+            if ([ageStr isEqualToString:@"-0"] || [ageStr isEqualToString:@"0"]) {
+                ageStr = @"-";
+            }
+            
         }
-        if ([ageStr isEqualToString:@"-0"] || [ageStr isEqualToString:@"0"]) {
-            ageStr = @"-";
-        }
+        NSLog(@"ageStr : %@", ageStr);
 //        NSLog(@"ageStr : %@", ageStr);
         self.ageLabel.text = [NSString stringWithFormat:@"%@岁", ageStr];
-        
-//        self.ageLabel.text = [NSString stringWithFormat:@"%@岁", userBean.age];
         if (userBean.boxerId) {
             _boxerId = userBean.boxerId;
             //如果有boxerId，去查询拳手的赛事信息

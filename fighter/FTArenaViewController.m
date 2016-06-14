@@ -247,7 +247,7 @@
     //先去找是否有缓存
         //根据当前下标，先去缓存中查找是否有数据
         FTCache *cache = [FTCache sharedInstance];
-        FTCacheBean *cacheBean = [cache.arenaDataDic objectForKey:[NSString stringWithFormat:@"%@", self.labels]];
+        FTCacheBean *cacheBean = [cache.arenaDataDic objectForKey:[NSString stringWithFormat:@"%@%@", self.labels, _currentIndexString]];
         
         if (cacheBean) {//如果有当前标签的缓存，则接着对比时间
             
@@ -480,8 +480,8 @@
     FTCache *cache = [FTCache sharedInstance];
     NSArray *dataArray = [[NSArray alloc]initWithArray:self.tableViewDataSourceArray];
     FTCacheBean *cacheBean = [[FTCacheBean alloc] initWithTimeStamp:[[NSDate date] timeIntervalSince1970]  andDataArray:dataArray];
-    
-    [cache.arenaDataDic setObject:cacheBean forKey:[NSString stringWithFormat:@"%@", self.labels]];
+    //用两个参数来做key值：1⃣️label2⃣️全部还是本周最热
+    [cache.arenaDataDic setObject:cacheBean forKey:[NSString stringWithFormat:@"%@%@", self.labels, _currentIndexString]];
     
 }
 
