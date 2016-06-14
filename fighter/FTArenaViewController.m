@@ -223,8 +223,12 @@
 }
 
 - (void) selectedValue:(NSDictionary *)value{
-    [self changeCurrentIndex];//改变currentIndex的值
-    [self refreshIndexView];//刷新红色下标的显示
+    //下拉列表项背选择后，如果当前下标是“hot”，再改变下标值
+    if ([_currentIndexString isEqualToString:@"hot"]) {
+        [self changeCurrentIndex];//改变currentIndex的值
+        [self refreshIndexView];//刷新红色下标的显示
+    }
+
     
         //如果点击的仍然是当前类别的，则跳过不刷新数据
 //    NSLog(@"_labels : %@, itemValueEn : %@",_labels, value[@"itemValueEn"]);
