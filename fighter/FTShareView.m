@@ -22,7 +22,6 @@
 @interface FTShareView ()
 {
     NSInteger selectNum;
-    
 }
 
 @property (nonatomic ,strong) UIView *panelView;
@@ -44,9 +43,6 @@
         [self setArray];
         [self setSubviews];
         [self setTouchEvent];
-        
-        
-        
         
     }
     
@@ -203,11 +199,9 @@
     if (btnTag == 1000) {
         //微信好友
         [self shareToWXWithType:WXSceneSession];
-        
     }else if (btnTag == 1001) {
         //微信朋友圈
         [self shareToWXWithType:WXSceneTimeline];
-
     }else if (btnTag == 1002) {
         //qq好友
         [self shareToTencentFriends];
@@ -458,8 +452,8 @@
 
 //获取SDWebImage缓存图片
 - (NSData *) getImageDataForSDWebImageCachedKey {
-    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:@"http://12345.jpg"]];
-//    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:_imageUrl]];
+//    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:@"http://12345.jpg"]];
+    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:_imageUrl]];
     UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
     NSData *data = UIImageJPEGRepresentation(image, 1);
    

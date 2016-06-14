@@ -420,6 +420,7 @@ static NSString *const tableCellId = @"tableCellId";
 //编辑按钮事件
 - (IBAction)editingBtnAction:(id)sender {
    
+    [MobClick event:@"homePage_SetUp"];
     
     FTUserCenterViewController *userCenter = [[FTUserCenterViewController alloc]init];
     userCenter.title = @"个人资料";
@@ -431,6 +432,7 @@ static NSString *const tableCellId = @"tableCellId";
 
 //设置按钮事件
 - (IBAction)settingBtnAction:(id)sender {
+    [MobClick event:@"homePage_SetUp"];
     
     FTSettingViewController *settingVC = [[FTSettingViewController alloc]init];
     settingVC.title = @"设置";

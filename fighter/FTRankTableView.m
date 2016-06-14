@@ -358,7 +358,6 @@
     if (width <= self.tableW -30) {
         width = self.tableW;
     }else {
-        
         width = width + 30;
     }
     
@@ -377,7 +376,6 @@
             _tableH = _cellH;
         }
     }
-    
 }
 
 @end
