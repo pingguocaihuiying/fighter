@@ -690,7 +690,7 @@
         [headerView addSubview:standingsTitle];
         
         //战绩详情label
-        UILabel *standingsDetailLabel = [[UILabel alloc]initWithFrame:CGRectMake(tableView.width - 150 - 14 - 10, 12, 150, 14)];
+        UILabel *standingsDetailLabel = [[UILabel alloc]initWithFrame:CGRectMake(tableView.width - 200 - 14 - 10, 12, 200, 14)];
         standingsDetailLabel.textAlignment = NSTextAlignmentRight;
         
         NSMutableAttributedString *standingStr = [[NSMutableAttributedString alloc]init];
