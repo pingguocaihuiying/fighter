@@ -696,24 +696,32 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 //    assert(userOldid);
-    NSString *query = @"";
-    if (boxerId) {//如果boxerId和coachId都存在，
-        query = @"1";
-    }else if(coachId){
-        query = @"2";
+//    NSString *query = @"";
+//    if (boxerId) {//如果boxerId和coachId都存在，
+//        query = @"1";
+//    }else if(coachId){
+//        query = @"2";
+//    }
+//    
+//    //如果有id为nil，则处理为@""，以便存入字典;
+//    if (userOldid == nil) {
+//        userOldid = @"";
+//    }
+//    if (boxerId == nil) {
+//        boxerId = @"";
+//    }
+//    if (coachId == nil) {
+//        coachId = @"";
+//    }
+//
+    if (boxerId) {//如果有boxerId，查boxerId
+        urlString = [NSString stringWithFormat:@"%@?boxerId=%@", urlString, boxerId];
+    }else if(userOldid){
+        urlString = [NSString stringWithFormat:@"%@?userId=%@", urlString, userOldid];
+    }else{
+        NSLog(@"没有id");
     }
     
-    //如果有id为nil，则处理为@""，以便存入字典;
-    if (userOldid == nil) {
-        userOldid = @"";
-    }
-    if (boxerId == nil) {
-        boxerId = @"";
-    }
-    if (coachId == nil) {
-        coachId = @"";
-    }
-    urlString = [NSString stringWithFormat:@"%@?userId=%@&boxerId=%@&coachId=%@", urlString, userOldid, boxerId, coachId];
     NSLog(@"urlString : %@", urlString);
     
     [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {

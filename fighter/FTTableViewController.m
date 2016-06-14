@@ -210,7 +210,7 @@
 }
 
 - (void)tableView:(FTTableViewController *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    NSLog(@"cell clicked.");
+    NSLog(@"cell clicked.");
     if([self.FTdelegate respondsToSelector:@selector(fttableView:didSelectWithIndex:)]){
     [self.FTdelegate fttableView:self didSelectWithIndex:indexPath];
     }

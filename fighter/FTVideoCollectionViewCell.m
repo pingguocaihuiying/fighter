@@ -103,6 +103,7 @@
         [self.myImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:nil options:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
 //            _placeHoldImageView.hidden = YES;
         }];
+        }
     //设置评论数、点赞数
     NSString *commentCount = [NSString stringWithFormat:@"(%@)", bean.commentCount];
     NSString *voteCount = [NSString stringWithFormat:@"(%@)", bean.voteCount];
@@ -112,7 +113,7 @@
     
     //根据newsType去设置类型图片
     self.videoTypeImageView.image = [UIImage imageNamed:[FTTools getChLabelNameWithEnLabelName:bean.labels]];
-}
+
 }
 
 @end
