@@ -604,6 +604,7 @@
         //        NSLog(@"userId : %@", userId);
         FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
         homepageMainVC.olduserid = userId;
+        
         [self.navigationController pushViewController:homepageMainVC animated:YES];
     }
     return YES;

@@ -254,6 +254,7 @@
 }
 
 - (IBAction)commentButtonClicked:(id)sender {
+        [MobClick event:@"videoPage_DetailPage_Comment"];
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
