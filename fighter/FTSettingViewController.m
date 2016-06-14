@@ -108,6 +108,8 @@
 
 - (IBAction)loginOutBtnAction:(id)sender {
     
+    [MobClick event:@"homePage_SetUp_Logout"];
+    
     NetWorking *net = [NetWorking new];
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -268,27 +270,19 @@
         
         
     }else if (indexPath.row == 2){
-        [MobClick event:@"userback"];
+        [MobClick event:@"homePage_SetUp_Feedback"];
         [UMFeedback showFeedback:self  withAppkey:@"570739d767e58edb5300057b"];
         
     }else if (indexPath.row == 3){
-        @try {
-            
-            FTAbountUsViewController *abountUsVC = [[FTAbountUsViewController alloc]init];
-            abountUsVC.title = @"关于我们";
-            [self.navigationController pushViewController:abountUsVC animated:YES];
-            
-        }
-        @catch (NSException *exception) {
-            NSLog(@"exception:%@",exception);
-        }
-        @finally {
-            
-        }
-       
+        [MobClick event:@"homePage_SetUp_AboutUs"];
+        
+        FTAbountUsViewController *abountUsVC = [[FTAbountUsViewController alloc]init];
+        abountUsVC.title = @"关于我们";
+        [self.navigationController pushViewController:abountUsVC animated:YES];
         
     }else if (indexPath.row == 4){
         //评分
+        [MobClick event:@"homePage_SetUp_Score"];
 //        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
 //        NSString *cacheDirectory = [paths objectAtIndex:0];
 //        NSString *appFile = [cacheDirectory stringByAppendingPathComponent:NEW_VERSION_INFO];

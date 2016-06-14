@@ -528,11 +528,9 @@
     
     [levelTableView setDirection:FTAnimationDirectionToTop];
     
-    
 }
 
 #pragma mark FTSelectCellDelegate
-
 - (void) selectedValue:(NSString *)value style:(FTRankTableViewStyle) style {
     
     //从数据库取数据
