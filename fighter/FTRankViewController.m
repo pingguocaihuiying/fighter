@@ -540,7 +540,9 @@
     switch (style) {
         case FTRankTableViewStyleLeft:
         {
-           
+            //友盟统计事件
+            [self mobClickEvent:value];
+            
             _matchArray = [dbManager searchItem:value type:1];
             _levelArray = [dbManager searchItem:value type:2];
             
@@ -695,6 +697,38 @@
     [dbManager close];
     
     return dataArray;
+}
+
+/**
+ *  umeng统计，排行榜标签选择
+ *
+ *  @param tagString 排行榜格斗类别标签，比如拳击，综合格斗等等
+ */
+- (void) mobClickEvent:(NSString *)tagString {
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        if ([tagString isEqualToString:@"拳击"]) {
+            [MobClick endEvent:@"rankingPage_CategoryQJ"];
+        }else  if ([tagString isEqualToString:@"综合格斗(MMA)"]) {
+            [MobClick endEvent:@"rankingPage_CategoryZHGD"];
+        }else  if ([tagString isEqualToString:@"泰拳"]) {
+            [MobClick endEvent:@"rankingPage_CategoryTQ"];
+        }else  if ([tagString isEqualToString:@"跆拳道"]) {
+            [MobClick endEvent:@"rankingPage_CategoryTQD"];
+        }else  if ([tagString isEqualToString:@"柔道"]) {
+            [MobClick endEvent:@"rankingPage_CategoryRD"];
+        }else  if ([tagString isEqualToString:@"摔跤(WWE)"]) {
+            [MobClick endEvent:@"rankingPage_CategorySJ"];
+        }else  if ([tagString isEqualToString:@"相扑"]) {
+            [MobClick endEvent:@"rankingPage_CategoryXP"];
+        }else  if ([tagString isEqualToString:@"截拳道"]) {
+            [MobClick endEvent:@"loginPage_InterestJQD"];
+        }else  if ([tagString isEqualToString:@"自由搏击"]) {
+            [MobClick endEvent:@"rankingPage_CategoryZYBJ"];
+        }
+    });
+    
 }
 
 

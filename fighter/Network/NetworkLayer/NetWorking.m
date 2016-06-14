@@ -477,7 +477,7 @@
     NSString *province = wxInfoDic[@"province"];
     NSString *headpic = wxInfoDic[@"headimgurl"];
     headpic = [self encodeToPercentEscapeString:headpic];
-    NSString *stemfrom = @"iOS";
+    NSString *stemfrom = @"weixin";
     username = [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSString *wxLoginURLString = [FTNetConfig host:Domain path:UserWXLoginURL];

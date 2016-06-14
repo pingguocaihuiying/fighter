@@ -43,7 +43,6 @@
         [self setArray];
         [self setSubviews];
         [self setTouchEvent];
-        
     }
     
     return self;
@@ -141,6 +140,9 @@
         make.top.equalTo(weakLabel.mas_top).with.offset(-20);
         
     }];
+    
+    //动画
+    [self setPanelViewAnimation];
 }
 
 
@@ -162,7 +164,7 @@
         make.height.equalTo(@48);
     }];
     
-    NSLog(@"images.count:%ld",_images.count);
+//    NSLog(@"images.count:%ld",_images.count);
     CGFloat space = (SCREEN_WIDTH - 12 - _images.count *48)/(_images.count+1);
     for (int i =0; i < _images.count ; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -189,8 +191,37 @@
 }
 
 
-#pragma mark - response methods
+/**
+ *  分享视图动画
+ */
+- (void) setPanelViewAnimation {
+    
+    //设定剧本
+    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    scaleAnimation.fromValue = [NSNumber numberWithFloat:0.1];
+    scaleAnimation.toValue = [NSNumber numberWithFloat:1.0];
+    scaleAnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
+    scaleAnimation.removedOnCompletion = NO;
+    //    scaleAnimation.autoreverses = YES;
+    //    scaleAnimation.repeatCount = MAXFLOAT;
+    scaleAnimation.duration = 0.2;
+    
+    
+    CAAnimationGroup *groupAnnimation = [CAAnimationGroup animation];
+    groupAnnimation.duration =  0.2;
+    //    groupAnnimation.autoreverses = YES;
+    groupAnnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
+    groupAnnimation.removedOnCompletion = NO;
+//    groupAnnimation.animations = @[scaleAnimation];
+    groupAnnimation.animations = @[scaleAnimation];
+    //    groupAnnimation.repeatCount = MAXFLOAT;
+    //开演
+    [_panelView.layer addAnimation:groupAnnimation forKey:@"groupAnnimation"];
+    
+}
 
+
+#pragma mark - response methods
 - (void) shareAction:(UIButton *) sender {
     //友盟分享事件统计
     [MobClick event:@"newsPage_DetailPage_share"];
@@ -225,6 +256,11 @@
 
 
 - (void) tapAction:(UITapGestureRecognizer *)gesture {
+    
+    
+    NSLog(@"position(%f,%f)",_panelView.layer.position.x,_panelView.layer.position.y);
+    NSLog(@"origin(%f,%f)",_panelView.frame.origin.x,_panelView.frame.origin.y);
+    NSLog(@"size(%f,%f)",_panelView.frame.size.width,_panelView.frame.size.height);
     
     CGPoint point = [gesture locationInView:self];
     CGRect frame = [self convertRect:_panelView.frame toView:self];
