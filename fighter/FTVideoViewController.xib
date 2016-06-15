@@ -125,7 +125,7 @@
                                 <constraint firstAttribute="height" constant="35" id="Wb5-g8-fIM"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <state key="normal" title="最新" image="标签图标-最热-pre">
+                            <state key="normal" title="最新" image="标签图标-最新-pre">
                                 <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
@@ -139,7 +139,7 @@
                                 <constraint firstAttribute="width" constant="152" id="t79-oh-OcP"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <state key="normal" title="最热" image="标签图标-最新">
+                            <state key="normal" title="最热" image="标签图标-最热">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -201,8 +201,8 @@
         <image name="头部48按钮一堆-搜索" width="24" height="24"/>
         <image name="头部48按钮一堆-更多" width="24" height="24"/>
         <image name="头部48按钮一堆-消息" width="24" height="24"/>
-        <image name="标签图标-最新" width="36" height="16"/>
-        <image name="标签图标-最热-pre" width="36" height="16"/>
+        <image name="标签图标-最新-pre" width="36" height="16"/>
+        <image name="标签图标-最热" width="36" height="16"/>
         <image name="格斗家头部logo文字" width="72" height="22"/>
     </resources>
 </document>
