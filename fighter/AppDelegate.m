@@ -107,11 +107,11 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     //get the original user-agent of webview
     UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectZero];
     NSString *oldAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
-    NSLog(@"old agent :%@", oldAgent);
+//    NSLog(@"old agent :%@", oldAgent);
     
     //add my info to the new agent
     NSString *newAgent = [oldAgent stringByAppendingString:@" Gogogofight"];
-    NSLog(@"new agent :%@", newAgent);
+//    NSLog(@"new agent :%@", newAgent);
     
     //regist the new agent
     NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @"UserAgent", nil, nil];
