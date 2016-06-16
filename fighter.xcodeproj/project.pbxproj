@@ -142,6 +142,8 @@
 		E64EF12F1CB6614100CAE340 /* fighterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E64EF12E1CB6614100CAE340 /* fighterUITests.m */; };
 		E6549DF61D000AEB00B27483 /* FTRecordRankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6549DF41D000AEB00B27483 /* FTRecordRankTableViewCell.m */; };
 		E6549DF71D000AEB00B27483 /* FTRecordRankTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6549DF51D000AEB00B27483 /* FTRecordRankTableViewCell.xib */; };
+		E659F3711D12A6BC00B41129 /* FTFightingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E659F36F1D12A6BC00B41129 /* FTFightingViewController.m */; };
+		E659F3721D12A6BC00B41129 /* FTFightingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E659F3701D12A6BC00B41129 /* FTFightingViewController.xib */; };
 		E65D08C71CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E65D08C51CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m */; };
 		E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E65D08C61CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib */; };
 		E65D08D41CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E65D08D21CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m */; };
@@ -473,6 +475,9 @@
 		E6549DF41D000AEB00B27483 /* FTRecordRankTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTRecordRankTableViewCell.m; path = "UI/个人主页/Views/cell/FTRecordRankTableViewCell.m"; sourceTree = "<group>"; };
 		E6549DF51D000AEB00B27483 /* FTRecordRankTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTRecordRankTableViewCell.xib; path = "UI/个人主页/Views/cell/FTRecordRankTableViewCell.xib"; sourceTree = "<group>"; };
 		E659F3671D129CA400B41129 /* fighter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = fighter.entitlements; sourceTree = "<group>"; };
+		E659F36E1D12A6BC00B41129 /* FTFightingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTFightingViewController.h; path = "UI/格斗场/viewControllers/FTFightingViewController.h"; sourceTree = "<group>"; };
+		E659F36F1D12A6BC00B41129 /* FTFightingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTFightingViewController.m; path = "UI/格斗场/viewControllers/FTFightingViewController.m"; sourceTree = "<group>"; };
+		E659F3701D12A6BC00B41129 /* FTFightingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTFightingViewController.xib; path = "UI/格斗场/viewControllers/FTFightingViewController.xib"; sourceTree = "<group>"; };
 		E65D08C41CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTThreeImageInfoTableViewCell.h; sourceTree = "<group>"; };
 		E65D08C51CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTThreeImageInfoTableViewCell.m; sourceTree = "<group>"; };
 		E65D08C61CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTThreeImageInfoTableViewCell.xib; sourceTree = "<group>"; };
@@ -1145,6 +1150,40 @@
 			path = fighterUITests;
 			sourceTree = "<group>";
 		};
+		E659F36B1D12A5C400B41129 /* 格斗场 */ = {
+			isa = PBXGroup;
+			children = (
+				E659F36D1D12A65C00B41129 /* views */,
+				E659F36C1D12A64600B41129 /* viewControllers */,
+			);
+			name = "格斗场";
+			sourceTree = "<group>";
+		};
+		E659F36C1D12A64600B41129 /* viewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E659F3731D12ABA700B41129 /* main */,
+			);
+			name = viewControllers;
+			sourceTree = "<group>";
+		};
+		E659F36D1D12A65C00B41129 /* views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
+		E659F3731D12ABA700B41129 /* main */ = {
+			isa = PBXGroup;
+			children = (
+				E659F36E1D12A6BC00B41129 /* FTFightingViewController.h */,
+				E659F36F1D12A6BC00B41129 /* FTFightingViewController.m */,
+				E659F3701D12A6BC00B41129 /* FTFightingViewController.xib */,
+			);
+			name = main;
+			sourceTree = "<group>";
+		};
 		E65D08D61CBCDC1800651B19 /* cell 2 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1565,13 +1604,14 @@
 		E6B458921CB7554F00FB4261 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E659F36B1D12A5C400B41129 /* 格斗场 */,
 				3D6CFF361D06A36600CAC12A /* 直播 */,
 				E6735AD11CFC408F0068782C /* 个人主页 */,
 				3D69470A1CE305EB00989440 /* 排行榜 */,
 				3D6947091CE305CD00989440 /* 用户中心 */,
 				E6B4589B1CB7569E00FB4261 /* 拳迅 */,
 				E6DCE7271CD849060082831D /* 视频 */,
-				E6D2F8D21CE95F0C00160788 /* 格斗场Arena */,
+				E6D2F8D21CE95F0C00160788 /* 拳吧 */,
 				E6B458B41CB759AE00FB4261 /* Coach */,
 				E6B458A81CB758EA00FB4261 /* Match */,
 				E6B458BF1CB75C7000FB4261 /* BoxingHall */,
@@ -1682,7 +1722,7 @@
 			name = "七牛";
 			sourceTree = "<group>";
 		};
-		E6D2F8D21CE95F0C00160788 /* 格斗场Arena */ = {
+		E6D2F8D21CE95F0C00160788 /* 拳吧 */ = {
 			isa = PBXGroup;
 			children = (
 				E6D09E8F1CEDA0CD00B7C43E /* tools */,
@@ -1691,7 +1731,7 @@
 				E6D2F8E71CEAA8F900160788 /* ViewController */,
 				E6D2F8E81CEAA90600160788 /* Views */,
 			);
-			name = "格斗场Arena";
+			name = "拳吧";
 			sourceTree = "<group>";
 		};
 		E6D2F8D31CE95F4600160788 /* main */ = {
@@ -2070,6 +2110,7 @@
 				E68D160E1CFD31F100AB5A8C /* FTHomepageMainViewController.xib in Resources */,
 				3D7B98BF1CE0898400B80B8D /* FTOldPasswordVC.xib in Resources */,
 				3D7B98A51CE0190600B80B8D /* FTAbountUsViewController.xib in Resources */,
+				E659F3721D12A6BC00B41129 /* FTFightingViewController.xib in Resources */,
 				3D7C6B821CF2A26D0088400D /* BoxerMatchController.xib in Resources */,
 				E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */,
 				E6FE6A5E1CEED3DC00D63847 /* FTArenaPostsDetailViewController.xib in Resources */,
@@ -2308,6 +2349,7 @@
 				E64EF10B1CB6614000CAE340 /* main.m in Sources */,
 				E61185981CC78BF400F23EC7 /* FTUserBean.m in Sources */,
 				3D322AC91CEB171200039E2C /* FTRankHeaderCell.m in Sources */,
+				E659F3711D12A6BC00B41129 /* FTFightingViewController.m in Sources */,
 				E65D08D41CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m in Sources */,
 				E6B458D21CB75DA200FB4261 /* FTInformationViewController.m in Sources */,
 				3DE95BA71CD86FA4005BF85C /* FTLoginViewController.m in Sources */,
@@ -2492,7 +2534,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3498F3EDE4F003CF3512E5B8 /* Pods-fighter.debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
@@ -2543,7 +2584,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 618712783A5CE24E9E3317D9 /* Pods-fighter.release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;

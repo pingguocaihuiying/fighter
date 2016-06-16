@@ -40,6 +40,7 @@
 #import "NetWorking.h"
 #import "FTArenaViewController.h"
 #import "FTHomepageMainViewController.h"
+#import "FTFightingViewController.h"
 
 
 @interface FTDrawerViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
@@ -759,9 +760,9 @@ static NSString *const tableCellId = @"tableCellId";
     boxingHallVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     boxingHallVC.drawerDelegate = self;
     
-    //格斗场
+    //拳吧
     FTArenaViewController *arenaVC = [FTArenaViewController new];
-    arenaVC.tabBarItem.title = @"格斗场";
+    arenaVC.tabBarItem.title = @"拳吧";
     [arenaVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                      Bar_Item_Select_Title_Color, UITextAttributeTextColor,
                                                      nil] forState:UIControlStateSelected];
@@ -769,6 +770,17 @@ static NSString *const tableCellId = @"tableCellId";
     arenaVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳馆"];
     arenaVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     arenaVC.drawerDelegate = self;
+
+    //格斗场
+    FTFightingViewController *fightingVC = [FTFightingViewController new];
+    fightingVC.tabBarItem.title = @"格斗场";
+    [fightingVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                nil] forState:UIControlStateSelected];
+    
+    fightingVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳馆"];
+    fightingVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    fightingVC.drawerDelegate = self;
     
     //设置tabbar的属性
     FTBaseTabBarViewController *tabBartVC = [FTBaseTabBarViewController new];
@@ -776,7 +788,7 @@ static NSString *const tableCellId = @"tableCellId";
     tabBartVC.tabBar.barTintColor = [UIColor blackColor];
     tabBartVC.tabBar.translucent = NO;
 //    tabBartVC.viewControllers = @[infoVC, matchVC, videoVC, coachVC, boxingHallVC];
-    tabBartVC.viewControllers = @[infoVC, videoVC, arenaVC];
+    tabBartVC.viewControllers = @[infoVC, arenaVC, fightingVC, videoVC];
 //        tabBartVC.viewControllers = @[infoVC, videoVC];
     
     FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:tabBartVC];
