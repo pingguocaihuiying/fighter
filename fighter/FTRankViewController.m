@@ -395,9 +395,9 @@
     
     NetWorking *net = [[NetWorking alloc]init];
     [net getRankLabels:^(NSDictionary *dict) {
-        NSLog(@"Labels:%@",dict);
+        //NSLog(@"Labels:%@",dict);
         if (dict != nil) {
-             NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+//             NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
             if ([dict[@"status"] isEqualToString:@"success"]) {
                 
                 DBManager *dbManager = [DBManager shareDBManager];
@@ -454,9 +454,9 @@
     
     [self.view addSubview:kindTableView];
     kindTableView.selectDelegate = self;
-    [kindTableView  setAnimation];
+//    [kindTableView  setAnimation];
     
-    [kindTableView setDirection:FTAnimationDirectionToTop];
+//    [kindTableView setDirection:FTAnimationDirectionToTop];
     
     
 }
@@ -490,9 +490,9 @@
     
     [self.view addSubview:matchableView];
     matchableView.selectDelegate = self;
-    [matchableView  setAnimation];
+//    [matchableView  setAnimation];
     
-    [matchableView setDirection:FTAnimationDirectionToTop];
+//    [matchableView setDirection:FTAnimationDirectionToTop];
     
     
 }
@@ -524,9 +524,9 @@
     
     [self.view addSubview:levelTableView];
      levelTableView.selectDelegate = self;
-    [levelTableView  setAnimation];
-    
-    [levelTableView setDirection:FTAnimationDirectionToTop];
+//    [levelTableView  setAnimation];
+
+//    [levelTableView setDirection:FTAnimationDirectionToTop];
     
 }
 

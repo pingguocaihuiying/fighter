@@ -23,5 +23,4 @@
 @property (nonatomic, strong) NSString *image;
 @property (nonatomic, strong) NSString *imageUrl;
 
-- (void) setPanelViewAnimation;
 @end
