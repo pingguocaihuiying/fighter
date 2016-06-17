@@ -477,7 +477,7 @@
     NSString *province = wxInfoDic[@"province"];
     NSString *headpic = wxInfoDic[@"headimgurl"];
     headpic = [self encodeToPercentEscapeString:headpic];
-    NSString *stemfrom = @"iOS";
+    NSString *stemfrom = @"weixin";
     username = [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSString *wxLoginURLString = [FTNetConfig host:Domain path:UserWXLoginURL];
@@ -581,7 +581,7 @@
        parameters:dic
           success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
               NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-              NSLog(@"responsedic:%@",responseDic);
+//              NSLog(@"responsedic:%@",responseDic);
               
               if (option) {
                   option(responseDic);
@@ -622,7 +622,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
           success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
               
               NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-              NSLog(@"responsedic:%@",responseDic);
+//              NSLog(@"responsedic:%@",responseDic);
               
               if (option) {
                   option(responseDic);

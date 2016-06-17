@@ -23,7 +23,6 @@ typedef NS_ENUM(NSInteger, FTAnimationDirection) {
     FTAnimationDirectionToLeft,  //
     FTAnimationDirectionToToBottom, //
     FTAnimationDirectionToRight, //
-    
 };
 
 typedef NS_ENUM(NSInteger, FTDataType) {
