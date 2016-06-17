@@ -1295,8 +1295,8 @@ allowUserInterruption:(BOOL)allowUserInterruption
     CGRect boundary = CGRectZero;
     boundary.origin = (CGPoint){-1.0, -1.0};
     if (self.possibleLeftMenuDirection & FTDynamicsDrawerDirectionHorizontal) {
-        NSLog(@"self.paneView.frame:%f,%f,%f,%f",self.paneView.frame.origin.x,self.paneView.frame.origin.y,self.paneView.frame.size.width,self.paneView.frame.size.height);
-        NSLog(@"self.drawerView.frame:%f,%f,%f,%f",self.drawerView.frame.origin.x,self.drawerView.frame.origin.y,self.drawerView.frame.size.width,self.drawerView.frame.size.height);
+//        NSLog(@"self.paneView.frame:%f,%f,%f,%f",self.paneView.frame.origin.x,self.paneView.frame.origin.y,self.paneView.frame.size.width,self.paneView.frame.size.height);
+//        NSLog(@"self.drawerView.frame:%f,%f,%f,%f",self.drawerView.frame.origin.x,self.drawerView.frame.origin.y,self.drawerView.frame.size.width,self.drawerView.frame.size.height);
         boundary.size.height = (CGRectGetHeight(self.paneView.frame) + 1.0);
         switch (state) {
             case FTDynamicsDrawerPaneStateClosed:

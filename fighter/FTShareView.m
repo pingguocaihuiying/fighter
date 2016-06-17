@@ -37,13 +37,13 @@
     self = [super init];
     if (self) {
         self.backgroundColor = [UIColor colorWithHex:0x191919 alpha:0.5];
+//        self.backgroundColor = [UIColor clearColor];
         self.opaque = NO;
         [self setFrame:[UIScreen mainScreen].bounds];
         
         [self setArray];
         [self setSubviews];
         [self setTouchEvent];
-        
     }
     
     return self;
@@ -141,6 +141,9 @@
         make.top.equalTo(weakLabel.mas_top).with.offset(-20);
         
     }];
+    
+    //动画
+    [self displayPanelViewAnimation];
 }
 
 
@@ -162,7 +165,7 @@
         make.height.equalTo(@48);
     }];
     
-    NSLog(@"images.count:%ld",_images.count);
+//    NSLog(@"images.count:%ld",_images.count);
     CGFloat space = (SCREEN_WIDTH - 12 - _images.count *48)/(_images.count+1);
     for (int i =0; i < _images.count ; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -189,8 +192,108 @@
 }
 
 
-#pragma mark - response methods
+/**
+ *  显示分享视图动画
+ */
+- (void) displayPanelViewAnimation {
+    
+    [self layoutIfNeeded];
+    
+//    //设定剧本
+//    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+//    scaleAnimation.fromValue = [NSNumber numberWithFloat:0.5];
+//    scaleAnimation.toValue = [NSNumber numberWithFloat:1.0];
+//    scaleAnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
+//    scaleAnimation.removedOnCompletion = NO;
+//    //    scaleAnimation.autoreverses = YES;
+//    //    scaleAnimation.repeatCount = MAXFLOAT;
+//    scaleAnimation.duration = 0.2;
+//    
+//    //设定剧本
+//    CABasicAnimation *positionAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
+//    positionAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(_panelView.layer.position.x, _panelView.layer.position.y + _panelView.layer.frame.size.height)];
+//    positionAnimation.toValue = [NSValue valueWithCGPoint:_panelView.layer.position];
+//    positionAnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
+//    positionAnimation.removedOnCompletion = NO;
+//    //    scaleAnimation.autoreverses = YES;
+//    //    scaleAnimation.repeatCount = MAXFLOAT;
+//    positionAnimation.duration = 0.2;
+//    
+//    
+//    CAAnimationGroup *groupAnnimation = [CAAnimationGroup animation];
+//    groupAnnimation.duration =  0.2;
+//    //    groupAnnimation.autoreverses = YES;
+//    groupAnnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
+//    groupAnnimation.removedOnCompletion = NO;
+////    groupAnnimation.animations = @[scaleAnimation];
+//    groupAnnimation.animations = @[scaleAnimation,positionAnimation];
+//    //    groupAnnimation.repeatCount = MAXFLOAT;
+//    //开演
+//    [_panelView.layer addAnimation:groupAnnimation forKey:@"groupAnnimation"];
+    
+    
+    CGRect pframe = _panelView.frame;
+    CGPoint pCenter = _panelView.center;
+    _panelView.center = CGPointMake(pCenter.x, pCenter.y+pframe.size.height);
+    
+    [UIView animateWithDuration:0.2
+                          delay:0.0
+         usingSpringWithDamping:0.6
+          initialSpringVelocity:0.0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         
+                       
+                         _panelView.center = CGPointMake(pCenter.x, pCenter.y);
+                     }
+                     completion:nil];
 
+}
+
+/**
+ *  隐藏分享视图动画
+ */
+- (void) hiddenPanelViewAnimation {
+
+    //设定剧本
+    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    scaleAnimation.fromValue = [NSNumber numberWithFloat:1.0];
+    scaleAnimation.toValue = [NSNumber numberWithFloat:0.5];
+    scaleAnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
+    scaleAnimation.removedOnCompletion = NO;
+    //    scaleAnimation.autoreverses = YES;
+    //    scaleAnimation.repeatCount = MAXFLOAT;
+    scaleAnimation.duration = 0.2;
+    
+    //设定剧本
+    CABasicAnimation *positionAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
+    positionAnimation.fromValue = [NSValue valueWithCGPoint:_panelView.layer.position];
+    positionAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(_panelView.layer.position.x, _panelView.layer.position.y + _panelView.layer.frame.size.height)];
+    positionAnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
+    positionAnimation.removedOnCompletion = NO;
+    //    scaleAnimation.autoreverses = YES;
+    //    scaleAnimation.repeatCount = MAXFLOAT;
+    positionAnimation.duration = 0.2;
+    
+    
+    CAAnimationGroup *groupAnnimation = [CAAnimationGroup animation];
+    groupAnnimation.duration =  0.2;
+    //    groupAnnimation.autoreverses = YES;
+    groupAnnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
+    groupAnnimation.removedOnCompletion = NO;
+    //    groupAnnimation.animations = @[scaleAnimation];
+    groupAnnimation.animations = @[scaleAnimation,positionAnimation];
+    //    groupAnnimation.repeatCount = MAXFLOAT;
+    //开演
+    [_panelView.layer addAnimation:groupAnnimation forKey:@"groupAnnimation"];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self removeFromSuperview];
+    });
+}
+
+
+#pragma mark - response methods
 - (void) shareAction:(UIButton *) sender {
     //友盟分享事件统计
     [MobClick event:@"newsPage_DetailPage_share"];
@@ -214,22 +317,27 @@
 //        [self test];
     }
 
-    [self removeFromSuperview];
+     [self hiddenPanelViewAnimation];
 }
 
 
 - (void) cancelAction:(id) sender {
 
-    [self removeFromSuperview];
+     [self hiddenPanelViewAnimation];
 }
 
 
 - (void) tapAction:(UITapGestureRecognizer *)gesture {
     
+    
+//    [self layoutIfNeeded];
+    
+    
     CGPoint point = [gesture locationInView:self];
     CGRect frame = [self convertRect:_panelView.frame toView:self];
     if (!CGRectContainsPoint(frame, point)) {
-        [self removeFromSuperview];
+        
+        [self hiddenPanelViewAnimation];
     }
 }
 
