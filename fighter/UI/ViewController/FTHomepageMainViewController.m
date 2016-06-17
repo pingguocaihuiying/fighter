@@ -198,14 +198,18 @@
             self.videoButton.hidden = YES;//是否显示视频按钮
             
             [self.videoButton setTitle:@"视频"];//修改视频按钮的标题为“视频”
+            
+             _userBgImageView.backgroundColor = [UIColor blackColor];
         }else if ([_userIdentity isEqualToString:@"1"]) {//拳手
             
-            //设置个人资料的背景图片
-            if (userBean.background != nil && ![userBean.background isEqualToString:@""]) {
+            //设置拳手个人资料的背景图片
+            if (userBean.background != nil && ![userBean.background isEqualToString:@""]) {//如果有背景图
                 [_userBgImageView sd_setImageWithURL:[NSURL URLWithString:userBean.background] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     _userBgImageView.image = [UIImage boxblurImage:image withBlurNumber:0.5];
                     
                 }];
+            }else{//如果没有背景图
+                _userBgImageView.backgroundColor = [UIColor blackColor];
             }
 
             
@@ -244,6 +248,7 @@
             _bottomNewPostsView.hidden = NO;
             _bottomFollowView.hidden = YES;
         }else{//如果是别人的主页
+            _shareAndModifyProfileButton.hidden = NO;
             [_shareAndModifyProfileButton setTitle:@"转发" forState:UIControlStateNormal];
             [_shareAndModifyProfileButton addTarget:self action:@selector(shareUserInfo) forControlEvents:UIControlEventTouchUpInside];
             //隐藏“发新动态”，显示关注等
