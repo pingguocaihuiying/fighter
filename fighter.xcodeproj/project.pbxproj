@@ -472,7 +472,6 @@
 		E6549DF31D000AEB00B27483 /* FTRecordRankTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTRecordRankTableViewCell.h; path = "UI/个人主页/Views/cell/FTRecordRankTableViewCell.h"; sourceTree = "<group>"; };
 		E6549DF41D000AEB00B27483 /* FTRecordRankTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTRecordRankTableViewCell.m; path = "UI/个人主页/Views/cell/FTRecordRankTableViewCell.m"; sourceTree = "<group>"; };
 		E6549DF51D000AEB00B27483 /* FTRecordRankTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTRecordRankTableViewCell.xib; path = "UI/个人主页/Views/cell/FTRecordRankTableViewCell.xib"; sourceTree = "<group>"; };
-		E659F3671D129CA400B41129 /* fighter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = fighter.entitlements; sourceTree = "<group>"; };
 		E65D08C41CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTThreeImageInfoTableViewCell.h; sourceTree = "<group>"; };
 		E65D08C51CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTThreeImageInfoTableViewCell.m; sourceTree = "<group>"; };
 		E65D08C61CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTThreeImageInfoTableViewCell.xib; sourceTree = "<group>"; };
@@ -1094,7 +1093,6 @@
 		E64EF1081CB6614000CAE340 /* fighter */ = {
 			isa = PBXGroup;
 			children = (
-				E659F3671D129CA400B41129 /* fighter.entitlements */,
 				3D17F7221D0052A0003AB660 /* OtherSDK */,
 				E685320A1CE59CFA00603D77 /* Frameworks */,
 				3D57D04A1CEC0BC30082BF24 /* DataBase */,
