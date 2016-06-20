@@ -63,7 +63,7 @@
         if (![videoUrlString hasPrefix:@"http://"]) {
             videoUrlString = [NSString stringWithFormat:@"http://%@", videoUrlString];
         }
-//        NSLog(@"videoUrlString : %@", videoUrlString);
+        NSLog(@"videoUrlString : %@", videoUrlString);
         [self.theImageView sd_setImageWithURL:[NSURL URLWithString:videoUrlString] placeholderImage:nil options:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             _placeHoldImageView.hidden = YES;
             self.playVideoImageview.hidden = NO;

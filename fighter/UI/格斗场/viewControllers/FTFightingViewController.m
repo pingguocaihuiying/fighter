@@ -28,29 +28,20 @@
 #import "FTLYZButton.h"
 #import "FTHomepageMainViewController.h"
 
-@interface FTFightingViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTnewsDetailDelegate,FTTableViewdelegate>
+@interface FTFightingViewController ()<SDCycleScrollViewDelegate, FTnewsDetailDelegate,FTTableViewdelegate, FTFightingMainVCButtonsClickedDelegate>
 
 @property(nonatomic,strong) NSArray *sourceArry;     //数据源
-@property(nonatomic,strong) UIPageViewController *pageViewController;   //翻页控制器
-@property (nonatomic, copy)NSString *currentItemValueEn;
-@property (nonatomic, strong)SDCycleScrollView *cycleScrollView;
-@property (nonatomic, strong)NSArray *cycleDataSourceArray;
 @property (nonatomic, strong)NSMutableArray *tableViewDataSourceArray;
 @property (nonatomic, strong)FTTableViewController *tableViewController;
 @property (nonatomic, strong)NSArray *typeArray;
-
 @property (nonatomic) NSInteger currentPage;
-
-
 @end
 
 @implementation FTFightingViewController
 
 - (void)viewDidLoad {
-    //        NSLog(@"拳讯 view的宽度：%f,高度：%f",self.view.frame.size.width, self.view.frame.size.height);
     [super viewDidLoad];
     [self initSubViews];
-    [self getDataFromDBWithType:@"new" currentPage:self.currentPage];
     [self getDataWithGetType:@"new" andCurrId:@"-1"];//初次加载数据
 }
 
@@ -87,17 +78,17 @@
         [self.drawerDelegate addButtonToArray:self.leftNavButton];
     }
     
-    [self setOtherViews];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    [self setTableView];//设置tableview
 }
 
 
 - (void)getDataFromDBWithType:(NSString *)getType currentPage:(NSInteger) currentPage {
     
-    NSString *newsType = _currentItemValueEn;
     //从数据库取数据
     DBManager *dbManager = [DBManager shareDBManager];
     [dbManager connect];
-    NSMutableArray *mutableArray =[dbManager searchNewsWithType:newsType];
+    NSMutableArray *mutableArray =[dbManager searchNewsWithType:@"foo"];
     [dbManager close];
     
     
@@ -111,33 +102,19 @@
     }
     
     self.tableViewController.sourceArray = self.tableViewDataSourceArray;
-    if ([newsType isEqualToString:@"All"]) {
-        self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
-    }else{
-        
-        self.tableViewController.tableView.tableHeaderView = nil;
-    }
-    
     [self.tableViewController.tableView reloadData];
     
     //隐藏infoLabel
     if (self.infoLabel.isHidden == NO) {
         self.infoLabel.hidden = YES;
     }
-    [self saveCache];
 }
 - (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)newsCurrId{
     NSString *urlString = [FTNetConfig host:Domain path:GetNewsURL];
-    //    NSString *newsType = [self getNewstype];
-    NSString *newsType = _currentItemValueEn;
-    
-    
-    //    NSString *newsCurrId = @"-1";
-    //    NSString *getType = @"new";
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",newsType, newsCurrId, getType, ts, @"quanjijia222222"]];
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@", newsCurrId, getType, ts, @"quanjijia222222"]];
     
-    urlString = [NSString stringWithFormat:@"%@?newsType=%@&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@", urlString, newsType, newsCurrId, getType, ts, checkSign, [FTNetConfig showType]];
+    urlString = [NSString stringWithFormat:@"%@?&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@", urlString, newsCurrId, getType, ts, checkSign, [FTNetConfig showType]];
     NSLog(@"获取资讯 url ： %@", urlString);
     NetWorking *net = [[NetWorking alloc]init];
     [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
@@ -148,7 +125,7 @@
                 NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
                 
                 //                NSLog(@"data:%@",responseDic[@"data"]);
-                //缓存数据到DB
+
                 if (mutableArray.count > 0) {
                     DBManager *dbManager = [DBManager shareDBManager];
                     [dbManager connect];
@@ -157,9 +134,6 @@
                     for (NSDictionary *dic in mutableArray)  {
                         [dbManager insertDataIntoNews:dic];
                     }
-                    
-                    //缓存数据
-                    [self saveCache];
                     
                     [self getDataFromDBWithType:getType currentPage:self.currentPage];
                 }
@@ -179,93 +153,31 @@
     }];
     
 }
-
-
-- (void)saveCache{
-    FTCache *cache = [FTCache sharedInstance];
-    NSArray *dataArray = [[NSArray alloc]initWithArray:self.tableViewDataSourceArray];
-    FTCacheBean *cacheBean = [[FTCacheBean alloc] initWithTimeStamp:[[NSDate date] timeIntervalSince1970]  andDataArray:dataArray];
-    
-    [cache.newsDataDic setObject:cacheBean forKey:[NSString stringWithFormat:@"%@", _currentItemValueEn]];
-    
-}
-
-- (void)setOtherViews{
-    //设置分类栏
-    [self setTypeNaviScrollView];
-}
-
-- (void)setTypeNaviScrollView{
-    
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    [self initPageController];
-    
-}
-
-- (void)setCycleScrollView{
-    NSMutableArray *imagesURLStrings = [NSMutableArray new];
-    NSMutableArray *titlesArray = [NSMutableArray new];
-    if (self.cycleDataSourceArray) {
-        for(NSDictionary *dic in self.cycleDataSourceArray){
-            [imagesURLStrings addObject:dic[@"img_big"]];
-            [titlesArray addObject:dic[@"title"]];
-            
-        }
-    }
-    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180 * SCREEN_WIDTH / 375)
-                                                          delegate:self
-                                                  placeholderImage:[UIImage imageNamed:@"空图标大"]];
-    _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
-    
-#pragma -mark -暂时隐藏轮播图的标题（没有给轮播图传title的值）
-    //    _cycleScrollView.titlesGroup = titlesArray;
-    
-    _cycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
-    _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点pre"];
-    _cycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播点"];
-    _cycleScrollView.imageURLStringsGroup = imagesURLStrings;
-    //    [_cycleScrollView.mainView reloadData];
-    
-    //    //轮播图添加遮罩
-    //    UIImageView *shadowView = [[UIImageView alloc]initWithFrame:_cycleScrollView.frame];
-    //    shadowView.image = [UIImage imageNamed:@"头图暗影遮罩-ios"];
-    //    shadowView.alpha = 0.8;
-    ////    [_cycleScrollView addSubview:shadowView];
-    //
-    //    [_cycleScrollView insertSubview:shadowView atIndex:1];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - 视图加载
 
-- (void)initPageController
+- (void)setTableView
 {
     if(!self.tableViewController){
         self.tableViewController = [[FTTableViewController alloc]initWithStyle:UITableViewStylePlain];
-        self.tableViewController.listType = FTCellTypeNews;
+        self.tableViewController.listType = FTCellTypeFighting;
         
         self.tableViewController.FTdelegate = self;
-        self.tableViewController.order = 0;
+        self.tableViewController.fightingTableViewButtonsClickedDelegate = self;
+//        self.tableViewController.order = 0;
         //设置上拉、下拉刷新
         [self setJHRefresh];
     }
-    
-    self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
     
     if (self.tableViewDataSourceArray) {
         [self.tableViewController.tableView footerEndRefreshing];
         self.tableViewController.sourceArray = self.tableViewDataSourceArray;
     }else{
-        //    self.tableViewController.sourceArray = _sourceArry[0];
         NSLog(@"没有数据源。");
     }
     
     self.tableViewController.tableView.frame = self.currentView.bounds;
     [self.currentView addSubview:self.tableViewController.tableView];
+    [self.tableViewController.tableView reloadData];
 }
 
 - (void)setJHRefresh{
@@ -377,4 +289,15 @@
     [self.tableViewController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
     
 }
+
+//购票、赞助等按钮的点击事件
+- (void)buttonClickedWithIdentifycation:(NSString *)identifycationString andRaceId:(NSString *)raceId{
+    NSLog(@"identifycation : %@, raceId : %@", identifycationString, raceId);
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 @end

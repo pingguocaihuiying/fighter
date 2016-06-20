@@ -299,10 +299,10 @@
     NSString *title = _userBean.name;
         //如果是拳手，再加上“［格斗家］认证拳手，webview的url也改为拳手对应的
     if(_userBean.query && [_userBean.query isEqualToString:@"1"]){//1：拳手，2:教练，普通用户为空（nil）
-        title = [NSString stringWithFormat:@"%@%@", title, @"[格斗家] 认证拳手"];
-        _webUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/user_boxer.html?userId=%@", _userBean.olduserid];
+        title = [NSString stringWithFormat:@"%@%@", title, @" [格斗家] 认证拳手"];
+        _webUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/user_boxer.html?userId=%@", _olduserid];
     }else {
-        _webUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/user_general.html?userId=%@", _userBean.olduserid];
+        _webUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/user_general.html?userId=%@", _olduserid];
     }
     
     //分享简述

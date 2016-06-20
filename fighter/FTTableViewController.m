@@ -20,8 +20,9 @@
 #import "FTArenaTextTableViewCell.h"
 #import "FTArenaImageTableViewCell.h"
 #import "FTArenaBean.h"
+#import "FTFightingTableViewCell.h"
 
-@interface FTTableViewController ()<FTTableViewCellClickedDelegate>
+@interface FTTableViewController ()<FTTableViewCellClickedDelegate, FTFightingTableViewCellButtonsClickedDelegate>
 
 @end
 
@@ -41,13 +42,15 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.tableView.showsVerticalScrollIndicator = NO;
-    if (self.listType == FTCellTypeNews) {
+    if (self.listType == FTCellTypeNews) {//新闻
         [self.tableView registerNib:[UINib nibWithNibName:@"FTOneBigImageInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell1"];
         [self.tableView registerNib:[UINib nibWithNibName:@"FTThreeImageInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell2"];
         [self.tableView registerNib:[UINib nibWithNibName:@"FTOneImageInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell3"];
-    }else if(self.listType == FTCellTypeArena){
+    }else if(self.listType == FTCellTypeArena){//帖子
         [self.tableView registerNib:[UINib nibWithNibName:@"FTArenaTextTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellArenaText"];
         [self.tableView registerNib:[UINib nibWithNibName:@"FTArenaImageTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellArenaImage"];
+    }else if(self.listType == FTCellTypeFighting){//格斗场
+        [self.tableView registerNib:[UINib nibWithNibName:@"FTFightingTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellFighting"];
     }
     
 //    [self.tableView registerNib:[UINib nibWithNibName:@"FTVideoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell4"];
@@ -62,13 +65,18 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Potentially incomplete method implementation.
-    // Return the number of sections.
+    if (_listType == FTCellTypeFighting) {
+        return 2;
+    }
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
+    if(_listType == FTCellTypeFighting){
+        return 2;
+    }
     return _sourceArray.count;
 }
 
@@ -139,7 +147,18 @@
 
         [cell setWithBean:bean];
 
-    }else{//如果没有网络数据源
+    }else if (self.listType == FTCellTypeFighting){
+//        FTArenaBean *bean = self.sourceArray[indexPath.row];
+        
+        static NSString *cellIdentityFighting = @"cellFighting";
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentityFighting];
+        FTFightingTableViewCell *fightingCell = (FTFightingTableViewCell *)cell;
+        fightingCell.buttonsClickedDelegate = self;
+        cell.backgroundColor = [UIColor clearColor];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        
+    }else{
         NSLog(@"第一次加载，无网络数据");
         static NSString *cellider = @"cell";
         cell = [tableView dequeueReusableCellWithIdentifier:cellider];
@@ -152,24 +171,33 @@
         }
         return  nil;
     }
-        
     return cell;
 }
 
+//headerView高度
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectio{
+    if (_listType == FTCellTypeFighting) {
+        return 34;
+    }
+        return 0;
+}
+
+//headerView
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIScrollView *scrollView = [self getHeaderView];
-    return scrollView;
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 34)];
+//    headerView.backgroundColor = [UIColor yellowColor];
+    UILabel *headerlabel = [[UILabel alloc]initWithFrame:CGRectMake(8, 10, 100, 14)];
+//    headerlabel.backgroundColor = [UIColor redColor];
+    headerlabel.textColor = [UIColor colorWithHex:0xb4b4b4];
+    headerlabel.font = [UIFont systemFontOfSize:14];
+    if (section == 0) {
+        headerlabel.text = @"今日赛事";
+    }else if (section == 1){
+        headerlabel.text = @"明日赛事";
+    }
+    [headerView addSubview:headerlabel];
+    return headerView;
 }
-
-- (UIScrollView *)getHeaderView{
-    return nil;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-            return 0;
-//    return 380;
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     CGFloat height = 0;
     
@@ -185,9 +213,7 @@
             height = 146 ;//一张小图的cell，图片等比例放大了1.5倍
         }
     }else if(self.listType == FTCellTypeArena){
-        
        FTArenaBean *bean = self.sourceArray[indexPath.row];
-        
         NSString *videoUrl = bean.videoUrlNames == nil ? @"" : bean.videoUrlNames;
         NSString *pictureUrl = bean.pictureUrlNames == nil ? @"" : bean.pictureUrlNames;
         
@@ -202,6 +228,8 @@
             
         }
 
+    }else if(self.listType == FTCellTypeFighting){
+        height = 169;
     }
     
     
@@ -220,5 +248,11 @@
 - (void)clickedWithIndex:(NSIndexPath *)indexPath{
 //    NSLog(@"index : %@", indexPath);
     [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+}
+
+//格斗场主页面按钮的点击回掉
+- (void)buttonClickedWithIdentifycation:(NSString *)identifycationString andRaceId:(NSString *)raceId{
+//    NSLog(@"identifycation : %@, raceId : %@", identifycationString, raceId);
+    [self.fightingTableViewButtonsClickedDelegate buttonClickedWithIdentifycation:identifycationString andRaceId:raceId];
 }
 @end

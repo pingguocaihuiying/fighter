@@ -66,8 +66,8 @@
                         <constraint firstAttribute="height" constant="1" id="UdX-Rq-lcD"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WZZ-wI-mmN">
-                    <rect key="frame" x="0.0" y="61" width="600" height="539"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WZZ-wI-mmN" userLabel="Table View">
+                    <rect key="frame" x="6" y="61" width="588" height="539"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
                 </view>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ed-UM-l58" userLabel="筛选">
@@ -109,9 +109,9 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="1Hq-1s-WyQ" firstAttribute="leading" secondItem="0BE-If-hf5" secondAttribute="trailing" constant="8" id="41m-6D-Ev9"/>
-                <constraint firstItem="WZZ-wI-mmN" firstAttribute="leading" secondItem="3g8-Ka-zYk" secondAttribute="leading" id="8mV-58-Zfe"/>
+                <constraint firstItem="WZZ-wI-mmN" firstAttribute="leading" secondItem="3g8-Ka-zYk" secondAttribute="leading" constant="6" id="8mV-58-Zfe"/>
                 <constraint firstItem="0BE-If-hf5" firstAttribute="top" secondItem="3g8-Ka-zYk" secondAttribute="top" constant="20" id="AYx-d9-dcf"/>
-                <constraint firstAttribute="trailing" secondItem="WZZ-wI-mmN" secondAttribute="trailing" id="BCe-Gq-s9u"/>
+                <constraint firstAttribute="trailing" secondItem="WZZ-wI-mmN" secondAttribute="trailing" constant="6" id="BCe-Gq-s9u"/>
                 <constraint firstItem="0BE-If-hf5" firstAttribute="leading" secondItem="3g8-Ka-zYk" secondAttribute="leading" constant="15" id="BPr-1e-o8v"/>
                 <constraint firstItem="QlK-Xl-OCj" firstAttribute="top" secondItem="3g8-Ka-zYk" secondAttribute="top" constant="60" id="Cb0-TY-4Qf"/>
                 <constraint firstItem="5lH-3J-4YY" firstAttribute="top" secondItem="3g8-Ka-zYk" secondAttribute="top" constant="25" id="FtL-WA-8Xp"/>

@@ -164,6 +164,8 @@
 		E67872741CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E67872721CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib */; };
 		E67872791CEB00980099CEE6 /* FTNewPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E67872771CEB00980099CEE6 /* FTNewPostViewController.m */; };
 		E678727A1CEB00980099CEE6 /* FTNewPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E67872781CEB00980099CEE6 /* FTNewPostViewController.xib */; };
+		E67926741D17B68F00AF30B3 /* FTFightingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E67926721D17B68F00AF30B3 /* FTFightingTableViewCell.m */; };
+		E67926751D17B68F00AF30B3 /* FTFightingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E67926731D17B68F00AF30B3 /* FTFightingTableViewCell.xib */; };
 		E68050B71CBF919A00678905 /* JHRefreshAmazingAniView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68050A01CBF919A00678905 /* JHRefreshAmazingAniView.m */; };
 		E68050B81CBF919A00678905 /* JHRefreshAniBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68050A21CBF919A00678905 /* JHRefreshAniBaseView.m */; };
 		E68050B91CBF919A00678905 /* JHRefreshCommonAniView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68050A41CBF919A00678905 /* JHRefreshCommonAniView.m */; };
@@ -513,6 +515,9 @@
 		E67872761CEB00980099CEE6 /* FTNewPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNewPostViewController.h; sourceTree = "<group>"; };
 		E67872771CEB00980099CEE6 /* FTNewPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNewPostViewController.m; sourceTree = "<group>"; };
 		E67872781CEB00980099CEE6 /* FTNewPostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTNewPostViewController.xib; sourceTree = "<group>"; };
+		E67926711D17B68F00AF30B3 /* FTFightingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTFightingTableViewCell.h; path = "UI/格斗场/views/cell/FTFightingTableViewCell.h"; sourceTree = "<group>"; };
+		E67926721D17B68F00AF30B3 /* FTFightingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTFightingTableViewCell.m; path = "UI/格斗场/views/cell/FTFightingTableViewCell.m"; sourceTree = "<group>"; };
+		E67926731D17B68F00AF30B3 /* FTFightingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTFightingTableViewCell.xib; path = "UI/格斗场/views/cell/FTFightingTableViewCell.xib"; sourceTree = "<group>"; };
 		E680509F1CBF919A00678905 /* JHRefreshAmazingAniView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHRefreshAmazingAniView.h; sourceTree = "<group>"; };
 		E68050A01CBF919A00678905 /* JHRefreshAmazingAniView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHRefreshAmazingAniView.m; sourceTree = "<group>"; };
 		E68050A11CBF919A00678905 /* JHRefreshAniBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHRefreshAniBaseView.h; sourceTree = "<group>"; };
@@ -1170,6 +1175,7 @@
 		E659F36D1D12A65C00B41129 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				E679266B1D17B48E00AF30B3 /* cell */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -1397,6 +1403,16 @@
 				E67872781CEB00980099CEE6 /* FTNewPostViewController.xib */,
 			);
 			name = "发新帖";
+			sourceTree = "<group>";
+		};
+		E679266B1D17B48E00AF30B3 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				E67926711D17B68F00AF30B3 /* FTFightingTableViewCell.h */,
+				E67926721D17B68F00AF30B3 /* FTFightingTableViewCell.m */,
+				E67926731D17B68F00AF30B3 /* FTFightingTableViewCell.xib */,
+			);
+			name = cell;
 			sourceTree = "<group>";
 		};
 		E680509D1CBF919A00678905 /* JHRefresh */ = {
@@ -2073,6 +2089,7 @@
 				E6A9DDA91CD8879A00CB9518 /* FTVideoViewController.xib in Resources */,
 				E6E9E8951CDC718900976480 /* FTVideoCollectionViewCell.xib in Resources */,
 				3D7C6B7D1CF2A2380088400D /* BoxerVideoController.xib in Resources */,
+				E67926751D17B68F00AF30B3 /* FTFightingTableViewCell.xib in Resources */,
 				E68050BA1CBF919A00678905 /* JHRefresh.bundle in Resources */,
 				3D7B988E1CDD027400B80B8D /* Area.plist in Resources */,
 				3D4B18F61CD8BF340022DFB0 /* FTSetPassWordViewController.xib in Resources */,
@@ -2297,6 +2314,7 @@
 				E6B239081D067045001F86BE /* FTHomepageCommentTableViewCell.m in Sources */,
 				3DC9A4E31CE59A0400E16D19 /* FTButton.m in Sources */,
 				E6D74A491CB7B7EE00854337 /* UILabel+StringFrame.m in Sources */,
+				E67926741D17B68F00AF30B3 /* FTFightingTableViewCell.m in Sources */,
 				3D57D0501CEC0E7F0082BF24 /* DBManager.m in Sources */,
 				3D4B19581CDB0CD90022DFB0 /* FTPropertySetingViewController.m in Sources */,
 				3D5FB4B91CDC41A500FC1809 /* FTAlbumsViewController.m in Sources */,
@@ -2464,7 +2482,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: peng qu (LQHT8X75PQ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: peng qu (LQHT8X75PQ)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2486,7 +2505,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "bfd749dd-11da-4aa9-aef1-79f6a04889a2";
+				PROVISIONING_PROFILE = "5e84c918-e27e-4459-8250-91d523f61b6f";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2509,7 +2528,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: peng qu (LQHT8X75PQ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: peng qu (LQHT8X75PQ)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2524,7 +2544,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "bfd749dd-11da-4aa9-aef1-79f6a04889a2";
+				PROVISIONING_PROFILE = "5e84c918-e27e-4459-8250-91d523f61b6f";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2538,7 +2558,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2576,7 +2596,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a4b9f1a5-458b-44e1-a179-41933a1002bc";
 			};
 			name = Debug;
 		};
@@ -2588,7 +2608,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: peng qu (LQHT8X75PQ)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2625,7 +2645,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a4b9f1a5-458b-44e1-a179-41933a1002bc";
 			};
 			name = Release;
 		};

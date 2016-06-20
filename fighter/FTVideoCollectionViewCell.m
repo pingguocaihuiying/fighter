@@ -100,9 +100,10 @@
             imageUrlString = [NSString stringWithFormat:@"http://%@", imageUrlString];
         }
         
-        [self.myImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:nil options:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//            _placeHoldImageView.hidden = YES;
-        }];
+//        [self.myImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:nil options:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+////            _placeHoldImageView.hidden = YES;
+//        }];
+        [self.myImageView sd_setImageWithURL:[NSURL URLWithString:@"imageUrlString"]];
         }
     //设置评论数、点赞数
     NSString *commentCount = [NSString stringWithFormat:@"(%@)", bean.commentCount];
