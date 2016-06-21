@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2EB9B28B8C5A080A21781FFA /* Pods_fighter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E48274DE7B43596DF74BCD1 /* Pods_fighter.framework */; };
 		3D13FB0C1D193A5A0060B9B4 /* fighter.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 3D13FB0B1D193A5A0060B9B4 /* fighter.entitlements */; };
+		3D13FB101D193BB80060B9B4 /* FTFightingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D13FB0E1D193BB80060B9B4 /* FTFightingViewController.m */; };
+		3D13FB111D193BB80060B9B4 /* FTFightingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D13FB0F1D193BB80060B9B4 /* FTFightingViewController.xib */; };
 		3D17F7371D005377003AB660 /* libIXPushSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D17F7251D005377003AB660 /* libIXPushSdk.a */; };
 		3D322AC91CEB171200039E2C /* FTRankHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D322AC71CEB171200039E2C /* FTRankHeaderCell.m */; };
 		3D322ACA1CEB171200039E2C /* FTRankHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D322AC81CEB171200039E2C /* FTRankHeaderCell.xib */; };
@@ -259,6 +261,9 @@
 /* Begin PBXFileReference section */
 		3498F3EDE4F003CF3512E5B8 /* Pods-fighter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fighter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fighter/Pods-fighter.debug.xcconfig"; sourceTree = "<group>"; };
 		3D13FB0B1D193A5A0060B9B4 /* fighter.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fighter.entitlements; sourceTree = "<group>"; };
+		3D13FB0D1D193BB80060B9B4 /* FTFightingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTFightingViewController.h; sourceTree = "<group>"; };
+		3D13FB0E1D193BB80060B9B4 /* FTFightingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTFightingViewController.m; sourceTree = "<group>"; };
+		3D13FB0F1D193BB80060B9B4 /* FTFightingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTFightingViewController.xib; sourceTree = "<group>"; };
 		3D17F7241D005377003AB660 /* IXPushSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IXPushSdk.h; sourceTree = "<group>"; };
 		3D17F7251D005377003AB660 /* libIXPushSdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libIXPushSdk.a; sourceTree = "<group>"; };
 		3D322AC61CEB171200039E2C /* FTRankHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankHeaderCell.h; sourceTree = "<group>"; };
@@ -1179,6 +1184,9 @@
 		E659F3731D12ABA700B41129 /* main */ = {
 			isa = PBXGroup;
 			children = (
+				3D13FB0D1D193BB80060B9B4 /* FTFightingViewController.h */,
+				3D13FB0E1D193BB80060B9B4 /* FTFightingViewController.m */,
+				3D13FB0F1D193BB80060B9B4 /* FTFightingViewController.xib */,
 			);
 			name = main;
 			sourceTree = "<group>";
@@ -2082,6 +2090,7 @@
 				E6A9DDA91CD8879A00CB9518 /* FTVideoViewController.xib in Resources */,
 				E6E9E8951CDC718900976480 /* FTVideoCollectionViewCell.xib in Resources */,
 				3D7C6B7D1CF2A2380088400D /* BoxerVideoController.xib in Resources */,
+				3D13FB111D193BB80060B9B4 /* FTFightingViewController.xib in Resources */,
 				E67926751D17B68F00AF30B3 /* FTFightingTableViewCell.xib in Resources */,
 				E68050BA1CBF919A00678905 /* JHRefresh.bundle in Resources */,
 				3D7B988E1CDD027400B80B8D /* Area.plist in Resources */,
@@ -2336,6 +2345,7 @@
 				3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */,
 				E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */,
 				E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */,
+				3D13FB101D193BB80060B9B4 /* FTFightingViewController.m in Sources */,
 				E66D6EFA1CBCE81C008B015A /* RBRequestOperationManager.m in Sources */,
 				E68050BF1CBF919A00678905 /* UIScrollView+JHExtension.m in Sources */,
 				E65EFC291CC8ADFD0039EE8A /* UIButton+LYZTitle.m in Sources */,
