@@ -142,8 +142,6 @@
 		E64EF12F1CB6614100CAE340 /* fighterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E64EF12E1CB6614100CAE340 /* fighterUITests.m */; };
 		E6549DF61D000AEB00B27483 /* FTRecordRankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6549DF41D000AEB00B27483 /* FTRecordRankTableViewCell.m */; };
 		E6549DF71D000AEB00B27483 /* FTRecordRankTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6549DF51D000AEB00B27483 /* FTRecordRankTableViewCell.xib */; };
-		E659F3711D12A6BC00B41129 /* FTFightingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E659F36F1D12A6BC00B41129 /* FTFightingViewController.m */; };
-		E659F3721D12A6BC00B41129 /* FTFightingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E659F3701D12A6BC00B41129 /* FTFightingViewController.xib */; };
 		E65D08C71CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E65D08C51CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m */; };
 		E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E65D08C61CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib */; };
 		E65D08D41CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E65D08D21CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m */; };
@@ -178,7 +176,6 @@
 		E68050C01CBF919A00678905 /* UIScrollView+JHRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = E68050B41CBF919A00678905 /* UIScrollView+JHRefresh.m */; };
 		E68050C11CBF919A00678905 /* UIView+JHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = E68050B61CBF919A00678905 /* UIView+JHExtension.m */; };
 		E68050CA1CBFB0D200678905 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E68050C91CBFB0D200678905 /* libz.tbd */; };
-		E68D16091CFD25ED00AB5A8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E68D16081CFD25ED00AB5A8C /* Assets.xcassets */; };
 		E68D160D1CFD31F100AB5A8C /* FTHomepageMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D160B1CFD31F100AB5A8C /* FTHomepageMainViewController.m */; };
 		E68D160E1CFD31F100AB5A8C /* FTHomepageMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E68D160C1CFD31F100AB5A8C /* FTHomepageMainViewController.xib */; };
 		E68D16131CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D16121CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m */; };
@@ -476,10 +473,6 @@
 		E6549DF31D000AEB00B27483 /* FTRecordRankTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTRecordRankTableViewCell.h; path = "UI/个人主页/Views/cell/FTRecordRankTableViewCell.h"; sourceTree = "<group>"; };
 		E6549DF41D000AEB00B27483 /* FTRecordRankTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTRecordRankTableViewCell.m; path = "UI/个人主页/Views/cell/FTRecordRankTableViewCell.m"; sourceTree = "<group>"; };
 		E6549DF51D000AEB00B27483 /* FTRecordRankTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTRecordRankTableViewCell.xib; path = "UI/个人主页/Views/cell/FTRecordRankTableViewCell.xib"; sourceTree = "<group>"; };
-		E659F3671D129CA400B41129 /* fighter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = fighter.entitlements; sourceTree = "<group>"; };
-		E659F36E1D12A6BC00B41129 /* FTFightingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTFightingViewController.h; path = "UI/格斗场/viewControllers/FTFightingViewController.h"; sourceTree = "<group>"; };
-		E659F36F1D12A6BC00B41129 /* FTFightingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTFightingViewController.m; path = "UI/格斗场/viewControllers/FTFightingViewController.m"; sourceTree = "<group>"; };
-		E659F3701D12A6BC00B41129 /* FTFightingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTFightingViewController.xib; path = "UI/格斗场/viewControllers/FTFightingViewController.xib"; sourceTree = "<group>"; };
 		E65D08C41CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTThreeImageInfoTableViewCell.h; sourceTree = "<group>"; };
 		E65D08C51CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTThreeImageInfoTableViewCell.m; sourceTree = "<group>"; };
 		E65D08C61CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTThreeImageInfoTableViewCell.xib; sourceTree = "<group>"; };
@@ -543,7 +536,6 @@
 		E68050B51CBF919A00678905 /* UIView+JHExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JHExtension.h"; sourceTree = "<group>"; };
 		E68050B61CBF919A00678905 /* UIView+JHExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JHExtension.m"; sourceTree = "<group>"; };
 		E68050C91CBFB0D200678905 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		E68D16081CFD25ED00AB5A8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E68D160A1CFD31F100AB5A8C /* FTHomepageMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTHomepageMainViewController.h; path = UI/ViewController/FTHomepageMainViewController.h; sourceTree = "<group>"; };
 		E68D160B1CFD31F100AB5A8C /* FTHomepageMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTHomepageMainViewController.m; path = UI/ViewController/FTHomepageMainViewController.m; sourceTree = "<group>"; };
 		E68D160C1CFD31F100AB5A8C /* FTHomepageMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTHomepageMainViewController.xib; path = UI/ViewController/FTHomepageMainViewController.xib; sourceTree = "<group>"; };
@@ -1104,7 +1096,6 @@
 		E64EF1081CB6614000CAE340 /* fighter */ = {
 			isa = PBXGroup;
 			children = (
-				E659F3671D129CA400B41129 /* fighter.entitlements */,
 				3D17F7221D0052A0003AB660 /* OtherSDK */,
 				E685320A1CE59CFA00603D77 /* Frameworks */,
 				3D57D04A1CEC0BC30082BF24 /* DataBase */,
@@ -1128,7 +1119,6 @@
 		E64EF1091CB6614000CAE340 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E68D16081CFD25ED00AB5A8C /* Assets.xcassets */,
 				3D7B988D1CDD027400B80B8D /* Area.plist */,
 				3D7B988F1CDD1E5900B80B8D /* Area2.plist */,
 				E64EF10A1CB6614000CAE340 /* main.m */,
@@ -1183,9 +1173,6 @@
 		E659F3731D12ABA700B41129 /* main */ = {
 			isa = PBXGroup;
 			children = (
-				E659F36E1D12A6BC00B41129 /* FTFightingViewController.h */,
-				E659F36F1D12A6BC00B41129 /* FTFightingViewController.m */,
-				E659F3701D12A6BC00B41129 /* FTFightingViewController.xib */,
 			);
 			name = main;
 			sourceTree = "<group>";
@@ -2127,14 +2114,12 @@
 				E68D160E1CFD31F100AB5A8C /* FTHomepageMainViewController.xib in Resources */,
 				3D7B98BF1CE0898400B80B8D /* FTOldPasswordVC.xib in Resources */,
 				3D7B98A51CE0190600B80B8D /* FTAbountUsViewController.xib in Resources */,
-				E659F3721D12A6BC00B41129 /* FTFightingViewController.xib in Resources */,
 				3D7C6B821CF2A26D0088400D /* BoxerMatchController.xib in Resources */,
 				E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */,
 				E6FE6A5E1CEED3DC00D63847 /* FTArenaPostsDetailViewController.xib in Resources */,
 				3D8D73BE1CE97404009E2320 /* FTTableViewCell6.xib in Resources */,
 				3D5FB4931CDC311400FC1809 /* FTAssetsViewController.xib in Resources */,
 				3DC411ED1CCF74EC0030C229 /* FTDrawerTableViewCell.xib in Resources */,
-				E68D16091CFD25ED00AB5A8C /* Assets.xcassets in Resources */,
 				3D7B98C41CE08DEE00B80B8D /* FTNewPasswordVC.xib in Resources */,
 				E6035EBF1CC0C39500B10D36 /* FTCommentViewController.xib in Resources */,
 				E65D08D51CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.xib in Resources */,
@@ -2367,7 +2352,6 @@
 				E64EF10B1CB6614000CAE340 /* main.m in Sources */,
 				E61185981CC78BF400F23EC7 /* FTUserBean.m in Sources */,
 				3D322AC91CEB171200039E2C /* FTRankHeaderCell.m in Sources */,
-				E659F3711D12A6BC00B41129 /* FTFightingViewController.m in Sources */,
 				E65D08D41CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m in Sources */,
 				E6B458D21CB75DA200FB4261 /* FTInformationViewController.m in Sources */,
 				3DE95BA71CD86FA4005BF85C /* FTLoginViewController.m in Sources */,
