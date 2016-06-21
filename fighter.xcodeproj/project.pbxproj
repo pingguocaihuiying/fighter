@@ -73,6 +73,7 @@
 		3D7C6B821CF2A26D0088400D /* BoxerMatchController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D7C6B801CF2A26D0088400D /* BoxerMatchController.xib */; };
 		3D7C6B861CF2A2990088400D /* BoxerInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C6B841CF2A2990088400D /* BoxerInfoController.m */; };
 		3D7C6B871CF2A2990088400D /* BoxerInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D7C6B851CF2A2990088400D /* BoxerInfoController.xib */; };
+		3D8368C71D1930EA00F0F309 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D8368C61D1930EA00F0F309 /* Assets.xcassets */; };
 		3D8D73B41CE95198009E2320 /* FTRankTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D73B31CE95198009E2320 /* FTRankTableView.m */; };
 		3D8D73BD1CE97404009E2320 /* FTTableViewCell6.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D73BB1CE97404009E2320 /* FTTableViewCell6.m */; };
 		3D8D73BE1CE97404009E2320 /* FTTableViewCell6.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D8D73BC1CE97404009E2320 /* FTTableViewCell6.xib */; };
@@ -363,6 +364,7 @@
 		3D7C6B831CF2A2990088400D /* BoxerInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoxerInfoController.h; sourceTree = "<group>"; };
 		3D7C6B841CF2A2990088400D /* BoxerInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoxerInfoController.m; sourceTree = "<group>"; };
 		3D7C6B851CF2A2990088400D /* BoxerInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BoxerInfoController.xib; sourceTree = "<group>"; };
+		3D8368C61D1930EA00F0F309 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D8D73B21CE95198009E2320 /* FTRankTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankTableView.h; sourceTree = "<group>"; };
 		3D8D73B31CE95198009E2320 /* FTRankTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankTableView.m; sourceTree = "<group>"; };
 		3D8D73BA1CE97404009E2320 /* FTTableViewCell6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTableViewCell6.h; sourceTree = "<group>"; };
@@ -1119,6 +1121,7 @@
 		E64EF1091CB6614000CAE340 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3D8368C61D1930EA00F0F309 /* Assets.xcassets */,
 				3D7B988D1CDD027400B80B8D /* Area.plist */,
 				3D7B988F1CDD1E5900B80B8D /* Area2.plist */,
 				E64EF10A1CB6614000CAE340 /* main.m */,
@@ -2099,6 +2102,7 @@
 				E6B239031D066C88001F86BE /* FTHomepageCommentListViewController.xib in Resources */,
 				3DC4121E1CD060190030C229 /* FTDrawerViewController.xib in Resources */,
 				3DE95BAE1CD8A042005BF85C /* FTRegistViewController.xib in Resources */,
+				3D8368C71D1930EA00F0F309 /* Assets.xcassets in Resources */,
 				E6A9DDB71CD9833200CB9518 /* FTVideoTableViewCell.xib in Resources */,
 				E64EF1191CB6614000CAE340 /* LaunchScreen.storyboard in Resources */,
 				E6B458C41CB75D7A00FB4261 /* FTCoachViewController.xib in Resources */,

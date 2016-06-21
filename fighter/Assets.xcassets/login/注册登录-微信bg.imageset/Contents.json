@@ -1,0 +1,50 @@
+{
+  "images" : [
+    {
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 192,
+          "height" : 82
+        },
+        "cap-insets" : {
+          "bottom" : 7,
+          "top" : 0,
+          "right" : 206,
+          "left" : 218
+        }
+      },
+      "idiom" : "universal",
+      "filename" : "注册登录-微信bg@2x.png",
+      "scale" : "2x"
+    },
+    {
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 292,
+          "height" : 125
+        },
+        "cap-insets" : {
+          "bottom" : 9,
+          "top" : 0,
+          "right" : 311,
+          "left" : 321
+        }
+      },
+      "idiom" : "universal",
+      "filename" : "注册登录-微信bg@3x.png",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}
