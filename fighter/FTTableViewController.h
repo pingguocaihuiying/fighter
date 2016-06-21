@@ -10,12 +10,20 @@
 
 typedef NS_ENUM(int, FTCellType) {
     FTCellTypeNews = 0,   // 拳讯
-    FTCellTypeArena = 1  // 格斗场
+    FTCellTypeArena = 1,  // 拳吧
+    FTCellTypeFighting = 2  //格斗场
 };
 
 @class FTTableViewController;
 @protocol FTTableViewdelegate <NSObject>
 - (void)fttableView:(FTTableViewController *)tableView didSelectWithIndex:(NSIndexPath *)indexPath;
+@end
+
+//格斗场主页按钮的点击事件回调代理
+@protocol FTFightingMainVCButtonsClickedDelegate <NSObject>
+
+- (void)buttonClickedWithIdentifycation:(NSString *)identifycationString andRaceId:(NSString *)raceId ;
+
 @end
 
 @interface FTTableViewController : UITableViewController
@@ -29,5 +37,7 @@ typedef NS_ENUM(int, FTCellType) {
 
 //tableview的顺序，第几个
 @property (nonatomic, assign) NSInteger order;
+
+@property (weak, nonatomic) id<FTFightingMainVCButtonsClickedDelegate> fightingTableViewButtonsClickedDelegate;
 @end
 

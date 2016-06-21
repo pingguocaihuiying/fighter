@@ -198,14 +198,18 @@
             self.videoButton.hidden = YES;//是否显示视频按钮
             
             [self.videoButton setTitle:@"视频"];//修改视频按钮的标题为“视频”
+            
+             _userBgImageView.backgroundColor = [UIColor blackColor];
         }else if ([_userIdentity isEqualToString:@"1"]) {//拳手
             
-            //设置个人资料的背景图片
-            if (userBean.background != nil && ![userBean.background isEqualToString:@""]) {
+            //设置拳手个人资料的背景图片
+            if (userBean.background != nil && ![userBean.background isEqualToString:@""]) {//如果有背景图
                 [_userBgImageView sd_setImageWithURL:[NSURL URLWithString:userBean.background] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     _userBgImageView.image = [UIImage boxblurImage:image withBlurNumber:0.5];
                     
                 }];
+            }else{//如果没有背景图
+                _userBgImageView.backgroundColor = [UIColor blackColor];
             }
 
             
@@ -244,6 +248,7 @@
             _bottomNewPostsView.hidden = NO;
             _bottomFollowView.hidden = YES;
         }else{//如果是别人的主页
+            _shareAndModifyProfileButton.hidden = NO;
             [_shareAndModifyProfileButton setTitle:@"转发" forState:UIControlStateNormal];
             [_shareAndModifyProfileButton addTarget:self action:@selector(shareUserInfo) forControlEvents:UIControlEventTouchUpInside];
             //隐藏“发新动态”，显示关注等
@@ -294,10 +299,10 @@
     NSString *title = _userBean.name;
         //如果是拳手，再加上“［格斗家］认证拳手，webview的url也改为拳手对应的
     if(_userBean.query && [_userBean.query isEqualToString:@"1"]){//1：拳手，2:教练，普通用户为空（nil）
-        title = [NSString stringWithFormat:@"%@%@", title, @"[格斗家] 认证拳手"];
-        _webUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/user_boxer.html?userId=%@", _userBean.olduserid];
+        title = [NSString stringWithFormat:@"%@%@", title, @" [格斗家] 认证拳手"];
+        _webUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/user_boxer.html?userId=%@", _olduserid];
     }else {
-        _webUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/user_general.html?userId=%@", _userBean.olduserid];
+        _webUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/user_general.html?userId=%@", _olduserid];
     }
     
     //分享简述
