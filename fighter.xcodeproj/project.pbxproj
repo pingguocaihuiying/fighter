@@ -176,7 +176,6 @@
 		E68050C01CBF919A00678905 /* UIScrollView+JHRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = E68050B41CBF919A00678905 /* UIScrollView+JHRefresh.m */; };
 		E68050C11CBF919A00678905 /* UIView+JHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = E68050B61CBF919A00678905 /* UIView+JHExtension.m */; };
 		E68050CA1CBFB0D200678905 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E68050C91CBFB0D200678905 /* libz.tbd */; };
-		E68D16091CFD25ED00AB5A8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E68D16081CFD25ED00AB5A8C /* Assets.xcassets */; };
 		E68D160D1CFD31F100AB5A8C /* FTHomepageMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D160B1CFD31F100AB5A8C /* FTHomepageMainViewController.m */; };
 		E68D160E1CFD31F100AB5A8C /* FTHomepageMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E68D160C1CFD31F100AB5A8C /* FTHomepageMainViewController.xib */; };
 		E68D16131CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D16121CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m */; };
@@ -537,7 +536,6 @@
 		E68050B51CBF919A00678905 /* UIView+JHExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JHExtension.h"; sourceTree = "<group>"; };
 		E68050B61CBF919A00678905 /* UIView+JHExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JHExtension.m"; sourceTree = "<group>"; };
 		E68050C91CBFB0D200678905 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		E68D16081CFD25ED00AB5A8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E68D160A1CFD31F100AB5A8C /* FTHomepageMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTHomepageMainViewController.h; path = UI/ViewController/FTHomepageMainViewController.h; sourceTree = "<group>"; };
 		E68D160B1CFD31F100AB5A8C /* FTHomepageMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTHomepageMainViewController.m; path = UI/ViewController/FTHomepageMainViewController.m; sourceTree = "<group>"; };
 		E68D160C1CFD31F100AB5A8C /* FTHomepageMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTHomepageMainViewController.xib; path = UI/ViewController/FTHomepageMainViewController.xib; sourceTree = "<group>"; };
@@ -1121,7 +1119,6 @@
 		E64EF1091CB6614000CAE340 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E68D16081CFD25ED00AB5A8C /* Assets.xcassets */,
 				3D7B988D1CDD027400B80B8D /* Area.plist */,
 				3D7B988F1CDD1E5900B80B8D /* Area2.plist */,
 				E64EF10A1CB6614000CAE340 /* main.m */,
@@ -2123,7 +2120,6 @@
 				3D8D73BE1CE97404009E2320 /* FTTableViewCell6.xib in Resources */,
 				3D5FB4931CDC311400FC1809 /* FTAssetsViewController.xib in Resources */,
 				3DC411ED1CCF74EC0030C229 /* FTDrawerTableViewCell.xib in Resources */,
-				E68D16091CFD25ED00AB5A8C /* Assets.xcassets in Resources */,
 				3D7B98C41CE08DEE00B80B8D /* FTNewPasswordVC.xib in Resources */,
 				E6035EBF1CC0C39500B10D36 /* FTCommentViewController.xib in Resources */,
 				E65D08D51CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.xib in Resources */,
