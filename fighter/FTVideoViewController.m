@@ -30,7 +30,6 @@
 @interface FTVideoViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate, FTFilterDelegate, FTVideoDetailDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, copy)NSString *currentItemValueEn;
-@property (nonatomic, strong)NSArray *cycleDataSourceArray;
 @property (nonatomic, strong)NSMutableArray *collectionViewDataSourceArray;
 @property (nonatomic, strong)FTTableViewController *tableViewController;
 @property (nonatomic, strong)NSArray *typeArray;
@@ -352,7 +351,6 @@
     //注册一个collectionViewCCell队列
     [_collectionView registerNib:[UINib nibWithNibName:@"FTVideoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
     [self setJHRefresh];
-    
 }
 //有多少组
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -363,7 +361,6 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 //    NSLog(@"section : %ld, row : %ld", indexPath.section, indexPath.row);
     if (self.collectionViewDataSourceArray) {
-        
         FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
         //获取对应的bean，传递给下个vc
 //        NSDictionary *newsDic = self.collectionViewDataSourceArray[indexPath.row];
@@ -547,7 +544,6 @@
 - (void)fttableView:(FTTableViewController *)tableView didSelectWithIndex:(NSIndexPath *)indexPath{
     //    NSLog(@"第%ld个cell被点击了。", indexPath.row);
     if (self.collectionViewDataSourceArray) {
-        
         FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
         //获取对应的bean，传递给下个vc
         NSDictionary *newsDic = tableView.sourceArray[indexPath.row];

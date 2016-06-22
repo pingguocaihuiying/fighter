@@ -18,7 +18,6 @@
     [_supportButton setBackgroundImage:[UIImage imageNamed:@"列表3按钮-赞助pre"] forState:UIControlStateHighlighted];
 //    [_followButton setBackgroundImage:[UIImage imageNamed:@"列表3按钮-已关注"] forState:UIControlStateHighlighted];
     [_betButton setBackgroundImage:[UIImage imageNamed:@"列表3按钮-下注pre"] forState:UIControlStateHighlighted];
-
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
