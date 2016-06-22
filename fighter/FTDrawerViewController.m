@@ -41,7 +41,6 @@
 #import "FTArenaViewController.h"
 #import "FTHomepageMainViewController.h"
 #import "FTFightingViewController.h"
-#import "FTLearnBoxingViewController.h"
 
 
 @interface FTDrawerViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
