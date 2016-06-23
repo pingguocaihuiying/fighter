@@ -2070,15 +2070,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E64EF1331CB6614100CAE340 /* Build configuration list for PBXNativeTarget "fighter" */;
 			buildPhases = (
+				079F6CFBB5F630D52D2A57D4 /* 📦 Check Pods Manifest.lock */,
 				4FB332F39A8646C733F20968 /* [CP] Check Pods Manifest.lock */,
-				079F6CFBB5F630D52D2A57D4 /* Check Pods Manifest.lock */,
 				E64EF1021CB6614000CAE340 /* Sources */,
 				E64EF1031CB6614000CAE340 /* Frameworks */,
 				E64EF1041CB6614000CAE340 /* Resources */,
 				06F73924D6D219EA6175A420 /* [CP] Embed Pods Frameworks */,
 				600E32FC56B17B3D80AB9B7B /* [CP] Copy Pods Resources */,
-				094A8CFEA1639A6F086997DE /* Embed Pods Frameworks */,
-				F37DAC3E8C1FCFAC6495C54D /* Copy Pods Resources */,
+				094A8CFEA1639A6F086997DE /* 📦 Embed Pods Frameworks */,
+				F37DAC3E8C1FCFAC6495C54D /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2291,14 +2291,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-fighter/Pods-fighter-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		079F6CFBB5F630D52D2A57D4 /* Check Pods Manifest.lock */ = {
+		079F6CFBB5F630D52D2A57D4 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2306,14 +2306,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		094A8CFEA1639A6F086997DE /* Embed Pods Frameworks */ = {
+		094A8CFEA1639A6F086997DE /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2351,14 +2351,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-fighter/Pods-fighter-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F37DAC3E8C1FCFAC6495C54D /* Copy Pods Resources */ = {
+		F37DAC3E8C1FCFAC6495C54D /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2596,8 +2596,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: peng qu (LQHT8X75PQ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: peng qu (LQHT8X75PQ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2619,7 +2619,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "5e84c918-e27e-4459-8250-91d523f61b6f";
+				PROVISIONING_PROFILE = "a4b9f1a5-458b-44e1-a179-41933a1002bc";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2658,7 +2658,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "5e84c918-e27e-4459-8250-91d523f61b6f";
+				PROVISIONING_PROFILE = "a4b9f1a5-458b-44e1-a179-41933a1002bc";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2671,8 +2671,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
