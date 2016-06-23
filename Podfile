@@ -27,4 +27,6 @@ pod "WeiboSDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git"
 
 #直播SDK
 pod "PLCameraStreamingKit", "~> 1.7.1"
+
+pod 'PPiAwesomeButton', '~> 1.5.2'
 end
