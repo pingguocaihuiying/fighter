@@ -8,6 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		2EB9B28B8C5A080A21781FFA /* Pods_fighter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E48274DE7B43596DF74BCD1 /* Pods_fighter.framework */; };
+		3D0D7C721D1A984B00E67AC9 /* FTPracticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0D7C711D1A984B00E67AC9 /* FTPracticeView.m */; };
+		3D13FB0C1D193A5A0060B9B4 /* fighter.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 3D13FB0B1D193A5A0060B9B4 /* fighter.entitlements */; };
+		3D13FB101D193BB80060B9B4 /* FTFightingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D13FB0E1D193BB80060B9B4 /* FTFightingViewController.m */; };
+		3D13FB111D193BB80060B9B4 /* FTFightingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D13FB0F1D193BB80060B9B4 /* FTFightingViewController.xib */; };
+		3D13FB171D1A1AA80060B9B4 /* FTPracticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D13FB151D1A1AA80060B9B4 /* FTPracticeViewController.m */; };
+		3D13FB181D1A1AA80060B9B4 /* FTPracticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D13FB161D1A1AA80060B9B4 /* FTPracticeViewController.xib */; };
+		3D13FB1C1D1A3FFB0060B9B4 /* FTSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D13FB1B1D1A3FFB0060B9B4 /* FTSegmentedControl.m */; };
+		3D13FB1F1D1A40350060B9B4 /* FTSegmentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D13FB1E1D1A40350060B9B4 /* FTSegmentItem.m */; };
+		3D13FB221D1A70FC0060B9B4 /* FTAwesomeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D13FB211D1A70FC0060B9B4 /* FTAwesomeButton.m */; };
+		3D13FB281D1A93EA0060B9B4 /* FTPracticeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D13FB271D1A93EA0060B9B4 /* FTPracticeView.xib */; };
+		3D13FB301D1A96490060B9B4 /* FTPracticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D13FB2E1D1A96490060B9B4 /* FTPracticeCell.m */; };
+		3D13FB311D1A96490060B9B4 /* FTPracticeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D13FB2F1D1A96490060B9B4 /* FTPracticeCell.xib */; };
 		3D17F7371D005377003AB660 /* libIXPushSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D17F7251D005377003AB660 /* libIXPushSdk.a */; };
 		3D322AC91CEB171200039E2C /* FTRankHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D322AC71CEB171200039E2C /* FTRankHeaderCell.m */; };
 		3D322ACA1CEB171200039E2C /* FTRankHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D322AC81CEB171200039E2C /* FTRankHeaderCell.xib */; };
@@ -73,6 +85,7 @@
 		3D7C6B821CF2A26D0088400D /* BoxerMatchController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D7C6B801CF2A26D0088400D /* BoxerMatchController.xib */; };
 		3D7C6B861CF2A2990088400D /* BoxerInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C6B841CF2A2990088400D /* BoxerInfoController.m */; };
 		3D7C6B871CF2A2990088400D /* BoxerInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D7C6B851CF2A2990088400D /* BoxerInfoController.xib */; };
+		3D8368C71D1930EA00F0F309 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D8368C61D1930EA00F0F309 /* Assets.xcassets */; };
 		3D8D73B41CE95198009E2320 /* FTRankTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D73B31CE95198009E2320 /* FTRankTableView.m */; };
 		3D8D73BD1CE97404009E2320 /* FTTableViewCell6.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D73BB1CE97404009E2320 /* FTTableViewCell6.m */; };
 		3D8D73BE1CE97404009E2320 /* FTTableViewCell6.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D8D73BC1CE97404009E2320 /* FTTableViewCell6.xib */; };
@@ -142,8 +155,6 @@
 		E64EF12F1CB6614100CAE340 /* fighterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E64EF12E1CB6614100CAE340 /* fighterUITests.m */; };
 		E6549DF61D000AEB00B27483 /* FTRecordRankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6549DF41D000AEB00B27483 /* FTRecordRankTableViewCell.m */; };
 		E6549DF71D000AEB00B27483 /* FTRecordRankTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6549DF51D000AEB00B27483 /* FTRecordRankTableViewCell.xib */; };
-		E659F3711D12A6BC00B41129 /* FTFightingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E659F36F1D12A6BC00B41129 /* FTFightingViewController.m */; };
-		E659F3721D12A6BC00B41129 /* FTFightingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E659F3701D12A6BC00B41129 /* FTFightingViewController.xib */; };
 		E65D08C71CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E65D08C51CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m */; };
 		E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E65D08C61CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib */; };
 		E65D08D41CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E65D08D21CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m */; };
@@ -178,7 +189,6 @@
 		E68050C01CBF919A00678905 /* UIScrollView+JHRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = E68050B41CBF919A00678905 /* UIScrollView+JHRefresh.m */; };
 		E68050C11CBF919A00678905 /* UIView+JHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = E68050B61CBF919A00678905 /* UIView+JHExtension.m */; };
 		E68050CA1CBFB0D200678905 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E68050C91CBFB0D200678905 /* libz.tbd */; };
-		E68D16091CFD25ED00AB5A8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E68D16081CFD25ED00AB5A8C /* Assets.xcassets */; };
 		E68D160D1CFD31F100AB5A8C /* FTHomepageMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D160B1CFD31F100AB5A8C /* FTHomepageMainViewController.m */; };
 		E68D160E1CFD31F100AB5A8C /* FTHomepageMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E68D160C1CFD31F100AB5A8C /* FTHomepageMainViewController.xib */; };
 		E68D16131CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D16121CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m */; };
@@ -259,6 +269,25 @@
 
 /* Begin PBXFileReference section */
 		3498F3EDE4F003CF3512E5B8 /* Pods-fighter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fighter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fighter/Pods-fighter.debug.xcconfig"; sourceTree = "<group>"; };
+		3D0D7C701D1A984B00E67AC9 /* FTPracticeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPracticeView.h; sourceTree = "<group>"; };
+		3D0D7C711D1A984B00E67AC9 /* FTPracticeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPracticeView.m; sourceTree = "<group>"; };
+		3D13FB0B1D193A5A0060B9B4 /* fighter.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fighter.entitlements; sourceTree = "<group>"; };
+		3D13FB0D1D193BB80060B9B4 /* FTFightingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTFightingViewController.h; sourceTree = "<group>"; };
+		3D13FB0E1D193BB80060B9B4 /* FTFightingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTFightingViewController.m; sourceTree = "<group>"; };
+		3D13FB0F1D193BB80060B9B4 /* FTFightingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTFightingViewController.xib; sourceTree = "<group>"; };
+		3D13FB141D1A1AA80060B9B4 /* FTPracticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPracticeViewController.h; sourceTree = "<group>"; };
+		3D13FB151D1A1AA80060B9B4 /* FTPracticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPracticeViewController.m; sourceTree = "<group>"; };
+		3D13FB161D1A1AA80060B9B4 /* FTPracticeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTPracticeViewController.xib; sourceTree = "<group>"; };
+		3D13FB1A1D1A3FFB0060B9B4 /* FTSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSegmentedControl.h; sourceTree = "<group>"; };
+		3D13FB1B1D1A3FFB0060B9B4 /* FTSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTSegmentedControl.m; sourceTree = "<group>"; };
+		3D13FB1D1D1A40350060B9B4 /* FTSegmentItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSegmentItem.h; sourceTree = "<group>"; };
+		3D13FB1E1D1A40350060B9B4 /* FTSegmentItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTSegmentItem.m; sourceTree = "<group>"; };
+		3D13FB201D1A70FC0060B9B4 /* FTAwesomeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTAwesomeButton.h; sourceTree = "<group>"; };
+		3D13FB211D1A70FC0060B9B4 /* FTAwesomeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTAwesomeButton.m; sourceTree = "<group>"; };
+		3D13FB271D1A93EA0060B9B4 /* FTPracticeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTPracticeView.xib; sourceTree = "<group>"; };
+		3D13FB2D1D1A96490060B9B4 /* FTPracticeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPracticeCell.h; sourceTree = "<group>"; };
+		3D13FB2E1D1A96490060B9B4 /* FTPracticeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPracticeCell.m; sourceTree = "<group>"; };
+		3D13FB2F1D1A96490060B9B4 /* FTPracticeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTPracticeCell.xib; sourceTree = "<group>"; };
 		3D17F7241D005377003AB660 /* IXPushSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IXPushSdk.h; sourceTree = "<group>"; };
 		3D17F7251D005377003AB660 /* libIXPushSdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libIXPushSdk.a; sourceTree = "<group>"; };
 		3D322AC61CEB171200039E2C /* FTRankHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankHeaderCell.h; sourceTree = "<group>"; };
@@ -366,6 +395,7 @@
 		3D7C6B831CF2A2990088400D /* BoxerInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoxerInfoController.h; sourceTree = "<group>"; };
 		3D7C6B841CF2A2990088400D /* BoxerInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoxerInfoController.m; sourceTree = "<group>"; };
 		3D7C6B851CF2A2990088400D /* BoxerInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BoxerInfoController.xib; sourceTree = "<group>"; };
+		3D8368C61D1930EA00F0F309 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D8D73B21CE95198009E2320 /* FTRankTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankTableView.h; sourceTree = "<group>"; };
 		3D8D73B31CE95198009E2320 /* FTRankTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankTableView.m; sourceTree = "<group>"; };
 		3D8D73BA1CE97404009E2320 /* FTTableViewCell6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTableViewCell6.h; sourceTree = "<group>"; };
@@ -476,10 +506,6 @@
 		E6549DF31D000AEB00B27483 /* FTRecordRankTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTRecordRankTableViewCell.h; path = "UI/个人主页/Views/cell/FTRecordRankTableViewCell.h"; sourceTree = "<group>"; };
 		E6549DF41D000AEB00B27483 /* FTRecordRankTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTRecordRankTableViewCell.m; path = "UI/个人主页/Views/cell/FTRecordRankTableViewCell.m"; sourceTree = "<group>"; };
 		E6549DF51D000AEB00B27483 /* FTRecordRankTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTRecordRankTableViewCell.xib; path = "UI/个人主页/Views/cell/FTRecordRankTableViewCell.xib"; sourceTree = "<group>"; };
-		E659F3671D129CA400B41129 /* fighter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = fighter.entitlements; sourceTree = "<group>"; };
-		E659F36E1D12A6BC00B41129 /* FTFightingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTFightingViewController.h; path = "UI/格斗场/viewControllers/FTFightingViewController.h"; sourceTree = "<group>"; };
-		E659F36F1D12A6BC00B41129 /* FTFightingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTFightingViewController.m; path = "UI/格斗场/viewControllers/FTFightingViewController.m"; sourceTree = "<group>"; };
-		E659F3701D12A6BC00B41129 /* FTFightingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTFightingViewController.xib; path = "UI/格斗场/viewControllers/FTFightingViewController.xib"; sourceTree = "<group>"; };
 		E65D08C41CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTThreeImageInfoTableViewCell.h; sourceTree = "<group>"; };
 		E65D08C51CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTThreeImageInfoTableViewCell.m; sourceTree = "<group>"; };
 		E65D08C61CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTThreeImageInfoTableViewCell.xib; sourceTree = "<group>"; };
@@ -543,7 +569,6 @@
 		E68050B51CBF919A00678905 /* UIView+JHExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JHExtension.h"; sourceTree = "<group>"; };
 		E68050B61CBF919A00678905 /* UIView+JHExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JHExtension.m"; sourceTree = "<group>"; };
 		E68050C91CBFB0D200678905 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		E68D16081CFD25ED00AB5A8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E68D160A1CFD31F100AB5A8C /* FTHomepageMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTHomepageMainViewController.h; path = UI/ViewController/FTHomepageMainViewController.h; sourceTree = "<group>"; };
 		E68D160B1CFD31F100AB5A8C /* FTHomepageMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTHomepageMainViewController.m; path = UI/ViewController/FTHomepageMainViewController.m; sourceTree = "<group>"; };
 		E68D160C1CFD31F100AB5A8C /* FTHomepageMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTHomepageMainViewController.xib; path = UI/ViewController/FTHomepageMainViewController.xib; sourceTree = "<group>"; };
@@ -698,6 +723,84 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D13FB121D1A1A2C0060B9B4 /* 学习 */ = {
+			isa = PBXGroup;
+			children = (
+				3D13FB191D1A3ECE0060B9B4 /* view */,
+				3D13FB131D1A1A470060B9B4 /* main */,
+			);
+			name = "学习";
+			sourceTree = "<group>";
+		};
+		3D13FB131D1A1A470060B9B4 /* main */ = {
+			isa = PBXGroup;
+			children = (
+				3D13FB141D1A1AA80060B9B4 /* FTPracticeViewController.h */,
+				3D13FB151D1A1AA80060B9B4 /* FTPracticeViewController.m */,
+				3D13FB161D1A1AA80060B9B4 /* FTPracticeViewController.xib */,
+			);
+			name = main;
+			sourceTree = "<group>";
+		};
+		3D13FB191D1A3ECE0060B9B4 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				3D13FB261D1A910E0060B9B4 /* 拳馆 */,
+				3D13FB251D1A91060060B9B4 /* 教练 */,
+				3D13FB241D1A90D00060B9B4 /* 教学 */,
+				3D13FB231D1A90B80060B9B4 /* SegmentedControl */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		3D13FB231D1A90B80060B9B4 /* SegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				3D13FB1A1D1A3FFB0060B9B4 /* FTSegmentedControl.h */,
+				3D13FB1B1D1A3FFB0060B9B4 /* FTSegmentedControl.m */,
+				3D13FB1D1D1A40350060B9B4 /* FTSegmentItem.h */,
+				3D13FB1E1D1A40350060B9B4 /* FTSegmentItem.m */,
+				3D13FB201D1A70FC0060B9B4 /* FTAwesomeButton.h */,
+				3D13FB211D1A70FC0060B9B4 /* FTAwesomeButton.m */,
+			);
+			name = SegmentedControl;
+			sourceTree = "<group>";
+		};
+		3D13FB241D1A90D00060B9B4 /* 教学 */ = {
+			isa = PBXGroup;
+			children = (
+				3D13FB291D1A94510060B9B4 /* cell */,
+				3D13FB271D1A93EA0060B9B4 /* FTPracticeView.xib */,
+				3D0D7C701D1A984B00E67AC9 /* FTPracticeView.h */,
+				3D0D7C711D1A984B00E67AC9 /* FTPracticeView.m */,
+			);
+			name = "教学";
+			sourceTree = "<group>";
+		};
+		3D13FB251D1A91060060B9B4 /* 教练 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "教练";
+			sourceTree = "<group>";
+		};
+		3D13FB261D1A910E0060B9B4 /* 拳馆 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "拳馆";
+			sourceTree = "<group>";
+		};
+		3D13FB291D1A94510060B9B4 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				3D13FB2D1D1A96490060B9B4 /* FTPracticeCell.h */,
+				3D13FB2E1D1A96490060B9B4 /* FTPracticeCell.m */,
+				3D13FB2F1D1A96490060B9B4 /* FTPracticeCell.xib */,
+			);
+			name = cell;
+			sourceTree = "<group>";
+		};
 		3D17F7221D0052A0003AB660 /* OtherSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -1104,7 +1207,7 @@
 		E64EF1081CB6614000CAE340 /* fighter */ = {
 			isa = PBXGroup;
 			children = (
-				E659F3671D129CA400B41129 /* fighter.entitlements */,
+				3D13FB0B1D193A5A0060B9B4 /* fighter.entitlements */,
 				3D17F7221D0052A0003AB660 /* OtherSDK */,
 				E685320A1CE59CFA00603D77 /* Frameworks */,
 				3D57D04A1CEC0BC30082BF24 /* DataBase */,
@@ -1128,7 +1231,7 @@
 		E64EF1091CB6614000CAE340 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E68D16081CFD25ED00AB5A8C /* Assets.xcassets */,
+				3D8368C61D1930EA00F0F309 /* Assets.xcassets */,
 				3D7B988D1CDD027400B80B8D /* Area.plist */,
 				3D7B988F1CDD1E5900B80B8D /* Area2.plist */,
 				E64EF10A1CB6614000CAE340 /* main.m */,
@@ -1183,9 +1286,9 @@
 		E659F3731D12ABA700B41129 /* main */ = {
 			isa = PBXGroup;
 			children = (
-				E659F36E1D12A6BC00B41129 /* FTFightingViewController.h */,
-				E659F36F1D12A6BC00B41129 /* FTFightingViewController.m */,
-				E659F3701D12A6BC00B41129 /* FTFightingViewController.xib */,
+				3D13FB0D1D193BB80060B9B4 /* FTFightingViewController.h */,
+				3D13FB0E1D193BB80060B9B4 /* FTFightingViewController.m */,
+				3D13FB0F1D193BB80060B9B4 /* FTFightingViewController.xib */,
 			);
 			name = main;
 			sourceTree = "<group>";
@@ -1620,6 +1723,7 @@
 		E6B458921CB7554F00FB4261 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				3D13FB121D1A1A2C0060B9B4 /* 学习 */,
 				E659F36B1D12A5C400B41129 /* 格斗场 */,
 				3D6CFF361D06A36600CAC12A /* 直播 */,
 				E6735AD11CFC408F0068782C /* 个人主页 */,
@@ -1966,13 +2070,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E64EF1331CB6614100CAE340 /* Build configuration list for PBXNativeTarget "fighter" */;
 			buildPhases = (
-				4FB332F39A8646C733F20968 /* 📦 Check Pods Manifest.lock */,
+				4FB332F39A8646C733F20968 /* [CP] Check Pods Manifest.lock */,
 				079F6CFBB5F630D52D2A57D4 /* Check Pods Manifest.lock */,
 				E64EF1021CB6614000CAE340 /* Sources */,
 				E64EF1031CB6614000CAE340 /* Frameworks */,
 				E64EF1041CB6614000CAE340 /* Resources */,
-				06F73924D6D219EA6175A420 /* 📦 Embed Pods Frameworks */,
-				600E32FC56B17B3D80AB9B7B /* 📦 Copy Pods Resources */,
+				06F73924D6D219EA6175A420 /* [CP] Embed Pods Frameworks */,
+				600E32FC56B17B3D80AB9B7B /* [CP] Copy Pods Resources */,
 				094A8CFEA1639A6F086997DE /* Embed Pods Frameworks */,
 				F37DAC3E8C1FCFAC6495C54D /* Copy Pods Resources */,
 			);
@@ -2089,6 +2193,7 @@
 				E6A9DDA91CD8879A00CB9518 /* FTVideoViewController.xib in Resources */,
 				E6E9E8951CDC718900976480 /* FTVideoCollectionViewCell.xib in Resources */,
 				3D7C6B7D1CF2A2380088400D /* BoxerVideoController.xib in Resources */,
+				3D13FB111D193BB80060B9B4 /* FTFightingViewController.xib in Resources */,
 				E67926751D17B68F00AF30B3 /* FTFightingTableViewCell.xib in Resources */,
 				E68050BA1CBF919A00678905 /* JHRefresh.bundle in Resources */,
 				3D7B988E1CDD027400B80B8D /* Area.plist in Resources */,
@@ -2101,6 +2206,8 @@
 				E6549DF71D000AEB00B27483 /* FTRecordRankTableViewCell.xib in Resources */,
 				3D7B98901CDD1E5900B80B8D /* Area2.plist in Resources */,
 				E6B458CE1CB75D9600FB4261 /* FTMatchViewController.xib in Resources */,
+				3D13FB0C1D193A5A0060B9B4 /* fighter.entitlements in Resources */,
+				3D13FB181D1A1AA80060B9B4 /* FTPracticeViewController.xib in Resources */,
 				E6A9DDC01CD9C88600CB9518 /* FTVideoDetailViewController.xib in Resources */,
 				3D7B98B51CE06F9800B80B8D /* FTInputNewPhoneViewController.xib in Resources */,
 				E6DB76141CBB9B430034253C /* FTOneImageInfoTableViewCell.xib in Resources */,
@@ -2112,6 +2219,7 @@
 				E6B239031D066C88001F86BE /* FTHomepageCommentListViewController.xib in Resources */,
 				3DC4121E1CD060190030C229 /* FTDrawerViewController.xib in Resources */,
 				3DE95BAE1CD8A042005BF85C /* FTRegistViewController.xib in Resources */,
+				3D8368C71D1930EA00F0F309 /* Assets.xcassets in Resources */,
 				E6A9DDB71CD9833200CB9518 /* FTVideoTableViewCell.xib in Resources */,
 				E64EF1191CB6614000CAE340 /* LaunchScreen.storyboard in Resources */,
 				E6B458C41CB75D7A00FB4261 /* FTCoachViewController.xib in Resources */,
@@ -2124,17 +2232,17 @@
 				E6B7D2011CF6A750004191A3 /* FTArenaViewController.xib in Resources */,
 				E64EF1141CB6614000CAE340 /* Main.storyboard in Resources */,
 				3D7B989D1CDF896F00B80B8D /* FTTableViewCell5.xib in Resources */,
+				3D13FB311D1A96490060B9B4 /* FTPracticeCell.xib in Resources */,
 				E68D160E1CFD31F100AB5A8C /* FTHomepageMainViewController.xib in Resources */,
 				3D7B98BF1CE0898400B80B8D /* FTOldPasswordVC.xib in Resources */,
 				3D7B98A51CE0190600B80B8D /* FTAbountUsViewController.xib in Resources */,
-				E659F3721D12A6BC00B41129 /* FTFightingViewController.xib in Resources */,
+				3D13FB281D1A93EA0060B9B4 /* FTPracticeView.xib in Resources */,
 				3D7C6B821CF2A26D0088400D /* BoxerMatchController.xib in Resources */,
 				E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */,
 				E6FE6A5E1CEED3DC00D63847 /* FTArenaPostsDetailViewController.xib in Resources */,
 				3D8D73BE1CE97404009E2320 /* FTTableViewCell6.xib in Resources */,
 				3D5FB4931CDC311400FC1809 /* FTAssetsViewController.xib in Resources */,
 				3DC411ED1CCF74EC0030C229 /* FTDrawerTableViewCell.xib in Resources */,
-				E68D16091CFD25ED00AB5A8C /* Assets.xcassets in Resources */,
 				3D7B98C41CE08DEE00B80B8D /* FTNewPasswordVC.xib in Resources */,
 				E6035EBF1CC0C39500B10D36 /* FTCommentViewController.xib in Resources */,
 				E65D08D51CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.xib in Resources */,
@@ -2168,14 +2276,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		06F73924D6D219EA6175A420 /* 📦 Embed Pods Frameworks */ = {
+		06F73924D6D219EA6175A420 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2213,14 +2321,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-fighter/Pods-fighter-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4FB332F39A8646C733F20968 /* 📦 Check Pods Manifest.lock */ = {
+		4FB332F39A8646C733F20968 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2228,14 +2336,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		600E32FC56B17B3D80AB9B7B /* 📦 Copy Pods Resources */ = {
+		600E32FC56B17B3D80AB9B7B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2287,6 +2395,7 @@
 				3D4B18F51CD8BF340022DFB0 /* FTSetPassWordViewController.m in Sources */,
 				3D7C6B811CF2A26D0088400D /* BoxerMatchController.m in Sources */,
 				E64EF1111CB6614000CAE340 /* ViewController.m in Sources */,
+				3D13FB1C1D1A3FFB0060B9B4 /* FTSegmentedControl.m in Sources */,
 				E6B7D2001CF6A750004191A3 /* FTArenaViewController.m in Sources */,
 				E6D74A4E1CB7B7EE00854337 /* MD5.m in Sources */,
 				E6E688E81D002FB700708C24 /* FTHomepageRecordListTableViewCell.m in Sources */,
@@ -2313,6 +2422,7 @@
 				3D8D73C21CE9DEFE009E2320 /* FTRankTableVIewCell.m in Sources */,
 				E6B239081D067045001F86BE /* FTHomepageCommentTableViewCell.m in Sources */,
 				3DC9A4E31CE59A0400E16D19 /* FTButton.m in Sources */,
+				3D13FB171D1A1AA80060B9B4 /* FTPracticeViewController.m in Sources */,
 				E6D74A491CB7B7EE00854337 /* UILabel+StringFrame.m in Sources */,
 				E67926741D17B68F00AF30B3 /* FTFightingTableViewCell.m in Sources */,
 				3D57D0501CEC0E7F0082BF24 /* DBManager.m in Sources */,
@@ -2321,6 +2431,7 @@
 				E6D74A471CB7B7EE00854337 /* UIButton+countDown.m in Sources */,
 				3D5FB4921CDC311400FC1809 /* FTAssetsViewController.m in Sources */,
 				3D6DA0E71CEEE24100BAA8F0 /* FTBoxerHeaderView.m in Sources */,
+				3D13FB301D1A96490060B9B4 /* FTPracticeCell.m in Sources */,
 				3D7B989C1CDF896F00B80B8D /* FTTableViewCell5.m in Sources */,
 				E6AD700F1CF80CFA00329D1E /* FTLYZButton.m in Sources */,
 				3D4B195F1CDB56EF0022DFB0 /* FTHeightPickerView.m in Sources */,
@@ -2343,7 +2454,9 @@
 				3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */,
 				E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */,
 				E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */,
+				3D13FB101D193BB80060B9B4 /* FTFightingViewController.m in Sources */,
 				E66D6EFA1CBCE81C008B015A /* RBRequestOperationManager.m in Sources */,
+				3D0D7C721D1A984B00E67AC9 /* FTPracticeView.m in Sources */,
 				E68050BF1CBF919A00678905 /* UIScrollView+JHExtension.m in Sources */,
 				E65EFC291CC8ADFD0039EE8A /* UIButton+LYZTitle.m in Sources */,
 				3DC411F01CCF80DD0030C229 /* FTDrawerTableViewHeader.m in Sources */,
@@ -2367,7 +2480,6 @@
 				E64EF10B1CB6614000CAE340 /* main.m in Sources */,
 				E61185981CC78BF400F23EC7 /* FTUserBean.m in Sources */,
 				3D322AC91CEB171200039E2C /* FTRankHeaderCell.m in Sources */,
-				E659F3711D12A6BC00B41129 /* FTFightingViewController.m in Sources */,
 				E65D08D41CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m in Sources */,
 				E6B458D21CB75DA200FB4261 /* FTInformationViewController.m in Sources */,
 				3DE95BA71CD86FA4005BF85C /* FTLoginViewController.m in Sources */,
@@ -2385,6 +2497,7 @@
 				E68D16131CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m in Sources */,
 				E68050C01CBF919A00678905 /* UIScrollView+JHRefresh.m in Sources */,
 				3DC31DD01CF859EC001BC364 /* FTArenaChooseLabelView.m in Sources */,
+				3D13FB1F1D1A40350060B9B4 /* FTSegmentItem.m in Sources */,
 				E6D74A501CB7B7EE00854337 /* ZJModelTool.m in Sources */,
 				E68050BD1CBF919A00678905 /* JHRefreshFooterView.m in Sources */,
 				E6D74A4D1CB7B7EE00854337 /* KeyChainStore.m in Sources */,
@@ -2409,6 +2522,7 @@
 				3D7B98A91CE048F200B80B8D /* FTManagerAccountViewController.m in Sources */,
 				3D5FB4851CDC1F1D00FC1809 /* FTPhotoPickerView.m in Sources */,
 				3D5FB4B51CDC3AF300FC1809 /* FTImagPickerNavigationController.m in Sources */,
+				3D13FB221D1A70FC0060B9B4 /* FTAwesomeButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2558,7 +2672,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2596,7 +2710,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a4b9f1a5-458b-44e1-a179-41933a1002bc";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -2608,7 +2722,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: peng qu (LQHT8X75PQ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2645,7 +2759,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a4b9f1a5-458b-44e1-a179-41933a1002bc";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

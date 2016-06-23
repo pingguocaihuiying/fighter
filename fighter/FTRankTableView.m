@@ -528,8 +528,7 @@
     scaleYAnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
     scaleYAnimation.removedOnCompletion = NO;
     scaleYAnimation.duration = 0.2;
-
-
+    
     //设定剧本
     CABasicAnimation *positionAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
     positionAnimation.fromValue = [NSValue valueWithCGPoint:_imageView.layer.position];
