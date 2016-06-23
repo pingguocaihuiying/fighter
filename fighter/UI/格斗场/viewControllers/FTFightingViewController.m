@@ -206,6 +206,11 @@
     }];
 }
 
+/**
+ *  头像按钮被点击
+ *
+ *  @param sender <#sender description#>
+ */
 
 - (IBAction)leftButtonItemClick:(id)sender {
     
@@ -299,5 +304,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end

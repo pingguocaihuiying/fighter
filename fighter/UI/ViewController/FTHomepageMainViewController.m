@@ -1082,6 +1082,11 @@
         //failure
     }];
 }
+/**
+ *  ”发新帖“按钮被点击
+ *
+ *  @param sender
+ */
 - (IBAction)newPostsButtonClicked:(id)sender {
     FTNewPostViewController *newPostViewController = [FTNewPostViewController new];
     newPostViewController.isShowSyncView = YES;

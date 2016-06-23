@@ -20,7 +20,6 @@
     
     [self setRankBaseViewControllerStyle];
     
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(networkChanged:)
                                                  name:kRealReachabilityChangedNotification
@@ -28,14 +27,10 @@
     
     self.netStatus = [GLobalRealReachability currentReachabilityStatus];
     NSLog(@"currentStatus:%@,", @(_netStatus));
-
 }
 
 // 设置跟视图控制器样式
 - (void) setRankBaseViewControllerStyle {
-    
-    
-    
     //设置背景
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"底纹"]];
     
@@ -106,9 +101,7 @@
         {
             NSLog(@"Unknown RealReachability WWAN Status, might be iOS6");
         }
-
     }
-
 }
 
 - (void)dealloc

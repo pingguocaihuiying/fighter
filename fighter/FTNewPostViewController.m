@@ -77,7 +77,13 @@
     //默认不显示同步选项
 //    _isShowSyncView = NO;
     //是否同步到格斗场，默认为是
-    _isSyncToArena = YES;
+    if (_isShowSyncView) {
+        _isSyncToArena = NO;
+        [self refreshSyncButton];
+    }else{
+        _isSyncToArena = YES;
+    }
+    
 }
 
 - (void)setSubViews{

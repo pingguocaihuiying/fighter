@@ -700,8 +700,6 @@ static NSString *const tableCellId = @"tableCellId";
 //}
 
 - (void) setHomeViewController {
-
-    
     FTInformationViewController *infoVC = [FTInformationViewController new];
     //    FTBaseNavigationViewController *infoNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:infoVC];
     infoVC.tabBarItem.title = @"拳讯";
@@ -767,8 +765,8 @@ static NSString *const tableCellId = @"tableCellId";
                                                      Bar_Item_Select_Title_Color, UITextAttributeTextColor,
                                                      nil] forState:UIControlStateSelected];
     
-    arenaVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳馆"];
-    arenaVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    arenaVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳吧"];
+    arenaVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳吧pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     arenaVC.drawerDelegate = self;
 
     //格斗场
@@ -777,7 +775,6 @@ static NSString *const tableCellId = @"tableCellId";
     [fightingVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                 Bar_Item_Select_Title_Color, UITextAttributeTextColor,
                                                 nil] forState:UIControlStateSelected];
-    
     fightingVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳馆"];
     fightingVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     fightingVC.drawerDelegate = self;
