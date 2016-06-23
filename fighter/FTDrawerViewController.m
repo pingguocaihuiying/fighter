@@ -41,7 +41,7 @@
 #import "FTArenaViewController.h"
 #import "FTHomepageMainViewController.h"
 #import "FTFightingViewController.h"
-
+#import "FTPracticeViewController.h"
 
 @interface FTDrawerViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
 
@@ -779,7 +779,16 @@ static NSString *const tableCellId = @"tableCellId";
     fightingVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     fightingVC.drawerDelegate = self;
     
+    //学拳
+    FTPracticeViewController *practiceVC = [FTPracticeViewController new];
+    practiceVC.tabBarItem.title = @"学拳";
+    [practiceVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                   Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                   nil] forState:UIControlStateSelected];
     
+    practiceVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳吧"];
+    practiceVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳吧pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    practiceVC.drawerDelegate = self;
     
     //设置tabbar的属性
     FTBaseTabBarViewController *tabBartVC = [FTBaseTabBarViewController new];
@@ -787,7 +796,7 @@ static NSString *const tableCellId = @"tableCellId";
     tabBartVC.tabBar.barTintColor = [UIColor blackColor];
     tabBartVC.tabBar.translucent = NO;
 //    tabBartVC.viewControllers = @[infoVC, matchVC, videoVC, coachVC, boxingHallVC];
-    tabBartVC.viewControllers = @[infoVC, arenaVC, fightingVC, videoVC];
+    tabBartVC.viewControllers = @[infoVC, arenaVC, fightingVC, videoVC,practiceVC];
 //        tabBartVC.viewControllers = @[infoVC, videoVC];
     
     FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:tabBartVC];
@@ -823,12 +832,12 @@ static NSString *const tableCellId = @"tableCellId";
         FTInformationViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:0];
         [infoVC pushToDetailController:dic];
     }else if ([dic[@"urlType"] isEqualToString:@"video"]) {
-        [tabBartVC setSelectedIndex:1];
+        [tabBartVC setSelectedIndex:3];
         
         FTVideoViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:1];
         [infoVC pushToDetailController:dic];
     }else if ([dic[@"urlType"] isEqualToString:@"arenas"]) {
-        [tabBartVC setSelectedIndex:2];
+        [tabBartVC setSelectedIndex:1];
         
         FTArenaViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:2];
         [infoVC pushToDetailController:dic];
