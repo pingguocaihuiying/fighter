@@ -156,7 +156,6 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="dvj-s8-Ieh" firstAttribute="top" secondItem="HB9-BV-zQn" secondAttribute="top" constant="34" id="2Oj-dF-Igm"/>
                 <constraint firstAttribute="trailing" secondItem="xos-bE-vCv" secondAttribute="trailing" constant="15" id="38Q-YQ-8QG"/>

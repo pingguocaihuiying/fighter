@@ -8,11 +8,13 @@
 
 #import "FTPracticeViewController.h"
 #import "FTSegmentedControl.h"
+#import "FTPracticeView.h"
+
 
 @interface FTPracticeViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
-
+@property (strong, nonatomic)  FTPracticeView *practiceView;
 
 @end
 
@@ -22,6 +24,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self initSubviews];
+    [self initPracticeView];
 }
 
 
@@ -49,6 +52,21 @@
 //                                        NSForegroundColorAttributeName:[UIColor redColor]};
 //    [self.view addSubview:segmented];
     
+}
+
+// 练习view
+- (void) initPracticeView {
+    _practiceView = [[FTPracticeView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 100-59)];
+    _practiceView.delegate = self;
+    [self.contentView addSubview:_practiceView];
+}
+
+
+
+#pragma mark - delegate
+- (void)pushToController:(UIViewController *)viewController {
+    self.navigationController.navigationBarHidden = NO;
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

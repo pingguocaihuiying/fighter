@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#import "FTPracticeViewController.h"
+
 @interface FTPracticeView : UIView
+
+@property (nonatomic, weak) id<TeachDelegate> delegate;
 
 @end
