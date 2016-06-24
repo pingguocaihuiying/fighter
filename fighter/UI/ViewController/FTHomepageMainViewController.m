@@ -620,8 +620,6 @@
         postsDetailVC.arenaBean = bean;
         postsDetailVC.delegate = self;
         postsDetailVC.indexPath = indexPath;
-        
-        
         [self.navigationController pushViewController:postsDetailVC animated:YES];    }
 }
 
@@ -634,7 +632,6 @@
     
     self.tableViewController.sourceArray[indexPath.row] = dic;
     [self.tableViewController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -655,6 +652,7 @@
         _recordRankTableViewHeight.constant =36 + 22 + 32 * (_boxerRankDataArray.count - 1) + 7;
         //添加背景
         UIImageView *bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(8, 0, _recordRankTableView.width - 8 * 2, _recordRankTableViewHeight.constant)];
+//        UIImageView *bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, _recordRankTableView.width, _recordRankTableViewHeight.constant)];
         bgImageView.image = [UIImage imageNamed:@"金属边框-改进ios"];
         [_recordRankTableView addSubview:bgImageView];
         _hasInitRecordRank = true;
@@ -761,6 +759,12 @@
             cell1.curRankLabel.textColor = [UIColor colorWithHex:0x646464];
             cell1.bestRankLabel.textColor = [UIColor colorWithHex:0x646464];
 //            cell1.backgroundColor = [UIColor colorWithHex:0x191919];
+            //增加背景色
+            NSLog(@"cell1 width : %f", cell1.width);
+            UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(11, 0, SCREEN_WIDTH - 32, 22)];
+            bgView.backgroundColor = [UIColor colorWithHex:0x191919];
+            [cell1 addSubview:bgView];
+            [cell1 sendSubviewToBack:bgView];
         }else{//如果不是第一行，动态显示内容
             cell1.competitionNameLabel.textColor = [UIColor whiteColor];
             cell1.curRankLabel.textColor = [UIColor whiteColor];

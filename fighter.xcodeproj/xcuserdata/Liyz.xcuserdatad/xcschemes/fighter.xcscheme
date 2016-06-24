@@ -20,6 +20,34 @@
                ReferencedContainer = "container:fighter.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E64EF11E1CB6614100CAE340"
+               BuildableName = "fighterTests.xctest"
+               BlueprintName = "fighterTests"
+               ReferencedContainer = "container:fighter.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E64EF1291CB6614100CAE340"
+               BuildableName = "fighterUITests.xctest"
+               BlueprintName = "fighterUITests"
+               ReferencedContainer = "container:fighter.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -28,26 +56,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E64EF11E1CB6614100CAE340"
-               BuildableName = "fighterTests.xctest"
-               BlueprintName = "fighterTests"
-               ReferencedContainer = "container:fighter.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E64EF1291CB6614100CAE340"
-               BuildableName = "fighterUITests.xctest"
-               BlueprintName = "fighterUITests"
-               ReferencedContainer = "container:fighter.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
