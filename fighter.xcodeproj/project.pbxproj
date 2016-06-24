@@ -17,7 +17,6 @@
 		3D13FB1C1D1A3FFB0060B9B4 /* FTSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D13FB1B1D1A3FFB0060B9B4 /* FTSegmentedControl.m */; };
 		3D13FB1F1D1A40350060B9B4 /* FTSegmentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D13FB1E1D1A40350060B9B4 /* FTSegmentItem.m */; };
 		3D13FB221D1A70FC0060B9B4 /* FTAwesomeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D13FB211D1A70FC0060B9B4 /* FTAwesomeButton.m */; };
-		3D13FB281D1A93EA0060B9B4 /* FTPracticeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D13FB271D1A93EA0060B9B4 /* FTPracticeView.xib */; };
 		3D13FB301D1A96490060B9B4 /* FTPracticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D13FB2E1D1A96490060B9B4 /* FTPracticeCell.m */; };
 		3D13FB311D1A96490060B9B4 /* FTPracticeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D13FB2F1D1A96490060B9B4 /* FTPracticeCell.xib */; };
 		3D17F7371D005377003AB660 /* libIXPushSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D17F7251D005377003AB660 /* libIXPushSdk.a */; };
@@ -105,6 +104,8 @@
 		3DC9A4EA1CE5CC6C00E16D19 /* FTRankBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC9A4E81CE5CC6C00E16D19 /* FTRankBaseViewController.xib */; };
 		3DC9A4EE1CE5CD0700E16D19 /* FTRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9A4EC1CE5CD0700E16D19 /* FTRankViewController.m */; };
 		3DC9A4EF1CE5CD0700E16D19 /* FTRankViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC9A4ED1CE5CD0700E16D19 /* FTRankViewController.xib */; };
+		3DD07E951D1CC361004AF720 /* FTBaseViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD07E941D1CC361004AF720 /* FTBaseViewController2.m */; };
+		3DD07E981D1CCEDF004AF720 /* FTCoachView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD07E971D1CCEDF004AF720 /* FTCoachView.m */; };
 		3DD54E251D00331300888AC6 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD54E241D00331300888AC6 /* AdSupport.framework */; };
 		3DD54E271D00333200888AC6 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD54E261D00333200888AC6 /* libicucore.tbd */; };
 		3DD54E291D00336900888AC6 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD54E281D00336900888AC6 /* JavaScriptCore.framework */; };
@@ -114,6 +115,8 @@
 		3DD54E311D0038A800888AC6 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD54E301D0038A800888AC6 /* MediaPlayer.framework */; };
 		3DD54E331D0038B700888AC6 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD54E321D0038B700888AC6 /* AssetsLibrary.framework */; };
 		3DD54E351D0038C700888AC6 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD54E341D0038C700888AC6 /* AddressBook.framework */; };
+		3DE0C9EF1D1BABB000C6ABE2 /* FTTeachVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0C9ED1D1BABB000C6ABE2 /* FTTeachVideoController.m */; };
+		3DE0C9F01D1BABB000C6ABE2 /* FTTeachVideoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE0C9EE1D1BABB000C6ABE2 /* FTTeachVideoController.xib */; };
 		3DE95B501CD326B7005BF85C /* FTCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95B4F1CD326B7005BF85C /* FTCollectionViewLayout.m */; };
 		3DE95BA01CD8675B005BF85C /* FTDrawerStyler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95B9F1CD8675B005BF85C /* FTDrawerStyler.m */; };
 		3DE95BA31CD868C6005BF85C /* FTDynamicsDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95BA21CD868C6005BF85C /* FTDynamicsDrawerViewController.m */; };
@@ -284,7 +287,6 @@
 		3D13FB1E1D1A40350060B9B4 /* FTSegmentItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTSegmentItem.m; sourceTree = "<group>"; };
 		3D13FB201D1A70FC0060B9B4 /* FTAwesomeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTAwesomeButton.h; sourceTree = "<group>"; };
 		3D13FB211D1A70FC0060B9B4 /* FTAwesomeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTAwesomeButton.m; sourceTree = "<group>"; };
-		3D13FB271D1A93EA0060B9B4 /* FTPracticeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTPracticeView.xib; sourceTree = "<group>"; };
 		3D13FB2D1D1A96490060B9B4 /* FTPracticeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPracticeCell.h; sourceTree = "<group>"; };
 		3D13FB2E1D1A96490060B9B4 /* FTPracticeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPracticeCell.m; sourceTree = "<group>"; };
 		3D13FB2F1D1A96490060B9B4 /* FTPracticeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTPracticeCell.xib; sourceTree = "<group>"; };
@@ -428,6 +430,10 @@
 		3DC9A4EB1CE5CD0700E16D19 /* FTRankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankViewController.h; sourceTree = "<group>"; };
 		3DC9A4EC1CE5CD0700E16D19 /* FTRankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankViewController.m; sourceTree = "<group>"; };
 		3DC9A4ED1CE5CD0700E16D19 /* FTRankViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRankViewController.xib; sourceTree = "<group>"; };
+		3DD07E931D1CC361004AF720 /* FTBaseViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBaseViewController2.h; sourceTree = "<group>"; };
+		3DD07E941D1CC361004AF720 /* FTBaseViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBaseViewController2.m; sourceTree = "<group>"; };
+		3DD07E961D1CCEDF004AF720 /* FTCoachView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCoachView.h; sourceTree = "<group>"; };
+		3DD07E971D1CCEDF004AF720 /* FTCoachView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCoachView.m; sourceTree = "<group>"; };
 		3DD54E241D00331300888AC6 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		3DD54E261D00333200888AC6 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		3DD54E281D00336900888AC6 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/PrivateFrameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -437,6 +443,9 @@
 		3DD54E301D0038A800888AC6 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		3DD54E321D0038B700888AC6 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		3DD54E341D0038C700888AC6 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		3DE0C9EC1D1BABB000C6ABE2 /* FTTeachVideoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTeachVideoController.h; sourceTree = "<group>"; };
+		3DE0C9ED1D1BABB000C6ABE2 /* FTTeachVideoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTeachVideoController.m; sourceTree = "<group>"; };
+		3DE0C9EE1D1BABB000C6ABE2 /* FTTeachVideoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTeachVideoController.xib; sourceTree = "<group>"; };
 		3DE95B4E1CD326B7005BF85C /* FTCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCollectionViewLayout.h; sourceTree = "<group>"; };
 		3DE95B4F1CD326B7005BF85C /* FTCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCollectionViewLayout.m; sourceTree = "<group>"; };
 		3DE95B9E1CD8675B005BF85C /* FTDrawerStyler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerStyler.h; sourceTree = "<group>"; };
@@ -770,9 +779,11 @@
 			isa = PBXGroup;
 			children = (
 				3D13FB291D1A94510060B9B4 /* cell */,
-				3D13FB271D1A93EA0060B9B4 /* FTPracticeView.xib */,
 				3D0D7C701D1A984B00E67AC9 /* FTPracticeView.h */,
 				3D0D7C711D1A984B00E67AC9 /* FTPracticeView.m */,
+				3DE0C9EC1D1BABB000C6ABE2 /* FTTeachVideoController.h */,
+				3DE0C9ED1D1BABB000C6ABE2 /* FTTeachVideoController.m */,
+				3DE0C9EE1D1BABB000C6ABE2 /* FTTeachVideoController.xib */,
 			);
 			name = "教学";
 			sourceTree = "<group>";
@@ -780,6 +791,8 @@
 		3D13FB251D1A91060060B9B4 /* 教练 */ = {
 			isa = PBXGroup;
 			children = (
+				3DD07E961D1CCEDF004AF720 /* FTCoachView.h */,
+				3DD07E971D1CCEDF004AF720 /* FTCoachView.m */,
 			);
 			name = "教练";
 			sourceTree = "<group>";
@@ -1751,6 +1764,8 @@
 				E6B458DA1CB75E5000FB4261 /* FTBaseTabBarViewController.m */,
 				3D5A3CBB1CFD1E1000FDB3C4 /* FTShareView.h */,
 				3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */,
+				3DD07E931D1CC361004AF720 /* FTBaseViewController2.h */,
+				3DD07E941D1CC361004AF720 /* FTBaseViewController2.m */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -2193,6 +2208,7 @@
 				E6A9DDA91CD8879A00CB9518 /* FTVideoViewController.xib in Resources */,
 				E6E9E8951CDC718900976480 /* FTVideoCollectionViewCell.xib in Resources */,
 				3D7C6B7D1CF2A2380088400D /* BoxerVideoController.xib in Resources */,
+				3DE0C9F01D1BABB000C6ABE2 /* FTTeachVideoController.xib in Resources */,
 				3D13FB111D193BB80060B9B4 /* FTFightingViewController.xib in Resources */,
 				E67926751D17B68F00AF30B3 /* FTFightingTableViewCell.xib in Resources */,
 				E68050BA1CBF919A00678905 /* JHRefresh.bundle in Resources */,
@@ -2236,7 +2252,6 @@
 				E68D160E1CFD31F100AB5A8C /* FTHomepageMainViewController.xib in Resources */,
 				3D7B98BF1CE0898400B80B8D /* FTOldPasswordVC.xib in Resources */,
 				3D7B98A51CE0190600B80B8D /* FTAbountUsViewController.xib in Resources */,
-				3D13FB281D1A93EA0060B9B4 /* FTPracticeView.xib in Resources */,
 				3D7C6B821CF2A26D0088400D /* BoxerMatchController.xib in Resources */,
 				E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */,
 				E6FE6A5E1CEED3DC00D63847 /* FTArenaPostsDetailViewController.xib in Resources */,
@@ -2380,6 +2395,7 @@
 				3D7C6B7C1CF2A2380088400D /* BoxerVideoController.m in Sources */,
 				3D5FB4BE1CDC7E6600FC1809 /* FTImageCollectionCell.m in Sources */,
 				E6D74A4F1CB7B7EE00854337 /* Regex.m in Sources */,
+				3DE0C9EF1D1BABB000C6ABE2 /* FTTeachVideoController.m in Sources */,
 				E6D09E961CEDDDCF00B7C43E /* FTQiniuNetwork.m in Sources */,
 				3DC411F31CCF810A0030C229 /* FTDrawerTableViewFooter.m in Sources */,
 				E68050C11CBF919A00678905 /* UIView+JHExtension.m in Sources */,
@@ -2420,6 +2436,7 @@
 				E68050B71CBF919A00678905 /* JHRefreshAmazingAniView.m in Sources */,
 				E6FE6A5D1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m in Sources */,
 				3D8D73C21CE9DEFE009E2320 /* FTRankTableVIewCell.m in Sources */,
+				3DD07E951D1CC361004AF720 /* FTBaseViewController2.m in Sources */,
 				E6B239081D067045001F86BE /* FTHomepageCommentTableViewCell.m in Sources */,
 				3DC9A4E31CE59A0400E16D19 /* FTButton.m in Sources */,
 				3D13FB171D1A1AA80060B9B4 /* FTPracticeViewController.m in Sources */,
@@ -2455,6 +2472,7 @@
 				E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */,
 				E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */,
 				3D13FB101D193BB80060B9B4 /* FTFightingViewController.m in Sources */,
+				3DD07E981D1CCEDF004AF720 /* FTCoachView.m in Sources */,
 				E66D6EFA1CBCE81C008B015A /* RBRequestOperationManager.m in Sources */,
 				3D0D7C721D1A984B00E67AC9 /* FTPracticeView.m in Sources */,
 				E68050BF1CBF919A00678905 /* UIScrollView+JHExtension.m in Sources */,

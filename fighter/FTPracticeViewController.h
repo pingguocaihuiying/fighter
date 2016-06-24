@@ -8,6 +8,12 @@
 
 #import "FTBaseViewController.h"
 
-@interface FTPracticeViewController : FTBaseViewController
+@protocol TeachDelegate <NSObject>
+
+- (void) pushToController:(UIViewController *) viewController;
+
+@end
+
+@interface FTPracticeViewController : FTBaseViewController <TeachDelegate>
 
 @end
