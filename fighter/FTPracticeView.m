@@ -113,7 +113,10 @@
     videoVC.videoType = [_array objectAtIndex:indexPath.row][@"itemValueEn"];
     videoVC.title = [_array objectAtIndex:indexPath.row][@"itemValue"];
     
-    [self.delegate pushToController:videoVC];
+    if ([self.delegate performSelector:@selector(pushToController:)]) {
+        [self.delegate pushToController:videoVC];
+    }
+    
 }
 
 #pragma mark UICollectionViewDelegateFlowLayout
