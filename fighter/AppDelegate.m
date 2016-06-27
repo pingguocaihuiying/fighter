@@ -483,7 +483,6 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     NSLog(@"deviceToken:%@",deviceToken);
     [IXPushSdkApi registerDeviceToken:deviceToken
                               channel:@"test" version:@"1.0" appId:1670128310];
- 
 }
 
 
