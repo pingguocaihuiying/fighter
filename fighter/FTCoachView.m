@@ -119,16 +119,16 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    @try {
+    
         FTCycleScrollViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"coachScrollCell" forIndexPath:indexPath];
     [cell.imageView sd_setImageWithURL:[_cycleDataSourceArray objectAtIndex:indexPath.row%4] placeholderImage:[UIImage imageNamed:@"空图标大"]];
+
+//    [cell.imageView sd_setImageWithURL:[_cycleDataSourceArray objectAtIndex:indexPath.row%4] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        
+//    }];
+    
     return cell;
-        
-    } @catch (NSException *exception) {
-        NSLog(@"exception:%@",exception);
-    } @finally {
-        
-    }
+    
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
