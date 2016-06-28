@@ -25,6 +25,17 @@
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop imageNamesGroup:(NSArray *)imageNamesGroup;
 
 
+
+//
+
+@property (nonatomic, strong)NSArray *dataArray;
+
+// 设置显示图片的collectionView
+- (void)setupMainView;
+
+
+
+
 //////////////////////  滚动控制接口 //////////////////////
 
 /** 自动滚动间隔时间,默认2s */

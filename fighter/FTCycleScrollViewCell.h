@@ -10,8 +10,15 @@
 
 @interface FTCycleScrollViewCell : UICollectionViewCell
 
-@property (weak, nonatomic) UIImageView *imageView;
-@property (copy, nonatomic) NSString *title;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UILabel *title;
+
+@property (weak, nonatomic) IBOutlet UILabel *subtitle;
+
+@property (weak, nonatomic) IBOutlet UILabel *brief;
+
+@property (weak, nonatomic) IBOutlet UIView *labelView;
+
 
 @property (nonatomic, strong) UIColor *titleLabelTextColor;
 @property (nonatomic, strong) UIFont *titleLabelTextFont;
