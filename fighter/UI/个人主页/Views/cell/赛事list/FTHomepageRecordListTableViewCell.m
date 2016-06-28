@@ -17,15 +17,15 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
     // Configure the view for the selected state
 }
 
 - (void)setWithDic:(NSDictionary *)dic{
     self.raceTitleLabel.text = dic[@"title"];
     self.opponentNameLabel.text = dic[@"partner"];
-    self.theTimelabel.text = [FTTools fixStringForDate:dic[@"createTimeTamp"]];
-    
+//    self.theTimelabel.text = [FTTools fixStringForDateWithoutTime:dic[@"happenTime"]];
+//    self.theTimelabel.text = [FTTools fixStringForDateWithoutTime:[NSString stringWithFormat:@"%@", dic[@"createTime"]]];
+    self.theTimelabel.text = [FTTools fixStringForDateWithoutTime:[NSString stringWithFormat:@"%@", dic[@"happenTime"]]];
     //胜负
     if ([dic[@"outcome"] isEqualToString:@"胜"]) {
         self.raceResultImageView.image = [UIImage imageNamed:@"胜"];

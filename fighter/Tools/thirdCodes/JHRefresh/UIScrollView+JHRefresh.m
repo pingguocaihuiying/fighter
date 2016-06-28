@@ -85,5 +85,6 @@ static char JHRefreshFooterViewKey;
 - (void)footerEndRefreshing
 {
     [self.footer endRefreshingWithResult:JHRefreshResultNone];
+//        [self.footer endRefreshingWithResult:JHRefreshResultNoRecords];
 }
 @end
