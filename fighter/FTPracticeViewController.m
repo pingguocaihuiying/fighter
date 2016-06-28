@@ -9,12 +9,27 @@
 #import "FTPracticeViewController.h"
 #import "FTSegmentedControl.h"
 #import "FTPracticeView.h"
+#import "FTCoachView.h"
+
+#import "FTRankViewController.h"
 
 
 @interface FTPracticeViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (strong, nonatomic)  FTPracticeView *practiceView;
+@property (strong, nonatomic)  FTCoachView *coachView;
+
+@property (weak, nonatomic) IBOutlet UIButton *leftBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *rankBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *teachBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *coachBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *gymBtn;
+
 
 @end
 
@@ -27,6 +42,10 @@
     [self initPracticeView];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+   
+    self.navigationController.navigationBarHidden = YES;
+}
 
 - (void) initSubviews {
 
@@ -52,21 +71,115 @@
 //                                        NSForegroundColorAttributeName:[UIColor redColor]};
 //    [self.view addSubview:segmented];
     
+    
+    //设置左上角按钮
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    [self.leftBtn.layer setMasksToBounds:YES];
+    self.leftBtn.layer.cornerRadius = 17.0;
+    [self.leftBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
+                                  forState:UIControlStateNormal
+                          placeholderImage:[UIImage imageNamed:@"头像-空"]];
+    if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
+        
+        [self.drawerDelegate addButtonToArray:self.leftBtn];
+    }
+    
 }
 
 // 练习view
 - (void) initPracticeView {
-    _practiceView = [[FTPracticeView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 100-59)];
-    _practiceView.delegate = self;
+    
+    if (!_practiceView) {
+        _practiceView = [[FTPracticeView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 100-59)];
+        _practiceView.delegate = self;
+    }
+    
     [self.contentView addSubview:_practiceView];
 }
 
+- (void) initCoachView {
+
+    if (!_coachView) {
+        _coachView = [[FTCoachView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 100-59)];
+        _coachView.delegate = self;
+    }
+    
+    [self.contentView addSubview:_coachView];
+    
+}
 
 
 #pragma mark - delegate
 - (void)pushToController:(UIViewController *)viewController {
     self.navigationController.navigationBarHidden = NO;
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+
+#pragma mark - response
+
+- (IBAction)leftBtnAction:(id)sender {
+    
+//    NSLog(@"information left click did");
+    if ([self.drawerDelegate respondsToSelector:@selector(leftButtonClicked:)]) {
+        
+        [self.drawerDelegate leftButtonClicked:sender];
+    }
+}
+
+- (IBAction)rankBtnAction:(id)sender {
+    
+    FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
+    //    rankHomeVC.title = @"排行榜";
+    //    [self.navigationController pushViewController:rankHomeVC animated:YES];
+    [self.navigationController pushViewController:rankHomeVC animated:YES];
+}
+
+
+
+- (IBAction)teachBtnAction:(id)sender {
+    
+    _teachBtn.enabled = NO;
+    _teachBtn.selected = YES;
+    
+    _coachBtn.selected = NO;
+    _coachBtn.enabled = YES;
+    
+    _gymBtn.selected = NO;
+    _gymBtn.enabled = YES;
+    
+    [self initPracticeView];
+    
+    [_coachView removeFromSuperview];
+}
+
+- (IBAction)coachBtnAction:(id)sender {
+    
+    _teachBtn.enabled = YES;
+    _teachBtn.selected = NO;
+    
+    _coachBtn.selected = YES;
+    _coachBtn.enabled = NO;
+    
+    _gymBtn.selected = NO;
+    _gymBtn.enabled = YES;
+    
+    [self initCoachView];
+    
+    [_practiceView removeFromSuperview];
+}
+
+- (IBAction)gymBtnAction:(id)sender {
+    
+    _teachBtn.enabled = YES;
+    _teachBtn.selected = NO;
+    
+    _coachBtn.selected = NO;
+    _coachBtn.enabled = YES;
+    
+    _gymBtn.selected = YES;
+    _gymBtn.enabled = NO;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -53,6 +53,36 @@
     return button;
 }
 
++ (FTButton *) buttonWithtitle:(NSString *)title {
+    
+    CGFloat buttonW = (SCREEN_WIDTH - 12*2)/3;
+    FTButton *selectBtn = [FTButton buttonWithType:UIButtonTypeCustom option:^(FTButton *button) {
+        
+        button.imageH = 10;
+        button.imageW = 13;
+        button.buttonModel = FTButtonModelRightImage;
+        button.space = 10.0;
+        button.bounds = CGRectMake(0, 0, buttonW, 40);
+        
+        [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
+        [button setTitle:title forState:UIControlStateNormal];
+        [button setTitleColor:Main_Text_Color forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"下拉-下箭头"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"下拉-下箭头pre"] forState:UIControlStateHighlighted];
+        
+        CGSize size =  [button.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:button.titleLabel.font}];
+        
+        if (size.width > buttonW - 30-10-13) {
+            size = CGSizeMake(buttonW - 30-10-13, size.height);
+        }
+        
+        button.textH = size.height;
+        button.textW = size.width;
+        
+    }];
+    
+    return selectBtn;
+}
 
 
 

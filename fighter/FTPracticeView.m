@@ -43,7 +43,7 @@
         for ( int i= 0; i < _array.count ; i++) {
 
         NSDictionary *dic = [_array objectAtIndex:i];
-        NSLog(@"dic:%@",dic);
+//        NSLog(@"dic:%@",dic);
             if ([dic[@"itemValueEn"] isEqualToString:@"Others"] || [dic[@"itemValueEn"] isEqualToString:@"StreetFight"]) {
                     [_array removeObject:dic];
             }
@@ -113,20 +113,25 @@
     videoVC.videoType = [_array objectAtIndex:indexPath.row][@"itemValueEn"];
     videoVC.title = [_array objectAtIndex:indexPath.row][@"itemValue"];
     
-    if ([self.delegate performSelector:@selector(pushToController:)]) {
+    if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
         [self.delegate pushToController:videoVC];
     }
-    
 }
 
 #pragma mark UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (SCREEN_WIDTH >=375) {
-        return (CGSize){115,143.5};
-    }
+    CGFloat width;
+    CGFloat height;
+    width = (SCREEN_WIDTH -12 -16)/3;
+    height = width/116 *143.5;
     
-    return (CGSize){115*SCREEN_WIDTH/375,143.5*SCREEN_WIDTH/375};
+    return CGSizeMake(width, height);
+//    if (SCREEN_WIDTH >=375) {
+//        return (CGSize){115,143.5};
+//    }
+//    
+//    return (CGSize){115*SCREEN_WIDTH/375,143.5*SCREEN_WIDTH/375};
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -134,11 +139,13 @@
     return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
+
+//设置行间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 8.f;
+    return 10.f;
 }
-
+//设置列间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
     return 8.f;

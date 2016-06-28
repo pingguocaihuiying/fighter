@@ -1,47 +1,24 @@
 //
-//  SDCycleScrollView.m
-//  SDCycleScrollView
+//  FTCycleScrollView.m
+//  fighter
 //
-//  Created by aier on 15-3-22.
-//  Copyright (c) 2015年 GSD. All rights reserved.
+//  Created by kang on 16/6/27.
+//  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
-/*
- 
- *********************************************************************************
- *
- * 🌟🌟🌟 新建SDCycleScrollView交流QQ群：185534916 🌟🌟🌟
- *
- * 在您使用此自动轮播库的过程中如果出现bug请及时以以下任意一种方式联系我们，我们会及时修复bug并
- * 帮您解决问题。
- * 新浪微博:GSD_iOS
- * Email : gsdios@126.com
- * GitHub: https://github.com/gsdios
- *
- * 另（我的自动布局库SDAutoLayout）：
- *  一行代码搞定自动布局！支持Cell和Tableview高度自适应，Label和ScrollView内容自适应，致力于
- *  做最简单易用的AutoLayout库。
- * 视频教程：http://www.letv.com/ptv/vplay/24038772.html
- * 用法示例：https://github.com/gsdios/SDAutoLayout/blob/master/README.md
- * GitHub：https://github.com/gsdios/SDAutoLayout
- *********************************************************************************
- 
- */
-
-
-#import "SDCycleScrollView.h"
+#import "FTCycleScrollView.h"
 #import "SDCollectionViewCell.h"
+#import "FTCycleScrollViewCell.h"
+#import "FTCycleScrollViewCell2.h"
 #import "UIView+SDExtension.h"
 #import "TAPageControl.h"
 #import "UIImageView+WebCache.h"
 #import "SDImageCache.h"
 
 
-NSString * const ID = @"cycleCell";
+NSString * const ScrollCellID = @"cycleCell";
 
-@interface SDCycleScrollView () <UICollectionViewDataSource, UICollectionViewDelegate>
-
-
+@interface FTCycleScrollView () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, weak) UICollectionViewFlowLayout *flowLayout;
 @property (nonatomic, strong) NSArray *imagePathsGroup;
@@ -52,10 +29,10 @@ NSString * const ID = @"cycleCell";
 @property (nonatomic, weak) UIImageView *backgroundImageView; // 当imageURLs为空时的背景图
 
 @property (nonatomic, assign) NSInteger networkFailedRetryCount;
-
+@property (nonatomic, assign)FTCycleScrollViewCellStyle cellStyle;
 @end
 
-@implementation SDCycleScrollView
+@implementation FTCycleScrollView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -74,20 +51,20 @@ NSString * const ID = @"cycleCell";
 
 - (void)initialization
 {
-    _pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    _pageControlAliment = FTCycleScrollViewPageContolAlimentRight;
     _autoScrollTimeInterval = 3.5;
-//    _titleLabelTextColor = [UIColor whiteColor];
-//    _titleLabelTextColor = [UIColor redColor];
+    //    _titleLabelTextColor = [UIColor whiteColor];
+    //    _titleLabelTextColor = [UIColor redColor];
     _titleLabelTextColor = [UIColor whiteColor];
     _titleLabelTextFont= [UIFont boldSystemFontOfSize:16];
-//    _titleLabelBackgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    //    _titleLabelBackgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     _titleLabelBackgroundColor = [UIColor clearColor];
     _titleLabelHeight = 16;
     _autoScroll = YES;
     _infiniteLoop = YES;
     _showPageControl = YES;
     _pageControlDotSize = CGSizeMake(15, 15);
-    _pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
+    _pageControlStyle = FTCycleScrollViewPageContolStyleClassic;
     _hidesForSinglePage = YES;
     _currentPageDotColor = [UIColor whiteColor];
     _pageDotColor = [UIColor lightGrayColor];
@@ -97,16 +74,41 @@ NSString * const ID = @"cycleCell";
     
 }
 
+
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame delegate:(id<FTCycleScrollViewDelegate>)delegate placeholderImage:(UIImage *)placeholderImage cellStyle:(FTCycleScrollViewCellStyle) cellStyle {
+    
+    FTCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
+    cycleScrollView.delegate = delegate;
+    cycleScrollView.placeholderImage = placeholderImage;
+    cycleScrollView.cellStyle = cellStyle;
+    switch (cellStyle) {
+        case FTCycleScrollViewDefault:
+            [cycleScrollView registNomalCell];
+            break;
+        case FTCycleScrollViewCoach:
+            [cycleScrollView registCoachCell];
+            break;
+        case FTCycleScrollViewGym:
+            [cycleScrollView registGymCell];
+            break;
+        default:
+            break;
+    }
+    
+    return cycleScrollView;
+
+}
+
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageNamesGroup:(NSArray *)imageNamesGroup
 {
-    SDCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
+    FTCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
     cycleScrollView.localizationImageNamesGroup = [NSMutableArray arrayWithArray:imageNamesGroup];
     return cycleScrollView;
 }
 
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop imageNamesGroup:(NSArray *)imageNamesGroup
 {
-    SDCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
+    FTCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
     cycleScrollView.infiniteLoop = infiniteLoop;
     cycleScrollView.localizationImageNamesGroup = [NSMutableArray arrayWithArray:imageNamesGroup];
     return cycleScrollView;
@@ -114,14 +116,14 @@ NSString * const ID = @"cycleCell";
 
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageURLStringsGroup:(NSArray *)imageURLsGroup
 {
-    SDCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
+    FTCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
     cycleScrollView.imageURLStringsGroup = [NSMutableArray arrayWithArray:imageURLsGroup];
     return cycleScrollView;
 }
 
-+ (instancetype)cycleScrollViewWithFrame:(CGRect)frame delegate:(id<SDCycleScrollViewDelegate>)delegate placeholderImage:(UIImage *)placeholderImage
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame delegate:(id<FTCycleScrollViewDelegate>)delegate placeholderImage:(UIImage *)placeholderImage
 {
-    SDCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
+    FTCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
     cycleScrollView.delegate = delegate;
     cycleScrollView.placeholderImage = placeholderImage;
     
@@ -141,7 +143,7 @@ NSString * const ID = @"cycleCell";
     mainView.pagingEnabled = YES;
     mainView.showsHorizontalScrollIndicator = NO;
     mainView.showsVerticalScrollIndicator = NO;
-    [mainView registerClass:[SDCollectionViewCell class] forCellWithReuseIdentifier:ID];
+    
     mainView.dataSource = self;
     mainView.delegate = self;
     mainView.scrollsToTop = NO;
@@ -149,6 +151,23 @@ NSString * const ID = @"cycleCell";
     _mainView = mainView;
 }
 
+- (void) registNomalCell {
+    
+    [_mainView registerClass:[SDCollectionViewCell class] forCellWithReuseIdentifier:ScrollCellID];
+}
+
+
+- (void) registCoachCell {
+
+    [_mainView registerNib:[UINib nibWithNibName:@"FTCycleScrollViewCell" bundle:nil] forCellWithReuseIdentifier:ScrollCellID];
+//    [_mainView registerClass:[FTCycleScrollViewCell class] forCellWithReuseIdentifier:ScrollCellID];
+}
+
+- (void) registGymCell {
+    
+     [_mainView registerNib:[UINib nibWithNibName:@"FTCycleScrollViewCell2" bundle:nil] forCellWithReuseIdentifier:ScrollCellID];
+//    [_mainView registerClass:[FTCycleScrollViewCell2 class] forCellWithReuseIdentifier:ScrollCellID];
+}
 
 #pragma mark - properties
 
@@ -163,7 +182,7 @@ NSString * const ID = @"cycleCell";
         self.backgroundImageView = bgImageView;
     }
     
-//    self.backgroundImageView.image = placeholderImage;
+    //    self.backgroundImageView.image = placeholderImage;
 }
 
 - (void)setPageControlDotSize:(CGSize)pageControlDotSize
@@ -274,7 +293,7 @@ NSString * const ID = @"cycleCell";
     [self setAutoScroll:self.autoScroll];
 }
 
-- (void)setPageControlStyle:(SDCycleScrollViewPageContolStyle)pageControlStyle
+- (void)setPageControlStyle:(FTCycleScrollViewPageContolStyle)pageControlStyle
 {
     _pageControlStyle = pageControlStyle;
     
@@ -493,8 +512,8 @@ NSString * const ID = @"cycleCell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
-//    cell.titleLabelTextColor = [UIColor redColor];
+    SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ScrollCellID forIndexPath:indexPath];
+    //    cell.titleLabelTextColor = [UIColor redColor];
     cell.titleLabelTextColor = [UIColor whiteColor];
     cell.titleLabelBackgroundColor = [UIColor clearColor];
     cell.titleLabelTextFont = [UIFont boldSystemFontOfSize:16];
@@ -505,7 +524,7 @@ NSString * const ID = @"cycleCell";
     
     if ([imagePath isKindOfClass:[NSString class]]) {
         if ([imagePath hasPrefix:@"http"]) {
-//            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeholderImage];
+            //            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeholderImage];
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath]];
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:[UIImage imageNamed:@"轮播大图-空"]];
             
@@ -520,13 +539,6 @@ NSString * const ID = @"cycleCell";
         cell.imageView.image = (UIImage *)imagePath;
     }
     
-#pragma -mark 插入了占位图imageView
-//    //            //占位图的逻辑宽高是：120*36
-//    UIImageView *placeholdImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@""]];
-//    placeholdImageView.backgroundColor = [UIColor redColor];
-//    placeholdImageView.frame = CGRectMake((cell.frame.size.width - 120) / 2, 50, 120, 36);
-//    [cell insertSubview:placeholdImageView belowSubview:cell.imageView];
-//    //            [cell sendSubviewToBack:placeholdImageView];
     
     if (_titlesGroup.count && itemIndex < _titlesGroup.count) {
         cell.title = _titlesGroup[itemIndex];
@@ -536,15 +548,15 @@ NSString * const ID = @"cycleCell";
         cell.titleLabelBackgroundColor = self.titleLabelBackgroundColor;
         cell.titleLabelHeight = self.titleLabelHeight;
         cell.titleLabelTextColor = self.titleLabelTextColor;
-//        cell.titleLabelTextColor = [UIColor redColor];
+        //        cell.titleLabelTextColor = [UIColor redColor];
         cell.titleLabelTextFont = self.titleLabelTextFont;
         cell.hasConfigured = YES;
-//        cell.imageView.contentMode = self.bannerImageViewContentMode;
+        //        cell.imageView.contentMode = self.bannerImageViewContentMode;
         //改变imageview的显示模式
         cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
         cell.clipsToBounds = YES;
     }
-//    [cell bringSubviewToFront:cell.titleLabel];
+    //    [cell bringSubviewToFront:cell.titleLabel];
     
     return cell;
 }

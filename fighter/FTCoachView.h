@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FTPracticeViewController.h"
 
 @interface FTCoachView : UIView
+@property (nonatomic, weak) id<TeachDelegate> delegate;
 
 @end

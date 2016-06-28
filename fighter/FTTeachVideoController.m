@@ -26,7 +26,7 @@
 #import "NetWorking.h"
 
 
-@interface FTTeachVideoController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface FTTeachVideoController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FTVideoDetailDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic)  NSMutableArray *array;
 @property (nonatomic, copy)NSString *videosTag;
@@ -46,7 +46,8 @@
 
 //设置导航栏
 - (void) setNavi {
-    
+    //显示导航栏
+    self.navigationController.navigationBarHidden = NO;
     //设置左侧按钮
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
                                    initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
@@ -86,8 +87,10 @@
 - (void)setJHRefresh{
     __unsafe_unretained __typeof(self) weakSelf = self;
     
+    
     // 下拉刷新
     self.collectionView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf.collectionView.mj_header setHidden:NO];
         [weakSelf getDataWithGetType:@"new" andCurrId:@"-1"];
     }];
     
@@ -95,6 +98,9 @@
     
     // 上拉刷新
     self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        // 显示footer
+        weakSelf.collectionView.mj_footer.hidden = NO;
+        
         NSString *currId;
         if (weakSelf.array && weakSelf.array.count > 0) {
             currId = [weakSelf.array lastObject][@"videosId"];
@@ -119,7 +125,7 @@
         [weakSelf getDataWithGetType:@"old" andCurrId:currId];
     }];
     // 显示footer
-    self.collectionView.mj_footer.hidden = NO;
+//    self.collectionView.mj_footer.hidden = NO;
     
 }
 
@@ -153,23 +159,23 @@
                 [self.collectionView.mj_header endRefreshing];
                 [self.collectionView.mj_footer endRefreshing];
                 [self.collectionView reloadData];
+
                 
             }else {
                 [self.collectionView.mj_header endRefreshing];
                 [self.collectionView.mj_footer endRefreshing];
                 [self.collectionView reloadData];
-                
+
             }
             
         }else {
             [self.collectionView.mj_header endRefreshing];
             [self.collectionView.mj_footer endRefreshing];
             [self.collectionView reloadData];
-            
-            
         }
     }];
 
+    
 }
 
 
@@ -260,7 +266,19 @@
     return 16 * SCALE;;
 }
 
-
+#pragma marl FTVideoDetailDelegate
+- (void)updateCountWithVideoBean:(FTVideoBean *)videoBean indexPath:(NSIndexPath *)indexPath {
+    
+    NSDictionary *dic = self.array[indexPath.row];
+    [dic setValue:[NSString stringWithFormat:@"%@", videoBean.voteCount] forKey:@"voteCount"];
+    [dic setValue:[NSString stringWithFormat:@"%@", videoBean.viewCount] forKey:@"viewCount"];
+    [dic setValue:[NSString stringWithFormat:@"%@", videoBean.commentCount] forKey:@"commentCount"];
+    //    NSLog(@"indexPath.row : %ld", indexPath.row);
+    self.array[indexPath.row] = dic;
+    //    [self.tableViewController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
+    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+    
+}
 
 #pragma mark - response 
 

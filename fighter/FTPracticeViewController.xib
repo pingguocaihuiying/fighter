@@ -7,7 +7,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTPracticeViewController">
             <connections>
+                <outlet property="coachBtn" destination="8rA-AL-bmc" id="6ol-CR-g8o"/>
                 <outlet property="contentView" destination="C5W-tU-Euq" id="m1s-zK-Txb"/>
+                <outlet property="gymBtn" destination="oPM-LB-3C0" id="qou-C7-y6Q"/>
+                <outlet property="leftBtn" destination="Ksj-AG-PXa" id="SON-cb-txk"/>
+                <outlet property="rankBtn" destination="xos-bE-vCv" id="b6A-ZN-Xqd"/>
+                <outlet property="teachBtn" destination="T3W-k8-lOl" id="nDd-HH-3vh"/>
                 <outlet property="view" destination="HB9-BV-zQn" id="5a0-Uh-gnt"/>
             </connections>
         </placeholder>
@@ -25,6 +30,9 @@
                     <state key="normal">
                         <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="leftBtnAction:" destination="-1" eventType="touchUpInside" id="p48-yt-GtJ"/>
+                    </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="格斗家头部logo文字" translatesAutoresizingMaskIntoConstraints="NO" id="clE-yT-rZ9" userLabel="格斗家">
                     <rect key="frame" x="57" y="28" width="72" height="22"/>
@@ -81,6 +89,9 @@
                         <constraint firstAttribute="width" constant="24" id="sx2-4h-Cug"/>
                     </constraints>
                     <state key="normal" backgroundImage="头部48按钮一堆-排行"/>
+                    <connections>
+                        <action selector="rankBtnAction:" destination="-1" eventType="touchUpInside" id="oYE-dO-A2G"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rEN-HZ-n0d" userLabel="上方分割线">
                     <rect key="frame" x="0.0" y="60" width="320" height="1"/>
@@ -90,9 +101,9 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9g2-BK-9Nm" userLabel="containerViewOf最热和最新">
-                    <rect key="frame" x="6" y="61" width="308" height="35"/>
+                    <rect key="frame" x="6" y="66" width="308" height="35"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T3W-k8-lOl" userLabel="最新">
+                        <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T3W-k8-lOl" userLabel="TeachBtn">
                             <rect key="frame" x="0.0" y="0.0" width="100" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="100" id="43f-IP-nCB"/>
@@ -104,7 +115,9 @@
                             <state key="selected" title="教学" backgroundImage="三标签-左-选中">
                                 <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
-                            <state key="highlighted" backgroundImage="三标签-左-选中"/>
+                            <connections>
+                                <action selector="teachBtnAction:" destination="-1" eventType="touchUpInside" id="eZ2-N2-npR"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oPM-LB-3C0">
                             <rect key="frame" x="200" y="0.0" width="100" height="35"/>
@@ -120,9 +133,11 @@
                             <state key="selected" title="拳馆" backgroundImage="三标签-右-选中">
                                 <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
-                            <state key="highlighted" backgroundImage="三标签-右-选中"/>
+                            <connections>
+                                <action selector="gymBtnAction:" destination="-1" eventType="touchUpInside" id="gCC-Vt-qMT"/>
+                            </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8rA-AL-bmc" userLabel="最热">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8rA-AL-bmc" userLabel="CoachBtn">
                             <rect key="frame" x="100" y="0.0" width="100" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="100" id="KL2-6V-mX1"/>
@@ -136,7 +151,9 @@
                             <state key="selected" title="教练" backgroundImage="三标签-中-选中">
                                 <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
-                            <state key="highlighted" backgroundImage="三标签-中-选中"/>
+                            <connections>
+                                <action selector="coachBtnAction:" destination="-1" eventType="touchUpInside" id="cf0-la-va7"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -152,7 +169,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C5W-tU-Euq" userLabel="fooView">
-                    <rect key="frame" x="0.0" y="101" width="320" height="467"/>
+                    <rect key="frame" x="0.0" y="106" width="320" height="462"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
@@ -170,7 +187,7 @@
                 <constraint firstItem="Ksj-AG-PXa" firstAttribute="leading" secondItem="HB9-BV-zQn" secondAttribute="leading" constant="15" id="bHb-X6-xey"/>
                 <constraint firstAttribute="trailing" secondItem="rEN-HZ-n0d" secondAttribute="trailing" id="efB-Si-XPG"/>
                 <constraint firstItem="rUe-Ye-Vnj" firstAttribute="leading" secondItem="Rvd-FY-GwB" secondAttribute="trailing" constant="16" id="ems-mg-mtT"/>
-                <constraint firstItem="9g2-BK-9Nm" firstAttribute="top" secondItem="rEN-HZ-n0d" secondAttribute="bottom" id="hps-kf-o1p"/>
+                <constraint firstItem="9g2-BK-9Nm" firstAttribute="top" secondItem="rEN-HZ-n0d" secondAttribute="bottom" constant="5" id="hps-kf-o1p"/>
                 <constraint firstItem="C5W-tU-Euq" firstAttribute="top" secondItem="9g2-BK-9Nm" secondAttribute="bottom" constant="5" id="kAs-Sa-sVF"/>
                 <constraint firstItem="9g2-BK-9Nm" firstAttribute="centerX" secondItem="HB9-BV-zQn" secondAttribute="centerX" id="lfh-Wt-fMx"/>
                 <constraint firstItem="xos-bE-vCv" firstAttribute="top" secondItem="HB9-BV-zQn" secondAttribute="top" constant="25" id="mUL-fc-tuV"/>

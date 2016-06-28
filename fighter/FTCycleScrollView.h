@@ -1,70 +1,54 @@
 //
-//  SDCycleScrollView.h
-//  SDCycleScrollView
+//  FTCycleScrollView.h
+//  fighter
 //
-//  Created by aier on 15-3-22.
-//  Copyright (c) 2015年 GSD. All rights reserved.
+//  Created by kang on 16/6/27.
+//  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
-/*
- 
- *********************************************************************************
- *
- * 🌟🌟🌟 新建SDCycleScrollView交流QQ群：185534916 🌟🌟🌟
- *
- * 在您使用此自动轮播库的过程中如果出现bug请及时以以下任意一种方式联系我们，我们会及时修复bug并
- * 帮您解决问题。
- * 新浪微博:GSD_iOS
- * Email : gsdios@126.com
- * GitHub: https://github.com/gsdios
- *
- * 另（我的自动布局库SDAutoLayout）：
- *  一行代码搞定自动布局！支持Cell和Tableview高度自适应，Label和ScrollView内容自适应，致力于
- *  做最简单易用的AutoLayout库。
- * 视频教程：http://www.letv.com/ptv/vplay/24038772.html
- * 用法示例：https://github.com/gsdios/SDAutoLayout/blob/master/README.md
- * GitHub：https://github.com/gsdios/SDAutoLayout
- *********************************************************************************
- 
- */
+#import "SDCycleScrollView.h"
 
-/*
- * 当前版本为1.61
- * 更新日期：2016.03.31
- */
-
-#import <UIKit/UIKit.h>
 
 typedef enum {
-    SDCycleScrollViewPageContolAlimentRight,
-    SDCycleScrollViewPageContolAlimentCenter
-} SDCycleScrollViewPageContolAliment;
+    FTCycleScrollViewPageContolAlimentRight,
+    FTCycleScrollViewPageContolAlimentCenter
+} FTCycleScrollViewPageContolAliment;
 
 typedef enum {
-    SDCycleScrollViewPageContolStyleClassic,        // 系统自带经典样式
-    SDCycleScrollViewPageContolStyleAnimated,       // 动画效果pagecontrol
-    SDCycleScrollViewPageContolStyleNone            // 不显示pagecontrol
-} SDCycleScrollViewPageContolStyle;
+    FTCycleScrollViewPageContolStyleClassic,        // 系统自带经典样式
+    FTCycleScrollViewPageContolStyleAnimated,       // 动画效果pagecontrol
+    FTCycleScrollViewPageContolStyleNone            // 不显示pagecontrol
+} FTCycleScrollViewPageContolStyle;
 
-@class SDCycleScrollView;
+typedef enum {
+    FTCycleScrollViewDefault,      // 默认样式
+    FTCycleScrollViewCoach,        // 教练
+    FTCycleScrollViewGym           // 拳馆
+    
+} FTCycleScrollViewCellStyle;
 
-@protocol SDCycleScrollViewDelegate <NSObject>
+
+@class FTCycleScrollView;
+
+@protocol FTCycleScrollViewDelegate <NSObject>
 
 @optional
 
 /** 点击图片回调 */
-- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index;
+- (void)cycleScrollView:(FTCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index;
 
 /** 图片滚动回调 */
-- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index;
+- (void)cycleScrollView:(FTCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index;
 
 @end
 
-@interface SDCycleScrollView : UIView
-
+@interface FTCycleScrollView : UIView
 
 /** 初始轮播图（推荐使用） */
-+ (instancetype)cycleScrollViewWithFrame:(CGRect)frame delegate:(id<SDCycleScrollViewDelegate>)delegate placeholderImage:(UIImage *)placeholderImage;
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame delegate:(id<FTCycleScrollViewDelegate>)delegate placeholderImage:(UIImage *)placeholderImage cellStyle:(FTCycleScrollViewCellStyle) cellStyle;
+
+/** 初始轮播图（推荐使用） */
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame delegate:(id<FTCycleScrollViewDelegate>)delegate placeholderImage:(UIImage *)placeholderImage;
 
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageURLStringsGroup:(NSArray *)imageURLStringsGroup;
 
@@ -73,8 +57,6 @@ typedef enum {
 
 /** 本地图片轮播初始化方式2,infiniteLoop:是否无限循环 */
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop imageNamesGroup:(NSArray *)imageNamesGroup;
-
-
 
 //////////////////////  数据源接口  //////////////////////
 
@@ -105,7 +87,7 @@ typedef enum {
 /** 图片滚动方向，默认为水平滚动 */
 @property (nonatomic, assign) UICollectionViewScrollDirection scrollDirection;
 
-@property (nonatomic, weak) id<SDCycleScrollViewDelegate> delegate;
+@property (nonatomic, weak) id<FTCycleScrollViewDelegate> delegate;
 
 /** block监听点击方式 */
 @property (nonatomic, copy) void (^clickItemOperationBlock)(NSInteger currentIndex);
@@ -127,10 +109,10 @@ typedef enum {
 @property(nonatomic) BOOL hidesForSinglePage;
 
 /** pagecontrol 样式，默认为动画样式 */
-@property (nonatomic, assign) SDCycleScrollViewPageContolStyle pageControlStyle;
+@property (nonatomic, assign) FTCycleScrollViewPageContolStyle pageControlStyle;
 
 /** 分页控件位置 */
-@property (nonatomic, assign) SDCycleScrollViewPageContolAliment pageControlAliment;
+@property (nonatomic, assign) FTCycleScrollViewPageContolAliment pageControlAliment;
 
 /** 分页控件小圆标大小 */
 @property (nonatomic, assign) CGSize pageControlDotSize;
@@ -168,5 +150,6 @@ typedef enum {
 
 /** 清除图片缓存（兼容旧版本方法） */
 - (void)clearCache;
+
 
 @end
