@@ -38,5 +38,7 @@
 - (IBAction)voteButtonClicked:(id)sender {
     NSLog(@"点赞按钮被点击");
 }
-
+- (void)test{
+    
+}
 @end
