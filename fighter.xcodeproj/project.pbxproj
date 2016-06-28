@@ -133,6 +133,7 @@
 		3DE95BA81CD86FA4005BF85C /* FTLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE95BA61CD86FA4005BF85C /* FTLoginViewController.xib */; };
 		3DE95BAD1CD8A042005BF85C /* FTRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95BAB1CD8A042005BF85C /* FTRegistViewController.m */; };
 		3DE95BAE1CD8A042005BF85C /* FTRegistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE95BAC1CD8A042005BF85C /* FTRegistViewController.xib */; };
+		3DF658DA1D22440B009BDEF6 /* CycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF658D91D22440B009BDEF6 /* CycleScrollView.m */; };
 		3DF90BB11CFED21C00BD83F8 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF90BB01CFED21C00BD83F8 /* CoreText.framework */; };
 		3DF90BB31CFED23C00BD83F8 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF90BB21CFED23C00BD83F8 /* ImageIO.framework */; };
 		3DF90BB51CFED25800BD83F8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF90BB41CFED25800BD83F8 /* QuartzCore.framework */; };
@@ -481,6 +482,8 @@
 		3DE95BAA1CD8A042005BF85C /* FTRegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRegistViewController.h; sourceTree = "<group>"; };
 		3DE95BAB1CD8A042005BF85C /* FTRegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRegistViewController.m; sourceTree = "<group>"; };
 		3DE95BAC1CD8A042005BF85C /* FTRegistViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRegistViewController.xib; sourceTree = "<group>"; };
+		3DF658D81D22440B009BDEF6 /* CycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CycleScrollView.h; sourceTree = "<group>"; };
+		3DF658D91D22440B009BDEF6 /* CycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CycleScrollView.m; sourceTree = "<group>"; };
 		3DF90BB01CFED21C00BD83F8 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		3DF90BB21CFED23C00BD83F8 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		3DF90BB41CFED25800BD83F8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -755,14 +758,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3D13FB121D1A1A2C0060B9B4 /* 学习 */ = {
+		3D13FB121D1A1A2C0060B9B4 /* 学拳 */ = {
 			isa = PBXGroup;
 			children = (
 				3DA6D1BD1D20C6CC0049CD4A /* cycleScrollView */,
 				3D13FB191D1A3ECE0060B9B4 /* view */,
 				3D13FB131D1A1A470060B9B4 /* main */,
 			);
-			name = "学习";
+			name = "学拳";
 			sourceTree = "<group>";
 		};
 		3D13FB131D1A1A470060B9B4 /* main */ = {
@@ -818,6 +821,8 @@
 				3D8B2E4F1D1D148F00E18280 /* cell */,
 				3DD07E961D1CCEDF004AF720 /* FTCoachView.h */,
 				3DD07E971D1CCEDF004AF720 /* FTCoachView.m */,
+				3DF658D81D22440B009BDEF6 /* CycleScrollView.h */,
+				3DF658D91D22440B009BDEF6 /* CycleScrollView.m */,
 			);
 			name = "教练";
 			sourceTree = "<group>";
@@ -1789,7 +1794,7 @@
 		E6B458921CB7554F00FB4261 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				3D13FB121D1A1A2C0060B9B4 /* 学习 */,
+				3D13FB121D1A1A2C0060B9B4 /* 学拳 */,
 				E659F36B1D12A5C400B41129 /* 格斗场 */,
 				3D6CFF361D06A36600CAC12A /* 直播 */,
 				E6735AD11CFC408F0068782C /* 个人主页 */,
@@ -2457,6 +2462,7 @@
 				3DC411F31CCF810A0030C229 /* FTDrawerTableViewFooter.m in Sources */,
 				E68050C11CBF919A00678905 /* UIView+JHExtension.m in Sources */,
 				E68D160D1CFD31F100AB5A8C /* FTHomepageMainViewController.m in Sources */,
+				3DF658DA1D22440B009BDEF6 /* CycleScrollView.m in Sources */,
 				E6E580B31CBE523B00272242 /* FTBaseTableViewCell.m in Sources */,
 				3DA6D1C91D20D94E0049CD4A /* FTCycleScrollViewCell2.m in Sources */,
 				E668BBB11CE32BA200071998 /* FTRankingListViewController.m in Sources */,

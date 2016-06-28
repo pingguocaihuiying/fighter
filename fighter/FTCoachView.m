@@ -10,11 +10,14 @@
 #import "FTCycleScrollView.h"
 #import "FTCoachCell.h"
 #import "FTButton.h"
+#import "CycleScrollView.h"
+#import "FTCycleScrollViewCell.h"
 
-@interface FTCoachView () <UITableViewDelegate, UITableViewDataSource,FTCycleScrollViewDelegate>
+@interface FTCoachView () <UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource,FTCycleScrollViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong)FTCycleScrollView *cycleScrollView;
-@property (nonatomic, strong)NSArray *cycleDataSourceArray;
+@property (nonatomic, strong)CycleScrollView *coachCycleScrollView;
+@property (nonatomic, strong)NSMutableArray *cycleDataSourceArray;
 @property (nonatomic, strong)NSMutableArray *tableViewDataSourceArray;
 @end
 
@@ -47,29 +50,46 @@
 }
 - (void)initCycleScrollView{
     
-    NSMutableArray *imagesURLStrings = [NSMutableArray new];
-    NSMutableArray *titlesArray = [NSMutableArray new];
-    if (self.cycleDataSourceArray) {
-        for(int i = 0; i< 4;i++){
-            [imagesURLStrings addObject:[NSURL URLWithString:@"http://www.gogogofight.com/img/news/news1461918192107.jpg"]];
-            [titlesArray addObject:@"title"];
-            
-        }
+    _cycleDataSourceArray = [NSMutableArray new];
+    
+    for(int i = 0; i< 4;i++){
+        [_cycleDataSourceArray addObject:[NSURL URLWithString:@"http://www.gogogofight.com/img/news/news1461918192107.jpg"]];
     }
-    _cycleScrollView = [FTCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180 * SCREEN_WIDTH / 375)
-                                                          delegate:self
-                                                  placeholderImage:[UIImage imageNamed:@"空图标大"]
-                                                         cellStyle:FTCycleScrollViewCoach];
-    _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     
-    //    _cycleScrollView.titlesGroup = titlesArray;
-    _cycleScrollView.backgroundColor = [UIColor clearColor];
+//    _cycleScrollView = [FTCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180 * SCREEN_WIDTH / 375)
+//                                                          delegate:self
+//                                                  placeholderImage:[UIImage imageNamed:@"空图标大"]
+//                                                         cellStyle:FTCycleScrollViewCoach];
+//    _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+//    
+//    //    _cycleScrollView.titlesGroup = titlesArray;
+//    _cycleScrollView.backgroundColor = [UIColor clearColor];
+//    
+//    _cycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
+//    _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点pre"];
+//    _cycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播点"];
+//    _cycleScrollView.imageURLStringsGroup = imagesURLStrings;
     
-    _cycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
-    _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点pre"];
-    _cycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播点"];
-    _cycleScrollView.imageURLStringsGroup = imagesURLStrings;
     
+        
+    
+    _coachCycleScrollView = [CycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180 * SCREEN_WIDTH / 375)
+                                                                delegate:nil
+                                                        placeholderImage:[UIImage imageNamed:@"空图标大"]];
+    _coachCycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    
+    _coachCycleScrollView.backgroundColor = [UIColor clearColor];
+    _coachCycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
+    _coachCycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点pre"];
+    _coachCycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播点"];
+    _coachCycleScrollView.dataArray = _cycleDataSourceArray;
+    
+    [_coachCycleScrollView.mainView registerNib:[UINib nibWithNibName:@"FTCycleScrollViewCell" bundle:nil] forCellWithReuseIdentifier:@"coachScrollCell"];
+    
+    _coachCycleScrollView.mainView.dataSource = self;
+    _coachCycleScrollView.mainView.delegate = self;
+
+   
 }
 
 - (void) initTableView {
@@ -80,14 +100,43 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [_tableView registerNib:[UINib nibWithNibName:@"FTCoachCell" bundle:nil]  forCellReuseIdentifier:@"coachCell"];
-    _tableView.tableHeaderView = _cycleScrollView;
+//    _tableView.tableHeaderView = _cycleScrollView;
+    _tableView.tableHeaderView = _coachCycleScrollView;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addSubview:_tableView];
-
 }
 
 
 #pragma mark - delegates
+
+#pragma mark UICollectionViewDataSource
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return _cycleDataSourceArray.count *100;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    
+        FTCycleScrollViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"coachScrollCell" forIndexPath:indexPath];
+    [cell.imageView sd_setImageWithURL:[_cycleDataSourceArray objectAtIndex:indexPath.row%4] placeholderImage:[UIImage imageNamed:@"空图标大"]];
+
+//    [cell.imageView sd_setImageWithURL:[_cycleDataSourceArray objectAtIndex:indexPath.row%4] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        
+//    }];
+    
+    return cell;
+    
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+
+}
+
+
 #pragma mark SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
@@ -120,7 +169,7 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    return 120;
+    return 100;
 }
 //headerView高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectio{

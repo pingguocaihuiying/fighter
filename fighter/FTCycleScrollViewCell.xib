@@ -7,13 +7,16 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="FTCycleScrollViewCell">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="coachScrollCell" id="gTV-IL-0wX" customClass="FTCycleScrollViewCell">
             <rect key="frame" x="0.0" y="0.0" width="328" height="202"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="328" height="202"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="w2j-ng-Lto">
+                        <rect key="frame" x="0.0" y="0.0" width="328" height="202"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="头图暗影遮罩-ios" translatesAutoresizingMaskIntoConstraints="NO" id="p4v-pF-Bwf" userLabel="shadeImage View">
                         <rect key="frame" x="0.0" y="0.0" width="328" height="202"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4qO-AE-wYB" userLabel="brief">
@@ -44,9 +47,6 @@
                             <constraint firstAttribute="height" constant="1" id="Njy-P3-cfn"/>
                         </constraints>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="头图暗影遮罩-ios" translatesAutoresizingMaskIntoConstraints="NO" id="p4v-pF-Bwf" userLabel="shadeImage View">
-                        <rect key="frame" x="0.0" y="0.0" width="328" height="202"/>
-                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
@@ -72,6 +72,13 @@
                 <constraint firstItem="4qO-AE-wYB" firstAttribute="leading" secondItem="p8u-c0-v8O" secondAttribute="leading" id="ySt-qR-xaW"/>
             </constraints>
             <size key="customSize" width="328" height="202"/>
+            <connections>
+                <outlet property="brief" destination="4qO-AE-wYB" id="GeM-Sx-KWp"/>
+                <outlet property="imageView" destination="w2j-ng-Lto" id="M7X-UV-Myf"/>
+                <outlet property="labelView" destination="p8u-c0-v8O" id="Pmw-zl-RGr"/>
+                <outlet property="subtitle" destination="aWH-zk-vr2" id="NjF-Rs-I7z"/>
+                <outlet property="title" destination="ERf-Ac-9U8" id="j8z-GO-O2X"/>
+            </connections>
             <point key="canvasLocation" x="195" y="248"/>
         </collectionViewCell>
     </objects>
