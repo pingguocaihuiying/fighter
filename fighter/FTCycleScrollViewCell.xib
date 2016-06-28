@@ -16,6 +16,9 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="w2j-ng-Lto">
                         <rect key="frame" x="0.0" y="0.0" width="328" height="202"/>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="头图暗影遮罩-ios" translatesAutoresizingMaskIntoConstraints="NO" id="p4v-pF-Bwf" userLabel="shadeImage View">
+                        <rect key="frame" x="0.0" y="0.0" width="328" height="202"/>
+                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4qO-AE-wYB" userLabel="brief">
                         <rect key="frame" x="15" y="162" width="208" height="0.0"/>
                         <constraints>
@@ -44,9 +47,6 @@
                             <constraint firstAttribute="height" constant="1" id="Njy-P3-cfn"/>
                         </constraints>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="头图暗影遮罩-ios" translatesAutoresizingMaskIntoConstraints="NO" id="p4v-pF-Bwf" userLabel="shadeImage View">
-                        <rect key="frame" x="0.0" y="0.0" width="328" height="202"/>
-                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
