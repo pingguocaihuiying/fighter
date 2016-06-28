@@ -1661,13 +1661,6 @@
 			name = "战绩";
 			sourceTree = "<group>";
 		};
-		E688E9A51D0EA0FB0084E88E /* 战绩（x胜x负x平x击倒） */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "战绩（x胜x负x平x击倒）";
-			sourceTree = "<group>";
-		};
 		E68D16061CFD24DE00AB5A8C /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1680,7 +1673,6 @@
 		E68D16071CFD24EB00AB5A8C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E688E9A51D0EA0FB0084E88E /* 战绩（x胜x负x平x击倒） */,
 				E68D16211D00098D00AB5A8C /* cell */,
 			);
 			name = Views;
