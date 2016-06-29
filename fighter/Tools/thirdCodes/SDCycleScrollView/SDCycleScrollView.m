@@ -465,7 +465,6 @@ NSString * const ID = @"cycleCell";
     if (self.backgroundImageView) {
         self.backgroundImageView.frame = self.bounds;
     }
-    
 }
 
 //解决当父View释放时，当前视图因为被Timer强引用而不能释放的问题

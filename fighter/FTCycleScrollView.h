@@ -1,51 +1,31 @@
 //
-//  FTCycleScrollView.h
+//  CycleScrollView.h
 //  fighter
 //
-//  Created by kang on 16/6/27.
+//  Created by kang on 16/6/28.
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "SDCycleScrollView.h"
 
-
-typedef enum {
-    FTCycleScrollViewPageContolAlimentRight,
-    FTCycleScrollViewPageContolAlimentCenter
-} FTCycleScrollViewPageContolAliment;
-
-typedef enum {
-    FTCycleScrollViewPageContolStyleClassic,        // 系统自带经典样式
-    FTCycleScrollViewPageContolStyleAnimated,       // 动画效果pagecontrol
-    FTCycleScrollViewPageContolStyleNone            // 不显示pagecontrol
-} FTCycleScrollViewPageContolStyle;
-
-typedef enum {
-    FTCycleScrollViewDefault,      // 默认样式
-    FTCycleScrollViewCoach,        // 教练
-    FTCycleScrollViewGym           // 拳馆
-    
-} FTCycleScrollViewCellStyle;
-
-
 @class FTCycleScrollView;
-
 @protocol FTCycleScrollViewDelegate <NSObject>
 
 @optional
 
-/** 点击图片回调 */
-- (void)cycleScrollView:(FTCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index;
+///** 点击图片回调 */
+//- (void)cycleScrollView:(FTCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index;
 
 /** 图片滚动回调 */
 - (void)cycleScrollView:(FTCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index;
 
 @end
 
+
 @interface FTCycleScrollView : UIView
 
-/** 初始轮播图（推荐使用） */
-+ (instancetype)cycleScrollViewWithFrame:(CGRect)frame delegate:(id<FTCycleScrollViewDelegate>)delegate placeholderImage:(UIImage *)placeholderImage cellStyle:(FTCycleScrollViewCellStyle) cellStyle;
+@property (nonatomic, weak) UICollectionView *mainView; // 显示图片的collectionView
 
 /** 初始轮播图（推荐使用） */
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame delegate:(id<FTCycleScrollViewDelegate>)delegate placeholderImage:(UIImage *)placeholderImage;
@@ -58,18 +38,15 @@ typedef enum {
 /** 本地图片轮播初始化方式2,infiniteLoop:是否无限循环 */
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop imageNamesGroup:(NSArray *)imageNamesGroup;
 
-//////////////////////  数据源接口  //////////////////////
 
-/** 网络图片 url string 数组 */
-@property (nonatomic, strong) NSArray *imageURLStringsGroup;
 
-/** 每张图片对应要显示的文字数组 */
-@property (nonatomic, strong) NSArray *titlesGroup;
+//
 
-/** 本地图片数组 */
-@property (nonatomic, strong) NSArray *localizationImageNamesGroup;
+@property (nonatomic, assign)NSInteger itemCount;
 
-@property (nonatomic, weak) UICollectionView *mainView; // 显示图片的collectionView
+// 设置显示图片的collectionView
+- (void)setupMainView;
+
 
 
 
@@ -93,7 +70,6 @@ typedef enum {
 @property (nonatomic, copy) void (^clickItemOperationBlock)(NSInteger currentIndex);
 
 
-
 //////////////////////  自定义样式接口  //////////////////////
 
 /** 轮播图片的ContentMode，默认为 UIViewContentModeScaleToFill */
@@ -109,10 +85,10 @@ typedef enum {
 @property(nonatomic) BOOL hidesForSinglePage;
 
 /** pagecontrol 样式，默认为动画样式 */
-@property (nonatomic, assign) FTCycleScrollViewPageContolStyle pageControlStyle;
+@property (nonatomic, assign) SDCycleScrollViewPageContolStyle pageControlStyle;
 
 /** 分页控件位置 */
-@property (nonatomic, assign) FTCycleScrollViewPageContolAliment pageControlAliment;
+@property (nonatomic, assign) SDCycleScrollViewPageContolAliment pageControlAliment;
 
 /** 分页控件小圆标大小 */
 @property (nonatomic, assign) CGSize pageControlDotSize;
@@ -150,6 +126,17 @@ typedef enum {
 
 /** 清除图片缓存（兼容旧版本方法） */
 - (void)clearCache;
+
+
+////////  scrollView action  ///////////
+
+- (void)mainViewDidScroll:(UIScrollView *)scrollView;
+
+- (void)mainViewWillBeginDragging:(UIScrollView *)scrollView;
+
+- (void)mainViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;
+
+- (void)mainViewDidEndScrollingAnimation:(UIScrollView *)scrollView;
 
 
 @end

@@ -567,7 +567,7 @@
 #pragma mark - news 
 
 
-#pragma mark - 封装请求
+#pragma mark - 封装请求---对象方法
 //post请求
 - (void) postRequestWithUrl:(NSString *)urlString
                  parameters:(NSDictionary *)dic
@@ -670,6 +670,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 
 
 
+
+
 - (NSDictionary *) setJsonDataWithKey:(NSString*)key   value:(NSString *)value {
     
     //从本地读取存储的用户信息
@@ -689,6 +691,111 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     
     return dic;
 }
+
+#pragma mark - 封装请求---类方法
+//post请求
++ (void) postRequestWithUrl:(NSString *)urlString
+                 parameters:(NSDictionary *)dic
+                     option:(void (^)(NSDictionary *dict))option {
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    //    NSLog(@"RegisterUserURL url : %@", urlString);
+    [manager POST:urlString
+       parameters:dic
+          success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+              NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+              //              NSLog(@"responsedic:%@",responseDic);
+              
+              if (option) {
+                  option(responseDic);
+              }
+          }
+          failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+              NSLog(@"error:%@",error);
+              if (option) {
+                  option(nil);
+              }
+              
+          }];
+}
+
+
+
+//post  请求上传二进制数据
++ (void) postUploadDataWithURL:(NSString *)urlString
+                    parameters:(NSDictionary *)dic
+              appendParameters:(NSDictionary *)appendDic
+                        option:(void (^)(NSDictionary *dict))option {
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager POST:urlString
+       parameters:dic
+constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    
+    for (NSString *key in [appendDic allKeys] ) {
+        
+        [formData appendPartWithFileURL:appendDic[key] name:key error:nil];
+    }
+    
+}
+          success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+              
+              NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+              //              NSLog(@"responsedic:%@",responseDic);
+              
+              if (option) {
+                  option(responseDic);
+              }
+              
+              
+          }
+          failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+              
+              if (option) {
+                  option(nil);
+              }
+          }];
+    
+    
+}
+
+
+//get请求
++ (void) getRequestWithUrl:(NSString *)urlString
+                parameters:(NSDictionary *)dic
+                    option:(void (^)(NSDictionary *dict))option {
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    //    NSLog(@"RegisterUserURL url : %@", urlString);
+    [manager GET:urlString
+      parameters:dic
+         success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+             NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+             //             NSLog(@"responsedic:%@",responseDic);
+             
+             if (option) {
+                 option(responseDic);
+             }
+         }
+         failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+             NSLog(@"error:%@",error);
+             if (option) {
+                 option(nil);
+             }
+         }];
+}
+
+
+
+#pragma mark - 个人主页
 
 + (void)getHomepageUserInfoWithUserOldid:(NSString *)userOldid andBoxerId:(NSString *)boxerId andCoachId:(NSString *)coachId andCallbackOption:(void (^)(FTUserBean *userBean))userBeanOption{
     NSString *urlString = [FTNetConfig host:Domain path:GetHomepageUserInfo];
@@ -840,4 +947,16 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         option(nil);
     }];
 }
+
+
+#pragma mark - 学拳
+// Get Coach List
++ (void) getCoachsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option  {
+    
+    NSString *urlString = [FTNetConfig host:Domain path:GetCoachListURL];
+    
+    [self getRequestWithUrl:urlString parameters:dic option:option];
+}
+
+
 @end

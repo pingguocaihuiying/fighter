@@ -158,3 +158,10 @@ extern NSString * const GetNewsByIdURL;
 // 获取单个视频信息
 extern NSString * const GetVideoByIdURL;
 
+
+
+#pragma mark - 学拳
+// coach
+extern NSString * const GetCoachListURL;
+extern NSString * const GetCoachByIdURL;
+
