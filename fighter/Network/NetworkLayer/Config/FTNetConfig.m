@@ -189,5 +189,8 @@ NSString * const DeleteStarCheckKey =  @"gedoujia1ggghfdjskfgl1250";
 NSString * const NewPostCheckKey =  @"gedoujia1gdshjjgfkd52261225550";
 
 
-
+#pragma mark - 学拳
+// coach
+NSString * const GetCoachListURL = @"/api/coach/list.do";
+NSString * const GetCoachByIdURL = @"/api/coach/{id}.do";
 

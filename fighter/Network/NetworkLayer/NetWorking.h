@@ -173,6 +173,11 @@
 
 //获取单个视频信息
 + (void)getVideoById:(NSString *)videoId andOption:(void (^)(NSArray *array))option;
+
+
+#pragma mark - 学拳
+// Get Coach List
++ (void) getCoachsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option;
 @end
 
 

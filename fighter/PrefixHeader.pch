@@ -53,6 +53,8 @@
 #import "FTUserBean.h"
 #import "FTTools.h"
 #import "FTNWGetCategory.h"
+#import "NetWorking.h"
+
 
 //导入友盟统计的类
 #import <UMMobClick/MobClick.h>

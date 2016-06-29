@@ -94,7 +94,6 @@
 		3D8D73BE1CE97404009E2320 /* FTTableViewCell6.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D8D73BC1CE97404009E2320 /* FTTableViewCell6.xib */; };
 		3D8D73C21CE9DEFE009E2320 /* FTRankTableVIewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D73C01CE9DEFE009E2320 /* FTRankTableVIewCell.m */; };
 		3D8D73C31CE9DEFE009E2320 /* FTRankTableVIewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D8D73C11CE9DEFE009E2320 /* FTRankTableVIewCell.xib */; };
-		3DA6D1C01D20C7510049CD4A /* FTCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6D1BF1D20C7510049CD4A /* FTCycleScrollView.m */; };
 		3DA6D1C41D20D8BD0049CD4A /* FTCycleScrollViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6D1C21D20D8BD0049CD4A /* FTCycleScrollViewCell.m */; };
 		3DA6D1C51D20D8BD0049CD4A /* FTCycleScrollViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DA6D1C31D20D8BD0049CD4A /* FTCycleScrollViewCell.xib */; };
 		3DA6D1C91D20D94E0049CD4A /* FTCycleScrollViewCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6D1C71D20D94E0049CD4A /* FTCycleScrollViewCell2.m */; };
@@ -133,7 +132,7 @@
 		3DE95BA81CD86FA4005BF85C /* FTLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE95BA61CD86FA4005BF85C /* FTLoginViewController.xib */; };
 		3DE95BAD1CD8A042005BF85C /* FTRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95BAB1CD8A042005BF85C /* FTRegistViewController.m */; };
 		3DE95BAE1CD8A042005BF85C /* FTRegistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE95BAC1CD8A042005BF85C /* FTRegistViewController.xib */; };
-		3DF658DA1D22440B009BDEF6 /* CycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF658D91D22440B009BDEF6 /* CycleScrollView.m */; };
+		3DF658DA1D22440B009BDEF6 /* FTCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF658D91D22440B009BDEF6 /* FTCycleScrollView.m */; };
 		3DF90BB11CFED21C00BD83F8 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF90BB01CFED21C00BD83F8 /* CoreText.framework */; };
 		3DF90BB31CFED23C00BD83F8 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF90BB21CFED23C00BD83F8 /* ImageIO.framework */; };
 		3DF90BB51CFED25800BD83F8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF90BB41CFED25800BD83F8 /* QuartzCore.framework */; };
@@ -422,8 +421,6 @@
 		3D8D73BF1CE9DEFE009E2320 /* FTRankTableVIewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankTableVIewCell.h; sourceTree = "<group>"; };
 		3D8D73C01CE9DEFE009E2320 /* FTRankTableVIewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankTableVIewCell.m; sourceTree = "<group>"; };
 		3D8D73C11CE9DEFE009E2320 /* FTRankTableVIewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRankTableVIewCell.xib; sourceTree = "<group>"; };
-		3DA6D1BE1D20C7510049CD4A /* FTCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCycleScrollView.h; sourceTree = "<group>"; };
-		3DA6D1BF1D20C7510049CD4A /* FTCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCycleScrollView.m; sourceTree = "<group>"; };
 		3DA6D1C11D20D8BD0049CD4A /* FTCycleScrollViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCycleScrollViewCell.h; sourceTree = "<group>"; };
 		3DA6D1C21D20D8BD0049CD4A /* FTCycleScrollViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCycleScrollViewCell.m; sourceTree = "<group>"; };
 		3DA6D1C31D20D8BD0049CD4A /* FTCycleScrollViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTCycleScrollViewCell.xib; sourceTree = "<group>"; };
@@ -482,8 +479,8 @@
 		3DE95BAA1CD8A042005BF85C /* FTRegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRegistViewController.h; sourceTree = "<group>"; };
 		3DE95BAB1CD8A042005BF85C /* FTRegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRegistViewController.m; sourceTree = "<group>"; };
 		3DE95BAC1CD8A042005BF85C /* FTRegistViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRegistViewController.xib; sourceTree = "<group>"; };
-		3DF658D81D22440B009BDEF6 /* CycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CycleScrollView.h; sourceTree = "<group>"; };
-		3DF658D91D22440B009BDEF6 /* CycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CycleScrollView.m; sourceTree = "<group>"; };
+		3DF658D81D22440B009BDEF6 /* FTCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCycleScrollView.h; sourceTree = "<group>"; };
+		3DF658D91D22440B009BDEF6 /* FTCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCycleScrollView.m; sourceTree = "<group>"; };
 		3DF90BB01CFED21C00BD83F8 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		3DF90BB21CFED23C00BD83F8 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		3DF90BB41CFED25800BD83F8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -821,8 +818,6 @@
 				3D8B2E4F1D1D148F00E18280 /* cell */,
 				3DD07E961D1CCEDF004AF720 /* FTCoachView.h */,
 				3DD07E971D1CCEDF004AF720 /* FTCoachView.m */,
-				3DF658D81D22440B009BDEF6 /* CycleScrollView.h */,
-				3DF658D91D22440B009BDEF6 /* CycleScrollView.m */,
 			);
 			name = "教练";
 			sourceTree = "<group>";
@@ -1106,8 +1101,8 @@
 		3DA6D1BD1D20C6CC0049CD4A /* cycleScrollView */ = {
 			isa = PBXGroup;
 			children = (
-				3DA6D1BE1D20C7510049CD4A /* FTCycleScrollView.h */,
-				3DA6D1BF1D20C7510049CD4A /* FTCycleScrollView.m */,
+				3DF658D81D22440B009BDEF6 /* FTCycleScrollView.h */,
+				3DF658D91D22440B009BDEF6 /* FTCycleScrollView.m */,
 				3DA6D1C11D20D8BD0049CD4A /* FTCycleScrollViewCell.h */,
 				3DA6D1C21D20D8BD0049CD4A /* FTCycleScrollViewCell.m */,
 				3DA6D1C31D20D8BD0049CD4A /* FTCycleScrollViewCell.xib */,
@@ -2462,7 +2457,7 @@
 				3DC411F31CCF810A0030C229 /* FTDrawerTableViewFooter.m in Sources */,
 				E68050C11CBF919A00678905 /* UIView+JHExtension.m in Sources */,
 				E68D160D1CFD31F100AB5A8C /* FTHomepageMainViewController.m in Sources */,
-				3DF658DA1D22440B009BDEF6 /* CycleScrollView.m in Sources */,
+				3DF658DA1D22440B009BDEF6 /* FTCycleScrollView.m in Sources */,
 				E6E580B31CBE523B00272242 /* FTBaseTableViewCell.m in Sources */,
 				3DA6D1C91D20D94E0049CD4A /* FTCycleScrollViewCell2.m in Sources */,
 				E668BBB11CE32BA200071998 /* FTRankingListViewController.m in Sources */,
@@ -2595,7 +2590,6 @@
 				E67872731CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m in Sources */,
 				E668BBBB1CE44E6400071998 /* FTCache.m in Sources */,
 				3D8D73B41CE95198009E2320 /* FTRankTableView.m in Sources */,
-				3DA6D1C01D20C7510049CD4A /* FTCycleScrollView.m in Sources */,
 				E66D6EFB1CBCE81C008B015A /* FTNetConfig.m in Sources */,
 				3DC412251CD0C3780030C229 /* NSString+Size.m in Sources */,
 				E68050B91CBF919A00678905 /* JHRefreshCommonAniView.m in Sources */,
