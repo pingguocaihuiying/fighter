@@ -458,9 +458,9 @@
     int itemIndex = [self currentIndex];
     int indexOnPageControl = itemIndex % _itemCount;
     
-    if ([self.delegate respondsToSelector:@selector(cycleScrollView:didScrollToIndex:)]) {
-        [self.delegate cycleScrollView:self didScrollToIndex:indexOnPageControl];
-    }
+//    if ([self.delegate respondsToSelector:@selector(cycleScrollView:didScrollToIndex:)]) {
+//        [self.delegate cycleScrollView:self didScrollToIndex:indexOnPageControl];
+//    }
 }
 
 @end
