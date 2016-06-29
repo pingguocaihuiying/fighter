@@ -211,8 +211,8 @@
 {
     _infiniteLoop = infiniteLoop;
     
-    if (_itemCount > 1) {
-        self.itemCount = self.itemCount;
+    if (self.dataArray.count > 1) {
+        self.dataArray = self.dataArray;
     }
 }
 
@@ -247,13 +247,13 @@
     [self setupPageControl];
 }
 
-- (void) setItemCount:(NSInteger)itemcount {
+- (void) setDataArray:(NSArray* )array {
     
-    _itemCount = itemcount;
+    _dataArray  = array;
     
-    _totalItemsCount = self.infiniteLoop ? _itemCount * 100:_itemCount;
+    _totalItemsCount = self.infiniteLoop ? self.dataArray.count  * 100:self.dataArray.count ;
     
-    if (_itemCount > 1) {
+    if (self.dataArray.count  > 1) {
         self.mainView.scrollEnabled = YES;
         [self setAutoScroll:self.autoScroll];
     } else {
@@ -272,7 +272,7 @@
 {
     if (_pageControl) [_pageControl removeFromSuperview]; // 重新加载数据时调整
     
-    if ((_itemCount <= 1) && self.hidesForSinglePage) {
+    if ((self.dataArray.count  <= 1) && self.hidesForSinglePage) {
         return;
     }
     
@@ -280,7 +280,7 @@
         case SDCycleScrollViewPageContolStyleAnimated:
         {
             TAPageControl *pageControl = [[TAPageControl alloc] init];
-            pageControl.numberOfPages = _itemCount;
+            pageControl.numberOfPages = self.dataArray.count ;
             pageControl.dotColor = self.currentPageDotColor;
             pageControl.userInteractionEnabled = NO;
             [self addSubview:pageControl];
@@ -291,7 +291,7 @@
         case SDCycleScrollViewPageContolStyleClassic:
         {
             UIPageControl *pageControl = [[UIPageControl alloc] init];
-            pageControl.numberOfPages = _itemCount;
+            pageControl.numberOfPages = self.dataArray.count ;
             pageControl.currentPageIndicatorTintColor = self.currentPageDotColor;
             pageControl.pageIndicatorTintColor = self.pageDotColor;
             pageControl.userInteractionEnabled = NO;
@@ -381,9 +381,9 @@
     CGSize size = CGSizeZero;
     if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
         TAPageControl *pageControl = (TAPageControl *)_pageControl;
-        size = [pageControl sizeForNumberOfPages:_itemCount];
+        size = [pageControl sizeForNumberOfPages:self.dataArray.count ];
     } else {
-        size = CGSizeMake(_itemCount * self.pageControlDotSize.width * 1.2, self.pageControlDotSize.height);
+        size = CGSizeMake(self.dataArray.count  * self.pageControlDotSize.width * 1.2, self.pageControlDotSize.height);
     }
     CGFloat x = (self.sd_width - size.width) * 0.5;
     if (self.pageControlAliment == SDCycleScrollViewPageContolAlimentRight) {
@@ -423,9 +423,9 @@
 
 - (void)mainViewDidScroll:(UIScrollView *)scrollView
 {
-    if (!_itemCount) return; // 解决清除timer时偶尔会出现的问题
+    if (!self.dataArray.count ) return; // 解决清除timer时偶尔会出现的问题
     int itemIndex = [self currentIndex];
-    int indexOnPageControl = itemIndex % _itemCount;
+    int indexOnPageControl = itemIndex % self.dataArray.count ;
     
     if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
         TAPageControl *pageControl = (TAPageControl *)_pageControl;
@@ -449,18 +449,18 @@
     if (self.autoScroll) {
         [self setupTimer];
     }
-    [self mainViewDidEndScrollingAnimation:self.mainView];
+    [self.mainView.delegate scrollViewDidEndScrollingAnimation:self.mainView];
 }
 
 - (void)mainViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    if (!_itemCount) return; // 解决清除timer时偶尔会出现的问题
+    if (!self.dataArray.count ) return; // 解决清除timer时偶尔会出现的问题
     int itemIndex = [self currentIndex];
-    int indexOnPageControl = itemIndex % _itemCount;
+    int indexOnPageControl = itemIndex % self.dataArray.count ;
     
-//    if ([self.delegate respondsToSelector:@selector(cycleScrollView:didScrollToIndex:)]) {
-//        [self.delegate cycleScrollView:self didScrollToIndex:indexOnPageControl];
-//    }
+    if ([self.delegate respondsToSelector:@selector(cycleScrollView:didScrollToIndex:)]) {
+        [self.delegate cycleScrollView:self didScrollToIndex:indexOnPageControl];
+    }
 }
 
 @end

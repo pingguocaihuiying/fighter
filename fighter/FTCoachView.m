@@ -77,8 +77,8 @@
     _coachCycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
     _coachCycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点pre"];
     _coachCycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播点"];
-    _coachCycleScrollView.itemCount = _cycleDataSourceArray.count;
-    
+//    _coachCycleScrollView.itemCount = _cycleDataSourceArray.count;
+     _coachCycleScrollView.dataArray = _cycleDataSourceArray;
     [_coachCycleScrollView.mainView registerNib:[UINib nibWithNibName:@"FTCycleScrollViewCell" bundle:nil] forCellWithReuseIdentifier:@"coachScrollCell"];
     _coachCycleScrollView.mainView.dataSource = self;
     _coachCycleScrollView.mainView.delegate = self;
@@ -119,10 +119,9 @@
                 if (tempArray.count > 0) {
                     _cycleDataSourceArray = tempArray;
                 }
-                _coachCycleScrollView.itemCount = _cycleDataSourceArray.count;
+                _coachCycleScrollView.dataArray = _cycleDataSourceArray;
                 [_coachCycleScrollView.mainView reloadData];
             }else {
-                
                 
             }
             
@@ -214,9 +213,16 @@
 #pragma mark UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    @try {
+        
     if (scrollView == _coachCycleScrollView.mainView) {
         
         [_coachCycleScrollView mainViewDidScroll:scrollView];
+    }
+    } @catch (NSException *exception) {
+        NSLog(@"exception:%@",exception);
+    } @finally {
+        
     }
 }
 
@@ -238,10 +244,10 @@
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    if (scrollView == _coachCycleScrollView.mainView) {
-        
-        [_coachCycleScrollView mainViewDidEndScrollingAnimation:scrollView];
-    }
+//    if (scrollView == _coachCycleScrollView.mainView) {
+//        
+//        [_coachCycleScrollView mainViewDidEndScrollingAnimation:scrollView];
+//    }
 }
 
 
