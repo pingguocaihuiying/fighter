@@ -2172,7 +2172,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E64EF1331CB6614100CAE340 /* Build configuration list for PBXNativeTarget "fighter" */;
 			buildPhases = (
-				079F6CFBB5F630D52D2A57D4 /* 📦 Check Pods Manifest.lock */,
+				079F6CFBB5F630D52D2A57D4 /* [CP] Check Pods Manifest.lock */,
 				4FB332F39A8646C733F20968 /* [CP] Check Pods Manifest.lock */,
 				E64EF1021CB6614000CAE340 /* Sources */,
 				E64EF1031CB6614000CAE340 /* Frameworks */,
@@ -2398,14 +2398,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-fighter/Pods-fighter-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		079F6CFBB5F630D52D2A57D4 /* 📦 Check Pods Manifest.lock */ = {
+		079F6CFBB5F630D52D2A57D4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

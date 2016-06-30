@@ -60,7 +60,7 @@
     
     _currentPage = 1;
     _gymTag = @"1";
-    _gymType = @"全部";
+    _gymType = @"All";
     
     _gymCurrId = @"-1";
     _getType = @"new";
@@ -379,10 +379,10 @@
     [cell.title setText:dic[@"name"]];
     [cell.subtitle setText:dic[@"brief"]];
     
-    [cell.avatarImageView.layer setMasksToBounds:YES];
-    cell.avatarImageView.layer.cornerRadius = 28;
+//    [cell.avatarImageView.layer setMasksToBounds:YES];
+//    cell.avatarImageView.layer.cornerRadius = 28;
     
-    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"headUrl"]] placeholderImage:[UIImage imageNamed:@"头像-空"]];
+    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"headUrl"]] placeholderImage:[UIImage imageNamed:@"拳馆占位图"]];
     NSString *string = [NSString stringWithFormat:@"%@, %@, %@",dic[@"labels"],dic[@"labels"],dic[@"labels"]];
     [cell labelsViewAdapter:string];
     
