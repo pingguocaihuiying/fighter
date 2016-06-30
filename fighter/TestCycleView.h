@@ -1,34 +1,19 @@
 //
-//  CycleScrollView.h
+//  TestCycleView.h
 //  fighter
 //
-//  Created by kang on 16/6/28.
+//  Created by kang on 16/6/29.
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "SDCycleScrollView.h"
 
-@class FTCycleScrollView;
-@protocol FTCycleScrollViewDelegate <NSObject>
 
-@optional
-
-///** 点击图片回调 */
-//- (void)cycleScrollView:(FTCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index;
-
-/** 图片滚动回调 */
-- (void)cycleScrollView:(FTCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index;
-
-@end
-
-
-@interface FTCycleScrollView : UIView
-
-@property (nonatomic, weak) UICollectionView *mainView; // 显示图片的collectionView
+@interface TestCycleView : UIView
 
 /** 初始轮播图（推荐使用） */
-+ (instancetype)cycleScrollViewWithFrame:(CGRect)frame delegate:(id<FTCycleScrollViewDelegate>)delegate placeholderImage:(UIImage *)placeholderImage;
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame delegate:(id<SDCycleScrollViewDelegate>)delegate placeholderImage:(UIImage *)placeholderImage;
 
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageURLStringsGroup:(NSArray *)imageURLStringsGroup;
 
@@ -39,16 +24,20 @@
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop imageNamesGroup:(NSArray *)imageNamesGroup;
 
 
-
-//
-
-//@property (nonatomic, assign)NSInteger itemCount;
-
 @property (nonatomic, strong) NSArray *dataArray;
 
-// 设置显示图片的collectionView
-- (void)setupMainView;
+//////////////////////  数据源接口  //////////////////////
 
+/** 网络图片 url string 数组 */
+@property (nonatomic, strong) NSArray *imageURLStringsGroup;
+
+/** 每张图片对应要显示的文字数组 */
+@property (nonatomic, strong) NSArray *titlesGroup;
+
+/** 本地图片数组 */
+@property (nonatomic, strong) NSArray *localizationImageNamesGroup;
+
+@property (nonatomic, weak) UICollectionView *mainView; // 显示图片的collectionView
 
 
 
@@ -66,10 +55,11 @@
 /** 图片滚动方向，默认为水平滚动 */
 @property (nonatomic, assign) UICollectionViewScrollDirection scrollDirection;
 
-@property (nonatomic, weak) id<FTCycleScrollViewDelegate> delegate;
+@property (nonatomic, weak) id<SDCycleScrollViewDelegate> delegate;
 
 /** block监听点击方式 */
 @property (nonatomic, copy) void (^clickItemOperationBlock)(NSInteger currentIndex);
+
 
 
 //////////////////////  自定义样式接口  //////////////////////
@@ -139,6 +129,5 @@
 - (void)mainViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;
 
 - (void)mainViewDidEndScrollingAnimation:(UIScrollView *)scrollView;
-
 
 @end

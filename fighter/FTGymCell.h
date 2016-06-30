@@ -10,4 +10,16 @@
 
 @interface FTGymCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
+
+@property (weak, nonatomic) IBOutlet UILabel *title;
+
+@property (weak, nonatomic) IBOutlet UILabel *subtitle;
+
+@property (weak, nonatomic) IBOutlet UIView *labelsView;
+
+- (void) labelsViewAdapter:(NSString *) labelsString;
+
+- (CGFloat) caculateHeight:(NSString *) labelsString;
+
 @end

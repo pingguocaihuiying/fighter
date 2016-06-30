@@ -161,7 +161,11 @@ extern NSString * const GetVideoByIdURL;
 
 
 #pragma mark - 学拳
-// coach
+// coach 教练
 extern NSString * const GetCoachListURL;
 extern NSString * const GetCoachByIdURL;
+// gym 拳馆
+extern NSString * const GetGymListURL;
+extern NSString * const GetGymByIdURL;
+
 

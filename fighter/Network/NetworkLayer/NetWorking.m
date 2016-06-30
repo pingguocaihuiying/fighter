@@ -736,14 +736,14 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     
     [manager POST:urlString
        parameters:dic
-constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-    
-    for (NSString *key in [appendDic allKeys] ) {
-        
-        [formData appendPartWithFileURL:appendDic[key] name:key error:nil];
-    }
-    
-}
+       constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+                
+                for (NSString *key in [appendDic allKeys] ) {
+                    
+                    [formData appendPartWithFileURL:appendDic[key] name:key error:nil];
+                }
+                
+            }
           success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
               
               NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -958,5 +958,12 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     [self getRequestWithUrl:urlString parameters:dic option:option];
 }
 
+// Get Gym List
++ (void) getGymsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option  {
+    
+    NSString *urlString = [FTNetConfig host:Domain path:GetGymListURL];
+    
+    [self getRequestWithUrl:urlString parameters:dic option:option];
+}
 
 @end

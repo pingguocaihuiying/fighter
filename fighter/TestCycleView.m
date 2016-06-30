@@ -1,64 +1,35 @@
 //
-//  CycleScrollView.m
+//  TestCycleView.m
 //  fighter
 //
-//  Created by kang on 16/6/28.
+//  Created by kang on 16/6/29.
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
-#import "FTCycleScrollView.h"
+#import "TestCycleView.h"
+#import "SDCycleScrollView.h"
+#import "SDCollectionViewCell.h"
 #import "UIView+SDExtension.h"
 #import "TAPageControl.h"
 #import "UIImageView+WebCache.h"
 #import "SDImageCache.h"
 
-//NSString * const ID = @"cycleCell";
+@interface TestCycleView ()
 
-@interface FTCycleScrollView () <UIScrollViewDelegate>
+
 
 @property (nonatomic, weak) UICollectionViewFlowLayout *flowLayout;
-//@property (nonatomic, strong) NSArray *imagePathsGroup;
 @property (nonatomic, weak) NSTimer *timer;
 @property (nonatomic, assign) NSInteger totalItemsCount;
 @property (nonatomic, weak) UIControl *pageControl;
 
+@property (nonatomic, weak) UIImageView *backgroundImageView; // 当imageURLs为空时的背景图
 
 @property (nonatomic, assign) NSInteger networkFailedRetryCount;
 
 @end
 
-@implementation FTCycleScrollView
-
-+ (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageNamesGroup:(NSArray *)imageNamesGroup
-{
-    FTCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
-    
-    return cycleScrollView;
-}
-
-+ (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop imageNamesGroup:(NSArray *)imageNamesGroup
-{
-    FTCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
-    cycleScrollView.infiniteLoop = infiniteLoop;
-    return cycleScrollView;
-}
-
-+ (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageURLStringsGroup:(NSArray *)imageURLsGroup
-{
-    FTCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
-   
-    return cycleScrollView;
-}
-
-+ (instancetype)cycleScrollViewWithFrame:(CGRect)frame delegate:(id<FTCycleScrollViewDelegate>)delegate placeholderImage:(UIImage *)placeholderImage
-{
-    FTCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
-    cycleScrollView.delegate = delegate;
-    cycleScrollView.placeholderImage = placeholderImage;
-    
-    return cycleScrollView;
-}
-
+@implementation TestCycleView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -100,7 +71,36 @@
     
 }
 
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageNamesGroup:(NSArray *)imageNamesGroup
+{
+    TestCycleView *cycleScrollView = [[self alloc] initWithFrame:frame];
+    cycleScrollView.localizationImageNamesGroup = [NSMutableArray arrayWithArray:imageNamesGroup];
+    return cycleScrollView;
+}
 
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop imageNamesGroup:(NSArray *)imageNamesGroup
+{
+    TestCycleView *cycleScrollView = [[self alloc] initWithFrame:frame];
+    cycleScrollView.infiniteLoop = infiniteLoop;
+    cycleScrollView.localizationImageNamesGroup = [NSMutableArray arrayWithArray:imageNamesGroup];
+    return cycleScrollView;
+}
+
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageURLStringsGroup:(NSArray *)imageURLsGroup
+{
+    TestCycleView *cycleScrollView = [[self alloc] initWithFrame:frame];
+    cycleScrollView.imageURLStringsGroup = [NSMutableArray arrayWithArray:imageURLsGroup];
+    return cycleScrollView;
+}
+
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame delegate:(id<SDCycleScrollViewDelegate>)delegate placeholderImage:(UIImage *)placeholderImage
+{
+    TestCycleView *cycleScrollView = [[self alloc] initWithFrame:frame];
+    cycleScrollView.delegate = delegate;
+    cycleScrollView.placeholderImage = placeholderImage;
+    
+    return cycleScrollView;
+}
 
 // 设置显示图片的collectionView
 - (void)setupMainView
@@ -115,22 +115,28 @@
     mainView.pagingEnabled = YES;
     mainView.showsHorizontalScrollIndicator = NO;
     mainView.showsVerticalScrollIndicator = NO;
-//    mainView.dataSource = self;
-//    mainView.delegate = self;
-//    [_mainView registerNib:[UINib nibWithNibName:@"FTCycleScrollViewCell" bundle:nil] forCellWithReuseIdentifier:@"coachScrollCell"];
     
     mainView.scrollsToTop = NO;
     [self addSubview:mainView];
     _mainView = mainView;
-    
-    __weak UIScrollView *scroView = (UIScrollView *)_mainView.superview;
-    scroView.delegate = self;
-   
 }
 
 
-
 #pragma mark - properties
+
+- (void)setPlaceholderImage:(UIImage *)placeholderImage
+{
+    _placeholderImage = placeholderImage;
+    
+    if (!self.backgroundImageView) {
+        UIImageView *bgImageView = [UIImageView new];
+        bgImageView.contentMode = UIViewContentModeScaleAspectFit;
+        [self insertSubview:bgImageView belowSubview:self.mainView];
+        self.backgroundImageView = bgImageView;
+    }
+    
+    //    self.backgroundImageView.image = placeholderImage;
+}
 
 - (void)setPageControlDotSize:(CGSize)pageControlDotSize
 {
@@ -211,7 +217,7 @@
 {
     _infiniteLoop = infiniteLoop;
     
-    if (self.dataArray.count > 1) {
+    if (self.dataArray.count) {
         self.dataArray = self.dataArray;
     }
 }
@@ -247,13 +253,16 @@
     [self setupPageControl];
 }
 
-- (void) setDataArray:(NSArray* )array {
+- (void) setDataArray:(NSArray *)dataArray {
     
-    _dataArray  = array;
+    if (dataArray.count < _dataArray.count) {
+        [_mainView setContentOffset:CGPointZero animated:NO];
+    }
+    _dataArray = dataArray;
     
-    _totalItemsCount = self.infiniteLoop ? self.dataArray.count  * 100:self.dataArray.count ;
+    _totalItemsCount = self.infiniteLoop ? self.dataArray.count * 100 : self.dataArray.count;
     
-    if (self.dataArray.count != 1) {
+    if (dataArray.count > 1) {
         self.mainView.scrollEnabled = YES;
         [self setAutoScroll:self.autoScroll];
     } else {
@@ -265,6 +274,7 @@
 }
 
 
+
 #pragma mark - actions
 
 
@@ -272,7 +282,7 @@
 {
     if (_pageControl) [_pageControl removeFromSuperview]; // 重新加载数据时调整
     
-    if ((self.dataArray.count  <= 1) && self.hidesForSinglePage) {
+    if ((self.dataArray.count <= 1) && self.hidesForSinglePage) {
         return;
     }
     
@@ -280,7 +290,7 @@
         case SDCycleScrollViewPageContolStyleAnimated:
         {
             TAPageControl *pageControl = [[TAPageControl alloc] init];
-            pageControl.numberOfPages = self.dataArray.count ;
+            pageControl.numberOfPages = self.dataArray.count;
             pageControl.dotColor = self.currentPageDotColor;
             pageControl.userInteractionEnabled = NO;
             [self addSubview:pageControl];
@@ -291,7 +301,7 @@
         case SDCycleScrollViewPageContolStyleClassic:
         {
             UIPageControl *pageControl = [[UIPageControl alloc] init];
-            pageControl.numberOfPages = self.dataArray.count ;
+            pageControl.numberOfPages = self.dataArray.count;
             pageControl.currentPageIndicatorTintColor = self.currentPageDotColor;
             pageControl.pageIndicatorTintColor = self.pageDotColor;
             pageControl.userInteractionEnabled = NO;
@@ -308,7 +318,6 @@
     self.currentPageDotImage = self.currentPageDotImage;
     self.pageDotImage = self.pageDotImage;
 }
-
 
 
 - (void)automaticScroll
@@ -353,11 +362,12 @@
     [[self class] clearImagesCache];
 }
 
+
+
 + (void)clearImagesCache
 {
     [[[SDWebImageManager sharedManager] imageCache] clearDisk];
 }
-
 
 #pragma mark - life circles
 
@@ -381,9 +391,9 @@
     CGSize size = CGSizeZero;
     if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
         TAPageControl *pageControl = (TAPageControl *)_pageControl;
-        size = [pageControl sizeForNumberOfPages:self.dataArray.count ];
+        size = [pageControl sizeForNumberOfPages:self.dataArray.count];
     } else {
-        size = CGSizeMake(self.dataArray.count  * self.pageControlDotSize.width * 1.2, self.pageControlDotSize.height);
+        size = CGSizeMake(self.dataArray.count * self.pageControlDotSize.width * 1.2, self.pageControlDotSize.height);
     }
     CGFloat x = (self.sd_width - size.width) * 0.5;
     if (self.pageControlAliment == SDCycleScrollViewPageContolAlimentRight) {
@@ -399,6 +409,9 @@
     self.pageControl.frame = CGRectMake(x, y, size.width, size.height);
     self.pageControl.hidden = !_showPageControl;
     
+    if (self.backgroundImageView) {
+        self.backgroundImageView.frame = self.bounds;
+    }
 }
 
 //解决当父View释放时，当前视图因为被Timer强引用而不能释放的问题
@@ -419,13 +432,13 @@
 #pragma mark - public actions
 
 
-#pragma mark - UIScrollView action
+#pragma mark - UIScrollViewDelegate
 
-- (void)mainViewDidScroll:(UIScrollView *)scrollView
+- (void) mainViewDidScroll:(UIScrollView *)scrollView
 {
-    if (!self.dataArray.count ) return; // 解决清除timer时偶尔会出现的问题
+    if (!self.dataArray.count) return; // 解决清除timer时偶尔会出现的问题
     int itemIndex = [self currentIndex];
-    int indexOnPageControl = itemIndex % self.dataArray.count ;
+    int indexOnPageControl = itemIndex % self.dataArray.count;
     
     if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
         TAPageControl *pageControl = (TAPageControl *)_pageControl;
@@ -449,18 +462,20 @@
     if (self.autoScroll) {
         [self setupTimer];
     }
-    [self.mainView.delegate scrollViewDidEndScrollingAnimation:self.mainView];
+    [self mainViewDidEndScrollingAnimation:self.mainView];
 }
 
 - (void)mainViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    if (!self.dataArray.count ) return; // 解决清除timer时偶尔会出现的问题
+    if (!self.dataArray.count) return; // 解决清除timer时偶尔会出现的问题
     int itemIndex = [self currentIndex];
-    int indexOnPageControl = itemIndex % self.dataArray.count ;
+    int indexOnPageControl = itemIndex % self.dataArray.count;
     
     if ([self.delegate respondsToSelector:@selector(cycleScrollView:didScrollToIndex:)]) {
         [self.delegate cycleScrollView:self didScrollToIndex:indexOnPageControl];
     }
 }
 
+
 @end
+
