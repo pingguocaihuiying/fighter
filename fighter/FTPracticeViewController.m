@@ -10,15 +10,16 @@
 #import "FTSegmentedControl.h"
 #import "FTPracticeView.h"
 #import "FTCoachView.h"
+#import "FTGymView.h"
 
 #import "FTRankViewController.h"
-
 
 @interface FTPracticeViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (strong, nonatomic)  FTPracticeView *practiceView;
 @property (strong, nonatomic)  FTCoachView *coachView;
+@property (strong, nonatomic)  FTGymView *gymView;
 
 @property (weak, nonatomic) IBOutlet UIButton *leftBtn;
 
@@ -109,6 +110,17 @@
     
 }
 
+- (void) initGymView {
+    
+    if (!_gymView) {
+        _gymView = [[FTGymView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 100-59)];
+        _gymView.delegate = self;
+    }
+    
+    [self.contentView addSubview:_gymView];
+    
+}
+
 
 #pragma mark - delegate
 - (void)pushToController:(UIViewController *)viewController {
@@ -152,6 +164,7 @@
     [self initPracticeView];
     
     [_coachView removeFromSuperview];
+    [_gymView removeFromSuperview];
 }
 
 - (IBAction)coachBtnAction:(id)sender {
@@ -168,6 +181,7 @@
     [self initCoachView];
     
     [_practiceView removeFromSuperview];
+    [_gymView removeFromSuperview];
 }
 
 - (IBAction)gymBtnAction:(id)sender {
@@ -180,6 +194,11 @@
     
     _gymBtn.selected = YES;
     _gymBtn.enabled = NO;
+    
+    [self initGymView];
+
+    [_practiceView removeFromSuperview];
+    [_coachView removeFromSuperview];
 }
 
 - (void)didReceiveMemoryWarning {

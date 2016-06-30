@@ -178,6 +178,9 @@
 #pragma mark - 学拳
 // Get Coach List
 + (void) getCoachsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option;
+
+// Get Gym List
++ (void) getGymsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option;
 @end
 
 

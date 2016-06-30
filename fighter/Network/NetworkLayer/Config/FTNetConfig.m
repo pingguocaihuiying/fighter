@@ -194,3 +194,6 @@ NSString * const NewPostCheckKey =  @"gedoujia1gdshjjgfkd52261225550";
 NSString * const GetCoachListURL = @"/api/coach/list.do";
 NSString * const GetCoachByIdURL = @"/api/coach/{id}.do";
 
+// gym 拳馆
+NSString * const GetGymListURL = @"/api/gym/getGym.do";
+NSString * const GetGymByIdURL = @"/api/gym/getVideosById.do";

@@ -83,7 +83,7 @@
                     <constraint firstItem="6l6-1j-gyg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="69" id="OaJ-ih-462"/>
                     <constraint firstItem="sXy-Lq-gnB" firstAttribute="bottom" secondItem="bCh-qb-wWZ" secondAttribute="bottom" id="OiM-SI-aEq"/>
                     <constraint firstAttribute="trailing" secondItem="6l6-1j-gyg" secondAttribute="trailing" constant="12" id="PBN-HB-0QC"/>
-                    <constraint firstItem="bCh-qb-wWZ" firstAttribute="bottom" secondItem="78h-eo-La7" secondAttribute="top" constant="-10" id="RsV-ay-jMb"/>
+                    <constraint firstItem="78h-eo-La7" firstAttribute="top" secondItem="bCh-qb-wWZ" secondAttribute="bottom" constant="10" id="RsV-ay-jMb"/>
                     <constraint firstItem="fF8-Yb-1yf" firstAttribute="top" secondItem="MEc-20-fEJ" secondAttribute="top" id="Wvk-UI-9Gq"/>
                     <constraint firstItem="RZZ-Bd-61E" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="cyv-Xf-f5n"/>
                     <constraint firstItem="bCh-qb-wWZ" firstAttribute="leading" secondItem="78h-eo-La7" secondAttribute="leading" id="dAD-uc-X6n"/>
@@ -99,6 +99,13 @@
                     <constraint firstItem="MEc-20-fEJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="ymr-Vb-NjM"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="avatarImageView" destination="MEc-20-fEJ" id="iA5-bG-FCs"/>
+                <outlet property="fansNum" destination="sXy-Lq-gnB" id="ffY-Na-rnh"/>
+                <outlet property="labelsView" destination="6l6-1j-gyg" id="ty3-5F-qrH"/>
+                <outlet property="subtitle" destination="bCh-qb-wWZ" id="6ZN-J7-IUd"/>
+                <outlet property="title" destination="YH6-FX-bb1" id="ylN-BJ-DD0"/>
+            </connections>
             <point key="canvasLocation" x="183" y="264"/>
         </tableViewCell>
     </objects>
