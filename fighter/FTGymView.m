@@ -1,50 +1,54 @@
 //
-//  FTCoachView.m
+//  FTGymView.m
 //  fighter
 //
-//  Created by kang on 16/6/24.
+//  Created by kang on 16/6/30.
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
-#import "FTCoachView.h"
-#import "FTCoachCell.h"
+#import "FTGymView.h"
+#import "FTGymCell.h"
 #import "FTButton.h"
 #import "FTCycleScrollView.h"
-#import "FTCycleScrollViewCell.h"
+#import "FTCycleScrollViewCell2.h"
 //#import "TestCycleView.h"
 
-@interface FTCoachView () <UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, FTCycleScrollViewDelegate>
+@interface FTGymView () <UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, FTCycleScrollViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong)FTCycleScrollView *coachCycleScrollView;
+@property (nonatomic, strong)FTCycleScrollView *gymCycleScrollView;
 //@property (nonatomic, strong)TestCycleView *coachCycleScrollView;
 
 @property (nonatomic, strong)NSMutableArray *cycleDataSourceArray;
 @property (nonatomic, strong)NSMutableArray *tableViewDataSourceArray;
 
 @property (nonatomic, copy) NSString *address;  //地址
-@property (nonatomic, copy) NSString *order;    //排序
-@property (nonatomic, copy) NSString *kind;     //格斗项目
+@property (nonatomic, copy) NSString *gymTag;    //排序
+@property (nonatomic, copy) NSString *gymType;     //格斗项目
 
 @property (assign) NSInteger currentPage;
 
+@property (nonatomic, copy) NSString * gymCurrId;
+@property (nonatomic, copy) NSString * getType;
+
+
 @end
 
-@implementation FTCoachView
+@implementation FTGymView
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 - (id) initWithFrame:(CGRect)frame {
-
+    
     self = [super initWithFrame:frame];
     if (self) {
         
         [self initialization];
-//        [self initSubviews];
+        //        [self initSubviews];
         [self setBackgroundColor:[UIColor clearColor]];
     }
     
@@ -55,6 +59,11 @@
 - (void) initialization {
     
     _currentPage = 1;
+    _gymTag = @"1";
+    _gymType = @"全部";
+    
+    _gymCurrId = @"-1";
+    _getType = @"new";
     
     [self getCycleScrollViewDataFromWeb];
     [self getTableViewDataFromWeb];
@@ -65,32 +74,31 @@
     
     [self initCycleScrollView];
     [self initTableView];
-     
+    
 }
 
 - (void)initCycleScrollView{
     
-//    _cycleDataSourceArray = [NSMutableArray new];
-//    for (int i = 0; i< 4; i++) {
-//        
-//        [_cycleDataSourceArray addObject:[NSURL URLWithString:@"http://www.gogogofight.com/img/news/news1467183207211.jpg"]];
-//    }
-
-    _coachCycleScrollView = [FTCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180 * SCREEN_WIDTH / 375)
-                                                                delegate:self
-                                                        placeholderImage:[UIImage imageNamed:@"轮播大图-空"]];
-    _coachCycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    //    _cycleDataSourceArray = [NSMutableArray new];
+    //    for (int i = 0; i< 4; i++) {
+    //
+    //        [_cycleDataSourceArray addObject:[NSURL URLWithString:@"http://www.gogogofight.com/img/news/news1467183207211.jpg"]];
+    //    }
     
-    _coachCycleScrollView.backgroundColor = [UIColor clearColor];
-    _coachCycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
-    _coachCycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点pre"];
-    _coachCycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播点"];
-//    _coachCycleScrollView.itemCount = _cycleDataSourceArray.count;
-     _coachCycleScrollView.dataArray = _cycleDataSourceArray;
-    [_coachCycleScrollView.mainView registerNib:[UINib nibWithNibName:@"FTCycleScrollViewCell" bundle:nil] forCellWithReuseIdentifier:@"coachScrollCell"];
-    _coachCycleScrollView.mainView.dataSource = self;
-    _coachCycleScrollView.mainView.delegate = self;
-
+    _gymCycleScrollView = [FTCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180 * SCREEN_WIDTH / 375)
+                                                               delegate:self
+                                                       placeholderImage:[UIImage imageNamed:@"轮播大图-空"]];
+    _gymCycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    
+    _gymCycleScrollView.backgroundColor = [UIColor clearColor];
+    _gymCycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
+    _gymCycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点pre"];
+    _gymCycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播点"];
+    _gymCycleScrollView.dataArray = _cycleDataSourceArray;
+    [_gymCycleScrollView.mainView registerNib:[UINib nibWithNibName:@"FTCycleScrollViewCell2" bundle:nil] forCellWithReuseIdentifier:@"gymScrollCell"];
+    _gymCycleScrollView.mainView.dataSource = self;
+    _gymCycleScrollView.mainView.delegate = self;
+    
 }
 
 - (void) initTableView {
@@ -100,9 +108,9 @@
     [_tableView setBackgroundColor:[UIColor clearColor]];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    [_tableView registerNib:[UINib nibWithNibName:@"FTCoachCell" bundle:nil]  forCellReuseIdentifier:@"coachCell"];
-//    _tableView.tableHeaderView = _cycleScrollView;
-    _tableView.tableHeaderView = _coachCycleScrollView;
+    [_tableView registerNib:[UINib nibWithNibName:@"FTGymCell" bundle:nil]  forCellReuseIdentifier:@"gymCell"];
+    //    _tableView.tableHeaderView = _cycleScrollView;
+    _tableView.tableHeaderView = _gymCycleScrollView;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addSubview:_tableView];
 }
@@ -137,39 +145,47 @@
         [self initTableView];
         
     }];
-
+    
 }
 
 // 获取tableView 数据
 - (void) getTableViewDataFromWeb {
-
+    
     NSMutableDictionary *dic = [NSMutableDictionary new];
-    [dic setObject:@"time" forKey:@"order"];
-    [dic setObject:@"10" forKey:@"pageSize"];
-    [dic setObject:@"1" forKey:@"pageNum"];
-    [NetWorking getCoachsByDic:dic option:^(NSDictionary *dict) {
+    [dic setObject:_gymType forKey:@"gymType"];
+    [dic setObject:_gymCurrId forKey:@"gymCurrId"];
+    [dic setObject:_gymTag forKey:@"gymTag"];
+    [dic setObject:_getType forKey:@"getType"];
+    
+    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@",_gymType,_gymCurrId,_gymTag, _getType, ts, @"quanjijia222222"]];
+    
+    [dic setObject:ts forKey:@"ts"];
+    [dic setObject:checkSign forKey:@"checkSign"];
+    
+    [NetWorking getGymsByDic:dic option:^(NSDictionary *dict) {
         
         NSLog(@"table dict:%@",dict);
         if (dict != nil) {
-        
-           if ([dict[@"status"] isEqualToString:@"success"] ) {
+            
+            if ([dict[@"status"] isEqualToString:@"success"] ) {
                 
                 NSArray *tempArray = dict[@"data"];
                 if (_currentPage == 1) {
                     _tableViewDataSourceArray = [NSMutableArray arrayWithArray:tempArray];
                 }else {
-                
+                    
                     [_tableViewDataSourceArray addObjectsFromArray:tempArray];
                 }
-               
-               [_tableView reloadData];
+                
+                [_tableView reloadData];
             }else {
-            
+                
                 
             }
             
         }else {
-        
+            
         }
         
     }];
@@ -188,13 +204,13 @@
     
     NSDictionary *dic = [_cycleDataSourceArray objectAtIndex:indexPath.row%_cycleDataSourceArray.count];
     
-    FTCycleScrollViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"coachScrollCell" forIndexPath:indexPath];
+    FTCycleScrollViewCell2 *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"gymScrollCell" forIndexPath:indexPath];
     
     [cell.title setText:dic[@"name"]];
     [cell.subtitle setText:dic[@"brief"]];
-    [cell.brief setText:dic[@"remark"]];
+//    [cell.brief setText:dic[@"remark"]];
     
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:dic[@"background"]] placeholderImage:[UIImage imageNamed:@"轮播大图-空"]];
+    [cell.backImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"background"]] placeholderImage:[UIImage imageNamed:@"轮播大图-空"]];
     return cell;
 }
 
@@ -212,7 +228,7 @@
     //    newsDetailViewController.newsBean = bean;
     //
     //    [self.navigationController pushViewController:newsDetailViewController animated:YES];
-
+    
 }
 
 #pragma mark UIScrollViewDelegate
@@ -220,10 +236,10 @@
 {
     @try {
         
-    if (scrollView == _coachCycleScrollView.mainView) {
-        
-        [_coachCycleScrollView mainViewDidScroll:scrollView];
-    }
+        if (scrollView == _gymCycleScrollView.mainView) {
+            
+            [_gymCycleScrollView mainViewDidScroll:scrollView];
+        }
     } @catch (NSException *exception) {
         NSLog(@"exception:%@",exception);
     } @finally {
@@ -233,26 +249,26 @@
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    if (scrollView == _coachCycleScrollView.mainView) {
+    if (scrollView == _gymCycleScrollView.mainView) {
         
-        [_coachCycleScrollView mainViewWillBeginDragging:scrollView];
+        [_gymCycleScrollView mainViewWillBeginDragging:scrollView];
     }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    if (scrollView == _coachCycleScrollView.mainView) {
+    if (scrollView == _gymCycleScrollView.mainView) {
         
-        [_coachCycleScrollView mainViewDidEndDragging:scrollView willDecelerate:decelerate];
+        [_gymCycleScrollView mainViewDidEndDragging:scrollView willDecelerate:decelerate];
     }
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-//    if (scrollView == _coachCycleScrollView.mainView) {
-//        
-//        [_coachCycleScrollView mainViewDidEndScrollingAnimation:scrollView];
-//    }
+    //    if (scrollView == _coachCycleScrollView.mainView) {
+    //
+    //        [_coachCycleScrollView mainViewDidEndScrollingAnimation:scrollView];
+    //    }
 }
 
 
@@ -260,14 +276,14 @@
 
 /** 图片滚动回调 */
 - (void)cycleScrollView:(FTCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index {
-
+    
     
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
+    
     return 1;
 }
 
@@ -277,19 +293,24 @@
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    static FTCoachCell * cell =nil;
+    
+    static FTGymCell * cell =nil;
     static dispatch_once_t tonceToken;
     dispatch_once(&tonceToken, ^{
-        cell = [tableView dequeueReusableCellWithIdentifier:@"coachCell"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
     });
     
     NSDictionary *dic = [_tableViewDataSourceArray objectAtIndex:indexPath.row];
-    CGFloat labelView_H = [cell caculateHeight:dic[@"labels"]];
+//    CGFloat labelView_H = [cell caculateHeight:dic[@"labels"]];
+    NSString *string = [NSString stringWithFormat:@"%@, %@, %@",dic[@"labels"],dic[@"labels"],dic[@"labels"]];
+     CGFloat labelView_H = [cell caculateHeight:string];
+//    CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+//    NSLog(@"h=%f", size.height + 1);
+    
     if (labelView_H == 0) {
-        return 85;
+        return 118;
     }
-    return 95 + labelView_H;
+    return 88 + labelView_H;
 }
 
 //headerView高度
@@ -350,49 +371,49 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     
-    FTCoachCell *cell = [tableView dequeueReusableCellWithIdentifier:@"coachCell"];
+    FTGymCell *cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
     cell.backgroundColor = [UIColor clearColor];
     
     NSDictionary *dic = [_tableViewDataSourceArray objectAtIndex:indexPath.row];
-
+    
     [cell.title setText:dic[@"name"]];
     [cell.subtitle setText:dic[@"brief"]];
-    [cell.fansNum setText:dic[@"fansCount"]];
     
     [cell.avatarImageView.layer setMasksToBounds:YES];
-    cell.avatarImageView.layer.cornerRadius = 20;
+    cell.avatarImageView.layer.cornerRadius = 28;
     
     [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"headUrl"]] placeholderImage:[UIImage imageNamed:@"头像-空"]];
+    NSString *string = [NSString stringWithFormat:@"%@, %@, %@",dic[@"labels"],dic[@"labels"],dic[@"labels"]];
+    [cell labelsViewAdapter:string];
     
-    
-    [cell labelsViewAdapter:dic[@"labels"]];
+//    [cell labelsViewAdapter:dic[@"labels"]];
     
     return cell;
 }
 
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelected:NO];
     
     
 }
-#pragma mark - response 
+#pragma mark - response
 
 - (void) addressBtnAction:(id) sender {
-
+    
     
 }
 
 - (void) orderBtnAction:(id) sender {
-
+    
     
 }
 
 
 - (void) kindBtnAction:(id) sender {
-
+    
 }
 
 - (FTButton *) selectButton:(NSString *)title {

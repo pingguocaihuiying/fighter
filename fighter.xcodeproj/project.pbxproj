@@ -112,6 +112,7 @@
 		3DC9A4EA1CE5CC6C00E16D19 /* FTRankBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC9A4E81CE5CC6C00E16D19 /* FTRankBaseViewController.xib */; };
 		3DC9A4EE1CE5CD0700E16D19 /* FTRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9A4EC1CE5CD0700E16D19 /* FTRankViewController.m */; };
 		3DC9A4EF1CE5CD0700E16D19 /* FTRankViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC9A4ED1CE5CD0700E16D19 /* FTRankViewController.xib */; };
+		3DCBC6AE1D24F6CC0000C28D /* FTGymView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DCBC6AD1D24F6CC0000C28D /* FTGymView.m */; };
 		3DD07E951D1CC361004AF720 /* FTBaseViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD07E941D1CC361004AF720 /* FTBaseViewController2.m */; };
 		3DD07E981D1CCEDF004AF720 /* FTCoachView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD07E971D1CCEDF004AF720 /* FTCoachView.m */; };
 		3DD54E251D00331300888AC6 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD54E241D00331300888AC6 /* AdSupport.framework */; };
@@ -136,6 +137,7 @@
 		3DF90BB11CFED21C00BD83F8 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF90BB01CFED21C00BD83F8 /* CoreText.framework */; };
 		3DF90BB31CFED23C00BD83F8 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF90BB21CFED23C00BD83F8 /* ImageIO.framework */; };
 		3DF90BB51CFED25800BD83F8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF90BB41CFED25800BD83F8 /* QuartzCore.framework */; };
+		3DFB7DEF1D23E55A00CC79EA /* TestCycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFB7DEE1D23E55A00CC79EA /* TestCycleView.m */; };
 		3DFC414E1D083A3F0067AC72 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC41411D083A3F0067AC72 /* TAAbstractDotView.m */; };
 		3DFC414F1D083A3F0067AC72 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC41431D083A3F0067AC72 /* TAAnimatedDotView.m */; };
 		3DFC41501D083A3F0067AC72 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC41451D083A3F0067AC72 /* TADotView.m */; };
@@ -453,6 +455,8 @@
 		3DC9A4EB1CE5CD0700E16D19 /* FTRankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankViewController.h; sourceTree = "<group>"; };
 		3DC9A4EC1CE5CD0700E16D19 /* FTRankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankViewController.m; sourceTree = "<group>"; };
 		3DC9A4ED1CE5CD0700E16D19 /* FTRankViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRankViewController.xib; sourceTree = "<group>"; };
+		3DCBC6AC1D24F6CC0000C28D /* FTGymView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymView.h; sourceTree = "<group>"; };
+		3DCBC6AD1D24F6CC0000C28D /* FTGymView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymView.m; sourceTree = "<group>"; };
 		3DD07E931D1CC361004AF720 /* FTBaseViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBaseViewController2.h; sourceTree = "<group>"; };
 		3DD07E941D1CC361004AF720 /* FTBaseViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBaseViewController2.m; sourceTree = "<group>"; };
 		3DD07E961D1CCEDF004AF720 /* FTCoachView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCoachView.h; sourceTree = "<group>"; };
@@ -486,6 +490,8 @@
 		3DF90BB01CFED21C00BD83F8 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		3DF90BB21CFED23C00BD83F8 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		3DF90BB41CFED25800BD83F8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		3DFB7DED1D23E55A00CC79EA /* TestCycleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestCycleView.h; sourceTree = "<group>"; };
+		3DFB7DEE1D23E55A00CC79EA /* TestCycleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestCycleView.m; sourceTree = "<group>"; };
 		3DFC41401D083A3F0067AC72 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
 		3DFC41411D083A3F0067AC72 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
 		3DFC41421D083A3F0067AC72 /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
@@ -831,6 +837,8 @@
 			isa = PBXGroup;
 			children = (
 				3D8B2E551D1D14BC00E18280 /* cell */,
+				3DCBC6AC1D24F6CC0000C28D /* FTGymView.h */,
+				3DCBC6AD1D24F6CC0000C28D /* FTGymView.m */,
 			);
 			name = "拳馆";
 			sourceTree = "<group>";
@@ -1114,6 +1122,8 @@
 				3DA6D1C61D20D94E0049CD4A /* FTCycleScrollViewCell2.h */,
 				3DA6D1C71D20D94E0049CD4A /* FTCycleScrollViewCell2.m */,
 				3DA6D1C81D20D94E0049CD4A /* FTCycleScrollViewCell2.xib */,
+				3DFB7DED1D23E55A00CC79EA /* TestCycleView.h */,
+				3DFB7DEE1D23E55A00CC79EA /* TestCycleView.m */,
 			);
 			name = cycleScrollView;
 			sourceTree = "<group>";
@@ -2516,6 +2526,7 @@
 				E6B239021D066C88001F86BE /* FTHomepageCommentListViewController.m in Sources */,
 				E6E9E88B1CDC464A00976480 /* FTVideoCollectionView.m in Sources */,
 				3DE95B501CD326B7005BF85C /* FTCollectionViewLayout.m in Sources */,
+				3DFB7DEF1D23E55A00CC79EA /* TestCycleView.m in Sources */,
 				3DFC41521D083A3F0067AC72 /* SDCollectionViewCell.m in Sources */,
 				E68050B71CBF919A00678905 /* JHRefreshAmazingAniView.m in Sources */,
 				E6FE6A5D1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m in Sources */,
@@ -2606,6 +2617,7 @@
 				3D13FB1F1D1A40350060B9B4 /* FTSegmentItem.m in Sources */,
 				E6D74A501CB7B7EE00854337 /* ZJModelTool.m in Sources */,
 				E68050BD1CBF919A00678905 /* JHRefreshFooterView.m in Sources */,
+				3DCBC6AE1D24F6CC0000C28D /* FTGymView.m in Sources */,
 				E6D74A4D1CB7B7EE00854337 /* KeyChainStore.m in Sources */,
 				3D7B98C31CE08DEE00B80B8D /* FTNewPasswordVC.m in Sources */,
 				E6035EBE1CC0C39500B10D36 /* FTCommentViewController.m in Sources */,

@@ -8,12 +8,62 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="FTCycleScrollViewCell2">
-            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="274" height="138"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                <rect key="frame" x="0.0" y="0.0" width="274" height="138"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="75x-Qj-Pcu">
+                        <rect key="frame" x="0.0" y="0.0" width="274" height="138"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="头图暗影遮罩-ios" translatesAutoresizingMaskIntoConstraints="NO" id="tkr-uF-BFk">
+                        <rect key="frame" x="0.0" y="0.0" width="274" height="138"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iF3-HB-Sb7">
+                        <rect key="frame" x="117.5" y="67" width="39.5" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="fla-yu-UKX"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5VA-5L-d9g">
+                        <rect key="frame" x="121.5" y="91" width="31" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="12" id="Fh0-qf-qKO"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="tkr-uF-BFk" secondAttribute="bottom" id="CXv-pz-cMA"/>
+                <constraint firstItem="5VA-5L-d9g" firstAttribute="centerX" secondItem="iF3-HB-Sb7" secondAttribute="centerX" id="Ji3-wf-hal"/>
+                <constraint firstItem="5VA-5L-d9g" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Pgp-fJ-TLo"/>
+                <constraint firstAttribute="bottom" secondItem="5VA-5L-d9g" secondAttribute="bottom" constant="35" id="VJZ-OW-IYx"/>
+                <constraint firstAttribute="bottom" secondItem="75x-Qj-Pcu" secondAttribute="bottom" id="kU2-Ye-cu5"/>
+                <constraint firstItem="tkr-uF-BFk" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="m6M-Cj-hFH"/>
+                <constraint firstItem="tkr-uF-BFk" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ux2-fX-YuJ"/>
+                <constraint firstAttribute="trailing" secondItem="75x-Qj-Pcu" secondAttribute="trailing" id="vSl-06-6oF"/>
+                <constraint firstItem="75x-Qj-Pcu" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="vtW-Zu-HXY"/>
+                <constraint firstAttribute="trailing" secondItem="tkr-uF-BFk" secondAttribute="trailing" id="w2T-HN-FxM"/>
+                <constraint firstItem="75x-Qj-Pcu" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="yTy-j2-qQX"/>
+                <constraint firstItem="5VA-5L-d9g" firstAttribute="top" secondItem="iF3-HB-Sb7" secondAttribute="bottom" constant="8" id="zZQ-XE-8qq"/>
+            </constraints>
+            <size key="customSize" width="274" height="138"/>
+            <connections>
+                <outlet property="backImageView" destination="75x-Qj-Pcu" id="irn-JA-ebx"/>
+                <outlet property="subtitle" destination="5VA-5L-d9g" id="qZ4-66-JB5"/>
+                <outlet property="title" destination="iF3-HB-Sb7" id="b8z-Eg-RE0"/>
+            </connections>
+            <point key="canvasLocation" x="203" y="219"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="头图暗影遮罩-ios" width="500" height="240"/>
+    </resources>
 </document>
