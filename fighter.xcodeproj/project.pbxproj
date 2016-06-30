@@ -160,6 +160,7 @@
 		E616C77C1CF58D03006EFA0B /* libc++abi.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E616C77B1CF58D03006EFA0B /* libc++abi.tbd */; };
 		E627EE611D25122C00B424F5 /* FTChooseGymListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E627EE5F1D25122C00B424F5 /* FTChooseGymListViewController.m */; };
 		E627EE621D25122C00B424F5 /* FTChooseGymListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E627EE601D25122C00B424F5 /* FTChooseGymListViewController.xib */; };
+		E627EE671D25273F00B424F5 /* FTGymCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E627EE661D25273F00B424F5 /* FTGymCell.xib */; };
 		E644E77E1D0123F700F39E45 /* FTHomepageUserBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E644E77D1D0123F700F39E45 /* FTHomepageUserBean.m */; };
 		E64EF10B1CB6614000CAE340 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E64EF10A1CB6614000CAE340 /* main.m */; };
 		E64EF10E1CB6614000CAE340 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E64EF10D1CB6614000CAE340 /* AppDelegate.m */; };
@@ -529,6 +530,7 @@
 		E627EE5E1D25122C00B424F5 /* FTChooseGymListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTChooseGymListViewController.h; path = "UI/格斗场/viewControllers/发起约战/选择拳馆/拳馆列表/FTChooseGymListViewController.h"; sourceTree = "<group>"; };
 		E627EE5F1D25122C00B424F5 /* FTChooseGymListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTChooseGymListViewController.m; path = "UI/格斗场/viewControllers/发起约战/选择拳馆/拳馆列表/FTChooseGymListViewController.m"; sourceTree = "<group>"; };
 		E627EE601D25122C00B424F5 /* FTChooseGymListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTChooseGymListViewController.xib; path = "UI/格斗场/viewControllers/发起约战/选择拳馆/拳馆列表/FTChooseGymListViewController.xib"; sourceTree = "<group>"; };
+		E627EE661D25273F00B424F5 /* FTGymCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymCell.xib; sourceTree = "<group>"; };
 		E644E77C1D0123F700F39E45 /* FTHomepageUserBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTHomepageUserBean.h; sourceTree = "<group>"; };
 		E644E77D1D0123F700F39E45 /* FTHomepageUserBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTHomepageUserBean.m; sourceTree = "<group>"; };
 		E64EF1061CB6614000CAE340 /* fighter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fighter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1109,6 +1111,7 @@
 			children = (
 				3D8B2E561D1D157200E18280 /* FTGymCell.h */,
 				3D8B2E571D1D157200E18280 /* FTGymCell.m */,
+				E627EE661D25273F00B424F5 /* FTGymCell.xib */,
 			);
 			name = cell;
 			sourceTree = "<group>";
@@ -2350,6 +2353,7 @@
 				3D7B98BA1CE078D600B80B8D /* FTInputCheckCodeViewController.xib in Resources */,
 				3D8D73C31CE9DEFE009E2320 /* FTRankTableVIewCell.xib in Resources */,
 				3D4B19541CDAEF840022DFB0 /* FTTableViewCell4.xib in Resources */,
+				E627EE671D25273F00B424F5 /* FTGymCell.xib in Resources */,
 				3DC9A4EF1CE5CD0700E16D19 /* FTRankViewController.xib in Resources */,
 				3D4B194A1CDACF9A0022DFB0 /* FTUserCenterViewController.xib in Resources */,
 				E6B239031D066C88001F86BE /* FTHomepageCommentListViewController.xib in Resources */,
