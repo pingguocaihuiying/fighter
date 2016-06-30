@@ -88,7 +88,6 @@
 		3D8B2E531D1D14B000E18280 /* FTCoachCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8B2E511D1D14B000E18280 /* FTCoachCell.m */; };
 		3D8B2E541D1D14B000E18280 /* FTCoachCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D8B2E521D1D14B000E18280 /* FTCoachCell.xib */; };
 		3D8B2E591D1D157200E18280 /* FTGymCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8B2E571D1D157200E18280 /* FTGymCell.m */; };
-		3D8B2E5A1D1D157200E18280 /* FTGymCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D8B2E581D1D157200E18280 /* FTGymCell.xib */; };
 		3D8D73B41CE95198009E2320 /* FTRankTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D73B31CE95198009E2320 /* FTRankTableView.m */; };
 		3D8D73BD1CE97404009E2320 /* FTTableViewCell6.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D73BB1CE97404009E2320 /* FTTableViewCell6.m */; };
 		3D8D73BE1CE97404009E2320 /* FTTableViewCell6.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D8D73BC1CE97404009E2320 /* FTTableViewCell6.xib */; };
@@ -418,7 +417,6 @@
 		3D8B2E521D1D14B000E18280 /* FTCoachCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTCoachCell.xib; sourceTree = "<group>"; };
 		3D8B2E561D1D157200E18280 /* FTGymCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymCell.h; sourceTree = "<group>"; };
 		3D8B2E571D1D157200E18280 /* FTGymCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymCell.m; sourceTree = "<group>"; };
-		3D8B2E581D1D157200E18280 /* FTGymCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymCell.xib; sourceTree = "<group>"; };
 		3D8D73B21CE95198009E2320 /* FTRankTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankTableView.h; sourceTree = "<group>"; };
 		3D8D73B31CE95198009E2320 /* FTRankTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankTableView.m; sourceTree = "<group>"; };
 		3D8D73BA1CE97404009E2320 /* FTTableViewCell6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTableViewCell6.h; sourceTree = "<group>"; };
@@ -1111,7 +1109,6 @@
 			children = (
 				3D8B2E561D1D157200E18280 /* FTGymCell.h */,
 				3D8B2E571D1D157200E18280 /* FTGymCell.m */,
-				3D8B2E581D1D157200E18280 /* FTGymCell.xib */,
 			);
 			name = cell;
 			sourceTree = "<group>";
@@ -2360,7 +2357,6 @@
 				3DE95BAE1CD8A042005BF85C /* FTRegistViewController.xib in Resources */,
 				3D8368C71D1930EA00F0F309 /* Assets.xcassets in Resources */,
 				E6A9DDB71CD9833200CB9518 /* FTVideoTableViewCell.xib in Resources */,
-				3D8B2E5A1D1D157200E18280 /* FTGymCell.xib in Resources */,
 				E64EF1191CB6614000CAE340 /* LaunchScreen.storyboard in Resources */,
 				E6B458C41CB75D7A00FB4261 /* FTCoachViewController.xib in Resources */,
 				E627EE621D25122C00B424F5 /* FTChooseGymListViewController.xib in Resources */,
