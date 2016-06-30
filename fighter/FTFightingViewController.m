@@ -27,6 +27,7 @@
 #import "NetWorking.h"
 #import "FTLYZButton.h"
 #import "FTHomepageMainViewController.h"
+#import "FTLaunchNewMatchViewController.h"
 
 @interface FTFightingViewController ()<SDCycleScrollViewDelegate, FTnewsDetailDelegate,FTTableViewdelegate, FTFightingMainVCButtonsClickedDelegate>
 
@@ -58,6 +59,10 @@
 
 
 - (void)initSubViews{
+    //设置控件的二态
+    [self setControlsHightLightImage];
+    
+    [self.view bringSubviewToFront:_entryButton];//把“参赛”按钮放在最前边
     
     //设置状态栏的颜色为白色
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -82,6 +87,12 @@
     [self setTableView];//设置tableview
 }
 
+/**
+ *  设置控件的二态图片
+ */
+- (void)setControlsHightLightImage{
+    [_entryButton setBackgroundImage:[UIImage imageNamed:@"参赛pre"] forState:UIControlStateHighlighted];
+}
 
 - (void)getDataFromDBWithType:(NSString *)getType currentPage:(NSInteger) currentPage {
     
@@ -294,6 +305,17 @@
 - (void)buttonClickedWithIdentifycation:(NSString *)identifycationString andRaceId:(NSString *)raceId{
     NSLog(@"identifycation : %@, raceId : %@", identifycationString, raceId);
 }
+/**
+ *  参赛按钮被点击
+ *
+ */
+- (IBAction)entryButtonClicked:(id)sender {
+    NSLog(@"参赛");
+    FTLaunchNewMatchViewController *launchNewMatchViewController = [FTLaunchNewMatchViewController new];
+    [self.navigationController pushViewController:launchNewMatchViewController animated:YES];
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
