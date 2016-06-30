@@ -13,9 +13,9 @@
 @property (nonatomic, strong)UIView *mainContentView;
 @property (nonatomic, strong)UICollectionView *labelCollectionView;
 @property (nonatomic, strong)UILabel *titleLabel;
-@property (nonatomic, strong)UIButton *confirmButton;
+@property (nonatomic, strong)UIButton *confirmButton;//确定按钮
 @property (nonatomic, strong)NSMutableArray *dataArray;
-@property (nonatomic, copy)NSString *curItemValueEn;
+@property (nonatomic, copy)NSString *curItemValueEn;//当前选择的标签
 @end
 
 @implementation FTArenaChooseLabelView
@@ -53,8 +53,6 @@
     _mainContentView = [[UIView alloc]init];
     
     _mainContentView.frame = CGRectMake(SCREEN_WIDTH / 2 - 280 / 2, SCREEN_HEIGHT / 2 - 280 / 2, 280, (19 + 15 + 33 * (_dataArray.count + 1) / 2 + 15 + 15) + 49);
-//    _mainContentView.backgroundColor = [UIColor colorWithHex:0x1E1E1E];
-    _mainContentView.backgroundColor = [[UIColor alloc]initWithRed:30 / 255.0 green:30 / 255.0 blue:30 / 255.0 alpha:1];
     
     //添加金属边框的背景
     UIImageView *bgImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"弹出框背景"]];
@@ -73,6 +71,8 @@
     [_mainContentView addSubview:_titleLabel];
     //初始化collectionView
     [self setLabelCollectView];
+    //添加分割线
+    [self setSeparatorLineView];
     //设置“确定”按钮
     [self setConfirmbutton];
 
@@ -84,6 +84,12 @@
 
 - (void)bgViewTap{
     NSLog(@"bgView tap.");
+}
+
+- (void)setSeparatorLineView{
+    UIView *separatorLineView = [[UIView alloc]initWithFrame:CGRectMake(3, _labelCollectionView.frame.origin.y + _labelCollectionView.height, _labelCollectionView.width - 3 * 2, 1)];
+        separatorLineView.backgroundColor = [[UIColor alloc]initWithRed:62 / 255.0 green:62 / 255.0 blue:62 / 255.0 alpha:1];
+    [_mainContentView addSubview:separatorLineView];
 }
 
 - (void)setConfirmbutton{
@@ -128,7 +134,8 @@
     _labelCollectionView.delegate = self;
     _labelCollectionView.dataSource = self;
     
-    _labelCollectionView.backgroundColor = [[UIColor alloc]initWithRed:30 / 255.0 green:30 / 255.0 blue:30 / 255.0 alpha:1];
+//    _labelCollectionView.backgroundColor = [[UIColor alloc]initWithRed:30 / 255.0 green:30 / 255.0 blue:30 / 255.0 alpha:1];
+    _labelCollectionView.backgroundColor = [UIColor clearColor];
     [_mainContentView addSubview:_labelCollectionView];
 
     

@@ -679,6 +679,12 @@
     
     NSLog(@"boxerId : %@", boxerId);
     NSLog(@"userId : %@", userId);
+    
+    //如果名字等于“暂时空缺“，不响应点击事件
+    if ([_dataArray[indexPath.row][@"name"] isEqualToString:@"暂时空缺"]) {
+        return;
+    }
+    
     FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
     homepageMainVC.boxerId = boxerId;
     homepageMainVC.olduserid = userId;

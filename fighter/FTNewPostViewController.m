@@ -26,7 +26,7 @@
 @property (nonatomic, strong)NSMutableArray *imageURLArray;
 @property (nonatomic, strong)NSMutableArray *videoURLArray;
 @property (nonatomic, strong)FTArenaChooseLabelView *chooseLabelView;
-@property (nonatomic, strong)NSString *typeOfLabel;
+@property (nonatomic, strong)NSString *typeOfLabel;//选择的标签
 @property (nonatomic, assign) BOOL isSyncToArena;
 @end
 
