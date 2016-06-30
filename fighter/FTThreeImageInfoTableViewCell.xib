@@ -106,24 +106,24 @@
                         <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="空图标小" translatesAutoresizingMaskIntoConstraints="NO" id="SEu-CD-QV8" userLabel="placeHold1">
-                        <rect key="frame" x="40" y="78" width="54" height="16"/>
+                        <rect key="frame" x="32" y="78" width="70" height="16"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="Pdc-D6-Quv"/>
-                            <constraint firstAttribute="width" constant="54" id="aSK-Vb-kfW"/>
+                            <constraint firstAttribute="width" constant="70" id="aSK-Vb-kfW"/>
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="空图标小" translatesAutoresizingMaskIntoConstraints="NO" id="moG-Af-b36" userLabel="placeHold2">
-                        <rect key="frame" x="160" y="78" width="54" height="16"/>
+                        <rect key="frame" x="152" y="78" width="70" height="16"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="54" id="I4g-YO-1u0"/>
+                            <constraint firstAttribute="width" constant="70" id="I4g-YO-1u0"/>
                             <constraint firstAttribute="height" constant="16" id="wrm-44-sYq"/>
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="空图标小" translatesAutoresizingMaskIntoConstraints="NO" id="MuU-gd-jtI" userLabel="placeHold3">
-                        <rect key="frame" x="281" y="78" width="54" height="16"/>
+                        <rect key="frame" x="273" y="78" width="70" height="16"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="FBo-6X-JNe"/>
-                            <constraint firstAttribute="width" constant="54" id="QVc-LN-N4O"/>
+                            <constraint firstAttribute="width" constant="70" id="QVc-LN-N4O"/>
                         </constraints>
                     </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JXK-OJ-kbN">
@@ -239,7 +239,7 @@
     </objects>
     <resources>
         <image name="格斗标签-拳击" width="48" height="14"/>
-        <image name="空图标小" width="52" height="16"/>
+        <image name="空图标小" width="70" height="16"/>
         <image name="评-改" width="22" height="22"/>
         <image name="赞-改" width="22" height="22"/>
         <image name="金属边框-改进ios" width="67" height="60"/>

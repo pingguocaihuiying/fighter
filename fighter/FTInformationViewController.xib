@@ -123,7 +123,7 @@
                         <action selector="rankButtonClicked:" destination="-1" eventType="touchUpInside" id="RFD-Bi-eGB"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="格斗家头部logo文字" translatesAutoresizingMaskIntoConstraints="NO" id="IyE-FE-Tys" userLabel="格斗家">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="头部logo格斗东西" translatesAutoresizingMaskIntoConstraints="NO" id="IyE-FE-Tys" userLabel="格斗家">
                     <rect key="frame" x="57" y="28" width="72" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="72" id="4ds-eC-JYl"/>
@@ -180,6 +180,6 @@
         <image name="头部48按钮一堆-搜索" width="24" height="24"/>
         <image name="头部48按钮一堆-更多" width="24" height="24"/>
         <image name="头部48按钮一堆-消息" width="24" height="24"/>
-        <image name="格斗家头部logo文字" width="72" height="22"/>
+        <image name="头部logo格斗东西" width="99" height="24"/>
     </resources>
 </document>

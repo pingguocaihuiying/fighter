@@ -2,14 +2,42 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "协商支付二级-ios线.png",
       "scale" : "1x"
     },
     {
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1,
+          "height" : 1
+        },
+        "cap-insets" : {
+          "bottom" : 9,
+          "top" : 8,
+          "right" : 25,
+          "left" : 24
+        }
+      },
       "idiom" : "universal",
+      "filename" : "协商支付二级-ios线.png",
       "scale" : "2x"
     },
     {
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1,
+          "height" : 1
+        },
+        "cap-insets" : {
+          "bottom" : 13,
+          "top" : 13,
+          "right" : 37,
+          "left" : 37
+        }
+      },
       "idiom" : "universal",
       "filename" : "协商支付二级-ios线@3x.png",
       "scale" : "3x"
