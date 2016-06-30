@@ -235,6 +235,8 @@
 		E6B458DE1CB7B2B100FB4261 /* FTTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B458DD1CB7B2B100FB4261 /* FTTableViewController.m */; };
 		E6B7D2001CF6A750004191A3 /* FTArenaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6B7D1FE1CF6A750004191A3 /* FTArenaViewController.m */; };
 		E6B7D2011CF6A750004191A3 /* FTArenaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6B7D1FF1CF6A750004191A3 /* FTArenaViewController.xib */; };
+		E6BFBEE61D23D55B0044F4B0 /* FTLaunchNewMatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6BFBEE41D23D55B0044F4B0 /* FTLaunchNewMatchViewController.m */; };
+		E6BFBEE71D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6BFBEE51D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib */; };
 		E6C4D7ED1CEC5E7B00D73BFC /* FTUserTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7EC1CEC5E7B00D73BFC /* FTUserTools.m */; };
 		E6C4D7F11CEC5FCE00D73BFC /* FTArenaNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7F01CEC5FCE00D73BFC /* FTArenaNetwork.m */; };
 		E6D09E921CEDA10000B7C43E /* FTTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D09E911CEDA10000B7C43E /* FTTools.m */; };
@@ -659,6 +661,9 @@
 		E6B7D1FD1CF6A750004191A3 /* FTArenaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaViewController.h; sourceTree = "<group>"; };
 		E6B7D1FE1CF6A750004191A3 /* FTArenaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaViewController.m; sourceTree = "<group>"; };
 		E6B7D1FF1CF6A750004191A3 /* FTArenaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaViewController.xib; sourceTree = "<group>"; };
+		E6BFBEE31D23D55B0044F4B0 /* FTLaunchNewMatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTLaunchNewMatchViewController.h; path = "UI/格斗场/viewControllers/发起约战/main/FTLaunchNewMatchViewController.h"; sourceTree = "<group>"; };
+		E6BFBEE41D23D55B0044F4B0 /* FTLaunchNewMatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTLaunchNewMatchViewController.m; path = "UI/格斗场/viewControllers/发起约战/main/FTLaunchNewMatchViewController.m"; sourceTree = "<group>"; };
+		E6BFBEE51D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTLaunchNewMatchViewController.xib; path = "UI/格斗场/viewControllers/发起约战/main/FTLaunchNewMatchViewController.xib"; sourceTree = "<group>"; };
 		E6C4D7EB1CEC5E7B00D73BFC /* FTUserTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserTools.h; sourceTree = "<group>"; };
 		E6C4D7EC1CEC5E7B00D73BFC /* FTUserTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserTools.m; sourceTree = "<group>"; };
 		E6C4D7EF1CEC5FCE00D73BFC /* FTArenaNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaNetwork.h; sourceTree = "<group>"; };
@@ -1344,6 +1349,7 @@
 		E659F36C1D12A64600B41129 /* viewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E6BFBEE11D23CE8B0044F4B0 /* 发起约战 */,
 				E659F3731D12ABA700B41129 /* main */,
 			);
 			name = viewControllers;
@@ -1866,6 +1872,24 @@
 			name = BoxingHall;
 			sourceTree = "<group>";
 		};
+		E6BFBEE11D23CE8B0044F4B0 /* 发起约战 */ = {
+			isa = PBXGroup;
+			children = (
+				E6BFBEE21D23CE9F0044F4B0 /* main */,
+			);
+			name = "发起约战";
+			sourceTree = "<group>";
+		};
+		E6BFBEE21D23CE9F0044F4B0 /* main */ = {
+			isa = PBXGroup;
+			children = (
+				E6BFBEE31D23D55B0044F4B0 /* FTLaunchNewMatchViewController.h */,
+				E6BFBEE41D23D55B0044F4B0 /* FTLaunchNewMatchViewController.m */,
+				E6BFBEE51D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib */,
+			);
+			name = main;
+			sourceTree = "<group>";
+		};
 		E6C4D7EE1CEC5FB200D73BFC /* network */ = {
 			isa = PBXGroup;
 			children = (
@@ -2280,6 +2304,7 @@
 				3D13FB0C1D193A5A0060B9B4 /* fighter.entitlements in Resources */,
 				3D8B2E541D1D14B000E18280 /* FTCoachCell.xib in Resources */,
 				3D13FB181D1A1AA80060B9B4 /* FTPracticeViewController.xib in Resources */,
+				E6BFBEE71D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib in Resources */,
 				E6A9DDC01CD9C88600CB9518 /* FTVideoDetailViewController.xib in Resources */,
 				3D7B98B51CE06F9800B80B8D /* FTInputNewPhoneViewController.xib in Resources */,
 				E6DB76141CBB9B430034253C /* FTOneImageInfoTableViewCell.xib in Resources */,
@@ -2532,6 +2557,7 @@
 				E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */,
 				3D13FB101D193BB80060B9B4 /* FTFightingViewController.m in Sources */,
 				3DD07E981D1CCEDF004AF720 /* FTCoachView.m in Sources */,
+				E6BFBEE61D23D55B0044F4B0 /* FTLaunchNewMatchViewController.m in Sources */,
 				E66D6EFA1CBCE81C008B015A /* RBRequestOperationManager.m in Sources */,
 				3D8B2E591D1D157200E18280 /* FTGymCell.m in Sources */,
 				3D0D7C721D1A984B00E67AC9 /* FTPracticeView.m in Sources */,

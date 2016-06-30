@@ -38,6 +38,7 @@
 }
 
 - (void)initSubviews{
+    
     //增加半透明全屏背景imageView
     self.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     UIImageView *bgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
@@ -79,6 +80,7 @@
     
     [self addSubview:_mainContentView];
 }
+
 
 - (void)bgViewTap{
     NSLog(@"bgView tap.");
