@@ -113,7 +113,7 @@
                                         </view>
                                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azx-fA-NXA">
                                             <rect key="frame" x="204" y="0.0" width="60" height="40"/>
-                                            <state key="normal" title="教学视频">
+                                            <state key="normal" title="比赛视频">
                                                 <color key="titleColor" red="0.51007646322250366" green="0.50987964868545532" blue="0.53046542406082153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <connections>

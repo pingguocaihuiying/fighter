@@ -13,21 +13,5 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "fighter/UI/&#x683c;&#x6597;&#x573a;/viewControllers/&#x53d1;&#x8d77;&#x7ea6;&#x6218;/&#x9009;&#x62e9;&#x62f3;&#x9986;/&#x62f3;&#x9986;&#x5217;&#x8868;/FTChooseGymListViewController.m"
-            timestampString = "488972620.101051"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "-tableView:heightForRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

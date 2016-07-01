@@ -8,10 +8,13 @@
 
 #import "FTChooseGymListViewController.h"
 #import "FTGymCell.h"
+#import "FTButton.h"
+#import "FTRankTableView.h"
+#import "FTGymDetailViewController.h"
 
-@interface FTChooseGymListViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface FTChooseGymListViewController ()<UITableViewDelegate, UITableViewDataSource, FTSelectCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *gymsTableview;
-
+//@property (nonatomic, strong)  FTRankTableView *kindTableView;
 @end
 
 @implementation FTChooseGymListViewController
@@ -37,18 +40,49 @@
     //    [leftButton setImageInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
-    UIBarButtonItem *confirmButton = [[UIBarButtonItem alloc]initWithTitle:@"按项目" style:UIBarButtonItemStylePlain target:self action:@selector(confirmButtonClicked)];
-    NSDictionary* textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [UIFont systemFontOfSize:14],NSFontAttributeName,
-                                    nil];
-    
-    [[UIBarButtonItem appearance] setTitleTextAttributes:textAttributes forState:0];
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithHex:0x828287];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-    //    [shareButton setImageInsets:UIEdgeInsetsMake(0, -20, 0, 20)];
-    self.navigationItem.rightBarButtonItem = confirmButton;
-    
+    //格斗种类筛选按钮
+    FTButton *rightButton = [self selectButton:@"按项目"];
+
+    rightButton.frame = CGRectMake(0, 0, 130, 40);
+    [rightButton addTarget:self action:@selector(sortByTypeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *sortByTypeButton = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
+
+    self.navigationItem.rightBarButtonItem = sortByTypeButton;
 }
+
+//生成右上角的按钮FTButton
+- (FTButton *) selectButton:(NSString *)title {
+    
+    CGFloat buttonW = (SCREEN_WIDTH - 12*2)/3;
+    FTButton *selectBtn = [FTButton buttonWithType:UIButtonTypeCustom option:^(FTButton *button) {
+        
+        button.imageH = 10;
+        button.imageW = 13;
+        button.buttonModel = FTButtonModelRightImage;
+        button.space = 10.0;
+        button.bounds = CGRectMake(0, 0, buttonW, 40);
+        
+        [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
+        [button setTitle:title forState:UIControlStateNormal];
+        [button setTitleColor:Main_Text_Color forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"下拉-下箭头"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"下拉-下箭头pre"] forState:UIControlStateHighlighted];
+        
+        CGSize size =  [button.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:button.titleLabel.font}];
+        
+        if (size.width > buttonW - 30-10-13) {
+            size = CGSizeMake(buttonW - 30-10-13, size.height);
+        }
+        
+        button.textH = size.height;
+        button.textW = size.width;
+        
+    }];
+    
+    return selectBtn;
+}
+
+
 - (void)setTableView{
     _gymsTableview.delegate = self;
     _gymsTableview.dataSource = self;
@@ -68,7 +102,49 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"index.path.row : %ld", indexPath.row);
+    FTGymDetailViewController *gymDetailViewController = [FTGymDetailViewController new];
+    [self.navigationController pushViewController:gymDetailViewController animated:YES];
 }
+
+- (void)sortByTypeButtonClicked:(id)sender{
+    NSLog(@"sortByTypeButtonClicked");
+    [self setDropDown:sender];
+}
+#pragma -mark -下拉框
+- (void)setDropDown:(id)sender{
+    
+    UIButton *button = sender;
+    CGRect frame = [self.view convertRect:button.frame fromView:button.superview];
+
+        FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender style:FTRankTableViewStyleLeft option:^(FTRankTableView *searchTableView) {
+            NSMutableArray *tempArray = [[NSMutableArray alloc]initWithArray:[FTNWGetCategory sharedCategories]];
+            [tempArray insertObject:@{@"itemValue":@"全部项目", @"itemValueEn":@"All"} atIndex:0];
+            searchTableView.dataArray = tempArray;
+            
+            searchTableView.Btnframe = frame;
+            searchTableView.tableW =frame.size.width;
+            
+            searchTableView.offsetX = -10;
+            searchTableView.offsetY = 42;
+            searchTableView.tableW = 100;
+            searchTableView.tableH = 350;
+        }];
+        kindTableView.selectDelegate = self;
+//        [self.view addSubview:kindTableView];
+    [[UIApplication sharedApplication].keyWindow addSubview:kindTableView];
+    
+        [kindTableView  setAnimation];
+        
+        [kindTableView setDirection:FTAnimationDirectionToTop];
+    
+    
+}
+
+- (void) selectedValue:(NSDictionary *)value{
+        NSLog(@"%@", value[@"itemValueEn"]);
+}
+
+
 /**
  *  返回上一个viewController
  */
