@@ -962,7 +962,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 + (void) getGymsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option  {
     
     NSString *urlString = [FTNetConfig host:Domain path:GetGymListURL];
-    
+    NSLog(@"urlString=%@",urlString);
+    NSLog(@"dic = %@",dic);
     [self getRequestWithUrl:urlString parameters:dic option:option];
 }
 

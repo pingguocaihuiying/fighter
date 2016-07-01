@@ -18,6 +18,8 @@
 
 @property (weak, nonatomic) IBOutlet UIView *labelsView;
 
+//@property (nonatomic,copy) NSString *imgStr;
+
 - (void) labelsViewAdapter:(NSString *) labelsString;
 
 - (CGFloat) caculateHeight:(NSString *) labelsString;
