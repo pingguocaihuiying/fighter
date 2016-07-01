@@ -32,7 +32,7 @@
     CGFloat x=0;
     CGFloat y=0;
     
-    NSArray *labels = [labelsString componentsSeparatedByString:@", "];
+    NSArray *labels = [labelsString componentsSeparatedByString:@","];
     
     for (NSString *label in labels) {
         UIImageView *labelView = [[UIImageView alloc]initWithImage:[self imageForLabel:label]];
@@ -75,7 +75,7 @@
         image = [UIImage imageNamed:@"格斗标签-女子格斗"];
     }else if ([label isEqualToString:@"街斗"]) {
         image = [UIImage imageNamed:@"格斗标签-街斗"];
-    }else if ([label isEqualToString:@"其他"]) {
+    }else if ([label isEqualToString:@"其它"]) {
         image = [UIImage imageNamed:@"格斗标签-其他"];
     }
     return image;
@@ -87,36 +87,47 @@
     if (!labelsString ||labelsString.length == 0)
         return 0;
     
-    CGFloat width = SCREEN_WIDTH - 93;
+    CGFloat width = SCREEN_WIDTH - 124;
     CGFloat w=0;
     CGFloat h=0;
     CGFloat x=0;
     CGFloat y=0;
     
-    NSArray *labels = [labelsString componentsSeparatedByString:@", "];
+    NSArray *labels = [labelsString componentsSeparatedByString:@","];
     
     for (NSString *label in labels) {
         UIImageView *labelView = [[UIImageView alloc]initWithImage:[self imageForLabel:label]];
         w = labelView.frame.size.width;
         h = labelView.frame.size.height;
         if (x + w <= width) {
-            labelView.frame = CGRectMake(x, y, w, h);
             x = x + w + 8;
         }else {
             x = 0;
             y = y + h + 6;
-            labelView.frame = CGRectMake(x, y, w, h);
         }
     }
     
-    NSLog(@"hhhhhhhhhhhh=%f",h+y);
-    
+//    NSLog(@"hhhhhhhhhhhh=%f",h+y);
     if (h + y < 30) {
-        return 0;
+        return 14;
     }
     return  h + y;
     
 }
+
+
+
+//- (void) setImgStr:(NSString *)imgStr {
+//
+//    if (!imgStr || imgStr.length == 0) {
+//        return;
+//    }
+//    _imgStr = imgStr;
+//    NSArray *tempArray = [imgStr componentsSeparatedByString:@","];
+//    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[tempArray objectAtIndex:0]] placeholderImage:[UIImage imageNamed:@"拳馆占位图"]];
+//}
+
+
 
 - (void) layoutSubviews {
     

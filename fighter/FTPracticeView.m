@@ -57,6 +57,10 @@
     //创建一个collectionView的属性设置处理器
     UICollectionViewFlowLayout *flow = [UICollectionViewFlowLayout new];
     
+    
+    
+    
+    
 //    //行间距
 //    //    flow.minimumLineSpacing = 15 * SCALE;
 //    //列间距
@@ -108,7 +112,8 @@
 }
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-
+    
+    NSLog(@"didSelec");
     FTTeachVideoController *videoVC = [[FTTeachVideoController alloc]init];
     videoVC.videoType = [_array objectAtIndex:indexPath.row][@"itemValueEn"];
     videoVC.title = [_array objectAtIndex:indexPath.row][@"itemValue"];

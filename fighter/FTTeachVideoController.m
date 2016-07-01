@@ -24,9 +24,10 @@
 #import "FTLYZButton.h"
 #import "DBManager.h"
 #import "NetWorking.h"
+#import "FTButton.h"
+#import "FTRankTableView.h"
 
-
-@interface FTTeachVideoController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FTVideoDetailDelegate>
+@interface FTTeachVideoController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FTVideoDetailDelegate,FTSelectCellDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic)  NSMutableArray *array;
 @property (nonatomic, copy)NSString *videosTag;
@@ -58,6 +59,15 @@
     [leftButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
+    
+//    CGFloat buttonW = (SCREEN_WIDTH - 12*2)/3;
+    // 教练地址筛选按钮
+    FTButton *rightBtn = [FTButton buttonWithtitle:@"按时间"];
+    rightBtn.frame = CGRectMake(20, 0, 95, 40);
+    [rightBtn addTarget:self action:@selector(rightBtnBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+    //把左边的返回按钮左移
+    [ self.navigationItem.rightBarButtonItem setImageInsets:UIEdgeInsetsMake(0, 0, 0, 40)];
 }
 
 - (void) initSubviews {
@@ -136,9 +146,10 @@
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@",_videoType, videoCurrId, self.videosTag, getType, ts, @"quanjijia222222"]];
     
-//    urlString = [NSString stringWithFormat:@"%@?videosType=%@&videosCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&videosTag=%@&otherkey=teach", urlString, _videoType, videoCurrId, getType, ts, checkSign, [FTNetConfig showType], self.videosTag];
+    urlString = [NSString stringWithFormat:@"%@?videosType=%@&videosCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&videosTag=%@&otherkey=teach", urlString, _videoType, videoCurrId, getType, ts, checkSign, [FTNetConfig showType], self.videosTag];
 
-    urlString = [NSString stringWithFormat:@"%@?videosType=%@&videosCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&videosTag=%@", urlString, _videoType, videoCurrId, getType, ts, checkSign, [FTNetConfig showType], self.videosTag];
+    
+//    urlString = [NSString stringWithFormat:@"%@?videosType=%@&videosCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&videosTag=%@", urlString, _videoType, videoCurrId, getType, ts, checkSign, [FTNetConfig showType], self.videosTag];
     NSLog(@"urlString:%@",urlString);
     NetWorking *net = [[NetWorking alloc]init];
     [net getVideos:urlString option:^(NSDictionary *responseDic) {
@@ -212,7 +223,7 @@
         
         videoDetailVC.videoBean = bean;
         NSIndexPath *theIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
-        NSLog(@"section : %ld, row : %ld", indexPath.section, indexPath.row);
+        NSLog(@"section : %ld, row : %ld", (long)indexPath.section, (long)indexPath.row);
         videoDetailVC.indexPath = theIndexPath;
         
         videoDetailVC.delegate = self;
@@ -280,12 +291,57 @@
     
 }
 
+#pragma mark FTSelectCellDelegate 
+
+- (void) selectedValue:(NSDictionary *)value {
+
+}
+
+- (void) selectedValue:(NSString *)value style:(FTRankTableViewStyle) style {
+
+    self.videosTag = value;
+    
+   [self getDataWithGetType:@"new" andCurrId:@"-1"];
+}
+
 #pragma mark - response 
 
 - (void) backBtnAction:(id)btn {
     
     self.navigationController.navigationBarHidden = YES;
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void) rightBtnBtnAction:(id) sender {
+
+    UIButton *button = sender;
+    CGRect frame = [self.view convertRect:button.frame fromView:button.superview];
+    
+    FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender style:FTRankTableViewStyleLeft option:^(FTRankTableView *searchTableView) {
+        NSMutableArray *tempArray = [[NSMutableArray alloc]init];
+        [tempArray insertObject:@{@"itemValue":@"按时间", @"itemValueEn":@"1"} atIndex:0];
+        [tempArray insertObject:@{@"itemValue":@"按人气", @"itemValueEn":@"0"} atIndex:1];
+        searchTableView.dataArray = tempArray;
+        searchTableView.dataType = FTDataTypeDicArray;
+        searchTableView.Btnframe = frame;
+        searchTableView.tableW =frame.size.width;
+        
+        searchTableView.tableH = 40*5;
+        
+        searchTableView.offsetY = 40;
+        searchTableView.offsetX = 0;
+        
+        searchTableView.cellH = 40;
+        [searchTableView caculateTableHeight];
+
+    }];
+    kindTableView.selectDelegate = self;
+    kindTableView.dataType = FTDataTypeDicArray;
+//    [self.view addSubview:kindTableView];
+    [[UIApplication sharedApplication].keyWindow addSubview:kindTableView];
+//    [kindTableView  setAnimation];
+//
+//    [kindTableView setDirection:FTAnimationDirectionToTop];
 }
 
 
