@@ -161,6 +161,10 @@
 		E627EE611D25122C00B424F5 /* FTChooseGymListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E627EE5F1D25122C00B424F5 /* FTChooseGymListViewController.m */; };
 		E627EE621D25122C00B424F5 /* FTChooseGymListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E627EE601D25122C00B424F5 /* FTChooseGymListViewController.xib */; };
 		E627EE671D25273F00B424F5 /* FTGymCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E627EE661D25273F00B424F5 /* FTGymCell.xib */; };
+		E636B1AD1D2646840065C9C1 /* FTGymDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E636B1AB1D2646840065C9C1 /* FTGymDetailViewController.m */; };
+		E636B1AE1D2646840065C9C1 /* FTGymDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E636B1AC1D2646840065C9C1 /* FTGymDetailViewController.xib */; };
+		E636B1B31D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E636B1B11D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.m */; };
+		E636B1B41D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E636B1B21D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.xib */; };
 		E644E77E1D0123F700F39E45 /* FTHomepageUserBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E644E77D1D0123F700F39E45 /* FTHomepageUserBean.m */; };
 		E64EF10B1CB6614000CAE340 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E64EF10A1CB6614000CAE340 /* main.m */; };
 		E64EF10E1CB6614000CAE340 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E64EF10D1CB6614000CAE340 /* AppDelegate.m */; };
@@ -531,6 +535,12 @@
 		E627EE5F1D25122C00B424F5 /* FTChooseGymListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTChooseGymListViewController.m; path = "UI/格斗场/viewControllers/发起约战/选择拳馆/拳馆列表/FTChooseGymListViewController.m"; sourceTree = "<group>"; };
 		E627EE601D25122C00B424F5 /* FTChooseGymListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTChooseGymListViewController.xib; path = "UI/格斗场/viewControllers/发起约战/选择拳馆/拳馆列表/FTChooseGymListViewController.xib"; sourceTree = "<group>"; };
 		E627EE661D25273F00B424F5 /* FTGymCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymCell.xib; sourceTree = "<group>"; };
+		E636B1AA1D2646840065C9C1 /* FTGymDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTGymDetailViewController.h; path = "UI/格斗场/viewControllers/发起约战/选择拳馆/拳馆详情/FTGymDetailViewController.h"; sourceTree = "<group>"; };
+		E636B1AB1D2646840065C9C1 /* FTGymDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTGymDetailViewController.m; path = "UI/格斗场/viewControllers/发起约战/选择拳馆/拳馆详情/FTGymDetailViewController.m"; sourceTree = "<group>"; };
+		E636B1AC1D2646840065C9C1 /* FTGymDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTGymDetailViewController.xib; path = "UI/格斗场/viewControllers/发起约战/选择拳馆/拳馆详情/FTGymDetailViewController.xib"; sourceTree = "<group>"; };
+		E636B1B01D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTGymSupportItemsCollectionViewCell.h; path = UI/FTGymSupportItemsCollectionViewCell.h; sourceTree = "<group>"; };
+		E636B1B11D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTGymSupportItemsCollectionViewCell.m; path = UI/FTGymSupportItemsCollectionViewCell.m; sourceTree = "<group>"; };
+		E636B1B21D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTGymSupportItemsCollectionViewCell.xib; path = UI/FTGymSupportItemsCollectionViewCell.xib; sourceTree = "<group>"; };
 		E644E77C1D0123F700F39E45 /* FTHomepageUserBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTHomepageUserBean.h; sourceTree = "<group>"; };
 		E644E77D1D0123F700F39E45 /* FTHomepageUserBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTHomepageUserBean.m; sourceTree = "<group>"; };
 		E64EF1061CB6614000CAE340 /* fighter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fighter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1271,6 +1281,7 @@
 			isa = PBXGroup;
 			children = (
 				E627EE631D25123100B424F5 /* 拳馆列表 */,
+				E636B1A91D2646540065C9C1 /* 拳馆详情 */,
 			);
 			name = "选择拳馆";
 			sourceTree = "<group>";
@@ -1293,6 +1304,26 @@
 				E67926731D17B68F00AF30B3 /* FTFightingTableViewCell.xib */,
 			);
 			name = "比赛列表";
+			sourceTree = "<group>";
+		};
+		E636B1A91D2646540065C9C1 /* 拳馆详情 */ = {
+			isa = PBXGroup;
+			children = (
+				E636B1AA1D2646840065C9C1 /* FTGymDetailViewController.h */,
+				E636B1AB1D2646840065C9C1 /* FTGymDetailViewController.m */,
+				E636B1AC1D2646840065C9C1 /* FTGymDetailViewController.xib */,
+			);
+			name = "拳馆详情";
+			sourceTree = "<group>";
+		};
+		E636B1AF1D265ADD0065C9C1 /* 支持设施 */ = {
+			isa = PBXGroup;
+			children = (
+				E636B1B01D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.h */,
+				E636B1B11D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.m */,
+				E636B1B21D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.xib */,
+			);
+			name = "支持设施";
 			sourceTree = "<group>";
 		};
 		E644E7781D011F7C00F39E45 /* 个人主页用户 */ = {
@@ -1634,6 +1665,7 @@
 		E679266B1D17B48E00AF30B3 /* cell */ = {
 			isa = PBXGroup;
 			children = (
+				E636B1AF1D265ADD0065C9C1 /* 支持设施 */,
 				E627EE641D25162B00B424F5 /* 比赛列表 */,
 			);
 			name = cell;
@@ -2335,6 +2367,7 @@
 				3D7B988E1CDD027400B80B8D /* Area.plist in Resources */,
 				3D4B18F61CD8BF340022DFB0 /* FTSetPassWordViewController.xib in Resources */,
 				3DE95BA81CD86FA4005BF85C /* FTLoginViewController.xib in Resources */,
+				E636B1B41D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.xib in Resources */,
 				E6B458D81CB75DB200FB4261 /* FTBoxingHallViewController.xib in Resources */,
 				E678727A1CEB00980099CEE6 /* FTNewPostViewController.xib in Resources */,
 				3DA6D1C51D20D8BD0049CD4A /* FTCycleScrollViewCell.xib in Resources */,
@@ -2344,6 +2377,7 @@
 				3D7B98901CDD1E5900B80B8D /* Area2.plist in Resources */,
 				E6B458CE1CB75D9600FB4261 /* FTMatchViewController.xib in Resources */,
 				3D13FB0C1D193A5A0060B9B4 /* fighter.entitlements in Resources */,
+				E636B1AE1D2646840065C9C1 /* FTGymDetailViewController.xib in Resources */,
 				3D8B2E541D1D14B000E18280 /* FTCoachCell.xib in Resources */,
 				3D13FB181D1A1AA80060B9B4 /* FTPracticeViewController.xib in Resources */,
 				E6BFBEE71D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib in Resources */,
@@ -2522,6 +2556,7 @@
 				E6D74A4F1CB7B7EE00854337 /* Regex.m in Sources */,
 				3DE0C9EF1D1BABB000C6ABE2 /* FTTeachVideoController.m in Sources */,
 				E6D09E961CEDDDCF00B7C43E /* FTQiniuNetwork.m in Sources */,
+				E636B1B31D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.m in Sources */,
 				3DC411F31CCF810A0030C229 /* FTDrawerTableViewFooter.m in Sources */,
 				E68050C11CBF919A00678905 /* UIView+JHExtension.m in Sources */,
 				E68D160D1CFD31F100AB5A8C /* FTHomepageMainViewController.m in Sources */,
@@ -2646,6 +2681,7 @@
 				E68050B81CBF919A00678905 /* JHRefreshAniBaseView.m in Sources */,
 				3D7C6B731CF29DDD0088400D /* FTSlideTabBar.m in Sources */,
 				E68D16131CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m in Sources */,
+				E636B1AD1D2646840065C9C1 /* FTGymDetailViewController.m in Sources */,
 				E68050C01CBF919A00678905 /* UIScrollView+JHRefresh.m in Sources */,
 				3DC31DD01CF859EC001BC364 /* FTArenaChooseLabelView.m in Sources */,
 				3D13FB1F1D1A40350060B9B4 /* FTSegmentItem.m in Sources */,

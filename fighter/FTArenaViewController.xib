@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="16A201w" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -269,6 +270,6 @@
         <image name="头部48按钮一堆-排行" width="24" height="24"/>
         <image name="头部48按钮一堆-搜索" width="24" height="24"/>
         <image name="头部48按钮一堆-消息" width="24" height="24"/>
-        <image name="头部logo格斗东西" width="72" height="22"/>
+        <image name="头部logo格斗东西" width="99" height="24"/>
     </resources>
 </document>
