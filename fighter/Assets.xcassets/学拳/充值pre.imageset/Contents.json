@@ -1,6 +1,20 @@
 {
   "images" : [
     {
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1,
+          "height" : 1
+        },
+        "cap-insets" : {
+          "bottom" : 14,
+          "top" : 13,
+          "right" : 11,
+          "left" : 10
+        }
+      },
       "idiom" : "universal",
       "filename" : "充值pre.png",
       "scale" : "1x"

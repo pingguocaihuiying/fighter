@@ -157,8 +157,8 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="eBt-br-sKe"/>
-                                        <exclude reference="ejA-RD-lFJ"/>
                                         <exclude reference="26P-QY-vUu"/>
+                                        <exclude reference="ejA-RD-lFJ"/>
                                     </mask>
                                 </variation>
                             </view>

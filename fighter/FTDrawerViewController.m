@@ -8,7 +8,10 @@
 
 #import "FTDrawerViewController.h"
 #import "FTDrawerCollectionCell.h"
-#import "FTDrawerTableViewCell.h"
+#import "FTTableViewCell5.h"
+#import "FTDrawerCell.h"
+#import "FTDrawerPayCell.h"
+
 #import "masonry.h"
 #import "FTDrawerTableViewHeader.h"
 #import "WXApi.h"
@@ -120,8 +123,8 @@ static NSString *const tableCellId = @"tableCellId";
 //hidden the some view that current version app does not need
 - (void) hiddenViews {
     
-    [self.collectionView setHidden:YES];
-    [self.tableView setHidden:YES];
+//    [self.collectionView setHidden:YES];
+//    [self.tableView setHidden:YES];
     [self.settingBtn setHidden:NO];
     
     [self.abountUsBtn setHidden:YES];
@@ -157,21 +160,22 @@ static NSString *const tableCellId = @"tableCellId";
     self.collectionView.delegate = self;
     self.collectionView.backgroundColor = [UIColor clearColor];
     
-    //    [self.tableView registerClass:[FTDrawerTableViewCell class] forCellReuseIdentifier:tableCellId];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:tableCellId];
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
+    [self.tableView registerNib:[UINib nibWithNibName:@"FTDrawerCell" bundle:nil] forCellReuseIdentifier:@"tableCellId"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"FTDrawerPayCell" bundle:nil] forCellReuseIdentifier:@"payCellId"];
+    
     self.tableView.scrollEnabled = NO;
     self.tableView.backgroundColor = [UIColor clearColor];
-    self.tableView.separatorColor = [UIColor colorWithHex:0x505050];
-    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)])
-    {
-        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
-    }
-    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)])
-    {
-        [self.tableView setLayoutMargins:UIEdgeInsetsZero];
-    }
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+//    self.tableView.separatorColor = [UIColor colorWithHex:0x505050];
+//    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)])
+//    {
+//        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+//    }
+//    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)])
+//    {
+//        [self.tableView setLayoutMargins:UIEdgeInsetsZero];
+//    }
     
     CGFloat offsetW = [UIScreen mainScreen].bounds.size.width *0.3;
     
@@ -493,54 +497,54 @@ static NSString *const tableCellId = @"tableCellId";
     CGFloat width;
     switch (indexPath.row) {
         case 0:
-            width = 70;
+            width = 68;
             break;
         case 1:
-            width = 40;
+            width = 48.5;
             break;
         case 2:
-            width = 40;
+            width = 48.5;
             break;
         case 3:
-            width = 70;
+            width = 68;
             break;
         case 4:
-            width = 40;
+            width = 48.5;
             break;
         case 5:
-            width = 50;
+            width = 59;
             break;
         case 6:
-            width = 40;
+            width = 48.5;
             break;
         case 7:
-            width = 40;
+            width = 48.5;
             break;
         case 8:
-            width = 50;
+            width = 59;
             break;
         case 9:
-            width = 40;
+            width = 48.5;
             break;
         case 10:
-            width = 50;
+            width = 48.5;
             break;
         case 11:
-            width = 70;
+            width = 68;
             break;
         case 12:
-            width = 40;
+            width = 48.5;
             break;
         default:
             break;
     }
 
-    return (CGSize){width,20};
+    return (CGSize){width,14};
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(5, 5, 5, 5);
+    return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
@@ -564,93 +568,44 @@ static NSString *const tableCellId = @"tableCellId";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 2;
+    return 4;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 46 ;
+    return 45 ;
 }
 
--(CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-
-    return 0.5;
-}
-
-
-- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-
-    UIView *header = [[UIView alloc]init];
-    header.backgroundColor = [UIColor colorWithHex:0x505050];
-    return header;
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableCellId];
-    if (cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableCellId];
-        [cell setBackgroundColor:[UIColor clearColor]];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.textColor = [UIColor whiteColor];
-        UIImageView *imageView = [[UIImageView alloc]init];
-        [imageView setImage:[UIImage imageNamed:@"右箭头"]];
-        [cell addSubview:imageView];
-        
-        CGRect frame = cell.textLabel.frame;
-        frame = CGRectMake(0, frame.origin.y, frame.size.width, frame.size.height);
-        [cell.textLabel setFrame:frame];
-        __weak __typeof(&*cell) weakCell = cell;
-        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(weakCell.mas_centerY);
-            make.right.equalTo(weakCell.mas_right).with.offset(-16);
-            make.height.equalTo(@14);
-            make.width.equalTo(@7);
-
-        }];
-    }
     
     if (indexPath.row == 0) {
-        cell.textLabel.text = @"我的关注";
-        cell.textLabel.textColor = [UIColor whiteColor];
+    
+        FTDrawerPayCell *cell = [tableView dequeueReusableCellWithIdentifier:@"payCellId"];
+        cell.cellTitle.text = @"账户余额:";
+        cell.subtitle.text = @"120p 67s";
+        return cell;
+        
     }else {
-        cell.textLabel.text = @"我的收藏";
+        
+        FTDrawerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCellId"];
+        
+        if (indexPath.row == 1) {
+            cell.cellTitle.text = @"我的关注";
+            [cell.subtitle setHidden:YES];
+        }else if (indexPath.row == 2) {
+            cell.cellTitle.text = @"我的收藏";
+            [cell.subtitle setHidden:YES];
+        }else if (indexPath.row == 3) {
+            cell.cellTitle.text = @"比赛信息";
+            [cell.subtitle setHidden:YES];
+        }
+        
+         return cell;
     }
-//    FTDrawerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableCellId];
-//    
-//    if (!cell) {
-//        
-////        cell = [[FTDrawerTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableCellId];
-//        cell = [[[NSBundle mainBundle]loadNibNamed:@"FTDrawerTableViewCell" owner:self options:nil]firstObject];
-//        [cell setBackgroundColor:[UIColor clearColor]];
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    }
-//    if (indexPath.row == 0) {
-//        cell.textLabel.text = @"我的关注";
-////        [cell setTitleWithString:@"我的关注"];
-////        cell.cellTitle.text = @"我的关注";
-//        
-//    }else {
-//        cell.textLabel.text = @"我的关注";
-////        cell.cellTitle.text = @"我的收藏";
-//    }
-//    NSLog(@"cell:%@",cell);
-    return cell;
+    
 }
-
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([cell respondsToSelector:@selector(setSeparatorInset:)])
-    {
-        [cell setSeparatorInset:UIEdgeInsetsZero];
-    }
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)])
-    {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
-    }
-}
-
 
 #pragma  mark - FTDynamicsDelegate
 
