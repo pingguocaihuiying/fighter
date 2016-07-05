@@ -98,8 +98,6 @@
 		3DA6D1C91D20D94E0049CD4A /* FTCycleScrollViewCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6D1C71D20D94E0049CD4A /* FTCycleScrollViewCell2.m */; };
 		3DA6D1CA1D20D94E0049CD4A /* FTCycleScrollViewCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DA6D1C81D20D94E0049CD4A /* FTCycleScrollViewCell2.xib */; };
 		3DC31DD01CF859EC001BC364 /* FTArenaChooseLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC31DCF1CF859EC001BC364 /* FTArenaChooseLabelView.m */; };
-		3DC411EC1CCF74EC0030C229 /* FTDrawerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC411EA1CCF74EC0030C229 /* FTDrawerTableViewCell.m */; };
-		3DC411ED1CCF74EC0030C229 /* FTDrawerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC411EB1CCF74EC0030C229 /* FTDrawerTableViewCell.xib */; };
 		3DC411F01CCF80DD0030C229 /* FTDrawerTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC411EF1CCF80DD0030C229 /* FTDrawerTableViewHeader.m */; };
 		3DC411F31CCF810A0030C229 /* FTDrawerTableViewFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC411F21CCF810A0030C229 /* FTDrawerTableViewFooter.m */; };
 		3DC4121D1CD060190030C229 /* FTDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC4121B1CD060190030C229 /* FTDrawerViewController.m */; };
@@ -125,6 +123,12 @@
 		3DD54E311D0038A800888AC6 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD54E301D0038A800888AC6 /* MediaPlayer.framework */; };
 		3DD54E331D0038B700888AC6 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD54E321D0038B700888AC6 /* AssetsLibrary.framework */; };
 		3DD54E351D0038C700888AC6 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD54E341D0038C700888AC6 /* AddressBook.framework */; };
+		3DDE29B31D2BA4EB00876B30 /* FTDrawerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DDE29B11D2BA4EB00876B30 /* FTDrawerCell.m */; };
+		3DDE29B41D2BA4EB00876B30 /* FTDrawerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DDE29B21D2BA4EB00876B30 /* FTDrawerCell.xib */; };
+		3DDE29B81D2BAA8200876B30 /* FTDrawerPayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DDE29B61D2BAA8200876B30 /* FTDrawerPayCell.m */; };
+		3DDE29B91D2BAA8200876B30 /* FTDrawerPayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DDE29B71D2BAA8200876B30 /* FTDrawerPayCell.xib */; };
+		3DDE29BD1D2BB39F00876B30 /* FTPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DDE29BB1D2BB39F00876B30 /* FTPayViewController.m */; };
+		3DDE29BE1D2BB39F00876B30 /* FTPayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DDE29BC1D2BB39F00876B30 /* FTPayViewController.xib */; };
 		3DE0C9EF1D1BABB000C6ABE2 /* FTTeachVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0C9ED1D1BABB000C6ABE2 /* FTTeachVideoController.m */; };
 		3DE0C9F01D1BABB000C6ABE2 /* FTTeachVideoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE0C9EE1D1BABB000C6ABE2 /* FTTeachVideoController.xib */; };
 		3DE95B501CD326B7005BF85C /* FTCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95B4F1CD326B7005BF85C /* FTCollectionViewLayout.m */; };
@@ -440,9 +444,6 @@
 		3DA6D1C81D20D94E0049CD4A /* FTCycleScrollViewCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTCycleScrollViewCell2.xib; sourceTree = "<group>"; };
 		3DC31DCE1CF859EC001BC364 /* FTArenaChooseLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaChooseLabelView.h; sourceTree = "<group>"; };
 		3DC31DCF1CF859EC001BC364 /* FTArenaChooseLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaChooseLabelView.m; sourceTree = "<group>"; };
-		3DC411E91CCF74EC0030C229 /* FTDrawerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerTableViewCell.h; sourceTree = "<group>"; };
-		3DC411EA1CCF74EC0030C229 /* FTDrawerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDrawerTableViewCell.m; sourceTree = "<group>"; };
-		3DC411EB1CCF74EC0030C229 /* FTDrawerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTDrawerTableViewCell.xib; sourceTree = "<group>"; };
 		3DC411EE1CCF80DD0030C229 /* FTDrawerTableViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerTableViewHeader.h; sourceTree = "<group>"; };
 		3DC411EF1CCF80DD0030C229 /* FTDrawerTableViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDrawerTableViewHeader.m; sourceTree = "<group>"; };
 		3DC411F11CCF810A0030C229 /* FTDrawerTableViewFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerTableViewFooter.h; sourceTree = "<group>"; };
@@ -480,6 +481,15 @@
 		3DD54E301D0038A800888AC6 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		3DD54E321D0038B700888AC6 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		3DD54E341D0038C700888AC6 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		3DDE29B01D2BA4EB00876B30 /* FTDrawerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerCell.h; sourceTree = "<group>"; };
+		3DDE29B11D2BA4EB00876B30 /* FTDrawerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDrawerCell.m; sourceTree = "<group>"; };
+		3DDE29B21D2BA4EB00876B30 /* FTDrawerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTDrawerCell.xib; sourceTree = "<group>"; };
+		3DDE29B51D2BAA8200876B30 /* FTDrawerPayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerPayCell.h; sourceTree = "<group>"; };
+		3DDE29B61D2BAA8200876B30 /* FTDrawerPayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDrawerPayCell.m; sourceTree = "<group>"; };
+		3DDE29B71D2BAA8200876B30 /* FTDrawerPayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTDrawerPayCell.xib; sourceTree = "<group>"; };
+		3DDE29BA1D2BB39F00876B30 /* FTPayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPayViewController.h; sourceTree = "<group>"; };
+		3DDE29BB1D2BB39F00876B30 /* FTPayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPayViewController.m; sourceTree = "<group>"; };
+		3DDE29BC1D2BB39F00876B30 /* FTPayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTPayViewController.xib; sourceTree = "<group>"; };
 		3DE0C9EC1D1BABB000C6ABE2 /* FTTeachVideoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTeachVideoController.h; sourceTree = "<group>"; };
 		3DE0C9ED1D1BABB000C6ABE2 /* FTTeachVideoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTeachVideoController.m; sourceTree = "<group>"; };
 		3DE0C9EE1D1BABB000C6ABE2 /* FTTeachVideoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTeachVideoController.xib; sourceTree = "<group>"; };
@@ -1163,9 +1173,12 @@
 		3DC412181CD056090030C229 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				3DC411E91CCF74EC0030C229 /* FTDrawerTableViewCell.h */,
-				3DC411EA1CCF74EC0030C229 /* FTDrawerTableViewCell.m */,
-				3DC411EB1CCF74EC0030C229 /* FTDrawerTableViewCell.xib */,
+				3DDE29B01D2BA4EB00876B30 /* FTDrawerCell.h */,
+				3DDE29B11D2BA4EB00876B30 /* FTDrawerCell.m */,
+				3DDE29B21D2BA4EB00876B30 /* FTDrawerCell.xib */,
+				3DDE29B51D2BAA8200876B30 /* FTDrawerPayCell.h */,
+				3DDE29B61D2BAA8200876B30 /* FTDrawerPayCell.m */,
+				3DDE29B71D2BAA8200876B30 /* FTDrawerPayCell.xib */,
 				3DC411EE1CCF80DD0030C229 /* FTDrawerTableViewHeader.h */,
 				3DC411EF1CCF80DD0030C229 /* FTDrawerTableViewHeader.m */,
 				3DC411F11CCF810A0030C229 /* FTDrawerTableViewFooter.h */,
@@ -1218,6 +1231,9 @@
 		3DDE29AF1D2B5C2500876B30 /* 支付 */ = {
 			isa = PBXGroup;
 			children = (
+				3DDE29BA1D2BB39F00876B30 /* FTPayViewController.h */,
+				3DDE29BB1D2BB39F00876B30 /* FTPayViewController.m */,
+				3DDE29BC1D2BB39F00876B30 /* FTPayViewController.xib */,
 			);
 			name = "支付";
 			sourceTree = "<group>";
@@ -2397,6 +2413,8 @@
 				3DD2FC031D2A6AC50015F7AA /* FTTeachVideoCell.xib in Resources */,
 				3D8B2E541D1D14B000E18280 /* FTCoachCell.xib in Resources */,
 				3D13FB181D1A1AA80060B9B4 /* FTPracticeViewController.xib in Resources */,
+				3DDE29BE1D2BB39F00876B30 /* FTPayViewController.xib in Resources */,
+				3DDE29B91D2BAA8200876B30 /* FTDrawerPayCell.xib in Resources */,
 				E6BFBEE71D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib in Resources */,
 				E6A9DDC01CD9C88600CB9518 /* FTVideoDetailViewController.xib in Resources */,
 				3D7B98B51CE06F9800B80B8D /* FTInputNewPhoneViewController.xib in Resources */,
@@ -2404,6 +2422,7 @@
 				3D7B98BA1CE078D600B80B8D /* FTInputCheckCodeViewController.xib in Resources */,
 				3D8D73C31CE9DEFE009E2320 /* FTRankTableVIewCell.xib in Resources */,
 				3D4B19541CDAEF840022DFB0 /* FTTableViewCell4.xib in Resources */,
+				3DDE29B41D2BA4EB00876B30 /* FTDrawerCell.xib in Resources */,
 				E627EE671D25273F00B424F5 /* FTGymCell.xib in Resources */,
 				3DC9A4EF1CE5CD0700E16D19 /* FTRankViewController.xib in Resources */,
 				3D4B194A1CDACF9A0022DFB0 /* FTUserCenterViewController.xib in Resources */,
@@ -2433,7 +2452,6 @@
 				E6FE6A5E1CEED3DC00D63847 /* FTArenaPostsDetailViewController.xib in Resources */,
 				3D8D73BE1CE97404009E2320 /* FTTableViewCell6.xib in Resources */,
 				3D5FB4931CDC311400FC1809 /* FTAssetsViewController.xib in Resources */,
-				3DC411ED1CCF74EC0030C229 /* FTDrawerTableViewCell.xib in Resources */,
 				3D7B98C41CE08DEE00B80B8D /* FTNewPasswordVC.xib in Resources */,
 				E6035EBF1CC0C39500B10D36 /* FTCommentViewController.xib in Resources */,
 				E65D08D51CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.xib in Resources */,
@@ -2581,6 +2599,7 @@
 				E6E580B31CBE523B00272242 /* FTBaseTableViewCell.m in Sources */,
 				3DA6D1C91D20D94E0049CD4A /* FTCycleScrollViewCell2.m in Sources */,
 				E668BBB11CE32BA200071998 /* FTRankingListViewController.m in Sources */,
+				3DDE29BD1D2BB39F00876B30 /* FTPayViewController.m in Sources */,
 				3D4B19661CDB6CF80022DFB0 /* FTWeightPickerView.m in Sources */,
 				3D6CFF3A1D06A41200CAC12A /* FTAlivePushStreamVC.m in Sources */,
 				E68EC50B1CC4B85D00A338C8 /* FTFilterTableViewController.m in Sources */,
@@ -2605,7 +2624,6 @@
 				3D7C6B861CF2A2990088400D /* BoxerInfoController.m in Sources */,
 				E68050BC1CBF919A00678905 /* JHRefreshConfig.m in Sources */,
 				E6B4589A1CB7563300FB4261 /* FTBaseViewController.m in Sources */,
-				3DC411EC1CCF74EC0030C229 /* FTDrawerTableViewCell.m in Sources */,
 				3D7B98C81CE0D76800B80B8D /* FTWeixinInfoVC.m in Sources */,
 				E68050BB1CBF919A00678905 /* JHRefreshBaseView.m in Sources */,
 				E65F90B61CBDF106005CA3E6 /* NetWorking.m in Sources */,
@@ -2616,6 +2634,7 @@
 				3DFC41521D083A3F0067AC72 /* SDCollectionViewCell.m in Sources */,
 				E68050B71CBF919A00678905 /* JHRefreshAmazingAniView.m in Sources */,
 				E6FE6A5D1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m in Sources */,
+				3DDE29B31D2BA4EB00876B30 /* FTDrawerCell.m in Sources */,
 				3D8D73C21CE9DEFE009E2320 /* FTRankTableVIewCell.m in Sources */,
 				3DD07E951D1CC361004AF720 /* FTBaseViewController2.m in Sources */,
 				E6B239081D067045001F86BE /* FTHomepageCommentTableViewCell.m in Sources */,
@@ -2707,6 +2726,7 @@
 				E68050BD1CBF919A00678905 /* JHRefreshFooterView.m in Sources */,
 				3DCBC6AE1D24F6CC0000C28D /* FTGymView.m in Sources */,
 				E6D74A4D1CB7B7EE00854337 /* KeyChainStore.m in Sources */,
+				3DDE29B81D2BAA8200876B30 /* FTDrawerPayCell.m in Sources */,
 				3D7B98C31CE08DEE00B80B8D /* FTNewPasswordVC.m in Sources */,
 				E6035EBE1CC0C39500B10D36 /* FTCommentViewController.m in Sources */,
 				3DFC41501D083A3F0067AC72 /* TADotView.m in Sources */,
