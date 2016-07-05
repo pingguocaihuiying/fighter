@@ -24,4 +24,6 @@
 
 - (CGFloat) caculateHeight:(NSString *) labelsString;
 
+- (void) clearLabelView ;
+
 @end

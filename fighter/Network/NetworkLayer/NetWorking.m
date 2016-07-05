@@ -955,7 +955,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     
     NSString *urlString = [FTNetConfig host:Domain path:GetCoachListURL];
     
-    [self getRequestWithUrl:urlString parameters:dic option:option];
+    [self postRequestWithUrl:urlString parameters:dic option:option];
 }
 
 // Get Gym List

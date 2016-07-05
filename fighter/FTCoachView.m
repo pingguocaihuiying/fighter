@@ -25,6 +25,7 @@
 @property (nonatomic, copy) NSString *address;  //地址
 @property (nonatomic, copy) NSString *order;    //排序
 @property (nonatomic, copy) NSString *label;     //格斗项目
+@property (nonatomic, copy) NSString *label_ZH;     //格斗项目
 
 @property (nonatomic, copy) NSString * coachCurrId;
 @property (nonatomic, copy) NSString * getType;
@@ -61,7 +62,8 @@
     _currentPage = 1;
     
     _order = @"time";
-//    _label = @"All";
+    _label = @"ALL";
+    _label_ZH = @"全部";
     _coachCurrId = @"-1";
     _getType = @"new";
     
@@ -130,9 +132,10 @@
                 NSMutableArray *tempArray = dict[@"data"];
                 if (tempArray.count > 0) {
                     _cycleDataSourceArray = tempArray;
+                    [self initCycleScrollView];
                 }
                 
-                [self initCycleScrollView];
+                
                 
             }
             
@@ -308,7 +311,7 @@
     NSDictionary *dic = [_tableViewDataSourceArray objectAtIndex:indexPath.row];
     CGFloat labelView_H = [cell caculateHeight:dic[@"labels"]];
     if (labelView_H == 0) {
-        return 85;
+        return 88;
     }
     return 95 + labelView_H;
 }
@@ -335,7 +338,7 @@
     CGFloat buttonW = (SCREEN_WIDTH - 12*2)/3;
     
     // 教练地址筛选按钮
-    FTButton *addressBtn = [FTButton buttonWithtitle:@"全部"];
+    FTButton *addressBtn = [FTButton buttonWithtitle:@"北京"];
     addressBtn.frame = CGRectMake((buttonW+12)* 0, 0, buttonW, 40);
     [addressBtn addTarget:self action:@selector(addressBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:addressBtn];
@@ -347,7 +350,7 @@
     [headerView addSubview:orderBtn];
     
     // 教练项目按钮
-    FTButton *kindBtn = [FTButton buttonWithtitle:@"全部"];
+    FTButton *kindBtn = [FTButton buttonWithtitle:_label_ZH];
     kindBtn .frame = CGRectMake((buttonW+12)* 2, 0, buttonW, 40);
     [kindBtn addTarget:self action:@selector(kindBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:kindBtn ];
@@ -380,7 +383,8 @@
 
     [cell.title setText:dic[@"name"]];
     [cell.subtitle setText:dic[@"brief"]];
-    [cell.fansNum setText:dic[@"fansCount"]];
+    NSInteger fansCount = [dic[@"fansCount"] integerValue];
+    [cell.fansNum setText:[NSString stringWithFormat:@"%ld",(long)fansCount ]];
     
     [cell.avatarImageView.layer setMasksToBounds:YES];
     cell.avatarImageView.layer.cornerRadius = 20;
@@ -388,6 +392,7 @@
     [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"headUrl"]] placeholderImage:[UIImage imageNamed:@"头像-空"]];
     
     
+    [cell clearLabelView];
     [cell labelsViewAdapter:dic[@"labels"]];
     } @catch (NSException *exception) {
         NSLog(@"exception:%@",exception);
@@ -431,37 +436,38 @@
 
 #pragma mark -FTSelectCellDelegate
 
-- (void) selectedValue:(NSDictionary *)value {
+- (void) selectedValue:(NSDictionary *)dic {
 
-    NSLog(@"select cell");
+   
+    _label = dic[@"itemValueEn"];
+    _label_ZH = dic[@"itemValue"];
+    
+    [self getTableViewDataFromWeb];
 }
 - (void) selectedValue:(NSString *)value style:(FTRankTableViewStyle)style {
     
     if (style == FTRankTableViewStyleLeft) {
         if ([value isEqualToString:@"全部"]) {
             _address = nil;
-            goto update;
+            
+        }else {
+        
+            _address = value;
         }
         
-        _address = value;
     }else if (style == FTRankTableViewStyleCenter) {
         _order = value;
-        goto update;
+
     }else if (style == FTRankTableViewStyleRight) {
         
         if ([value isEqualToString:@"全部"]) {
             _label = nil;
-            goto update;
+        }else {
+            _label = value;
         }
-        _label = value;
     }
     
-    [self getTableViewDataFromWeb]; return;
-    
-    update:{
-        [self getTableViewDataFromWeb]; return;
-    }
-    
+    [self getTableViewDataFromWeb];
 }
 
 #pragma mark - response 
@@ -473,38 +479,70 @@
 
 - (void) orderBtnAction:(id) sender {
 
-    UIButton *button = sender;
-    CGRect frame = [self convertRect:button.frame fromView:button.superview];
-    
-    FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender style:FTRankTableViewStyleCenter option:^(FTRankTableView *searchTableView) {
-        NSMutableArray *tempArray = [[NSMutableArray alloc]init];
-        [tempArray insertObject:@{@"itemValue":@"按时间", @"itemValueEn":@"time"} atIndex:0];
-        [tempArray insertObject:@{@"itemValue":@"按人气", @"itemValueEn":@"fansCount"} atIndex:1];
-        searchTableView.dataArray = tempArray;
-        searchTableView.dataType = FTDataTypeDicArray;
-        searchTableView.Btnframe = frame;
-        searchTableView.tableW =frame.size.width;
-        
-        searchTableView.tableH = 40*5;
-        
-        searchTableView.offsetY = 40;
-        searchTableView.offsetX = 0;
-        
-        searchTableView.cellH = 40;
-        [searchTableView caculateTableHeight];
-        
-    }];
-    kindTableView.selectDelegate = self;
-    [self addSubview:kindTableView];
-//    [[UIApplication sharedApplication].keyWindow addSubview:kindTableView];
-//    [kindTableView  setAnimation];
+//    UIButton *button = sender;
+//    CGRect frame = [self convertRect:button.frame fromView:button.superview];
 //    
-//    [kindTableView setDirection:FTAnimationDirectionToTop];
+//    FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender style:FTRankTableViewStyleCenter option:^(FTRankTableView *searchTableView) {
+//        NSMutableArray *tempArray = [[NSMutableArray alloc]init];
+//        [tempArray insertObject:@{@"itemValue":@"按时间", @"itemValueEn":@"time"} atIndex:0];
+//        [tempArray insertObject:@{@"itemValue":@"按人气", @"itemValueEn":@"fansCount"} atIndex:1];
+//        searchTableView.dataArray = tempArray;
+//        searchTableView.dataType = FTDataTypeDicArray;
+//        searchTableView.Btnframe = frame;
+//        searchTableView.tableW =frame.size.width;
+//        
+//        searchTableView.tableH = 40*5;
+//        
+//        searchTableView.offsetY = 40;
+//        searchTableView.offsetX = 0;
+//        
+//        searchTableView.cellH = 40;
+//        [searchTableView caculateTableHeight];
+//        
+//    }];
+//    kindTableView.selectDelegate = self;
+//    [self addSubview:kindTableView];
+
 }
 
 
 - (void) kindBtnAction:(id) sender {
 
+    
+    
+    UIButton *button = sender;
+    CGRect frame = [self convertRect:button.frame fromView:button.superview];
+    
+    FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender style:FTRankTableViewStyleRight option:^(FTRankTableView *searchTableView) {
+        
+        NSMutableArray *array = [[NSMutableArray alloc]initWithArray:[FTNWGetCategory sharedCategories]];
+        
+        NSMutableDictionary *dic = [NSMutableDictionary new];
+        [dic setObject:@"All" forKey:@"itemValueEn"];
+        [dic setObject:@"全部" forKey:@"itemValue"];
+        [array insertObject:dic atIndex:0];
+        
+        searchTableView.dataArray = array;
+        searchTableView.dataType = FTDataTypeDicArray;
+        searchTableView.Btnframe = frame;
+        searchTableView.tableW =frame.size.width;
+        
+        searchTableView.offsetY = 40;
+        searchTableView.offsetX = -5;
+        
+        searchTableView.cellH = 40;
+        if (array.count * 40 > self.frame.size.height-40-frame.origin.y) {
+        
+            searchTableView.tableH = self.frame.size.height-40-frame.origin.y;
+        }else {
+            searchTableView.tableH = array.count * 40;
+        }
+        
+//        [searchTableView caculateTableHeight];
+        
+    }];
+    kindTableView.selectDelegate = self;
+    [self addSubview:kindTableView];
 }
 
 

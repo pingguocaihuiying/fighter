@@ -114,6 +114,8 @@
 		3DCBC6AE1D24F6CC0000C28D /* FTGymView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DCBC6AD1D24F6CC0000C28D /* FTGymView.m */; };
 		3DD07E951D1CC361004AF720 /* FTBaseViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD07E941D1CC361004AF720 /* FTBaseViewController2.m */; };
 		3DD07E981D1CCEDF004AF720 /* FTCoachView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD07E971D1CCEDF004AF720 /* FTCoachView.m */; };
+		3DD2FC021D2A6AC50015F7AA /* FTTeachVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC001D2A6AC50015F7AA /* FTTeachVideoCell.m */; };
+		3DD2FC031D2A6AC50015F7AA /* FTTeachVideoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD2FC011D2A6AC50015F7AA /* FTTeachVideoCell.xib */; };
 		3DD54E251D00331300888AC6 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD54E241D00331300888AC6 /* AdSupport.framework */; };
 		3DD54E271D00333200888AC6 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD54E261D00333200888AC6 /* libicucore.tbd */; };
 		3DD54E291D00336900888AC6 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD54E281D00336900888AC6 /* JavaScriptCore.framework */; };
@@ -466,6 +468,9 @@
 		3DD07E941D1CC361004AF720 /* FTBaseViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBaseViewController2.m; sourceTree = "<group>"; };
 		3DD07E961D1CCEDF004AF720 /* FTCoachView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCoachView.h; sourceTree = "<group>"; };
 		3DD07E971D1CCEDF004AF720 /* FTCoachView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCoachView.m; sourceTree = "<group>"; };
+		3DD2FBFF1D2A6AC50015F7AA /* FTTeachVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTeachVideoCell.h; sourceTree = "<group>"; };
+		3DD2FC001D2A6AC50015F7AA /* FTTeachVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTeachVideoCell.m; sourceTree = "<group>"; };
+		3DD2FC011D2A6AC50015F7AA /* FTTeachVideoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTeachVideoCell.xib; sourceTree = "<group>"; };
 		3DD54E241D00331300888AC6 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		3DD54E261D00333200888AC6 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		3DD54E281D00336900888AC6 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/PrivateFrameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -864,6 +869,9 @@
 				3D13FB2D1D1A96490060B9B4 /* FTPracticeCell.h */,
 				3D13FB2E1D1A96490060B9B4 /* FTPracticeCell.m */,
 				3D13FB2F1D1A96490060B9B4 /* FTPracticeCell.xib */,
+				3DD2FBFF1D2A6AC50015F7AA /* FTTeachVideoCell.h */,
+				3DD2FC001D2A6AC50015F7AA /* FTTeachVideoCell.m */,
+				3DD2FC011D2A6AC50015F7AA /* FTTeachVideoCell.xib */,
 			);
 			name = cell;
 			sourceTree = "<group>";
@@ -1205,6 +1213,13 @@
 				3DC9A4E81CE5CC6C00E16D19 /* FTRankBaseViewController.xib */,
 			);
 			name = base;
+			sourceTree = "<group>";
+		};
+		3DDE29AF1D2B5C2500876B30 /* 支付 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "支付";
 			sourceTree = "<group>";
 		};
 		3DE95BA91CD86FB6005BF85C /* login */ = {
@@ -1868,6 +1883,7 @@
 		E6B458921CB7554F00FB4261 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				3DDE29AF1D2B5C2500876B30 /* 支付 */,
 				3D13FB121D1A1A2C0060B9B4 /* 学拳 */,
 				E659F36B1D12A5C400B41129 /* 格斗场 */,
 				3D6CFF361D06A36600CAC12A /* 直播 */,
@@ -2378,6 +2394,7 @@
 				E6B458CE1CB75D9600FB4261 /* FTMatchViewController.xib in Resources */,
 				3D13FB0C1D193A5A0060B9B4 /* fighter.entitlements in Resources */,
 				E636B1AE1D2646840065C9C1 /* FTGymDetailViewController.xib in Resources */,
+				3DD2FC031D2A6AC50015F7AA /* FTTeachVideoCell.xib in Resources */,
 				3D8B2E541D1D14B000E18280 /* FTCoachCell.xib in Resources */,
 				3D13FB181D1A1AA80060B9B4 /* FTPracticeViewController.xib in Resources */,
 				E6BFBEE71D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib in Resources */,
@@ -2573,6 +2590,7 @@
 				3D4B18F51CD8BF340022DFB0 /* FTSetPassWordViewController.m in Sources */,
 				3D7C6B811CF2A26D0088400D /* BoxerMatchController.m in Sources */,
 				E64EF1111CB6614000CAE340 /* ViewController.m in Sources */,
+				3DD2FC021D2A6AC50015F7AA /* FTTeachVideoCell.m in Sources */,
 				3D13FB1C1D1A3FFB0060B9B4 /* FTSegmentedControl.m in Sources */,
 				E6B7D2001CF6A750004191A3 /* FTArenaViewController.m in Sources */,
 				E6D74A4E1CB7B7EE00854337 /* MD5.m in Sources */,

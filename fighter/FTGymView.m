@@ -11,9 +11,9 @@
 #import "FTButton.h"
 #import "FTCycleScrollView.h"
 #import "FTCycleScrollViewCell2.h"
-//#import "TestCycleView.h"
+#import "FTRankTableView.h"
 
-@interface FTGymView () <UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, FTCycleScrollViewDelegate>
+@interface FTGymView () <UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, FTCycleScrollViewDelegate,FTSelectCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong)FTCycleScrollView *gymCycleScrollView;
 //@property (nonatomic, strong)TestCycleView *coachCycleScrollView;
@@ -24,6 +24,7 @@
 @property (nonatomic, copy) NSString *address;  //地址
 @property (nonatomic, copy) NSString *gymTag;    //排序
 @property (nonatomic, copy) NSString *gymType;     //格斗项目
+@property (nonatomic, copy) NSString *gymType_ZH;     //格斗项目
 
 @property (assign) NSInteger currentPage;
 
@@ -60,8 +61,8 @@
     
     _currentPage = 1;
     _gymTag = @"1";
-    _gymType = @"All";
-    
+    _gymType = @"ALL";
+    _gymType_ZH = @"全部";
     _gymCurrId = @"-1";
     _getType = @"new";
     
@@ -130,7 +131,7 @@
     
     [NetWorking getGymsByDic:dic option:^(NSDictionary *dict) {
         
-        NSLog(@"cycle dict:%@",dict);
+//        NSLog(@"cycle dict:%@",dict);
         if (dict != nil) {
             
             if ([dict[@"status"] isEqualToString:@"success"] ) {
@@ -166,10 +167,11 @@
     [dic setObject:ts forKey:@"ts"];
     [dic setObject:checkSign forKey:@"checkSign"];
     
-    
+    NSString *urlString = [NSString stringWithFormat:@"gymType=%@&gymCurrId=%@&gymTag=%@&getType=%@&ts=%@&checkSign=%@",_gymType,_gymCurrId,_gymTag,_getType, ts,checkSign];
+    NSLog(@"urlstring:%@",urlString);
     [NetWorking getGymsByDic:dic option:^(NSDictionary *dict) {
         
-//        NSLog(@"table dict:%@",dict);
+        NSLog(@"table dict:%@",dict);
         if (dict != nil) {
             
             if ([dict[@"status"] isEqualToString:@"success"] ) {
@@ -357,7 +359,7 @@
     [headerView addSubview:orderBtn];
     
     // 教练项目按钮
-    FTButton *kindBtn = [FTButton buttonWithtitle:@"项目"];
+    FTButton *kindBtn = [FTButton buttonWithtitle:_gymType_ZH];
     kindBtn .frame = CGRectMake((buttonW+12)* 2, 0, buttonW, 40);
     [kindBtn addTarget:self action:@selector(kindBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:kindBtn ];
@@ -382,6 +384,7 @@
     
     
     FTGymCell *cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
+    [cell clearLabelView];
     cell.backgroundColor = [UIColor clearColor];
     
     NSDictionary *dic = [_tableViewDataSourceArray objectAtIndex:indexPath.row];
@@ -398,6 +401,9 @@
          NSString *urlStr = [NSString stringWithFormat:@"http://%@/%@",dic[@"urlPrefix"],[tempArray objectAtIndex:0]];
         
         [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"拳馆占位图"]];
+    }else {
+    
+        [cell.avatarImageView setImage:[UIImage imageNamed:@"拳馆占位图"]];
     }
    
 //    NSString *string = [NSString stringWithFormat:@"%@,%@,%@",dic[@"gymType"],dic[@"gymType"],dic[@"gymType"]];
@@ -416,6 +422,23 @@
     
     
 }
+
+
+#pragma mark -FTSelectCellDelegate
+
+- (void) selectedValue:(NSDictionary *)dic {
+    
+    
+    _gymType = dic[@"itemValueEn"];
+    _gymType_ZH = dic[@"itemValue"];
+    [self getTableViewDataFromWeb];
+}
+- (void) selectedValue:(NSString *)value style:(FTRankTableViewStyle)style {
+    
+    
+}
+
+
 #pragma mark - response
 
 - (void) addressBtnAction:(id) sender {
@@ -430,7 +453,39 @@
 
 
 - (void) kindBtnAction:(id) sender {
+    UIButton *button = sender;
+    CGRect frame = [self convertRect:button.frame fromView:button.superview];
     
+    FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender style:FTRankTableViewStyleRight option:^(FTRankTableView *searchTableView) {
+        
+        NSMutableArray *array = [[NSMutableArray alloc]initWithArray:[FTNWGetCategory sharedCategories]];
+        
+        NSMutableDictionary *dic = [NSMutableDictionary new];
+        [dic setObject:@"ALL" forKey:@"itemValueEn"];
+        [dic setObject:@"全部" forKey:@"itemValue"];
+        [array insertObject:dic atIndex:0];
+        
+        searchTableView.dataArray = array;
+        searchTableView.dataType = FTDataTypeDicArray;
+        searchTableView.Btnframe = frame;
+        searchTableView.tableW =frame.size.width;
+        
+        searchTableView.offsetY = 40;
+        searchTableView.offsetX = -5;
+        
+        searchTableView.cellH = 40;
+        if (array.count * 40 > self.frame.size.height-40-frame.origin.y) {
+            
+            searchTableView.tableH = self.frame.size.height-40-frame.origin.y;
+        }else {
+            searchTableView.tableH = array.count * 40;
+        }
+        
+        //        [searchTableView caculateTableHeight];
+        
+    }];
+    kindTableView.selectDelegate = self;
+    [self addSubview:kindTableView];
 }
 
 - (FTButton *) selectButton:(NSString *)title {

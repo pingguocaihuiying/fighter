@@ -86,6 +86,10 @@
         [self.drawerDelegate addButtonToArray:self.leftBtn];
     }
     
+    [_teachBtn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+    [_teachBtn setBackgroundImage:[UIImage imageNamed:@"三标签-左-选中"] forState:UIControlStateSelected];
+    
+    
 }
 
 // 练习view
@@ -152,7 +156,7 @@
 
 - (IBAction)teachBtnAction:(id)sender {
     
-    _teachBtn.enabled = NO;
+//    _teachBtn.enabled = NO;
     _teachBtn.selected = YES;
     
     _coachBtn.selected = NO;
@@ -160,6 +164,7 @@
     
     _gymBtn.selected = NO;
     _gymBtn.enabled = YES;
+    
     
     [self initPracticeView];
     
@@ -173,7 +178,7 @@
     _teachBtn.selected = NO;
     
     _coachBtn.selected = YES;
-    _coachBtn.enabled = NO;
+//    _coachBtn.enabled = NO;
     
     _gymBtn.selected = NO;
     _gymBtn.enabled = YES;
@@ -193,7 +198,7 @@
     _coachBtn.enabled = YES;
     
     _gymBtn.selected = YES;
-    _gymBtn.enabled = NO;
+//    _gymBtn.enabled = NO;
     
     [self initGymView];
 

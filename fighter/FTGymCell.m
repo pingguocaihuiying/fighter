@@ -127,7 +127,12 @@
 //    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[tempArray objectAtIndex:0]] placeholderImage:[UIImage imageNamed:@"拳馆占位图"]];
 //}
 
+- (void) clearLabelView {
 
+    for (UIView *view in self.labelsView.subviews) {
+        [view removeFromSuperview];
+    }
+}
 
 - (void) layoutSubviews {
     

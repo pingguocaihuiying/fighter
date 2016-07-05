@@ -26,6 +26,7 @@
 #import "NetWorking.h"
 #import "FTButton.h"
 #import "FTRankTableView.h"
+#import "FTTeachVideoCell.h"
 
 @interface FTTeachVideoController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FTVideoDetailDelegate,FTSelectCellDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -90,7 +91,10 @@
     _collectionView.dataSource = self;
     
     //注册一个collectionViewCCell队列
-    [_collectionView registerNib:[UINib nibWithNibName:@"FTVideoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
+//    [_collectionView registerNib:[UINib nibWithNibName:@"FTVideoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
+    [_collectionView registerNib:[UINib nibWithNibName:@"FTTeachVideoCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
+    
+    
     [self setJHRefresh];
 }
 
@@ -241,7 +245,7 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     FTVideoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     if (cell == nil) {
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"FTVideoCollectionViewCell" owner:self options:nil]firstObject];
+        cell = [[[NSBundle mainBundle]loadNibNamed:@"FTTeachVideoCell" owner:self options:nil]firstObject];
     }
     
     //获取对应的bean，传递给下个vc
@@ -293,8 +297,11 @@
 
 #pragma mark FTSelectCellDelegate 
 
-- (void) selectedValue:(NSDictionary *)value {
+- (void) selectedValue:(NSDictionary *)dic {
 
+    self.videosTag = dic[@"itemValueEn"];
+    
+    [self getDataWithGetType:@"new" andCurrId:@"-1"];
 }
 
 - (void) selectedValue:(NSString *)value style:(FTRankTableViewStyle) style {
