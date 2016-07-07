@@ -7,10 +7,25 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTLaunchNewMatchViewController">
             <connections>
+                <outlet property="AAPayButton" destination="k9Z-IR-2Sl" id="Hcq-UR-Zf7"/>
+                <outlet property="consultPayButton" destination="RX4-gT-2fy" id="c7D-qw-XbY"/>
                 <outlet property="consultPayDetailView" destination="ah4-Kg-lx2" id="1X9-pv-tEV"/>
+                <outlet property="fullyMatchButton" destination="Y5P-pv-uKa" id="Kp7-bb-4iD"/>
+                <outlet property="loserPayButton" destination="6Gv-4N-CPv" id="4PT-rh-Yc7"/>
+                <outlet property="matchOverOneLevelButton" destination="99V-VF-4Tz" id="Evq-10-q0P"/>
+                <outlet property="matchOverTwoLevelButton" destination="8zR-h3-S9e" id="OFc-KA-tno"/>
+                <outlet property="opponentIncomeLabel" destination="lsC-HZ-5mS" id="Cz1-VA-tXn"/>
+                <outlet property="opponentLabel" destination="Hyu-mv-fSR" id="84F-js-NWb"/>
+                <outlet property="opponentPayButton" destination="kOm-TJ-n1z" id="sEx-GF-HWx"/>
                 <outlet property="payModeViewHeight" destination="0ah-fV-Y1r" id="4i6-Y6-8dd"/>
+                <outlet property="selectedGymLabel" destination="W1c-bE-Y2r" id="jNA-JI-nZ5"/>
+                <outlet property="selfIncomeLabel" destination="eIa-OC-jAo" id="GsN-4M-bAm"/>
+                <outlet property="selfPayButton" destination="Fkv-7D-lTQ" id="8Fy-aa-gol"/>
+                <outlet property="supportPayButton" destination="Dwg-lH-iHn" id="TN5-2S-Hef"/>
+                <outlet property="totalTicketPriceLabel" destination="Nrt-Qo-rC2" id="h4n-YH-Xjn"/>
                 <outlet property="typeImageView" destination="utS-kb-pth" id="7d8-0G-t7H"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="winnerPayButton" destination="F6R-P6-uED" id="IF6-NT-IQk"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -170,6 +185,9 @@
                                         <constraint firstAttribute="height" constant="30" id="tAk-Lb-xhp"/>
                                     </constraints>
                                     <state key="normal" image="下拉-下箭头"/>
+                                    <connections>
+                                        <action selector="chooseOpponentButtonClicked:" destination="-1" eventType="touchUpInside" id="6te-js-co2"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="任何人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hyu-mv-fSR">
                                     <rect key="frame" x="139" y="156" width="42" height="14"/>
@@ -368,7 +386,7 @@
                                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我方" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wPd-oK-MZx">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="对手" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wPd-oK-MZx">
                                     <rect key="frame" x="209" y="69" width="24" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="12" id="diE-i1-7GR"/>
@@ -393,6 +411,9 @@
                                         <constraint firstAttribute="width" constant="30" id="CrP-91-hTS"/>
                                     </constraints>
                                     <state key="normal" image="下拉-下箭头"/>
+                                    <connections>
+                                        <action selector="selfIncomeButtonClicked:" destination="-1" eventType="touchUpInside" id="0kL-jW-bmg"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beq-vb-GWp" userLabel="下拉">
                                     <rect key="frame" x="318" y="60" width="30" height="30"/>
@@ -401,7 +422,16 @@
                                         <constraint firstAttribute="height" constant="30" id="SM0-J9-3wQ"/>
                                     </constraints>
                                     <state key="normal" image="下拉-下箭头"/>
+                                    <connections>
+                                        <action selector="opponentIncomeButtonClicked:" destination="-1" eventType="touchUpInside" id="mHV-FK-Avp"/>
+                                    </connections>
                                 </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="拳馆享受固定收益" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2F7-hW-qQ3">
+                                    <rect key="frame" x="218" y="17" width="96" height="15"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <color key="textColor" red="0.70588235294117641" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -430,6 +460,8 @@
                                 <constraint firstItem="lHW-Ws-r7k" firstAttribute="leading" secondItem="8dD-rj-aSK" secondAttribute="leading" id="mfv-Uc-Jhx"/>
                                 <constraint firstItem="ZFE-ci-FWF" firstAttribute="top" secondItem="9Cd-Mi-eiF" secondAttribute="bottom" constant="15" id="nL3-6u-kBs"/>
                                 <constraint firstItem="kQ9-md-AXw" firstAttribute="centerY" secondItem="ZFE-ci-FWF" secondAttribute="centerY" id="p4K-Xr-ILc"/>
+                                <constraint firstItem="2F7-hW-qQ3" firstAttribute="centerY" secondItem="kW7-d7-WVb" secondAttribute="centerY" id="q52-Sw-6dE"/>
+                                <constraint firstItem="kW7-d7-WVb" firstAttribute="leading" secondItem="2F7-hW-qQ3" secondAttribute="trailing" constant="2" id="x8M-6k-LvB"/>
                                 <constraint firstItem="9Cd-Mi-eiF" firstAttribute="leading" secondItem="xix-Dk-aCh" secondAttribute="leading" id="xhN-ZC-abc"/>
                             </constraints>
                         </view>
@@ -588,6 +620,9 @@
                                     <state key="normal" title="对方" backgroundImage="支付选项背景-ios">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="opponentPayButtonClicked:" destination="-1" eventType="touchUpInside" id="D2L-TX-1J6"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dwg-lH-iHn">
                                     <rect key="frame" x="272" y="48" width="76" height="24"/>
@@ -598,6 +633,9 @@
                                     <state key="normal" title="赞助" backgroundImage="支付选项背景-ios">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="supportPayButtonClicked:" destination="-1" eventType="touchUpInside" id="zLY-KJ-Ywz"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="700元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cDb-GM-Enh">
                                     <rect key="frame" x="303" y="12" width="45" height="16"/>
@@ -630,16 +668,6 @@
                                                 <constraint firstAttribute="width" constant="25" id="cEb-sD-0fh"/>
                                             </constraints>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F6R-P6-uED">
-                                            <rect key="frame" x="19" y="19" width="104" height="24"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="24" id="5N0-Fm-WcS"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <state key="normal" title="赢家支付" backgroundImage="支付选项背景pre-ios">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k9Z-IR-2Sl">
                                             <rect key="frame" x="131" y="19" width="105" height="24"/>
                                             <constraints>
@@ -649,6 +677,9 @@
                                             <state key="normal" title="AA支付" backgroundImage="支付选项背景-ios">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="AAPayButtonClicked:" destination="-1" eventType="touchUpInside" id="36m-p8-haU"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Gv-4N-CPv">
                                             <rect key="frame" x="244" y="19" width="104" height="24"/>
@@ -659,6 +690,22 @@
                                             <state key="normal" title="输家支付" backgroundImage="支付选项背景-ios">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="loserPayButtonClicked:" destination="-1" eventType="touchUpInside" id="5SR-mH-ATi"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F6R-P6-uED">
+                                            <rect key="frame" x="19" y="19" width="104" height="24"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="24" id="5N0-Fm-WcS"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <state key="normal" title="赢家支付" backgroundImage="支付选项背景pre-ios">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="winnerPayButtonClicked:" destination="-1" eventType="touchUpInside" id="kAg-fP-fW4"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -748,7 +795,7 @@
                 <constraint firstItem="jha-Ba-7Du" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="oRB-h5-r6G"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-            <point key="canvasLocation" x="240.5" y="171.5"/>
+            <point key="canvasLocation" x="510.5" y="101.5"/>
         </view>
     </objects>
     <resources>

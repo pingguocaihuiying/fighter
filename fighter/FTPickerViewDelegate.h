@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "FTIncomePercentView.h"
 typedef NS_ENUM(NSInteger, FTPickerType) {
     FTPickerTypeNone = 0,   // no picker type
     FTPickerTypeDate,
@@ -18,8 +18,9 @@ typedef NS_ENUM(NSInteger, FTPickerType) {
     
 };
 
+@class FTIncomePercentView;
 @protocol FTPickerViewDelegate <NSObject>
-@optional
 - (void) didSelectedDate:(NSString *) date type:(FTPickerType) type;
 - (void) didRemovePickerView;
+- (void)pickerView:(FTIncomePercentView *) incomePercentView didSelectedIncomeValuePercent:(NSInteger)curIncomePoint;//收益百分比选择回调
 @end

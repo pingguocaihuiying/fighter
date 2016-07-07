@@ -62,6 +62,20 @@
     NSString *fixString = [dateFormatter stringFromDate:date];
     return fixString;
 }
++ (BOOL)isNumText:(NSString *)str{
+    
+    NSCharacterSet*cs;
+    cs = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789"] invertedSet];
+    NSString*filtered = [[str componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+    BOOL basicTest = [str isEqualToString:filtered];
+    if(!basicTest) {
+        
+        return NO;
+        
+    }
+    return YES;
+    
+}
 //+ (void)showHUDWithMessage:(NSString *)message andView:(UIView *)view{
 //    
 //    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:view];
