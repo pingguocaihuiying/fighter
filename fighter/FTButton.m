@@ -116,7 +116,7 @@
 - (void) layoutSubviews {
     
     [super layoutSubviews];
-    NSLog(@"layoutSubViews");
+//    NSLog(@"layoutSubViews");
     CGSize size =  [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:self.titleLabel.font}];
 
     if (size.width > self.frame.size.width - 30-10-13) {

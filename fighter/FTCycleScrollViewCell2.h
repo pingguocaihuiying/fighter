@@ -16,6 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *subtitle;
 
+
 //@property (nonatomic, strong) UIColor *titleLabelTextColor;
 //@property (nonatomic, strong) UIFont *titleLabelTextFont;
 //@property (nonatomic, strong) UIColor *titleLabelBackgroundColor;

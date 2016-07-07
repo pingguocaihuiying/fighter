@@ -56,18 +56,6 @@
     
     //创建一个collectionView的属性设置处理器
     UICollectionViewFlowLayout *flow = [UICollectionViewFlowLayout new];
-    
-//    //行间距
-//    //    flow.minimumLineSpacing = 15 * SCALE;
-//    //列间距
-//    flow.minimumInteritemSpacing = 10 * SCALE;
-//    flow.minimumLineSpacing = 8 * SCALE;
-//    
-//    float width = 116 * SCALE;
-//    float height = 143.5 * SCALE;
-//    flow.itemSize = CGSizeMake(width, height);
-//    //section内嵌距离设置
-//    flow.sectionInset = UIEdgeInsetsMake(0, 15 * SCALE, 0, 15 * SCALE);
     _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(6, 0, self.frame.size.width-12, self.frame.size.height) collectionViewLayout:flow];
     
     [_collectionView setBackgroundColor:[UIColor clearColor]];
@@ -108,7 +96,8 @@
 }
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-
+    
+    NSLog(@"didSelec");
     FTTeachVideoController *videoVC = [[FTTeachVideoController alloc]init];
     videoVC.videoType = [_array objectAtIndex:indexPath.row][@"itemValueEn"];
     videoVC.title = [_array objectAtIndex:indexPath.row][@"itemValue"];

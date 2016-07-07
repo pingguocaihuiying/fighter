@@ -955,14 +955,15 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     
     NSString *urlString = [FTNetConfig host:Domain path:GetCoachListURL];
     
-    [self getRequestWithUrl:urlString parameters:dic option:option];
+    [self postRequestWithUrl:urlString parameters:dic option:option];
 }
 
 // Get Gym List
 + (void) getGymsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option  {
     
     NSString *urlString = [FTNetConfig host:Domain path:GetGymListURL];
-    
+    NSLog(@"urlString=%@",urlString);
+    NSLog(@"dic = %@",dic);
     [self getRequestWithUrl:urlString parameters:dic option:option];
 }
 

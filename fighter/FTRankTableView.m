@@ -446,8 +446,8 @@
         }else {
 //            _tableH = _cellH *7;
             _tableH = _cellH *self.dataArray.count;
-            if (_tableH >SCREEN_HEIGHT - self.Btnframe.origin.y -64 ) {
-                _tableH = SCREEN_HEIGHT - self.Btnframe.origin.y - 64;
+            if (_tableH > SCREEN_HEIGHT - self.Btnframe.origin.y -64) {
+                _tableH = ((NSInteger) (SCREEN_HEIGHT - self.Btnframe.origin.y -64)/_cellH) *40;
             }
         }
         
@@ -455,6 +455,7 @@
 //            _tableH = _cellH *self.dataArray.count;
 //        }
     }
+    
 }
 
 

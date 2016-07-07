@@ -115,6 +115,15 @@
 
 
 
+- (void) clearLabelView {
+    
+    for (UIView *view in self.labelsView.subviews) {
+        [view removeFromSuperview];
+    }
+}
+
+
+
 - (void) layoutSubviews {
     
     [self setBackgroundColor:[UIColor clearColor]];

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTAbountUsViewController">
@@ -21,16 +21,28 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="关于我们logo" translatesAutoresizingMaskIntoConstraints="NO" id="4v8-oH-dbE">
-                    <rect key="frame" x="54" y="75" width="212" height="212"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="212" id="5HD-SF-VdW"/>
-                        <constraint firstAttribute="width" constant="212" id="q88-HO-AlD"/>
-                    </constraints>
+                    <rect key="frame" x="25" y="75" width="269" height="192"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJr-RR-Dee">
-                    <rect key="frame" x="15" y="287" width="290" height="98"/>
+                    <rect key="frame" x="15" y="267" width="290" height="98"/>
                     <attributedString key="attributedText">
-                        <fragment content="《格斗家》是一款专为格斗爱好者研发的">
+                        <fragment content="《格斗">
+                            <attributes>
+                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="14" name="STHeitiSC-Light"/>
+                                <font key="NSOriginalFont" size="14" name="HelveticaNeue"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content="东西">
+                            <attributes>
+                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="14" name="PingFangSC-Regular"/>
+                                <font key="NSOriginalFont" size="14" name="HelveticaNeue"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content="》是一款专为格斗爱好者研发的">
                             <attributes>
                                 <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <font key="NSFont" size="14" name="STHeitiSC-Light"/>
@@ -57,7 +69,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hzF-3b-Ts0">
-                    <rect key="frame" x="15" y="415" width="290" height="78.5"/>
+                    <rect key="frame" x="15" y="395" width="290" height="78.5"/>
                     <attributedString key="attributedText">
                         <fragment content="值得期待的是，不久后，将迎来我们一个大版本的迭代升级，更加丰富多彩的功能即将呈现，相信一定会惊艳到你！快快收入囊中，不容错过～">
                             <attributes>
@@ -75,7 +87,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright ©2016 gogogofight. All Right Reserverd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evx-1k-ILp">
-                    <rect key="frame" x="5" y="553.5" width="310" height="14.5"/>
+                    <rect key="frame" x="5" y="553" width="310" height="14.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -102,6 +114,6 @@
         </view>
     </objects>
     <resources>
-        <image name="关于我们logo" width="235" height="212"/>
+        <image name="关于我们logo" width="269" height="192"/>
     </resources>
 </document>

@@ -11,9 +11,10 @@
 #import "FTButton.h"
 #import "FTCycleScrollView.h"
 #import "FTCycleScrollViewCell.h"
-//#import "TestCycleView.h"
+#import "FTRankTableView.h"
+#import "FTHomepageMainViewController.h"
 
-@interface FTCoachView () <UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, FTCycleScrollViewDelegate>
+@interface FTCoachView () <UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, FTCycleScrollViewDelegate,FTSelectCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong)FTCycleScrollView *coachCycleScrollView;
 //@property (nonatomic, strong)TestCycleView *coachCycleScrollView;
@@ -23,7 +24,11 @@
 
 @property (nonatomic, copy) NSString *address;  //地址
 @property (nonatomic, copy) NSString *order;    //排序
-@property (nonatomic, copy) NSString *kind;     //格斗项目
+@property (nonatomic, copy) NSString *label;     //格斗项目
+@property (nonatomic, copy) NSString *label_ZH;     //格斗项目
+
+@property (nonatomic, copy) NSString * coachCurrId;
+@property (nonatomic, copy) NSString * getType;
 
 @property (assign) NSInteger currentPage;
 
@@ -56,6 +61,12 @@
     
     _currentPage = 1;
     
+    _order = @"time";
+    _label = @"ALL";
+    _label_ZH = @"全部";
+    _coachCurrId = @"-1";
+    _getType = @"new";
+    
     [self getCycleScrollViewDataFromWeb];
     [self getTableViewDataFromWeb];
     
@@ -70,11 +81,6 @@
 
 - (void)initCycleScrollView{
     
-//    _cycleDataSourceArray = [NSMutableArray new];
-//    for (int i = 0; i< 4; i++) {
-//        
-//        [_cycleDataSourceArray addObject:[NSURL URLWithString:@"http://www.gogogofight.com/img/news/news1467183207211.jpg"]];
-//    }
 
     _coachCycleScrollView = [FTCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180 * SCREEN_WIDTH / 375)
                                                                 delegate:self
@@ -85,8 +91,8 @@
     _coachCycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
     _coachCycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点pre"];
     _coachCycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播点"];
-//    _coachCycleScrollView.itemCount = _cycleDataSourceArray.count;
-     _coachCycleScrollView.dataArray = _cycleDataSourceArray;
+    _coachCycleScrollView.cycleCount = _cycleDataSourceArray.count;
+//     _coachCycleScrollView.dataArray = _cycleDataSourceArray;
     [_coachCycleScrollView.mainView registerNib:[UINib nibWithNibName:@"FTCycleScrollViewCell" bundle:nil] forCellWithReuseIdentifier:@"coachScrollCell"];
     _coachCycleScrollView.mainView.dataSource = self;
     _coachCycleScrollView.mainView.delegate = self;
@@ -126,9 +132,10 @@
                 NSMutableArray *tempArray = dict[@"data"];
                 if (tempArray.count > 0) {
                     _cycleDataSourceArray = tempArray;
+                    [self initCycleScrollView];
                 }
                 
-                [self initCycleScrollView];
+                
                 
             }
             
@@ -144,9 +151,18 @@
 - (void) getTableViewDataFromWeb {
 
     NSMutableDictionary *dic = [NSMutableDictionary new];
-    [dic setObject:@"time" forKey:@"order"];
+    [dic setObject:_order forKey:@"order"];
     [dic setObject:@"10" forKey:@"pageSize"];
     [dic setObject:@"1" forKey:@"pageNum"];
+    
+    if (_label && _label.length > 0) {
+        [dic setObject:_label forKey:@"label"];
+    }
+    
+    if (_address && _address.length > 0) {
+        [dic setObject:_address forKey:@"address"];
+    }
+    
     [NetWorking getCoachsByDic:dic option:^(NSDictionary *dict) {
         
         NSLog(@"table dict:%@",dict);
@@ -200,19 +216,27 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    NSLog(@"---点击了第%ld张图片", (long)index);
-    //
-    //    FTNewsDetail2ViewController *newsDetailViewController = [FTNewsDetail2ViewController new];
-    //
-    //    //获取对应的bean，传递给下个vc
-    //    NSDictionary *newsDic = self.cycleDataSourceArray[index];
-    //    FTNewsBean *bean = [FTNewsBean new];
-    //    [bean setValuesWithDic:newsDic];
-    //
-    //    newsDetailViewController.newsBean = bean;
-    //
-    //    [self.navigationController pushViewController:newsDetailViewController animated:YES];
-
+    NSString *coachId;
+    NSString *userId;
+    
+    NSDictionary *dic = [_cycleDataSourceArray objectAtIndex:indexPath.row%_cycleDataSourceArray.count];
+    coachId = dic[@"id"];
+    userId= dic[@"userId"];
+    
+    NSLog(@"boxerId : %@", coachId);
+    NSLog(@"userId : %@", userId);
+    
+    //如果名字等于“暂时空缺“，不响应点击事件
+    if ([dic[@"name"] isEqualToString:@"暂时空缺"]) {
+        return;
+    }
+    
+    FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
+    homepageMainVC.coachId = coachId;
+    homepageMainVC.olduserid = userId;
+    if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
+        [self.delegate pushToController:homepageMainVC];
+    }
 }
 
 #pragma mark UIScrollViewDelegate
@@ -287,7 +311,7 @@
     NSDictionary *dic = [_tableViewDataSourceArray objectAtIndex:indexPath.row];
     CGFloat labelView_H = [cell caculateHeight:dic[@"labels"]];
     if (labelView_H == 0) {
-        return 85;
+        return 88;
     }
     return 95 + labelView_H;
 }
@@ -320,13 +344,13 @@
     [headerView addSubview:addressBtn];
     
     // 教练排序按钮
-    FTButton *orderBtn = [FTButton buttonWithtitle:@"按人气"];
+    FTButton *orderBtn = [FTButton buttonWithtitle:@"按时间"];
     orderBtn .frame = CGRectMake((buttonW+12)* 1, 0, buttonW, 40);
     [orderBtn addTarget:self action:@selector(orderBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:orderBtn];
     
     // 教练项目按钮
-    FTButton *kindBtn = [FTButton buttonWithtitle:@"项目"];
+    FTButton *kindBtn = [FTButton buttonWithtitle:_label_ZH];
     kindBtn .frame = CGRectMake((buttonW+12)* 2, 0, buttonW, 40);
     [kindBtn addTarget:self action:@selector(kindBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:kindBtn ];
@@ -350,14 +374,17 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     
+        
+    
     FTCoachCell *cell = [tableView dequeueReusableCellWithIdentifier:@"coachCell"];
     cell.backgroundColor = [UIColor clearColor];
-    
+    @try {
     NSDictionary *dic = [_tableViewDataSourceArray objectAtIndex:indexPath.row];
 
     [cell.title setText:dic[@"name"]];
     [cell.subtitle setText:dic[@"brief"]];
-    [cell.fansNum setText:dic[@"fansCount"]];
+    NSInteger fansCount = [dic[@"fansCount"] integerValue];
+    [cell.fansNum setText:[NSString stringWithFormat:@"%ld",(long)fansCount ]];
     
     [cell.avatarImageView.layer setMasksToBounds:YES];
     cell.avatarImageView.layer.cornerRadius = 20;
@@ -365,8 +392,14 @@
     [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"headUrl"]] placeholderImage:[UIImage imageNamed:@"头像-空"]];
     
     
+    [cell clearLabelView];
     [cell labelsViewAdapter:dic[@"labels"]];
-    
+    } @catch (NSException *exception) {
+        NSLog(@"exception:%@",exception);
+    } @finally {
+        
+    }
+  
     return cell;
 }
 
@@ -376,8 +409,67 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelected:NO];
     
+    NSString *coachId;
+    NSString *userId;
+    
+    NSDictionary *dic = [_tableViewDataSourceArray objectAtIndex:indexPath.row];
+    coachId = dic[@"id"];
+    userId= dic[@"userId"];
+    
+    NSLog(@"boxerId : %@", coachId);
+    NSLog(@"userId : %@", userId);
+    
+    //如果名字等于“暂时空缺“，不响应点击事件
+    if ([dic[@"name"] isEqualToString:@"暂时空缺"]) {
+        return;
+    }
+    
+    FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
+    homepageMainVC.coachId = coachId;
+    homepageMainVC.olduserid = userId;
+    if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
+        [self.delegate pushToController:homepageMainVC];
+    }
+    
     
 }
+
+#pragma mark -FTSelectCellDelegate
+
+- (void) selectedValue:(NSDictionary *)dic {
+
+   
+    _label = dic[@"itemValueEn"];
+    _label_ZH = dic[@"itemValue"];
+    
+    [self getTableViewDataFromWeb];
+}
+- (void) selectedValue:(NSString *)value style:(FTRankTableViewStyle)style {
+    
+    if (style == FTRankTableViewStyleLeft) {
+        if ([value isEqualToString:@"全部"]) {
+            _address = nil;
+            
+        }else {
+        
+            _address = value;
+        }
+        
+    }else if (style == FTRankTableViewStyleCenter) {
+        _order = value;
+
+    }else if (style == FTRankTableViewStyleRight) {
+        
+        if ([value isEqualToString:@"全部"]) {
+            _label = nil;
+        }else {
+            _label = value;
+        }
+    }
+    
+    [self getTableViewDataFromWeb];
+}
+
 #pragma mark - response 
 
 - (void) addressBtnAction:(id) sender {
@@ -387,13 +479,73 @@
 
 - (void) orderBtnAction:(id) sender {
 
-    
+//    UIButton *button = sender;
+//    CGRect frame = [self convertRect:button.frame fromView:button.superview];
+//    
+//    FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender style:FTRankTableViewStyleCenter option:^(FTRankTableView *searchTableView) {
+//        NSMutableArray *tempArray = [[NSMutableArray alloc]init];
+//        [tempArray insertObject:@{@"itemValue":@"按时间", @"itemValueEn":@"time"} atIndex:0];
+//        [tempArray insertObject:@{@"itemValue":@"按人气", @"itemValueEn":@"fansCount"} atIndex:1];
+//        searchTableView.dataArray = tempArray;
+//        searchTableView.dataType = FTDataTypeDicArray;
+//        searchTableView.Btnframe = frame;
+//        searchTableView.tableW =frame.size.width;
+//        
+//        searchTableView.tableH = 40*5;
+//        
+//        searchTableView.offsetY = 40;
+//        searchTableView.offsetX = 0;
+//        
+//        searchTableView.cellH = 40;
+//        [searchTableView caculateTableHeight];
+//        
+//    }];
+//    kindTableView.selectDelegate = self;
+//    [self addSubview:kindTableView];
+
 }
 
 
 - (void) kindBtnAction:(id) sender {
 
+    
+    
+    UIButton *button = sender;
+    CGRect frame = [self convertRect:button.frame fromView:button.superview];
+    
+    FTRankTableView *kindTableView = [[FTRankTableView alloc]initWithButton:sender style:FTRankTableViewStyleRight option:^(FTRankTableView *searchTableView) {
+        
+        NSMutableArray *array = [[NSMutableArray alloc]initWithArray:[FTNWGetCategory sharedCategories]];
+        
+        NSMutableDictionary *dic = [NSMutableDictionary new];
+        [dic setObject:@"All" forKey:@"itemValueEn"];
+        [dic setObject:@"全部" forKey:@"itemValue"];
+        [array insertObject:dic atIndex:0];
+        
+        searchTableView.dataArray = array;
+        searchTableView.dataType = FTDataTypeDicArray;
+        searchTableView.Btnframe = frame;
+        searchTableView.tableW =frame.size.width;
+        
+        searchTableView.offsetY = 40;
+        searchTableView.offsetX = -5;
+        
+        searchTableView.cellH = 40;
+        if (array.count * 40 > self.frame.size.height-40-frame.origin.y) {
+        
+            searchTableView.tableH = self.frame.size.height-40-frame.origin.y;
+        }else {
+            searchTableView.tableH = array.count * 40;
+        }
+        
+//        [searchTableView caculateTableHeight];
+        
+    }];
+    kindTableView.selectDelegate = self;
+    [self addSubview:kindTableView];
 }
+
+
 
 - (FTButton *) selectButton:(NSString *)title {
     

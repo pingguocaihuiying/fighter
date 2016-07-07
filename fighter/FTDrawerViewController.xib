@@ -127,9 +127,9 @@
                             </constraints>
                         </imageView>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="INQ-kt-DaJ">
-                            <rect key="frame" x="5" y="220" width="310" height="80"/>
+                            <rect key="frame" x="5" y="220" width="310" height="34"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="80" id="Clf-fN-PzV"/>
+                                <constraint firstAttribute="height" constant="34" id="Clf-fN-PzV"/>
                             </constraints>
                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uMT-CV-RH1">
                                 <size key="itemSize" width="50" height="50"/>
@@ -139,16 +139,13 @@
                             </collectionViewFlowLayout>
                         </collectionView>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PuJ-hd-UMy">
-                            <rect key="frame" x="15" y="330" width="305" height="94"/>
+                            <rect key="frame" x="5" y="284" width="310" height="180"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="94" id="5OE-9K-gft"/>
+                                <constraint firstAttribute="height" constant="180" id="5OE-9K-gft"/>
                             </constraints>
                             <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <outlet property="dataSource" destination="-1" id="Lgr-Ay-jyN"/>
-                                <outlet property="delegate" destination="-1" id="dZS-lu-0Ua"/>
-                            </connections>
+                            <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </tableView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="头像-空" translatesAutoresizingMaskIntoConstraints="NO" id="CCa-tj-QxX">
                             <rect key="frame" x="122" y="42" width="76" height="76"/>
@@ -200,8 +197,8 @@
                                 <action selector="feedBackAction:" destination="-1" eventType="touchUpInside" id="f3G-JU-QbP"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="QQ群: 454849853" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqM-ce-kbm">
-                            <rect key="frame" x="5" y="529" width="310" height="15"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QQ群: 454849853" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqM-ce-kbm">
+                            <rect key="frame" x="5" y="528" width="310" height="15"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -212,7 +209,7 @@
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2I5-nU-0jg">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2I5-nU-0jg">
                             <rect key="frame" x="16" y="245" width="288" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="Ncg-z8-Twk"/>
@@ -248,7 +245,7 @@
                         <constraint firstItem="Hiu-t4-qR9" firstAttribute="centerY" secondItem="FOf-te-ukt" secondAttribute="centerY" id="TTp-8b-RMd"/>
                         <constraint firstItem="FOf-te-ukt" firstAttribute="top" secondItem="1wU-10-oix" secondAttribute="bottom" constant="10" id="Txc-8z-XVb"/>
                         <constraint firstItem="c3Z-QR-b02" firstAttribute="leading" secondItem="UqM-ce-kbm" secondAttribute="leading" id="U2t-Yl-Qsh"/>
-                        <constraint firstItem="PuJ-hd-UMy" firstAttribute="trailing" secondItem="2TV-v2-Wgu" secondAttribute="trailing" id="UEd-r0-4aL"/>
+                        <constraint firstItem="PuJ-hd-UMy" firstAttribute="trailing" secondItem="2TV-v2-Wgu" secondAttribute="trailing" constant="-5" id="UEd-r0-4aL"/>
                         <constraint firstItem="wMV-CD-tle" firstAttribute="centerX" secondItem="2TV-v2-Wgu" secondAttribute="centerX" id="W5e-dm-4kR"/>
                         <constraint firstItem="IZa-hq-Ioe" firstAttribute="centerX" secondItem="oNO-cP-F7i" secondAttribute="centerX" id="ajw-Dl-cqt"/>
                         <constraint firstItem="cjm-Rk-cB2" firstAttribute="centerX" secondItem="2TV-v2-Wgu" secondAttribute="centerX" id="akf-sI-TOb"/>
@@ -264,14 +261,14 @@
                         <constraint firstItem="oNO-cP-F7i" firstAttribute="bottom" secondItem="IZa-hq-Ioe" secondAttribute="top" constant="-15" id="iOF-6S-t0U"/>
                         <constraint firstItem="guS-Ia-5ah" firstAttribute="top" secondItem="FWT-jF-UaN" secondAttribute="bottom" constant="10" id="jTc-Fi-2xf"/>
                         <constraint firstItem="cjm-Rk-cB2" firstAttribute="bottom" secondItem="2TV-v2-Wgu" secondAttribute="bottom" constant="-75" id="nLo-yG-iLM"/>
-                        <constraint firstItem="PuJ-hd-UMy" firstAttribute="leading" secondItem="2TV-v2-Wgu" secondAttribute="leading" constant="15" id="qBb-u4-yTH"/>
+                        <constraint firstItem="PuJ-hd-UMy" firstAttribute="leading" secondItem="2TV-v2-Wgu" secondAttribute="leading" constant="5" id="qBb-u4-yTH"/>
                         <constraint firstItem="Hiu-t4-qR9" firstAttribute="trailing" secondItem="FOf-te-ukt" secondAttribute="leading" constant="-15" id="rnf-3y-zkJ"/>
                         <constraint firstItem="CCa-tj-QxX" firstAttribute="top" secondItem="wMV-CD-tle" secondAttribute="top" constant="2" id="xdi-gA-7Vt"/>
                         <constraint firstItem="CCa-tj-QxX" firstAttribute="leading" secondItem="wMV-CD-tle" secondAttribute="leading" constant="2" id="yat-8V-FMT"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcN-LQ-B3u">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="254"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="头像-空" translatesAutoresizingMaskIntoConstraints="NO" id="QB0-Gt-C6M">
                             <rect key="frame" x="120" y="40" width="80" height="80"/>

@@ -42,9 +42,9 @@
 
 //
 
-//@property (nonatomic, assign)NSInteger itemCount;
+@property (nonatomic, assign)NSInteger cycleCount;
 
-@property (nonatomic, strong) NSArray *dataArray;
+//@property (nonatomic, strong) NSArray *dataArray;
 
 // 设置显示图片的collectionView
 - (void)setupMainView;

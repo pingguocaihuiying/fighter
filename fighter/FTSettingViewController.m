@@ -7,7 +7,6 @@
 //
 
 #import "FTSettingViewController.h"
-#import "FTDrawerTableViewCell.h"
 #import "Masonry.h"
 #import "NetWorking.h"
 #import "FTUserBean.h"

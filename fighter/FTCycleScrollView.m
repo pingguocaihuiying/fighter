@@ -211,8 +211,13 @@
 {
     _infiniteLoop = infiniteLoop;
     
-    if (self.dataArray.count > 1) {
-        self.dataArray = self.dataArray;
+//    if (self.dataArray.count > 1) {
+//        self.dataArray = self.dataArray;
+//    }
+
+    
+    if (_cycleCount > 1) {
+        self.cycleCount = self.cycleCount;
     }
 }
 
@@ -247,13 +252,30 @@
     [self setupPageControl];
 }
 
-- (void) setDataArray:(NSArray* )array {
+//- (void) setDataArray:(NSArray* )array {
+//    
+//    _dataArray  = array;
+//    
+//    _totalItemsCount = self.infiniteLoop ? self.dataArray.count  * 100:self.dataArray.count ;
+//    
+//    if (self.dataArray.count != 1) {
+//        self.mainView.scrollEnabled = YES;
+//        [self setAutoScroll:self.autoScroll];
+//    } else {
+//        self.mainView.scrollEnabled = NO;
+//    }
+//    
+//    [self setupPageControl];
+//    [self.mainView reloadData];
+//}
+
+- (void) setCycleCount:(NSInteger)count {
     
-    _dataArray  = array;
+    _cycleCount  = count;
     
-    _totalItemsCount = self.infiniteLoop ? self.dataArray.count  * 100:self.dataArray.count ;
+    _totalItemsCount = self.infiniteLoop ? _cycleCount  * 100:_cycleCount ;
     
-    if (self.dataArray.count != 1) {
+    if (_cycleCount != 1) {
         self.mainView.scrollEnabled = YES;
         [self setAutoScroll:self.autoScroll];
     } else {
@@ -264,7 +286,6 @@
     [self.mainView reloadData];
 }
 
-
 #pragma mark - actions
 
 
@@ -272,15 +293,20 @@
 {
     if (_pageControl) [_pageControl removeFromSuperview]; // 重新加载数据时调整
     
-    if ((self.dataArray.count  <= 1) && self.hidesForSinglePage) {
+//    if ((self.dataArray.count  <= 1) && self.hidesForSinglePage) {
+//        return;
+//    }
+    
+    if ((self.cycleCount  <= 1) && self.hidesForSinglePage) {
         return;
     }
-    
+
     switch (self.pageControlStyle) {
         case SDCycleScrollViewPageContolStyleAnimated:
         {
             TAPageControl *pageControl = [[TAPageControl alloc] init];
-            pageControl.numberOfPages = self.dataArray.count ;
+//            pageControl.numberOfPages = self.dataArray.count ;
+            pageControl.numberOfPages = self.cycleCount ;
             pageControl.dotColor = self.currentPageDotColor;
             pageControl.userInteractionEnabled = NO;
             [self addSubview:pageControl];
@@ -291,7 +317,8 @@
         case SDCycleScrollViewPageContolStyleClassic:
         {
             UIPageControl *pageControl = [[UIPageControl alloc] init];
-            pageControl.numberOfPages = self.dataArray.count ;
+//            pageControl.numberOfPages = self.dataArray.count ;
+            pageControl.numberOfPages = self.cycleCount ;
             pageControl.currentPageIndicatorTintColor = self.currentPageDotColor;
             pageControl.pageIndicatorTintColor = self.pageDotColor;
             pageControl.userInteractionEnabled = NO;
@@ -379,12 +406,21 @@
     }
     
     CGSize size = CGSizeZero;
+//    if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
+//        TAPageControl *pageControl = (TAPageControl *)_pageControl;
+//        size = [pageControl sizeForNumberOfPages:self.dataArray.count ];
+//    } else {
+//        size = CGSizeMake(self.dataArray.count  * self.pageControlDotSize.width * 1.2, self.pageControlDotSize.height);
+//    }
+    
     if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
         TAPageControl *pageControl = (TAPageControl *)_pageControl;
-        size = [pageControl sizeForNumberOfPages:self.dataArray.count ];
+        size = [pageControl sizeForNumberOfPages:self.cycleCount ];
     } else {
-        size = CGSizeMake(self.dataArray.count  * self.pageControlDotSize.width * 1.2, self.pageControlDotSize.height);
+        size = CGSizeMake(self.cycleCount  * self.pageControlDotSize.width * 1.2, self.pageControlDotSize.height);
     }
+
+    
     CGFloat x = (self.sd_width - size.width) * 0.5;
     if (self.pageControlAliment == SDCycleScrollViewPageContolAlimentRight) {
         x = self.mainView.sd_width - size.width - 10;
@@ -423,9 +459,12 @@
 
 - (void)mainViewDidScroll:(UIScrollView *)scrollView
 {
-    if (!self.dataArray.count ) return; // 解决清除timer时偶尔会出现的问题
+//    if (!self.dataArray.count ) return; // 解决清除timer时偶尔会出现的问题
+    if (!self.cycleCount ) return; // 解决清除timer时偶尔会出现的问题
+    
     int itemIndex = [self currentIndex];
-    int indexOnPageControl = itemIndex % self.dataArray.count ;
+//    int indexOnPageControl = itemIndex % self.dataArray.count ;
+    int indexOnPageControl = itemIndex % self.cycleCount ;
     
     if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
         TAPageControl *pageControl = (TAPageControl *)_pageControl;
@@ -454,9 +493,13 @@
 
 - (void)mainViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    if (!self.dataArray.count ) return; // 解决清除timer时偶尔会出现的问题
+//    if (!self.dataArray.count ) return; // 解决清除timer时偶尔会出现的问题
+//    int itemIndex = [self currentIndex];
+//    int indexOnPageControl = itemIndex % self.dataArray.count ;
+
+    if (!self.cycleCount ) return; // 解决清除timer时偶尔会出现的问题
     int itemIndex = [self currentIndex];
-    int indexOnPageControl = itemIndex % self.dataArray.count ;
+    int indexOnPageControl = itemIndex % self.cycleCount ;
     
     if ([self.delegate respondsToSelector:@selector(cycleScrollView:didScrollToIndex:)]) {
         [self.delegate cycleScrollView:self didScrollToIndex:indexOnPageControl];
