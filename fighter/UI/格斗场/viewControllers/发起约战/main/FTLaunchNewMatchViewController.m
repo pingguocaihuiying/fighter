@@ -41,6 +41,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *selfIncomeLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *opponentIncomeLabel;
+@property (weak, nonatomic) IBOutlet UIView *supportIncomeView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *matchIncomeViewHeight;
+@property (weak, nonatomic) IBOutlet UILabel *supportIncomePercentLabel;
 
 @end
 
@@ -168,23 +171,45 @@
 }
 - (IBAction)selfPayButtonClicked:(id)sender {
     NSLog(@"我方支付");
+    
+    _supporterIncomePoint = 0;//清零赞助收益比例
+    
     _matchPayMode = FTMatchPayModeSelf;//更改支付类型
     [self refreshPayModeButtonsDisplay];//刷新显示
     
     _payModeViewHeight.constant = 89;//调整整个支付view的高度
     _consultPayDetailView.hidden = YES;//隐藏二级支付view
+    
+    //隐藏赞助方收益view
+    _matchIncomeViewHeight.constant = 109;
+    _supportIncomeView.hidden = YES;
 }
 - (IBAction)consultPayButtonClicked:(id)sender {
     NSLog(@"协定支付");
+    
+    _supporterIncomePoint = 0;//清零赞助收益比例
+    
     _matchPayMode = FTMatchPayModeConsult;
     [self refreshPayModeButtonsDisplay];
     _payModeViewHeight.constant = 133;
     _consultPayDetailView.hidden = NO;
+    
+    //隐藏赞助方收益view
+    _matchIncomeViewHeight.constant = 109;
+    _supportIncomeView.hidden = YES;
 }
 - (IBAction)opponentPayButtonClicked:(id)sender {
     NSLog(@"对手支付");
+    
+    _supporterIncomePoint = 0;//清零赞助收益比例
+    
     _payModeViewHeight.constant = 89;
     _consultPayDetailView.hidden = YES;
+    
+    //隐藏赞助方收益view
+    _matchIncomeViewHeight.constant = 109;
+    _supportIncomeView.hidden = YES;
+    
     _matchPayMode = FTMatchPayModeOpponent;
     [self refreshPayModeButtonsDisplay];
 }
@@ -192,6 +217,11 @@
     NSLog(@"赞助");
     _payModeViewHeight.constant = 89;
     _consultPayDetailView.hidden = YES;
+    
+    //显示赞助方收益view
+    _matchIncomeViewHeight.constant = 136;
+    _supportIncomeView.hidden = NO;
+    
     _matchPayMode = FTMatchPayModeSupport;
     [self refreshPayModeButtonsDisplay];
 }
@@ -265,12 +295,17 @@
  *  @param sender
  */
 - (IBAction)selfIncomeButtonClicked:(id)sender {
-    NSInteger selfAvailablePoint;
-    if (_opponentIncomePoint == 0) {
-        selfAvailablePoint = AllAvailableIncomePoint - _opponentIncomePoint - _supporterIncomePoint - 1;
-    }else{
-        selfAvailablePoint = AllAvailableIncomePoint - _opponentIncomePoint - _supporterIncomePoint;
-    }
+    NSInteger selfAvailablePoint = 16;
+//    if (_opponentIncomePoint == 0) {
+//        selfAvailablePoint = AllAvailableIncomePoint - _opponentIncomePoint - _supporterIncomePoint - 1;
+//    }else{
+//        selfAvailablePoint = AllAvailableIncomePoint - _opponentIncomePoint - _supporterIncomePoint;
+//    }
+//    
+//    if (_matchPayMode == FTMatchPayModeSupport && _supporterIncomePoint == 0) {//如果是赞助支付,而且赞助方收益为0,要为赞助方预留2p（10%）出来
+//        selfAvailablePoint -= 2;
+//    }
+//    
     _selfIncomePercentView = [[FTIncomePercentView alloc]initWithAvailablePoint:selfAvailablePoint andCurPoint:_selfIncomePoint];
 
         _selfIncomePercentView.delegate = self;
@@ -278,12 +313,17 @@
         [self.view addSubview:_selfIncomePercentView];
 }
 - (IBAction)opponentIncomeButtonClicked:(id)sender {
-    NSInteger opponentAvailablePoint ;
-    if (_selfIncomePoint == 0) {
-        opponentAvailablePoint = AllAvailableIncomePoint - _selfIncomePoint - _supporterIncomePoint - 1;
-    }else{
-        opponentAvailablePoint = AllAvailableIncomePoint - _selfIncomePoint - _supporterIncomePoint;
-    }
+    NSInteger opponentAvailablePoint = 16;
+//    if (_selfIncomePoint == 0) {
+//        opponentAvailablePoint = AllAvailableIncomePoint - _selfIncomePoint - _supporterIncomePoint - 1;
+//    }else{
+//        opponentAvailablePoint = AllAvailableIncomePoint - _selfIncomePoint - _supporterIncomePoint;
+//    }
+//    
+//    if (_matchPayMode == FTMatchPayModeSupport && _supporterIncomePoint == 0) {//如果是赞助支付,而且赞助方收益为0要为赞助方预留2p（10%）出来
+//        opponentAvailablePoint -= 2;
+//    }
+    
     _opponentIncomePercentView = [[FTIncomePercentView alloc]initWithAvailablePoint:opponentAvailablePoint andCurPoint:_opponentIncomePoint];
     
     _opponentIncomePercentView.delegate = self;
@@ -291,16 +331,37 @@
     _opponentIncomePercentView.resultLabel.text = @"对方收益";
     [self.view addSubview:_opponentIncomePercentView];
 }
+- (IBAction)supporertIncomeButtonClicked:(id)sender {
+    NSInteger supporterAvailablePoint = 16;
+//    if (_selfIncomePoint == 0 && _opponentIncomePoint == 0) {//如果我方和对方收益都为0，则预留2p
+//        supporterAvailablePoint = AllAvailableIncomePoint - _selfIncomePoint - _supporterIncomePoint - 2;
+//    }else if (_selfIncomePoint == 0 || _opponentIncomePoint == 0){//如果我方和对方有一个收益都为0，则预留1p
+//        supporterAvailablePoint = AllAvailableIncomePoint - _selfIncomePoint - _supporterIncomePoint - 1;
+//    }else{
+//        supporterAvailablePoint = AllAvailableIncomePoint - _selfIncomePoint - _supporterIncomePoint;
+//    }
+    _supporterIncomePercentView = [[FTIncomePercentView alloc]initWithAvailablePoint:supporterAvailablePoint andCurPoint:_opponentIncomePoint];
+    
+    _supporterIncomePercentView.delegate = self;
+    
+    _supporterIncomePercentView.resultLabel.text = @"赞助方收益";
+    [self.view addSubview:_supporterIncomePercentView];
+}
 
 //收益百分比选择回调
 - (void)pickerView:(FTIncomePercentView *)incomePercentView didSelectedIncomeValuePercent:(NSInteger)curIncomePoint{
     NSLog(@"curIncomePoint : %ld", (long)curIncomePoint);
     if (incomePercentView == _selfIncomePercentView) {
             _selfIncomePoint = curIncomePoint;
-        _selfIncomeLabel.text = [NSString stringWithFormat:@"%ld%%", _selfIncomePoint * 5];
-    }else if (incomePercentView == _opponentIncomePercentView)
+            _selfIncomeLabel.text = [NSString stringWithFormat:@"%ld%%", _selfIncomePoint * 5];
+    }else if (incomePercentView == _opponentIncomePercentView){
         _opponentIncomePoint = curIncomePoint;
-    _opponentIncomeLabel.text = [NSString stringWithFormat:@"%ld%%", _opponentIncomePoint * 5];
+        _opponentIncomeLabel.text = [NSString stringWithFormat:@"%ld%%", _opponentIncomePoint * 5];
+    }else if (incomePercentView == _supporterIncomePercentView){
+        _supporterIncomePoint = curIncomePoint;
+        _supportIncomePercentLabel.text = [NSString stringWithFormat:@"%ld%%", _supporterIncomePoint * 5];
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {

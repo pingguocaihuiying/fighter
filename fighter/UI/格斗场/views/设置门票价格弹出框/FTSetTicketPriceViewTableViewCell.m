@@ -55,6 +55,12 @@
     if (result) {
         int basicPrice = [_basicPriceLabel.text intValue];
         int extraPrice = [[textField.text stringByReplacingCharactersInRange:range withString:string] intValue];
+        
+        //限制额外价格的长度，不能大于10000
+        if (extraPrice > 9999) {
+            return false;
+        }
+        
         int totalPrice = basicPrice + extraPrice;
         _theNewExtraPrice = [NSString stringWithFormat:@"%d", totalPrice];
         _totalPriceLabel.text = _theNewExtraPrice;

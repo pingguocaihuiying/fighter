@@ -200,6 +200,9 @@
 		E66D6EFB1CBCE81C008B015A /* FTNetConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6EF91CBCE81C008B015A /* FTNetConfig.m */; };
 		E66EAEA21CF8217F006CD6CE /* FTArenaTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E66EAEA01CF8217F006CD6CE /* FTArenaTextTableViewCell.m */; };
 		E66EAEA31CF8217F006CD6CE /* FTArenaTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E66EAEA11CF8217F006CD6CE /* FTArenaTextTableViewCell.xib */; };
+		E67096871D2F9A4400DB9F53 /* FTTimeSectionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E67096861D2F9A4400DB9F53 /* FTTimeSectionTableView.m */; };
+		E67096901D2FA6BB00DB9F53 /* FTGymTimeSectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E670968E1D2FA6BB00DB9F53 /* FTGymTimeSectionTableViewCell.m */; };
+		E67096911D2FA6BB00DB9F53 /* FTGymTimeSectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E670968F1D2FA6BB00DB9F53 /* FTGymTimeSectionTableViewCell.xib */; };
 		E67872731CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E67872711CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m */; };
 		E67872741CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E67872721CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib */; };
 		E67872791CEB00980099CEE6 /* FTNewPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E67872771CEB00980099CEE6 /* FTNewPostViewController.m */; };
@@ -617,6 +620,11 @@
 		E66EAE9F1CF8217F006CD6CE /* FTArenaTextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaTextTableViewCell.h; sourceTree = "<group>"; };
 		E66EAEA01CF8217F006CD6CE /* FTArenaTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaTextTableViewCell.m; sourceTree = "<group>"; };
 		E66EAEA11CF8217F006CD6CE /* FTArenaTextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaTextTableViewCell.xib; sourceTree = "<group>"; };
+		E67096851D2F9A4400DB9F53 /* FTTimeSectionTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTTimeSectionTableView.h; path = "UI/格斗场/views/显示时间段的tableview/FTTimeSectionTableView.h"; sourceTree = "<group>"; };
+		E67096861D2F9A4400DB9F53 /* FTTimeSectionTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTTimeSectionTableView.m; path = "UI/格斗场/views/显示时间段的tableview/FTTimeSectionTableView.m"; sourceTree = "<group>"; };
+		E670968D1D2FA6BB00DB9F53 /* FTGymTimeSectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTGymTimeSectionTableViewCell.h; path = "UI/格斗场/views/cell/时间段/FTGymTimeSectionTableViewCell.h"; sourceTree = "<group>"; };
+		E670968E1D2FA6BB00DB9F53 /* FTGymTimeSectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTGymTimeSectionTableViewCell.m; path = "UI/格斗场/views/cell/时间段/FTGymTimeSectionTableViewCell.m"; sourceTree = "<group>"; };
+		E670968F1D2FA6BB00DB9F53 /* FTGymTimeSectionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTGymTimeSectionTableViewCell.xib; path = "UI/格斗场/views/cell/时间段/FTGymTimeSectionTableViewCell.xib"; sourceTree = "<group>"; };
 		E67872701CEACEFC0099CEE6 /* FTArenaImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaImageTableViewCell.h; sourceTree = "<group>"; };
 		E67872711CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaImageTableViewCell.m; sourceTree = "<group>"; };
 		E67872721CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaImageTableViewCell.xib; sourceTree = "<group>"; };
@@ -1500,6 +1508,7 @@
 		E659F36D1D12A65C00B41129 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				E67096841D2F99EF00DB9F53 /* 显示时间段的tableview */,
 				E6574B491D2CB5CD009B8465 /* IncomePercentPicker */,
 				E6304D411D2B5AC500E48CCB /* 设置门票价格弹出框 */,
 				E679266B1D17B48E00AF30B3 /* cell */,
@@ -1693,6 +1702,25 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
+		E67096841D2F99EF00DB9F53 /* 显示时间段的tableview */ = {
+			isa = PBXGroup;
+			children = (
+				E67096851D2F9A4400DB9F53 /* FTTimeSectionTableView.h */,
+				E67096861D2F9A4400DB9F53 /* FTTimeSectionTableView.m */,
+			);
+			name = "显示时间段的tableview";
+			sourceTree = "<group>";
+		};
+		E67096891D2FA60100DB9F53 /* 时间段 */ = {
+			isa = PBXGroup;
+			children = (
+				E670968D1D2FA6BB00DB9F53 /* FTGymTimeSectionTableViewCell.h */,
+				E670968E1D2FA6BB00DB9F53 /* FTGymTimeSectionTableViewCell.m */,
+				E670968F1D2FA6BB00DB9F53 /* FTGymTimeSectionTableViewCell.xib */,
+			);
+			name = "时间段";
+			sourceTree = "<group>";
+		};
 		E6735AD11CFC408F0068782C /* 个人主页 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1735,6 +1763,7 @@
 		E679266B1D17B48E00AF30B3 /* cell */ = {
 			isa = PBXGroup;
 			children = (
+				E67096891D2FA60100DB9F53 /* 时间段 */,
 				E696E4DC1D2A399D00A89B60 /* 对手 */,
 				E636B1AF1D265ADD0065C9C1 /* 支持设施 */,
 				E627EE641D25162B00B424F5 /* 比赛列表 */,
@@ -2329,6 +2358,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E64EF1331CB6614100CAE340 /* Build configuration list for PBXNativeTarget "fighter" */;
 			buildPhases = (
+				218D5704294FD31CAE3AA790 /* 📦 Check Pods Manifest.lock */,
 				079F6CFBB5F630D52D2A57D4 /* [CP] Check Pods Manifest.lock */,
 				4FB332F39A8646C733F20968 /* [CP] Check Pods Manifest.lock */,
 				E64EF1021CB6614000CAE340 /* Sources */,
@@ -2490,6 +2520,7 @@
 				3DC9A4EF1CE5CD0700E16D19 /* FTRankViewController.xib in Resources */,
 				3D4B194A1CDACF9A0022DFB0 /* FTUserCenterViewController.xib in Resources */,
 				E6B239031D066C88001F86BE /* FTHomepageCommentListViewController.xib in Resources */,
+				E67096911D2FA6BB00DB9F53 /* FTGymTimeSectionTableViewCell.xib in Resources */,
 				3DC4121E1CD060190030C229 /* FTDrawerViewController.xib in Resources */,
 				3DE95BAE1CD8A042005BF85C /* FTRegistViewController.xib in Resources */,
 				3D8368C71D1930EA00F0F309 /* Assets.xcassets in Resources */,
@@ -2592,6 +2623,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-fighter/Pods-fighter-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		218D5704294FD31CAE3AA790 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		4FB332F39A8646C733F20968 /* [CP] Check Pods Manifest.lock */ = {
@@ -2698,6 +2744,7 @@
 				E6E9E88B1CDC464A00976480 /* FTVideoCollectionView.m in Sources */,
 				3DE95B501CD326B7005BF85C /* FTCollectionViewLayout.m in Sources */,
 				3DFB7DEF1D23E55A00CC79EA /* TestCycleView.m in Sources */,
+				E67096871D2F9A4400DB9F53 /* FTTimeSectionTableView.m in Sources */,
 				3DFC41521D083A3F0067AC72 /* SDCollectionViewCell.m in Sources */,
 				E68050B71CBF919A00678905 /* JHRefreshAmazingAniView.m in Sources */,
 				E6FE6A5D1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m in Sources */,
@@ -2720,6 +2767,7 @@
 				E6AD700F1CF80CFA00329D1E /* FTLYZButton.m in Sources */,
 				3D4B195F1CDB56EF0022DFB0 /* FTHeightPickerView.m in Sources */,
 				E68050BE1CBF919A00678905 /* JHRefreshHeaderView.m in Sources */,
+				E67096901D2FA6BB00DB9F53 /* FTGymTimeSectionTableViewCell.m in Sources */,
 				E6DB76131CBB9B430034253C /* FTOneImageInfoTableViewCell.m in Sources */,
 				3D8D73BD1CE97404009E2320 /* FTTableViewCell6.m in Sources */,
 				E64EF10E1CB6614000CAE340 /* AppDelegate.m in Sources */,
@@ -3004,7 +3052,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a4b9f1a5-458b-44e1-a179-41933a1002bc";
 			};
 			name = Debug;
 		};
@@ -3015,8 +3063,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3053,7 +3101,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a4b9f1a5-458b-44e1-a179-41933a1002bc";
 			};
 			name = Release;
 		};

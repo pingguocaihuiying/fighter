@@ -10,6 +10,7 @@
 #import "FTGymSupportItemsCollectionViewCell.h"
 #import "FTLaunchNewMatchViewController.h"
 #import "FTSetTicketPriceViewTableViewCell.h"
+#import "NetWorking.h"
 
 @interface FTGymDetailViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, setTicketViewDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *gymInfoTopViewHeight;
@@ -21,6 +22,8 @@
 @property (nonatomic, strong) FTSetTicketPriceViewTableViewCell *setTicketPriceView;
 @property (weak, nonatomic) IBOutlet UILabel *totalPriceLabel;
 
+@property (nonatomic, strong) NSArray *timeSections;//拳馆的固定时间段
+
 @end
 
 @implementation FTGymDetailViewController
@@ -28,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initBaseData];
+    [self getTimeSlots];//获取拳馆固定的时间段
     [self initSubViews];
     [self setSupportItemsCollection];//设置支持设施view
 //    [self setSupportLabelsView];//设置支持项目view
@@ -64,6 +68,13 @@
 - (void)initBaseData{
     _basicPrice = @"200";
 }
+
+- (void)getTimeSlots{
+    [NetWorking getGymTimeSlotsById:@"165" andOption:^(NSArray *array) {
+        
+    }];
+}
+
 //设置上方支持的item
 - (void)setSupportItemsCollection{
     //创建一个collectionView的属性设置处理器

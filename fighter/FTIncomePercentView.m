@@ -257,7 +257,11 @@
         label.font=[UIFont systemFontOfSize:20];
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = [UIColor whiteColor];
-        label.text= [NSString stringWithFormat:@"%lu",(row + 1)  * 5 ];
+        if (_availablePoint == 0) {//如果没有可用点数，则显示为0
+            label.text= @"0";
+        }else{
+            label.text= [NSString stringWithFormat:@"%lu",(row + 1)  * 5 ];
+        }
         
         return label;
     }else {
@@ -279,7 +283,11 @@
     if (component == 0) {
         selectH = (row + 1) * 5;
     }
-    _curPoint = row + 1;
+    if (_availablePoint == 0) {
+        _curPoint = 0;
+    } else {
+        _curPoint = row + 1;
+    }
     //将选择器结果显示到label
 //    _resultLabel.text = [NSString stringWithFormat:@"%ld %%",selectH];
     
