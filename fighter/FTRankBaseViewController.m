@@ -26,7 +26,7 @@
                                                object:nil];
     
     self.netStatus = [GLobalRealReachability currentReachabilityStatus];
-    NSLog(@"currentStatus:%@,", @(_netStatus));
+//    NSLog(@"currentStatus:%@,", @(_netStatus));
 }
 
 // 设置跟视图控制器样式

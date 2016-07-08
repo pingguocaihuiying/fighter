@@ -1,5 +1,5 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '7.0'
+platform :ios, '8.0'
 use_frameworks!
 target "fighter" do
 pod "AFNetworking", "~> 2.6.3"
@@ -29,4 +29,11 @@ pod "WeiboSDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git"
 pod "PLCameraStreamingKit", "~> 1.7.1"
 
 pod 'PPiAwesomeButton', '~> 1.5.2'
+
+pod 'OpenSSL-for-iOS', '~> 1.0.2.d.1'
+
+pod 'GTMBase64', '~> 1.0.0'
+
+pod 'Base64', '~> 1.1.2'
+
 end
