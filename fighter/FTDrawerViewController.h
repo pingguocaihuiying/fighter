@@ -12,7 +12,8 @@
 @interface FTDrawerViewController : UIViewController < FTDynamicsTransDelegate >
 @property (nonatomic, weak) FTDynamicsDrawerViewController *dynamicsDrawerViewController;
 
-@property (weak, nonatomic) IBOutlet UIView *drawerView;
+/*********   header view   *************/
+@property (weak, nonatomic) IBOutlet UIView *headerView;
 
 //头像
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
@@ -28,15 +29,19 @@
 @property (weak, nonatomic) IBOutlet UILabel *heightLabel;
 //用户体重label
 @property (weak, nonatomic) IBOutlet UILabel *weightLabel;
-//用户兴趣标签collectionView
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *collectionLayout;
 
-//关注和收藏的tableView
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+
+
+/*********   footer view   *************/
 //账号设置按钮
 @property (weak, nonatomic) IBOutlet UIButton *settingBtn;
+@property (weak, nonatomic) IBOutlet UILabel *qqLabel;
+@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
+@property (weak, nonatomic) IBOutlet UIView *footerView;
+
+/*********   table view   *************/
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 
 @property (weak, nonatomic) IBOutlet UIView *loginView;
@@ -46,10 +51,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *weichatLoginBtn;
 @property (weak, nonatomic) IBOutlet UILabel *tipLabel;
 
-
-@property (weak, nonatomic) IBOutlet UIButton *abountUsBtn;
-
-@property (weak, nonatomic) IBOutlet UIButton *feedbackBtn;
 
 - (void) setHomeViewController ;
 

@@ -152,8 +152,8 @@
 
     NSMutableDictionary *dic = [NSMutableDictionary new];
     [dic setObject:_order forKey:@"order"];
-    [dic setObject:@"10" forKey:@"pageSize"];
-    [dic setObject:@"1" forKey:@"pageNum"];
+//    [dic setObject:@"10" forKey:@"pageSize"];
+//    [dic setObject:@"1" forKey:@"pageNum"];
     
     if (_label && _label.length > 0) {
         [dic setObject:_label forKey:@"label"];

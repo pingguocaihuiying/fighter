@@ -11,6 +11,7 @@
 #import "FTTableViewCell5.h"
 #import "FTDrawerCell.h"
 #import "FTDrawerPayCell.h"
+#import "FTLabelsCell.h"
 
 #import "masonry.h"
 #import "FTDrawerTableViewHeader.h"
@@ -45,6 +46,7 @@
 #import "FTHomepageMainViewController.h"
 #import "FTFightingViewController.h"
 #import "FTPracticeViewController.h"
+#import "FTPayViewController.h"
 
 @interface FTDrawerViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
 
@@ -54,8 +56,7 @@
 @property (nonatomic , weak) UIButton *leftBtn;
 @property (nonatomic , strong) NSMutableArray *leftBtnArray;
 
-@property (weak, nonatomic) IBOutlet UILabel *qqLabel;
-@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
+
 
 @end
 
@@ -69,6 +70,8 @@ static NSString *const tableCellId = @"tableCellId";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    @try {
+   
     [self setLoginedView];
     
     [self setLoginView];
@@ -78,6 +81,12 @@ static NSString *const tableCellId = @"tableCellId";
     
     [self setVersion];
     
+        
+    } @catch (NSException *exception) {
+        NSLog(@"exception:%@",exception);
+    } @finally {
+        
+    }
     //设置监听器
 //    [self setNoti];
 }
@@ -125,13 +134,7 @@ static NSString *const tableCellId = @"tableCellId";
     
 //    [self.collectionView setHidden:YES];
 //    [self.tableView setHidden:YES];
-    [self.settingBtn setHidden:NO];
-    
-    [self.abountUsBtn setHidden:YES];
-    [self.abountUsBtn setEnabled:NO];
-    [self.feedbackBtn setHidden:YES];
-    [self.feedbackBtn setEnabled:NO];
-    
+
 }
 
 
@@ -141,11 +144,10 @@ static NSString *const tableCellId = @"tableCellId";
     NSLog(@"serSubviews");
     
     [self.view setBackgroundColor:[UIColor colorWithHex:0x191919]];
-    [self.drawerView setBackgroundColor:[UIColor colorWithHex:0x191919]];
-    
-    
+   
+    [self.headerView setBackgroundColor:[UIColor colorWithHex:0x191919]];
     //切换图层，把头像边框放到上层
-    [self.drawerView sendSubviewToBack:self.avatarImageView];
+    [self.headerView sendSubviewToBack:self.avatarImageView];
     
     //设置头像圆角
     [self.avatarImageView.layer setMasksToBounds:YES];
@@ -155,35 +157,26 @@ static NSString *const tableCellId = @"tableCellId";
     self.heightLabel.textColor = [UIColor colorWithHex:0xb4b4b4];
     self.weightLabel.textColor = [UIColor colorWithHex:0xb4b4b4];
     
-    [self.collectionView registerClass:[FTDrawerCollectionCell class] forCellWithReuseIdentifier:colllectionCellId];
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
-    self.collectionView.backgroundColor = [UIColor clearColor];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"FTDrawerCell" bundle:nil] forCellReuseIdentifier:@"tableCellId"];
     [self.tableView registerNib:[UINib nibWithNibName:@"FTDrawerPayCell" bundle:nil] forCellReuseIdentifier:@"payCellId"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"FTLabelsCell" bundle:nil] forCellReuseIdentifier:@"labelsCellId"];
     
     self.tableView.scrollEnabled = NO;
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-//    self.tableView.separatorColor = [UIColor colorWithHex:0x505050];
-//    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)])
-//    {
-//        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
-//    }
-//    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)])
-//    {
-//        [self.tableView setLayoutMargins:UIEdgeInsetsZero];
-//    }
+    self.tableView.tableFooterView = self.footerView;
+    self.tableView.tableHeaderView = self.headerView;
+
     
     CGFloat offsetW = [UIScreen mainScreen].bounds.size.width *0.3;
     
     @try {
         //把约束添加到父视图上
-        [self.drawerView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.loginView setTranslatesAutoresizingMaskIntoConstraints:NO];
         //子view的右边缘离父view的右边缘40个像素
-        NSLayoutConstraint *rightContraint = [NSLayoutConstraint constraintWithItem:self.drawerView
+        NSLayoutConstraint *rightContraint = [NSLayoutConstraint constraintWithItem:self.loginView
                                                                           attribute:NSLayoutAttributeRight
                                                                           relatedBy:NSLayoutRelationEqual
                                                                              toItem:self.view
@@ -217,10 +210,7 @@ static NSString *const tableCellId = @"tableCellId";
     
     [self.tipLabel setTextColor:[UIColor colorWithHex:0x505050]];
     
-    
-    [self.abountUsBtn setTitleColor:[UIColor colorWithHex:0xcccccc] forState:UIControlStateHighlighted];
-    [self.feedbackBtn setTitleColor:[UIColor colorWithHex:0xcccccc] forState:UIControlStateHighlighted];
-    
+
     if (![WXApi isWXAppInstalled] ) {
         [self.weichatLoginBtn setHidden:YES];
     }
@@ -390,37 +380,7 @@ static NSString *const tableCellId = @"tableCellId";
     
 //    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:NO];
 }
-- (IBAction)abountUsAction:(id)sender {
-    
-}
 
-- (IBAction)feedBackAction:(id)sender {
-    
-//    [self presentModalViewController:[UMFeedback feedbackModalViewController]
-//                                animated:YES];
-    
-    UIViewController *feedback = [UMFeedback feedbackViewController];
-    self.navigationController.navigationBar.hidden = NO;
-    [feedback.view setBackgroundColor:[UIColor colorWithHex:0x191919]];
-    
-    for (int i= 0;  i<[feedback.view subviews].count;i++) {
-        UIView *view = [[feedback.view subviews] objectAtIndex:i];
-        CGRect frame = view.frame;
-        [view setTranslatesAutoresizingMaskIntoConstraints:NO];
-        NSLog(@"%d\n:%@\nframe:(%f,%f,%f,%f)",i,view,frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
-        if (i < 5) {
-            [view.layer setMasksToBounds:YES];
-            CGPoint point = CGPointMake(frame.origin.x, frame.origin.y+60);
-            CGSize  size  = CGSizeMake(frame.size.width, frame.size.height +30);
-            view.frame = (CGRect){ point,size};
-        }
-    }
-    
-    [self.navigationController pushViewController:feedback
-                                         animated:YES];
-//    [self.navigationController presentViewController:[UMFeedback feedbackViewController] animated:YES completion:nil];
-
-}
 
 //编辑按钮事件
 - (IBAction)editingBtnAction:(id)sender {
@@ -467,6 +427,8 @@ static NSString *const tableCellId = @"tableCellId";
     
     [self presentViewController:baseNav animated:YES completion:nil];
 }
+
+
 #pragma mark - UICollectionViewDataSource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -485,7 +447,6 @@ static NSString *const tableCellId = @"tableCellId";
     cell.backgroundColor = [UIColor clearColor];
     cell.fightType = indexPath.row;
     [cell setBackImgView];
-    
     
     return cell;
 }
@@ -568,20 +529,42 @@ static NSString *const tableCellId = @"tableCellId";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 4;
+//    return 4;
+    return 5;
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if (indexPath.row == 0) {
+        return 65;
+    }
+    
+    if (indexPath.row == 1) {
+        return 85;
+    }
+    
+//    if (indexPath.row == 0) {
+//        return 85;
+//    }
     return 45 ;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
     if (indexPath.row == 0) {
-    
+        
+        FTLabelsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"labelsCellId"];
+        
+        [cell.collectionView registerClass:[FTDrawerCollectionCell class] forCellWithReuseIdentifier:colllectionCellId];
+        cell.collectionView.dataSource = self;
+        cell.collectionView.delegate = self;
+        
+        return cell;
+        
+    }else if (indexPath.row == 1) {
+        
         FTDrawerPayCell *cell = [tableView dequeueReusableCellWithIdentifier:@"payCellId"];
         cell.cellTitle.text = @"账户余额:";
         cell.subtitle.text = @"120p 67s";
@@ -591,13 +574,13 @@ static NSString *const tableCellId = @"tableCellId";
         
         FTDrawerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCellId"];
         
-        if (indexPath.row == 1) {
+        if (indexPath.row == 2) {
             cell.cellTitle.text = @"我的关注";
             [cell.subtitle setHidden:YES];
-        }else if (indexPath.row == 2) {
+        }else if (indexPath.row == 3) {
             cell.cellTitle.text = @"我的收藏";
             [cell.subtitle setHidden:YES];
-        }else if (indexPath.row == 3) {
+        }else if (indexPath.row == 4) {
             cell.cellTitle.text = @"比赛信息";
             [cell.subtitle setHidden:YES];
         }
@@ -605,6 +588,17 @@ static NSString *const tableCellId = @"tableCellId";
          return cell;
     }
     
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    NSLog(@"cell did select");
+    if (indexPath.row == 1) {
+        FTPayViewController *payVC = [[FTPayViewController alloc]init];
+        FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:payVC];
+        baseNav.navigationBarHidden = NO;
+        [self presentViewController:baseNav animated:YES completion:nil];
+    }
 }
 
 #pragma  mark - FTDynamicsDelegate
@@ -641,18 +635,6 @@ static NSString *const tableCellId = @"tableCellId";
 }
 
 #pragma mark - private methods
-//- (void)showHUDWithMessage:(NSString *)message{
-//    
-//    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
-//    [self.view addSubview:HUD];
-//    HUD.label.text = message;
-//    HUD.mode = MBProgressHUDModeCustomView;
-//    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
-//    [HUD showAnimated:YES];
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  2* NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-//        [HUD removeFromSuperview];
-//    });
-//}
 
 - (void) setHomeViewController {
     FTInformationViewController *infoVC = [FTInformationViewController new];

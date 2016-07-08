@@ -20,15 +20,18 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - Base64 (1.1.2)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
   - FontAwesome+iOS (0.1.4)
   - GPUImage (0.1.7)
+  - GTMBase64 (1.0.0)
   - HappyDNS (0.3.5)
   - Masonry (1.0.1)
   - MBProgressHUD (0.9.2)
   - MJRefresh (3.1.0)
+  - OpenSSL-for-iOS (1.0.2.d.1)
   - pili-librtmp (1.0.2)
   - PLCameraStreamingKit (1.7.1):
     - GPUImage (= 0.1.7)
@@ -65,10 +68,13 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6.3)
+  - Base64 (~> 1.1.2)
   - FMDB (~> 2.6.2)
+  - GTMBase64 (~> 1.0.0)
   - Masonry (~> 1.0.1)
   - MBProgressHUD (~> 0.9.2)
   - MJRefresh (~> 3.1.0)
+  - OpenSSL-for-iOS (~> 1.0.2.d.1)
   - PLCameraStreamingKit (~> 1.7.1)
   - PPiAwesomeButton (~> 1.5.2)
   - Qiniu (~> 7.0.20)
@@ -91,13 +97,16 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   FontAwesome+iOS: 9070b682a9255ca0fdc34bcfb129ad0ba2b73b87
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
+  GTMBase64: 0da7372e95f5171f3f652db38cde6716f8eb5e24
   HappyDNS: 6f8cf46fa7c0b98a6591fe8ecb2e08d9907a6e8b
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4
+  OpenSSL-for-iOS: d7a30add88a1969b052135adbe48452af231ed32
   pili-librtmp: 97dc6774ac4ebb9935f04d5f35f3f6d8c4a4f37c
   PLCameraStreamingKit: e67cc80087af50278ce9af3ae93fc54466fe71e0
   PLStreamingKit: 55c671786ebfa541105fa9d8df9e38fd28454210
@@ -111,6 +120,6 @@ SPEC CHECKSUMS:
   UMengSocialCOM: 074c135ce349aa4c8848d3fb8458757bcb6ffb67
   WeiboSDK: bceab625ec59b7039ba721cc4ba9f5868804f63e
 
-PODFILE CHECKSUM: f918346ab1cf0808a6d06f6ba6e83a683aba2bab
+PODFILE CHECKSUM: 01b769dde72ff4d39f76913a96e5ca42bdb05796
 
 COCOAPODS: 1.0.1

@@ -148,9 +148,8 @@ static DBManager * _sharedDBManager = nil;
             NSLog(@"数据库%@表创建成功",tableName);
         }
     }
-
-    
 }
+
 #pragma mark - labels table
 
 /**
