@@ -168,4 +168,7 @@ extern NSString * const GetCoachByIdURL;
 extern NSString * const GetGymListURL;
 extern NSString * const GetGymByIdURL;
 
+#pragma mark - 新格斗场
+//获取拳馆固定的时间段
+extern NSString * const GetGymTimeSlotsByIdURL;
 

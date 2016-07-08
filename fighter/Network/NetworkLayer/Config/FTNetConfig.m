@@ -197,3 +197,6 @@ NSString * const GetCoachByIdURL = @"/api/coach/{id}.do";
 // gym 拳馆
 NSString * const GetGymListURL = @"/api/gym/getGym.do";
 NSString * const GetGymByIdURL = @"/api/gym/getVideosById.do";
+
+#pragma mark - 新格斗场
+NSString * const GetGymTimeSlotsByIdURL = @"/api/place/listTime.do";

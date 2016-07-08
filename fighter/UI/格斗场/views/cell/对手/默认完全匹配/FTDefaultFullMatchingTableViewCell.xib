@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="16A201w" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="178" id="KGk-i7-Jjw" customClass="FTDefaultFullMatchingTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="金属边框-改进ios" translatesAutoresizingMaskIntoConstraints="NO" id="Jrl-bd-Mq2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="挑战任何人" translatesAutoresizingMaskIntoConstraints="NO" id="9H2-AH-1i5">
+                        <rect key="frame" x="6" y="0.0" width="200" height="66"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="200" id="Jnq-O0-VZN"/>
+                            <constraint firstAttribute="height" constant="66" id="UW4-Nt-t7L"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7KY-XY-y66">
+                        <rect key="frame" x="235" y="19" width="66" height="38"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="38" id="dvs-ZW-Qtg"/>
+                            <constraint firstAttribute="width" constant="66" id="ysV-qy-fJu"/>
+                        </constraints>
+                        <state key="normal" image="弹出框用-类别选择-选中"/>
+                        <connections>
+                            <action selector="selectButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="65J-Ro-XJd"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="同匹配度任何人都可能成为您的对手" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aq7-B6-AB4">
+                        <rect key="frame" x="69" y="41" width="192" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="12" id="6Tq-ed-WBa"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.70588235294117641" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="7KY-XY-y66" secondAttribute="trailing" constant="19" id="9u4-ww-wka"/>
+                    <constraint firstItem="9H2-AH-1i5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="6" id="HKU-5U-5NH"/>
+                    <constraint firstItem="7KY-XY-y66" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="I7a-Pl-AEg"/>
+                    <constraint firstItem="Jrl-bd-Mq2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Ki4-jb-0YK"/>
+                    <constraint firstAttribute="bottom" secondItem="Jrl-bd-Mq2" secondAttribute="bottom" id="OJh-HY-9xE"/>
+                    <constraint firstAttribute="bottom" secondItem="Aq7-B6-AB4" secondAttribute="bottom" constant="23" id="U3r-OU-meR"/>
+                    <constraint firstItem="Jrl-bd-Mq2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="WUL-g3-edy"/>
+                    <constraint firstItem="9H2-AH-1i5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="XNQ-9j-49C"/>
+                    <constraint firstAttribute="trailing" secondItem="Jrl-bd-Mq2" secondAttribute="trailing" id="bS3-7l-GsH"/>
+                    <constraint firstItem="Aq7-B6-AB4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="69" id="s1I-2q-OWt"/>
+                    <constraint firstAttribute="trailing" secondItem="7KY-XY-y66" secondAttribute="trailing" constant="19" id="udh-8d-CDP"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="9u4-ww-wka"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="checkButton" destination="7KY-XY-y66" id="fUw-yi-4jv"/>
+            </connections>
+            <point key="canvasLocation" x="532" y="441.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="弹出框用-类别选择-选中" width="18" height="18"/>
+        <image name="挑战任何人" width="200" height="66"/>
+        <image name="金属边框-改进ios" width="67" height="60"/>
+    </resources>
+</document>

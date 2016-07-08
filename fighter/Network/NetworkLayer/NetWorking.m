@@ -967,4 +967,26 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     [self getRequestWithUrl:urlString parameters:dic option:option];
 }
 
++ (void)getGymTimeSlotsById:(NSString *) gymId andOption:(void (^)(NSArray *array))option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetGymTimeSlotsByIdURL];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    assert(gymId);
+    
+    urlString = [NSString stringWithFormat:@"%@?corporationid=%@", urlString, gymId];
+    NSLog(@"get news by id urlString : %@", urlString);
+    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        //        [ZJModelTool createModelWithDictionary:responseObject modelName:nil];
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"message : %@", responseDic[@"message"]);
+        NSArray *array = responseDic[@"data"];
+        if (array && array != (id)[NSNull null]) {
+            option(array);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        option(nil);
+    }];
+}
+
 @end

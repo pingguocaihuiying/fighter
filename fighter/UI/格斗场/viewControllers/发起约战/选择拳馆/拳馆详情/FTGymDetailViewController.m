@@ -8,10 +8,21 @@
 
 #import "FTGymDetailViewController.h"
 #import "FTGymSupportItemsCollectionViewCell.h"
+#import "FTLaunchNewMatchViewController.h"
+#import "FTSetTicketPriceViewTableViewCell.h"
+#import "NetWorking.h"
 
-@interface FTGymDetailViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
+@interface FTGymDetailViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, setTicketViewDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *gymInfoTopViewHeight;
 @property (weak, nonatomic) IBOutlet UICollectionView *supportItemsCollectionView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelsViewHeight;//labelsView高度
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelsFatherViewHeight;//labelsView父视图的高度（需要根据labelView高度去改变）
+@property (weak, nonatomic) IBOutlet UIView *labelsView;
+@property (nonatomic, strong) UIView *priceContentView;
+@property (nonatomic, strong) FTSetTicketPriceViewTableViewCell *setTicketPriceView;
+@property (weak, nonatomic) IBOutlet UILabel *totalPriceLabel;
+
+@property (nonatomic, strong) NSArray *timeSections;//拳馆的固定时间段
 
 @end
 
@@ -19,11 +30,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initBaseData];
+    [self getTimeSlots];//获取拳馆固定的时间段
     [self initSubViews];
-    [self setSupportItemsCollection];
+    [self setSupportItemsCollection];//设置支持设施view
+//    [self setSupportLabelsView];//设置支持项目view
 }
 
 - (void)initSubViews{
+    //隐藏渐变图层
+    self.bottomGradualChangeView.hidden = YES;
     [self setNavigationBar];
     
 }
@@ -47,6 +63,16 @@
     //    [shareButton setImageInsets:UIEdgeInsetsMake(0, -20, 0, 20)];
     self.navigationItem.rightBarButtonItem = confirmButton;
     
+}
+
+- (void)initBaseData{
+    _basicPrice = @"200";
+}
+
+- (void)getTimeSlots{
+    [NetWorking getGymTimeSlotsById:@"165" andOption:^(NSArray *array) {
+        
+    }];
 }
 
 //设置上方支持的item
@@ -95,13 +121,91 @@
 
 - (void)confirmButtonClicked{
     NSLog(@"确定");
+    //返回前2个vc
+    FTLaunchNewMatchViewController *launchNewMatchViewController = self.navigationController.viewControllers[1];
+    launchNewMatchViewController.selectedGymLabel.text = @"天下一武馆";
+    launchNewMatchViewController.totalTicketPriceLabel.text = [NSString stringWithFormat:@"%d 元", [_basicPrice intValue] + [_extraPrice intValue]];
+    [self.navigationController popToViewController:launchNewMatchViewController animated:YES];
+}
+
+- (void)setSupportLabelsView{
+    NSString *labelsString = @"";
+    if (!labelsString ||labelsString.length == 0)
+        return;
+    
+    CGFloat width = SCREEN_WIDTH - 93;
+    CGFloat w=0;
+    CGFloat h=14;
+    CGFloat x=0;
+    CGFloat y=0;
+    
+    NSArray *labels = [labelsString componentsSeparatedByString:@", "];
+    
+    for (NSString *label in labels) {
+        UIImageView *labelView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"格斗标签-%@", label]]];
+        w = labelView.frame.size.width;
+        h = labelView.frame.size.height;
+        if (x + w <= width) {
+            labelView.frame = CGRectMake(x, y, w, h);
+            x = x + w + 8;
+        }else {
+            x = 0;
+            y = y + h + 6;
+            labelView.frame = CGRectMake(x, y, w, h);
+        }
+        
+        [self.labelsView addSubview:labelView];
+    }
+    _labelsViewHeight.constant = y;
+//    _labelsFatherViewHeight.constant = _labelsFatherViewHeight.constant - 20 + y;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)adjustTicketButtonClicked:(id)sender {
+    NSLog(@"调整门票价格");
+    
+    if (!_priceContentView) {
+        _priceContentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        _priceContentView.backgroundColor = [UIColor clearColor];
+        
+        UIView *bgView = [[UIView alloc]initWithFrame:_priceContentView.bounds];
+        bgView.backgroundColor = [UIColor blackColor];
+        bgView.alpha = 0.8;
+        
+        [_priceContentView addSubview:bgView];
+        _setTicketPriceView = [[[NSBundle mainBundle]loadNibNamed:@"FTSetTicketPriceViewTableViewCell" owner:nil options:nil]firstObject];
+//        _setTicketPriceView.basicPrice = _basicPrice;
+        _setTicketPriceView.delegate = self;
+        _setTicketPriceView.center = CGPointMake(_priceContentView.center.x, _priceContentView.center.y - 100);
+        [_priceContentView addSubview:_setTicketPriceView];
+        
+        [[[UIApplication sharedApplication]keyWindow] addSubview:_priceContentView];
+    }else{
+        _priceContentView.hidden = NO;
+        [_setTicketPriceView.extraPriceTextField becomeFirstResponder];
+    }
+}
 
+//调整价格 “确定”
+- (void)confirtButtonClickedWithBasicPrice:(NSString *)basicPriceString andExtraPrice:(NSString *)expraPriceString andTotalPrice:(NSString *)totalPrice{
+    _priceContentView.hidden = YES;
+    _basicPrice = basicPriceString;
+    _extraPrice = expraPriceString;
+    [[[UIApplication sharedApplication]keyWindow]endEditing:YES];
+    _totalPriceLabel.text = [NSString stringWithFormat:@"%d", [_basicPrice intValue] + [_extraPrice intValue]];
+    _totalPriceLabel.textColor = [UIColor redColor];
+}
+
+//调整价格“取消”
+- (void)cancelButtonClicked{
+    _priceContentView.hidden = YES;
+    [[[UIApplication sharedApplication]keyWindow]endEditing:YES];
+    _totalPriceLabel.text = [NSString stringWithFormat:@"%d", [_basicPrice intValue] + [_extraPrice intValue]];
+    _totalPriceLabel.textColor = [UIColor redColor];
+}
 /*
 #pragma mark - Navigation
 

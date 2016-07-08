@@ -181,6 +181,10 @@
 
 // Get Gym List
 + (void) getGymsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option;
+
+#pragma mark - 新格斗场
+//获取拳馆固定的时间段
++ (void)getGymTimeSlotsById:(NSString *) gymId andOption:(void (^)(NSArray *array))option;
 @end
 
 
