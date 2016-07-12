@@ -43,7 +43,7 @@
     CGContextFillRect(context, rect);
     
     CGContextSetStrokeColorWithColor(context, Cell_Space_Color.CGColor);
-    CGContextStrokeRect(context, CGRectMake(0, rect.size.height - 0.5, rect.size.width, 0.5));
+    CGContextStrokeRect(context, CGRectMake(15, rect.size.height - 0.5, rect.size.width-15, 0.5));
     
 }
 

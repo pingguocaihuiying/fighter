@@ -16,6 +16,8 @@
 
 
 - (void) setBackImgView {
+    [_backImgView removeFromSuperview];
+    _backImgView = nil;
     
     _backImgView = [[UIImageView alloc]initWithImage:[self setBackImageWithTpye:self.fightType]];
     [self addSubview:_backImgView];

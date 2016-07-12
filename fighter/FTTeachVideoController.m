@@ -27,11 +27,19 @@
 #import "FTButton.h"
 #import "FTRankTableView.h"
 #import "FTTeachVideoCell.h"
+#import "Base64-umbrella.h"
+#import "FTPayViewController.h"
+#import "FTBaseNavigationViewController.h"
 
-@interface FTTeachVideoController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FTVideoDetailDelegate,FTSelectCellDelegate>
+@interface FTTeachVideoController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FTVideoDetailDelegate,FTSelectCellDelegate, UIAlertViewDelegate> {
+
+    NSIndexPath *currentIndexPath;
+}
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic)  NSMutableArray *array;
 @property (nonatomic, copy)NSString *videosTag;
+@property (nonatomic, copy)NSString *buyToken;
+@property (nonatomic, copy)NSString *videoUrl;
 @end
 
 @implementation FTTeachVideoController
@@ -197,6 +205,96 @@
 
 #pragma mark - delegates 
 
+#pragma mark alert 
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+
+    if (buttonIndex == 0) {
+        
+        //获取对应的bean，传递给下个vc
+        NSDictionary *newsDic = self.array[currentIndexPath.row];
+        FTVideoBean *bean = [FTVideoBean new];
+        [bean setValuesWithDic:newsDic];
+        
+        // 1. 检查是否购买了视频
+        [NetWorking buyVideoById:bean.videosId option:^(NSDictionary *dict) {
+            
+            if ([dict[@"status"] isEqualToString:@"success"]) {
+                
+                // 2. 获取视频url
+                [NetWorking getVideoUrlById:bean.videosId
+                                   buyToken:_buyToken
+                                     option:^(NSDictionary *urlDict) {
+                                         
+                                         
+                                         if ([urlDict[@"status"] isEqualToString:@"success"]){
+                                             
+                                             NSString *base64String = urlDict[@"data"][@"url"];
+                                             _videoUrl = [NSString stringFromBase64String:base64String];
+                                             
+                                             if (_videoUrl.length > 0) {
+                                                 // 跳转到播放页
+                                                 FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
+                                                 videoDetailVC.videoBean = bean;
+                                                 NSIndexPath *theIndexPath = [NSIndexPath indexPathForRow:currentIndexPath.row inSection:currentIndexPath.section];
+                                                 NSLog(@"section : %ld, row : %ld", (long)currentIndexPath.section, (long)currentIndexPath.row);
+                                                 videoDetailVC.indexPath = theIndexPath;
+                                                 
+                                                 videoDetailVC.delegate = self;
+                                                 
+                                                 [self.navigationController pushViewController:videoDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+                                                 
+                                             }
+                                         }
+                                     }];
+                
+            }else {
+                
+                NSLog(@"message:%@",[dict[@"message"]  stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+                // 积分不足，充值
+                if ([dict[@"message"] isEqualToString:@"积分不足"]) {
+                   
+                    FTPayViewController *payVC = [[FTPayViewController alloc]init];
+                    FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:payVC];
+                    baseNav.navigationBarHidden = NO;
+                    [self.navigationController presentViewController:baseNav animated:YES completion:nil];
+                    
+                }else {
+                    
+                    UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@""
+                                                                        message:@"购买视频失败，请稍后再试~"
+                                                                       delegate:nil
+                                                              cancelButtonTitle:@"知道了"
+                                                              otherButtonTitles:nil];
+                    [alerView show];
+                    
+                }
+                
+            }
+        }];
+        
+        
+        
+        
+//        if (self.array) {
+//            FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
+//            
+//            
+//            
+//            videoDetailVC.videoBean = bean;
+//            NSIndexPath *theIndexPath = [NSIndexPath indexPathForRow:currentIndexPath.row inSection:currentIndexPath.section];
+//            NSLog(@"section : %ld, row : %ld", (long)currentIndexPath.section, (long)currentIndexPath.row);
+//            videoDetailVC.indexPath = theIndexPath;
+//            
+//            videoDetailVC.delegate = self;
+//            
+//            [self.navigationController pushViewController:videoDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+//        }
+    }
+    
+
+}
+
 #pragma mark collection
 //有多少组
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -205,35 +303,78 @@
 
 //选中触发的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    //    NSLog(@"section : %ld, row : %ld", indexPath.section, indexPath.row);
-    if (self.array) {
-        FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
-        //获取对应的bean，传递给下个vc
-        NSDictionary *newsDic = self.array[indexPath.row];
-        FTVideoBean *bean = [FTVideoBean new];
-        [bean setValuesWithDic:newsDic];
+    
+    currentIndexPath = indexPath;
+    
+    
+    
+    NSDictionary *newsDic = self.array[indexPath.row];
+    FTVideoBean *bean = [FTVideoBean new];
+    [bean setValuesWithDic:newsDic];
+
+    // 1. 检查是否购买了视频
+    [NetWorking checkBuyVideoById:bean.videosId option:^(NSDictionary *dict) {
         
-//        FTVideoBean *bean = self.self.array[indexPath.row];
-//        //标记已读
-//        if (![bean.isReader isEqualToString:@"YES"]) {
-//            bean.isReader = @"YES";
-//            //从数据库取数据
-//            DBManager *dbManager = [DBManager shareDBManager];
-//            [dbManager connect];
-//            [dbManager updateVideosById:bean.videosId isReader:YES];
-//            [dbManager close];
-//        }
+        if ([dict[@"status"] isEqualToString:@"success"]) {
+            _buyToken = dict[@"data"][@"buyToken"];
+            if (_buyToken.length > 0) {
+                
+                // 2. 获取视频url
+                [NetWorking getVideoUrlById:bean.videosId
+                                   buyToken:_buyToken
+                                     option:^(NSDictionary *urlDict) {
+                    
+                
+                                         if ([urlDict[@"status"] isEqualToString:@"success"]){
+                                             
+                                             NSString *base64String = urlDict[@"data"][@"url"];
+                                             _videoUrl = [NSString stringFromBase64String:base64String];
+                                             
+                                             if (_videoUrl.length > 0) {
+                                                 // 跳转到播放页
+                                                 FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
+                                                 videoDetailVC.videoBean = bean;
+                                                 NSIndexPath *theIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
+                                                 NSLog(@"section : %ld, row : %ld", (long)indexPath.section, (long)indexPath.row);
+                                                 videoDetailVC.indexPath = theIndexPath;
+                                                 
+                                                 videoDetailVC.delegate = self;
+                                                 
+                                                 [self.navigationController pushViewController:videoDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+
+                                             }
+                                         }
+                }];
+            }
+        }else {
         
-        
-        videoDetailVC.videoBean = bean;
-        NSIndexPath *theIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
-        NSLog(@"section : %ld, row : %ld", (long)indexPath.section, (long)indexPath.row);
-        videoDetailVC.indexPath = theIndexPath;
-        
-        videoDetailVC.delegate = self;
-        
-        [self.navigationController pushViewController:videoDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
-    }
+            UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@""
+                                                                message:@"播放当前视频需要支付100P，确定播放视频么？"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"确定"
+                                                      otherButtonTitles:@"取消",nil];
+            [alerView show];
+        }
+    }];
+    
+    
+//    if (self.array) {
+//        FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
+////        //获取对应的bean，传递给下个vc
+//        NSDictionary *newsDic = self.array[indexPath.row];
+//        FTVideoBean *bean = [FTVideoBean new];
+//        [bean setValuesWithDic:newsDic];
+//
+//
+//        videoDetailVC.videoBean = bean;
+//        NSIndexPath *theIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
+//        NSLog(@"section : %ld, row : %ld", (long)indexPath.section, (long)indexPath.row);
+//        videoDetailVC.indexPath = theIndexPath;
+//        
+//        videoDetailVC.delegate = self;
+//        
+//        [self.navigationController pushViewController:videoDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+//    }
 }
 
 //某组有多少行

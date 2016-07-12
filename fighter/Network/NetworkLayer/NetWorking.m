@@ -989,4 +989,212 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     }];
 }
 
+
+
+#pragma mark - 充值购买
+// 查询余额
++ (void) queryMoneyWithOption:(void (^)(NSDictionary *dict))option  {
+    
+    NSString *urlString = [FTNetConfig host:Domain path:QueryMoneyURL];
+    
+    // 时间戳
+    NSString *ts = [NSString stringWithFormat:@"%ld", (long)([[NSDate date] timeIntervalSince1970]*1000)];
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@",localUser.olduserid, localUser.token, ts,@"quanjijia222222"]];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:localUser.olduserid forKey:@"userId"];
+    [dic setObject:localUser.token forKey:@"loginToken"];
+    [dic setObject:ts forKey:@"ts"];
+    [dic setObject:checkSign forKey:@"checkSign"];
+    
+    NSLog(@"dic:%@",dic);
+    [self postRequestWithUrl:urlString
+                  parameters:dic
+                      option:option];
+                      
+    
+}
+
+// 分享后回调添加积分
++ (void) getPointByShareWithPlatform:(NSString *)platform option:(void (^)(NSDictionary *dict))option{
+    NSString *urlString = [FTNetConfig host:Domain path:ExtensionTaskURL];
+    
+    // 时间戳
+    NSString *ts = [NSString stringWithFormat:@"%ld", (long)([[NSDate date] timeIntervalSince1970]*1000)];
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",localUser.olduserid, localUser.token,platform,ts,@"quanjijia222222"]];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:localUser.olduserid forKey:@"userId"];
+    [dic setObject:localUser.token forKey:@"loginToken"];
+    [dic setObject:ts forKey:@"ts"];
+    [dic setObject:platform forKey:@"platform"];
+    [dic setObject:checkSign forKey:@"checkSign"];
+    
+    [self postRequestWithUrl:urlString
+                  parameters:dic
+                      option:option];
+}
+
+
+// 是否已经购买视频接口
++ (void) checkBuyVideoById:(NSString *)videoId option:(void (^)(NSDictionary *dict))option {
+    
+    NSString *urlString = [FTNetConfig host:Domain path:IsBuyVideoDoneURL];
+    
+    // 时间戳
+    NSString *ts = [NSString stringWithFormat:@"%ld", (long)([[NSDate date] timeIntervalSince1970]*1000)];
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",localUser.olduserid, localUser.token,videoId,ts,@"quanjijia222222"]];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:localUser.olduserid forKey:@"userId"];
+    [dic setObject:localUser.token forKey:@"loginToken"];
+    [dic setObject:ts forKey:@"ts"];
+    [dic setObject:videoId forKey:@"videoId"];
+    [dic setObject:checkSign forKey:@"checkSign"];
+    
+    [self postRequestWithUrl:urlString
+                  parameters:dic
+                      option:option];
+}
+
+// 购买视频接口
++ (void) buyVideoById:(NSString *)videoId option:(void (^)(NSDictionary *dict))option {
+
+    NSString *urlString = [FTNetConfig host:Domain path:BuyVideoURL];
+    
+    // 时间戳
+    NSString *ts = [NSString stringWithFormat:@"%ld", (long)([[NSDate date] timeIntervalSince1970]*1000)];
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",localUser.olduserid, localUser.token,videoId,ts,@"quanjijia222222"]];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:localUser.olduserid forKey:@"userId"];
+    [dic setObject:localUser.token forKey:@"loginToken"];
+    [dic setObject:ts forKey:@"ts"];
+    [dic setObject:videoId forKey:@"videoId"];
+    [dic setObject:checkSign forKey:@"checkSign"];
+    
+    [self postRequestWithUrl:urlString
+                  parameters:dic
+                      option:option];
+
+}
+
+
+// 获取视频Url接口
++ (void) getVideoUrlById:(NSString *)videoId buyToken:(NSString *)buyToken option:(void(^)(NSDictionary *dict))option {
+
+    NSString *urlString = [FTNetConfig host:Domain path:GetBuyVideoURL];
+    
+    // 时间戳
+    NSString *ts = [NSString stringWithFormat:@"%ld", (long)([[NSDate date] timeIntervalSince1970]*1000)];
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",localUser.olduserid, localUser.token,videoId,ts,@"quanjijia222222"]];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:localUser.olduserid forKey:@"userId"];
+    [dic setObject:localUser.token forKey:@"loginToken"];
+    [dic setObject:ts forKey:@"ts"];
+    [dic setObject:videoId forKey:@"videoId"];
+    [dic setObject:buyToken forKey:@"buyToken"];
+    [dic setObject:checkSign forKey:@"checkSign"];
+    
+    [self postRequestWithUrl:urlString
+                  parameters:dic
+                      option:option];
+}
+
+
+// 验证app内购接口
++ (void) checkIAPByOrderNO:(NSString *)orderNO receipt:(NSString *) receipt  option:(void(^)(NSDictionary *dict))option {
+    
+    
+    
+    NSString *urlString = [FTNetConfig host:Domain path:CheckIAPURL];
+    NSLog(@"urlString:%@",urlString);
+    
+    // 时间戳
+    NSString *ts = [NSString stringWithFormat:@"%ld", (long)([[NSDate date] timeIntervalSince1970]*1000)];
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@",localUser.olduserid, localUser.token,orderNO,receipt,ts,@"quanjijia222222"]];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:localUser.olduserid forKey:@"userId"];
+    [dic setObject:localUser.token forKey:@"loginToken"];
+    [dic setObject:ts forKey:@"ts"];
+    [dic setObject:orderNO forKey:@"orderNo"];
+    [dic setObject:receipt forKey:@"receiptData"];
+    [dic setObject:checkSign forKey:@"checkSign"];
+    NSLog(@"dic:%@",dic);
+    
+    [self postRequestWithUrl:urlString
+                  parameters:dic
+                      option:option];
+}
+
+// app内购预支付接口
++ (void) rechargeIAPByGoods:(FTGoodsBean *)goodsBean  option:(void(^)(NSDictionary *dict))option {
+    
+    NSString *urlString = [FTNetConfig host:Domain path:RechargeIAPURL];
+    NSLog(@"urlString:%@",urlString);
+    
+    // 时间戳
+    NSString *ts = [NSString stringWithFormat:@"%ld", (long)([[NSDate date] timeIntervalSince1970]*1000)];
+    // 生成一个UUID
+    NSString *imei= [UUID getUUID];
+    
+    
+    //商品信息
+    NSString *goodsTag = goodsBean.goodsId;// 商品标签
+    NSString * body = goodsBean.descriptions;// 商品简书，限制长度28
+    NSString *detail = goodsBean.details;// 商品详细简述
+    NSDecimalNumber *fee = goodsBean.price; // 商品价格
+    
+    
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@",localUser.olduserid, localUser.token,imei,body,detail,fee,goodsTag,ts,@"quanjijia222222"]];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:localUser.olduserid forKey:@"userId"];
+    [dic setObject:localUser.token forKey:@"loginToken"];
+    [dic setObject:imei forKey:@"device_info"];
+    [dic setObject:body forKey:@"body"];
+    [dic setObject:detail forKey:@"detail"];
+    [dic setObject:fee forKey:@"total_fee"];
+    [dic setObject:goodsTag forKey:@"goods_tag"];
+    [dic setObject:ts forKey:@"ts"];
+    [dic setObject:checkSign forKey:@"checkSign"];
+    NSLog(@"dic:%@",dic);
+    
+    [self postRequestWithUrl:urlString
+                  parameters:dic
+                      option:option];
+}
+
+
+
 @end

@@ -185,6 +185,26 @@
 #pragma mark - 新格斗场
 //获取拳馆固定的时间段
 + (void)getGymTimeSlotsById:(NSString *) gymId andOption:(void (^)(NSArray *array))option;
+
+#pragma mark - 充值购买
+// 查询余额
++ (void) queryMoneyWithOption:(void (^)(NSDictionary *dict))option;
+
+// 分享后回调添加积分
++ (void) getPointByShareWithPlatform:(NSString *)platform option:(void (^)(NSDictionary *dict))option;
+
+// 是否已经购买视频接口
++ (void) checkBuyVideoById:(NSString *)videoId option:(void (^)(NSDictionary *dict))option;
+
+// 购买视频接口
++ (void) buyVideoById:(NSString *)videoId option:(void (^)(NSDictionary *dict))option;
+
+// 获取视频Url接口
++ (void) getVideoUrlById:(NSString *)videoId buyToken:(NSString *)buyToken option:(void(^)(NSDictionary *dict))option;
+
+// app内购预支付接口
++ (void) rechargeIAPByGoods:(FTGoodsBean *)goodsBean  option:(void(^)(NSDictionary *dict))option;
+
+// 验证app内购接口
++ (void) checkIAPByOrderNO:(NSString *)orderNO receipt:(NSString *) receipt  option:(void(^)(NSDictionary *dict))option;
 @end
-
-

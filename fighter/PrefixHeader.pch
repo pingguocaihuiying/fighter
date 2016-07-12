@@ -48,6 +48,7 @@
 
 //导入一些常用类
 #import "FTNewsBean.h"
+#import "FTGoodsBean.h"
 #import "FTUserTools.h"
 #import "UIView+YBAddtitions.h"
 #import "FTUserBean.h"
@@ -101,6 +102,7 @@
 #define SCALE  (SCREEN_WIDTH / (750 / 2))
 
 //#define ShowType @"showType"
+
 
 #endif /* PrefixHeader_pch */
 

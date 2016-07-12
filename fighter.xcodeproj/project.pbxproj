@@ -96,6 +96,9 @@
 		3D8D73BE1CE97404009E2320 /* FTTableViewCell6.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D8D73BC1CE97404009E2320 /* FTTableViewCell6.xib */; };
 		3D8D73C21CE9DEFE009E2320 /* FTRankTableVIewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D73C01CE9DEFE009E2320 /* FTRankTableVIewCell.m */; };
 		3D8D73C31CE9DEFE009E2320 /* FTRankTableVIewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D8D73C11CE9DEFE009E2320 /* FTRankTableVIewCell.xib */; };
+		3D9D92E41D337100006C42F0 /* FTPayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9D92E21D337100006C42F0 /* FTPayCell.m */; };
+		3D9D92E51D337100006C42F0 /* FTPayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D9D92E31D337100006C42F0 /* FTPayCell.xib */; };
+		3D9D92EB1D34E9E3006C42F0 /* FTGoodsBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9D92EA1D34E9E3006C42F0 /* FTGoodsBean.m */; };
 		3DA6D1C41D20D8BD0049CD4A /* FTCycleScrollViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6D1C21D20D8BD0049CD4A /* FTCycleScrollViewCell.m */; };
 		3DA6D1C51D20D8BD0049CD4A /* FTCycleScrollViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DA6D1C31D20D8BD0049CD4A /* FTCycleScrollViewCell.xib */; };
 		3DA6D1C91D20D94E0049CD4A /* FTCycleScrollViewCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6D1C71D20D94E0049CD4A /* FTCycleScrollViewCell2.m */; };
@@ -456,6 +459,11 @@
 		3D8D73BF1CE9DEFE009E2320 /* FTRankTableVIewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankTableVIewCell.h; sourceTree = "<group>"; };
 		3D8D73C01CE9DEFE009E2320 /* FTRankTableVIewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankTableVIewCell.m; sourceTree = "<group>"; };
 		3D8D73C11CE9DEFE009E2320 /* FTRankTableVIewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRankTableVIewCell.xib; sourceTree = "<group>"; };
+		3D9D92E11D337100006C42F0 /* FTPayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPayCell.h; sourceTree = "<group>"; };
+		3D9D92E21D337100006C42F0 /* FTPayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPayCell.m; sourceTree = "<group>"; };
+		3D9D92E31D337100006C42F0 /* FTPayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTPayCell.xib; sourceTree = "<group>"; };
+		3D9D92E91D34E9E3006C42F0 /* FTGoodsBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGoodsBean.h; sourceTree = "<group>"; };
+		3D9D92EA1D34E9E3006C42F0 /* FTGoodsBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGoodsBean.m; sourceTree = "<group>"; };
 		3DA6D1C11D20D8BD0049CD4A /* FTCycleScrollViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCycleScrollViewCell.h; sourceTree = "<group>"; };
 		3DA6D1C21D20D8BD0049CD4A /* FTCycleScrollViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCycleScrollViewCell.m; sourceTree = "<group>"; };
 		3DA6D1C31D20D8BD0049CD4A /* FTCycleScrollViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTCycleScrollViewCell.xib; sourceTree = "<group>"; };
@@ -1281,6 +1289,9 @@
 				3DF86AE81D2E0900001A644B /* PBEWithMD5AndDES.m */,
 				3D2AEECE1D2F3CBC00F94A59 /* FTPurchaseInApp.h */,
 				3D2AEECF1D2F3CBC00F94A59 /* FTPurchaseInApp.m */,
+				3D9D92E11D337100006C42F0 /* FTPayCell.h */,
+				3D9D92E21D337100006C42F0 /* FTPayCell.m */,
+				3D9D92E31D337100006C42F0 /* FTPayCell.xib */,
 			);
 			name = "支付";
 			sourceTree = "<group>";
@@ -1598,6 +1609,8 @@
 				E6A9DDAB1CD89EE900CB9518 /* FTVideoBean.m */,
 				E6A9DDB81CD99E7700CB9518 /* FTBaseBean.h */,
 				E6A9DDB91CD99E7700CB9518 /* FTBaseBean.m */,
+				3D9D92E91D34E9E3006C42F0 /* FTGoodsBean.h */,
+				3D9D92EA1D34E9E3006C42F0 /* FTGoodsBean.m */,
 			);
 			name = Bean;
 			sourceTree = "<group>";
@@ -2380,7 +2393,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E64EF1331CB6614100CAE340 /* Build configuration list for PBXNativeTarget "fighter" */;
 			buildPhases = (
-				218D5704294FD31CAE3AA790 /* 📦 Check Pods Manifest.lock */,
+				218D5704294FD31CAE3AA790 /* [CP] Check Pods Manifest.lock */,
 				079F6CFBB5F630D52D2A57D4 /* [CP] Check Pods Manifest.lock */,
 				4FB332F39A8646C733F20968 /* [CP] Check Pods Manifest.lock */,
 				E64EF1021CB6614000CAE340 /* Sources */,
@@ -2541,6 +2554,7 @@
 				3D7B98BA1CE078D600B80B8D /* FTInputCheckCodeViewController.xib in Resources */,
 				3D8D73C31CE9DEFE009E2320 /* FTRankTableVIewCell.xib in Resources */,
 				3D4B19541CDAEF840022DFB0 /* FTTableViewCell4.xib in Resources */,
+				3D9D92E51D337100006C42F0 /* FTPayCell.xib in Resources */,
 				3DDE29B41D2BA4EB00876B30 /* FTDrawerCell.xib in Resources */,
 				E627EE671D25273F00B424F5 /* FTGymCell.xib in Resources */,
 				3DC9A4EF1CE5CD0700E16D19 /* FTRankViewController.xib in Resources */,
@@ -2651,14 +2665,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-fighter/Pods-fighter-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		218D5704294FD31CAE3AA790 /* 📦 Check Pods Manifest.lock */ = {
+		218D5704294FD31CAE3AA790 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2818,6 +2832,7 @@
 				3D2AEED01D2F3CBC00F94A59 /* FTPurchaseInApp.m in Sources */,
 				E6BFBEE61D23D55B0044F4B0 /* FTLaunchNewMatchViewController.m in Sources */,
 				E66D6EFA1CBCE81C008B015A /* RBRequestOperationManager.m in Sources */,
+				3D9D92EB1D34E9E3006C42F0 /* FTGoodsBean.m in Sources */,
 				3D8B2E591D1D157200E18280 /* FTGymCell.m in Sources */,
 				3D0D7C721D1A984B00E67AC9 /* FTPracticeView.m in Sources */,
 				E68050BF1CBF919A00678905 /* UIScrollView+JHExtension.m in Sources */,
@@ -2886,6 +2901,7 @@
 				E68050B91CBF919A00678905 /* JHRefreshCommonAniView.m in Sources */,
 				E644E77E1D0123F700F39E45 /* FTHomepageUserBean.m in Sources */,
 				E6D09E921CEDA10000B7C43E /* FTTools.m in Sources */,
+				3D9D92E41D337100006C42F0 /* FTPayCell.m in Sources */,
 				3DE95BAD1CD8A042005BF85C /* FTRegistViewController.m in Sources */,
 				E6D74A4B1CB7B7EE00854337 /* UUID.m in Sources */,
 				3DC9A4E91CE5CC6C00E16D19 /* FTRankBaseViewController.m in Sources */,
@@ -3042,8 +3058,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3081,7 +3097,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a4b9f1a5-458b-44e1-a179-41933a1002bc";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -3092,8 +3108,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3130,7 +3146,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a4b9f1a5-458b-44e1-a179-41933a1002bc";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

@@ -72,7 +72,7 @@ static NSString *const tableCellId = @"tableCellId";
 
     @try {
    
-    [self setLoginedView];
+    [self setLoginedTableView];
     
     [self setLoginView];
     
@@ -138,8 +138,8 @@ static NSString *const tableCellId = @"tableCellId";
 }
 
 
-
-- (void) setLoginedView {
+// 设置登录以后显示的用户信息 tableView
+- (void) setLoginedTableView {
     
     NSLog(@"serSubviews");
     
@@ -568,8 +568,28 @@ static NSString *const tableCellId = @"tableCellId";
         FTDrawerPayCell *cell = [tableView dequeueReusableCellWithIdentifier:@"payCellId"];
         cell.cellTitle.text = @"账户余额:";
         cell.subtitle.text = @"120p 67s";
-        return cell;
         
+        // 获取余额
+        [NetWorking queryMoneyWithOption:^(NSDictionary *dict) {
+            
+            NSLog(@"dict:%@",dict);
+            if ([dict[@"status"] isEqualToString:@"success"] && dict[@"data"]) {
+                
+                NSDictionary *dic = dict[@"data"];
+                
+                NSInteger taskTotal = [dic[@"taskTotal"] integerValue];
+                NSInteger otherTotal = [dic[@"otherTotal"] integerValue];
+                NSInteger cost = [dic[@"cost"] integerValue];
+                
+                [ cell.subtitle setText:[NSString stringWithFormat:@"%ldP",taskTotal+otherTotal-cost]];
+            }else {
+                
+                NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+            }
+        }];
+
+        
+        return cell;
     }else {
         
         FTDrawerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCellId"];
@@ -598,6 +618,7 @@ static NSString *const tableCellId = @"tableCellId";
         FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:payVC];
         baseNav.navigationBarHidden = NO;
         [self presentViewController:baseNav animated:YES completion:nil];
+        
     }
 }
 
