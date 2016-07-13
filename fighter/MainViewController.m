@@ -21,6 +21,9 @@ FTDrawerViewController *drawerVC;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    
+
     [self addStylersFromArray:@[[DrawerScaleStyler styler], [DrawerFadeStyler styler],[DrawerParallaxStyler styler]] forDirection:FTDynamicsDrawerDirectionLeft];
     
     drawerVC = [[FTDrawerViewController alloc]init];
@@ -29,6 +32,8 @@ FTDrawerViewController *drawerVC;
     [drawerVC setHomeViewController];
     
     [drawerVC setNoti];
+    
+    
 }
 
 

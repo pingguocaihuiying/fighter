@@ -10,4 +10,14 @@
 
 @interface FTPayViewController : FTRankBaseViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *balanceLabel;//账户余额
+
+@property (weak, nonatomic) IBOutlet UILabel *tipLabel1;
+
+@property (weak, nonatomic) IBOutlet UILabel *tipLabel2;
+
+@property (weak, nonatomic) IBOutlet UICollectionView *colectionView;
+
+@property (weak, nonatomic) IBOutlet UIButton *payBtn;
+
 @end
