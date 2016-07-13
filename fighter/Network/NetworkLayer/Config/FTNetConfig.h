@@ -171,4 +171,7 @@ extern NSString * const GetGymByIdURL;
 #pragma mark - 新格斗场
 //获取拳馆固定的时间段
 extern NSString * const GetGymTimeSlotsByIdURL;
-
+//获取拳馆的场地信息
+extern NSString * const GetGymPlacesByIdURL;
+//获取拳馆的场地使用信息
+extern NSString * const GetGymPlacesUsingInfoByIdURL;

@@ -8,11 +8,15 @@
 
 #import "FTGymTimeSectionTableViewCell.h"
 
+
 @implementation FTGymTimeSectionTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    //设置选中颜色
+    UIView *aView = [[UIView alloc] initWithFrame:self.contentView.frame];
+    aView.backgroundColor = [UIColor colorWithHex:0x191919];
+    self.selectedBackgroundView = aView;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -21,4 +25,21 @@
     // Configure the view for the selected state
 }
 
+- (void)setTimeLabelWithTimeSectionString:(NSString *)timeSectionString{
+    NSArray *timePointArray = [timeSectionString componentsSeparatedByString:@"~"];
+    _startTimeLabel.text = [timePointArray firstObject];
+    _endTimeLabel.text = [timePointArray lastObject];
+}
+
+- (void)updateCellStatus{
+//    static int count = 0;
+//    NSLog(@"count : %d", ++count);
+    if (_isAvailable) {
+        _startTimeLabel.textColor = [UIColor whiteColor];
+        _endTimeLabel.textColor = [UIColor whiteColor];
+    } else {
+        _startTimeLabel.textColor = [UIColor colorWithHex:0x505050];
+        _endTimeLabel.textColor = [UIColor colorWithHex:0x505050];
+    }
+}
 @end
