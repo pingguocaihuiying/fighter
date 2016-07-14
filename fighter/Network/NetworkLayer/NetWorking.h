@@ -186,6 +186,13 @@
 //获取拳馆固定的时间段
 + (void)getGymTimeSlotsById:(NSString *) gymId andOption:(void (^)(NSArray *array))option;
 
+//获取场地配置
++ (void)getGymPlaceInfoById:(NSString *)gymId andOption:(void (^)(NSArray *array))option;
+
+//获取场地的使用信息
++ (void)getGymPlaceUsingInfoById:(NSString *)gymId andTimestamp:(NSString *)timestamp andOption:(void (^)(NSArray *array))option;
+
+
 #pragma mark - 充值购买
 // 查询余额
 + (void) queryMoneyWithOption:(void (^)(NSDictionary *dict))option;

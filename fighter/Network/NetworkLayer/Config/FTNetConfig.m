@@ -200,6 +200,8 @@ NSString * const GetGymByIdURL = @"/api/gym/getVideosById.do";
 
 #pragma mark - 新格斗场
 NSString * const GetGymTimeSlotsByIdURL = @"/api/place/listTime.do";
+NSString * const GetGymPlacesByIdURL = @"/api/place/listPlace.do";
+NSString * const GetGymPlacesUsingInfoByIdURL = @"/api/place/list.do";
 
 #pragma mark - 充值、购买、积分
 // 查询余额接口
@@ -217,4 +219,5 @@ NSString * const GetBuyVideoURL = @"/api/cumulation/getBuyVideoUrl.do";
 NSString * const RechargeIAPURL = @"/api/cumulation/appleRecharge.do";
 // app内购验证付款接口
 NSString * const CheckIAPURL = @"/api/cumulation/appleOrderquery.do";
+
 

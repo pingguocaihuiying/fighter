@@ -7,19 +7,19 @@
 //
 
 typedef NS_ENUM(NSInteger, FTWeek) {
-    FTWeekMonday = 0,
-    FTWeekTuesday,
-    FTWeekWednesday,
-    FTWeekThursday,
-    FTWeekFriday,
-    FTWeekSaturday,
-    FTWeekSunday
+    FTWeekMonday = 1,
+    FTWeekTuesday = 2,
+    FTWeekWednesday = 3,
+    FTWeekThursday = 4,
+    FTWeekFriday = 5,
+    FTWeekSaturday = 6,
+    FTWeekSunday = 7
 };
 
 #import <UIKit/UIKit.h>
 
 @interface FTTimeSectionTableView : UITableView
 
-@property (nonatomic, assign) FTWeek *week;
+@property (nonatomic, assign) FTWeek day;
 
 @end

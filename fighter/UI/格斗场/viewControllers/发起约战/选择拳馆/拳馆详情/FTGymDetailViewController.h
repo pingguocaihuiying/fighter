@@ -15,6 +15,11 @@
 @property (nonatomic, copy) NSString *extraPrice;
 
 @property (weak, nonatomic) IBOutlet FTTimeSectionTableView *t0;
-
+@property (weak, nonatomic) IBOutlet FTTimeSectionTableView *t1;
+@property (weak, nonatomic) IBOutlet FTTimeSectionTableView *t2;
+@property (weak, nonatomic) IBOutlet FTTimeSectionTableView *t3;
+@property (weak, nonatomic) IBOutlet FTTimeSectionTableView *t4;
+@property (weak, nonatomic) IBOutlet FTTimeSectionTableView *t5;
+@property (weak, nonatomic) IBOutlet FTTimeSectionTableView *t6;
 
 @end

@@ -11,8 +11,9 @@
 #import "FTLaunchNewMatchViewController.h"
 #import "FTSetTicketPriceViewTableViewCell.h"
 #import "NetWorking.h"
+#import "FTGymTimeSectionTableViewCell.h"
 
-@interface FTGymDetailViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, setTicketViewDelegate>
+@interface FTGymDetailViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, setTicketViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *gymInfoTopViewHeight;
 @property (weak, nonatomic) IBOutlet UICollectionView *supportItemsCollectionView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelsViewHeight;//labelsView高度
@@ -22,7 +23,18 @@
 @property (nonatomic, strong) FTSetTicketPriceViewTableViewCell *setTicketPriceView;
 @property (weak, nonatomic) IBOutlet UILabel *totalPriceLabel;
 
-@property (nonatomic, strong) NSArray *timeSections;//拳馆的固定时间段
+@property (nonatomic, strong) NSArray *timeSectionsArray;//拳馆的固定时间段
+@property (nonatomic, strong) NSArray *placesArray;//拳馆的场地列表
+@property (nonatomic, strong) NSArray *placesUsingInfoArray;//场地、时间段的占用情况
+
+//时间段tableivews的高度
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *t0Height;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *t1Height;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *t2Heihgt;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *t3Height;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *t4Height;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *t5Height;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *t6Height;
 
 @end
 
@@ -31,8 +43,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initBaseData];
-    [self getTimeSlots];//获取拳馆固定的时间段
     [self initSubViews];
+    [self getTimeSlots];//获取拳馆固定的时间段q
     [self setSupportItemsCollection];//设置支持设施view
 //    [self setSupportLabelsView];//设置支持项目view
 }
@@ -42,6 +54,44 @@
     self.bottomGradualChangeView.hidden = YES;
     [self setNavigationBar];
     
+    //初始化tableviews
+    [self initTableViews];
+    
+}
+
+- (void)initTableViews{
+    //设置tableivew的星期几
+    _t0.day = 1;
+    _t1.day = 2;
+    _t2.day = 3;
+    _t3.day = 4;
+    _t4.day = 5;
+    _t5.day = 6;
+    _t6.day = 7;
+    //注册cell用于复用
+    [_t0 registerNib:[UINib nibWithNibName:@"FTGymTimeSectionTableViewCell" bundle:nil] forCellReuseIdentifier:@"timeSectionCell"];
+    [_t1 registerNib:[UINib nibWithNibName:@"FTGymTimeSectionTableViewCell" bundle:nil] forCellReuseIdentifier:@"timeSectionCell"];
+    [_t2 registerNib:[UINib nibWithNibName:@"FTGymTimeSectionTableViewCell" bundle:nil] forCellReuseIdentifier:@"timeSectionCell"];
+    [_t3 registerNib:[UINib nibWithNibName:@"FTGymTimeSectionTableViewCell" bundle:nil] forCellReuseIdentifier:@"timeSectionCell"];
+    [_t4 registerNib:[UINib nibWithNibName:@"FTGymTimeSectionTableViewCell" bundle:nil] forCellReuseIdentifier:@"timeSectionCell"];
+    [_t5 registerNib:[UINib nibWithNibName:@"FTGymTimeSectionTableViewCell" bundle:nil] forCellReuseIdentifier:@"timeSectionCell"];
+    [_t6 registerNib:[UINib nibWithNibName:@"FTGymTimeSectionTableViewCell" bundle:nil] forCellReuseIdentifier:@"timeSectionCell"];
+    
+    //设置代理
+    _t0.delegate = self;
+    _t0.dataSource = self;
+    _t1.delegate = self;
+    _t1.dataSource = self;
+    _t2.delegate = self;
+    _t2.dataSource = self;
+    _t3.delegate = self;
+    _t3.dataSource = self;
+    _t4.delegate = self;
+    _t4.dataSource = self;
+    _t5.delegate = self;
+    _t5.dataSource = self;
+    _t6.delegate = self;
+    _t6.dataSource = self;
 }
 
 - (void)setNavigationBar{
@@ -69,11 +119,48 @@
     _basicPrice = @"200";
 }
 
+/**
+ *  获取时间段
+ */
 - (void)getTimeSlots{
     [NetWorking getGymTimeSlotsById:@"165" andOption:^(NSArray *array) {
+        _timeSectionsArray = array;
+        if (_timeSectionsArray && _timeSectionsArray.count > 0) {
+            //获取时间段信息后，根据内容多少设置tableviews的高度，再刷新一次tableview
+            [self setTableViewsHeight];
+            [self reloadTableViews];
+            
+            //获取基本的时间段信息后，再获取占用情况
+            [self getPlacesInfo];
+        }
+
+    }];
+}
+
+//获取场地信息
+- (void)getPlacesInfo{
+    [NetWorking getGymPlaceInfoById:@"165" andOption:^(NSArray *array) {
+        _placesArray = array;
+        if (_placesArray && _placesArray.count > 0) {
+            [self gettimeSectionsArrayUsingInfoWithTimestamp:@""];
+        }
         
     }];
 }
+
+//获取场地使用信息
+- (void)gettimeSectionsArrayUsingInfoWithTimestamp:(NSString *)timestamp{//getGymPlaceInfoById
+    [NetWorking getGymPlaceUsingInfoById:@"165" andTimestamp:timestamp  andOption:^(NSArray *array) {
+        _placesUsingInfoArray = array;
+        if (_placesUsingInfoArray && _placesUsingInfoArray.count > 0) {
+            //获取场地使用信息后，刷新UI
+            [self reloadTableViews];
+        }
+        
+    }];
+}
+
+
 
 //设置上方支持的item
 - (void)setSupportItemsCollection{
@@ -205,6 +292,109 @@
     [[[UIApplication sharedApplication]keyWindow]endEditing:YES];
     _totalPriceLabel.text = [NSString stringWithFormat:@"%d", [_basicPrice intValue] + [_extraPrice intValue]];
     _totalPriceLabel.textColor = [UIColor redColor];
+}
+
+/**
+ *  根据时间段的数量，设置tableview的高度
+ */
+- (void)setTableViewsHeight{
+    CGFloat timeSectionTableViewsHeight = _timeSectionsArray.count * 44;
+    _t0Height.constant = timeSectionTableViewsHeight;
+    _t1Height.constant = timeSectionTableViewsHeight;
+    _t2Heihgt.constant = timeSectionTableViewsHeight;
+    _t3Height.constant = timeSectionTableViewsHeight;
+    _t4Height.constant = timeSectionTableViewsHeight;
+    _t5Height.constant = timeSectionTableViewsHeight;
+    _t6Height.constant = timeSectionTableViewsHeight;
+}
+
+/**
+ *  刷新时间段选择的tableviews
+ */
+- (void)reloadTableViews{
+    [_t0 reloadData];
+    [_t1 reloadData];
+    [_t2 reloadData];
+    [_t3 reloadData];
+    [_t4 reloadData];
+    [_t5 reloadData];
+    [_t6 reloadData];
+}
+
+- (NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (_timeSectionsArray && _timeSectionsArray.count > 0) {
+        return _timeSectionsArray.count;
+    } else {
+        return 0;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    FTGymTimeSectionTableViewCell *cell =  [tableView dequeueReusableCellWithIdentifier:@"timeSectionCell"];
+    
+    //如果是最后一行，隐藏分割线
+    if (indexPath.row == _timeSectionsArray.count - 1) {
+        cell.bottomLineView.hidden = YES;
+    }
+    
+    FTTimeSectionTableView *theTableView = (FTTimeSectionTableView *)tableView;
+    
+    [cell setTimeLabelWithTimeSectionString:_timeSectionsArray[indexPath.row][@"timeSection"]];
+    
+    //遍历 _placesUsingInfoArray ，确定日期是否可选
+    for (int i = 0; i < _placesUsingInfoArray.count; i++) {
+        NSInteger theDate = [_placesUsingInfoArray[i][@"theDate"] integerValue];
+//        NSLog(@"theDate : %ld, tableview.day : %ld", theDate, theTableView.day);
+        if (theTableView.day == theDate) {//如果星期几相同
+            NSInteger row = [self getIndexWithValue:_placesUsingInfoArray[i][@"timeSection"]];
+//            NSLog(@"index : %ld, row : %ld", row, indexPath.row);
+            if (indexPath.row == row) {//如果时间段相同
+                cell.isAvailable = YES;
+                
+            } else {
+//                cell.isAvailable = NO;
+            }
+        } else{
+//                cell.isAvailable = NO;
+        }
+//        NSLog(@"*********分割*********");
+    }
+    [cell updateCellStatus];//更新标签颜色的显示
+    
+    return cell;
+}
+
+- (NSInteger)getIndexWithValue:(NSString *)value{
+    NSInteger result = -1;
+    for (NSInteger i = 0; i < _timeSectionsArray.count; i++) {
+        NSString *str = _timeSectionsArray[i][@"timeSection"];
+        if ([str isEqualToString:value]) {
+            result = i;
+            break;
+        }
+    }
+    return result;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    FTTimeSectionTableView *theTableView = (FTTimeSectionTableView *)tableView;
+    //遍历 _placesUsingInfoArray ，确定日期是否可点
+    for (int i = 0; i < _placesUsingInfoArray.count; i++) {
+        NSInteger theDate = [_placesUsingInfoArray[i][@"theDate"] integerValue];
+//        NSLog(@"theDate : %ld, tableview.day : %ld", theDate, theTableView.day);
+        if (theTableView.day == theDate) {//如果星期几相同
+            NSInteger row = [self getIndexWithValue:_placesUsingInfoArray[i][@"timeSection"]];
+//            NSLog(@"index : %ld, row : %ld", row, indexPath.row);
+            if (indexPath.row == row) {//如果时间段相同
+                
+            } else {
+                //                cell.isAvailable = NO;
+            }
+        } else{
+            
+        }
+//        NSLog(@"*********分割*********");
+    }
 }
 /*
 #pragma mark - Navigation
