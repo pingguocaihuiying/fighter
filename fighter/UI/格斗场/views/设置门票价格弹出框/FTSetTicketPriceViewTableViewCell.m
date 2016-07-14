@@ -23,9 +23,6 @@
     //设置价格输入框的代理
     _extraPriceTextField.delegate = self;
     [_extraPriceTextField becomeFirstResponder];
-    
-    //根据自己的属性值属性设置价格的显示
-    [self setPirceLabelWithBasicPrice:_basicPrice andExtraPrice:_extraPrice];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -34,7 +31,7 @@
     // Configure the view for the selected state
 }
 - (IBAction)confirmButtonClicked:(id)sender {
-    [_delegate confirtButtonClickedWithBasicPrice:_basicPrice andExtraPrice:_theNewExtraPrice andTotalPrice:[NSString stringWithFormat:@"%@%@", _basicPrice, _theNewExtraPrice]];
+    [_delegate confirtButtonClickedWithBasicPrice:_basicPrice andExtraPrice:_extraPriceNew andTotalPrice:[NSString stringWithFormat:@"%@%@", _basicPrice, _theNewExtraPrice]];
 }
 - (IBAction)cancleButtonClicked:(id)sender {
     [_delegate cancelButtonClicked];
@@ -54,15 +51,15 @@
     BOOL result = [FTTools isNumText:string];
     if (result) {
         int basicPrice = [_basicPriceLabel.text intValue];
-        int extraPrice = [[textField.text stringByReplacingCharactersInRange:range withString:string] intValue];
-        
+        int extraPriceNew = [[textField.text stringByReplacingCharactersInRange:range withString:string] intValue];
+        _extraPriceNew = [NSString stringWithFormat:@"%d", extraPriceNew];
         //限制额外价格的长度，不能大于10000
-        if (extraPrice > 9999) {
+        if (extraPriceNew > 9999) {
             return false;
         }
         
-        int totalPrice = basicPrice + extraPrice;
-        _theNewExtraPrice = [NSString stringWithFormat:@"%d", totalPrice];
+        int totalPrice = basicPrice + extraPriceNew;
+        _theNewExtraPrice = [NSString stringWithFormat:@"%d 元", totalPrice];
         _totalPriceLabel.text = _theNewExtraPrice;
         NSLog(@"totalPrice : %d", totalPrice);
     }
@@ -71,7 +68,7 @@
 
 - (void)setPirceLabelWithBasicPrice:(NSString *)basicPriceString andExtraPrice:(NSString *)extraPriceString{
     if (!basicPriceString) {
-        basicPriceString = @"200";
+        basicPriceString = @"0";
     }
     if (!extraPriceString) {
         extraPriceString = @"0";

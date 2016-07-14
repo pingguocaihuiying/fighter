@@ -11,8 +11,10 @@
 
 @interface FTGymDetailViewController : FTBaseViewController
 @property (weak, nonatomic) IBOutlet UIButton *adjustTicketButton;
-@property (nonatomic, copy) NSString *basicPrice;
-@property (nonatomic, copy) NSString *extraPrice;
+@property (nonatomic, copy) NSString *basicPrice;//门票基础价格（拳馆方设定）
+@property (nonatomic, copy) NSString *extraPrice;//门票额外价格（发起比赛人设定）
+
+@property (nonatomic, copy) NSString *gymName;//全馆名字
 
 @property (weak, nonatomic) IBOutlet FTTimeSectionTableView *t0;
 @property (weak, nonatomic) IBOutlet FTTimeSectionTableView *t1;
@@ -22,4 +24,5 @@
 @property (weak, nonatomic) IBOutlet FTTimeSectionTableView *t5;
 @property (weak, nonatomic) IBOutlet FTTimeSectionTableView *t6;
 
+@property (weak, nonatomic) IBOutlet UIImageView *gymImage;
 @end

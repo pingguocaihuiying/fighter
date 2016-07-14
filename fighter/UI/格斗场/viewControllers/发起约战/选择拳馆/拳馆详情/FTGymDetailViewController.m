@@ -14,6 +14,15 @@
 #import "FTGymTimeSectionTableViewCell.h"
 
 @interface FTGymDetailViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, setTicketViewDelegate, UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) NSDictionary *gymInfoDic;//拳馆信息
+@property (nonatomic, strong) NSDictionary *gymSupportItemsArray;//拳馆支持设施
+@property (weak, nonatomic) IBOutlet UILabel *gymServicePriceLabel;//拳馆使用基础费用
+@property (weak, nonatomic) IBOutlet UILabel *gymAddressLabel;//拳馆地址
+@property (nonatomic, assign) BOOL isFreeTicket;//门票是否免费
+
+
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *gymInfoTopViewHeight;
 @property (weak, nonatomic) IBOutlet UICollectionView *supportItemsCollectionView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelsViewHeight;//labelsView高度
@@ -21,7 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIView *labelsView;
 @property (nonatomic, strong) UIView *priceContentView;
 @property (nonatomic, strong) FTSetTicketPriceViewTableViewCell *setTicketPriceView;
-@property (weak, nonatomic) IBOutlet UILabel *totalPriceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *totalPriceLabel;//门票价格
 
 @property (nonatomic, strong) NSArray *timeSectionsArray;//拳馆的固定时间段
 @property (nonatomic, strong) NSArray *placesArray;//拳馆的场地列表
@@ -48,18 +57,20 @@
 @property (nonatomic, assign) int selectedWeekOffset;//当前选中的week偏移数，
 
 @property (nonatomic, assign) NSTimeInterval selectedDateTimestamp;//选中的比赛日期的时间戳
+
+
 @end
 
 @implementation FTGymDetailViewController
 
 - (void)viewDidLoad {
-    NSLog(@"get one day 0 : %d", [FTTools getOneDay:0]);
     [super viewDidLoad];
+    [self setSupportItemsCollection];
     [self initBaseData];
     [self initSubViews];
-    [self getTimeSlots];//获取拳馆固定的时间段q
-    [self setSupportItemsCollection];//设置支持设施view
-//    [self setSupportLabelsView];//设置支持项目view
+    [self getGymInfo];
+    [self getTimeSlots];//获取拳馆固定的时间段
+    
 }
 
 - (void)initSubViews{
@@ -251,7 +262,7 @@
 }
 
 /**
- *  获取时间段
+ *  获取时间段信息
  */
 - (void)getTimeSlots{
     [NetWorking getGymTimeSlotsById:@"165" andOption:^(NSArray *array) {
@@ -264,7 +275,46 @@
             //获取基本的时间段信息后，再获取占用情况
             [self gettimeSectionsUsingInfo];
         }
+        
+    }];
+}
 
+//设置拳馆基础信息
+- (void)setGymInfo{
+    //拳馆使用基础费用
+    _gymServicePriceLabel.text = [NSString stringWithFormat:@"%@", _gymInfoDic[@"service_price"]];
+    
+    
+    
+    //门票
+    
+        //如果拳馆方设定门票为免费，则门票为免费，比赛发起人也不能设置
+    NSString *is_sale_ticket = [NSString stringWithFormat:@"%@", _gymInfoDic[@"is_sale_ticket"]];
+    if ([is_sale_ticket isEqualToString:@"1"]) {
+        _isFreeTicket = YES;
+    } else {
+        _isFreeTicket = NO;
+    }
+    
+    if (_isFreeTicket) {
+        _basicPrice = [NSString stringWithFormat:@"%@ 元", _gymInfoDic[@"ticket_price"]];
+        _totalPriceLabel.text = _basicPrice;
+    } else {
+        _totalPriceLabel.text = @"免费";
+        _totalPriceLabel.textColor = [UIColor colorWithHex:0xb4b4b4];
+        _adjustTicketButton.hidden = YES;
+    }
+}
+
+/**
+ *  获取拳馆信息
+ */
+- (void)getGymInfo{
+    [NetWorking getGymInfoById:@"158" andOption:^(NSDictionary *dic) {
+        _gymInfoDic = dic;
+        if (_gymInfoDic && _gymInfoDic.count > 0) {
+            [self setGymInfo];
+        }
     }];
 }
 
@@ -387,7 +437,7 @@
 - (IBAction)adjustTicketButtonClicked:(id)sender {
     NSLog(@"调整门票价格");
     
-    if (!_priceContentView) {
+//    if (!_priceContentView) {
         _priceContentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         _priceContentView.backgroundColor = [UIColor clearColor];
         
@@ -397,16 +447,17 @@
         
         [_priceContentView addSubview:bgView];
         _setTicketPriceView = [[[NSBundle mainBundle]loadNibNamed:@"FTSetTicketPriceViewTableViewCell" owner:nil options:nil]firstObject];
-//        _setTicketPriceView.basicPrice = _basicPrice;
+        _setTicketPriceView.basicPrice = _basicPrice;
+        [_setTicketPriceView setPirceLabelWithBasicPrice:_basicPrice andExtraPrice:_extraPrice];
         _setTicketPriceView.delegate = self;
         _setTicketPriceView.center = CGPointMake(_priceContentView.center.x, _priceContentView.center.y - 100);
         [_priceContentView addSubview:_setTicketPriceView];
         
         [[[UIApplication sharedApplication]keyWindow] addSubview:_priceContentView];
-    }else{
-        _priceContentView.hidden = NO;
-        [_setTicketPriceView.extraPriceTextField becomeFirstResponder];
-    }
+//    }else{
+//        _priceContentView.hidden = NO;
+//        [_setTicketPriceView.extraPriceTextField becomeFirstResponder];
+//    }
 }
 
 //调整价格 “确定”
@@ -415,7 +466,7 @@
     _basicPrice = basicPriceString;
     _extraPrice = expraPriceString;
     [[[UIApplication sharedApplication]keyWindow]endEditing:YES];
-    _totalPriceLabel.text = [NSString stringWithFormat:@"%d", [_basicPrice intValue] + [_extraPrice intValue]];
+    _totalPriceLabel.text = [NSString stringWithFormat:@"%d 元", [_basicPrice intValue] + [_extraPrice intValue]];
     _totalPriceLabel.textColor = [UIColor redColor];
 }
 

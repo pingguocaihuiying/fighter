@@ -201,4 +201,5 @@ NSString * const GetGymByIdURL = @"/api/gym/getVideosById.do";
 #pragma mark - 新格斗场
 NSString * const GetGymTimeSlotsByIdURL = @"/api/place/listTime.do";
 NSString * const GetGymPlacesByIdURL = @"/api/place/listPlace.do";
-NSString * const GetGymPlacesUsingInfoByIdURL = @"/api/place/list.do";
+NSString * const GetGymPlacesUsingInfoByIdURL = @"/api/place/list.do";//GetGymInfoByIdURL
+NSString * const GetGymInfoByIdURL = @"/api/match/listms.do";//GetGymInfoByIdURL

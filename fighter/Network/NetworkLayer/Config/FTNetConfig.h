@@ -175,3 +175,5 @@ extern NSString * const GetGymTimeSlotsByIdURL;
 extern NSString * const GetGymPlacesByIdURL;
 //获取拳馆的场地使用信息
 extern NSString * const GetGymPlacesUsingInfoByIdURL;
+//获取拳馆的基本信息
+extern NSString * const GetGymInfoByIdURL;

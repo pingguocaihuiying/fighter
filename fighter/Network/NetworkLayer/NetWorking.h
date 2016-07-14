@@ -191,6 +191,9 @@
 
 //获取场地的使用信息
 + (void)getGymPlaceUsingInfoById:(NSString *)gymId andTimestamp:(NSString *)timestamp andOption:(void (^)(NSArray *array))option;
+
+//获取拳馆信息
++ (void)getGymInfoById:(NSString *)gymId andOption:(void (^)(NSDictionary *dic))option;
 @end
 
 
