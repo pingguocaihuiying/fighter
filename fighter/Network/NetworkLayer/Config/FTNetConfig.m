@@ -202,4 +202,23 @@ NSString * const GetGymByIdURL = @"/api/gym/getVideosById.do";
 NSString * const GetGymTimeSlotsByIdURL = @"/api/place/listTime.do";
 NSString * const GetGymPlacesByIdURL = @"/api/place/listPlace.do";
 NSString * const GetGymPlacesUsingInfoByIdURL = @"/api/place/list.do";//GetGymInfoByIdURL
-NSString * const GetGymInfoByIdURL = @"/api/match/listms.do";//GetGymInfoByIdURL
+NSString * const GetGymInfoByIdURL = @"/api/match/listms.do";//GetGymInfoByIdURLNSString * const GetGymPlacesUsingInfoByIdURL = @"/api/place/list.do";
+
+#pragma mark - 充值、购买、积分
+// 查询余额接口
+NSString * const QueryMoneyURL = @"/api/cumulation/queryMoney.do";
+// 推广任务接口
+NSString * const ExtensionTaskURL = @"/api/cumulation/extensionTask.do";
+// 是否已经购买视频查询接口
+NSString * const IsBuyVideoDoneURL = @"/api/cumulation/hasBuyVideoDone.do";
+// 购买视频接口
+NSString * const BuyVideoURL = @"/api/cumulation/buyVideo.do";
+// 获取视频URL接口
+NSString * const GetBuyVideoURL = @"/api/cumulation/getBuyVideoUrl.do";
+
+// app内购预下单接口
+NSString * const RechargeIAPURL = @"/api/cumulation/appleRecharge.do";
+// app内购验证付款接口
+NSString * const CheckIAPURL = @"/api/cumulation/appleOrderquery.do";
+
+

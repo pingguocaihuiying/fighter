@@ -177,3 +177,22 @@ extern NSString * const GetGymPlacesByIdURL;
 extern NSString * const GetGymPlacesUsingInfoByIdURL;
 //获取拳馆的基本信息
 extern NSString * const GetGymInfoByIdURL;
+#pragma mark - 充值、购买、积分
+// 查询余额接口
+extern NSString * const QueryMoneyURL;
+// 推广任务接口
+extern NSString * const ExtensionTaskURL;
+// 是否已经购买视频查询接口
+extern NSString * const IsBuyVideoDoneURL;
+// 购买视频接口
+extern NSString * const BuyVideoURL;
+// 获取视频URL接口
+extern NSString * const GetBuyVideoURL ;
+// app内购验证付款接口
+extern NSString * const CheckIAPURL;
+// app内购预下单接口
+extern NSString * const RechargeIAPURL;
+
+
+
+
