@@ -56,7 +56,7 @@
 @property (nonatomic , weak) UIButton *leftBtn;
 @property (nonatomic , strong) NSMutableArray *leftBtnArray;
 @property (nonatomic, strong) NSArray *labelArray; //标签数组
-
+@property (nonatomic, copy) NSString *balance; // 余额
 
 @end
 
@@ -70,27 +70,23 @@ static NSString *const tableCellId = @"tableCellId";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    @try {
-   
+    
+    [self initData];
+        
     [self setLoginedTableView];
     
     [self setLoginView];
     
     [self hiddenViews];
     
-    
     [self setVersion];
-    
-        
-    } @catch (NSException *exception) {
-        NSLog(@"exception:%@",exception);
-    } @finally {
-        
-    }
-    //设置监听器
-//    [self setNoti];
+
 }
 
+- (void) initData {
+
+    _balance = @"0P";
+}
 
 - (void) setVersion {
 
@@ -593,7 +589,8 @@ static NSString *const tableCellId = @"tableCellId";
                 NSInteger otherTotal = [dic[@"otherTotal"] integerValue];
                 NSInteger cost = [dic[@"cost"] integerValue];
                 
-                [ cell.subtitle setText:[NSString stringWithFormat:@"%ldP",taskTotal+otherTotal-cost]];
+                _balance = [NSString stringWithFormat:@"%ldP",taskTotal+otherTotal-cost];
+                [ cell.subtitle setText:_balance];
             }else {
                 
                 NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);

@@ -472,8 +472,6 @@
     if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
         [self.delegate pushToController:homepageMainVC];
     }
-    
-    
 }
 
 #pragma mark -FTSelectCellDelegate

@@ -956,7 +956,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 + (void) getCoachsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option  {
     
     NSString *urlString = [FTNetConfig host:Domain path:GetCoachListURL];
-    
+    NSLog(@"dic:%@",dic);
     [self postRequestWithUrl:urlString parameters:dic option:option];
 }
 
