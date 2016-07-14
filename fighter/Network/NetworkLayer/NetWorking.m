@@ -956,7 +956,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 + (void) getCoachsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option  {
     
     NSString *urlString = [FTNetConfig host:Domain path:GetCoachListURL];
-    
+    NSLog(@"dic:%@",dic);
     [self postRequestWithUrl:urlString parameters:dic option:option];
 }
 
@@ -1013,6 +1013,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     }];
 }
 
+//获取场地的使用信息
 + (void)getGymPlaceUsingInfoById:(NSString *)gymId andTimestamp:(NSString *)timestamp andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymPlacesUsingInfoByIdURL];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

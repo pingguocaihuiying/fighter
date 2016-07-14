@@ -53,6 +53,7 @@
 @property (nonatomic,copy) NSString *lastlogintime;
 @property (nonatomic,copy) NSString *username;
 
+@property (nonatomic, strong) NSArray *interestList;
 
 //更新字段
 @property (nonatomic,copy) NSString *height;//身高

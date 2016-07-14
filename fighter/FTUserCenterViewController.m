@@ -180,43 +180,6 @@
     return 45 ;
 }
 
-//-(CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    
-//    return 0.5;
-//}
-
-
-//- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    
-//    UIView *header = [[UIView alloc]init];
-//    header.backgroundColor = [UIColor colorWithHex:0x505050];
-//    return header;
-//}
-
-
-//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    UIEdgeInsets edgeInsets;
-////    if (indexPath.row == 5) {
-//////         edgeInsets = UIEdgeInsetsMake(0, self.tableView.frame.size.width, 0, 0);
-////        edgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-////        
-////    }else {
-////        edgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
-////    }
-//    edgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-//    
-//    if ([cell respondsToSelector:@selector(setSeparatorInset:)])
-//    {
-//        NSLog(@"cell ...............");
-//        [cell setSeparatorInset:UIEdgeInsetsZero];
-//    }
-//    if ([cell respondsToSelector:@selector(setLayoutMargins:)])
-//    {
-//        [cell setLayoutMargins:UIEdgeInsetsZero];
-//    }
-//    
-//}
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -364,54 +327,54 @@
     CGFloat width;
     switch (indexPath.row) {
         case 0:
-            width = 65;
+            width = 68;
             break;
         case 1:
-            width = 36;
+            width = 48.5;
             break;
         case 2:
-            width = 36;
+            width = 48.5;
             break;
         case 3:
-            width = 65;
+            width = 68;
             break;
         case 4:
-            width = 36;
+            width = 48.5;
             break;
         case 5:
-            width = 45;
+            width = 59;
             break;
         case 6:
-            width = 36;
+            width = 48.5;
             break;
         case 7:
-            width = 36;
+            width = 48.5;
             break;
         case 8:
-            width = 45;
+            width = 59;
             break;
         case 9:
-            width = 36;
+            width = 48.5;
             break;
         case 10:
-            width = 45;
+            width = 48.5;
             break;
         case 11:
-            width = 65;
+            width = 68;
             break;
         case 12:
-            width = 36;
+            width = 48.5;
             break;
         default:
             break;
     }
     
-    return (CGSize){width,20};
+    return (CGSize){width,14};
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(6, 0, 6, 0);
+    return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section

@@ -57,25 +57,25 @@
 - (UIImage *) imageForLabel:(NSString *)label {
     
     UIImage *image;
-    if ([label isEqualToString:@"拳击"]) {
+    if ([label isEqualToString:@"Boxing"]) {
         image = [UIImage imageNamed:@"格斗标签-拳击"];
-    }else if ([label isEqualToString:@"综合格斗(MMA)"]) {
+    }else if ([label isEqualToString:@"MMA"]) {
         image = [UIImage imageNamed:@"格斗标签-综合格斗"];
-    }else if ([label isEqualToString:@"泰拳"]) {
+    }else if ([label isEqualToString:@"ThaiBoxing"]) {
         image = [UIImage imageNamed:@"格斗标签-泰拳"];
-    }else if ([label isEqualToString:@"跆拳道"]) {
+    }else if ([label isEqualToString:@"Taekwondo"]) {
         image = [UIImage imageNamed:@"格斗标签-跆拳道"];
-    }else if ([label isEqualToString:@"柔道"]) {
+    }else if ([label isEqualToString:@"Judo"]) {
         image = [UIImage imageNamed:@"格斗标签-柔道"];
-    }else if ([label isEqualToString:@"摔跤(WWE)"]) {
+    }else if ([label isEqualToString:@"Wrestling"]) {
         image = [UIImage imageNamed:@"格斗标签-摔跤"];
-    }else if ([label isEqualToString:@"相扑"]) {
+    }else if ([label isEqualToString:@"Sumo"]) {
         image = [UIImage imageNamed:@"格斗标签-相扑"];
-    }else if ([label isEqualToString:@"女子格斗"]) {
+    }else if ([label isEqualToString:@"FemaleWrestling"]) {
         image = [UIImage imageNamed:@"格斗标签-女子格斗"];
-    }else if ([label isEqualToString:@"街斗"]) {
+    }else if ([label isEqualToString:@"StreetFight"]) {
         image = [UIImage imageNamed:@"格斗标签-街斗"];
-    }else if ([label isEqualToString:@"其他"]) {
+    }else if ([label isEqualToString:@"Others"]) {
         image = [UIImage imageNamed:@"格斗标签-其他"];
     }
     

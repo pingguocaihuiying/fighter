@@ -13,6 +13,7 @@
 #import "FTCycleScrollViewCell.h"
 #import "FTRankTableView.h"
 #import "FTHomepageMainViewController.h"
+#import "JHRefresh.h"
 
 @interface FTCoachView () <UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, FTCycleScrollViewDelegate,FTSelectCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -31,6 +32,7 @@
 @property (nonatomic, copy) NSString * getType;
 
 @property (assign) NSInteger currentPage;
+@property (assign) NSInteger pageSize;
 
 @end
 
@@ -67,6 +69,9 @@
     _coachCurrId = @"-1";
     _getType = @"new";
     
+    _currentPage = 1;
+    _pageSize = 10;
+    
     [self getCycleScrollViewDataFromWeb];
     [self getTableViewDataFromWeb];
     
@@ -76,7 +81,7 @@
     
     [self initCycleScrollView];
     [self initTableView];
-     
+   
 }
 
 - (void)initCycleScrollView{
@@ -111,6 +116,8 @@
     _tableView.tableHeaderView = _coachCycleScrollView;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addSubview:_tableView];
+    
+    [self setJHRefresh];//设置上下拉刷新
 }
 
 #pragma mark - get data from web
@@ -124,6 +131,7 @@
     
     [NetWorking getCoachsByDic:dic option:^(NSDictionary *dict) {
         
+       
         NSLog(@"cycle dict:%@",dict);
         if (dict != nil) {
             
@@ -134,8 +142,6 @@
                     _cycleDataSourceArray = tempArray;
                     [self initCycleScrollView];
                 }
-                
-                
                 
             }
             
@@ -152,8 +158,12 @@
 
     NSMutableDictionary *dic = [NSMutableDictionary new];
     [dic setObject:_order forKey:@"order"];
-//    [dic setObject:@"10" forKey:@"pageSize"];
-//    [dic setObject:@"1" forKey:@"pageNum"];
+    
+    NSNumber *pageSize = [NSNumber numberWithInteger:_pageSize];
+    NSNumber *pageNum = [NSNumber numberWithInteger:_currentPage];
+    
+    [dic setObject:pageSize forKey:@"pageSize"];
+    [dic setObject:pageNum forKey:@"pageNum"];
     
     if (_label && _label.length > 0) {
         [dic setObject:_label forKey:@"label"];
@@ -165,6 +175,7 @@
     
     [NetWorking getCoachsByDic:dic option:^(NSDictionary *dict) {
         
+        [self.tableView footerEndRefreshing];
         NSLog(@"table dict:%@",dict);
         if (dict != nil) {
         
@@ -178,18 +189,49 @@
                     [_tableViewDataSourceArray addObjectsFromArray:tempArray];
                 }
                
+               [self.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
                [_tableView reloadData];
             }else {
             
-                
+                [self.tableView headerEndRefreshingWithResult:JHRefreshResultNone];
             }
             
         }else {
-        
+            [self.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
         }
         
     }];
 }
+
+
+#pragma mark - 上下拉刷新
+- (void)setJHRefresh{
+    //设置下拉刷新
+    __block typeof(self) sself = self;
+    [self.tableView addRefreshHeaderViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
+        //发请求的方法区域
+        NSLog(@"触发下拉刷新headerView");
+        sself.currentPage = 1;
+        [sself getTableViewDataFromWeb];
+        
+    }];
+    //设置上拉刷新
+    [self.tableView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
+        NSLog(@"触发上拉刷新headerView");
+        sself.currentPage ++;
+//        NSString *currId;
+//        if (sself.tableViewDataSourceArray && sself.tableViewDataSourceArray.count > 0) {
+//            FTUserBean *bean = [sself.tableViewDataSourceArray lastObject];
+//            currId = bean.userid;
+//        }else{
+//            return;
+//        }
+        
+        [sself getTableViewDataFromWeb];
+    }];
+}
+
+
 #pragma mark - delegates
 
 #pragma mark UICollectionViewDataSource
@@ -430,8 +472,6 @@
     if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
         [self.delegate pushToController:homepageMainVC];
     }
-    
-    
 }
 
 #pragma mark -FTSelectCellDelegate

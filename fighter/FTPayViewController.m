@@ -9,24 +9,43 @@
 #import "FTPayViewController.h"
 #import <PassKit/PassKit.h>
 #import "FTPracticeCell.h"
-#import "PBEWithMD5AndDES.h"
+#import "FTPayCell.h"
+
+#import "FTEncoderAndDecoder.h"
 #import "Base64-umbrella.h"
 #import "GTMBase64-umbrella.h"
 #import <StoreKit/StoreKit.h>
 
-#import "PBEWithMD5AndDES.h"
+#import "FTEncoderAndDecoder.h"
 
 
-@interface FTPayViewController () <PKPaymentAuthorizationViewControllerDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SKProductsRequestDelegate,SKPaymentTransactionObserver>
+#define PowerCoin1 @"PowerCoin_10P"//￥6
+#define PowerCoin2 @"PowerCoin_80P" //￥30
+#define PowerCoin3 @"PowerCoin_360p" //￥128
+#define PowerCoin4 @"PowerCoin_2500P" //￥588
 
 
+enum{
+    PowerCoin_10P=10,
+    PowerCoin_80P,
+    PowerCoin_360P,
+    PowerCoin_2500P,
+}buyCoinsTag;
+
+
+@interface FTPayViewController () <UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SKProductsRequestDelegate,SKPaymentTransactionObserver>
+
+{
+
+     int buyType;
+}
 @property (nonatomic, strong) SKProductsRequest *productRequest;
 @property (nonatomic, strong) NSSet *productIdentifiers;
 
-@property (weak, nonatomic) IBOutlet UIView *payView;
-
+@property (nonatomic, strong) NSMutableArray *goodsArray;
 @property (nonatomic, strong) NSArray *array;
 @property (nonatomic, strong) NSArray *preArray;
+@property (nonatomic, copy) NSString *orderNO;
 @end
 
 @implementation FTPayViewController
@@ -36,6 +55,8 @@
     
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     
+    [self fetchBalanceFromWeb]; // 获取余额
+    
     [self initData];
     
     [self setNavigationBar];
@@ -43,9 +64,15 @@
     [self initSubviews];
     
     
-    [PBEWithMD5AndDES decodeWithPBE:@""];
-    [PBEWithMD5AndDES encodeWithPBE:@""];
+//    [PBEWithMD5AndDES decodeWithPBE:@""];
+//    [PBEWithMD5AndDES encodeWithPBE:@""];
 
+}
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    
+    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
 - (void) initData {
@@ -62,7 +89,66 @@
                @"充值4按钮cpre",
                @"充值4按钮dpre"
                ];
+    
+    
+    // 添加商品
+    _goodsArray = [[NSMutableArray alloc]init];
+    
+    FTGoodsBean *goodsBean1 = [FTGoodsBean new];
+    goodsBean1.goodsId = PowerCoin1;
+    goodsBean1.price =  [[NSDecimalNumber alloc]initWithInt:6];
+    goodsBean1.descriptions = @"Power币 10P";
+    goodsBean1.details = @"Power币 10P，可以用来购买视频，格斗东西app相关服务";
+    [_goodsArray addObject:goodsBean1];
+    
+    FTGoodsBean *goodsBean2 = [FTGoodsBean new];
+    goodsBean2.goodsId = PowerCoin2;
+    goodsBean2.price = [[NSDecimalNumber alloc]initWithInt:30];
+    goodsBean2.descriptions = @"Power币 80P";
+    goodsBean2.details = @"Power币 80P，可以用来购买视频，格斗东西app相关服务";
+    [_goodsArray addObject:goodsBean2];
+    
+    FTGoodsBean *goodsBean3 = [FTGoodsBean new];
+    goodsBean3.goodsId = PowerCoin3;
+    goodsBean3.price = [[NSDecimalNumber alloc]initWithInt:128];
+    goodsBean3.descriptions = @"Power币 360P";
+    goodsBean3.details = @"Power币 360P，可以用来购买视频，格斗东西app相关服务";
+    [_goodsArray addObject:goodsBean3];
+    
+    FTGoodsBean *goodsBean4 = [FTGoodsBean new];
+    goodsBean4.goodsId = PowerCoin4;
+    goodsBean4.price =[[NSDecimalNumber alloc]initWithInt:588];
+    goodsBean4.descriptions = @"Power币 2500P";
+    goodsBean4.details = @"Power币 2500P，可以用来购买视频，格斗东西app相关服务";
+    [_goodsArray addObject:goodsBean4];
+    
+    
 }
+
+// 从服务器获余额
+- (void) fetchBalanceFromWeb {
+
+    // 获取余额
+    [NetWorking queryMoneyWithOption:^(NSDictionary *dict) {
+        
+        NSLog(@"dict:%@",dict);
+        if ([dict[@"status"] isEqualToString:@"success"] && dict[@"data"]) {
+            
+            NSDictionary *dic = dict[@"data"];
+            
+            NSInteger taskTotal = [dic[@"taskTotal"] integerValue];
+            NSInteger otherTotal = [dic[@"otherTotal"] integerValue];
+            NSInteger cost = [dic[@"cost"] integerValue];
+            
+            [_balanceLabel setText:[NSString stringWithFormat:@"%ldP",taskTotal+otherTotal-cost]];
+        }else {
+            
+            NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+        }
+    }];
+
+}
+
 
 - (void) setNavigationBar {
     self.title = @"充值";
@@ -80,12 +166,12 @@
 
 - (void) initSubviews {
     
-    [self.colectionView registerNib:[UINib nibWithNibName:@"FTPracticeCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
+    [self.colectionView registerNib:[UINib nibWithNibName:@"FTPayCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
     self.colectionView.dataSource = self;
     self.colectionView.delegate = self;
     
-    [_tipLabel1 setText:@"1Power = 100Strong"];
-    [_tipLabel2 setText:@"Power币 与 Strong币，均为虚拟货币，只可在APP内部使用"];
+    [_tipLabel1 setText:@"*1Power = 100Strong"];
+    [_tipLabel2 setText:@"*Power币 与 Strong币，均为虚拟货币，只可在APP内部使用"];
     
 }
 
@@ -96,53 +182,60 @@
 
 
 
-#pragma mark - apple pay
 
-- (void) applePayAuthorization {
-
-    //判断设备是否支持苹果支付
-    if (![PKPaymentAuthorizationViewController canMakePayments]) {
-        NSLog(@"Current device does not support ApplePay");
-        self.payView.hidden = YES;
-    }else {
-        
-        //判断当前设备是否添加了银行卡
-        if (![PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:@[PKPaymentNetworkChinaUnionPay,PKPaymentNetworkVisa]]) {
-            
-            //创建一个跳转按钮，跳转添加银行卡界面
-            PKPaymentButton *button = [PKPaymentButton buttonWithType:PKPaymentButtonTypeSetUp style:PKPaymentButtonStyleWhiteOutline];
-            [button addTarget:self action:@selector(addcardAction) forControlEvents:UIControlEventTouchUpInside];
-            [self.payView addSubview:button];
-            //            NSLog(@"w=%f ,h=%f",button.frame.size.width,button.frame.size.height);
-            
-        }else {
-            
-            //创建一个跳转按钮，跳转添加银行卡界面
-            PKPaymentButton *button = [PKPaymentButton buttonWithType:PKPaymentButtonTypePlain style:PKPaymentButtonStyleWhiteOutline];
-            [button addTarget:self action:@selector(buyAction) forControlEvents:UIControlEventTouchUpInside];
-            [self.payView addSubview:button];
-            //            NSLog(@"w=%f ,h=%f",button.frame.size.width,button.frame.size.height);
-        }
-    }
-
+-(void)RequestProductData
+{
     
 }
-
 
 #pragma mark - response methods
 //确认支付按钮
 - (IBAction)payBtnAction:(id)sender {
     
     NSLog(@"select pay button");
-    NSString *productIdentify1 = @"";
-    NSString *productIdentify2 = @"";
-    _productIdentifiers =  [NSSet setWithObjects:productIdentify1, productIdentify2, nil];
+    
+    FTGoodsBean *bean = nil;
+    NSArray *product = nil;
+    switch (buyType) {
+        case PowerCoin_10P:
+            bean = [_goodsArray objectAtIndex:0];
+//            product=[[NSArray alloc] initWithObjects:PowerCoin1,nil];
+            break;
+        case PowerCoin_80P:
+            bean = [_goodsArray objectAtIndex:1];
+//            product=[[NSArray alloc] initWithObjects:PowerCoin2,nil];
+            break;
+        case PowerCoin_360P:
+            bean = [_goodsArray objectAtIndex:2];
+//            product=[[NSArray alloc] initWithObjects:PowerCoin3,nil];
+            break;
+        case PowerCoin_2500P:
+            bean = [_goodsArray objectAtIndex:3];
+//            product=[[NSArray alloc] initWithObjects:PowerCoin4,nil];
+            break;
+            
+        default:
+        {
+            UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@""
+                                                                message:@"请选择充值金额！"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"知道了"
+                                                      otherButtonTitles:nil];
+            [alerView show];
+            return;
+        }
+            break;
+    }
+    
+    
+    product=[[NSArray alloc] initWithObjects:bean.goodsId,nil];
+    _productIdentifiers =  [NSSet  setWithArray:product];
     _productRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:_productIdentifiers];
     _productRequest.delegate =self;
     [_productRequest start];
-
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
-
 
 
 - (void) backBtnAction:(id) ender {
@@ -151,103 +244,243 @@
     
 }
 
-//跳转添加银行卡界面
-- (void) addcardAction {
-    
-    PKPassLibrary *pklib = [[PKPassLibrary alloc]init];
-    [pklib openPaymentSetup];
-    
-}
 
 
-//跳转购买界面
-- (void) buyAction {
-    
-    NSLog(@"begin to buy !");
-    //创建支付请求
-    PKPaymentRequest *request = [[PKPaymentRequest alloc]init];
-    
-    //配置支付请求
-    //商家ID配置
-    request.merchantIdentifier = @"merchant.com.gogogofighter";
-    //国家代码配置
-    request.countryCode = @"CN";
-    //货币代码配置
-    request.currencyCode = @"CNY";
-    //支付网络配置（银行卡）
-    request.supportedNetworks = @[PKPaymentNetworkChinaUnionPay,PKPaymentNetworkVisa];
-    //商户处理方式配置
-    request.merchantCapabilities = PKMerchantCapability3DS | PKMerchantCapabilityEMV | PKMerchantCapabilityCredit | PKMerchantCapabilityDebit;
-    
-    //商品信息列表
-    NSDecimalNumber *price1 = [NSDecimalNumber decimalNumberWithString:@"0.01"];
-//    PKPaymentSummaryItem *item1 = [PKPaymentSummaryItem summaryItemWithLabel:@"cat" amount:price1];
-    
-    NSDecimalNumber *price2 = [NSDecimalNumber decimalNumberWithString:@"0.01"];
-//    PKPaymentSummaryItem *item2 = [PKPaymentSummaryItem summaryItemWithLabel:@"dog" amount:price2];
-    
-    NSDecimalNumber *price3 = [price1 decimalNumberByAdding:price2];
-    PKPaymentSummaryItem *item3 = [PKPaymentSummaryItem summaryItemWithLabel:@"北京图为先科技有限公司" amount:price3];
-    //商品信息列表最后一项表示汇总，label一般设置成公司名称
-//    request.paymentSummaryItems = @[item1,item2,item3];
-     request.paymentSummaryItems = @[item3];
-    
-//    //配置请求附加项
-//    //发票收货地址
-//    request.requiredBillingAddressFields = PKAddressFieldAll;
-////    快递收货地址
-//    request.requiredShippingAddressFields = PKAddressFieldAll;
-////    //快递方式
-//    NSDecimalNumber *methodDecimal = [NSDecimalNumber zero];
-//    PKShippingMethod *method = [PKShippingMethod summaryItemWithLabel:@"顺丰快递" amount:methodDecimal];
-//    method.identifier = @"shunfeng";
-//    method.detail = @"送货上门";
-//    request.shippingMethods = @[method];
-////    //配置快递类型
-//    request.shippingType = PKShippingTypeStorePickup;
-    
-    
-    //添加一些附加数据
-//    request.applicationData = [@"buyID:123456" dataUsingEncoding:NSUTF8StringEncoding];
-    
-    //验证用户支付授权
-    PKPaymentAuthorizationViewController *payVC = [[PKPaymentAuthorizationViewController alloc]initWithPaymentRequest:request];
-    payVC.delegate = self;
-    [self presentViewController:payVC animated:YES completion:nil];
-    
-}
 #pragma mark - delegate
 
 #pragma mark SKProductsRequestDelegate
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
-    //    NSArray *skProducts = response.products;
-    // process....
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    NSArray *myProduct = response.products;
+    NSLog(@"产品Product ID:%@",response.invalidProductIdentifiers);
+    NSLog(@"产品付费数量: %lu", (unsigned long)[myProduct count]);
+    
+    FTGoodsBean *bean = [FTGoodsBean new];
+    
+    
+    for(SKProduct *product in myProduct){
+        NSLog(@"product info");
+        NSLog(@"SKProduct 描述信息%@", [product description]);
+        NSLog(@"产品标题 %@" , product.localizedTitle);
+        NSLog(@"产品描述信息: %@" , product.localizedDescription);
+        NSLog(@"价格: %@" , product.price);
+        NSLog(@"Product id: %@" , product.productIdentifier);
+        
+        bean.goodsId =  product.productIdentifier;
+        bean.descriptions = product.localizedTitle;
+        bean.details = product.localizedDescription;
+        bean.price = product.price;
+    }
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [NetWorking rechargeIAPByGoods:bean option:^(NSDictionary *dict) {
+        
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        NSLog(@"dict:%@",dict);
+        NSLog(@"message:%@",dict[@"message"]);
+        NSString *order = dict[@"data"][@"orderNo"];
+        
+        if (order.length > 0) {
+            
+            _orderNO = order;
+            SKPayment *payment = nil;
+            SKProduct *product = [myProduct objectAtIndex:0];
+            switch (buyType) {
+                case PowerCoin_10P:
+                    payment= [SKPayment paymentWithProduct:product];
+                    break;
+                case PowerCoin_80P:
+                    payment= [SKPayment paymentWithProduct:product];
+                    break;
+                case PowerCoin_360P:
+                    payment= [SKPayment paymentWithProduct:product];
+                    break;
+                case PowerCoin_2500P:
+                    payment= [SKPayment paymentWithProduct:product];
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+            NSLog(@"---------发送购买请求------------");
+            [[SKPaymentQueue defaultQueue] addPayment:payment];
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        }else {
+        
+            UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:nil
+                                                                message:@"下单失败，请稍后再试~"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"知道了"
+                                                      otherButtonTitles:nil];
+            [alerView show];
+
+        }
+        
+    }];
+    
+    
+    
 }
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error
 {
-    // process....
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    NSLog(@"-------弹出错误信息----------");
+    UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert",NULL) message:[error localizedDescription]
+                                                       delegate:nil cancelButtonTitle:NSLocalizedString(@"Close",nil) otherButtonTitles:nil];
+    [alerView show];
+}
+
+-(void) requestDidFinish:(SKRequest *)request
+{
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    NSLog(@"---------- 支付请求结束 --------------");
+    
+}
+
+-(void) PurchasedTransaction: (SKPaymentTransaction *)transaction{
+    NSLog(@"-----PurchasedTransaction----");
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    NSArray *transactions =[[NSArray alloc] initWithObjects:transaction, nil];
+    [self paymentQueue:[SKPaymentQueue defaultQueue] updatedTransactions:transactions];
+   
 }
 
 #pragma mark - SKPaymentTransactionObserver
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
 {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
     for (SKPaymentTransaction *transaction in transactions) {
         switch (transaction.transactionState) {
-            caseSKPaymentTransactionStatePurchased:
-                //                [self completeTransaction:transaction];
+            case SKPaymentTransactionStatePurchased:
+            {
+                [self completeTransaction:transaction];
+                NSLog(@"-----交易完成 --------");
+                
+            }
                 break;
-            caseSKPaymentTransactionStateFailed:
-                //                [self failedTransaction:transaction];
+            case SKPaymentTransactionStateFailed:
+            {
+            
+                [self failedTransaction:transaction];
+                NSLog(@"-----交易失败 --------");
+                UIAlertView *alerView2 =  [[UIAlertView alloc] initWithTitle:@"Alert"
+                                                                     message:@"购买失败，请重新尝试购买～"
+                                                                    delegate:nil cancelButtonTitle:NSLocalizedString(@"Close（关闭）",nil) otherButtonTitles:nil];
+                
+                [alerView2 show];
+            }
+               
                 break;
-            caseSKPaymentTransactionStateRestored:
-                //                [self restoreTransaction:transaction];
+            case SKPaymentTransactionStateRestored: {
+            
+                [self restoreTransaction:transaction];
+                NSLog(@"-----已经购买过该商品 --------");
+            }
+            case SKPaymentTransactionStatePurchasing:      //商品添加进列表
+                NSLog(@"-----商品添加进列表 --------");
+                break;
                 
             default:
                 break;
         }
     }
+}
+
+
+#pragma mark - 交易处理
+- (void) completeTransaction: (SKPaymentTransaction *)transaction
+{
+    NSLog(@"-----completeTransaction--------");
+    
+    NSString * transactionId = transaction.transactionIdentifier;
+    NSLog(@"*******************************************************");
+    NSLog(@"transactionId:%@",transactionId);
+    NSLog(@"*******************************************************");
+    
+    NSString *product = transaction.payment.productIdentifier;
+    if ([product length] > 0) {
+        
+        NSString *transactionReceiptString;
+        if ([[[UIDevice currentDevice] systemVersion] floatValue]>= 7.0) {
+            
+            NSURLRequest*appstoreRequest = [NSURLRequest requestWithURL:[[NSBundle mainBundle]appStoreReceiptURL]];
+            NSError *error = nil;
+            NSData * receiptData = [NSURLConnection sendSynchronousRequest:appstoreRequest returningResponse:nil error:&error];
+            transactionReceiptString = [receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+            
+        }else {
+            
+            NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
+            NSData *receipt = [NSData dataWithContentsOfURL:receiptURL];
+            transactionReceiptString = [receipt base64String];
+        }
+        
+        // 二次验证，将receiptdata base64 之后发送给服务器，有服务器向AppStore验证是否充值成功
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [NetWorking checkIAPByOrderNO:_orderNO receipt:transactionReceiptString transactionId:transactionId option:^(NSDictionary *dict) {
+            
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            NSLog(@"dict:%@",dict);
+            NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+            if ([dict[@"status"] isEqualToString:@"success"]) {
+                
+                [self fetchBalanceFromWeb];
+                
+                UIAlertView *alerView2 =  [[UIAlertView alloc] initWithTitle:@"Alert"
+                                                                     message:@"购买成功，请注意查收～"
+                                                                    delegate:nil cancelButtonTitle:NSLocalizedString(@"Close（关闭）",nil) otherButtonTitles:nil];
+                
+                [alerView2 show];
+
+//                NSInteger orderState = [dict[@"data"][@"order_status"] integerValue];
+//                if (orderState == 1) {
+//                                    }
+            }
+        }];
+    }
+    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+    
+}
+
+
+//记录交易
+-(void)recordTransaction:(NSString *)product{
+    NSLog(@"-----记录交易--------");
+}
+
+//处理下载内容
+-(void)provideContent:(NSString *)product{
+    NSLog(@"-----下载--------");
+}
+
+- (void) failedTransaction: (SKPaymentTransaction *)transaction{
+    NSLog(@"失败");
+    if (transaction.error.code != SKErrorPaymentCancelled)
+    {
+    }
+    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+    
+    
+}
+
+
+-(void) paymentQueueRestoreCompletedTransactionsFinished: (SKPaymentTransaction *)transaction{
+    
+}
+
+- (void) restoreTransaction: (SKPaymentTransaction *)transaction
+
+{
+    NSLog(@" 交易恢复处理");
+    
+}
+
+-(void) paymentQueue:(SKPaymentQueue *) paymentQueue restoreCompletedTransactionsFailedWithError:(NSError *)error{
+    NSLog(@"-------paymentQueue----");
 }
 
 
@@ -262,48 +495,65 @@
 //某组有多少行
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return _array.count;
+//    return 1;
 }
 
 //返回cell
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    FTPracticeCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    
-    @try {
+    FTPayCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    cell.selectImageView.hidden = YES;
+    if (indexPath.row == 0) {
         NSString *imgName = [_array objectAtIndex:indexPath.row];
         
         if (imgName ) {
-            cell.imageView.image = [UIImage imageNamed:imgName];
+            cell.backImageView.image = [UIImage imageNamed:imgName];
+        }
+    }else {
+    
+        NSString *imgName = [_preArray objectAtIndex:indexPath.row];
+        
+        if (imgName ) {
+            cell.backImageView.image = [UIImage imageNamed:imgName];
         }
 
-    } @catch (NSException *exception) {
-        
-        NSLog(@"exception:%@",exception);
-    } @finally {
         
     }
+   
     
     return cell;
 }
 
 //选中触发的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    FTPracticeCell *cell = (FTPracticeCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    NSString *imgName = [_preArray objectAtIndex:indexPath.row];
     
-    if (imgName ) {
-        cell.imageView.image = [UIImage imageNamed:imgName];
+    if (indexPath.row == 0) {
+        FTPayCell *cell = (FTPayCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        NSString *imgName = [_preArray objectAtIndex:indexPath.row];
+        cell.selectImageView.hidden = NO;
+        if (imgName ) {
+            cell.backImageView.image = [UIImage imageNamed:imgName];
+        }
+        
+        buyType = (int) indexPath.row + 10;
+    }else {
+    
+        buyType = 0;
     }
+    
 }
 
 // 释放选中状态
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-
-    FTPracticeCell *cell = (FTPracticeCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    NSString *imgName = [_array objectAtIndex:indexPath.row];
     
-    if (imgName ) {
-        cell.imageView.image = [UIImage imageNamed:imgName];
+    if (indexPath.row == 0) {
+        FTPayCell *cell = (FTPayCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        NSString *imgName = [_array objectAtIndex:indexPath.row];
+        cell.selectImageView.hidden = YES;
+        if (imgName ) {
+            cell.backImageView.image = [UIImage imageNamed:imgName];
+        }
     }
+    
 }
 
 
@@ -312,6 +562,8 @@
 {
     float width = 163 * SCALE;
     float height = 30 * SCALE;
+//    float width = 340 * SCALE;
+//    float height = 40 * SCALE;
     return CGSizeMake(width, height);
 }
 
@@ -330,67 +582,19 @@
     return 16 * SCALE;;
 }
 
-#pragma mark PKPaymentAuthorizationViewControllerDelegate
-//用户授权成功，调用此方法
-//参数一 授权控制器
-//参数二 支付对象
-//参数三 系统给定的一个回调代码块，我们需要执行代码块来告诉用户支付状态是否成功
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
-                       didAuthorizePayment:(PKPayment *)payment
-                                completion:(void (^)(PKPaymentAuthorizationStatus status))completion
-{
-    
-    
-    NSLog(@"payment");
-    
-    BOOL isSucess = YES;
-    
-    //    PKPaymentAuthorizationStatusSuccess, // Merchant auth'd (or expects to auth) the transaction successfully.
-    //    PKPaymentAuthorizationStatusFailure
-    if (isSucess) {
-//        completion(PKPaymentAuthorizationStatusSuccess);
-         NSLog(@"PKPaymentAuthorizationStatusSuccess");
-    }else {
-        completion(PKPaymentAuthorizationStatusFailure);
-        NSLog(@"PKPaymentAuthorizationStatusFailure");
-    }
-  
-    
-    
-//    NSError *error;
-//    ABMultiValueRef addressMultiValue = ABRecordCopyValue(payment.billingAddress, kABPersonAddressProperty);
-//    NSDictionary *addressDictionary = (__bridge_transfer NSDictionary *) ABMultiValueCopyValueAtIndex(addressMultiValue, 0);
-//    NSData *json = [NSJSONSerialization dataWithJSONObject:addressDictionary options:NSJSONWritingPrettyPrinted error: &error];
-//    
-//    // ... Send payment token, shipping and billing address, and order information to your server ...
-//    
-//    PKPaymentAuthorizationStatus status;  // From your server
-//    completion(status);
-    
-}
-
-//用户授权成功或者取消授权，调用此方法
-//参数一 授权控制器
-//参数二 支付对象
-//参数三 系统给定的一个回调代码块，我们需要执行代码块来告诉用户支付状态是否成功
-- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
-{
-    NSLog(@"授权结束");
-    [controller dismissViewControllerAnimated:YES completion:nil];
-}
-
-
 
 #pragma mark - private method
-- (void) completeTransaction: (SKPaymentTransaction *)transaction
+//url转码
+- (NSString *)encodeToPercentEscapeString: (NSString *) input
 {
-    // Your application should implement these two methods.
-    //    [self recordTransaction:transaction];
-    //    [self provideContent:transaction.payment.productIdentifier];
-    // Remove the transaction from the payment queue.
-    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+    NSString *outputStr = (NSString *)
+    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                              (CFStringRef)input,
+                                                              NULL,
+                                                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                              kCFStringEncodingUTF8));
+    return outputStr;
 }
-
 
 
 @end

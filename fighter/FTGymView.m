@@ -12,6 +12,7 @@
 #import "FTCycleScrollView.h"
 #import "FTCycleScrollViewCell2.h"
 #import "FTRankTableView.h"
+#import "JHRefresh.h"
 
 @interface FTGymView () <UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, FTCycleScrollViewDelegate,FTSelectCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -109,6 +110,8 @@
     _tableView.tableHeaderView = _gymCycleScrollView;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addSubview:_tableView];
+    
+    [self setJHRefresh];
 }
 
 #pragma mark - get data from web
@@ -171,7 +174,10 @@
     NSLog(@"urlstring:%@",urlString);
     [NetWorking getGymsByDic:dic option:^(NSDictionary *dict) {
         
+        [self.tableView footerEndRefreshing];
+        
         NSLog(@"table dict:%@",dict);
+        NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         if (dict != nil) {
             
             if ([dict[@"status"] isEqualToString:@"success"] ) {
@@ -184,18 +190,53 @@
                     [_tableViewDataSourceArray addObjectsFromArray:tempArray];
                 }
                 
+                [self.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
                 [_tableView reloadData];
             }else {
-                
-                
+                [self.tableView headerEndRefreshingWithResult:JHRefreshResultNone];
             }
             
         }else {
-            
+             [self.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
         }
         
     }];
 }
+
+#pragma mark - 上下拉刷新
+- (void)setJHRefresh{
+    //设置下拉刷新
+    __block typeof(self) sself = self;
+    [self.tableView addRefreshHeaderViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
+        //发请求的方法区域
+        NSLog(@"触发下拉刷新headerView");
+        sself.currentPage = 1;
+        _getType = @"new";
+        _gymCurrId = @"-1";
+        if (sself.tableViewDataSourceArray && sself.tableViewDataSourceArray.count > 0) {
+           NSDictionary *dic = [sself.tableViewDataSourceArray firstObject];
+            _gymCurrId = dic[@"gymId"];
+        }
+        
+        [sself getTableViewDataFromWeb];
+        
+    }];
+    //设置上拉刷新
+    [self.tableView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
+        NSLog(@"触发上拉刷新headerView");
+        sself.currentPage ++;
+        _getType = @"old";
+        
+        if (sself.tableViewDataSourceArray && sself.tableViewDataSourceArray.count > 0) {
+            NSDictionary *dic = [sself.tableViewDataSourceArray lastObject];
+            _gymCurrId = dic[@"gymId"];
+        }
+        
+        [sself getTableViewDataFromWeb];
+    }];
+}
+
+
 #pragma mark - delegates
 
 #pragma mark UICollectionViewDataSource

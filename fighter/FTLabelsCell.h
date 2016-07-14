@@ -10,5 +10,6 @@
 
 @interface FTLabelsCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UILabel *tipLabel;
 
 @end

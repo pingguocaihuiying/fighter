@@ -62,12 +62,8 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="感兴趣的项目 ：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TAn-q9-2qh">
-                    <rect key="frame" x="19" y="467" width="135" height="15"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="135" id="Tk5-7g-1Xo"/>
-                        <constraint firstAttribute="height" constant="15" id="xV5-r2-IHs"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <rect key="frame" x="19" y="466" width="109" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -91,12 +87,12 @@
                     <state key="normal" image="兴趣更多"/>
                     <state key="highlighted" image="兴趣更多pre"/>
                 </button>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="vPe-gf-rCz">
-                    <rect key="frame" x="156" y="460" width="109" height="30"/>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="vPe-gf-rCz">
+                    <rect key="frame" x="133" y="460" width="135" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="30" id="eAc-UT-vmC"/>
+                        <constraint firstAttribute="height" constant="30" id="zQ1-jR-CcM"/>
                     </constraints>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="XkE-Xb-V5A">
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="XkE-Xb-V5A">
                         <size key="itemSize" width="50" height="50"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>

@@ -55,8 +55,8 @@
 
 @property (nonatomic , weak) UIButton *leftBtn;
 @property (nonatomic , strong) NSMutableArray *leftBtnArray;
-
-
+@property (nonatomic, strong) NSArray *labelArray; //标签数组
+@property (nonatomic, copy) NSString *balance; // 余额
 
 @end
 
@@ -70,27 +70,23 @@ static NSString *const tableCellId = @"tableCellId";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    @try {
-   
-    [self setLoginedView];
+    
+    [self initData];
+        
+    [self setLoginedTableView];
     
     [self setLoginView];
     
     [self hiddenViews];
     
-    
     [self setVersion];
-    
-        
-    } @catch (NSException *exception) {
-        NSLog(@"exception:%@",exception);
-    } @finally {
-        
-    }
-    //设置监听器
-//    [self setNoti];
+
 }
 
+- (void) initData {
+
+    _balance = @"0P";
+}
 
 - (void) setVersion {
 
@@ -138,8 +134,8 @@ static NSString *const tableCellId = @"tableCellId";
 }
 
 
-
-- (void) setLoginedView {
+// 设置登录以后显示的用户信息 tableView
+- (void) setLoginedTableView {
     
     NSLog(@"serSubviews");
     
@@ -236,6 +232,9 @@ static NSString *const tableCellId = @"tableCellId";
         if (localUser) {
             [self setLoginedViewData:localUser];
             [self.loginView setHidden:YES];//隐藏登录界面
+            _labelArray = localUser.interestList;
+            
+            [self.tableView reloadData];
         }else {
             
             [self.loginView setHidden:NO];//隐藏登录界面
@@ -557,9 +556,18 @@ static NSString *const tableCellId = @"tableCellId";
         
         FTLabelsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"labelsCellId"];
         
-        [cell.collectionView registerClass:[FTDrawerCollectionCell class] forCellWithReuseIdentifier:colllectionCellId];
-        cell.collectionView.dataSource = self;
-        cell.collectionView.delegate = self;
+        if (_labelArray.count > 0) {
+            
+            [cell.tipLabel setHidden:YES];
+            [cell.collectionView registerClass:[FTDrawerCollectionCell class] forCellWithReuseIdentifier:colllectionCellId];
+            cell.collectionView.dataSource = self;
+            cell.collectionView.delegate = self;
+        }else {
+        
+            [cell.tipLabel setHidden:NO];
+        }
+        
+        
         
         return cell;
         
@@ -567,9 +575,30 @@ static NSString *const tableCellId = @"tableCellId";
         
         FTDrawerPayCell *cell = [tableView dequeueReusableCellWithIdentifier:@"payCellId"];
         cell.cellTitle.text = @"账户余额:";
-        cell.subtitle.text = @"120p 67s";
-        return cell;
+        cell.subtitle.text = @"0P";
         
+        // 获取余额
+        [NetWorking queryMoneyWithOption:^(NSDictionary *dict) {
+            
+            NSLog(@"dict:%@",dict);
+            if ([dict[@"status"] isEqualToString:@"success"] && dict[@"data"]) {
+                
+                NSDictionary *dic = dict[@"data"];
+                
+                NSInteger taskTotal = [dic[@"taskTotal"] integerValue];
+                NSInteger otherTotal = [dic[@"otherTotal"] integerValue];
+                NSInteger cost = [dic[@"cost"] integerValue];
+                
+                _balance = [NSString stringWithFormat:@"%ldP",taskTotal+otherTotal-cost];
+                [ cell.subtitle setText:_balance];
+            }else {
+                
+                NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+            }
+        }];
+
+        
+        return cell;
     }else {
         
         FTDrawerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCellId"];
@@ -598,6 +627,7 @@ static NSString *const tableCellId = @"tableCellId";
         FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:payVC];
         baseNav.navigationBarHidden = NO;
         [self presentViewController:baseNav animated:YES completion:nil];
+        
     }
 }
 
