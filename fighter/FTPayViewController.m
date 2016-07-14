@@ -11,12 +11,12 @@
 #import "FTPracticeCell.h"
 #import "FTPayCell.h"
 
-#import "PBEWithMD5AndDES.h"
+#import "FTEncoderAndDecoder.h"
 #import "Base64-umbrella.h"
 #import "GTMBase64-umbrella.h"
 #import <StoreKit/StoreKit.h>
 
-#import "PBEWithMD5AndDES.h"
+#import "FTEncoderAndDecoder.h"
 
 
 #define PowerCoin1 @"PowerCoin_10P"//￥6
@@ -55,6 +55,8 @@ enum{
     
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     
+    [self fetchBalanceFromWeb]; // 获取余额
+    
     [self initData];
     
     [self setNavigationBar];
@@ -62,8 +64,8 @@ enum{
     [self initSubviews];
     
     
-    [PBEWithMD5AndDES decodeWithPBE:@""];
-    [PBEWithMD5AndDES encodeWithPBE:@""];
+//    [PBEWithMD5AndDES decodeWithPBE:@""];
+//    [PBEWithMD5AndDES encodeWithPBE:@""];
 
 }
 
@@ -121,12 +123,17 @@ enum{
     [_goodsArray addObject:goodsBean4];
     
     
+}
+
+// 从服务器获余额
+- (void) fetchBalanceFromWeb {
+
     // 获取余额
     [NetWorking queryMoneyWithOption:^(NSDictionary *dict) {
         
         NSLog(@"dict:%@",dict);
         if ([dict[@"status"] isEqualToString:@"success"] && dict[@"data"]) {
-        
+            
             NSDictionary *dic = dict[@"data"];
             
             NSInteger taskTotal = [dic[@"taskTotal"] integerValue];
@@ -135,11 +142,13 @@ enum{
             
             [_balanceLabel setText:[NSString stringWithFormat:@"%ldP",taskTotal+otherTotal-cost]];
         }else {
-        
+            
             NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         }
     }];
+
 }
+
 
 - (void) setNavigationBar {
     self.title = @"充值";
@@ -225,6 +234,7 @@ enum{
     _productRequest.delegate =self;
     [_productRequest start];
     
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
 
 
@@ -241,6 +251,7 @@ enum{
 #pragma mark SKProductsRequestDelegate
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     NSArray *myProduct = response.products;
     NSLog(@"产品Product ID:%@",response.invalidProductIdentifiers);
     NSLog(@"产品付费数量: %lu", (unsigned long)[myProduct count]);
@@ -272,6 +283,7 @@ enum{
         
         if (order.length > 0) {
             
+            _orderNO = order;
             SKPayment *payment = nil;
             SKProduct *product = [myProduct objectAtIndex:0];
             switch (buyType) {
@@ -294,7 +306,7 @@ enum{
             
             NSLog(@"---------发送购买请求------------");
             [[SKPaymentQueue defaultQueue] addPayment:payment];
-        
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         }else {
         
             UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:nil
@@ -314,6 +326,7 @@ enum{
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error
 {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     NSLog(@"-------弹出错误信息----------");
     UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert",NULL) message:[error localizedDescription]
                                                        delegate:nil cancelButtonTitle:NSLocalizedString(@"Close",nil) otherButtonTitles:nil];
@@ -322,12 +335,14 @@ enum{
 
 -(void) requestDidFinish:(SKRequest *)request
 {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     NSLog(@"---------- 支付请求结束 --------------");
     
 }
 
 -(void) PurchasedTransaction: (SKPaymentTransaction *)transaction{
     NSLog(@"-----PurchasedTransaction----");
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     NSArray *transactions =[[NSArray alloc] initWithObjects:transaction, nil];
     [self paymentQueue:[SKPaymentQueue defaultQueue] updatedTransactions:transactions];
    
@@ -336,6 +351,8 @@ enum{
 #pragma mark - SKPaymentTransactionObserver
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
 {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
     for (SKPaymentTransaction *transaction in transactions) {
         switch (transaction.transactionState) {
             case SKPaymentTransactionStatePurchased:
@@ -378,39 +395,50 @@ enum{
 - (void) completeTransaction: (SKPaymentTransaction *)transaction
 {
     NSLog(@"-----completeTransaction--------");
-   
-//    NSString *product = transaction.payment.productIdentifier;
-//    if ([product length] > 0) {
-//        
-//        NSArray *tt = [product componentsSeparatedByString:@"."];
-//        NSString *bookid = [tt lastObject];
-//        if ([bookid length] > 0) {
-//            [self recordTransaction:bookid];
-//            [self provideContent:bookid];
-//        }
-//    }
+    
+    NSString * transactionId = transaction.transactionIdentifier;
+    NSLog(@"*******************************************************");
+    NSLog(@"transactionId:%@",transactionId);
+    NSLog(@"*******************************************************");
     
     NSString *product = transaction.payment.productIdentifier;
     if ([product length] > 0) {
         
-        NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
-        NSData *receipt = [NSData dataWithContentsOfURL:receiptURL];
-        NSString *receiptString = [receipt base64String];
-//        NSLog(@"receiptString:%@",receiptString);
-    
-        [NetWorking checkIAPByOrderNO:product receipt:receiptString option:^(NSDictionary *dict) {
+        NSString *transactionReceiptString;
+        if ([[[UIDevice currentDevice] systemVersion] floatValue]>= 7.0) {
             
+            NSURLRequest*appstoreRequest = [NSURLRequest requestWithURL:[[NSBundle mainBundle]appStoreReceiptURL]];
+            NSError *error = nil;
+            NSData * receiptData = [NSURLConnection sendSynchronousRequest:appstoreRequest returningResponse:nil error:&error];
+            transactionReceiptString = [receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+            
+        }else {
+            
+            NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
+            NSData *receipt = [NSData dataWithContentsOfURL:receiptURL];
+            transactionReceiptString = [receipt base64String];
+        }
+        
+        // 二次验证，将receiptdata base64 之后发送给服务器，有服务器向AppStore验证是否充值成功
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [NetWorking checkIAPByOrderNO:_orderNO receipt:transactionReceiptString transactionId:transactionId option:^(NSDictionary *dict) {
+            
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             NSLog(@"dict:%@",dict);
             NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
             if ([dict[@"status"] isEqualToString:@"success"]) {
-                NSInteger orderState = [dict[@"data"][@"order_status"] integerValue];
-                if (orderState == 1) {
-                    UIAlertView *alerView2 =  [[UIAlertView alloc] initWithTitle:@"Alert"
-                                                                         message:@"购买成功，请注意查收～"
-                                                                        delegate:nil cancelButtonTitle:NSLocalizedString(@"Close（关闭）",nil) otherButtonTitles:nil];
-                    
-                    [alerView2 show];
-                }
+                
+                [self fetchBalanceFromWeb];
+                
+                UIAlertView *alerView2 =  [[UIAlertView alloc] initWithTitle:@"Alert"
+                                                                     message:@"购买成功，请注意查收～"
+                                                                    delegate:nil cancelButtonTitle:NSLocalizedString(@"Close（关闭）",nil) otherButtonTitles:nil];
+                
+                [alerView2 show];
+
+//                NSInteger orderState = [dict[@"data"][@"order_status"] integerValue];
+//                if (orderState == 1) {
+//                                    }
             }
         }];
     }
@@ -556,8 +584,17 @@ enum{
 
 
 #pragma mark - private method
-
-
+//url转码
+- (NSString *)encodeToPercentEscapeString: (NSString *) input
+{
+    NSString *outputStr = (NSString *)
+    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                              (CFStringRef)input,
+                                                              NULL,
+                                                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                              kCFStringEncodingUTF8));
+    return outputStr;
+}
 
 
 @end

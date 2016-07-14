@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
-#import "PBEWithMD5AndDES.h"
+#import "FTEncoderAndDecoder.h"
 #include <openssl/ssl.h>
 #include <openssl/sha.h>
 #include <openssl/x509.h>
@@ -17,7 +17,89 @@
 #import "GTMBase64-umbrella.h"
 #import <objc/runtime.h>
 
-@implementation PBEWithMD5AndDES
+
+#import <CommonCrypto/CommonCryptor.h>
+#define gIv @"0102030405060708" //可以自行定义16位
+@interface NSData (NSData_AES)
+
+- (NSData *)AES128EncryptWithKey:(NSString *)key;   //加密
+- (NSData *)AES128DecryptWithKey:(NSString *)key;   //解密
+
+@end
+
+@implementation NSData (NSData_AES)
+//(key和iv向量这里是16位的) 这里是CBC加密模式，安全性更高
+
+- (NSData *)AES128EncryptWithKey:(NSString *)key//加密
+{
+    char keyPtr[kCCKeySizeAES128+1];
+    bzero(keyPtr, sizeof(keyPtr));
+    [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
+    
+    char ivPtr[kCCKeySizeAES128+1];
+    memset(ivPtr, 0, sizeof(ivPtr));
+    [gIv getCString:ivPtr maxLength:sizeof(ivPtr) encoding:NSUTF8StringEncoding];
+    
+    NSUInteger dataLength = [self length];
+    size_t bufferSize = dataLength + kCCBlockSizeAES128;
+    void *buffer = malloc(bufferSize);
+    size_t numBytesEncrypted = 0;
+    CCCryptorStatus cryptStatus = CCCrypt(kCCEncrypt,
+                                          kCCAlgorithmAES128,
+                                          kCCOptionPKCS7Padding,
+                                          keyPtr,
+                                          kCCBlockSizeAES128,
+                                          ivPtr,
+                                          [self bytes],
+                                          dataLength,
+                                          buffer,
+                                          bufferSize,
+                                          &numBytesEncrypted);
+    if (cryptStatus == kCCSuccess) {
+        return [NSData dataWithBytesNoCopy:buffer length:numBytesEncrypted];
+    }
+    free(buffer);
+    return nil;
+}
+
+
+- (NSData *)AES128DecryptWithKey:(NSString *)key//解密
+{
+    char keyPtr[kCCKeySizeAES128+1];
+    bzero(keyPtr, sizeof(keyPtr));
+    [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
+    
+    char ivPtr[kCCKeySizeAES128+1];
+    memset(ivPtr, 0, sizeof(ivPtr));
+    [gIv getCString:ivPtr maxLength:sizeof(ivPtr) encoding:NSUTF8StringEncoding];
+    
+    NSUInteger dataLength = [self length];
+    size_t bufferSize = dataLength + kCCBlockSizeAES128;
+    void *buffer = malloc(bufferSize);
+    size_t numBytesDecrypted = 0;
+    CCCryptorStatus cryptStatus = CCCrypt(kCCDecrypt,
+                                          kCCAlgorithmAES128,
+                                          kCCOptionPKCS7Padding,
+                                          keyPtr,
+                                          kCCBlockSizeAES128,
+                                          ivPtr,
+                                          [self bytes],
+                                          dataLength,
+                                          buffer,
+                                          bufferSize,
+                                          &numBytesDecrypted);
+    if (cryptStatus == kCCSuccess) {
+        return [NSData dataWithBytesNoCopy:buffer length:numBytesDecrypted];
+    }
+    free(buffer);
+    return nil;
+}
+
+@end
+
+#pragma mark - FTEncoderAndDecoder
+
+@implementation FTEncoderAndDecoder
 
 /*
  Usage
@@ -202,6 +284,33 @@
     data = [GTMBase64 decodeData:data];
     NSString *base64String = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding] ;
     return base64String;
+}
+
+
+
+#pragma mark - AES加密
+//将string转成带密码的data
++(NSString*)encryptAESData:(NSString*)string app_key:(NSString*)key
+{
+    //将nsstring转化为nsdata
+    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    //使用密码对nsdata进行加密
+    NSData *encryptedData = [data AES128EncryptWithKey:key];
+    NSLog(@"加密后的字符串 :%@",[encryptedData base64String]);
+    
+    return [encryptedData base64String];
+}
+
+#pragma mark - AES解密
+//将带密码的data转成string
++(NSString*)decryptAESData:(NSData*)data  app_key:(NSString*)key
+{
+    //使用密码对data进行解密
+    NSData *decryData = [data AES128DecryptWithKey:key];
+    //将解了密码的nsdata转化为nsstring
+    NSString *str = [[NSString alloc] initWithData:decryData encoding:NSUTF8StringEncoding];
+    NSLog(@"解密后的字符串 :%@",str);
+    return str;
 }
 
 @end

@@ -55,7 +55,7 @@
 
 @property (nonatomic , weak) UIButton *leftBtn;
 @property (nonatomic , strong) NSMutableArray *leftBtnArray;
-
+@property (nonatomic, strong) NSArray *labelArray; //标签数组
 
 
 @end
@@ -236,6 +236,9 @@ static NSString *const tableCellId = @"tableCellId";
         if (localUser) {
             [self setLoginedViewData:localUser];
             [self.loginView setHidden:YES];//隐藏登录界面
+            _labelArray = localUser.interestList;
+            
+            [self.tableView reloadData];
         }else {
             
             [self.loginView setHidden:NO];//隐藏登录界面
@@ -557,9 +560,18 @@ static NSString *const tableCellId = @"tableCellId";
         
         FTLabelsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"labelsCellId"];
         
-        [cell.collectionView registerClass:[FTDrawerCollectionCell class] forCellWithReuseIdentifier:colllectionCellId];
-        cell.collectionView.dataSource = self;
-        cell.collectionView.delegate = self;
+        if (_labelArray.count > 0) {
+            
+            [cell.tipLabel setHidden:YES];
+            [cell.collectionView registerClass:[FTDrawerCollectionCell class] forCellWithReuseIdentifier:colllectionCellId];
+            cell.collectionView.dataSource = self;
+            cell.collectionView.delegate = self;
+        }else {
+        
+            [cell.tipLabel setHidden:NO];
+        }
+        
+        
         
         return cell;
         
@@ -567,7 +579,7 @@ static NSString *const tableCellId = @"tableCellId";
         
         FTDrawerPayCell *cell = [tableView dequeueReusableCellWithIdentifier:@"payCellId"];
         cell.cellTitle.text = @"账户余额:";
-        cell.subtitle.text = @"120p 67s";
+        cell.subtitle.text = @"0P";
         
         // 获取余额
         [NetWorking queryMoneyWithOption:^(NSDictionary *dict) {

@@ -43,6 +43,9 @@
     self.voteCount.text = voteCount;
     self.viewCountlabel.text = [NSString stringWithFormat:@"(%@)", bean.viewCount];
     
+    if (bean.price) {
+        [self.priceLabel setText:[NSString stringWithFormat:@"%@P",bean.price]];
+    }
     //根据newsType去设置类型图片
 //    self.priceImageView.image = [UIImage imageNamed:[FTTools getChLabelNameWithEnLabelName:bean.videosType]];
 }

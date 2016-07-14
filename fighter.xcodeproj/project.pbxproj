@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		2EB9B28B8C5A080A21781FFA /* Pods_fighter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E48274DE7B43596DF74BCD1 /* Pods_fighter.framework */; };
+		3D06154E1D35E17B00FDA86F /* FTPhoneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D06154C1D35E17B00FDA86F /* FTPhoneCell.m */; };
+		3D06154F1D35E17B00FDA86F /* FTPhoneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D06154D1D35E17B00FDA86F /* FTPhoneCell.xib */; };
+		3D0615591D36302600FDA86F /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0615521D36302600FDA86F /* AESCrypt.m */; };
+		3D06155A1D36302600FDA86F /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0615541D36302600FDA86F /* NSData+Base64.m */; };
+		3D06155B1D36302600FDA86F /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0615561D36302600FDA86F /* NSData+CommonCrypto.m */; };
+		3D06155C1D36302600FDA86F /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0615581D36302600FDA86F /* NSString+Base64.m */; };
 		3D0D7C721D1A984B00E67AC9 /* FTPracticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0D7C711D1A984B00E67AC9 /* FTPracticeView.m */; };
 		3D13FB0C1D193A5A0060B9B4 /* fighter.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 3D13FB0B1D193A5A0060B9B4 /* fighter.entitlements */; };
 		3D13FB101D193BB80060B9B4 /* FTFightingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D13FB0E1D193BB80060B9B4 /* FTFightingViewController.m */; };
@@ -146,7 +152,7 @@
 		3DE95BAD1CD8A042005BF85C /* FTRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95BAB1CD8A042005BF85C /* FTRegistViewController.m */; };
 		3DE95BAE1CD8A042005BF85C /* FTRegistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE95BAC1CD8A042005BF85C /* FTRegistViewController.xib */; };
 		3DF658DA1D22440B009BDEF6 /* FTCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF658D91D22440B009BDEF6 /* FTCycleScrollView.m */; };
-		3DF86AE91D2E0900001A644B /* PBEWithMD5AndDES.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF86AE81D2E0900001A644B /* PBEWithMD5AndDES.m */; };
+		3DF86AE91D2E0900001A644B /* FTEncoderAndDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF86AE81D2E0900001A644B /* FTEncoderAndDecoder.m */; };
 		3DF90BB11CFED21C00BD83F8 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF90BB01CFED21C00BD83F8 /* CoreText.framework */; };
 		3DF90BB31CFED23C00BD83F8 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF90BB21CFED23C00BD83F8 /* ImageIO.framework */; };
 		3DF90BB51CFED25800BD83F8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF90BB41CFED25800BD83F8 /* QuartzCore.framework */; };
@@ -315,6 +321,17 @@
 
 /* Begin PBXFileReference section */
 		3498F3EDE4F003CF3512E5B8 /* Pods-fighter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fighter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fighter/Pods-fighter.debug.xcconfig"; sourceTree = "<group>"; };
+		3D06154B1D35E17B00FDA86F /* FTPhoneCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPhoneCell.h; sourceTree = "<group>"; };
+		3D06154C1D35E17B00FDA86F /* FTPhoneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPhoneCell.m; sourceTree = "<group>"; };
+		3D06154D1D35E17B00FDA86F /* FTPhoneCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTPhoneCell.xib; sourceTree = "<group>"; };
+		3D0615511D36302600FDA86F /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
+		3D0615521D36302600FDA86F /* AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCrypt.m; sourceTree = "<group>"; };
+		3D0615531D36302600FDA86F /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		3D0615541D36302600FDA86F /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		3D0615551D36302600FDA86F /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
+		3D0615561D36302600FDA86F /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
+		3D0615571D36302600FDA86F /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
+		3D0615581D36302600FDA86F /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
 		3D0D7C701D1A984B00E67AC9 /* FTPracticeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPracticeView.h; sourceTree = "<group>"; };
 		3D0D7C711D1A984B00E67AC9 /* FTPracticeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPracticeView.m; sourceTree = "<group>"; };
 		3D13FB0B1D193A5A0060B9B4 /* fighter.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fighter.entitlements; sourceTree = "<group>"; };
@@ -536,8 +553,8 @@
 		3DE95BAC1CD8A042005BF85C /* FTRegistViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRegistViewController.xib; sourceTree = "<group>"; };
 		3DF658D81D22440B009BDEF6 /* FTCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCycleScrollView.h; sourceTree = "<group>"; };
 		3DF658D91D22440B009BDEF6 /* FTCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCycleScrollView.m; sourceTree = "<group>"; };
-		3DF86AE71D2E0900001A644B /* PBEWithMD5AndDES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBEWithMD5AndDES.h; sourceTree = "<group>"; };
-		3DF86AE81D2E0900001A644B /* PBEWithMD5AndDES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBEWithMD5AndDES.m; sourceTree = "<group>"; };
+		3DF86AE71D2E0900001A644B /* FTEncoderAndDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTEncoderAndDecoder.h; sourceTree = "<group>"; };
+		3DF86AE81D2E0900001A644B /* FTEncoderAndDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTEncoderAndDecoder.m; sourceTree = "<group>"; };
 		3DF90BB01CFED21C00BD83F8 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		3DF90BB21CFED23C00BD83F8 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		3DF90BB41CFED25800BD83F8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -844,6 +861,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D06154A1D35DF4E00FDA86F /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				3D4B19501CDAEF840022DFB0 /* FTTableViewCell4.h */,
+				3D4B19511CDAEF840022DFB0 /* FTTableViewCell4.m */,
+				3D4B19521CDAEF840022DFB0 /* FTTableViewCell4.xib */,
+				3D7B98991CDF896F00B80B8D /* FTTableViewCell5.h */,
+				3D7B989A1CDF896F00B80B8D /* FTTableViewCell5.m */,
+				3D7B989B1CDF896F00B80B8D /* FTTableViewCell5.xib */,
+				3D06154B1D35E17B00FDA86F /* FTPhoneCell.h */,
+				3D06154C1D35E17B00FDA86F /* FTPhoneCell.m */,
+				3D06154D1D35E17B00FDA86F /* FTPhoneCell.xib */,
+			);
+			name = cell;
+			sourceTree = "<group>";
+		};
+		3D0615501D362FFD00FDA86F /* EncodeAndDecode */ = {
+			isa = PBXGroup;
+			children = (
+				3D0615511D36302600FDA86F /* AESCrypt.h */,
+				3D0615521D36302600FDA86F /* AESCrypt.m */,
+				3D0615531D36302600FDA86F /* NSData+Base64.h */,
+				3D0615541D36302600FDA86F /* NSData+Base64.m */,
+				3D0615551D36302600FDA86F /* NSData+CommonCrypto.h */,
+				3D0615561D36302600FDA86F /* NSData+CommonCrypto.m */,
+				3D0615571D36302600FDA86F /* NSString+Base64.h */,
+				3D0615581D36302600FDA86F /* NSString+Base64.m */,
+			);
+			name = EncodeAndDecode;
+			sourceTree = "<group>";
+		};
 		3D13FB121D1A1A2C0060B9B4 /* 学拳 */ = {
 			isa = PBXGroup;
 			children = (
@@ -958,9 +1006,6 @@
 				3D4B19461CDACF9A0022DFB0 /* FTUserCenterViewController.h */,
 				3D4B19471CDACF9A0022DFB0 /* FTUserCenterViewController.m */,
 				3D4B19481CDACF9A0022DFB0 /* FTUserCenterViewController.xib */,
-				3D4B19501CDAEF840022DFB0 /* FTTableViewCell4.h */,
-				3D4B19511CDAEF840022DFB0 /* FTTableViewCell4.m */,
-				3D4B19521CDAEF840022DFB0 /* FTTableViewCell4.xib */,
 				3D4B19551CDB0CD90022DFB0 /* FTPropertySetingViewController.h */,
 				3D4B19561CDB0CD90022DFB0 /* FTPropertySetingViewController.m */,
 				3D4B19571CDB0CD90022DFB0 /* FTPropertySetingViewController.xib */,
@@ -970,9 +1015,6 @@
 				3D7B98941CDEE1E900B80B8D /* FTSettingViewController.h */,
 				3D7B98951CDEE1E900B80B8D /* FTSettingViewController.m */,
 				3D7B98961CDEE1E900B80B8D /* FTSettingViewController.xib */,
-				3D7B98991CDF896F00B80B8D /* FTTableViewCell5.h */,
-				3D7B989A1CDF896F00B80B8D /* FTTableViewCell5.m */,
-				3D7B989B1CDF896F00B80B8D /* FTTableViewCell5.xib */,
 				3D7B98A11CE0190600B80B8D /* FTAbountUsViewController.h */,
 				3D7B98A21CE0190600B80B8D /* FTAbountUsViewController.m */,
 				3D7B98A31CE0190600B80B8D /* FTAbountUsViewController.xib */,
@@ -983,6 +1025,7 @@
 		3D4B19401CDACDFF0022DFB0 /* user */ = {
 			isa = PBXGroup;
 			children = (
+				3D06154A1D35DF4E00FDA86F /* cell */,
 				3D7B98AB1CE05EDD00B80B8D /* acountManager */,
 				3D4B19601CDB56F40022DFB0 /* picker */,
 			);
@@ -1285,8 +1328,8 @@
 				3DDE29BA1D2BB39F00876B30 /* FTPayViewController.h */,
 				3DDE29BB1D2BB39F00876B30 /* FTPayViewController.m */,
 				3DDE29BC1D2BB39F00876B30 /* FTPayViewController.xib */,
-				3DF86AE71D2E0900001A644B /* PBEWithMD5AndDES.h */,
-				3DF86AE81D2E0900001A644B /* PBEWithMD5AndDES.m */,
+				3DF86AE71D2E0900001A644B /* FTEncoderAndDecoder.h */,
+				3DF86AE81D2E0900001A644B /* FTEncoderAndDecoder.m */,
 				3D2AEECE1D2F3CBC00F94A59 /* FTPurchaseInApp.h */,
 				3D2AEECF1D2F3CBC00F94A59 /* FTPurchaseInApp.m */,
 				3D9D92E11D337100006C42F0 /* FTPayCell.h */,
@@ -1459,6 +1502,7 @@
 		E64EF1081CB6614000CAE340 /* fighter */ = {
 			isa = PBXGroup;
 			children = (
+				3D0615501D362FFD00FDA86F /* EncodeAndDecode */,
 				3D13FB0B1D193A5A0060B9B4 /* fighter.entitlements */,
 				3D17F7221D0052A0003AB660 /* OtherSDK */,
 				E685320A1CE59CFA00603D77 /* Frameworks */,
@@ -2593,6 +2637,7 @@
 				3D7B98C91CE0D76800B80B8D /* FTWeixinInfoVC.xib in Resources */,
 				E68EC50C1CC4B85D00A338C8 /* FTFilterTableViewController.xib in Resources */,
 				3D7B98B01CE05F3300B80B8D /* FTPhoneViewController.xib in Resources */,
+				3D06154F1D35E17B00FDA86F /* FTPhoneCell.xib in Resources */,
 				E66EAEA31CF8217F006CD6CE /* FTArenaTextTableViewCell.xib in Resources */,
 				3D322ACA1CEB171200039E2C /* FTRankHeaderCell.xib in Resources */,
 				3D6DA0E41CEED9ED00BAA8F0 /* BoxerCenterHeader.xib in Resources */,
@@ -2768,6 +2813,7 @@
 				E6D74A4A1CB7B7EE00854337 /* UIView+YBAddtitions.m in Sources */,
 				3D57D04D1CEC0C810082BF24 /* DBTools.m in Sources */,
 				E65D08C71CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m in Sources */,
+				3D06155C1D36302600FDA86F /* NSString+Base64.m in Sources */,
 				E696E4E01D2A39F800A89B60 /* FTOpponentCell.m in Sources */,
 				3D7B98AF1CE05F3300B80B8D /* FTPhoneViewController.m in Sources */,
 				3D4B195C1CDB4D890022DFB0 /* FTDatePickerView.m in Sources */,
@@ -2784,6 +2830,7 @@
 				E6E9E88B1CDC464A00976480 /* FTVideoCollectionView.m in Sources */,
 				3DE95B501CD326B7005BF85C /* FTCollectionViewLayout.m in Sources */,
 				3DFB7DEF1D23E55A00CC79EA /* TestCycleView.m in Sources */,
+				3D0615591D36302600FDA86F /* AESCrypt.m in Sources */,
 				E67096871D2F9A4400DB9F53 /* FTTimeSectionTableView.m in Sources */,
 				3DFC41521D083A3F0067AC72 /* SDCollectionViewCell.m in Sources */,
 				E68050B71CBF919A00678905 /* JHRefreshAmazingAniView.m in Sources */,
@@ -2848,6 +2895,7 @@
 				E6B458DE1CB7B2B100FB4261 /* FTTableViewController.m in Sources */,
 				E6C4D7ED1CEC5E7B00D73BFC /* FTUserTools.m in Sources */,
 				3D4B19691CDB7AE20022DFB0 /* FTSexPickerView.m in Sources */,
+				3D06155A1D36302600FDA86F /* NSData+Base64.m in Sources */,
 				3D7B98A41CE0190600B80B8D /* FTAbountUsViewController.m in Sources */,
 				E6956EA61CBE21A1008DEEDB /* FTNewsBean.m in Sources */,
 				E6304D451D2B5B4300E48CCB /* FTSetTicketPriceViewTableViewCell.m in Sources */,
@@ -2858,7 +2906,7 @@
 				3DFC41531D083A3F0067AC72 /* SDCycleScrollView.m in Sources */,
 				3D8B2E531D1D14B000E18280 /* FTCoachCell.m in Sources */,
 				E6A9DDA41CD8842E00CB9518 /* FTVideoViewController.m in Sources */,
-				3DF86AE91D2E0900001A644B /* PBEWithMD5AndDES.m in Sources */,
+				3DF86AE91D2E0900001A644B /* FTEncoderAndDecoder.m in Sources */,
 				E64EF10B1CB6614000CAE340 /* main.m in Sources */,
 				E61185981CC78BF400F23EC7 /* FTUserBean.m in Sources */,
 				3D322AC91CEB171200039E2C /* FTRankHeaderCell.m in Sources */,
@@ -2871,10 +2919,12 @@
 				3DC4121D1CD060190030C229 /* FTDrawerViewController.m in Sources */,
 				E6D74A4C1CB7B7EE00854337 /* HUD.m in Sources */,
 				3D6DA0D21CEE93CD00BAA8F0 /* FTNWGetCategory.m in Sources */,
+				3D06154E1D35E17B00FDA86F /* FTPhoneCell.m in Sources */,
 				E6A9DDBA1CD99E7700CB9518 /* FTBaseBean.m in Sources */,
 				E6B458971CB7560400FB4261 /* FTBaseNavigationViewController.m in Sources */,
 				3D4B19631CDB59D60022DFB0 /* UIWindow+MBProgressHUD.m in Sources */,
 				E668BBBE1CE4523600071998 /* FTCacheBean.m in Sources */,
+				3D06155B1D36302600FDA86F /* NSData+CommonCrypto.m in Sources */,
 				E68050B81CBF919A00678905 /* JHRefreshAniBaseView.m in Sources */,
 				3D7C6B731CF29DDD0088400D /* FTSlideTabBar.m in Sources */,
 				E68D16131CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m in Sources */,

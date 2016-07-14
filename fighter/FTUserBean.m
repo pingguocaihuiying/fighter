@@ -53,6 +53,10 @@
     [aCoder encodeObject:self.wxHeaderPic forKey:@"wxHeader"];
     [aCoder encodeObject:self.wxName forKey:@"wxName"];
     [aCoder encodeObject:self.identity forKey:@"identity"];
+    
+    
+    // 兴趣标签
+    [aCoder encodeObject:self.interestList forKey:@"interestList"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -93,6 +97,9 @@
         self.wxHeaderPic = [aDecoder decodeObjectForKey:@"wxHeader"];
         self.wxName = [aDecoder decodeObjectForKey:@"wxName"];
         self.identity = [aDecoder decodeObjectForKey:@"identity"];
+        
+        // 兴趣标签
+        self.interestList = [aDecoder decodeObjectForKey:@"interestList"];
     }
     return self;
 }

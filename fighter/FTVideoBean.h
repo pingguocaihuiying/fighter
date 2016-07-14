@@ -23,6 +23,7 @@
 @property (nonatomic,copy) NSString *commentCount;
 @property (nonatomic,copy) NSString *videoLength;
 @property (nonatomic,copy) NSString *viewCount;
+@property (nonatomic,copy) NSString *price;
 //新增字段：
 //coachid 教练相关id，没有则为0
 //boxerid 拳手相关id，没有则为0

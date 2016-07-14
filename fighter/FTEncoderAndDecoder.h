@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PBEWithMD5AndDES : NSObject
+@interface FTEncoderAndDecoder : NSObject
 
 + (NSData *)encryptPBEWithMD5AndDESData:(NSData *)inData password:(NSString *)password iterations:(int)iterations;
 + (NSData *)decryptPBEWithMD5AndDESData:(NSData *)inData password:(NSString *)password iterations:(int)iterations;
@@ -21,4 +21,12 @@
 #pragma mark - encode
 + (NSString *) decodeWithPBE:(NSString *)message;
 
+
+#pragma mark - AES加密
+//将string转成带密码的data
++(NSString*)encryptAESData:(NSString*)string app_key:(NSString*)key;
+
+#pragma mark - AES解密
+//将带密码的data转成string
++(NSString*)decryptAESData:(NSData*)data  app_key:(NSString*)key;
 @end

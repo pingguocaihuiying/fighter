@@ -206,5 +206,6 @@
 + (void) rechargeIAPByGoods:(FTGoodsBean *)goodsBean  option:(void(^)(NSDictionary *dict))option;
 
 // 验证app内购接口
-+ (void) checkIAPByOrderNO:(NSString *)orderNO receipt:(NSString *) receipt  option:(void(^)(NSDictionary *dict))option;
++ (void) checkIAPByOrderNO:(NSString *)orderNO receipt:(NSString *) receipt transactionId:(NSString*)transactionId option:(void(^)(NSDictionary *dict))option;
+
 @end

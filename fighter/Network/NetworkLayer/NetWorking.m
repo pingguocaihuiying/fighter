@@ -1124,7 +1124,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 
 
 // 验证app内购接口
-+ (void) checkIAPByOrderNO:(NSString *)orderNO receipt:(NSString *) receipt  option:(void(^)(NSDictionary *dict))option {
++ (void) checkIAPByOrderNO:(NSString *)orderNO receipt:(NSString *) receipt transactionId:(NSString*)transactionId option:(void(^)(NSDictionary *dict))option {
     
     
     
@@ -1137,14 +1137,17 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     
-    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@",localUser.olduserid, localUser.token,orderNO,receipt,ts,@"quanjijia222222"]];
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@%@",localUser.olduserid, localUser.token,orderNO,transactionId,receipt,ts,@"quanjijia222222"]];
+    
+    NSString *urlEncodeReceipt = [self encodeToPercentEscapeString:receipt];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     [dic setObject:localUser.olduserid forKey:@"userId"];
     [dic setObject:localUser.token forKey:@"loginToken"];
-    [dic setObject:ts forKey:@"ts"];
     [dic setObject:orderNO forKey:@"orderNo"];
-    [dic setObject:receipt forKey:@"receiptData"];
+    [dic setObject:transactionId forKey:@"transaction_id"];
+    [dic setObject:urlEncodeReceipt forKey:@"receiptData"];
+    [dic setObject:ts forKey:@"ts"];
     [dic setObject:checkSign forKey:@"checkSign"];
     NSLog(@"dic:%@",dic);
     
@@ -1193,6 +1196,18 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     [self postRequestWithUrl:urlString
                   parameters:dic
                       option:option];
+}
+
+//url转码
++ (NSString *)encodeToPercentEscapeString: (NSString *) input
+{
+    NSString *outputStr = (NSString *)
+    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                              (CFStringRef)input,
+                                                              NULL,
+                                                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                              kCFStringEncodingUTF8));
+    return outputStr;
 }
 
 
