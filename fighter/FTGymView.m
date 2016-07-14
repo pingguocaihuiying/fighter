@@ -212,7 +212,7 @@
         NSLog(@"触发下拉刷新headerView");
         sself.currentPage = 1;
         _getType = @"new";
-        
+        _gymCurrId = @"-1";
         if (sself.tableViewDataSourceArray && sself.tableViewDataSourceArray.count > 0) {
            NSDictionary *dic = [sself.tableViewDataSourceArray firstObject];
             _gymCurrId = dic[@"gymId"];
