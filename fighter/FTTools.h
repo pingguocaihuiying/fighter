@@ -19,4 +19,14 @@
 + (int)getDaysInMonth:(int)year month:(int)imonth;// 获取某年某月总共多少天
 //获取今天是周几
 + (NSInteger )getWeekdayOfToday;//返回1234567
+
+/**
+ *  根据“某天”的任意时间戳和“时间段”，确定实际时间
+ *
+ *  @param timestamp   时间戳
+ *  @param timeSection 时间段，eg：“10：00〜11：00”
+ *
+ *  @return 时间字符串 格式如：“2016－06－20 17：00“
+ */
++ (NSString *)getDateStringWith:(NSTimeInterval)timestamp andTimeSection:(NSString *)timeSection;//
 @end

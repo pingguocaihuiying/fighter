@@ -171,4 +171,20 @@
     return weekday;
 }
 
++ (NSString *)getDateStringWith:(NSTimeInterval)timestamp andTimeSection:(NSString *)timeSection{
+    NSString *dateString = @"";
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestamp];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:kCFDateFormatterFullStyle];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *fixString = [dateFormatter stringFromDate:date];
+    
+    NSArray *timeSectionArray = [timeSection componentsSeparatedByString:@"~"];
+    NSString *startTimeString = [timeSectionArray firstObject];
+    
+    dateString = [NSString stringWithFormat:@"%@ %@", fixString, startTimeString];
+    
+    return dateString;
+}
 @end

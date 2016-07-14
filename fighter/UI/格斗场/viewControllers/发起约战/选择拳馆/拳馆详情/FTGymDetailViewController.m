@@ -36,20 +36,18 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *t5Height;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *t6Height;
 
-//当前选中的坐标
-@property (nonatomic, strong) NSIndexPath *curSelectedIndexPath;//选中的日期、时间段
-
 @property (nonatomic, assign) NSInteger selectedWeekday;//选中的周几
 @property (nonatomic, assign) NSInteger todayWeekday;//今天是周几
-@property (nonatomic, assign) NSString *selectedTimeSectionString;//选中的时间段
+@property (nonatomic, copy) NSString *selectedTimeSectionString;//选中的时间段
 @property (weak, nonatomic) IBOutlet UIView *dateView;
 
 @property (weak, nonatomic) IBOutlet UIButton *preWeek;
 @property (weak, nonatomic) IBOutlet UIButton *nextWeek;
 
 @property (nonatomic, assign) int curWeekOffset;//默认为0，往后偏移一周为1，往后偏移两周为2
+@property (nonatomic, assign) int selectedWeekOffset;//当前选中的week偏移数，
 
-@property (nonatomic, assign) NSTimeInterval selectedDateTimestamp;
+@property (nonatomic, assign) NSTimeInterval selectedDateTimestamp;//选中的比赛日期的时间戳
 @end
 
 @implementation FTGymDetailViewController
@@ -343,6 +341,10 @@
     FTLaunchNewMatchViewController *launchNewMatchViewController = self.navigationController.viewControllers[1];
     launchNewMatchViewController.selectedGymLabel.text = @"天下一武馆";
     launchNewMatchViewController.totalTicketPriceLabel.text = [NSString stringWithFormat:@"%d 元", [_basicPrice intValue] + [_extraPrice intValue]];
+    launchNewMatchViewController.selectedDateTimestamp = _selectedDateTimestamp;
+    launchNewMatchViewController.selectedTimeSectionString = _selectedTimeSectionString;
+    launchNewMatchViewController.matchTimeLabel.text = [FTTools getDateStringWith:_selectedDateTimestamp andTimeSection:_selectedTimeSectionString];
+    
     [self.navigationController popToViewController:launchNewMatchViewController animated:YES];
 }
 
@@ -476,10 +478,14 @@
     if (dic) {//如果有数据
         NSString *timeSection1 = dic[@"timeSection"];//可选时间段
         NSString *timeSection2 = _timeSectionsArray[indexPath.row][@"timeSection"];//cell代表的固定时间段
-        if ([timeSection1 isEqualToString: timeSection2]) {
+        if ([timeSection1 isEqualToString: timeSection2]) {//
             cell.isAvailable = YES;
-
-            if (theTableView.day == _selectedWeekday && [timeSection1 isEqualToString: _selectedTimeSectionString]) {
+            
+            BOOL isTheSameWeek = _curWeekOffset == _selectedWeekOffset;//周是否相同
+            BOOL isTheSameWeekday = theTableView.day == _selectedWeekday;//weekday是否相同
+            BOOL isTheSameTimeSection = [timeSection1 isEqualToString: _selectedTimeSectionString];//时间段是否相同
+            
+            if (isTheSameWeek && isTheSameWeekday && isTheSameTimeSection) {
                 cell.selectionImage.hidden = NO;
             }else{
                 cell.selectionImage.hidden = YES;
@@ -509,6 +515,7 @@
         if ([timeSection1 isEqualToString: timeSection2]) {//可以选中
             _selectedWeekday = theTableView.day;
             _selectedTimeSectionString = timeSection1;
+            _selectedWeekOffset = _curWeekOffset;
 //            [mdic setObject:@"YES" forKey:@"isSelected"];
             [theTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             [self reloadTableViews];
