@@ -25,7 +25,7 @@
 
 @property (nonatomic, strong) NSArray *timeSectionsArray;//拳馆的固定时间段
 @property (nonatomic, strong) NSArray *placesArray;//拳馆的场地列表
-@property (nonatomic, strong) NSArray *placesUsingInfoArray;//场地、时间段的占用情况
+@property (nonatomic, strong) NSMutableDictionary *placesUsingInfoDic;//场地、时间段的占用情况
 
 //时间段tableivews的高度
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *t0Height;
@@ -36,11 +36,26 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *t5Height;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *t6Height;
 
+//当前选中的坐标
+@property (nonatomic, strong) NSIndexPath *curSelectedIndexPath;//选中的日期、时间段
+
+@property (nonatomic, assign) NSInteger selectedWeekday;//选中的周几
+@property (nonatomic, assign) NSInteger todayWeekday;//今天是周几
+@property (nonatomic, assign) NSString *selectedTimeSectionString;//选中的时间段
+@property (weak, nonatomic) IBOutlet UIView *dateView;
+
+@property (weak, nonatomic) IBOutlet UIButton *preWeek;
+@property (weak, nonatomic) IBOutlet UIButton *nextWeek;
+
+@property (nonatomic, assign) int curWeekOffset;//默认为0，往后偏移一周为1，往后偏移两周为2
+
+@property (nonatomic, assign) NSTimeInterval selectedDateTimestamp;
 @end
 
 @implementation FTGymDetailViewController
 
 - (void)viewDidLoad {
+    NSLog(@"get one day 0 : %d", [FTTools getOneDay:0]);
     [super viewDidLoad];
     [self initBaseData];
     [self initSubViews];
@@ -50,6 +65,12 @@
 }
 
 - (void)initSubViews{
+    //隐藏下方的渐变view
+    self.bottomGradualChangeView.hidden = YES;
+    
+    //设置日期
+    [self setDateLabels];
+    
     //隐藏渐变图层
     self.bottomGradualChangeView.hidden = YES;
     [self setNavigationBar];
@@ -57,6 +78,114 @@
     //初始化tableviews
     [self initTableViews];
     
+}
+
+- (void)setDateLabels{
+
+    NSDate *  senddate=[NSDate dateWithTimeIntervalSinceNow: (7 * 24 * 60 * 60) * _curWeekOffset];
+    NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
+    [dateformatter setDateFormat:@"yyy"];
+    NSString *  yearString = [dateformatter stringFromDate:senddate];
+    [dateformatter setDateFormat:@"MM"];
+    NSString *  monthString = [dateformatter stringFromDate:senddate];
+    [dateformatter setDateFormat:@"dd"];
+    NSString *  dayString = [dateformatter stringFromDate:senddate];
+    [dateformatter setDateFormat:@"EEE"];
+    
+    NSString *  weekString = [dateformatter stringFromDate:senddate];
+    NSLog(@"-%@",weekString);
+    int year = [yearString intValue];
+    NSLog(@"-%d", year);
+    int month = [monthString intValue];
+    NSLog(@"--%d", month);
+    int day = [dayString intValue];
+    NSLog(@"---%d", day);
+    
+    // 判断当前天是周几，从而计算出当周的周一是几号（负数表示上个月月末）
+    if ([weekString  isEqual: @"周一"]) {
+        day = day - 1; // 因为下面有 day++;
+    } else if ([weekString isEqual:@"周二"]) {
+        day = day - 2;
+    } else if ([weekString isEqual:@"周三"]) {
+        day = day - 3;
+    } else if ([weekString isEqual:@"周四"]) {
+        day = day - 4;
+    } else if ([weekString isEqual:@"周五"]) {
+        day = day - 5;
+    } else if ([weekString isEqual:@"周六"]) {
+        day = day - 6;
+    } else if ([weekString isEqual:@"周日"]) {
+        day = day - 7;
+    }
+    
+    //设置上个月、下个月的月份
+    int curMonth = [monthString intValue];
+    int preMonth = curMonth - 1;
+    int nextMonth = curMonth + 1;
+    if (curMonth < 1) curMonth = 12;
+    if (nextMonth > 12) nextMonth = 1;
+    
+    if (day<0) { // 月初时显示上个月月末的日期
+        for (int i = 0; i < 7; i++) {
+            // 上个月末往后的月初数字
+            int days = [FTTools getDaysInMonth:year month:month-1];
+            day++;
+            if (day > days) {
+                day = 0;
+                day++;
+                monthString = [NSString stringWithFormat:@"%d", preMonth];//上个月的月份
+            }
+            // 月初之前的月末数字
+            switch (day) {
+                case 0: day = days; break;
+                case -1: day = days-1; break;
+                case -2: day = days-2; break;
+                case -3: day = days-3; break;
+                case -4: day = days-4; break;
+                case -5: day = days-5; break;
+                default: break;
+            }
+            NSLog(@"day : %d", day);
+            //添加月·日label
+            CGFloat lableWidth = (SCREEN_WIDTH - 15) / 7;//label宽度
+            UILabel *dateLabel = [_dateView viewWithTag:10000 + i];
+            if (!dateLabel) {
+                 dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(i * lableWidth, 7, lableWidth, 11)];
+                dateLabel.tag = 10000+i;
+            }
+            
+            dateLabel.text = [NSString stringWithFormat:@"%d.%d", [monthString intValue], day];
+            dateLabel.font = [UIFont systemFontOfSize:11];
+            dateLabel.textAlignment = NSTextAlignmentCenter;
+            dateLabel.textColor = [UIColor colorWithHex:0x646464];
+            [_dateView addSubview:dateLabel];
+        }
+    } else { // 月末
+        for (int i = 0; i < 7; i++) {
+            int days = [FTTools getDaysInMonth:year month:month];
+            day++;
+            if (day > days) {
+                day = 0;
+                day++;
+                
+                monthString = [NSString stringWithFormat:@"%d", nextMonth];//下个月的月份
+            }
+            NSLog(@"day : %d", day);
+            
+            //添加月·日label
+            CGFloat lableWidth = (SCREEN_WIDTH - 15) / 7;//label宽度
+            UILabel *dateLabel = [_dateView viewWithTag:10000 + i];
+            if (!dateLabel) {
+                dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(i * lableWidth, 7, lableWidth, 11)];
+                dateLabel.tag = 10000+i;
+            }
+            dateLabel.text = [NSString stringWithFormat:@"%d.%d", [monthString intValue], day];
+            dateLabel.font = [UIFont systemFontOfSize:11];
+            dateLabel.textAlignment = NSTextAlignmentCenter;
+            dateLabel.textColor = [UIColor colorWithHex:0x646464];
+            [_dateView addSubview:dateLabel];
+        }
+    }
 }
 
 - (void)initTableViews{
@@ -117,6 +246,10 @@
 
 - (void)initBaseData{
     _basicPrice = @"200";
+    
+    //默认选中的天和时间段下标为－1
+    _selectedWeekday = -1;
+    
 }
 
 /**
@@ -131,36 +264,30 @@
             [self reloadTableViews];
             
             //获取基本的时间段信息后，再获取占用情况
-            [self getPlacesInfo];
+            [self gettimeSectionsUsingInfo];
         }
 
     }];
 }
 
-//获取场地信息
-- (void)getPlacesInfo{
-    [NetWorking getGymPlaceInfoById:@"165" andOption:^(NSArray *array) {
-        _placesArray = array;
-        if (_placesArray && _placesArray.count > 0) {
-            [self gettimeSectionsArrayUsingInfoWithTimestamp:@""];
-        }
-        
-    }];
-}
 
 //获取场地使用信息
-- (void)gettimeSectionsArrayUsingInfoWithTimestamp:(NSString *)timestamp{//getGymPlaceInfoById
-    [NetWorking getGymPlaceUsingInfoById:@"165" andTimestamp:timestamp  andOption:^(NSArray *array) {
-        _placesUsingInfoArray = array;
-        if (_placesUsingInfoArray && _placesUsingInfoArray.count > 0) {
+- (void)gettimeSectionsUsingInfo{
+    _todayWeekday = [FTTools getWeekdayOfToday];//每次请求可用时间段时，也刷新今天是周几，避免跨天操作时出现选中日期的计算错误
+    NSString *timestampString = [NSString stringWithFormat:@"%.0f", [[NSDate date]timeIntervalSince1970] + (_curWeekOffset * (7 * 24 * 60 * 60)) * 1000];
+    [NetWorking getGymPlaceUsingInfoById:@"165" andTimestamp:timestampString  andOption:^(NSArray *array) {
+        _placesUsingInfoDic = [NSMutableDictionary new];
+        if (array && array.count > 0) {
+            for(NSDictionary *dic in array){
+                NSString *theDate = [NSString stringWithFormat:@"%@", dic[@"theDate"]];
+                NSMutableDictionary *mDic = [[NSMutableDictionary alloc]initWithDictionary:dic];
+                [_placesUsingInfoDic setObject:mDic forKey:theDate];
+            }
             //获取场地使用信息后，刷新UI
             [self reloadTableViews];
         }
-        
     }];
 }
-
-
 
 //设置上方支持的item
 - (void)setSupportItemsCollection{
@@ -208,6 +335,10 @@
 
 - (void)confirmButtonClicked{
     NSLog(@"确定");
+    
+    //点击确定时，计算选中的日期
+    [self getSelectedDayTimestamp];
+    
     //返回前2个vc
     FTLaunchNewMatchViewController *launchNewMatchViewController = self.navigationController.viewControllers[1];
     launchNewMatchViewController.selectedGymLabel.text = @"天下一武馆";
@@ -341,69 +472,80 @@
     
     [cell setTimeLabelWithTimeSectionString:_timeSectionsArray[indexPath.row][@"timeSection"]];
     
-    //遍历 _placesUsingInfoArray ，确定日期是否可选
-    for (int i = 0; i < _placesUsingInfoArray.count; i++) {
-        NSInteger theDate = [_placesUsingInfoArray[i][@"theDate"] integerValue];
-//        NSLog(@"theDate : %ld, tableview.day : %ld", theDate, theTableView.day);
-        if (theTableView.day == theDate) {//如果星期几相同
-            NSInteger row = [self getIndexWithValue:_placesUsingInfoArray[i][@"timeSection"]];
-//            NSLog(@"index : %ld, row : %ld", row, indexPath.row);
-            if (indexPath.row == row) {//如果时间段相同
-                cell.isAvailable = YES;
-                
-            } else {
-//                cell.isAvailable = NO;
+    NSDictionary *dic = _placesUsingInfoDic[[NSString stringWithFormat:@"%ld", theTableView.day]];//获取某天的可选时间段，如果不存在，则说明无数据
+    if (dic) {//如果有数据
+        NSString *timeSection1 = dic[@"timeSection"];//可选时间段
+        NSString *timeSection2 = _timeSectionsArray[indexPath.row][@"timeSection"];//cell代表的固定时间段
+        if ([timeSection1 isEqualToString: timeSection2]) {
+            cell.isAvailable = YES;
+
+            if (theTableView.day == _selectedWeekday && [timeSection1 isEqualToString: _selectedTimeSectionString]) {
+                cell.selectionImage.hidden = NO;
+            }else{
+                cell.selectionImage.hidden = YES;
             }
-        } else{
-//                cell.isAvailable = NO;
+        } else {
+            cell.isAvailable = NO;
         }
-//        NSLog(@"*********分割*********");
+        
+        
+    }else{
+        cell.isAvailable = NO;
     }
+
     [cell updateCellStatus];//更新标签颜色的显示
     
     return cell;
 }
 
-- (NSInteger)getIndexWithValue:(NSString *)value{
-    NSInteger result = -1;
-    for (NSInteger i = 0; i < _timeSectionsArray.count; i++) {
-        NSString *str = _timeSectionsArray[i][@"timeSection"];
-        if ([str isEqualToString:value]) {
-            result = i;
-            break;
-        }
-    }
-    return result;
-}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     FTTimeSectionTableView *theTableView = (FTTimeSectionTableView *)tableView;
-    //遍历 _placesUsingInfoArray ，确定日期是否可点
-    for (int i = 0; i < _placesUsingInfoArray.count; i++) {
-        NSInteger theDate = [_placesUsingInfoArray[i][@"theDate"] integerValue];
-//        NSLog(@"theDate : %ld, tableview.day : %ld", theDate, theTableView.day);
-        if (theTableView.day == theDate) {//如果星期几相同
-            NSInteger row = [self getIndexWithValue:_placesUsingInfoArray[i][@"timeSection"]];
-//            NSLog(@"index : %ld, row : %ld", row, indexPath.row);
-            if (indexPath.row == row) {//如果时间段相同
-                
-            } else {
-                //                cell.isAvailable = NO;
-            }
-        } else{
+    NSMutableDictionary *mdic = _placesUsingInfoDic[[NSString stringWithFormat:@"%ld", theTableView.day]];//获取某天的可选时间段，如果不存在，则说明无数据
+    if (mdic) {//如果有数据
+        NSString *timeSection1 = mdic[@"timeSection"];//可选时间段
+        NSString *timeSection2 = _timeSectionsArray[indexPath.row][@"timeSection"];//cell代表的固定时间段
+        if ([timeSection1 isEqualToString: timeSection2]) {//可以选中
+            _selectedWeekday = theTableView.day;
+            _selectedTimeSectionString = timeSection1;
+//            [mdic setObject:@"YES" forKey:@"isSelected"];
+            [theTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self reloadTableViews];
             
+            
+        } else {
+//            [mdic setObject:@"NO" forKey:@"isSelected"];
         }
-//        NSLog(@"*********分割*********");
+        
+    }else{
+        [mdic setObject:@"NO" forKey:@"isSelected"];
     }
-}
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
 }
-*/
+- (IBAction)preWeek:(id)sender {
+    NSLog(@"pre week");
+    _curWeekOffset--;
+    [self setDateLabels];
+    if (_curWeekOffset <= 0) {
+        _preWeek.hidden = YES;
+    }
+    [self gettimeSectionsUsingInfo];
+}
+- (IBAction)nextWeek:(id)sender {
+    NSLog(@"next week");
+    _preWeek.hidden = NO;
+    _curWeekOffset++;
+    [self setDateLabels];
+    [self gettimeSectionsUsingInfo];
+}
 
+/**
+ *  获取选中时间段的timestamp
+ */
+- (void) getSelectedDayTimestamp{
+    NSTimeInterval curTimestamp = [[NSDate date] timeIntervalSince1970];
+    _selectedDateTimestamp = curTimestamp + (7 * 24 * 60 * 60) * _curWeekOffset + (_selectedWeekday - [FTTools getWeekdayOfToday]) * (24 * 60 * 60);
+    NSLog(@"ts : %f", _selectedDateTimestamp);
+}
 @end

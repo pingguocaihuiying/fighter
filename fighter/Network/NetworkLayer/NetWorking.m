@@ -835,18 +835,20 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //        [ZJModelTool createModelWithDictionary:responseObject modelName:nil];
                 NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
 //        NSLog(@"%@", responseDic[@"data"]);
-        NSDictionary *userDic = responseDic[@"data"];
-        //输出获取的user信息
-//        for(NSString *key in [userDic allKeys]){
-//            NSLog(@"key : %@, value : %@", key, userDic[key]);
-//        }
-        
-        FTUserBean *userBean = [FTUserBean new];
-        NSLog(@"user dic birthday : %@", userDic[@"birthday"]);
-        [userBean setValuesForKeysWithDictionary:userDic];
-        [userBean setValuesWithDic:userDic];
-        userBean.boxerRaceInfos = userDic[@"boxerRaceInfos"];
-        userBeanOption(userBean);
+        NSString *result = responseDic[@"status"];
+        if ([result isEqualToString:@"success"]) {
+            NSDictionary *userDic = responseDic[@"data"];
+            FTUserBean *userBean = [FTUserBean new];
+            NSLog(@"user dic birthday : %@", userDic[@"birthday"]);
+            [userBean setValuesForKeysWithDictionary:userDic];
+            [userBean setValuesWithDic:userDic];
+            userBean.boxerRaceInfos = userDic[@"boxerRaceInfos"];
+            userBeanOption(userBean);
+        } else {
+            NSLog(@"error message: %@", responseDic[@"message"]);
+            userBeanOption(nil);
+        }
+
         
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
         NSLog(@"error : %@", error);
@@ -1019,11 +1021,10 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     assert(gymId);
     
-    urlString = [NSString stringWithFormat:@"%@?corporationid=%@", urlString, gymId];
-    NSDictionary *paramDic = @{@"corporationid" : gymId, @"date" : timestamp};
-    NSLog(@"get gym places by id : %@", urlString);
+    urlString = [NSString stringWithFormat:@"%@?corporationid=%@&date=%@", urlString, gymId, timestamp];
+    
+    NSLog(@"getGymPlaceUsingInfoById %@", urlString);
     [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        //        [ZJModelTool createModelWithDictionary:responseObject modelName:nil];
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"message : %@", responseDic[@"message"]);
         NSArray *array = responseDic[@"data"];
