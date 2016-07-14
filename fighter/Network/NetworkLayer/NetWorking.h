@@ -194,7 +194,6 @@
 
 //获取拳馆信息
 + (void)getGymInfoById:(NSString *)gymId andOption:(void (^)(NSDictionary *dic))option;
-@end
 
 
 #pragma mark - 充值购买
