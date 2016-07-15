@@ -45,6 +45,7 @@
             x = 0;
             y = y + h + 6;
             labelView.frame = CGRectMake(x, y, w, h);
+            x = x + w + 8;
         }
         
         [self.labelsView addSubview:labelView];

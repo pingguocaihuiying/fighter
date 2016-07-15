@@ -16,6 +16,7 @@
                 <outlet property="gymServicePriceLabel" destination="HH6-gI-TO7" id="EG2-yB-Zma"/>
                 <outlet property="labelsFatherViewHeight" destination="itY-oY-hFI" id="RJE-Ax-Na7"/>
                 <outlet property="labelsView" destination="ntP-pb-xaA" id="PDn-WX-38w"/>
+                <outlet property="labelsViewHeight" destination="X0X-0X-wZl" id="54t-sZ-zg0"/>
                 <outlet property="nextWeek" destination="EAK-SL-qMa" id="NWT-zj-2Ce"/>
                 <outlet property="preWeek" destination="eXd-Vz-EPc" id="o6P-Kc-u4h"/>
                 <outlet property="supportItemsCollectionView" destination="rMZ-b9-DFc" id="V5Q-mu-ugo"/>
@@ -207,7 +208,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ntP-pb-xaA" userLabel="labelsView">
-                                    <rect key="frame" x="200" y="67" width="382" height="20"/>
+                                    <rect key="frame" x="93" y="67" width="489" height="20"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="X0X-0X-wZl" userLabel="LabelsView Height"/>
@@ -237,7 +238,7 @@
                                 <constraint firstAttribute="bottom" secondItem="iIC-2q-42D" secondAttribute="bottom" id="K5r-S0-4f8"/>
                                 <constraint firstItem="mip-My-05M" firstAttribute="centerY" secondItem="4Mq-fX-Z9p" secondAttribute="centerY" id="KGX-Ro-bGL"/>
                                 <constraint firstItem="fSI-Xf-RKi" firstAttribute="top" secondItem="4Mq-fX-Z9p" secondAttribute="bottom" constant="15" id="OMP-M9-rzJ"/>
-                                <constraint firstItem="ntP-pb-xaA" firstAttribute="leading" secondItem="GAy-hN-REV" secondAttribute="leading" constant="200" id="Xx2-kS-dEo"/>
+                                <constraint firstItem="ntP-pb-xaA" firstAttribute="leading" secondItem="GAy-hN-REV" secondAttribute="leading" constant="93" id="Xx2-kS-dEo"/>
                                 <constraint firstItem="SgC-1w-wYA" firstAttribute="top" secondItem="fSI-Xf-RKi" secondAttribute="bottom" constant="17" id="Ytm-t4-Bos"/>
                                 <constraint firstAttribute="height" priority="1" constant="106" id="itY-oY-hFI"/>
                                 <constraint firstItem="iIC-2q-42D" firstAttribute="top" secondItem="GAy-hN-REV" secondAttribute="top" id="jWk-bN-URV"/>

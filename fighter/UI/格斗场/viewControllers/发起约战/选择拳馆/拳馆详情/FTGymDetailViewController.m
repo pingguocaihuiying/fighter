@@ -336,6 +336,10 @@
     //设置支持的设施
     [self setSupportItems];
     [_supportItemsCollectionView reloadData];
+    
+    //设置支持的项目
+    [self setSupportLabelsView];
+//    [self labelsViewAdapter:@"泰拳,跆拳道,女子格斗,柔道,相扑"];
 }
 
 
@@ -467,35 +471,43 @@
     [self.navigationController popToViewController:launchNewMatchViewController animated:YES];
 }
 
+
 - (void)setSupportLabelsView{
-    NSString *labelsString = @"";
+//    NSString *labelsString = @"泰拳,跆拳道,散打";
+    NSString *labelsString = @"泰拳,跆拳道,女子格斗,柔道,相扑,泰拳,跆拳道,女子格斗,柔道,相扑,泰拳,跆拳道,女子格斗,柔道,相扑";
     if (!labelsString ||labelsString.length == 0)
         return;
     
-    CGFloat width = SCREEN_WIDTH - 93;
+    CGFloat width = SCREEN_WIDTH - 111;
     CGFloat w=0;
     CGFloat h=14;
     CGFloat x=0;
     CGFloat y=0;
     
-    NSArray *labels = [labelsString componentsSeparatedByString:@", "];
+    NSArray *labels = [labelsString componentsSeparatedByString:@","];
     
     for (NSString *label in labels) {
-        UIImageView *labelView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"格斗标签-%@", label]]];
-        w = labelView.frame.size.width;
-        h = labelView.frame.size.height;
+        UIImageView *labelImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"格斗标签-%@", label]]];
+        w = labelImageView.frame.size.width;
+        h = labelImageView.frame.size.height;
         if (x + w <= width) {
-            labelView.frame = CGRectMake(x, y, w, h);
+            labelImageView.frame = CGRectMake(x, y, w, h);
             x = x + w + 8;
         }else {
             x = 0;
             y = y + h + 6;
-            labelView.frame = CGRectMake(x, y, w, h);
+            labelImageView.frame = CGRectMake(x, y, w, h);
+            x = x + w + 8;
         }
         
-        [self.labelsView addSubview:labelView];
+        [self.labelsView addSubview:labelImageView];
     }
-    _labelsViewHeight.constant = y;
+    if (y > 20) {
+        _labelsViewHeight.constant = y + 6;
+    }else{
+        _labelsViewHeight.constant = y;
+    }
+    
 //    _labelsFatherViewHeight.constant = _labelsFatherViewHeight.constant - 20 + y;
 }
 
