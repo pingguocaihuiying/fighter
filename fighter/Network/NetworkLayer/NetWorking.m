@@ -957,6 +957,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     
     NSString *urlString = [FTNetConfig host:Domain path:GetCoachListURL];
     NSLog(@"dic:%@",dic);
+    NSLog(@"urlString:%@",urlString);
     [self postRequestWithUrl:urlString parameters:dic option:option];
 }
 
@@ -1038,13 +1039,14 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 
 
 #pragma mark - 充值购买
+
 // 查询余额
 + (void) queryMoneyWithOption:(void (^)(NSDictionary *dict))option  {
     
     NSString *urlString = [FTNetConfig host:Domain path:QueryMoneyURL];
     
     // 时间戳
-    NSString *ts = [NSString stringWithFormat:@"%ld", (long)([[NSDate date] timeIntervalSince1970]*1000)];
+    NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
@@ -1070,7 +1072,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     NSString *urlString = [FTNetConfig host:Domain path:ExtensionTaskURL];
     
     // 时间戳
-    NSString *ts = [NSString stringWithFormat:@"%ld", (long)([[NSDate date] timeIntervalSince1970]*1000)];
+    NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
@@ -1096,7 +1098,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     NSString *urlString = [FTNetConfig host:Domain path:IsBuyVideoDoneURL];
     
     // 时间戳
-    NSString *ts = [NSString stringWithFormat:@"%ld", (long)([[NSDate date] timeIntervalSince1970]*1000)];
+    NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
@@ -1121,7 +1123,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     NSString *urlString = [FTNetConfig host:Domain path:BuyVideoURL];
     
     // 时间戳
-    NSString *ts = [NSString stringWithFormat:@"%ld", (long)([[NSDate date] timeIntervalSince1970]*1000)];
+    NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
@@ -1148,7 +1150,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     NSString *urlString = [FTNetConfig host:Domain path:GetBuyVideoURL];
     
     // 时间戳
-    NSString *ts = [NSString stringWithFormat:@"%ld", (long)([[NSDate date] timeIntervalSince1970]*1000)];
+    NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
@@ -1178,7 +1180,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     NSLog(@"urlString:%@",urlString);
     
     // 时间戳
-    NSString *ts = [NSString stringWithFormat:@"%ld", (long)([[NSDate date] timeIntervalSince1970]*1000)];
+    NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
@@ -1209,17 +1211,16 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     NSLog(@"urlString:%@",urlString);
     
     // 时间戳
-    NSString *ts = [NSString stringWithFormat:@"%ld", (long)([[NSDate date] timeIntervalSince1970]*1000)];
+    NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     // 生成一个UUID
     NSString *imei= [UUID getUUID];
-    
     
     //商品信息
     NSString *goodsTag = goodsBean.goodsId;// 商品标签
     NSString * body = goodsBean.descriptions;// 商品简书，限制长度28
     NSString *detail = goodsBean.details;// 商品详细简述
-    NSDecimalNumber *fee = goodsBean.price; // 商品价格
-    
+//    NSDecimalNumber *fee = goodsBean.price; // 商品价格
+    NSDecimalNumber *fee = goodsBean.power; // 商品对应Power币
     
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];

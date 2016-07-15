@@ -66,21 +66,30 @@ static NSString *const tableCellId = @"tableCellId";
 @implementation FTDrawerViewController
 
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     
     [self initData];
-        
+    
     [self setLoginedTableView];
     
     [self setLoginView];
     
-    [self hiddenViews];
-    
     [self setVersion];
 
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    
+    [self setNoti];
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    
+    //销毁通知
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+    
 }
 
 - (void) initData {
@@ -99,7 +108,6 @@ static NSString *const tableCellId = @"tableCellId";
     NSString *version = [infoDictionary objectForKey:@"CFBundleVersion"];
     [self.versionLabel setText:[@"当前版本：" stringByAppendingString:version]];
     
-    
 }
 
 #pragma mark 设置监听器
@@ -110,28 +118,10 @@ static NSString *const tableCellId = @"tableCellId";
     
     //添加监听器，监听login
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showLoginedViewData:) name:@"loginAction" object:nil];
-    [self showLoginedViewData:nil];
+    
+     [self showLoginedViewData:nil];
 }
 
-- (void) viewWillAppear:(BOOL)animated {
-    
-    [self setNoti];
-}
-
-- (void) viewWillDisappear:(BOOL)animated {
-    
-    //销毁通知
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
-    
-}
-
-//hidden the some view that current version app does not need
-- (void) hiddenViews {
-    
-//    [self.collectionView setHidden:YES];
-//    [self.tableView setHidden:YES];
-
-}
 
 
 // 设置登录以后显示的用户信息 tableView
@@ -140,10 +130,9 @@ static NSString *const tableCellId = @"tableCellId";
     NSLog(@"serSubviews");
     
     [self.view setBackgroundColor:[UIColor colorWithHex:0x191919]];
-   
     [self.headerView setBackgroundColor:[UIColor colorWithHex:0x191919]];
-    //切换图层，把头像边框放到上层
-    [self.headerView sendSubviewToBack:self.avatarImageView];
+//    //切换图层，把头像边框放到上层
+//    [self.headerView sendSubviewToBack:self.avatarImageView];
     
     //设置头像圆角
     [self.avatarImageView.layer setMasksToBounds:YES];
@@ -157,8 +146,12 @@ static NSString *const tableCellId = @"tableCellId";
     [self.tableView registerNib:[UINib nibWithNibName:@"FTDrawerCell" bundle:nil] forCellReuseIdentifier:@"tableCellId"];
     [self.tableView registerNib:[UINib nibWithNibName:@"FTDrawerPayCell" bundle:nil] forCellReuseIdentifier:@"payCellId"];
     [self.tableView registerNib:[UINib nibWithNibName:@"FTLabelsCell" bundle:nil] forCellReuseIdentifier:@"labelsCellId"];
+    if (SCREEN_HEIGHT > 568) {
+        self.tableView.scrollEnabled = NO;
+    }else {
     
-    self.tableView.scrollEnabled = NO;
+        self.tableView.scrollEnabled = YES;
+    }
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -188,16 +181,14 @@ static NSString *const tableCellId = @"tableCellId";
         
     }
     
-   }
+}
 
 
 //设置登录视图
 - (void) setLoginView {
     
     [self.loginView setBackgroundColor:[UIColor colorWithHex:0x191919]];
-    
     [self.loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    
     
     //微信快捷登录按钮
     [self.weichatLoginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -213,8 +204,10 @@ static NSString *const tableCellId = @"tableCellId";
 }
 
 
+
 //登陆后更新用户中心数据
 - (void) showLoginedViewData:(NSNotification *)noti {
+    
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
@@ -223,25 +216,25 @@ static NSString *const tableCellId = @"tableCellId";
     if ([msg isEqualToString:@"LOGOUT"]) {//退出登录
         
         NSLog(@"执行退出登录");
-        [self.loginView setHidden:NO];//隐藏登录界面
-
+        [self.loginView setHidden:NO];//显示登录页面
+        
     }else {
-    
+        
         NSLog(@"show Login View");
         
         if (localUser) {
             [self setLoginedViewData:localUser];
-            [self.loginView setHidden:YES];//隐藏登录界面
             _labelArray = localUser.interestList;
-            
             [self.tableView reloadData];
-        }else {
             
-            [self.loginView setHidden:NO];//隐藏登录界面
+            [self.loginView setHidden:YES];//显示登录页面
+        }else {
+            [self.loginView setHidden:NO];//隐藏登录页面
         }
     }
     //跟新头像
     [self updateUserAvatar:localUser.headpic];
+    
 }
 
 
@@ -262,8 +255,6 @@ static NSString *const tableCellId = @"tableCellId";
 - (void) setLoginedViewData:(FTUserBean *)localUser {
 
     if (localUser) {
-        
-        [self.loginView setHidden:YES];//隐藏登录界面
         
         [self setAvatarImageViewImageWithString:localUser.headpic];
         [self setNameLabelText:[localUser.username stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -410,6 +401,7 @@ static NSString *const tableCellId = @"tableCellId";
 - (IBAction)tempHomePageBtnAction:(id)sender {
     [self gotoHomepageWithUseroldid:nil];
 }
+
 - (void)gotoHomepageWithUseroldid:(NSString *)olduserid{
     if (!olduserid) {
         //从本地读取存储的用户信息
@@ -427,6 +419,14 @@ static NSString *const tableCellId = @"tableCellId";
     [self presentViewController:baseNav animated:YES completion:nil];
 }
 
+//  充值按钮，点击跳转到充值界面
+- (void) payBtnAction:(id) sender {
+    FTPayViewController *payVC = [[FTPayViewController alloc]init];
+    FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:payVC];
+    baseNav.navigationBarHidden = NO;
+    [self presentViewController:baseNav animated:YES completion:nil];
+    
+}
 
 #pragma mark - UICollectionViewDataSource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -566,9 +566,6 @@ static NSString *const tableCellId = @"tableCellId";
         
             [cell.tipLabel setHidden:NO];
         }
-        
-        
-        
         return cell;
         
     }else if (indexPath.row == 1) {
@@ -576,6 +573,13 @@ static NSString *const tableCellId = @"tableCellId";
         FTDrawerPayCell *cell = [tableView dequeueReusableCellWithIdentifier:@"payCellId"];
         cell.cellTitle.text = @"账户余额:";
         cell.subtitle.text = @"0P";
+        
+        //从本地读取存储的用户信息
+        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+        if (localUserData == nil ) {
+            return cell;
+        }
+
         
         // 获取余额
         [NetWorking queryMoneyWithOption:^(NSDictionary *dict) {
@@ -596,7 +600,8 @@ static NSString *const tableCellId = @"tableCellId";
                 NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
             }
         }];
-
+        
+        [cell.payBtn addTarget:self action:@selector(payBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         
         return cell;
     }else {
@@ -753,8 +758,8 @@ static NSString *const tableCellId = @"tableCellId";
                                                    Bar_Item_Select_Title_Color, UITextAttributeTextColor,
                                                    nil] forState:UIControlStateSelected];
     
-    practiceVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳吧"];
-    practiceVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳吧pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    practiceVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-教练"];
+    practiceVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-教练pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     practiceVC.drawerDelegate = self;
     
     //设置tabbar的属性

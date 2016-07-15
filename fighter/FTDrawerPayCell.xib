@@ -73,11 +73,11 @@
                 <outlet property="spaceView" destination="evM-hq-BeR" id="Q5H-nB-ymQ"/>
                 <outlet property="subtitle" destination="8U6-SN-1lV" id="ORM-lO-wtG"/>
             </connections>
-            <point key="canvasLocation" x="310" y="263.5"/>
+            <point key="canvasLocation" x="382" y="263.5"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="充值" width="37" height="40"/>
-        <image name="充值pre" width="21" height="40"/>
+        <image name="充值pre" width="36" height="40"/>
     </resources>
 </document>

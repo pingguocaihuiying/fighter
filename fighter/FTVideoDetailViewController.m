@@ -209,7 +209,6 @@
             
         }
         
-        
         NSLog(@"视频url：%@", url);
         url = [self encodeToPercentEscapeString:url];
     //    _videoBean.viewCount = @"100";
@@ -232,15 +231,10 @@
     }
    
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webViewUrlString]]];
+//    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_videoBean.url]]];
     [self.view sendSubviewToBack:_webView];
 }
 
-//webView加载完成
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
-    
-    NSLog(@"webViewDidFinishLoad ****************");
-    [self disableLoadingAnimation];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -369,7 +363,6 @@
 }
 -(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
 {
-    
     //根据`responseCode`得到发送结果,如果分享成功
     if(response.responseCode == UMSResponseCodeSuccess)
     {
@@ -443,7 +436,6 @@
 }
 
 #pragma -mark 收藏按钮被点击
-
 - (IBAction)favourateButtonClicked:(id)sender {
     [MobClick event:@"videoPage_DetailPage_Collection"];
     //从本地读取存储的用户信息
@@ -477,8 +469,8 @@
     }
 }
 
-//把点赞信息更新至服务器
 
+//把点赞信息更新至服务器
 - (void)uploadVoteStatusToServer{
     
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
@@ -552,7 +544,6 @@
     checkSign = [MD5 md5:checkSign];
     
     
-    
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@&query=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName, query];
     //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
     //创建AAFNetWorKing管理者
@@ -575,12 +566,28 @@
     
 }
 
+
+#pragma mark - webView delegate
+
+//webView加载完成
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    
+    NSLog(@"webViewDidFinishLoad ****************");
+    
+    [self disableLoadingAnimation];
+}
+
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    
     NSString *requestURL = [NSString stringWithFormat:@"%@", request.URL];
         NSLog(@"requestURL : %@", requestURL);
-    if ([requestURL isEqualToString:@"js-call:onload"]) {
+    
+   if ([requestURL isEqualToString:@"js-call:onload"]) {
+        
         [self disableLoadingAnimation];
     }else if ([requestURL hasPrefix:@"js-call:userId="]) {
+        
         NSString *userId = [requestURL stringByReplacingOccurrencesOfString:@"js-call:userId=" withString:@""];
         //        NSLog(@"userId : %@", userId);
         FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
@@ -589,6 +596,9 @@
     }
     return YES;
 }
+
+
+#pragma mark -
 
 - (IBAction)cancelShareButtonClicked:(id)sender {
     self.bgView.hidden = YES;
@@ -630,6 +640,8 @@
     _videoBean.commentCount = [NSString stringWithFormat:@"%d", commentCount];
     [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
 }
+
+
 /**
  *  增加视频的播放数
  */

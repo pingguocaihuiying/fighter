@@ -160,7 +160,9 @@ enum{
     [cancleBtn setTitleColor:[UIColor colorWithHex:0xb4b4b4] forState:UIControlStateNormal];
     [cancleBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:cancleBtn];
-
+    
+    //取消返回按钮
+    [self.navigationController.navigationItem setHidesBackButton:YES];
     
 }
 
@@ -253,25 +255,49 @@ enum{
 {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     NSArray *myProduct = response.products;
-    NSLog(@"产品Product ID:%@",response.invalidProductIdentifiers);
-    NSLog(@"产品付费数量: %lu", (unsigned long)[myProduct count]);
+//    NSLog(@"产品Product ID:%@",response.invalidProductIdentifiers);
+//    NSLog(@"产品付费数量: %lu", (unsigned long)[myProduct count]);
     
     FTGoodsBean *bean = [FTGoodsBean new];
     
-    
     for(SKProduct *product in myProduct){
-        NSLog(@"product info");
-        NSLog(@"SKProduct 描述信息%@", [product description]);
-        NSLog(@"产品标题 %@" , product.localizedTitle);
-        NSLog(@"产品描述信息: %@" , product.localizedDescription);
-        NSLog(@"价格: %@" , product.price);
-        NSLog(@"Product id: %@" , product.productIdentifier);
+//        NSLog(@"product info");
+//        NSLog(@"SKProduct 描述信息%@", [product description]);
+//        NSLog(@"产品标题 %@" , product.localizedTitle);
+//        NSLog(@"产品描述信息: %@" , product.localizedDescription);
+//        NSLog(@"价格: %@" , product.price);
+//        NSLog(@"Product id: %@" , product.productIdentifier);
         
-        bean.goodsId =  product.productIdentifier;
-        bean.descriptions = product.localizedTitle;
-        bean.details = product.localizedDescription;
-        bean.price = product.price;
+        bean.goodsId =  product.productIdentifier; // Product id
+        bean.descriptions = product.localizedTitle;// 产品标题
+        bean.details = product.localizedDescription;// 产品描述信息
+        bean.price = product.price;//价格
     }
+    
+    SKPayment *payment = nil;
+    SKProduct *product = [myProduct objectAtIndex:0];
+    switch (buyType) {
+        case PowerCoin_10P:
+            payment= [SKPayment paymentWithProduct:product];
+            bean.power = [[NSDecimalNumber alloc]initWithInt:10];
+            break;
+        case PowerCoin_80P:
+            payment= [SKPayment paymentWithProduct:product];
+            bean.power = [[NSDecimalNumber alloc]initWithInt:30];
+            break;
+        case PowerCoin_360P:
+            payment= [SKPayment paymentWithProduct:product];
+            bean.power = [[NSDecimalNumber alloc]initWithInt:128];
+            break;
+        case PowerCoin_2500P:
+            payment= [SKPayment paymentWithProduct:product];
+            bean.power = [[NSDecimalNumber alloc]initWithInt:588];
+            break;
+            
+        default:
+            break;
+    }
+
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [NetWorking rechargeIAPByGoods:bean option:^(NSDictionary *dict) {
@@ -284,25 +310,6 @@ enum{
         if (order.length > 0) {
             
             _orderNO = order;
-            SKPayment *payment = nil;
-            SKProduct *product = [myProduct objectAtIndex:0];
-            switch (buyType) {
-                case PowerCoin_10P:
-                    payment= [SKPayment paymentWithProduct:product];
-                    break;
-                case PowerCoin_80P:
-                    payment= [SKPayment paymentWithProduct:product];
-                    break;
-                case PowerCoin_360P:
-                    payment= [SKPayment paymentWithProduct:product];
-                    break;
-                case PowerCoin_2500P:
-                    payment= [SKPayment paymentWithProduct:product];
-                    break;
-                    
-                default:
-                    break;
-            }
             
             NSLog(@"---------发送购买请求------------");
             [[SKPaymentQueue defaultQueue] addPayment:payment];
@@ -319,8 +326,6 @@ enum{
         }
         
     }];
-    
-    
     
 }
 

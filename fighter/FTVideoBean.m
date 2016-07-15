@@ -11,6 +11,7 @@
 @implementation FTVideoBean
 
 - (void)setValuesWithDic:(NSDictionary *)dic{
+    
     self.summary = dic[@"summary"];
     self.author = dic[@"author"];
     self.img = dic[@"img"];
