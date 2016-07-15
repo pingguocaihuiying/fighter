@@ -16,11 +16,10 @@
 @interface FTGymDetailViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, setTicketViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSDictionary *gymInfoDic;//拳馆信息
-@property (nonatomic, strong) NSDictionary *gymSupportItemsArray;//拳馆支持设施
 @property (weak, nonatomic) IBOutlet UILabel *gymServicePriceLabel;//拳馆使用基础费用
 @property (weak, nonatomic) IBOutlet UILabel *gymAddressLabel;//拳馆地址
 @property (nonatomic, assign) BOOL isFreeTicket;//门票是否免费
-
+@property (nonatomic, strong) NSMutableArray *supportItemsArray;//支持的设施
 
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *gymInfoTopViewHeight;
@@ -279,32 +278,6 @@
     }];
 }
 
-//设置拳馆基础信息
-- (void)setGymInfo{
-    //拳馆使用基础费用
-    _gymServicePriceLabel.text = [NSString stringWithFormat:@"%@", _gymInfoDic[@"service_price"]];
-    
-    
-    
-    //门票
-    
-        //如果拳馆方设定门票为免费，则门票为免费，比赛发起人也不能设置
-    NSString *is_sale_ticket = [NSString stringWithFormat:@"%@", _gymInfoDic[@"is_sale_ticket"]];
-    if ([is_sale_ticket isEqualToString:@"1"]) {
-        _isFreeTicket = YES;
-    } else {
-        _isFreeTicket = NO;
-    }
-    
-    if (_isFreeTicket) {
-        _basicPrice = [NSString stringWithFormat:@"%@ 元", _gymInfoDic[@"ticket_price"]];
-        _totalPriceLabel.text = _basicPrice;
-    } else {
-        _totalPriceLabel.text = @"免费";
-        _totalPriceLabel.textColor = [UIColor colorWithHex:0xb4b4b4];
-        _adjustTicketButton.hidden = YES;
-    }
-}
 
 /**
  *  获取拳馆信息
@@ -335,6 +308,98 @@
             [self reloadTableViews];
         }
     }];
+}
+
+//设置拳馆基础信息
+- (void)setGymInfo{
+    //拳馆使用基础费用
+    _gymServicePriceLabel.text = [NSString stringWithFormat:@"%@", _gymInfoDic[@"service_price"]];
+    
+    //门票
+    //如果拳馆方设定门票为免费，则门票为免费，比赛发起人也不能设置
+    NSString *is_sale_ticket = [NSString stringWithFormat:@"%@", _gymInfoDic[@"is_sale_ticket"]];
+    if ([is_sale_ticket isEqualToString:@"1"]) {
+        _isFreeTicket = YES;
+    } else {
+        _isFreeTicket = NO;
+    }
+    
+    if (_isFreeTicket) {
+        _basicPrice = [NSString stringWithFormat:@"%@ 元", _gymInfoDic[@"ticket_price"]];
+        _totalPriceLabel.text = _basicPrice;
+    } else {
+        _totalPriceLabel.text = @"免费";
+        _totalPriceLabel.textColor = [UIColor colorWithHex:0xb4b4b4];
+        _adjustTicketButton.hidden = YES;
+    }
+    
+    //设置支持的设施
+    [self setSupportItems];
+    [_supportItemsCollectionView reloadData];
+}
+
+
+- (void)setSupportItems{
+    _supportItemsArray = [NSMutableArray new];
+    
+//    BOOL supportBathe  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_bathe"]] isEqualToString:@"1"];
+//    if (supportBathe) {
+//        [_supportItemsArray addObject:@"sup_bathe"];
+//    }
+//    
+//    BOOL supportApparatus  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_prop"]] isEqualToString:@"1"];
+//    if (supportApparatus) {
+//        [_supportItemsArray addObject:@"sup_prop"];
+//    }
+//    
+//    BOOL supportSecurity  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_security"]] isEqualToString:@"1"];
+//    if (supportSecurity) {
+//        [_supportItemsArray addObject:@"sup_security"];
+//    }
+//    
+//    BOOL supportShoot  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_shoot"]] isEqualToString:@"1"];
+//    if (supportShoot) {
+//        [_supportItemsArray addObject:@"sup_shoot"];
+//    }
+//    
+//    BOOL supportWifi  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_wifi"]] isEqualToString:@"1"];
+//    if (supportWifi) {
+//        [_supportItemsArray addObject:@"sup_wifi"];
+//    }
+//    
+//    BOOL supportReferee  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_referee"]] isEqualToString:@"1"];
+//    if (supportReferee) {
+//        [_supportItemsArray addObject:@"sup_referee"];
+//    }
+    BOOL supportBathe  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_bathe"]] isEqualToString:@"1"];
+    if (!supportBathe) {
+        [_supportItemsArray addObject:@"sup_bathe"];
+    }
+    
+    BOOL supportApparatus  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_prop"]] isEqualToString:@"1"];
+    if (!supportApparatus) {
+        [_supportItemsArray addObject:@"sup_prop"];
+    }
+    
+    BOOL supportSecurity  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_security"]] isEqualToString:@"1"];
+    if (!supportSecurity) {
+        [_supportItemsArray addObject:@"sup_security"];
+    }
+    
+    BOOL supportShoot  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_shoot"]] isEqualToString:@"1"];
+    if (!supportShoot) {
+        [_supportItemsArray addObject:@"sup_shoot"];
+    }
+    
+    BOOL supportWifi  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_wifi"]] isEqualToString:@"1"];
+    if (!supportWifi) {
+        [_supportItemsArray addObject:@"sup_wifi"];
+    }
+    
+    BOOL supportReferee  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_referee"]] isEqualToString:@"1"];
+    if (!supportReferee) {
+        [_supportItemsArray addObject:@"sup_referee"];
+    }
 }
 
 //设置上方支持的item
@@ -368,11 +433,15 @@
     [_supportItemsCollectionView reloadData];
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 6;
+    if (_supportItemsArray) {
+        return _supportItemsArray.count;
+    }
+    return 0;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     FTGymSupportItemsCollectionViewCell *supportItemsCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"supportItemsCell" forIndexPath:indexPath];
-    
+        supportItemsCell.itemImageView.image = [UIImage imageNamed:[FTTools getGymSupportItemImageNameWithItemNameEn:_supportItemsArray[indexPath.row]]];
+        supportItemsCell.itemNameLabel.text = [FTTools getGymSupportItemNameWithItemNameEn:_supportItemsArray[indexPath.row]];
     return supportItemsCell;
 }
 #pragma -mark -初始化collectionView

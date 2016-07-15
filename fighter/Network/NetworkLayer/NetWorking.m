@@ -1082,8 +1082,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     [self postRequestWithUrl:urlString
                   parameters:dic
                       option:option];
-    
-    
 }
 // 分享后回调添加积分
 + (void) getPointByShareWithPlatform:(NSString *)platform option:(void (^)(NSDictionary *dict))option{

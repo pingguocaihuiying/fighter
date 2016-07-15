@@ -187,4 +187,44 @@
     
     return dateString;
 }
+
++ (NSString *)getGymSupportItemImageNameWithItemNameEn:(NSString *)itemNameEn{
+    NSString *imageName = @"";
+    if ([itemNameEn isEqualToString:@"sup_bathe"]) {
+        imageName = @"拳馆功能ico-洗澡";
+    } else if([itemNameEn isEqualToString:@"sup_prop"]) {
+        imageName = @"拳馆功能ico-器械";
+    }else if([itemNameEn isEqualToString:@"sup_security"]) {
+        imageName = @"拳馆功能ico-安保";
+    }else if([itemNameEn isEqualToString:@"sup_shoot"]) {
+        imageName = @"拳馆功能ico-拍摄";
+    }else if([itemNameEn isEqualToString:@"sup_wifi"]) {
+        imageName = @"拳馆功能ico-wifi";
+    }else if([itemNameEn isEqualToString:@"sup_referee"]) {
+        imageName = @"拳馆功能ico-裁判";
+    }else{
+        NSLog(@"没找到对应设施的图片");
+    }
+    return imageName;
+}
+
++ (NSString *)getGymSupportItemNameWithItemNameEn:(NSString *)itemNameEn{
+    NSString *name = @"";
+    if ([itemNameEn isEqualToString:@"sup_bathe"]) {
+        name = @"-洗澡";
+    } else if([itemNameEn isEqualToString:@"sup_prop"]) {
+        name = @"器械";
+    }else if([itemNameEn isEqualToString:@"sup_security"]) {
+        name = @"安保";
+    }else if([itemNameEn isEqualToString:@"sup_shoot"]) {
+        name = @"拍摄";
+    }else if([itemNameEn isEqualToString:@"sup_wifi"]) {
+        name = @"Wi-Fi";
+    }else if([itemNameEn isEqualToString:@"sup_referee"]) {
+        name = @"裁判";
+    }else{
+        NSLog(@"没找到对应设施的名字");
+    }
+    return name;
+}
 @end
