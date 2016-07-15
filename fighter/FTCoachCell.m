@@ -108,6 +108,7 @@
             x = 0;
             y = y + h + 6;
             labelView.frame = CGRectMake(x, y, w, h);
+            x = x + w + 8;
         }
     }
     return  h + y;

@@ -195,6 +195,9 @@
 //获取拳馆信息
 + (void)getGymInfoById:(NSString *)gymId andOption:(void (^)(NSDictionary *dic))option;
 
+//获取拳手信息
++ (void)getBoxerListByWeight:(NSString *)weight andOverWeightLevel: (NSString *) overWeightLevel andOption:(void (^)(NSArray *array))option;
+
 
 #pragma mark - 充值购买
 // 查询余额

@@ -13,4 +13,7 @@ typedef NS_ENUM(NSInteger, FTGymOrOpponentType) {
 };
 @interface FTChooseGymOrOpponentListViewController : FTBaseViewController
 @property (nonatomic, assign)FTGymOrOpponentType listType;
+
+@property (nonatomic, copy) NSString *choosedOpponentID;//选择的拳手ID
+@property (nonatomic, copy) NSString *choosedOpponentName;//选择的拳手名字
 @end

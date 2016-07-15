@@ -11,7 +11,7 @@
 @interface FTTools : NSObject
 
 + (NSString *)getChLabelNameWithEnLabelName:(NSString *)labelNameEn;
-+ (void)showHUDWithMessage:(NSString *)message andView:(UIView *)view;
+
 + (NSString *)fixStringForDate:(NSString *)timestampString;//日期转换 “年月日时间”
 + (NSString *)fixStringForDateWithoutTime:(NSString *)timestampString;//“年月日“
 + (BOOL)isNumText:(NSString *)str;//判断字符串是否是数字
@@ -47,4 +47,13 @@
  *  @return 对应的中文名字 eg：“安保”
  */
 + (NSString *)getGymSupportItemNameWithItemNameEn:(NSString *)itemNameEn;
+
+/**
+ *  将英文标签转换为中文标签
+ *
+ *  @param labelNameEn 英文标签
+ *
+ *  @return 中文标签
+ */
++ (NSString *)getNameCHWithEnLabelName:(NSString *)labelNameEn;
 @end

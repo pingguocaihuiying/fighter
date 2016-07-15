@@ -297,9 +297,9 @@
     
     //分享标题
     NSString *title = _userBean.name;
-        //如果是拳手，再加上“［格斗家］认证拳手，webview的url也改为拳手对应的
+        //如果是拳手，再加上“［格斗东西］认证拳手，webview的url也改为拳手对应的
     if(_userBean.query && [_userBean.query isEqualToString:@"1"]){//1：拳手，2:教练，普通用户为空（nil）
-        title = [NSString stringWithFormat:@"%@%@", title, @" [格斗家] 认证拳手"];
+        title = [NSString stringWithFormat:@"%@%@", title, @" - 认证拳手 [格斗东西]"];
         _webUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/user_boxer.html?userId=%@", _olduserid];
     }else {
         _webUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/user_general.html?userId=%@", _olduserid];
@@ -310,8 +310,8 @@
     if (_tableViewDataSourceArray && _tableViewDataSourceArray.count > 0) {//如果有动态，简述显示动态标题
         FTArenaBean *firstArenaBean = [_tableViewDataSourceArray firstObject];
         summaryString = firstArenaBean.title;
-    }else{//不然，显示"格斗家 xxx 的主页"
-        summaryString = [NSString stringWithFormat:@"格斗家 %@ 的主页", _userBean.name];
+    }else{//不然，显示"职业拳手 %@ 在 [格斗东西] 上的个人主页"
+        summaryString = [NSString stringWithFormat:@"职业拳手 %@ 在 [格斗东西] 上的个人主页", _userBean.name];
     }
         [shareView setTitle:title];
         [shareView setSummary:summaryString];

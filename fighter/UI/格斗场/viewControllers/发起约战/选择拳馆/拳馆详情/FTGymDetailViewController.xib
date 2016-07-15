@@ -20,6 +20,7 @@
                 <outlet property="nextWeek" destination="EAK-SL-qMa" id="NWT-zj-2Ce"/>
                 <outlet property="preWeek" destination="eXd-Vz-EPc" id="o6P-Kc-u4h"/>
                 <outlet property="supportItemsCollectionView" destination="rMZ-b9-DFc" id="V5Q-mu-ugo"/>
+                <outlet property="supportItemsCollectionViewHeight" destination="JyZ-0W-TW1" id="S17-Rm-wzz"/>
                 <outlet property="t0" destination="Kmf-CE-h6q" id="S6B-2c-mLi"/>
                 <outlet property="t0Height" destination="GR3-i2-qgF" id="RAR-LX-N2j"/>
                 <outlet property="t1" destination="6kw-rD-Z43" id="a6y-F1-f59"/>
@@ -121,6 +122,9 @@
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="rMZ-b9-DFc">
                                     <rect key="frame" x="0.0" y="105" width="592" height="148"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="148" id="JyZ-0W-TW1"/>
+                                    </constraints>
                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4SU-ow-buv">
                                         <size key="itemSize" width="50" height="50"/>
                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -128,7 +132,7 @@
                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </collectionViewFlowLayout>
                                 </collectionView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uwi-4G-wph" userLabel="下拉">
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uwi-4G-wph" userLabel="下拉">
                                     <rect key="frame" x="543" y="67" width="30" height="30"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="DZu-MZ-IAJ"/>
@@ -162,7 +166,7 @@
                                 <constraint firstItem="rMZ-b9-DFc" firstAttribute="leading" secondItem="MVi-mk-rsA" secondAttribute="leading" id="Wu5-ns-mjR"/>
                                 <constraint firstItem="JEo-Qk-Rop" firstAttribute="centerY" secondItem="HH6-gI-TO7" secondAttribute="centerY" id="XE1-su-Nfl"/>
                                 <constraint firstAttribute="trailing" secondItem="uLY-SI-Aio" secondAttribute="trailing" constant="10" id="Yxv-GQ-lz6"/>
-                                <constraint firstAttribute="height" constant="253" id="d9m-Y5-Y45"/>
+                                <constraint firstAttribute="height" priority="1" constant="253" id="d9m-Y5-Y45"/>
                                 <constraint firstItem="RB1-pb-pce" firstAttribute="top" secondItem="Vrm-bV-grs" secondAttribute="bottom" constant="15" id="ieG-MO-IzV"/>
                                 <constraint firstItem="tyL-bx-Hfn" firstAttribute="centerY" secondItem="Vrm-bV-grs" secondAttribute="centerY" id="lvB-aq-6oQ"/>
                                 <constraint firstItem="Vrm-bV-grs" firstAttribute="top" secondItem="uLY-SI-Aio" secondAttribute="bottom" constant="15" id="nTd-bU-XiP"/>

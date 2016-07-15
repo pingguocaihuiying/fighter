@@ -17,4 +17,9 @@
 @interface FTOpponentCell : FTBaseTableViewCell
 @property (weak, nonatomic) IBOutlet UIButton *challengeButton;
 @property (nonatomic, weak)id<opponentSelectedDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UILabel *opponentNameLabel;//名字
+@property (weak, nonatomic) IBOutlet UILabel *recordLabel;//战绩
+@property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
+
+- (void)setWithDic:(NSDictionary *)dic;
 @end

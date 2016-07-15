@@ -17,9 +17,10 @@
 #import "FTHomepageMainViewController.h"
 
 @interface FTChooseGymOrOpponentListViewController ()<UITableViewDelegate, UITableViewDataSource, FTSelectCellDelegate, FTDefaultFullyMatchingCellSelected, opponentSelectedDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *gymsTableview;
+@property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (nonatomic, assign)NSInteger curOpponentIndex;
 @property (assign, nonatomic) FTMatchType matchType;
+@property (nonatomic, strong) NSArray *boxersArray;
 @end
 
 @implementation FTChooseGymOrOpponentListViewController
@@ -28,12 +29,24 @@
     [super viewDidLoad];
     [self initBaseData];
     [self initSubViews];
+    [self getDataFromServer];
 }
 
 - (void)initBaseData{
     _curOpponentIndex = 0;//默认选择同匹配度任何人
     _matchType = FTMatchTypeFullyMatch;
 }
+
+- (void)getDataFromServer{
+    [NetWorking getBoxerListByWeight:@"80" andOverWeightLevel:@"5" andOption:^(NSArray *array) {
+        _boxersArray = array;
+        if (_boxersArray && _boxersArray.count > 0) {
+            [_tableview reloadData];
+        }
+        
+    }];
+}
+
 //初始化subviews
 - (void)initSubViews{
     self.bottomGradualChangeView.hidden = YES;//隐藏底部的遮罩
@@ -59,7 +72,7 @@
     
     //格斗种类（匹配级别）筛选按钮
     if (_listType == FTGymListType) {
-        rightButton = [self selectButton:@"按项目"];
+//        rightButton = [self selectButton:@"按项目"];
     }else if (_listType == FTOpponentListType){
         if (_matchType == FTMatchTypeFullyMatch) {
             rightButton = [self selectButton:@"完全匹配"];
@@ -71,14 +84,15 @@
             rightButton = [self selectButton:@"完全匹配"];
         }
         
+        rightButton.frame = CGRectMake(0, 0, 130, 40);
+        [rightButton addTarget:self action:@selector(sortByTypeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *sortByTypeButton = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
+        
+        self.navigationItem.rightBarButtonItem = sortByTypeButton;
     }
     
 
-    rightButton.frame = CGRectMake(0, 0, 130, 40);
-    [rightButton addTarget:self action:@selector(sortByTypeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *sortByTypeButton = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
 
-    self.navigationItem.rightBarButtonItem = sortByTypeButton;
 }
 
 //生成右上角的按钮FTButton
@@ -115,21 +129,30 @@
 
 
 - (void)setTableView{
-    _gymsTableview.delegate = self;
-    _gymsTableview.dataSource = self;
+    _tableview.delegate = self;
+    _tableview.dataSource = self;
     
     if (_listType == FTGymListType) {
-    [_gymsTableview registerNib:[UINib nibWithNibName:@"FTGymCell" bundle:nil] forCellReuseIdentifier:@"gymCell"];
+        [_tableview registerNib:[UINib nibWithNibName:@"FTGymCell" bundle:nil] forCellReuseIdentifier:@"gymCell"];
     }else if (_listType == FTOpponentListType){
-        [_gymsTableview registerNib:[UINib nibWithNibName:@"FTOpponentCell" bundle:nil] forCellReuseIdentifier:@"opponentCell"];
-        [_gymsTableview registerNib:[UINib nibWithNibName:@"FTDefaultFullMatchingTableViewCell" bundle:nil] forCellReuseIdentifier:@"fullyMatchingOpponentCell"];
+        [_tableview registerNib:[UINib nibWithNibName:@"FTOpponentCell" bundle:nil] forCellReuseIdentifier:@"opponentCell"];
+        [_tableview registerNib:[UINib nibWithNibName:@"FTDefaultFullMatchingTableViewCell" bundle:nil] forCellReuseIdentifier:@"fullyMatchingOpponentCell"];
     }
     
-    [_gymsTableview reloadData];
+    [_tableview reloadData];
 }
 #pragma -mark -设置tableview
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    if (_listType == FTGymListType) {
+        return 4;
+    }else if (_listType == FTOpponentListType){
+        if (_boxersArray) {
+            return _boxersArray.count;
+        }
+    }
+    
+
+    return 0;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (_listType == FTGymListType) {
@@ -156,6 +179,11 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             _curOpponentIndex == indexPath.row ? [cell.challengeButton setImage:[UIImage imageNamed:@"弹出框用-类别选择-选中"] forState:UIControlStateNormal] : [cell.challengeButton setImage:[UIImage imageNamed:@"挑战"] forState:UIControlStateNormal];
             cell.tag = indexPath.row;
+            
+            NSDictionary *dic = _boxersArray[indexPath.row - 1];
+            [cell setWithDic:dic];
+            
+            
             return cell;
         }
     }
@@ -183,14 +211,17 @@
 - (void)defaultFullyMatchingSelected{
     NSLog(@"完全匹配");
     _curOpponentIndex = 0;
+    _choosedOpponentID = @"-1";//如果选择了同级别匹配
     NSLog(@"_curOpponentIndex : %ld", _curOpponentIndex);
-    [_gymsTableview reloadData];
+    [_tableview reloadData];
 }
 
 - (void)selectOpponentByIndex:(NSInteger)opponentIndex{
     _curOpponentIndex = opponentIndex;
+    _choosedOpponentID = _boxersArray[_curOpponentIndex - 1][@"id"];
+    _choosedOpponentName = _boxersArray[_curOpponentIndex - 1][@"name"];
     NSLog(@"_curOpponentIndex : %ld", _curOpponentIndex);
-    [_gymsTableview reloadData];
+    [_tableview reloadData];
 }
 
 - (void)sortByTypeButtonClicked:(id)sender{
@@ -216,7 +247,6 @@
                 searchTableView.offsetX = 20;//水平偏移
             }
 
-            
             searchTableView.Btnframe = frame;
             searchTableView.tableW =frame.size.width;
             
@@ -258,7 +288,12 @@
     }else{
         //返回前一个vc
         FTLaunchNewMatchViewController *launchNewMatchViewController = self.navigationController.viewControllers[1];
-        launchNewMatchViewController.opponentLabel.text = @"贪睡之熊";
+        
+        //选择的匹配对手
+
+        launchNewMatchViewController.challengedBoxerName= _choosedOpponentName;
+        launchNewMatchViewController.challengedBoxerID = [NSString stringWithFormat:@"%@", _choosedOpponentID];
+        launchNewMatchViewController.opponentLabel.text = _choosedOpponentName;
         launchNewMatchViewController.matchType = _matchType;
         [launchNewMatchViewController displayMatchTypeButtons];
         [self.navigationController popToViewController:launchNewMatchViewController animated:YES];
@@ -268,17 +303,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
