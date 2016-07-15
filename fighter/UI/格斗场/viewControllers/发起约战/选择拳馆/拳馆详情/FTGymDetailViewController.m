@@ -14,6 +14,14 @@
 #import "FTGymTimeSectionTableViewCell.h"
 
 @interface FTGymDetailViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, setTicketViewDelegate, UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) NSDictionary *gymInfoDic;//拳馆信息
+@property (weak, nonatomic) IBOutlet UILabel *gymServicePriceLabel;//拳馆使用基础费用
+@property (weak, nonatomic) IBOutlet UILabel *gymAddressLabel;//拳馆地址
+@property (nonatomic, assign) BOOL isFreeTicket;//门票是否免费
+@property (nonatomic, strong) NSMutableArray *supportItemsArray;//支持的设施
+
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *gymInfoTopViewHeight;
 @property (weak, nonatomic) IBOutlet UICollectionView *supportItemsCollectionView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelsViewHeight;//labelsView高度
@@ -21,7 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIView *labelsView;
 @property (nonatomic, strong) UIView *priceContentView;
 @property (nonatomic, strong) FTSetTicketPriceViewTableViewCell *setTicketPriceView;
-@property (weak, nonatomic) IBOutlet UILabel *totalPriceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *totalPriceLabel;//门票价格
 
 @property (nonatomic, strong) NSArray *timeSectionsArray;//拳馆的固定时间段
 @property (nonatomic, strong) NSArray *placesArray;//拳馆的场地列表
@@ -36,32 +44,32 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *t5Height;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *t6Height;
 
-//当前选中的坐标
-@property (nonatomic, strong) NSIndexPath *curSelectedIndexPath;//选中的日期、时间段
-
 @property (nonatomic, assign) NSInteger selectedWeekday;//选中的周几
 @property (nonatomic, assign) NSInteger todayWeekday;//今天是周几
-@property (nonatomic, assign) NSString *selectedTimeSectionString;//选中的时间段
+@property (nonatomic, copy) NSString *selectedTimeSectionString;//选中的时间段
 @property (weak, nonatomic) IBOutlet UIView *dateView;
 
 @property (weak, nonatomic) IBOutlet UIButton *preWeek;
 @property (weak, nonatomic) IBOutlet UIButton *nextWeek;
 
 @property (nonatomic, assign) int curWeekOffset;//默认为0，往后偏移一周为1，往后偏移两周为2
+@property (nonatomic, assign) int selectedWeekOffset;//当前选中的week偏移数，
 
-@property (nonatomic, assign) NSTimeInterval selectedDateTimestamp;
+@property (nonatomic, assign) NSTimeInterval selectedDateTimestamp;//选中的比赛日期的时间戳
+
+
 @end
 
 @implementation FTGymDetailViewController
 
 - (void)viewDidLoad {
-    NSLog(@"get one day 0 : %d", [FTTools getOneDay:0]);
     [super viewDidLoad];
+    [self setSupportItemsCollection];
     [self initBaseData];
     [self initSubViews];
-    [self getTimeSlots];//获取拳馆固定的时间段q
-    [self setSupportItemsCollection];//设置支持设施view
-//    [self setSupportLabelsView];//设置支持项目view
+    [self getGymInfo];
+    [self getTimeSlots];//获取拳馆固定的时间段
+    
 }
 
 - (void)initSubViews{
@@ -253,7 +261,7 @@
 }
 
 /**
- *  获取时间段
+ *  获取时间段信息
  */
 - (void)getTimeSlots{
     [NetWorking getGymTimeSlotsById:@"165" andOption:^(NSArray *array) {
@@ -266,7 +274,20 @@
             //获取基本的时间段信息后，再获取占用情况
             [self gettimeSectionsUsingInfo];
         }
+        
+    }];
+}
 
+
+/**
+ *  获取拳馆信息
+ */
+- (void)getGymInfo{
+    [NetWorking getGymInfoById:@"158" andOption:^(NSDictionary *dic) {
+        _gymInfoDic = dic;
+        if (_gymInfoDic && _gymInfoDic.count > 0) {
+            [self setGymInfo];
+        }
     }];
 }
 
@@ -287,6 +308,102 @@
             [self reloadTableViews];
         }
     }];
+}
+
+//设置拳馆基础信息
+- (void)setGymInfo{
+    //拳馆使用基础费用
+    _gymServicePriceLabel.text = [NSString stringWithFormat:@"%@", _gymInfoDic[@"service_price"]];
+    
+    //门票
+    //如果拳馆方设定门票为免费，则门票为免费，比赛发起人也不能设置
+    NSString *is_sale_ticket = [NSString stringWithFormat:@"%@", _gymInfoDic[@"is_sale_ticket"]];
+    if ([is_sale_ticket isEqualToString:@"1"]) {
+        _isFreeTicket = YES;
+    } else {
+        _isFreeTicket = NO;
+    }
+    
+    if (_isFreeTicket) {
+        _basicPrice = [NSString stringWithFormat:@"%@ 元", _gymInfoDic[@"ticket_price"]];
+        _totalPriceLabel.text = _basicPrice;
+    } else {
+        _totalPriceLabel.text = @"免费";
+        _totalPriceLabel.textColor = [UIColor colorWithHex:0xb4b4b4];
+        _adjustTicketButton.hidden = YES;
+    }
+    
+    //设置支持的设施
+    [self setSupportItems];
+    [_supportItemsCollectionView reloadData];
+    
+    //设置支持的项目
+    [self setSupportLabelsView];
+//    [self labelsViewAdapter:@"泰拳,跆拳道,女子格斗,柔道,相扑"];
+}
+
+
+- (void)setSupportItems{
+    _supportItemsArray = [NSMutableArray new];
+    
+//    BOOL supportBathe  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_bathe"]] isEqualToString:@"1"];
+//    if (supportBathe) {
+//        [_supportItemsArray addObject:@"sup_bathe"];
+//    }
+//    
+//    BOOL supportApparatus  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_prop"]] isEqualToString:@"1"];
+//    if (supportApparatus) {
+//        [_supportItemsArray addObject:@"sup_prop"];
+//    }
+//    
+//    BOOL supportSecurity  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_security"]] isEqualToString:@"1"];
+//    if (supportSecurity) {
+//        [_supportItemsArray addObject:@"sup_security"];
+//    }
+//    
+//    BOOL supportShoot  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_shoot"]] isEqualToString:@"1"];
+//    if (supportShoot) {
+//        [_supportItemsArray addObject:@"sup_shoot"];
+//    }
+//    
+//    BOOL supportWifi  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_wifi"]] isEqualToString:@"1"];
+//    if (supportWifi) {
+//        [_supportItemsArray addObject:@"sup_wifi"];
+//    }
+//    
+//    BOOL supportReferee  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_referee"]] isEqualToString:@"1"];
+//    if (supportReferee) {
+//        [_supportItemsArray addObject:@"sup_referee"];
+//    }
+    BOOL supportBathe  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_bathe"]] isEqualToString:@"1"];
+    if (!supportBathe) {
+        [_supportItemsArray addObject:@"sup_bathe"];
+    }
+    
+    BOOL supportApparatus  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_prop"]] isEqualToString:@"1"];
+    if (!supportApparatus) {
+        [_supportItemsArray addObject:@"sup_prop"];
+    }
+    
+    BOOL supportSecurity  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_security"]] isEqualToString:@"1"];
+    if (!supportSecurity) {
+        [_supportItemsArray addObject:@"sup_security"];
+    }
+    
+    BOOL supportShoot  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_shoot"]] isEqualToString:@"1"];
+    if (!supportShoot) {
+        [_supportItemsArray addObject:@"sup_shoot"];
+    }
+    
+    BOOL supportWifi  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_wifi"]] isEqualToString:@"1"];
+    if (!supportWifi) {
+        [_supportItemsArray addObject:@"sup_wifi"];
+    }
+    
+    BOOL supportReferee  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_referee"]] isEqualToString:@"1"];
+    if (!supportReferee) {
+        [_supportItemsArray addObject:@"sup_referee"];
+    }
 }
 
 //设置上方支持的item
@@ -320,11 +437,15 @@
     [_supportItemsCollectionView reloadData];
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 6;
+    if (_supportItemsArray) {
+        return _supportItemsArray.count;
+    }
+    return 0;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     FTGymSupportItemsCollectionViewCell *supportItemsCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"supportItemsCell" forIndexPath:indexPath];
-    
+        supportItemsCell.itemImageView.image = [UIImage imageNamed:[FTTools getGymSupportItemImageNameWithItemNameEn:_supportItemsArray[indexPath.row]]];
+        supportItemsCell.itemNameLabel.text = [FTTools getGymSupportItemNameWithItemNameEn:_supportItemsArray[indexPath.row]];
     return supportItemsCell;
 }
 #pragma -mark -初始化collectionView
@@ -343,38 +464,50 @@
     FTLaunchNewMatchViewController *launchNewMatchViewController = self.navigationController.viewControllers[1];
     launchNewMatchViewController.selectedGymLabel.text = @"天下一武馆";
     launchNewMatchViewController.totalTicketPriceLabel.text = [NSString stringWithFormat:@"%d 元", [_basicPrice intValue] + [_extraPrice intValue]];
+    launchNewMatchViewController.selectedDateTimestamp = _selectedDateTimestamp;
+    launchNewMatchViewController.selectedTimeSectionString = _selectedTimeSectionString;
+    launchNewMatchViewController.matchTimeLabel.text = [FTTools getDateStringWith:_selectedDateTimestamp andTimeSection:_selectedTimeSectionString];
+    
     [self.navigationController popToViewController:launchNewMatchViewController animated:YES];
 }
 
+
 - (void)setSupportLabelsView{
-    NSString *labelsString = @"";
+//    NSString *labelsString = @"泰拳,跆拳道,散打";
+    NSString *labelsString = @"泰拳,跆拳道,女子格斗,柔道,相扑,泰拳,跆拳道,女子格斗,柔道,相扑,泰拳,跆拳道,女子格斗,柔道,相扑";
     if (!labelsString ||labelsString.length == 0)
         return;
     
-    CGFloat width = SCREEN_WIDTH - 93;
+    CGFloat width = SCREEN_WIDTH - 111;
     CGFloat w=0;
     CGFloat h=14;
     CGFloat x=0;
     CGFloat y=0;
     
-    NSArray *labels = [labelsString componentsSeparatedByString:@", "];
+    NSArray *labels = [labelsString componentsSeparatedByString:@","];
     
     for (NSString *label in labels) {
-        UIImageView *labelView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"格斗标签-%@", label]]];
-        w = labelView.frame.size.width;
-        h = labelView.frame.size.height;
+        UIImageView *labelImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"格斗标签-%@", label]]];
+        w = labelImageView.frame.size.width;
+        h = labelImageView.frame.size.height;
         if (x + w <= width) {
-            labelView.frame = CGRectMake(x, y, w, h);
+            labelImageView.frame = CGRectMake(x, y, w, h);
             x = x + w + 8;
         }else {
             x = 0;
             y = y + h + 6;
-            labelView.frame = CGRectMake(x, y, w, h);
+            labelImageView.frame = CGRectMake(x, y, w, h);
+            x = x + w + 8;
         }
         
-        [self.labelsView addSubview:labelView];
+        [self.labelsView addSubview:labelImageView];
     }
-    _labelsViewHeight.constant = y;
+    if (y > 20) {
+        _labelsViewHeight.constant = y + 6;
+    }else{
+        _labelsViewHeight.constant = y;
+    }
+    
 //    _labelsFatherViewHeight.constant = _labelsFatherViewHeight.constant - 20 + y;
 }
 
@@ -385,7 +518,7 @@
 - (IBAction)adjustTicketButtonClicked:(id)sender {
     NSLog(@"调整门票价格");
     
-    if (!_priceContentView) {
+//    if (!_priceContentView) {
         _priceContentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         _priceContentView.backgroundColor = [UIColor clearColor];
         
@@ -395,16 +528,17 @@
         
         [_priceContentView addSubview:bgView];
         _setTicketPriceView = [[[NSBundle mainBundle]loadNibNamed:@"FTSetTicketPriceViewTableViewCell" owner:nil options:nil]firstObject];
-//        _setTicketPriceView.basicPrice = _basicPrice;
+        _setTicketPriceView.basicPrice = _basicPrice;
+        [_setTicketPriceView setPirceLabelWithBasicPrice:_basicPrice andExtraPrice:_extraPrice];
         _setTicketPriceView.delegate = self;
         _setTicketPriceView.center = CGPointMake(_priceContentView.center.x, _priceContentView.center.y - 100);
         [_priceContentView addSubview:_setTicketPriceView];
         
         [[[UIApplication sharedApplication]keyWindow] addSubview:_priceContentView];
-    }else{
-        _priceContentView.hidden = NO;
-        [_setTicketPriceView.extraPriceTextField becomeFirstResponder];
-    }
+//    }else{
+//        _priceContentView.hidden = NO;
+//        [_setTicketPriceView.extraPriceTextField becomeFirstResponder];
+//    }
 }
 
 //调整价格 “确定”
@@ -413,7 +547,7 @@
     _basicPrice = basicPriceString;
     _extraPrice = expraPriceString;
     [[[UIApplication sharedApplication]keyWindow]endEditing:YES];
-    _totalPriceLabel.text = [NSString stringWithFormat:@"%d", [_basicPrice intValue] + [_extraPrice intValue]];
+    _totalPriceLabel.text = [NSString stringWithFormat:@"%d 元", [_basicPrice intValue] + [_extraPrice intValue]];
     _totalPriceLabel.textColor = [UIColor redColor];
 }
 
@@ -476,10 +610,14 @@
     if (dic) {//如果有数据
         NSString *timeSection1 = dic[@"timeSection"];//可选时间段
         NSString *timeSection2 = _timeSectionsArray[indexPath.row][@"timeSection"];//cell代表的固定时间段
-        if ([timeSection1 isEqualToString: timeSection2]) {
+        if ([timeSection1 isEqualToString: timeSection2]) {//
             cell.isAvailable = YES;
-
-            if (theTableView.day == _selectedWeekday && [timeSection1 isEqualToString: _selectedTimeSectionString]) {
+            
+            BOOL isTheSameWeek = _curWeekOffset == _selectedWeekOffset;//周是否相同
+            BOOL isTheSameWeekday = theTableView.day == _selectedWeekday;//weekday是否相同
+            BOOL isTheSameTimeSection = [timeSection1 isEqualToString: _selectedTimeSectionString];//时间段是否相同
+            
+            if (isTheSameWeek && isTheSameWeekday && isTheSameTimeSection) {
                 cell.selectionImage.hidden = NO;
             }else{
                 cell.selectionImage.hidden = YES;
@@ -509,6 +647,7 @@
         if ([timeSection1 isEqualToString: timeSection2]) {//可以选中
             _selectedWeekday = theTableView.day;
             _selectedTimeSectionString = timeSection1;
+            _selectedWeekOffset = _curWeekOffset;
 //            [mdic setObject:@"YES" forKey:@"isSelected"];
             [theTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             [self reloadTableViews];

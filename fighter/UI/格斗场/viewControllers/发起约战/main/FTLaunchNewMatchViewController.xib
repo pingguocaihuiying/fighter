@@ -15,6 +15,7 @@
                 <outlet property="matchIncomeViewHeight" destination="8u3-V5-6s1" id="Oyu-9g-pAO"/>
                 <outlet property="matchOverOneLevelButton" destination="99V-VF-4Tz" id="Evq-10-q0P"/>
                 <outlet property="matchOverTwoLevelButton" destination="8zR-h3-S9e" id="OFc-KA-tno"/>
+                <outlet property="matchTimeLabel" destination="BJE-p9-KEM" id="Q7j-gL-9eZ"/>
                 <outlet property="opponentIncomeLabel" destination="lsC-HZ-5mS" id="Cz1-VA-tXn"/>
                 <outlet property="opponentLabel" destination="Hyu-mv-fSR" id="84F-js-NWb"/>
                 <outlet property="opponentPayButton" destination="kOm-TJ-n1z" id="sEx-GF-HWx"/>

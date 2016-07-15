@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface FTGymSupportItemsCollectionViewCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *itemImageView;
+@property (weak, nonatomic) IBOutlet UILabel *itemNameLabel;
 
 @end

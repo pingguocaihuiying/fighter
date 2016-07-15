@@ -175,7 +175,8 @@ extern NSString * const GetGymTimeSlotsByIdURL;
 extern NSString * const GetGymPlacesByIdURL;
 //获取拳馆的场地使用信息
 extern NSString * const GetGymPlacesUsingInfoByIdURL;
-
+//获取拳馆的基本信息
+extern NSString * const GetGymInfoByIdURL;
 #pragma mark - 充值、购买、积分
 // 查询余额接口
 extern NSString * const QueryMoneyURL;

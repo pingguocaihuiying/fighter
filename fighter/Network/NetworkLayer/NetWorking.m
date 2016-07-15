@@ -978,7 +978,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     assert(gymId);
     
     urlString = [NSString stringWithFormat:@"%@?corporationid=%@", urlString, gymId];
-    NSLog(@"get news by id urlString : %@", urlString);
+    NSLog(@"getGymTimeSlotsById urlString : %@", urlString);
     [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         //        [ZJModelTool createModelWithDictionary:responseObject modelName:nil];
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -1037,6 +1037,27 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     }];
 }
 
+//获取拳馆信息
++ (void)getGymInfoById:(NSString *)gymId andOption:(void (^)(NSDictionary *dic))option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetGymInfoByIdURL];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    assert(gymId);
+    urlString = [NSString stringWithFormat:@"%@?gym_corporationid=%@", urlString, gymId];
+    
+//    NSLog(@"getGymInfoById %@", urlString);
+    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"message : %@", responseDic[@"message"]);
+        NSDictionary *dic = responseDic[@"data"];
+        if (dic && dic != (id)[NSNull null]) {
+            option(dic);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        option(nil);
+    }];
+}
 
 #pragma mark - 充值购买
 
@@ -1063,10 +1084,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     [self postRequestWithUrl:urlString
                   parameters:dic
                       option:option];
-                      
-    
 }
-
 // 分享后回调添加积分
 + (void) getPointByShareWithPlatform:(NSString *)platform option:(void (^)(NSDictionary *dict))option{
     NSString *urlString = [FTNetConfig host:Domain path:ExtensionTaskURL];

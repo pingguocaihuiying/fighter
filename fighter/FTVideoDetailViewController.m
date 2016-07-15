@@ -129,10 +129,6 @@
 }
 
 - (void)setSubViews{
-    //给“我要评论”label增加监听事件
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(commentButtonClicked:)];
-    [self.commentLabel addGestureRecognizer:tap];
-    self.commentLabel.userInteractionEnabled = YES;
     
     [self setEvnetListenerOfBottomViews];
     

@@ -29,7 +29,6 @@
 @property (nonatomic, assign)BOOL hasStar;
 @property (nonatomic, strong)FTVideoBean *videoBean;
 @property (nonatomic, strong) FTArenaBean *arenaBean;
-@property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UIView *favourateView;
 @property (weak, nonatomic) IBOutlet UIView *shareView;
 @property (weak, nonatomic) IBOutlet UIView *commentView;

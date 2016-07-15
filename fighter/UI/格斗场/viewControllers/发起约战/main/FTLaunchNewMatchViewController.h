@@ -41,5 +41,9 @@ typedef NS_ENUM(NSInteger, FTMatchConsultPayMode) {//协定支付方式
 @property (assign, nonatomic) FTMatchConsultPayMode matchPayConsultMode; //协议支付具体类型（二级）
 @property (weak, nonatomic) IBOutlet UILabel *totalTicketPriceLabel;//门票价格label
 
+@property (nonatomic, assign) NSTimeInterval selectedDateTimestamp;//选中的比赛日期的时间戳
+@property (nonatomic, copy) NSString *selectedTimeSectionString;//选中的时间段
+
+@property (weak, nonatomic) IBOutlet UILabel *matchTimeLabel;
 - (void)displayMatchTypeButtons;//刷新匹配级别按钮
 @end
