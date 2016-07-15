@@ -14,4 +14,8 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *selectImageView;
 
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+
+- (void) setPriceLabelPrice:(NSString *) price  Power:(NSString *) power;
+
 @end

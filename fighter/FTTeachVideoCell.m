@@ -44,10 +44,39 @@
     self.viewCountlabel.text = [NSString stringWithFormat:@"(%@)", bean.viewCount];
     
     if (bean.price) {
-        [self.priceLabel setText:[NSString stringWithFormat:@"%@P",bean.price]];
+        
+        if ([bean.price isEqualToString:@"0"]) {
+            [self.priceLabel setText:@"免费"];
+            return;
+        }
+        
+        [self setBalanceText:[NSString stringWithFormat:@"%@",bean.price]];
     }
+    
     //根据newsType去设置类型图片
 //    self.priceImageView.image = [UIImage imageNamed:[FTTools getChLabelNameWithEnLabelName:bean.videosType]];
+}
+
+#pragma mark - 显示余额
+- (void) setBalanceText:(NSString *) balanceString {
+    
+    //第一段
+    NSDictionary *attrDict1 = @{ NSFontAttributeName: [UIFont systemFontOfSize:14.0],
+                                 NSForegroundColorAttributeName: [UIColor whiteColor] };
+    NSAttributedString *attrStr1 = [[NSAttributedString alloc] initWithString: balanceString attributes: attrDict1];
+    
+    //第二段
+    NSDictionary *attrDict2 = @{ NSFontAttributeName: [UIFont systemFontOfSize:11.0],
+                                 NSForegroundColorAttributeName: [UIColor whiteColor] };
+    
+    NSAttributedString *attrStr2 = [[NSAttributedString alloc] initWithString: @"P" attributes: attrDict2];
+    
+    //合并
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithAttributedString: attrStr1];
+    [text appendAttributedString: attrStr2];
+    
+    [self.priceLabel setAttributedText:text];
+    
 }
 
 

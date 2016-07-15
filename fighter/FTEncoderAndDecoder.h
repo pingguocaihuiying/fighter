@@ -29,4 +29,7 @@
 #pragma mark - AES解密
 //将带密码的data转成string
 +(NSString*)decryptAESData:(NSData*)data  app_key:(NSString*)key;
+
+#pragma mark - url转码
++ (NSString *)encodeToPercentEscapeString: (NSString *) input;
 @end

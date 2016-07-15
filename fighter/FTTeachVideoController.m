@@ -8,7 +8,9 @@
 
 #import "FTTeachVideoController.h"
 #import "FTVideoCollectionViewCell.h"
-#import "FTVideoDetailViewController.h"
+//#import "FTVideoDetailViewController.h"
+#import "FTTeachVideoDetailController.h"
+#import "FTLoginViewController.h"
 
 #import "RBRequestOperationManager.h"
 #import "FTNetConfig.h"
@@ -89,7 +91,7 @@
     
 }
 
-#pragma -mark -初始化collectionView
+#pragma -mark - 初始化collectionView
 - (void)initCollectionView{
     
 //    _collectionView.backgroundColor = [UIColor clearColor];
@@ -276,16 +278,7 @@
                                                  
                                                  if (_videoUrl.length > 0) {
                                                      // 跳转到播放页
-                                                     FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
-                                                     videoDetailVC.videoBean = bean;
-                                                     NSIndexPath *theIndexPath = [NSIndexPath indexPathForRow:currentIndexPath.row inSection:currentIndexPath.section];
-                                                     NSLog(@"section : %ld, row : %ld", (long)currentIndexPath.section, (long)currentIndexPath.row);
-                                                     videoDetailVC.indexPath = theIndexPath;
-                                                     
-                                                     videoDetailVC.delegate = self;
-                                                     
-                                                     [self.navigationController pushViewController:videoDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
-                                                     
+                                                     [self pushToDetailVC:bean indexPath:currentIndexPath];
                                                  }
                                              }
                                          }];
@@ -326,7 +319,13 @@
                 }
             }];
         }
+    
+    }else if(alertView.tag == 1000+3) {
         
+        if (buttonIndex == 1) {
+            // 跳转到登录页面
+            [self login];
+        }
     }
 }
 
@@ -339,8 +338,25 @@
 //选中触发的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    currentIndexPath = indexPath;
+    @try {
     
+        //从本地读取存储的用户信息
+        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+        
+        if (localUserData == nil ) {
+            UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@""
+                                                                message:@"还没有登录哟，付费视频只有登录之后才能观看，赶紧去登录吧~"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"取消"
+                                                      otherButtonTitles:@"登录",nil];
+            
+            alerView.tag = 1000+3;
+            [alerView show];
+            
+            return;
+        }
+        
+    currentIndexPath = indexPath;
     NSDictionary *newsDic = self.array[indexPath.row];
     FTVideoBean *bean = [FTVideoBean new];
     [bean setValuesWithDic:newsDic];
@@ -400,16 +416,8 @@
                                              
                                              if (_videoUrl.length > 0) {
                                                  // 跳转到播放页
-                                                 FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
-                                                 videoDetailVC.videoBean = bean;
+                                                 [self pushToDetailVC:bean indexPath:indexPath];
                                                  
-                                                 NSIndexPath *theIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
-                                                 NSLog(@"section : %ld, row : %ld", (long)indexPath.section, (long)indexPath.row);
-                                                 videoDetailVC.indexPath = theIndexPath;
-                                                 
-                                                 videoDetailVC.delegate = self;
-                                                 
-                                                 [self.navigationController pushViewController:videoDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
                                              }
                                          }
                 }];
@@ -427,24 +435,13 @@
         }
     }];
     
-    
-//    if (self.array) {
-//        FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
-////        //获取对应的bean，传递给下个vc
-//        NSDictionary *newsDic = self.array[indexPath.row];
-//        FTVideoBean *bean = [FTVideoBean new];
-//        [bean setValuesWithDic:newsDic];
-//
-//
-//        videoDetailVC.videoBean = bean;
-//        NSIndexPath *theIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
-//        NSLog(@"section : %ld, row : %ld", (long)indexPath.section, (long)indexPath.row);
-//        videoDetailVC.indexPath = theIndexPath;
-//        
-//        videoDetailVC.delegate = self;
-//        
-//        [self.navigationController pushViewController:videoDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
-//    }
+        
+        
+    } @catch (NSException *exception) {
+        NSLog(@"excetion:%@",exception);
+    } @finally {
+        
+    }
 }
 
 //某组有多少行
@@ -522,7 +519,29 @@
    [self getDataWithGetType:@"new" andCurrId:@"-1"];
 }
 
-#pragma mark - response 
+#pragma mark - 登录
+// 跳转登录界面方法
+- (void)login {
+    
+    FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+    loginVC.title = @"登录";
+    FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+
+#pragma mark - 跳转详情页
+-  (void) pushToDetailVC:(FTVideoBean *) bean indexPath:(NSIndexPath *) indexPath {
+    
+    FTTeachVideoDetailController *videoDetailVC = [FTTeachVideoDetailController new];
+    videoDetailVC.videoBean = bean;
+    videoDetailVC.indexPath = indexPath;
+    videoDetailVC.delegate = self;
+    [self.navigationController pushViewController:videoDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+    
+}
+
+
+#pragma mark - response
 
 - (void) backBtnAction:(id)btn {
     

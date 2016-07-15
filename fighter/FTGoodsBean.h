@@ -11,8 +11,10 @@
 @interface FTGoodsBean : FTBaseBean
 
 @property (nonatomic,copy) NSString *goodsId;  // 商品标签
-@property (nonatomic,copy) NSDecimalNumber *price;    // 商品价格
+@property (nonatomic,strong) NSDecimalNumber *price;    // 商品价格
 @property (nonatomic,copy) NSString *descriptions; // 商品简述，限制长度28
 @property (nonatomic,copy) NSString *details;   // 商品详细描述
+
+@property (nonatomic,strong) NSDecimalNumber *power;//商品对Power币
 
 @end
