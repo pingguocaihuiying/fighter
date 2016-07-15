@@ -15,4 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIView *spaceView;
 @property (weak, nonatomic) IBOutlet UIButton *payBtn;
 
+- (void) setBalanceText:(NSString *) balanceString;
+
 @end

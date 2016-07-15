@@ -313,4 +313,17 @@
     return str;
 }
 
+#pragma mark - url转码
++ (NSString *)encodeToPercentEscapeString: (NSString *) input
+{
+    NSString *outputStr = (NSString *)
+    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                              (CFStringRef)input,
+                                                              NULL,
+                                                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                              kCFStringEncodingUTF8));
+    return outputStr;
+}
+
+
 @end

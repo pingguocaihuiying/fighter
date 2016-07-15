@@ -165,8 +165,8 @@
     [dic setObject:pageSize forKey:@"pageSize"];
     [dic setObject:pageNum forKey:@"pageNum"];
     
-    if (_label && _label.length > 0) {
-        [dic setObject:_label forKey:@"label"];
+    if (_label && _label.length > 0 && ![_label isEqualToString:@"ALL"]) {
+        [dic setObject:_label forKey:@"labels"];
     }
     
     if (_address && _address.length > 0) {
@@ -558,7 +558,7 @@
         NSMutableArray *array = [[NSMutableArray alloc]initWithArray:[FTNWGetCategory sharedCategories]];
         
         NSMutableDictionary *dic = [NSMutableDictionary new];
-        [dic setObject:@"All" forKey:@"itemValueEn"];
+        [dic setObject:@"ALL" forKey:@"itemValueEn"];
         [dic setObject:@"全部" forKey:@"itemValue"];
         [array insertObject:dic atIndex:0];
         

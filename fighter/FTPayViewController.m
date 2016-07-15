@@ -46,6 +46,9 @@ enum{
 @property (nonatomic, strong) NSArray *array;
 @property (nonatomic, strong) NSArray *preArray;
 @property (nonatomic, copy) NSString *orderNO;
+
+@property (nonatomic, strong) NSArray *priceArray;
+@property (nonatomic, strong) NSArray *powerArray;
 @end
 
 @implementation FTPayViewController
@@ -62,7 +65,6 @@ enum{
     [self setNavigationBar];
     
     [self initSubviews];
-    
     
 //    [PBEWithMD5AndDES decodeWithPBE:@""];
 //    [PBEWithMD5AndDES encodeWithPBE:@""];
@@ -89,6 +91,20 @@ enum{
                @"充值4按钮cpre",
                @"充值4按钮dpre"
                ];
+    
+    _priceArray = @[
+                    @"6",
+                    @"30",
+                    @"128",
+                    @"588"
+                    ];
+    
+    _powerArray = @[
+                    @"10",
+                    @"80",
+                    @"360",
+                    @"2500"
+                    ];
     
     
     // 添加商品
@@ -122,33 +138,7 @@ enum{
     goodsBean4.details = @"Power币 2500P，可以用来购买视频，格斗东西app相关服务";
     [_goodsArray addObject:goodsBean4];
     
-    
 }
-
-// 从服务器获余额
-- (void) fetchBalanceFromWeb {
-
-    // 获取余额
-    [NetWorking queryMoneyWithOption:^(NSDictionary *dict) {
-        
-        NSLog(@"dict:%@",dict);
-        if ([dict[@"status"] isEqualToString:@"success"] && dict[@"data"]) {
-            
-            NSDictionary *dic = dict[@"data"];
-            
-            NSInteger taskTotal = [dic[@"taskTotal"] integerValue];
-            NSInteger otherTotal = [dic[@"otherTotal"] integerValue];
-            NSInteger cost = [dic[@"cost"] integerValue];
-            
-            [_balanceLabel setText:[NSString stringWithFormat:@"%ldP",taskTotal+otherTotal-cost]];
-        }else {
-            
-            NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-        }
-    }];
-
-}
-
 
 - (void) setNavigationBar {
     self.title = @"充值";
@@ -160,7 +150,11 @@ enum{
     [cancleBtn setTitleColor:[UIColor colorWithHex:0xb4b4b4] forState:UIControlStateNormal];
     [cancleBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:cancleBtn];
-
+    
+    //取消返回按钮
+    [self.navigationController.navigationItem setHidesBackButton:YES];
+    [self.navigationItem setHidesBackButton:YES];
+    [self.navigationController.navigationBar.backItem setHidesBackButton:YES];
     
 }
 
@@ -180,13 +174,6 @@ enum{
     // Dispose of any resources that can be recreated.
 }
 
-
-
-
--(void)RequestProductData
-{
-    
-}
 
 #pragma mark - response methods
 //确认支付按钮
@@ -253,25 +240,49 @@ enum{
 {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     NSArray *myProduct = response.products;
-    NSLog(@"产品Product ID:%@",response.invalidProductIdentifiers);
-    NSLog(@"产品付费数量: %lu", (unsigned long)[myProduct count]);
+//    NSLog(@"产品Product ID:%@",response.invalidProductIdentifiers);
+//    NSLog(@"产品付费数量: %lu", (unsigned long)[myProduct count]);
     
     FTGoodsBean *bean = [FTGoodsBean new];
     
-    
     for(SKProduct *product in myProduct){
-        NSLog(@"product info");
-        NSLog(@"SKProduct 描述信息%@", [product description]);
-        NSLog(@"产品标题 %@" , product.localizedTitle);
-        NSLog(@"产品描述信息: %@" , product.localizedDescription);
-        NSLog(@"价格: %@" , product.price);
-        NSLog(@"Product id: %@" , product.productIdentifier);
+//        NSLog(@"product info");
+//        NSLog(@"SKProduct 描述信息%@", [product description]);
+//        NSLog(@"产品标题 %@" , product.localizedTitle);
+//        NSLog(@"产品描述信息: %@" , product.localizedDescription);
+//        NSLog(@"价格: %@" , product.price);
+//        NSLog(@"Product id: %@" , product.productIdentifier);
         
-        bean.goodsId =  product.productIdentifier;
-        bean.descriptions = product.localizedTitle;
-        bean.details = product.localizedDescription;
-        bean.price = product.price;
+        bean.goodsId =  product.productIdentifier; // Product id
+        bean.descriptions = product.localizedTitle;// 产品标题
+        bean.details = product.localizedDescription;// 产品描述信息
+        bean.price = product.price;//价格
     }
+    
+    SKPayment *payment = nil;
+    SKProduct *product = [myProduct objectAtIndex:0];
+    switch (buyType) {
+        case PowerCoin_10P:
+            payment= [SKPayment paymentWithProduct:product];
+            bean.power = [[NSDecimalNumber alloc]initWithInt:10];
+            break;
+        case PowerCoin_80P:
+            payment= [SKPayment paymentWithProduct:product];
+            bean.power = [[NSDecimalNumber alloc]initWithInt:30];
+            break;
+        case PowerCoin_360P:
+            payment= [SKPayment paymentWithProduct:product];
+            bean.power = [[NSDecimalNumber alloc]initWithInt:128];
+            break;
+        case PowerCoin_2500P:
+            payment= [SKPayment paymentWithProduct:product];
+            bean.power = [[NSDecimalNumber alloc]initWithInt:588];
+            break;
+            
+        default:
+            break;
+    }
+
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [NetWorking rechargeIAPByGoods:bean option:^(NSDictionary *dict) {
@@ -284,25 +295,6 @@ enum{
         if (order.length > 0) {
             
             _orderNO = order;
-            SKPayment *payment = nil;
-            SKProduct *product = [myProduct objectAtIndex:0];
-            switch (buyType) {
-                case PowerCoin_10P:
-                    payment= [SKPayment paymentWithProduct:product];
-                    break;
-                case PowerCoin_80P:
-                    payment= [SKPayment paymentWithProduct:product];
-                    break;
-                case PowerCoin_360P:
-                    payment= [SKPayment paymentWithProduct:product];
-                    break;
-                case PowerCoin_2500P:
-                    payment= [SKPayment paymentWithProduct:product];
-                    break;
-                    
-                default:
-                    break;
-            }
             
             NSLog(@"---------发送购买请求------------");
             [[SKPaymentQueue defaultQueue] addPayment:payment];
@@ -319,8 +311,6 @@ enum{
         }
         
     }];
-    
-    
     
 }
 
@@ -502,23 +492,34 @@ enum{
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     FTPayCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.selectImageView.hidden = YES;
-    if (indexPath.row == 0) {
-        NSString *imgName = [_array objectAtIndex:indexPath.row];
-        
-        if (imgName ) {
-            cell.backImageView.image = [UIImage imageNamed:imgName];
-        }
-    }else {
     
-        NSString *imgName = [_preArray objectAtIndex:indexPath.row];
-        
-        if (imgName ) {
-            cell.backImageView.image = [UIImage imageNamed:imgName];
-        }
+    [cell setPriceLabelPrice:[_priceArray objectAtIndex:indexPath.row] Power:[_powerArray objectAtIndex:indexPath.row]];
 
+//    if (indexPath.row == 0) {
+//        NSString *imgName = [_array objectAtIndex:indexPath.row];
+//        
+//        if (imgName ) {
+//            cell.backImageView.image = [UIImage imageNamed:imgName];
+//        }
+//    }else {
+//    
+//        NSString *imgName = [_preArray objectAtIndex:indexPath.row];
+//        
+//        if (imgName ) {
+//            cell.backImageView.image = [UIImage imageNamed:imgName];
+//        }
+//
+//        
+//    }
+    if (indexPath.row == 0) {
         
+        cell.backImageView.image = [UIImage imageNamed:@"充值背景"];
+        
+    }else {
+        
+        cell.backImageView.image = [UIImage imageNamed:@"充值背景pre"];
     }
-   
+    
     
     return cell;
 }
@@ -528,11 +529,13 @@ enum{
     
     if (indexPath.row == 0) {
         FTPayCell *cell = (FTPayCell *)[collectionView cellForItemAtIndexPath:indexPath];
-        NSString *imgName = [_preArray objectAtIndex:indexPath.row];
+//        NSString *imgName = [_preArray objectAtIndex:indexPath.row];
         cell.selectImageView.hidden = NO;
-        if (imgName ) {
-            cell.backImageView.image = [UIImage imageNamed:imgName];
-        }
+//        if (imgName ) {
+//            cell.backImageView.image = [UIImage imageNamed:imgName];
+//        }
+
+        cell.backImageView.image = [UIImage imageNamed:@"充值背景pre"];
         
         buyType = (int) indexPath.row + 10;
     }else {
@@ -547,11 +550,12 @@ enum{
     
     if (indexPath.row == 0) {
         FTPayCell *cell = (FTPayCell *)[collectionView cellForItemAtIndexPath:indexPath];
-        NSString *imgName = [_array objectAtIndex:indexPath.row];
+//        NSString *imgName = [_array objectAtIndex:indexPath.row];
         cell.selectImageView.hidden = YES;
-        if (imgName ) {
-            cell.backImageView.image = [UIImage imageNamed:imgName];
-        }
+//        if (imgName ) {
+//            cell.backImageView.image = [UIImage imageNamed:imgName];
+//        }
+        cell.backImageView.image = [UIImage imageNamed:@"充值背景"];
     }
     
 }
@@ -583,18 +587,50 @@ enum{
 }
 
 
-#pragma mark - private method
-//url转码
-- (NSString *)encodeToPercentEscapeString: (NSString *) input
-{
-    NSString *outputStr = (NSString *)
-    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                              (CFStringRef)input,
-                                                              NULL,
-                                                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                                              kCFStringEncodingUTF8));
-    return outputStr;
+#pragma mark - 查询余额
+- (void) fetchBalanceFromWeb {
+    
+    // 获取余额
+    [NetWorking queryMoneyWithOption:^(NSDictionary *dict) {
+        
+        NSLog(@"dict:%@",dict);
+        if ([dict[@"status"] isEqualToString:@"success"] && dict[@"data"]) {
+            
+            NSDictionary *dic = dict[@"data"];
+            
+            NSInteger taskTotal = [dic[@"taskTotal"] integerValue];
+            NSInteger otherTotal = [dic[@"otherTotal"] integerValue];
+            NSInteger cost = [dic[@"cost"] integerValue];
+            
+            [self setBalanceText:[NSString stringWithFormat:@"%ld",taskTotal+otherTotal-cost]];
+//            [_balanceLabel setText:[NSString stringWithFormat:@"%ldP",taskTotal+otherTotal-cost]];
+        }else {
+            
+            NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+        }
+    }];
 }
 
+#pragma mark - 显示余额
+- (void) setBalanceText:(NSString *) balanceString {
+
+    //第一段
+    NSDictionary *attrDict1 = @{ NSFontAttributeName: [UIFont systemFontOfSize:16.0],
+                                 NSForegroundColorAttributeName: [UIColor redColor] };
+    NSAttributedString *attrStr1 = [[NSAttributedString alloc] initWithString: balanceString attributes: attrDict1];
+    
+    //第二段
+    NSDictionary *attrDict2 = @{ NSFontAttributeName: [UIFont systemFontOfSize:12.0],
+                                 NSForegroundColorAttributeName: [UIColor redColor] };
+    
+    NSAttributedString *attrStr2 = [[NSAttributedString alloc] initWithString: @"P" attributes: attrDict2];
+    
+    //合并
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithAttributedString: attrStr1];
+    [text appendAttributedString: attrStr2];
+    
+    [_balanceLabel setAttributedText:text];
+
+}
 
 @end

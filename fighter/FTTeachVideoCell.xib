@@ -23,7 +23,7 @@
                                     <constraint firstAttribute="height" constant="16" id="k02-dZ-6GB"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wbn-6a-Ja8">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wbn-6a-Ja8">
                                 <rect key="frame" x="0.0" y="0.0" width="164" height="92"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
@@ -45,13 +45,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="视频价签" translatesAutoresizingMaskIntoConstraints="NO" id="Sph-uP-ouc" userLabel="price Image View">
-                                        <rect key="frame" x="113" y="1" width="51" height="14"/>
+                                        <rect key="frame" x="111" y="1" width="51" height="14"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="14" id="BZH-oi-PDB"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0P" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gU-2Z-Fal">
-                                        <rect key="frame" x="125" y="0.0" width="16" height="16"/>
+                                        <rect key="frame" x="123" y="0.0" width="16" height="16"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -59,7 +59,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="Sph-uP-ouc" secondAttribute="trailing" id="2iO-6s-hmN"/>
+                                    <constraint firstItem="Sph-uP-ouc" firstAttribute="trailing" secondItem="hMx-bU-T4V" secondAttribute="trailing" constant="-2" id="2iO-6s-hmN"/>
                                     <constraint firstItem="t4z-kj-D3d" firstAttribute="leading" secondItem="hMx-bU-T4V" secondAttribute="leading" id="4VW-cd-jnG"/>
                                     <constraint firstAttribute="bottom" secondItem="t4z-kj-D3d" secondAttribute="bottom" id="58Y-34-8yN"/>
                                     <constraint firstItem="Sph-uP-ouc" firstAttribute="centerY" secondItem="hMx-bU-T4V" secondAttribute="centerY" id="Pdd-qp-y7k"/>
@@ -70,7 +70,7 @@
                                     <constraint firstAttribute="trailing" secondItem="t4z-kj-D3d" secondAttribute="trailing" id="k91-l6-sjb"/>
                                     <constraint firstItem="8gU-2Z-Fal" firstAttribute="centerY" secondItem="hMx-bU-T4V" secondAttribute="centerY" id="lrk-rs-NN7"/>
                                     <constraint firstAttribute="height" constant="16" id="sVE-ld-Yhn"/>
-                                    <constraint firstItem="Sph-uP-ouc" firstAttribute="leading" secondItem="8gU-2Z-Fal" secondAttribute="leading" constant="-12" id="xC8-g0-eSe"/>
+                                    <constraint firstItem="8gU-2Z-Fal" firstAttribute="leading" secondItem="Sph-uP-ouc" secondAttribute="leading" constant="12" id="xC8-g0-eSe"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -209,16 +209,19 @@
                 <constraint firstItem="cAQ-Sb-gOU" firstAttribute="leading" secondItem="SYx-BD-rnt" secondAttribute="leading" id="yrN-u3-m6Z"/>
             </constraints>
             <connections>
+                <outlet property="cellHeightConstraint" destination="rus-nz-AlP" id="Kfm-bn-Nad"/>
+                <outlet property="cellWidthConstraint" destination="ch9-Ix-fkW" id="enE-Ik-8LR"/>
                 <outlet property="comentCountLabel" destination="SNJ-NY-wlg" id="Gaw-0d-ydu"/>
                 <outlet property="myImageView" destination="wbn-6a-Ja8" id="8ug-QW-skZ"/>
                 <outlet property="myTitleLabel" destination="cAQ-Sb-gOU" id="Hei-RU-UO2"/>
                 <outlet property="priceImageView" destination="Sph-uP-ouc" id="G6m-Ui-XfT"/>
                 <outlet property="priceLabel" destination="8gU-2Z-Fal" id="jHX-pC-isF"/>
+                <outlet property="titleLabelTopConstraint" destination="SyL-vA-bf4" id="TNZ-ue-Grh"/>
                 <outlet property="videoLengthLabel" destination="m5y-cc-bnD" id="9xk-3A-TmL"/>
                 <outlet property="viewCountlabel" destination="LoI-Ip-yQT" id="gYS-hj-bwc"/>
                 <outlet property="voteCount" destination="euH-Mu-MBO" id="dTX-gf-ZcS"/>
             </connections>
-            <point key="canvasLocation" x="648" y="377.5"/>
+            <point key="canvasLocation" x="614" y="298.5"/>
         </collectionViewCell>
     </objects>
     <resources>

@@ -10,7 +10,7 @@
 
 @interface NetWorking : NSObject
 
-#pragma mark - 封装请求
+#pragma mark - 封装请求  成员方法
 /*****************************      封装请求      ********************************/
 
 //get请求
@@ -29,6 +29,26 @@
                     parameters:(NSDictionary *)dic
               appendParameters:(NSDictionary *)appendDic
                         option:(void (^)(NSDictionary *dict))option;
+
+#pragma mark - 封装请求  类方法
+//post请求
++ (void) postRequestWithUrl:(NSString *)urlString
+                 parameters:(NSDictionary *)dic
+                     option:(void (^)(NSDictionary *dict))option;
+
+
+
+//post  请求上传二进制数据
++ (void) postUploadDataWithURL:(NSString *)urlString
+                    parameters:(NSDictionary *)dic
+              appendParameters:(NSDictionary *)appendDic
+                        option:(void (^)(NSDictionary *dict))option;
+
+//get请求
++ (void) getRequestWithUrl:(NSString *)urlString
+                parameters:(NSDictionary *)dic
+                    option:(void (^)(NSDictionary *dict))option;
+
 
 
 #pragma mark - 获取短信验证码

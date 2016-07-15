@@ -23,20 +23,28 @@
                             <constraint firstAttribute="height" constant="18" id="iWG-K5-9vh"/>
                         </constraints>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kI4-kE-uUv">
+                        <rect key="frame" x="119" y="28.5" width="0.0" height="0.0"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
                 <constraint firstItem="hdv-sP-l7h" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="A1V-pP-9Sl"/>
                 <constraint firstAttribute="trailing" secondItem="XDP-mJ-f0Q" secondAttribute="trailing" constant="5" id="Cii-nG-Y8h"/>
+                <constraint firstItem="kI4-kE-uUv" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="MjI-N3-lBH"/>
                 <constraint firstAttribute="bottom" secondItem="hdv-sP-l7h" secondAttribute="bottom" id="SJF-22-gYh"/>
                 <constraint firstItem="XDP-mJ-f0Q" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="WKA-O1-zw2"/>
+                <constraint firstItem="kI4-kE-uUv" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="dwH-7X-JMp"/>
                 <constraint firstAttribute="trailing" secondItem="hdv-sP-l7h" secondAttribute="trailing" id="mR1-XL-rZI"/>
                 <constraint firstItem="hdv-sP-l7h" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="vdB-Jx-dTm"/>
             </constraints>
             <size key="customSize" width="237" height="58"/>
             <connections>
                 <outlet property="backImageView" destination="hdv-sP-l7h" id="tHe-sf-yfx"/>
+                <outlet property="priceLabel" destination="kI4-kE-uUv" id="Pc4-u9-YyX"/>
                 <outlet property="selectImageView" destination="XDP-mJ-f0Q" id="dXn-EI-EVh"/>
             </connections>
             <point key="canvasLocation" x="210.5" y="185"/>
