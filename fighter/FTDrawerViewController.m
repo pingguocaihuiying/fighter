@@ -593,8 +593,9 @@ static NSString *const tableCellId = @"tableCellId";
                 NSInteger otherTotal = [dic[@"otherTotal"] integerValue];
                 NSInteger cost = [dic[@"cost"] integerValue];
                 
-                _balance = [NSString stringWithFormat:@"%ldP",taskTotal+otherTotal-cost];
-                [ cell.subtitle setText:_balance];
+//                _balance = [NSString stringWithFormat:@"%ldP",taskTotal+otherTotal-cost];
+//                [ cell.subtitle setText:_balance];
+                [cell setBalanceText:[NSString stringWithFormat:@"%ld",taskTotal+otherTotal-cost]];
             }else {
                 
                 NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);

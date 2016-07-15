@@ -35,6 +35,4 @@
 
 - (void)setWithBean:(FTVideoBean *)bean;
 
-- (void)setWithDic:(NSDictionary *)dic;
-
 @end

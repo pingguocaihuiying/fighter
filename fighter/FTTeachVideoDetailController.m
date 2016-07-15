@@ -34,6 +34,13 @@
     [self setNavigationSytle];
     
     [self setSubViews];
+    
+    // 更新播放次数
+    [self addViewCount];
+    // 获取点赞信息
+    [self getVoteInfo];
+    // 获取收藏信息
+    [self getStarInfo];
 
 }
 
@@ -246,8 +253,9 @@
 // 把付费视频url地址传给webView
 - (void) setWebViewUrl {
     
-    NSString *url = [FTEncoderAndDecoder encodeToPercentEscapeString:_videoBean.url];
-    NSString *jsMethodString = [NSString stringWithFormat:@"setVideoUrl(%@)",url];
+//    NSString *url = [FTEncoderAndDecoder encodeToPercentEscapeString:_videoBean.url];
+    NSString *url = _videoBean.url;
+    NSString *jsMethodString = [NSString stringWithFormat:@"setVideoUrl('%@')",url];
     NSLog(@"js method : %@", jsMethodString);
     [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
     
@@ -349,6 +357,64 @@
 
 
 #pragma mark - 服务器交互
+//  获取用户是否点赞该视频
+- (void)getVoteInfo{
+    
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    //获取网络请求地址url
+    NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
+    NSString *userId = user.olduserid;
+    NSString *objId = _videoBean.videosId;
+    NSString *loginToken = user.token;
+    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
+    NSString *tableName = @"v-video";
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, GetStatusCheckKey]];
+    
+    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
+    
+    [NetWorking getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *dict) {
+    
+        if ([dict[@"message"] isEqualToString:@"true"]) {
+            self.hasVote = YES;
+        }else{
+            self.hasVote = NO;
+        }
+        
+        [self updateVoteImageView];
+    }];
+    
+}
+
+
+//  获取用户是否收藏该视频
+- (void)getStarInfo{
+    
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    //获取网络请求地址url
+    NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
+    NSString *userId = user.olduserid;
+    NSString *objId = _videoBean.videosId;
+    NSString *loginToken = user.token;
+    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
+    NSString *tableName = @"col-video";
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, GetStatusCheckKey]];
+    
+    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
+    
+    [NetWorking getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *dict) {
+        
+        if ([dict[@"message"] isEqualToString:@"true"]) {
+            self.hasStar = YES;
+        }else{
+            self.hasStar = NO;
+        }
+        
+        [self updateStarImageView];
+    }];
+}
+
 //把点赞信息更新至服务器
 - (void)uploadVoteStatusToServer{
     
@@ -371,7 +437,7 @@
         
         self.voteView.userInteractionEnabled = YES;
         if (dict) {
-            NSLog(@"收藏状态 status : %@, message : %@", dict[@"status"], dict[@"message"]);
+            NSLog(@"点赞状态 status : %@, message : %@", dict[@"status"], dict[@"message"]);
             if ([dict[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
                 if ([dict[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
                     int voteCount = [_videoBean.voteCount intValue];
@@ -394,7 +460,6 @@
             }
         }
     }];
-
 }
 
 //把收藏信息更新至服务器
@@ -411,15 +476,13 @@
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = @"col-video";
     NSString *query = @"delete-col";
-    //    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, self.hasStar ?  @"" : query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
+    
     NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
     NSLog(@"check sign : %@", checkSign);
     checkSign = [MD5 md5:checkSign];
     
-    
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@&query=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName, query];
-    //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
-   
+    
     NSLog(@"收藏url：%@", urlString);
     
     [NetWorking getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *dict) {
@@ -431,7 +494,6 @@
             }
         }
     }];
-    
     
 }
 
@@ -456,12 +518,12 @@
         if (dict) {
             
             if ([dict[@"status"] isEqualToString:@"success"]) {
-                NSLog(@"%@, %@", dict[@"status"], dict[@"message"]);
+                
                 int viewCount = [_videoBean.viewCount intValue];
                 viewCount++;
                 _videoBean.viewCount = [NSString stringWithFormat:@"%d", viewCount];
             }else{
-                NSLog(@"%@, %@", dict[@"status"], dict[@"message"]);
+                NSLog(@"%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
             }
             [self updateVoteImageView];
         }
