@@ -18,6 +18,7 @@
     return [NSString stringWithFormat:@"%@%@",host,path];
 }
 + (NSString *)showType{
+    
     NSString *showType = [[NSUserDefaults standardUserDefaults]objectForKey:SHOWTYPE];
     if ([showType isEqualToString:@"1"]) {
         showType = @"1";

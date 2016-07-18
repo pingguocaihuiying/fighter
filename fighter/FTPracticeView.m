@@ -37,19 +37,34 @@
 
 - (void) initData {
     
-   
-    _array =[[NSMutableArray alloc]initWithArray:[FTNWGetCategory sharedCategories]];
-    
-        for ( int i= 0; i < _array.count ; i++) {
-
-        NSDictionary *dic = [_array objectAtIndex:i];
-//        NSLog(@"dic:%@",dic);
-            if ([dic[@"itemValueEn"] isEqualToString:@"Others"] || [dic[@"itemValueEn"] isEqualToString:@"StreetFight"]) {
-                    [_array removeObject:dic];
-            }
-    }
+//    _array =[[NSMutableArray alloc]initWithArray:[FTNWGetCategory sharedTeachVideoCategories]];
+    _array = [[NSMutableArray alloc]init];
+    [NetWorking getTeachLabelsWithOption:^(NSDictionary *dict) {
         
-   
+        NSLog(@"获取教学标签");
+        NSLog(@"dict:%@",dict);
+        NSLog(@"massage:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+        
+        if (dict == nil) {
+            return ;
+        }
+        
+        if ([dict[@"status"] isEqualToString:@"success"]) {
+            
+            for(NSDictionary *dic in dict[@"data"]){
+                if ([dic[@"name"] isEqualToString:@"教学视频"]) {
+                    NSLog(@"itemValue : %@", dic[@"itemValue"]);
+                    NSLog(@"itemValueEn : %@", dic[@"itemValueEn"]);
+                    
+                    [_array addObject:dic];
+                }
+            }
+            
+            
+        }
+        [self.collectionView reloadData];
+    }];
+    
 }
 
 - (void) initSubviews {

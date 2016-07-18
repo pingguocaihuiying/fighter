@@ -119,6 +119,9 @@ static NSString *const tableCellId = @"tableCellId";
     //添加监听器，监听login
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showLoginedViewData:) name:@"loginAction" object:nil];
     
+    //添加监听器，充值购买
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshBalance:) name:@"RechargeOrCharge" object:nil];
+    
      [self showLoginedViewData:nil];
 }
 
@@ -131,6 +134,7 @@ static NSString *const tableCellId = @"tableCellId";
     
     [self.view setBackgroundColor:[UIColor colorWithHex:0x191919]];
     [self.headerView setBackgroundColor:[UIColor colorWithHex:0x191919]];
+    [self.footerView setBackgroundColor:[UIColor colorWithHex:0x191919]];
 //    //切换图层，把头像边框放到上层
 //    [self.headerView sendSubviewToBack:self.avatarImageView];
     
@@ -146,18 +150,24 @@ static NSString *const tableCellId = @"tableCellId";
     [self.tableView registerNib:[UINib nibWithNibName:@"FTDrawerCell" bundle:nil] forCellReuseIdentifier:@"tableCellId"];
     [self.tableView registerNib:[UINib nibWithNibName:@"FTDrawerPayCell" bundle:nil] forCellReuseIdentifier:@"payCellId"];
     [self.tableView registerNib:[UINib nibWithNibName:@"FTLabelsCell" bundle:nil] forCellReuseIdentifier:@"labelsCellId"];
-    if (SCREEN_HEIGHT > 568) {
-        self.tableView.scrollEnabled = NO;
-    }else {
-    
-        self.tableView.scrollEnabled = YES;
-    }
+//    if (SCREEN_HEIGHT > 568) {
+//        self.tableView.scrollEnabled = NO;
+//    }else {
+//        
+//        self.tableView.scrollEnabled = YES;
+//    }
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.tableFooterView = self.footerView;
     self.tableView.tableHeaderView = self.headerView;
 
+//    UIView *footView = [[[UIView alloc]init]initWithFrame:self.footerView.frame];
+//    footView.backgroundColor = [UIColor clearColor];dddddddddddsssas
+//    [footView addSubview:self.settingBtn];
+//    [footView addSubview:self.qqLabel];
+//    [footView addSubview:self.versionLabel];
+//    self.tableView.tableFooterView = footView;
     
     CGFloat offsetW = [UIScreen mainScreen].bounds.size.width *0.3;
     
@@ -180,6 +190,8 @@ static NSString *const tableCellId = @"tableCellId";
     } @finally {
         
     }
+    
+    [self setTouchEvent];
     
 }
 
@@ -325,9 +337,15 @@ static NSString *const tableCellId = @"tableCellId";
 }
 
 
-
-
 #pragma mark - response methods
+// 刷新余额
+- (void) refreshBalance:(NSNotification *)noti {
+    
+     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+
+}
+
 //微信快捷登录按钮
 - (IBAction)weichatBtnAction:(id)sender {
     
@@ -345,13 +363,6 @@ static NSString *const tableCellId = @"tableCellId";
         [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"微信登录成功"];
         
         [self showLoginedViewData:nil];
-//        //从本地读取存储的用户信息
-//        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-//        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-//        if (localUser) {
-//            
-//            [self setLoginedViewData:localUser];
-//        }
     
     }else if ([msg isEqualToString:@"ERROR"]){
         [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"微信登录失败"];
@@ -397,11 +408,7 @@ static NSString *const tableCellId = @"tableCellId";
     [self presentViewController:baseNav animated:YES completion:nil];
 }
 
-#warning 临时个人主页入口
-- (IBAction)tempHomePageBtnAction:(id)sender {
-    [self gotoHomepageWithUseroldid:nil];
-}
-
+#pragma mark 个人主页入口
 - (void)gotoHomepageWithUseroldid:(NSString *)olduserid{
     if (!olduserid) {
         //从本地读取存储的用户信息
@@ -418,6 +425,7 @@ static NSString *const tableCellId = @"tableCellId";
     
     [self presentViewController:baseNav animated:YES completion:nil];
 }
+
 
 //  充值按钮，点击跳转到充值界面
 - (void) payBtnAction:(id) sender {
@@ -670,6 +678,24 @@ static NSString *const tableCellId = @"tableCellId";
                                         completion:nil];
 }
 
+
+#pragma mark - 点击事件
+
+//设置点击事件，连续点击屏幕5次可以切换app发布版和预览版
+- (void) setTouchEvent {
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
+    tap.numberOfTapsRequired = 1;
+    [self.tableView.tableHeaderView addGestureRecognizer:tap];
+    
+}
+
+//响应点击事件
+- (void) tapAction:(UITapGestureRecognizer *)gesture {
+    
+    [self gotoHomepageWithUseroldid:nil];
+}
+
 #pragma mark - private methods
 
 - (void) setHomeViewController {
@@ -678,7 +704,7 @@ static NSString *const tableCellId = @"tableCellId";
     infoVC.tabBarItem.title = @"拳讯";
     
     [infoVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                               Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                               Bar_Item_Select_Title_Color,NSForegroundColorAttributeName,
                                                nil] forState:UIControlStateSelected];
     infoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳讯"];
     infoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳讯pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -689,7 +715,7 @@ static NSString *const tableCellId = @"tableCellId";
     //    FTBaseNavigationViewController *matchNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:matchVC];
     matchVC.tabBarItem.title = @"赛事";
     [matchVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
                                                 nil] forState:UIControlStateSelected];
     
     
@@ -701,7 +727,7 @@ static NSString *const tableCellId = @"tableCellId";
     //    FTBaseNavigationViewController *fightKingNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:fightKingVC];
     videoVC.tabBarItem.title = @"视频";
     [videoVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
                                                 nil] forState:UIControlStateSelected];
     
     videoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-视频"];
@@ -713,7 +739,7 @@ static NSString *const tableCellId = @"tableCellId";
     //    FTBaseNavigationViewController *coachNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:coachVC];
     coachVC.tabBarItem.title = @"教练";
     [coachVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
                                                 nil] forState:UIControlStateSelected];
     
     coachVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-教练"];
@@ -724,7 +750,7 @@ static NSString *const tableCellId = @"tableCellId";
     //    FTBaseNavigationViewController *boxingHallNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:boxingHallVC];
     boxingHallVC.tabBarItem.title = @"拳馆";
     [boxingHallVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                     Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                     Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
                                                      nil] forState:UIControlStateSelected];
     
     boxingHallVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳馆"];
@@ -735,7 +761,7 @@ static NSString *const tableCellId = @"tableCellId";
     FTArenaViewController *arenaVC = [FTArenaViewController new];
     arenaVC.tabBarItem.title = @"拳吧";
     [arenaVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                     Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                     Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
                                                      nil] forState:UIControlStateSelected];
     
     arenaVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳吧"];
@@ -746,7 +772,7 @@ static NSString *const tableCellId = @"tableCellId";
     FTFightingViewController *fightingVC = [FTFightingViewController new];
     fightingVC.tabBarItem.title = @"格斗场";
     [fightingVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
                                                 nil] forState:UIControlStateSelected];
     fightingVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳馆"];
     fightingVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -756,7 +782,7 @@ static NSString *const tableCellId = @"tableCellId";
     FTPracticeViewController *practiceVC = [FTPracticeViewController new];
     practiceVC.tabBarItem.title = @"学拳";
     [practiceVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                   Bar_Item_Select_Title_Color, UITextAttributeTextColor,
+                                                   Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
                                                    nil] forState:UIControlStateSelected];
     
     practiceVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-教练"];

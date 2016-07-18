@@ -150,8 +150,61 @@ static DBManager * _sharedDBManager = nil;
     }
 }
 
-#pragma mark - labels table
+#pragma mark - Teachlabels table
 
+/**
+ * @brief 创建teachLabels表
+ */
+- (void) createTeachLabelsTable {
+    
+    
+    NSString * sql = @"CREATE TABLE 'teachLabels' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, 'itemValue' TEXT, 'itemValueEn' TEXT, 'picture' TEXT)";
+    
+    [self createTable:@"teachLabels" sql:sql];
+}
+
+/**
+ * @brief 插入teachLabels表数据
+ */
+- (void) insertDataIntoTeachLabels:(NSDictionary *)dic {
+    
+    NSNumber *idNum = [NSNumber numberWithInteger:[dic[@"id"] integerValue]];
+    NSString *item = dic[@"itemValue"];
+    NSString *label = dic[@"itemValueEn"];
+    NSNumber *type = [NSNumber numberWithInteger:[dic[@"type"] integerValue]];
+    
+    //1.判断数据是否已经存在
+    FMResultSet * set = [_dataBase executeQuery:@"select id from teachLabels where id = ?",idNum];
+    [set next];
+    NSInteger count = [set intForColumnIndex:0];
+    BOOL exist = !!count;
+    
+    //2.如果已经存在则更新数据
+    if(exist) {
+        
+        BOOL result = [_dataBase executeUpdate:@"UPDATE teachLabels set item = ?,label= ?,type = ? where id = ?" , item,label,type,idNum];
+        
+        if (result) {
+            //            NSLog(@"更新数据成功");
+        }else {
+            NSLog(@"更新数据失败");
+        }
+        
+    }else {//3.如果数据不存在则插入数据
+        BOOL result = [_dataBase executeUpdate:@"INSERT INTO labels (id, item,label,type) VALUES (?,?,?,?)", idNum, item, label,type];
+        
+        if (result) {
+            //            NSLog(@"插入数据成功");
+        }else {
+            NSLog(@"插入数据失败");
+        }
+    }
+    
+}
+
+
+
+#pragma mark - labels table
 /**
  * @brief 创建Labels表
  */

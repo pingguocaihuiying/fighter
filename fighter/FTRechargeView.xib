@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="弹出框背景" translatesAutoresizingMaskIntoConstraints="NO" id="fra-fh-NNZ">
+                    <rect key="frame" x="20" y="148" width="280" height="273"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="280" id="xQW-bg-pc2"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="余额不足" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KaK-Vb-zkQ">
+                    <rect key="frame" x="128" y="166" width="64" height="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您的账户余额为：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jDV-fn-nkB">
+                    <rect key="frame" x="36" y="201" width="128" height="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000000P" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgG-WT-5kX">
+                    <rect key="frame" x="169" y="201" width="76" height="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="转发到 朋友圈/QQ空间，可以获得 1P/天" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQO-Jt-HfH">
+                    <rect key="frame" x="36" y="236" width="248" height="14"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享到：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z43-nu-t0g">
+                    <rect key="frame" x="36" y="281" width="48" height="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ve-jb-qEl">
+                    <rect key="frame" x="36" y="328" width="248" height="1"/>
+                    <color key="backgroundColor" red="0.24705882352941178" green="0.24705882352941178" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="XD0-KC-jVv"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M3k-Ym-56D">
+                    <rect key="frame" x="100" y="265" width="48" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="C3Q-UP-yAn"/>
+                        <constraint firstAttribute="width" constant="48" id="jN9-Tq-bax"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="分享96-朋友圈"/>
+                    <state key="highlighted" backgroundImage="分享96-朋友圈pre"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vJJ-3b-fF2">
+                    <rect key="frame" x="188" y="264" width="48" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="48" id="4yI-4E-iee"/>
+                        <constraint firstAttribute="height" constant="48" id="yKI-88-B9F"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="分享96-QQ空间"/>
+                    <state key="highlighted" backgroundImage="分享96-QQ空间pre"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="立即前去充值：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ek7-6R-Oug">
+                    <rect key="frame" x="36" y="343" width="84" height="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G9V-bC-Tq0">
+                    <rect key="frame" x="36" y="373" width="248" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="2RH-bB-hNU"/>
+                    </constraints>
+                    <state key="normal" title="充值" backgroundImage="充值">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZeZ-aR-QEF">
+                    <rect key="frame" x="144" y="451" width="32" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="RTd-GD-94V"/>
+                        <constraint firstAttribute="width" constant="32" id="fav-Yw-99c"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                    <state key="normal" backgroundImage="取消X"/>
+                    <state key="highlighted" backgroundImage="取消Xpre"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="hgG-WT-5kX" firstAttribute="leading" secondItem="jDV-fn-nkB" secondAttribute="trailing" constant="5" id="30k-jI-apq"/>
+                <constraint firstItem="nQO-Jt-HfH" firstAttribute="trailing" secondItem="fra-fh-NNZ" secondAttribute="trailing" constant="-16" id="36G-gJ-g6a"/>
+                <constraint firstItem="G9V-bC-Tq0" firstAttribute="bottom" secondItem="fra-fh-NNZ" secondAttribute="bottom" constant="-18" id="9jw-1u-jGd"/>
+                <constraint firstItem="G9V-bC-Tq0" firstAttribute="leading" secondItem="fra-fh-NNZ" secondAttribute="leading" constant="16" id="A24-3p-tUb"/>
+                <constraint firstItem="KaK-Vb-zkQ" firstAttribute="centerX" secondItem="fra-fh-NNZ" secondAttribute="centerX" id="Aot-dr-V1x"/>
+                <constraint firstItem="fra-fh-NNZ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Cdq-fa-vLy"/>
+                <constraint firstItem="fra-fh-NNZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Eki-85-tD3"/>
+                <constraint firstItem="G9V-bC-Tq0" firstAttribute="trailing" secondItem="fra-fh-NNZ" secondAttribute="trailing" constant="-16" id="FMO-PB-n4s"/>
+                <constraint firstItem="ek7-6R-Oug" firstAttribute="top" secondItem="5Ve-jb-qEl" secondAttribute="top" constant="15" id="IDy-bg-lof"/>
+                <constraint firstItem="hgG-WT-5kX" firstAttribute="centerY" secondItem="jDV-fn-nkB" secondAttribute="centerY" id="ILM-Mh-QRo"/>
+                <constraint firstItem="nQO-Jt-HfH" firstAttribute="top" secondItem="jDV-fn-nkB" secondAttribute="bottom" constant="15" id="OWV-HX-rGs"/>
+                <constraint firstItem="5Ve-jb-qEl" firstAttribute="leading" secondItem="fra-fh-NNZ" secondAttribute="leading" constant="16" id="V8B-BR-tgz"/>
+                <constraint firstItem="5Ve-jb-qEl" firstAttribute="top" secondItem="M3k-Ym-56D" secondAttribute="bottom" constant="15" id="XtK-iJ-5zO"/>
+                <constraint firstItem="ZeZ-aR-QEF" firstAttribute="centerX" secondItem="fra-fh-NNZ" secondAttribute="centerX" id="bDJ-PE-r9A"/>
+                <constraint firstItem="vJJ-3b-fF2" firstAttribute="leading" secondItem="M3k-Ym-56D" secondAttribute="trailing" constant="40" id="cJk-82-L0S"/>
+                <constraint firstItem="ek7-6R-Oug" firstAttribute="leading" secondItem="fra-fh-NNZ" secondAttribute="leading" constant="16" id="cmB-j3-G66"/>
+                <constraint firstItem="Z43-nu-t0g" firstAttribute="leading" secondItem="fra-fh-NNZ" secondAttribute="leading" constant="16" id="d5S-bb-jRo"/>
+                <constraint firstItem="ZeZ-aR-QEF" firstAttribute="top" secondItem="fra-fh-NNZ" secondAttribute="bottom" constant="30" id="iGH-Bh-nrn"/>
+                <constraint firstItem="M3k-Ym-56D" firstAttribute="leading" secondItem="Z43-nu-t0g" secondAttribute="trailing" constant="16" id="jY6-1v-mNg"/>
+                <constraint firstItem="jDV-fn-nkB" firstAttribute="top" secondItem="KaK-Vb-zkQ" secondAttribute="bottom" constant="15" id="owK-q2-Gb1"/>
+                <constraint firstItem="nQO-Jt-HfH" firstAttribute="leading" secondItem="fra-fh-NNZ" secondAttribute="leading" constant="16" id="pTV-mj-GpD"/>
+                <constraint firstItem="G9V-bC-Tq0" firstAttribute="top" secondItem="ek7-6R-Oug" secondAttribute="bottom" constant="15" id="qvO-sU-8mA"/>
+                <constraint firstItem="M3k-Ym-56D" firstAttribute="centerY" secondItem="Z43-nu-t0g" secondAttribute="centerY" id="qvp-jT-4kP"/>
+                <constraint firstItem="KaK-Vb-zkQ" firstAttribute="top" secondItem="fra-fh-NNZ" secondAttribute="top" constant="18" id="soT-9U-JK9"/>
+                <constraint firstItem="5Ve-jb-qEl" firstAttribute="trailing" secondItem="fra-fh-NNZ" secondAttribute="trailing" constant="-16" id="tv5-25-9Zl"/>
+                <constraint firstItem="jDV-fn-nkB" firstAttribute="leading" secondItem="fra-fh-NNZ" secondAttribute="leading" constant="16" id="uXm-7h-uoL"/>
+                <constraint firstItem="M3k-Ym-56D" firstAttribute="top" secondItem="nQO-Jt-HfH" secondAttribute="bottom" constant="15" id="uhH-iN-j9i"/>
+                <constraint firstItem="vJJ-3b-fF2" firstAttribute="centerY" secondItem="Z43-nu-t0g" secondAttribute="centerY" id="x15-YD-jBr"/>
+            </constraints>
+            <point key="canvasLocation" x="228" y="272"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="充值" width="37" height="40"/>
+        <image name="分享96-QQ空间" width="48" height="48"/>
+        <image name="分享96-QQ空间pre" width="16" height="16"/>
+        <image name="分享96-朋友圈" width="48" height="48"/>
+        <image name="分享96-朋友圈pre" width="48" height="48"/>
+        <image name="取消X" width="32" height="32"/>
+        <image name="取消Xpre" width="32" height="32"/>
+        <image name="弹出框背景" width="21" height="21"/>
+    </resources>
+</document>

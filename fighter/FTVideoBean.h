@@ -38,4 +38,6 @@
 
 - (void)setValuesWithDic:(NSDictionary *)dic;
 
+- (void)clear;
+
 @end

@@ -12,6 +12,7 @@
 #import "WXApi.h"
 #import "UIWindow+MBProgressHUD.h"
 #import "FTUserBean.h"
+#import "FTEncoderAndDecoder.h"
 
 @implementation NetWorking
 
@@ -476,7 +477,7 @@
     NSString *keyTokenMD5 = [MD5 md5:keyToken];
     NSString *province = wxInfoDic[@"province"];
     NSString *headpic = wxInfoDic[@"headimgurl"];
-    headpic = [self encodeToPercentEscapeString:headpic];
+    headpic = [FTEncoderAndDecoder encodeToPercentEscapeString:headpic];
     NSString *stemfrom = @"weixin";
     username = [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
@@ -495,17 +496,7 @@
     
     return localUser.olduserid;
 }
-//url转码
-- (NSString *)encodeToPercentEscapeString: (NSString *) input
-{
-    NSString *outputStr = (NSString *)
-    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                              (CFStringRef)input,
-                                                              NULL,
-                                                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                                              kCFStringEncodingUTF8));
-    return outputStr;
-}
+
 
 #pragma mark - 排行榜
 
@@ -1085,7 +1076,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                   parameters:dic
                       option:option];
 }
-// 分享后回调添加积分
+// 分享后回调赠送积分接口
 + (void) getPointByShareWithPlatform:(NSString *)platform option:(void (^)(NSDictionary *dict))option{
     NSString *urlString = [FTNetConfig host:Domain path:ExtensionTaskURL];
     
@@ -1205,7 +1196,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@%@",localUser.olduserid, localUser.token,orderNO,transactionId,receipt,ts,@"quanjijia222222"]];
     
-    NSString *urlEncodeReceipt = [self encodeToPercentEscapeString:receipt];
+    NSString *urlEncodeReceipt = [FTEncoderAndDecoder encodeToPercentEscapeString:receipt];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     [dic setObject:localUser.olduserid forKey:@"userId"];
@@ -1263,18 +1254,16 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                       option:option];
 }
 
-//url转码
-+ (NSString *)encodeToPercentEscapeString: (NSString *) input
-{
-    NSString *outputStr = (NSString *)
-    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                              (CFStringRef)input,
-                                                              NULL,
-                                                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                                              kCFStringEncodingUTF8));
-    return outputStr;
+#pragma mark - 获取标签
+// 获取教学视频标签
++ (void) getTeachLabelsWithOption:(void(^)(NSDictionary *dict))option {
+
+    NSString *getCategoryUrlString = [FTNetConfig host:Domain path:GetCategoryURL];
+    NSLog(@"getCategoryUrlString : %@", getCategoryUrlString);
+    NSDictionary *dic = @{@"nameEn": @"teachVideo"};
+    
+    [self postRequestWithUrl:getCategoryUrlString parameters:dic option:option];
+
 }
-
-
 
 @end
