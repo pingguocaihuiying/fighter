@@ -20,10 +20,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *gymAddressLabel;//拳馆地址
 @property (nonatomic, assign) BOOL isFreeTicket;//门票是否免费
 @property (nonatomic, strong) NSMutableArray *supportItemsArray;//支持的设施
+@property (weak, nonatomic) IBOutlet UICollectionView *supportItemsCollectionView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *supportItemsCollectionViewHeight;
 
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *gymInfoTopViewHeight;
-@property (weak, nonatomic) IBOutlet UICollectionView *supportItemsCollectionView;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelsViewHeight;//labelsView高度
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelsFatherViewHeight;//labelsView父视图的高度（需要根据labelView高度去改变）
 @property (weak, nonatomic) IBOutlet UIView *labelsView;
@@ -253,10 +255,11 @@
 }
 
 - (void)initBaseData{
-    _basicPrice = @"200";
+    _basicPrice = @"0";
     
     //默认选中的天和时间段下标为－1
     _selectedWeekday = -1;
+    _selectedTimeSectionString = @"-1";
     
 }
 
@@ -318,19 +321,20 @@
     //门票
     //如果拳馆方设定门票为免费，则门票为免费，比赛发起人也不能设置
     NSString *is_sale_ticket = [NSString stringWithFormat:@"%@", _gymInfoDic[@"is_sale_ticket"]];
-    if ([is_sale_ticket isEqualToString:@"1"]) {
+    if ([is_sale_ticket isEqualToString:@"0"]) {
         _isFreeTicket = YES;
     } else {
         _isFreeTicket = NO;
     }
     
-    if (_isFreeTicket) {
-        _basicPrice = [NSString stringWithFormat:@"%@ 元", _gymInfoDic[@"ticket_price"]];
-        _totalPriceLabel.text = _basicPrice;
-    } else {
+    if (_isFreeTicket) {//如果门票免费
         _totalPriceLabel.text = @"免费";
         _totalPriceLabel.textColor = [UIColor colorWithHex:0xb4b4b4];
         _adjustTicketButton.hidden = YES;
+    } else {
+        _basicPrice = [NSString stringWithFormat:@"%@ 元", _gymInfoDic[@"ticket_price"]];
+        _totalPriceLabel.text = _basicPrice;
+        _adjustTicketButton.hidden = NO;
     }
     
     //设置支持的设施
@@ -434,6 +438,8 @@
                                1行，－62 ＝ 191
                                3行 ，＋ 62 ＝ 315
      */
+    
+
     [_supportItemsCollectionView reloadData];
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -457,24 +463,66 @@
 - (void)confirmButtonClicked{
     NSLog(@"确定");
     
+    //检查必选项
+    if(![self checkParams]){
+     [self showHUDWithMessage:@"请选择时间段"];
+        return;
+    }
+    
     //点击确定时，计算选中的日期
     [self getSelectedDayTimestamp];
     
     //返回前2个vc
     FTLaunchNewMatchViewController *launchNewMatchViewController = self.navigationController.viewControllers[1];
-    launchNewMatchViewController.selectedGymLabel.text = @"天下一武馆";
-    launchNewMatchViewController.totalTicketPriceLabel.text = [NSString stringWithFormat:@"%d 元", [_basicPrice intValue] + [_extraPrice intValue]];
-    launchNewMatchViewController.selectedDateTimestamp = _selectedDateTimestamp;
-    launchNewMatchViewController.selectedTimeSectionString = _selectedTimeSectionString;
-    launchNewMatchViewController.matchTimeLabel.text = [FTTools getDateStringWith:_selectedDateTimestamp andTimeSection:_selectedTimeSectionString];
+    
+    //传参回去
+    
+    //设定门票
+    launchNewMatchViewController.selectedGymLabel.text = @"天下一武馆";//全馆名字
+    if (_isFreeTicket) {//门票免费
+        launchNewMatchViewController.totalTicketPriceLabel.text = [NSString stringWithFormat:@"免费"];//总价
+        launchNewMatchViewController.totalTicketPriceLabel.textColor = [UIColor colorWithHex:0xb4b4b4];
+        
+        _adjustTicketButton.hidden = true;//隐藏设置门票价格的按钮
+    }else{
+        launchNewMatchViewController.totalTicketPriceLabel.text = [NSString stringWithFormat:@"%d 元", [_basicPrice intValue] + [_extraPrice intValue]];//总价
+    }
+    
+    launchNewMatchViewController.selectedDateTimestamp = _selectedDateTimestamp;//选择的日期时间戳
+    launchNewMatchViewController.selectedTimeSectionString = _selectedTimeSectionString;//选择的时间段
+    launchNewMatchViewController.matchTimeLabel.text = [FTTools getDateStringWith:_selectedDateTimestamp andTimeSection:_selectedTimeSectionString];//比赛时间
+    launchNewMatchViewController.gymSupportedLabelsString = _gymInfoDic[@"sup_subject"];
     
     [self.navigationController popToViewController:launchNewMatchViewController animated:YES];
 }
 
+- (BOOL)checkParams{
+    if (_selectedWeekday == -1 || [_selectedTimeSectionString isEqualToString:@"-1"]) {
+        return false;
+    }
+    return true;
+}
+- (void)showHUDWithMessage:(NSString *)message{
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:HUD];
+    HUD.labelText = message;
+    HUD.mode = MBProgressHUDModeCustomView;
+    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
+    [HUD showAnimated:YES whileExecutingBlock:^{
+        sleep(2);
+    } completionBlock:^{
+        [HUD removeFromSuperview];
 
+    }];
+}
 - (void)setSupportLabelsView{
 //    NSString *labelsString = @"泰拳,跆拳道,散打";
-    NSString *labelsString = @"泰拳,跆拳道,女子格斗,柔道,相扑,泰拳,跆拳道,女子格斗,柔道,相扑,泰拳,跆拳道,女子格斗,柔道,相扑";
+//    NSString *labelsString = @"泰拳,跆拳道,女子格斗,柔道,相扑,泰拳,跆拳道,女子格斗,柔道,相扑,泰拳,跆拳道,女子格斗,柔道,相扑";
+    NSString *labelsString = _gymInfoDic[@"sup_subject"];
+    if (!labelsString || labelsString.length < 1) {
+        NSLog(@" warm :labelsString 为 空");
+        return;
+    }
     if (!labelsString ||labelsString.length == 0)
         return;
     
@@ -505,10 +553,11 @@
     if (y > 20) {
         _labelsViewHeight.constant = y + 6;
     }else{
-        _labelsViewHeight.constant = y;
+        _labelsViewHeight.constant = y + 19;
     }
     
-//    _labelsFatherViewHeight.constant = _labelsFatherViewHeight.constant - 20 + y;
+    CGFloat countOfLine = _supportItemsArray.count / 4 + 1;//行数
+    _supportItemsCollectionViewHeight.constant = 40 + 46 * countOfLine + 20 * (countOfLine - 1);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -649,7 +698,7 @@
             _selectedTimeSectionString = timeSection1;
             _selectedWeekOffset = _curWeekOffset;
 //            [mdic setObject:@"YES" forKey:@"isSelected"];
-            [theTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//            [theTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             [self reloadTableViews];
             
             

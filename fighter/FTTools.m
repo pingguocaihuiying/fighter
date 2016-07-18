@@ -11,6 +11,37 @@
 #import "MBProgressHUD.h"
 
 @implementation FTTools
+
+
++ (NSString *)getNameCHWithEnLabelName:(NSString *)labelNameEn{
+    NSString *labelNameCh = @"";
+    if ([labelNameEn isEqualToString:@"Boxing"]) {
+        labelNameCh = @"拳击";
+    }else if ([labelNameEn isEqualToString:@"MMA"]) {
+        labelNameCh = @"综合格斗";
+    }else if ([labelNameEn isEqualToString:@"ThaiBoxing"]) {
+        labelNameCh = @"泰拳";
+    }else if ([labelNameEn isEqualToString:@"Taekwondo"]) {
+        labelNameCh = @"跆拳道";
+    }else if ([labelNameEn isEqualToString:@"Judo"]) {
+        labelNameCh = @"柔道";
+    }else if ([labelNameEn isEqualToString:@"Wrestling"]) {
+        labelNameCh = @"摔跤";
+    }else if ([labelNameEn isEqualToString:@"Sumo"]) {
+        labelNameCh = @"相扑";
+    }else if ([labelNameEn isEqualToString:@"FemaleWrestling"]) {
+        labelNameCh = @"女子格斗";
+    }else if([labelNameEn isEqualToString:@"StreetFight"]){
+        labelNameCh = @"街斗";
+    }else if([labelNameEn isEqualToString:@"Others"]){
+        labelNameCh = @"其他";
+    }else if([labelNameEn isEqualToString:@"Train"]){
+        labelNameCh = @"训练";
+    }
+    
+    return labelNameCh;
+}
+
 + (NSString *)getChLabelNameWithEnLabelName:(NSString *)labelNameEn{
     NSString *labelNameCh = @"";
     if ([labelNameEn isEqualToString:@"Boxing"]) {

@@ -107,7 +107,16 @@
 
 #pragma -mark -选择项目按钮被点击
 - (void)initBaseData{
+    
+    //选择的项目，默认为－1
+    _typeOfLabelString = @"-1";
+    
     _matchType = FTMatchTypeFullyMatch;//默认完全匹配
+    
+    //默认收益点数为1
+    _selfIncomePoint = 1;
+    _opponentIncomePoint = 1;
+    _supporterIncomePoint = 1;
 }
 #pragma -mark -选择项目按钮被点击
 - (IBAction)chooseLabelButtonClicked:(id)sender {
@@ -132,6 +141,13 @@
 #pragma -mark -选择拳馆按钮被点击
 - (IBAction)chooseGymButtonClicked:(id)sender {
     NSLog(@"选择拳馆");
+    
+    //判断是否选择了项目
+    if (![self hasSelectedItem]) {
+        [self showHUDWithMessage:@"请先选择项目"];
+        return;
+    }
+    
     FTChooseGymOrOpponentListViewController *chooseGymListViewController = [FTChooseGymOrOpponentListViewController new];
     chooseGymListViewController.listType = FTGymListType;
     [self.navigationController pushViewController:chooseGymListViewController animated:YES];
@@ -140,9 +156,28 @@
 #pragma -mark -选择对手按钮被点击
 - (IBAction)chooseOpponentButtonClicked:(id)sender {
     NSLog(@"选择对手");
+    
+    //判断是否选择了项目
+    if (![self hasSelectedItem]) {
+        [self showHUDWithMessage:@"请先选择项目"];
+        return;
+    }
+    
     FTChooseGymOrOpponentListViewController *chooseGymListViewController = [FTChooseGymOrOpponentListViewController new];
     chooseGymListViewController.listType = FTOpponentListType;
     [self.navigationController pushViewController:chooseGymListViewController animated:YES];
+}
+
+/**
+ *  是否选择了项目
+ *
+ *  @return true/false
+ */
+- (BOOL)hasSelectedItem{
+    if ([_typeOfLabelString isEqualToString:@"-1"]) {
+        return false;
+    }
+    return true;
 }
 
 #pragma -mark -处理选择标签的回调
@@ -168,7 +203,41 @@
  */
 - (void)confirmButtonClicked{
     NSLog(@"确定");
+    
+    [self checkParams];//参数检查
+
 }
+
+- (void)checkParams{
+    //检查所选的项目，拳馆是否支持
+    if (![self isGymSupportSelectedItem]) {
+        [self showHUDWithMessage:@"拳馆不支持所选项目"];
+    }
+}
+
+- (BOOL)isGymSupportSelectedItem{
+    NSString *labelCh = [FTTools getNameCHWithEnLabelName:_typeOfLabelString];
+    NSArray *gymSupportedLabelsArray = [_gymSupportedLabelsString componentsSeparatedByString:@","];
+    for(NSString *labelString in gymSupportedLabelsArray){
+        if ([labelCh isEqualToString:labelString]) return true;//如果所选的项目在支持范围内，返回true
+    }
+    return false;
+}
+
+- (void)showHUDWithMessage:(NSString *)message{
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:HUD];
+    HUD.labelText = message;
+    HUD.mode = MBProgressHUDModeCustomView;
+    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
+    [HUD showAnimated:YES whileExecutingBlock:^{
+        sleep(1);
+    } completionBlock:^{
+        [HUD removeFromSuperview];
+        
+    }];
+}
+
 - (IBAction)selfPayButtonClicked:(id)sender {
     NSLog(@"我方支付");
     

@@ -63,7 +63,7 @@
                                     </constraints>
                                     <state key="normal" backgroundImage="问号"/>
                                 </button>
-                                <imageView userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="格斗标签-综合格斗" translatesAutoresizingMaskIntoConstraints="NO" id="utS-kb-pth">
+                                <imageView userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="utS-kb-pth">
                                     <rect key="frame" x="139" y="18" width="68" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="68" id="DRc-hb-PCv"/>
@@ -193,8 +193,8 @@
                                         <action selector="chooseOpponentButtonClicked:" destination="-1" eventType="touchUpInside" id="6te-js-co2"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="任何人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hyu-mv-fSR">
-                                    <rect key="frame" x="139" y="156" width="42" height="14"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="旗鼓相当的对手" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hyu-mv-fSR">
+                                    <rect key="frame" x="139" y="156" width="98" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="14" id="gnn-sz-zI0"/>
                                     </constraints>
@@ -381,8 +381,8 @@
                                     <color key="textColor" red="0.70588235294117641" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eIa-OC-jAo">
-                                    <rect key="frame" x="62" y="67" width="32" height="16"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eIa-OC-jAo">
+                                    <rect key="frame" x="62" y="67" width="22" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="zaf-ft-C64"/>
                                     </constraints>
@@ -399,8 +399,8 @@
                                     <color key="textColor" red="0.70588235290000001" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lsC-HZ-5mS">
-                                    <rect key="frame" x="252" y="67" width="32" height="16"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lsC-HZ-5mS">
+                                    <rect key="frame" x="252" y="67" width="22" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="hga-HE-gpm"/>
                                     </constraints>
@@ -461,8 +461,8 @@
                                                 <action selector="supporertIncomeButtonClicked:" destination="-1" eventType="touchUpInside" id="yQW-wm-3lt"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yCv-IS-16j">
-                                            <rect key="frame" x="62" y="19" width="32" height="16"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yCv-IS-16j">
+                                            <rect key="frame" x="62" y="19" width="22" height="16"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="16" id="aGW-CP-MST"/>
                                             </constraints>
@@ -858,7 +858,6 @@
         <image name="支付选项背景-ios" width="10" height="10"/>
         <image name="支付选项背景pre-ios" width="10" height="10"/>
         <image name="斜线分割" width="12" height="24"/>
-        <image name="格斗标签-综合格斗" width="68" height="14"/>
         <image name="金属边框-改进ios" width="67" height="60"/>
         <image name="问号" width="16" height="16"/>
     </resources>

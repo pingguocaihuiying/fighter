@@ -26,4 +26,23 @@
     }
 }
 
+- (void)setWithDic:(NSDictionary *)dic{
+    //名字
+    _opponentNameLabel.text = dic[@"name"];
+    
+    
+    //战绩
+    NSString *winCount = dic[@"win"];
+    NSString *failCount = dic[@"fail"];
+    NSString *drawCount = dic[@"draw"];
+    NSString *knockoutCount = dic[@"knockout"];
+    if (!knockoutCount) {
+        knockoutCount = @"0";
+    }
+    _recordLabel.text = [NSString stringWithFormat:@"%@胜 %@负 %@平 %@", winCount, failCount, drawCount, knockoutCount];
+    
+    //头像
+    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"headUrl"]]];
+}
+
 @end

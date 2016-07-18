@@ -45,5 +45,12 @@ typedef NS_ENUM(NSInteger, FTMatchConsultPayMode) {//协定支付方式
 @property (nonatomic, copy) NSString *selectedTimeSectionString;//选中的时间段
 
 @property (weak, nonatomic) IBOutlet UILabel *matchTimeLabel;
+
+@property (nonatomic, copy) NSString *gymSupportedLabelsString;//选择的拳馆支持的项目
+
+@property (nonatomic, copy) NSString *challengedBoxerID;//挑战的拳手ＩＤ
+@property (nonatomic, copy) NSString *challengedBoxerName;//挑战的拳手名字
 - (void)displayMatchTypeButtons;//刷新匹配级别按钮
+
+
 @end
