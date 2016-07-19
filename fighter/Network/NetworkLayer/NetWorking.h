@@ -243,4 +243,8 @@
 // 验证app内购接口
 + (void) checkIAPByOrderNO:(NSString *)orderNO receipt:(NSString *) receipt transactionId:(NSString*)transactionId option:(void(^)(NSDictionary *dict))option;
 
+#pragma mark - 获取标签
+// 获取教学视频标签
++ (void) getTeachLabelsWithOption:(void(^)(NSDictionary *dict))option;
+
 @end

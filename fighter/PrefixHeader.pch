@@ -77,6 +77,7 @@
 
 //类别（综合格斗、拳击、散打等等
 #define CATEGORIES @"categories"
+#define TEACH_CATEGORIES @"teachCategories"
 
 //微信相关
 #define WX_BASE_URL @"https://api.weixin.qq.com/sns"
@@ -85,6 +86,8 @@
 #define WXLoginSecret_Key @"quanjijia123456"
 
 #define WXLoginResultNoti @"WXLoginResutlNoti"
+#define WXShareResultNoti @"WXShareResultNoti"
+#define QQShareResultNoti @"WXShareResultNoti"
 
 //微博相关
 #define WB_App_ID @"3097376602"

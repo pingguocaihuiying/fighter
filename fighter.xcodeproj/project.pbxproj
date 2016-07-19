@@ -111,6 +111,9 @@
 		3DA6D1C51D20D8BD0049CD4A /* FTCycleScrollViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DA6D1C31D20D8BD0049CD4A /* FTCycleScrollViewCell.xib */; };
 		3DA6D1C91D20D94E0049CD4A /* FTCycleScrollViewCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6D1C71D20D94E0049CD4A /* FTCycleScrollViewCell2.m */; };
 		3DA6D1CA1D20D94E0049CD4A /* FTCycleScrollViewCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DA6D1C81D20D94E0049CD4A /* FTCycleScrollViewCell2.xib */; };
+		3DB240F41D3C60A6007F32C6 /* FTShareView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB240F31D3C60A6007F32C6 /* FTShareView2.m */; };
+		3DB240F71D3CC22D007F32C6 /* FTRechargeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DB240F61D3CC22D007F32C6 /* FTRechargeView.xib */; };
+		3DB240FA1D3CD236007F32C6 /* FTRechargeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DB240F91D3CD236007F32C6 /* FTRechargeView.m */; };
 		3DC31DD01CF859EC001BC364 /* FTArenaChooseLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC31DCF1CF859EC001BC364 /* FTArenaChooseLabelView.m */; };
 		3DC411F01CCF80DD0030C229 /* FTDrawerTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC411EF1CCF80DD0030C229 /* FTDrawerTableViewHeader.m */; };
 		3DC411F31CCF810A0030C229 /* FTDrawerTableViewFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC411F21CCF810A0030C229 /* FTDrawerTableViewFooter.m */; };
@@ -492,6 +495,11 @@
 		3DA6D1C61D20D94E0049CD4A /* FTCycleScrollViewCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCycleScrollViewCell2.h; sourceTree = "<group>"; };
 		3DA6D1C71D20D94E0049CD4A /* FTCycleScrollViewCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCycleScrollViewCell2.m; sourceTree = "<group>"; };
 		3DA6D1C81D20D94E0049CD4A /* FTCycleScrollViewCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTCycleScrollViewCell2.xib; sourceTree = "<group>"; };
+		3DB240F21D3C60A6007F32C6 /* FTShareView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTShareView2.h; sourceTree = "<group>"; };
+		3DB240F31D3C60A6007F32C6 /* FTShareView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTShareView2.m; sourceTree = "<group>"; };
+		3DB240F61D3CC22D007F32C6 /* FTRechargeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRechargeView.xib; sourceTree = "<group>"; };
+		3DB240F81D3CD236007F32C6 /* FTRechargeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRechargeView.h; sourceTree = "<group>"; };
+		3DB240F91D3CD236007F32C6 /* FTRechargeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRechargeView.m; sourceTree = "<group>"; };
 		3DC31DCE1CF859EC001BC364 /* FTArenaChooseLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaChooseLabelView.h; sourceTree = "<group>"; };
 		3DC31DCF1CF859EC001BC364 /* FTArenaChooseLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaChooseLabelView.m; sourceTree = "<group>"; };
 		3DC411EE1CCF80DD0030C229 /* FTDrawerTableViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerTableViewHeader.h; sourceTree = "<group>"; };
@@ -946,6 +954,7 @@
 		3D13FB241D1A90D00060B9B4 /* 教学 */ = {
 			isa = PBXGroup;
 			children = (
+				3DB240F51D3CC1BD007F32C6 /* view */,
 				3D9001BE1D37BB7800F9F60B /* controller */,
 				3D9001BD1D37BB6100F9F60B /* detail */,
 				3D13FB291D1A94510060B9B4 /* cell */,
@@ -1276,6 +1285,27 @@
 				3DFB7DEE1D23E55A00CC79EA /* TestCycleView.m */,
 			);
 			name = cycleScrollView;
+			sourceTree = "<group>";
+		};
+		3DB240F51D3CC1BD007F32C6 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				3DB240F61D3CC22D007F32C6 /* FTRechargeView.xib */,
+				3DB240F81D3CD236007F32C6 /* FTRechargeView.h */,
+				3DB240F91D3CD236007F32C6 /* FTRechargeView.m */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		3DB65F791D391BBF00E04D62 /* 分享 */ = {
+			isa = PBXGroup;
+			children = (
+				3D5A3CBB1CFD1E1000FDB3C4 /* FTShareView.h */,
+				3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */,
+				3DB240F21D3C60A6007F32C6 /* FTShareView2.h */,
+				3DB240F31D3C60A6007F32C6 /* FTShareView2.m */,
+			);
+			name = "分享";
 			sourceTree = "<group>";
 		};
 		3DC411E81CCF734A0030C229 /* drawer */ = {
@@ -2112,14 +2142,13 @@
 		E6B458941CB755CF00FB4261 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				3DB65F791D391BBF00E04D62 /* 分享 */,
 				E6B458951CB7560400FB4261 /* FTBaseNavigationViewController.h */,
 				E6B458961CB7560400FB4261 /* FTBaseNavigationViewController.m */,
 				E6B458981CB7563300FB4261 /* FTBaseViewController.h */,
 				E6B458991CB7563300FB4261 /* FTBaseViewController.m */,
 				E6B458D91CB75E5000FB4261 /* FTBaseTabBarViewController.h */,
 				E6B458DA1CB75E5000FB4261 /* FTBaseTabBarViewController.m */,
-				3D5A3CBB1CFD1E1000FDB3C4 /* FTShareView.h */,
-				3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */,
 				3DD07E931D1CC361004AF720 /* FTBaseViewController2.h */,
 				3DD07E941D1CC361004AF720 /* FTBaseViewController2.m */,
 			);
@@ -2588,6 +2617,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6A9DDA91CD8879A00CB9518 /* FTVideoViewController.xib in Resources */,
+				3DB240F71D3CC22D007F32C6 /* FTRechargeView.xib in Resources */,
 				E6E9E8951CDC718900976480 /* FTVideoCollectionViewCell.xib in Resources */,
 				3D7C6B7D1CF2A2380088400D /* BoxerVideoController.xib in Resources */,
 				3DE0C9F01D1BABB000C6ABE2 /* FTTeachVideoController.xib in Resources */,
@@ -2871,6 +2901,7 @@
 				3D57D04D1CEC0C810082BF24 /* DBTools.m in Sources */,
 				E65D08C71CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m in Sources */,
 				3D06155C1D36302600FDA86F /* NSString+Base64.m in Sources */,
+				3DB240F41D3C60A6007F32C6 /* FTShareView2.m in Sources */,
 				E696E4E01D2A39F800A89B60 /* FTOpponentCell.m in Sources */,
 				3D7B98AF1CE05F3300B80B8D /* FTPhoneViewController.m in Sources */,
 				3D4B195C1CDB4D890022DFB0 /* FTDatePickerView.m in Sources */,
@@ -2988,6 +3019,7 @@
 				E68D16131CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m in Sources */,
 				E636B1AD1D2646840065C9C1 /* FTGymDetailViewController.m in Sources */,
 				E68050C01CBF919A00678905 /* UIScrollView+JHRefresh.m in Sources */,
+				3DB240FA1D3CD236007F32C6 /* FTRechargeView.m in Sources */,
 				3DC31DD01CF859EC001BC364 /* FTArenaChooseLabelView.m in Sources */,
 				3D13FB1F1D1A40350060B9B4 /* FTSegmentItem.m in Sources */,
 				E6D74A501CB7B7EE00854337 /* ZJModelTool.m in Sources */,

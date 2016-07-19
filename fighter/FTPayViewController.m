@@ -100,10 +100,10 @@ enum{
                     ];
     
     _powerArray = @[
-                    @"10",
-                    @"80",
-                    @"360",
-                    @"2500"
+                    @"600",
+                    @"3000",
+                    @"12800",
+                    @"58800"
                     ];
     
     
@@ -418,7 +418,10 @@ enum{
             NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
             if ([dict[@"status"] isEqualToString:@"success"]) {
                 
+                
                 [self fetchBalanceFromWeb];
+                // 发送通知
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"RechargeOrCharge" object:@"RECHARGE"];
                 
                 UIAlertView *alerView2 =  [[UIAlertView alloc] initWithTitle:@"Alert"
                                                                      message:@"购买成功，请注意查收～"

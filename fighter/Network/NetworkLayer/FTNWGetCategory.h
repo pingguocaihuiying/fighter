@@ -16,4 +16,12 @@
  */
 //- (void)getCategoryWithOption:(void(^)(NSArray *array))option;
 + (NSArray *)sharedCategories;
+
+/**
+ *  获取教学视频分类标签
+ *
+ *  @param option 回调的结果是一个数组
+ */
+
++ (NSArray *)sharedTeachVideoCategories;
 @end

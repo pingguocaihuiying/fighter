@@ -11,7 +11,7 @@
 #import "MBProgressHUD.h"
 #import "FTBaseNavigationViewController.h"
 #import "FTLoginViewController.h"
-#import "FTShareView.h"
+#import "FTShareView2.h"
 #import "FTHomepageMainViewController.h"
 #import "FTEncoderAndDecoder.h"
 #import "NetWorking.h"
@@ -41,6 +41,8 @@
     [self getVoteInfo];
     // 获取收藏信息
     [self getStarInfo];
+    
+    [self setNai];
 
 }
 
@@ -51,6 +53,16 @@
 
 
 #pragma mark - set subViews 
+
+// 监听通知
+- (void) setNai {
+
+    // 注册通知，分享到微信成功
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToWeiXin:) name:WXShareResultNoti object:nil];
+    
+    // 注册通知，分享到qq成功
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToQQ:) name:QQShareResultNoti object:nil];
+}
 
 // 设置导航栏
 - (void) setNavigationSytle {
@@ -151,11 +163,10 @@
 - (IBAction)shareButtonAction:(id)sender {
     [MobClick event:@"videoPage_DetailPage_shareUp"];
 
-#warning 暂时用原先的连接，等待前段写的新的接口
     NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-videos",_videoBean.videosId];
-    _webUrlString = [@"http://www.gogogofight.com/page/video_paid_page.html?" stringByAppendingString:str];
+    _webUrlString = [@"http://www.gogogofight.com/page/v2/video_paid_wechat_page.html?" stringByAppendingString:str];
     
-    FTShareView *shareView = [FTShareView new];
+    FTShareView2 *shareView = [FTShareView2 new];
     [shareView setUrl:_webUrlString];
     [shareView setTitle:_videoBean.title];
     [shareView setSummary:_videoBean.summary];
@@ -258,7 +269,6 @@
     NSString *jsMethodString = [NSString stringWithFormat:@"setVideoUrl('%@')",url];
     NSLog(@"js method : %@", jsMethodString);
     [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
-    
 }
 
 
@@ -530,5 +540,36 @@
     }];
     
 }
+
+#pragma mark - 分享回调
+// qq 分享回调
+- (void) callbackShareToQQ:(NSNotification *)noti {
+    
+    [self getPointByShareToPlatform:@"kongjian"];
+}
+
+// weixin 分享回调
+- (void) callbackShareToWeiXin:(NSNotification *)noti {
+    
+    [self getPointByShareToPlatform:@"weixin"];
+}
+
+// 获取分享积分
+- (void) getPointByShareToPlatform:(NSString *)platform {
+    
+    NSLog(@"%@分享赠送积分成功调用",platform);
+    [NetWorking getPointByShareWithPlatform:platform option:^(NSDictionary *dict) {
+        
+        NSLog(@"dict:%@",dict);
+        NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+        if ([dict[@"status"] isEqualToString:@"success"]) {
+            
+            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"成功获得1P积分"];
+        }else {
+            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        }
+    }];
+}
+
 
 @end

@@ -296,6 +296,52 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 #pragma mark - 微信注册登录响应方法
 - (void)onResp:(BaseResp *)resp {
     
+    //微信share callback
+    
+    if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
+        
+        switch (resp.errCode) {
+            case WXSuccess:
+            {
+                NSLog(@"微信分享回调成功");
+                //发送通知，告诉评论页面微信登录成功
+                [[NSNotificationCenter defaultCenter] postNotificationName:WXShareResultNoti object:@"SUCESS"];
+            }
+                break;
+            case WXErrCodeCommon:
+            {
+                NSLog(@"微信分享回调普通错误类型");
+            }
+                break;
+            case WXErrCodeUserCancel:
+            {
+                NSLog(@"微信分享回调取消");
+            }
+                break;
+            case WXErrCodeSentFail:
+            {
+                
+            }
+                break;
+            case WXErrCodeAuthDeny:
+            {
+                NSLog(@"微信分享回调授权失败");
+            }
+                break;
+            case WXErrCodeUnsupport:
+            {
+                NSLog(@"微信分享回调 微信不支持");
+            }
+                break;
+            
+            default:
+                break;
+        };
+        
+        return;
+    }
+    
+    
     // 向微信请求授权后,得到响应结果
     if ([resp isKindOfClass:[SendAuthResp class]]) {
         SendAuthResp *temp = (SendAuthResp *)resp;
