@@ -18,10 +18,6 @@ typedef NS_ENUM(NSInteger, FTMatchPayMode) {//支付方式
     FTMatchPayModeConsult,//协定支付
     FTMatchPayModeOpponent,//对手支付
     FTMatchPayModeSupport,//赞助
-    
-    FTMatchPayModeWinner,//协定-赢家支付
-    FTMatchPayModeAA,//协定-AA付款
-    FTMatchPayModeLoser//协定-输家支付
 };
 
 typedef NS_ENUM(NSInteger, FTMatchConsultPayMode) {//协定支付方式
@@ -31,6 +27,7 @@ typedef NS_ENUM(NSInteger, FTMatchConsultPayMode) {//协定支付方式
 };
 
 @interface FTLaunchNewMatchViewController : FTBaseViewController
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *payModeViewHeight;//支付方式view的高度
 @property (weak, nonatomic) IBOutlet UIView *consultPayDetailView;//协议支付详情
 @property (weak, nonatomic) IBOutlet UIImageView *typeImageView;//项目类型
@@ -43,13 +40,19 @@ typedef NS_ENUM(NSInteger, FTMatchConsultPayMode) {//协定支付方式
 
 @property (nonatomic, assign) NSTimeInterval selectedDateTimestamp;//选中的比赛日期的时间戳
 @property (nonatomic, copy) NSString *selectedTimeSectionString;//选中的时间段
+@property (nonatomic, copy) NSString *selectedTimeSectionIDString;//选中的时间段id
 
 @property (weak, nonatomic) IBOutlet UILabel *matchTimeLabel;
 
 @property (nonatomic, copy) NSString *gymSupportedLabelsString;//选择的拳馆支持的项目
 
-@property (nonatomic, copy) NSString *challengedBoxerID;//挑战的拳手ＩＤ
+@property (nonatomic, copy) NSString *challengedBoxerID;//挑战的拳手ID
 @property (nonatomic, copy) NSString *challengedBoxerName;//挑战的拳手名字
+@property (nonatomic, copy) NSString *gymName;//拳馆名字
+@property (nonatomic, copy) NSString *gymID;//拳馆id
+@property (nonatomic, copy) NSString *ticketPrice;//门票价格
+@property (copy, nonatomic) NSString *gymServicePrice;//拳馆使用基础费用
+
 - (void)displayMatchTypeButtons;//刷新匹配级别按钮
 
 

@@ -14,7 +14,8 @@
 @property (nonatomic, copy) NSString *basicPrice;//门票基础价格（拳馆方设定）
 @property (nonatomic, copy) NSString *extraPrice;//门票额外价格（发起比赛人设定）
 
-@property (nonatomic, copy) NSString *gymName;//全馆名字
+@property (nonatomic, copy) NSString *gymName;//拳馆名字
+@property (nonatomic, copy) NSString *gymID;//拳馆id
 
 @property (weak, nonatomic) IBOutlet FTTimeSectionTableView *t0;
 @property (weak, nonatomic) IBOutlet FTTimeSectionTableView *t1;

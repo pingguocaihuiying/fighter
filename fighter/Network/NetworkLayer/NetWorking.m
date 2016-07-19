@@ -1083,7 +1083,27 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     }];
 }
 
-
+//添加赛事
++ (void)addMatchWithParams:(NSDictionary *)dic andOption:(void (^)(BOOL result))option{
+    NSString *urlString = [FTNetConfig host:Domain path:AddMatchURL];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    //    NSLog(@"getGymInfoById %@", urlString);
+    [manager POST:urlString parameters:dic success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSString *status = responseDic[@"status"];
+        NSLog(@"message : %@", responseDic[@"message"]);
+        if ([status isEqualToString:@"success"]) {
+            option(true);
+        }else{
+            option(false);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        option(nil);
+    }];
+}
 
 
 #pragma mark - 充值购买

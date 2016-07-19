@@ -179,6 +179,9 @@ extern NSString * const GetGymPlacesUsingInfoByIdURL;
 extern NSString * const GetGymInfoByIdURL;
 //获取拳手列表
 extern NSString *const GetBoxerListURL;///api/boxer/list.do
+//添加赛事
+extern NSString *const AddMatchURL;//api/match/save$Match.do
+
 
 #pragma mark - 充值、购买、积分
 // 查询余额接口

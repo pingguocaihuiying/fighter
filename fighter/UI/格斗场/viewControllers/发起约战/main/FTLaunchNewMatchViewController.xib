@@ -123,8 +123,8 @@
                                         <constraint firstAttribute="height" constant="1" id="cBi-1Z-ep8"/>
                                     </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="必图拳馆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1c-bE-Y2r">
-                                    <rect key="frame" x="139" y="64" width="56" height="14"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择拳馆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1c-bE-Y2r">
+                                    <rect key="frame" x="139" y="64" width="70" height="14"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="14" id="ST4-5J-Ksz"/>
                                     </constraints>

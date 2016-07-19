@@ -31,7 +31,8 @@
 @property (weak, nonatomic) IBOutlet UIView *labelsView;
 @property (nonatomic, strong) UIView *priceContentView;
 @property (nonatomic, strong) FTSetTicketPriceViewTableViewCell *setTicketPriceView;
-@property (weak, nonatomic) IBOutlet UILabel *totalPriceLabel;//门票价格
+@property (weak, nonatomic) IBOutlet UILabel *totalPriceLabel;//门票价格label
+@property (nonatomic, copy) NSString *gymServicePrice;//拳馆基础使用费用
 
 @property (nonatomic, strong) NSArray *timeSectionsArray;//拳馆的固定时间段
 @property (nonatomic, strong) NSArray *placesArray;//拳馆的场地列表
@@ -49,6 +50,7 @@
 @property (nonatomic, assign) NSInteger selectedWeekday;//选中的周几
 @property (nonatomic, assign) NSInteger todayWeekday;//今天是周几
 @property (nonatomic, copy) NSString *selectedTimeSectionString;//选中的时间段
+@property (nonatomic, copy) NSString *selectedTimeSectionIDString;//选中的时间段id
 @property (weak, nonatomic) IBOutlet UIView *dateView;
 
 @property (weak, nonatomic) IBOutlet UIButton *preWeek;
@@ -261,6 +263,9 @@
     _selectedWeekday = -1;
     _selectedTimeSectionString = @"-1";
     
+    _gymName = @"天下一武道馆";
+    _gymID = @"158";
+    _gymServicePrice = @"998";
 }
 
 /**
@@ -316,7 +321,8 @@
 //设置拳馆基础信息
 - (void)setGymInfo{
     //拳馆使用基础费用
-    _gymServicePriceLabel.text = [NSString stringWithFormat:@"%@", _gymInfoDic[@"service_price"]];
+    _gymServicePrice = [NSString stringWithFormat:@"%@", _gymInfoDic[@"service_price"]];
+    _gymServicePriceLabel.text = _gymServicePrice;
     
     //门票
     //如果拳馆方设定门票为免费，则门票为免费，比赛发起人也不能设置
@@ -477,21 +483,33 @@
     
     //传参回去
     
-    //设定门票
+    
     launchNewMatchViewController.selectedGymLabel.text = @"天下一武馆";//全馆名字
-    if (_isFreeTicket) {//门票免费
+    
+    //设定门票
+    NSString *ticketPrice = [NSString stringWithFormat:@"%d", [_basicPrice intValue] + [_extraPrice intValue]];
+    launchNewMatchViewController.ticketPrice = ticketPrice;
+    if (_isFreeTicket || [ticketPrice isEqualToString:@"0"]) {//门票免费
         launchNewMatchViewController.totalTicketPriceLabel.text = [NSString stringWithFormat:@"免费"];//总价
         launchNewMatchViewController.totalTicketPriceLabel.textColor = [UIColor colorWithHex:0xb4b4b4];
         
         _adjustTicketButton.hidden = true;//隐藏设置门票价格的按钮
     }else{
-        launchNewMatchViewController.totalTicketPriceLabel.text = [NSString stringWithFormat:@"%d 元", [_basicPrice intValue] + [_extraPrice intValue]];//总价
+        
+        
+        launchNewMatchViewController.totalTicketPriceLabel.text = [NSString stringWithFormat:@"%@ 元", ticketPrice];//总价
     }
     
     launchNewMatchViewController.selectedDateTimestamp = _selectedDateTimestamp;//选择的日期时间戳
     launchNewMatchViewController.selectedTimeSectionString = _selectedTimeSectionString;//选择的时间段
     launchNewMatchViewController.matchTimeLabel.text = [FTTools getDateStringWith:_selectedDateTimestamp andTimeSection:_selectedTimeSectionString];//比赛时间
-    launchNewMatchViewController.gymSupportedLabelsString = _gymInfoDic[@"sup_subject"];
+    launchNewMatchViewController.gymSupportedLabelsString = _gymInfoDic[@"sup_subject"];//支持的项目
+    launchNewMatchViewController.selectedTimeSectionIDString = _selectedTimeSectionIDString;
+    launchNewMatchViewController.gymName = _gymName;
+    launchNewMatchViewController.selectedGymLabel.text = _gymName;
+    launchNewMatchViewController.gymID = _gymID;
+    launchNewMatchViewController.gymServicePrice = _gymServicePrice;
+    
     
     [self.navigationController popToViewController:launchNewMatchViewController animated:YES];
 }
@@ -696,6 +714,7 @@
         if ([timeSection1 isEqualToString: timeSection2]) {//可以选中
             _selectedWeekday = theTableView.day;
             _selectedTimeSectionString = timeSection1;
+            _selectedTimeSectionIDString = mdic[@"id"];
             _selectedWeekOffset = _curWeekOffset;
 //            [mdic setObject:@"YES" forKey:@"isSelected"];
 //            [theTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];

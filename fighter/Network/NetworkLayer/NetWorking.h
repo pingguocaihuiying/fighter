@@ -218,6 +218,8 @@
 //获取拳手信息
 + (void)getBoxerListByWeight:(NSString *)weight andOverWeightLevel: (NSString *) overWeightLevel andOption:(void (^)(NSArray *array))option;
 
+//添加赛事
++ (void)addMatchWithParams:(NSDictionary *)dic andOption:(void (^)(BOOL result))option;
 
 #pragma mark - 充值购买
 // 查询余额
