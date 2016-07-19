@@ -20,7 +20,6 @@
                 <outlet property="settingBtn" destination="oDd-0N-8f3" id="IyV-eG-iGp"/>
                 <outlet property="sexLabel" destination="1wU-10-oix" id="BHH-sh-i9O"/>
                 <outlet property="tableView" destination="PuJ-hd-UMy" id="fE0-ft-hrI"/>
-                <outlet property="tipLabel" destination="sC2-Uq-CJ4" id="0yG-Fr-3SQ"/>
                 <outlet property="versionLabel" destination="QsN-ZN-aEz" id="MJm-9a-v5Y"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="SJn-FU-iUh"/>
                 <outlet property="weichatLoginBtn" destination="171-2Q-268" id="BMN-kd-7Gd"/>
@@ -131,6 +130,7 @@
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" red="1" green="0.25500031039999999" blue="0.29621255120000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="wMV-CD-tle" firstAttribute="centerY" secondItem="xoE-3k-RJX" secondAttribute="centerY" id="0AJ-dq-Xho"/>
                         <constraint firstItem="CCa-tj-QxX" firstAttribute="trailing" secondItem="wMV-CD-tle" secondAttribute="trailing" constant="-2" id="4J7-6e-PC5"/>
@@ -244,27 +244,16 @@
                                 <action selector="weichatBtnAction:" destination="-1" eventType="touchUpInside" id="d8Y-8f-bzD"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="无感兴趣的项目" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sC2-Uq-CJ4">
-                            <rect key="frame" x="80" y="215" width="160" height="14"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="160" id="9OH-g1-fSl"/>
-                                <constraint firstAttribute="height" constant="14" id="mP2-3S-7i5"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="S4L-Qx-Dq1" firstAttribute="centerX" secondItem="QB0-Gt-C6M" secondAttribute="centerX" id="1tM-4y-vio"/>
                         <constraint firstItem="171-2Q-268" firstAttribute="top" secondItem="S4L-Qx-Dq1" secondAttribute="bottom" constant="25" id="6Ea-9P-g5r"/>
                         <constraint firstItem="QB0-Gt-C6M" firstAttribute="top" secondItem="fcN-LQ-B3u" secondAttribute="top" constant="40" id="PCp-ex-3le"/>
                         <constraint firstItem="QB0-Gt-C6M" firstAttribute="centerX" secondItem="fcN-LQ-B3u" secondAttribute="centerX" id="bDR-1z-YeX"/>
                         <constraint firstItem="171-2Q-268" firstAttribute="centerX" secondItem="S4L-Qx-Dq1" secondAttribute="centerX" id="dlU-dT-V12"/>
-                        <constraint firstItem="sC2-Uq-CJ4" firstAttribute="centerX" secondItem="171-2Q-268" secondAttribute="centerX" id="dyI-Pp-QPv"/>
                         <constraint firstItem="S4L-Qx-Dq1" firstAttribute="top" secondItem="QB0-Gt-C6M" secondAttribute="bottom" constant="15" id="mmQ-zB-0TI"/>
-                        <constraint firstItem="sC2-Uq-CJ4" firstAttribute="top" secondItem="171-2Q-268" secondAttribute="bottom" constant="25" id="zwF-ez-lOX"/>
                     </constraints>
                 </view>
             </subviews>
