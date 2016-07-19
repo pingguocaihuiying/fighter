@@ -221,6 +221,9 @@
 //添加赛事
 + (void)addMatchWithParams:(NSDictionary *)dic andOption:(void (^)(BOOL result))option;
 
+//获取比赛列表
++ (void)getMatchListWithPageNum:(int)pageNum andPageSize:(NSString *)pageSize andOption:(void(^) (NSArray *array))option;
+
 #pragma mark - 充值购买
 // 查询余额
 + (void) queryMoneyWithOption:(void (^)(NSDictionary *dict))option;
