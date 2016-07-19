@@ -19,10 +19,10 @@
 #import "FTEncoderAndDecoder.h"
 
 
-#define PowerCoin1 @"PowerCoin_10P"//￥6
-#define PowerCoin2 @"PowerCoin_80P" //￥30
-#define PowerCoin3 @"PowerCoin_360p" //￥128
-#define PowerCoin4 @"PowerCoin_2500P" //￥588
+#define PowerCoin1 @"PowerCoin600P"//￥6
+#define PowerCoin2 @"PowerCoin3000P" //￥30
+#define PowerCoin3 @"PowerCoin12800P" //￥128
+#define PowerCoin4 @"PowerCoin58800P" //￥588
 
 
 enum{
@@ -113,29 +113,29 @@ enum{
     FTGoodsBean *goodsBean1 = [FTGoodsBean new];
     goodsBean1.goodsId = PowerCoin1;
     goodsBean1.price =  [[NSDecimalNumber alloc]initWithInt:6];
-    goodsBean1.descriptions = @"Power币 10P";
-    goodsBean1.details = @"Power币 10P，可以用来购买视频，格斗东西app相关服务";
+    goodsBean1.descriptions = @"Power币 600P";
+    goodsBean1.details = @"Power币 600P，可以用来购买视频，格斗东西app相关服务";
     [_goodsArray addObject:goodsBean1];
     
     FTGoodsBean *goodsBean2 = [FTGoodsBean new];
     goodsBean2.goodsId = PowerCoin2;
     goodsBean2.price = [[NSDecimalNumber alloc]initWithInt:30];
-    goodsBean2.descriptions = @"Power币 80P";
-    goodsBean2.details = @"Power币 80P，可以用来购买视频，格斗东西app相关服务";
+    goodsBean2.descriptions = @"Power币 3000P";
+    goodsBean2.details = @"Power币 3000P，可以用来购买视频，格斗东西app相关服务";
     [_goodsArray addObject:goodsBean2];
     
     FTGoodsBean *goodsBean3 = [FTGoodsBean new];
     goodsBean3.goodsId = PowerCoin3;
     goodsBean3.price = [[NSDecimalNumber alloc]initWithInt:128];
-    goodsBean3.descriptions = @"Power币 360P";
-    goodsBean3.details = @"Power币 360P，可以用来购买视频，格斗东西app相关服务";
+    goodsBean3.descriptions = @"Power币 12800P";
+    goodsBean3.details = @"Power币 12800P，可以用来购买视频，格斗东西app相关服务";
     [_goodsArray addObject:goodsBean3];
     
     FTGoodsBean *goodsBean4 = [FTGoodsBean new];
     goodsBean4.goodsId = PowerCoin4;
     goodsBean4.price =[[NSDecimalNumber alloc]initWithInt:588];
-    goodsBean4.descriptions = @"Power币 2500P";
-    goodsBean4.details = @"Power币 2500P，可以用来购买视频，格斗东西app相关服务";
+    goodsBean4.descriptions = @"Power币 58800P";
+    goodsBean4.details = @"Power币 58800P，可以用来购买视频，格斗东西app相关服务";
     [_goodsArray addObject:goodsBean4];
     
 }
@@ -164,8 +164,8 @@ enum{
     self.colectionView.dataSource = self;
     self.colectionView.delegate = self;
     
-    [_tipLabel1 setText:@"*1Power = 100Strong"];
-    [_tipLabel2 setText:@"*Power币 与 Strong币，均为虚拟货币，只可在APP内部使用"];
+//    [_tipLabel1 setText:@"*1Power = 100Strong"];
+//    [_tipLabel2 setText:@"*Power币 与 Strong币，均为虚拟货币，只可在APP内部使用"];
     
 }
 
@@ -264,19 +264,19 @@ enum{
     switch (buyType) {
         case PowerCoin_10P:
             payment= [SKPayment paymentWithProduct:product];
-            bean.power = [[NSDecimalNumber alloc]initWithInt:10];
+            bean.power = [[NSDecimalNumber alloc]initWithInt:600];
             break;
         case PowerCoin_80P:
             payment= [SKPayment paymentWithProduct:product];
-            bean.power = [[NSDecimalNumber alloc]initWithInt:30];
+            bean.power = [[NSDecimalNumber alloc]initWithInt:3000];
             break;
         case PowerCoin_360P:
             payment= [SKPayment paymentWithProduct:product];
-            bean.power = [[NSDecimalNumber alloc]initWithInt:128];
+            bean.power = [[NSDecimalNumber alloc]initWithInt:12800];
             break;
         case PowerCoin_2500P:
             payment= [SKPayment paymentWithProduct:product];
-            bean.power = [[NSDecimalNumber alloc]initWithInt:588];
+            bean.power = [[NSDecimalNumber alloc]initWithInt:58800];
             break;
             
         default:

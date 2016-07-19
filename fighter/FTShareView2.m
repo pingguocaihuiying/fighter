@@ -121,9 +121,9 @@
     _hintLabel.font=[UIFont systemFontOfSize:15];
     _hintLabel.textAlignment = NSTextAlignmentCenter;
     _hintLabel.textColor = [UIColor colorWithHex:0x828287];;
-    _hintLabel.text = @"转发到 朋友圈/QQ空间，可以获得 1P/天";
     _hintLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _hintLabel.numberOfLines = 0;
+    [self setHitLabelText];
     [_panelView addSubview:_hintLabel];
     
     
@@ -150,6 +150,40 @@
     
     //动画
     [self displayPanelViewAnimation];
+}
+
+
+
+#pragma mark - 显示余额
+- (void) setHitLabelText{
+    
+    //第一段
+    NSDictionary *attrDict1 = @{ NSFontAttributeName: [UIFont systemFontOfSize:15.0],
+                                 NSForegroundColorAttributeName: [UIColor whiteColor] };
+    NSAttributedString *attrStr1 = [[NSAttributedString alloc] initWithString: @"转发到 朋友圈/QQ空间，可以获得 " attributes: attrDict1];
+    
+    //第二段
+    NSDictionary *attrDict2 = @{ NSFontAttributeName: [UIFont systemFontOfSize:15.0],
+                                 NSForegroundColorAttributeName: [UIColor redColor] };
+    
+    NSAttributedString *attrStr2 = [[NSAttributedString alloc] initWithString: @"1" attributes: attrDict2];
+    //第三段
+    NSDictionary *attrDict3 = @{ NSFontAttributeName: [UIFont systemFontOfSize:12.0],
+                                 NSForegroundColorAttributeName: [UIColor redColor] };
+    
+    NSAttributedString *attrStr3 = [[NSAttributedString alloc] initWithString: @"P" attributes: attrDict3];
+    //第四段
+    
+    NSAttributedString *attrStr4 = [[NSAttributedString alloc] initWithString: @"/天" attributes: attrDict2];
+    
+    //合并
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithAttributedString: attrStr1];
+    [text appendAttributedString: attrStr2];
+    [text appendAttributedString: attrStr3];
+    [text appendAttributedString: attrStr4];
+    
+    [_hintLabel setAttributedText:text];
+    
 }
 
 
@@ -204,39 +238,6 @@
 - (void) displayPanelViewAnimation {
     
     [self layoutIfNeeded];
-    
-    //    //设定剧本
-    //    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    //    scaleAnimation.fromValue = [NSNumber numberWithFloat:0.5];
-    //    scaleAnimation.toValue = [NSNumber numberWithFloat:1.0];
-    //    scaleAnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
-    //    scaleAnimation.removedOnCompletion = NO;
-    //    //    scaleAnimation.autoreverses = YES;
-    //    //    scaleAnimation.repeatCount = MAXFLOAT;
-    //    scaleAnimation.duration = 0.2;
-    //
-    //    //设定剧本
-    //    CABasicAnimation *positionAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
-    //    positionAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(_panelView.layer.position.x, _panelView.layer.position.y + _panelView.layer.frame.size.height)];
-    //    positionAnimation.toValue = [NSValue valueWithCGPoint:_panelView.layer.position];
-    //    positionAnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
-    //    positionAnimation.removedOnCompletion = NO;
-    //    //    scaleAnimation.autoreverses = YES;
-    //    //    scaleAnimation.repeatCount = MAXFLOAT;
-    //    positionAnimation.duration = 0.2;
-    //
-    //
-    //    CAAnimationGroup *groupAnnimation = [CAAnimationGroup animation];
-    //    groupAnnimation.duration =  0.2;
-    //    //    groupAnnimation.autoreverses = YES;
-    //    groupAnnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
-    //    groupAnnimation.removedOnCompletion = NO;
-    ////    groupAnnimation.animations = @[scaleAnimation];
-    //    groupAnnimation.animations = @[scaleAnimation,positionAnimation];
-    //    //    groupAnnimation.repeatCount = MAXFLOAT;
-    //    //开演
-    //    [_panelView.layer addAnimation:groupAnnimation forKey:@"groupAnnimation"];
-    
     
     CGRect pframe = _panelView.frame;
     CGPoint pCenter = _panelView.center;
@@ -306,17 +307,17 @@
     
     NSInteger btnTag = sender.tag;
     if (btnTag == 1000) {
-        //微信好友
-        [self shareToWXWithType:WXSceneSession];
-    }else if (btnTag == 1001) {
         //微信朋友圈
         [self shareToWXWithType:WXSceneTimeline];
-    }else if (btnTag == 1002) {
-        //qq好友
-        [self shareToTencentFriends];
-    }else if (btnTag == 1003) {
+    }else if (btnTag == 1001) {
         //qq空间
         [self shareToTencentZone];
+    }else if (btnTag == 1002) {
+        //微信好友
+        [self shareToWXWithType:WXSceneSession];
+    }else if (btnTag == 1003) {
+        //qq好友
+        [self shareToTencentFriends];
     }else if (btnTag == 1004) {
         //新浪微博
         [self shareToSinaMicroBlog];
@@ -369,7 +370,6 @@
 - (void) shareToTencentZone {
     
     
-    
     QQApiNewsObject* imgObj = [self setTencentReq];
     
     // 设置分享到 QZone 的标志位
@@ -382,15 +382,6 @@
 
 - (QQApiNewsObject *) setTencentReq {
     
-    //    // 设置预览图片
-    //    NSURL *previewURL = [NSURL URLWithString:_imageUrl];
-    //    //设置分享链接
-    //    NSURL* url = [NSURL URLWithString: _url];
-    //
-    //    QQApiNewsObject* imgObj = [QQApiNewsObject objectWithURL:url
-    //                                                       title: _title
-    //                                                 description: _summary
-    //                                             previewImageURL:previewURL];
     
     //设置分享链接
     NSURL* url = [NSURL URLWithString: _url];
@@ -423,11 +414,6 @@
                                            authInfo:authRequest
                                        access_token:myDelegate.wbtoken];
     
-    //    request.userInfo = @{@"ShareMessageFrom": @"--- 发自《格斗东西》app",
-    //                         @"Other_Info_1": [NSNumber numberWithInt:123],
-    //                         @"Other_Info_2": @[@"obj1", @"obj2"],
-    //                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}
-    //                         };
     request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
     [WeiboSDK sendRequest:request];
     
@@ -479,14 +465,6 @@
     webImage.imageData = data;
     message.imageObject = webImage;
     
-    //    //设置媒体数据
-    //    WBWebpageObject *webpage = [WBWebpageObject object];
-    //    webpage.objectID = @"identifier1";
-    //    webpage.title = _title;
-    //    webpage.description = _summary;
-    //    webpage.thumbnailData =data; //data size can`t be over 32 KB
-    //    webpage.webpageUrl = _url;
-    //    message.mediaObject = webpage;
     
     return message;
 }
@@ -505,17 +483,9 @@
     NSData *data = [self getImageDataForSDWebImageCachedKey];
     [message setThumbData:data];
     
-    //    WXImageObject *imageObj = [WXImageObject object];
-    //    imageObj.imageData = [self getImageDataForSDWebImageCachedKey];
-    //    message.mediaObject = imageObj;
-    
     WXWebpageObject *webpageObject = [WXWebpageObject object];
     webpageObject.webpageUrl = _url;
     message.mediaObject = webpageObject;
-    
-    //    WXVideoObject *videoObj = [WXVideoObject object];
-    //    videoObj.videoUrl = _url;
-    //    message.mediaObject = videoObj;
     
     SendMessageToWXReq *req = [SendMessageToWXReq new];
     req.bText = NO;
@@ -527,9 +497,11 @@
 
 //获取SDWebImage缓存图片
 - (NSData *) getImageDataForSDWebImageCachedKey {
-    //    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:@"http://12345.jpg"]];
-    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:_imageUrl]];
-    UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
+    
+//    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:_imageUrl]];
+//    UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
+
+    UIImage *image = [UIImage imageNamed:self.image];
     NSData *data = UIImageJPEGRepresentation(image, 1);
     
     if (data == nil || data.length == 0) {
@@ -598,9 +570,8 @@
         }
         case EQQAPISENDSUCESS:
         {
-//            [self getPointByShareToPlatform:@"kongjian"];
             
-            NSLog(@"微信分享回调成功");
+            NSLog(@"qq分享回调成功");
             //发送通知，告诉评论页面微信登录成功
             [[NSNotificationCenter defaultCenter] postNotificationName:QQShareResultNoti object:@"SUCESS"];
         }
@@ -612,22 +583,4 @@
     }
 }
 
-
-// 获取分享积分
-- (void) getPointByShareToPlatform:(NSString *)platform {
-    
-    NSLog(@"%@分享赠送积分成功调用",platform);
-    [NetWorking getPointByShareWithPlatform:platform option:^(NSDictionary *dict) {
-        
-        NSLog(@"dict:%@",dict);
-         NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-        if ([dict[@"status"] isEqualToString:@"success"]) {
-            
-            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"成功获得1P积分"];
-        }else {
-            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        }
-    }];
-    
-}
 @end

@@ -168,10 +168,9 @@
     
     FTShareView2 *shareView = [FTShareView2 new];
     [shareView setUrl:_webUrlString];
-    [shareView setTitle:_videoBean.title];
-    [shareView setSummary:_videoBean.summary];
-    [shareView setImage:@"微信用@200"];
-    [shareView setImageUrl:_videoBean.img];
+    [shareView setTitle:[NSString stringWithFormat:@"我在“格斗东西”学习%@，fighting！",_label]];
+    [shareView setSummary:@"格斗技术知识为强身健体自卫防身，格斗东西团队不支持不赞成任何暴力行为。"];
+    [shareView setImage:self.labelImage];
     [self.view addSubview:shareView];
 }
 
@@ -563,6 +562,9 @@
         NSLog(@"dict:%@",dict);
         NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         if ([dict[@"status"] isEqualToString:@"success"]) {
+            
+            // 发送通知
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"RechargeOrCharge" object:@"RECHARGE"];
             
             [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"成功获得1P积分"];
         }else {

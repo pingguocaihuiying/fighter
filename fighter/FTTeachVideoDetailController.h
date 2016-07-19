@@ -42,4 +42,8 @@
 @property (nonatomic, strong)NSString *webUrlString;
 @property (nonatomic ,copy)NSString *urlId;//从个人主页跳转过来用到的拳讯或视频id
 
+//分享
+@property (nonatomic, copy) NSString *labelImage;
+@property (nonatomic, copy) NSString *label;
+
 @end

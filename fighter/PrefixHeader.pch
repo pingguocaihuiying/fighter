@@ -87,7 +87,7 @@
 
 #define WXLoginResultNoti @"WXLoginResutlNoti"
 #define WXShareResultNoti @"WXShareResultNoti"
-#define QQShareResultNoti @"WXShareResultNoti"
+#define QQShareResultNoti @"QQShareResultNoti"
 
 //微博相关
 #define WB_App_ID @"3097376602"
