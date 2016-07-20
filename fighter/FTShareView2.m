@@ -370,11 +370,11 @@
 - (void) shareToTencentZone {
     
     
-    QQApiNewsObject* imgObj = [self setTencentReq];
+    QQApiNewsObject* newsObj = [self setTencentReq];
     
     // 设置分享到 QZone 的标志位
-    [imgObj setCflag: kQQAPICtrlFlagQZoneShareOnStart ];
-    SendMessageToQQReq* req = [SendMessageToQQReq reqWithContent:imgObj];
+    [newsObj setCflag: kQQAPICtrlFlagQZoneShareOnStart ];
+    SendMessageToQQReq* req = [SendMessageToQQReq reqWithContent:newsObj];
     QQApiSendResultCode sent = [QQApiInterface SendReqToQZone:req];
     [self handleSendResult:sent];
 }
@@ -392,6 +392,13 @@
                                                  previewImageData:[self getImageDataForSDWebImageCachedKey]
                                                 targetContentType:QQApiURLTargetTypeNews];
     
+
+//    QQApiNewsObject* imgObj = [[QQApiNewsObject alloc]initWithURL:url
+//                                                            title:_title
+//                                                      description:_summary
+//                                                 previewImageURL:[NSURL URLWithString:@"http://www.gogogofight.com/img/videos/videos1468575085136.jpg"]
+//                                                targetContentType:QQApiURLTargetTypeNews];
+
     return imgObj;
 }
 
@@ -498,9 +505,6 @@
 //获取SDWebImage缓存图片
 - (NSData *) getImageDataForSDWebImageCachedKey {
     
-//    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:_imageUrl]];
-//    UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
-
     UIImage *image = [UIImage imageNamed:self.image];
     NSData *data = UIImageJPEGRepresentation(image, 1);
     

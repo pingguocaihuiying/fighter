@@ -114,54 +114,22 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     [net loginOut:^(NSDictionary *dict) {
-        NSLog(@"dict:%@",dict);
         
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        if (dict != nil) {
-            
-            bool status = [dict[@"status"] boolValue];
-            NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-            
-            if (status == true) {
-                
-                //                                  [[UIApplication sharedApplication].keyWindow showHUDWithMessage:message];
-                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"退出成功"];
-                
-                
-                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"loginUser"];
-                [[NSUserDefaults standardUserDefaults]synchronize];
-                
-                [self.navigationController dismissViewControllerAnimated:YES completion:^{
-                    
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"loginAction" object:@"LOGOUT"];
-                }];
-                
-            }else {
-                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"loginUser"];
-                [[NSUserDefaults standardUserDefaults]synchronize];
-                
-                [self.navigationController dismissViewControllerAnimated:YES completion:^{
-                    
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"loginAction" object:@"LOGOUT"];
-                }];
-
-                NSLog(@"message : %@", [dict[@"message"] class]);
-                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"退出成功"];
-                
-            }
-        }else {
-            
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"loginUser"];
-            [[NSUserDefaults standardUserDefaults]synchronize];
-            
-            [self.navigationController dismissViewControllerAnimated:YES completion:^{
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"loginAction" object:@"LOGOUT"];
-            }];
-
-            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"退出成功"];
-            
-        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:LoginNoti object:@"LOGOUT"];
+        
+        NSLog(@"dict:%@",dict);
+        NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+        
+        
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"loginUser"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+        
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"退出成功"];
+        
     }];
 }
 

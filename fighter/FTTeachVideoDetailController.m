@@ -46,6 +46,11 @@
 
 }
 
+- (void) dealloc {
+    
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -564,7 +569,7 @@
         if ([dict[@"status"] isEqualToString:@"success"]) {
             
             // 发送通知
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"RechargeOrCharge" object:@"RECHARGE"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:RechargeResultNoti object:@"RECHARGE"];
             
             [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"成功获得1P积分"];
         }else {

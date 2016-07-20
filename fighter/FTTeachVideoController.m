@@ -86,10 +86,10 @@
     [self initSubviews];
     [self getDataWithGetType:@"new" andCurrId:@"-1"];//第一次加载数据
     
-    [self setNai];
+    [self setNotifacation];
 }
 
-- (void) viewWillDisappear:(BOOL)animated {
+- (void) dealloc {
     
     //销毁通知
     [[NSNotificationCenter defaultCenter]removeObserver:self];
@@ -101,9 +101,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark
+#pragma mark - 初始化
 // 监听通知
-- (void) setNai {
+- (void) setNotifacation {
     
     // 注册通知，分享到微信成功
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToWeiXin:) name:WXShareResultNoti object:nil];
@@ -112,14 +112,13 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToQQ:) name:QQShareResultNoti object:nil];
     
     //添加监听器，充值购买
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshBalance:) name:@"RechargeOrCharge" object:nil];
-    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshBalance:) name:RechargeResultNoti object:nil];
     
     //注册通知，接收微信登录成功的消息
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginAction:) name:WXLoginResultNoti object:nil];
     
     //添加监听器，监听login
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginAction:) name:@"loginAction" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginAction:) name:LoginNoti object:nil];
     
 }
 
@@ -165,7 +164,8 @@
     
     
     // 获取余额
-    [self fetchBalanceFromWeb];
+    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+    [self setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
     
     _currentBean = [FTVideoBean new];
     
@@ -179,8 +179,8 @@
     
     [_collectionView registerNib:[UINib nibWithNibName:@"FTTeachVideoCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
     
-    
     [self setJHRefresh];
+    
 }
 
 
@@ -325,7 +325,7 @@
                     }
                     
                     // 发送通知
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"RechargeOrCharge" object:@"CHARGE"];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:RechargeResultNoti object:@"CHARGE"];
                     
                     UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@""
                                                                         message:@"购买成功，现在可以去学习啦~"
@@ -510,8 +510,11 @@
                 }];
             }
         }else {
+            
+            // 获取余额
+            FTPaySingleton *singleton = [FTPaySingleton shareInstance];
             // 检查余额是否足够购买视频
-            if (_balance < [_currentBean.price integerValue]) {
+            if (singleton.balance < [_currentBean.price integerValue]) {
                 
                 [self.dialogView setHidden:NO];
             
@@ -846,7 +849,6 @@
         }
         case EQQAPISENDSUCESS:
         {
-            //            [self getPointByShareToPlatform:@"kongjian"];
             
             NSLog(@"微信分享回调成功");
             //发送通知，告诉评论页面微信登录成功
@@ -864,14 +866,31 @@
 // 登录刷新
 - (void) loginAction:(NSNotification *) noti {
 
-    [self fetchBalanceFromWeb];
-    
+//    // 获取余额
+//    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+//    [self setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
+//    
+
+    // 获取余额
+    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+    [singleton fetchBalanceFromWeb:^{
+        [self setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
+    }];
+
 }
 
 // 充值回调
 -  (void) refreshBalance:(NSNotification *)noti {
     
-    [self fetchBalanceFromWeb];
+    // 获取余额
+    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+    [self setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
+    
+//    // 获取余额
+//    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+//    [singleton fetchBalanceFromWeb:^{
+//        [self setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
+//    }];
 }
 
 // qq 分享回调
@@ -896,9 +915,8 @@
         NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         if ([dict[@"status"] isEqualToString:@"success"]) {
             
-            [self fetchBalanceFromWeb];
             // 发送通知
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"RechargeOrCharge" object:@"RECHARGE"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:RechargeResultNoti object:@"RECHARGE"];;
             [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"积分+1P"];
         }else {
             [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -906,37 +924,6 @@
     }];
 }
 
-#pragma mark - 查询余额
-- (void) fetchBalanceFromWeb {
-    
-    //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    if (!localUserData) {
-        
-        return;
-    }
-
-    // 获取余额
-    [NetWorking queryMoneyWithOption:^(NSDictionary *dict) {
-        
-        NSLog(@"dict:%@",dict);
-        if ([dict[@"status"] isEqualToString:@"success"] && dict[@"data"]) {
-            
-            NSDictionary *dic = dict[@"data"];
-            
-            NSInteger taskTotal = [dic[@"taskTotal"] integerValue];
-            NSInteger otherTotal = [dic[@"otherTotal"] integerValue];
-            NSInteger cost = [dic[@"cost"] integerValue];
-            _balance = taskTotal+otherTotal-cost;
-            
-            [self setBalanceText:[NSString stringWithFormat:@"%ld",taskTotal+otherTotal-cost]];
-            
-        }else {
-            
-            NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-        }
-    }];
-}
 
 #pragma mark - 显示余额
 - (void) setBalanceText:(NSString *) balanceString {
@@ -959,15 +946,5 @@
     [_balanceLabel setAttributedText:text];
     
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
