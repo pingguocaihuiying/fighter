@@ -816,6 +816,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         urlString = [NSString stringWithFormat:@"%@?boxerId=%@", urlString, boxerId];
     }else if(userOldid){
         urlString = [NSString stringWithFormat:@"%@?userId=%@", urlString, userOldid];
+    }else if(coachId){
+        urlString = [NSString stringWithFormat:@"%@?coachId=%@", urlString, coachId]; 
     }else{
         NSLog(@"没有id");
     }
@@ -1053,13 +1055,13 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 }
 
 //获取拳手列表
-+ (void)getBoxerListByWeight:(NSString *)weight andOverWeightLevel: (NSString *) overWeightLevel andOption:(void (^)(NSArray *array))option{
++ (void)getBoxerListByWeight:(NSString *)weight andOverWeightLevel: (NSString *) overWeightLevel andPageSize:(NSString *)pageSize andPageNum:(int)pageNum andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetBoxerListURL];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     assert(weight);
-    urlString = [NSString stringWithFormat:@"%@?weight=%@&weightLevel=%@", urlString, weight, overWeightLevel];
+    urlString = [NSString stringWithFormat:@"%@?weight=%@&weightLevel=%@&pageSize=%@&pageNum=%d", urlString, weight, overWeightLevel, pageSize, pageNum];
     
     //    NSLog(@"getGymInfoById %@", urlString);
     [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {

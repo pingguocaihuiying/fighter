@@ -31,7 +31,7 @@
 
 
 /**
- *  数据结构思路：
+ *  数据结构思路22：
  源数据用字典存，key值为比赛日期，对应的value为数组，数组中存放一个个比赛信息
  再用array顺序存放字典的key值（即日期），校正数据的顺序
  */
@@ -43,6 +43,15 @@
 @property (nonatomic, copy) NSString *pageSize;//每一页多少条数据
 @property (nonatomic, assign) int pageNum;//当前页,1表示第一页
 @property (weak, nonatomic) IBOutlet UITableView *tableView;//显示比赛列表的
+
+//上方的条件筛选按钮
+@property (weak, nonatomic) IBOutlet UIButton *allMatchesButton;
+@property (weak, nonatomic) IBOutlet UIButton *abountToStartButton;
+@property (weak, nonatomic) IBOutlet UIButton *matchedButton;
+
+//当前选中的筛选条件：0、1、2，默认为0
+@property (nonatomic, assign)int conditionOffset;
+
 
 @end
 
@@ -75,10 +84,6 @@
 }
 
 - (void)initSubViews{
-    //设置控件的二态
-    [self setControlsHightLightImage];
-    
-    [self.view bringSubviewToFront:_entryButton];//把“参赛”按钮放在最前边
     
     //设置状态栏的颜色为白色
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -103,18 +108,31 @@
     [self setTableView];//设置tableview
 }
 
-/**
- *  设置控件的二态图片
- */
-- (void)setControlsHightLightImage{
-    [_entryButton setBackgroundImage:[UIImage imageNamed:@"参赛pre"] forState:UIControlStateHighlighted];
+#pragma mark - 筛选按钮的点击事件
+- (IBAction)allButtonClicked:(id)sender {
+    _allMatchesButton.selected = YES;
+    _abountToStartButton.selected = NO;
+    _matchedButton.selected = NO;
+    _conditionOffset = 0;
 }
+- (IBAction)abountToStartButtonClicked:(id)sender {
+    _allMatchesButton.selected = NO;
+    _abountToStartButton.selected = YES;
+    _matchedButton.selected = NO;
+    _conditionOffset = 1;
+}
+- (IBAction)matchedButtonClicked:(id)sender {
+    _allMatchesButton.selected = NO;
+    _abountToStartButton.selected = NO;
+    _matchedButton.selected = YES;
+    _conditionOffset = 2;
+}
+
 
 - (void)getMatchList{
     [NetWorking getMatchListWithPageNum:_pageNum andPageSize:_pageSize andOption:^(NSArray *array) {
                 if (array && array.count > 0) {
                     
-
                     if (_pageNum == 1) {//如果是第一页，替换
                         
                     }else if(_pageNum > 1){//如果是

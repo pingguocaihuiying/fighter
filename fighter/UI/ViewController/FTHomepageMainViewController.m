@@ -224,7 +224,7 @@
             
             //显示视频，不显示战绩
             self.recordButton.hidden = YES;//是否显示战绩按钮
-            self.videoButton.hidden = YES;//是否显示视频按钮
+            self.videoButton.hidden = NO;//是否显示视频按钮
             
             _followTableName = @"f-coach";
             self.identityImageView1.hidden = NO;

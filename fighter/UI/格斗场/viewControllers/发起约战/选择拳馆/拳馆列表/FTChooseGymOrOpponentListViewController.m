@@ -15,12 +15,17 @@
 #import "FTOpponentCell.h"
 #import "FTLaunchNewMatchViewController.h"
 #import "FTHomepageMainViewController.h"
+#import "JHRefresh.h"
 
 @interface FTChooseGymOrOpponentListViewController ()<UITableViewDelegate, UITableViewDataSource, FTSelectCellDelegate, FTDefaultFullyMatchingCellSelected, opponentSelectedDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (nonatomic, assign)NSInteger curOpponentIndex;
 @property (assign, nonatomic) FTMatchType matchType;
-@property (nonatomic, strong) NSArray *boxersArray;
+@property (nonatomic, strong) NSMutableArray *boxersArray;
+
+//分页
+@property (nonatomic, copy) NSString *pageSize;
+@property (nonatomic, assign) int pageNum;//接口中，1为第一页
 @end
 
 @implementation FTChooseGymOrOpponentListViewController
@@ -29,19 +34,40 @@
     [super viewDidLoad];
     [self initBaseData];
     [self initSubViews];
-    [self getDataFromServer];
+    [self loadDataFromServer];
 }
 
 - (void)initBaseData{
     _curOpponentIndex = 0;//默认选择同匹配度任何人
     _matchType = FTMatchTypeFullyMatch;
+    
+    //分页
+    _pageSize = @"10";
+    _pageNum = 1;
+    
+    //初始化可变数组
+    _boxersArray = [NSMutableArray new];
 }
 
-- (void)getDataFromServer{
-    [NetWorking getBoxerListByWeight:@"80" andOverWeightLevel:@"5" andOption:^(NSArray *array) {
-        _boxersArray = array;
+- (void)loadDataFromServer{
+    [NetWorking getBoxerListByWeight:@"80" andOverWeightLevel:@"5" andPageSize:_pageSize andPageNum:_pageNum andOption:^(NSArray *array) {
+        
         if (_boxersArray && _boxersArray.count > 0) {
+            //刷新成功
+            [self.tableview headerEndRefreshingWithResult:JHRefreshResultSuccess];
+            [self.tableview footerEndRefreshing];
+            
+            if (_pageNum == 1) {//如果是第一页，替换
+                _boxersArray = [[NSMutableArray alloc]initWithArray:array];
+            }else if(_pageNum > 1){//如果是
+                [_boxersArray addObjectsFromArray:array];
+            }
+            
             [_tableview reloadData];
+        }else{
+            //刷新失败
+            [self.tableview headerEndRefreshingWithResult:JHRefreshResultFailure];
+            [self.tableview footerEndRefreshing];
         }
         
     }];
@@ -127,11 +153,11 @@
     return selectBtn;
 }
 
-
+#pragma mark - 设置tableview
 - (void)setTableView{
     _tableview.delegate = self;
     _tableview.dataSource = self;
-    
+    [self setJHRefresh];
     if (_listType == FTGymListType) {
         [_tableview registerNib:[UINib nibWithNibName:@"FTGymCell" bundle:nil] forCellReuseIdentifier:@"gymCell"];
     }else if (_listType == FTOpponentListType){
@@ -139,9 +165,28 @@
         [_tableview registerNib:[UINib nibWithNibName:@"FTDefaultFullMatchingTableViewCell" bundle:nil] forCellReuseIdentifier:@"fullyMatchingOpponentCell"];
     }
     
-    [_tableview reloadData];
+    
 }
-#pragma -mark -设置tableview
+
+- (void)setJHRefresh{
+    //设置下拉刷新
+    __block typeof(self) sself = self;
+    [_tableview addRefreshHeaderViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
+        //发请求的方法区域
+        NSLog(@"触发下拉刷新headerView");
+        sself.pageNum = 1;
+        [sself loadDataFromServer];
+        
+    }];
+    //设置上拉刷新
+    [_tableview addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
+        NSLog(@"触发上拉刷新headerView");
+        sself.pageNum ++;
+        [sself loadDataFromServer];
+    }];
+}
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (_listType == FTGymListType) {
         return 4;
@@ -192,15 +237,14 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"index.path.row : %ld", indexPath.row);
-    if (_listType == FTGymListType) {
+    if (_listType == FTGymListType) {//拳馆
         FTGymDetailViewController *gymDetailViewController = [FTGymDetailViewController new];
         [self.navigationController pushViewController:gymDetailViewController animated:YES];
-    }else if (_listType == FTOpponentListType){
+    }else if (_listType == FTOpponentListType){//对手
         if (indexPath.row == 0) {
             
         }else{
             FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
-//            homepageMainVC.boxerId = boxerId;
             homepageMainVC.olduserid = @"855bd9552ff0488aa0d0765e9ccd46cc";
             [self.navigationController pushViewController:homepageMainVC animated:YES];
         }

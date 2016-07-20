@@ -405,6 +405,10 @@
                     }
                     
                     [self getDataFromDB];
+                }else if (mutableArray.count == 0){//如果返回一个空的数组，说明没有数据
+                    [self.tableViewDataSourceArray removeAllObjects];
+                    self.tableViewController.sourceArray = self.tableViewDataSourceArray;
+                    [self.tableViewController.tableView reloadData];
                 }
                 
                 

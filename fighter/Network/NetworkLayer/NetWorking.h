@@ -216,7 +216,7 @@
 + (void)getGymInfoById:(NSString *)gymId andOption:(void (^)(NSDictionary *dic))option;
 
 //获取拳手信息
-+ (void)getBoxerListByWeight:(NSString *)weight andOverWeightLevel: (NSString *) overWeightLevel andOption:(void (^)(NSArray *array))option;
++ (void)getBoxerListByWeight:(NSString *)weight andOverWeightLevel: (NSString *) overWeightLevel andPageSize:(NSString *)pageSize andPageNum:(int)pageNum andOption:(void (^)(NSArray *array))option;
 
 //添加赛事
 + (void)addMatchWithParams:(NSDictionary *)dic andOption:(void (^)(BOOL result))option;
