@@ -228,19 +228,19 @@
     
     FTUserBean *localUser = [FTUserTools getLocalUser];
     NSString *userID = localUser.olduserid;//oladuserID。 a8c0ba8e2071425ab21737ec65f5a333
-//    NSString *userID = @"a8c0ba8e2071425ab21737ec65f5a333";//oladuserID。 a8c0ba8e2071425ab21737ec65f5a333
+    //    NSString *userID = @"a8c0ba8e2071425ab21737ec65f5a333";//oladuserID。 a8c0ba8e2071425ab21737ec65f5a333
     NSString *userName = localUser.username;//发起人name
-
+    
     NSString *timeSectionID = _selectedTimeSectionIDString;//时间段ID
     NSString *levelGap = [NSString stringWithFormat:@"%ld", _matchType];
-//    NSString *levelGap = @"lavelGap888";
+    //    NSString *levelGap = @"lavelGap888";
     NSString *gymIncomePercent = [NSString stringWithFormat:@"%ld", _gymIncomePoint * 5];
     NSString *selfIncomePercent = [NSString stringWithFormat:@"%ld", _selfIncomePoint * 5];
     NSString *opponentIncomePercent = [NSString stringWithFormat:@"%ld", _opponentIncomePoint * 5];
     NSString *supporterIncomePercent = [NSString stringWithFormat:@"%ld", _supporterIncomePoint * 5];
     NSString *payStatus = @"0";//0 等待支付 1 支付完成
     NSString *loginToken = localUser.token;//loginToken 592eb34f9edd411b98e3ec9dcb46a976
-//    NSString *loginToken = @"592eb34f9edd411b98e3ec9dcb46a976";//loginToken 592eb34f9edd411b98e3ec9dcb46a976
+    //    NSString *loginToken = @"592eb34f9edd411b98e3ec9dcb46a976";//loginToken 592eb34f9edd411b98e3ec9dcb46a976
     NSString *ts = [NSString stringWithFormat:@"%0.f", [[NSDate date]timeIntervalSince1970] * 1000];//此刻的时间戳
     NSString *labelCH = [FTTools getNameCHWithEnLabelName:_typeOfLabelString];
     NSString *theDate = [NSString stringWithFormat:@"%.0f", _selectedDateTimestamp * 1000];
@@ -310,7 +310,7 @@
     //检查所选的项目，拳馆是否支持
     if (![self isGymSupportSelectedItem]) {
         [self showHUDWithMessage:@"拳馆不支持所选项目"];
-//        return false;//测试数据限制，暂时关闭验证
+        //        return false;//测试数据限制，暂时关闭验证
     }
     return true;
 }
