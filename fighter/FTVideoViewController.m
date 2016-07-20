@@ -117,9 +117,12 @@
     //改变左边按钮的标题颜色、图片
     [self.hotButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [self.hotButton setImage:[UIImage imageNamed:@"标签图标-最热-pre"] forState:UIControlStateNormal];
+    _hotButton.selected = YES;
+    
     //改变右边按钮的标题颜色、图片
     [self.newestButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.newestButton setImage:[UIImage imageNamed:@"标签图标-最新"] forState:UIControlStateNormal];
+    _newestButton.selected = NO;
     
     //重新加载数据
     [self getDataWithGetType:@"new" andCurrId:@"-1"];
@@ -133,10 +136,13 @@
     //改变右边按钮的标题颜色、图片
         [self.newestButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [self.newestButton setImage:[UIImage imageNamed:@"标签图标-最新-pre"] forState:UIControlStateNormal];
+    _newestButton.selected = YES;
+    
     
     //改变左边按钮的标题颜色、图片
     [self.hotButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.hotButton setImage:[UIImage imageNamed:@"标签图标-最热"] forState:UIControlStateNormal];
+    _hotButton.selected = NO;
     
     //重新加载数据
     [self getDataWithGetType:@"new" andCurrId:@"-1"];

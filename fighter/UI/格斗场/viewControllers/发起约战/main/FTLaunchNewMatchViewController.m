@@ -34,6 +34,7 @@
 @property (nonatomic, strong) FTIncomePercentView *opponentIncomePercentView;//opponent收益百分比选择器
 @property (nonatomic, strong) FTIncomePercentView *supporterIncomePercentView;//supporter收益百分比选择器
 
+@property (nonatomic, assign) NSInteger gymIncomePoint;// self income point ** 1 point equals 5 percent
 @property (nonatomic, assign) NSInteger selfIncomePoint;// self income point ** 1 point equals 5 percent
 @property (nonatomic, assign) NSInteger opponentIncomePoint;// opoonent income point ** 1 point  equals 5 percent
 @property (nonatomic, assign) NSInteger supporterIncomePoint;// supporter income point ** 1 point  equals 5 percent
@@ -113,10 +114,17 @@
     
     _matchType = FTMatchTypeFullyMatch;//默认完全匹配
     
-    //默认收益点数为1
+    //默认收益点数
+    _gymIncomePoint = 4;//默认为 4 ＊ 5 ＝ 20％
     _selfIncomePoint = 1;
     _opponentIncomePoint = 1;
     _supporterIncomePoint = 1;
+    
+    _gymName = @"天下一武道馆";
+    _gymID = @"158";
+    _selectedTimeSectionString = @"09:00~10:00";
+    _ticketPrice = @"";
+    _gymServicePrice = @"";
 }
 #pragma -mark -选择项目按钮被点击
 - (IBAction)chooseLabelButtonClicked:(id)sender {
@@ -202,17 +210,109 @@
  *  确定发起约战
  */
 - (void)confirmButtonClicked{
-    NSLog(@"确定");
+    NSLog(@"添加比赛");
     
-    [self checkParams];//参数检查
-
+    if(![self validParams]){//参数检查
+        return;
+    };
+    
+    //支付
+    
+    
+    //保存比赛信息至服务器
+    [self addMatnToServer];
 }
 
-- (void)checkParams{
+- (void)addMatnToServer{
+    NSMutableDictionary *mDic = [NSMutableDictionary new];
+    
+    FTUserBean *localUser = [FTUserTools getLocalUser];
+    NSString *userID = localUser.olduserid;//oladuserID。 a8c0ba8e2071425ab21737ec65f5a333
+//    NSString *userID = @"a8c0ba8e2071425ab21737ec65f5a333";//oladuserID。 a8c0ba8e2071425ab21737ec65f5a333
+    NSString *userName = localUser.username;//发起人name
+
+    NSString *timeSectionID = _selectedTimeSectionIDString;//时间段ID
+    NSString *levelGap = [NSString stringWithFormat:@"%ld", _matchType];
+//    NSString *levelGap = @"lavelGap888";
+    NSString *gymIncomePercent = [NSString stringWithFormat:@"%ld", _gymIncomePoint * 5];
+    NSString *selfIncomePercent = [NSString stringWithFormat:@"%ld", _selfIncomePoint * 5];
+    NSString *opponentIncomePercent = [NSString stringWithFormat:@"%ld", _opponentIncomePoint * 5];
+    NSString *supporterIncomePercent = [NSString stringWithFormat:@"%ld", _supporterIncomePoint * 5];
+    NSString *payStatus = @"0";//0 等待支付 1 支付完成
+    NSString *loginToken = localUser.token;//loginToken 592eb34f9edd411b98e3ec9dcb46a976
+//    NSString *loginToken = @"592eb34f9edd411b98e3ec9dcb46a976";//loginToken 592eb34f9edd411b98e3ec9dcb46a976
+    NSString *ts = [NSString stringWithFormat:@"%0.f", [[NSDate date]timeIntervalSince1970] * 1000];//此刻的时间戳
+    NSString *labelCH = [FTTools getNameCHWithEnLabelName:_typeOfLabelString];
+    NSString *theDate = [NSString stringWithFormat:@"%.0f", _selectedDateTimestamp * 1000];
+    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",_gymName,_gymID,_gymServicePrice,opponentIncomePercent,gymIncomePercent,supporterIncomePercent,selfIncomePercent,labelCH,levelGap,loginToken,[self getPayMode], payStatus,theDate,_ticketPrice, timeSectionID, _selectedTimeSectionString,ts,userID,userName, @"gedoujiahdflshklfkdll252244"];
+    NSLog(@"md5前的checksign： %@", checkSign);
+    checkSign = [MD5 md5:checkSign];
+    
+    [mDic setValue:userID forKey:@"userId"];//用户ID
+    [mDic setValue:[userName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"userName"];//用户名字
+    [mDic setValue:_gymID forKey:@"corporationid"];//拳馆ID
+    [mDic setValue:_gymName forKey:@"corporationName"];//拳馆名字
+    [mDic setValue:timeSectionID forKey:@"timeId"];//时间段ID
+    [mDic setValue:[labelCH stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"label"];//选择的比赛项目（中文）
+    [mDic setValue:[levelGap stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding ] forKey:@"levelGap"];//匹配级别（0-完全匹配（默认），1-跨越1级别，2-跨越2级别）
+    [mDic setValue:_ticketPrice forKey:@"ticket"];//门票价格
+    [mDic setValue:_gymServicePrice forKey:@"cost"];//拳馆基础使用费用
+    [mDic setValue:gymIncomePercent forKey:@"incomeCorp"];//拳馆收益
+    [mDic setValue:selfIncomePercent forKey:@"incomeSponsor"];//己方收益名字
+    [mDic setValue:opponentIncomePercent forKey:@"incomeAgainst"];//对手收益
+    [mDic setValue:supporterIncomePercent forKey:@"incomePatron"];//赞助方收益
+    [mDic setValue:[self getPayMode] forKey:@"payType"];//支付类型
+    [mDic setValue:payStatus forKey:@"payStatu"];//支付状态
+    [mDic setValue:theDate forKey:@"theDate"];//比赛日期
+    [mDic setValue:_selectedTimeSectionString forKey:@"timeSection"];//
+    [mDic setValue:loginToken forKey:@"loginToken"];//
+    [mDic setValue:ts forKey:@"ts"];//
+    [mDic setValue:checkSign forKey:@"checkSign"];//
+    
+    [NetWorking addMatchWithParams:mDic andOption:^(BOOL result) {
+        if (result) {
+            NSLog(@"添加比赛成功");
+        }else{
+            NSLog(@"添加比赛失败");
+        }
+    }];
+}
+
+- (NSString *)getPayMode{
+    NSString *payMode = @"";
+    switch (_matchPayMode) {
+        case FTMatchPayModeSelf:
+            payMode = @"0";
+            break;
+        case FTMatchPayModeOpponent:
+            payMode = @"1";
+            break;
+        case FTMatchPayModeSupport:
+            payMode = @"5";
+            break;
+        case FTMatchPayModeConsult:
+            if (_matchPayConsultMode == FTMatchConsultPayModeWinner) {
+                payMode = @"2";
+            } else  if (_matchPayConsultMode == FTMatchConsultPayModeAA){
+                payMode = @"3";
+            }else  if (_matchPayConsultMode == FTMatchConsultPayModeLoser){
+                payMode = @"4";
+            }
+            
+            break;
+        default:
+            break;
+    }
+    return payMode;
+}
+
+- (BOOL)validParams{
     //检查所选的项目，拳馆是否支持
     if (![self isGymSupportSelectedItem]) {
         [self showHUDWithMessage:@"拳馆不支持所选项目"];
+//        return false;//测试数据限制，暂时关闭验证
     }
+    return true;
 }
 
 - (BOOL)isGymSupportSelectedItem{

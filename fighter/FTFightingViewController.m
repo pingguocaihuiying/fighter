@@ -29,21 +29,39 @@
 #import "FTHomepageMainViewController.h"
 #import "FTLaunchNewMatchViewController.h"
 
-@interface FTFightingViewController ()<SDCycleScrollViewDelegate, FTnewsDetailDelegate,FTTableViewdelegate, FTFightingMainVCButtonsClickedDelegate>
 
-@property(nonatomic,strong) NSArray *sourceArry;     //数据源
-@property (nonatomic, strong)NSMutableArray *tableViewDataSourceArray;
-@property (nonatomic, strong)FTTableViewController *tableViewController;
-@property (nonatomic, strong)NSArray *typeArray;
-@property (nonatomic) NSInteger currentPage;
+/**
+ *  数据结构思路22：
+ 源数据用字典存，key值为比赛日期，对应的value为数组，数组中存放一个个比赛信息
+ 再用array顺序存放字典的key值（即日期），校正数据的顺序
+ */
+
+@interface FTFightingViewController ()<UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong)NSMutableArray *dateArray;//
+@property (nonatomic, strong) NSMutableDictionary *matchesDic;//
+@property (nonatomic, copy) NSString *pageSize;//每一页多少条数据
+@property (nonatomic, assign) int pageNum;//当前页,1表示第一页
+@property (weak, nonatomic) IBOutlet UITableView *tableView;//显示比赛列表的
+
+//上方的条件筛选按钮
+@property (weak, nonatomic) IBOutlet UIButton *allMatchesButton;
+@property (weak, nonatomic) IBOutlet UIButton *abountToStartButton;
+@property (weak, nonatomic) IBOutlet UIButton *matchedButton;
+
+//当前选中的筛选条件：0、1、2，默认为0
+@property (nonatomic, assign)int conditionOffset;
+
+
 @end
 
 @implementation FTFightingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initBaseData];
     [self initSubViews];
-    [self getDataWithGetType:@"new" andCurrId:@"-1"];//初次加载数据
+    [self getMatchList];//初次加载数据
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -57,12 +75,15 @@
     //    self.navigationController.navigationBarHidden = NO;
 }
 
+- (void)initBaseData{
+    _pageNum = 1;
+    _pageSize = @"10";
+    
+    _dateArray = [NSMutableArray new];
+    _matchesDic = [NSMutableDictionary new];
+}
 
 - (void)initSubViews{
-    //设置控件的二态
-    [self setControlsHightLightImage];
-    
-    [self.view bringSubviewToFront:_entryButton];//把“参赛”按钮放在最前边
     
     //设置状态栏的颜色为白色
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -87,80 +108,48 @@
     [self setTableView];//设置tableview
 }
 
-/**
- *  设置控件的二态图片
- */
-- (void)setControlsHightLightImage{
-    [_entryButton setBackgroundImage:[UIImage imageNamed:@"参赛pre"] forState:UIControlStateHighlighted];
+#pragma mark - 筛选按钮的点击事件
+- (IBAction)allButtonClicked:(id)sender {
+    _allMatchesButton.selected = YES;
+    _abountToStartButton.selected = NO;
+    _matchedButton.selected = NO;
+    _conditionOffset = 0;
+}
+- (IBAction)abountToStartButtonClicked:(id)sender {
+    _allMatchesButton.selected = NO;
+    _abountToStartButton.selected = YES;
+    _matchedButton.selected = NO;
+    _conditionOffset = 1;
+}
+- (IBAction)matchedButtonClicked:(id)sender {
+    _allMatchesButton.selected = NO;
+    _abountToStartButton.selected = NO;
+    _matchedButton.selected = YES;
+    _conditionOffset = 2;
 }
 
-- (void)getDataFromDBWithType:(NSString *)getType currentPage:(NSInteger) currentPage {
-    
-    //从数据库取数据
-    DBManager *dbManager = [DBManager shareDBManager];
-    [dbManager connect];
-    NSMutableArray *mutableArray =[dbManager searchNewsWithType:@"foo"];
-    [dbManager close];
-    
-    
-    if (self.tableViewDataSourceArray == nil) {
-        self.tableViewDataSourceArray = [[NSMutableArray alloc]init];
-    }
-    if ([getType isEqualToString:@"new"]) {
-        self.tableViewDataSourceArray = mutableArray;
-    }else if([getType isEqualToString:@"old"]){
-        [self.tableViewDataSourceArray addObjectsFromArray:mutableArray];
-    }
-    
-    self.tableViewController.sourceArray = self.tableViewDataSourceArray;
-    [self.tableViewController.tableView reloadData];
-    
-    //隐藏infoLabel
-    if (self.infoLabel.isHidden == NO) {
-        self.infoLabel.hidden = YES;
-    }
-}
-- (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)newsCurrId{
-    NSString *urlString = [FTNetConfig host:Domain path:GetNewsURL];
-    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@", newsCurrId, getType, ts, @"quanjijia222222"]];
-    
-    urlString = [NSString stringWithFormat:@"%@?&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@", urlString, newsCurrId, getType, ts, checkSign, [FTNetConfig showType]];
-    NSLog(@"获取资讯 url ： %@", urlString);
-    NetWorking *net = [[NetWorking alloc]init];
-    [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
-        
-        if (responseDic != nil) {
-            NSString *status = responseDic[@"status"];
-            if ([status isEqualToString:@"success"]) {
-                NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
-                
-                //                NSLog(@"data:%@",responseDic[@"data"]);
 
-                if (mutableArray.count > 0) {
-                    DBManager *dbManager = [DBManager shareDBManager];
-                    [dbManager connect];
-                    [dbManager cleanNewsTable];
+- (void)getMatchList{
+    [NetWorking getMatchListWithPageNum:_pageNum andPageSize:_pageSize andOption:^(NSArray *array) {
+                if (array && array.count > 0) {
                     
-                    for (NSDictionary *dic in mutableArray)  {
-                        [dbManager insertDataIntoNews:dic];
+                    if (_pageNum == 1) {//如果是第一页，替换
+                        
+                    }else if(_pageNum > 1){//如果是
+                        
                     }
                     
-                    [self getDataFromDBWithType:getType currentPage:self.currentPage];
+                    //刷新成功
+                    [self.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+                    [self.tableView footerEndRefreshing];
+                    
+                    [self.tableView reloadData];
+                    
+                }else {
+                    //刷新失败
+                    [self.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+                    [self.tableView footerEndRefreshing];
                 }
-                
-                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
-                [self.tableViewController.tableView footerEndRefreshing];
-            }else {
-                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
-                [self.tableViewController.tableView footerEndRefreshing];
-            }
-            
-        }else {
-            [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
-            [self.tableViewController.tableView footerEndRefreshing];
-            
-        }
     }];
     
 }
@@ -168,52 +157,38 @@
 
 - (void)setTableView
 {
-    if(!self.tableViewController){
-        self.tableViewController = [[FTTableViewController alloc]initWithStyle:UITableViewStylePlain];
-        self.tableViewController.listType = FTCellTypeFighting;
-        
-        self.tableViewController.FTdelegate = self;
-        self.tableViewController.fightingTableViewButtonsClickedDelegate = self;
-//        self.tableViewController.order = 0;
-        //设置上拉、下拉刷新
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
         [self setJHRefresh];
-    }
-    
-    if (self.tableViewDataSourceArray) {
-        [self.tableViewController.tableView footerEndRefreshing];
-        self.tableViewController.sourceArray = self.tableViewDataSourceArray;
-    }else{
-        NSLog(@"没有数据源。");
-    }
-    
-    self.tableViewController.tableView.frame = self.currentView.bounds;
-    [self.currentView addSubview:self.tableViewController.tableView];
-    [self.tableViewController.tableView reloadData];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return _dateArray.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return nil;
 }
 
 - (void)setJHRefresh{
     //设置下拉刷新
     __block typeof(self) sself = self;
-    [self.tableViewController.tableView addRefreshHeaderViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
+    [self.tableView addRefreshHeaderViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
         //发请求的方法区域
         NSLog(@"触发下拉刷新headerView");
-        sself.currentPage = 0;
-        [sself getDataWithGetType:@"new" andCurrId:@"-1"];
+        sself.pageNum = 1;
+        [sself getMatchList];
 
     }];
     //设置上拉刷新
-    [self.tableViewController.tableView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
+    [self.tableView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
         NSLog(@"触发上拉刷新headerView");
-        sself.currentPage ++;
-        NSString *currId;
-        if (sself.tableViewController.sourceArray && sself.tableViewController.sourceArray.count > 0) {
-            FTNewsBean *bean = [sself.tableViewController.sourceArray lastObject];
-            currId = bean.newsId;
-        }else{
-            return;
-        }
-        
-        [sself getDataWithGetType:@"old" andCurrId:currId];
+        sself.pageNum ++;
+        [sself getMatchList];
     }];
 }
 
@@ -248,36 +223,6 @@
     NSLog(@"message button clicked.");
 }
 
-
-- (void)fttableView:(FTTableViewController *)tableView didSelectWithIndex:(NSIndexPath *)indexPath{
-    //    NSLog(@"第%ld个cell被点击了。", indexPath.row);
-    if (self.tableViewDataSourceArray) {
-        
-        FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
-        //获取对应的bean，传递给下个vc
-        //        NSDictionary *newsDic = tableView.sourceArray[indexPath.row];
-        //        FTNewsBean *bean = [FTNewsBean new];
-        //        [bean setValuesWithDic:newsDic];
-        
-        
-        FTNewsBean *bean = tableView.sourceArray[indexPath.row];
-        //标记已读
-        if (![bean.isReader isEqualToString:@"YES"]) {
-            bean.isReader = @"YES";
-            //从数据库取数据
-            DBManager *dbManager = [DBManager shareDBManager];
-            [dbManager connect];
-            [dbManager updateNewsById:bean.newsId isReader:YES];
-            [dbManager close];
-        }
-        newsDetailVC.newsBean = bean;
-        newsDetailVC.delegate = self;
-        newsDetailVC.indexPath = indexPath;
-        
-        [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
-    }
-}
-
 #pragma mark push响应方法
 - (void) pushToDetailController:(NSDictionary *)dic {
     
@@ -296,9 +241,8 @@
     //    [dic setValue:[NSString stringWithFormat:@"%@", newsBean.commentCount] forKey:@"commentCount"];
     
     
-    self.tableViewController.sourceArray[indexPath.row] = newsBean;
-    [self.tableViewController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
-    
+//    self.tableViewController.sourceArray[indexPath.row] = newsBean;
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
 }
 
 //购票、赞助等按钮的点击事件
