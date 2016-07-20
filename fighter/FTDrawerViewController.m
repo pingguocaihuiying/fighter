@@ -56,7 +56,7 @@
 @property (nonatomic , weak) UIButton *leftBtn;
 @property (nonatomic , strong) NSMutableArray *leftBtnArray;
 @property (nonatomic, strong) NSArray *labelArray; //标签数组
-@property (nonatomic, copy) NSString *balance; // 余额
+
 
 @end
 
@@ -69,34 +69,41 @@ static NSString *const tableCellId = @"tableCellId";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [self setNoti];
     
-    [self initData];
-    
-    [self setLoginedTableView];
+    [self setTableView];
     
     [self setLoginView];
     
     [self setVersion];
-
-}
-
-- (void) viewWillAppear:(BOOL)animated {
     
-    [self setNoti];
+    [self tableViewAdapter];
+    
 }
 
-- (void) viewWillDisappear:(BOOL)animated {
+- (void) dealloc {
     
     //销毁通知
     [[NSNotificationCenter defaultCenter]removeObserver:self];
     
 }
 
-- (void) initData {
+#pragma mark - 初始化
 
-    _balance = @"0P";
+// 设置监听器
+- (void) setNoti {
+    
+    //注册通知，接收微信登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginCallback:) name:WXLoginResultNoti object:nil];
+    
+    //添加监听器，监听login
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(phoneLoginedCallback:) name:LoginNoti object:nil];
+    
+    //添加监听器，充值购买
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeCallback:) name:RechargeResultNoti object:nil];
 }
 
+// 设置显示版本号
 - (void) setVersion {
 
     [self.qqLabel setTextColor:[UIColor colorWithHex:0x828287]];
@@ -110,25 +117,9 @@ static NSString *const tableCellId = @"tableCellId";
     
 }
 
-#pragma mark 设置监听器
-- (void) setNoti {
-    
-    //注册通知，接收微信登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginResponseInDrawer:) name:WXLoginResultNoti object:nil];
-    
-    //添加监听器，监听login
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showLoginedViewData:) name:@"loginAction" object:nil];
-    
-    //添加监听器，充值购买
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshBalance:) name:@"RechargeOrCharge" object:nil];
-    
-     [self showLoginedViewData:nil];
-}
-
-
 
 // 设置登录以后显示的用户信息 tableView
-- (void) setLoginedTableView {
+- (void) setTableView {
     
     NSLog(@"serSubviews");
     
@@ -215,14 +206,9 @@ static NSString *const tableCellId = @"tableCellId";
     }
 }
 
-
-
-//登陆后更新用户中心数据
-- (void) showLoginedViewData:(NSNotification *)noti {
-    
-    //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+#pragma mark - 登录回调
+// 登陆后更新用户中心数据
+- (void) phoneLoginedCallback:(NSNotification *)noti {
     
     NSString *msg = [noti object];
     if ([msg isEqualToString:@"LOGOUT"]) {//退出登录
@@ -232,25 +218,82 @@ static NSString *const tableCellId = @"tableCellId";
         
     }else {
         
-        NSLog(@"show Login View");
+        // 获取余额
+        FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+        [singleton fetchBalanceFromWeb:^{
         
-        if (localUser) {
-            [self setLoginedViewData:localUser];
-            _labelArray = localUser.interestList;
-            [self.tableView reloadData];
-            
-            [self.loginView setHidden:YES];//显示登录页面
-        }else {
-            [self.loginView setHidden:NO];//隐藏登录页面
-        }
+            [self refreshBalanceCell];
+        }];
+        
+        // 更新用户信息
+        [self tableViewAdapter];
     }
-    //跟新头像
-    [self updateUserAvatar:localUser.headpic];
-    
 }
 
 
-#pragma mark 更新用户头像
+// 微信登录响应
+- (void) wxLoginCallback:(NSNotification *)noti{
+    NSString *msg = [noti object];
+    if ([msg isEqualToString:@"SUCESS"]) {
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"微信登录成功"];
+        
+        // 获取余额
+        FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+        [singleton fetchBalanceFromWeb:^{
+            
+            [self refreshBalanceCell];
+        }];
+        
+        [self tableViewAdapter];
+        
+    }else if ([msg isEqualToString:@"ERROR"]){
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"微信登录失败"];
+    }
+}
+
+#pragma mark - 充值回调
+- (void) rechargeCallback:(NSNotification *)noti {
+    
+    // 获取余额
+    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+    [singleton fetchBalanceFromWeb:^{
+        
+        [self refreshBalanceCell];
+    }];
+}
+
+- (void) refreshBalanceCell {
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+
+#pragma mark - 更新用户中心
+
+- (void) tableViewAdapter {
+    
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    if (localUser) {
+        
+        [self setTableHeader:localUser];
+        _labelArray = localUser.interestList;
+        
+        [self.tableView reloadData];
+        
+        //跟新头像
+        [self updateUserAvatar:localUser.headpic];
+        
+        [self.loginView setHidden:YES];//显示登录页面
+    }else {
+        [self.loginView setHidden:NO];//隐藏登录页面
+    }
+}
+
+
+// 更新用户头像
 - (void) updateUserAvatar:(NSString *)headpic {
 
     
@@ -263,12 +306,12 @@ static NSString *const tableCellId = @"tableCellId";
 }
 
 
-#pragma mark 更新用户中心数据
-- (void) setLoginedViewData:(FTUserBean *)localUser {
+// 更新用户中心数据
+- (void) setTableHeader:(FTUserBean *)localUser {
 
     if (localUser) {
         
-        [self setAvatarImageViewImageWithString:localUser.headpic];
+        [self loadAvatarWithString:localUser.headpic];
         [self setNameLabelText:[localUser.username stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 //        [self setNameLabelText:localUser.username ];
         [self setAgeLabelText:localUser.age];
@@ -282,7 +325,8 @@ static NSString *const tableCellId = @"tableCellId";
 
 
 #pragma mark - setter
-- (void) setAvatarImageViewImageWithString:(NSString *)urlString {
+
+- (void) loadAvatarWithString:(NSString *)urlString {
     
     [self.avatarImageView  sd_setImageWithURL:[NSURL URLWithString:urlString]
                              placeholderImage:[UIImage imageNamed:@"头像-空"]];
@@ -338,13 +382,6 @@ static NSString *const tableCellId = @"tableCellId";
 
 
 #pragma mark - response methods
-// 刷新余额
-- (void) refreshBalance:(NSNotification *)noti {
-    
-     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-
-}
 
 //微信快捷登录按钮
 - (IBAction)weichatBtnAction:(id)sender {
@@ -356,18 +393,6 @@ static NSString *const tableCellId = @"tableCellId";
     NSLog(@"微信快捷按钮");
 }
 
-//微信登录响应
-- (void)wxLoginResponseInDrawer:(NSNotification *)noti{
-    NSString *msg = [noti object];
-    if ([msg isEqualToString:@"SUCESS"]) {
-        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"微信登录成功"];
-        
-        [self showLoginedViewData:nil];
-    
-    }else if ([msg isEqualToString:@"ERROR"]){
-        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"微信登录失败"];
-    }
-}
 
 - (IBAction)loginBtnAction:(id)sender {
     NSLog(@"loginBtn action Did");
@@ -405,24 +430,6 @@ static NSString *const tableCellId = @"tableCellId";
     FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:settingVC];
     baseNav.navigationBarHidden = NO;
 
-    [self presentViewController:baseNav animated:YES completion:nil];
-}
-
-#pragma mark 个人主页入口
-- (void)gotoHomepageWithUseroldid:(NSString *)olduserid{
-    if (!olduserid) {
-        //从本地读取存储的用户信息
-        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-        olduserid = localUser.olduserid;
-    }
-    FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
-    homepageViewController.olduserid = olduserid;
-    
-    
-    FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:homepageViewController];
-    baseNav.navigationBarHidden = NO;
-    
     [self presentViewController:baseNav animated:YES completion:nil];
 }
 
@@ -582,35 +589,11 @@ static NSString *const tableCellId = @"tableCellId";
         cell.cellTitle.text = @"账户余额:";
         cell.subtitle.text = @"0P";
         
-        //从本地读取存储的用户信息
-        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-        if (localUserData == nil ) {
-            return cell;
-        }
-
-        
-        // 获取余额
-        [NetWorking queryMoneyWithOption:^(NSDictionary *dict) {
-            
-            NSLog(@"dict:%@",dict);
-            if ([dict[@"status"] isEqualToString:@"success"] && dict[@"data"]) {
-                
-                NSDictionary *dic = dict[@"data"];
-                
-                NSInteger taskTotal = [dic[@"taskTotal"] integerValue];
-                NSInteger otherTotal = [dic[@"otherTotal"] integerValue];
-                NSInteger cost = [dic[@"cost"] integerValue];
-                
-//                _balance = [NSString stringWithFormat:@"%ldP",taskTotal+otherTotal-cost];
-//                [ cell.subtitle setText:_balance];
-                [cell setBalanceText:[NSString stringWithFormat:@"%ld",taskTotal+otherTotal-cost]];
-            }else {
-                
-                NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-            }
-        }];
-        
         [cell.payBtn addTarget:self action:@selector(payBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+        NSLog(@"balance:%ld",singleton.balance);
+        [cell setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
         
         return cell;
     }else {
@@ -694,6 +677,24 @@ static NSString *const tableCellId = @"tableCellId";
 - (void) tapAction:(UITapGestureRecognizer *)gesture {
     
     [self gotoHomepageWithUseroldid:nil];
+}
+
+#pragma mark 个人主页入口
+- (void)gotoHomepageWithUseroldid:(NSString *)olduserid{
+    if (!olduserid) {
+        //从本地读取存储的用户信息
+        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+        olduserid = localUser.olduserid;
+    }
+    FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
+    homepageViewController.olduserid = olduserid;
+    
+    
+    FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:homepageViewController];
+    baseNav.navigationBarHidden = NO;
+    
+    [self presentViewController:baseNav animated:YES completion:nil];
 }
 
 #pragma mark - private methods
@@ -780,7 +781,7 @@ static NSString *const tableCellId = @"tableCellId";
     
     //学拳
     FTPracticeViewController *practiceVC = [FTPracticeViewController new];
-    practiceVC.tabBarItem.title = @"学拳";
+    practiceVC.tabBarItem.title = @"教学";
     [practiceVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                    Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
                                                    nil] forState:UIControlStateSelected];
@@ -844,9 +845,5 @@ static NSString *const tableCellId = @"tableCellId";
     
 }
 
-- (void) dealloc {
-    
-    [self removeObserver:self forKeyPath:@"loginAction"];
-}
 
 @end

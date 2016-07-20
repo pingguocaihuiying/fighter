@@ -46,7 +46,7 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 };
 
 
-@interface AppDelegate ()<WXApiDelegate,WeiboSDKDelegate>
+@interface AppDelegate ()<WXApiDelegate>
 
 @property (nonatomic, assign)WXRequestType wxRequestType;
 @property (nonatomic, strong) MainViewController *mainVC;
@@ -185,33 +185,6 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     
 }
 
-- (void) setShareSDK {
-    
-//    [ShareSDK registerApp:Mob_App_ID
-//          activePlatforms:@[@(SSDKPlatformTypeSinaWeibo)]
-//                 onImport:nil
-//          onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo) {
-//              
-//              switch (platformType)
-//              {
-//                  case SSDKPlatformTypeSinaWeibo:
-//                      
-//                      //初始化新浪微博
-//                      [appInfo SSDKSetupSinaWeiboByAppKey:WB_App_ID
-//                                                appSecret:WB_App_Secret
-//                                              redirectUri:@"http://www.sharesdk.cn"
-//                                                 authType:SSDKAuthTypeWeb];
-//                      
-//                      break;
-//                  default:
-//                      break;
-//              }
-//              
-//          }];
-    
-
-    
-}
 
 
 
@@ -220,19 +193,20 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     [WXApi registerApp:@"wxe69b91d3503144ca" withDescription:@"wechat"];
 }
 
+
 #pragma mark 设置qq
 - (void) setTencent {
-
   TencentOAuth *tencentOAuth = [[TencentOAuth alloc] initWithAppId:QQ_App_ID andDelegate:nil]; //注册
     tencentOAuth.localAppId = @"gogogofight";
 }
 
+
 #pragma mark 新浪微博
 - (void) setSinaMicroBlog {
-
     [WeiboSDK enableDebugMode:YES];
     [WeiboSDK registerApp:WB_App_ID];
 }
+
 
 #pragma mark 设置爱心推
 - (void)  setIXPushWithApplication:(UIApplication *)application options:(NSDictionary *)launchOptions {

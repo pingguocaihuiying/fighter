@@ -19,10 +19,10 @@
 #import "FTEncoderAndDecoder.h"
 
 
-#define PowerCoin1 @"PowerCoin_10P"//￥6
-#define PowerCoin2 @"PowerCoin_80P" //￥30
-#define PowerCoin3 @"PowerCoin_360p" //￥128
-#define PowerCoin4 @"PowerCoin_2500P" //￥588
+#define PowerCoin1 @"PowerCoin600P"//￥6
+#define PowerCoin2 @"PowerCoin3000P" //￥30
+#define PowerCoin3 @"PowerCoin12800P" //￥128
+#define PowerCoin4 @"PowerCoin58800P" //￥588
 
 
 enum{
@@ -56,9 +56,7 @@ enum{
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-    
-    [self fetchBalanceFromWeb]; // 获取余额
+    [self setNotification];
     
     [self initData];
     
@@ -66,15 +64,30 @@ enum{
     
     [self initSubviews];
     
-//    [PBEWithMD5AndDES decodeWithPBE:@""];
-//    [PBEWithMD5AndDES encodeWithPBE:@""];
-
 }
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
+
+- (void)dealloc {
     
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+#pragma mark - 初始化
+
+- (void) setNotification {
+    
+
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+    
+    //添加监听器，充值购买
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeCallback:) name:RechargeResultNoti object:nil];
+    
 }
 
 - (void) initData {
@@ -107,35 +120,40 @@ enum{
                     ];
     
     
+    // 获取余额
+    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+    [self setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
+    
+    
     // 添加商品
     _goodsArray = [[NSMutableArray alloc]init];
     
     FTGoodsBean *goodsBean1 = [FTGoodsBean new];
     goodsBean1.goodsId = PowerCoin1;
     goodsBean1.price =  [[NSDecimalNumber alloc]initWithInt:6];
-    goodsBean1.descriptions = @"Power币 10P";
-    goodsBean1.details = @"Power币 10P，可以用来购买视频，格斗东西app相关服务";
+    goodsBean1.descriptions = @"Power币 600P";
+    goodsBean1.details = @"Power币 600P，可以用来购买视频，格斗东西app相关服务";
     [_goodsArray addObject:goodsBean1];
     
     FTGoodsBean *goodsBean2 = [FTGoodsBean new];
     goodsBean2.goodsId = PowerCoin2;
     goodsBean2.price = [[NSDecimalNumber alloc]initWithInt:30];
-    goodsBean2.descriptions = @"Power币 80P";
-    goodsBean2.details = @"Power币 80P，可以用来购买视频，格斗东西app相关服务";
+    goodsBean2.descriptions = @"Power币 3000P";
+    goodsBean2.details = @"Power币 3000P，可以用来购买视频，格斗东西app相关服务";
     [_goodsArray addObject:goodsBean2];
     
     FTGoodsBean *goodsBean3 = [FTGoodsBean new];
     goodsBean3.goodsId = PowerCoin3;
     goodsBean3.price = [[NSDecimalNumber alloc]initWithInt:128];
-    goodsBean3.descriptions = @"Power币 360P";
-    goodsBean3.details = @"Power币 360P，可以用来购买视频，格斗东西app相关服务";
+    goodsBean3.descriptions = @"Power币 12800P";
+    goodsBean3.details = @"Power币 12800P，可以用来购买视频，格斗东西app相关服务";
     [_goodsArray addObject:goodsBean3];
     
     FTGoodsBean *goodsBean4 = [FTGoodsBean new];
     goodsBean4.goodsId = PowerCoin4;
     goodsBean4.price =[[NSDecimalNumber alloc]initWithInt:588];
-    goodsBean4.descriptions = @"Power币 2500P";
-    goodsBean4.details = @"Power币 2500P，可以用来购买视频，格斗东西app相关服务";
+    goodsBean4.descriptions = @"Power币 58800P";
+    goodsBean4.details = @"Power币 58800P，可以用来购买视频，格斗东西app相关服务";
     [_goodsArray addObject:goodsBean4];
     
 }
@@ -158,21 +176,26 @@ enum{
     
 }
 
+
 - (void) initSubviews {
     
     [self.colectionView registerNib:[UINib nibWithNibName:@"FTPayCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
     self.colectionView.dataSource = self;
     self.colectionView.delegate = self;
-    
-    [_tipLabel1 setText:@"*1Power = 100Strong"];
-    [_tipLabel2 setText:@"*Power币 与 Strong币，均为虚拟货币，只可在APP内部使用"];
-    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+#pragma mark - 充值回调
+- (void) rechargeCallback:(NSNotification *)noti {
+    
+    // 获取余额
+    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+    [singleton fetchBalanceFromWeb:^{
+        
+        [self setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
+    }];
 }
+
 
 
 #pragma mark - response methods
@@ -222,6 +245,11 @@ enum{
     [_productRequest start];
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    /************************************************************/
+    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+    NSLog(@"balance:%ld",singleton.balance);
+    /************************************************************/
 }
 
 
@@ -238,6 +266,10 @@ enum{
 #pragma mark SKProductsRequestDelegate
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
+    
+    @try {
+        
+    
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     NSArray *myProduct = response.products;
 //    NSLog(@"产品Product ID:%@",response.invalidProductIdentifiers);
@@ -260,30 +292,30 @@ enum{
     }
     
     SKPayment *payment = nil;
+        
     SKProduct *product = [myProduct objectAtIndex:0];
     switch (buyType) {
         case PowerCoin_10P:
             payment= [SKPayment paymentWithProduct:product];
-            bean.power = [[NSDecimalNumber alloc]initWithInt:10];
+            bean.power = [[NSDecimalNumber alloc]initWithInt:600];
             break;
         case PowerCoin_80P:
             payment= [SKPayment paymentWithProduct:product];
-            bean.power = [[NSDecimalNumber alloc]initWithInt:30];
+            bean.power = [[NSDecimalNumber alloc]initWithInt:3000];
             break;
         case PowerCoin_360P:
             payment= [SKPayment paymentWithProduct:product];
-            bean.power = [[NSDecimalNumber alloc]initWithInt:128];
+            bean.power = [[NSDecimalNumber alloc]initWithInt:12800];
             break;
         case PowerCoin_2500P:
             payment= [SKPayment paymentWithProduct:product];
-            bean.power = [[NSDecimalNumber alloc]initWithInt:588];
+            bean.power = [[NSDecimalNumber alloc]initWithInt:58800];
             break;
             
         default:
             break;
     }
 
-    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [NetWorking rechargeIAPByGoods:bean option:^(NSDictionary *dict) {
         
@@ -312,6 +344,14 @@ enum{
         
     }];
     
+    
+    } @catch (NSException *exception) {
+        
+        NSLog(@"exception:%@",exception);
+        
+    } @finally {
+        
+    }
 }
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error
@@ -357,9 +397,11 @@ enum{
             
                 [self failedTransaction:transaction];
                 NSLog(@"-----交易失败 --------");
-                UIAlertView *alerView2 =  [[UIAlertView alloc] initWithTitle:@"Alert"
+                UIAlertView *alerView2 =  [[UIAlertView alloc] initWithTitle:nil
                                                                      message:@"购买失败，请重新尝试购买～"
-                                                                    delegate:nil cancelButtonTitle:NSLocalizedString(@"Close（关闭）",nil) otherButtonTitles:nil];
+                                                                    delegate:nil
+                                                           cancelButtonTitle:@"关闭"
+                                                           otherButtonTitles:nil];
                 
                 [alerView2 show];
             }
@@ -418,14 +460,15 @@ enum{
             NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
             if ([dict[@"status"] isEqualToString:@"success"]) {
                 
-                
-                [self fetchBalanceFromWeb];
                 // 发送通知
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"RechargeOrCharge" object:@"RECHARGE"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:RechargeResultNoti object:@"RECHARGE"];
+                
                 
                 UIAlertView *alerView2 =  [[UIAlertView alloc] initWithTitle:@"Alert"
                                                                      message:@"购买成功，请注意查收～"
-                                                                    delegate:nil cancelButtonTitle:NSLocalizedString(@"Close（关闭）",nil) otherButtonTitles:nil];
+                                                                    delegate:nil
+                                                           cancelButtonTitle:@"关闭"
+                                                           otherButtonTitles:nil];
                 
                 [alerView2 show];
 
@@ -478,7 +521,7 @@ enum{
 
 
 
-#pragma mark  UICollection delegate dataSource
+#pragma mark  - UICollection delegate dataSource
 
 //有多少组
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -564,7 +607,7 @@ enum{
 }
 
 
-#pragma mark UICollectionViewDelegateFlowLayout
+#pragma mark - UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     float width = 163 * SCALE;
@@ -589,30 +632,6 @@ enum{
     return 16 * SCALE;;
 }
 
-
-#pragma mark - 查询余额
-- (void) fetchBalanceFromWeb {
-    
-    // 获取余额
-    [NetWorking queryMoneyWithOption:^(NSDictionary *dict) {
-        
-        NSLog(@"dict:%@",dict);
-        if ([dict[@"status"] isEqualToString:@"success"] && dict[@"data"]) {
-            
-            NSDictionary *dic = dict[@"data"];
-            
-            NSInteger taskTotal = [dic[@"taskTotal"] integerValue];
-            NSInteger otherTotal = [dic[@"otherTotal"] integerValue];
-            NSInteger cost = [dic[@"cost"] integerValue];
-            
-            [self setBalanceText:[NSString stringWithFormat:@"%ld",taskTotal+otherTotal-cost]];
-//            [_balanceLabel setText:[NSString stringWithFormat:@"%ldP",taskTotal+otherTotal-cost]];
-        }else {
-            
-            NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-        }
-    }];
-}
 
 #pragma mark - 显示余额
 - (void) setBalanceText:(NSString *) balanceString {

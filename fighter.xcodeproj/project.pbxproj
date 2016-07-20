@@ -149,6 +149,10 @@
 		3DDE29C21D2CEFB300876B30 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DDE29C11D2CEFB300876B30 /* StoreKit.framework */; };
 		3DE0C9EF1D1BABB000C6ABE2 /* FTTeachVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0C9ED1D1BABB000C6ABE2 /* FTTeachVideoController.m */; };
 		3DE0C9F01D1BABB000C6ABE2 /* FTTeachVideoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE0C9EE1D1BABB000C6ABE2 /* FTTeachVideoController.xib */; };
+		3DE1DEEB1D3F071600511E92 /* FTGymDetailWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1DEE91D3F071600511E92 /* FTGymDetailWebViewController.m */; };
+		3DE1DEEC1D3F071600511E92 /* FTGymDetailWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE1DEEA1D3F071600511E92 /* FTGymDetailWebViewController.xib */; };
+		3DE1DEF21D3F178F00511E92 /* FTGymBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1DEF11D3F178F00511E92 /* FTGymBean.m */; };
+		3DE1DEF61D3F472500511E92 /* FTPaySingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1DEF51D3F472500511E92 /* FTPaySingleton.m */; };
 		3DE95B501CD326B7005BF85C /* FTCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95B4F1CD326B7005BF85C /* FTCollectionViewLayout.m */; };
 		3DE95BA01CD8675B005BF85C /* FTDrawerStyler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95B9F1CD8675B005BF85C /* FTDrawerStyler.m */; };
 		3DE95BA31CD868C6005BF85C /* FTDynamicsDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95BA21CD868C6005BF85C /* FTDynamicsDrawerViewController.m */; };
@@ -552,6 +556,13 @@
 		3DE0C9EC1D1BABB000C6ABE2 /* FTTeachVideoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTeachVideoController.h; sourceTree = "<group>"; };
 		3DE0C9ED1D1BABB000C6ABE2 /* FTTeachVideoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTeachVideoController.m; sourceTree = "<group>"; };
 		3DE0C9EE1D1BABB000C6ABE2 /* FTTeachVideoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTeachVideoController.xib; sourceTree = "<group>"; };
+		3DE1DEE81D3F071600511E92 /* FTGymDetailWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymDetailWebViewController.h; sourceTree = "<group>"; };
+		3DE1DEE91D3F071600511E92 /* FTGymDetailWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymDetailWebViewController.m; sourceTree = "<group>"; };
+		3DE1DEEA1D3F071600511E92 /* FTGymDetailWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymDetailWebViewController.xib; sourceTree = "<group>"; };
+		3DE1DEF01D3F178F00511E92 /* FTGymBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymBean.h; sourceTree = "<group>"; };
+		3DE1DEF11D3F178F00511E92 /* FTGymBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymBean.m; sourceTree = "<group>"; };
+		3DE1DEF41D3F472500511E92 /* FTPaySingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPaySingleton.h; sourceTree = "<group>"; };
+		3DE1DEF51D3F472500511E92 /* FTPaySingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPaySingleton.m; sourceTree = "<group>"; };
 		3DE95B4E1CD326B7005BF85C /* FTCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCollectionViewLayout.h; sourceTree = "<group>"; };
 		3DE95B4F1CD326B7005BF85C /* FTCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCollectionViewLayout.m; sourceTree = "<group>"; };
 		3DE95B9E1CD8675B005BF85C /* FTDrawerStyler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerStyler.h; sourceTree = "<group>"; };
@@ -977,6 +988,7 @@
 		3D13FB261D1A910E0060B9B4 /* 拳馆 */ = {
 			isa = PBXGroup;
 			children = (
+				3DE1DEE71D3F05DB00511E92 /* detail */,
 				3D8B2E551D1D14BC00E18280 /* cell */,
 				3DCBC6AC1D24F6CC0000C28D /* FTGymView.h */,
 				3DCBC6AD1D24F6CC0000C28D /* FTGymView.m */,
@@ -1381,6 +1393,7 @@
 		3DDE29AF1D2B5C2500876B30 /* 支付 */ = {
 			isa = PBXGroup;
 			children = (
+				3DE1DEF31D3F46C400511E92 /* 单例 */,
 				3DDE29BA1D2BB39F00876B30 /* FTPayViewController.h */,
 				3DDE29BB1D2BB39F00876B30 /* FTPayViewController.m */,
 				3DDE29BC1D2BB39F00876B30 /* FTPayViewController.xib */,
@@ -1391,6 +1404,25 @@
 				3D9D92E31D337100006C42F0 /* FTPayCell.xib */,
 			);
 			name = "支付";
+			sourceTree = "<group>";
+		};
+		3DE1DEE71D3F05DB00511E92 /* detail */ = {
+			isa = PBXGroup;
+			children = (
+				3DE1DEE81D3F071600511E92 /* FTGymDetailWebViewController.h */,
+				3DE1DEE91D3F071600511E92 /* FTGymDetailWebViewController.m */,
+				3DE1DEEA1D3F071600511E92 /* FTGymDetailWebViewController.xib */,
+			);
+			name = detail;
+			sourceTree = "<group>";
+		};
+		3DE1DEF31D3F46C400511E92 /* 单例 */ = {
+			isa = PBXGroup;
+			children = (
+				3DE1DEF41D3F472500511E92 /* FTPaySingleton.h */,
+				3DE1DEF51D3F472500511E92 /* FTPaySingleton.m */,
+			);
+			name = "单例";
 			sourceTree = "<group>";
 		};
 		3DE95BA91CD86FB6005BF85C /* login */ = {
@@ -1709,6 +1741,8 @@
 				E6A9DDB91CD99E7700CB9518 /* FTBaseBean.m */,
 				3D9D92E91D34E9E3006C42F0 /* FTGoodsBean.h */,
 				3D9D92EA1D34E9E3006C42F0 /* FTGoodsBean.m */,
+				3DE1DEF01D3F178F00511E92 /* FTGymBean.h */,
+				3DE1DEF11D3F178F00511E92 /* FTGymBean.m */,
 			);
 			name = Bean;
 			sourceTree = "<group>";
@@ -2490,7 +2524,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E64EF1331CB6614100CAE340 /* Build configuration list for PBXNativeTarget "fighter" */;
 			buildPhases = (
-				962399117BF503EB187D1EC2 /* 📦 Check Pods Manifest.lock */,
+				962399117BF503EB187D1EC2 /* [CP] Check Pods Manifest.lock */,
 				14687E7A41A6C3D1B342FDFB /* [CP] Check Pods Manifest.lock */,
 				218D5704294FD31CAE3AA790 /* [CP] Check Pods Manifest.lock */,
 				079F6CFBB5F630D52D2A57D4 /* [CP] Check Pods Manifest.lock */,
@@ -2636,6 +2670,7 @@
 				E696E4E71D2A3DDA00A89B60 /* FTDefaultFullMatchingTableViewCell.xib in Resources */,
 				E6304D461D2B5B4300E48CCB /* FTSetTicketPriceViewTableViewCell.xib in Resources */,
 				3D7B98981CDEE1E900B80B8D /* FTSettingViewController.xib in Resources */,
+				3DE1DEEC1D3F071600511E92 /* FTGymDetailWebViewController.xib in Resources */,
 				3D5FB4BF1CDC7E6600FC1809 /* FTImageCollectionCell.xib in Resources */,
 				E6549DF71D000AEB00B27483 /* FTRecordRankTableViewCell.xib in Resources */,
 				3D7B98901CDD1E5900B80B8D /* Area2.plist in Resources */,
@@ -2827,14 +2862,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-fighter/Pods-fighter-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		962399117BF503EB187D1EC2 /* 📦 Check Pods Manifest.lock */ = {
+		962399117BF503EB187D1EC2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2871,6 +2906,7 @@
 				3D7C6B7C1CF2A2380088400D /* BoxerVideoController.m in Sources */,
 				3D5FB4BE1CDC7E6600FC1809 /* FTImageCollectionCell.m in Sources */,
 				E6D74A4F1CB7B7EE00854337 /* Regex.m in Sources */,
+				3DE1DEF21D3F178F00511E92 /* FTGymBean.m in Sources */,
 				3DE0C9EF1D1BABB000C6ABE2 /* FTTeachVideoController.m in Sources */,
 				E6D09E961CEDDDCF00B7C43E /* FTQiniuNetwork.m in Sources */,
 				E6574B4C1D2CB5EE009B8465 /* FTIncomePercentView.m in Sources */,
@@ -2954,6 +2990,7 @@
 				3D9001BB1D378CC100F9F60B /* FTTeachVideoDetailController.m in Sources */,
 				3D4B19531CDAEF840022DFB0 /* FTTableViewCell4.m in Sources */,
 				3DE95BA31CD868C6005BF85C /* FTDynamicsDrawerViewController.m in Sources */,
+				3DE1DEEB1D3F071600511E92 /* FTGymDetailWebViewController.m in Sources */,
 				E6A9DDAC1CD89EE900CB9518 /* FTVideoBean.m in Sources */,
 				E6B458D71CB75DB200FB4261 /* FTBoxingHallViewController.m in Sources */,
 				3D5A3CBD1CFD1E1000FDB3C4 /* FTShareView.m in Sources */,
@@ -3026,6 +3063,7 @@
 				E68050BD1CBF919A00678905 /* JHRefreshFooterView.m in Sources */,
 				3DCBC6AE1D24F6CC0000C28D /* FTGymView.m in Sources */,
 				E6D74A4D1CB7B7EE00854337 /* KeyChainStore.m in Sources */,
+				3DE1DEF61D3F472500511E92 /* FTPaySingleton.m in Sources */,
 				3DDE29B81D2BAA8200876B30 /* FTDrawerPayCell.m in Sources */,
 				3D7B98C31CE08DEE00B80B8D /* FTNewPasswordVC.m in Sources */,
 				E6035EBE1CC0C39500B10D36 /* FTCommentViewController.m in Sources */,
