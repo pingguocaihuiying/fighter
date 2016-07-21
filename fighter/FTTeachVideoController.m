@@ -89,6 +89,24 @@
     [self setNotifacation];
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    
+    // 注册通知，分享到微信成功
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToWeiXin:) name:WXShareResultNoti object:nil];
+    
+    // 注册通知，分享到qq成功
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToQQ:) name:QQShareResultNoti object:nil];
+}
+
+
+- (void) viewDidDisappear:(BOOL)animated {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self  name:WXShareResultNoti object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self  name:QQShareResultNoti object:nil];
+}
+
+
 - (void) dealloc {
     
     //销毁通知
@@ -104,12 +122,6 @@
 #pragma mark - 初始化
 // 监听通知
 - (void) setNotifacation {
-    
-    // 注册通知，分享到微信成功
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToWeiXin:) name:WXShareResultNoti object:nil];
-    
-    // 注册通知，分享到qq成功
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToQQ:) name:QQShareResultNoti object:nil];
     
     //添加监听器，充值购买
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshBalance:) name:RechargeResultNoti object:nil];
@@ -236,9 +248,21 @@
     
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@",_videoType, videoCurrId, self.videosTag, getType, ts, @"quanjijia222222"]];
-    
-    urlString = [NSString stringWithFormat:@"%@?videosType=%@&videosCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&videosTag=%@&otherkey=teach", urlString, _videoType, videoCurrId, getType, ts, checkSign, [FTNetConfig showType], self.videosTag];
 
+    
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    if (localUser) {// 已登录
+    
+        urlString = [NSString stringWithFormat:@"%@?videosType=%@&videosCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&videosTag=%@&otherkey=teach&userId=%@", urlString, _videoType, videoCurrId, getType, ts, checkSign, [FTNetConfig showType], self.videosTag,localUser.olduserid];
+    
+    }else {// 未登录
+    
+        urlString = [NSString stringWithFormat:@"%@?videosType=%@&videosCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&videosTag=%@&otherkey=teach", urlString, _videoType, videoCurrId, getType, ts, checkSign, [FTNetConfig showType], self.videosTag];
+    }
+    
+    
     NSLog(@"urlString:%@",urlString);
     NetWorking *net = [[NetWorking alloc]init];
     [net getVideos:urlString option:^(NSDictionary *responseDic) {
@@ -256,13 +280,14 @@
                     self.array = mutableArray;
                 }else if([getType isEqualToString:@"old"]){
                     [self.array addObjectsFromArray:mutableArray];
+#warning 排重
+                    [self sortarray];
                 }
                 
                 [self.collectionView.mj_header endRefreshing];
                 [self.collectionView.mj_footer endRefreshing];
                 [self.collectionView reloadData];
 
-                
             }else {
                 [self.collectionView.mj_header endRefreshing];
                 [self.collectionView.mj_footer endRefreshing];
@@ -280,7 +305,16 @@
     
 }
 
+// 排重
+- (void) sortarray {
 
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    for (NSDictionary *dic in self.array) {
+        [dict setObject:dic forKey:dic];
+    }
+    
+    self.array = (NSMutableArray *)[dict allValues];
+}
 
 #pragma mark - delegates 
 
@@ -370,24 +404,6 @@
                                                               otherButtonTitles:nil];
                     [alerView show];
                     
-//                    // 积分不足，充值
-//                    if ([dict[@"message"] isEqualToString:@"积分不足"]) {
-//                       
-//                        [self.dialogView setHidden:NO];
-//                        
-//                        
-//                        
-//                    }else {
-//                        
-//                        UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@""
-//                                                                            message:@"购买视频失败，请稍后再试~"
-//                                                                           delegate:nil
-//                                                                  cancelButtonTitle:@"知道了"
-//                                                                  otherButtonTitles:nil];
-//                        [alerView show];
-//                        
-//                    }
-                    
                 }
             }];
         }
@@ -421,7 +437,7 @@
     currentIndexPath = indexPath;
     
     // 首先检查是否是免费视频
-    if ([_currentBean.price isEqualToString:@"0"]) {
+    if ([_currentBean.price integerValue] ==0) {
     
         if (_currentBean.url.length > 0) {
             // 跳转到播放页
@@ -545,7 +561,9 @@
     if (cell == nil) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"FTTeachVideoCell" owner:self options:nil]firstObject];
     }
-    
+    @try {
+        
+   
     //获取对应的bean，传递给下个vc
     NSDictionary *newsDic = self.array[indexPath.row];
     FTVideoBean *bean = [FTVideoBean new];
@@ -553,6 +571,11 @@
     
 //    FTVideoBean *bean = self.array[indexPath.row];
     [cell setWithBean:bean];
+    } @catch (NSException *exception) {
+        NSLog(@"exceptio:%@",exception);
+    } @finally {
+        
+    }
     return cell;
 }
 

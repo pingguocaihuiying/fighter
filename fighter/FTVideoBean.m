@@ -29,6 +29,7 @@
     self.isTeach = dic[@"isTeach"];
     self.boxinghallid = dic[@"boxinghallid"];
     self.price = dic[@"price"];
+    self.hasBuy = [dic[@"hasBuy"] boolValue];
     //新增字段：
     //coachid 教练相关id，没有则为0
     //boxerid 拳手相关id，没有则为0

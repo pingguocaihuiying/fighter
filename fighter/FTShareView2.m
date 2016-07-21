@@ -14,10 +14,11 @@
 
 #import "WXApi.h"
 #import <TencentOpenAPI/QQApiInterface.h>
+#import <TencentOpenAPI/TencentOAuthObject.h>
 #import <TencentOpenAPI/sdkdef.h>
+
 #import "WeiboSDK.h"
 #import "AppDelegate.h"
-//#import "NetWorking.h"
 
 @interface FTShareView2 ()
 {
@@ -369,7 +370,7 @@
  */
 - (void) shareToTencentZone {
     
-    
+//    
     QQApiNewsObject* newsObj = [self setTencentReq];
     
     // 设置分享到 QZone 的标志位
@@ -377,6 +378,7 @@
     SendMessageToQQReq* req = [SendMessageToQQReq reqWithContent:newsObj];
     QQApiSendResultCode sent = [QQApiInterface SendReqToQZone:req];
     [self handleSendResult:sent];
+    
 }
 
 
@@ -393,11 +395,6 @@
                                                 targetContentType:QQApiURLTargetTypeNews];
     
 
-//    QQApiNewsObject* imgObj = [[QQApiNewsObject alloc]initWithURL:url
-//                                                            title:_title
-//                                                      description:_summary
-//                                                 previewImageURL:[NSURL URLWithString:@"http://www.gogogofight.com/img/videos/videos1468575085136.jpg"]
-//                                                targetContentType:QQApiURLTargetTypeNews];
 
     return imgObj;
 }

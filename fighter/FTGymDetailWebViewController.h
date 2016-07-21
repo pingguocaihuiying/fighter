@@ -13,20 +13,21 @@
 @property (nonatomic ,strong) FTGymBean *gymBean;
 
 // bottom view
-@property (weak, nonatomic) IBOutlet UIView *favourateView; // 收藏
+@property (weak, nonatomic) IBOutlet UIView *focusView; //关注
 @property (weak, nonatomic) IBOutlet UIView *shareView; // 分享
 @property (weak, nonatomic) IBOutlet UIView *commentView; // 评论
-@property (weak, nonatomic) IBOutlet UIView *voteView; //点赞
+@property (weak, nonatomic) IBOutlet UIView *voteView; //拨号
+
 
 // button
-@property (weak, nonatomic) IBOutlet UIButton *starButton;//  收藏按钮
+@property (weak, nonatomic) IBOutlet UIButton *focusButton;//  收藏按钮
 @property (weak, nonatomic) IBOutlet UIButton *commentBtn; //评论按钮
 @property (weak, nonatomic) IBOutlet UIButton *shareBtn;// 分享按钮
-@property (weak, nonatomic) IBOutlet UIButton *thumbsUpButton; // 点赞按钮
+@property (weak, nonatomic) IBOutlet UIButton *dialBtn; // 点赞按钮
 
 
 @property (nonatomic, assign)BOOL hasVote;
-@property (nonatomic, assign)BOOL hasStar;
+@property (nonatomic, assign)BOOL hasAttention;
 
 
 @end
