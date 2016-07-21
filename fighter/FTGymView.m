@@ -13,6 +13,8 @@
 #import "FTCycleScrollViewCell2.h"
 #import "FTRankTableView.h"
 #import "JHRefresh.h"
+#import "FTGymDetailWebViewController.h"
+#import "FTGymBean.h"
 
 @interface FTGymView () <UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, FTCycleScrollViewDelegate,FTSelectCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -20,7 +22,7 @@
 //@property (nonatomic, strong)TestCycleView *coachCycleScrollView;
 
 @property (nonatomic, strong)NSMutableArray *cycleDataSourceArray;
-@property (nonatomic, strong)NSMutableArray *tableViewDataSourceArray;
+@property (nonatomic, strong)NSMutableArray *dataSourceArray;
 
 @property (nonatomic, copy) NSString *address;  //地址
 @property (nonatomic, copy) NSString *gymTag;    //排序
@@ -184,10 +186,10 @@
                 
                 NSArray *tempArray = dict[@"data"];
                 if (_currentPage == 1) {
-                    _tableViewDataSourceArray = [NSMutableArray arrayWithArray:tempArray];
+                    _dataSourceArray = [NSMutableArray arrayWithArray:tempArray];
                 }else {
                     
-                    [_tableViewDataSourceArray addObjectsFromArray:tempArray];
+                    [_dataSourceArray addObjectsFromArray:tempArray];
                 }
                 
                 [self.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
@@ -213,8 +215,8 @@
         sself.currentPage = 1;
         _getType = @"new";
         _gymCurrId = @"-1";
-        if (sself.tableViewDataSourceArray && sself.tableViewDataSourceArray.count > 0) {
-           NSDictionary *dic = [sself.tableViewDataSourceArray firstObject];
+        if (sself.dataSourceArray && sself.dataSourceArray.count > 0) {
+           NSDictionary *dic = [sself.dataSourceArray firstObject];
             _gymCurrId = dic[@"gymId"];
         }
         
@@ -227,8 +229,8 @@
         sself.currentPage ++;
         _getType = @"old";
         
-        if (sself.tableViewDataSourceArray && sself.tableViewDataSourceArray.count > 0) {
-            NSDictionary *dic = [sself.tableViewDataSourceArray lastObject];
+        if (sself.dataSourceArray && sself.dataSourceArray.count > 0) {
+            NSDictionary *dic = [sself.dataSourceArray lastObject];
             _gymCurrId = dic[@"gymId"];
         }
         
@@ -269,18 +271,18 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    NSLog(@"---点击了第%ld张图片", (long)index);
-    //
-    //    FTNewsDetail2ViewController *newsDetailViewController = [FTNewsDetail2ViewController new];
-    //
-    //    //获取对应的bean，传递给下个vc
-    //    NSDictionary *newsDic = self.cycleDataSourceArray[index];
-    //    FTNewsBean *bean = [FTNewsBean new];
-    //    [bean setValuesWithDic:newsDic];
-    //
-    //    newsDetailViewController.newsBean = bean;
-    //
-    //    [self.navigationController pushViewController:newsDetailViewController animated:YES];
+    
+    FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
+    //获取对应的bean，传递给下个vc
+    NSDictionary *newsDic = [self.cycleDataSourceArray objectAtIndex:indexPath.row];
+    FTGymBean *bean = [FTGymBean new];
+    [bean setValuesWithDic:newsDic];
+    gymDetailWebViewController.gymBean = bean;
+    
+    if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
+        [self.delegate pushToController:gymDetailWebViewController];
+    }
+    
     
 }
 
@@ -342,7 +344,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return _tableViewDataSourceArray.count;
+    return _dataSourceArray.count;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -353,7 +355,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
     });
     
-    NSDictionary *dic = [_tableViewDataSourceArray objectAtIndex:indexPath.row];
+    NSDictionary *dic = [_dataSourceArray objectAtIndex:indexPath.row];
     CGFloat labelView_H = [cell caculateHeight:dic[@"gymType"]];
 //    NSString *string = [NSString stringWithFormat:@"%@,%@,%@",dic[@"gymType"],dic[@"gymType"],dic[@"gymType"]];
 //     CGFloat labelView_H = [cell caculateHeight:string];
@@ -428,7 +430,7 @@
     [cell clearLabelView];
     cell.backgroundColor = [UIColor clearColor];
     
-    NSDictionary *dic = [_tableViewDataSourceArray objectAtIndex:indexPath.row];
+    NSDictionary *dic = [_dataSourceArray objectAtIndex:indexPath.row];
     
     [cell.title setText:dic[@"gymName"]];
     [cell.subtitle setText:dic[@"gymLocation"]];
@@ -462,6 +464,17 @@
     [cell setSelected:NO];
     
     
+    FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
+    //获取对应的bean，传递给下个vc
+    NSDictionary *newsDic = [self.dataSourceArray objectAtIndex:indexPath.row];
+    FTGymBean *bean = [FTGymBean new];
+    [bean setValuesWithDic:newsDic];
+    gymDetailWebViewController.gymBean = bean;
+    
+    if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
+        [self.delegate pushToController:gymDetailWebViewController];
+    }
+
 }
 
 

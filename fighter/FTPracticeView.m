@@ -106,7 +106,6 @@
         cell.imageView.image = [UIImage imageNamed:imgName];
     }
 
-    
     return cell;
 }
 
@@ -116,6 +115,10 @@
     FTTeachVideoController *videoVC = [[FTTeachVideoController alloc]init];
     videoVC.videoType = [_array objectAtIndex:indexPath.row][@"itemValueEn"];
     videoVC.title = [_array objectAtIndex:indexPath.row][@"itemValue"];
+    
+    NSString *imgName = [_array objectAtIndex:indexPath.row][@"itemValueEn"];
+    videoVC.labelImage = [NSString stringWithFormat:@"share-%@",imgName];
+    videoVC.label = [_array objectAtIndex:indexPath.row][@"itemValue"];
     
     if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
         [self.delegate pushToController:videoVC];

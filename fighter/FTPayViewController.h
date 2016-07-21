@@ -12,7 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *balanceLabel;//账户余额
 
-@property (weak, nonatomic) IBOutlet UILabel *tipLabel1;
+//@property (weak, nonatomic) IBOutlet UILabel *tipLabel1;
 
 @property (weak, nonatomic) IBOutlet UILabel *tipLabel2;
 

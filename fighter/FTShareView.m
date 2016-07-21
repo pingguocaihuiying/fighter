@@ -577,11 +577,34 @@
         return data;
     }
     
-    int i = 1;
-    while (data.length > 32*1000) {
-        data = UIImageJPEGRepresentation(image, 1-i/10);
-        i++;
+    int i = 9;
+    
+    // 第一次压缩
+    while (data.length > 32*1000 && i > 0) {
+        data = UIImageJPEGRepresentation(image, 0.1*i);
+        i--;
     }
+    
+    // 第一次压缩
+    int j = 9;
+    while (data.length > 32*1000 && j > 0) {
+        data = UIImageJPEGRepresentation(image, 0.01*j);
+        j--;
+    }
+    
+    // 如果压缩之后还是太大，裁剪图片
+    CGSize size = CGSizeMake(400, 400);
+    if (data.length > 32*1000) {
+        
+        image = [UIImage imageWithData:data];
+        UIGraphicsBeginImageContext(size);
+        [image drawInRect:CGRectMake(0,0,size.width,size.height)];
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+    }
+    
+    data = UIImageJPEGRepresentation(image, 0.5);
 
     return  data;
 }
@@ -631,9 +654,8 @@
         }
         case EQQAPISENDSUCESS:
         {
-            UIAlertView *msgbox = [[UIAlertView alloc] initWithTitle:@"Success" message:@"分享成功" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil];
-            [msgbox show];
-
+//            UIAlertView *msgbox = [[UIAlertView alloc] initWithTitle:@"Success" message:@"分享成功" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil];
+//            [msgbox show];
         }
         break;
         default:

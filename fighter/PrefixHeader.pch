@@ -56,13 +56,13 @@
 #import "FTNWGetCategory.h"
 #import "NetWorking.h"
 
+// 支付单例
+#import "FTPaySingleton.h"
 
 //导入友盟统计的类
 #import <UMMobClick/MobClick.h>
 #import "UMFeedback.h"
 
-//Mob ShareSDK
-//#import <ShareSDK/ShareSDK.h>
 
 //defin一些常量
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
@@ -85,9 +85,13 @@
 #define WX_App_Secret @"cadaab54424da8be313935d91f8fbbf4"
 #define WXLoginSecret_Key @"quanjijia123456"
 
+// 通知
 #define WXLoginResultNoti @"WXLoginResutlNoti"
 #define WXShareResultNoti @"WXShareResultNoti"
-#define QQShareResultNoti @"WXShareResultNoti"
+#define QQShareResultNoti @"QQShareResultNoti"
+#define RechargeResultNoti @"RechargeOrCharge"
+#define LoginNoti @"LoginNotifacation"
+#define QQShareResponse @"addShareResponse"
 
 //微博相关
 #define WB_App_ID @"3097376602"

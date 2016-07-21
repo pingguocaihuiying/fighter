@@ -115,12 +115,16 @@
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName;
+    
     if (self.newsBean) {
         tableName = @"c-news";
         objId= [NSString stringWithFormat:@"%@", _newsBean.newsId];
     }else if(self.videoBean){
         tableName = @"c-video";
         objId= [NSString stringWithFormat:@"%@", _videoBean.videosId];
+    }else if(self.gymBean){
+        objId= [NSString stringWithFormat:@"%@", _gymBean.gymId];
+        tableName = @"c-gym";
     }else if(self.arenaBean){
         objId= [NSString stringWithFormat:@"%@", _arenaBean.postsId];
         tableName = @"c-damageblog";

@@ -72,10 +72,12 @@
 @property (nonatomic, strong)FTVideoBean *currentBean;
 @property (nonatomic, assign)NSInteger balance;
 
+
 @end
 
 @implementation FTTeachVideoController
 
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -84,10 +86,28 @@
     [self initSubviews];
     [self getDataWithGetType:@"new" andCurrId:@"-1"];//第一次加载数据
     
-    [self setNai];
+    [self setNotifacation];
 }
 
-- (void) viewWillDisappear:(BOOL)animated {
+- (void) viewWillAppear:(BOOL)animated {
+    
+    // 注册通知，分享到微信成功
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToWeiXin:) name:WXShareResultNoti object:nil];
+    
+    // 注册通知，分享到qq成功
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToQQ:) name:QQShareResultNoti object:nil];
+}
+
+
+- (void) viewDidDisappear:(BOOL)animated {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self  name:WXShareResultNoti object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self  name:QQShareResultNoti object:nil];
+}
+
+
+- (void) dealloc {
     
     //销毁通知
     [[NSNotificationCenter defaultCenter]removeObserver:self];
@@ -99,14 +119,19 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - 初始化
 // 监听通知
-- (void) setNai {
+- (void) setNotifacation {
     
-    // 注册通知，分享到微信成功
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToWeiXin:) name:WXShareResultNoti object:nil];
+    //添加监听器，充值购买
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshBalance:) name:RechargeResultNoti object:nil];
     
-    // 注册通知，分享到qq成功
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToQQ:) name:QQShareResultNoti object:nil];
+    //注册通知，接收微信登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginAction:) name:WXLoginResultNoti object:nil];
+    
+    //添加监听器，监听login
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginAction:) name:LoginNoti object:nil];
+    
 }
 
 
@@ -149,35 +174,27 @@
     [self.dialogView setBackgroundColor:[UIColor colorWithHex:0x191919 alpha:0.5]];
     self.dialogView.opaque = NO;
     
-    // 获取余额
-    [self fetchBalanceFromWeb];
     
+    // 获取余额
+    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+    [self setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
     
     _currentBean = [FTVideoBean new];
-    
-    
-    
     
 }
 
 #pragma -mark - 初始化collectionView
 - (void)initCollectionView{
     
-//    _collectionView.backgroundColor = [UIColor clearColor];
-    //    CGRect r = _collectionView.frame;
-    //    r.size.width = SCREEN_WIDTH;
-    //    _collectionView.frame = r;
-    
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     
-    //注册一个collectionViewCCell队列
-//    [_collectionView registerNib:[UINib nibWithNibName:@"FTVideoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
     [_collectionView registerNib:[UINib nibWithNibName:@"FTTeachVideoCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
     
-    
     [self setJHRefresh];
+    
 }
+
 
 - (void)setJHRefresh{
     __unsafe_unretained __typeof(self) weakSelf = self;
@@ -224,20 +241,34 @@
     
 }
 
+
 - (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)videoCurrId{
     
     NSString *urlString = [FTNetConfig host:Domain path:GetVideoURL];
     
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@",_videoType, videoCurrId, self.videosTag, getType, ts, @"quanjijia222222"]];
-    
-    urlString = [NSString stringWithFormat:@"%@?videosType=%@&videosCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&videosTag=%@&otherkey=teach", urlString, _videoType, videoCurrId, getType, ts, checkSign, [FTNetConfig showType], self.videosTag];
 
+    
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    if (localUser) {// 已登录
+    
+        urlString = [NSString stringWithFormat:@"%@?videosType=%@&videosCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&videosTag=%@&otherkey=teach&userId=%@", urlString, _videoType, videoCurrId, getType, ts, checkSign, [FTNetConfig showType], self.videosTag,localUser.olduserid];
+    
+    }else {// 未登录
+    
+        urlString = [NSString stringWithFormat:@"%@?videosType=%@&videosCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&videosTag=%@&otherkey=teach", urlString, _videoType, videoCurrId, getType, ts, checkSign, [FTNetConfig showType], self.videosTag];
+    }
+    
+    
     NSLog(@"urlString:%@",urlString);
     NetWorking *net = [[NetWorking alloc]init];
     [net getVideos:urlString option:^(NSDictionary *responseDic) {
         
         NSLog(@"responseDic:%@",responseDic);
+        NSLog(@"message:%@",[responseDic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         if (responseDic != nil) {
             NSString *status = responseDic[@"status"];
             if ([status isEqualToString:@"success"]) {
@@ -249,13 +280,14 @@
                     self.array = mutableArray;
                 }else if([getType isEqualToString:@"old"]){
                     [self.array addObjectsFromArray:mutableArray];
+#warning 排重
+                    [self sortarray];
                 }
                 
                 [self.collectionView.mj_header endRefreshing];
                 [self.collectionView.mj_footer endRefreshing];
                 [self.collectionView reloadData];
 
-                
             }else {
                 [self.collectionView.mj_header endRefreshing];
                 [self.collectionView.mj_footer endRefreshing];
@@ -273,7 +305,16 @@
     
 }
 
+// 排重
+- (void) sortarray {
 
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    for (NSDictionary *dic in self.array) {
+        [dict setObject:dic forKey:dic];
+    }
+    
+    self.array = (NSMutableArray *)[dict allValues];
+}
 
 #pragma mark - delegates 
 
@@ -318,7 +359,7 @@
                     }
                     
                     // 发送通知
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"RechargeOrCharge" object:@"CHARGE"];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:RechargeResultNoti object:@"CHARGE"];
                     
                     UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@""
                                                                         message:@"购买成功，现在可以去学习啦~"
@@ -363,24 +404,6 @@
                                                               otherButtonTitles:nil];
                     [alerView show];
                     
-//                    // 积分不足，充值
-//                    if ([dict[@"message"] isEqualToString:@"积分不足"]) {
-//                       
-//                        [self.dialogView setHidden:NO];
-//                        
-//                        
-//                        
-//                    }else {
-//                        
-//                        UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@""
-//                                                                            message:@"购买视频失败，请稍后再试~"
-//                                                                           delegate:nil
-//                                                                  cancelButtonTitle:@"知道了"
-//                                                                  otherButtonTitles:nil];
-//                        [alerView show];
-//                        
-//                    }
-                    
                 }
             }];
         }
@@ -406,13 +429,15 @@
     NSDictionary *newsDic = self.array[indexPath.row];
     [_currentBean clear];
     [_currentBean setValuesWithDic:newsDic];
-
+    
+    /****   test   *****/
+//    [self.dialogView setHidden:NO];
     
     
     currentIndexPath = indexPath;
     
     // 首先检查是否是免费视频
-    if ([_currentBean.price isEqualToString:@"0"]) {
+    if ([_currentBean.price integerValue] ==0) {
     
         if (_currentBean.url.length > 0) {
             // 跳转到播放页
@@ -422,34 +447,23 @@
         return;
     }
     
+    // 检查登录
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     
-    if (_balance < [_currentBean.price integerValue]) {
-    
-        [self.dialogView setHidden:NO];
+    if (localUserData == nil ) {
+        UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@""
+                                                            message:@"还没有登录哟，付费视频只有登录之后才能观看，赶紧去登录吧~"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"取消"
+                                                  otherButtonTitles:@"登录",nil];
+        
+        alerView.tag = 1000+3;
+        [alerView show];
         
         return;
     }
-    
-    @try {
-    
-        //从本地读取存储的用户信息
-        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-        
-        if (localUserData == nil ) {
-            UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@""
-                                                                message:@"还没有登录哟，付费视频只有登录之后才能观看，赶紧去登录吧~"
-                                                               delegate:self
-                                                      cancelButtonTitle:@"取消"
-                                                      otherButtonTitles:@"登录",nil];
-            
-            alerView.tag = 1000+3;
-            [alerView show];
-            
-            return;
-        }
-        
-   
 
+    
     // 1. 检查是否购买了视频
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [NetWorking checkBuyVideoById:_currentBean.videosId option:^(NSDictionary *dict) {
@@ -513,6 +527,16 @@
             }
         }else {
             
+            // 获取余额
+            FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+            // 检查余额是否足够购买视频
+            if (singleton.balance < [_currentBean.price integerValue]) {
+                
+                [self.dialogView setHidden:NO];
+            
+                return;
+            }
+            
             //3. 如果视频没有购买，则先购买视频在获取url观看
             UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@"购买视频"
                                                                 message:[NSString stringWithFormat:@"播放当前视频需要支付%@P，确定播放视频么？",_currentBean.price]
@@ -524,13 +548,6 @@
         }
     }];
     
-        
-        
-    } @catch (NSException *exception) {
-        NSLog(@"excetion:%@",exception);
-    } @finally {
-        
-    }
 }
 
 //某组有多少行
@@ -544,7 +561,9 @@
     if (cell == nil) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"FTTeachVideoCell" owner:self options:nil]firstObject];
     }
-    
+    @try {
+        
+   
     //获取对应的bean，传递给下个vc
     NSDictionary *newsDic = self.array[indexPath.row];
     FTVideoBean *bean = [FTVideoBean new];
@@ -552,6 +571,11 @@
     
 //    FTVideoBean *bean = self.array[indexPath.row];
     [cell setWithBean:bean];
+    } @catch (NSException *exception) {
+        NSLog(@"exceptio:%@",exception);
+    } @finally {
+        
+    }
     return cell;
 }
 
@@ -625,6 +649,8 @@
     videoDetailVC.videoBean = bean;
     videoDetailVC.indexPath = indexPath;
     videoDetailVC.delegate = self;
+    videoDetailVC.labelImage = self.labelImage;
+    videoDetailVC.label = self.label;
     [self.navigationController pushViewController:videoDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
     
 }
@@ -675,8 +701,8 @@
 - (IBAction)shareToWeiXin:(id)sender {
     
     WXMediaMessage *message = [WXMediaMessage message];
-    message.title = _currentBean.title;
-    message.description = _currentBean.summary;
+    message.title = [NSString stringWithFormat:@"我在“格斗东西”学习%@，fighting！",self.label];
+    message.description = @"格斗技术知识为强身健体自卫防身，格斗东西团队不支持不赞成任何暴力行为。";
     
     NSData *data = [self getImageDataForSDWebImageCachedKey];
     [message setThumbData:data];
@@ -743,8 +769,8 @@
     NSURL* url = [NSURL URLWithString: webUrlString];
     
     QQApiNewsObject* imgObj = [[QQApiNewsObject alloc]initWithURL:url
-                                                            title:_currentBean.title
-                                                      description:_currentBean.summary
+                                                            title:[NSString stringWithFormat:@"我在“格斗东西”学习%@，fighting！",self.label]
+                                                      description: @"格斗技术知识为强身健体自卫防身，格斗东西团队不支持不赞成任何暴力行为。"
                                                  previewImageData:[self getImageDataForSDWebImageCachedKey]
                                                 targetContentType:QQApiURLTargetTypeNews];
     
@@ -753,13 +779,12 @@
 
 
 
-//获取SDWebImage缓存图片
+// 获取SDWebImage缓存图片
 - (NSData *) getImageDataForSDWebImageCachedKey {
     
-    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:_currentBean.img]];
-    UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
+    UIImage *image = [UIImage imageNamed:self.labelImage];
     NSData *data = UIImageJPEGRepresentation(image, 1);
-    
+
     if (data == nil || data.length == 0) {
         UIImage *iconImg = [UIImage imageNamed:@"微信用@200"];
         data = UIImageJPEGRepresentation(iconImg, 1);
@@ -772,11 +797,34 @@
         return data;
     }
     
-    int i = 1;
-    while (data.length > 32*1000) {
-        data = UIImageJPEGRepresentation(image, 1-i/10);
-        i++;
+    int i = 9;
+    
+    // 第一次压缩
+    while (data.length > 32*1000 && i > 0) {
+        data = UIImageJPEGRepresentation(image, 0.1*i);
+        i--;
     }
+    
+    // 第一次压缩
+    int j = 9;
+    while (data.length > 32*1000 && j > 0) {
+        data = UIImageJPEGRepresentation(image, 0.01*j);
+        j--;
+    }
+    
+    // 如果压缩之后还是太大，裁剪图片
+    CGSize size = CGSizeMake(400, 400);
+    if (data.length > 32*1000) {
+        
+        image = [UIImage imageWithData:data];
+        UIGraphicsBeginImageContext(size);
+        [image drawInRect:CGRectMake(0,0,size.width,size.height)];
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+    }
+    
+    data = UIImageJPEGRepresentation(image, 0.5);
     
     return  data;
 }
@@ -824,7 +872,6 @@
         }
         case EQQAPISENDSUCESS:
         {
-            //            [self getPointByShareToPlatform:@"kongjian"];
             
             NSLog(@"微信分享回调成功");
             //发送通知，告诉评论页面微信登录成功
@@ -839,6 +886,36 @@
 }
 
 #pragma mark - 通知响应
+// 登录刷新
+- (void) loginAction:(NSNotification *) noti {
+
+//    // 获取余额
+//    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+//    [self setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
+//    
+
+    // 获取余额
+    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+    [singleton fetchBalanceFromWeb:^{
+        [self setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
+    }];
+
+}
+
+// 充值回调
+-  (void) refreshBalance:(NSNotification *)noti {
+    
+    // 获取余额
+    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+    [self setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
+    
+//    // 获取余额
+//    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+//    [singleton fetchBalanceFromWeb:^{
+//        [self setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
+//    }];
+}
+
 // qq 分享回调
 - (void) callbackShareToQQ:(NSNotification *)noti {
     
@@ -861,9 +938,8 @@
         NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         if ([dict[@"status"] isEqualToString:@"success"]) {
             
-            [self fetchBalanceFromWeb];
             // 发送通知
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"RechargeOrCharge" object:@"RECHARGE"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:RechargeResultNoti object:@"RECHARGE"];;
             [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"积分+1P"];
         }else {
             [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -871,30 +947,6 @@
     }];
 }
 
-#pragma mark - 查询余额
-- (void) fetchBalanceFromWeb {
-    
-    // 获取余额
-    [NetWorking queryMoneyWithOption:^(NSDictionary *dict) {
-        
-        NSLog(@"dict:%@",dict);
-        if ([dict[@"status"] isEqualToString:@"success"] && dict[@"data"]) {
-            
-            NSDictionary *dic = dict[@"data"];
-            
-            NSInteger taskTotal = [dic[@"taskTotal"] integerValue];
-            NSInteger otherTotal = [dic[@"otherTotal"] integerValue];
-            NSInteger cost = [dic[@"cost"] integerValue];
-            _balance = taskTotal+otherTotal-cost;
-            
-            [self setBalanceText:[NSString stringWithFormat:@"%ld",taskTotal+otherTotal-cost]];
-            //            [_balanceLabel setText:[NSString stringWithFormat:@"%ldP",taskTotal+otherTotal-cost]];
-        }else {
-            
-            NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-        }
-    }];
-}
 
 #pragma mark - 显示余额
 - (void) setBalanceText:(NSString *) balanceString {
@@ -917,16 +969,5 @@
     [_balanceLabel setAttributedText:text];
     
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

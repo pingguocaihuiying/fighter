@@ -181,7 +181,7 @@
                                         
                                         [self.navigationController dismissViewControllerAnimated:YES completion:^{
                                             
-                                             [[NSNotificationCenter defaultCenter] postNotificationName:@"loginAction" object:@"LOGIN"];
+                                             [[NSNotificationCenter defaultCenter] postNotificationName:LoginNoti object:@"LOGIN"];
                                         
                                         }];
                                         

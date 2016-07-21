@@ -219,7 +219,7 @@
                 <constraint firstItem="puN-Nh-xk7" firstAttribute="leading" secondItem="M78-GM-fxK" secondAttribute="leading" id="gXC-yy-i1e"/>
                 <constraint firstAttribute="bottom" secondItem="Ja3-kA-hcU" secondAttribute="bottom" id="yTQ-ET-y3U"/>
             </constraints>
-            <point key="canvasLocation" x="439" y="382"/>
+            <point key="canvasLocation" x="337" y="308"/>
         </view>
     </objects>
     <resources>

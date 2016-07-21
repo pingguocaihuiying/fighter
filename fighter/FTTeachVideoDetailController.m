@@ -46,6 +46,29 @@
 
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    
+    // 注册通知，分享到微信成功
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToWeiXin:) name:WXShareResultNoti object:nil];
+    
+    // 注册通知，分享到qq成功
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToQQ:) name:QQShareResultNoti object:nil];
+}
+
+
+- (void) viewDidDisappear:(BOOL)animated {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self  name:WXShareResultNoti object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self  name:QQShareResultNoti object:nil];
+}
+
+
+- (void) dealloc {
+    
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -57,11 +80,7 @@
 // 监听通知
 - (void) setNai {
 
-    // 注册通知，分享到微信成功
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToWeiXin:) name:WXShareResultNoti object:nil];
     
-    // 注册通知，分享到qq成功
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToQQ:) name:QQShareResultNoti object:nil];
 }
 
 // 设置导航栏
@@ -97,6 +116,7 @@
     
     [self setWebView];
     
+    [self setLoadingImageView];
 }
 
 // 设置webView
@@ -138,6 +158,8 @@
     NSLog(@"webview url：%@", _webViewUrlString);
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webViewUrlString]]];
     [self.view sendSubviewToBack:_webView];
+    
+    [self startLoadingAnimation];
 
 }
 
@@ -168,10 +190,9 @@
     
     FTShareView2 *shareView = [FTShareView2 new];
     [shareView setUrl:_webUrlString];
-    [shareView setTitle:_videoBean.title];
-    [shareView setSummary:_videoBean.summary];
-    [shareView setImage:@"微信用@200"];
-    [shareView setImageUrl:_videoBean.img];
+    [shareView setTitle:[NSString stringWithFormat:@"我在“格斗东西”学习%@，fighting！",_label]];
+    [shareView setSummary:@"格斗技术知识为强身健体自卫防身，格斗东西团队不支持不赞成任何暴力行为。"];
+    [shareView setImage:self.labelImage];
     [self.view addSubview:shareView];
 }
 
@@ -292,7 +313,7 @@
 }
 
 
-#pragma - mark loading动画
+#pragma  mark - loading动画
 
 -(void)setLoadingImageView{
     
@@ -563,6 +584,9 @@
         NSLog(@"dict:%@",dict);
         NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         if ([dict[@"status"] isEqualToString:@"success"]) {
+            
+            // 发送通知
+            [[NSNotificationCenter defaultCenter] postNotificationName:RechargeResultNoti object:@"RECHARGE"];
             
             [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"成功获得1P积分"];
         }else {
