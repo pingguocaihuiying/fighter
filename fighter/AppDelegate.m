@@ -30,10 +30,13 @@
 #import "DBManager.h"
 #import "RealReachability.h"
 #import "IXPushSdk.h"
-#import <TencentOpenAPI/TencentOAuth.h>
+
 //#import "UMSocialQQHandler.h"
 #import "WeiboSDK.h"
 #import <PLStreamingKit/PLStreamingEnv.h>
+
+#import <TencentOpenAPI/TencentApiInterface.h>
+#import <TencentOpenAPI/TencentOAuth.h>
 
 //微信请求类型
 typedef NS_ENUM(NSInteger, WXRequestType) {
@@ -45,8 +48,8 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     WXRequestTypeAll,                   //请求所有数据
 };
 
-
-@interface AppDelegate ()<WXApiDelegate>
+@protocol TencentSessionDelegate;
+@interface AppDelegate ()<WXApiDelegate,TencentSessionDelegate,WeiboSDKDelegate>
 
 @property (nonatomic, assign)WXRequestType wxRequestType;
 @property (nonatomic, strong) MainViewController *mainVC;
@@ -196,8 +199,10 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 
 #pragma mark 设置qq
 - (void) setTencent {
-  TencentOAuth *tencentOAuth = [[TencentOAuth alloc] initWithAppId:QQ_App_ID andDelegate:nil]; //注册
-    tencentOAuth.localAppId = @"gogogofight";
+  TencentOAuth *tencentOAuth = [[TencentOAuth alloc] initWithAppId:QQ_App_ID andDelegate:self]; //注册
+//    tencentOAuth.localAppId = @"gogogofight";
+    tencentOAuth.redirectURI = @"www.qq.com";
+    
 }
 
 
@@ -267,11 +272,11 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 
 
 
-#pragma mark - 微信注册登录响应方法
+#pragma mark - 微信回调方法
 - (void)onResp:(BaseResp *)resp {
     
     //微信share callback
-    
+    NSLog(@"resp.type:%d",resp.type);
     if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
         
         switch (resp.errCode) {
@@ -371,11 +376,7 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
                 
                 if (tokenDic) {
                     
-//                    //存储token openid
-//                    [[NSUserDefaults standardUserDefaults] setObject:tokenDic[@"access_token"] forKey:@"wxToken"];
-//                    [[NSUserDefaults standardUserDefaults] setObject:tokenDic[@"openid"] forKey:@"wxOpenId"];
-//                    [[NSUserDefaults standardUserDefaults]synchronize];
-                    
+
                     //2.请求微信用户信息
                     [net requestWeixinUserInfoWithToken:tokenDic[@"access_token"] openId:tokenDic[@"openid"] option:^(NSDictionary *userDict) {
                         
@@ -448,7 +449,76 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     }
 }
 
+#pragma mark - QQ回调方法
+- (void)addShareResponse:(APIResponse*) response {
+    
+    NSLog(@"qq share message:%@",response.message);
+}
 
+/**
+ * 登录成功后的回调
+ */
+- (void)tencentDidLogin {
+
+}
+
+/**
+ * 登录失败后的回调
+ * \param cancelled 代表用户是否主动退出登录
+ */
+- (void)tencentDidNotLogin:(BOOL)cancelled {
+
+}
+
+/**
+ * 登录时网络有问题的回调
+ */
+- (void)tencentDidNotNetWork {
+
+}
+#pragma mark - 微博回调方法
+/**
+ 收到一个来自微博客户端程序的请求
+ 
+ 收到微博的请求后，第三方应用应该按照请求类型进行处理，处理完后必须通过 [WeiboSDK sendResponse:] 将结果回传给微博
+ @param request 具体的请求对象
+ */
+- (void)didReceiveWeiboRequest:(WBBaseRequest *)request {
+
+}
+
+/**
+ 收到一个来自微博客户端程序的响应
+ 
+ 收到微博的响应后，第三方应用可以通过响应类型、响应的数据和 WBBaseResponse.userInfo 中的数据完成自己的功能
+ @param response 具体的响应对象
+ */
+- (void)didReceiveWeiboResponse:(WBBaseResponse *)response{
+
+    //    if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
+    //    {
+    //        NSString *title = NSLocalizedString(@"发送结果", nil);
+    //        NSString *message = [NSString stringWithFormat:@"%@: %d\n%@: %@\n%@: %@", NSLocalizedString(@"响应状态", nil), (int)response.statusCode, NSLocalizedString(@"响应UserInfo数据", nil), response.userInfo, NSLocalizedString(@"原请求UserInfo数据", nil),response.requestUserInfo];
+    //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+    //                                                        message:message
+    //                                                       delegate:nil
+    //                                              cancelButtonTitle:NSLocalizedString(@"确定", nil)
+    //                                              otherButtonTitles:nil];
+    //        WBSendMessageToWeiboResponse* sendMessageToWeiboResponse = (WBSendMessageToWeiboResponse*)response;
+    //        NSString* accessToken = [sendMessageToWeiboResponse.authResponse accessToken];
+    //        if (accessToken)
+    //        {
+    //            self.wbtoken = accessToken;
+    //        }
+    //        NSString* userID = [sendMessageToWeiboResponse.authResponse userID];
+    //        if (userID) {
+    //            self.wbCurrentUserID = userID;
+    //        }
+    //        [alert show];
+    //    }
+
+}
+#pragma mark -
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     if([UMSocialSnsService handleOpenURL:url]){
@@ -486,33 +556,6 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     return NO;
 }
 
-
-
-- (void)didReceiveWeiboResponse:(WBBaseResponse *)response
-{
-
-//    if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
-//    {
-//        NSString *title = NSLocalizedString(@"发送结果", nil);
-//        NSString *message = [NSString stringWithFormat:@"%@: %d\n%@: %@\n%@: %@", NSLocalizedString(@"响应状态", nil), (int)response.statusCode, NSLocalizedString(@"响应UserInfo数据", nil), response.userInfo, NSLocalizedString(@"原请求UserInfo数据", nil),response.requestUserInfo];
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-//                                                        message:message
-//                                                       delegate:nil
-//                                              cancelButtonTitle:NSLocalizedString(@"确定", nil)
-//                                              otherButtonTitles:nil];
-//        WBSendMessageToWeiboResponse* sendMessageToWeiboResponse = (WBSendMessageToWeiboResponse*)response;
-//        NSString* accessToken = [sendMessageToWeiboResponse.authResponse accessToken];
-//        if (accessToken)
-//        {
-//            self.wbtoken = accessToken;
-//        }
-//        NSString* userID = [sendMessageToWeiboResponse.authResponse userID];
-//        if (userID) {
-//            self.wbCurrentUserID = userID;
-//        }
-//        [alert show];
-//    }
-}
 
 - (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken
 {

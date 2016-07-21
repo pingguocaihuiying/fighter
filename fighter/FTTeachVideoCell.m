@@ -20,11 +20,11 @@
 
 - (void)setWithBean:(FTVideoBean *)bean{//根据bean设置cell的显示内容
     
-    if ([bean.isReader isEqualToString:@"YES"]) {
-        [self.myTitleLabel setTextColor:Main_Text_Color];
-    }else {
-        [self.myTitleLabel setTextColor:[UIColor whiteColor]];
-    }
+//    if ([bean.isReader isEqualToString:@"YES"]) {
+//        [self.myTitleLabel setTextColor:Main_Text_Color];
+//    }else {
+//        [self.myTitleLabel setTextColor:[UIColor whiteColor]];
+//    }
     
     //设置来源标签的颜色
     //    self.fromLabel.textColor = Secondary_Text_Color;
@@ -43,9 +43,22 @@
     self.voteCount.text = voteCount;
     self.viewCountlabel.text = [NSString stringWithFormat:@"(%@)", bean.viewCount];
     
+    // 是否已购买
+    if (bean.hasBuy) {
+        
+        [self.priceLabel setText:@"已购买"];
+        [self.priceImageView setHidden:YES];
+        
+        return;
+        
+    }else {
+        [self.priceImageView setHidden:NO];
+    }
+    
+    // 是否免费
     if (bean.price) {
         
-        if ([bean.price isEqualToString:@"0"]) {
+        if ([bean.price integerValue] ==0) {
             [self.priceLabel setText:@"免费"];
             return;
         }

@@ -315,7 +315,7 @@ enum{
         default:
             break;
     }
-
+        
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [NetWorking rechargeIAPByGoods:bean option:^(NSDictionary *dict) {
         

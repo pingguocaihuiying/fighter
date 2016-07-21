@@ -46,6 +46,24 @@
 
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    
+    // 注册通知，分享到微信成功
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToWeiXin:) name:WXShareResultNoti object:nil];
+    
+    // 注册通知，分享到qq成功
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToQQ:) name:QQShareResultNoti object:nil];
+}
+
+
+- (void) viewDidDisappear:(BOOL)animated {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self  name:WXShareResultNoti object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self  name:QQShareResultNoti object:nil];
+}
+
+
 - (void) dealloc {
     
     [[NSNotificationCenter defaultCenter]removeObserver:self];
@@ -62,11 +80,7 @@
 // 监听通知
 - (void) setNai {
 
-    // 注册通知，分享到微信成功
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToWeiXin:) name:WXShareResultNoti object:nil];
     
-    // 注册通知，分享到qq成功
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToQQ:) name:QQShareResultNoti object:nil];
 }
 
 // 设置导航栏
@@ -102,6 +116,7 @@
     
     [self setWebView];
     
+    [self setLoadingImageView];
 }
 
 // 设置webView
@@ -143,6 +158,8 @@
     NSLog(@"webview url：%@", _webViewUrlString);
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webViewUrlString]]];
     [self.view sendSubviewToBack:_webView];
+    
+    [self startLoadingAnimation];
 
 }
 
@@ -296,7 +313,7 @@
 }
 
 
-#pragma - mark loading动画
+#pragma  mark - loading动画
 
 -(void)setLoadingImageView{
     

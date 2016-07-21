@@ -91,7 +91,7 @@
 #define QQShareResultNoti @"QQShareResultNoti"
 #define RechargeResultNoti @"RechargeOrCharge"
 #define LoginNoti @"LoginNotifacation"
-
+#define QQShareResponse @"addShareResponse"
 
 //微博相关
 #define WB_App_ID @"3097376602"

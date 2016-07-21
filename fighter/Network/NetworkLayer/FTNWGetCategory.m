@@ -92,7 +92,8 @@
                                                                            @{@"itemValue":@"跆拳道", @"itemValueEn":@"Taekwondo"},
                                                                            @{@"itemValue":@"相扑", @"itemValueEn":@"Sumo"},
                                                                            @{@"itemValue":@"柔道", @"itemValueEn":@"Judo"},
-                                                                           @{@"itemValue":@"其他", @"itemValueEn":@"Others"},
+                                                                           @{@"itemValue":@"空手道",@"itemValueEn":@"Karate"},
+                                                                           @{@"itemValue":@"其他", @"itemValueEn":@"Others"}
                                                                            ]];
         resultArray = tempArray;
     }
