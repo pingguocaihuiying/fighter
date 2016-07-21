@@ -107,8 +107,6 @@
     [self getHomepageUserInfo];
     [self initBaseData];
     [self initSubviews];
-    
-   
 }
 
 - (void)viewWillAppear:(BOOL)animated{

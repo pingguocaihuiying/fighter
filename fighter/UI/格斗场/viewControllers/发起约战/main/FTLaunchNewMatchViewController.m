@@ -174,6 +174,7 @@
     FTChooseGymOrOpponentListViewController *chooseOpponentListViewController = [FTChooseGymOrOpponentListViewController new];
     chooseOpponentListViewController.listType = FTOpponentListType;
     chooseOpponentListViewController.choosedOpponentID = _challengedBoxerID;
+    chooseOpponentListViewController.choosedOpponentName = _challengedBoxerName;
     
     [self.navigationController pushViewController:chooseOpponentListViewController animated:YES];
 }
