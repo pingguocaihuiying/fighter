@@ -19,6 +19,7 @@
 
 #import "WeiboSDK.h"
 #import "AppDelegate.h"
+#import "QQShare.h"
 
 @interface FTShareView2 ()
 {
@@ -371,13 +372,18 @@
 - (void) shareToTencentZone {
     
 //    
-    QQApiNewsObject* newsObj = [self setTencentReq];
-    
-    // 设置分享到 QZone 的标志位
-    [newsObj setCflag: kQQAPICtrlFlagQZoneShareOnStart ];
-    SendMessageToQQReq* req = [SendMessageToQQReq reqWithContent:newsObj];
-    QQApiSendResultCode sent = [QQApiInterface SendReqToQZone:req];
-    [self handleSendResult:sent];
+//    QQApiNewsObject* newsObj = [self setTencentReq];
+//    
+//    // 设置分享到 QZone 的标志位
+//    [newsObj setCflag: kQQAPICtrlFlagQZoneShareOnStart ];
+//    SendMessageToQQReq* req = [SendMessageToQQReq reqWithContent:newsObj];
+//    QQApiSendResultCode sent = [QQApiInterface SendReqToQZone:req];
+//    [self handleSendResult:sent];
+
+    QQShare *zoneShare = [QQShare new];
+    [zoneShare prepareToShare];
+    [zoneShare doOAuthLogin];
+    [zoneShare doMyShare];
     
 }
 
@@ -527,7 +533,7 @@
 }
 
 
-#pragma mark - 分享回调
+#pragma mark - QQ请求结果
 // qq 分享回调
 - (void)handleSendResult:(QQApiSendResultCode)sendResult
 {
