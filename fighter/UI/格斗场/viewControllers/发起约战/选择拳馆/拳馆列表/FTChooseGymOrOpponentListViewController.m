@@ -22,7 +22,8 @@
 @property (nonatomic, assign) int curOpponentIndex;
 
 @property (nonatomic, strong) NSMutableArray *boxersArray;
-@property (nonatomic, copy) NSString *weightLevel;//1. 完全匹配，传5（默认可以不传）； 2. 跨越1级别，传10； 3. 跨越2级别，传15.
+@property (nonatomic, copy) NSString *selectedWeightLevel;//选中的匹配度 1. 完全匹配，传5（默认可以不传）； 2. 跨越1级别，传10； 3. 跨越2级别，传15.
+@property (nonatomic, copy) NSString *displayWeightLevel;//显示的匹配度
 //分页
 @property (nonatomic, copy) NSString *pageSize;
 @property (nonatomic, assign) int pageNum;//接口中，1为第一页
@@ -40,11 +41,11 @@
 - (void)initBaseData{
 
     if (_matchType == FTMatchTypeFullyMatch) {
-         _weightLevel = @"5";
+         _selectedWeightLevel = @"5";
     } else if (_matchType == FTMatchTypeFullyMatch) {
-         _weightLevel = @"10";
+         _selectedWeightLevel = @"10";
     }if (_matchType == FTMatchTypeFullyMatch){
-         _weightLevel = @"15";
+         _selectedWeightLevel = @"15";
     }
     
     if (!_choosedOpponentID) {
@@ -60,7 +61,7 @@
 }
 
 - (void)loadDataFromServer{
-    [NetWorking getBoxerListByWeight:@"80" andOverWeightLevel:_weightLevel andPageSize:_pageSize andPageNum:_pageNum andOption:^(NSArray *array) {
+    [NetWorking getBoxerListByWeight:@"80" andOverWeightLevel:_selectedWeightLevel andPageSize:_pageSize andPageNum:_pageNum andOption:^(NSArray *array) {
         
         if (array && array.count > 0) {
             //刷新成功
@@ -349,17 +350,24 @@
 
 - (void) selectedValue:(NSDictionary *)value{
         NSLog(@"%@", value[@"itemValueEn"]);
-    NSString *matchTypeString = value[@"itemValueEn"];
-    if ([matchTypeString isEqualToString:@"fullyMatching"]) {
-        _matchType = FTMatchTypeFullyMatch;
-        _weightLevel = @"5";
-    }else if([matchTypeString isEqualToString:@"over1Level"]){
-        _matchType = FTMatchTypeOverOneLevel;
-        _weightLevel = @"10";
-    }else if([matchTypeString isEqualToString:@"over2Level"]){
-        _matchType = FTMatchTypeOverTwoLevel;
-        _weightLevel = @"15";
+    
+    if (_listType == FTOpponentListType) {
+        NSString *matchTypeString = value[@"itemValueEn"];
+        if ([matchTypeString isEqualToString:@"fullyMatching"]) {
+            _matchType = FTMatchTypeFullyMatch;
+            _selectedWeightLevel = @"5";
+        }else if([matchTypeString isEqualToString:@"over1Level"]){
+            _matchType = FTMatchTypeOverOneLevel;
+            _selectedWeightLevel = @"10";
+        }else if([matchTypeString isEqualToString:@"over2Level"]){
+            _matchType = FTMatchTypeOverTwoLevel;
+            _selectedWeightLevel = @"15";
+        }
+    }else if(_listType == FTGymListType){
+        
     }
+
+    [self loadDataFromServer];
 }
 
 
