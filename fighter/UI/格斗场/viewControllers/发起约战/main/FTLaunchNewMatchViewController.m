@@ -171,9 +171,11 @@
         return;
     }
     
-    FTChooseGymOrOpponentListViewController *chooseGymListViewController = [FTChooseGymOrOpponentListViewController new];
-    chooseGymListViewController.listType = FTOpponentListType;
-    [self.navigationController pushViewController:chooseGymListViewController animated:YES];
+    FTChooseGymOrOpponentListViewController *chooseOpponentListViewController = [FTChooseGymOrOpponentListViewController new];
+    chooseOpponentListViewController.listType = FTOpponentListType;
+    chooseOpponentListViewController.choosedOpponentID = _challengedBoxerID;
+    
+    [self.navigationController pushViewController:chooseOpponentListViewController animated:YES];
 }
 
 /**

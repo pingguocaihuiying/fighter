@@ -114,19 +114,19 @@
     NSLog(@"---%d", day);
     
     // 判断当前天是周几，从而计算出当周的周一是几号（负数表示上个月月末）
-    if ([weekString  isEqual: @"周一"]) {
+    if ([weekString  isEqual: @"周一"] || [weekString  isEqual: @"Mon"]) {
         day = day - 1; // 因为下面有 day++;
-    } else if ([weekString isEqual:@"周二"]) {
+    } else if ([weekString isEqual:@"周二"] || [weekString  isEqual: @"Tue"]) {
         day = day - 2;
-    } else if ([weekString isEqual:@"周三"]) {
+    } else if ([weekString isEqual:@"周三"] || [weekString  isEqual: @"Wed"]) {
         day = day - 3;
-    } else if ([weekString isEqual:@"周四"]) {
+    } else if ([weekString isEqual:@"周四"] || [weekString  isEqual: @"Thu"]) {
         day = day - 4;
-    } else if ([weekString isEqual:@"周五"]) {
+    } else if ([weekString isEqual:@"周五"] || [weekString  isEqual: @"Fri"]) {
         day = day - 5;
-    } else if ([weekString isEqual:@"周六"]) {
+    } else if ([weekString isEqual:@"周六"] || [weekString  isEqual: @"Sat"]) {
         day = day - 6;
-    } else if ([weekString isEqual:@"周日"]) {
+    } else if ([weekString isEqual:@"周日"] || [weekString  isEqual: @"Sun"]) {
         day = day - 7;
     }
     
@@ -748,11 +748,14 @@
 }
 
 /**
- *  获取选中时间段的timestamp
+ *  获取选中时间段的timestamp:根据当前的时间戳，加上周的偏移毫秒数，加上weekday的毫秒偏移数
  */
 - (void) getSelectedDayTimestamp{
     NSTimeInterval curTimestamp = [[NSDate date] timeIntervalSince1970];
-    _selectedDateTimestamp = curTimestamp + (7 * 24 * 60 * 60) * _curWeekOffset + (_selectedWeekday - [FTTools getWeekdayOfToday]) * (24 * 60 * 60);
-    NSLog(@"ts : %f", _selectedDateTimestamp);
+    NSTimeInterval weeksMSOffset = (7 * 24 * 60 * 60) * _curWeekOffset;
+    NSTimeInterval weekdayMSOffset = (_selectedWeekday - [FTTools getWeekdayOfToday]) * (24 * 60 * 60);
+    NSLog(@"curTimestamp : %.0f, weeksMSOffset : %.0f, weekdayMSOffset : %.0f", curTimestamp, weeksMSOffset, weekdayMSOffset);
+    _selectedDateTimestamp = curTimestamp + weeksMSOffset + weekdayMSOffset;
+    NSLog(@"ts : %.0f", _selectedDateTimestamp);
 }
 @end

@@ -184,19 +184,19 @@
     NSLog(@"---%d", day);
     
     // 判断当前天是周几，从而计算出当周的周一是几号（负数表示上个月月末）
-    if ([weekString  isEqual: @"周一"]) {
+    if ([weekString  isEqual: @"周一"] || [weekString  isEqual: @"Mon"]) {
         weekday = 1;
-    } else if ([weekString isEqual:@"周二"]) {
+    } else if ([weekString isEqual:@"周二"] || [weekString  isEqual: @"Tue"]) {
         weekday = 2;
-    } else if ([weekString isEqual:@"周三"]) {
+    } else if ([weekString isEqual:@"周三"] || [weekString  isEqual: @"Wed"]) {
         weekday = 3;
-    } else if ([weekString isEqual:@"周四"]) {
+    } else if ([weekString isEqual:@"周四"] || [weekString  isEqual: @"Thu"]) {
         weekday = 4;
-    } else if ([weekString isEqual:@"周五"]) {
+    } else if ([weekString isEqual:@"周五"] || [weekString  isEqual: @"Fri"]) {
         weekday = 5;
-    } else if ([weekString isEqual:@"周六"]) {
+    } else if ([weekString isEqual:@"周六"] || [weekString  isEqual: @"Sat"]) {
         weekday = 6;
-    } else if ([weekString isEqual:@"周日"]) {
+    } else if ([weekString isEqual:@"周日"] || [weekString  isEqual: @"Sun"]) {
         weekday = 7;
     }
     return weekday;

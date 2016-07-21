@@ -189,15 +189,9 @@
 //        }];
         
         if ([_userIdentity isEqualToString:@"0"]) {//普通用户
-            
-            _followTableName = @"f-user";
-            
-            
             //不显示战绩、视频项
             self.recordButton.hidden = YES;//是否显示战绩按钮
             self.videoButton.hidden = YES;//是否显示视频按钮
-            
-            [self.videoButton setTitle:@"视频"];//修改视频按钮的标题为“视频”
             
              _userBgImageView.backgroundColor = [UIColor blackColor];
         }else if ([_userIdentity isEqualToString:@"1"]) {//拳手
@@ -206,18 +200,14 @@
             if (userBean.background != nil && ![userBean.background isEqualToString:@""]) {//如果有背景图
                 [_userBgImageView sd_setImageWithURL:[NSURL URLWithString:userBean.background] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     _userBgImageView.image = [UIImage boxblurImage:image withBlurNumber:0.5];
-                    
                 }];
             }else{//如果没有背景图
                 _userBgImageView.backgroundColor = [UIColor blackColor];
             }
 
-            
             //显示战绩、视频项
             self.recordButton.hidden = NO;//是否显示战绩按钮
             self.videoButton.hidden = NO;//是否显示视频按钮
-            
-            _followTableName = @"f-boxer";
             self.identityImageView1.hidden = NO;
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-拳"];
         }else if ([_userIdentity isEqualToString:@"2"]){//教练
@@ -225,8 +215,6 @@
             //显示视频，不显示战绩
             self.recordButton.hidden = YES;//是否显示战绩按钮
             self.videoButton.hidden = NO;//是否显示视频按钮
-            
-            _followTableName = @"f-coach";
             self.identityImageView1.hidden = NO;
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-教"];
         }else if ([_userIdentity isEqualToString:@"1,2"]){//拳手、教练
@@ -235,6 +223,8 @@
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-教"];
             self.identityImageView2.image = [UIImage imageNamed:@"身份圆形-拳"];
         }
+        
+        _followTableName = @"f-user";
         
         [self getFollowInfo];//获取关注信息
         //处理右上角的“转发”或“修改”：如果是自己的主页，则是“修改”，如果是别人的，则显示转发
@@ -1108,12 +1098,9 @@
         commentListViewController.objId = _userid;
     }
     
+    //个人中心所有的评论的tablename都是“c-user"
+    commentListViewController.tableName = @"c-user";
     
-    if ([_userIdentity isEqualToString:@"0"]) {
-        commentListViewController.tableName = @"c-user";
-    }else if([_userIdentity isEqualToString:@"1"]){
-        commentListViewController.tableName = @"c-boxer";
-    }
     [self.navigationController pushViewController:commentListViewController animated:YES];
 }
 
