@@ -13,16 +13,16 @@
 #import "FTGymDetailViewController.h"
 #import "FTDefaultFullMatchingTableViewCell.h"
 #import "FTOpponentCell.h"
-#import "FTLaunchNewMatchViewController.h"
+
 #import "FTHomepageMainViewController.h"
 #import "JHRefresh.h"
 
 @interface FTChooseGymOrOpponentListViewController ()<UITableViewDelegate, UITableViewDataSource, FTSelectCellDelegate, FTDefaultFullyMatchingCellSelected, opponentSelectedDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
-@property (nonatomic, assign)NSInteger curOpponentIndex;
-@property (assign, nonatomic) FTMatchType matchType;
-@property (nonatomic, strong) NSMutableArray *boxersArray;
+@property (nonatomic, assign) int curOpponentIndex;
 
+@property (nonatomic, strong) NSMutableArray *boxersArray;
+@property (nonatomic, copy) NSString *weightLevel;//1. 完全匹配，传5（默认可以不传）； 2. 跨越1级别，传10； 3. 跨越2级别，传15.
 //分页
 @property (nonatomic, copy) NSString *pageSize;
 @property (nonatomic, assign) int pageNum;//接口中，1为第一页
@@ -38,8 +38,18 @@
 }
 
 - (void)initBaseData{
-    _curOpponentIndex = 0;//默认选择同匹配度任何人
-    _matchType = FTMatchTypeFullyMatch;
+
+    if (_matchType == FTMatchTypeFullyMatch) {
+         _weightLevel = @"5";
+    } else if (_matchType == FTMatchTypeFullyMatch) {
+         _weightLevel = @"10";
+    }if (_matchType == FTMatchTypeFullyMatch){
+         _weightLevel = @"15";
+    }
+    
+    if (!_choosedOpponentID) {
+        _choosedOpponentID = @"-1";
+    }
     
     //分页
     _pageSize = @"10";
@@ -50,9 +60,9 @@
 }
 
 - (void)loadDataFromServer{
-    [NetWorking getBoxerListByWeight:@"80" andOverWeightLevel:@"5" andPageSize:_pageSize andPageNum:_pageNum andOption:^(NSArray *array) {
+    [NetWorking getBoxerListByWeight:@"80" andOverWeightLevel:_weightLevel andPageSize:_pageSize andPageNum:_pageNum andOption:^(NSArray *array) {
         
-        if (_boxersArray && _boxersArray.count > 0) {
+        if (array && array.count > 0) {
             //刷新成功
             [self.tableview headerEndRefreshingWithResult:JHRefreshResultSuccess];
             [self.tableview footerEndRefreshing];
@@ -192,7 +202,7 @@
         return 4;
     }else if (_listType == FTOpponentListType){
         if (_boxersArray) {
-            return _boxersArray.count;
+            return _boxersArray.count + 1;//加上“同匹配度的任何人”
         }
     }
     
@@ -212,22 +222,38 @@
         FTGymCell *cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
         return cell;
     }else if (_listType == FTOpponentListType){
+        
+
+        
         if (indexPath.row == 0) {
             FTDefaultFullMatchingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"fullyMatchingOpponentCell"];
             cell.delegate = self;
-            _curOpponentIndex == 0 ? [cell.checkButton setImage:[UIImage imageNamed:@"弹出框用-类别选择-选中"] forState:UIControlStateNormal] : [cell.checkButton setImage:[UIImage imageNamed:@"弹出框用-类别选择-空"] forState:UIControlStateNormal];
+//            _curOpponentIndex == 0 ? [cell.checkButton setImage:[UIImage imageNamed:@"弹出框用-类别选择-选中"] forState:UIControlStateNormal] : [cell.checkButton setImage:[UIImage imageNamed:@"弹出框用-类别选择-空"] forState:UIControlStateNormal];
+            
+            if (_curOpponentIndex == 0 && [_choosedOpponentID isEqualToString:@"-1"]) {
+                [cell.checkButton setImage:[UIImage  imageNamed:@"弹出框用-类别选择-选中"] forState:UIControlStateNormal];
+            } else {
+                [cell.checkButton setImage:[UIImage imageNamed:@"弹出框用-类别选择-空"] forState:UIControlStateNormal];
+            }
+            
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }else{
+            NSDictionary *dic = _boxersArray[indexPath.row - 1];
+            NSString *userOldId = dic[@"userId"];//用户的useroldid
+            
             FTOpponentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"opponentCell"];
             cell.delegate = self;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            _curOpponentIndex == indexPath.row ? [cell.challengeButton setImage:[UIImage imageNamed:@"弹出框用-类别选择-选中"] forState:UIControlStateNormal] : [cell.challengeButton setImage:[UIImage imageNamed:@"挑战"] forState:UIControlStateNormal];
+            if (_curOpponentIndex == indexPath.row || [_choosedOpponentID isEqualToString:userOldId]) {
+                 [cell.challengeButton setImage:[UIImage  imageNamed:@"弹出框用-类别选择-选中"] forState:UIControlStateNormal];
+            } else {
+                [cell.challengeButton setImage:[UIImage imageNamed:@"挑战"] forState:UIControlStateNormal];
+            }
+            
             cell.tag = indexPath.row;
             
-            NSDictionary *dic = _boxersArray[indexPath.row - 1];
             [cell setWithDic:dic];
-            
             
             return cell;
         }
@@ -245,26 +271,37 @@
             
         }else{
             FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
-            homepageMainVC.olduserid = @"855bd9552ff0488aa0d0765e9ccd46cc";
+//            homepageMainVC.olduserid = @"855bd9552ff0488aa0d0765e9ccd46cc";
+            homepageMainVC.olduserid = _boxersArray[indexPath.row - 1][@"userId"];
             [self.navigationController pushViewController:homepageMainVC animated:YES];
         }
     }
 
 }
 
+
 - (void)defaultFullyMatchingSelected{
     NSLog(@"完全匹配");
     _curOpponentIndex = 0;
     _choosedOpponentID = @"-1";//如果选择了同级别匹配
-    NSLog(@"_curOpponentIndex : %ld", _curOpponentIndex);
+    NSLog(@"_curOpponentIndex : %d", _curOpponentIndex);
     [_tableview reloadData];
 }
 
 - (void)selectOpponentByIndex:(NSInteger)opponentIndex{
-    _curOpponentIndex = opponentIndex;
-    _choosedOpponentID = _boxersArray[_curOpponentIndex - 1][@"id"];
-    _choosedOpponentName = _boxersArray[_curOpponentIndex - 1][@"name"];
-    NSLog(@"_curOpponentIndex : %ld", _curOpponentIndex);
+    
+    NSLog(@"_curOpponentIndex : %d", _curOpponentIndex);
+    _curOpponentIndex = (int)opponentIndex;
+    
+    if (opponentIndex == 0){//如果选择的同匹配度的任何人
+        _choosedOpponentID = @"-1";
+        _choosedOpponentName = @"旗鼓相当的对手";
+        
+    }else{
+        _choosedOpponentID = _boxersArray[_curOpponentIndex - 1][@"userId"];
+        _choosedOpponentName = _boxersArray[_curOpponentIndex - 1][@"name"];
+    }
+    
     [_tableview reloadData];
 }
 
@@ -315,10 +352,13 @@
     NSString *matchTypeString = value[@"itemValueEn"];
     if ([matchTypeString isEqualToString:@"fullyMatching"]) {
         _matchType = FTMatchTypeFullyMatch;
+        _weightLevel = @"5";
     }else if([matchTypeString isEqualToString:@"over1Level"]){
         _matchType = FTMatchTypeOverOneLevel;
+        _weightLevel = @"10";
     }else if([matchTypeString isEqualToString:@"over2Level"]){
         _matchType = FTMatchTypeOverTwoLevel;
+        _weightLevel = @"15";
     }
 }
 
@@ -334,7 +374,7 @@
         FTLaunchNewMatchViewController *launchNewMatchViewController = self.navigationController.viewControllers[1];
         
         //选择的匹配对手
-
+        
         launchNewMatchViewController.challengedBoxerName= _choosedOpponentName;
         launchNewMatchViewController.challengedBoxerID = [NSString stringWithFormat:@"%@", _choosedOpponentID];
         launchNewMatchViewController.opponentLabel.text = _choosedOpponentName;

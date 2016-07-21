@@ -48,7 +48,13 @@
     }
     self.thumbUrl = dic[@"thumbUrl"];
     self.urlPrefix = dic[@"urlPrefix"];
-    self.content = dic[@"content"];
+    
+    if (dic[@"content"]) {
+        self.content = dic[@"content"];
+    }else{
+        self.content = @"";
+    }
+    
     self.headUrl = dic[@"headUrl"];
     self.commentCount = dic[@"commentCount"];
     self.createTimeTamp = dic[@"createTimeTamp"];

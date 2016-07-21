@@ -32,13 +32,11 @@
     
     
     //战绩
-    NSString *winCount = dic[@"win"];
-    NSString *failCount = dic[@"fail"];
-    NSString *drawCount = dic[@"draw"];
-    NSString *knockoutCount = dic[@"knockout"];
-    if (!knockoutCount) {
-        knockoutCount = @"0";
-    }
+    NSString *winCount = dic[@"win"] == nil ? @"0" : dic[@"win"];
+    NSString *failCount = dic[@"fail"] == nil ? @"0" : dic[@"fail"];
+    NSString *drawCount = dic[@"draw"] == nil ? @"0" : dic[@"draw"];
+    NSString *knockoutCount = dic[@"knockout"] == nil ? @"0" : dic[@"knockout"];
+    
     _recordLabel.text = [NSString stringWithFormat:@"%@胜 %@负 %@平 %@", winCount, failCount, drawCount, knockoutCount];
     
     //头像

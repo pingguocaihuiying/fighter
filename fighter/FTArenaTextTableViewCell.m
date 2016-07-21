@@ -28,14 +28,7 @@
         [self.theTitle setTextColor: Main_Text_Color];
     }
 
-    //调整正文行高
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.sumupLabel.text];
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    [paragraphStyle setLineSpacing:8];//调整行间距
-    
-    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [self.sumupLabel.text length])];
-    self.sumupLabel.attributedText = attributedString;
-    [self.sumupLabel sizeToFit];
+
     
     //根据数据源去设置显示内容
     self.theTitle.text = bean.title;
@@ -49,7 +42,14 @@
     self.authorLabel.text = bean.nickname;
     self.timeLabel.text = [self getTimeLabelTextTimeStamp:bean.createTimeTamp];
     
-
+    //调整正文行高
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.sumupLabel.text];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineSpacing:8];//调整行间距
+    
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [self.sumupLabel.text length])];
+    self.sumupLabel.attributedText = attributedString;
+    [self.sumupLabel sizeToFit];
     
     
 //    NSLog(@"label : %@", bean.labels);
