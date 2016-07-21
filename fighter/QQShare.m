@@ -87,6 +87,14 @@
 }
 
 #pragma mark - TencentSessionDelegate
+- (void)addShareResponse:(APIResponse*) response {
+    
+    //发送通知，告诉评论页面微信登录成功
+    [[NSNotificationCenter defaultCenter] postNotificationName:QQShareResultNoti object:@"SUCESS"];
+
+    NSLog(@"qq share message:%@",response.message);
+}
+
 /**
  * 登录成功后的回调
  */
@@ -122,56 +130,80 @@
 #pragma mark - 存储授权用户的OpenID、Token以及过期时间
 -(void)saveUserInfo:(TencentOAuth *)oauth
 {
-    //获取文件路径
-    NSArray *paths =NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [[paths objectAtIndex:0]stringByAppendingPathComponent:@"oauthUser.dic"];
-    
-    //构建存储字典
-    NSMutableDictionary *paramDic = [NSMutableDictionary dictionary];
-    [paramDic setObject:oauth.openId forKey:@"openId"];
-    [paramDic setObject:oauth.accessToken forKey:@"accessToken"];
-    [paramDic setObject:oauth.expirationDate forKey:@"expirationDate"];
-    
-    //以写文件的方式存储到Document目录下。
-    [paramDic writeToFile:documentsDirectory atomically:YES];
+//    //获取文件路径
+//    NSArray *paths =NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [[paths objectAtIndex:0]stringByAppendingPathComponent:@"oauthUser.dic"];
+//    
+//    //构建存储字典
+//    NSMutableDictionary *paramDic = [NSMutableDictionary dictionary];
+//    [paramDic setObject:oauth.openId forKey:@"openId"];
+//    [paramDic setObject:oauth.accessToken forKey:@"accessToken"];
+//    [paramDic setObject:oauth.expirationDate forKey:@"expirationDate"];
+//    
+//    //以写文件的方式存储到Document目录下。
+//    [paramDic writeToFile:documentsDirectory atomically:YES];
 }
 
 -(void)getUserInfo
 {
-    //获取文件路径
-    NSArray *paths =NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [[paths objectAtIndex:0]stringByAppendingPathComponent:@"oauthUser.dic"];
-    
-    NSDictionary *paramDic = [NSDictionary dictionaryWithContentsOfFile:documentsDirectory];
-    if (paramDic != nil)
-    {
-        //分别获取
-        NSString *accessToken = [NSString stringWithFormat:@"%@",[paramDic objectForKey:@"accessToken"]];
-        NSDate *expirationDate = [paramDic objectForKey:@"expirationDate"];
-        NSString *openId = [NSString stringWithFormat:@"%@",[paramDic objectForKey:@"openId"]];
-        
-        //给myTencentOAuth赋值 - 用于后续的判断 - 是否需要授权，同时也是对分享的一个支持
-        [myTencentOAuth setAccessToken:accessToken];
-        [myTencentOAuth setExpirationDate:expirationDate];
-        [myTencentOAuth setOpenId:openId];
-    }
+//    //获取文件路径
+//    NSArray *paths =NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [[paths objectAtIndex:0]stringByAppendingPathComponent:@"oauthUser.dic"];
+//    
+//    NSDictionary *paramDic = [NSDictionary dictionaryWithContentsOfFile:documentsDirectory];
+//    if (paramDic != nil)
+//    {
+//        //分别获取
+//        NSString *accessToken = [NSString stringWithFormat:@"%@",[paramDic objectForKey:@"accessToken"]];
+//        NSDate *expirationDate = [paramDic objectForKey:@"expirationDate"];
+//        NSString *openId = [NSString stringWithFormat:@"%@",[paramDic objectForKey:@"openId"]];
+//        
+//        //给myTencentOAuth赋值 - 用于后续的判断 - 是否需要授权，同时也是对分享的一个支持
+//        [myTencentOAuth setAccessToken:accessToken];
+//        [myTencentOAuth setExpirationDate:expirationDate];
+//        [myTencentOAuth setOpenId:openId];
+//    }
 }
 
 #pragma mark - 执行分享操作 --  测试发现，如果不回到主线程中执行分享操作，会出现错误，应该是受QQ授权影响。
 //http://wiki.connect.qq.com/ios_sandbox1#2.3.E5.88.86.E4.BA.AB.E7.A4.BA.E4.BE.8B.E4.BB.A3.E7.A0.81
 -(void)doMyShare
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        QQApiNewsObject* newsObj = [self setTencentReq];
-        
-        // 设置分享到 QZone 的标志位
-        [newsObj setCflag: kQQAPICtrlFlagQZoneShareOnStart ];
-        SendMessageToQQReq* req = [SendMessageToQQReq reqWithContent:newsObj];
-        QQApiSendResultCode sent = [QQApiInterface SendReqToQZone:req];
-
-        [self handleSendResult:sent];
-    });
+    
+    NSDate *tpExpirationDate = myTencentOAuth.expirationDate;
+    if (tpExpirationDate == nil)
+    {
+        //需要进行授权操作 - 进行SSO授权
+        [self doOAuthLogin];
+    }
+    else
+    {
+        //进一步判断 -- 授权是否过期
+        NSString *tpExpirationTimeString = [NSString stringWithFormat:@"%.0f",[tpExpirationDate timeIntervalSince1970]];
+        NSString *timeString = [NSString stringWithFormat:@"%.0f",[[NSDate date] timeIntervalSince1970]];
+        if ([timeString longLongValue] <[tpExpirationTimeString longLongValue])
+        {
+            //表示授权没有过期 -- 则可直接分享
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                QQApiNewsObject* newsObj = [self setTencentReq];
+                
+                // 设置分享到 QZone 的标志位
+                [newsObj setCflag: kQQAPICtrlFlagQZoneShareOnStart ];
+                SendMessageToQQReq* req = [SendMessageToQQReq reqWithContent:newsObj];
+                QQApiSendResultCode sent = [QQApiInterface SendReqToQZone:req];
+                
+                [self handleSendResult:sent];
+            });
+        }
+        else
+        {
+            //表示授权过期了 - 进行SSO授权
+            [self doOAuthLogin];
+        }
+    }
+    
+    
 }
 
 
@@ -266,8 +298,8 @@
         {
             
             NSLog(@"qq分享回调成功");
-            //发送通知，告诉评论页面微信登录成功
-            [[NSNotificationCenter defaultCenter] postNotificationName:QQShareResultNoti object:@"SUCESS"];
+//            //发送通知，告诉评论页面微信登录成功
+//            [[NSNotificationCenter defaultCenter] postNotificationName:QQShareResultNoti object:@"SUCESS"];
         }
             break;
         default:

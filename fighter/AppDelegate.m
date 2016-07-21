@@ -35,6 +35,7 @@
 #import "WeiboSDK.h"
 #import <PLStreamingKit/PLStreamingEnv.h>
 
+#import <TencentOpenAPI/QQApiInterface.h>
 #import <TencentOpenAPI/TencentApiInterface.h>
 #import <TencentOpenAPI/TencentOAuth.h>
 
@@ -49,7 +50,7 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 };
 
 @protocol TencentSessionDelegate;
-@interface AppDelegate ()<WXApiDelegate,TencentSessionDelegate,WeiboSDKDelegate>
+@interface AppDelegate ()<WXApiDelegate,WeiboSDKDelegate,QQApiInterfaceDelegate>
 
 @property (nonatomic, assign)WXRequestType wxRequestType;
 @property (nonatomic, strong) MainViewController *mainVC;
@@ -199,9 +200,9 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 
 #pragma mark 设置qq
 - (void) setTencent {
-  TencentOAuth *tencentOAuth = [[TencentOAuth alloc] initWithAppId:QQ_App_ID andDelegate:self]; //注册
-//    tencentOAuth.localAppId = @"gogogofight";
-    tencentOAuth.redirectURI = @"www.qq.com";
+  TencentOAuth *tencentOAuth = [[TencentOAuth alloc] initWithAppId:QQ_App_ID andDelegate:nil]; //注册
+    tencentOAuth.localAppId = @"gogogofight";
+//    tencentOAuth.redirectURI = @"www.qq.com";
     
 }
 
@@ -450,6 +451,29 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 }
 
 #pragma mark - QQ回调方法
+
+////QQ终端向第三方程序发送请求，要求第三方程序响应。第三方程序响应完后必须调用sendRsp返回。在调用sendRsp返回时，会切回到QQ终端程序界面。
+//-(void)onReq:(QQBaseReq *)req
+//{
+//    NSString *string = [NSString stringWithFormat:@"%d",req.type];
+//    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:string delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+//    [alertView show];
+//}
+
+////如果第三方程序向QQ发送了sendReq的请求，那么onResp会被回调。sendReq请求调用后，会切到QQ终端程序界面。
+//-(void)onResp:(QQBaseResp *)resp
+//{
+//    NSString *string = [NSString stringWithFormat:@"%@",resp.result];
+//    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:string delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+//    [alertView show];
+//}
+
+-(void)isOnlineResponse:(NSDictionary *)response
+{
+    NSLog(@"%@",response);
+}
+
+
 - (void)addShareResponse:(APIResponse*) response {
     
     NSLog(@"qq share message:%@",response.message);
@@ -529,10 +553,17 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
         return YES;
     }
     
-    if ([TencentOAuth HandleOpenURL:url]) {
+    @try {
+    
+    if ([TencentOAuth HandleOpenURL:url] || [QQApiInterface handleOpenURL:url delegate:self]) {
         return YES;
     }
-    
+        
+    } @catch (NSException *exception) {
+        NSLog(@"exception:%@",exception);
+    } @finally {
+        
+    }
     if ([WeiboSDK handleOpenURL:url delegate:self]) {
         return YES;
     }
@@ -546,7 +577,7 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
     
-    if ([TencentOAuth HandleOpenURL:url]) {
+    if ([TencentOAuth HandleOpenURL:url] || [QQApiInterface handleOpenURL:url delegate:self]) {
         return YES;
     }
     
