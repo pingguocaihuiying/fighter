@@ -28,12 +28,12 @@ pod "WeiboSDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git"
 #直播SDK
 pod "PLCameraStreamingKit", "~> 1.7.1"
 
-pod 'PPiAwesomeButton', '~> 1.5.2'
+pod "PPiAwesomeButton", "~> 1.5.2"
 
-pod 'OpenSSL-for-iOS', '~> 1.0.2.d.1'
+pod "OpenSSL-for-iOS", "~> 1.0.2.d.1"
 
-pod 'GTMBase64', '~> 1.0.0'
+pod "GTMBase64", "~> 1.0.0"
 
-pod 'Base64', '~> 1.1.2'
+pod "Base64", "~> 1.1.2"
 
 end

@@ -190,8 +190,8 @@
     
     FTShareView2 *shareView = [FTShareView2 new];
     [shareView setUrl:_webUrlString];
-    [shareView setTitle:[NSString stringWithFormat:@"我在“格斗东西”学习%@，fighting！",_label]];
-    [shareView setSummary:@"格斗技术知识为强身健体自卫防身，格斗东西团队不支持不赞成任何暴力行为。"];
+    [shareView setTitle:[NSString stringWithFormat:@"我在“格斗东西”学习%@，Fighting！",_label]];
+    [shareView setSummary:@"格斗技术为强身健体自卫防身，格斗东西团队不支持不赞成任何暴力行为。"];
     [shareView setImage:self.labelImage];
     [self.view addSubview:shareView];
 }

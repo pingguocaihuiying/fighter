@@ -216,6 +216,7 @@ static NSString *const tableCellId = @"tableCellId";
         NSLog(@"执行退出登录");
         [self.loginView setHidden:NO];//显示登录页面
         
+        [self updateUserAvatar:nil];
     }else {
         
         // 获取余额
@@ -283,13 +284,13 @@ static NSString *const tableCellId = @"tableCellId";
         
         [self.tableView reloadData];
         
-        //跟新头像
-        [self updateUserAvatar:localUser.headpic];
-        
         [self.loginView setHidden:YES];//显示登录页面
     }else {
         [self.loginView setHidden:NO];//隐藏登录页面
     }
+    
+    //跟新头像
+    [self updateUserAvatar:localUser.headpic];
 }
 
 
