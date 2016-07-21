@@ -19,6 +19,7 @@
 
 #import "WeiboSDK.h"
 #import "AppDelegate.h"
+#import "QQShare.h"
 
 @interface FTShareView2 ()
 {
@@ -370,7 +371,7 @@
  */
 - (void) shareToTencentZone {
     
-//    
+    
     QQApiNewsObject* newsObj = [self setTencentReq];
     
     // 设置分享到 QZone 的标志位
@@ -378,6 +379,11 @@
     SendMessageToQQReq* req = [SendMessageToQQReq reqWithContent:newsObj];
     QQApiSendResultCode sent = [QQApiInterface SendReqToQZone:req];
     [self handleSendResult:sent];
+
+//    QQShare *zoneShare = [QQShare new];
+//    [zoneShare prepareToShare];
+//    [zoneShare doOAuthLogin];
+//    [zoneShare doMyShare];
     
 }
 
@@ -517,17 +523,39 @@
         return data;
     }
     
-    int i = 1;
-    while (data.length > 32*1000) {
-        data = UIImageJPEGRepresentation(image, 1-i/10);
-        i++;
+    int i = 9;
+    
+    // 第一次压缩
+    while (data.length > 32*1000 && i > 0) {
+        data = UIImageJPEGRepresentation(image, 0.1*i);
+        i--;
     }
     
+    // 第一次压缩
+    int j = 9;
+    while (data.length > 32*1000 && j > 0) {
+        data = UIImageJPEGRepresentation(image, 0.01*j);
+        j--;
+    }
+    
+    // 如果压缩之后还是太大，裁剪图片
+    CGSize size = CGSizeMake(400, 400);
+    if (data.length > 32*1000) {
+        
+        image = [UIImage imageWithData:data];
+        UIGraphicsBeginImageContext(size);
+        [image drawInRect:CGRectMake(0,0,size.width,size.height)];
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+    }
+    
+    data = UIImageJPEGRepresentation(image, 0.5);
     return  data;
 }
 
 
-#pragma mark - 分享回调
+#pragma mark - QQ请求结果
 // qq 分享回调
 - (void)handleSendResult:(QQApiSendResultCode)sendResult
 {

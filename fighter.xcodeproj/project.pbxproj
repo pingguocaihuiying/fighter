@@ -153,6 +153,7 @@
 		3DE1DEEC1D3F071600511E92 /* FTGymDetailWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE1DEEA1D3F071600511E92 /* FTGymDetailWebViewController.xib */; };
 		3DE1DEF21D3F178F00511E92 /* FTGymBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1DEF11D3F178F00511E92 /* FTGymBean.m */; };
 		3DE1DEF61D3F472500511E92 /* FTPaySingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1DEF51D3F472500511E92 /* FTPaySingleton.m */; };
+		3DE1DF061D40C74D00511E92 /* QQShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1DF051D40C74D00511E92 /* QQShare.m */; };
 		3DE95B501CD326B7005BF85C /* FTCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95B4F1CD326B7005BF85C /* FTCollectionViewLayout.m */; };
 		3DE95BA01CD8675B005BF85C /* FTDrawerStyler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95B9F1CD8675B005BF85C /* FTDrawerStyler.m */; };
 		3DE95BA31CD868C6005BF85C /* FTDynamicsDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95BA21CD868C6005BF85C /* FTDynamicsDrawerViewController.m */; };
@@ -563,6 +564,8 @@
 		3DE1DEF11D3F178F00511E92 /* FTGymBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymBean.m; sourceTree = "<group>"; };
 		3DE1DEF41D3F472500511E92 /* FTPaySingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPaySingleton.h; sourceTree = "<group>"; };
 		3DE1DEF51D3F472500511E92 /* FTPaySingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPaySingleton.m; sourceTree = "<group>"; };
+		3DE1DF041D40C74D00511E92 /* QQShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQShare.h; sourceTree = "<group>"; };
+		3DE1DF051D40C74D00511E92 /* QQShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQShare.m; sourceTree = "<group>"; };
 		3DE95B4E1CD326B7005BF85C /* FTCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCollectionViewLayout.h; sourceTree = "<group>"; };
 		3DE95B4F1CD326B7005BF85C /* FTCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCollectionViewLayout.m; sourceTree = "<group>"; };
 		3DE95B9E1CD8675B005BF85C /* FTDrawerStyler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerStyler.h; sourceTree = "<group>"; };
@@ -1316,6 +1319,8 @@
 				3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */,
 				3DB240F21D3C60A6007F32C6 /* FTShareView2.h */,
 				3DB240F31D3C60A6007F32C6 /* FTShareView2.m */,
+				3DE1DF041D40C74D00511E92 /* QQShare.h */,
+				3DE1DF051D40C74D00511E92 /* QQShare.m */,
 			);
 			name = "分享";
 			sourceTree = "<group>";
@@ -2524,7 +2529,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E64EF1331CB6614100CAE340 /* Build configuration list for PBXNativeTarget "fighter" */;
 			buildPhases = (
-				B0BD33182E9F582B353F6FF0 /* 📦 Check Pods Manifest.lock */,
+				B0BD33182E9F582B353F6FF0 /* [CP] Check Pods Manifest.lock */,
 				962399117BF503EB187D1EC2 /* [CP] Check Pods Manifest.lock */,
 				14687E7A41A6C3D1B342FDFB /* [CP] Check Pods Manifest.lock */,
 				218D5704294FD31CAE3AA790 /* [CP] Check Pods Manifest.lock */,
@@ -2878,14 +2883,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		B0BD33182E9F582B353F6FF0 /* 📦 Check Pods Manifest.lock */ = {
+		B0BD33182E9F582B353F6FF0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3028,6 +3033,7 @@
 				E65EFC291CC8ADFD0039EE8A /* UIButton+LYZTitle.m in Sources */,
 				E627EE611D25122C00B424F5 /* FTChooseGymOrOpponentListViewController.m in Sources */,
 				3DC411F01CCF80DD0030C229 /* FTDrawerTableViewHeader.m in Sources */,
+				3DE1DF061D40C74D00511E92 /* QQShare.m in Sources */,
 				E6A9DDB61CD9833200CB9518 /* FTVideoTableViewCell.m in Sources */,
 				E668BBB71CE4353300071998 /* FTRankingListFilterView.m in Sources */,
 				3D7B98BE1CE0898400B80B8D /* FTOldPasswordVC.m in Sources */,

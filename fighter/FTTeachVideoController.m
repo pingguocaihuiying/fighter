@@ -701,8 +701,8 @@
 - (IBAction)shareToWeiXin:(id)sender {
     
     WXMediaMessage *message = [WXMediaMessage message];
-    message.title = [NSString stringWithFormat:@"我在“格斗东西”学习%@，fighting！",self.label];
-    message.description = @"格斗技术知识为强身健体自卫防身，格斗东西团队不支持不赞成任何暴力行为。";
+    message.title = [NSString stringWithFormat:@"我在“格斗东西”学习%@，Fighting！",self.label];
+    message.description = @"格斗技术为强身健体自卫防身，格斗东西团队不支持不赞成任何暴力行为。";
     
     NSData *data = [self getImageDataForSDWebImageCachedKey];
     [message setThumbData:data];
@@ -769,8 +769,8 @@
     NSURL* url = [NSURL URLWithString: webUrlString];
     
     QQApiNewsObject* imgObj = [[QQApiNewsObject alloc]initWithURL:url
-                                                            title:[NSString stringWithFormat:@"我在“格斗东西”学习%@，fighting！",self.label]
-                                                      description: @"格斗技术知识为强身健体自卫防身，格斗东西团队不支持不赞成任何暴力行为。"
+                                                            title:[NSString stringWithFormat:@"我在“格斗东西”学习%@，Fighting！",self.label]
+                                                      description: @"格斗技术为强身健体自卫防身，格斗东西团队不支持不赞成任何暴力行为。"
                                                  previewImageData:[self getImageDataForSDWebImageCachedKey]
                                                 targetContentType:QQApiURLTargetTypeNews];
     
