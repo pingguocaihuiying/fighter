@@ -16,4 +16,8 @@
 
 @interface FTPracticeViewController : FTBaseViewController <TeachDelegate>
 
+
+#pragma mark push响应方法
+- (void) pushToDetailController:(NSDictionary *)dic;
+
 @end

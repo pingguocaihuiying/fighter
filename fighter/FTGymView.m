@@ -475,7 +475,7 @@
     FTGymBean *bean = [FTGymBean new];
     [bean setValuesWithDic:newsDic];
     gymDetailWebViewController.gymBean = bean;
-    gymDetailWebViewController.shareImage = cell.avatarImageView.image;
+    
     if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
         [self.delegate pushToController:gymDetailWebViewController];
     }

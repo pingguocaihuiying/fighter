@@ -797,8 +797,8 @@ static NSString *const tableCellId = @"tableCellId";
     tabBartVC.tabBar.barTintColor = [UIColor blackColor];
     tabBartVC.tabBar.translucent = NO;
 //    tabBartVC.viewControllers = @[infoVC, matchVC, videoVC, coachVC, boxingHallVC];
-    tabBartVC.viewControllers = @[infoVC, arenaVC, fightingVC, videoVC,practiceVC];
-//        tabBartVC.viewControllers = @[infoVC, videoVC];
+//    tabBartVC.viewControllers = @[infoVC, arenaVC, fightingVC, videoVC,practiceVC];
+    tabBartVC.viewControllers = @[infoVC, arenaVC,videoVC,practiceVC];
     
     FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:tabBartVC];
     [self.dynamicsDrawerViewController  setPaneViewController:navi];
@@ -817,8 +817,8 @@ static NSString *const tableCellId = @"tableCellId";
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"pushMessageDic"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    
 }
+
 
 //推送响应方法
 - (void) push:(NSDictionary *)dic {
@@ -832,16 +832,23 @@ static NSString *const tableCellId = @"tableCellId";
         
         FTInformationViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:0];
         [infoVC pushToDetailController:dic];
+        
     }else if ([dic[@"urlType"] isEqualToString:@"video"]) {
-        [tabBartVC setSelectedIndex:3];
+        [tabBartVC setSelectedIndex:2];
         
         FTVideoViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:1];
         [infoVC pushToDetailController:dic];
+        
     }else if ([dic[@"urlType"] isEqualToString:@"arenas"]) {
         [tabBartVC setSelectedIndex:1];
         
         FTArenaViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:2];
         [infoVC pushToDetailController:dic];
+    }else if ([dic[@"urlType"] isEqualToString:@"teach"]) {
+        [tabBartVC setSelectedIndex:3];
+        
+        FTPracticeViewController *vc = [tabBartVC.viewControllers objectAtIndex:2];
+        [vc pushToDetailController:dic];
     }
     
 }
