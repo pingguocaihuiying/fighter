@@ -656,12 +656,6 @@
             
             break;
         }
-        case EQQAPISENDSUCESS:
-        {
-//            UIAlertView *msgbox = [[UIAlertView alloc] initWithTitle:@"Success" message:@"分享成功" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil];
-//            [msgbox show];
-        }
-        break;
         default:
         {
             break;

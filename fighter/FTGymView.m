@@ -491,6 +491,7 @@
     _gymType = dic[@"itemValueEn"];
     _gymType_ZH = dic[@"itemValue"];
     _gymCurrId = @"-1";
+    _getType = @"new";
     [self getTableViewDataFromWeb];
 }
 - (void) selectedValue:(NSString *)value style:(FTRankTableViewStyle)style {

@@ -380,11 +380,6 @@
     QQApiSendResultCode sent = [QQApiInterface SendReqToQZone:req];
     [self handleSendResult:sent];
 
-//    QQShare *zoneShare = [QQShare shareInstance];
-////    [zoneShare prepareToShare];
-////    [zoneShare doOAuthLogin];
-//    [zoneShare doMyShare];
-    
 }
 
 
