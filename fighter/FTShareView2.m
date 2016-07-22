@@ -19,7 +19,7 @@
 
 #import "WeiboSDK.h"
 #import "AppDelegate.h"
-#import "QQShare.h"
+#import "QQSingleton.h"
 
 @interface FTShareView2 ()
 {
@@ -380,9 +380,9 @@
     QQApiSendResultCode sent = [QQApiInterface SendReqToQZone:req];
     [self handleSendResult:sent];
 
-//    QQShare *zoneShare = [QQShare new];
-//    [zoneShare prepareToShare];
-//    [zoneShare doOAuthLogin];
+//    QQShare *zoneShare = [QQShare shareInstance];
+////    [zoneShare prepareToShare];
+////    [zoneShare doOAuthLogin];
 //    [zoneShare doMyShare];
     
 }
@@ -539,18 +539,22 @@
     }
     
     // 如果压缩之后还是太大，裁剪图片
-    CGSize size = CGSizeMake(400, 400);
-    if (data.length > 32*1000) {
+    int k = 0;
+    while (data.length > 32*1000 ) {
         
+        CGSize size = CGSizeMake(400/(k+1) , 400/(k+1));
         image = [UIImage imageWithData:data];
         UIGraphicsBeginImageContext(size);
         [image drawInRect:CGRectMake(0,0,size.width,size.height)];
         image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         
+        data = UIImageJPEGRepresentation(image, 0.5);
+        
+        k++;
     }
     
-    data = UIImageJPEGRepresentation(image, 0.5);
+
     return  data;
 }
 

@@ -560,6 +560,7 @@
 
 //获取SDWebImage缓存图片
 - (NSData *) getImageDataForSDWebImageCachedKey {
+    
 //    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:@"http://12345.jpg"]];
     NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:_imageUrl]];
     UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
@@ -593,19 +594,22 @@
     }
     
     // 如果压缩之后还是太大，裁剪图片
-    CGSize size = CGSizeMake(400, 400);
-    if (data.length > 32*1000) {
+    int k = 0;
+    while (data.length > 32*1000 ) {
         
+        CGSize size = CGSizeMake(400/(k+1) , 400/(k+1));
         image = [UIImage imageWithData:data];
         UIGraphicsBeginImageContext(size);
         [image drawInRect:CGRectMake(0,0,size.width,size.height)];
         image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         
+        data = UIImageJPEGRepresentation(image, 0.5);
+        
+        k++;
     }
     
-    data = UIImageJPEGRepresentation(image, 0.5);
-
+    
     return  data;
 }
 

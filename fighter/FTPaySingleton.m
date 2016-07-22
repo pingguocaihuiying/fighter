@@ -18,6 +18,7 @@ static FTPaySingleton * singleton = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         singleton = [super allocWithZone:zone];
+        [singleton registNotifacation];
     });
     return singleton;
 }

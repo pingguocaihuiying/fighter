@@ -15,7 +15,7 @@
 
 + (instancetype) shareInstance;
 
-- (void) registNotifacation;
+
 
 - (void) fetchBalanceFromWeb:(void (^)(void))option;
 

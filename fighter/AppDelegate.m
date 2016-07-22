@@ -14,7 +14,6 @@
 #import "FTBaseNavigationViewController.h"
 #import "FTBaseTabBarViewController.h"
 #import "UMSocial.h"
-#import "WXApi.h"
 #import "UMSocialWechatHandler.h"
 //#import "UMSocialSinaSSOHandler.h"
 #import "AFHTTPRequestOperationManager.h"
@@ -32,27 +31,20 @@
 #import "IXPushSdk.h"
 
 //#import "UMSocialQQHandler.h"
-#import "WeiboSDK.h"
+
 #import <PLStreamingKit/PLStreamingEnv.h>
-
-#import <TencentOpenAPI/QQApiInterface.h>
-#import <TencentOpenAPI/TencentApiInterface.h>
-#import <TencentOpenAPI/TencentOAuth.h>
-
-//微信请求类型
-typedef NS_ENUM(NSInteger, WXRequestType) {
-    WXRequestTypeNone = 0,   //
-    WXRequestTypeLogin,                 //微信跨界登录
-    WXRequestTypeHeader,                //请求微信头像
-    WXRequestTypeName,                  //请求微信昵称
-    WXRequestTypeNameAndHeader,         //请求微信昵称和头像
-    WXRequestTypeAll,                   //请求所有数据
-};
+#import "WeiboSDK.h"
+#import "QQSingleton.h"
+#import "WXSingleton.h"
 
 @protocol TencentSessionDelegate;
-@interface AppDelegate ()<WXApiDelegate,WeiboSDKDelegate,QQApiInterfaceDelegate>
+@interface AppDelegate ()<WeiboSDKDelegate>
+{
+   
+    
+}
 
-@property (nonatomic, assign)WXRequestType wxRequestType;
+
 @property (nonatomic, strong) MainViewController *mainVC;
 
 @end
@@ -190,22 +182,16 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 }
 
 
-
-
 - (void)setWeiXin{
-    //向微信注册
-    [WXApi registerApp:@"wxe69b91d3503144ca" withDescription:@"wechat"];
+    //  初始化微信代理单例
+    [WXSingleton shareInstance];
 }
-
 
 #pragma mark 设置qq
 - (void) setTencent {
-  TencentOAuth *tencentOAuth = [[TencentOAuth alloc] initWithAppId:QQ_App_ID andDelegate:nil]; //注册
-    tencentOAuth.localAppId = @"gogogofight";
-//    tencentOAuth.redirectURI = @"www.qq.com";
-    
+    //  初始化QQ代理单例
+    [QQSingleton shareInstance];
 }
-
 
 #pragma mark 新浪微博
 - (void) setSinaMicroBlog {
@@ -251,8 +237,6 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     } else {
         NSLog(@"push is unregistered");
     }
-    
-    
 }
 
 
@@ -273,233 +257,7 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 
 
 
-#pragma mark - 微信回调方法
-- (void)onResp:(BaseResp *)resp {
-    
-    //微信share callback
-    NSLog(@"resp.type:%d",resp.type);
-    if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
-        
-        switch (resp.errCode) {
-            case WXSuccess:
-            {
-                NSLog(@"微信分享回调成功");
-                //发送通知，告诉评论页面微信登录成功
-                [[NSNotificationCenter defaultCenter] postNotificationName:WXShareResultNoti object:@"SUCESS"];
-            }
-                break;
-            case WXErrCodeCommon:
-            {
-                NSLog(@"微信分享回调普通错误类型");
-            }
-                break;
-            case WXErrCodeUserCancel:
-            {
-                NSLog(@"微信分享回调取消");
-            }
-                break;
-            case WXErrCodeSentFail:
-            {
-                
-            }
-                break;
-            case WXErrCodeAuthDeny:
-            {
-                NSLog(@"微信分享回调授权失败");
-            }
-                break;
-            case WXErrCodeUnsupport:
-            {
-                NSLog(@"微信分享回调 微信不支持");
-            }
-                break;
-            
-            default:
-                break;
-        };
-        
-        return;
-    }
-    
-    
-    // 向微信请求授权后,得到响应结果
-    if ([resp isKindOfClass:[SendAuthResp class]]) {
-        SendAuthResp *temp = (SendAuthResp *)resp;
-        
-        //如果
-        NSLog(@"temp state: %d", temp.errCode);
-        if (temp.errCode != 0) {
-            return;
-        }
-        
-        //请求头像和昵称
-        if (self.wxRequestType == WXRequestTypeNameAndHeader) {
-            
-            NetWorking *net = [[NetWorking alloc]init];
-            // 1.请求access_token openId
-            [net requestWeixinTokenAdnOpenId:temp.code option:^(NSDictionary *tokenDic) {
-                
-                if (tokenDic) {
-                    
-                    //存储token openid
-                    [[NSUserDefaults standardUserDefaults] setObject:tokenDic[@"access_token"] forKey:@"wxToken"];
-                    [[NSUserDefaults standardUserDefaults] setObject:tokenDic[@"openid"] forKey:@"wxOpenId"];
-                    [[NSUserDefaults standardUserDefaults]synchronize];
-                    //2.请求微信用户信息
-                    [net requestWeixinUserInfoWithToken:tokenDic[@"access_token"] openId:tokenDic[@"openid"] option:^(NSDictionary *userDict) {
-                        
-                        //从本地读取存储的用户信息
-                        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-                        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-                        
-                        
-                        localUser.wxopenId = userDict[@"openid"];
-                        localUser.wxHeaderPic = userDict[@"headimgurl"];
-                        localUser.wxName = userDict[@"nickname"];
-                        
-                        //存储数据
-                        NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
-                        [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
-                        [[NSUserDefaults standardUserDefaults]synchronize];
-                        
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"WeiXinNameAndHeader" object:nil];
-                    }];
 
-                }
-                
-            }];
-            
-        }else {//请求所有数据
-            
-            NetWorking *net = [[NetWorking alloc]init];
-            // 1.请求access_token openId
-            [net requestWeixinTokenAdnOpenId:temp.code option:^(NSDictionary *tokenDic) {
-                
-                if (tokenDic) {
-                    
-
-                    //2.请求微信用户信息
-                    [net requestWeixinUserInfoWithToken:tokenDic[@"access_token"] openId:tokenDic[@"openid"] option:^(NSDictionary *userDict) {
-                        
-                        if (userDict) {
-                            
-                            //3.向格斗家服务器注册
-                            [net requestWeixinUser:userDict option:^(NSDictionary *dict) {
-                                
-                                if (dict) {
-                                    bool status = [dict[@"status"] boolValue];
-                                    NSString *message = (NSString *)(NSDictionary *)dict[@"message"];
-                                    if (status == false) {
-                                        NSLog(@"微信注册失败,message:%@", message);
-                                        //发送通知，告诉评论页面微信登录失败
-                                        [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"ERROR"];
-                                        return ;
-                                    }
-                                    
-                                    
-                                    NSLog(@"微信注册成功,message:%@", message);
-                                    NSLog(@"微信登录信息:%@",dict[@"data"][@"user"]);
-                                    NSDictionary *userDic = dict[@"data"][@"user"];
-                                    FTUserBean *user = [FTUserBean new];
-                                    [user setValuesForKeysWithDictionary:userDic];
-                                    
-                                    //从本地读取存储的用户信息
-                                    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-                                    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-                                    
-                                    //存储token openid
-                                    [[NSUserDefaults standardUserDefaults] setObject:user.openId forKey:@"wxopenId"];
-                                    [[NSUserDefaults standardUserDefaults] setObject:user.username forKey:@"wxName"];
-                                     [[NSUserDefaults standardUserDefaults] setObject:user.headpic forKey:@"wxHeaderPic"];
-                                    [[NSUserDefaults standardUserDefaults]synchronize];
-
-                                    if (localUser) {//手机已经登录
-                                        localUser.openId = user.openId;
-                                        localUser.unionId = user.unionId;
-                                        localUser.wxName = user.username;
-                                        localUser.wxHeaderPic = user.headpic;
-                                    }else {
-                                        localUser = user;
-                                        localUser.wxopenId = user.openId;
-                                        localUser.unionId = user.unionId;
-                                        localUser.wxName = user.username;
-                                        localUser.wxHeaderPic = user.headpic;
-                                    }
-                                    
-                                    NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
-                                    [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
-                                    [[NSUserDefaults standardUserDefaults]synchronize];
-                                    //发送通知，告诉评论页面微信登录成功
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:WXLoginResultNoti object:@"SUCESS"];
-                                    //                            [[NSNotificationCenter defaultCenter] postNotificationName:@"loginAction" object:nil];
-                                }else {
-                                    
-                                    [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"ERROR"];
-                                    return ;
-                                }
-                                
-                            }];
-                            
-                        }
-                    }];
-                }
-                
-            }];
-        }
-        
-    }
-}
-
-#pragma mark - QQ回调方法
-
-////QQ终端向第三方程序发送请求，要求第三方程序响应。第三方程序响应完后必须调用sendRsp返回。在调用sendRsp返回时，会切回到QQ终端程序界面。
-//-(void)onReq:(QQBaseReq *)req
-//{
-//    NSString *string = [NSString stringWithFormat:@"%d",req.type];
-//    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:string delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-//    [alertView show];
-//}
-
-////如果第三方程序向QQ发送了sendReq的请求，那么onResp会被回调。sendReq请求调用后，会切到QQ终端程序界面。
-//-(void)onResp:(QQBaseResp *)resp
-//{
-//    NSString *string = [NSString stringWithFormat:@"%@",resp.result];
-//    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:string delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-//    [alertView show];
-//}
-
--(void)isOnlineResponse:(NSDictionary *)response
-{
-    NSLog(@"%@",response);
-}
-
-
-- (void)addShareResponse:(APIResponse*) response {
-    
-    NSLog(@"qq share message:%@",response.message);
-}
-
-/**
- * 登录成功后的回调
- */
-- (void)tencentDidLogin {
-
-}
-
-/**
- * 登录失败后的回调
- * \param cancelled 代表用户是否主动退出登录
- */
-- (void)tencentDidNotLogin:(BOOL)cancelled {
-
-}
-
-/**
- * 登录时网络有问题的回调
- */
-- (void)tencentDidNotNetWork {
-
-}
 #pragma mark - 微博回调方法
 /**
  收到一个来自微博客户端程序的请求
@@ -542,28 +300,25 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     //    }
 
 }
+
 #pragma mark -
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     if([UMSocialSnsService handleOpenURL:url]){
         return YES;
     }
-
-    if([WXApi handleOpenURL:url delegate:self]){
+    
+    WXSingleton *wxSingleton = [WXSingleton shareInstance];
+    if([WXApi handleOpenURL:url delegate:wxSingleton]){
         return YES;
     }
     
-    @try {
     
-    if ([TencentOAuth HandleOpenURL:url] || [QQApiInterface handleOpenURL:url delegate:self]) {
+    QQSingleton *qqSingleton = [QQSingleton shareInstance];
+    if ( [QQApiInterface handleOpenURL:url delegate:qqSingleton]) {
         return YES;
     }
-        
-    } @catch (NSException *exception) {
-        NSLog(@"exception:%@",exception);
-    } @finally {
-        
-    }
+    
     if ([WeiboSDK handleOpenURL:url delegate:self]) {
         return YES;
     }
@@ -577,10 +332,16 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
     
-    if ([TencentOAuth HandleOpenURL:url] || [QQApiInterface handleOpenURL:url delegate:self]) {
+    QQSingleton *qqShare = [QQSingleton shareInstance];
+    if ([QQApiInterface handleOpenURL:url delegate:qqShare]) {
         return YES;
     }
     
+    WXSingleton *wxSingleton = [WXSingleton shareInstance];
+    if([WXApi handleOpenURL:url delegate:wxSingleton]){
+        return YES;
+    }
+
     if ([WeiboSDK handleOpenURL:url delegate:self]) {
         return YES;
     }
@@ -642,71 +403,6 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
 //}
 
 
-- (void)setRootViewController2{
-    FTInformationViewController *infoVC = [FTInformationViewController new];
-    //    FTBaseNavigationViewController *infoNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:infoVC];
-    infoVC.tabBarItem.title = @"拳讯";
-    
-    [infoVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                               Bar_Item_Select_Title_Color, UITextAttributeTextColor,
-                                               nil] forState:UIControlStateSelected];
-    infoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳讯"];
-    infoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳讯pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
-    FTMatchViewController *matchVC = [FTMatchViewController new];
-    //    FTBaseNavigationViewController *matchNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:matchVC];
-    matchVC.tabBarItem.title = @"赛事";
-    [matchVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                Bar_Item_Select_Title_Color, UITextAttributeTextColor,
-                                                nil] forState:UIControlStateSelected];
-    
-    
-    matchVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-赛事"];
-    matchVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-赛事pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
-    FTVideoViewController *videoVC = [FTVideoViewController new];
-    //    FTBaseNavigationViewController *fightKingNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:fightKingVC];
-    videoVC.tabBarItem.title = @"视频";
-    [videoVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                    Bar_Item_Select_Title_Color, UITextAttributeTextColor,
-                                                    nil] forState:UIControlStateSelected];
-    
-    videoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-视频"];
-    videoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-视频pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
-    FTCoachViewController *coachVC = [FTCoachViewController new];
-    //    FTBaseNavigationViewController *coachNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:coachVC];
-    coachVC.tabBarItem.title = @"教练";
-    [coachVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                Bar_Item_Select_Title_Color, UITextAttributeTextColor,
-                                                nil] forState:UIControlStateSelected];
-    
-    coachVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-教练"];
-    coachVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-教练pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
-    FTBoxingHallViewController *boxingHallVC = [FTBoxingHallViewController new];
-    //    FTBaseNavigationViewController *boxingHallNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:boxingHallVC];
-    boxingHallVC.tabBarItem.title = @"拳馆";
-    [boxingHallVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                     Bar_Item_Select_Title_Color, UITextAttributeTextColor,
-                                                     nil] forState:UIControlStateSelected];
-    
-    boxingHallVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳馆"];
-    boxingHallVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
-
-    
-        //设置tabbar的属性
-    FTBaseTabBarViewController *tabBartVC = [FTBaseTabBarViewController new];
-    tabBartVC.tabBar.barTintColor = [UIColor blackColor];
-    tabBartVC.tabBar.translucent = NO;
-//        tabBartVC.viewControllers = @[infoVC, matchVC, videoVC, coachVC, boxingHallVC];
-            tabBartVC.viewControllers = @[infoVC, videoVC];
-    
-    FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:tabBartVC];
-    self.window.rootViewController = navi;
-}
-
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -732,16 +428,4 @@ typedef NS_ENUM(NSInteger, WXRequestType) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-
-//url转码
-- (NSString *)encodeToPercentEscapeString: (NSString *) input
-{
-    NSString *outputStr = (NSString *)
-    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                              (CFStringRef)input,
-                                                              NULL,
-                                                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                                              kCFStringEncodingUTF8));
-    return outputStr;
-}
 @end
