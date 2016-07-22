@@ -592,6 +592,12 @@ static NSString *const tableCellId = @"tableCellId";
         
         [cell.payBtn addTarget:self action:@selector(payBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         
+        //从本地读取存储的用户信息
+        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+        if (localUserData == nil) {
+            return cell;
+        }
+        
         FTPaySingleton *singleton = [FTPaySingleton shareInstance];
         NSLog(@"balance:%ld",singleton.balance);
         [cell setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];

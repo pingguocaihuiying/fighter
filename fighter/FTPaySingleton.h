@@ -19,4 +19,6 @@
 
 - (void) fetchBalanceFromWeb:(void (^)(void))option;
 
+- (void) payRequest:(NSSet *) productIdentifiers buyType:(int) buytpye;
+
 @end

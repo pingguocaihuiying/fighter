@@ -77,8 +77,8 @@
     //设置直播环境
     [PLStreamingEnv initEnv];
     
-    //屏蔽个人中心时打开这里
-//    [self setRootViewController2];
+   
+    [self setInAppPurchase];
 
     
     //启动个人中心的功能
@@ -113,7 +113,6 @@
     NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @"UserAgent", nil, nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
 }
-
 
 #pragma  mark - app 相关设置
 - (void) setDatabase {
@@ -153,6 +152,21 @@
     }
     
     
+}
+
+#pragma mark - app 内购
+- (void) setInAppPurchase {
+    
+    
+    //判断是否登录
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    if (localUserData == nil ) {
+        return;
+    }
+    
+    //初始化单例
+    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+    [singleton fetchBalanceFromWeb:nil];
 }
 
 

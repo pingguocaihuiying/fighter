@@ -33,10 +33,7 @@ FTDrawerViewController *drawerVC;
     
     [drawerVC setNoti];
     
-    //初始化单例
-    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
-    [singleton fetchBalanceFromWeb:nil];
-    NSLog(@"balance:%ld",singleton.balance);
+
     
 }
 
