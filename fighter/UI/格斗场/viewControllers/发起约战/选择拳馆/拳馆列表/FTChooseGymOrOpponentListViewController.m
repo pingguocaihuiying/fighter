@@ -23,7 +23,6 @@
 
 @property (nonatomic, strong) NSMutableArray *boxersArray;
 @property (nonatomic, copy) NSString *selectedWeightLevel;//选中的匹配度 1. 完全匹配，传5（默认可以不传）； 2. 跨越1级别，传10； 3. 跨越2级别，传15.
-@property (nonatomic, copy) NSString *displayWeightLevel;//显示的匹配度
 //分页
 @property (nonatomic, copy) NSString *pageSize;
 @property (nonatomic, assign) int pageNum;//接口中，1为第一页
@@ -42,9 +41,9 @@
 
     if (_matchType == FTMatchTypeFullyMatch) {
          _selectedWeightLevel = @"5";
-    } else if (_matchType == FTMatchTypeFullyMatch) {
+    } else if (_matchType == FTMatchTypeOverOneLevel) {
          _selectedWeightLevel = @"10";
-    }if (_matchType == FTMatchTypeFullyMatch){
+    }if (_matchType == FTMatchTypeOverTwoLevel){
          _selectedWeightLevel = @"15";
     }
     
@@ -58,6 +57,8 @@
     
     //初始化可变数组
     _boxersArray = [NSMutableArray new];
+    
+    _displayMatchType = _matchType;
 }
 
 - (void)loadDataFromServer{
@@ -109,7 +110,7 @@
     
     //格斗种类（匹配级别）筛选按钮
     if (_listType == FTGymListType) {
-//        rightButton = [self selectButton:@"按项目"];
+        rightButton = [self selectButton:@"按项目"];
     }else if (_listType == FTOpponentListType){
         if (_matchType == FTMatchTypeFullyMatch) {
             rightButton = [self selectButton:@"完全匹配"];
@@ -206,7 +207,6 @@
             return _boxersArray.count + 1;//加上“同匹配度的任何人”
         }
     }
-    
 
     return 0;
 }
@@ -225,13 +225,12 @@
     }else if (_listType == FTOpponentListType){
         
 
-        
         if (indexPath.row == 0) {
             FTDefaultFullMatchingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"fullyMatchingOpponentCell"];
             cell.delegate = self;
 //            _curOpponentIndex == 0 ? [cell.checkButton setImage:[UIImage imageNamed:@"弹出框用-类别选择-选中"] forState:UIControlStateNormal] : [cell.checkButton setImage:[UIImage imageNamed:@"弹出框用-类别选择-空"] forState:UIControlStateNormal];
             
-            if (_curOpponentIndex == 0 && [_choosedOpponentID isEqualToString:@"-1"]) {
+            if (_curOpponentIndex == 0 && [_choosedOpponentID isEqualToString:@"-1"] && _matchType == _displayMatchType) {
                 [cell.checkButton setImage:[UIImage  imageNamed:@"弹出框用-类别选择-选中"] forState:UIControlStateNormal];
             } else {
                 [cell.checkButton setImage:[UIImage imageNamed:@"弹出框用-类别选择-空"] forState:UIControlStateNormal];
@@ -246,7 +245,7 @@
             FTOpponentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"opponentCell"];
             cell.delegate = self;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            if (_curOpponentIndex == indexPath.row || [_choosedOpponentID isEqualToString:userOldId]) {
+            if ( (_curOpponentIndex == indexPath.row && _matchType == _displayMatchType) || [_choosedOpponentID isEqualToString:userOldId]) {
                  [cell.challengeButton setImage:[UIImage  imageNamed:@"弹出框用-类别选择-选中"] forState:UIControlStateNormal];
             } else {
                 [cell.challengeButton setImage:[UIImage imageNamed:@"挑战"] forState:UIControlStateNormal];
@@ -268,6 +267,9 @@
         FTGymDetailViewController *gymDetailViewController = [FTGymDetailViewController new];
         [self.navigationController pushViewController:gymDetailViewController animated:YES];
     }else if (_listType == FTOpponentListType){//对手
+        
+        
+        
         if (indexPath.row == 0) {
             
         }else{
@@ -283,6 +285,10 @@
 
 - (void)defaultFullyMatchingSelected{
     NSLog(@"完全匹配");
+    
+    _choosedOpponentName = @"旗鼓相当的对手";
+    
+    _matchType = _displayMatchType;
     _curOpponentIndex = 0;
     _choosedOpponentID = @"-1";//如果选择了同级别匹配
     NSLog(@"_curOpponentIndex : %d", _curOpponentIndex);
@@ -290,8 +296,11 @@
 }
 
 - (void)selectOpponentByIndex:(NSInteger)opponentIndex{
-    
     NSLog(@"_curOpponentIndex : %d", _curOpponentIndex);
+    
+    _matchType = _displayMatchType;
+    
+    
     _curOpponentIndex = (int)opponentIndex;
     
     if (opponentIndex == 0){//如果选择的同匹配度的任何人
@@ -351,16 +360,18 @@
 - (void) selectedValue:(NSDictionary *)value{
         NSLog(@"%@", value[@"itemValueEn"]);
     
+    _pageNum = 1;
+    
     if (_listType == FTOpponentListType) {
         NSString *matchTypeString = value[@"itemValueEn"];
         if ([matchTypeString isEqualToString:@"fullyMatching"]) {
-            _matchType = FTMatchTypeFullyMatch;
+            _displayMatchType = FTMatchTypeFullyMatch;
             _selectedWeightLevel = @"5";
         }else if([matchTypeString isEqualToString:@"over1Level"]){
-            _matchType = FTMatchTypeOverOneLevel;
+            _displayMatchType = FTMatchTypeOverOneLevel;
             _selectedWeightLevel = @"10";
         }else if([matchTypeString isEqualToString:@"over2Level"]){
-            _matchType = FTMatchTypeOverTwoLevel;
+            _displayMatchType = FTMatchTypeOverTwoLevel;
             _selectedWeightLevel = @"15";
         }
     }else if(_listType == FTGymListType){

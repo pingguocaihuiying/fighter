@@ -37,6 +37,8 @@
         labelNameCh = @"其他";
     }else if([labelNameEn isEqualToString:@"Train"]){
         labelNameCh = @"训练";
+    }else if([labelNameEn isEqualToString:@"Match"]){
+        labelNameCh = @"比赛";
     }
     
     return labelNameCh;
@@ -66,6 +68,8 @@
         labelNameCh = @"格斗标签-其他";
     }else if([labelNameEn isEqualToString:@"Train"]){
         labelNameCh = @"格斗标签-训练";
+    }else if([labelNameEn isEqualToString:@"Match"]){
+        labelNameCh = @"格斗标签-比赛";
     }
     
     return labelNameCh;
