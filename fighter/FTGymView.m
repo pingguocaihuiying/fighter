@@ -271,19 +271,24 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
-    //获取对应的bean，传递给下个vc
-    NSDictionary *newsDic = [self.cycleDataSourceArray objectAtIndex:indexPath.row];
-    FTGymBean *bean = [FTGymBean new];
-    [bean setValuesWithDic:newsDic];
-    gymDetailWebViewController.gymBean = bean;
-    
-    if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
-        [self.delegate pushToController:gymDetailWebViewController];
+    @try {
+        
+        FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
+        //获取对应的bean，传递给下个vc
+        NSDictionary *newsDic = [self.cycleDataSourceArray objectAtIndex:indexPath.row%_cycleDataSourceArray.count];
+        FTGymBean *bean = [FTGymBean new];
+        [bean setValuesWithDic:newsDic];
+        gymDetailWebViewController.gymBean = bean;
+        
+        if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
+            [self.delegate pushToController:gymDetailWebViewController];
+        }
+        
+    } @catch (NSException *exception) {
+        NSLog(@"exception:%@",exception);
+    } @finally {
+        
     }
-    
-    
 }
 
 #pragma mark UIScrollViewDelegate

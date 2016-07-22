@@ -26,6 +26,7 @@
 		3D13FB301D1A96490060B9B4 /* FTPracticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D13FB2E1D1A96490060B9B4 /* FTPracticeCell.m */; };
 		3D13FB311D1A96490060B9B4 /* FTPracticeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D13FB2F1D1A96490060B9B4 /* FTPracticeCell.xib */; };
 		3D17F7371D005377003AB660 /* libIXPushSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D17F7251D005377003AB660 /* libIXPushSdk.a */; };
+		3D197C531D41CCA30091048D /* WXSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D197C521D41CCA30091048D /* WXSingleton.m */; };
 		3D2AEED01D2F3CBC00F94A59 /* FTPurchaseInApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2AEECF1D2F3CBC00F94A59 /* FTPurchaseInApp.m */; };
 		3D322AC91CEB171200039E2C /* FTRankHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D322AC71CEB171200039E2C /* FTRankHeaderCell.m */; };
 		3D322ACA1CEB171200039E2C /* FTRankHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D322AC81CEB171200039E2C /* FTRankHeaderCell.xib */; };
@@ -153,7 +154,7 @@
 		3DE1DEEC1D3F071600511E92 /* FTGymDetailWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE1DEEA1D3F071600511E92 /* FTGymDetailWebViewController.xib */; };
 		3DE1DEF21D3F178F00511E92 /* FTGymBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1DEF11D3F178F00511E92 /* FTGymBean.m */; };
 		3DE1DEF61D3F472500511E92 /* FTPaySingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1DEF51D3F472500511E92 /* FTPaySingleton.m */; };
-		3DE1DF061D40C74D00511E92 /* QQShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1DF051D40C74D00511E92 /* QQShare.m */; };
+		3DE1DF061D40C74D00511E92 /* QQSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1DF051D40C74D00511E92 /* QQSingleton.m */; };
 		3DE95B501CD326B7005BF85C /* FTCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95B4F1CD326B7005BF85C /* FTCollectionViewLayout.m */; };
 		3DE95BA01CD8675B005BF85C /* FTDrawerStyler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95B9F1CD8675B005BF85C /* FTDrawerStyler.m */; };
 		3DE95BA31CD868C6005BF85C /* FTDynamicsDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95BA21CD868C6005BF85C /* FTDynamicsDrawerViewController.m */; };
@@ -362,6 +363,8 @@
 		3D13FB2F1D1A96490060B9B4 /* FTPracticeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTPracticeCell.xib; sourceTree = "<group>"; };
 		3D17F7241D005377003AB660 /* IXPushSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IXPushSdk.h; sourceTree = "<group>"; };
 		3D17F7251D005377003AB660 /* libIXPushSdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libIXPushSdk.a; sourceTree = "<group>"; };
+		3D197C511D41CCA30091048D /* WXSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXSingleton.h; sourceTree = "<group>"; };
+		3D197C521D41CCA30091048D /* WXSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXSingleton.m; sourceTree = "<group>"; };
 		3D2AEECE1D2F3CBC00F94A59 /* FTPurchaseInApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPurchaseInApp.h; sourceTree = "<group>"; };
 		3D2AEECF1D2F3CBC00F94A59 /* FTPurchaseInApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPurchaseInApp.m; sourceTree = "<group>"; };
 		3D322AC61CEB171200039E2C /* FTRankHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankHeaderCell.h; sourceTree = "<group>"; };
@@ -564,8 +567,8 @@
 		3DE1DEF11D3F178F00511E92 /* FTGymBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymBean.m; sourceTree = "<group>"; };
 		3DE1DEF41D3F472500511E92 /* FTPaySingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPaySingleton.h; sourceTree = "<group>"; };
 		3DE1DEF51D3F472500511E92 /* FTPaySingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPaySingleton.m; sourceTree = "<group>"; };
-		3DE1DF041D40C74D00511E92 /* QQShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQShare.h; sourceTree = "<group>"; };
-		3DE1DF051D40C74D00511E92 /* QQShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQShare.m; sourceTree = "<group>"; };
+		3DE1DF041D40C74D00511E92 /* QQSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQSingleton.h; sourceTree = "<group>"; };
+		3DE1DF051D40C74D00511E92 /* QQSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQSingleton.m; sourceTree = "<group>"; };
 		3DE95B4E1CD326B7005BF85C /* FTCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCollectionViewLayout.h; sourceTree = "<group>"; };
 		3DE95B4F1CD326B7005BF85C /* FTCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCollectionViewLayout.m; sourceTree = "<group>"; };
 		3DE95B9E1CD8675B005BF85C /* FTDrawerStyler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerStyler.h; sourceTree = "<group>"; };
@@ -1319,8 +1322,6 @@
 				3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */,
 				3DB240F21D3C60A6007F32C6 /* FTShareView2.h */,
 				3DB240F31D3C60A6007F32C6 /* FTShareView2.m */,
-				3DE1DF041D40C74D00511E92 /* QQShare.h */,
-				3DE1DF051D40C74D00511E92 /* QQShare.m */,
 			);
 			name = "分享";
 			sourceTree = "<group>";
@@ -1398,7 +1399,6 @@
 		3DDE29AF1D2B5C2500876B30 /* 支付 */ = {
 			isa = PBXGroup;
 			children = (
-				3DE1DEF31D3F46C400511E92 /* 单例 */,
 				3DDE29BA1D2BB39F00876B30 /* FTPayViewController.h */,
 				3DDE29BB1D2BB39F00876B30 /* FTPayViewController.m */,
 				3DDE29BC1D2BB39F00876B30 /* FTPayViewController.xib */,
@@ -1424,8 +1424,12 @@
 		3DE1DEF31D3F46C400511E92 /* 单例 */ = {
 			isa = PBXGroup;
 			children = (
+				3DE1DF041D40C74D00511E92 /* QQSingleton.h */,
+				3DE1DF051D40C74D00511E92 /* QQSingleton.m */,
 				3DE1DEF41D3F472500511E92 /* FTPaySingleton.h */,
 				3DE1DEF51D3F472500511E92 /* FTPaySingleton.m */,
+				3D197C511D41CCA30091048D /* WXSingleton.h */,
+				3D197C521D41CCA30091048D /* WXSingleton.m */,
 			);
 			name = "单例";
 			sourceTree = "<group>";
@@ -1602,6 +1606,7 @@
 				E6D74A511CB7B8C200854337 /* thirdCodes */,
 				E6D74A301CB7B7EE00854337 /* Tools */,
 				E65D08DB1CBCDF0B00651B19 /* Bean */,
+				3DE1DEF31D3F46C400511E92 /* 单例 */,
 				E6B458921CB7554F00FB4261 /* UI */,
 				E64EF10C1CB6614000CAE340 /* AppDelegate.h */,
 				E64EF10D1CB6614000CAE340 /* AppDelegate.m */,
@@ -3033,13 +3038,14 @@
 				E65EFC291CC8ADFD0039EE8A /* UIButton+LYZTitle.m in Sources */,
 				E627EE611D25122C00B424F5 /* FTChooseGymOrOpponentListViewController.m in Sources */,
 				3DC411F01CCF80DD0030C229 /* FTDrawerTableViewHeader.m in Sources */,
-				3DE1DF061D40C74D00511E92 /* QQShare.m in Sources */,
+				3DE1DF061D40C74D00511E92 /* QQSingleton.m in Sources */,
 				E6A9DDB61CD9833200CB9518 /* FTVideoTableViewCell.m in Sources */,
 				E668BBB71CE4353300071998 /* FTRankingListFilterView.m in Sources */,
 				3D7B98BE1CE0898400B80B8D /* FTOldPasswordVC.m in Sources */,
 				3D7B98B91CE078D600B80B8D /* FTInputCheckCodeViewController.m in Sources */,
 				E6D74A481CB7B7EE00854337 /* UIColor+YBColorCategory.m in Sources */,
 				3D6947101CE3374000989440 /* FTUserViewController.m in Sources */,
+				3D197C531D41CCA30091048D /* WXSingleton.m in Sources */,
 				E6B458DE1CB7B2B100FB4261 /* FTTableViewController.m in Sources */,
 				E6C4D7ED1CEC5E7B00D73BFC /* FTUserTools.m in Sources */,
 				3D4B19691CDB7AE20022DFB0 /* FTSexPickerView.m in Sources */,
