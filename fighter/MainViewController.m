@@ -35,7 +35,6 @@ FTDrawerViewController *drawerVC;
     
     //初始化单例
     FTPaySingleton *singleton = [FTPaySingleton shareInstance];
-    [singleton registNotifacation];
     [singleton fetchBalanceFromWeb:nil];
     NSLog(@"balance:%ld",singleton.balance);
     
