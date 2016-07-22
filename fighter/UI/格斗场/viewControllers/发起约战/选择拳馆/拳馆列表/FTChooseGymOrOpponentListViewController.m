@@ -41,9 +41,9 @@
 
     if (_matchType == FTMatchTypeFullyMatch) {
          _selectedWeightLevel = @"5";
-    } else if (_matchType == FTMatchTypeFullyMatch) {
+    } else if (_matchType == FTMatchTypeOverOneLevel) {
          _selectedWeightLevel = @"10";
-    }if (_matchType == FTMatchTypeFullyMatch){
+    }if (_matchType == FTMatchTypeOverTwoLevel){
          _selectedWeightLevel = @"15";
     }
     
@@ -57,6 +57,8 @@
     
     //初始化可变数组
     _boxersArray = [NSMutableArray new];
+    
+    _displayMatchType = _matchType;
 }
 
 - (void)loadDataFromServer{
@@ -108,7 +110,7 @@
     
     //格斗种类（匹配级别）筛选按钮
     if (_listType == FTGymListType) {
-//        rightButton = [self selectButton:@"按项目"];
+        rightButton = [self selectButton:@"按项目"];
     }else if (_listType == FTOpponentListType){
         if (_matchType == FTMatchTypeFullyMatch) {
             rightButton = [self selectButton:@"完全匹配"];
@@ -205,7 +207,6 @@
             return _boxersArray.count + 1;//加上“同匹配度的任何人”
         }
     }
-    
 
     return 0;
 }
@@ -267,7 +268,7 @@
         [self.navigationController pushViewController:gymDetailViewController animated:YES];
     }else if (_listType == FTOpponentListType){//对手
         
-        _matchType = _displayMatchType;//当用户选择对手之后，更新_matchType
+        
         
         if (indexPath.row == 0) {
             
@@ -284,6 +285,10 @@
 
 - (void)defaultFullyMatchingSelected{
     NSLog(@"完全匹配");
+    
+    _choosedOpponentName = @"旗鼓相当的对手";
+    
+    _matchType = _displayMatchType;
     _curOpponentIndex = 0;
     _choosedOpponentID = @"-1";//如果选择了同级别匹配
     NSLog(@"_curOpponentIndex : %d", _curOpponentIndex);
@@ -291,8 +296,11 @@
 }
 
 - (void)selectOpponentByIndex:(NSInteger)opponentIndex{
-    
     NSLog(@"_curOpponentIndex : %d", _curOpponentIndex);
+    
+    _matchType = _displayMatchType;
+    
+    
     _curOpponentIndex = (int)opponentIndex;
     
     if (opponentIndex == 0){//如果选择的同匹配度的任何人
@@ -351,6 +359,8 @@
 
 - (void) selectedValue:(NSDictionary *)value{
         NSLog(@"%@", value[@"itemValueEn"]);
+    
+    _pageNum = 1;
     
     if (_listType == FTOpponentListType) {
         NSString *matchTypeString = value[@"itemValueEn"];

@@ -175,6 +175,7 @@
     chooseOpponentListViewController.listType = FTOpponentListType;
     chooseOpponentListViewController.choosedOpponentID = _challengedBoxerID;
     chooseOpponentListViewController.choosedOpponentName = _challengedBoxerName;
+    chooseOpponentListViewController.matchType = _matchType;
     
     [self.navigationController pushViewController:chooseOpponentListViewController animated:YES];
 }
