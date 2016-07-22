@@ -493,7 +493,7 @@
                 //从格斗场的数据中，筛选出属于“训练”类型的内容**start***
                 NSMutableArray *tempCollectionViewDataArray = [NSMutableArray new];
                 for(FTArenaBean *bean in tempTableViewArray){
-                    if ([bean.labels isEqualToString:@"Train"]) {
+                    if ([bean.labels isEqualToString:@"Train"] || [bean.labels isEqualToString:@"Match"]) {
                         [tempCollectionViewDataArray addObject:bean];
                     }
                 }
@@ -603,7 +603,6 @@
             [dbManager connect];
             [dbManager updateArenasById:bean.postsId isReader:YES];
             [dbManager close];
-            
         }
         postsDetailVC.arenaBean = bean;
         postsDetailVC.delegate = self;
