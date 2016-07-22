@@ -503,7 +503,7 @@
 //获取SDWebImage缓存图片
 - (NSData *) getImageDataForSDWebImageCachedKey {
     
-    UIImage *image = [UIImage imageNamed:self.image];
+    UIImage *image = [UIImage imageNamed:self.imageUrl];
     NSData *data = UIImageJPEGRepresentation(image, 1);
     
     if (data == nil || data.length == 0) {

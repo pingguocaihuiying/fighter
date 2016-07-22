@@ -561,7 +561,6 @@
 //获取SDWebImage缓存图片
 - (NSData *) getImageDataForSDWebImageCachedKey {
     
-//    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:@"http://12345.jpg"]];
     NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:_imageUrl]];
     UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
     NSData *data = UIImageJPEGRepresentation(image, 1);
