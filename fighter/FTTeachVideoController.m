@@ -36,8 +36,6 @@
 #import "FTEncoderAndDecoder.h"
 #import "FTRechargeView.h"
 
-
-#import "UMSocial.h"
 #import "WXApi.h"
 
 #import "WXApi.h"

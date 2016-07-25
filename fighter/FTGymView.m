@@ -161,11 +161,14 @@
 // 获取tableView 数据
 - (void) getTableViewDataFromWeb {
     
+    NSString *showType  = [FTNetConfig showType];
+    
     NSMutableDictionary *dic = [NSMutableDictionary new];
     [dic setObject:_gymType forKey:@"gymType"];
     [dic setObject:_gymCurrId forKey:@"gymCurrId"];
     [dic setObject:_gymTag forKey:@"gymTag"];
     [dic setObject:_getType forKey:@"getType"];
+    [dic setObject:showType forKey:@"showType"];
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@",_gymType,_gymCurrId,_gymTag, _getType, ts, @"quanjijia222222"]];
     

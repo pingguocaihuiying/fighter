@@ -9,7 +9,6 @@
 #import "FTShareView2.h"
 #import "Masonry.h"
 
-#import "UMSocial.h"
 #import "WXApi.h"
 
 #import "WXApi.h"

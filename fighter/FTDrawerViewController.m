@@ -29,10 +29,9 @@
 #import "FTBoxingHallViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "FTBaseTabBarViewController.h"
-#import "UMSocial.h"
-#import "WXApi.h"
-#import "UMSocialWechatHandler.h"
-//#import "UMSocialSinaSSOHandler.h"
+
+
+
 #import "AFHTTPRequestOperationManager.h"
 #import "UUID.h"
 #import "FTNetConfig.h"
@@ -707,6 +706,8 @@ static NSString *const tableCellId = @"tableCellId";
 #pragma mark - private methods
 
 - (void) setHomeViewController {
+    
+    // 拳讯
     FTInformationViewController *infoVC = [FTInformationViewController new];
     //    FTBaseNavigationViewController *infoNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:infoVC];
     infoVC.tabBarItem.title = @"拳讯";
@@ -718,7 +719,7 @@ static NSString *const tableCellId = @"tableCellId";
     infoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳讯pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     infoVC.drawerDelegate = self;
     
-    
+    // 比赛
     FTMatchViewController *matchVC = [FTMatchViewController new];
     //    FTBaseNavigationViewController *matchNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:matchVC];
     matchVC.tabBarItem.title = @"赛事";
@@ -731,6 +732,7 @@ static NSString *const tableCellId = @"tableCellId";
     matchVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-赛事pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     matchVC.drawerDelegate = self;
     
+    // 拳吧
     FTVideoViewController *videoVC = [FTVideoViewController new];
     //    FTBaseNavigationViewController *fightKingNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:fightKingVC];
     videoVC.tabBarItem.title = @"视频";
@@ -742,7 +744,7 @@ static NSString *const tableCellId = @"tableCellId";
     videoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-视频pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     videoVC.drawerDelegate = self;
     
-    
+    // 教练
     FTCoachViewController *coachVC = [FTCoachViewController new];
     //    FTBaseNavigationViewController *coachNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:coachVC];
     coachVC.tabBarItem.title = @"教练";
@@ -754,6 +756,7 @@ static NSString *const tableCellId = @"tableCellId";
     coachVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-教练pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     coachVC.drawerDelegate = self;
     
+    // 拳馆
     FTBoxingHallViewController *boxingHallVC = [FTBoxingHallViewController new];
     //    FTBaseNavigationViewController *boxingHallNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:boxingHallVC];
     boxingHallVC.tabBarItem.title = @"拳馆";
@@ -804,7 +807,9 @@ static NSString *const tableCellId = @"tableCellId";
     tabBartVC.tabBar.translucent = NO;
 //    tabBartVC.viewControllers = @[infoVC, matchVC, videoVC, coachVC, boxingHallVC];
 //    tabBartVC.viewControllers = @[infoVC, arenaVC, fightingVC, videoVC,practiceVC];
-    tabBartVC.viewControllers = @[infoVC, arenaVC,videoVC,practiceVC];
+//    tabBartVC.viewControllers = @[infoVC, arenaVC,videoVC,practiceVC];
+//    tabBartVC.viewControllers = @[infoVC,videoVC,practiceVC,arenaVC];
+    tabBartVC.viewControllers = @[infoVC,fightingVC,practiceVC,arenaVC];
     
     FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:tabBartVC];
     [self.dynamicsDrawerViewController  setPaneViewController:navi];
@@ -840,13 +845,13 @@ static NSString *const tableCellId = @"tableCellId";
         [infoVC pushToDetailController:dic];
         
     }else if ([dic[@"urlType"] isEqualToString:@"video"]) {
-        [tabBartVC setSelectedIndex:2];
+        [tabBartVC setSelectedIndex:1];
         
         FTVideoViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:1];
         [infoVC pushToDetailController:dic];
         
     }else if ([dic[@"urlType"] isEqualToString:@"arenas"]) {
-        [tabBartVC setSelectedIndex:1];
+        [tabBartVC setSelectedIndex:2];
         
         FTArenaViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:2];
         [infoVC pushToDetailController:dic];

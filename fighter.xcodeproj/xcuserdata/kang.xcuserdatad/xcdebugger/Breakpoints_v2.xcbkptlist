@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fighter/FTInformationViewController.m"
-            timestampString = "487077014.728321"
+            timestampString = "491132431.622304"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "403"
-            endingLineNumber = "403"
+            startingLineNumber = "411"
+            endingLineNumber = "411"
             landmarkName = "-clickAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fighter/FTTableViewController.m"
-            timestampString = "485767192.100061"
+            timestampString = "491128318.535348"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "297"
-            endingLineNumber = "297">
+            startingLineNumber = "325"
+            endingLineNumber = "325">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

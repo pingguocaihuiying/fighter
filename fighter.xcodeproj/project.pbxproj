@@ -14,6 +14,9 @@
 		3D06155A1D36302600FDA86F /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0615541D36302600FDA86F /* NSData+Base64.m */; };
 		3D06155B1D36302600FDA86F /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0615561D36302600FDA86F /* NSData+CommonCrypto.m */; };
 		3D06155C1D36302600FDA86F /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0615581D36302600FDA86F /* NSString+Base64.m */; };
+		3D0B446D1D45A4D400EE08B3 /* WBSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B446C1D45A4D400EE08B3 /* WBSingleton.m */; };
+		3D0B44721D45D96F00EE08B3 /* FTNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B44701D45D96F00EE08B3 /* FTNewsCell.m */; };
+		3D0B44731D45D96F00EE08B3 /* FTNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D0B44711D45D96F00EE08B3 /* FTNewsCell.xib */; };
 		3D0D7C721D1A984B00E67AC9 /* FTPracticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0D7C711D1A984B00E67AC9 /* FTPracticeView.m */; };
 		3D13FB0C1D193A5A0060B9B4 /* fighter.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 3D13FB0B1D193A5A0060B9B4 /* fighter.entitlements */; };
 		3D13FB101D193BB80060B9B4 /* FTFightingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D13FB0E1D193BB80060B9B4 /* FTFightingViewController.m */; };
@@ -44,7 +47,6 @@
 		3D4B19631CDB59D60022DFB0 /* UIWindow+MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B19621CDB59D60022DFB0 /* UIWindow+MBProgressHUD.m */; };
 		3D4B19661CDB6CF80022DFB0 /* FTWeightPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B19651CDB6CF80022DFB0 /* FTWeightPickerView.m */; };
 		3D4B19691CDB7AE20022DFB0 /* FTSexPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B19681CDB7AE20022DFB0 /* FTSexPickerView.m */; };
-		3D57D04D1CEC0C810082BF24 /* DBTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D04C1CEC0C810082BF24 /* DBTools.m */; };
 		3D57D0501CEC0E7F0082BF24 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D04F1CEC0E7F0082BF24 /* DBManager.m */; };
 		3D5A3CBD1CFD1E1000FDB3C4 /* FTShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */; };
 		3D5FB4851CDC1F1D00FC1809 /* FTPhotoPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4841CDC1F1D00FC1809 /* FTPhotoPickerView.m */; };
@@ -155,7 +157,6 @@
 		3DE1DEF21D3F178F00511E92 /* FTGymBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1DEF11D3F178F00511E92 /* FTGymBean.m */; };
 		3DE1DEF61D3F472500511E92 /* FTPaySingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1DEF51D3F472500511E92 /* FTPaySingleton.m */; };
 		3DE1DF061D40C74D00511E92 /* QQSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1DF051D40C74D00511E92 /* QQSingleton.m */; };
-		3DE95B501CD326B7005BF85C /* FTCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95B4F1CD326B7005BF85C /* FTCollectionViewLayout.m */; };
 		3DE95BA01CD8675B005BF85C /* FTDrawerStyler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95B9F1CD8675B005BF85C /* FTDrawerStyler.m */; };
 		3DE95BA31CD868C6005BF85C /* FTDynamicsDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95BA21CD868C6005BF85C /* FTDynamicsDrawerViewController.m */; };
 		3DE95BA71CD86FA4005BF85C /* FTLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95BA51CD86FA4005BF85C /* FTLoginViewController.m */; };
@@ -343,6 +344,11 @@
 		3D0615561D36302600FDA86F /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
 		3D0615571D36302600FDA86F /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
 		3D0615581D36302600FDA86F /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
+		3D0B446B1D45A4D400EE08B3 /* WBSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSingleton.h; sourceTree = "<group>"; };
+		3D0B446C1D45A4D400EE08B3 /* WBSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBSingleton.m; sourceTree = "<group>"; };
+		3D0B446F1D45D96F00EE08B3 /* FTNewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNewsCell.h; sourceTree = "<group>"; };
+		3D0B44701D45D96F00EE08B3 /* FTNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNewsCell.m; sourceTree = "<group>"; };
+		3D0B44711D45D96F00EE08B3 /* FTNewsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTNewsCell.xib; sourceTree = "<group>"; };
 		3D0D7C701D1A984B00E67AC9 /* FTPracticeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPracticeView.h; sourceTree = "<group>"; };
 		3D0D7C711D1A984B00E67AC9 /* FTPracticeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPracticeView.m; sourceTree = "<group>"; };
 		3D13FB0B1D193A5A0060B9B4 /* fighter.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fighter.entitlements; sourceTree = "<group>"; };
@@ -395,8 +401,6 @@
 		3D4B19671CDB7AE20022DFB0 /* FTSexPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSexPickerView.h; sourceTree = "<group>"; };
 		3D4B19681CDB7AE20022DFB0 /* FTSexPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTSexPickerView.m; sourceTree = "<group>"; };
 		3D4B196A1CDB7B770022DFB0 /* FTPickerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPickerViewDelegate.h; sourceTree = "<group>"; };
-		3D57D04B1CEC0C810082BF24 /* DBTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBTools.h; sourceTree = "<group>"; };
-		3D57D04C1CEC0C810082BF24 /* DBTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBTools.m; sourceTree = "<group>"; };
 		3D57D04E1CEC0E7F0082BF24 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		3D57D04F1CEC0E7F0082BF24 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
 		3D5A3CBB1CFD1E1000FDB3C4 /* FTShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTShareView.h; sourceTree = "<group>"; };
@@ -569,8 +573,6 @@
 		3DE1DEF51D3F472500511E92 /* FTPaySingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPaySingleton.m; sourceTree = "<group>"; };
 		3DE1DF041D40C74D00511E92 /* QQSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQSingleton.h; sourceTree = "<group>"; };
 		3DE1DF051D40C74D00511E92 /* QQSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQSingleton.m; sourceTree = "<group>"; };
-		3DE95B4E1CD326B7005BF85C /* FTCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCollectionViewLayout.h; sourceTree = "<group>"; };
-		3DE95B4F1CD326B7005BF85C /* FTCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCollectionViewLayout.m; sourceTree = "<group>"; };
 		3DE95B9E1CD8675B005BF85C /* FTDrawerStyler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerStyler.h; sourceTree = "<group>"; };
 		3DE95B9F1CD8675B005BF85C /* FTDrawerStyler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDrawerStyler.m; sourceTree = "<group>"; };
 		3DE95BA11CD868C6005BF85C /* FTDynamicsDrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDynamicsDrawerViewController.h; sourceTree = "<group>"; };
@@ -924,6 +926,16 @@
 			name = EncodeAndDecode;
 			sourceTree = "<group>";
 		};
+		3D0B446E1D45C35D00EE08B3 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				3D0B446F1D45D96F00EE08B3 /* FTNewsCell.h */,
+				3D0B44701D45D96F00EE08B3 /* FTNewsCell.m */,
+				3D0B44711D45D96F00EE08B3 /* FTNewsCell.xib */,
+			);
+			name = cell;
+			sourceTree = "<group>";
+		};
 		3D13FB121D1A1A2C0060B9B4 /* 学拳 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1077,8 +1089,6 @@
 		3D57D04A1CEC0BC30082BF24 /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
-				3D57D04B1CEC0C810082BF24 /* DBTools.h */,
-				3D57D04C1CEC0C810082BF24 /* DBTools.m */,
 				3D57D04E1CEC0E7F0082BF24 /* DBManager.h */,
 				3D57D04F1CEC0E7F0082BF24 /* DBManager.m */,
 			);
@@ -1363,8 +1373,6 @@
 				3DC4121A1CD060190030C229 /* FTDrawerViewController.h */,
 				3DC4121B1CD060190030C229 /* FTDrawerViewController.m */,
 				3DC4121C1CD060190030C229 /* FTDrawerViewController.xib */,
-				3DE95B4E1CD326B7005BF85C /* FTCollectionViewLayout.h */,
-				3DE95B4F1CD326B7005BF85C /* FTCollectionViewLayout.m */,
 				3DE95B9E1CD8675B005BF85C /* FTDrawerStyler.h */,
 				3DE95B9F1CD8675B005BF85C /* FTDrawerStyler.m */,
 				3DE95BA11CD868C6005BF85C /* FTDynamicsDrawerViewController.h */,
@@ -1430,6 +1438,8 @@
 				3DE1DEF51D3F472500511E92 /* FTPaySingleton.m */,
 				3D197C511D41CCA30091048D /* WXSingleton.h */,
 				3D197C521D41CCA30091048D /* WXSingleton.m */,
+				3D0B446B1D45A4D400EE08B3 /* WBSingleton.h */,
+				3D0B446C1D45A4D400EE08B3 /* WBSingleton.m */,
 			);
 			name = "单例";
 			sourceTree = "<group>";
@@ -2202,6 +2212,7 @@
 		E6B4589B1CB7569E00FB4261 /* 拳迅 */ = {
 			isa = PBXGroup;
 			children = (
+				3D0B446E1D45C35D00EE08B3 /* cell */,
 				E6AD700B1CF80CD200329D1E /* view */,
 				E65F90B71CBDF9F6005CA3E6 /* main */,
 				E68EC5071CC4B71400A338C8 /* filter */,
@@ -2684,6 +2695,7 @@
 				3D7B98981CDEE1E900B80B8D /* FTSettingViewController.xib in Resources */,
 				3DE1DEEC1D3F071600511E92 /* FTGymDetailWebViewController.xib in Resources */,
 				3D5FB4BF1CDC7E6600FC1809 /* FTImageCollectionCell.xib in Resources */,
+				3D0B44731D45D96F00EE08B3 /* FTNewsCell.xib in Resources */,
 				E6549DF71D000AEB00B27483 /* FTRecordRankTableViewCell.xib in Resources */,
 				3D7B98901CDD1E5900B80B8D /* Area2.plist in Resources */,
 				E6B458CE1CB75D9600FB4261 /* FTMatchViewController.xib in Resources */,
@@ -2976,7 +2988,6 @@
 				E6D74A4E1CB7B7EE00854337 /* MD5.m in Sources */,
 				E6E688E81D002FB700708C24 /* FTHomepageRecordListTableViewCell.m in Sources */,
 				E6D74A4A1CB7B7EE00854337 /* UIView+YBAddtitions.m in Sources */,
-				3D57D04D1CEC0C810082BF24 /* DBTools.m in Sources */,
 				E65D08C71CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m in Sources */,
 				3D06155C1D36302600FDA86F /* NSString+Base64.m in Sources */,
 				3DB240F41D3C60A6007F32C6 /* FTShareView2.m in Sources */,
@@ -2994,7 +3005,6 @@
 				E696E4E61D2A3DDA00A89B60 /* FTDefaultFullMatchingTableViewCell.m in Sources */,
 				E6B239021D066C88001F86BE /* FTHomepageCommentListViewController.m in Sources */,
 				E6E9E88B1CDC464A00976480 /* FTVideoCollectionView.m in Sources */,
-				3DE95B501CD326B7005BF85C /* FTCollectionViewLayout.m in Sources */,
 				3DFB7DEF1D23E55A00CC79EA /* TestCycleView.m in Sources */,
 				3D0615591D36302600FDA86F /* AESCrypt.m in Sources */,
 				E67096871D2F9A4400DB9F53 /* FTTimeSectionTableView.m in Sources */,
@@ -3057,6 +3067,7 @@
 				3DE1DF061D40C74D00511E92 /* QQSingleton.m in Sources */,
 				E6A9DDB61CD9833200CB9518 /* FTVideoTableViewCell.m in Sources */,
 				E668BBB71CE4353300071998 /* FTRankingListFilterView.m in Sources */,
+				3D0B446D1D45A4D400EE08B3 /* WBSingleton.m in Sources */,
 				3D7B98BE1CE0898400B80B8D /* FTOldPasswordVC.m in Sources */,
 				3D7B98B91CE078D600B80B8D /* FTInputCheckCodeViewController.m in Sources */,
 				E6D74A481CB7B7EE00854337 /* UIColor+YBColorCategory.m in Sources */,
@@ -3075,6 +3086,7 @@
 				E66EAEA21CF8217F006CD6CE /* FTArenaTextTableViewCell.m in Sources */,
 				3DFC41531D083A3F0067AC72 /* SDCycleScrollView.m in Sources */,
 				3D8B2E531D1D14B000E18280 /* FTCoachCell.m in Sources */,
+				3D0B44721D45D96F00EE08B3 /* FTNewsCell.m in Sources */,
 				E6A9DDA41CD8842E00CB9518 /* FTVideoViewController.m in Sources */,
 				3DF86AE91D2E0900001A644B /* FTEncoderAndDecoder.m in Sources */,
 				E64EF10B1CB6614000CAE340 /* main.m in Sources */,
