@@ -16,7 +16,10 @@ typedef NS_ENUM(int, FTCellType) {
 
 @class FTTableViewController;
 @protocol FTTableViewdelegate <NSObject>
+@optional
 - (void)fttableView:(FTTableViewController *)tableView didSelectWithIndex:(NSIndexPath *)indexPath;
+- (void)fttableView:(FTTableViewController *)tableView didSelectShareButton:(NSIndexPath *)indexPath;
+
 @end
 
 //格斗场主页按钮的点击事件回调代理

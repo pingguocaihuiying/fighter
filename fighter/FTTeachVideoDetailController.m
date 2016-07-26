@@ -192,7 +192,7 @@
     [shareView setUrl:_webUrlString];
     [shareView setTitle:[NSString stringWithFormat:@"我在“格斗东西”学习%@，Fighting！",_label]];
     [shareView setSummary:@"格斗技术为强身健体自卫防身，格斗东西团队不支持不赞成任何暴力行为。"];
-    [shareView setImage:self.labelImage];
+    [shareView setImageUrl:self.labelImage];
     [self.view addSubview:shareView];
 }
 
@@ -577,6 +577,12 @@
 
 // 获取分享积分
 - (void) getPointByShareToPlatform:(NSString *)platform {
+    
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    if (!localUserData ) {
+        return;
+    }
     
     NSLog(@"%@分享赠送积分成功调用",platform);
     [NetWorking getPointByShareWithPlatform:platform option:^(NSDictionary *dict) {

@@ -21,6 +21,7 @@
 #import "FTArenaImageTableViewCell.h"
 #import "FTArenaBean.h"
 #import "FTFightingTableViewCell.h"
+#import "FTNewsCell.h"
 
 @interface FTTableViewController ()<FTTableViewCellClickedDelegate, FTFightingTableViewCellButtonsClickedDelegate>
 
@@ -43,9 +44,10 @@
     
     self.tableView.showsVerticalScrollIndicator = NO;
     if (self.listType == FTCellTypeNews) {//新闻
-        [self.tableView registerNib:[UINib nibWithNibName:@"FTOneBigImageInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell1"];
-        [self.tableView registerNib:[UINib nibWithNibName:@"FTThreeImageInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell2"];
-        [self.tableView registerNib:[UINib nibWithNibName:@"FTOneImageInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell3"];
+//        [self.tableView registerNib:[UINib nibWithNibName:@"FTOneBigImageInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell1"];
+//        [self.tableView registerNib:[UINib nibWithNibName:@"FTThreeImageInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell2"];
+//        [self.tableView registerNib:[UINib nibWithNibName:@"FTOneImageInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell3"];
+        [self.tableView registerNib:[UINib nibWithNibName:@"FTNewsCell" bundle:nil] forCellReuseIdentifier:@"newsCell"];
     }else if(self.listType == FTCellTypeArena){//帖子
         [self.tableView registerNib:[UINib nibWithNibName:@"FTArenaTextTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellArenaText"];
         [self.tableView registerNib:[UINib nibWithNibName:@"FTArenaImageTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellArenaImage"];
@@ -88,39 +90,45 @@
     if (self.listType == FTCellTypeNews) {
         
         FTNewsBean *bean = self.sourceArray[indexPath.row];
-        NSString *layout = bean.layout;
-        if ([layout isEqualToString:@"1"]) {//大图
-            static NSString *cellider1 = @"cell1";
-            cell = [tableView dequeueReusableCellWithIdentifier:cellider1];
-            if (cell == nil) {
-                cell = [[[NSBundle mainBundle]loadNibNamed:@"FTOneBigImageInfoTableViewCell" owner:self options:nil]firstObject];
-                cell.backgroundColor = [UIColor clearColor];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            }
-        }else if ([layout isEqualToString:@"3"]) {//三图
-            static NSString *cellider2 = @"cell2";
-            cell = [tableView dequeueReusableCellWithIdentifier:cellider2];
-            if (cell == nil) {
-                static int count = 0;
-                count ++;
-                NSLog(@"count : %d", count);
-                cell = [[[NSBundle mainBundle]loadNibNamed:@"FTThreeImageInfoTableViewCell" owner:self options:nil]firstObject];
-                cell.backgroundColor = [UIColor clearColor];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            }
-        }else if ([layout isEqualToString:@"2"]) {//一图
-            static NSString *cellider3 = @"cell3";
-            cell = [tableView dequeueReusableCellWithIdentifier:cellider3];
-            if (cell == nil) {
-                cell = [[[NSBundle mainBundle]loadNibNamed:@"FTOneImageInfoTableViewCell" owner:self options:nil]firstObject];
-                cell.backgroundColor = [UIColor clearColor];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            }
-        }
+        
+        static NSString *cellider1 = @"newsCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:cellider1];
+        
+        FTNewsCell *newsCell = (FTNewsCell *)cell;
+        newsCell.indexPath = indexPath;
+
+//        NSString *layout = bean.layout;
+//        if ([layout isEqualToString:@"1"]) {//大图
+//            static NSString *cellider1 = @"cell1";
+//            cell = [tableView dequeueReusableCellWithIdentifier:cellider1];
+//            if (cell == nil) {
+//                cell = [[[NSBundle mainBundle]loadNibNamed:@"FTOneBigImageInfoTableViewCell" owner:self options:nil]firstObject];
+//                cell.backgroundColor = [UIColor clearColor];
+//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//            }
+//        }else if ([layout isEqualToString:@"3"]) {//三图
+//            static NSString *cellider2 = @"cell2";
+//            cell = [tableView dequeueReusableCellWithIdentifier:cellider2];
+//            if (cell == nil) {
+//                static int count = 0;
+//                count ++;
+//                NSLog(@"count : %d", count);
+//                cell = [[[NSBundle mainBundle]loadNibNamed:@"FTThreeImageInfoTableViewCell" owner:self options:nil]firstObject];
+//                cell.backgroundColor = [UIColor clearColor];
+//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//            }
+//        }else if ([layout isEqualToString:@"2"]) {//一图
+//            static NSString *cellider3 = @"cell3";
+//            cell = [tableView dequeueReusableCellWithIdentifier:cellider3];
+//            if (cell == nil) {
+//                cell = [[[NSBundle mainBundle]loadNibNamed:@"FTOneImageInfoTableViewCell" owner:self options:nil]firstObject];
+//                cell.backgroundColor = [UIColor clearColor];
+//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//            }
+//        }
         
         [cell setWithBean:bean];
         
-        return cell;
     }else if (self.listType == FTCellTypeArena){
         FTArenaBean *bean = self.sourceArray[indexPath.row];
         
@@ -171,6 +179,7 @@
         }
         return  nil;
     }
+    cell.clickedDelegate = self;
     return cell;
 }
 
@@ -202,16 +211,17 @@
     CGFloat height = 0;
     
     if (self.listType == FTCellTypeNews) {
-        FTNewsBean *bean = self.sourceArray[indexPath.row];
-        NSString *layout = bean.layout;
-        if ([layout isEqualToString:@"1"]) {
-            height = 218;
-        }else if([layout isEqualToString:@"3"]){
-            height = 163;
-        }
-        else if([layout isEqualToString:@"2"]){
-            height = 146 ;//一张小图的cell，图片等比例放大了1.5倍
-        }
+//        FTNewsBean *bean = self.sourceArray[indexPath.row];
+//        NSString *layout = bean.layout;
+//        if ([layout isEqualToString:@"1"]) {
+//            height = 218;
+//        }else if([layout isEqualToString:@"3"]){
+//            height = 163;
+//        }
+//        else if([layout isEqualToString:@"2"]){
+//            height = 146 ;//一张小图的cell，图片等比例放大了1.5倍
+//        }
+        height = 210+42+10;
     }else if(self.listType == FTCellTypeArena){
        FTArenaBean *bean = self.sourceArray[indexPath.row];
         NSString *videoUrl = bean.videoUrlNames == nil ? @"" : bean.videoUrlNames;
@@ -245,11 +255,29 @@
     
 }
 
+#pragma mark - FTTableViewCellClickedDelegate
 - (void)clickedWithIndex:(NSIndexPath *)indexPath{
-//    NSLog(@"index : %@", indexPath);
-    [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+    
+    if([self.FTdelegate respondsToSelector:@selector(fttableView:didSelectWithIndex:)]){
+        [self.FTdelegate fttableView:self didSelectWithIndex:indexPath];
+    }
 }
 
+- (void) clickedPlayButton:(NSIndexPath *)indexPath {
+
+    if([self.FTdelegate respondsToSelector:@selector(fttableView:didSelectWithIndex:)]){
+        [self.FTdelegate fttableView:self didSelectWithIndex:indexPath];
+    }
+}
+
+- (void) clickedShareButton:(NSIndexPath *)indexPath {
+    
+    if([self.FTdelegate respondsToSelector:@selector(fttableView:didSelectShareButton:)]){
+        [self.FTdelegate fttableView:self didSelectShareButton:indexPath];
+    }
+    
+}
+#pragma mark - FTFightingTableViewCellButtonsClickedDelegate
 //格斗场主页面按钮的点击回掉
 - (void)buttonClickedWithIdentifycation:(NSString *)identifycationString andRaceId:(NSString *)raceId{
 //    NSLog(@"identifycation : %@, raceId : %@", identifycationString, raceId);

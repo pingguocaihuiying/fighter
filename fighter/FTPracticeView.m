@@ -9,6 +9,9 @@
 #import "FTPracticeView.h"
 #import "FTPracticeCell.h"
 #import "FTTeachVideoController.h"
+#import "UIScrollView+MJRefresh.h"
+#import "MJRefreshNormalHeader.h"
+#import "MJRefreshAutoNormalFooter.h"
 
 @interface FTPracticeView () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -39,33 +42,10 @@
     
 //    _array =[[NSMutableArray alloc]initWithArray:[FTNWGetCategory sharedTeachVideoCategories]];
     _array = [[NSMutableArray alloc]init];
-    [NetWorking getTeachLabelsWithOption:^(NSDictionary *dict) {
-        
-        NSLog(@"获取教学标签");
-        NSLog(@"dict:%@",dict);
-        NSLog(@"massage:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-        
-        if (dict == nil) {
-            return ;
-        }
-        
-        if ([dict[@"status"] isEqualToString:@"success"]) {
-            
-            for(NSDictionary *dic in dict[@"data"]){
-                if ([dic[@"name"] isEqualToString:@"教学视频"]) {
-                    NSLog(@"itemValue : %@", dic[@"itemValue"]);
-                    NSLog(@"itemValueEn : %@", dic[@"itemValueEn"]);
-                    
-                    [_array addObject:dic];
-                }
-            }
-            
-            
-        }
-        [self.collectionView reloadData];
-    }];
     
+    [self getDataFromWeb];
 }
+
 
 - (void) initSubviews {
     
@@ -79,7 +59,67 @@
     _collectionView.dataSource = self;
     
     [self addSubview:_collectionView];
+    
+    [self setJHRefresh];
 }
+
+
+#pragma mark - refresh 
+- (void) getDataFromWeb {
+
+    [NetWorking getTeachLabelsWithOption:^(NSDictionary *dict) {
+        
+        [self.collectionView.mj_header endRefreshing];
+        [self.collectionView.mj_footer endRefreshing];
+        
+        NSLog(@"获取教学标签");
+        NSLog(@"dict:%@",dict);
+        NSLog(@"massage:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+        
+        if (dict == nil) {
+            return ;
+        }
+        
+        
+        if ([dict[@"status"] isEqualToString:@"success"]) {
+            
+            [_array removeAllObjects];
+            for(NSDictionary *dic in dict[@"data"]){
+                if ([dic[@"name"] isEqualToString:@"教学视频"]) {
+                    NSLog(@"itemValue : %@", dic[@"itemValue"]);
+                    NSLog(@"itemValueEn : %@", dic[@"itemValueEn"]);
+                    
+                    [_array addObject:dic];
+                }
+            }
+        }
+        [self.collectionView reloadData];
+    }];
+}
+
+- (void)setJHRefresh{
+    __unsafe_unretained __typeof(self) weakSelf = self;
+    
+    
+    // 下拉刷新
+    self.collectionView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf.collectionView.mj_header setHidden:NO];
+        [weakSelf getDataFromWeb];
+    }];
+    
+    [self.collectionView.mj_header beginRefreshing];
+    
+    // 上拉刷新
+    self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        // 显示footer
+        weakSelf.collectionView.mj_footer.hidden = NO;
+        
+        [weakSelf getDataFromWeb];
+    }];
+    
+    
+}
+
 
 
 #pragma mark - UICollectionViewDataSource

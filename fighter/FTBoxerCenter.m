@@ -80,7 +80,7 @@
 //    
 //    [self.scrollView addSubview:scrollHeader];
     
-    CGFloat buttonW = (SCREEN_WIDTH - 12*2)/3;
+//    CGFloat buttonW = (SCREEN_WIDTH - 12*2)/3;
 }
 
 #pragma mark - 滑动代理

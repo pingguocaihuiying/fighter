@@ -11,7 +11,12 @@
 
 @protocol FTTableViewCellClickedDelegate <NSObject>
 
+@optional
 - (void)clickedWithIndex:(NSIndexPath *)indexPath;
+
+- (void)clickedPlayButton:(NSIndexPath *)indexPath;
+
+- (void)clickedShareButton:(NSIndexPath *)indexPath;
 
 @end
 

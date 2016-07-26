@@ -16,6 +16,9 @@
     self.cellWidthConstraint.constant = self.cellWidthConstraint.constant * SCALE;
     self.cellHeightConstraint.constant = self.cellHeightConstraint.constant * SCALE;
     self.titleLabelTopConstraint.constant = self.titleLabelTopConstraint.constant * SCALE;
+    
+    self.placeHoldBackView.layer.borderWidth = 1.0;
+    self.placeHoldBackView.layer.borderColor = Cell_Space_Color.CGColor;
 }
 
 - (void)setWithBean:(FTVideoBean *)bean{//根据bean设置cell的显示内容

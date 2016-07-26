@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cellHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLabelTopConstraint;
 
+@property (weak, nonatomic) IBOutlet UIView *placeHoldBackView;
+
 @property (weak, nonatomic) IBOutlet UILabel *myTitleLabel;
 
 @property (weak, nonatomic) IBOutlet UIImageView *myImageView;

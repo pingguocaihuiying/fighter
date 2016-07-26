@@ -63,8 +63,8 @@ PODS:
   - TencentOpenAPIV2_3 (3.1.0)
   - UMengAnalytics (4.0.4)
   - UMengFeedback (2.3.4)
-  - UMengSocialCOM (5.2.1)
   - WeiboSDK (3.1.4)
+  - Weixin (1.6.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6.3)
@@ -83,8 +83,8 @@ DEPENDENCIES:
   - TencentOpenAPIV2_3 (~> 3.1.0)
   - UMengAnalytics (~> 4.0.4)
   - UMengFeedback (~> 2.3.4)
-  - UMengSocialCOM (~> 5.2.1)
   - WeiboSDK (from `https://github.com/sinaweibosdk/weibo_ios_sdk.git`)
+  - Weixin (~> 1.6.2)
 
 EXTERNAL SOURCES:
   WeiboSDK:
@@ -117,9 +117,9 @@ SPEC CHECKSUMS:
   TencentOpenAPIV2_3: 39d78d050d2f91a06718ed648a75b3dae27bfa72
   UMengAnalytics: 4ed421fb3bca63b26fc13c947743cabf3831d199
   UMengFeedback: 5283cc0e324dffca4dd54c4abb3cbded56487817
-  UMengSocialCOM: 074c135ce349aa4c8848d3fb8458757bcb6ffb67
   WeiboSDK: bceab625ec59b7039ba721cc4ba9f5868804f63e
+  Weixin: 032f4b1def7c7c3d7535809ba25107d5cdc9fccd
 
-PODFILE CHECKSUM: d94526efd6760656e6ac608f7af5dd06cfc3732b
+PODFILE CHECKSUM: 0ec44900dd9773e8636d2002a2ef2e2d36d24dd2
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.0.1

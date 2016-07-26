@@ -441,7 +441,7 @@
     //设置发布按钮
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(newPostButtonClicked)];
     NSDictionary* textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [UIFont systemFontOfSize:14],UITextAttributeFont,
+                                    [UIFont systemFontOfSize:14],NSFontAttributeName,
                                     nil];
     self.navigationItem.rightBarButtonItem = shareButton;
     [[UIBarButtonItem appearance] setTitleTextAttributes:textAttributes forState:0];
@@ -492,7 +492,7 @@
         }
         NSData *mediaData = dic[@"data"];
         NSString *userId = [FTUserTools getLocalUser].olduserid;
-        NSString *ts = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
+//        NSString *ts = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
         NSString *key;
         
         NSString *type = dic[@"type"];
@@ -569,8 +569,8 @@
     
     NSString *content = self.contentTextView.text;
     NSString *tableName = @"damageblog";
-    NSString *nickname = localUser.username;
-    NSString *headUrl = localUser.headpic;
+//    NSString *nickname = localUser.username;
+//    NSString *headUrl = localUser.headpic;
     NSString *urlPrefix = @"7xtvwy.com1.z0.glb.clouddn.com";
     NSString *pictureUrlNames = @"";
     if (_imageURLArray.count > 0) {

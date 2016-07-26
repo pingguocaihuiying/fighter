@@ -8,7 +8,7 @@
 
 #import "FTNewsDetail2ViewController.h"
 #import "FTCommentViewController.h"
-#import "UMSocial.h"
+
 #import "WXApi.h"
 #import "FTUserBean.h"
 #import "MBProgressHUD.h"
@@ -25,7 +25,7 @@
 #import "FTHomepageMainViewController.h"
 
 
-@interface FTNewsDetail2ViewController ()<UIWebViewDelegate, UMSocialUIDelegate, CommentSuccessDelegate, FTPickerViewDelegate>
+@interface FTNewsDetail2ViewController ()<UIWebViewDelegate, CommentSuccessDelegate, FTPickerViewDelegate>
 {
     UIWebView *_webView;
     UIImageView *_loadingImageView;
@@ -120,7 +120,7 @@
 //    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-分享"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(shareButtonClicked)];
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithTitle:@"转发" style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonClicked)];
     NSDictionary* textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [UIFont systemFontOfSize:14],UITextAttributeFont,
+                                    [UIFont systemFontOfSize:14],NSFontAttributeName,
                                     nil];
     
     [[UIBarButtonItem appearance] setTitleTextAttributes:textAttributes forState:0];
@@ -207,7 +207,7 @@
 - (void)shareButtonClicked{
     //友盟分享事件统计
     [MobClick event:@"newsPage_DetailPage_share"];
-    //注意：分享到微信好友、微信朋友圈、微信收藏、QQ空间、QQ好友、来往好友、来往朋友圈、易信好友、易信朋友圈、Facebook、Twitter、Instagram等平台需要参考各自的集成方法
+   
     
     NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-news",_newsBean.newsId];
     _webUrlString = [@"http://www.gogogofight.com/page/news_page.html?" stringByAppendingString:str];
@@ -230,54 +230,6 @@
 
 }
 
-
-#pragma mark 分享
-- (void)shareToWXSceneSession{
-        NSLog(@"WXSceneSession");
-    [self shareToWXWithType:WXSceneSession];
-}
-
-- (void)shareToWXSceneTimeline{
-    NSLog(@"WXSceneTimeline");
-    [self shareToWXWithType:WXSceneTimeline];
-}
-
-
-
-- (void)addShareResponse:(APIResponse*) response {
-
-    
-}
-
-- (void)shareToWXWithType:(int) scene{
-    
-    WXMediaMessage *message = [WXMediaMessage message];
-    message.title = _newsBean.title;
-    message.description = _newsBean.summary;
-    [message setThumbImage:[UIImage imageNamed:@"微信用@200"]];
-    WXWebpageObject *webpageObject = [WXWebpageObject object];
-    webpageObject.webpageUrl = self.webViewUrlString;
-    message.mediaObject = webpageObject;
-    
-    SendMessageToWXReq *req = [SendMessageToWXReq new];
-    req.bText = NO;
-    req.message = message;
-    req.scene = scene;
-    [WXApi sendReq:req];
-}
-
-
-
--(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
-{
-    
-    //根据`responseCode`得到发送结果,如果分享成功
-    if(response.responseCode == UMSResponseCodeSuccess)
-    {
-        //得到分享到的微博平台名
-        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
-    }
-}
 
 #pragma -mark 设置loading图
 -(void)setLoadingImageView{
