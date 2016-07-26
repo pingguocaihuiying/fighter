@@ -18,6 +18,9 @@
 		3D0B44721D45D96F00EE08B3 /* FTNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B44701D45D96F00EE08B3 /* FTNewsCell.m */; };
 		3D0B44731D45D96F00EE08B3 /* FTNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D0B44711D45D96F00EE08B3 /* FTNewsCell.xib */; };
 		3D0D7C721D1A984B00E67AC9 /* FTPracticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0D7C711D1A984B00E67AC9 /* FTPracticeView.m */; };
+		3D10DDE41D47150B00E2D776 /* SectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D10DDE31D47150B00E2D776 /* SectionHeader.m */; };
+		3D10DDE61D4733B900E2D776 /* SectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D10DDE51D4733B900E2D776 /* SectionHeader.xib */; };
+		3D10DDEA1D4753C300E2D776 /* FTCollectionFowLaytout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D10DDE91D4753C300E2D776 /* FTCollectionFowLaytout.m */; };
 		3D13FB0C1D193A5A0060B9B4 /* fighter.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 3D13FB0B1D193A5A0060B9B4 /* fighter.entitlements */; };
 		3D13FB101D193BB80060B9B4 /* FTFightingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D13FB0E1D193BB80060B9B4 /* FTFightingViewController.m */; };
 		3D13FB111D193BB80060B9B4 /* FTFightingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D13FB0F1D193BB80060B9B4 /* FTFightingViewController.xib */; };
@@ -351,6 +354,11 @@
 		3D0B44711D45D96F00EE08B3 /* FTNewsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTNewsCell.xib; sourceTree = "<group>"; };
 		3D0D7C701D1A984B00E67AC9 /* FTPracticeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPracticeView.h; sourceTree = "<group>"; };
 		3D0D7C711D1A984B00E67AC9 /* FTPracticeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPracticeView.m; sourceTree = "<group>"; };
+		3D10DDE21D47150B00E2D776 /* SectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionHeader.h; sourceTree = "<group>"; };
+		3D10DDE31D47150B00E2D776 /* SectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionHeader.m; sourceTree = "<group>"; };
+		3D10DDE51D4733B900E2D776 /* SectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionHeader.xib; sourceTree = "<group>"; };
+		3D10DDE81D4753C300E2D776 /* FTCollectionFowLaytout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCollectionFowLaytout.h; sourceTree = "<group>"; };
+		3D10DDE91D4753C300E2D776 /* FTCollectionFowLaytout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCollectionFowLaytout.m; sourceTree = "<group>"; };
 		3D13FB0B1D193A5A0060B9B4 /* fighter.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fighter.entitlements; sourceTree = "<group>"; };
 		3D13FB0D1D193BB80060B9B4 /* FTFightingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTFightingViewController.h; sourceTree = "<group>"; };
 		3D13FB0E1D193BB80060B9B4 /* FTFightingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTFightingViewController.m; sourceTree = "<group>"; };
@@ -936,6 +944,15 @@
 			name = cell;
 			sourceTree = "<group>";
 		};
+		3D10DDE71D47537E00E2D776 /* flowLayout */ = {
+			isa = PBXGroup;
+			children = (
+				3D10DDE81D4753C300E2D776 /* FTCollectionFowLaytout.h */,
+				3D10DDE91D4753C300E2D776 /* FTCollectionFowLaytout.m */,
+			);
+			name = flowLayout;
+			sourceTree = "<group>";
+		};
 		3D13FB121D1A1A2C0060B9B4 /* 学拳 */ = {
 			isa = PBXGroup;
 			children = (
@@ -983,6 +1000,7 @@
 		3D13FB241D1A90D00060B9B4 /* 教学 */ = {
 			isa = PBXGroup;
 			children = (
+				3D10DDE71D47537E00E2D776 /* flowLayout */,
 				3DB240F51D3CC1BD007F32C6 /* view */,
 				3D9001BE1D37BB7800F9F60B /* controller */,
 				3D9001BD1D37BB6100F9F60B /* detail */,
@@ -1017,6 +1035,9 @@
 		3D13FB291D1A94510060B9B4 /* cell */ = {
 			isa = PBXGroup;
 			children = (
+				3D10DDE21D47150B00E2D776 /* SectionHeader.h */,
+				3D10DDE31D47150B00E2D776 /* SectionHeader.m */,
+				3D10DDE51D4733B900E2D776 /* SectionHeader.xib */,
 				3D13FB2D1D1A96490060B9B4 /* FTPracticeCell.h */,
 				3D13FB2E1D1A96490060B9B4 /* FTPracticeCell.m */,
 				3D13FB2F1D1A96490060B9B4 /* FTPracticeCell.xib */,
@@ -2743,6 +2764,7 @@
 				3D7B98A51CE0190600B80B8D /* FTAbountUsViewController.xib in Resources */,
 				3D7C6B821CF2A26D0088400D /* BoxerMatchController.xib in Resources */,
 				E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */,
+				3D10DDE61D4733B900E2D776 /* SectionHeader.xib in Resources */,
 				E6FE6A5E1CEED3DC00D63847 /* FTArenaPostsDetailViewController.xib in Resources */,
 				3D8D73BE1CE97404009E2320 /* FTTableViewCell6.xib in Resources */,
 				3D5FB4931CDC311400FC1809 /* FTAssetsViewController.xib in Resources */,
@@ -3068,6 +3090,7 @@
 				E6A9DDB61CD9833200CB9518 /* FTVideoTableViewCell.m in Sources */,
 				E668BBB71CE4353300071998 /* FTRankingListFilterView.m in Sources */,
 				3D0B446D1D45A4D400EE08B3 /* WBSingleton.m in Sources */,
+				3D10DDEA1D4753C300E2D776 /* FTCollectionFowLaytout.m in Sources */,
 				3D7B98BE1CE0898400B80B8D /* FTOldPasswordVC.m in Sources */,
 				3D7B98B91CE078D600B80B8D /* FTInputCheckCodeViewController.m in Sources */,
 				E6D74A481CB7B7EE00854337 /* UIColor+YBColorCategory.m in Sources */,
@@ -3089,6 +3112,7 @@
 				3D0B44721D45D96F00EE08B3 /* FTNewsCell.m in Sources */,
 				E6A9DDA41CD8842E00CB9518 /* FTVideoViewController.m in Sources */,
 				3DF86AE91D2E0900001A644B /* FTEncoderAndDecoder.m in Sources */,
+				3D10DDE41D47150B00E2D776 /* SectionHeader.m in Sources */,
 				E64EF10B1CB6614000CAE340 /* main.m in Sources */,
 				E61185981CC78BF400F23EC7 /* FTUserBean.m in Sources */,
 				3D322AC91CEB171200039E2C /* FTRankHeaderCell.m in Sources */,

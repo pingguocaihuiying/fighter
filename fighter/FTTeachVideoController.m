@@ -37,14 +37,16 @@
 #import "FTRechargeView.h"
 
 #import "WXApi.h"
-
-#import "WXApi.h"
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <TencentOpenAPI/sdkdef.h>
+
+#import "SectionHeader.h"
+#import "FTCollectionFowLaytout.h"
 
 @interface FTTeachVideoController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FTVideoDetailDelegate,FTSelectCellDelegate, UIAlertViewDelegate> {
 
     NSIndexPath *currentIndexPath;
+    NSInteger sections;
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
@@ -64,6 +66,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
 
 @property (strong, nonatomic)  NSMutableArray *array;
+@property (strong, nonatomic)  NSMutableArray *high;
+@property (strong, nonatomic)  NSMutableArray *middle;
+@property (strong, nonatomic)  NSMutableArray *low;
+
 @property (nonatomic, copy)NSString *videosTag;
 @property (nonatomic, copy)NSString *buyToken;
 @property (nonatomic, copy)NSString *videoUrl;
@@ -148,14 +154,14 @@
     self.navigationItem.leftBarButtonItem = leftButton;
     
     
-//    CGFloat buttonW = (SCREEN_WIDTH - 12*2)/3;
-    // 教练地址筛选按钮
-    FTButton *rightBtn = [FTButton buttonWithtitle:@"按时间"];
-    rightBtn.frame = CGRectMake(20, 0, 95, 40);
-    [rightBtn addTarget:self action:@selector(rightBtnBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
-    //把左边的返回按钮左移
-    [ self.navigationItem.rightBarButtonItem setImageInsets:UIEdgeInsetsMake(0, 0, 0, 40)];
+////    CGFloat buttonW = (SCREEN_WIDTH - 12*2)/3;
+//    // 教练地址筛选按钮
+//    FTButton *rightBtn = [FTButton buttonWithtitle:@"按时间"];
+//    rightBtn.frame = CGRectMake(20, 0, 95, 40);
+//    [rightBtn addTarget:self action:@selector(rightBtnBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+//    //把左边的返回按钮左移
+//    [ self.navigationItem.rightBarButtonItem setImageInsets:UIEdgeInsetsMake(0, 0, 0, 40)];
 }
 
 - (void) initSubviews {
@@ -184,10 +190,18 @@
 #pragma -mark - 初始化collectionView
 - (void)initCollectionView{
     
+    FTCollectionFowLaytout *layout = [FTCollectionFowLaytout new];
+    layout.naviHeight = 41;
+    
+    self.collectionView.collectionViewLayout =layout;
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     
     [_collectionView registerNib:[UINib nibWithNibName:@"FTTeachVideoCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
+    
+    [_collectionView registerNib:[UINib nibWithNibName:@"SectionHeader" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
+    
+    [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FooterView"];
     
     [self setJHRefresh];
     
@@ -312,14 +326,269 @@
     }
     
     self.array = (NSMutableArray *)[dict allValues];
+    
+    
+    if (!_high) { _high = [[NSMutableArray alloc]init]; }
+    if (!_middle) { _middle = [[NSMutableArray alloc]init]; }
+    if (!_low) { _low = [[NSMutableArray alloc]init]; }
+    
+    for (NSDictionary *dic in self.array) {
+        
+        if ([dic[@"lever"] isEqualToString:@"1"]) {
+            [_low addObject:dic];
+        }
+        
+        if ([dic[@"lever"] isEqualToString:@"2"]) {
+            [_middle addObject:dic];
+        }
+        
+        if ([dic[@"lever"] isEqualToString:@"3"]) {
+            [_high addObject:dic];
+        }
+    }
+    
+    sections = 0;
+    
+    if (_low.count > 0) { sections ++; }
+    if (_middle.count > 0) { sections ++; }
+    if (_high.count > 0) { sections ++; }
+
 }
 
 #pragma mark - delegates 
 
-#pragma mark alert 
+
+#pragma mark collection
+//有多少组
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+//    return  sections;
+    return 3;
+}
+
+//某组有多少行
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
+//    if (section == 0) {
+//        
+//        return self.low.count;
+//    }else if (section == 1) {
+//        
+//        return self.middle.count;
+//    }else if (section == 2){
+//    
+//        return self.high.count;
+//    }
+    return self.array.count;
+}
+
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+
+{
+    
+    UICollectionReusableView *reusableview = nil;
+    
+    if (kind == UICollectionElementKindSectionHeader){
+        
+        SectionHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
+        if (indexPath.section == 0) {
+            
+            [headerView.titleLabel setText:@"初级"];
+            
+        }else if (indexPath.section == 1) {
+            
+            [headerView.titleLabel setText:@"中级"];
+            
+        }else if (indexPath.section == 2){
+            
+            [headerView.titleLabel setText:@"高级"];
+            
+        }
+        
+        reusableview = headerView;
+        
+        return reusableview;
+    }
+    
+    if (kind == UICollectionElementKindSectionFooter){
+        
+        reusableview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FooterView" forIndexPath:indexPath];
+        return reusableview;
+    }
+    
+    return nil;
+}
+
+
+//返回cell
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    FTTeachVideoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    if (cell == nil) {
+        cell = [[[NSBundle mainBundle]loadNibNamed:@"FTTeachVideoCell" owner:self options:nil]firstObject];
+    }
+//    
+//    NSDictionary *newsDic = nil;
+//    if (indexPath.section == 0) {
+//        newsDic = self.low[indexPath.row];
+//    }else if (indexPath.section == 1) {
+//        
+//        newsDic = self.middle[indexPath.row];
+//    }else if (indexPath.section == 2){
+//        
+//        newsDic = self.high[indexPath.row];
+//    }
+
+    //获取对应的bean，传递给下个vc
+    NSDictionary *newsDic = self.array[indexPath.row];
+    FTVideoBean *bean = [FTVideoBean new];
+    [bean setValuesWithDic:newsDic];
+    
+//    FTVideoBean *bean = self.array[indexPath.row];
+    [cell setWithBean:bean];
+       return cell;
+}
+
+//选中触发的方法
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+//    NSDictionary *newsDic = nil;
+//    if (indexPath.section == 0) {
+//        newsDic = self.low[indexPath.row];
+//    }else if (indexPath.section == 1) {
+//        
+//        newsDic = self.middle[indexPath.row];
+//    }else if (indexPath.section == 2){
+//        
+//        newsDic = self.high[indexPath.row];
+//    }
+    
+    NSDictionary *newsDic = self.array[indexPath.row];
+    [_currentBean clear];
+    [_currentBean setValuesWithDic:newsDic];
+    
+    /****   test   *****/
+    //    [self.dialogView setHidden:NO];
+    
+    
+    currentIndexPath = indexPath;
+    
+    // 首先检查是否是免费视频
+    if ([_currentBean.price integerValue] ==0) {
+        
+        if (_currentBean.url.length > 0) {
+            // 跳转到播放页
+            [self pushToDetailVC:_currentBean indexPath:indexPath];
+        }
+        return;
+    }
+    
+    // 检查登录
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    
+    if (localUserData == nil ) {
+        UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@""
+                                                            message:@"还没有登录哟，付费视频只有登录之后才能观看，赶紧去登录吧~"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"取消"
+                                                  otherButtonTitles:@"登录",nil];
+        
+        alerView.tag = 1000+3;
+        [alerView show];
+        
+        return;
+    }
+    
+    
+    // 1. 检查是否购买了视频
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [NetWorking checkBuyVideoById:_currentBean.videosId option:^(NSDictionary *dict) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if (dict == nil) {
+            
+            UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@""
+                                                                message:@"网络故障，请稍后再试~"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"知道了"
+                                                      otherButtonTitles:nil];
+            [alerView show];
+            
+            return;
+        }
+        
+        NSLog(@"dict:%@",dict);
+        NSLog(@"massage:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+        if ([dict[@"status"] isEqualToString:@"success"]) {
+            _buyToken = dict[@"data"][@"buyToken"];
+            if (_buyToken.length > 0) {
+                
+                
+                // 2. 如果视频已经购买，直接获取视频url
+                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                [NetWorking getVideoUrlById:_currentBean.videosId
+                                   buyToken:_buyToken
+                                     option:^(NSDictionary *urlDict) {
+                                         
+                                         [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                         if (urlDict == nil) {
+                                             
+                                             UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@""
+                                                                                                 message:@"网络故障，请稍后再试~"
+                                                                                                delegate:nil
+                                                                                       cancelButtonTitle:@"知道了"
+                                                                                       otherButtonTitles:nil];
+                                             [alerView show];
+                                             
+                                             return;
+                                         }
+                                         
+                                         NSLog(@"urlDict:%@",urlDict);
+                                         NSLog(@"massage:%@",[urlDict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+                                         
+                                         if ([urlDict[@"status"] isEqualToString:@"success"]){
+                                             
+                                             // 解密url
+                                             NSString *base64String = urlDict[@"data"][@"url"];
+                                             NSData *data = [NSData dataWithBase64String:base64String];
+                                             _videoUrl = [FTEncoderAndDecoder decryptAESData:data app_key:@"gedoudongxi12345"];
+                                             _currentBean.url = _videoUrl;
+                                             
+                                             if (_videoUrl.length > 0) {
+                                                 // 跳转到播放页
+                                                 [self pushToDetailVC:_currentBean indexPath:indexPath];
+                                                 
+                                             }
+                                         }
+                                     }];
+            }
+        }else {
+            
+            // 获取余额
+            FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+            // 检查余额是否足够购买视频
+            if (singleton.balance < [_currentBean.price integerValue]) {
+                
+                [self.dialogView setHidden:NO];
+                
+                return;
+            }
+            
+            //3. 如果视频没有购买，则先购买视频在获取url观看
+            UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@"购买视频"
+                                                                message:[NSString stringWithFormat:@"播放当前视频需要支付%@P，确定播放视频么？",_currentBean.price]
+                                                               delegate:self
+                                                      cancelButtonTitle:@"确定"
+                                                      otherButtonTitles:@"取消",nil];
+            alerView.tag = 1000 + 2;
+            [alerView show];
+        }
+    }];
+    
+}
+
+#pragma mark alert
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-
+    
     if (alertView.tag == 1002) {
         
         if (buttonIndex == 0) {
@@ -374,7 +643,7 @@
                                              [MBProgressHUD hideHUDForView:self.view animated:YES];
                                              NSLog(@"urlDict:%@",urlDict);
                                              NSLog(@"message:%@",[urlDict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-                                            
+                                             
                                              
                                              if ([urlDict[@"status"] isEqualToString:@"success"]){
                                                  
@@ -405,7 +674,7 @@
                 }
             }];
         }
-    
+        
     }else if(alertView.tag == 1000+3) {
         
         if (buttonIndex == 1) {
@@ -413,168 +682,6 @@
             [self login];
         }
     }
-}
-
-#pragma mark collection
-//有多少组
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return  1;
-}
-
-//选中触发的方法
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    NSDictionary *newsDic = self.array[indexPath.row];
-    [_currentBean clear];
-    [_currentBean setValuesWithDic:newsDic];
-    
-    /****   test   *****/
-//    [self.dialogView setHidden:NO];
-    
-    
-    currentIndexPath = indexPath;
-    
-    // 首先检查是否是免费视频
-    if ([_currentBean.price integerValue] ==0) {
-    
-        if (_currentBean.url.length > 0) {
-            // 跳转到播放页
-            [self pushToDetailVC:_currentBean indexPath:indexPath];
-            
-        }
-        return;
-    }
-    
-    // 检查登录
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    
-    if (localUserData == nil ) {
-        UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@""
-                                                            message:@"还没有登录哟，付费视频只有登录之后才能观看，赶紧去登录吧~"
-                                                           delegate:self
-                                                  cancelButtonTitle:@"取消"
-                                                  otherButtonTitles:@"登录",nil];
-        
-        alerView.tag = 1000+3;
-        [alerView show];
-        
-        return;
-    }
-
-    
-    // 1. 检查是否购买了视频
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [NetWorking checkBuyVideoById:_currentBean.videosId option:^(NSDictionary *dict) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        if (dict == nil) {
-            
-            UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@""
-                                                                message:@"网络故障，请稍后再试~"
-                                                               delegate:nil
-                                                      cancelButtonTitle:@"知道了"
-                                                      otherButtonTitles:nil];
-            [alerView show];
-            
-            return;
-        }
-        
-        NSLog(@"dict:%@",dict);
-        NSLog(@"massage:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-        if ([dict[@"status"] isEqualToString:@"success"]) {
-            _buyToken = dict[@"data"][@"buyToken"];
-            if (_buyToken.length > 0) {
-                
-                
-                // 2. 如果视频已经购买，直接获取视频url
-                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                [NetWorking getVideoUrlById:_currentBean.videosId
-                                   buyToken:_buyToken
-                                     option:^(NSDictionary *urlDict) {
-                                         
-                                         [MBProgressHUD hideHUDForView:self.view animated:YES];
-                                         if (urlDict == nil) {
-                                             
-                                             UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@""
-                                                                                                 message:@"网络故障，请稍后再试~"
-                                                                                                delegate:nil
-                                                                                       cancelButtonTitle:@"知道了"
-                                                                                       otherButtonTitles:nil];
-                                             [alerView show];
-                                             
-                                             return;
-                                         }
-                                         
-                                         NSLog(@"urlDict:%@",urlDict);
-                                         NSLog(@"massage:%@",[urlDict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-                
-                                         if ([urlDict[@"status"] isEqualToString:@"success"]){
-                                             
-                                             // 解密url
-                                             NSString *base64String = urlDict[@"data"][@"url"];
-                                             NSData *data = [NSData dataWithBase64String:base64String];
-                                             _videoUrl = [FTEncoderAndDecoder decryptAESData:data app_key:@"gedoudongxi12345"];
-                                             _currentBean.url = _videoUrl;
-                                             
-                                             if (_videoUrl.length > 0) {
-                                                 // 跳转到播放页
-                                                 [self pushToDetailVC:_currentBean indexPath:indexPath];
-                                                 
-                                             }
-                                         }
-                }];
-            }
-        }else {
-            
-            // 获取余额
-            FTPaySingleton *singleton = [FTPaySingleton shareInstance];
-            // 检查余额是否足够购买视频
-            if (singleton.balance < [_currentBean.price integerValue]) {
-                
-                [self.dialogView setHidden:NO];
-            
-                return;
-            }
-            
-            //3. 如果视频没有购买，则先购买视频在获取url观看
-            UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@"购买视频"
-                                                                message:[NSString stringWithFormat:@"播放当前视频需要支付%@P，确定播放视频么？",_currentBean.price]
-                                                               delegate:self
-                                                      cancelButtonTitle:@"确定"
-                                                      otherButtonTitles:@"取消",nil];
-            alerView.tag = 1000 + 2;
-            [alerView show];
-        }
-    }];
-    
-}
-
-//某组有多少行
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.array.count;
-}
-
-//返回cell
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    FTTeachVideoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    if (cell == nil) {
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"FTTeachVideoCell" owner:self options:nil]firstObject];
-    }
-    @try {
-        
-   
-    //获取对应的bean，传递给下个vc
-    NSDictionary *newsDic = self.array[indexPath.row];
-    FTVideoBean *bean = [FTVideoBean new];
-    [bean setValuesWithDic:newsDic];
-    
-//    FTVideoBean *bean = self.array[indexPath.row];
-    [cell setWithBean:bean];
-    } @catch (NSException *exception) {
-        NSLog(@"exceptio:%@",exception);
-    } @finally {
-        
-    }
-    return cell;
 }
 
 #pragma mark UICollectionViewDelegateFlowLayout
@@ -600,6 +707,18 @@
     return 16 * SCALE;;
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    
+    return CGSizeMake(SCREEN_WIDTH , 30);
+    
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+    
+    return CGSizeMake(SCREEN_WIDTH , 20);
+}
+
+
 #pragma mark FTVideoDetailDelegate
 - (void)updateCountWithVideoBean:(FTVideoBean *)videoBean indexPath:(NSIndexPath *)indexPath {
     
@@ -611,7 +730,6 @@
     self.array[indexPath.row] = dic;
     //    [self.tableViewController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
     [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
-    
 }
 
 #pragma mark FTSelectCellDelegate 
