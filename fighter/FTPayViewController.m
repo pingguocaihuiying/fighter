@@ -112,6 +112,7 @@ enum{
                @"充值4按钮c",
                @"充值4按钮d"
                ];
+    
     _preArray = @[
                @"充值4按钮apre",
                @"充值4按钮bpre",
@@ -133,6 +134,7 @@ enum{
                     @"58800"
                     ];
     
+    buyType = 10;
     
     // 获取余额
     FTPaySingleton *singleton = [FTPaySingleton shareInstance];
@@ -276,8 +278,8 @@ enum{
 
 //某组有多少行
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return _array.count;
-//    return 1;
+//    return _array.count;
+    return 1;
 }
 
 //返回cell
@@ -304,7 +306,7 @@ enum{
 //        
 //    }
     if (indexPath.row == 0) {
-        
+        cell.selectImageView.hidden = NO;
         cell.backImageView.image = [UIImage imageNamed:@"充值背景"];
         
     }else {
@@ -340,15 +342,15 @@ enum{
 // 释放选中状态
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.row == 0) {
-        FTPayCell *cell = (FTPayCell *)[collectionView cellForItemAtIndexPath:indexPath];
-//        NSString *imgName = [_array objectAtIndex:indexPath.row];
-        cell.selectImageView.hidden = YES;
-//        if (imgName ) {
-//            cell.backImageView.image = [UIImage imageNamed:imgName];
-//        }
-        cell.backImageView.image = [UIImage imageNamed:@"充值背景"];
-    }
+//    if (indexPath.row == 0) {
+//        FTPayCell *cell = (FTPayCell *)[collectionView cellForItemAtIndexPath:indexPath];
+////        NSString *imgName = [_array objectAtIndex:indexPath.row];
+//        cell.selectImageView.hidden = YES;
+////        if (imgName ) {
+////            cell.backImageView.image = [UIImage imageNamed:imgName];
+////        }
+//        cell.backImageView.image = [UIImage imageNamed:@"充值背景"];
+//    }
     
 }
 
@@ -356,7 +358,8 @@ enum{
 #pragma mark - UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    float width = 163 * SCALE;
+//    float width = 163 * SCALE;
+    float width = 345 * SCALE;
     float height = 30 * SCALE;
 //    float width = 340 * SCALE;
 //    float height = 40 * SCALE;

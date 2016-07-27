@@ -41,7 +41,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qnr-cB-Edq">
-                    <rect key="frame" x="16" y="270" width="288" height="15.5"/>
+                    <rect key="frame" x="16" y="225" width="288" height="15.5"/>
                     <attributedString key="attributedText">
                         <fragment content="*">
                             <attributes>
@@ -117,10 +117,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="A3R-yZ-Qs3">
-                    <rect key="frame" x="0.0" y="175" width="320" height="75"/>
+                    <rect key="frame" x="0.0" y="175" width="320" height="30"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="75" id="BOZ-pL-Ciq"/>
+                        <constraint firstAttribute="height" constant="30" id="BOZ-pL-Ciq"/>
                     </constraints>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xVv-J3-Kc2">
                         <size key="itemSize" width="50" height="50"/>
@@ -130,7 +130,7 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v8J-IJ-YyC">
-                    <rect key="frame" x="16" y="315" width="288" height="40"/>
+                    <rect key="frame" x="16" y="270" width="288" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="S3S-qk-Keo"/>
                     </constraints>
