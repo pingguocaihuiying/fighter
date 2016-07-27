@@ -99,7 +99,7 @@
             //获取当前header的frame
             CGRect rect = attributes.frame;
             
-            NSLog( @"%@---bbbbb",NSStringFromCGRect(rect));
+//            NSLog( @"%@---bbbbb",NSStringFromCGRect(rect));
             
             //当前的滑动距离 + 因为导航栏产生的偏移量，默认为64（如果app需求不同，需自己设置）
             //20 因为header的距离不对

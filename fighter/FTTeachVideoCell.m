@@ -50,12 +50,14 @@
     if (bean.hasBuy) {
         
         [self.priceLabel setText:@"已购买"];
-        [self.priceImageView setHidden:YES];
+//        [self.priceImageView setHidden:YES];
+        [self.priceImageView setImage:[UIImage imageNamed:@"视频价签-已购买"]];
         
         return;
         
     }else {
-        [self.priceImageView setHidden:NO];
+        [self.priceImageView setImage:[UIImage imageNamed:@"视频价签"]];
+//        [self.priceImageView setHidden:NO];
     }
     
     // 是否免费
@@ -63,6 +65,7 @@
         
         if ([bean.price integerValue] ==0) {
             [self.priceLabel setText:@"免费"];
+            [self.priceImageView setImage:[UIImage imageNamed:@"视频价签-已购买"]];
             return;
         }
         

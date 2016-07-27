@@ -791,7 +791,7 @@ static NSString *const tableCellId = @"tableCellId";
     
     //学拳
     FTPracticeViewController *practiceVC = [FTPracticeViewController new];
-    practiceVC.tabBarItem.title = @"教学";
+    practiceVC.tabBarItem.title = @"学拳";
     [practiceVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                    Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
                                                    nil] forState:UIControlStateSelected];
@@ -808,8 +808,8 @@ static NSString *const tableCellId = @"tableCellId";
 //    tabBartVC.viewControllers = @[infoVC, matchVC, videoVC, coachVC, boxingHallVC];
 //    tabBartVC.viewControllers = @[infoVC, arenaVC, fightingVC, videoVC,practiceVC];
 //    tabBartVC.viewControllers = @[infoVC, arenaVC,videoVC,practiceVC];
-//    tabBartVC.viewControllers = @[infoVC,videoVC,practiceVC,arenaVC];
-    tabBartVC.viewControllers = @[infoVC,fightingVC,practiceVC,arenaVC];
+    tabBartVC.viewControllers = @[infoVC,videoVC,practiceVC,arenaVC];
+//    tabBartVC.viewControllers = @[infoVC,fightingVC,practiceVC,arenaVC];
     
     FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:tabBartVC];
     [self.dynamicsDrawerViewController  setPaneViewController:navi];

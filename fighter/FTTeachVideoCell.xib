@@ -45,14 +45,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="视频价签" translatesAutoresizingMaskIntoConstraints="NO" id="Sph-uP-ouc" userLabel="price Image View">
-                                        <rect key="frame" x="111" y="6" width="51" height="14"/>
+                                        <rect key="frame" x="110.5" y="6" width="51.5" height="14"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="14" id="BZH-oi-PDB"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0P" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gU-2Z-Fal">
-                                        <rect key="frame" x="123" y="5" width="16" height="16"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                        <rect key="frame" x="122" y="6" width="14.5" height="14"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -64,7 +64,7 @@
                                     <constraint firstAttribute="bottom" secondItem="t4z-kj-D3d" secondAttribute="bottom" id="58Y-34-8yN"/>
                                     <constraint firstItem="Sph-uP-ouc" firstAttribute="centerY" secondItem="hMx-bU-T4V" secondAttribute="centerY" id="Pdd-qp-y7k"/>
                                     <constraint firstItem="t4z-kj-D3d" firstAttribute="top" secondItem="hMx-bU-T4V" secondAttribute="top" id="ccW-k9-vf1"/>
-                                    <constraint firstItem="8gU-2Z-Fal" firstAttribute="trailing" secondItem="Sph-uP-ouc" secondAttribute="trailing" constant="-23" id="ezd-Qp-wIO"/>
+                                    <constraint firstItem="8gU-2Z-Fal" firstAttribute="trailing" secondItem="Sph-uP-ouc" secondAttribute="trailing" constant="-25" id="ezd-Qp-wIO"/>
                                     <constraint firstItem="m5y-cc-bnD" firstAttribute="leading" secondItem="hMx-bU-T4V" secondAttribute="leading" constant="5" id="gLb-fU-kwQ"/>
                                     <constraint firstItem="m5y-cc-bnD" firstAttribute="centerY" secondItem="hMx-bU-T4V" secondAttribute="centerY" id="iN1-IO-dry"/>
                                     <constraint firstAttribute="trailing" secondItem="t4z-kj-D3d" secondAttribute="trailing" id="k91-l6-sjb"/>
@@ -222,7 +222,7 @@
                 <outlet property="viewCountlabel" destination="LoI-Ip-yQT" id="gYS-hj-bwc"/>
                 <outlet property="voteCount" destination="euH-Mu-MBO" id="dTX-gf-ZcS"/>
             </connections>
-            <point key="canvasLocation" x="614" y="298.5"/>
+            <point key="canvasLocation" x="497" y="166.5"/>
         </collectionViewCell>
     </objects>
     <resources>
