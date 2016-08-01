@@ -166,6 +166,7 @@ extern NSString * const GetCoachListURL;
 extern NSString * const GetCoachByIdURL;
 // gym 拳馆
 extern NSString * const GetGymListURL;
+extern NSString * const GetGymListForArenaURL;
 extern NSString * const GetGymByIdURL;
 
 #pragma mark - 新格斗场

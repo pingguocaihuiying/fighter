@@ -85,6 +85,7 @@
     }];
 }
 
+
 //初始化subviews
 - (void)initSubViews{
     self.bottomGradualChangeView.hidden = YES;//隐藏底部的遮罩

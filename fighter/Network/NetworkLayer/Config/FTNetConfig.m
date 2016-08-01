@@ -197,13 +197,14 @@ NSString * const GetCoachByIdURL = @"/api/coach/{id}.do";
 
 // gym 拳馆
 NSString * const GetGymListURL = @"/api/gym/getGym.do";
+NSString * const GetGymListForArenaURL = @"/api/match/getGyms.do";
 NSString * const GetGymByIdURL = @"/api/gym/getVideosById.do";
 
 #pragma mark - 新格斗场
 NSString * const GetGymTimeSlotsByIdURL = @"/api/place/listTime.do";
 NSString * const GetGymPlacesByIdURL = @"/api/place/listPlace.do";
 NSString * const GetGymPlacesUsingInfoByIdURL = @"/api/place/list.do";//GetGymInfoByIdURL
-NSString * const GetGymInfoByIdURL = @"/api/match/listms.do";//GetGymInfoByIdURLNSString * const GetGymPlacesUsingInfoByIdURL = @"/api/place/list.do";
+NSString * const GetGymInfoByIdURL = @"/api/match/listms.do";
 NSString *const GetBoxerListURL = @"/api/boxer/list.do";
 NSString *const AddMatchURL = @"/api/match/save$Match.do";
 NSString *const GetMatchListURL = @"/api/match/list.do";

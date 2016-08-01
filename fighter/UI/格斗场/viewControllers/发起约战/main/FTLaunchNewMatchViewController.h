@@ -49,7 +49,7 @@ typedef NS_ENUM(NSInteger, FTMatchConsultPayMode) {//协定支付方式
 @property (nonatomic, copy) NSString *challengedBoxerID;//挑战的拳手ID
 @property (nonatomic, copy) NSString *challengedBoxerName;//挑战的拳手名字
 @property (nonatomic, copy) NSString *gymName;//拳馆名字
-@property (nonatomic, copy) NSString *gymID;//拳馆id
+@property (nonatomic, copy) NSString *corporationid;//拳馆corporationid
 @property (nonatomic, copy) NSString *ticketPrice;//门票价格
 @property (copy, nonatomic) NSString *gymServicePrice;//拳馆使用基础费用
 

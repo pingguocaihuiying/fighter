@@ -18,7 +18,7 @@
     if ([labelNameEn isEqualToString:@"Boxing"]) {
         labelNameCh = @"拳击";
     }else if ([labelNameEn isEqualToString:@"MMA"]) {
-        labelNameCh = @"综合格斗";
+        labelNameCh = @"综合格斗(MMA)";
     }else if ([labelNameEn isEqualToString:@"ThaiBoxing"]) {
         labelNameCh = @"泰拳";
     }else if ([labelNameEn isEqualToString:@"Taekwondo"]) {
@@ -184,13 +184,13 @@
     [dateformatter setDateFormat:@"EEE"];
     
     NSString *  weekString = [dateformatter stringFromDate:senddate];
-    NSLog(@"-%@",weekString);
+//    NSLog(@"-%@",weekString);
     int year = [yearString intValue];
-    NSLog(@"-%d", year);
+//    NSLog(@"-%d", year);
     int month = [monthString intValue];
-    NSLog(@"--%d", month);
+//    NSLog(@"--%d", month);
     int day = [dayString intValue];
-    NSLog(@"---%d", day);
+//    NSLog(@"---%d", day);
     
     // 判断当前天是周几，从而计算出当周的周一是几号（负数表示上个月月末）
     if ([weekString  isEqual: @"周一"] || [weekString  isEqual: @"Mon"]) {
@@ -219,6 +219,7 @@
     [dateFormatter setDateStyle:kCFDateFormatterFullStyle];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSString *fixString = [dateFormatter stringFromDate:date];
+    [dateFormatter dateFromString:@""];
     
     NSArray *timeSectionArray = [timeSection componentsSeparatedByString:@"~"];
     NSString *startTimeString = [timeSectionArray firstObject];
@@ -226,6 +227,31 @@
     dateString = [NSString stringWithFormat:@"%@ %@", fixString, startTimeString];
     
     return dateString;
+}
+
++(NSTimeInterval)getTimeIntervalWithAnyTimeIntervalOfDay:(NSTimeInterval)anyTimeIntervalOfDay andTimeString:(NSString *)timeString{
+    NSString *dayString = [FTTools getDateStringWith:anyTimeIntervalOfDay];//"yyyy-MM-dd"
+    dayString = [NSString stringWithFormat: @"%@ %@", dayString, timeString];
+    
+    //创建一个时间格式化的工具
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:kCFDateFormatterFullStyle];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSDate *date = [dateFormatter dateFromString:dayString];
+    NSTimeInterval result = [date timeIntervalSince1970];
+    return result;
+}
+
++ (NSString *)getDateStringWith:(NSTimeInterval)timestamp{
+    NSString *dateString = @"";
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestamp];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:kCFDateFormatterFullStyle];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *fixString = [dateFormatter stringFromDate:date];
+    
+    return fixString;
 }
 
 + (NSString *)getGymSupportItemImageNameWithItemNameEn:(NSString *)itemNameEn{
@@ -267,4 +293,19 @@
     }
     return name;
 }
+
++ (void)saveDateStr:(NSString *)str ToMutableArray:(NSMutableArray *)mutableArray{
+    BOOL containStr = false;
+    for (NSString *string in mutableArray) {
+        if ([string isEqualToString:str]){
+            containStr = true;
+            break;
+        }
+    }
+    if (!containStr) {
+        [mutableArray addObject:str];
+    }
+}
+
+
 @end
