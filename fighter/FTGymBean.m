@@ -36,6 +36,7 @@
 - (void)setValuesWithDic:(NSDictionary *)dic{
     
     self.gymId = dic[@"gymId"];
+    self.corporationid = dic[@"corporationid"];
     self.gymType = dic[@"gymType"];
     self.gymOpenTime = dic[@"gymOpenTime"];
     self.city = dic[@"city"];

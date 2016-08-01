@@ -40,7 +40,6 @@
 }
 
 
-
 + (void)getCategoryWithOption:(void (^)(NSArray *array))option{
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -75,8 +74,6 @@
         }
     }];
 }
-
-
 
 
 + (NSArray *)sharedTeachVideoCategories{

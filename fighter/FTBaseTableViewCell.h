@@ -22,6 +22,5 @@
 
 
 - (void)setWithBean:(FTBaseBean *)bean;
-
 @end
 

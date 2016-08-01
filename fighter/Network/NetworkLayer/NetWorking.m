@@ -743,8 +743,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
               if (option) {
                   option(responseDic);
               }
-              
-              
           }
           failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
               
@@ -752,8 +750,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                   option(nil);
               }
           }];
-    
-    
 }
 
 
@@ -841,7 +837,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             NSLog(@"error message: %@", responseDic[@"message"]);
             userBeanOption(nil);
         }
-
         
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
         NSLog(@"error : %@", error);
@@ -962,15 +957,22 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     NSLog(@"dic = %@",dic);
     [self getRequestWithUrl:urlString parameters:dic option:option];
 }
++ (void) getGymsForArenaByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option  {
+    
+    NSString *urlString = [FTNetConfig host:Domain path:GetGymListForArenaURL];
+    NSLog(@"urlString=%@",urlString);
+    NSLog(@"dic = %@",dic);
+    [self getRequestWithUrl:urlString parameters:dic option:option];
+}
 
-+ (void)getGymTimeSlotsById:(NSString *) gymId andOption:(void (^)(NSArray *array))option{
++ (void)getGymTimeSlotsById:(NSString *) corporationID andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymTimeSlotsByIdURL];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    assert(gymId);
+//    assert(corporationID);
     
-    urlString = [NSString stringWithFormat:@"%@?corporationid=%@", urlString, gymId];
+    urlString = [NSString stringWithFormat:@"%@?corporationid=%@", urlString, corporationID];
     NSLog(@"getGymTimeSlotsById urlString : %@", urlString);
     [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         //        [ZJModelTool createModelWithDictionary:responseObject modelName:nil];
@@ -1031,13 +1033,13 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 }
 
 //获取拳馆信息
-+ (void)getGymInfoById:(NSString *)gymId andOption:(void (^)(NSDictionary *dic))option{
++ (void)getGymInfoById:(NSString *)corporationID andOption:(void (^)(NSDictionary *dic))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymInfoByIdURL];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    assert(gymId);
-    urlString = [NSString stringWithFormat:@"%@?gym_corporationid=%@", urlString, gymId];
+//    assert(corporationID);
+    urlString = [NSString stringWithFormat:@"%@?corporationid=%@", urlString, corporationID];
     
 //    NSLog(@"getGymInfoById %@", urlString);
     [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
@@ -1097,12 +1099,12 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         option(nil);
     }];
 }
-+ (void)getMatchListWithPageNum:(int)pageNum andPageSize:(NSString *)pageSize andOption:(void(^) (NSArray *array))option{
++ (void)getMatchListWithPageNum:(int)pageNum andPageSize:(NSString *)pageSize andStatus:(NSString *)status andPayStatus:(NSString *)payStatus andLabel:(NSString *)label andAgainstId:(NSString *)againstId andWeight:(NSString *)weight andOption:(void(^) (NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetMatchListURL];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    urlString = [NSString stringWithFormat:@"%@?pageNum=%d&pageSize=%@", urlString, pageNum, pageSize];
+    urlString = [NSString stringWithFormat:@"%@?pageNum=%d&pageSize=%@&statu=%@&payStatu=%@&label=%@&againstId=%@&weight1=%@", urlString, pageNum, pageSize, status, payStatus, label, againstId, weight];
     [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"message : %@", responseDic[@"message"]);

@@ -263,8 +263,8 @@
     _selectedWeekday = -1;
     _selectedTimeSectionString = @"-1";
     
-    _gymName = @"天下一武道馆";
-    _gymID = @"158";
+    _gymName = _gymBean.gymName;
+    _corporationid = _gymBean.corporationid;
     _gymServicePrice = @"998";
 }
 
@@ -272,7 +272,7 @@
  *  获取时间段信息
  */
 - (void)getTimeSlots{
-    [NetWorking getGymTimeSlotsById:@"165" andOption:^(NSArray *array) {
+    [NetWorking getGymTimeSlotsById:_gymBean.corporationid andOption:^(NSArray *array) {
         _timeSectionsArray = array;
         if (_timeSectionsArray && _timeSectionsArray.count > 0) {
             //获取时间段信息后，根据内容多少设置tableviews的高度，再刷新一次tableview
@@ -291,7 +291,7 @@
  *  获取拳馆信息
  */
 - (void)getGymInfo{
-    [NetWorking getGymInfoById:@"158" andOption:^(NSDictionary *dic) {
+    [NetWorking getGymInfoById:_gymBean.corporationid andOption:^(NSDictionary *dic) {
         _gymInfoDic = dic;
         if (_gymInfoDic && _gymInfoDic.count > 0) {
             [self setGymInfo];
@@ -304,9 +304,9 @@
 - (void)gettimeSectionsUsingInfo{
     _todayWeekday = [FTTools getWeekdayOfToday];//每次请求可用时间段时，也刷新今天是周几，避免跨天操作时出现选中日期的计算错误
     NSString *timestampString = [NSString stringWithFormat:@"%.0f", [[NSDate date]timeIntervalSince1970] + (_curWeekOffset * (7 * 24 * 60 * 60)) * 1000];
-    [NetWorking getGymPlaceUsingInfoById:@"165" andTimestamp:timestampString  andOption:^(NSArray *array) {
+    [NetWorking getGymPlaceUsingInfoById:_gymBean.corporationid andTimestamp:timestampString  andOption:^(NSArray *array) {
         _placesUsingInfoDic = [NSMutableDictionary new];
-        if (array && array.count > 0) {
+        if (array) {
             for(NSDictionary *dic in array){
                 NSString *theDate = [NSString stringWithFormat:@"%@", dic[@"theDate"]];
                 NSMutableDictionary *mDic = [[NSMutableDictionary alloc]initWithDictionary:dic];
@@ -503,11 +503,11 @@
     launchNewMatchViewController.selectedDateTimestamp = _selectedDateTimestamp;//选择的日期时间戳
     launchNewMatchViewController.selectedTimeSectionString = _selectedTimeSectionString;//选择的时间段
     launchNewMatchViewController.matchTimeLabel.text = [FTTools getDateStringWith:_selectedDateTimestamp andTimeSection:_selectedTimeSectionString];//比赛时间
-    launchNewMatchViewController.gymSupportedLabelsString = _gymInfoDic[@"sup_subject"];//支持的项目
+    launchNewMatchViewController.gymSupportedLabelsString = _gymInfoDic[@"sup_referee"];//支持的项目
     launchNewMatchViewController.selectedTimeSectionIDString = _selectedTimeSectionIDString;
     launchNewMatchViewController.gymName = _gymName;
     launchNewMatchViewController.selectedGymLabel.text = _gymName;
-    launchNewMatchViewController.gymID = _gymID;
+    launchNewMatchViewController.corporationid = _corporationid;
     launchNewMatchViewController.gymServicePrice = _gymServicePrice;
     
     
@@ -536,7 +536,7 @@
 - (void)setSupportLabelsView{
 //    NSString *labelsString = @"泰拳,跆拳道,散打";
 //    NSString *labelsString = @"泰拳,跆拳道,女子格斗,柔道,相扑,泰拳,跆拳道,女子格斗,柔道,相扑,泰拳,跆拳道,女子格斗,柔道,相扑";
-    NSString *labelsString = _gymInfoDic[@"sup_subject"];
+    NSString *labelsString = _gymInfoDic[@"sup_referee"];
     if (!labelsString || labelsString.length < 1) {
         NSLog(@" warm :labelsString 为 空");
         return;
@@ -663,23 +663,62 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     FTGymTimeSectionTableViewCell *cell =  [tableView dequeueReusableCellWithIdentifier:@"timeSectionCell"];
-    
+    FTTimeSectionTableView *theTableView = (FTTimeSectionTableView *)tableView;
     //如果是最后一行，隐藏分割线
     if (indexPath.row == _timeSectionsArray.count - 1) {
         cell.bottomLineView.hidden = YES;
     }
     
-    FTTimeSectionTableView *theTableView = (FTTimeSectionTableView *)tableView;
-    
     [cell setTimeLabelWithTimeSectionString:_timeSectionsArray[indexPath.row][@"timeSection"]];
     
-    NSDictionary *dic = _placesUsingInfoDic[[NSString stringWithFormat:@"%ld", theTableView.day]];//获取某天的可选时间段，如果不存在，则说明无数据
-    if (dic) {//如果有数据
-        NSString *timeSection1 = dic[@"timeSection"];//可选时间段
-        NSString *timeSection2 = _timeSectionsArray[indexPath.row][@"timeSection"];//cell代表的固定时间段
-        if ([timeSection1 isEqualToString: timeSection2]) {//
+    
+    NSDictionary *dic = _placesUsingInfoDic[[NSString stringWithFormat:@"%ld", theTableView.day]];//获取某天的可选时间段，如果存在，说明该天有1个或以上时间段被占用，继续判断
+    NSString *timeSection2 = _timeSectionsArray[indexPath.row][@"timeSection"];//cell代表的固定时间段
+    
+    //判断是不是过去的时间**********START*************
+    BOOL isPastTime = false;
+    if (_curWeekOffset == 0) {//是本周
+        int today = (int)[FTTools getWeekdayOfToday];//今天是周几
+        int theDay = theTableView.day;//当前要显示的时间段是周几
+        
+        if (theDay < today) {//过去
+            isPastTime = true;
+        }else if (theDay > today){//未来
+            isPastTime = false;
+        }else{//当天
+            NSTimeInterval theTimeInterval = [FTTools getTimeIntervalWithAnyTimeIntervalOfDay:[[NSDate date] timeIntervalSince1970] andTimeString:[[timeSection2 componentsSeparatedByString:@"~"] firstObject]];//cell表示的时间段的起始时间戳
+            NSTimeInterval nowTimeInterval = [[NSDate date] timeIntervalSince1970];//此刻的时间戳
+            if (theTimeInterval < nowTimeInterval) {//过去
+                isPastTime = true;
+            } else {
+                isPastTime = false;
+            }
+        }
+    }else{//不是本周(是未来的周)
+        isPastTime = false;
+    }
+    //判断是不是过去的时间**********END*************
+    
+    if (isPastTime) {
+        cell.isAvailable = NO;
+        cell.selectionImage.hidden = YES;
+    } else {
+        if (dic) {//如果有数据，说明有1个或以上时间段被占用
+            NSString *timeSection1 = dic[@"timeSection"];//可选时间段
+            
+            if ([timeSection1 isEqualToString: timeSection2]) {//
+                cell.isAvailable = NO;
+                
+            } else {
+                cell.isAvailable = YES;
+                
+            }
+        }else{//如果该天没有数据，则说明时间段都是可选的，除了本周已经过去的时间段
+            
             cell.isAvailable = YES;
             
+            //继续判断是否是选中了的时间段
+            NSString *timeSection1 = _timeSectionsArray[indexPath.row][@"timeSection"];//可选时间段
             BOOL isTheSameWeek = _curWeekOffset == _selectedWeekOffset;//周是否相同
             BOOL isTheSameWeekday = theTableView.day == _selectedWeekday;//weekday是否相同
             BOOL isTheSameTimeSection = [timeSection1 isEqualToString: _selectedTimeSectionString];//时间段是否相同
@@ -689,13 +728,7 @@
             }else{
                 cell.selectionImage.hidden = YES;
             }
-        } else {
-            cell.isAvailable = NO;
         }
-        
-        
-    }else{
-        cell.isAvailable = NO;
     }
 
     [cell updateCellStatus];//更新标签颜色的显示
@@ -708,26 +741,66 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     FTTimeSectionTableView *theTableView = (FTTimeSectionTableView *)tableView;
     NSMutableDictionary *mdic = _placesUsingInfoDic[[NSString stringWithFormat:@"%ld", theTableView.day]];//获取某天的可选时间段，如果不存在，则说明无数据
-    if (mdic) {//如果有数据
-        NSString *timeSection1 = mdic[@"timeSection"];//可选时间段
-        NSString *timeSection2 = _timeSectionsArray[indexPath.row][@"timeSection"];//cell代表的固定时间段
-        if ([timeSection1 isEqualToString: timeSection2]) {//可以选中
-            _selectedWeekday = theTableView.day;
-            _selectedTimeSectionString = timeSection1;
-            _selectedTimeSectionIDString = mdic[@"id"];
-            _selectedWeekOffset = _curWeekOffset;
-//            [mdic setObject:@"YES" forKey:@"isSelected"];
-//            [theTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            [self reloadTableViews];
-            
-            
-        } else {
-//            [mdic setObject:@"NO" forKey:@"isSelected"];
+    
+    
+    NSString *timeSection2 = _timeSectionsArray[indexPath.row][@"timeSection"];//cell代表的固定时间段
+    
+    //判断是不是过去的时间**********START*************
+    BOOL isPastTime = false;
+    if (_curWeekOffset == 0) {//是本周
+        int today = (int)[FTTools getWeekdayOfToday];//今天是周几
+        int theDay = theTableView.day;//当前要显示的时间段是周几
+        
+        if (theDay < today) {//过去
+            isPastTime = true;
+        }else if (theDay > today){//未来
+            isPastTime = false;
+        }else{//当天
+            NSTimeInterval theTimeInterval = [FTTools getTimeIntervalWithAnyTimeIntervalOfDay:[[NSDate date] timeIntervalSince1970] andTimeString:[[timeSection2 componentsSeparatedByString:@"~"] firstObject]];//cell表示的时间段的起始时间戳
+            NSTimeInterval nowTimeInterval = [[NSDate date] timeIntervalSince1970];//此刻的时间戳
+            if (theTimeInterval < nowTimeInterval) {//过去
+                isPastTime = true;
+            } else {
+                isPastTime = false;
+            }
         }
+    }else{//不是本周(是未来的周)
+        isPastTime = false;
+    }
+    //判断是不是过去的时间**********END*************
+    
+    if (isPastTime) {
         
     }else{
-        [mdic setObject:@"NO" forKey:@"isSelected"];
+        if (mdic) {//如果不为空，则说明有1个或1个以上时间段被占用，需要继续判断
+            NSString *timeSection1 = mdic[@"timeSection"];//可选时间段
+            if (![timeSection1 isEqualToString: timeSection2]) {//被占用的时间段和当前的不相同，可以选
+                _selectedWeekday = theTableView.day;
+                _selectedTimeSectionString = timeSection1;
+                _selectedTimeSectionIDString = mdic[@"id"];
+                _selectedWeekOffset = _curWeekOffset;
+                
+                [self reloadTableViews];
+                
+                
+            } else {
+                
+            }
+            
+        }else{//如果mdic不存在，则说明任一时间段都可以选择，但要去掉已经过去的时间段
+            
+            
+            _selectedWeekday = theTableView.day;
+            _selectedTimeSectionString = timeSection2;
+            _selectedTimeSectionIDString = [NSString stringWithFormat:@"%@", _timeSectionsArray[indexPath.row][@"id"]];
+            _selectedWeekOffset = _curWeekOffset;
+            
+            [self reloadTableViews];
+            
+        }
     }
+    
+    
 
 }
 - (IBAction)preWeek:(id)sender {
@@ -752,7 +825,7 @@
  */
 - (void) getSelectedDayTimestamp{
     NSTimeInterval curTimestamp = [[NSDate date] timeIntervalSince1970];
-    NSTimeInterval weeksMSOffset = (7 * 24 * 60 * 60) * _curWeekOffset;
+    NSTimeInterval weeksMSOffset = (7 * 24 * 60 * 60) * _selectedWeekOffset;
     NSTimeInterval weekdayMSOffset = (_selectedWeekday - [FTTools getWeekdayOfToday]) * (24 * 60 * 60);
     NSLog(@"curTimestamp : %.0f, weeksMSOffset : %.0f, weekdayMSOffset : %.0f", curTimestamp, weeksMSOffset, weekdayMSOffset);
     _selectedDateTimestamp = curTimestamp + weeksMSOffset + weekdayMSOffset;

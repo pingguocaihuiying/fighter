@@ -10,6 +10,7 @@
 #import "FTArenaChooseLabelView.h"
 #import "FTChooseGymOrOpponentListViewController.h"
 #import "FTIncomePercentView.h"
+#import "FTGymListViewController.h"
 
 //总的可用点数，出去拳馆的固定收益20%（4点），还有80%（16点）
 #define AllAvailableIncomePoint 16
@@ -121,10 +122,13 @@
     _supporterIncomePoint = 1;
     
     _gymName = @"天下一武道馆";
-    _gymID = @"158";
+    _corporationid = @"158";
     _selectedTimeSectionString = @"09:00~10:00";
     _ticketPrice = @"";
     _gymServicePrice = @"";
+    
+    _challengedBoxerName = @"旗鼓相当的对手";
+    _opponentLabel.text = _challengedBoxerName;
 }
 #pragma -mark -选择项目按钮被点击
 - (IBAction)chooseLabelButtonClicked:(id)sender {
@@ -151,13 +155,14 @@
     NSLog(@"选择拳馆");
     
     //判断是否选择了项目
-    if (![self hasSelectedItem]) {
-        [self showHUDWithMessage:@"请先选择项目"];
-        return;
-    }
+        //开发阶段暂时屏蔽掉校验
+//    if (![self hasSelectedItem]) {
+//        [self showHUDWithMessage:@"请先选择项目"];
+//        return;
+//    }
     
-    FTChooseGymOrOpponentListViewController *chooseGymListViewController = [FTChooseGymOrOpponentListViewController new];
-    chooseGymListViewController.listType = FTGymListType;
+//    FTChooseGymOrOpponentListViewController *chooseGymListViewController = [FTChooseGymOrOpponentListViewController new];
+    FTGymListViewController *chooseGymListViewController = [FTGymListViewController new];
     [self.navigationController pushViewController:chooseGymListViewController animated:YES];
 }
 
@@ -166,10 +171,12 @@
     NSLog(@"选择对手");
     
     //判断是否选择了项目
-    if (![self hasSelectedItem]) {
-        [self showHUDWithMessage:@"请先选择项目"];
-        return;
-    }
+        //开发阶段暂时屏蔽掉校验
+    
+//    if (![self hasSelectedItem]) {
+//        [self showHUDWithMessage:@"请先选择项目"];
+//        return;
+//    }
     
     FTChooseGymOrOpponentListViewController *chooseOpponentListViewController = [FTChooseGymOrOpponentListViewController new];
     chooseOpponentListViewController.listType = FTOpponentListType;
@@ -230,6 +237,8 @@
 - (void)addMatnToServer{
     NSMutableDictionary *mDic = [NSMutableDictionary new];
     
+    _corporationid = @"166";
+    
     FTUserBean *localUser = [FTUserTools getLocalUser];
     NSString *userID = localUser.olduserid;//oladuserID。 a8c0ba8e2071425ab21737ec65f5a333
     //    NSString *userID = @"a8c0ba8e2071425ab21737ec65f5a333";//oladuserID。 a8c0ba8e2071425ab21737ec65f5a333
@@ -247,14 +256,19 @@
     //    NSString *loginToken = @"592eb34f9edd411b98e3ec9dcb46a976";//loginToken 592eb34f9edd411b98e3ec9dcb46a976
     NSString *ts = [NSString stringWithFormat:@"%0.f", [[NSDate date]timeIntervalSince1970] * 1000];//此刻的时间戳
     NSString *labelCH = [FTTools getNameCHWithEnLabelName:_typeOfLabelString];
-    NSString *theDate = [NSString stringWithFormat:@"%.0f", _selectedDateTimestamp * 1000];
-    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",_gymName,_gymID,_gymServicePrice,opponentIncomePercent,gymIncomePercent,supporterIncomePercent,selfIncomePercent,labelCH,levelGap,loginToken,[self getPayMode], payStatus,theDate,_ticketPrice, timeSectionID, _selectedTimeSectionString,ts,userID,userName, @"gedoujiahdflshklfkdll252244"];
+    
+    //比赛的具体开始时间的时间戳
+    NSTimeInterval matchStartTimeStamp = [FTTools getTimeIntervalWithAnyTimeIntervalOfDay:_selectedDateTimestamp andTimeString:[[_selectedTimeSectionString componentsSeparatedByString:@"~"]firstObject]];
+    
+    NSString *theDate = [NSString stringWithFormat:@"%.0f", matchStartTimeStamp * 1000];//把比赛开始的具体时间传过去
+    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",_gymName,_corporationid,_gymServicePrice,opponentIncomePercent,gymIncomePercent,supporterIncomePercent,selfIncomePercent,labelCH,levelGap,loginToken,[self getPayMode], payStatus,theDate,_ticketPrice, timeSectionID, _selectedTimeSectionString,ts,userID,userName, @"gedoujiahdflshklfkdll252244"];
     NSLog(@"md5前的checksign： %@", checkSign);
     checkSign = [MD5 md5:checkSign];
     
     [mDic setValue:userID forKey:@"userId"];//用户ID
     [mDic setValue:[userName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"userName"];//用户名字
-    [mDic setValue:_gymID forKey:@"corporationid"];//拳馆ID
+    [mDic setValue:_corporationid forKey:@"corporationid"];//拳馆ID
+//    [mDic setValue:[_gymName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"corporationName"];//拳馆名字
     [mDic setValue:_gymName forKey:@"corporationName"];//拳馆名字
     [mDic setValue:timeSectionID forKey:@"timeId"];//时间段ID
     [mDic setValue:[labelCH stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"label"];//选择的比赛项目（中文）
