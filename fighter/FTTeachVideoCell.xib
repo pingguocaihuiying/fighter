@@ -28,14 +28,14 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hMx-bU-T4V" userLabel="labelViewContainer">
-                                <rect key="frame" x="0.0" y="76" width="164" height="16"/>
+                                <rect key="frame" x="0.0" y="66" width="164" height="26"/>
                                 <subviews>
-                                    <view alpha="0.60000002384185791" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t4z-kj-D3d">
-                                        <rect key="frame" x="0.0" y="0.0" width="164" height="16"/>
+                                    <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t4z-kj-D3d">
+                                        <rect key="frame" x="0.0" y="0.0" width="164" height="26"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1:14:40" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m5y-cc-bnD" userLabel="视频时长">
-                                        <rect key="frame" x="0.0" y="2" width="54" height="12"/>
+                                        <rect key="frame" x="5" y="7" width="54" height="12"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="54" id="d4i-Rj-Y9v"/>
                                             <constraint firstAttribute="height" constant="12" id="nmX-6z-rrA"/>
@@ -45,14 +45,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="视频价签" translatesAutoresizingMaskIntoConstraints="NO" id="Sph-uP-ouc" userLabel="price Image View">
-                                        <rect key="frame" x="111" y="1" width="51" height="14"/>
+                                        <rect key="frame" x="110.5" y="6" width="51.5" height="14"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="14" id="BZH-oi-PDB"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0P" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gU-2Z-Fal">
-                                        <rect key="frame" x="123" y="0.0" width="16" height="16"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                        <rect key="frame" x="122" y="6" width="14.5" height="14"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -64,12 +64,12 @@
                                     <constraint firstAttribute="bottom" secondItem="t4z-kj-D3d" secondAttribute="bottom" id="58Y-34-8yN"/>
                                     <constraint firstItem="Sph-uP-ouc" firstAttribute="centerY" secondItem="hMx-bU-T4V" secondAttribute="centerY" id="Pdd-qp-y7k"/>
                                     <constraint firstItem="t4z-kj-D3d" firstAttribute="top" secondItem="hMx-bU-T4V" secondAttribute="top" id="ccW-k9-vf1"/>
-                                    <constraint firstItem="8gU-2Z-Fal" firstAttribute="trailing" secondItem="Sph-uP-ouc" secondAttribute="trailing" constant="-23" id="ezd-Qp-wIO"/>
-                                    <constraint firstItem="m5y-cc-bnD" firstAttribute="leading" secondItem="hMx-bU-T4V" secondAttribute="leading" id="gLb-fU-kwQ"/>
+                                    <constraint firstItem="8gU-2Z-Fal" firstAttribute="trailing" secondItem="Sph-uP-ouc" secondAttribute="trailing" constant="-25" id="ezd-Qp-wIO"/>
+                                    <constraint firstItem="m5y-cc-bnD" firstAttribute="leading" secondItem="hMx-bU-T4V" secondAttribute="leading" constant="5" id="gLb-fU-kwQ"/>
                                     <constraint firstItem="m5y-cc-bnD" firstAttribute="centerY" secondItem="hMx-bU-T4V" secondAttribute="centerY" id="iN1-IO-dry"/>
                                     <constraint firstAttribute="trailing" secondItem="t4z-kj-D3d" secondAttribute="trailing" id="k91-l6-sjb"/>
                                     <constraint firstItem="8gU-2Z-Fal" firstAttribute="centerY" secondItem="hMx-bU-T4V" secondAttribute="centerY" id="lrk-rs-NN7"/>
-                                    <constraint firstAttribute="height" constant="16" id="sVE-ld-Yhn"/>
+                                    <constraint firstAttribute="height" constant="26" id="sVE-ld-Yhn"/>
                                     <constraint firstItem="8gU-2Z-Fal" firstAttribute="leading" secondItem="Sph-uP-ouc" secondAttribute="leading" constant="12" id="xC8-g0-eSe"/>
                                 </constraints>
                             </view>
@@ -214,6 +214,7 @@
                 <outlet property="comentCountLabel" destination="SNJ-NY-wlg" id="Gaw-0d-ydu"/>
                 <outlet property="myImageView" destination="wbn-6a-Ja8" id="8ug-QW-skZ"/>
                 <outlet property="myTitleLabel" destination="cAQ-Sb-gOU" id="Hei-RU-UO2"/>
+                <outlet property="placeHoldBackView" destination="H8F-dM-bCG" id="dQq-Fh-God"/>
                 <outlet property="priceImageView" destination="Sph-uP-ouc" id="G6m-Ui-XfT"/>
                 <outlet property="priceLabel" destination="8gU-2Z-Fal" id="jHX-pC-isF"/>
                 <outlet property="titleLabelTopConstraint" destination="SyL-vA-bf4" id="TNZ-ue-Grh"/>
@@ -221,7 +222,7 @@
                 <outlet property="viewCountlabel" destination="LoI-Ip-yQT" id="gYS-hj-bwc"/>
                 <outlet property="voteCount" destination="euH-Mu-MBO" id="dTX-gf-ZcS"/>
             </connections>
-            <point key="canvasLocation" x="614" y="298.5"/>
+            <point key="canvasLocation" x="497" y="166.5"/>
         </collectionViewCell>
     </objects>
     <resources>

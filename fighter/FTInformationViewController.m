@@ -27,6 +27,7 @@
 #import "NetWorking.h"
 #import "FTLYZButton.h"
 #import "FTHomepageMainViewController.h"
+#import "FTShareView.h"
 
 @interface FTInformationViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTnewsDetailDelegate,FTTableViewdelegate>
 
@@ -38,6 +39,8 @@
 @property (nonatomic, strong)NSMutableArray *tableViewDataSourceArray;
 @property (nonatomic, strong)FTTableViewController *tableViewController;
 @property (nonatomic, strong)NSArray *typeArray;
+
+@property (nonatomic, strong)UIView *headerView;
 
 @property (nonatomic) NSInteger currentPage;
 
@@ -54,6 +57,9 @@
     [self getCycleData];//初次加载轮播图数据
     [self getDataFromDBWithType:@"new" currentPage:self.currentPage];
     [self getDataWithGetType:@"new" andCurrId:@"-1"];//初次加载数据
+    
+    
+    [self.bottomGradualChangeView setHidden:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -72,7 +78,10 @@
 //    NSMutableArray *enableTypeArray = [[NSMutableArray alloc]initWithArray:@[@"全部", @"综合格斗(UFC)", @"拳击", @"摔跤(WWE)", @"女子格斗", @"泰拳", @" 跆拳道", @"柔道", @"相扑"]];
     NSMutableArray *enableTypeArray = [[NSMutableArray alloc]initWithArray:[FTNWGetCategory sharedCategories]];
     [enableTypeArray insertObject:@{@"itemValueEn":@"All", @"itemValue":@"全部"} atIndex:0];
+    [enableTypeArray insertObject:@{@"itemValueEn":@"News", @"itemValue":@"新闻"} atIndex:7];
+    [enableTypeArray removeLastObject];
 //    NSMutableArray *disableTypeArray= [[NSMutableArray alloc]initWithArray:@[@"柔道", @"空手道", @"截拳道", @"摔跤", @"相扑"]];
+    
     NSMutableArray *disableTypeArray= [[NSMutableArray alloc]init];
     self.typeArray = @[enableTypeArray, disableTypeArray];
 }
@@ -157,7 +166,7 @@
     
     self.tableViewController.sourceArray = self.tableViewDataSourceArray;
     if ([newsType isEqualToString:@"All"]) {
-        self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
+        self.tableViewController.tableView.tableHeaderView = self.headerView;
     }else{
        
         self.tableViewController.tableView.tableHeaderView = nil;
@@ -249,6 +258,7 @@
 }
 
 - (void)setCycleScrollView{
+    
     NSMutableArray *imagesURLStrings = [NSMutableArray new];
     NSMutableArray *titlesArray = [NSMutableArray new];
     if (self.cycleDataSourceArray) {
@@ -258,7 +268,12 @@
 
         }
     }
-      _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180 * SCREEN_WIDTH / 375)
+    
+    _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180 * SCREEN_WIDTH / 375 +15)];
+    [_headerView setBackgroundColor:[UIColor clearColor]];
+    
+    
+    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180 * SCREEN_WIDTH / 375)
                                                             delegate:self
                                                     placeholderImage:[UIImage imageNamed:@"空图标大"]];
     _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
@@ -270,15 +285,8 @@
     _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点pre"];
     _cycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播点"];
     _cycleScrollView.imageURLStringsGroup = imagesURLStrings;
-//    [_cycleScrollView.mainView reloadData];
-    
-//    //轮播图添加遮罩
-//    UIImageView *shadowView = [[UIImageView alloc]initWithFrame:_cycleScrollView.frame];
-//    shadowView.image = [UIImage imageNamed:@"头图暗影遮罩-ios"];
-//    shadowView.alpha = 0.8;
-////    [_cycleScrollView addSubview:shadowView];
-//    
-//    [_cycleScrollView insertSubview:shadowView atIndex:1];
+
+    [_headerView addSubview:_cycleScrollView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -356,7 +364,7 @@
         [self setJHRefresh];
     }
     
-    self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
+    self.tableViewController.tableView.tableHeaderView = self.headerView;
     
     if (self.tableViewDataSourceArray) {
         [self.tableViewController.tableView footerEndRefreshing];
@@ -408,7 +416,7 @@
     
     //只有选中全部时，才显示轮播图
     if ([_currentItemValueEn isEqualToString:@"All"]) {
-        self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
+        self.tableViewController.tableView.tableHeaderView = self.headerView;
     }else{
         
         self.tableViewController.tableView.tableHeaderView = nil;
@@ -422,7 +430,7 @@
         if (cacheBean) {//如果有当前标签的缓存，则接着对比时间
             
             if ([self.currentItemValueEn isEqualToString:@"All"]) {
-                self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
+                self.tableViewController.tableView.tableHeaderView = self.headerView;
             }else{
                 self.tableViewController.tableView.tableHeaderView = nil;
             }
@@ -466,7 +474,7 @@
     NSLog(@"%ld", index);
 //    FTTableViewController *tableVC = [[FTTableViewController alloc]initWithStyle:UITableViewStylePlain];
     if (index == 0) {
-        self.tableViewController.tableView.tableHeaderView = self.cycleScrollView;
+        self.tableViewController.tableView.tableHeaderView = self.headerView;
     }else{
         [self.tableViewController.tableView.tableHeaderView removeFromSuperview];
         self.tableViewController.tableView.tableHeaderView = nil;
@@ -559,8 +567,64 @@
 }
 
 
+#pragma mark - FTTableViewdelegate
+- (void)fttableView:(FTTableViewController *)tableView didSelectWithIndex:(NSIndexPath *)indexPath{
+    //    NSLog(@"第%ld个cell被点击了。", indexPath.row);
+    if (self.tableViewDataSourceArray) {
+        
+        FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
+        //获取对应的bean，传递给下个vc
+        //        NSDictionary *newsDic = tableView.sourceArray[indexPath.row];
+        //        FTNewsBean *bean = [FTNewsBean new];
+        //        [bean setValuesWithDic:newsDic];
+        
+        
+        FTNewsBean *bean = tableView.sourceArray[indexPath.row];
+        //标记已读
+        if (![bean.isReader isEqualToString:@"YES"]) {
+            bean.isReader = @"YES";
+            //从数据库取数据
+            DBManager *dbManager = [DBManager shareDBManager];
+            [dbManager connect];
+            [dbManager updateNewsById:bean.newsId isReader:YES];
+            [dbManager close];
+        }
+        newsDetailVC.newsBean = bean;
+        newsDetailVC.delegate = self;
+        newsDetailVC.indexPath = indexPath;
+        
+        [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+    }
+}
 
+- (void)fttableView:(FTTableViewController *)tableView didSelectShareButton:(NSIndexPath *)indexPath {
 
+    if (self.tableViewDataSourceArray) {
+        
+        FTNewsBean *bean = tableView.sourceArray[indexPath.row];
+        
+        NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-news",bean.newsId];
+        NSString *webUrl = [@"http://www.gogogofight.com/page/news_page.html?" stringByAppendingString:str];
+        
+        FTShareView *shareView = [FTShareView new];
+        [shareView setUrl:webUrl];
+        [shareView setTitle:bean.title];
+        [shareView setSummary:bean.summary];
+        [shareView setImage:@"微信用@200"];
+        
+        if ([bean.layout isEqualToString:@"1"]) {//大图
+            [shareView setImageUrl:bean.img_big];
+        }else if ([bean.layout isEqualToString:@"2"]) {//图
+            [shareView setImageUrl:bean.img_small_one];
+        }else if ([bean.layout isEqualToString:@"3"]) {//3图
+            [shareView setImageUrl:bean.img_small_one];
+        }
+        
+//        [self.view addSubview:shareView];
+        [[UIApplication sharedApplication].keyWindow addSubview:shareView];
+    }
+    
+}
 #pragma -mark -排行榜按钮被点击
 - (IBAction)rankButtonClicked:(id)sender {
 //    [self gotoHomepageWithUseroldid:nil];
@@ -603,34 +667,7 @@
 }
 
 
-- (void)fttableView:(FTTableViewController *)tableView didSelectWithIndex:(NSIndexPath *)indexPath{
-//    NSLog(@"第%ld个cell被点击了。", indexPath.row);
-    if (self.tableViewDataSourceArray) {
-        
-        FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
-            //获取对应的bean，传递给下个vc
-//        NSDictionary *newsDic = tableView.sourceArray[indexPath.row];
-//        FTNewsBean *bean = [FTNewsBean new];
-//        [bean setValuesWithDic:newsDic];
-        
-        
-        FTNewsBean *bean = tableView.sourceArray[indexPath.row];
-        //标记已读
-        if (![bean.isReader isEqualToString:@"YES"]) {
-            bean.isReader = @"YES";
-            //从数据库取数据
-            DBManager *dbManager = [DBManager shareDBManager];
-            [dbManager connect];
-            [dbManager updateNewsById:bean.newsId isReader:YES];
-            [dbManager close];
-        }
-        newsDetailVC.newsBean = bean;
-        newsDetailVC.delegate = self;
-        newsDetailVC.indexPath = indexPath;
-        
-        [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
-    }
-}
+
 
 #pragma mark push响应方法
 - (void) pushToDetailController:(NSDictionary *)dic {

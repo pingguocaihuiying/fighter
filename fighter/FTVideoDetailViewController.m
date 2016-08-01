@@ -8,7 +8,7 @@
 
 #import "FTVideoDetailViewController.h"
 #import "FTCommentViewController.h"
-#import "UMSocial.h"
+//#import "UMSocial.h"
 #import "WXApi.h"
 #import "FTUserBean.h"
 #import "MBProgressHUD.h"
@@ -19,7 +19,7 @@
 #import "FTShareView.h"
 #import "FTHomepageMainViewController.h"
 
-@interface FTVideoDetailViewController ()<UIWebViewDelegate, UMSocialUIDelegate, CommentSuccessDelegate>
+@interface FTVideoDetailViewController ()<UIWebViewDelegate, CommentSuccessDelegate>
 {
     UIWebView *_webView;
     UIImageView *_loadingImageView;
@@ -149,7 +149,7 @@
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont systemFontOfSize:16]}];
     
     NSDictionary* textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [UIFont systemFontOfSize:14],UITextAttributeFont,
+                                    [UIFont systemFontOfSize:14],NSFontAttributeName,
                                     nil];
     
     [[UIBarButtonItem appearance] setTitleTextAttributes:textAttributes forState:0];
@@ -291,32 +291,6 @@
 
 - (void)shareButtonClicked{
     
-    
-    //注意：分享到微信好友、微信朋友圈、微信收藏、QQ空间、QQ好友、来往好友、来往朋友圈、易信好友、易信朋友圈、Facebook、Twitter、Instagram等平台需要参考各自的集成方法
-    //    //如果需要分享回调，请将delegate对象设置self，并实现下面的回调方法
-    //        NSString *shareText = [NSString stringWithFormat:@"%@ %@", _videoBean.title, self.webViewUrlString];
-    //    [UMSocialSnsService presentSnsIconSheetView:self
-    //                                         appKey:@"570739d767e58edb5300057b"
-    //                                      shareText:shareText
-    //                                     shareImage:[UIImage imageNamed:@"AppIcon"]
-    //                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToWechatSession,nil]
-    //                                       delegate:self];
-    /*
-     *暂时采用微信的分享
-     */
-
-//    FTPhotoPickerView *pickerView = [FTPhotoPickerView new];
-//    pickerView.resultLabel.text = @"分享到";
-//    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享-微信"] forState:UIControlStateNormal];
-//    [pickerView.cameraBtn setImage:[UIImage imageNamed:@"分享-微信pre"] forState:UIControlStateHighlighted];
-//    [pickerView.cameraBtn addTarget:self action:@selector(shareToWXSceneSession) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享-朋友圈"] forState:UIControlStateNormal];
-//    [pickerView.albumBtn setImage:[UIImage imageNamed:@"分享-朋友圈pre"] forState:UIControlStateHighlighted];
-//    [pickerView.albumBtn addTarget:self action:@selector(shareToWXSceneTimeline) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [self.view addSubview:pickerView];
-    
     NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-videos",_videoBean.videosId];
     _webUrlString = [@"http://www.gogogofight.com/page/video_page.html?" stringByAppendingString:str];
     
@@ -329,42 +303,6 @@
     [shareView setImageUrl:_videoBean.img];
     [self.view addSubview:shareView];
     
-
-}
-- (void)shareToWXSceneSession{
-    NSLog(@"WXSceneSession");
-    [self shareToWXWithType:WXSceneSession];
-}
-
-- (void)shareToWXSceneTimeline{
-    NSLog(@"WXSceneTimeline");
-    [self shareToWXWithType:WXSceneTimeline];
-    
-}
-
-- (void)shareToWXWithType:(int) scene{
-    WXMediaMessage *message = [WXMediaMessage message];
-    message.title = _videoBean.title;
-    message.description = _videoBean.summary;
-    [message setThumbImage:[UIImage imageNamed:@"微信用@200"]];
-    WXWebpageObject *webpageObject = [WXWebpageObject object];
-    webpageObject.webpageUrl = self.webViewUrlString;
-    message.mediaObject = webpageObject;
-    
-    SendMessageToWXReq *req = [SendMessageToWXReq new];
-    req.bText = NO;
-    req.message = message;
-    req.scene = scene;
-    [WXApi sendReq:req];
-}
--(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
-{
-    //根据`responseCode`得到发送结果,如果分享成功
-    if(response.responseCode == UMSResponseCodeSuccess)
-    {
-        //得到分享到的微博平台名
-        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
-    }
 }
 
 #pragma -mark 设置loading图

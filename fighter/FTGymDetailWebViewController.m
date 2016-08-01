@@ -131,8 +131,8 @@
 - (IBAction)shareButtonAction:(id)sender {
     [MobClick event:@"videoPage_DetailPage_shareUp"];
     
-    NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-videos",_gymBean.gymId];
-    _webUrlString = [@"http://www.gogogofight.com/page/v2/video_paid_wechat_page.html?" stringByAppendingString:str];
+    NSString *str = [NSString stringWithFormat:@"gymId=%@",_gymBean.gymId];
+    _webUrlString = [@"http://www.gogogofight.com/m/hall.html?" stringByAppendingString:str];
     
     NSString *imgStr = _gymBean.gymShowImg;
     NSString *urlStr = nil;
@@ -145,7 +145,8 @@
     [shareView setUrl:_webUrlString];
     [shareView setTitle:_gymBean.gymName];
     [shareView setSummary:_gymBean.gymLocation];
-    [shareView setImage:urlStr];
+    [shareView setImageUrl:urlStr];
+    
     [self.view addSubview:shareView];
 }
 

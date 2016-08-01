@@ -7,21 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "FTInformationViewController.h"
-#import "FTMatchViewController.h"
-#import "FTCoachViewController.h"
-#import "FTBoxingHallViewController.h"
-#import "FTBaseNavigationViewController.h"
-#import "FTBaseTabBarViewController.h"
-#import "UMSocial.h"
-#import "UMSocialWechatHandler.h"
-//#import "UMSocialSinaSSOHandler.h"
-#import "AFHTTPRequestOperationManager.h"
-#import "UUID.h"
-#import "FTNetConfig.h"
-#import "RBRequestOperationManager.h"
-#import "FTUserBean.h"
-#import "FTVideoViewController.h"
 
 #import "FTDrawerViewController.h"
 #import "MainViewController.h"
@@ -30,20 +15,21 @@
 #import "RealReachability.h"
 #import "IXPushSdk.h"
 
-//#import "UMSocialQQHandler.h"
-
 #import <PLStreamingKit/PLStreamingEnv.h>
 #import "WeiboSDK.h"
 #import "QQSingleton.h"
 #import "WXSingleton.h"
+#import "WBSingleton.h"
 
-@protocol TencentSessionDelegate;
-@interface AppDelegate ()<WeiboSDKDelegate>
+//#import "UMSocial.h"
+//#import "UMSocialWechatHandler.h"
+
+
+@interface AppDelegate ()
 {
    
     
 }
-
 
 @property (nonatomic, strong) MainViewController *mainVC;
 
@@ -58,16 +44,16 @@
     //启动时先加载标签分类
     [FTNWGetCategory sharedCategories];
     
+    // 初始化单例
+    [self setSingleton];
+    
+    
     //设置友盟相关的的
     [self setUMeng];
-    //设置微信相关的
-    [self setWeiXin];
-    //设置qq相关
-    [self setTencent];
-    //设置新浪博客相关
-    [self setSinaMicroBlog];
+    
     //设置爱心推
     [self setIXPushWithApplication:application options:launchOptions];
+    
     //设置数据库
     [self setDatabase];
     
@@ -77,10 +63,7 @@
     //设置直播环境
     [PLStreamingEnv initEnv];
     
-    //屏蔽个人中心时打开这里
-//    [self setRootViewController2];
-
-    
+   
     //启动个人中心的功能
     _mainVC = [[MainViewController alloc]init];
     self.window.rootViewController=_mainVC;
@@ -113,7 +96,6 @@
     NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @"UserAgent", nil, nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
 }
-
 
 #pragma  mark - app 相关设置
 - (void) setDatabase {
@@ -156,20 +138,39 @@
 }
 
 
+#pragma mark - 初始化单例
+- (void) setSingleton {
+
+    //  初始化微信代理单例
+    [WXSingleton shareInstance];
+    
+    //  初始化QQ代理单例
+    [QQSingleton shareInstance];
+    
+    //  初始化新浪微博代理单例
+    [WBSingleton shareInstance];
+    
+    //  初始化支付单例
+    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+    [singleton fetchBalanceFromWeb:nil];
+    
+}
+
+
 - (void)setUMeng{
     //友盟统计
     UMConfigInstance.appKey = @"570739d767e58edb5300057b";
     [MobClick startWithConfigure:UMConfigInstance];
 //    [MobClick startWithAppkey:@"570739d767e58edb5300057b" reportPolicy:BATCH   channelId:@""];
     
-    //友盟分享
-    [UMSocialData setAppKey:@"570739d767e58edb5300057b"];
-    
     //友盟反馈
     [UMFeedback setAppkey:@"570739d767e58edb5300057b"];
     
-    //设置微信AppId、appSecret，分享url
-    [UMSocialWechatHandler setWXAppId:WX_App_ID appSecret:WX_App_Secret url:@"http://www.umeng.com/social"];
+//    //友盟分享
+//    [UMSocialData setAppKey:@"570739d767e58edb5300057b"];
+//    
+//    //设置微信AppId、appSecret，分享url
+//    [UMSocialWechatHandler setWXAppId:WX_App_ID appSecret:WX_App_Secret url:@"http://www.umeng.com/social"];
     
     //设置QQ AppId、appSecret，分享url
 //    [UMSocialQQHandler setQQWithAppId:QQ_App_ID appKey:QQ_App_Secret url:@"http://www.umeng.com/social"];
@@ -181,23 +182,6 @@
     
 }
 
-
-- (void)setWeiXin{
-    //  初始化微信代理单例
-    [WXSingleton shareInstance];
-}
-
-#pragma mark 设置qq
-- (void) setTencent {
-    //  初始化QQ代理单例
-    [QQSingleton shareInstance];
-}
-
-#pragma mark 新浪微博
-- (void) setSinaMicroBlog {
-    [WeiboSDK enableDebugMode:YES];
-    [WeiboSDK registerApp:WB_App_ID];
-}
 
 
 #pragma mark 设置爱心推
@@ -258,68 +242,30 @@
 
 
 
-#pragma mark - 微博回调方法
-/**
- 收到一个来自微博客户端程序的请求
- 
- 收到微博的请求后，第三方应用应该按照请求类型进行处理，处理完后必须通过 [WeiboSDK sendResponse:] 将结果回传给微博
- @param request 具体的请求对象
- */
-- (void)didReceiveWeiboRequest:(WBBaseRequest *)request {
 
-}
-
-/**
- 收到一个来自微博客户端程序的响应
- 
- 收到微博的响应后，第三方应用可以通过响应类型、响应的数据和 WBBaseResponse.userInfo 中的数据完成自己的功能
- @param response 具体的响应对象
- */
-- (void)didReceiveWeiboResponse:(WBBaseResponse *)response{
-
-    //    if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
-    //    {
-    //        NSString *title = NSLocalizedString(@"发送结果", nil);
-    //        NSString *message = [NSString stringWithFormat:@"%@: %d\n%@: %@\n%@: %@", NSLocalizedString(@"响应状态", nil), (int)response.statusCode, NSLocalizedString(@"响应UserInfo数据", nil), response.userInfo, NSLocalizedString(@"原请求UserInfo数据", nil),response.requestUserInfo];
-    //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-    //                                                        message:message
-    //                                                       delegate:nil
-    //                                              cancelButtonTitle:NSLocalizedString(@"确定", nil)
-    //                                              otherButtonTitles:nil];
-    //        WBSendMessageToWeiboResponse* sendMessageToWeiboResponse = (WBSendMessageToWeiboResponse*)response;
-    //        NSString* accessToken = [sendMessageToWeiboResponse.authResponse accessToken];
-    //        if (accessToken)
-    //        {
-    //            self.wbtoken = accessToken;
-    //        }
-    //        NSString* userID = [sendMessageToWeiboResponse.authResponse userID];
-    //        if (userID) {
-    //            self.wbCurrentUserID = userID;
-    //        }
-    //        [alert show];
-    //    }
-
-}
 
 #pragma mark -
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    if([UMSocialSnsService handleOpenURL:url]){
-        return YES;
-    }
+//    if([UMSocialSnsService handleOpenURL:url]){
+//        return YES;
+//    }
     
+    // 微信
     WXSingleton *wxSingleton = [WXSingleton shareInstance];
     if([WXApi handleOpenURL:url delegate:wxSingleton]){
         return YES;
     }
     
-    
+    // qq
     QQSingleton *qqSingleton = [QQSingleton shareInstance];
     if ( [QQApiInterface handleOpenURL:url delegate:qqSingleton]) {
         return YES;
     }
     
-    if ([WeiboSDK handleOpenURL:url delegate:self]) {
+    // 微博
+    WBSingleton *wbSingleton = [WBSingleton shareInstance];
+    if ([WeiboSDK handleOpenURL:url delegate:wbSingleton]) {
         return YES;
     }
     
@@ -341,8 +287,10 @@
     if([WXApi handleOpenURL:url delegate:wxSingleton]){
         return YES;
     }
-
-    if ([WeiboSDK handleOpenURL:url delegate:self]) {
+    
+    // 微博
+    WBSingleton *wbSingleton = [WBSingleton shareInstance];
+    if ([WeiboSDK handleOpenURL:url delegate:wbSingleton]) {
         return YES;
     }
     return NO;

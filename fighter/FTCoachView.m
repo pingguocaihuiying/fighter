@@ -482,6 +482,12 @@
     _label = dic[@"itemValueEn"];
     _label_ZH = dic[@"itemValue"];
     
+    _coachCurrId = @"-1";
+    _getType = @"new";
+    
+    _currentPage = 1;
+    _pageSize = 10;
+    
     [self getTableViewDataFromWeb];
 }
 - (void) selectedValue:(NSString *)value style:(FTRankTableViewStyle)style {

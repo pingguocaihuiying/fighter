@@ -161,11 +161,14 @@
 // 获取tableView 数据
 - (void) getTableViewDataFromWeb {
     
+    NSString *showType  = [FTNetConfig showType];
+    
     NSMutableDictionary *dic = [NSMutableDictionary new];
     [dic setObject:_gymType forKey:@"gymType"];
     [dic setObject:_gymCurrId forKey:@"gymCurrId"];
     [dic setObject:_gymTag forKey:@"gymTag"];
     [dic setObject:_getType forKey:@"getType"];
+    [dic setObject:showType forKey:@"showType"];
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@",_gymType,_gymCurrId,_gymTag, _getType, ts, @"quanjijia222222"]];
     
@@ -182,21 +185,18 @@
         NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         if (dict != nil) {
             
-            if ([dict[@"status"] isEqualToString:@"success"] ) {
+            NSArray *tempArray = dict[@"data"];
+            if ([_getType isEqualToString:@"new"]) {
+                _dataSourceArray = [NSMutableArray arrayWithArray:tempArray];
                 
-                NSArray *tempArray = dict[@"data"];
-                if (_currentPage == 1) {
-                    _dataSourceArray = [NSMutableArray arrayWithArray:tempArray];
-                }else {
-                    
-                    [_dataSourceArray addObjectsFromArray:tempArray];
-                }
-                
-                [self.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
-                [_tableView reloadData];
             }else {
-                [self.tableView headerEndRefreshingWithResult:JHRefreshResultNone];
+                
+                [_dataSourceArray addObjectsFromArray:tempArray];
             }
+            
+            [self.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+            [self sortArray];
+            [_tableView reloadData];
             
         }else {
              [self.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
@@ -205,6 +205,17 @@
     }];
 }
 
+- (void) sortArray {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    for (NSDictionary *dic in _dataSourceArray) {
+        [dict setObject:dic forKey:dic];
+    }
+
+    [_dataSourceArray removeAllObjects];
+    for (int i =0; i< [dict allValues].count; i++) {
+        [_dataSourceArray addObject:[[dict allValues] objectAtIndex:i]];
+    }
+}
 #pragma mark - 上下拉刷新
 - (void)setJHRefresh{
     //设置下拉刷新
@@ -213,12 +224,12 @@
         //发请求的方法区域
         NSLog(@"触发下拉刷新headerView");
         sself.currentPage = 1;
-        _getType = @"new";
-        _gymCurrId = @"-1";
-        if (sself.dataSourceArray && sself.dataSourceArray.count > 0) {
-           NSDictionary *dic = [sself.dataSourceArray firstObject];
-            _gymCurrId = dic[@"gymId"];
-        }
+        sself.getType = @"new";
+        sself.gymCurrId = @"-1";
+//        if (sself.dataSourceArray && sself.dataSourceArray.count > 0) {
+//           NSDictionary *dic = [sself.dataSourceArray firstObject];
+//            _gymCurrId = dic[@"gymId"];
+//        }
         
         [sself getTableViewDataFromWeb];
         
@@ -227,11 +238,11 @@
     [self.tableView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
         NSLog(@"触发上拉刷新headerView");
         sself.currentPage ++;
-        _getType = @"old";
+        sself.getType = @"old";
         
         if (sself.dataSourceArray && sself.dataSourceArray.count > 0) {
             NSDictionary *dic = [sself.dataSourceArray lastObject];
-            _gymCurrId = dic[@"gymId"];
+            sself.gymCurrId = dic[@"gymId"];
         }
         
         [sself getTableViewDataFromWeb];
@@ -465,7 +476,7 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    FTGymCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setSelected:NO];
     
     
@@ -491,6 +502,7 @@
     _gymType = dic[@"itemValueEn"];
     _gymType_ZH = dic[@"itemValue"];
     _gymCurrId = @"-1";
+    _getType = @"new";
     [self getTableViewDataFromWeb];
 }
 - (void) selectedValue:(NSString *)value style:(FTRankTableViewStyle)style {

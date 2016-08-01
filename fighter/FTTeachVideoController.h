@@ -14,4 +14,5 @@
 // 分享
 @property (nonatomic, copy) NSString *labelImage;
 @property (nonatomic, copy) NSString *label;
+
 @end

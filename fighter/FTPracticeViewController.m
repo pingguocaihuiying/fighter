@@ -206,6 +206,16 @@
     [_coachView removeFromSuperview];
 }
 
+#pragma mark - 推送方法
+
+#pragma mark push响应方法
+- (void) pushToDetailController:(NSDictionary *)dic {
+    
+    
+}
+
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

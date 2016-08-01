@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="7ht-83-8MB">
-                    <rect key="frame" x="0.0" y="5" width="320" height="563"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sOj-9x-gv2">
                         <size key="itemSize" width="50" height="50"/>
@@ -241,7 +241,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="7ht-83-8MB" secondAttribute="trailing" id="8cR-Sd-FPJ"/>
-                <constraint firstItem="7ht-83-8MB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="5" id="A4q-84-XVd"/>
+                <constraint firstItem="7ht-83-8MB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="A4q-84-XVd"/>
                 <constraint firstItem="7ht-83-8MB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="DFR-fl-hzr"/>
                 <constraint firstAttribute="trailing" secondItem="HFc-95-9hP" secondAttribute="trailing" id="Mqc-VZ-JPP"/>
                 <constraint firstAttribute="bottom" secondItem="7ht-83-8MB" secondAttribute="bottom" id="aj1-0x-Hvg"/>

@@ -17,7 +17,7 @@
 #import <StoreKit/StoreKit.h>
 
 #import "FTEncoderAndDecoder.h"
-
+#import "FTPaySingleton.h"
 
 #define PowerCoin1 @"PowerCoin600P"//￥6
 #define PowerCoin2 @"PowerCoin3000P" //￥30
@@ -26,15 +26,15 @@
 
 
 enum{
-    PowerCoin_10P=10,
-    PowerCoin_80P,
-    PowerCoin_360P,
-    PowerCoin_2500P,
-}buyCoinsTag;
+    PowerCoin600P=10,
+    PowerCoin3000P,
+    PowerCoin12800P,
+    PowerCoin58800P,
+}productID;
 
 
-@interface FTPayViewController () <UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SKProductsRequestDelegate,SKPaymentTransactionObserver>
 
+@interface FTPayViewController () <UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
 
      int buyType;
@@ -66,10 +66,24 @@ enum{
     
 }
 
+- (void) viewDidDisappear:(BOOL)animated {
+    
+    @try {
+        
+    
+    [SKPaymentQueue canMakePayments];
+        
+    } @catch (NSException *exception) {
+        NSLog(@"exception:%@",exception);
+    } @finally {
+        
+    }
+    
+}
 
 - (void)dealloc {
     
-    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
+//    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -83,7 +97,7 @@ enum{
 - (void) setNotification {
     
 
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+//    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     
     //添加监听器，充值购买
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeCallback:) name:RechargeResultNoti object:nil];
@@ -98,6 +112,7 @@ enum{
                @"充值4按钮c",
                @"充值4按钮d"
                ];
+    
     _preArray = @[
                @"充值4按钮apre",
                @"充值4按钮bpre",
@@ -119,6 +134,7 @@ enum{
                     @"58800"
                     ];
     
+    buyType = 10;
     
     // 获取余额
     FTPaySingleton *singleton = [FTPaySingleton shareInstance];
@@ -184,7 +200,6 @@ enum{
     self.colectionView.delegate = self;
 }
 
-
 #pragma mark - 充值回调
 - (void) rechargeCallback:(NSNotification *)noti {
     
@@ -207,19 +222,19 @@ enum{
     FTGoodsBean *bean = nil;
     NSArray *product = nil;
     switch (buyType) {
-        case PowerCoin_10P:
+        case PowerCoin600P:
             bean = [_goodsArray objectAtIndex:0];
 //            product=[[NSArray alloc] initWithObjects:PowerCoin1,nil];
             break;
-        case PowerCoin_80P:
+        case PowerCoin3000P:
             bean = [_goodsArray objectAtIndex:1];
 //            product=[[NSArray alloc] initWithObjects:PowerCoin2,nil];
             break;
-        case PowerCoin_360P:
+        case PowerCoin12800P:
             bean = [_goodsArray objectAtIndex:2];
 //            product=[[NSArray alloc] initWithObjects:PowerCoin3,nil];
             break;
-        case PowerCoin_2500P:
+        case PowerCoin58800P:
             bean = [_goodsArray objectAtIndex:3];
 //            product=[[NSArray alloc] initWithObjects:PowerCoin4,nil];
             break;
@@ -237,19 +252,11 @@ enum{
             break;
     }
     
-    
     product=[[NSArray alloc] initWithObjects:bean.goodsId,nil];
     _productIdentifiers =  [NSSet  setWithArray:product];
-    _productRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:_productIdentifiers];
-    _productRequest.delegate =self;
-    [_productRequest start];
     
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    /************************************************************/
-    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
-    NSLog(@"balance:%ld",singleton.balance);
-    /************************************************************/
+    FTPaySingleton *paySingleton = [FTPaySingleton shareInstance];
+    [paySingleton payRequest:_productIdentifiers buyType:buyType];
 }
 
 
@@ -262,265 +269,6 @@ enum{
 
 
 #pragma mark - delegate
-
-#pragma mark SKProductsRequestDelegate
-- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
-{
-    
-    @try {
-        
-    
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    NSArray *myProduct = response.products;
-//    NSLog(@"产品Product ID:%@",response.invalidProductIdentifiers);
-//    NSLog(@"产品付费数量: %lu", (unsigned long)[myProduct count]);
-    
-    FTGoodsBean *bean = [FTGoodsBean new];
-    
-    for(SKProduct *product in myProduct){
-//        NSLog(@"product info");
-//        NSLog(@"SKProduct 描述信息%@", [product description]);
-//        NSLog(@"产品标题 %@" , product.localizedTitle);
-//        NSLog(@"产品描述信息: %@" , product.localizedDescription);
-//        NSLog(@"价格: %@" , product.price);
-//        NSLog(@"Product id: %@" , product.productIdentifier);
-        
-        bean.goodsId =  product.productIdentifier; // Product id
-        bean.descriptions = product.localizedTitle;// 产品标题
-        bean.details = product.localizedDescription;// 产品描述信息
-        bean.price = product.price;//价格
-    }
-    
-    SKPayment *payment = nil;
-        
-    SKProduct *product = [myProduct objectAtIndex:0];
-    switch (buyType) {
-        case PowerCoin_10P:
-            payment= [SKPayment paymentWithProduct:product];
-            bean.power = [[NSDecimalNumber alloc]initWithInt:600];
-            break;
-        case PowerCoin_80P:
-            payment= [SKPayment paymentWithProduct:product];
-            bean.power = [[NSDecimalNumber alloc]initWithInt:3000];
-            break;
-        case PowerCoin_360P:
-            payment= [SKPayment paymentWithProduct:product];
-            bean.power = [[NSDecimalNumber alloc]initWithInt:12800];
-            break;
-        case PowerCoin_2500P:
-            payment= [SKPayment paymentWithProduct:product];
-            bean.power = [[NSDecimalNumber alloc]initWithInt:58800];
-            break;
-            
-        default:
-            break;
-    }
-        
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [NetWorking rechargeIAPByGoods:bean option:^(NSDictionary *dict) {
-        
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        NSLog(@"dict:%@",dict);
-        NSLog(@"message:%@",dict[@"message"]);
-        NSString *order = dict[@"data"][@"orderNo"];
-        
-        if (order.length > 0) {
-            
-            _orderNO = order;
-            
-            NSLog(@"---------发送购买请求------------");
-            [[SKPaymentQueue defaultQueue] addPayment:payment];
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        }else {
-        
-            UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:nil
-                                                                message:@"下单失败，请稍后再试~"
-                                                               delegate:nil
-                                                      cancelButtonTitle:@"知道了"
-                                                      otherButtonTitles:nil];
-            [alerView show];
-
-        }
-        
-    }];
-    
-    
-    } @catch (NSException *exception) {
-        
-        NSLog(@"exception:%@",exception);
-        
-    } @finally {
-        
-    }
-}
-
-- (void)request:(SKRequest *)request didFailWithError:(NSError *)error
-{
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    NSLog(@"-------弹出错误信息----------");
-    UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Alert",NULL) message:[error localizedDescription]
-                                                       delegate:nil cancelButtonTitle:NSLocalizedString(@"Close",nil) otherButtonTitles:nil];
-    [alerView show];
-}
-
--(void) requestDidFinish:(SKRequest *)request
-{
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    NSLog(@"---------- 支付请求结束 --------------");
-    
-}
-
--(void) PurchasedTransaction: (SKPaymentTransaction *)transaction{
-    NSLog(@"-----PurchasedTransaction----");
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    NSArray *transactions =[[NSArray alloc] initWithObjects:transaction, nil];
-    [self paymentQueue:[SKPaymentQueue defaultQueue] updatedTransactions:transactions];
-   
-}
-
-#pragma mark - SKPaymentTransactionObserver
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
-{
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    
-    for (SKPaymentTransaction *transaction in transactions) {
-        switch (transaction.transactionState) {
-            case SKPaymentTransactionStatePurchased:
-            {
-                [self completeTransaction:transaction];
-                NSLog(@"-----交易完成 --------");
-                
-            }
-                break;
-            case SKPaymentTransactionStateFailed:
-            {
-            
-                [self failedTransaction:transaction];
-                NSLog(@"-----交易失败 --------");
-                UIAlertView *alerView2 =  [[UIAlertView alloc] initWithTitle:nil
-                                                                     message:@"购买失败，请重新尝试购买～"
-                                                                    delegate:nil
-                                                           cancelButtonTitle:@"关闭"
-                                                           otherButtonTitles:nil];
-                
-                [alerView2 show];
-            }
-               
-                break;
-            case SKPaymentTransactionStateRestored: {
-            
-                [self restoreTransaction:transaction];
-                NSLog(@"-----已经购买过该商品 --------");
-            }
-            case SKPaymentTransactionStatePurchasing:      //商品添加进列表
-                NSLog(@"-----商品添加进列表 --------");
-                break;
-                
-            default:
-                break;
-        }
-    }
-}
-
-
-#pragma mark - 交易处理
-- (void) completeTransaction: (SKPaymentTransaction *)transaction
-{
-    NSLog(@"-----completeTransaction--------");
-    
-    NSString * transactionId = transaction.transactionIdentifier;
-    NSLog(@"*******************************************************");
-    NSLog(@"transactionId:%@",transactionId);
-    NSLog(@"*******************************************************");
-    
-    NSString *product = transaction.payment.productIdentifier;
-    if ([product length] > 0) {
-        
-        NSString *transactionReceiptString;
-        if ([[[UIDevice currentDevice] systemVersion] floatValue]>= 7.0) {
-            
-            NSURLRequest*appstoreRequest = [NSURLRequest requestWithURL:[[NSBundle mainBundle]appStoreReceiptURL]];
-            NSError *error = nil;
-            NSData * receiptData = [NSURLConnection sendSynchronousRequest:appstoreRequest returningResponse:nil error:&error];
-            transactionReceiptString = [receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-            
-        }else {
-            
-            NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
-            NSData *receipt = [NSData dataWithContentsOfURL:receiptURL];
-            transactionReceiptString = [receipt base64String];
-        }
-        
-        // 二次验证，将receiptdata base64 之后发送给服务器，有服务器向AppStore验证是否充值成功
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [NetWorking checkIAPByOrderNO:_orderNO receipt:transactionReceiptString transactionId:transactionId option:^(NSDictionary *dict) {
-            
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            NSLog(@"dict:%@",dict);
-            NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-            if ([dict[@"status"] isEqualToString:@"success"]) {
-                
-                // 发送通知
-                [[NSNotificationCenter defaultCenter] postNotificationName:RechargeResultNoti object:@"RECHARGE"];
-                
-                
-                UIAlertView *alerView2 =  [[UIAlertView alloc] initWithTitle:@"Alert"
-                                                                     message:@"购买成功，请注意查收～"
-                                                                    delegate:nil
-                                                           cancelButtonTitle:@"关闭"
-                                                           otherButtonTitles:nil];
-                
-                [alerView2 show];
-
-//                NSInteger orderState = [dict[@"data"][@"order_status"] integerValue];
-//                if (orderState == 1) {
-//                                    }
-            }
-        }];
-    }
-    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-    
-}
-
-
-//记录交易
--(void)recordTransaction:(NSString *)product{
-    NSLog(@"-----记录交易--------");
-}
-
-//处理下载内容
--(void)provideContent:(NSString *)product{
-    NSLog(@"-----下载--------");
-}
-
-- (void) failedTransaction: (SKPaymentTransaction *)transaction{
-    NSLog(@"失败");
-    if (transaction.error.code != SKErrorPaymentCancelled)
-    {
-    }
-    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-    
-    
-}
-
-
--(void) paymentQueueRestoreCompletedTransactionsFinished: (SKPaymentTransaction *)transaction{
-    
-}
-
-- (void) restoreTransaction: (SKPaymentTransaction *)transaction
-
-{
-    NSLog(@" 交易恢复处理");
-    
-}
-
--(void) paymentQueue:(SKPaymentQueue *) paymentQueue restoreCompletedTransactionsFailedWithError:(NSError *)error{
-    NSLog(@"-------paymentQueue----");
-}
-
-
-
 #pragma mark  - UICollection delegate dataSource
 
 //有多少组
@@ -530,8 +278,8 @@ enum{
 
 //某组有多少行
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return _array.count;
-//    return 1;
+//    return _array.count;
+    return 1;
 }
 
 //返回cell
@@ -558,7 +306,7 @@ enum{
 //        
 //    }
     if (indexPath.row == 0) {
-        
+        cell.selectImageView.hidden = NO;
         cell.backImageView.image = [UIImage imageNamed:@"充值背景"];
         
     }else {
@@ -594,15 +342,15 @@ enum{
 // 释放选中状态
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.row == 0) {
-        FTPayCell *cell = (FTPayCell *)[collectionView cellForItemAtIndexPath:indexPath];
-//        NSString *imgName = [_array objectAtIndex:indexPath.row];
-        cell.selectImageView.hidden = YES;
-//        if (imgName ) {
-//            cell.backImageView.image = [UIImage imageNamed:imgName];
-//        }
-        cell.backImageView.image = [UIImage imageNamed:@"充值背景"];
-    }
+//    if (indexPath.row == 0) {
+//        FTPayCell *cell = (FTPayCell *)[collectionView cellForItemAtIndexPath:indexPath];
+////        NSString *imgName = [_array objectAtIndex:indexPath.row];
+//        cell.selectImageView.hidden = YES;
+////        if (imgName ) {
+////            cell.backImageView.image = [UIImage imageNamed:imgName];
+////        }
+//        cell.backImageView.image = [UIImage imageNamed:@"充值背景"];
+//    }
     
 }
 
@@ -610,7 +358,8 @@ enum{
 #pragma mark - UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    float width = 163 * SCALE;
+//    float width = 163 * SCALE;
+    float width = 345 * SCALE;
     float height = 30 * SCALE;
 //    float width = 340 * SCALE;
 //    float height = 40 * SCALE;

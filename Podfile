@@ -15,12 +15,15 @@ pod "Qiniu", "~> 7.0.20"
 #友盟统计
 pod "UMengAnalytics", "~> 4.0.4"
 #友盟分享
-pod "UMengSocialCOM", "~> 5.2.1"
+#pod "UMengSocialCOM", "~> 5.2.1"
 #友盟反馈
 pod "UMengFeedback", "~> 2.3.4"
 
-#腾讯API
+#腾讯QQ API
 pod "TencentOpenAPIV2_3", "~> 3.1.0"
+
+#腾讯微信API
+pod 'Weixin', '~> 1.6.2'
 
 #sina microblog sdk
 pod "WeiboSDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git"
@@ -35,5 +38,6 @@ pod "OpenSSL-for-iOS", "~> 1.0.2.d.1"
 pod "GTMBase64", "~> 1.0.0"
 
 pod "Base64", "~> 1.1.2"
+
 
 end

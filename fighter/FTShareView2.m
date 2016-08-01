@@ -9,7 +9,6 @@
 #import "FTShareView2.h"
 #import "Masonry.h"
 
-#import "UMSocial.h"
 #import "WXApi.h"
 
 #import "WXApi.h"
@@ -380,11 +379,6 @@
     QQApiSendResultCode sent = [QQApiInterface SendReqToQZone:req];
     [self handleSendResult:sent];
 
-//    QQShare *zoneShare = [QQShare shareInstance];
-////    [zoneShare prepareToShare];
-////    [zoneShare doOAuthLogin];
-//    [zoneShare doMyShare];
-    
 }
 
 
@@ -508,7 +502,7 @@
 //获取SDWebImage缓存图片
 - (NSData *) getImageDataForSDWebImageCachedKey {
     
-    UIImage *image = [UIImage imageNamed:self.image];
+    UIImage *image = [UIImage imageNamed:self.imageUrl];
     NSData *data = UIImageJPEGRepresentation(image, 1);
     
     if (data == nil || data.length == 0) {
