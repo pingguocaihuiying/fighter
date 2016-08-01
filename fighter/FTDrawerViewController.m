@@ -808,8 +808,8 @@ static NSString *const tableCellId = @"tableCellId";
 //    tabBartVC.viewControllers = @[infoVC, matchVC, videoVC, coachVC, boxingHallVC];
 //    tabBartVC.viewControllers = @[infoVC, arenaVC, fightingVC, videoVC,practiceVC];
 //    tabBartVC.viewControllers = @[infoVC, arenaVC,videoVC,practiceVC];
-    tabBartVC.viewControllers = @[infoVC,videoVC,practiceVC,arenaVC];
-//    tabBartVC.viewControllers = @[infoVC,fightingVC,practiceVC,arenaVC];
+//    tabBartVC.viewControllers = @[infoVC,videoVC,practiceVC,arenaVC];
+    tabBartVC.viewControllers = @[infoVC,fightingVC,practiceVC,arenaVC];
     
     FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:tabBartVC];
     [self.dynamicsDrawerViewController  setPaneViewController:navi];
