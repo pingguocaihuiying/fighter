@@ -101,4 +101,6 @@
  */
 +(NSTimeInterval)getTimeIntervalWithAnyTimeIntervalOfDay:(NSTimeInterval)anyTimeIntervalOfDay andTimeString:(NSString *)timeString;
 
+//加密方法
++(NSString *)md5Dictionary:(NSDictionary *)dic withCheckKey:(NSString *)checkKey;
 @end

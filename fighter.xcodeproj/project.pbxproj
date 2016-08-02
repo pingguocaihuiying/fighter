@@ -1732,7 +1732,7 @@
 			isa = PBXGroup;
 			children = (
 				E6BFBEE11D23CE8B0044F4B0 /* 发起约战 */,
-				E659F3731D12ABA700B41129 /* main */,
+				E659F3731D12ABA700B41129 /* main－比赛列表 */,
 			);
 			name = viewControllers;
 			sourceTree = "<group>";
@@ -1749,14 +1749,14 @@
 			name = views;
 			sourceTree = "<group>";
 		};
-		E659F3731D12ABA700B41129 /* main */ = {
+		E659F3731D12ABA700B41129 /* main－比赛列表 */ = {
 			isa = PBXGroup;
 			children = (
 				3D13FB0D1D193BB80060B9B4 /* FTFightingViewController.h */,
 				3D13FB0E1D193BB80060B9B4 /* FTFightingViewController.m */,
 				3D13FB0F1D193BB80060B9B4 /* FTFightingViewController.xib */,
 			);
-			name = main;
+			name = "main－比赛列表";
 			sourceTree = "<group>";
 		};
 		E65D08D61CBCDC1800651B19 /* cell 2 */ = {
@@ -2622,7 +2622,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E64EF1331CB6614100CAE340 /* Build configuration list for PBXNativeTarget "fighter" */;
 			buildPhases = (
-				8DD5F6461EE17CFB0A4F8B92 /* 📦 Check Pods Manifest.lock */,
+				8DD5F6461EE17CFB0A4F8B92 /* [CP] Check Pods Manifest.lock */,
 				92BD9529BECC7B7381CDA353 /* [CP] Check Pods Manifest.lock */,
 				B0BD33182E9F582B353F6FF0 /* [CP] Check Pods Manifest.lock */,
 				962399117BF503EB187D1EC2 /* [CP] Check Pods Manifest.lock */,
@@ -2965,14 +2965,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-fighter/Pods-fighter-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8DD5F6461EE17CFB0A4F8B92 /* 📦 Check Pods Manifest.lock */ = {
+		8DD5F6461EE17CFB0A4F8B92 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

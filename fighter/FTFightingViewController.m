@@ -114,6 +114,8 @@
     [self setTableView];//设置tableview
 }
 
+
+
 #pragma mark - 筛选按钮的点击事件
 - (IBAction)allButtonClicked:(id)sender {
     _allMatchesButton.selected = YES;
@@ -352,6 +354,10 @@
 //购票、赞助等按钮的点击事件
 - (void)buttonClickedWithIdentifycation:(NSString *)identifycationString andRaceId:(NSString *)raceId{
     NSLog(@"identifycation : %@, raceId : %@", identifycationString, raceId);
+    
+    //迎战
+    NSLog(@"迎战");
+    
 }
 /**
  *  参赛按钮被点击

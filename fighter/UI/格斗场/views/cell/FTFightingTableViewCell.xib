@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="16A254g" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -123,7 +123,7 @@
                             <constraint firstAttribute="width" constant="19" id="lQN-pg-gNI"/>
                         </constraints>
                     </imageView>
-                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E26-Ex-uVi" userLabel="watch">
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E26-Ex-uVi" userLabel="前去观战">
                         <rect key="frame" x="128" y="128" width="120" height="24"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="120" id="71b-eB-01U"/>
@@ -134,7 +134,7 @@
                             <action selector="watchButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UpT-HK-WEC"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NjC-D9-in2" userLabel="buy ticket">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NjC-D9-in2" userLabel="购票">
                         <rect key="frame" x="144" y="128" width="88" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="Bxm-xl-aih"/>
@@ -145,7 +145,7 @@
                             <action selector="buyTicketButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="1y1-mI-gYL"/>
                         </connections>
                     </button>
-                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fsG-BL-K26" userLabel="support">
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fsG-BL-K26" userLabel="赞助">
                         <rect key="frame" x="144" y="128" width="88" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="PrJ-2C-EtB"/>
@@ -156,7 +156,19 @@
                             <action selector="supportButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ZiI-Qu-gYl"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgg-J6-FCg" userLabel="follow">
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yon-gU-4rP" userLabel="支付">
+                        <rect key="frame" x="144" y="128" width="88" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="4k0-BJ-5JS"/>
+                            <constraint firstAttribute="width" constant="88" id="JQL-fx-Gr0"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="列表3按钮-赞助"/>
+                        <connections>
+                            <action selector="payButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="JMo-lt-Ggr"/>
+                            <action selector="supportButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="epH-RZ-w6o"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgg-J6-FCg" userLabel="关注">
                         <rect key="frame" x="19" y="128" width="88" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="e2i-lx-hXX"/>
@@ -167,7 +179,7 @@
                             <action selector="followButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Vi2-g6-MrC"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDs-Gz-yiI" userLabel="bet">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDs-Gz-yiI" userLabel="赞助">
                         <rect key="frame" x="268" y="128" width="88" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="OgV-D8-p9u"/>
@@ -178,7 +190,7 @@
                             <action selector="betButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="gHF-nH-3j8"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:00 必图拳馆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s48-90-lXY">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:00 必图拳馆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s48-90-lXY" userLabel="开赛时间和地点">
                         <rect key="frame" x="138" y="17" width="99" height="14"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="14" id="O9k-UQ-7Te"/>
@@ -302,9 +314,11 @@
                     <constraint firstItem="Hpr-oJ-bMw" firstAttribute="centerY" secondItem="kMm-FA-lQu" secondAttribute="centerY" id="Tif-sS-JV8"/>
                     <constraint firstItem="OSq-fI-wEm" firstAttribute="top" secondItem="6cc-BU-Ozv" secondAttribute="bottom" constant="-12" id="UAD-pu-N5s"/>
                     <constraint firstAttribute="trailingMargin" secondItem="czT-wm-4Ag" secondAttribute="trailing" constant="26" id="Vdo-vR-rSq"/>
+                    <constraint firstItem="Yon-gU-4rP" firstAttribute="centerX" secondItem="E26-Ex-uVi" secondAttribute="centerX" id="WAS-bV-eQz"/>
                     <constraint firstItem="s48-90-lXY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="17" id="Wfs-QR-1Ax"/>
                     <constraint firstItem="fsG-BL-K26" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="XPX-ig-P0Z"/>
                     <constraint firstAttribute="bottom" secondItem="sgg-J6-FCg" secondAttribute="bottom" constant="21" id="YAa-49-6v5"/>
+                    <constraint firstItem="Yon-gU-4rP" firstAttribute="centerY" secondItem="E26-Ex-uVi" secondAttribute="centerY" id="YdN-Ch-3qf"/>
                     <constraint firstItem="Hpr-oJ-bMw" firstAttribute="top" secondItem="kMm-FA-lQu" secondAttribute="top" id="Yii-wc-RW9"/>
                     <constraint firstItem="Zgr-ms-Rm7" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Ytc-sa-IR1"/>
                     <constraint firstItem="GGJ-1X-HVx" firstAttribute="top" secondItem="qYq-4J-GPj" secondAttribute="bottom" constant="-12" id="ZZp-rx-X1g"/>
@@ -345,8 +359,8 @@
                         <exclude reference="jQ7-bg-3qM"/>
                         <exclude reference="6oj-VH-Iik"/>
                         <exclude reference="Tif-sS-JV8"/>
-                        <exclude reference="UAD-pu-N5s"/>
                         <exclude reference="AMD-Fi-7tI"/>
+                        <exclude reference="UAD-pu-N5s"/>
                         <exclude reference="PKt-M9-dq8"/>
                         <exclude reference="bhY-a8-oBs"/>
                         <exclude reference="Bj0-ak-F7U"/>

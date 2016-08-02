@@ -45,6 +45,9 @@
 - (IBAction)betButtonClicked:(id)sender {
         [_buttonsClickedDelegate buttonClickedWithIdentifycation:@"bet" andRaceId:_matchID];
 }
+- (IBAction)payButtonClicked:(id)sender {
+           [_buttonsClickedDelegate buttonClickedWithIdentifycation:@"bet" andRaceId:_matchID];
+}
 
 - (void)setWithBean:(FTBaseBean *)bean{
     //转换传过来的baseBean为matchBean
