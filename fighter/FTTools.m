@@ -309,9 +309,18 @@
 
 //加密方法
 +(NSString *)md5Dictionary:(NSDictionary *)dic withCheckKey:(NSString *)checkKey{
+    
+    NSArray *keyArray =[[dic allKeys]sortedArrayUsingSelector:@selector(compare:)];
+    
     NSString *result = @"";
     
-    for(NSString * key in [dic allKeys] ){
+    NSString *keys = @"";
+    
+    
+    
+    for(NSString * key in keyArray ){
+        keys = [NSString stringWithFormat:@"%@,%@", keys, key];
+//        NSLog(@"key : %@", key);
         NSString *value = dic[key];
         if (!value) {
             value = @"";
@@ -320,9 +329,9 @@
     }
     
     result  = [NSString stringWithFormat:@"%@%@", result, checkKey];
-    
+//    NSLog(@"md5顺序：%@,md5前的checkSign：%@", keys, result);
     result = [MD5 md5:result];
-    
+//        NSLog(@"md5后的checkSign：%@", result);
     return result;
 }
 

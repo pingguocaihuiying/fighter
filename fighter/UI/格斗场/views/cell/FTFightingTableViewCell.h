@@ -8,14 +8,28 @@
 
 #import <UIKit/UIKit.h>
 #import "FTBaseTableViewCell.h"
+#import "FTMatchBean.h"
+#import "FTMatchBean.h"
+
+//定义按钮动作的类型
+typedef NS_ENUM(int, FTMatchListButtonActionType){
+    FTButtonActionWatch = 0,//前去观战
+    FTButtonActionBuyTicket = 1,//购票
+    FTButtonActionSupport = 2,//赞助
+    FTButtonActionFollow = 3,//关注
+    FTButtonActionBet = 4,//下注
+    FTButtonActionPay = 5,//支付
+};
 
 @protocol FTFightingTableViewCellButtonsClickedDelegate <NSObject>
 
-- (void)buttonClickedWithIdentifycation:(NSString *)identifycationString andRaceId:(NSString *)raceId ;
+- (void)buttonClickedWithActionType:(FTMatchListButtonActionType)actionType andMatchBean:(FTMatchBean *)matchBean ;
 
 @end
 
 @interface FTFightingTableViewCell : FTBaseTableViewCell
+
+    @property (nonatomic, strong) FTMatchBean *matchBean;
 
     @property (weak, nonatomic) id<FTFightingTableViewCellButtonsClickedDelegate> buttonsClickedDelegate;
 

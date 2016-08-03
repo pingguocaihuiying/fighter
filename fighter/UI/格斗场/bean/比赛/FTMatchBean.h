@@ -12,8 +12,10 @@
 
 @property (nonatomic, copy) NSString  *matchId;//比赛id
 
+@property (nonatomic, copy) NSString  *needPay;//是否需要支付
 
 @property (nonatomic, copy) NSString  *userName;//发起人姓名
+@property (nonatomic, copy) NSString  *userId;//发起人id
 @property (nonatomic, copy) NSString  *against;//迎战人姓名
 
 @property (nonatomic, copy) NSString  *corporationName;//拳馆名

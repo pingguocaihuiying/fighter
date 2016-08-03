@@ -31,22 +31,22 @@
     // Configure the view for the selected state
 }
 - (IBAction)watchButtonClicked:(id)sender {
-    [_buttonsClickedDelegate buttonClickedWithIdentifycation:@"watch" andRaceId:_matchID];
+    [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionWatch andMatchBean:_matchBean];
 }
 - (IBAction)buyTicketButtonClicked:(id)sender {
-        [_buttonsClickedDelegate buttonClickedWithIdentifycation:@"buyTicket" andRaceId:_matchID];
+        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionBuyTicket andMatchBean:_matchBean];
 }
 - (IBAction)supportButtonClicked:(id)sender {
-        [_buttonsClickedDelegate buttonClickedWithIdentifycation:@"support" andRaceId:_matchID];
+        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionSupport andMatchBean:_matchBean];
 }
 - (IBAction)followButtonClicked:(id)sender {
-        [_buttonsClickedDelegate buttonClickedWithIdentifycation:@"follow" andRaceId:_matchID];
+        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionFollow andMatchBean:_matchBean];
 }
 - (IBAction)betButtonClicked:(id)sender {
-        [_buttonsClickedDelegate buttonClickedWithIdentifycation:@"bet" andRaceId:_matchID];
+        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionBet andMatchBean:_matchBean];
 }
 - (IBAction)payButtonClicked:(id)sender {
-           [_buttonsClickedDelegate buttonClickedWithIdentifycation:@"bet" andRaceId:_matchID];
+           [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionPay andMatchBean:_matchBean];
 }
 
 - (void)setWithBean:(FTBaseBean *)bean{

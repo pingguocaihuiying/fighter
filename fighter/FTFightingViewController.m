@@ -150,8 +150,8 @@
 
 - (void)getMatchList{
     
-    NSString *status = @"0";
-    NSString *payStatus = @"0";
+    NSString *status = @"";
+    NSString *payStatus = @"";
     NSString *label = @"";
     NSString *againstId = @"";
     NSString *weight = @"";
@@ -169,14 +169,19 @@
         weight = @"70";
     }
     
-    [NetWorking getMatchListWithPageNum:_pageNum andPageSize:_pageSize andStatus:status andPayStatus:payStatus andLabel:label andAgainstId:againstId andWeight:weight andOption:^(NSArray *array) {
+    
+    
+    [NetWorking getMatchListWithPageNum:_pageNum andPageSize:_pageSize andStatus:status andPayStatus:payStatus andLabel:label andAgainstId:againstId andWeight:weight andUserId:(NSString *)[FTUserTools getLocalUser].olduserid andOption:^(NSArray *array) {
                 if (array && array.count > 0) {
                     
                     if (_pageNum == 1) {//如果是第一页，清除历史数据
                         [_dateArray removeAllObjects];
                         [_matchesDic removeAllObjects];
-                        
-                        //处理获取的数据，把array组装成一个array和一个字典，字典的key值为转换后的日期，array按次序存放日期，用于矫正字典的顺序
+                        /**
+                         处理获取的数据，把array组装成一个array和一个字典
+                         字典的key值为转换后的日期,value为一个可变数组，存放某天的所有比赛
+                         array按次序存放日期，用于矫正字典的顺序
+                         */
                         for (int  i = 0; i < array.count; i++) {
                             NSDictionary *dic = array[i];
                             NSTimeInterval matchDateTimeStamp = [dic[@"theDate"] doubleValue ] / 1000;
@@ -186,7 +191,12 @@
                             FTMatchBean *matchBean = [FTMatchBean new];
                             [matchBean setValuesForKeysWithDictionary:dic];
                             
-                            [_matchesDic setObject:matchBean forKey:matchDateString];
+                            NSMutableArray *matchBeansArray = _matchesDic[matchDateString];//存放某天所有比赛的数组
+                            if (!matchBeansArray) {
+                                matchBeansArray = [NSMutableArray new];
+                            }
+                            [matchBeansArray addObject:matchBean];
+                            [_matchesDic setValue:matchBeansArray forKey:matchDateString];
                         }
                         
                     }else if(_pageNum > 1){//如果不是第一页，追加
@@ -269,14 +279,19 @@
         [self setJHRefresh];
 }
 
+//多少组
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return _dateArray.count;
 }
 
+//多少行
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    NSString *dateString = _dateArray[section];
+    NSArray *beansArray = _matchesDic[dateString];
+    return beansArray.count;
 }
 
+//cell高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 173;
 }
@@ -285,7 +300,9 @@
     FTFightingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"matchCell"];
     cell.buttonsClickedDelegate = self;
     NSString *dateString = _dateArray[indexPath.section];
-    FTMatchBean *matchBean = _matchesDic[dateString];
+    NSArray *beansArray = _matchesDic[dateString];
+    FTMatchBean *matchBean = beansArray[indexPath.row];
+    cell.matchBean = matchBean;
     [cell setWithBean:matchBean];
     return cell;
 }
@@ -352,11 +369,69 @@
 }
 
 //购票、赞助等按钮的点击事件
-- (void)buttonClickedWithIdentifycation:(NSString *)identifycationString andRaceId:(NSString *)raceId{
-    NSLog(@"identifycation : %@, raceId : %@", identifycationString, raceId);
+- (void)buttonClickedWithActionType:(FTMatchListButtonActionType)actionType andMatchBean:(FTMatchBean *)matchBean{
+    NSLog(@"identifycation : %d, raceId : %@", actionType, matchBean.matchId);
     
-    //迎战
-    NSLog(@"迎战");
+    //获取当前登录用户的信息
+    FTUserBean *userBean = [FTUserTools getLocalUser];
+    
+    if (actionType == FTButtonActionWatch) {
+
+    } else if (actionType == FTButtonActionBuyTicket){
+        
+    }else if (actionType == FTButtonActionSupport){
+        
+    }else if (actionType == FTButtonActionFollow){
+        //迎战
+        NSLog(@"迎战");
+        NSString *userID = matchBean.userId;//发起人id，比赛列表的接口没有返回这个字段，无处获取，暂空
+        NSString *userName = matchBean.userName;//发起人名字
+        NSString *matchId = matchBean.matchId;//比赛id
+        NSString *isAccept = @"1";//接受：1；拒绝：2
+        NSString *againstId = userBean.olduserid;//迎战人的id
+        NSString *againstName = userBean.username;//迎战人的名字
+        NSString *loginToken = userBean.token;
+        NSString *ts = [NSString stringWithFormat:@"%lf", [[NSDate date] timeIntervalSince1970]];
+        
+        //md5前的checkSign字典
+        NSMutableDictionary *dicBeforeMD5 = [[NSMutableDictionary alloc]initWithDictionary:@{
+                                                                                            @"userId":userID,
+                                                                                            @"userName":userName,
+                                                                                            @"matchId":matchId,
+                                                                                            @"isDelated":isAccept,
+                                                                                            @"againstId":againstId,
+                                                                                            @"against":againstName,
+                                                                                            @"loginToken":loginToken,
+                                                                                            @"ts":ts}];
+        NSString *checkSign = [FTTools md5Dictionary:dicBeforeMD5 withCheckKey:@"gedoujiahdgrfdytreytresy44"];
+        [dicBeforeMD5 setValue:checkSign forKey:@"checkSign"];
+        
+        //把中文参数转码
+        [dicBeforeMD5 setValue:[userName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"userName"];
+        [dicBeforeMD5 setValue:[againstName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"against"];
+        
+        NSDictionary *dic = dicBeforeMD5;
+        
+        [NetWorking responseToMatchWithParamDic:dic andOption:^(BOOL result) {
+            if (result) {
+                NSLog(@"成功");
+            } else {
+                NSLog(@"失败");
+            }
+            
+        }];
+        
+    }else if (actionType == FTButtonActionBet){
+
+    }else if (actionType == FTButtonActionPay){
+        
+    }else if (actionType == FTButtonActionPay){
+        
+    }else{
+        //其他
+        NSLog(@"其他");
+    }
+
     
 }
 /**
