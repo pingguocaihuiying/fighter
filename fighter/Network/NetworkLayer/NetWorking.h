@@ -229,6 +229,11 @@
 
 //迎战、拒绝比赛
 + (void)responseToMatchWithParamDic:(NSDictionary *)dic andOption:(void (^)(BOOL result))option;
+//获取拳馆详细信息
++ (void)getGymDetailWithGymId:(NSString *)gymId andOption:(void (^)(NSArray *array))option;
+//格斗场 - 微信支付（下注）
++ (void)WXpayWithParamDic:(NSDictionary *)dic andOption:(void (^)(NSDictionary *dic))option;
+
 
 #pragma mark - 充值购买
 // 查询余额

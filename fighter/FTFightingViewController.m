@@ -26,7 +26,7 @@
 #import "FTLaunchNewMatchViewController.h"
 #import "FTFightingTableViewCell.h"
 #import "FTMatchBean.h"
-
+#import "FTMatchDetailBean.h"
 
 /**
  *  数据结构思路22：
@@ -423,16 +423,91 @@
         
     }else if (actionType == FTButtonActionBet){
 
-    }else if (actionType == FTButtonActionPay){
+    }
+    else if (actionType == FTButtonActionPay){
+        /**
+         *  点击支付后，先根据比赛id查到比赛需要支付的费用
+         */
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         
-    }else if (actionType == FTButtonActionPay){
+        [NetWorking getGymDetailWithGymId:matchBean.matchId andOption:^(NSArray *array) {
+            if (array && array.count > 0) {
+                NSLog(@"获取比赛详情成功");
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                NSDictionary *dic = (NSDictionary *)array;
+                [ZJModelTool createModelWithDictionary:dic modelName:nil];
+                FTMatchDetailBean *matchDetailBean = [FTMatchDetailBean new];
+                
+                /**
+                 *  从服务器生成订单信息
+                 */
+                
+                //参数
+                    //获取当前登录用户的信息
+                FTUserBean *userBean = [FTUserTools getLocalUser];
+                
+                NSString *userId = matchBean.userId;//发起人id
+                NSString *objType = @"match";//类型
+                NSString *objId = matchBean.matchId;//比赛id
+                NSString *tableName = @"pl-mat";//表名：1. 下注为：pl-bet； 2. 购票为：pl-tic 3. 赛事成本支付相关：pl-mat
+                NSString *type = matchBean.payType;//3. 赛事成本支付相关为支付类型，0-我支付，1-对方支付，2-赢家支付，3-AA支付，4-输家支付，5-赞助支付
+                NSString *isDelated = @"3";//0-无效记录；1-s支付；2-p支付;3-RMB元支付(默认为元)
+                NSString *money = @"1";//交易人民币
+                NSString *payWay = @"1";//默认为0-积分支付； 值为1-微信支付
+                NSString *body = @"支付比赛场地费用";//商品描述，需传入应用市场上的APP名字-实际商品名称，天天爱消除-游戏充值，示例：腾讯充值中心-QQ会员充值
+                NSString *detail = @"";//商品详情，商品名称明细列表，示例：Ipad mini 16G 白色
+                NSString *loginToken = userBean.token;//当前用户的login token
+                NSString *ts = [NSString stringWithFormat:@"%lf", [[NSDate date] timeIntervalSince1970]];
+                
+                //md5前的checkSign字典
+                NSMutableDictionary *dicBeforeMD5 = [[NSMutableDictionary alloc]initWithDictionary:@{
+                                                                                                     @"userId":userId,
+                                                                                                     @"objType":objType,
+                                                                                                     @"objId":objId,
+                                                                                                     @"tableName":tableName,
+                                                                                                     @"type":type,
+                                                                                                     @"money":money,
+                                                                                                     @"payWay":payWay,
+                                                                                                     @"body":body,
+                                                                                                     @"detail":detail,
+                                                                                                     @"loginToken":loginToken,
+                                                                                                     @"ts":ts}];
+                NSString *checkSign = [FTTools md5Dictionary:dicBeforeMD5 withCheckKey:@"gedoujiahdggrdearyhreayt251grd"];
+                [dicBeforeMD5 setValue:checkSign forKey:@"checkSign"];
+                
+                //把中文参数转码
+                [dicBeforeMD5 setValue:[body stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"body"];
+                [dicBeforeMD5 setValue:[detail stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"detail"];
+                
+                NSDictionary *parmamDic = dicBeforeMD5;
+                
+                [NetWorking WXpayWithParamDic:parmamDic andOption:^(NSDictionary* dic) {
+                    if (dic && dic.count > 0) {
+                        NSLog(@"成功");
+//                        PayReq *request = [[[PayReq alloc] init] autorelease];
+//                        request.partnerId = @"10000100";
+//                        request.prepayId= @"1101000000140415649af9fc314aa427";
+//                        request.package = @"Sign=WXPay";
+//                        request.nonceStr= @"a462b76e7436e98e0ed6e13c64b4fd1c";
+//                        request.timeStamp= @"1397527777";
+//                        request.sign= @"582282D72DD2B03AD892830965F428CB16E7A256";
+//                        [WXApi sendReq：request];
+                    } else {
+                        NSLog(@"失败");
+                    }
+                    
+                }];
+                
+            } else {
+                NSLog(@"获取比赛详情失败");
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            }
+        }];
         
     }else{
         //其他
         NSLog(@"其他");
     }
-
-    
 }
 /**
  *  参赛按钮被点击
@@ -445,8 +520,6 @@
 }
 
 #pragma mark - cell中购票、观战、赞助、下注等按钮的点击回掉代理方法
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

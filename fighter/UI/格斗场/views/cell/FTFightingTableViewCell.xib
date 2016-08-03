@@ -134,7 +134,7 @@
                             <action selector="watchButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UpT-HK-WEC"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NjC-D9-in2" userLabel="购票">
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NjC-D9-in2" userLabel="购票">
                         <rect key="frame" x="144" y="128" width="88" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="Bxm-xl-aih"/>
@@ -162,10 +162,9 @@
                             <constraint firstAttribute="height" constant="24" id="4k0-BJ-5JS"/>
                             <constraint firstAttribute="width" constant="88" id="JQL-fx-Gr0"/>
                         </constraints>
-                        <state key="normal" backgroundImage="列表3按钮-赞助"/>
+                        <state key="normal" title="支付"/>
                         <connections>
                             <action selector="payButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="JMo-lt-Ggr"/>
-                            <action selector="supportButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="epH-RZ-w6o"/>
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgg-J6-FCg" userLabel="关注">
@@ -179,7 +178,7 @@
                             <action selector="followButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Vi2-g6-MrC"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDs-Gz-yiI" userLabel="赞助">
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDs-Gz-yiI" userLabel="下注">
                         <rect key="frame" x="268" y="128" width="88" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="OgV-D8-p9u"/>
@@ -382,6 +381,7 @@
                 <outlet property="headerImage2" destination="czT-wm-4Ag" id="fFR-vT-z1z"/>
                 <outlet property="nameLabel1" destination="HqF-zV-M1Z" id="dww-0U-beb"/>
                 <outlet property="nameLabel2" destination="ybl-CX-kDR" id="On3-6p-3xQ"/>
+                <outlet property="payButton" destination="Yon-gU-4rP" id="Oqj-vf-SjI"/>
                 <outlet property="raceTypeImage" destination="rvy-Wm-j2C" id="aJ7-na-0ST"/>
                 <outlet property="standingLabel1" destination="6cc-BU-Ozv" id="KjK-BW-rl2"/>
                 <outlet property="standingLabel2" destination="qYq-4J-GPj" id="Bba-E2-cEK"/>

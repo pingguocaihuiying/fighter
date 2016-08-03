@@ -214,6 +214,8 @@ NSString *const ResponseToMatchURL = @"/api/match/save$mc.do";
 NSString *const WXPayURL = @"/api/pl/add$pl.do";
 //微信支付结果查询
 NSString *const GetWXPayStatus = @"/api/pl/get$WxPaySta.do";
+//拳馆详细信息
+NSString *const GetGymDetailURL = @"/api/match/%@.do";
 
 #pragma mark - 充值、购买、积分
 // 查询余额接口

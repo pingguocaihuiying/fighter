@@ -38,6 +38,7 @@ typedef NS_ENUM(int, FTMatchListButtonActionType){
     @property (weak, nonatomic) IBOutlet UIButton *supportButton;//赞助
     @property (weak, nonatomic) IBOutlet UIButton *followButton;//关注
     @property (weak, nonatomic) IBOutlet UIButton *betButton;//下注
+@property (strong, nonatomic) IBOutlet UIButton *payButton;
 
     @property (weak, nonatomic) IBOutlet UIImageView *headerImage1;//发起人头像
     @property (weak, nonatomic) IBOutlet UILabel *nameLabel1;//发起人名字label

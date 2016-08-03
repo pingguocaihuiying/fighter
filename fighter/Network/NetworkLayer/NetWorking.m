@@ -1121,6 +1121,29 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         option(nil);
     }];
 }
+//格斗场 - 微信支付（下注）
++ (void)WXpayWithParamDic:(NSDictionary *)dic andOption:(void (^)(NSDictionary *dic))option{
+    NSString *urlString = [FTNetConfig host:Domain path:WXPayURL];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    //    NSLog(@"getGymInfoById %@", urlString);
+    [manager POST:urlString parameters:dic success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSString *status = responseDic[@"status"];
+        NSLog(@"message : %@", responseDic[@"message"]);
+        if ([status isEqualToString:@"success"]) {
+            NSDictionary *dic = responseDic[@"data"];
+            
+            option(dic);
+        }else{
+            option(nil);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        option(nil);
+    }];
+}
 
 + (void)getMatchListWithPageNum:(int)pageNum andPageSize:(NSString *)pageSize andStatus:(NSString *)status andPayStatus:(NSString *)payStatus andLabel:(NSString *)label andAgainstId:(NSString *)againstId andWeight:(NSString *)weight andUserId:(NSString *)userId andOption:(void(^) (NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetMatchListURL];
@@ -1137,6 +1160,30 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         }else{
             option(nil);
         }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        option(nil);
+    }];
+}
+//获取拳馆详细信息
++ (void)getGymDetailWithGymId:(NSString *)gymId andOption:(void (^)(NSArray *array))option{
+    NSString *urlString = [NSString stringWithFormat:@"%@/api/match/%@.do", Domain, gymId];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"message : %@", responseDic[@"message"]);
+        NSString *status = responseDic[@"status"];
+        if ([status isEqualToString:@"success"]) {
+            NSArray *array = responseDic[@"data"];
+            if (array && array != (id)[NSNull null]) {
+                option(array);
+            }
+        } else {
+            option(nil);
+        }
+
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
         option(nil);
     }];

@@ -190,6 +190,8 @@ extern NSString *const ResponseToMatchURL;
 extern NSString *const WXPayURL;
 //微信支付结果查询
 extern NSString *const GetWXPayStatus;
+//拳馆详细信息
+extern NSString *const GetGymDetailURL;
 
 #pragma mark - 充值、购买、积分
 // 查询余额接口
