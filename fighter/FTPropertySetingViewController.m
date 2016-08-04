@@ -108,7 +108,7 @@
                 [[UIApplication sharedApplication].keyWindow  showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             }
         }else {
-            [[UIApplication sharedApplication].keyWindow  showHUDWithMessage:@" 用户名修改成功，请稍后再试"];
+            [[UIApplication sharedApplication].keyWindow  showHUDWithMessage:@"用户姓名上传失败，请稍后再试"];
             
         }
     }];

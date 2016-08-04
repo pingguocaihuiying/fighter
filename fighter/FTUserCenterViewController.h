@@ -8,16 +8,10 @@
 
 #import "FTBaseViewController.h"
 #import "FTUserViewController.h"
+#import "PushDelegate.h"
 
-@interface FTUserCenterViewController : FTUserViewController
 
-@property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
-@property (weak, nonatomic) IBOutlet UIButton *avatarBtn;
-
-@property (weak, nonatomic) IBOutlet UIImageView *centerImageView;
-
-@property (weak, nonatomic) IBOutlet UIImageView *footerImageView;
-
+@interface FTUserCenterViewController : FTUserViewController <PushDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 

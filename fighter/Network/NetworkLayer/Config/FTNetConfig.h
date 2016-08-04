@@ -74,8 +74,10 @@ extern NSString * const RegisterUserURL;
 extern NSString * const UserLoginURL;
 // 4.微信用户登录
 extern NSString * const UserWXLoginURL;
-// 6.更新用户信息
+// 5.更新用户信息
 extern NSString * const UpdateUserURL;
+// 6.上传用户身份证照片
+extern NSString * const UploadUserIdCardURL;
 // 7.更新用户头像
 extern NSString * const UpdateUserHeadPicURL;
 // 8.找回密码、更换手机 发送验证码
