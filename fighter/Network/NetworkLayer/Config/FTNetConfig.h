@@ -186,7 +186,14 @@ extern NSString *const GetBoxerListURL;///api/boxer/list.do
 extern NSString *const AddMatchURL;//api/match/save$Match.do
 //查询赛事列表
 extern NSString *const GetMatchListURL;
-
+//迎战or拒战
+extern NSString *const ResponseToMatchURL;
+//微信支付
+extern NSString *const WXPayURL;
+//微信支付结果查询
+extern NSString *const GetWXPayStatus;
+//拳馆详细信息
+extern NSString *const GetGymDetailURL;
 
 #pragma mark - 充值、购买、积分
 // 查询余额接口

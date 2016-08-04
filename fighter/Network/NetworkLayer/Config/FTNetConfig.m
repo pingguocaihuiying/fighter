@@ -214,6 +214,14 @@ NSString * const GetGymInfoByIdURL = @"/api/match/listms.do";
 NSString *const GetBoxerListURL = @"/api/boxer/list.do";
 NSString *const AddMatchURL = @"/api/match/save$Match.do";
 NSString *const GetMatchListURL = @"/api/match/list.do";
+//迎战or拒战
+NSString *const ResponseToMatchURL = @"/api/match/save$mc.do";
+//微信支付
+NSString *const WXPayURL = @"/api/pl/add$pl.do";
+//微信支付结果查询
+NSString *const GetWXPayStatus = @"/api/pl/get$WxPaySta.do";
+//拳馆详细信息
+NSString *const GetGymDetailURL = @"/api/match/%@.do";
 
 #pragma mark - 充值、购买、积分
 // 查询余额接口

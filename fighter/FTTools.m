@@ -307,5 +307,25 @@
     }
 }
 
+//加密方法
++(NSString *)md5Dictionary:(NSDictionary *)dic withCheckKey:(NSString *)checkKey{
+    
+    //把keys按照字典顺序排列
+    NSArray *keyArray =[[dic allKeys]sortedArrayUsingSelector:@selector(compare:)];
+    
+    NSString *result = @"";//返回的结果
+
+    for(NSString * key in keyArray ){
+        NSString *value = dic[key];
+        if (!value) {
+            value = @"";
+        }
+        result = [NSString stringWithFormat:@"%@%@", result, value];
+    }
+    
+    result  = [NSString stringWithFormat:@"%@%@", result, checkKey];
+    result = [MD5 md5:result];
+    return result;
+}
 
 @end

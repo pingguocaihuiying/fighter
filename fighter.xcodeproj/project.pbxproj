@@ -191,6 +191,7 @@
 		3DFC41521D083A3F0067AC72 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC41491D083A3F0067AC72 /* SDCollectionViewCell.m */; };
 		3DFC41531D083A3F0067AC72 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC414B1D083A3F0067AC72 /* SDCycleScrollView.m */; };
 		3DFC41541D083A3F0067AC72 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC414D1D083A3F0067AC72 /* UIView+SDExtension.m */; };
+		9258ED281D51D6C500F489A5 /* FTMatchDetailBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 9258ED271D51D6C500F489A5 /* FTMatchDetailBean.m */; };
 		E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6035EB61CC08D2800B10D36 /* FTNewsDetail2ViewController.m */; };
 		E6035EB91CC08D2800B10D36 /* FTNewsDetail2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6035EB71CC08D2800B10D36 /* FTNewsDetail2ViewController.xib */; };
 		E6035EBE1CC0C39500B10D36 /* FTCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6035EBC1CC0C39500B10D36 /* FTCommentViewController.m */; };
@@ -650,6 +651,8 @@
 		3DFC414D1D083A3F0067AC72 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		618712783A5CE24E9E3317D9 /* Pods-fighter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fighter.release.xcconfig"; path = "Pods/Target Support Files/Pods-fighter/Pods-fighter.release.xcconfig"; sourceTree = "<group>"; };
 		8E48274DE7B43596DF74BCD1 /* Pods_fighter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fighter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9258ED261D51D6C500F489A5 /* FTMatchDetailBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTMatchDetailBean.h; path = "UI/格斗场/bean/比赛详情/FTMatchDetailBean.h"; sourceTree = "<group>"; };
+		9258ED271D51D6C500F489A5 /* FTMatchDetailBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTMatchDetailBean.m; path = "UI/格斗场/bean/比赛详情/FTMatchDetailBean.m"; sourceTree = "<group>"; };
 		E6035EB51CC08D2800B10D36 /* FTNewsDetail2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNewsDetail2ViewController.h; sourceTree = "<group>"; };
 		E6035EB61CC08D2800B10D36 /* FTNewsDetail2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNewsDetail2ViewController.m; sourceTree = "<group>"; };
 		E6035EB71CC08D2800B10D36 /* FTNewsDetail2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTNewsDetail2ViewController.xib; sourceTree = "<group>"; };
@@ -860,16 +863,16 @@
 		E6D74A371CB7B7EE00854337 /* UILabel+StringFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+StringFrame.m"; sourceTree = "<group>"; };
 		E6D74A381CB7B7EE00854337 /* UIView+YBAddtitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+YBAddtitions.h"; sourceTree = "<group>"; };
 		E6D74A391CB7B7EE00854337 /* UIView+YBAddtitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+YBAddtitions.m"; sourceTree = "<group>"; };
-		E6D74A3A1CB7B7EE00854337 /* UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UUID.h; path = Categorys/UUID.h; sourceTree = "<group>"; };
-		E6D74A3B1CB7B7EE00854337 /* UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UUID.m; path = Categorys/UUID.m; sourceTree = "<group>"; };
-		E6D74A3C1CB7B7EE00854337 /* HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUD.h; sourceTree = "<group>"; };
-		E6D74A3D1CB7B7EE00854337 /* HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUD.m; sourceTree = "<group>"; };
-		E6D74A3E1CB7B7EE00854337 /* KeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyChainStore.h; sourceTree = "<group>"; };
-		E6D74A3F1CB7B7EE00854337 /* KeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainStore.m; sourceTree = "<group>"; };
-		E6D74A401CB7B7EE00854337 /* MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5.h; sourceTree = "<group>"; };
-		E6D74A411CB7B7EE00854337 /* MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD5.m; sourceTree = "<group>"; };
-		E6D74A421CB7B7EE00854337 /* Regex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Regex.h; sourceTree = "<group>"; };
-		E6D74A431CB7B7EE00854337 /* Regex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Regex.m; sourceTree = "<group>"; };
+		E6D74A3A1CB7B7EE00854337 /* UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UUID.h; path = Tools/Categorys/UUID.h; sourceTree = "<group>"; };
+		E6D74A3B1CB7B7EE00854337 /* UUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UUID.m; path = Tools/Categorys/UUID.m; sourceTree = "<group>"; };
+		E6D74A3C1CB7B7EE00854337 /* HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HUD.h; path = Tools/HUD.h; sourceTree = "<group>"; };
+		E6D74A3D1CB7B7EE00854337 /* HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HUD.m; path = Tools/HUD.m; sourceTree = "<group>"; };
+		E6D74A3E1CB7B7EE00854337 /* KeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyChainStore.h; path = Tools/KeyChainStore.h; sourceTree = "<group>"; };
+		E6D74A3F1CB7B7EE00854337 /* KeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyChainStore.m; path = Tools/KeyChainStore.m; sourceTree = "<group>"; };
+		E6D74A401CB7B7EE00854337 /* MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MD5.h; path = Tools/MD5.h; sourceTree = "<group>"; };
+		E6D74A411CB7B7EE00854337 /* MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MD5.m; path = Tools/MD5.m; sourceTree = "<group>"; };
+		E6D74A421CB7B7EE00854337 /* Regex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Regex.h; path = Tools/Regex.h; sourceTree = "<group>"; };
+		E6D74A431CB7B7EE00854337 /* Regex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Regex.m; path = Tools/Regex.m; sourceTree = "<group>"; };
 		E6D74A451CB7B7EE00854337 /* ZJModelTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJModelTool.h; sourceTree = "<group>"; };
 		E6D74A461CB7B7EE00854337 /* ZJModelTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJModelTool.m; sourceTree = "<group>"; };
 		E6DB76101CBB9B430034253C /* FTOneImageInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTOneImageInfoTableViewCell.h; sourceTree = "<group>"; };
@@ -1622,6 +1625,24 @@
 			path = PageControl;
 			sourceTree = "<group>";
 		};
+		9258ED241D51D24000F489A5 /* 比赛列表 */ = {
+			isa = PBXGroup;
+			children = (
+				E6AA29491D46317B0039FDB0 /* FTMatchBean.h */,
+				E6AA294A1D46317B0039FDB0 /* FTMatchBean.m */,
+			);
+			name = "比赛列表";
+			sourceTree = "<group>";
+		};
+		9258ED251D51D24C00F489A5 /* 比赛详情 */ = {
+			isa = PBXGroup;
+			children = (
+				9258ED261D51D6C500F489A5 /* FTMatchDetailBean.h */,
+				9258ED271D51D6C500F489A5 /* FTMatchDetailBean.m */,
+			);
+			name = "比赛详情";
+			sourceTree = "<group>";
+		};
 		9901406240A732084B934A55 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1838,7 +1859,7 @@
 			isa = PBXGroup;
 			children = (
 				E6BFBEE11D23CE8B0044F4B0 /* 发起约战 */,
-				E659F3731D12ABA700B41129 /* main */,
+				E659F3731D12ABA700B41129 /* main－比赛列表 */,
 			);
 			name = viewControllers;
 			sourceTree = "<group>";
@@ -1855,14 +1876,14 @@
 			name = views;
 			sourceTree = "<group>";
 		};
-		E659F3731D12ABA700B41129 /* main */ = {
+		E659F3731D12ABA700B41129 /* main－比赛列表 */ = {
 			isa = PBXGroup;
 			children = (
 				3D13FB0D1D193BB80060B9B4 /* FTFightingViewController.h */,
 				3D13FB0E1D193BB80060B9B4 /* FTFightingViewController.m */,
 				3D13FB0F1D193BB80060B9B4 /* FTFightingViewController.xib */,
 			);
-			name = main;
+			name = "main－比赛列表";
 			sourceTree = "<group>";
 		};
 		E65D08D61CBCDC1800651B19 /* cell 2 */ = {
@@ -2289,8 +2310,8 @@
 		E6AA29481D46311A0039FDB0 /* 比赛 */ = {
 			isa = PBXGroup;
 			children = (
-				E6AA29491D46317B0039FDB0 /* FTMatchBean.h */,
-				E6AA294A1D46317B0039FDB0 /* FTMatchBean.m */,
+				9258ED251D51D24C00F489A5 /* 比赛详情 */,
+				9258ED241D51D24000F489A5 /* 比赛列表 */,
 			);
 			name = "比赛";
 			sourceTree = "<group>";
@@ -2477,6 +2498,16 @@
 			children = (
 				E6D09E901CEDA10000B7C43E /* FTTools.h */,
 				E6D09E911CEDA10000B7C43E /* FTTools.m */,
+				E6D74A3A1CB7B7EE00854337 /* UUID.h */,
+				E6D74A3B1CB7B7EE00854337 /* UUID.m */,
+				E6D74A3C1CB7B7EE00854337 /* HUD.h */,
+				E6D74A3D1CB7B7EE00854337 /* HUD.m */,
+				E6D74A3E1CB7B7EE00854337 /* KeyChainStore.h */,
+				E6D74A3F1CB7B7EE00854337 /* KeyChainStore.m */,
+				E6D74A401CB7B7EE00854337 /* MD5.h */,
+				E6D74A411CB7B7EE00854337 /* MD5.m */,
+				E6D74A421CB7B7EE00854337 /* Regex.h */,
+				E6D74A431CB7B7EE00854337 /* Regex.m */,
 			);
 			name = tools;
 			path = ..;
@@ -2575,16 +2606,6 @@
 				E6D2F8D91CE962D000160788 /* 本地用户 */,
 				E668BBB81CE44D3900071998 /* 缓存 */,
 				E6D74A311CB7B7EE00854337 /* Categorys */,
-				E6D74A3A1CB7B7EE00854337 /* UUID.h */,
-				E6D74A3B1CB7B7EE00854337 /* UUID.m */,
-				E6D74A3C1CB7B7EE00854337 /* HUD.h */,
-				E6D74A3D1CB7B7EE00854337 /* HUD.m */,
-				E6D74A3E1CB7B7EE00854337 /* KeyChainStore.h */,
-				E6D74A3F1CB7B7EE00854337 /* KeyChainStore.m */,
-				E6D74A401CB7B7EE00854337 /* MD5.h */,
-				E6D74A411CB7B7EE00854337 /* MD5.m */,
-				E6D74A421CB7B7EE00854337 /* Regex.h */,
-				E6D74A431CB7B7EE00854337 /* Regex.m */,
 				E6D74A441CB7B7EE00854337 /* ZJModelTool */,
 			);
 			path = Tools;
@@ -2728,6 +2749,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E64EF1331CB6614100CAE340 /* Build configuration list for PBXNativeTarget "fighter" */;
 			buildPhases = (
+				8DD5F6461EE17CFB0A4F8B92 /* [CP] Check Pods Manifest.lock */,
 				92BD9529BECC7B7381CDA353 /* [CP] Check Pods Manifest.lock */,
 				B0BD33182E9F582B353F6FF0 /* [CP] Check Pods Manifest.lock */,
 				962399117BF503EB187D1EC2 /* [CP] Check Pods Manifest.lock */,
@@ -3076,6 +3098,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-fighter/Pods-fighter-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8DD5F6461EE17CFB0A4F8B92 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		92BD9529BECC7B7381CDA353 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3311,6 +3348,7 @@
 				E68D16131CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m in Sources */,
 				E636B1AD1D2646840065C9C1 /* FTGymDetailViewController.m in Sources */,
 				E68050C01CBF919A00678905 /* UIScrollView+JHRefresh.m in Sources */,
+				9258ED281D51D6C500F489A5 /* FTMatchDetailBean.m in Sources */,
 				3DB240FA1D3CD236007F32C6 /* FTRechargeView.m in Sources */,
 				3DC31DD01CF859EC001BC364 /* FTArenaChooseLabelView.m in Sources */,
 				3D13FB1F1D1A40350060B9B4 /* FTSegmentItem.m in Sources */,
@@ -3441,7 +3479,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "a4b9f1a5-458b-44e1-a179-41933a1002bc";
+				PROVISIONING_PROFILE = "fd696b1c-386d-4b23-bf86-88ab3cc3228c";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -3480,7 +3518,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "a4b9f1a5-458b-44e1-a179-41933a1002bc";
+				PROVISIONING_PROFILE = "fd696b1c-386d-4b23-bf86-88ab3cc3228c";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

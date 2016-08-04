@@ -31,19 +31,22 @@
     // Configure the view for the selected state
 }
 - (IBAction)watchButtonClicked:(id)sender {
-    [_buttonsClickedDelegate buttonClickedWithIdentifycation:@"watch" andRaceId:_matchID];
+    [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionWatch andMatchBean:_matchBean];
 }
 - (IBAction)buyTicketButtonClicked:(id)sender {
-        [_buttonsClickedDelegate buttonClickedWithIdentifycation:@"buyTicket" andRaceId:_matchID];
+        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionBuyTicket andMatchBean:_matchBean];
 }
 - (IBAction)supportButtonClicked:(id)sender {
-        [_buttonsClickedDelegate buttonClickedWithIdentifycation:@"support" andRaceId:_matchID];
+        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionSupport andMatchBean:_matchBean];
 }
 - (IBAction)followButtonClicked:(id)sender {
-        [_buttonsClickedDelegate buttonClickedWithIdentifycation:@"follow" andRaceId:_matchID];
+        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionFollow andMatchBean:_matchBean];
 }
 - (IBAction)betButtonClicked:(id)sender {
-        [_buttonsClickedDelegate buttonClickedWithIdentifycation:@"bet" andRaceId:_matchID];
+        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionBet andMatchBean:_matchBean];
+}
+- (IBAction)payButtonClicked:(id)sender {
+           [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionPay andMatchBean:_matchBean];
 }
 
 - (void)setWithBean:(FTBaseBean *)bean{
@@ -127,12 +130,13 @@
         _supportButton.hidden = YES;
         _buyTicketButton.hidden = YES;
         _betButton.hidden = YES;
-        
-    } else if ([matchBean.statu isEqualToString:@"1"] && [matchBean.payStatu isEqualToString:@"1"]){//当匹配到对手，支付完成，状态显示“即将开赛”，显示“购票”、“下注”按钮 statu=1，payStatu=1
+        _payButton.hidden = YES;
+    } else if ([matchBean.statu isEqualToString:@"2"]&& [matchBean.payStatu isEqualToString:@"1"]){//当匹配到对手，支付完成，状态显示“即将开赛”，显示“购票”、“下注”按钮 statu=1，payStatu=1
+
         
         /**
          *  状态显示部分
-         *  状态：正在比赛
+         *  状态：即将开赛
          *  策略：只显示中间的，上下隐藏
          */
         //中间(显示)
@@ -155,8 +159,39 @@
          */
         _goToWatchButton.hidden = YES;
         _supportButton.hidden = YES;
-        _buyTicketButton.hidden = NO;
-        _betButton.hidden = NO;
+        _buyTicketButton.hidden = YES;
+        _betButton.hidden = YES;
+        _payButton.hidden = NO;
+    } else if ([matchBean.needPay isEqualToString:@"1"]){//如果需要当前用户支付（赞助不算）
+        NSLog(@"pay");
+        /**
+         *  状态显示部分
+         *  状态：比赛筹备中
+         *  策略：只显示中间的，上下隐藏
+         */
+        //中间(显示)
+        _stateLabelCenter.text = @"比赛筹备中";
+        _stateLabelCenter.hidden = NO;
+        _stateBackgroundImageCenter.hidden = NO;
+        _RMBImageViewCenter.hidden = YES;
+        //上下(隐藏)
+        _stateLabelCenterTop.hidden = YES;
+        _stateBackgroundImageTop.hidden = YES;
+        _RMBImageViewTop.hidden = YES;
+        
+        _stateLabelCenterBottom.hidden = YES;
+        _stateBackgroundImageBottom.hidden = YES;
+        _RMBImageViewBottom.hidden = YES;
+        
+        
+        /**
+         *  底部按钮显示
+         */
+        _goToWatchButton.hidden = YES;
+        _supportButton.hidden = YES;
+        _buyTicketButton.hidden = YES;
+        _betButton.hidden = YES;
+        _payButton.hidden = NO;
     }else if ([matchBean.payType isEqualToString:@"5"] && [matchBean.payStatu isEqualToString:@"0"]){//当①支付尚未完成②支付方式为赞助支付，而且，显示“赞助”按钮
         
 
@@ -179,7 +214,7 @@
             _stateLabelCenterBottom.hidden = YES;
             _stateBackgroundImageBottom.hidden = YES;
             _RMBImageViewBottom.hidden = YES;
-            
+            _payButton.hidden = YES;
         }else if([matchBean.statu isEqualToString:@"0"]){
             /**
              *  状态显示部分2⃣️如果没有找到对手
@@ -203,16 +238,15 @@
             _stateBackgroundImageBottom.hidden = NO;
             _RMBImageViewBottom.hidden = NO;
         }
-
-
-        
+    
         /**
          *  底部按钮显示
          */
         _goToWatchButton.hidden = YES;
-        _supportButton.hidden = NO;
+        _supportButton.hidden = YES;
         _buyTicketButton.hidden = YES;
         _betButton.hidden = YES;
+        _payButton.hidden = YES;
     }else{
         
         /**
@@ -221,7 +255,7 @@
          *  策略：只显示中间的，上下隐藏
          */
         //中间(显示)
-        _stateLabelCenter.text = @"正在比赛";
+        _stateLabelCenter.text = @"其他";
         _stateLabelCenter.hidden = NO;
         _stateBackgroundImageCenter.hidden = NO;
         _RMBImageViewCenter.hidden = YES;
@@ -243,9 +277,6 @@
         _buyTicketButton.hidden = YES;
         _betButton.hidden = YES;
     }
-
-    
-    
     
 }
 

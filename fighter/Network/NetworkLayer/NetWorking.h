@@ -229,7 +229,15 @@
 + (void)addMatchWithParams:(NSDictionary *)dic andOption:(void (^)(BOOL result))option;
 
 //获取比赛列表
-+ (void)getMatchListWithPageNum:(int)pageNum andPageSize:(NSString *)pageSize andStatus:(NSString *)status andPayStatus:(NSString *)payStatus andLabel:(NSString *)label andAgainstId:(NSString *)againstId andWeight:(NSString *)weight andOption:(void(^) (NSArray *array))option;
++ (void)getMatchListWithPageNum:(int)pageNum andPageSize:(NSString *)pageSize andStatus:(NSString *)status andPayStatus:(NSString *)payStatus andLabel:(NSString *)label andAgainstId:(NSString *)againstId andWeight:(NSString *)weight andUserId:(NSString *)userId andOption:(void(^) (NSArray *array))option;
+
+//迎战、拒绝比赛
++ (void)responseToMatchWithParamDic:(NSDictionary *)dic andOption:(void (^)(BOOL result))option;
+//获取拳馆详细信息
++ (void)getGymDetailWithGymId:(NSString *)gymId andOption:(void (^)(NSArray *array))option;
+//格斗场 - 微信支付（下注）
++ (void)WXpayWithParamDic:(NSDictionary *)dic andOption:(void (^)(NSDictionary *dic))option;
+
 
 #pragma mark - 充值购买
 // 查询余额
