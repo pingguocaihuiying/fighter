@@ -115,9 +115,6 @@
 //    [leftButton setImageInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
-    //设置分享按钮
-//        UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-分享"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(shareButtonClicked)];
-//    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-分享"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(shareButtonClicked)];
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithTitle:@"转发" style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonClicked)];
     NSDictionary* textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [UIFont systemFontOfSize:14],NSFontAttributeName,

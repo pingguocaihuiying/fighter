@@ -180,6 +180,8 @@
 		3DFC41531D083A3F0067AC72 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC414B1D083A3F0067AC72 /* SDCycleScrollView.m */; };
 		3DFC41541D083A3F0067AC72 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC414D1D083A3F0067AC72 /* UIView+SDExtension.m */; };
 		9258ED281D51D6C500F489A5 /* FTMatchDetailBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 9258ED271D51D6C500F489A5 /* FTMatchDetailBean.m */; };
+		9258ED2E1D530C6200F489A5 /* FTMatchLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9258ED2C1D530C6200F489A5 /* FTMatchLiveViewController.m */; };
+		9258ED2F1D530C6200F489A5 /* FTMatchLiveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9258ED2D1D530C6200F489A5 /* FTMatchLiveViewController.xib */; };
 		E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6035EB61CC08D2800B10D36 /* FTNewsDetail2ViewController.m */; };
 		E6035EB91CC08D2800B10D36 /* FTNewsDetail2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6035EB71CC08D2800B10D36 /* FTNewsDetail2ViewController.xib */; };
 		E6035EBE1CC0C39500B10D36 /* FTCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6035EBC1CC0C39500B10D36 /* FTCommentViewController.m */; };
@@ -622,6 +624,9 @@
 		8E48274DE7B43596DF74BCD1 /* Pods_fighter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fighter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9258ED261D51D6C500F489A5 /* FTMatchDetailBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTMatchDetailBean.h; path = "UI/格斗场/bean/比赛详情/FTMatchDetailBean.h"; sourceTree = "<group>"; };
 		9258ED271D51D6C500F489A5 /* FTMatchDetailBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTMatchDetailBean.m; path = "UI/格斗场/bean/比赛详情/FTMatchDetailBean.m"; sourceTree = "<group>"; };
+		9258ED2B1D530C6200F489A5 /* FTMatchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTMatchLiveViewController.h; path = "UI/格斗场/viewControllers/直播页面/FTMatchLiveViewController.h"; sourceTree = "<group>"; };
+		9258ED2C1D530C6200F489A5 /* FTMatchLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTMatchLiveViewController.m; path = "UI/格斗场/viewControllers/直播页面/FTMatchLiveViewController.m"; sourceTree = "<group>"; };
+		9258ED2D1D530C6200F489A5 /* FTMatchLiveViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTMatchLiveViewController.xib; path = "UI/格斗场/viewControllers/直播页面/FTMatchLiveViewController.xib"; sourceTree = "<group>"; };
 		E6035EB51CC08D2800B10D36 /* FTNewsDetail2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNewsDetail2ViewController.h; sourceTree = "<group>"; };
 		E6035EB61CC08D2800B10D36 /* FTNewsDetail2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNewsDetail2ViewController.m; sourceTree = "<group>"; };
 		E6035EB71CC08D2800B10D36 /* FTNewsDetail2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTNewsDetail2ViewController.xib; sourceTree = "<group>"; };
@@ -1537,6 +1542,16 @@
 			name = "比赛详情";
 			sourceTree = "<group>";
 		};
+		9258ED291D530C0D00F489A5 /* 直播页面 */ = {
+			isa = PBXGroup;
+			children = (
+				9258ED2B1D530C6200F489A5 /* FTMatchLiveViewController.h */,
+				9258ED2C1D530C6200F489A5 /* FTMatchLiveViewController.m */,
+				9258ED2D1D530C6200F489A5 /* FTMatchLiveViewController.xib */,
+			);
+			name = "直播页面";
+			sourceTree = "<group>";
+		};
 		9901406240A732084B934A55 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1752,6 +1767,7 @@
 		E659F36C1D12A64600B41129 /* viewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				9258ED291D530C0D00F489A5 /* 直播页面 */,
 				E6BFBEE11D23CE8B0044F4B0 /* 发起约战 */,
 				E659F3731D12ABA700B41129 /* main－比赛列表 */,
 			);
@@ -2828,6 +2844,7 @@
 				E627EE621D25122C00B424F5 /* FTChooseGymOrOpponentListViewController.xib in Resources */,
 				3D9001BC1D378CC100F9F60B /* FTTeachVideoDetailController.xib in Resources */,
 				3D4B19591CDB0CD90022DFB0 /* FTPropertySetingViewController.xib in Resources */,
+				9258ED2F1D530C6200F489A5 /* FTMatchLiveViewController.xib in Resources */,
 				3D6DA0E21CEEA96D00BAA8F0 /* FTBoxerCenter.xib in Resources */,
 				3DC9A4EA1CE5CC6C00E16D19 /* FTRankBaseViewController.xib in Resources */,
 				E6E688E91D002FB700708C24 /* FTHomepageRecordListTableViewCell.xib in Resources */,
@@ -3176,6 +3193,7 @@
 				E66D6EFA1CBCE81C008B015A /* RBRequestOperationManager.m in Sources */,
 				3D9D92EB1D34E9E3006C42F0 /* FTGoodsBean.m in Sources */,
 				3D8B2E591D1D157200E18280 /* FTGymCell.m in Sources */,
+				9258ED2E1D530C6200F489A5 /* FTMatchLiveViewController.m in Sources */,
 				3D0D7C721D1A984B00E67AC9 /* FTPracticeView.m in Sources */,
 				E68050BF1CBF919A00678905 /* UIScrollView+JHExtension.m in Sources */,
 				E65EFC291CC8ADFD0039EE8A /* UIButton+LYZTitle.m in Sources */,

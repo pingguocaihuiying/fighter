@@ -27,6 +27,8 @@
 #import "FTFightingTableViewCell.h"
 #import "FTMatchBean.h"
 #import "FTMatchDetailBean.h"
+#import "WXApi.h"
+#import "FTMatchLiveViewController.h"
 
 /**
  *  数据结构思路22：
@@ -376,7 +378,8 @@
     FTUserBean *userBean = [FTUserTools getLocalUser];
     
     if (actionType == FTButtonActionWatch) {
-
+        FTMatchLiveViewController* matchLiveVC = [FTMatchLiveViewController new];
+        [self.navigationController pushViewController:matchLiveVC animated:YES];
     } else if (actionType == FTButtonActionBuyTicket){
         
     }else if (actionType == FTButtonActionSupport){
@@ -484,14 +487,15 @@
                 [NetWorking WXpayWithParamDic:parmamDic andOption:^(NSDictionary* dic) {
                     if (dic && dic.count > 0) {
                         NSLog(@"成功");
-//                        PayReq *request = [[[PayReq alloc] init] autorelease];
-//                        request.partnerId = @"10000100";
-//                        request.prepayId= @"1101000000140415649af9fc314aa427";
+                        PayReq *request = [[PayReq alloc] init];
+                        request.partnerId = dic[@"partnerid"];
+                        request.prepayId= dic[@"prepayid"];
 //                        request.package = @"Sign=WXPay";
-//                        request.nonceStr= @"a462b76e7436e98e0ed6e13c64b4fd1c";
-//                        request.timeStamp= @"1397527777";
-//                        request.sign= @"582282D72DD2B03AD892830965F428CB16E7A256";
-//                        [WXApi sendReq：request];
+                        request.package = dic[@"package"];
+                        request.nonceStr= dic[@"noncestr"];
+                        request.timeStamp= [dic[@"timestamp"] intValue];
+                        request.sign= dic[@"sign"];
+                        [WXApi sendReq:request];
                     } else {
                         NSLog(@"失败");
                     }
