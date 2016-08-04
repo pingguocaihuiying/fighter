@@ -715,8 +715,11 @@ static NSString *const tableCellId = @"tableCellId";
     [infoVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                Bar_Item_Select_Title_Color,NSForegroundColorAttributeName,
                                                nil] forState:UIControlStateSelected];
-    infoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳讯"];
-    infoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳讯pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    infoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳讯"];
+//    infoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳讯pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+
+    infoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-视频"];
+    infoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-视频pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     infoVC.drawerDelegate = self;
     
     // 比赛

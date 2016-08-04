@@ -57,6 +57,8 @@
     
     // 兴趣标签
     [aCoder encodeObject:self.interestList forKey:@"interestList"];
+    
+    [aCoder encodeObject:self.isBoxerChecked forKey:@"isBoxerChecked"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -100,6 +102,7 @@
         
         // 兴趣标签
         self.interestList = [aDecoder decodeObjectForKey:@"interestList"];
+        self.isBoxerChecked = [aDecoder decodeObjectForKey:@"isBoxerChecked"];
     }
     return self;
 }

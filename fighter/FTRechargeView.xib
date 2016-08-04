@@ -135,7 +135,7 @@
     <resources>
         <image name="充值" width="37" height="40"/>
         <image name="分享96-QQ空间" width="48" height="48"/>
-        <image name="分享96-QQ空间pre" width="16" height="16"/>
+        <image name="分享96-QQ空间pre" width="48" height="48"/>
         <image name="分享96-朋友圈" width="48" height="48"/>
         <image name="分享96-朋友圈pre" width="48" height="48"/>
         <image name="取消X" width="32" height="32"/>

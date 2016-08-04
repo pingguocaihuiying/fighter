@@ -231,6 +231,32 @@
     
 }
 
+// 上传用户身份证照片
++ (void) uploadUserIdcard:(NSURL *)localUrl
+                      Key:(NSString *)key  option:(void (^)(NSDictionary *dict))option {
+
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:localUser.olduserid forKey:@"userid" ];
+    [dic setObject:@"user/upload/icon" forKey:key];
+    
+    NSDictionary *appendDic = @{
+                                key : localUrl,
+                                
+                                };
+    
+    NSString *updateHeaderURLString = [FTNetConfig host:Domain path:UploadUserIdCardURL];
+    NSLog(@"updateURLString url : %@", updateHeaderURLString);
+    
+    [self postUploadDataWithURL:updateHeaderURLString
+                     parameters:dic
+               appendParameters:appendDic
+                         option:option];
+
+}
 
 //接口地址: 域名/api/newuser/updatePassword.do
 //修改用户密码

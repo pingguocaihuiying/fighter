@@ -300,8 +300,14 @@
 - (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken
 {
     NSLog(@"deviceToken:%@",deviceToken);
+//    [IXPushSdkApi registerDeviceToken:deviceToken
+//                              channel:@"test" version:@"1.0" appId:1670128310];
+
+//    [IXPushSdkApi registerDeviceToken:deviceToken
+//                              channel:@"test" version:@"1.0" appId:1229394843];
+
     [IXPushSdkApi registerDeviceToken:deviceToken
-                              channel:@"test" version:@"1.0" appId:1670128310];
+                              channel:@"test" version:@"1.0" appId:1104119343];
 }
 
 
