@@ -9,18 +9,18 @@
         "mode" : "9-part",
         "center" : {
           "mode" : "tile",
-          "width" : 62,
+          "width" : 1,
           "height" : 1
         },
         "cap-insets" : {
-          "bottom" : 28,
-          "top" : 23,
-          "right" : 27,
-          "left" : 45
+          "bottom" : 21,
+          "top" : 63,
+          "right" : 17,
+          "left" : 17
         }
       },
       "idiom" : "universal",
-      "filename" : "金属边框-改进ios.png",
+      "filename" : "金属边框.png",
       "scale" : "2x"
     },
     {

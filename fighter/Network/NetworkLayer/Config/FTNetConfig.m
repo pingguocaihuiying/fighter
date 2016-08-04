@@ -113,9 +113,15 @@ NSString * const UserLogoutURL = @"/api/newuser/userLogout.do";
 
 NSString * const UserWXLoginURL = @"/api/newuser/userWXLogin.do";
 
+#pragma mark  - 更新用户
+
 NSString * const UpdateUserURL = @"/api/newuser/updateUser.do";
 
+NSString * const UploadUserIdCardURL = @"/api/newuser/updateUserCardpic.do";
+
 NSString * const UpdateUserHeadPicURL = @"/api/newuser/updateUserHeadpic.do";
+
+#pragma mark  - 发送验证码
 
 NSString * const SendSMSExistURL = @"/api/newuser/sendSMS_Old.do";//给已绑定的手机发送验证码
 

@@ -105,6 +105,10 @@
                                    Key:(NSString *)key
                                 option:(void (^)(NSDictionary *dict))option;
 
+// 上传用户身份证照片
++ (void) uploadUserIdcard:(NSURL *)localUrl
+                      Key:(NSString *)key  option:(void (^)(NSDictionary *dict))option;
+
 //修改用户数据  ---get
 - (void) updateUserByGet:(NSString *)value
                      Key:(NSString *)key

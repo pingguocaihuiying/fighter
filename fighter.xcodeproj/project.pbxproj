@@ -36,6 +36,18 @@
 		3D2AEED01D2F3CBC00F94A59 /* FTPurchaseInApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2AEECF1D2F3CBC00F94A59 /* FTPurchaseInApp.m */; };
 		3D322AC91CEB171200039E2C /* FTRankHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D322AC71CEB171200039E2C /* FTRankHeaderCell.m */; };
 		3D322ACA1CEB171200039E2C /* FTRankHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D322AC81CEB171200039E2C /* FTRankHeaderCell.xib */; };
+		3D41221B1D4F1EDA007EB996 /* FTAvatarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4122191D4F1EDA007EB996 /* FTAvatarCell.m */; };
+		3D41221C1D4F1EDA007EB996 /* FTAvatarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D41221A1D4F1EDA007EB996 /* FTAvatarCell.xib */; };
+		3D4122201D4F253E007EB996 /* FTLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D41221E1D4F253E007EB996 /* FTLabelCell.m */; };
+		3D4122211D4F253E007EB996 /* FTLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D41221F1D4F253E007EB996 /* FTLabelCell.xib */; };
+		3D4122251D4F28BC007EB996 /* FTPhoneCheckCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4122231D4F28BC007EB996 /* FTPhoneCheckCell.m */; };
+		3D4122261D4F28BC007EB996 /* FTPhoneCheckCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4122241D4F28BC007EB996 /* FTPhoneCheckCell.xib */; };
+		3D41222A1D4F3A6B007EB996 /* FTAuthenticationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4122281D4F3A6B007EB996 /* FTAuthenticationCell.m */; };
+		3D41222B1D4F3A6B007EB996 /* FTAuthenticationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4122291D4F3A6B007EB996 /* FTAuthenticationCell.xib */; };
+		3D4122301D4F3F02007EB996 /* FTAuthenticationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D41222F1D4F3F02007EB996 /* FTAuthenticationView.m */; };
+		3D4122321D4F3F0E007EB996 /* FTAuthenticationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4122311D4F3F0E007EB996 /* FTAuthenticationView.xib */; };
+		3D4122361D506A4B007EB996 /* FTPropertyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4122341D506A4B007EB996 /* FTPropertyCell.m */; };
+		3D4122371D506A4B007EB996 /* FTPropertyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4122351D506A4B007EB996 /* FTPropertyCell.xib */; };
 		3D4B18F51CD8BF340022DFB0 /* FTSetPassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B18F31CD8BF340022DFB0 /* FTSetPassWordViewController.m */; };
 		3D4B18F61CD8BF340022DFB0 /* FTSetPassWordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4B18F41CD8BF340022DFB0 /* FTSetPassWordViewController.xib */; };
 		3D4B18F91CD974B80022DFB0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B18F81CD974B80022DFB0 /* MainViewController.m */; };
@@ -388,6 +400,24 @@
 		3D322AC61CEB171200039E2C /* FTRankHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankHeaderCell.h; sourceTree = "<group>"; };
 		3D322AC71CEB171200039E2C /* FTRankHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankHeaderCell.m; sourceTree = "<group>"; };
 		3D322AC81CEB171200039E2C /* FTRankHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRankHeaderCell.xib; sourceTree = "<group>"; };
+		3D4122181D4F1EDA007EB996 /* FTAvatarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTAvatarCell.h; sourceTree = "<group>"; };
+		3D4122191D4F1EDA007EB996 /* FTAvatarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTAvatarCell.m; sourceTree = "<group>"; };
+		3D41221A1D4F1EDA007EB996 /* FTAvatarCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTAvatarCell.xib; sourceTree = "<group>"; };
+		3D41221D1D4F253E007EB996 /* FTLabelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTLabelCell.h; sourceTree = "<group>"; };
+		3D41221E1D4F253E007EB996 /* FTLabelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTLabelCell.m; sourceTree = "<group>"; };
+		3D41221F1D4F253E007EB996 /* FTLabelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTLabelCell.xib; sourceTree = "<group>"; };
+		3D4122221D4F28BC007EB996 /* FTPhoneCheckCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPhoneCheckCell.h; sourceTree = "<group>"; };
+		3D4122231D4F28BC007EB996 /* FTPhoneCheckCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPhoneCheckCell.m; sourceTree = "<group>"; };
+		3D4122241D4F28BC007EB996 /* FTPhoneCheckCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTPhoneCheckCell.xib; sourceTree = "<group>"; };
+		3D4122271D4F3A6B007EB996 /* FTAuthenticationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTAuthenticationCell.h; sourceTree = "<group>"; };
+		3D4122281D4F3A6B007EB996 /* FTAuthenticationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTAuthenticationCell.m; sourceTree = "<group>"; };
+		3D4122291D4F3A6B007EB996 /* FTAuthenticationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTAuthenticationCell.xib; sourceTree = "<group>"; };
+		3D41222E1D4F3F02007EB996 /* FTAuthenticationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTAuthenticationView.h; sourceTree = "<group>"; };
+		3D41222F1D4F3F02007EB996 /* FTAuthenticationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTAuthenticationView.m; sourceTree = "<group>"; };
+		3D4122311D4F3F0E007EB996 /* FTAuthenticationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTAuthenticationView.xib; sourceTree = "<group>"; };
+		3D4122331D506A4B007EB996 /* FTPropertyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPropertyCell.h; sourceTree = "<group>"; };
+		3D4122341D506A4B007EB996 /* FTPropertyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPropertyCell.m; sourceTree = "<group>"; };
+		3D4122351D506A4B007EB996 /* FTPropertyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTPropertyCell.xib; sourceTree = "<group>"; };
 		3D4B18F21CD8BF340022DFB0 /* FTSetPassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSetPassWordViewController.h; sourceTree = "<group>"; };
 		3D4B18F31CD8BF340022DFB0 /* FTSetPassWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTSetPassWordViewController.m; sourceTree = "<group>"; };
 		3D4B18F41CD8BF340022DFB0 /* FTSetPassWordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTSetPassWordViewController.xib; sourceTree = "<group>"; };
@@ -524,6 +554,7 @@
 		3DB240F61D3CC22D007F32C6 /* FTRechargeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRechargeView.xib; sourceTree = "<group>"; };
 		3DB240F81D3CD236007F32C6 /* FTRechargeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRechargeView.h; sourceTree = "<group>"; };
 		3DB240F91D3CD236007F32C6 /* FTRechargeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRechargeView.m; sourceTree = "<group>"; };
+		3DB546311D52E8C900FDF9E7 /* PushDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushDelegate.h; sourceTree = "<group>"; };
 		3DC31DCE1CF859EC001BC364 /* FTArenaChooseLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaChooseLabelView.h; sourceTree = "<group>"; };
 		3DC31DCF1CF859EC001BC364 /* FTArenaChooseLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaChooseLabelView.m; sourceTree = "<group>"; };
 		3DC411EE1CCF80DD0030C229 /* FTDrawerTableViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerTableViewHeader.h; sourceTree = "<group>"; };
@@ -1077,25 +1108,94 @@
 			path = IXPush;
 			sourceTree = "<group>";
 		};
+		3D4122121D4F17DB007EB996 /* 个人资料 */ = {
+			isa = PBXGroup;
+			children = (
+				3D4122171D4F1873007EB996 /* cell */,
+				3D4B19461CDACF9A0022DFB0 /* FTUserCenterViewController.h */,
+				3D4B19471CDACF9A0022DFB0 /* FTUserCenterViewController.m */,
+				3D4B19481CDACF9A0022DFB0 /* FTUserCenterViewController.xib */,
+			);
+			name = "个人资料";
+			sourceTree = "<group>";
+		};
+		3D4122131D4F17F9007EB996 /* 编辑姓名 */ = {
+			isa = PBXGroup;
+			children = (
+				3D4B19551CDB0CD90022DFB0 /* FTPropertySetingViewController.h */,
+				3D4B19561CDB0CD90022DFB0 /* FTPropertySetingViewController.m */,
+				3D4B19571CDB0CD90022DFB0 /* FTPropertySetingViewController.xib */,
+			);
+			name = "编辑姓名";
+			sourceTree = "<group>";
+		};
+		3D4122141D4F1820007EB996 /* 设置密码 */ = {
+			isa = PBXGroup;
+			children = (
+				3D4B18F21CD8BF340022DFB0 /* FTSetPassWordViewController.h */,
+				3D4B18F31CD8BF340022DFB0 /* FTSetPassWordViewController.m */,
+				3D4B18F41CD8BF340022DFB0 /* FTSetPassWordViewController.xib */,
+			);
+			name = "设置密码";
+			sourceTree = "<group>";
+		};
+		3D4122151D4F1832007EB996 /* 关于我们 */ = {
+			isa = PBXGroup;
+			children = (
+				3D7B98A11CE0190600B80B8D /* FTAbountUsViewController.h */,
+				3D7B98A21CE0190600B80B8D /* FTAbountUsViewController.m */,
+				3D7B98A31CE0190600B80B8D /* FTAbountUsViewController.xib */,
+			);
+			name = "关于我们";
+			sourceTree = "<group>";
+		};
+		3D4122161D4F184E007EB996 /* 设置中心 */ = {
+			isa = PBXGroup;
+			children = (
+				3D7B98941CDEE1E900B80B8D /* FTSettingViewController.h */,
+				3D7B98951CDEE1E900B80B8D /* FTSettingViewController.m */,
+				3D7B98961CDEE1E900B80B8D /* FTSettingViewController.xib */,
+			);
+			name = "设置中心";
+			sourceTree = "<group>";
+		};
+		3D4122171D4F1873007EB996 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				3D4122181D4F1EDA007EB996 /* FTAvatarCell.h */,
+				3D4122191D4F1EDA007EB996 /* FTAvatarCell.m */,
+				3D41221A1D4F1EDA007EB996 /* FTAvatarCell.xib */,
+				3D41221D1D4F253E007EB996 /* FTLabelCell.h */,
+				3D41221E1D4F253E007EB996 /* FTLabelCell.m */,
+				3D41221F1D4F253E007EB996 /* FTLabelCell.xib */,
+				3D4122221D4F28BC007EB996 /* FTPhoneCheckCell.h */,
+				3D4122231D4F28BC007EB996 /* FTPhoneCheckCell.m */,
+				3D4122241D4F28BC007EB996 /* FTPhoneCheckCell.xib */,
+				3D4122271D4F3A6B007EB996 /* FTAuthenticationCell.h */,
+				3D4122281D4F3A6B007EB996 /* FTAuthenticationCell.m */,
+				3D4122291D4F3A6B007EB996 /* FTAuthenticationCell.xib */,
+				3D4122331D506A4B007EB996 /* FTPropertyCell.h */,
+				3D4122341D506A4B007EB996 /* FTPropertyCell.m */,
+				3D4122351D506A4B007EB996 /* FTPropertyCell.xib */,
+			);
+			name = cell;
+			sourceTree = "<group>";
+		};
+		3D41222C1D4F3EAA007EB996 /* 拳手认证 */ = {
+			isa = PBXGroup;
+			children = (
+				3DB546311D52E8C900FDF9E7 /* PushDelegate.h */,
+				3D41222E1D4F3F02007EB996 /* FTAuthenticationView.h */,
+				3D41222F1D4F3F02007EB996 /* FTAuthenticationView.m */,
+				3D4122311D4F3F0E007EB996 /* FTAuthenticationView.xib */,
+			);
+			name = "拳手认证";
+			sourceTree = "<group>";
+		};
 		3D4B18E71CD8BC010022DFB0 /* userSetting */ = {
 			isa = PBXGroup;
 			children = (
 				3D4B19401CDACDFF0022DFB0 /* user */,
-				3D4B19461CDACF9A0022DFB0 /* FTUserCenterViewController.h */,
-				3D4B19471CDACF9A0022DFB0 /* FTUserCenterViewController.m */,
-				3D4B19481CDACF9A0022DFB0 /* FTUserCenterViewController.xib */,
-				3D4B19551CDB0CD90022DFB0 /* FTPropertySetingViewController.h */,
-				3D4B19561CDB0CD90022DFB0 /* FTPropertySetingViewController.m */,
-				3D4B19571CDB0CD90022DFB0 /* FTPropertySetingViewController.xib */,
-				3D4B18F21CD8BF340022DFB0 /* FTSetPassWordViewController.h */,
-				3D4B18F31CD8BF340022DFB0 /* FTSetPassWordViewController.m */,
-				3D4B18F41CD8BF340022DFB0 /* FTSetPassWordViewController.xib */,
-				3D7B98941CDEE1E900B80B8D /* FTSettingViewController.h */,
-				3D7B98951CDEE1E900B80B8D /* FTSettingViewController.m */,
-				3D7B98961CDEE1E900B80B8D /* FTSettingViewController.xib */,
-				3D7B98A11CE0190600B80B8D /* FTAbountUsViewController.h */,
-				3D7B98A21CE0190600B80B8D /* FTAbountUsViewController.m */,
-				3D7B98A31CE0190600B80B8D /* FTAbountUsViewController.xib */,
 			);
 			name = userSetting;
 			sourceTree = "<group>";
@@ -1103,8 +1203,14 @@
 		3D4B19401CDACDFF0022DFB0 /* user */ = {
 			isa = PBXGroup;
 			children = (
+				3D41222C1D4F3EAA007EB996 /* 拳手认证 */,
+				3D4122161D4F184E007EB996 /* 设置中心 */,
+				3D4122151D4F1832007EB996 /* 关于我们 */,
+				3D4122141D4F1820007EB996 /* 设置密码 */,
+				3D4122131D4F17F9007EB996 /* 编辑姓名 */,
+				3D4122121D4F17DB007EB996 /* 个人资料 */,
 				3D06154A1D35DF4E00FDA86F /* cell */,
-				3D7B98AB1CE05EDD00B80B8D /* acountManager */,
+				3D7B98AB1CE05EDD00B80B8D /* 账号管理 */,
 				3D4B19601CDB56F40022DFB0 /* picker */,
 			);
 			name = user;
@@ -1213,7 +1319,7 @@
 			name = main;
 			sourceTree = "<group>";
 		};
-		3D7B98AB1CE05EDD00B80B8D /* acountManager */ = {
+		3D7B98AB1CE05EDD00B80B8D /* 账号管理 */ = {
 			isa = PBXGroup;
 			children = (
 				3D7B98A61CE048F200B80B8D /* FTManagerAccountViewController.h */,
@@ -1238,7 +1344,7 @@
 				3D7B98C61CE0D76800B80B8D /* FTWeixinInfoVC.m */,
 				3D7B98C71CE0D76800B80B8D /* FTWeixinInfoVC.xib */,
 			);
-			name = acountManager;
+			name = "账号管理";
 			sourceTree = "<group>";
 		};
 		3D7C6B741CF2A0BB0088400D /* main */ = {
@@ -2269,8 +2375,8 @@
 				E659F36B1D12A5C400B41129 /* 格斗场 */,
 				3D6CFF361D06A36600CAC12A /* 直播 */,
 				E6735AD11CFC408F0068782C /* 个人主页 */,
-				3D69470A1CE305EB00989440 /* 排行榜 */,
 				3D6947091CE305CD00989440 /* 用户中心 */,
+				3D69470A1CE305EB00989440 /* 排行榜 */,
 				E6B4589B1CB7569E00FB4261 /* 拳迅 */,
 				E6DCE7271CD849060082831D /* 视频 */,
 				E6D2F8D21CE95F0C00160788 /* 拳吧 */,
@@ -2792,8 +2898,10 @@
 				E696E4E71D2A3DDA00A89B60 /* FTDefaultFullMatchingTableViewCell.xib in Resources */,
 				E6304D461D2B5B4300E48CCB /* FTSetTicketPriceViewTableViewCell.xib in Resources */,
 				3D7B98981CDEE1E900B80B8D /* FTSettingViewController.xib in Resources */,
+				3D41221C1D4F1EDA007EB996 /* FTAvatarCell.xib in Resources */,
 				3DE1DEEC1D3F071600511E92 /* FTGymDetailWebViewController.xib in Resources */,
 				3D5FB4BF1CDC7E6600FC1809 /* FTImageCollectionCell.xib in Resources */,
+				3D4122211D4F253E007EB996 /* FTLabelCell.xib in Resources */,
 				3D0B44731D45D96F00EE08B3 /* FTNewsCell.xib in Resources */,
 				E6549DF71D000AEB00B27483 /* FTRecordRankTableViewCell.xib in Resources */,
 				3D7B98901CDD1E5900B80B8D /* Area2.plist in Resources */,
@@ -2825,6 +2933,8 @@
 				E6A9DDB71CD9833200CB9518 /* FTVideoTableViewCell.xib in Resources */,
 				E64EF1191CB6614000CAE340 /* LaunchScreen.storyboard in Resources */,
 				E6B458C41CB75D7A00FB4261 /* FTCoachViewController.xib in Resources */,
+				3D4122261D4F28BC007EB996 /* FTPhoneCheckCell.xib in Resources */,
+				3D4122321D4F3F0E007EB996 /* FTAuthenticationView.xib in Resources */,
 				E627EE621D25122C00B424F5 /* FTChooseGymOrOpponentListViewController.xib in Resources */,
 				3D9001BC1D378CC100F9F60B /* FTTeachVideoDetailController.xib in Resources */,
 				3D4B19591CDB0CD90022DFB0 /* FTPropertySetingViewController.xib in Resources */,
@@ -2837,6 +2947,7 @@
 				E64EF1141CB6614000CAE340 /* Main.storyboard in Resources */,
 				3D7B989D1CDF896F00B80B8D /* FTTableViewCell5.xib in Resources */,
 				3D13FB311D1A96490060B9B4 /* FTPracticeCell.xib in Resources */,
+				3D4122371D506A4B007EB996 /* FTPropertyCell.xib in Resources */,
 				E68D160E1CFD31F100AB5A8C /* FTHomepageMainViewController.xib in Resources */,
 				3D7B98BF1CE0898400B80B8D /* FTOldPasswordVC.xib in Resources */,
 				3D7B98A51CE0190600B80B8D /* FTAbountUsViewController.xib in Resources */,
@@ -2857,6 +2968,7 @@
 				E66EAEA31CF8217F006CD6CE /* FTArenaTextTableViewCell.xib in Resources */,
 				3D322ACA1CEB171200039E2C /* FTRankHeaderCell.xib in Resources */,
 				3D6DA0E41CEED9ED00BAA8F0 /* BoxerCenterHeader.xib in Resources */,
+				3D41222B1D4F3A6B007EB996 /* FTAuthenticationCell.xib in Resources */,
 				E6035EB91CC08D2800B10D36 /* FTNewsDetail2ViewController.xib in Resources */,
 				E6B458D31CB75DA200FB4261 /* FTInformationViewController.xib in Resources */,
 				3D7C6B871CF2A2990088400D /* BoxerInfoController.xib in Resources */,
@@ -3080,6 +3192,7 @@
 				E6D09E961CEDDDCF00B7C43E /* FTQiniuNetwork.m in Sources */,
 				E6574B4C1D2CB5EE009B8465 /* FTIncomePercentView.m in Sources */,
 				E636B1B31D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.m in Sources */,
+				3D4122301D4F3F02007EB996 /* FTAuthenticationView.m in Sources */,
 				3DC411F31CCF810A0030C229 /* FTDrawerTableViewFooter.m in Sources */,
 				E68050C11CBF919A00678905 /* UIView+JHExtension.m in Sources */,
 				E68D160D1CFD31F100AB5A8C /* FTHomepageMainViewController.m in Sources */,
@@ -3153,6 +3266,7 @@
 				3D8D73BD1CE97404009E2320 /* FTTableViewCell6.m in Sources */,
 				E64EF10E1CB6614000CAE340 /* AppDelegate.m in Sources */,
 				3D4B18F91CD974B80022DFB0 /* MainViewController.m in Sources */,
+				3D4122361D506A4B007EB996 /* FTPropertyCell.m in Sources */,
 				3D7B98B41CE06F9800B80B8D /* FTInputNewPhoneViewController.m in Sources */,
 				E6133A6C1CED6F8E00F53381 /* FTArenaBean.m in Sources */,
 				3DFC41541D083A3F0067AC72 /* UIView+SDExtension.m in Sources */,
@@ -3168,6 +3282,7 @@
 				E68D16171CFD819500AB5A8C /* UIImage+FTLYZImage.m in Sources */,
 				3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */,
 				E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */,
+				3D4122201D4F253E007EB996 /* FTLabelCell.m in Sources */,
 				E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */,
 				3D13FB101D193BB80060B9B4 /* FTFightingViewController.m in Sources */,
 				3DD07E981D1CCEDF004AF720 /* FTCoachView.m in Sources */,
@@ -3222,6 +3337,7 @@
 				3D6DA0D21CEE93CD00BAA8F0 /* FTNWGetCategory.m in Sources */,
 				3D06154E1D35E17B00FDA86F /* FTPhoneCell.m in Sources */,
 				E6A9DDBA1CD99E7700CB9518 /* FTBaseBean.m in Sources */,
+				3D41222A1D4F3A6B007EB996 /* FTAuthenticationCell.m in Sources */,
 				E6EFDC8B1D421CD7004C98D2 /* FTGymListViewController.m in Sources */,
 				E6B458971CB7560400FB4261 /* FTBaseNavigationViewController.m in Sources */,
 				3D4B19631CDB59D60022DFB0 /* UIWindow+MBProgressHUD.m in Sources */,
@@ -3253,6 +3369,7 @@
 				3D8D73B41CE95198009E2320 /* FTRankTableView.m in Sources */,
 				E66D6EFB1CBCE81C008B015A /* FTNetConfig.m in Sources */,
 				3DC412251CD0C3780030C229 /* NSString+Size.m in Sources */,
+				3D4122251D4F28BC007EB996 /* FTPhoneCheckCell.m in Sources */,
 				E68050B91CBF919A00678905 /* JHRefreshCommonAniView.m in Sources */,
 				E644E77E1D0123F700F39E45 /* FTHomepageUserBean.m in Sources */,
 				E6D09E921CEDA10000B7C43E /* FTTools.m in Sources */,
@@ -3261,6 +3378,7 @@
 				E6D74A4B1CB7B7EE00854337 /* UUID.m in Sources */,
 				3DC9A4E91CE5CC6C00E16D19 /* FTRankBaseViewController.m in Sources */,
 				3DC412211CD0B94A0030C229 /* FTDrawerCollectionCell.m in Sources */,
+				3D41221B1D4F1EDA007EB996 /* FTAvatarCell.m in Sources */,
 				3D7B98A91CE048F200B80B8D /* FTManagerAccountViewController.m in Sources */,
 				3D5FB4851CDC1F1D00FC1809 /* FTPhotoPickerView.m in Sources */,
 				3D5FB4B51CDC3AF300FC1809 /* FTImagPickerNavigationController.m in Sources */,

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="61" id="KGk-i7-Jjw" customClass="FTAvatarCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="61"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="60.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="头像：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aNy-Fk-vQs">
+                        <rect key="frame" x="15" y="21" width="45" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4RD-hY-uaP">
+                        <rect key="frame" x="265" y="10" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="G0W-Tt-nAd"/>
+                            <constraint firstAttribute="width" constant="40" id="NPm-Yp-jI2"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="头像-空"/>
+                    </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="圆头像边框" translatesAutoresizingMaskIntoConstraints="NO" id="ScU-ui-S5s">
+                        <rect key="frame" x="265" y="10" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="FuK-yG-zNy"/>
+                            <constraint firstAttribute="width" constant="40" id="HWp-nk-TwL"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="金属边框" translatesAutoresizingMaskIntoConstraints="NO" id="ogV-LY-ips">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="60.5"/>
+                    </imageView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="ogV-LY-ips" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="2r2-Ca-Jxp"/>
+                    <constraint firstItem="4RD-hY-uaP" firstAttribute="centerX" secondItem="ScU-ui-S5s" secondAttribute="centerX" id="3ji-pV-Heh"/>
+                    <constraint firstItem="4RD-hY-uaP" firstAttribute="centerY" secondItem="ScU-ui-S5s" secondAttribute="centerY" id="5bN-Zp-GFA"/>
+                    <constraint firstItem="ScU-ui-S5s" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailing" constant="-15" id="6bO-KB-UVb"/>
+                    <constraint firstItem="ogV-LY-ips" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="82D-c6-Luv"/>
+                    <constraint firstItem="aNy-Fk-vQs" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="TgY-SU-rdY"/>
+                    <constraint firstAttribute="trailing" secondItem="ogV-LY-ips" secondAttribute="trailing" id="fIs-0q-OpN"/>
+                    <constraint firstAttribute="bottom" secondItem="ogV-LY-ips" secondAttribute="bottom" id="g76-LZ-1Oy"/>
+                    <constraint firstItem="aNy-Fk-vQs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="vBu-Hy-6J0"/>
+                    <constraint firstItem="ScU-ui-S5s" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ypD-UO-05w"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="avatarBtn" destination="4RD-hY-uaP" id="l9X-Vd-J27"/>
+            </connections>
+            <point key="canvasLocation" x="281" y="237.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="圆头像边框" width="80" height="80"/>
+        <image name="头像-空" width="34" height="34"/>
+        <image name="金属边框" width="17" height="42"/>
+    </resources>
+</document>

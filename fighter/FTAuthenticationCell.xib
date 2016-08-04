@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="45" id="KGk-i7-Jjw" customClass="FTAuthenticationCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您已经认证为拳手" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tyk-sH-QBl">
+                        <rect key="frame" x="104" y="0.0" width="112" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.6470588235294118" green="0.6470588235294118" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aLn-hq-NWh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="43" id="o0g-uv-mwS"/>
+                        </constraints>
+                        <state key="normal" title="拳手认证信息" image="拳手认证" backgroundImage="注册登录-微信bg">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="aLn-hq-NWh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="33H-DP-8sN"/>
+                    <constraint firstItem="Tyk-sH-QBl" firstAttribute="top" secondItem="aLn-hq-NWh" secondAttribute="top" id="9rr-pT-KbA"/>
+                    <constraint firstAttribute="trailing" secondItem="aLn-hq-NWh" secondAttribute="trailing" id="GFD-8p-HqY"/>
+                    <constraint firstItem="aLn-hq-NWh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="MqW-ez-ZPq"/>
+                    <constraint firstItem="Tyk-sH-QBl" firstAttribute="centerX" secondItem="aLn-hq-NWh" secondAttribute="centerX" id="yA0-v0-Pjq"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="authenticationBtn" destination="aLn-hq-NWh" id="t8U-Yq-EUE"/>
+                <outlet property="authenticationLabel" destination="Tyk-sH-QBl" id="3af-kX-Z2C"/>
+            </connections>
+            <point key="canvasLocation" x="290" y="383.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="拳手认证" width="27" height="22"/>
+        <image name="注册登录-微信bg" width="308" height="44"/>
+    </resources>
+</document>

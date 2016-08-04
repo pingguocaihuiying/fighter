@@ -86,7 +86,7 @@
 @property (nonatomic, copy)NSString *draw;//打平场数
 @property (nonatomic, copy)NSString *knockout;//击倒数
 
-
+@property (nonatomic, assign) NSString *isBoxerChecked;
 //计算年龄
 - (NSString *) age;
 //格式化生日
