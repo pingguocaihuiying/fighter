@@ -1108,6 +1108,13 @@
 			path = IXPush;
 			sourceTree = "<group>";
 		};
+		3D20193B1D582F2D009E80B1 /* 兑吧 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "兑吧";
+			sourceTree = "<group>";
+		};
 		3D4122121D4F17DB007EB996 /* 个人资料 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2370,6 +2377,7 @@
 		E6B458921CB7554F00FB4261 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				3D20193B1D582F2D009E80B1 /* 兑吧 */,
 				3DDE29AF1D2B5C2500876B30 /* 支付 */,
 				3D13FB121D1A1A2C0060B9B4 /* 学拳 */,
 				E659F36B1D12A5C400B41129 /* 格斗场 */,
