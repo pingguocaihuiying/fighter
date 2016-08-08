@@ -205,27 +205,27 @@
                             <constraint firstAttribute="width" constant="84" id="yyB-k6-CWz"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="比赛状态ios" translatesAutoresizingMaskIntoConstraints="NO" id="Hpr-oJ-bMw" userLabel="stateBackgroundTop">
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="比赛状态ios" translatesAutoresizingMaskIntoConstraints="NO" id="Hpr-oJ-bMw" userLabel="stateBackgroundTop">
                         <rect key="frame" x="144" y="39" width="88" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="88" id="cam-Ba-Ntf"/>
                             <constraint firstAttribute="height" constant="16" id="mOB-mL-Mnx"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="进行中..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihP-kj-xKE" userLabel="state Top">
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="进行中..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihP-kj-xKE" userLabel="state Top">
                         <rect key="frame" x="166" y="40" width="43" height="14"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="赞助钱" translatesAutoresizingMaskIntoConstraints="NO" id="zqF-Wz-Xcn" userLabel="赞助钱top">
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="赞助钱" translatesAutoresizingMaskIntoConstraints="NO" id="zqF-Wz-Xcn" userLabel="赞助钱top">
                         <rect key="frame" x="216" y="41" width="12" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="12" id="Qnx-w3-m8n"/>
                             <constraint firstAttribute="height" constant="12" id="ang-05-vox"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="比赛状态ios" translatesAutoresizingMaskIntoConstraints="NO" id="qEx-Cp-w9O" userLabel="stateBackgroundCenter">
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="比赛状态ios" translatesAutoresizingMaskIntoConstraints="NO" id="qEx-Cp-w9O" userLabel="stateBackgroundCenter">
                         <rect key="frame" x="144" y="47" width="88" height="16"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="Sr7-eW-3L4"/>
@@ -245,20 +245,20 @@
                             <constraint firstAttribute="height" constant="12" id="XyU-p7-O6e"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="比赛状态ios" translatesAutoresizingMaskIntoConstraints="NO" id="BkN-W4-x90" userLabel="stateBackgroundBottom">
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="比赛状态ios" translatesAutoresizingMaskIntoConstraints="NO" id="BkN-W4-x90" userLabel="stateBackgroundBottom">
                         <rect key="frame" x="144" y="58" width="88" height="16"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="7Dy-uO-6tg"/>
                             <constraint firstAttribute="width" constant="88" id="H3h-5L-Oxv"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="进行中..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PkC-or-xcs" userLabel="stateBottom">
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="进行中..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PkC-or-xcs" userLabel="stateBottom">
                         <rect key="frame" x="166" y="59" width="43" height="14"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="赞助钱" translatesAutoresizingMaskIntoConstraints="NO" id="MKO-rV-fgy" userLabel="赞助钱bottom">
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="赞助钱" translatesAutoresizingMaskIntoConstraints="NO" id="MKO-rV-fgy" userLabel="赞助钱bottom">
                         <rect key="frame" x="216" y="60" width="12" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="LRE-Wb-aR1"/>
@@ -409,6 +409,6 @@
         <image name="格斗标签-综合格斗" width="68" height="14"/>
         <image name="比赛状态ios" width="10" height="10"/>
         <image name="赞助钱" width="12" height="12"/>
-        <image name="金属边框-改进ios" width="67" height="60"/>
+        <image name="金属边框-改进ios" width="67" height="26"/>
     </resources>
 </document>

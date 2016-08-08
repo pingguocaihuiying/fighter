@@ -191,6 +191,8 @@
 		3DFC41521D083A3F0067AC72 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC41491D083A3F0067AC72 /* SDCollectionViewCell.m */; };
 		3DFC41531D083A3F0067AC72 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC414B1D083A3F0067AC72 /* SDCycleScrollView.m */; };
 		3DFC41541D083A3F0067AC72 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC414D1D083A3F0067AC72 /* UIView+SDExtension.m */; };
+		9210FE741D582EF000D147B4 /* FTBetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9210FE731D582EF000D147B4 /* FTBetView.m */; };
+		9210FE781D582F7F00D147B4 /* FTBetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9210FE771D582F7F00D147B4 /* FTBetView.xib */; };
 		9258ED281D51D6C500F489A5 /* FTMatchDetailBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 9258ED271D51D6C500F489A5 /* FTMatchDetailBean.m */; };
 		9258ED2E1D530C6200F489A5 /* FTMatchLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9258ED2C1D530C6200F489A5 /* FTMatchLiveViewController.m */; };
 		9258ED2F1D530C6200F489A5 /* FTMatchLiveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9258ED2D1D530C6200F489A5 /* FTMatchLiveViewController.xib */; };
@@ -653,6 +655,9 @@
 		3DFC414D1D083A3F0067AC72 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		618712783A5CE24E9E3317D9 /* Pods-fighter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fighter.release.xcconfig"; path = "Pods/Target Support Files/Pods-fighter/Pods-fighter.release.xcconfig"; sourceTree = "<group>"; };
 		8E48274DE7B43596DF74BCD1 /* Pods_fighter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fighter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9210FE721D582EF000D147B4 /* FTBetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTBetView.h; path = "UI/格斗场/views/下注弹出框/FTBetView.h"; sourceTree = "<group>"; };
+		9210FE731D582EF000D147B4 /* FTBetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTBetView.m; path = "UI/格斗场/views/下注弹出框/FTBetView.m"; sourceTree = "<group>"; };
+		9210FE771D582F7F00D147B4 /* FTBetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTBetView.xib; path = "UI/格斗场/views/下注弹出框/FTBetView.xib"; sourceTree = "<group>"; };
 		9258ED261D51D6C500F489A5 /* FTMatchDetailBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTMatchDetailBean.h; path = "UI/格斗场/bean/比赛详情/FTMatchDetailBean.h"; sourceTree = "<group>"; };
 		9258ED271D51D6C500F489A5 /* FTMatchDetailBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTMatchDetailBean.m; path = "UI/格斗场/bean/比赛详情/FTMatchDetailBean.m"; sourceTree = "<group>"; };
 		9258ED2B1D530C6200F489A5 /* FTMatchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTMatchLiveViewController.h; path = "UI/格斗场/viewControllers/直播页面/FTMatchLiveViewController.h"; sourceTree = "<group>"; };
@@ -1630,6 +1635,16 @@
 			path = PageControl;
 			sourceTree = "<group>";
 		};
+		9210FE6B1D582C4B00D147B4 /* 下注弹出框 */ = {
+			isa = PBXGroup;
+			children = (
+				9210FE721D582EF000D147B4 /* FTBetView.h */,
+				9210FE731D582EF000D147B4 /* FTBetView.m */,
+				9210FE771D582F7F00D147B4 /* FTBetView.xib */,
+			);
+			name = "下注弹出框";
+			sourceTree = "<group>";
+		};
 		9258ED241D51D24000F489A5 /* 比赛列表 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1883,6 +1898,7 @@
 		E659F36D1D12A65C00B41129 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				9210FE6B1D582C4B00D147B4 /* 下注弹出框 */,
 				E62BA9951D4B382700CB21FF /* 拳馆列表 */,
 				E67096841D2F99EF00DB9F53 /* 显示时间段的tableview */,
 				E6574B491D2CB5CD009B8465 /* IncomePercentPicker */,
@@ -2918,6 +2934,7 @@
 				3DE1DEEC1D3F071600511E92 /* FTGymDetailWebViewController.xib in Resources */,
 				3D5FB4BF1CDC7E6600FC1809 /* FTImageCollectionCell.xib in Resources */,
 				3D4122211D4F253E007EB996 /* FTLabelCell.xib in Resources */,
+				9210FE781D582F7F00D147B4 /* FTBetView.xib in Resources */,
 				3D0B44731D45D96F00EE08B3 /* FTNewsCell.xib in Resources */,
 				E6549DF71D000AEB00B27483 /* FTRecordRankTableViewCell.xib in Resources */,
 				3D7B98901CDD1E5900B80B8D /* Area2.plist in Resources */,
@@ -3371,6 +3388,7 @@
 				3DC31DD01CF859EC001BC364 /* FTArenaChooseLabelView.m in Sources */,
 				3D13FB1F1D1A40350060B9B4 /* FTSegmentItem.m in Sources */,
 				E6D74A501CB7B7EE00854337 /* ZJModelTool.m in Sources */,
+				9210FE741D582EF000D147B4 /* FTBetView.m in Sources */,
 				E68050BD1CBF919A00678905 /* JHRefreshFooterView.m in Sources */,
 				3DCBC6AE1D24F6CC0000C28D /* FTGymView.m in Sources */,
 				E6D74A4D1CB7B7EE00854337 /* KeyChainStore.m in Sources */,

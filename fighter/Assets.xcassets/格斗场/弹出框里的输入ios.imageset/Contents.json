@@ -1,6 +1,20 @@
 {
   "images" : [
     {
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1,
+          "height" : 1
+        },
+        "cap-insets" : {
+          "bottom" : 16,
+          "top" : 15,
+          "right" : 16,
+          "left" : 15
+        }
+      },
       "idiom" : "universal",
       "filename" : "弹出框里的输入ios.png",
       "scale" : "1x"
