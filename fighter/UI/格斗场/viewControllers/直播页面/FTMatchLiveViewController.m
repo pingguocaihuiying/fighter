@@ -11,12 +11,26 @@
 #import "FTShareView.h"
 #import "FTHomepageCommentTableViewCell.h"
 #import "FTBetView.h"
+#import "FTPayViewController.h"
+#import "FTBaseNavigationViewController.h"
+#import "FTLoginViewController.h"
+#import "FTBaseNavigationViewController.h"
+#import "FTCommentViewController.h"
 
-@interface FTMatchLiveViewController ()<UITableViewDelegate, UITableViewDataSource, FTBetViewDelegate>
+@interface FTMatchLiveViewController ()<UITableViewDelegate, UITableViewDataSource, FTBetViewDelegate, CommentSuccessDelegate>
 @property (strong, nonatomic) IBOutlet UIImageView *blueProgressBarImageView;
 
 @property (nonatomic, strong)NSArray *commentsDataArray;//评论数据源
 
+@property (strong, nonatomic) IBOutlet UIImageView *header1ImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *header2ImageView;
+@property (strong, nonatomic) IBOutlet UILabel *player1NameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *player2NameLabel;
+@property (strong, nonatomic) IBOutlet UIButton *voteButton;//点赞按钮
+@property (strong, nonatomic) IBOutlet UILabel *commentCountLabel;//评论数label
+@property (strong, nonatomic) IBOutlet UILabel *viewCountLabel;//观看数
+@property (strong, nonatomic) IBOutlet UILabel *voteCountLabel;//赞数
+@property (nonatomic, assign) BOOL isFirstLoadData;//是否增加过观看数
 @end
 
 @implementation FTMatchLiveViewController
@@ -24,21 +38,89 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initBaseData];
-    [self initSubViews];
-    [self updateProgress];
-    [self getCommentListData];//获取评论列表
+    [self getMatchDetailFromServer];//获取比赛详细信息
     [self initCommentTableView];    //设置评论tableview
 }
 
+- (void)getVoteStatus{
+    [NetWorking getVoteStatusWithObjid:[NSString stringWithFormat:@"%@", _matchDetailBean.matchId] andTableName:@"v-mat" andOption:^(BOOL result) {
+        if (result) {
+            _voteButton.selected = YES;
+        }else{
+            _voteButton.selected = NO;
+        }
+    }];
+}
+
+- (void)getMatchDetailFromServer{
+    [NetWorking getGymDetailWithGymId:_matchBean.matchId andOption:^(NSArray *array) {
+        if (array && array.count > 0) {
+            NSDictionary *dic = (NSDictionary *)array;
+            _matchDetailBean = [FTMatchDetailBean new];
+            [_matchDetailBean setValuesForKeysWithDictionary:dic];
+            
+            
+            //如果是第一次加载
+            if (_isFirstLoadData) {
+                //根据比赛详情设置页面展示信息
+                [self initSubViews];
+                [self getCommentListData];//获取评论列表
+                //增加观看数
+                [self addViewCount];
+                _isFirstLoadData = NO;
+                //获取观看数
+                [self getViewCount];
+                
+                //显示点赞数
+                _voteCountLabel.text = [NSString stringWithFormat:@"%@", _matchDetailBean.voteCount];
+                [self getVoteStatus];//获取点赞信息
+            }
+            
+            //每次获取最新的比赛信息后都刷新下注比例条
+            [self updateBetsInfo];
+
+        } else {
+            NSLog(@"获取比赛详情失败");
+        }
+        
+    }];
+}
+
+- (void)addViewCount{
+    [NetWorking addViewCountWithObjid:[NSString stringWithFormat:@"%@", _matchDetailBean.matchId] andTableName:@"ve-mat" andOption:^(BOOL result) {
+        if (result) {
+            NSLog(@"更新观看数成功！");
+        }else{
+            NSLog(@"更新观看数成功！");
+        }
+    }];
+}
+
+- (void)getVoteCount{
+    [NetWorking getCountWithObjid:[NSString stringWithFormat:@"%@", _matchDetailBean.matchId] andTableName:@"v-mat" andOption:^(NSString *viewCount) {
+        _voteCountLabel.text = [NSString stringWithFormat:@"%@", viewCount];
+    }];
+}
+
+- (void)getViewCount{
+    [NetWorking getViewCountWithObjid: [NSString stringWithFormat:@"%@", _matchDetailBean.matchId] andTableName:@"ve-mat" andOption:^(NSString *viewCount) {
+        if (viewCount) {
+            NSLog(@"viewCount : %@", viewCount);
+            _viewCountLabel.text = [NSString stringWithFormat:@"%@", viewCount];
+        }
+    }];
+}
+
 - (void)initBaseData{
-    _betsNum1 = 178;
-    _betsNum2 = 57;
+    _isFirstLoadData = YES;
 }
 
 - (void)initSubViews{
-    [self setTopNaviViews];
-    [self setLiveWebView];
-    [self setProgressView];
+    [self setTopNaviViews];//上方导航栏
+    [self setLiveWebView];//直播页面
+    [self setFighterInfo];//拳手信息
+    [self updateBetsInfo];//更新下注比例图
+    _voteCountLabel.text = [NSString stringWithFormat:@"%@", _matchDetailBean.voteCount];
 }
 
 - (void)setTopNaviViews{
@@ -68,21 +150,42 @@
     self.navigationItem.title = @"直播";
 }
 
-- (void)setProgressView{
-    _betsNumLabel1.text = [NSString stringWithFormat:@"%d", _betsNum1];
-    _betsNumLabel2.text = [NSString stringWithFormat:@"%d", _betsNum2];
+
+
+
+
+- (void)setFighterInfo{
+    _player1NameLabel.text = _matchDetailBean.userName;
+    _player2NameLabel.text = _matchDetailBean.against;
+    
+    [_header1ImageView sd_setImageWithURL:[NSURL URLWithString:_matchDetailBean.headUrl1]];
+    [_header2ImageView sd_setImageWithURL:[NSURL URLWithString:_matchDetailBean.headUrl2]];
 }
 
-- (void)updateProgress{
+- (void)updateBetsInfo{
+    _betsNumLabel1.text = [NSString stringWithFormat:@"%@", _matchDetailBean.bet1];
+    _betsNumLabel2.text = [NSString stringWithFormat:@"%@", _matchDetailBean.bet2];
+    
     CGFloat progressWidthTotal = SCREEN_WIDTH - 32 - 191;
     
-    float denominator = _betsNum1 + _betsNum2;
+    //声明两个变量，只用于计算
+    int betsNum1 = [_matchDetailBean.bet1 intValue];
+    int betsNum2 = [_matchDetailBean.bet2 intValue];
     
-    _progressWidth1.constant = progressWidthTotal * (_betsNum1 / denominator);
-    _progressWidth2.constant = progressWidthTotal * (_betsNum2 / denominator);
+    if(betsNum1 <= 0 || betsNum2 <= 0){
+        betsNum1 += 1;
+        betsNum2 += 1;
+    }
+    
+    float denominator = betsNum1 + betsNum2;
+    
+    CGFloat width1 = progressWidthTotal * (betsNum1 / denominator);
+    CGFloat width2 = progressWidthTotal * (betsNum2 / denominator);
+    _progressWidth1.constant = width1;
+    _progressWidth2.constant = width2;
 
-    _betsNumLabel1.text = [NSString stringWithFormat:@"%d", _betsNum1];
-    _betsNumLabel2.text = [NSString stringWithFormat:@"%d", _betsNum2];
+    _betsNumLabel1.text = [NSString stringWithFormat:@"%@", _matchDetailBean.bet1];
+    _betsNumLabel2.text = [NSString stringWithFormat:@"%@", _matchDetailBean.bet2];
 }
 
 - (void)setLiveWebView{
@@ -121,10 +224,13 @@
 }
 
 - (void)getCommentListData{
-    [NetWorking getCommentsWithObjId:@"1" andTableName:@"" andOption:^(NSArray *array) {
+    [NetWorking getCommentsWithObjId:[NSString stringWithFormat:@"%@", _matchDetailBean.matchId] andTableName:@"c-mat" andOption:^(NSArray *array) {
         _commentsDataArray = array;
-        
+    _commentTableViewHeight.constant = (55 + 29 + 2 + 9) * _commentsDataArray.count;    
         [_commentTableView reloadData];
+        
+        //更新评论数
+        _commentCountLabel.text = [NSString stringWithFormat:@"评论(%ld)", _commentsDataArray.count];
     }];
 }
 - (void)initCommentTableView{
@@ -133,24 +239,23 @@
     _commentTableView.dataSource = self;
     //从xib加载cell用于复用
     [_commentTableView registerNib:[UINib nibWithNibName:@"FTHomepageCommentTableViewCell" bundle:nil] forCellReuseIdentifier:@"commentCell"];
-    _commentTableViewHeight.constant = (55 + 29 + 2 + 9) * 10;
+    _commentTableViewHeight.constant = (55 + 29 + 2 + 9) * _commentsDataArray.count;
     [_commentTableView reloadData];
     
 }
 //有几行
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    if (_commentsDataArray) {
-//        return _commentsDataArray.count;
-//    }else{
-//        return 0;
-//    }
-    return 10;
+    if (_commentsDataArray) {
+        return _commentsDataArray.count;
+    }else{
+        return 0;
+    }
 }
 //返回cell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     FTHomepageCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"commentCell"];
-//    NSDictionary *commentDic = _commentsDataArray[indexPath.row];
-//    [cell setWithDic:commentDic];
+    NSDictionary *commentDic = _commentsDataArray[indexPath.row];
+    [cell setWithDic:commentDic];
     
     return cell;
 }
@@ -195,26 +300,102 @@
 
     [self.view addSubview:shareView];
 }
+#pragma mark 下注1
 - (IBAction)betButton1Clicked:(id)sender {
-    FTBetView *betView = [[[NSBundle mainBundle] loadNibNamed:@"FTBetView" owner:nil options:nil]lastObject];
-    betView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    betView.delegate = self;
-    betView.player1Name = @"安度因";
-    betView.player2Name = @"游学者 周卓";
-    [betView updateDisplay];
-    [self.view addSubview:betView];
-    
-//    _betsNum1 += 5;
-//    [self updateProgress];
+    //判断是否登录
+    if ([self validateLoginInfo]) {
+        FTBetView *betView = [[[NSBundle mainBundle] loadNibNamed:@"FTBetView" owner:nil options:nil]lastObject];
+        betView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        betView.delegate = self;
+        betView.matchDetailBean = _matchDetailBean;
+        betView.isbetPlayer1Win = YES;
+        [betView updateDisplay];
+        [self.view addSubview:betView];
+    }else{
+        [self login];
+    }
 }
-
-//点击赞助后的回掉
-- (void)betWithBetValues:(int)betValue{
-    NSLog(@"betValue : %d", betValue);
-}
-
+#pragma mark 下注2
 - (IBAction)betButton2Clicked:(id)sender {
-    _betsNum2 += 5;
-    [self updateProgress];
+    //判断是否登录
+    if ([self validateLoginInfo]) {
+        FTBetView *betView = [[[NSBundle mainBundle] loadNibNamed:@"FTBetView" owner:nil options:nil]lastObject];
+        betView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        betView.delegate = self;
+        betView.matchDetailBean = _matchDetailBean;
+        betView.isbetPlayer1Win = NO;
+        [betView updateDisplay];
+        [self.view addSubview:betView];
+    }else{
+        [self login];
+    }
+}
+//点击赞助后的回掉
+- (void)betWithBetValues:(int)betValue andIsPlayer1Win:(BOOL)isPlayer1Win{
+    NSLog(@"betValue : %d", betValue);
+    NSLog(@"isPlayer1Win : %d", isPlayer1Win);
+    //刷新下注数
+    [self getMatchDetailFromServer];
+}
+//跳转到充值界面
+- (void)pushToRechargeVC{
+    FTPayViewController *payVC = [[FTPayViewController alloc]init];
+    FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:payVC];
+    baseNav.navigationBarHidden = NO;
+    
+    [self.navigationController presentViewController:baseNav animated:YES completion:nil];
+}
+
+
+- (BOOL)validateLoginInfo{
+    BOOL result = false;
+    //判断是否登录
+        //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    if (!localUser) {
+        result = false;
+    }else{
+        result = true;
+    }
+    return result;
+}
+- (void)login{
+    FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+    loginVC.title = @"登录";
+    FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+- (IBAction)commentButtonClicked:(id)sender {
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    if (!localUser) {
+        [self login];
+    }else{
+        [self pushToCommentVC];
+    }
+}
+- (IBAction)voteButtonClicked:(id)sender {
+    _voteButton.selected = !_voteButton.selected;
+    _voteButton.enabled = NO;
+    [NetWorking addVoteWithObjid:[NSString stringWithFormat:@"%@", _matchDetailBean.matchId] isAdd:_voteButton.isSelected andTableName:@"v-mat" andOption:^(BOOL result) {
+        _voteButton.enabled = YES;
+        if (result) {
+            NSLog(@"更新点赞成功");
+        }else{
+            NSLog(@"更新点赞失败");
+        }
+    }];
+}
+- (void)pushToCommentVC{
+    
+    FTCommentViewController *commentVC = [ FTCommentViewController new];
+    commentVC.delegate = self;
+    commentVC.matchDetailBean = _matchDetailBean;
+    [self.navigationController pushViewController:commentVC animated:YES];
+}
+- (void)commentSuccess{
+    [self getCommentListData];
 }
 @end

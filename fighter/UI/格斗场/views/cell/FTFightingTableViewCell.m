@@ -31,27 +31,34 @@
     // Configure the view for the selected state
 }
 - (IBAction)watchButtonClicked:(id)sender {
-    [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionWatch andMatchBean:_matchBean];
+    [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionWatch andMatchBean:_matchBean andButton:sender];
 }
-- (IBAction)buyTicketButtonClicked:(id)sender {
-        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionBuyTicket andMatchBean:_matchBean];
-}
-- (IBAction)supportButtonClicked:(id)sender {
-        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionSupport andMatchBean:_matchBean];
-}
+//- (IBAction)buyTicketButtonClicked:(id)sender {
+//        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionBuyTicket andMatchBean:_matchBean];
+//}
+//- (IBAction)supportButtonClicked:(id)sender {
+//        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionSupport andMatchBean:_matchBean];
+//}
 - (IBAction)followButtonClicked:(id)sender {
-        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionFollow andMatchBean:_matchBean];
+        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionFollow andMatchBean:_matchBean andButton:sender];
 }
-- (IBAction)betButtonClicked:(id)sender {
-        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionBet andMatchBean:_matchBean];
-}
-- (IBAction)payButtonClicked:(id)sender {
-           [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionPay andMatchBean:_matchBean];
-}
+//- (IBAction)betButtonClicked:(id)sender {
+////        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionBet andMatchBean:_matchBean];
+//}
+//- (IBAction)payButtonClicked:(id)sender {
+//           [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionPay andMatchBean:_matchBean];
+//}
 
 - (void)setWithBean:(FTBaseBean *)bean{
     //转换传过来的baseBean为matchBean
     FTMatchBean *matchBean = (FTMatchBean *)bean;
+    
+    //设置关注按钮的显示
+    if (matchBean.follow) {
+        _followButton.selected = YES;
+    } else {
+        _followButton.selected = NO;
+    }
     
     //比赛的id
         //(模型中matchId虽然声明的是NSString类型，但实际上可能是long型，json解析出来直接赋值了，没有经过处理，所以这这儿赋值的时候进行了格式化转换)
@@ -77,7 +84,17 @@
     //比赛项目
     _raceTypeImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"格斗标签-%@", matchBean.label]];
     
-    //可用按钮的显示、比赛状态（因为筛选条件相似，所以放在了一起）
+    //比赛状态：①未开始②进行中③已结束 status = 2 比赛进行中； = 3 比赛结束； 其他未开赛
+    if ([matchBean.statu isEqualToString:@"2"]) {
+        _stateLabelCenter.text = @"进行中...";
+    } else if ([matchBean.statu isEqualToString:@"1"]){
+        _stateLabelCenter.text = @"比赛已结束";
+    }else{
+        _stateLabelCenter.text = @"尚未开赛";
+    }
+    
+    //初版的状态显示代码***************START******************
+    //可用按钮的显示、比赛状态
     
     /**
      *  ”关注“按钮 一直显示
@@ -280,10 +297,11 @@
             /**
              *  底部按钮显示
              */
-            _goToWatchButton.hidden = NO;
-            _supportButton.hidden = YES;
-            _buyTicketButton.hidden = YES;
-            _betButton.hidden = YES;
+//            _goToWatchButton.hidden = NO;
+//            _supportButton.hidden = YES;
+//            _buyTicketButton.hidden = YES;
+//            _betButton.hidden = YES;
+    //初版的状态显示代码***************END******************
     
 }
 

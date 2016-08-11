@@ -24,7 +24,7 @@
 @property (nonatomic,copy) NSString *createTimeTamp;
 @property (nonatomic,copy) NSNumber *incomeAgainst;//对方收益（%）
 @property (nonatomic,copy) NSString *payStatu;
-@property (nonatomic,copy) NSNumber *id;
+@property (nonatomic,copy) NSNumber *matchId;
 @property (nonatomic,copy) NSString *incomePatron;//赞助方收益（%）
 @property (nonatomic,copy) NSString *label;//项目
 @property (nonatomic,copy) NSNumber *cost;//成本
@@ -45,6 +45,22 @@
 @property (nonatomic,copy) NSString *fail1;//败
 @property (nonatomic,copy) NSString *draw1;//平
 @property (nonatomic,copy) NSString *knockout1;//击倒
-@property (nonatomic,copy) NSString *headUrl1;//发起人头像
 
+@property (nonatomic,copy) NSString *url;//直播链接
+
+@property (nonatomic,copy) NSString *urlPre;//赛前宣传链接
+
+@property (nonatomic,copy) NSString *urlRes;//赛后结果链接
+
+@property (nonatomic,copy) NSNumber *fansCount;//粉丝数
+
+@property (nonatomic,copy) NSNumber *commentCount;//评论数
+
+@property (nonatomic,copy) NSNumber *voteCount;//赞数
+@property (nonatomic,copy) NSNumber *viewCount;//观看数
+
+@property (nonatomic,copy) NSString *headUrl1;//发起人头像
+@property (nonatomic,copy) NSString *headUrl2;//迎战人头像
+@property (nonatomic,copy) NSNumber *bet1;//对发起人的下注额
+@property (nonatomic,copy) NSNumber *bet2;//对迎战人的下注额
 @end

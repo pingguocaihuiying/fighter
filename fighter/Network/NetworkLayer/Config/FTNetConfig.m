@@ -69,15 +69,24 @@ NSString *const DeleteFollowURL = @"/api/follow/delete$Follow.do";
 
 //获取视频接口地址: 域名/api/news/getVideos.do
 NSString *const GetVideoURL = @"/api/videos/getVideos.do";
-
+//观看数
+NSString *const GetObjViewCountURL = @"/api/view/countView.do";
+//xx数
+NSString *const GetObjVoteCountURL = @"/api/comment/countVote.do";
 //增加视频观看数接口 域名/api/videos/upVideoViewN.do
-NSString *const AddViewCountURL = @"/api/videos/upVideoViewN.do";
+NSString *const AddViewCountURL = @"/api/view/addView.do";
 
 //增加格斗场帖子阅读数
 NSString *const AddArenaViewCountCountURL = @"/api/view/addView.do";
 
 //增加收藏的接口地址: 域名/api/base/save$Base.do
 NSString *const AddStarURL = @"/api/base/save$Base.do";
+
+//关注
+NSString *const FollowURL = @"/api/follow/add$Follow.do";
+//取消关注
+NSString *const CancelFollowURL = @"/api/follow/delete$Follow.do";
+
 //删除收藏的接口地址:域名/api/base/delete$Base.do
 NSString *const DeleteStarURL = @"/api/base/delete$Base.do";
 
@@ -97,7 +106,10 @@ NSString *const GetQiniuToken = @"/api/qiniu/get$QiNiuToken.do";
 //接口地址:    获取七牛图片上传token        
 NSString *const GetQiniuVideoToken = @"/api/qiniu/get$QiNiuVideoToken.do";
 
-
+//关注
+NSString *const FollowCheckKey = @"gedoujia11fdsafsag21254";
+//取消关注
+NSString *const CancelFollowCheckKey = @"gedoujia11fgfdghdfrdsafsag21254";
 
 //NSString * const UserInterfaceHost = @"http://121.42.44.216/integral_adminTest";
 NSString * const UserInterfaceHost = @"http://192.168.85.45/integral_adminTest";  //测试注册用，不能用于微信登录、微信支付
@@ -182,8 +194,6 @@ NSString * const GetStatusCheckKey =  @"gedoujia25fdsgfd55fdsafsag21254";
 
 //增加关注
 NSString * const AddFollowCheckKey =    @"gedoujia11fdsafsag21254";
-//取消关注
-NSString * const CancelFollowCheckKey = @"gedoujia11fgfdghdfrdsafsag21254";
 
 //增加视频观看数
 NSString * const UpVideoViewNCheckKey =  @"quanjijia222222";

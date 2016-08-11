@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FTMatchDetailBean.h"
 
 @interface NetWorking : NSObject
 
@@ -237,7 +238,32 @@
 + (void)getGymDetailWithGymId:(NSString *)gymId andOption:(void (^)(NSArray *array))option;
 //格斗场 - 微信支付（下注）
 + (void)WXpayWithParamDic:(NSDictionary *)dic andOption:(void (^)(NSDictionary *dic))option;
-
+/**
+ *  增加观看数
+ *
+ *  @param objId     objId
+ *  @param tableName 表名（根据不同类型的对象有不同的表名）
+ *  @param option    bool
+ */
++ (void)addViewCountWithObjid:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^)(BOOL result))option;
+/**
+ *  获取观看数
+ *
+ *  @param objId     objId
+ *  @param tableName tableName 表名（根据不同类型的对象有不同的表名）
+ *  @param option    观看数
+ */
++ (void)getViewCountWithObjid:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^)(NSString *viewCount))option;
+//点赞
++ (void)addVoteWithObjid:(NSString *)objId isAdd:(BOOL)isAdd andTableName:(NSString *)tableName andOption:(void (^)(BOOL result))option;
+//获取点赞状态
++ (void)getVoteStatusWithObjid:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^)(BOOL result))option;
+//获取点赞数
++ (void)getCountWithObjid:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^)(NSString *viewCount))option;
+//下注
++ (void)betWithObjid:(FTMatchDetailBean *)_matchDetailBean andIsPlayer1Win:(BOOL )isPlayer1Win andBetValue:(int )betValue andOption:(void (^)(BOOL result))option;
+//关注、取消关注
++ (void)followObjWithObjId:(NSString *)objId anIsFollow:(BOOL)isFollow andTableName:(NSString *)tableName  andOption:(void (^)(BOOL result))option;
 
 #pragma mark - 充值购买
 // 查询余额

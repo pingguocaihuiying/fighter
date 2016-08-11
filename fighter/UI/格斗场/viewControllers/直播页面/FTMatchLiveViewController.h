@@ -8,6 +8,7 @@
 
 #import "FTBaseViewController.h"
 #import "FTMatchDetailBean.h"
+#import "FTMatchbean.h"
 
 @interface FTMatchLiveViewController : FTBaseViewController
 @property (strong, nonatomic) IBOutlet UIWebView *liveWebView;
@@ -36,5 +37,5 @@
 @property (strong, nonatomic) IBOutlet UITableView *commentTableView;
 
 @property (nonatomic, strong) FTMatchDetailBean *matchDetailBean;
-//评论
+@property (nonatomic, strong) FTMatchBean *matchBean;
 @end

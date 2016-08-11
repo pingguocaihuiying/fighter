@@ -12,14 +12,22 @@
                 <outlet property="betsNumLabel2" destination="qEw-Cw-p2O" id="T0J-FF-Q8P"/>
                 <outlet property="blueProgressBarHeight" destination="cqB-MQ-Ikv" id="AUa-Wy-xR7"/>
                 <outlet property="blueProgressBarImageView" destination="3bQ-MM-u6J" id="NVb-qp-sG0"/>
+                <outlet property="commentCountLabel" destination="Rb0-rD-gKK" id="mp7-rp-0ge"/>
                 <outlet property="commentTableView" destination="PVa-6y-5z4" id="YBo-xT-8GW"/>
                 <outlet property="commentTableViewHeight" destination="2H8-X4-kup" id="ln2-wX-1tB"/>
                 <outlet property="customViewTopheight" destination="Mq8-VT-T6s" id="Clo-HS-DO1"/>
+                <outlet property="header1ImageView" destination="yjW-yF-ibf" id="EcE-En-RJi"/>
+                <outlet property="header2ImageView" destination="ZcB-D8-sPs" id="svR-Kd-4aO"/>
                 <outlet property="liveWebView" destination="cF5-u9-SJY" id="Tsr-ZH-tdY"/>
+                <outlet property="player1NameLabel" destination="KZP-D0-6ep" id="d09-db-hZR"/>
+                <outlet property="player2NameLabel" destination="b4w-ir-8rM" id="TMP-I6-Gq5"/>
                 <outlet property="progressWidth1" destination="ws7-8M-6xL" id="40t-og-K1n"/>
                 <outlet property="progressWidth2" destination="RFP-vy-bxu" id="8YE-gw-WE1"/>
                 <outlet property="scrollViewWidth" destination="lXh-bb-VlA" id="lSm-1O-xeH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewCountLabel" destination="NyK-Qf-FYR" id="SBO-sg-61o"/>
+                <outlet property="voteButton" destination="Hig-No-Isw" id="27S-up-Ctg"/>
+                <outlet property="voteCountLabel" destination="O3s-SD-dB9" id="KCM-Xh-ENK"/>
                 <outlet property="webViewHeight" destination="MIJ-6Q-MhK" id="YXo-OM-A6e"/>
                 <outlet property="webViewTopHeight" destination="pyI-Dx-jaZ" id="4HE-cY-8Vz"/>
             </connections>
@@ -235,8 +243,8 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MEK-Aa-N82">
                                             <rect key="frame" x="0.0" y="0.0" width="222" height="34"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="评论(100)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rb0-rD-gKK">
-                                                    <rect key="frame" x="19" y="9" width="62" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="评论(0)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rb0-rD-gKK">
+                                                    <rect key="frame" x="19" y="9" width="47" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -265,20 +273,20 @@
                                                         <constraint firstAttribute="width" constant="22" id="vZo-H8-H3b"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(66)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NyK-Qf-FYR" userLabel="观看数">
-                                                    <rect key="frame" x="22" y="9" width="28" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(0)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NyK-Qf-FYR" userLabel="观看数">
+                                                    <rect key="frame" x="22" y="9" width="19" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(30)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O3s-SD-dB9" userLabel="赞数">
-                                                    <rect key="frame" x="176" y="9" width="27" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(0)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O3s-SD-dB9" userLabel="赞数">
+                                                    <rect key="frame" x="184" y="9" width="19" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="赞-改" translatesAutoresizingMaskIntoConstraints="NO" id="De5-nj-WaW">
-                                                    <rect key="frame" x="154" y="6" width="22" height="22"/>
+                                                    <rect key="frame" x="162" y="6" width="22" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="22" id="N0n-EF-oRq"/>
                                                         <constraint firstAttribute="height" constant="22" id="Qyc-yB-Amv"/>
@@ -405,6 +413,9 @@
                             </constraints>
                             <state key="normal" image="详情页底部按钮一堆-评论"/>
                             <state key="highlighted" image="详情页底部按钮一堆-评论pre"/>
+                            <connections>
+                                <action selector="commentButtonClicked:" destination="-1" eventType="touchUpInside" id="Ps6-KJ-c1s"/>
+                            </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="斜线分割" translatesAutoresizingMaskIntoConstraints="NO" id="A15-jR-Cv9">
                             <rect key="frame" x="305" y="13" width="12" height="24"/>
@@ -419,6 +430,10 @@
                                 <constraint firstAttribute="height" constant="49" id="ZiW-Z6-x6Z"/>
                             </constraints>
                             <state key="normal" image="详情页底部按钮一堆-赞"/>
+                            <state key="selected" image="详情页底部按钮一堆-赞pre"/>
+                            <connections>
+                                <action selector="voteButtonClicked:" destination="-1" eventType="touchUpInside" id="lgF-ZS-QhZ"/>
+                            </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKr-1B-E34" userLabel="底部分割线">
                             <rect key="frame" x="0.0" y="0.0" width="444" height="1"/>
@@ -478,6 +493,7 @@
         <image name="详情页底部按钮一堆-评论" width="24" height="24"/>
         <image name="详情页底部按钮一堆-评论pre" width="24" height="24"/>
         <image name="详情页底部按钮一堆-赞" width="24" height="24"/>
+        <image name="详情页底部按钮一堆-赞pre" width="24" height="24"/>
         <image name="赞-改" width="22" height="22"/>
         <image name="金属边框-改进ios" width="67" height="26"/>
     </resources>

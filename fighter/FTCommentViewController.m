@@ -128,6 +128,9 @@
     }else if(self.arenaBean){
         objId= [NSString stringWithFormat:@"%@", _arenaBean.postsId];
         tableName = @"c-damageblog";
+    }else if(self.matchDetailBean){
+        objId= [NSString stringWithFormat:@"%@", _matchDetailBean.matchId];
+        tableName = @"c-mat";
     }else if(_objId){
         objId= _objId;
         tableName = _tableName;

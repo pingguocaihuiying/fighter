@@ -7,6 +7,9 @@
 //
 
 #import "FTBetView.h"
+#import "FTPaySingleton.h"
+#import "NetWorking.h"
+#import "FTMatchDetailBean.h"
 
 @interface FTBetView()<UITextFieldDelegate>
 
@@ -18,9 +21,11 @@
 @property (strong, nonatomic) IBOutlet UIButton *betValueButton1;
 @property (strong, nonatomic) IBOutlet UIButton *betValueButton2;
 @property (strong, nonatomic) IBOutlet UIButton *betValueButton3;
-//当前选择的按钮下标
+@property (strong, nonatomic) IBOutlet UILabel *balanceLabel;//余额标签
 
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+
+@property (nonatomic, strong) FTPaySingleton *paySingleton;
 @end
 
 @implementation FTBetView
@@ -31,6 +36,9 @@
     
     //设置标题间距
     [UILabel setRowGapOfLabel:_titleLabel withValue:8];
+    
+    //显示余额
+    _balanceLabel.text = [NSString stringWithFormat:@"%ldP", _paySingleton.balance];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder{
@@ -47,8 +55,10 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
     [self addGestureRecognizer:tap];
-//    //注册键盘弹出的通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
+    
+    //查询余额
+     _paySingleton = [FTPaySingleton shareInstance];
+    
 }
 
 - (void)tapClick{
@@ -58,12 +68,42 @@
 }
 - (IBAction)confirmButtonClicked:(id)sender {
     NSLog(@"确定参与");
-    [self removeFromSuperview];
-    if ([_delegate respondsToSelector:@selector(betWithBetValues:)]) {
-        [_delegate betWithBetValues:_betValue];
-    }else{
-        NSLog(@"betView无法回掉");
+    
+    if (_betValue <= 0) {
+        NSLog(@"_betValue小于0");
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"下注数不能为0" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+        [alertView show];
     }
+    
+    if (_paySingleton.balance < _betValue) {//如果余额不足，跳转去充值
+        if ([_delegate respondsToSelector:@selector(pushToRechargeVC)]){
+            [_delegate pushToRechargeVC];
+        }
+        
+    } else {//否则，向服务器提交下注请求
+            
+            [MBProgressHUD hideHUDForView:self animated:YES];
+            [NetWorking betWithObjid:_matchDetailBean andIsPlayer1Win:_isbetPlayer1Win andBetValue:_betValue andOption:^(BOOL result) {
+                if (result) {
+                    NSLog(@"下注成功");
+                    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"下注成功"];
+                    [self removeFromSuperview];
+                    if ([_delegate respondsToSelector:@selector(betWithBetValues:andIsPlayer1Win:)] ) {
+                        [_delegate betWithBetValues:_betValue andIsPlayer1Win:_isbetPlayer1Win];    
+                    }
+                    [_paySingleton fetchBalanceFromWeb:^{
+                    _balanceLabel.text = [NSString stringWithFormat:@"%ldP", _paySingleton.balance];
+                    }];//获取最新余额
+                }else{
+                    NSLog(@"下注失败");
+                    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"下注失败"];
+                }
+            }];
+        
+    }
+    
+
+
 }
 - (IBAction)cancelButtonClicked:(id)sender {
     NSLog(@"取消");
@@ -94,7 +134,7 @@
     _betValueButton1.selected = NO;
     _betValueButton2.selected = NO;
     _betValueButton3.selected = YES;
-    _betValue = 15;
+    _betValue = 50;
     
     //清空输入框的内容
     _textField.text = @"";
@@ -102,16 +142,25 @@
 
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    _betValue = [textField.text intValue];
     
-    //清除按钮的选中状态
-    _betValueButton1.selected = NO;
-    _betValueButton2.selected = NO;
-    _betValueButton3.selected = NO;
-    
-    
-    return YES;
+    NSLog(@"string : %@", string);
+    BOOL result = [FTTools isNumText:string];
+    if (result) {
+        //清除按钮的选中状态
+        _betValueButton1.selected = NO;
+        _betValueButton2.selected = NO;
+        _betValueButton3.selected = NO;
+        
+        _betValue = [[textField.text stringByReplacingCharactersInRange:range withString:string] intValue];
+        //限制额外价格的长度，不能大于1000000
+        if (_betValue > 1000000) {
+            return false;
+        }
+    }
+    return result;
 }
+
+
 
 - (void)updateDisplay{
     //初始化NSMutableAttributedString
@@ -122,18 +171,18 @@
     NSAttributedString *attr0 = [[NSAttributedString alloc]initWithString:str0 attributes:dictAttr0];
     [attributedString appendAttributedString:attr0];
     
-    NSString *str1 = _player1Name;
-    NSDictionary *dictAttr1 = @{NSFontAttributeName:[UIFont systemFontOfSize:14]};
+    NSString *str1 = _isbetPlayer1Win ? _matchDetailBean.userName : _matchDetailBean.against;
+    NSDictionary *dictAttr1 = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]};
     NSAttributedString *attr1 = [[NSAttributedString alloc]initWithString:str1 attributes:dictAttr1];
     [attributedString appendAttributedString:attr1];
     
-    NSString *str2 = @" ，在这场比赛中，战胜 ";
+    NSString *str2 = @" 在这场比赛中，战胜 ";
     NSDictionary *dictAttr2 = @{NSFontAttributeName:[UIFont systemFontOfSize:12]};
     NSAttributedString *attr2 = [[NSAttributedString alloc]initWithString:str2 attributes:dictAttr2];
     [attributedString appendAttributedString:attr2];
     
-    NSString *str3 = _player2Name;
-    NSDictionary *dictAttr3 = @{NSFontAttributeName:[UIFont systemFontOfSize:14]};
+    NSString *str3 = _isbetPlayer1Win ? _matchDetailBean.against : _matchDetailBean.userName;
+    NSDictionary *dictAttr3 = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]};
     NSAttributedString *attr3 = [[NSAttributedString alloc]initWithString:str3 attributes:dictAttr3];
     [attributedString appendAttributedString:attr3];
     
@@ -144,4 +193,11 @@
     
     _titleLabel.attributedText = attributedString;
 }
+//充值按钮被点击
+- (IBAction)rechargeButtonClicked:(id)sender {
+    if ([_delegate respondsToSelector:@selector(pushToRechargeVC)]) {
+        [_delegate pushToRechargeVC];
+    }
+}
+
 @end

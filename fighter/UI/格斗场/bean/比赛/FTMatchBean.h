@@ -52,4 +52,10 @@
 @property (nonatomic, copy) NSString  *statu;// = '0';//0-等待对手，1-对手已迎战&等待开赛，2-比赛进行中，3-比赛结束，4-对手拒绝迎战
 @property (nonatomic, copy) NSString  *payType;//支付方式，0-我支付，1-对方支付，2-赢家支付，3-AA支付，4-输家支付，5-赞助支付
 
+@property (nonatomic,copy) NSString *url;//直播链接
+
+@property (nonatomic,copy) NSString *urlPre;//赛前宣传链接
+
+@property (nonatomic,copy) NSString *urlRes;//赛后结果链接follow
+@property (nonatomic, assign) BOOL follow;//是否关注
 @end

@@ -29,6 +29,8 @@
 #import "FTMatchDetailBean.h"
 #import "WXApi.h"
 #import "FTMatchLiveViewController.h"
+#import "FTLoginViewController.h"
+#import "FTBaseNavigationViewController.h"
 
 /**
  *  数据结构思路22：
@@ -171,9 +173,13 @@
         weight = @"70";
     }
     
+    FTUserBean *loginUserBean = [FTUserTools getLocalUser];
+    NSString *userId = @"";
+    if (loginUserBean) {
+        userId = loginUserBean.olduserid;
+    }
     
-    
-    [NetWorking getMatchListWithPageNum:_pageNum andPageSize:_pageSize andStatus:status andPayStatus:payStatus andLabel:label andAgainstId:againstId andWeight:weight andUserId:(NSString *)[FTUserTools getLocalUser].olduserid andOption:^(NSArray *array) {
+    [NetWorking getMatchListWithPageNum:_pageNum andPageSize:_pageSize andStatus:status andPayStatus:payStatus andLabel:label andAgainstId:againstId andWeight:weight andUserId:userId andOption:^(NSArray *array) {
                 if (array && array.count > 0) {
                     
                     if (_pageNum == 1) {//如果是第一页，清除历史数据
@@ -309,6 +315,29 @@
     return cell;
 }
 
+//点击事件
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString *key = _dateArray[indexPath.section];
+    NSArray *matchArray = _matchesDic[key];
+    FTMatchBean *matchBean = matchArray[indexPath.row];
+    NSLog(@"match id : %@", matchBean.matchId);
+    //比赛状态：①未开始②进行中③已结束 status = 2 比赛进行中； = 3 比赛结束； 其他未开赛
+    if ([matchBean.statu isEqualToString:@"2"]) {
+        NSLog(@"比赛进行中");
+        FTMatchLiveViewController* matchLiveVC = [FTMatchLiveViewController new];
+        matchLiveVC.matchBean = matchBean;
+        [self.navigationController pushViewController:matchLiveVC animated:YES];
+    } else if ([matchBean.statu isEqualToString:@"1"]){
+        NSLog(@"比赛结束");
+    }else{
+        NSLog(@"尚未开赛");
+    }
+}
+
+
+
+
+
 - (void)setJHRefresh{
     //设置下拉刷新
     __block typeof(self) sself = self;
@@ -370,60 +399,33 @@
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
 }
 
+
+#pragma mark - cell中购票、观战、赞助、下注等按钮的点击回掉代理方法
 //购票、赞助等按钮的点击事件
-- (void)buttonClickedWithActionType:(FTMatchListButtonActionType)actionType andMatchBean:(FTMatchBean *)matchBean{
+- (void)buttonClickedWithActionType:(FTMatchListButtonActionType)actionType andMatchBean:(FTMatchBean *)matchBean andButton:(UIButton *)button{
     NSLog(@"identifycation : %d, raceId : %@", actionType, matchBean.matchId);
     
     //获取当前登录用户的信息
-    FTUserBean *userBean = [FTUserTools getLocalUser];
+//    FTUserBean *userBean = [FTUserTools getLocalUser];
     
     if (actionType == FTButtonActionWatch) {
         FTMatchLiveViewController* matchLiveVC = [FTMatchLiveViewController new];
+        matchLiveVC.matchBean = matchBean;
         [self.navigationController pushViewController:matchLiveVC animated:YES];
     } else if (actionType == FTButtonActionBuyTicket){
         
     }else if (actionType == FTButtonActionSupport){
         
     }else if (actionType == FTButtonActionFollow){
-        //迎战
-        NSLog(@"迎战");
-        NSString *userID = matchBean.userId;//发起人id，比赛列表的接口没有返回这个字段，无处获取，暂空
-        NSString *userName = matchBean.userName;//发起人名字
-        NSString *matchId = matchBean.matchId;//比赛id
-        NSString *isAccept = @"1";//接受：1；拒绝：2
-        NSString *againstId = userBean.olduserid;//迎战人的id
-        NSString *againstName = userBean.username;//迎战人的名字
-        NSString *loginToken = userBean.token;
-        NSString *ts = [NSString stringWithFormat:@"%lf", [[NSDate date] timeIntervalSince1970]];
-        
-        //md5前的checkSign字典
-        NSMutableDictionary *dicBeforeMD5 = [[NSMutableDictionary alloc]initWithDictionary:@{
-                                                                                            @"userId":userID,
-                                                                                            @"userName":userName,
-                                                                                            @"matchId":matchId,
-                                                                                            @"isDelated":isAccept,
-                                                                                            @"againstId":againstId,
-                                                                                            @"against":againstName,
-                                                                                            @"loginToken":loginToken,
-                                                                                            @"ts":ts}];
-        NSString *checkSign = [FTTools md5Dictionary:dicBeforeMD5 withCheckKey:@"gedoujiahdgrfdytreytresy44"];
-        [dicBeforeMD5 setValue:checkSign forKey:@"checkSign"];
-        
-        //把中文参数转码
-        [dicBeforeMD5 setValue:[userName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"userName"];
-        [dicBeforeMD5 setValue:[againstName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"against"];
-        
-        NSDictionary *dic = dicBeforeMD5;
-        
-        [NetWorking responseToMatchWithParamDic:dic andOption:^(BOOL result) {
+        NSLog(@"关注");
+        [NetWorking followObjWithObjId:matchBean.matchId anIsFollow:!matchBean.follow andTableName:@"f-mat" andOption:^(BOOL result) {
             if (result) {
                 NSLog(@"成功");
+                button.selected = !button.isSelected;
             } else {
                 NSLog(@"失败");
             }
-            
         }];
-        
     }else if (actionType == FTButtonActionBet){
 
     }
@@ -438,7 +440,7 @@
                 NSLog(@"获取比赛详情成功");
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
                 NSDictionary *dic = (NSDictionary *)array;
-                [ZJModelTool createModelWithDictionary:dic modelName:nil];
+//                [ZJModelTool createModelWithDictionary:dic modelName:nil];
                 FTMatchDetailBean *matchDetailBean = [FTMatchDetailBean new];
                 
                 /**
@@ -513,17 +515,62 @@
         NSLog(@"其他");
     }
 }
+
+#pragma mark - 迎战
+- (void)responsToMatch:(FTMatchBean *)matchBean{
+    //迎战
+    FTUserBean *userBean = [FTUserTools getLocalUser];
+    NSLog(@"迎战");
+    NSString *userID = matchBean.userId;//发起人id，比赛列表的接口没有返回这个字段，无处获取，暂空
+    NSString *userName = matchBean.userName;//发起人名字
+    NSString *matchId = matchBean.matchId;//比赛id
+    NSString *isAccept = @"1";//接受：1；拒绝：2
+    NSString *againstId = userBean.olduserid;//迎战人的id
+    NSString *againstName = userBean.username;//迎战人的名字
+    NSString *loginToken = userBean.token;
+    NSString *ts = [NSString stringWithFormat:@"%lf", [[NSDate date] timeIntervalSince1970]];
+    
+    //md5前的checkSign字典
+    NSMutableDictionary *dicBeforeMD5 = [[NSMutableDictionary alloc]initWithDictionary:@{
+                                                                                         @"userId":userID,
+                                                                                         @"userName":userName,
+                                                                                         @"matchId":matchId,
+                                                                                         @"isDelated":isAccept,
+                                                                                         @"againstId":againstId,
+                                                                                         @"against":againstName,
+                                                                                         @"loginToken":loginToken,
+                                                                                         @"ts":ts}];
+    NSString *checkSign = [FTTools md5Dictionary:dicBeforeMD5 withCheckKey:@"gedoujiahdgrfdytreytresy44"];
+    [dicBeforeMD5 setValue:checkSign forKey:@"checkSign"];
+    
+    //把中文参数转码
+    [dicBeforeMD5 setValue:[userName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"userName"];
+    [dicBeforeMD5 setValue:[againstName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"against"];
+    
+    NSDictionary *dic = dicBeforeMD5;
+    
+    [NetWorking responseToMatchWithParamDic:dic andOption:^(BOOL result) {
+        if (result) {
+            NSLog(@"成功");
+        } else {
+            NSLog(@"失败");
+        }
+        
+    }];
+}
+
 /**
  *  参赛按钮被点击
  *
  */
+#pragma mark - 参赛
 - (IBAction)entryButtonClicked:(id)sender {
     NSLog(@"参赛");
     FTLaunchNewMatchViewController *launchNewMatchViewController = [FTLaunchNewMatchViewController new];
     [self.navigationController pushViewController:launchNewMatchViewController animated:YES];
 }
 
-#pragma mark - cell中购票、观战、赞助、下注等按钮的点击回掉代理方法
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

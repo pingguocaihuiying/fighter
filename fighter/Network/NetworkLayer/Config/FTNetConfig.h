@@ -130,6 +130,16 @@ extern NSString * const AddVoteCheckKey;
 extern NSString * const DeleteVoteCheckKey;
 //增加视频观看数
 extern NSString * const UpVideoViewNCheckKey;
+//获取观看数
+
+//关注
+extern NSString *const FollowCheckKey;
+//取消关注
+extern NSString *const CancelFollowCheckKey;
+
+extern NSString *const GetObjViewCountURL;
+//xx数
+extern NSString *const GetObjVoteCountURL;
 //增加格斗场帖子阅读数
 extern NSString *const AddArenaViewCountCountURL;
 //获取个人主页用户信息
@@ -194,6 +204,11 @@ extern NSString *const WXPayURL;
 extern NSString *const GetWXPayStatus;
 //拳馆详细信息
 extern NSString *const GetGymDetailURL;
+
+//关注
+extern NSString *const FollowURL;
+//取消关注
+extern NSString *const CancelFollowURL;
 
 #pragma mark - 充值、购买、积分
 // 查询余额接口

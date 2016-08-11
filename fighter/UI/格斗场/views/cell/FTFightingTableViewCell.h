@@ -23,7 +23,7 @@ typedef NS_ENUM(int, FTMatchListButtonActionType){
 
 @protocol FTFightingTableViewCellButtonsClickedDelegate <NSObject>
 
-- (void)buttonClickedWithActionType:(FTMatchListButtonActionType)actionType andMatchBean:(FTMatchBean *)matchBean ;
+- (void)buttonClickedWithActionType:(FTMatchListButtonActionType)actionType andMatchBean:(FTMatchBean *)matchBean andButton:(UIButton *) button;
 
 @end
 
