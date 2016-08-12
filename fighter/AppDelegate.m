@@ -309,9 +309,10 @@
     [IXPushSdkApi registerDeviceToken:deviceToken
                               channel:@"test" version:@"1.0" appId:1229394843];
     
-    // 格斗东西 开发板
-    [IXPushSdkApi registerDeviceToken:deviceToken
-                              channel:@"test" version:@"1.0" appId:1104119343];
+//    // 格斗东西 开发板
+//    [IXPushSdkApi registerDeviceToken:deviceToken
+//                              channel:@"test" version:@"1.0" appId:1104119343];
+    
 }
 
 
