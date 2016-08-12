@@ -61,4 +61,7 @@
 //推送响应方法
 - (void) push:(NSDictionary *)dic;
 
+// 获取兑吧地址
+//- (void) getDuibaUrl;
+
 @end

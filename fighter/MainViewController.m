@@ -12,6 +12,8 @@
 
 @interface MainViewController ()
 
+
+
 @end
 
 FTDrawerViewController *drawerVC;
@@ -22,18 +24,17 @@ FTDrawerViewController *drawerVC;
     [super viewDidLoad];
     
     
-    
-
     [self addStylersFromArray:@[[DrawerScaleStyler styler], [DrawerFadeStyler styler],[DrawerParallaxStyler styler]] forDirection:FTDynamicsDrawerDirectionLeft];
     
     drawerVC = [[FTDrawerViewController alloc]init];
     drawerVC.dynamicsDrawerViewController = self;
     [self setDrawerViewController:drawerVC forDirection:FTDynamicsDrawerDirectionLeft];
-    [drawerVC setHomeViewController];
+    
+//    [drawerVC setHomeViewController];
     
     [drawerVC setNoti];
-    
 
+    
     
 }
 
@@ -49,6 +50,8 @@ FTDrawerViewController *drawerVC;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
+
 
 /*
 #pragma mark - Navigation

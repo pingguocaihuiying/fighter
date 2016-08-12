@@ -54,7 +54,6 @@
 - (void)viewWillAppear:(BOOL)animated{
     [MobClick event:@"mainPage_Video"];
     //    self.tabBarController.navigationController.navigationBarHidden = YES;
-    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -74,24 +73,8 @@
     
     //设置状态栏的颜色为白色
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    //设置右上角的按钮
-    [self.searchButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-搜索pre"] forState:UIControlStateHighlighted];
-    [self.messageButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
     
-    //设置左上角按钮
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-    [self.leftBtn.layer setMasksToBounds:YES];
-    self.leftBtn.layer.cornerRadius = 17.0;
-    [self.leftBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
-                            forState:UIControlStateNormal
-                    placeholderImage:[UIImage imageNamed:@"头像-空"]];
-    
-    if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
-        
-        [self.drawerDelegate addButtonToArray:self.leftBtn];
-    }
-    //设置最热or最新
+    // 设置最热or最新
     [self setNewOrHot];
     [self setOtherViews];
 
@@ -525,28 +508,6 @@
 
 #pragma mark - response
 
-- (IBAction)leftBtnAction:(id)sender {
-    if ([self.drawerDelegate respondsToSelector:@selector(leftButtonClicked:)]) {
-        
-        [self.drawerDelegate leftButtonClicked:sender];
-    }
-    
-}
-
-
-- (IBAction)rankBtnAction:(id)sender {
-    
-    FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
-    
-    [self.navigationController pushViewController:rankHomeVC animated:YES];
-}
-
-- (IBAction)searchButtonClicked:(id)sender {
-    NSLog(@"search button clicked.");
-}
-- (IBAction)messageButtonClicked:(id)sender {
-    NSLog(@"message button clicked.");
-}
 - (void)fttableView:(FTTableViewController *)tableView didSelectWithIndex:(NSIndexPath *)indexPath{
     //    NSLog(@"第%ld个cell被点击了。", indexPath.row);
     if (self.collectionViewDataSourceArray) {

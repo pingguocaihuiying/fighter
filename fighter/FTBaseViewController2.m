@@ -23,6 +23,19 @@
     
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
+    
+    
+    self.navigationController.navigationBarHidden = NO;
+    
+    //  导航栏半透明属性设置为NO,阻止导航栏遮挡view
+    self.navigationController.navigationBar.translucent = NO;
+    
+    // 修改edgesForExtendedLayout,阻止导航栏遮挡View
+    //    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    
+    //设置状态栏的颜色为白色
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (void)didReceiveMemoryWarning {

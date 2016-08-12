@@ -211,6 +211,17 @@ extern NSString * const CheckIAPURL;
 // app内购预下单接口
 extern NSString * const RechargeIAPURL;
 
+#pragma mark -  兑吧
 
+// 获取兑吧功能配置
+extern NSString * const DuiBaConfigURL;
 
+// 请求兑吧地址
+extern NSString * const DuiBaURL;
+
+// 兑吧扣除积分接口
+extern NSString * const DuiBaChargeURL ;
+
+// 兑吧确定扣除积分接口
+extern NSString * const DuiBaCheckCharegeURL ;
 

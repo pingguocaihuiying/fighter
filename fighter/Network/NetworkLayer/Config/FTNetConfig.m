@@ -241,4 +241,19 @@ NSString * const RechargeIAPURL = @"/api/cumulation/appleRecharge.do";
 // app内购验证付款接口
 NSString * const CheckIAPURL = @"/api/cumulation/appleOrderquery.do";
 
+#pragma mark - 兑吧
+
+// 获取兑吧功能配置
+NSString * const DuiBaConfigURL = @"/api/config/getConfig.do";
+// 请求兑吧地址
+NSString * const DuiBaURL = @"/api/duiba/getShopList.do";
+
+// 兑吧扣除积分接口
+NSString * const DuiBaChargeURL = @"/api/duiba/exchangeShop.do";
+
+// 兑吧确定扣除积分接口
+NSString * const DuiBaCheckCharegeURL = @"/api/duiba/exchangeShopStates.do";
+
+
+
 
