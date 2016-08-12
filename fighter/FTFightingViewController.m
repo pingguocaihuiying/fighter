@@ -418,14 +418,20 @@
         
     }else if (actionType == FTButtonActionFollow){
         NSLog(@"关注");
-        [NetWorking followObjWithObjId:matchBean.matchId anIsFollow:!matchBean.follow andTableName:@"f-mat" andOption:^(BOOL result) {
-            if (result) {
-                NSLog(@"成功");
-                button.selected = !button.isSelected;
-            } else {
-                NSLog(@"失败");
-            }
-        }];
+        FTUserBean *loginUserBean = [FTUserTools getLocalUser];
+        if (loginUserBean) {
+            [NetWorking followObjWithObjId:matchBean.matchId anIsFollow:!matchBean.follow andTableName:@"f-mat" andOption:^(BOOL result) {
+                if (result) {
+                    NSLog(@"成功");
+                    button.selected = !button.isSelected;
+                } else {
+                    NSLog(@"失败");
+                }
+            }];
+        }else{
+            [FTTools loginwithVC:self];
+        }
+
     }else if (actionType == FTButtonActionBet){
 
     }

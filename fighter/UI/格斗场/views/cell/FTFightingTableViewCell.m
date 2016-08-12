@@ -77,9 +77,10 @@
     _standingLabel2.text = [NSString stringWithFormat:@"%@胜 %@负 %@平 %@", matchBean.win2, matchBean.fail2, matchBean.draw2, matchBean.knockout2];
     
     //比赛时间和地点
-    NSArray *timeStringArray = [matchBean.timeSection componentsSeparatedByString:@"~"];
-    NSString *timeString = [timeStringArray firstObject];
-    _WhenAndWhereLabel.text = [NSString stringWithFormat:@"%@ %@", timeString, matchBean.corporationName];
+    NSArray *timeStringArray = [[FTTools fixStringForDate:[NSString stringWithFormat:@"%@", matchBean.theDate]] componentsSeparatedByString:@" "];
+    
+    
+    _WhenAndWhereLabel.text = [NSString stringWithFormat:@"%@ %@", timeStringArray.lastObject, matchBean.corporationName];
     
     //比赛项目
     _raceTypeImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"格斗标签-%@", matchBean.label]];

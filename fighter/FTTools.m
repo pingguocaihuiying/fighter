@@ -9,6 +9,8 @@
 #import "FTTools.h"
 #import "FTNWGetCategory.h"
 #import "MBProgressHUD.h"
+#import "FTBaseNavigationViewController.h"
+#import "FTLoginViewController.h"
 
 @implementation FTTools
 
@@ -326,6 +328,13 @@
     result  = [NSString stringWithFormat:@"%@%@", result, checkKey];
     result = [MD5 md5:result];
     return result;
+}
+
++ (void)loginwithVC:(UIViewController *) vc{
+    FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+    loginVC.title = @"登录";
+    FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+    [vc.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 @end

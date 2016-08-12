@@ -103,4 +103,7 @@
 
 //加密方法
 +(NSString *)md5Dictionary:(NSDictionary *)dic withCheckKey:(NSString *)checkKey;
+
+//登录方法
++ (void)loginwithVC:(UIViewController *) vc;
 @end

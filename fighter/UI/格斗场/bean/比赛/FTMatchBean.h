@@ -58,4 +58,5 @@
 
 @property (nonatomic,copy) NSString *urlRes;//赛后结果链接follow
 @property (nonatomic, assign) BOOL follow;//是否关注
+@property (nonatomic,copy) NSString *theDate;//比赛时间戳
 @end

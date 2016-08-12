@@ -37,6 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setTopNaviViews];//上方导航栏
     [self initBaseData];
     [self getMatchDetailFromServer];//获取比赛详细信息
     [self initCommentTableView];    //设置评论tableview
@@ -116,7 +117,6 @@
 }
 
 - (void)initSubViews{
-    [self setTopNaviViews];//上方导航栏
     [self setLiveWebView];//直播页面
     [self setFighterInfo];//拳手信息
     [self updateBetsInfo];//更新下注比例图
@@ -197,8 +197,9 @@
     /**
      *  企鹅直播  http://live.qq.com/10002905
      *  斗鱼直播  http://www.douyu.com/611813
+     ufc  http://live.qq.com/10000202
      */
-    NSString *webURL = @"http://www.douyu.com/611813";
+    NSString *webURL = @"http://live.qq.com/10000202";
         [_liveWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:webURL]]];
     //根据不同的机型，调整遮盖view的高度，到达完美遮挡的目的
     NSLog(@"SCREEN_WIDTH : %f", SCREEN_WIDTH);
@@ -377,16 +378,21 @@
     }
 }
 - (IBAction)voteButtonClicked:(id)sender {
-    _voteButton.selected = !_voteButton.selected;
-    _voteButton.enabled = NO;
-    [NetWorking addVoteWithObjid:[NSString stringWithFormat:@"%@", _matchDetailBean.matchId] isAdd:_voteButton.isSelected andTableName:@"v-mat" andOption:^(BOOL result) {
-        _voteButton.enabled = YES;
-        if (result) {
-            NSLog(@"更新点赞成功");
-        }else{
-            NSLog(@"更新点赞失败");
-        }
-    }];
+    if ([FTUserTools getLocalUser]) {
+        _voteButton.selected = !_voteButton.selected;
+        _voteButton.enabled = NO;
+        [NetWorking addVoteWithObjid:[NSString stringWithFormat:@"%@", _matchDetailBean.matchId] isAdd:_voteButton.isSelected andTableName:@"v-mat" andOption:^(BOOL result) {
+            _voteButton.enabled = YES;
+            if (result) {
+                NSLog(@"更新点赞成功");
+            }else{
+                NSLog(@"更新点赞失败");
+            }
+        }];
+    } else {
+        [FTTools loginwithVC:self];
+    }
+
 }
 - (void)pushToCommentVC{
     
