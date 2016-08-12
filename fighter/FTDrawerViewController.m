@@ -837,7 +837,7 @@ static NSString *const tableCellId = @"tableCellId";
     
     if (_duibaConfig == 0) {
         
-        tabBartVC.viewControllers = @[infoVC,practiceVC,rankHomeVC,duibaVC];
+        tabBartVC.viewControllers = @[infoVC,rankHomeVC,practiceVC,duibaVC];
     }else {
         
         tabBartVC.viewControllers = @[infoVC,practiceVC,rankHomeVC];
