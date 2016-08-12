@@ -88,9 +88,8 @@
     
 }
 
+
 - (void)initSubViews{
-    
-    
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setTableView];//设置tableview
