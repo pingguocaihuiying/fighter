@@ -26,13 +26,13 @@
 }
 
 - (void)setWithDic:(NSDictionary *)dic{
-    self.authorNameLabel.text = dic[@"createName"];
-    self.commentContentLabel.text = dic[@"comment"];
-    NSString *timeStampString = [NSString stringWithFormat:@"%@", dic[@"createTime"]];
+    self.authorNameLabel.text = dic[@"createName"] == [NSNull null] ? @"" : dic[@"createName"];
+    self.commentContentLabel.text = dic[@"comment"]== [NSNull null] ? @"" : dic[@"comment"];
+    NSString *timeStampString = [NSString stringWithFormat:@"%@", dic[@"createTime"] == [NSNull null] ? @"0" : dic[@"createTime"]];
     self.commentTimeLabel.text = [FTTools fixStringForDate:timeStampString];
     NSString *headUrlString = dic[@"headUrl"];
 //    [_headImageButton sd_setImageWithURL:[NSURL URLWithString:headUrlString] forState:UIControlStateNormal];
-    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:headUrlString] placeholderImage:[UIImage imageNamed:@"头像-空"]];
+    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:headUrlString == [NSNull null] ? @"" : headUrlString] placeholderImage:[UIImage imageNamed:@"头像-空"]];
 }
 
 - (IBAction)voteButtonClicked:(id)sender {

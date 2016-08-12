@@ -13,6 +13,7 @@
 #import "UIWindow+MBProgressHUD.h"
 #import "FTUserBean.h"
 #import "FTEncoderAndDecoder.h"
+#import "FTMatchDetailBean.h"
 
 @implementation NetWorking
 
@@ -1214,8 +1215,235 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         option(nil);
     }];
 }
++ (void)addViewCountWithObjid:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^)(BOOL result))option{
+    //获取网络请求地址url
+    NSString *addViewCountUrlString = [FTNetConfig host:Domain path:AddViewCountURL];
+    
+    addViewCountUrlString = [NSString stringWithFormat:@"%@?&objId=%@&tableName=%@", addViewCountUrlString, objId, tableName];
+    NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);
+    //创建AAFNetWorKing管理者
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);
+    [manager GET:addViewCountUrlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        if ([responseDic[@"status"] isEqualToString:@"success"]) {
+            option(YES);
+        }else{
+            option(NO);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        option(NO);
+        NSLog(@"向服务器增加观看数失败，error：%@", error);
+    }];
+}
+//获取点赞数
++ (void)getViewCountWithObjid:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^)(NSString *viewCount))option{
+    //获取网络请求地址url
+    NSString *getViewCountUrlString = [FTNetConfig host:Domain path:GetObjViewCountURL];
+    
+    getViewCountUrlString = [NSString stringWithFormat:@"%@?&objId=%@&tableName=%@", getViewCountUrlString, objId, tableName];
+    NSLog(@"addViewCountUrlString : %@", getViewCountUrlString);
+    //创建AAFNetWorKing管理者
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    NSLog(@"addViewCountUrlString : %@", getViewCountUrlString);
+    [manager GET:getViewCountUrlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        if ([responseDic[@"status"] isEqualToString:@"success"]) {
+            NSString *viewCount = responseDic[@"data"];
+            option(viewCount);
+        }else{
+            option(nil);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        option(nil);
+        NSLog(@"向服务器增加观看数失败，error：%@", error);
+    }];
+}
+//获取点赞数
++ (void)getCountWithObjid:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^)(NSString *viewCount))option{
+    //获取网络请求地址url
+    NSString *getViewCountUrlString = [FTNetConfig host:Domain path:GetObjVoteCountURL];
+    getViewCountUrlString = [NSString stringWithFormat:@"%@?objId=%@&tableName=%@", getViewCountUrlString, objId, tableName];
+    NSLog(@"addViewCountUrlString : %@", getViewCountUrlString);
+    //创建AAFNetWorKing管理者
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    NSLog(@"addViewCountUrlString : %@", getViewCountUrlString);
+    [manager GET:getViewCountUrlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        if ([responseDic[@"status"] isEqualToString:@"success"]) {
+            NSString *viewCount = responseDic[@"data"];
+            option(viewCount);
+        }else{
+            option(nil);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        option(nil);
+        NSLog(@"向服务器增加观看数失败，error：%@", error);
+    }];
+}
+//点赞
++ (void)addVoteWithObjid:(NSString *)objId isAdd:(BOOL)isAdd andTableName:(NSString *)tableName andOption:(void (^)(BOOL result))option{
+    
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    //获取网络请求地址url
+    NSString *urlString = [FTNetConfig host:Domain path:isAdd ? AddVoteURL : DeleteVoteURL];
+    
+    NSString *userId = user.olduserid;
 
+    NSString *loginToken = user.token;
+    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
 
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, isAdd ? AddVoteCheckKey: DeleteVoteCheckKey]];
+    
+    
+    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
+    //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
+    //创建AAFNetWorKing管理者
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"vote status : %@", responseDic[@"status"]);
+        if ([responseDic[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
+            option(true);
+        }else{
+            option(false);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        //failure
+        NSLog(@"vote failure ：%@", error);
+        option(nil);
+    }];
+}
+//获取点赞状态
++ (void)getVoteStatusWithObjid:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^)(BOOL result))option{
+    
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    //获取网络请求地址url
+    NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
+    
+    NSString *userId = user.olduserid;
+    
+    NSString *loginToken = user.token;
+    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
+    
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, GetStatusCheckKey]];
+    
+    
+    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
+    //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
+    //创建AAFNetWorKing管理者
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"vote status : %@", responseDic[@"status"]);
+        if ([responseDic[@"message"] isEqualToString:@"true"]) {
+            option(true);
+        }else{
+            option(false);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        //failure
+        NSLog(@"vote failure ：%@", error);
+        option(nil);
+    }];
+}
+//下注
++ (void)betWithObjid:(FTMatchDetailBean *)_matchDetailBean andIsPlayer1Win:(BOOL )isPlayer1Win andBetValue:(int )betValue andOption:(void (^)(BOOL result))option{
+    
+    //获取当前登录用户的信息
+    FTUserBean *userBean = [FTUserTools getLocalUser];
+    NSString *userId = _matchDetailBean.userId;//发起人id
+    NSString *objType = @"match";//类型
+    NSString *objId = [NSString stringWithFormat:@"%@", _matchDetailBean.matchId];//比赛id
+    NSString *tableName = @"pl-bet";//表名：1. 下注为：pl-bet； 2. 购票为：pl-tic 3. 赛事成本支付相关：pl-mat
+    NSString *type = isPlayer1Win ? @"0" : @"1";//1. 下注（0- 投注发起方，默认；1-投注迎战方）;
+    NSString *isDelated = @"2";//0-无效记录；1-s支付；2-p支付;3-RMB元支付(默认为元)
+    NSString *money_p = [NSString stringWithFormat:@"%d", betValue];
+    NSString *payWay = @"0";//默认为0-积分支付； 值为1-微信支付
+    NSString *loginToken = userBean.token;//当前用户的login token
+    NSString *ts = [NSString stringWithFormat:@"%lf", [[NSDate date] timeIntervalSince1970]];
+    
+    //md5前的checkSign字典
+    NSMutableDictionary *dicBeforeMD5 = [[NSMutableDictionary alloc]initWithDictionary:@{
+                                                                                         @"userId":userId,
+                                                                                         @"isDelated" : isDelated,
+                                                                                         @"objType":objType,
+                                                                                         @"objId":objId,
+                                                                                         @"tableName":tableName,
+                                                                                         @"type":type,
+                                                                                         @"money_p":money_p,
+                                                                                         @"payWay":payWay,
+                                                                                         @"loginToken":loginToken,
+                                                                                         @"ts":ts}];
+    NSString *checkSign = [FTTools md5Dictionary:dicBeforeMD5 withCheckKey:@"gedoujiahdggrdearyhreayt251grd"];
+    [dicBeforeMD5 setValue:checkSign forKey:@"checkSign"];
+    NSDictionary *parmamDic = dicBeforeMD5;
+    [NetWorking WXpayWithParamDic:parmamDic andOption:^(NSDictionary* dic) {
+        if (dic) {
+            option(YES);
+        } else {
+            option(NO);
+        }
+    }];
+
+}
+//关注
++ (void)followObjWithObjId:(NSString *)objId anIsFollow:(BOOL)isFollow andTableName:(NSString *)tableName andOption:(void (^)(BOOL result))option{
+    
+    
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    //获取网络请求地址url
+    NSString *urlString = [FTNetConfig host:Domain path:isFollow ? FollowURL : CancelFollowURL];
+    
+    NSString *userId = user.olduserid;
+    NSString *loginToken = user.token;
+    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
+
+    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, isFollow ? FollowCheckKey: CancelFollowCheckKey];
+    NSLog(@"check sign : %@", checkSign);
+    checkSign = [MD5 md5:checkSign];
+    
+    
+    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@&", urlString, userId, objId, loginToken, ts, checkSign, tableName];
+    //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
+    //创建AAFNetWorKing管理者
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    NSLog(@"收藏url：%@", urlString);
+    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"收藏状态 status : %@, message : %@", responseDic[@"status"], responseDic[@"message"]);
+        
+        if ([responseDic[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
+            option(YES);
+        }
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        option(NO);
+        NSLog(@"收藏 failure ：%@", error);
+    }];
+    
+
+    
+}
 
 #pragma mark - 充值购买
 
