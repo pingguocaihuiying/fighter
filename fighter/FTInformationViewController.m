@@ -64,7 +64,6 @@
     [self getDataWithGetType:@"new" andCurrId:@"-1"];//初次加载数据
     
     [self.bottomGradualChangeView setHidden:YES];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
