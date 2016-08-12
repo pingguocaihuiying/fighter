@@ -75,8 +75,7 @@
     [self getDataFromWeb];//初次加载数据
 //    [self reloadDate];
     
-    
-    [self initSubviews];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -101,21 +100,6 @@
     _labels = @"";
 }
 
-- (void)initSubviews{
-    //设置左上角按钮
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-    [self.leftBtn.layer setMasksToBounds:YES];
-    self.leftBtn.layer.cornerRadius = 17.0;
-    [self.leftBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
-                            forState:UIControlStateNormal
-                    placeholderImage:[UIImage imageNamed:@"头像-空"]];
-    if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
-        
-        [self.drawerDelegate addButtonToArray:self.leftBtn];
-    }
-    
-}
 
 - (void)initPageController
 {
@@ -321,28 +305,6 @@
     }
 }
 
-- (void)initSubViews{
-    
-    //设置状态栏的颜色为白色
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    //设置右上角的按钮
-    [self.searchButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-搜索pre"] forState:UIControlStateHighlighted];
-    [self.messageButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
-    
-    //设置左上角按钮
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-    [self.leftBtn.layer setMasksToBounds:YES];
-    self.leftBtn.layer.cornerRadius = 17.0;
-    [self.leftBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
-                                  forState:UIControlStateNormal
-                          placeholderImage:[UIImage imageNamed:@"头像-空"]];
-    if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
-        
-        [self.drawerDelegate addButtonToArray:self.leftBtn];
-    }
-    
-}
 
 
 #pragma mark -get data
@@ -537,41 +499,6 @@
 
 
 
-- (IBAction)searchButtonClicked:(id)sender {
-    NSLog(@"search button clicked.");
-}
-
-#pragma mark - response
-- (IBAction)leftBtnClickAction:(id)sender {
-    
-    NSLog(@"information left click did");
-    if ([self.drawerDelegate respondsToSelector:@selector(leftButtonClicked:)]) {
-        
-        [self.drawerDelegate leftButtonClicked:sender];
-    }
-}
-
-- (IBAction)rankBtnAction:(id)sender {
-    FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
-    //    rankHomeVC.title = @"排行榜";
-    [self.navigationController pushViewController:rankHomeVC animated:YES];
-}
-
-
-#pragma mark 排行榜按钮被点击
-- (IBAction)rankButtonClicked:(id)sender {
-    
-    FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
-    
-    [self.navigationController pushViewController:rankHomeVC animated:YES];
-    
-}
-
-- (IBAction)messageButtonClicked:(id)sender {
-    NSLog(@"message button clicked.");
-}
-
-
 - (void)fttableView:(FTTableViewController *)tableView didSelectWithIndex:(NSIndexPath *)indexPath{
     //    NSLog(@"第%ld个cell被点击了。", indexPath.row);
     if (self.tableViewDataSourceArray) {
@@ -629,7 +556,6 @@
 - (void)updateTypeArray:(NSArray *)typeArray{
     [typeArray[0] insertObject:@"全部" atIndex:0];
     self.typeArray = typeArray;
-    [self initSubViews];
 }
 
 

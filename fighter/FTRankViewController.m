@@ -38,6 +38,7 @@
 @property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) UIImageView *placeholderImageView;
 @property (nonatomic, strong) UIImageView *shadow;
+
 @end
 
 @implementation FTRankViewController
@@ -54,11 +55,20 @@
     [self getRankListLabelArray];
     
     [self initArray];
+    
     [self getContentDataFromWeb];
     
     [self initSubViews];
-    
 }
+
+- (void) viewWillAppear:(BOOL)animated {
+    
+    [self fixViewSize];
+    
+    self.navigationController.navigationBarHidden = NO;
+}
+
+
 
 //从数据库取筛选标签数据
 - (void) initArray {
@@ -205,7 +215,7 @@
 
 - (void) initSubViews {
 
-    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 40)];
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
     headerView.backgroundColor = [UIColor colorWithHex:0x131313];
     [self.view addSubview:headerView];
     
@@ -246,7 +256,7 @@
     
     @try {
         self.scrollView = [[UIScrollView alloc]init];
-        self.scrollView.frame = CGRectMake(0, 104, SCREEN_WIDTH, SCREEN_HEIGHT-104);
+        self.scrollView.frame = CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT-104);
         self.scrollView.backgroundColor = [UIColor clearColor];
         self.scrollView.delegate = self;
         self.scrollView.bounces = YES;
@@ -364,10 +374,7 @@
     
 }
 
-- (void) viewWillAppear:(BOOL)animated {
 
-    [self fixViewSize];
-}
 
 #pragma mark - 获取列表信息
 
@@ -410,7 +417,7 @@
 //                    NSLog(@"label:%@",[dic[@"label"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
 //                    NSLog(@"label:%@",[dic[@"label"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
                     
-                   
+                    NSLog(@"dic:%@",dic);
                     [dbManager insertDataIntoLabels:dic];
                     
                 }

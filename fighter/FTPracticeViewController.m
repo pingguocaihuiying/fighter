@@ -21,9 +21,6 @@
 @property (strong, nonatomic)  FTCoachView *coachView;
 @property (strong, nonatomic)  FTGymView *gymView;
 
-@property (weak, nonatomic) IBOutlet UIButton *leftBtn;
-
-@property (weak, nonatomic) IBOutlet UIButton *rankBtn;
 
 @property (weak, nonatomic) IBOutlet UIButton *teachBtn;
 
@@ -41,11 +38,13 @@
     // Do any additional setup after loading the view from its nib.
     [self initSubviews];
     [self initPracticeView];
+    
+     self.navigationController.navigationBarHidden = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
    
-    self.navigationController.navigationBarHidden = YES;
+   
 }
 
 - (void) initSubviews {
@@ -73,22 +72,10 @@
 //    [self.view addSubview:segmented];
     
     
-    //设置左上角按钮
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-    [self.leftBtn.layer setMasksToBounds:YES];
-    self.leftBtn.layer.cornerRadius = 17.0;
-    [self.leftBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
-                                  forState:UIControlStateNormal
-                          placeholderImage:[UIImage imageNamed:@"头像-空"]];
-    if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
-        
-        [self.drawerDelegate addButtonToArray:self.leftBtn];
-    }
+   
     
     [_teachBtn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
     [_teachBtn setBackgroundImage:[UIImage imageNamed:@"三标签-左-选中"] forState:UIControlStateSelected];
-    
     
 }
 
@@ -134,25 +121,6 @@
 
 
 #pragma mark - response
-
-- (IBAction)leftBtnAction:(id)sender {
-    
-//    NSLog(@"information left click did");
-    if ([self.drawerDelegate respondsToSelector:@selector(leftButtonClicked:)]) {
-        
-        [self.drawerDelegate leftButtonClicked:sender];
-    }
-}
-
-- (IBAction)rankBtnAction:(id)sender {
-    
-    FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
-    //    rankHomeVC.title = @"排行榜";
-    //    [self.navigationController pushViewController:rankHomeVC animated:YES];
-    [self.navigationController pushViewController:rankHomeVC animated:YES];
-}
-
-
 
 - (IBAction)teachBtnAction:(id)sender {
     

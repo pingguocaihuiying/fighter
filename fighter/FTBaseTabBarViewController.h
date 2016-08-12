@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FTDynamicsDrawerViewController.h"
 
 @interface FTBaseTabBarViewController : UITabBarController
+
+@property (nonatomic, weak) id<FTDynamicsTransDelegate> drawerDelegate;
 
 @end

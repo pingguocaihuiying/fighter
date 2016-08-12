@@ -65,6 +65,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self initBaseData];
     [self initSubViews];
     [self getMatchList];//初次加载数据
@@ -72,14 +73,8 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [MobClick event:@"mainPage_BoxingNews"];
-    //    self.tabBarController.navigationController.navigationBarHidden = YES;
-    self.navigationController.navigationBarHidden = YES;
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
-    //        self.tabBarController.navigationController.navigationBarHidden = NO;
-    //    self.navigationController.navigationBarHidden = NO;
-}
 
 - (void)initBaseData{
     _pageNum = 1;
@@ -93,26 +88,8 @@
     
 }
 
+
 - (void)initSubViews{
-    
-    //设置状态栏的颜色为白色
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    //设置右上角的按钮
-    [self.searchButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-搜索pre"] forState:UIControlStateHighlighted];
-    [self.messageButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
-    
-    //设置左上角按钮
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-    [self.leftNavButton.layer setMasksToBounds:YES];
-    self.leftNavButton.layer.cornerRadius = 17.0;
-    [self.leftNavButton sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
-                                  forState:UIControlStateNormal
-                          placeholderImage:[UIImage imageNamed:@"头像-空"]];
-    if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
-        
-        [self.drawerDelegate addButtonToArray:self.leftNavButton];
-    }
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setTableView];//设置tableview
@@ -357,25 +334,6 @@
 }
 
 
-- (IBAction)leftButtonItemClick:(id)sender {
-    
-    NSLog(@"information left click did");
-    if ([self.drawerDelegate respondsToSelector:@selector(leftButtonClicked:)]) {
-        
-        [self.drawerDelegate leftButtonClicked:sender];
-    }
-}
-
-
-#pragma -mark -排行榜按钮被点击
-- (IBAction)rankButtonClicked:(id)sender {
-    FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
-    [self.navigationController pushViewController:rankHomeVC animated:YES];
-}
-
-- (IBAction)messageButtonClicked:(id)sender {
-    NSLog(@"message button clicked.");
-}
 
 #pragma mark push响应方法
 - (void) pushToDetailController:(NSDictionary *)dic {

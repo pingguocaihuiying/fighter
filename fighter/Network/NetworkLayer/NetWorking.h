@@ -291,4 +291,12 @@
 // 获取教学视频标签
 + (void) getTeachLabelsWithOption:(void(^)(NSDictionary *dict))option;
 
+#pragma mark - 兑吧
+
+//  获取兑吧地址
++(void) getDuibaUrl:(void (^)(NSDictionary *dict))option;
+
+//  获取兑吧地址
++ (void) GetDuiBaConfig:(void (^)(NSDictionary *dict))option;
+
 @end

@@ -21,6 +21,21 @@
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"底纹"]];
     
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+    
+    self.navigationController.navigationBarHidden = NO;
+    
+    //  导航栏半透明属性设置为NO,阻止导航栏遮挡view
+    self.navigationController.navigationBar.translucent = NO;
+    
+    // 修改edgesForExtendedLayout,阻止导航栏遮挡View
+    //    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    
+    //设置状态栏的颜色为白色
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    
     //设置渐变
 //        NSLog(@"base view的宽度：%f,高度：%f",self.view.frame.size.width, self.view.frame.size.height);
 //    NSLog(@"self view frame height : %f", self.view.frame.size.height);

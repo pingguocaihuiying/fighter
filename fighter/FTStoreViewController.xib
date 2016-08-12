@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTStoreViewController">
+            <connections>
+                <outlet property="view" destination="PAt-77-GFU" id="2C8-2Z-n6Q"/>
+                <outlet property="webView" destination="NdU-x4-OmS" id="qid-Xq-ih1"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="PAt-77-GFU">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fqK-WX-HF6" userLabel="上方分割线">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                    <color key="backgroundColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="GGm-a9-pPx"/>
+                    </constraints>
+                </view>
+                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NdU-x4-OmS" customClass="CreditWebView">
+                    <rect key="frame" x="0.0" y="1" width="320" height="567"/>
+                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                </webView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="fqK-WX-HF6" firstAttribute="top" secondItem="PAt-77-GFU" secondAttribute="top" id="09d-Yv-S16"/>
+                <constraint firstItem="NdU-x4-OmS" firstAttribute="trailing" secondItem="PAt-77-GFU" secondAttribute="trailing" id="DsA-sg-N0w"/>
+                <constraint firstItem="NdU-x4-OmS" firstAttribute="bottom" secondItem="PAt-77-GFU" secondAttribute="bottom" id="TOd-eA-Jol"/>
+                <constraint firstItem="NdU-x4-OmS" firstAttribute="top" secondItem="fqK-WX-HF6" secondAttribute="bottom" id="UJX-lR-ibU"/>
+                <constraint firstAttribute="trailing" secondItem="fqK-WX-HF6" secondAttribute="trailing" id="Y1T-0M-e29"/>
+                <constraint firstItem="fqK-WX-HF6" firstAttribute="leading" secondItem="PAt-77-GFU" secondAttribute="leading" id="atY-3U-BUh"/>
+                <constraint firstItem="NdU-x4-OmS" firstAttribute="leading" secondItem="PAt-77-GFU" secondAttribute="leading" id="wMt-Vp-Dcy"/>
+            </constraints>
+            <point key="canvasLocation" x="240" y="375"/>
+        </view>
+    </objects>
+</document>

@@ -378,7 +378,7 @@ enum{
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 16 * SCALE;;
+    return 16 * SCALE;
 }
 
 

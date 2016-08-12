@@ -24,9 +24,6 @@
 
 #import "FTInformationViewController.h"
 #import "FTVideoViewController.h"
-#import "FTMatchViewController.h"
-#import "FTCoachViewController.h"
-#import "FTBoxingHallViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "FTBaseTabBarViewController.h"
 
@@ -47,10 +44,19 @@
 #import "FTPracticeViewController.h"
 #import "FTPayViewController.h"
 
-@interface FTDrawerViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
+#import "FTRankViewController.h"
+#import "FTStoreViewController.h"
 
+
+
+@interface FTDrawerViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
+{
+    // 兑吧地址
+    NSInteger _duibaConfig;
+}
 //@property (nonatomic, strong) NSMutableArray *interestsArray;
 //@property (nonatomic, strong) FTDrawerTableViewHeader *header;
+
 
 @property (nonatomic , weak) UIButton *leftBtn;
 @property (nonatomic , strong) NSMutableArray *leftBtnArray;
@@ -64,18 +70,36 @@ static NSString *const tableCellId = @"tableCellId";
 
 @implementation FTDrawerViewController
 
+- (id) init {
+
+    self = [super init];
+    
+    if (self) {
+        
+        _duibaConfig = 1;
+        // 获取兑吧展示配置
+        [self getDuibaConfigInfo];
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self setNoti];
-    
-    [self setTableView];
-    
-    [self setLoginView];
-    
+    // 设置用户中心展示版本号和QQ群
     [self setVersion];
     
+    // 设置监听器
+    [self setNoti];
+    
+    // 设置登录后tableView
+    [self setTableView];
+    
+    // 设置未登录的时候显示信息
+    [self setLoginView];
+    
+    // tableview 数据适配
     [self tableViewAdapter];
     
 }
@@ -707,93 +731,64 @@ static NSString *const tableCellId = @"tableCellId";
 
 - (void) setHomeViewController {
     
+    // 早期版本展示页
+    {
+//    // 视频
+//    FTVideoViewController *videoVC = [FTVideoViewController new];
+//    //    FTBaseNavigationViewController *fightKingNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:fightKingVC];
+//    videoVC.tabBarItem.title = @"视频";
+//    [videoVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+//                                                Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
+//                                                nil] forState:UIControlStateSelected];
+//    
+//    videoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-视频"];
+//    videoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-视频pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    videoVC.drawerDelegate = self;
+    
+    
+    
+//    //拳吧
+//    FTArenaViewController *arenaVC = [FTArenaViewController new];
+//    arenaVC.tabBarItem.title = @"拳吧";
+//    [arenaVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+//                                                     Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
+//                                                     nil] forState:UIControlStateSelected];
+//    
+//    arenaVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳吧"];
+//    arenaVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳吧pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    arenaVC.drawerDelegate = self;
+
+    
+    //    infoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳讯"];
+    //    infoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳讯pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }
+    
+    
     // 拳讯
     FTInformationViewController *infoVC = [FTInformationViewController new];
-    //    FTBaseNavigationViewController *infoNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:infoVC];
+    infoVC.title = @"拳讯";
     infoVC.tabBarItem.title = @"拳讯";
-    
     [infoVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                Bar_Item_Select_Title_Color,NSForegroundColorAttributeName,
                                                nil] forState:UIControlStateSelected];
-//    infoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳讯"];
-//    infoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳讯pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-
+    
     infoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-视频"];
     infoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-视频pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    infoVC.drawerDelegate = self;
-    
-    // 比赛
-    FTMatchViewController *matchVC = [FTMatchViewController new];
-    //    FTBaseNavigationViewController *matchNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:matchVC];
-    matchVC.tabBarItem.title = @"赛事";
-    [matchVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
-                                                nil] forState:UIControlStateSelected];
     
     
-    matchVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-赛事"];
-    matchVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-赛事pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    matchVC.drawerDelegate = self;
-    
-    // 拳吧
-    FTVideoViewController *videoVC = [FTVideoViewController new];
-    //    FTBaseNavigationViewController *fightKingNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:fightKingVC];
-    videoVC.tabBarItem.title = @"视频";
-    [videoVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
-                                                nil] forState:UIControlStateSelected];
-    
-    videoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-视频"];
-    videoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-视频pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    videoVC.drawerDelegate = self;
-    
-    // 教练
-    FTCoachViewController *coachVC = [FTCoachViewController new];
-    //    FTBaseNavigationViewController *coachNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:coachVC];
-    coachVC.tabBarItem.title = @"教练";
-    [coachVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
-                                                nil] forState:UIControlStateSelected];
-    
-    coachVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-教练"];
-    coachVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-教练pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    coachVC.drawerDelegate = self;
-    
-    // 拳馆
-    FTBoxingHallViewController *boxingHallVC = [FTBoxingHallViewController new];
-    //    FTBaseNavigationViewController *boxingHallNaviVC = [[FTBaseNavigationViewController alloc]initWithRootViewController:boxingHallVC];
-    boxingHallVC.tabBarItem.title = @"拳馆";
-    [boxingHallVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                     Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
-                                                     nil] forState:UIControlStateSelected];
-    
-    boxingHallVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳馆"];
-    boxingHallVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    boxingHallVC.drawerDelegate = self;
-    
-    //拳吧
-    FTArenaViewController *arenaVC = [FTArenaViewController new];
-    arenaVC.tabBarItem.title = @"拳吧";
-    [arenaVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                     Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
-                                                     nil] forState:UIControlStateSelected];
-    
-    arenaVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳吧"];
-    arenaVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳吧pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    arenaVC.drawerDelegate = self;
-
-    //格斗场
+    // 格斗场
     FTFightingViewController *fightingVC = [FTFightingViewController new];
+    fightingVC.title = @"格斗场";
     fightingVC.tabBarItem.title = @"格斗场";
     [fightingVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                 Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
                                                 nil] forState:UIControlStateSelected];
     fightingVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳馆"];
     fightingVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    fightingVC.drawerDelegate = self;
     
-    //学拳
+    // 学拳
     FTPracticeViewController *practiceVC = [FTPracticeViewController new];
+    practiceVC.title = @"学拳";
     practiceVC.tabBarItem.title = @"学拳";
     [practiceVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                    Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
@@ -801,23 +796,58 @@ static NSString *const tableCellId = @"tableCellId";
     
     practiceVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-教练"];
     practiceVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-教练pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    practiceVC.drawerDelegate = self;
     
-    //设置tabbar的属性
+    
+    // 兑吧
+    FTStoreViewController *duibaVC = [FTStoreViewController new];
+    duibaVC.title = @"格斗商城";
+    duibaVC.tabBarItem.title = @"格斗商城";
+    [duibaVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                   Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
+                                                   nil] forState:UIControlStateSelected];
+    
+    duibaVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-商城"];
+    duibaVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-商城pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+
+
+    // 排行榜
+    FTRankViewController *rankHomeVC = [FTRankViewController new];
+    rankHomeVC.title = @"排行榜";
+    rankHomeVC.tabBarItem.title = @"排行榜";
+    [rankHomeVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
+                                                nil] forState:UIControlStateSelected];
+    rankHomeVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-底部排行榜"];
+    rankHomeVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-底部排行榜pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+
+    // 设置tabbar的属性
     FTBaseTabBarViewController *tabBartVC = [FTBaseTabBarViewController new];
     
     tabBartVC.tabBar.barTintColor = [UIColor blackColor];
     tabBartVC.tabBar.translucent = NO;
-//    tabBartVC.viewControllers = @[infoVC, matchVC, videoVC, coachVC, boxingHallVC];
+    tabBartVC.drawerDelegate = self;
+    
 //    tabBartVC.viewControllers = @[infoVC, arenaVC, fightingVC, videoVC,practiceVC];
 //    tabBartVC.viewControllers = @[infoVC, arenaVC,videoVC,practiceVC];
 //    tabBartVC.viewControllers = @[infoVC,videoVC,practiceVC,arenaVC];
-    tabBartVC.viewControllers = @[infoVC,fightingVC,practiceVC,arenaVC];
+    
+//    tabBartVC.viewControllers = @[infoVC,fightingVC,practiceVC,rankNavi,duibaVC];
+    
+    
+    if (_duibaConfig == 0) {
+        
+        tabBartVC.viewControllers = @[infoVC,practiceVC,rankHomeVC,duibaVC];
+    }else {
+        
+        tabBartVC.viewControllers = @[infoVC,practiceVC,rankHomeVC];
+    }
     
     FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:tabBartVC];
     [self.dynamicsDrawerViewController  setPaneViewController:navi];
     
     
+    // 推送
     [self checkPush];
 }
 
@@ -868,4 +898,27 @@ static NSString *const tableCellId = @"tableCellId";
 }
 
 
+#pragma mark - 网络通讯
+
+// 获取兑吧地址
+- (void) getDuibaConfigInfo{
+
+    [NetWorking GetDuiBaConfig:^(NSDictionary *dict) {
+        
+        NSLog(@"duiba dict:%@",dict);
+        
+        if (!dict) {
+            return ;
+        }
+        
+        NSDictionary *dict_data = [dict[@"data"] objectAtIndex:0];
+        if (dict_data) {
+            
+            _duibaConfig = [dict_data[@"config_value"] integerValue];
+        }
+        
+        
+        [self setHomeViewController];
+    }];
+}
 @end
