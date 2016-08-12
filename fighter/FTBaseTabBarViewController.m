@@ -25,9 +25,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setNotification];
+    
     [self setNavigationbar];
     
-    [self loadAvatar];
+//    [self loadAvatar];
     
     
     self.delegate = self;
@@ -46,7 +48,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - 监听器
 
+- (void) setNotification {
+
+    //注册通知，接收微信登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateAvatar:) name:WXLoginResultNoti object:nil];
+    
+    //添加监听器，监听login
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateAvatar:) name:LoginNoti object:nil];
+}
 
 #pragma mark - 设置导航栏
 - (void) setNavigationbar {
@@ -125,13 +136,37 @@
 }
 
 
-- (void) loadAvatar {
+//- (void) loadAvatar {
+//
+//    if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
+//        
+//        [self.drawerDelegate addButtonToArray:self.avatarBtn];
+//    }
+//
+//}
 
-    if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
+#pragma mark - 监听器响应
+
+- (void) updateAvatar:(NSNotification *) noti {
+
+    //导航栏头像按钮
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    
+    NSString *msg = [noti object];
+    if ([msg isEqualToString:@"LOGOUT"] || [msg isEqualToString:@"ERROR"]) {
         
-        [self.drawerDelegate addButtonToArray:self.avatarBtn];
+        [self.avatarBtn setImage:[UIImage imageNamed:@"头像-空"] forState:UIControlStateNormal];
+        
+    }else {
+        
+        [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
+                                  forState:UIControlStateNormal
+                          placeholderImage:[UIImage imageNamed:@"头像-空"]];
     }
-
+    
+    
 }
 
 #pragma mark - button response
@@ -144,6 +179,8 @@
         [self.drawerDelegate leftButtonClicked:sender];
     }
 }
+
+
 
 // 头像点击事件
 - (void)searchBtnAction:(id)sender {

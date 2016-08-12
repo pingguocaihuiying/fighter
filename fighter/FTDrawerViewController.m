@@ -58,8 +58,6 @@
 //@property (nonatomic, strong) FTDrawerTableViewHeader *header;
 
 
-@property (nonatomic , weak) UIButton *leftBtn;
-@property (nonatomic , strong) NSMutableArray *leftBtnArray;
 @property (nonatomic, strong) NSArray *labelArray; //标签数组
 
 
@@ -239,7 +237,7 @@ static NSString *const tableCellId = @"tableCellId";
         NSLog(@"执行退出登录");
         [self.loginView setHidden:NO];//显示登录页面
         
-        [self updateUserAvatar:nil];
+        
     }else {
         
         // 获取余额
@@ -312,21 +310,7 @@ static NSString *const tableCellId = @"tableCellId";
         [self.loginView setHidden:NO];//隐藏登录页面
     }
     
-    //跟新头像
-    [self updateUserAvatar:localUser.headpic];
-}
-
-
-// 更新用户头像
-- (void) updateUserAvatar:(NSString *)headpic {
-
     
-    for (UIButton *button in self.leftBtnArray) {
-        
-        [button sd_setImageWithURL:[NSURL URLWithString:headpic]
-                          forState:UIControlStateNormal
-                  placeholderImage:[UIImage imageNamed:@"头像-空"]];
-    }
 }
 
 
@@ -660,30 +644,8 @@ static NSString *const tableCellId = @"tableCellId";
 
 #pragma  mark - FTDynamicsDelegate
 
-- (void) addButtonToArray:(UIButton *)button {
-    
-    if (!self.leftBtnArray) {
-        
-        self.leftBtnArray = [[NSMutableArray alloc]init];
-        
-    }
-     [self.leftBtnArray addObject:button];
-    
-}
-
 - (void) leftButtonClicked:(UIButton *) button {
 
-//    if (!self.leftBtnArray) {
-//        
-//        self.leftBtnArray = [[NSMutableArray alloc]init];
-//        
-//    }
-//    if(![self.leftBtnArray containsObject:button]){
-//        [self.leftBtnArray addObject:button];
-//    }
-//    [self.leftBtnArray addObject:button];
-    
-//    self.leftBtn = button;
     [self.dynamicsDrawerViewController setPaneState:FTDynamicsDrawerPaneStateOpen
                                        inDirection:FTDynamicsDrawerDirectionLeft
                                           animated:YES

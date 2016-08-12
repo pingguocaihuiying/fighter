@@ -8,7 +8,8 @@
 
 #import "FTStoreViewController.h"
 #import "FTRankViewController.h"
-
+#import "FTLoginViewController.h"
+#import "FTBaseNavigationViewController.h"
 
 //#import "CreditNavigationController.h"
 
@@ -17,7 +18,7 @@
 
 #import "FTDBRecordViewController.h"
 
-@interface FTStoreViewController ()<UIWebViewDelegate>
+@interface FTStoreViewController ()<UIWebViewDelegate,UIAlertViewDelegate>
 {
 
     UIImageView *_loadingImageView;
@@ -164,6 +165,18 @@ static NSString *originUserAgent;
 
 - (void) initWebview {
 
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    if (!localUser) {
+        
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"您还没有登录哟，先去登录吧~" delegate:self cancelButtonTitle:@"登录" otherButtonTitles:@"取消", nil];
+        [alert show];
+        
+        return;
+    }
+    
     [NetWorking getDuibaUrl:^(NSDictionary *dict) {
         
         NSLog(@"dict:%@",dict);
@@ -184,6 +197,20 @@ static NSString *originUserAgent;
 
 #pragma mark - button response
 
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+
+    if (buttonIndex == 0) {
+        
+        FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+        loginVC.title = @"登录";
+        FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+        [self.navigationController presentViewController:nav animated:YES completion:nil];
+    }
+    
+    [self disableLoadingAnimation];
+}
 
 #pragma mark - WebViewDelegate
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
