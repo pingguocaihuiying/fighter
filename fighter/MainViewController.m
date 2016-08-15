@@ -30,7 +30,7 @@ FTDrawerViewController *drawerVC;
     drawerVC.dynamicsDrawerViewController = self;
     [self setDrawerViewController:drawerVC forDirection:FTDynamicsDrawerDirectionLeft];
     
-//    [drawerVC setHomeViewController];
+    [drawerVC setHomeViewController];
     
     [drawerVC setNoti];
 

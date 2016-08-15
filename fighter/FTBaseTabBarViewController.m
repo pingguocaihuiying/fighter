@@ -7,6 +7,10 @@
 //
 
 #import "FTBaseTabBarViewController.h"
+#import "FTStoreViewController.h"
+#import "FTRankViewController.h"
+#import "FTLoginViewController.h"
+#import "FTBaseNavigationViewController.h"
 
 @interface FTBaseTabBarViewController () <UITabBarControllerDelegate>
 
@@ -25,9 +29,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setNotification];
+    
     [self setNavigationbar];
     
-    [self loadAvatar];
+//    [self loadAvatar];
     
     
     self.delegate = self;
@@ -46,7 +52,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - 监听器
 
+- (void) setNotification {
+
+    //注册通知，接收微信登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateAvatar:) name:WXLoginResultNoti object:nil];
+    
+    //添加监听器，监听login
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateAvatar:) name:LoginNoti object:nil];
+}
 
 #pragma mark - 设置导航栏
 - (void) setNavigationbar {
@@ -71,28 +86,28 @@
     
     
     
-    // 头部消息按钮
-    self.messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.messageBtn.frame = CGRectMake(0, 0, 24, 24);
-    [self.messageBtn addTarget:self action:@selector(messageBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息"] forState:UIControlStateNormal];
-    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
-    
-    UIBarButtonItem *messageBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.messageBtn];
-    
-    // 头部搜索按钮
-    self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.searchBtn.frame = CGRectMake(0, 0, 24, 24);
-    [self.searchBtn addTarget:self action:@selector(searchBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索"] forState:UIControlStateNormal];
-    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索pre"] forState:UIControlStateHighlighted];
-    
-    
-    UIBarButtonItem *searchBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.searchBtn];
-    
-    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:messageBtnItem, searchBtnItem,nil];
+//    // 头部消息按钮
+//    self.messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.messageBtn.frame = CGRectMake(0, 0, 24, 24);
+//    [self.messageBtn addTarget:self action:@selector(messageBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息"] forState:UIControlStateNormal];
+//    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
+//    
+//    UIBarButtonItem *messageBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.messageBtn];
+//    
+//    // 头部搜索按钮
+//    self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.searchBtn.frame = CGRectMake(0, 0, 24, 24);
+//    [self.searchBtn addTarget:self action:@selector(searchBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索"] forState:UIControlStateNormal];
+//    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索pre"] forState:UIControlStateHighlighted];
+//    
+//    
+//    UIBarButtonItem *searchBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.searchBtn];
+//    
+//    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:messageBtnItem, searchBtnItem,nil];
     
     
     // title View
@@ -125,13 +140,37 @@
 }
 
 
-- (void) loadAvatar {
+//- (void) loadAvatar {
+//
+//    if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
+//        
+//        [self.drawerDelegate addButtonToArray:self.avatarBtn];
+//    }
+//
+//}
 
-    if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
+#pragma mark - 监听器响应
+
+- (void) updateAvatar:(NSNotification *) noti {
+
+    //导航栏头像按钮
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    
+    NSString *msg = [noti object];
+    if ([msg isEqualToString:@"LOGOUT"] || [msg isEqualToString:@"ERROR"]) {
         
-        [self.drawerDelegate addButtonToArray:self.avatarBtn];
+        [self.avatarBtn setImage:[UIImage imageNamed:@"头像-空"] forState:UIControlStateNormal];
+        
+    }else {
+        
+        [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
+                                  forState:UIControlStateNormal
+                          placeholderImage:[UIImage imageNamed:@"头像-空"]];
     }
-
+    
+    
 }
 
 #pragma mark - button response
@@ -145,10 +184,13 @@
     }
 }
 
+
+
 // 头像点击事件
 - (void)searchBtnAction:(id)sender {
     
     NSLog(@"serach button clicked");
+    
 }
 
 // 头像点击事件
@@ -159,8 +201,56 @@
 
 
 #pragma mark - delegate
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+
+    if (tabBarController.selectedIndex != 3 && [viewController isKindOfClass:[FTStoreViewController class]]) {
+        
+        //从本地读取存储的用户信息
+        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+        
+        if ( !localUser) {
+            
+            FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+            loginVC.title = @"登录";
+            FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+            [self.navigationController presentViewController:nav animated:YES completion:nil];
+            
+            [[UIApplication sharedApplication].keyWindow addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:3];
+            
+            return NO;
+        }
+        
+    }
+    
+    return YES;
+}
+
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
 
     self.titleLabel.text = viewController.title;
+    
+    
+//    if (tabBarController.selectedIndex != 3) {
+//        return;
+//    }
+//    //从本地读取存储的用户信息
+//    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+//    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+//    
+//    if (localUser) {
+//        return;
+//    }
+//    
+//    if ( [viewController isKindOfClass:[FTStoreViewController class]]) {
+//        
+//        FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+//        loginVC.title = @"登录";
+//        FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+//        [self.navigationController presentViewController:nav animated:YES completion:nil];
+//        
+//        [[UIApplication sharedApplication].keyWindow addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:3];
+//    }
 }
 @end

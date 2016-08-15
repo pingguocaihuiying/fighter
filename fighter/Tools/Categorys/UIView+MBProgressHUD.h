@@ -1,16 +1,17 @@
 //
-//  UIWindow+MBProgressHUD.h
+//  UIView+MBProgressHUD.h
 //  fighter
 //
-//  Created by kang on 16/5/5.
+//  Created by kang on 16/8/13.
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface UIWindow (MBProgressHUD)
+@interface UIView (MBProgressHUD)
 
-- (void)showHUDWithMessage:(NSString *)message;
+
+- (void)showMessage:(NSString *)message  second:(NSInteger) second;
 
 - (void) addLabelWithMessage:(NSString *)message second:(NSInteger) second;
 

@@ -8,16 +8,17 @@
 
 #import "FTStoreViewController.h"
 #import "FTRankViewController.h"
-
-
-//#import "CreditNavigationController.h"
+#import "FTLoginViewController.h"
+#import "FTBaseNavigationViewController.h"
 
 #import "CreditWebView.h"
 #import "CreditConstant.h"
 
 #import "FTDBRecordViewController.h"
 
-@interface FTStoreViewController ()<UIWebViewDelegate>
+#import "UIWindow+MBProgressHUD.h"
+
+@interface FTStoreViewController ()<UIWebViewDelegate,UIAlertViewDelegate>
 {
 
     UIImageView *_loadingImageView;
@@ -35,6 +36,7 @@
 
 
 //@property(nonatomic,strong) UIActivityIndicatorView *activity;
+
 
 @end
 
@@ -95,7 +97,7 @@ static NSString *originUserAgent;
     
     [self initWebview];
     
-    [self setLoadingImageView];
+    
     
 }
 
@@ -164,6 +166,26 @@ static NSString *originUserAgent;
 
 - (void) initWebview {
 
+//    //从本地读取存储的用户信息
+//    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+//    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+//    
+//    if (!localUser) {
+//    
+////        [self disableLoadingAnimation];
+//        
+//        FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+//        loginVC.title = @"登录";
+//        FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+//        [self.navigationController presentViewController:nav animated:YES completion:nil];
+//        
+//        [[UIApplication sharedApplication].keyWindow addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:3];
+//        
+//        
+//
+//    }
+    
+    
     [NetWorking getDuibaUrl:^(NSDictionary *dict) {
         
         NSLog(@"dict:%@",dict);
@@ -180,9 +202,13 @@ static NSString *originUserAgent;
     
     self.webView.delegate = self;
     
+    
+
 }
 
 #pragma mark - button response
+
+
 
 
 #pragma mark - WebViewDelegate
@@ -190,7 +216,7 @@ static NSString *originUserAgent;
     [self disableLoadingAnimation];
 }
 -(void)webViewDidStartLoad:(UIWebView *)webView{
-    [self startLoadingAnimation];
+    [self setLoadingImageView];
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     
