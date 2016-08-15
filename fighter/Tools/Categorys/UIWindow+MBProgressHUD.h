@@ -12,4 +12,6 @@
 
 - (void)showHUDWithMessage:(NSString *)message;
 
+- (void) addLabelWithMessage:(NSString *)message second:(NSInteger) second;
+
 @end

@@ -7,6 +7,10 @@
 //
 
 #import "FTBaseTabBarViewController.h"
+#import "FTStoreViewController.h"
+#import "FTRankViewController.h"
+#import "FTLoginViewController.h"
+#import "FTBaseNavigationViewController.h"
 
 @interface FTBaseTabBarViewController () <UITabBarControllerDelegate>
 
@@ -197,8 +201,56 @@
 
 
 #pragma mark - delegate
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+
+    if (tabBarController.selectedIndex != 3 && [viewController isKindOfClass:[FTStoreViewController class]]) {
+        
+        //从本地读取存储的用户信息
+        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+        
+        if ( !localUser) {
+            
+            FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+            loginVC.title = @"登录";
+            FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+            [self.navigationController presentViewController:nav animated:YES completion:nil];
+            
+            [[UIApplication sharedApplication].keyWindow addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:3];
+            
+            return NO;
+        }
+        
+    }
+    
+    return YES;
+}
+
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
 
     self.titleLabel.text = viewController.title;
+    
+    
+//    if (tabBarController.selectedIndex != 3) {
+//        return;
+//    }
+//    //从本地读取存储的用户信息
+//    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+//    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+//    
+//    if (localUser) {
+//        return;
+//    }
+//    
+//    if ( [viewController isKindOfClass:[FTStoreViewController class]]) {
+//        
+//        FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+//        loginVC.title = @"登录";
+//        FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+//        [self.navigationController presentViewController:nav animated:YES completion:nil];
+//        
+//        [[UIApplication sharedApplication].keyWindow addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:3];
+//    }
 }
 @end

@@ -11,12 +11,12 @@
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
 
-//#import "CreditNavigationController.h"
-
 #import "CreditWebView.h"
 #import "CreditConstant.h"
 
 #import "FTDBRecordViewController.h"
+
+#import "UIWindow+MBProgressHUD.h"
 
 @interface FTStoreViewController ()<UIWebViewDelegate,UIAlertViewDelegate>
 {
@@ -97,7 +97,7 @@ static NSString *originUserAgent;
     
     [self initWebview];
     
-    [self setLoadingImageView];
+    
     
 }
 
@@ -166,24 +166,25 @@ static NSString *originUserAgent;
 
 - (void) initWebview {
 
-    //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+//    //从本地读取存储的用户信息
+//    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+//    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+//    
+//    if (!localUser) {
+//    
+////        [self disableLoadingAnimation];
+//        
+//        FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+//        loginVC.title = @"登录";
+//        FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+//        [self.navigationController presentViewController:nav animated:YES completion:nil];
+//        
+//        [[UIApplication sharedApplication].keyWindow addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:3];
+//        
+//        
+//
+//    }
     
-    if (!localUser) {
-        
-//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"您还没有登录哟，先去登录吧~" delegate:self cancelButtonTitle:@"登录" otherButtonTitles:@"取消", nil];
-//        [alert show];
-        
-        
-        FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
-        loginVC.title = @"登录";
-        FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
-        [self.navigationController presentViewController:nav animated:YES completion:nil];
-        
-        [loginVC.view addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:10];
-        return;
-    }
     
     [NetWorking getDuibaUrl:^(NSDictionary *dict) {
         
@@ -201,31 +202,21 @@ static NSString *originUserAgent;
     
     self.webView.delegate = self;
     
+    
+
 }
 
 #pragma mark - button response
 
 
-#pragma mark - UIAlertViewDelegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 
-    if (buttonIndex == 0) {
-        
-        FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
-        loginVC.title = @"登录";
-        FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
-        [self.navigationController presentViewController:nav animated:YES completion:nil];
-    }
-    
-    [self disableLoadingAnimation];
-}
 
 #pragma mark - WebViewDelegate
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     [self disableLoadingAnimation];
 }
 -(void)webViewDidStartLoad:(UIWebView *)webView{
-    [self startLoadingAnimation];
+    [self setLoadingImageView];
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     
