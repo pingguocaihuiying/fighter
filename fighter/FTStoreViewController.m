@@ -37,6 +37,7 @@
 
 //@property(nonatomic,strong) UIActivityIndicatorView *activity;
 
+
 @end
 
 static BOOL byPresent=NO;
@@ -171,9 +172,16 @@ static NSString *originUserAgent;
     
     if (!localUser) {
         
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"您还没有登录哟，先去登录吧~" delegate:self cancelButtonTitle:@"登录" otherButtonTitles:@"取消", nil];
-        [alert show];
+//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"您还没有登录哟，先去登录吧~" delegate:self cancelButtonTitle:@"登录" otherButtonTitles:@"取消", nil];
+//        [alert show];
         
+        
+        FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+        loginVC.title = @"登录";
+        FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+        [self.navigationController presentViewController:nav animated:YES completion:nil];
+        
+        [loginVC.view addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:10];
         return;
     }
     

@@ -57,7 +57,7 @@
 //@property (nonatomic, strong) NSMutableArray *interestsArray;
 //@property (nonatomic, strong) FTDrawerTableViewHeader *header;
 
-
+@property (nonatomic, strong) FTBaseTabBarViewController *tabBarVC;
 @property (nonatomic, strong) NSArray *labelArray; //标签数组
 
 
@@ -75,8 +75,8 @@ static NSString *const tableCellId = @"tableCellId";
     if (self) {
         
         _duibaConfig = 1;
-        // 获取兑吧展示配置
-        [self getDuibaConfigInfo];
+//        // 获取兑吧展示配置
+//        [self getDuibaConfigInfo];
     }
     
     return self;
@@ -760,6 +760,17 @@ static NSString *const tableCellId = @"tableCellId";
     practiceVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-教练pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     
+    // 排行榜
+    FTRankViewController *rankHomeVC = [FTRankViewController new];
+    rankHomeVC.title = @"排行榜";
+    rankHomeVC.tabBarItem.title = @"排行榜";
+    [rankHomeVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                   Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
+                                                   nil] forState:UIControlStateSelected];
+    rankHomeVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-底部排行榜"];
+    rankHomeVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-底部排行榜pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    
     // 兑吧
     FTStoreViewController *duibaVC = [FTStoreViewController new];
     duibaVC.title = @"格斗商城";
@@ -772,23 +783,15 @@ static NSString *const tableCellId = @"tableCellId";
     duibaVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-商城pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 
 
-    // 排行榜
-    FTRankViewController *rankHomeVC = [FTRankViewController new];
-    rankHomeVC.title = @"排行榜";
-    rankHomeVC.tabBarItem.title = @"排行榜";
-    [rankHomeVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
-                                                nil] forState:UIControlStateSelected];
-    rankHomeVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-底部排行榜"];
-    rankHomeVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-底部排行榜pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
     
 
     // 设置tabbar的属性
-    FTBaseTabBarViewController *tabBartVC = [FTBaseTabBarViewController new];
+    _tabBarVC = [FTBaseTabBarViewController new];
     
-    tabBartVC.tabBar.barTintColor = [UIColor blackColor];
-    tabBartVC.tabBar.translucent = NO;
-    tabBartVC.drawerDelegate = self;
+    _tabBarVC.tabBar.barTintColor = [UIColor blackColor];
+    _tabBarVC.tabBar.translucent = NO;
+    _tabBarVC.drawerDelegate = self;
     
 //    tabBartVC.viewControllers = @[infoVC, arenaVC, fightingVC, videoVC,practiceVC];
 //    tabBartVC.viewControllers = @[infoVC, arenaVC,videoVC,practiceVC];
@@ -796,23 +799,46 @@ static NSString *const tableCellId = @"tableCellId";
     
 //    tabBartVC.viewControllers = @[infoVC,fightingVC,practiceVC,rankNavi,duibaVC];
     
+//    
+//    if (_duibaConfig == 0) {
+//        
+//        _tabBarVC.viewControllers = @[infoVC,rankHomeVC,practiceVC,duibaVC];
+//    }else {
+//        
+//        _tabBarVC.viewControllers = @[infoVC,practiceVC,rankHomeVC];
+//    }
     
-    if (_duibaConfig == 0) {
-        
-        tabBartVC.viewControllers = @[infoVC,rankHomeVC,practiceVC,duibaVC];
-    }else {
-        
-        tabBartVC.viewControllers = @[infoVC,practiceVC,rankHomeVC];
-    }
+    _tabBarVC.viewControllers = @[infoVC,practiceVC,rankHomeVC];
     
-    FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:tabBartVC];
+    FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:_tabBarVC];
     [self.dynamicsDrawerViewController  setPaneViewController:navi];
     
+    
+    [self getDuibaConfigInfo:^{
+        
+        if (_duibaConfig == 0) {
+            
+           [self addTabBarVC:duibaVC];
+        }
+
+    }];
     
     // 推送
     [self checkPush];
 }
 
+
+
+- (void) addTabBarVC:(UIViewController *)viewController {
+
+    NSMutableArray *mutabelItems = [[NSMutableArray alloc]initWithArray:self.tabBarVC.viewControllers];
+    
+    [mutabelItems addObject:viewController];
+    NSArray *items = [[NSArray alloc]initWithArray:mutabelItems];
+    
+    self.tabBarVC.viewControllers = items;
+
+}
 
 - (void) checkPush {
 
@@ -840,18 +866,18 @@ static NSString *const tableCellId = @"tableCellId";
         [infoVC pushToDetailController:dic];
         
     }else if ([dic[@"urlType"] isEqualToString:@"video"]) {
-        [tabBartVC setSelectedIndex:1];
+        [tabBartVC setSelectedIndex:7];
         
         FTVideoViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:1];
         [infoVC pushToDetailController:dic];
         
     }else if ([dic[@"urlType"] isEqualToString:@"arenas"]) {
-        [tabBartVC setSelectedIndex:2];
+        [tabBartVC setSelectedIndex:6];
         
         FTArenaViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:2];
         [infoVC pushToDetailController:dic];
     }else if ([dic[@"urlType"] isEqualToString:@"teach"]) {
-        [tabBartVC setSelectedIndex:3];
+        [tabBartVC setSelectedIndex:2];
         
         FTPracticeViewController *vc = [tabBartVC.viewControllers objectAtIndex:2];
         [vc pushToDetailController:dic];
@@ -863,7 +889,7 @@ static NSString *const tableCellId = @"tableCellId";
 #pragma mark - 网络通讯
 
 // 获取兑吧地址
-- (void) getDuibaConfigInfo{
+- (void) getDuibaConfigInfo:(void (^)(void)) option{
 
     [NetWorking GetDuiBaConfig:^(NSDictionary *dict) {
         
@@ -879,8 +905,8 @@ static NSString *const tableCellId = @"tableCellId";
             _duibaConfig = [dict_data[@"config_value"] integerValue];
         }
         
+        option();
         
-        [self setHomeViewController];
     }];
 }
 @end

@@ -186,6 +186,7 @@
 - (void)searchBtnAction:(id)sender {
     
     NSLog(@"serach button clicked");
+    
 }
 
 // 头像点击事件
