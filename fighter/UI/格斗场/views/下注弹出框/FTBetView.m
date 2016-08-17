@@ -66,6 +66,8 @@
         [_textField resignFirstResponder];
     }
 }
+
+#pragma mark 确认下注
 - (IBAction)confirmButtonClicked:(id)sender {
     NSLog(@"确定参与");
     

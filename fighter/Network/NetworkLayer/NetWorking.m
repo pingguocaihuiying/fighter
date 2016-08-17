@@ -1378,6 +1378,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     NSString *payWay = @"0";//默认为0-积分支付； 值为1-微信支付
     NSString *loginToken = userBean.token;//当前用户的login token
     NSString *ts = [NSString stringWithFormat:@"%lf", [[NSDate date] timeIntervalSince1970]];
+    NSString *deviceToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
+    NSLog(@"deviceToken : %@", deviceToken);
     
     //md5前的checkSign字典
     NSMutableDictionary *dicBeforeMD5 = [[NSMutableDictionary alloc]initWithDictionary:@{
@@ -1390,6 +1392,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                                                                                          @"money_p":money_p,
                                                                                          @"payWay":payWay,
                                                                                          @"loginToken":loginToken,
+                                                                                         @"token":deviceToken,
                                                                                          @"ts":ts}];
     NSString *checkSign = [FTTools md5Dictionary:dicBeforeMD5 withCheckKey:@"gedoujiahdggrdearyhreayt251grd"];
     [dicBeforeMD5 setValue:checkSign forKey:@"checkSign"];
@@ -1415,13 +1418,25 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     NSString *userId = user.olduserid;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
+    NSString *deviceToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
 
-    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, isFollow ? FollowCheckKey: CancelFollowCheckKey];
-    NSLog(@"check sign : %@", checkSign);
-    checkSign = [MD5 md5:checkSign];
+//    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", deviceToken, loginToken, objId, tableName, ts, userId, isFollow ? FollowCheckKey: CancelFollowCheckKey];
+//    NSLog(@"check sign : %@", checkSign);
+//    checkSign = [MD5 md5:checkSign];
     
+    //md5前的checkSign字典
+    NSMutableDictionary *dicBeforeMD5 = [[NSMutableDictionary alloc]initWithDictionary:@{
+                                                                                         @"userId":userId,
+                                                                                         @"objId":objId,
+                                                                                         @"tableName":tableName,
+                                                                                         @"loginToken":loginToken,
+                                                                                         @"token":deviceToken,
+                                                                                         @"ts":ts}];
+    NSString *checkSign = [FTTools md5Dictionary:dicBeforeMD5 withCheckKey:isFollow ? FollowCheckKey: CancelFollowCheckKey];
+    [dicBeforeMD5 setValue:checkSign forKey:@"checkSign"];
+    NSDictionary *parmamDic = dicBeforeMD5;
     
-    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@&", urlString, userId, objId, loginToken, ts, checkSign, tableName];
+//    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@&token=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName, deviceToken];
     //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
     //创建AAFNetWorKing管理者
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -1429,10 +1444,10 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSLog(@"收藏url：%@", urlString);
-    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager POST:urlString parameters:parmamDic success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"收藏状态 status : %@, message : %@", responseDic[@"status"], responseDic[@"message"]);
-        
+
         if ([responseDic[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
             option(YES);
         }

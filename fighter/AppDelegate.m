@@ -300,6 +300,13 @@
 - (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken
 {
     NSLog(@"deviceToken:%@",deviceToken);
+    
+    //将deviceToken保存在本地
+    if (deviceToken) {
+        [[NSUserDefaults standardUserDefaults]setObject:deviceToken forKey:@"deviceToken"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+    }
+    
 //    [IXPushSdkApi registerDeviceToken:deviceToken
 //                              channel:@"test" version:@"1.0" appId:1670128310];
 

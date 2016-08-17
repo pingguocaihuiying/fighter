@@ -217,8 +217,12 @@
                             
                             FTMatchBean *matchBean = [FTMatchBean new];
                             [matchBean setValuesForKeysWithDictionary:dic];
-                            
-                            [_matchesDic setObject:matchBean forKey:matchDateString];
+                            NSMutableArray *matchBeansArray = _matchesDic[matchDateString];//存放某天所有比赛的数组
+                            if (!matchBeansArray) {
+                                matchBeansArray = [NSMutableArray new];
+                            }
+                            [matchBeansArray addObject:matchBean];
+                            [_matchesDic setObject:matchBeansArray forKey:matchDateString];
                         }
                     }
                     

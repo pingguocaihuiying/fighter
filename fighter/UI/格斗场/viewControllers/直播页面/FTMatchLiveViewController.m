@@ -199,7 +199,7 @@
      *  斗鱼直播  http://www.douyu.com/611813
      ufc  http://live.qq.com/10000202
      */
-    NSString *webURL = @"http://live.qq.com/10000202";
+    NSString *webURL = @"http://www.douyu.com/611813";
         [_liveWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:webURL]]];
     //根据不同的机型，调整遮盖view的高度，到达完美遮挡的目的
     NSLog(@"SCREEN_WIDTH : %f", SCREEN_WIDTH);
