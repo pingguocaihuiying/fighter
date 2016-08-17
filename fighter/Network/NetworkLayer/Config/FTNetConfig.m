@@ -46,9 +46,10 @@
 //NSString * const Domain = @"http://www.loufang.studio/pugilist_admin";//生产环境
 //  http://www.gogogofight.com/
 NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin";//生产环境
+//NSString * const Domain = @"http://192.168.85.45/pugilist_admin";//内网测试环境
 //NSString * const Domain = @"http://10.11.1.117:8080/pugilist_admin";//何后台开发环境
 //NSString * const Domain = @"http://10.11.1.49/pugilist_admin";//余彧后台开发环境
-//获取新闻
+//获取新闻192.168.85.45
 NSString * const GetNewsURL = @"/api/news/getNews.do";
 
 //评论接口地址: 
@@ -249,5 +250,20 @@ NSString * const GetBuyVideoURL = @"/api/cumulation/getBuyVideoUrl.do";
 NSString * const RechargeIAPURL = @"/api/cumulation/appleRecharge.do";
 // app内购验证付款接口
 NSString * const CheckIAPURL = @"/api/cumulation/appleOrderquery.do";
+
+#pragma mark - 兑吧
+
+// 获取兑吧功能配置
+NSString * const DuiBaConfigURL = @"/api/config/getConfig.do";
+// 请求兑吧地址
+NSString * const DuiBaURL = @"/api/duiba/getShopList.do";
+
+// 兑吧扣除积分接口
+NSString * const DuiBaChargeURL = @"/api/duiba/exchangeShop.do";
+
+// 兑吧确定扣除积分接口
+NSString * const DuiBaCheckCharegeURL = @"/api/duiba/exchangeShopStates.do";
+
+
 
 

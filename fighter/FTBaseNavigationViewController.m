@@ -16,9 +16,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationBarHidden = YES;
+//    self.navigationBarHidden = YES;
     self.navigationBar.barTintColor = [UIColor blackColor];
-    
     
 }
 

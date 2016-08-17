@@ -8,7 +8,9 @@
 
 #import "FTDynamicsDrawerViewController.h"
 
-@interface MainViewController : FTDynamicsDrawerViewController
+
+@interface MainViewController : FTDynamicsDrawerViewController 
+
 
 //@property (nonatomic,assign)BOOL isPush;
 //@property (nonatomic,strong)NSDictionary *pushDic;

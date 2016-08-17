@@ -177,6 +177,11 @@ typedef void (^ViewActionBlock)(UIView *view);
 }
 - (void)initialize
 {
+    
+    // 响应用户中心的主界面区域宽度
+    self.openSlideWidth = SCREEN_WIDTH *0.3;
+//    self.openSlideWidth = 0;
+    
     _paneState = FTDynamicsDrawerPaneStateClosed;
     _currentLeftMenuDirection = FTDynamicsDrawerDirectionNone;
     
@@ -216,6 +221,8 @@ typedef void (^ViewActionBlock)(UIView *view);
     self.elasticity = 0.0;      //弹性系数
     self.bounceElasticity = 0.1;
     self.bounceMagnitude = 50.0;
+    
+    
     
 #if defined(DEBUG_DYNAMICS)
     self.gravityMagnitude = 0.05;
@@ -841,10 +848,16 @@ allowUserInterruption:(BOOL)allowUserInterruption
                 case UIGestureRecognizerStateBegan: {
                     panStartLocationInPane = [gestureRecognizer locationInView:self.paneView];
 //                    //设置侧滑栏能够响应的区域
-                    if(panStartLocationInPane.x > PaneViewDefaultOpenStateRevealWidthHorizontal){
+//                    if(panStartLocationInPane.x > PaneViewDefaultOpenStateRevealWidthHorizontal){
+//                        panDrawerDirection = FTDynamicsDrawerDirectionNone;
+//                        return;
+//                    }
+//                    
+                    if(panStartLocationInPane.x > self.openSlideWidth){
                         panDrawerDirection = FTDynamicsDrawerDirectionNone;
                         return;
                     }
+                    
                     panDrawerDirection = (FTDynamicsDrawerDirectionNone | self.currentLeftMenuDirection);
                     NSLog(@"UIGestureRecognizerStateBegan");
                     break;
@@ -852,10 +865,16 @@ allowUserInterruption:(BOOL)allowUserInterruption
                 case UIGestureRecognizerStateChanged: {
 //                    NSLog(@"UIGestureRecognizerStateChanged.panStartLocationInPane.x = %f ",panStartLocationInPane.x );
                     //设置侧滑栏能够响应的区域
-                    if(panStartLocationInPane.x > PaneViewDefaultOpenStateRevealWidthHorizontal){
-                        //                NSLog(@"UIGestureRecognizerStateChanged.panStartLocationInPane.x = %f ",panStartLocationInPane.x );
+//                    if(panStartLocationInPane.x > PaneViewDefaultOpenStateRevealWidthHorizontal){
+//                        //                NSLog(@"UIGestureRecognizerStateChanged.panStartLocationInPane.x = %f ",panStartLocationInPane.x );
+//                        return;
+//                    }
+                    
+                    if(panStartLocationInPane.x > self.openSlideWidth ){
+                        
                         return;
                     }
+                    
                     CGPoint panLocationInPane = [gestureRecognizer locationInView:self.paneView];
                     // Pan gesture tracking
                     CGRect updatedPaneFrame = self.paneView.frame;
@@ -1158,6 +1177,16 @@ allowUserInterruption:(BOOL)allowUserInterruption
     return validState;
 }
 
+#pragma mark - OpenSliderDelegate
+- (void) openSlider {
+    
+    self.openSlideWidth = SCREEN_WIDTH *0.3;
+}
+
+- (void) closeSlider {
+    
+    self.openSlideWidth = 0;
+}
 
 #pragma mark  - Bouncing
 - (void)bouncePaneOpen

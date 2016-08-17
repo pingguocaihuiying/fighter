@@ -20,28 +20,31 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="金属边框-改进ios" translatesAutoresizingMaskIntoConstraints="NO" id="m8o-qJ-YE9">
-                    <rect key="frame" x="8" y="74" width="304" height="60"/>
+                    <rect key="frame" x="8" y="10" width="304" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="AK6-hg-vdA"/>
+                    </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您的账户余额：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zTK-te-rSQ">
-                    <rect key="frame" x="23" y="95" width="98" height="17"/>
+                    <rect key="frame" x="23" y="24" width="98" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CV1-Ag-VIT">
-                    <rect key="frame" x="297" y="104" width="0.0" height="0.0"/>
+                    <rect key="frame" x="297" y="32.5" width="0.0" height="0.0"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择额度：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FwK-aF-gmN">
-                    <rect key="frame" x="16" y="149" width="72" height="14.5"/>
+                    <rect key="frame" x="16" y="70" width="72" height="14.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qnr-cB-Edq">
-                    <rect key="frame" x="16" y="225" width="288" height="15.5"/>
+                    <rect key="frame" x="16" y="191" width="288" height="15.5"/>
                     <attributedString key="attributedText">
                         <fragment content="*">
                             <attributes>
@@ -117,10 +120,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="A3R-yZ-Qs3">
-                    <rect key="frame" x="0.0" y="175" width="320" height="30"/>
+                    <rect key="frame" x="0.0" y="96" width="320" height="75"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="30" id="BOZ-pL-Ciq"/>
+                        <constraint firstAttribute="height" constant="75" id="BOZ-pL-Ciq"/>
                     </constraints>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xVv-J3-Kc2">
                         <size key="itemSize" width="50" height="50"/>
@@ -130,7 +133,7 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v8J-IJ-YyC">
-                    <rect key="frame" x="16" y="270" width="288" height="40"/>
+                    <rect key="frame" x="16" y="236" width="288" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="S3S-qk-Keo"/>
                     </constraints>
@@ -154,7 +157,7 @@
                 <constraint firstAttribute="trailing" secondItem="Qnr-cB-Edq" secondAttribute="trailing" constant="16" id="N6f-Oy-EuG"/>
                 <constraint firstItem="v8J-IJ-YyC" firstAttribute="top" secondItem="Qnr-cB-Edq" secondAttribute="bottom" constant="30" id="QSV-xh-Rg5"/>
                 <constraint firstItem="zTK-te-rSQ" firstAttribute="centerY" secondItem="m8o-qJ-YE9" secondAttribute="centerY" id="SgN-0t-G6L"/>
-                <constraint firstItem="m8o-qJ-YE9" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="74" id="SgP-3Y-uzI"/>
+                <constraint firstItem="m8o-qJ-YE9" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="SgP-3Y-uzI"/>
                 <constraint firstItem="m8o-qJ-YE9" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="TCk-fm-6uN"/>
                 <constraint firstItem="CV1-Ag-VIT" firstAttribute="centerY" secondItem="m8o-qJ-YE9" secondAttribute="centerY" id="UsS-hV-DOt"/>
                 <constraint firstItem="FwK-aF-gmN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="VPc-Sf-5F8"/>
@@ -170,6 +173,6 @@
     <resources>
         <image name="主要按钮背景ios" width="30" height="30"/>
         <image name="主要按钮背景ios-pre" width="30" height="30"/>
-        <image name="金属边框-改进ios" width="67" height="60"/>
+        <image name="金属边框-改进ios" width="67" height="26"/>
     </resources>
 </document>

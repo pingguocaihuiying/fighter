@@ -1678,4 +1678,54 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 
 }
 
+#pragma mark - 兑吧
+
+//  获取兑吧地址
++ (void) getDuibaUrl:(void (^)(NSDictionary *dict))option {
+
+    NSString *getDuiBaURLString = [FTNetConfig host:Domain path:DuiBaURL];
+    
+    // 时间戳
+    NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
+    
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    if (!localUser) {
+        return;
+    }
+    
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@",localUser.olduserid, localUser.token,ts,@"gedoudongxi160805"]];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:localUser.olduserid forKey:@"userid"];
+    [dic setObject:localUser.token forKey:@"loginToken"];
+    [dic setObject:ts forKey:@"ts"];
+    [dic setObject:checkSign forKey:@"checkSign"];
+    
+    NSLog(@"dic:%@",dic);
+    [self getRequestWithUrl:getDuiBaURLString parameters:dic option:option];
+}
+
+//  获取兑吧地址
++ (void) GetDuiBaConfig:(void (^)(NSDictionary *dict))option {
+    
+    NSString *getDuiBaConfigString = [FTNetConfig host:Domain path:DuiBaConfigURL];
+    
+    NSString *configName = @"show_shop";
+    // 时间戳
+    NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@",ts,@"gedoudongxi125689"]];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:configName forKey:@"configName"];
+    [dic setObject:ts forKey:@"ts"];
+    [dic setObject:checkSign forKey:@"checkSign"];
+    
+    NSLog(@"dic:%@",dic);
+    
+    [self getRequestWithUrl:getDuiBaConfigString parameters:dic option:option];
+}
+
 @end

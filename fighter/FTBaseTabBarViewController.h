@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FTDynamicsDrawerViewController.h"
+#import "OpenSliderDelegate.h"
 
 @interface FTBaseTabBarViewController : UITabBarController
+
+@property (nonatomic, weak) id<FTDynamicsTransDelegate> drawerDelegate;
+@property (nonatomic,weak) id<OpenSliderDelegate> openSliderDelegate;
 
 @end

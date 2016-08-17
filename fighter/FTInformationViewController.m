@@ -52,30 +52,37 @@
 - (void)viewDidLoad {
 //        NSLog(@"拳讯 view的宽度：%f,高度：%f",self.view.frame.size.width, self.view.frame.size.height);
     [super viewDidLoad];
-    [self initTypeArray];//初始化标签数据
-    [self initSubViews];
-    [self getCycleData];//初次加载轮播图数据
-    [self getDataFromDBWithType:@"new" currentPage:self.currentPage];
-    [self getDataWithGetType:@"new" andCurrId:@"-1"];//初次加载数据
     
+    [self initTypeArray];//初始化标签数据
+    
+    [self initSubViews];
+    
+    [self getCycleData];//初次加载轮播图数据
+    
+    [self getDataFromDBWithType:@"new" currentPage:self.currentPage];
+    
+    [self getDataWithGetType:@"new" andCurrId:@"-1"];//初次加载数据
     
     [self.bottomGradualChangeView setHidden:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    
     [MobClick event:@"mainPage_BoxingNews"];
-//    self.tabBarController.navigationController.navigationBarHidden = YES;
-    self.navigationController.navigationBarHidden = YES;
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    //  导航栏半透明属性设置为NO,阻止导航栏遮挡view
+    self.navigationController.navigationBar.translucent = NO;
+    
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
-//        self.tabBarController.navigationController.navigationBarHidden = NO;
-//    self.navigationController.navigationBarHidden = NO;
-}
 
 - (void)initTypeArray{
+    
 //    NSMutableArray *enableTypeArray = [[NSMutableArray alloc]initWithArray:@[@"全部", @"拳击", @"自由搏击", @"综合格斗", @"泰拳", @"跆拳道"]];
 //    NSMutableArray *enableTypeArray = [[NSMutableArray alloc]initWithArray:@[@"全部", @"综合格斗(UFC)", @"拳击", @"摔跤(WWE)", @"女子格斗", @"泰拳", @" 跆拳道", @"柔道", @"相扑"]];
+    
     NSMutableArray *enableTypeArray = [[NSMutableArray alloc]initWithArray:[FTNWGetCategory sharedCategories]];
     [enableTypeArray insertObject:@{@"itemValueEn":@"All", @"itemValue":@"全部"} atIndex:0];
     [enableTypeArray insertObject:@{@"itemValueEn":@"News", @"itemValue":@"新闻"} atIndex:7];
@@ -88,29 +95,11 @@
 
 - (void)initSubViews{
 
-        //设置状态栏的颜色为白色
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-        //设置右上角的按钮
-    [self.searchButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-搜索pre"] forState:UIControlStateHighlighted];
-    [self.messageButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
-    
-    //设置左上角按钮
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-    [self.leftNavButton.layer setMasksToBounds:YES];
-    self.leftNavButton.layer.cornerRadius = 17.0;
-    [self.leftNavButton sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
-                                            forState:UIControlStateNormal
-                                    placeholderImage:[UIImage imageNamed:@"头像-空"]];
-    if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
-        
-        [self.drawerDelegate addButtonToArray:self.leftNavButton];
-    }
-    
     [self setOtherViews];
 }
 
 - (void)getCycleData{
+    
     NSString *urlString = [FTNetConfig host:Domain path:GetNewsURL];
     NSString *newsType = @"Hot";
     NSString *newsCurrId = @"-1";
@@ -251,8 +240,9 @@
 
 - (void)setTypeNaviScrollView{
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     [self initNewsTypeScrollView];
+    
     [self initPageController];
     
 }
@@ -295,6 +285,7 @@
 }
 
 #pragma mark - 视图加载
+
 //加载分类导航的scrollView
 - (void)initNewsTypeScrollView
 {
@@ -452,15 +443,6 @@
 
         [self getDataWithGetType:@"new" andCurrId:@"-1"];
     
-}
-
-- (IBAction)leftButtonItemClick:(id)sender {
-    
-    NSLog(@"information left click did");
-    if ([self.drawerDelegate respondsToSelector:@selector(leftButtonClicked:)]) {
-        
-        [self.drawerDelegate leftButtonClicked:sender];
-    }
 }
 
 
@@ -625,16 +607,8 @@
     }
     
 }
-#pragma -mark -排行榜按钮被点击
-- (IBAction)rankButtonClicked:(id)sender {
-//    [self gotoHomepageWithUseroldid:nil];
-    
+#pragma -mark -
 
-    FTRankViewController *rankHomeVC = [[FTRankViewController alloc] init];
-//    rankHomeVC.title = @"排行榜";
-//    [self.navigationController pushViewController:rankHomeVC animated:YES];
-    [self.navigationController pushViewController:rankHomeVC animated:YES];
-}
 - (void)gotoHomepageWithUseroldid:(NSString *)olduserid{
     if (!olduserid) {
         //从本地读取存储的用户信息
@@ -646,9 +620,7 @@
     homepageViewController.olduserid = olduserid;
     [self.navigationController pushViewController:homepageViewController animated:YES];
 }
-- (IBAction)messageButtonClicked:(id)sender {
-    NSLog(@"message button clicked.");
-}
+
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {

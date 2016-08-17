@@ -20,16 +20,16 @@
 #import "FTPaySingleton.h"
 
 #define PowerCoin1 @"PowerCoin600P"//￥6
-#define PowerCoin2 @"PowerCoin3000P" //￥30
-#define PowerCoin3 @"PowerCoin12800P" //￥128
-#define PowerCoin4 @"PowerCoin58800P" //￥588
+#define PowerCoin2 @"Power_Coin3000P" //￥30
+#define PowerCoin3 @"PowerCoin_12800P" //￥128
+#define PowerCoin4 @"PowerCoin_58800P" //￥588
 
 
 enum{
     PowerCoin600P=10,
-    PowerCoin3000P,
-    PowerCoin12800P,
-    PowerCoin58800P,
+    Power_Coin3000P,
+    PowerCoin_12800P,
+    PowerCoin_58800P,
 }productID;
 
 
@@ -134,7 +134,7 @@ enum{
                     @"58800"
                     ];
     
-    buyType = 10;
+    buyType = 0;
     
     // 获取余额
     FTPaySingleton *singleton = [FTPaySingleton shareInstance];
@@ -226,15 +226,15 @@ enum{
             bean = [_goodsArray objectAtIndex:0];
 //            product=[[NSArray alloc] initWithObjects:PowerCoin1,nil];
             break;
-        case PowerCoin3000P:
+        case Power_Coin3000P:
             bean = [_goodsArray objectAtIndex:1];
 //            product=[[NSArray alloc] initWithObjects:PowerCoin2,nil];
             break;
-        case PowerCoin12800P:
+        case PowerCoin_12800P:
             bean = [_goodsArray objectAtIndex:2];
 //            product=[[NSArray alloc] initWithObjects:PowerCoin3,nil];
             break;
-        case PowerCoin58800P:
+        case PowerCoin_58800P:
             bean = [_goodsArray objectAtIndex:3];
 //            product=[[NSArray alloc] initWithObjects:PowerCoin4,nil];
             break;
@@ -278,17 +278,20 @@ enum{
 
 //某组有多少行
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-//    return _array.count;
-    return 1;
+    return _array.count;
+//    return 1;
 }
 
 //返回cell
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
     FTPayCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.selectImageView.hidden = YES;
     
     [cell setPriceLabelPrice:[_priceArray objectAtIndex:indexPath.row] Power:[_powerArray objectAtIndex:indexPath.row]];
 
+    cell.backImageView.image = [UIImage imageNamed:@"充值背景"];
+    
 //    if (indexPath.row == 0) {
 //        NSString *imgName = [_array objectAtIndex:indexPath.row];
 //        
@@ -305,14 +308,14 @@ enum{
 //
 //        
 //    }
-    if (indexPath.row == 0) {
-        cell.selectImageView.hidden = NO;
-        cell.backImageView.image = [UIImage imageNamed:@"充值背景"];
-        
-    }else {
-        
-        cell.backImageView.image = [UIImage imageNamed:@"充值背景pre"];
-    }
+//    if (indexPath.row == 0) {
+//        cell.selectImageView.hidden = NO;
+//        cell.backImageView.image = [UIImage imageNamed:@"充值背景pre"];
+//        
+//    }else {
+//        
+//        cell.backImageView.image = [UIImage imageNamed:@"充值背景"];
+//    }
     
     
     return cell;
@@ -321,21 +324,27 @@ enum{
 //选中触发的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.row == 0) {
-        FTPayCell *cell = (FTPayCell *)[collectionView cellForItemAtIndexPath:indexPath];
-//        NSString *imgName = [_preArray objectAtIndex:indexPath.row];
-        cell.selectImageView.hidden = NO;
-//        if (imgName ) {
-//            cell.backImageView.image = [UIImage imageNamed:imgName];
-//        }
-
-        cell.backImageView.image = [UIImage imageNamed:@"充值背景pre"];
-        
-        buyType = (int) indexPath.row + 10;
-    }else {
+//    if (indexPath.row == 0) {
+//        FTPayCell *cell = (FTPayCell *)[collectionView cellForItemAtIndexPath:indexPath];
+////        NSString *imgName = [_preArray objectAtIndex:indexPath.row];
+//        cell.selectImageView.hidden = NO;
+////        if (imgName ) {
+////            cell.backImageView.image = [UIImage imageNamed:imgName];
+////        }
+//
+//        cell.backImageView.image = [UIImage imageNamed:@"充值背景pre"];
+//        
+//        buyType = (int) indexPath.row + 10;
+//    }else {
+//    
+//        buyType = 0;
+//    }
     
-        buyType = 0;
-    }
+    FTPayCell *cell = (FTPayCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.selectImageView.hidden = NO;
+    cell.backImageView.image = [UIImage imageNamed:@"充值背景pre"];
+    
+    buyType = (int) indexPath.row + 10;
     
 }
 
@@ -351,15 +360,18 @@ enum{
 ////        }
 //        cell.backImageView.image = [UIImage imageNamed:@"充值背景"];
 //    }
-    
+
+    FTPayCell *cell = (FTPayCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.selectImageView.hidden = YES;
+    cell.backImageView.image = [UIImage imageNamed:@"充值背景"];
 }
 
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    float width = 163 * SCALE;
-    float width = 345 * SCALE;
+    float width = 163 * SCALE;
+//    float width = 345 * SCALE;
     float height = 30 * SCALE;
 //    float width = 340 * SCALE;
 //    float height = 40 * SCALE;
@@ -378,7 +390,7 @@ enum{
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 16 * SCALE;;
+    return 16 * SCALE;
 }
 
 

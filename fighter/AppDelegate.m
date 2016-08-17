@@ -67,6 +67,8 @@
     //启动个人中心的功能
     _mainVC = [[MainViewController alloc]init];
     self.window.rootViewController=_mainVC;
+    
+    
     //推送消息
     NSDictionary *dic = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (dic != nil) {
@@ -310,11 +312,16 @@
 //    [IXPushSdkApi registerDeviceToken:deviceToken
 //                              channel:@"test" version:@"1.0" appId:1670128310];
 
-//    [IXPushSdkApi registerDeviceToken:deviceToken
-//                              channel:@"test" version:@"1.0" appId:1229394843];
-
+    
+    
+    // 格斗东西 开发板
     [IXPushSdkApi registerDeviceToken:deviceToken
                               channel:@"test" version:@"1.0" appId:1104119343];
+    
+    // 格斗东西 正式版
+    [IXPushSdkApi registerDeviceToken:deviceToken
+                              channel:@"test" version:@"1.0" appId:1229394843];
+    
 }
 
 

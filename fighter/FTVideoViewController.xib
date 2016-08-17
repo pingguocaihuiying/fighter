@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="16A239j" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -11,7 +11,6 @@
                 <outlet property="currentScrollView" destination="ZJh-iV-SHb" id="RRP-Zh-RLy"/>
                 <outlet property="currentView" destination="WeY-QL-vxk" id="fsf-12-YSc"/>
                 <outlet property="hotButton" destination="fGJ-cl-XUy" id="18d-zS-no4"/>
-                <outlet property="leftBtn" destination="970-ML-Okc" id="Hx2-fd-ZsW"/>
                 <outlet property="newestButton" destination="V3y-Hy-QYx" id="abT-d0-ICb"/>
                 <outlet property="view" destination="dcm-ao-ON0" id="tx0-sa-ZZD"/>
             </connections>
@@ -21,94 +20,22 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="970-ML-Okc" userLabel="用户">
-                    <rect key="frame" x="15" y="20" width="34" height="34"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="34" id="K0Y-9l-0Qs"/>
-                        <constraint firstAttribute="width" constant="34" id="Ldh-Od-jUC"/>
-                    </constraints>
-                    <state key="normal">
-                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="leftBtnAction:" destination="-1" eventType="touchUpInside" id="dPI-6q-inD"/>
-                    </connections>
-                </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="头部logo格斗东西" translatesAutoresizingMaskIntoConstraints="NO" id="drw-8n-X8q" userLabel="格斗家">
-                    <rect key="frame" x="57" y="28" width="72" height="22"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="22" id="W8L-Q0-BWV"/>
-                        <constraint firstAttribute="width" constant="72" id="dDC-Rl-7Hj"/>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="72" id="uVW-Jv-BOr"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="wvk-ZY-ZMk"/>
-                    </constraints>
-                </imageView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mCF-Nk-Ecj" userLabel="分隔点">
-                    <rect key="frame" x="137" y="34" width="5" height="5"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="5" id="NOl-tC-wn8"/>
-                        <constraint firstAttribute="width" constant="5" id="Vvy-v2-YcZ"/>
-                    </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <real key="value" value="2.5"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="视频" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iv8-Nb-0hq">
-                    <rect key="frame" x="150" y="27" width="42" height="21"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="42" id="Y8o-Zm-RFz"/>
-                        <constraint firstAttribute="height" constant="21" id="ntO-ak-AWD"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B90-Sa-ZMR">
-                    <rect key="frame" x="281" y="25" width="24" height="24"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="24" id="LCZ-7T-6rB"/>
-                        <constraint firstAttribute="height" constant="24" id="wgz-Bz-BZc"/>
-                    </constraints>
-                    <state key="normal" backgroundImage="头部48按钮一堆-消息"/>
-                </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kGN-G7-Z3Y">
-                    <rect key="frame" x="241" y="25" width="24" height="24"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="24" id="AIi-rJ-Feh"/>
-                        <constraint firstAttribute="width" constant="24" id="RMO-UK-Xsy"/>
-                    </constraints>
-                    <state key="normal" backgroundImage="头部48按钮一堆-搜索"/>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nBu-WR-qHs" userLabel="排行榜">
-                    <rect key="frame" x="281" y="25" width="24" height="24"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="24" id="WPp-51-ExN"/>
-                        <constraint firstAttribute="height" constant="24" id="Yun-xb-MmO"/>
-                    </constraints>
-                    <state key="normal" backgroundImage="头部48按钮一堆-排行"/>
-                    <connections>
-                        <action selector="rankBtnAction:" destination="-1" eventType="touchUpInside" id="5JP-Sx-eso"/>
-                    </connections>
-                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ABi-mZ-eso" userLabel="上方分割线">
-                    <rect key="frame" x="0.0" y="60" width="320" height="1"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
                     <color key="backgroundColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="pds-84-vJN"/>
                     </constraints>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZJh-iV-SHb">
-                    <rect key="frame" x="15" y="61" width="284" height="40"/>
+                    <rect key="frame" x="15" y="1" width="284" height="40"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="w8e-cs-fbo"/>
                     </constraints>
                 </scrollView>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qJs-6t-deF" userLabel="筛选标签">
-                    <rect key="frame" x="288" y="69" width="24" height="24"/>
+                    <rect key="frame" x="288" y="9" width="24" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="inQ-7v-Tzh"/>
                         <constraint firstAttribute="width" constant="24" id="wWy-Aw-Q3C"/>
@@ -116,7 +43,7 @@
                     <state key="normal" backgroundImage="头部48按钮一堆-更多"/>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ljW-Cr-QBP" userLabel="containerViewOf最热和最新">
-                    <rect key="frame" x="6" y="111" width="308" height="35"/>
+                    <rect key="frame" x="6" y="51" width="308" height="35"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V3y-Hy-QYx" userLabel="最新">
                             <rect key="frame" x="0.0" y="0.0" width="152" height="35"/>
@@ -158,50 +85,32 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WeY-QL-vxk" userLabel="fooView">
-                    <rect key="frame" x="0.0" y="151" width="320" height="417"/>
+                    <rect key="frame" x="0.0" y="91" width="320" height="477"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="iv8-Nb-0hq" firstAttribute="leading" secondItem="mCF-Nk-Ecj" secondAttribute="trailing" constant="8" id="0C2-8b-vjP"/>
                 <constraint firstItem="WeY-QL-vxk" firstAttribute="top" secondItem="ljW-Cr-QBP" secondAttribute="bottom" constant="5" id="0h2-QS-iIa"/>
-                <constraint firstItem="B90-Sa-ZMR" firstAttribute="leading" secondItem="kGN-G7-Z3Y" secondAttribute="trailing" constant="16" id="3iH-Mn-PV7"/>
-                <constraint firstAttribute="trailing" secondItem="nBu-WR-qHs" secondAttribute="trailing" constant="15" id="5VV-eM-Kev"/>
                 <constraint firstItem="qJs-6t-deF" firstAttribute="leading" secondItem="ZJh-iV-SHb" secondAttribute="trailing" constant="-11" id="7G0-jz-r2T"/>
                 <constraint firstItem="ljW-Cr-QBP" firstAttribute="centerX" secondItem="dcm-ao-ON0" secondAttribute="centerX" id="7Vf-y0-Jmz"/>
-                <constraint firstItem="mCF-Nk-Ecj" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" constant="34" id="9Tw-Qd-nLf"/>
-                <constraint firstItem="drw-8n-X8q" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" constant="28" id="9x7-xB-YJP"/>
-                <constraint firstItem="kGN-G7-Z3Y" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" constant="25" id="9zq-n9-1Dv"/>
                 <constraint firstAttribute="bottom" secondItem="WeY-QL-vxk" secondAttribute="bottom" id="Atb-xy-VWh"/>
-                <constraint firstItem="970-ML-Okc" firstAttribute="leading" secondItem="dcm-ao-ON0" secondAttribute="leading" constant="15" id="Bzh-j4-eub"/>
-                <constraint firstAttribute="trailing" secondItem="B90-Sa-ZMR" secondAttribute="trailing" constant="15" id="IIf-N5-M3G"/>
                 <constraint firstItem="qJs-6t-deF" firstAttribute="top" secondItem="ABi-mZ-eso" secondAttribute="bottom" constant="8" id="Rjq-Yk-t1z"/>
                 <constraint firstAttribute="trailing" secondItem="qJs-6t-deF" secondAttribute="trailing" constant="8" id="ScO-gZ-614"/>
                 <constraint firstAttribute="trailing" secondItem="ABi-mZ-eso" secondAttribute="trailing" id="WWf-V7-jWp"/>
-                <constraint firstItem="nBu-WR-qHs" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" constant="25" id="WqG-vS-4Rr"/>
-                <constraint firstItem="drw-8n-X8q" firstAttribute="leading" secondItem="970-ML-Okc" secondAttribute="trailing" constant="8" id="Xmq-ai-m21"/>
-                <constraint firstItem="970-ML-Okc" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" constant="20" id="XsP-nU-20Q"/>
                 <constraint firstItem="ljW-Cr-QBP" firstAttribute="top" secondItem="ZJh-iV-SHb" secondAttribute="bottom" constant="10" id="ZsE-PT-x9v"/>
                 <constraint firstItem="ZJh-iV-SHb" firstAttribute="leading" secondItem="dcm-ao-ON0" secondAttribute="leading" constant="15" id="a8n-5a-lbb"/>
-                <constraint firstItem="iv8-Nb-0hq" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" constant="27" id="aZy-ky-uVG"/>
-                <constraint firstItem="B90-Sa-ZMR" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" constant="25" id="bK8-ZO-I7d"/>
                 <constraint firstItem="WeY-QL-vxk" firstAttribute="leading" secondItem="dcm-ao-ON0" secondAttribute="leading" id="c5L-z5-IQI"/>
                 <constraint firstItem="ABi-mZ-eso" firstAttribute="leading" secondItem="dcm-ao-ON0" secondAttribute="leading" id="drV-Pt-xKn"/>
-                <constraint firstItem="ABi-mZ-eso" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" constant="60" id="lik-xV-XVA"/>
+                <constraint firstItem="ABi-mZ-eso" firstAttribute="top" secondItem="dcm-ao-ON0" secondAttribute="top" id="lik-xV-XVA"/>
                 <constraint firstAttribute="trailing" secondItem="WeY-QL-vxk" secondAttribute="trailing" id="nTm-g7-Fjf"/>
-                <constraint firstItem="mCF-Nk-Ecj" firstAttribute="leading" secondItem="drw-8n-X8q" secondAttribute="trailing" constant="8" id="o9o-KH-UyD"/>
                 <constraint firstItem="ZJh-iV-SHb" firstAttribute="top" secondItem="ABi-mZ-eso" secondAttribute="bottom" id="phI-cN-KYL"/>
             </constraints>
             <point key="canvasLocation" x="440" y="421"/>
         </view>
     </objects>
     <resources>
-        <image name="头部48按钮一堆-排行" width="24" height="24"/>
-        <image name="头部48按钮一堆-搜索" width="24" height="24"/>
         <image name="头部48按钮一堆-更多" width="24" height="24"/>
-        <image name="头部48按钮一堆-消息" width="24" height="24"/>
-        <image name="头部logo格斗东西" width="99" height="24"/>
         <image name="标签图标-最新-pre" width="36" height="16"/>
         <image name="标签图标-最热" width="36" height="16"/>
     </resources>
