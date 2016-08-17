@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "FTUserBean.h"
+#import "OpenSliderDelegate.h"
 
 /**
  The drawer direction defines the direction that a `FTDynamicsDrawerViewController` instance's `paneView` can be opened in.
@@ -39,10 +40,9 @@ typedef NS_ENUM(NSInteger, FTDynamicsDrawerPaneState) {
 
 typedef void (^DrawerActionBlock)(FTDynamicsDrawerDirection maskedValue);
 
-@interface FTDynamicsDrawerViewController : UIViewController
+@interface FTDynamicsDrawerViewController : UIViewController <OpenSliderDelegate>
 
 @property (nonatomic, assign) BOOL shouldAlignStatusBarToPaneView;
-
 
 @property (nonatomic, strong) UIViewController *paneViewController;
 @property (nonatomic, strong) UIViewController *drawerViewController;
@@ -51,6 +51,8 @@ typedef void (^DrawerActionBlock)(FTDynamicsDrawerDirection maskedValue);
 @property (nonatomic, strong) UIView *drawerView;
 @property (nonatomic, strong) UIView *paneView;
 
+// 设置主界面点击或者滑动弹出用户中心的响应区域宽度
+@property (nonatomic, assign) NSInteger openSlideWidth;
 
 - (void)setPaneState:(FTDynamicsDrawerPaneState)paneState animated:(BOOL)animated allowUserInterruption:(BOOL)allowUserInterruption completion:(void (^)(void))completion;
 

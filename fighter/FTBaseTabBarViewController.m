@@ -47,6 +47,18 @@
     
 }
 
+
+- (void) viewWillAppear:(BOOL)animated {
+
+    [self.openSliderDelegate openSlider];
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    
+    [self.openSliderDelegate closeSlider];
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -169,7 +181,6 @@
                                   forState:UIControlStateNormal
                           placeholderImage:[UIImage imageNamed:@"头像-空"]];
     }
-    
     
 }
 

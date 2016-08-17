@@ -485,6 +485,7 @@
 		3D5FB4BD1CDC7E6600FC1809 /* FTImageCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTImageCollectionCell.xib; sourceTree = "<group>"; };
 		3D69470E1CE3374000989440 /* FTUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserViewController.h; sourceTree = "<group>"; };
 		3D69470F1CE3374000989440 /* FTUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserViewController.m; sourceTree = "<group>"; };
+		3D6C25721D644746005B42B2 /* OpenSliderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenSliderDelegate.h; sourceTree = "<group>"; };
 		3D6CFF381D06A41200CAC12A /* FTAlivePushStreamVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTAlivePushStreamVC.h; sourceTree = "<group>"; };
 		3D6CFF391D06A41200CAC12A /* FTAlivePushStreamVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTAlivePushStreamVC.m; sourceTree = "<group>"; };
 		3D6DA0CF1CEE939000BAA8F0 /* FTNWGetCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTNWGetCategory.h; path = ../Network/NetworkLayer/FTNWGetCategory.h; sourceTree = "<group>"; };
@@ -1593,6 +1594,7 @@
 				3DE95BA21CD868C6005BF85C /* FTDynamicsDrawerViewController.m */,
 				3D4B18F71CD974B80022DFB0 /* MainViewController.h */,
 				3D4B18F81CD974B80022DFB0 /* MainViewController.m */,
+				3D6C25721D644746005B42B2 /* OpenSliderDelegate.h */,
 			);
 			name = controller;
 			sourceTree = "<group>";

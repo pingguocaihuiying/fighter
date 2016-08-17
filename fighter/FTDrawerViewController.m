@@ -783,15 +783,13 @@ static NSString *const tableCellId = @"tableCellId";
     duibaVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-商城pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 
 
-    
-    
-
     // 设置tabbar的属性
     _tabBarVC = [FTBaseTabBarViewController new];
     
     _tabBarVC.tabBar.barTintColor = [UIColor blackColor];
     _tabBarVC.tabBar.translucent = NO;
     _tabBarVC.drawerDelegate = self;
+    _tabBarVC.openSliderDelegate = self.dynamicsDrawerViewController;
     
 //    tabBartVC.viewControllers = @[infoVC, arenaVC, fightingVC, videoVC,practiceVC];
 //    tabBartVC.viewControllers = @[infoVC, arenaVC,videoVC,practiceVC];
@@ -808,7 +806,7 @@ static NSString *const tableCellId = @"tableCellId";
 //        _tabBarVC.viewControllers = @[infoVC,practiceVC,rankHomeVC];
 //    }
     
-    _tabBarVC.viewControllers = @[infoVC,practiceVC,rankHomeVC];
+    _tabBarVC.viewControllers = @[infoVC,fightingVC,practiceVC,rankHomeVC];
     
     FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:_tabBarVC];
     [self.dynamicsDrawerViewController  setPaneViewController:navi];
