@@ -39,8 +39,6 @@ FTDrawerViewController *drawerVC;
 }
 
 
-
-
 - (void) pushMessage:(NSDictionary *)dic{
 
     
