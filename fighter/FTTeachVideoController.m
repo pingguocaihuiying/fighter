@@ -1071,7 +1071,7 @@
 
 - (void) backBtnAction:(id)btn {
     
-    self.navigationController.navigationBarHidden = YES;
+//    self.navigationController.navigationBarHidden = YES;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
