@@ -18,7 +18,6 @@
 @interface FTNewsDetail2ViewController : FTBaseViewController
 @property (nonatomic ,copy)NSString *webViewUrlString;
 @property (nonatomic ,copy)NSString *newsTitle;
-@property (nonatomic, strong) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UIButton *thumbsUpButton;
 @property (nonatomic, assign)BOOL hasVote;
 @property (nonatomic, strong)FTNewsBean *newsBean;
