@@ -181,6 +181,7 @@
 		3DE1DEF21D3F178F00511E92 /* FTGymBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1DEF11D3F178F00511E92 /* FTGymBean.m */; };
 		3DE1DEF61D3F472500511E92 /* FTPaySingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1DEF51D3F472500511E92 /* FTPaySingleton.m */; };
 		3DE1DF061D40C74D00511E92 /* QQSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1DF051D40C74D00511E92 /* QQSingleton.m */; };
+		3DE486EA1D659C9E00819D04 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE486E91D659C9E00819D04 /* UIButton+Badge.m */; };
 		3DE95BA01CD8675B005BF85C /* FTDrawerStyler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95B9F1CD8675B005BF85C /* FTDrawerStyler.m */; };
 		3DE95BA31CD868C6005BF85C /* FTDynamicsDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95BA21CD868C6005BF85C /* FTDynamicsDrawerViewController.m */; };
 		3DE95BA71CD86FA4005BF85C /* FTLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95BA51CD86FA4005BF85C /* FTLoginViewController.m */; };
@@ -641,6 +642,8 @@
 		3DE1DEF51D3F472500511E92 /* FTPaySingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPaySingleton.m; sourceTree = "<group>"; };
 		3DE1DF041D40C74D00511E92 /* QQSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQSingleton.h; sourceTree = "<group>"; };
 		3DE1DF051D40C74D00511E92 /* QQSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQSingleton.m; sourceTree = "<group>"; };
+		3DE486E81D659C9E00819D04 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
+		3DE486E91D659C9E00819D04 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
 		3DE95B9E1CD8675B005BF85C /* FTDrawerStyler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerStyler.h; sourceTree = "<group>"; };
 		3DE95B9F1CD8675B005BF85C /* FTDrawerStyler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDrawerStyler.m; sourceTree = "<group>"; };
 		3DE95BA11CD868C6005BF85C /* FTDynamicsDrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDynamicsDrawerViewController.h; sourceTree = "<group>"; };
@@ -2698,6 +2701,8 @@
 				3D4B19621CDB59D60022DFB0 /* UIWindow+MBProgressHUD.m */,
 				3D9CA4021D5F0AE800B9622B /* UIView+MBProgressHUD.h */,
 				3D9CA4031D5F0AE800B9622B /* UIView+MBProgressHUD.m */,
+				3DE486E81D659C9E00819D04 /* UIButton+Badge.h */,
+				3DE486E91D659C9E00819D04 /* UIButton+Badge.m */,
 			);
 			path = Categorys;
 			sourceTree = "<group>";
@@ -3377,6 +3382,7 @@
 				3D10DDEA1D4753C300E2D776 /* FTCollectionFowLaytout.m in Sources */,
 				3D7B98BE1CE0898400B80B8D /* FTOldPasswordVC.m in Sources */,
 				3D7B98B91CE078D600B80B8D /* FTInputCheckCodeViewController.m in Sources */,
+				3DE486EA1D659C9E00819D04 /* UIButton+Badge.m in Sources */,
 				E6D74A481CB7B7EE00854337 /* UIColor+YBColorCategory.m in Sources */,
 				3D6947101CE3374000989440 /* FTUserViewController.m in Sources */,
 				3D197C531D41CCA30091048D /* WXSingleton.m in Sources */,
