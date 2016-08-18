@@ -38,7 +38,7 @@
     [UILabel setRowGapOfLabel:_titleLabel withValue:8];
     
     //显示余额
-    _balanceLabel.text = [NSString stringWithFormat:@"%ldP", _paySingleton.balance];
+    _balanceLabel.text = [NSString stringWithFormat:@"%ldP", (long)_paySingleton.balance];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder{
@@ -84,7 +84,7 @@
         
     } else {//否则，向服务器提交下注请求
             
-            [MBProgressHUD hideHUDForView:self animated:YES];
+//            [MBProgressHUD hideHUDForView:self animated:YES];
             [NetWorking betWithObjid:_matchDetailBean andIsPlayer1Win:_isbetPlayer1Win andBetValue:_betValue andOption:^(BOOL result) {
                 if (result) {
                     NSLog(@"下注成功");

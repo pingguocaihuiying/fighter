@@ -311,8 +311,6 @@
     
 //    [IXPushSdkApi registerDeviceToken:deviceToken
 //                              channel:@"test" version:@"1.0" appId:1670128310];
-
-    
     
     // 格斗东西 开发板
     [IXPushSdkApi registerDeviceToken:deviceToken

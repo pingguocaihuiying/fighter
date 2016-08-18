@@ -31,6 +31,9 @@
 #import "FTMatchLiveViewController.h"
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
+#import "FTVideoDetailViewController.h"
+#import "FTVideoBean.h"
+#import "FTMatchPreViewController.h"
 
 /**
  *  数据结构思路22：
@@ -130,7 +133,8 @@
 
 
 - (void)getMatchList{
-    
+    //显示加载hud
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *status = @"";
     NSString *payStatus = @"";
     NSString *label = @"";
@@ -157,6 +161,7 @@
     }
     
     [NetWorking getMatchListWithPageNum:_pageNum andPageSize:_pageSize andStatus:status andPayStatus:payStatus andLabel:label andAgainstId:againstId andWeight:weight andUserId:userId andOption:^(NSArray *array) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];//隐藏hud
                 if (array && array.count > 0) {
                     
                     if (_pageNum == 1) {//如果是第一页，清除历史数据
@@ -310,14 +315,36 @@
         [self.navigationController pushViewController:matchLiveVC animated:YES];
     } else if ([matchBean.statu isEqualToString:@"1"]){
         NSLog(@"比赛结束");
+        NSLog(@"url : %@", matchBean.urlRes);
+        NSString *urlId;
+        if (matchBean.urlRes) {
+            
+        } else {
+            urlId = @"1";//默认ID
+        }
+        FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
+        videoDetailVC.urlId = @"1";
+        FTVideoBean *videoBean = [FTVideoBean new];
+        videoBean.videosId = urlId;
+        videoDetailVC.videoBean = videoBean;
+        
+        [self.navigationController pushViewController:videoDetailVC animated:YES];
     }else{
         NSLog(@"尚未开赛");
+        NSLog(@"url : %@", matchBean.urlPre);
+        
+        NSString *webViewURL;
+        if (matchBean.urlPre) {
+            webViewURL = matchBean.urlPre;
+        } else {
+            webViewURL = @"http://www.gogogofight.com";
+        }
+        FTMatchPreViewController *matchPreVC = [FTMatchPreViewController new];
+        matchPreVC.webViewURL = webViewURL;
+        matchPreVC.title = @"赛前宣传";
+        [self.navigationController pushViewController:matchPreVC animated:YES];
     }
 }
-
-
-
-
 
 - (void)setJHRefresh{
     //设置下拉刷新
