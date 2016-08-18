@@ -11,6 +11,7 @@
 #import "FTRankViewController.h"
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
+#import "UIButton+Badge.h"
 
 @interface FTBaseTabBarViewController () <UITabBarControllerDelegate>
 
@@ -98,28 +99,29 @@
     
     
     
-//    // 头部消息按钮
-//    self.messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    self.messageBtn.frame = CGRectMake(0, 0, 24, 24);
-//    [self.messageBtn addTarget:self action:@selector(messageBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息"] forState:UIControlStateNormal];
-//    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
-//    
-//    UIBarButtonItem *messageBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.messageBtn];
-//    
-//    // 头部搜索按钮
-//    self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    self.searchBtn.frame = CGRectMake(0, 0, 24, 24);
-//    [self.searchBtn addTarget:self action:@selector(searchBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索"] forState:UIControlStateNormal];
-//    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索pre"] forState:UIControlStateHighlighted];
-//    
-//    
-//    UIBarButtonItem *searchBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.searchBtn];
-//    
+    // 头部消息按钮
+    self.messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.messageBtn.frame = CGRectMake(0, 0, 24, 24);
+    [self.messageBtn addTarget:self action:@selector(messageBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息"] forState:UIControlStateNormal];
+    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
+    
+    UIBarButtonItem *messageBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.messageBtn];
+    
+    // 头部搜索按钮
+    self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.searchBtn.frame = CGRectMake(0, 0, 24, 24);
+    [self.searchBtn addTarget:self action:@selector(searchBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索"] forState:UIControlStateNormal];
+    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索pre"] forState:UIControlStateHighlighted];
+    
+    
+    UIBarButtonItem *searchBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.searchBtn];
+//
 //    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:messageBtnItem, searchBtnItem,nil];
+    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:messageBtnItem,nil];
     
     
     // title View
@@ -208,6 +210,11 @@
 - (void)messageBtnAction:(id)sender {
     
     NSLog(@"message button clicked");
+    
+    static NSInteger count = 0;
+    count ++;
+    self.messageBtn.badgeValue = [NSString stringWithFormat:@"%ld",count];
+    [self shakingAnimation];
 }
 
 
@@ -264,4 +271,24 @@
 //        [[UIApplication sharedApplication].keyWindow addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:3];
 //    }
 }
+
+
+#pragma mark - 抖动动画
+#define Angle2Radian(angle) ((angle) / 180.0 * M_PI)
+- (void)shakingAnimation {
+    CAKeyframeAnimation *anim = [CAKeyframeAnimation animation];
+    anim.keyPath = @"transform.rotation";
+    
+    anim.values = @[@(Angle2Radian(-15)),  @(Angle2Radian(15)), @(Angle2Radian(0))];
+    anim.duration = 0.20;
+    
+    // 动画次数设置为最大
+    anim.repeatCount = 3;
+    // 保持动画执行完毕后的状态
+    anim.removedOnCompletion = NO;
+    anim.fillMode = kCAFillModeForwards;
+    
+    [self.messageBtn.layer addAnimation:anim forKey:@"shake"];
+}
+
 @end
