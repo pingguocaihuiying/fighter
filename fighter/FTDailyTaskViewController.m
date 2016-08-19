@@ -7,8 +7,13 @@
 //
 
 #import "FTDailyTaskViewController.h"
+#import "FTTaskShareCell.h"
+#import "FTTaskRemindCell.h"
 
-@interface FTDailyTaskViewController ()
+
+@interface FTDailyTaskViewController () <UITableViewDelegate,UITableViewDataSource>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -24,6 +29,15 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
+
+#pragma mark - delegate
+#pragma mark UITableView Datasource
+
+#pragma mark UITableVIew Delegate
+
 
 /*
 #pragma mark - Navigation
