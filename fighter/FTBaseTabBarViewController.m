@@ -11,6 +11,7 @@
 #import "FTRankViewController.h"
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
+#import "UIButton+Badge.h"
 
 @interface FTBaseTabBarViewController () <UITabBarControllerDelegate>
 
@@ -19,6 +20,8 @@
 @property (nonatomic, strong) UIButton *messageBtn;
 
 @property (nonatomic, strong) UIButton *searchBtn;
+
+@property (nonatomic, strong) UIButton *taskBtn;
 
 @property (nonatomic, strong) UILabel *titleLabel;
 
@@ -118,8 +121,20 @@
 //    
 //    
 //    UIBarButtonItem *searchBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.searchBtn];
-//    
+    
 //    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:messageBtnItem, searchBtnItem,nil];
+   
+    // 头部任务按钮
+    self.taskBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.taskBtn.frame = CGRectMake(0, 0, 24, 24);
+    [self.taskBtn addTarget:self action:@selector(searchBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务"] forState:UIControlStateNormal];
+    [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务pre"] forState:UIControlStateHighlighted];
+    
+    
+    UIBarButtonItem *taskBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.taskBtn];
+    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:taskBtnItem,nil];
     
     
     // title View
@@ -197,17 +212,42 @@
 
 
 
-// 头像点击事件
+// 搜索按钮点击事件
 - (void)searchBtnAction:(id)sender {
     
     NSLog(@"serach button clicked");
     
 }
 
-// 头像点击事件
+// 消息按钮点击事件
 - (void)messageBtnAction:(id)sender {
     
     NSLog(@"message button clicked");
+    
+//    static NSInteger count = 0;
+//    count ++;
+//    self.messageBtn.badgeValue = [NSString stringWithFormat:@"%ld",count];
+//    [self shakingAnimation];
+    
+    [self.messageBtn showMiniBadge];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+         [self.messageBtn hideMiniBadge];
+    });
+}
+
+// 任务按钮点击事件
+- (void)taskBtnAction:(id)sender {
+    
+    NSLog(@"task button clicked");
+    
+    [self.taskBtn showMiniBadge];
+    
+    [self shakingAnimation:self.taskBtn];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.messageBtn hideMiniBadge];
+    });
 }
 
 
@@ -264,4 +304,24 @@
 //        [[UIApplication sharedApplication].keyWindow addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:3];
 //    }
 }
+
+
+#pragma mark - 抖动动画
+#define Angle2Radian(angle) ((angle) / 180.0 * M_PI)
+- (void)shakingAnimation:(UIButton *)button {
+    CAKeyframeAnimation *anim = [CAKeyframeAnimation animation];
+    anim.keyPath = @"transform.rotation";
+    
+    anim.values = @[@(Angle2Radian(-15)),  @(Angle2Radian(15)), @(Angle2Radian(0))];
+    anim.duration = 0.20;
+    
+    // 动画次数设置为最大
+    anim.repeatCount = 3;
+    // 保持动画执行完毕后的状态
+    anim.removedOnCompletion = NO;
+    anim.fillMode = kCAFillModeForwards;
+    
+    [button.layer addAnimation:anim forKey:@"shake"];
+}
+
 @end
