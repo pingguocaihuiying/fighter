@@ -21,6 +21,8 @@
 
 @property (nonatomic, strong) UIButton *searchBtn;
 
+@property (nonatomic, strong) UIButton *taskBtn;
+
 @property (nonatomic, strong) UILabel *titleLabel;
 
 @end
@@ -99,29 +101,40 @@
     
     
     
-    // 头部消息按钮
-    self.messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.messageBtn.frame = CGRectMake(0, 0, 24, 24);
-    [self.messageBtn addTarget:self action:@selector(messageBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+//    // 头部消息按钮
+//    self.messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.messageBtn.frame = CGRectMake(0, 0, 24, 24);
+//    [self.messageBtn addTarget:self action:@selector(messageBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息"] forState:UIControlStateNormal];
+//    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
+//    
+//    UIBarButtonItem *messageBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.messageBtn];
+//    
+//    // 头部搜索按钮
+//    self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.searchBtn.frame = CGRectMake(0, 0, 24, 24);
+//    [self.searchBtn addTarget:self action:@selector(searchBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索"] forState:UIControlStateNormal];
+//    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索pre"] forState:UIControlStateHighlighted];
+//    
+//    
+//    UIBarButtonItem *searchBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.searchBtn];
     
-    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息"] forState:UIControlStateNormal];
-    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
-    
-    UIBarButtonItem *messageBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.messageBtn];
-    
-    // 头部搜索按钮
-    self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.searchBtn.frame = CGRectMake(0, 0, 24, 24);
-    [self.searchBtn addTarget:self action:@selector(searchBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索"] forState:UIControlStateNormal];
-    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索pre"] forState:UIControlStateHighlighted];
-    
-    
-    UIBarButtonItem *searchBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.searchBtn];
-//
 //    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:messageBtnItem, searchBtnItem,nil];
-    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:messageBtnItem,nil];
+   
+    // 头部任务按钮
+    self.taskBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.taskBtn.frame = CGRectMake(0, 0, 24, 24);
+    [self.taskBtn addTarget:self action:@selector(searchBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务"] forState:UIControlStateNormal];
+    [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务pre"] forState:UIControlStateHighlighted];
+    
+    
+    UIBarButtonItem *taskBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.taskBtn];
+    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:taskBtnItem,nil];
     
     
     // title View
@@ -199,22 +212,42 @@
 
 
 
-// 头像点击事件
+// 搜索按钮点击事件
 - (void)searchBtnAction:(id)sender {
     
     NSLog(@"serach button clicked");
     
 }
 
-// 头像点击事件
+// 消息按钮点击事件
 - (void)messageBtnAction:(id)sender {
     
     NSLog(@"message button clicked");
     
-    static NSInteger count = 0;
-    count ++;
-    self.messageBtn.badgeValue = [NSString stringWithFormat:@"%ld",count];
-    [self shakingAnimation];
+//    static NSInteger count = 0;
+//    count ++;
+//    self.messageBtn.badgeValue = [NSString stringWithFormat:@"%ld",count];
+//    [self shakingAnimation];
+    
+    [self.messageBtn showMiniBadge];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+         [self.messageBtn hideMiniBadge];
+    });
+}
+
+// 任务按钮点击事件
+- (void)taskBtnAction:(id)sender {
+    
+    NSLog(@"task button clicked");
+    
+    [self.taskBtn showMiniBadge];
+    
+    [self shakingAnimation:self.taskBtn];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.messageBtn hideMiniBadge];
+    });
 }
 
 
@@ -275,7 +308,7 @@
 
 #pragma mark - 抖动动画
 #define Angle2Radian(angle) ((angle) / 180.0 * M_PI)
-- (void)shakingAnimation {
+- (void)shakingAnimation:(UIButton *)button {
     CAKeyframeAnimation *anim = [CAKeyframeAnimation animation];
     anim.keyPath = @"transform.rotation";
     
@@ -288,7 +321,7 @@
     anim.removedOnCompletion = NO;
     anim.fillMode = kCAFillModeForwards;
     
-    [self.messageBtn.layer addAnimation:anim forKey:@"shake"];
+    [button.layer addAnimation:anim forKey:@"shake"];
 }
 
 @end

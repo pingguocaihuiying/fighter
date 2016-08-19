@@ -134,10 +134,10 @@
     __weak __typeof(self) weakSelf = self;
      __weak UILabel *weakLabel = _hintLabel;
     [_panelView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weakSelf.mas_bottom).with.offset(-10);
+        make.bottom.equalTo(weakSelf.mas_bottom).with.offset(-64);
         make.right.equalTo(weakSelf.mas_right).with.offset(-6);
         make.left.equalTo(weakSelf.mas_left).with.offset(6);
-        make.top.equalTo(weakLabel.mas_top).with.offset(-20);
+        make.top.equalTo(weakLabel.mas_top).with.offset(-15);
         
     }];
     
