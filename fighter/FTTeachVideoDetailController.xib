@@ -49,15 +49,15 @@
                                 <constraint firstItem="cyI-9n-IbF" firstAttribute="centerY" secondItem="7Gz-b7-3L4" secondAttribute="centerY" id="xqZ-8c-CzY"/>
                             </constraints>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="斜线分割" translatesAutoresizingMaskIntoConstraints="NO" id="K5A-uq-aK5" userLabel="分割线1">
-                            <rect key="frame" x="131" y="13" width="12" height="24"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="斜线分割" translatesAutoresizingMaskIntoConstraints="NO" id="K5A-uq-aK5" userLabel="分割线1">
+                            <rect key="frame" x="132" y="13" width="12" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="24" id="Ehg-Sd-r86"/>
                                 <constraint firstAttribute="width" constant="12" id="Vak-aU-fJF"/>
                             </constraints>
                         </imageView>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9nc-Cz-Qdh" userLabel="分享view">
-                            <rect key="frame" x="143" y="0.0" width="132" height="49"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9nc-Cz-Qdh" userLabel="分享view">
+                            <rect key="frame" x="144" y="0.0" width="132" height="49"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W8i-xb-GV1" userLabel="分享">
                                     <rect key="frame" x="54" y="13" width="24" height="24"/>
@@ -77,15 +77,15 @@
                                 <constraint firstItem="W8i-xb-GV1" firstAttribute="centerY" secondItem="9nc-Cz-Qdh" secondAttribute="centerY" id="VFy-z1-n4L"/>
                             </constraints>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="斜线分割" translatesAutoresizingMaskIntoConstraints="NO" id="9Hm-U6-v2X" userLabel="分割线2">
-                            <rect key="frame" x="275" y="13" width="12" height="24"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="斜线分割" translatesAutoresizingMaskIntoConstraints="NO" id="9Hm-U6-v2X" userLabel="分割线2">
+                            <rect key="frame" x="276" y="13" width="12" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="24" id="H02-42-jel"/>
                                 <constraint firstAttribute="width" constant="12" id="coe-bh-Xav"/>
                             </constraints>
                         </imageView>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QRW-ms-o80" userLabel="评论view">
-                            <rect key="frame" x="287" y="0.0" width="132" height="49"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QRW-ms-o80" userLabel="评论view">
+                            <rect key="frame" x="288" y="0.0" width="132" height="49"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="os9-bX-mrb" userLabel="评">
                                     <rect key="frame" x="54" y="13" width="24" height="24"/>
@@ -105,18 +105,18 @@
                                 <constraint firstItem="os9-bX-mrb" firstAttribute="centerY" secondItem="QRW-ms-o80" secondAttribute="centerY" id="DKn-om-Pjc"/>
                             </constraints>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="斜线分割" translatesAutoresizingMaskIntoConstraints="NO" id="1z1-lo-w0X" userLabel="分割线3">
-                            <rect key="frame" x="419" y="13" width="12" height="24"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="斜线分割" translatesAutoresizingMaskIntoConstraints="NO" id="1z1-lo-w0X" userLabel="分割线3">
+                            <rect key="frame" x="420" y="13" width="12" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="12" id="HFb-25-aK3"/>
                                 <constraint firstAttribute="height" constant="24" id="IYd-Ge-Dbe"/>
                             </constraints>
                         </imageView>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vaq-Rq-BBh" userLabel="点赞view">
-                            <rect key="frame" x="431" y="0.0" width="132" height="49"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vaq-Rq-BBh" userLabel="点赞view">
+                            <rect key="frame" x="432" y="0.0" width="132" height="49"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZD2-rs-a6K" userLabel="赞">
-                                    <rect key="frame" x="53" y="13" width="24" height="24"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZD2-rs-a6K" userLabel="赞">
+                                    <rect key="frame" x="54" y="13" width="24" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="24" id="h2o-St-an5"/>
                                         <constraint firstAttribute="width" constant="24" id="qru-cL-5hF"/>
@@ -134,7 +134,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="7Gz-b7-3L4" firstAttribute="width" secondItem="Ja3-kA-hcU" secondAttribute="width" multiplier="0.22" id="3fi-x2-dLd"/>
                         <constraint firstItem="9nc-Cz-Qdh" firstAttribute="width" secondItem="7Gz-b7-3L4" secondAttribute="width" id="3iV-B7-wOc"/>

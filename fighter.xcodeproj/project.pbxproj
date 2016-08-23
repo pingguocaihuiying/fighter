@@ -70,6 +70,8 @@
 		3D4B19631CDB59D60022DFB0 /* UIWindow+MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B19621CDB59D60022DFB0 /* UIWindow+MBProgressHUD.m */; };
 		3D4B19661CDB6CF80022DFB0 /* FTWeightPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B19651CDB6CF80022DFB0 /* FTWeightPickerView.m */; };
 		3D4B19691CDB7AE20022DFB0 /* FTSexPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B19681CDB7AE20022DFB0 /* FTSexPickerView.m */; };
+		3D500DE91D6AFE1900ACBD0D /* UIView+UIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D500DE81D6AFE1900ACBD0D /* UIView+UIViewController.m */; };
+		3D500DEC1D6C460600ACBD0D /* NSDate+TaskDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D500DEB1D6C460600ACBD0D /* NSDate+TaskDate.m */; };
 		3D57D0501CEC0E7F0082BF24 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D04F1CEC0E7F0082BF24 /* DBManager.m */; };
 		3D5A3CBD1CFD1E1000FDB3C4 /* FTShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */; };
 		3D5FB4851CDC1F1D00FC1809 /* FTPhotoPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4841CDC1F1D00FC1809 /* FTPhotoPickerView.m */; };
@@ -81,6 +83,15 @@
 		3D5FB4BE1CDC7E6600FC1809 /* FTImageCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4BC1CDC7E6600FC1809 /* FTImageCollectionCell.m */; };
 		3D5FB4BF1CDC7E6600FC1809 /* FTImageCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D5FB4BD1CDC7E6600FC1809 /* FTImageCollectionCell.xib */; };
 		3D6947101CE3374000989440 /* FTUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D69470F1CE3374000989440 /* FTUserViewController.m */; };
+		3D6ABC831D66DAE700CD37C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D6ABC821D66DAE700CD37C8 /* Assets.xcassets */; };
+		3D6ABC881D66E43600CD37C8 /* FTDailyTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6ABC861D66E43600CD37C8 /* FTDailyTaskViewController.m */; };
+		3D6ABC891D66E43600CD37C8 /* FTDailyTaskViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D6ABC871D66E43600CD37C8 /* FTDailyTaskViewController.xib */; };
+		3D6ABC8D1D66E68A00CD37C8 /* FTFinishedTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6ABC8B1D66E68A00CD37C8 /* FTFinishedTaskViewController.m */; };
+		3D6ABC8E1D66E68A00CD37C8 /* FTFinishedTaskViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D6ABC8C1D66E68A00CD37C8 /* FTFinishedTaskViewController.xib */; };
+		3D6ABC941D66EC8B00CD37C8 /* FTTaskRemindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6ABC921D66EC8B00CD37C8 /* FTTaskRemindCell.m */; };
+		3D6ABC951D66EC8B00CD37C8 /* FTTaskRemindCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D6ABC931D66EC8B00CD37C8 /* FTTaskRemindCell.xib */; };
+		3D6ABC991D66ECC700CD37C8 /* FTTaskShareCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6ABC971D66ECC700CD37C8 /* FTTaskShareCell.m */; };
+		3D6ABC9A1D66ECC700CD37C8 /* FTTaskShareCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D6ABC981D66ECC700CD37C8 /* FTTaskShareCell.xib */; };
 		3D6CFF3A1D06A41200CAC12A /* FTAlivePushStreamVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6CFF391D06A41200CAC12A /* FTAlivePushStreamVC.m */; };
 		3D6DA0D21CEE93CD00BAA8F0 /* FTNWGetCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6DA0D11CEE93CD00BAA8F0 /* FTNWGetCategory.m */; };
 		3D6DA0E11CEEA96D00BAA8F0 /* FTBoxerCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6DA0DF1CEEA96D00BAA8F0 /* FTBoxerCenter.m */; };
@@ -119,7 +130,6 @@
 		3D7C6B821CF2A26D0088400D /* BoxerMatchController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D7C6B801CF2A26D0088400D /* BoxerMatchController.xib */; };
 		3D7C6B861CF2A2990088400D /* BoxerInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C6B841CF2A2990088400D /* BoxerInfoController.m */; };
 		3D7C6B871CF2A2990088400D /* BoxerInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D7C6B851CF2A2990088400D /* BoxerInfoController.xib */; };
-		3D8368C71D1930EA00F0F309 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D8368C61D1930EA00F0F309 /* Assets.xcassets */; };
 		3D8B2E531D1D14B000E18280 /* FTCoachCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8B2E511D1D14B000E18280 /* FTCoachCell.m */; };
 		3D8B2E541D1D14B000E18280 /* FTCoachCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D8B2E521D1D14B000E18280 /* FTCoachCell.xib */; };
 		3D8B2E591D1D157200E18280 /* FTGymCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8B2E571D1D157200E18280 /* FTGymCell.m */; };
@@ -467,6 +477,10 @@
 		3D4B19671CDB7AE20022DFB0 /* FTSexPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSexPickerView.h; sourceTree = "<group>"; };
 		3D4B19681CDB7AE20022DFB0 /* FTSexPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTSexPickerView.m; sourceTree = "<group>"; };
 		3D4B196A1CDB7B770022DFB0 /* FTPickerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPickerViewDelegate.h; sourceTree = "<group>"; };
+		3D500DE71D6AFE1900ACBD0D /* UIView+UIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+UIViewController.h"; sourceTree = "<group>"; };
+		3D500DE81D6AFE1900ACBD0D /* UIView+UIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+UIViewController.m"; sourceTree = "<group>"; };
+		3D500DEA1D6C460500ACBD0D /* NSDate+TaskDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TaskDate.h"; sourceTree = "<group>"; };
+		3D500DEB1D6C460600ACBD0D /* NSDate+TaskDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TaskDate.m"; sourceTree = "<group>"; };
 		3D57D04E1CEC0E7F0082BF24 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		3D57D04F1CEC0E7F0082BF24 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
 		3D5A3CBB1CFD1E1000FDB3C4 /* FTShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTShareView.h; sourceTree = "<group>"; };
@@ -487,6 +501,19 @@
 		3D5FB4BD1CDC7E6600FC1809 /* FTImageCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTImageCollectionCell.xib; sourceTree = "<group>"; };
 		3D69470E1CE3374000989440 /* FTUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserViewController.h; sourceTree = "<group>"; };
 		3D69470F1CE3374000989440 /* FTUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserViewController.m; sourceTree = "<group>"; };
+		3D6ABC821D66DAE700CD37C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3D6ABC851D66E43600CD37C8 /* FTDailyTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDailyTaskViewController.h; sourceTree = "<group>"; };
+		3D6ABC861D66E43600CD37C8 /* FTDailyTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDailyTaskViewController.m; sourceTree = "<group>"; };
+		3D6ABC871D66E43600CD37C8 /* FTDailyTaskViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTDailyTaskViewController.xib; sourceTree = "<group>"; };
+		3D6ABC8A1D66E68A00CD37C8 /* FTFinishedTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTFinishedTaskViewController.h; sourceTree = "<group>"; };
+		3D6ABC8B1D66E68A00CD37C8 /* FTFinishedTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTFinishedTaskViewController.m; sourceTree = "<group>"; };
+		3D6ABC8C1D66E68A00CD37C8 /* FTFinishedTaskViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTFinishedTaskViewController.xib; sourceTree = "<group>"; };
+		3D6ABC911D66EC8B00CD37C8 /* FTTaskRemindCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTaskRemindCell.h; sourceTree = "<group>"; };
+		3D6ABC921D66EC8B00CD37C8 /* FTTaskRemindCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTaskRemindCell.m; sourceTree = "<group>"; };
+		3D6ABC931D66EC8B00CD37C8 /* FTTaskRemindCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTaskRemindCell.xib; sourceTree = "<group>"; };
+		3D6ABC961D66ECC700CD37C8 /* FTTaskShareCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTaskShareCell.h; sourceTree = "<group>"; };
+		3D6ABC971D66ECC700CD37C8 /* FTTaskShareCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTaskShareCell.m; sourceTree = "<group>"; };
+		3D6ABC981D66ECC700CD37C8 /* FTTaskShareCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTaskShareCell.xib; sourceTree = "<group>"; };
 		3D6C25721D644746005B42B2 /* OpenSliderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenSliderDelegate.h; sourceTree = "<group>"; };
 		3D6CFF381D06A41200CAC12A /* FTAlivePushStreamVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTAlivePushStreamVC.h; sourceTree = "<group>"; };
 		3D6CFF391D06A41200CAC12A /* FTAlivePushStreamVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTAlivePushStreamVC.m; sourceTree = "<group>"; };
@@ -546,7 +573,6 @@
 		3D7C6B831CF2A2990088400D /* BoxerInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoxerInfoController.h; sourceTree = "<group>"; };
 		3D7C6B841CF2A2990088400D /* BoxerInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoxerInfoController.m; sourceTree = "<group>"; };
 		3D7C6B851CF2A2990088400D /* BoxerInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BoxerInfoController.xib; sourceTree = "<group>"; };
-		3D8368C61D1930EA00F0F309 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D8B2E501D1D14B000E18280 /* FTCoachCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCoachCell.h; sourceTree = "<group>"; };
 		3D8B2E511D1D14B000E18280 /* FTCoachCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCoachCell.m; sourceTree = "<group>"; };
 		3D8B2E521D1D14B000E18280 /* FTCoachCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTCoachCell.xib; sourceTree = "<group>"; };
@@ -1384,6 +1410,41 @@
 			name = base;
 			sourceTree = "<group>";
 		};
+		3D6ABC841D66E39200CD37C8 /* 日常任务 */ = {
+			isa = PBXGroup;
+			children = (
+				3D6ABC901D66EC1900CD37C8 /* view */,
+				3D6ABC8F1D66EC0B00CD37C8 /* controller */,
+			);
+			name = "日常任务";
+			sourceTree = "<group>";
+		};
+		3D6ABC8F1D66EC0B00CD37C8 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				3D6ABC851D66E43600CD37C8 /* FTDailyTaskViewController.h */,
+				3D6ABC861D66E43600CD37C8 /* FTDailyTaskViewController.m */,
+				3D6ABC871D66E43600CD37C8 /* FTDailyTaskViewController.xib */,
+				3D6ABC8A1D66E68A00CD37C8 /* FTFinishedTaskViewController.h */,
+				3D6ABC8B1D66E68A00CD37C8 /* FTFinishedTaskViewController.m */,
+				3D6ABC8C1D66E68A00CD37C8 /* FTFinishedTaskViewController.xib */,
+			);
+			name = controller;
+			sourceTree = "<group>";
+		};
+		3D6ABC901D66EC1900CD37C8 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				3D6ABC911D66EC8B00CD37C8 /* FTTaskRemindCell.h */,
+				3D6ABC921D66EC8B00CD37C8 /* FTTaskRemindCell.m */,
+				3D6ABC931D66EC8B00CD37C8 /* FTTaskRemindCell.xib */,
+				3D6ABC961D66ECC700CD37C8 /* FTTaskShareCell.h */,
+				3D6ABC971D66ECC700CD37C8 /* FTTaskShareCell.m */,
+				3D6ABC981D66ECC700CD37C8 /* FTTaskShareCell.xib */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
 		3D6CFF361D06A36600CAC12A /* 直播 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1912,7 +1973,7 @@
 		E64EF1091CB6614000CAE340 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				3D8368C61D1930EA00F0F309 /* Assets.xcassets */,
+				3D6ABC821D66DAE700CD37C8 /* Assets.xcassets */,
 				3D7B988D1CDD027400B80B8D /* Area.plist */,
 				3D7B988F1CDD1E5900B80B8D /* Area2.plist */,
 				E64EF10A1CB6614000CAE340 /* main.m */,
@@ -2485,6 +2546,7 @@
 		E6B458921CB7554F00FB4261 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				3D6ABC841D66E39200CD37C8 /* 日常任务 */,
 				3D20193B1D582F2D009E80B1 /* 兑吧 */,
 				3DDE29AF1D2B5C2500876B30 /* 支付 */,
 				3D13FB121D1A1A2C0060B9B4 /* 学拳 */,
@@ -2716,6 +2778,10 @@
 				3D9CA4031D5F0AE800B9622B /* UIView+MBProgressHUD.m */,
 				3DE486E81D659C9E00819D04 /* UIButton+Badge.h */,
 				3DE486E91D659C9E00819D04 /* UIButton+Badge.m */,
+				3D500DE71D6AFE1900ACBD0D /* UIView+UIViewController.h */,
+				3D500DE81D6AFE1900ACBD0D /* UIView+UIViewController.m */,
+				3D500DEA1D6C460500ACBD0D /* NSDate+TaskDate.h */,
+				3D500DEB1D6C460600ACBD0D /* NSDate+TaskDate.m */,
 			);
 			path = Categorys;
 			sourceTree = "<group>";
@@ -2969,6 +3035,7 @@
 				3DB240F71D3CC22D007F32C6 /* FTRechargeView.xib in Resources */,
 				E6E9E8951CDC718900976480 /* FTVideoCollectionViewCell.xib in Resources */,
 				3D7C6B7D1CF2A2380088400D /* BoxerVideoController.xib in Resources */,
+				3D6ABC8E1D66E68A00CD37C8 /* FTFinishedTaskViewController.xib in Resources */,
 				3DE0C9F01D1BABB000C6ABE2 /* FTTeachVideoController.xib in Resources */,
 				3D755D431D2F833300C95BA1 /* FTLabelsCell.xib in Resources */,
 				3D13FB111D193BB80060B9B4 /* FTFightingViewController.xib in Resources */,
@@ -2999,6 +3066,7 @@
 				3D8B2E541D1D14B000E18280 /* FTCoachCell.xib in Resources */,
 				3D13FB181D1A1AA80060B9B4 /* FTPracticeViewController.xib in Resources */,
 				3DDE29BE1D2BB39F00876B30 /* FTPayViewController.xib in Resources */,
+				3D6ABC891D66E43600CD37C8 /* FTDailyTaskViewController.xib in Resources */,
 				3DDE29B91D2BAA8200876B30 /* FTDrawerPayCell.xib in Resources */,
 				E6BFBEE71D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib in Resources */,
 				E6A9DDC01CD9C88600CB9518 /* FTVideoDetailViewController.xib in Resources */,
@@ -3007,6 +3075,7 @@
 				3D7B98BA1CE078D600B80B8D /* FTInputCheckCodeViewController.xib in Resources */,
 				3D8D73C31CE9DEFE009E2320 /* FTRankTableVIewCell.xib in Resources */,
 				3D4B19541CDAEF840022DFB0 /* FTTableViewCell4.xib in Resources */,
+				3D6ABC9A1D66ECC700CD37C8 /* FTTaskShareCell.xib in Resources */,
 				3D9D92E51D337100006C42F0 /* FTPayCell.xib in Resources */,
 				3DDE29B41D2BA4EB00876B30 /* FTDrawerCell.xib in Resources */,
 				E627EE671D25273F00B424F5 /* FTGymCell.xib in Resources */,
@@ -3016,7 +3085,6 @@
 				E67096911D2FA6BB00DB9F53 /* FTGymTimeSectionTableViewCell.xib in Resources */,
 				3DC4121E1CD060190030C229 /* FTDrawerViewController.xib in Resources */,
 				3DE95BAE1CD8A042005BF85C /* FTRegistViewController.xib in Resources */,
-				3D8368C71D1930EA00F0F309 /* Assets.xcassets in Resources */,
 				E6A9DDB71CD9833200CB9518 /* FTVideoTableViewCell.xib in Resources */,
 				E64EF1191CB6614000CAE340 /* LaunchScreen.storyboard in Resources */,
 				3D4122261D4F28BC007EB996 /* FTPhoneCheckCell.xib in Resources */,
@@ -3048,6 +3116,7 @@
 				3D7B98C41CE08DEE00B80B8D /* FTNewPasswordVC.xib in Resources */,
 				E696E4E11D2A39F800A89B60 /* FTOpponentCell.xib in Resources */,
 				E6035EBF1CC0C39500B10D36 /* FTCommentViewController.xib in Resources */,
+				3D6ABC951D66EC8B00CD37C8 /* FTTaskRemindCell.xib in Resources */,
 				E65D08D51CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.xib in Resources */,
 				3D7B98C91CE0D76800B80B8D /* FTWeixinInfoVC.xib in Resources */,
 				E68EC50C1CC4B85D00A338C8 /* FTFilterTableViewController.xib in Resources */,
@@ -3060,6 +3129,7 @@
 				E6035EB91CC08D2800B10D36 /* FTNewsDetail2ViewController.xib in Resources */,
 				E6B458D31CB75DA200FB4261 /* FTInformationViewController.xib in Resources */,
 				3D7C6B871CF2A2990088400D /* BoxerInfoController.xib in Resources */,
+				3D6ABC831D66DAE700CD37C8 /* Assets.xcassets in Resources */,
 				E6B239091D067045001F86BE /* FTHomepageCommentTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3281,8 +3351,10 @@
 				E6D09E961CEDDDCF00B7C43E /* FTQiniuNetwork.m in Sources */,
 				E6574B4C1D2CB5EE009B8465 /* FTIncomePercentView.m in Sources */,
 				E636B1B31D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.m in Sources */,
+				3D500DE91D6AFE1900ACBD0D /* UIView+UIViewController.m in Sources */,
 				3D4122301D4F3F02007EB996 /* FTAuthenticationView.m in Sources */,
 				3DC411F31CCF810A0030C229 /* FTDrawerTableViewFooter.m in Sources */,
+				3D6ABC881D66E43600CD37C8 /* FTDailyTaskViewController.m in Sources */,
 				E68050C11CBF919A00678905 /* UIView+JHExtension.m in Sources */,
 				E68D160D1CFD31F100AB5A8C /* FTHomepageMainViewController.m in Sources */,
 				3DF658DA1D22440B009BDEF6 /* FTCycleScrollView.m in Sources */,
@@ -3375,6 +3447,7 @@
 				E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */,
 				3D4122201D4F253E007EB996 /* FTLabelCell.m in Sources */,
 				E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */,
+				3D6ABC941D66EC8B00CD37C8 /* FTTaskRemindCell.m in Sources */,
 				3D13FB101D193BB80060B9B4 /* FTFightingViewController.m in Sources */,
 				3DD07E981D1CCEDF004AF720 /* FTCoachView.m in Sources */,
 				3D2AEED01D2F3CBC00F94A59 /* FTPurchaseInApp.m in Sources */,
@@ -3394,11 +3467,13 @@
 				3D0B446D1D45A4D400EE08B3 /* WBSingleton.m in Sources */,
 				3D10DDEA1D4753C300E2D776 /* FTCollectionFowLaytout.m in Sources */,
 				3D7B98BE1CE0898400B80B8D /* FTOldPasswordVC.m in Sources */,
+				3D6ABC8D1D66E68A00CD37C8 /* FTFinishedTaskViewController.m in Sources */,
 				3D7B98B91CE078D600B80B8D /* FTInputCheckCodeViewController.m in Sources */,
 				3DE486EA1D659C9E00819D04 /* UIButton+Badge.m in Sources */,
 				E6D74A481CB7B7EE00854337 /* UIColor+YBColorCategory.m in Sources */,
 				3D6947101CE3374000989440 /* FTUserViewController.m in Sources */,
 				3D197C531D41CCA30091048D /* WXSingleton.m in Sources */,
+				3D500DEC1D6C460600ACBD0D /* NSDate+TaskDate.m in Sources */,
 				E6B458DE1CB7B2B100FB4261 /* FTTableViewController.m in Sources */,
 				E6C4D7ED1CEC5E7B00D73BFC /* FTUserTools.m in Sources */,
 				E68E6B661D655EAE00553F31 /* FTMatchPreViewController.m in Sources */,
@@ -3442,6 +3517,7 @@
 				3D7C6B731CF29DDD0088400D /* FTSlideTabBar.m in Sources */,
 				E68D16131CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m in Sources */,
 				E636B1AD1D2646840065C9C1 /* FTGymDetailViewController.m in Sources */,
+				3D6ABC991D66ECC700CD37C8 /* FTTaskShareCell.m in Sources */,
 				E68050C01CBF919A00678905 /* UIScrollView+JHRefresh.m in Sources */,
 				9258ED281D51D6C500F489A5 /* FTMatchDetailBean.m in Sources */,
 				3DB240FA1D3CD236007F32C6 /* FTRechargeView.m in Sources */,

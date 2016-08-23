@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -28,7 +28,7 @@
                     <rect key="frame" x="0.0" y="551" width="600" height="49"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xpk-Hv-igO" userLabel="收藏view">
-                            <rect key="frame" x="0.0" y="0.0" width="131.5" height="49"/>
+                            <rect key="frame" x="0.0" y="0.0" width="132" height="49"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TmS-Hu-nKc" userLabel="收藏">
                                     <rect key="frame" x="29" y="13" width="74" height="24"/>
@@ -46,14 +46,14 @@
                             </constraints>
                         </view>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="斜线分割" translatesAutoresizingMaskIntoConstraints="NO" id="PtM-7q-NGe" userLabel="分割线1">
-                            <rect key="frame" x="131" y="13" width="12" height="24"/>
+                            <rect key="frame" x="132" y="13" width="12" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="12" id="GyZ-bo-oss"/>
                                 <constraint firstAttribute="height" constant="24" id="WQ2-yc-FHU"/>
                             </constraints>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ku0-xj-Hzr" userLabel="分享view">
-                            <rect key="frame" x="143" y="0.0" width="131.5" height="49"/>
+                            <rect key="frame" x="144" y="0.0" width="132" height="49"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KoX-Wa-InU" userLabel="分享">
                                     <rect key="frame" x="54" y="13" width="24" height="24"/>
@@ -74,14 +74,14 @@
                             </constraints>
                         </view>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="斜线分割" translatesAutoresizingMaskIntoConstraints="NO" id="7RG-d9-JwR" userLabel="分割线2">
-                            <rect key="frame" x="275" y="13" width="12" height="24"/>
+                            <rect key="frame" x="276" y="13" width="12" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="24" id="PY4-OT-Hd8"/>
                                 <constraint firstAttribute="width" constant="12" id="RgK-Es-3gh"/>
                             </constraints>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9PK-km-69L" userLabel="评论view">
-                            <rect key="frame" x="287" y="0.0" width="132" height="49"/>
+                            <rect key="frame" x="288" y="0.0" width="132" height="49"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ev5-db-bnK" userLabel="评">
                                     <rect key="frame" x="54" y="13" width="24" height="24"/>
@@ -102,17 +102,17 @@
                             </constraints>
                         </view>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="斜线分割" translatesAutoresizingMaskIntoConstraints="NO" id="qhc-q1-uW2" userLabel="分割线3">
-                            <rect key="frame" x="419" y="13" width="12" height="24"/>
+                            <rect key="frame" x="420" y="13" width="12" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="12" id="kb3-d8-2an"/>
                                 <constraint firstAttribute="height" constant="24" id="pzu-iR-Cqd"/>
                             </constraints>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pcr-Mv-85o" userLabel="点赞view">
-                            <rect key="frame" x="431" y="0.0" width="131.5" height="49"/>
+                            <rect key="frame" x="432" y="0.0" width="132" height="49"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7On-fZ-VaS" userLabel="赞">
-                                    <rect key="frame" x="53" y="13" width="24" height="24"/>
+                                    <rect key="frame" x="54" y="13" width="24" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="24" id="L5F-Hd-wza"/>
                                         <constraint firstAttribute="height" constant="24" id="Qie-V3-FtB"/>
@@ -130,7 +130,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="qhc-q1-uW2" firstAttribute="centerY" secondItem="rdH-Uf-5rr" secondAttribute="centerY" id="1og-B1-svU"/>
                         <constraint firstItem="7RG-d9-JwR" firstAttribute="centerY" secondItem="rdH-Uf-5rr" secondAttribute="centerY" id="2Pi-er-pkM"/>

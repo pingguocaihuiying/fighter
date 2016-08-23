@@ -11,7 +11,7 @@
 @interface UIButton (Badge)
 
 @property (strong, nonatomic) UILabel *badge;
-@property (strong, nonatomic) UIView *miniBadge;
+@property (strong, nonatomic) CALayer *badgeLayer;
 
 // Badge value to be display
 @property (nonatomic) NSString *badgeValue;
@@ -33,4 +33,7 @@
 // Badge has a bounce animation when value changes
 @property BOOL shouldAnimateBadge;
 
+
+-(void) showMiniBadge;
+-(void) hideMiniBadge;
 @end

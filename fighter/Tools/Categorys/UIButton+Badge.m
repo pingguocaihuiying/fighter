@@ -45,6 +45,20 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
     self.clipsToBounds = NO;
 }
 
+- (void) miniBadgeInit
+{
+    // Default design initialization
+    self.badgeBGColor   = [UIColor redColor];
+    self.badgePadding   = 6;
+    self.badgeMinSize   = 8;
+    self.badgeOriginX   = self.frame.size.width - 5;
+    self.badgeOriginY   = 0;
+    self.shouldHideBadgeAtZero = YES;
+    self.shouldAnimateBadge = YES;
+    // Avoids badge to be clipped when animating its scale
+    self.clipsToBounds = NO;
+}
+
 #pragma mark - Utility methods
 
 // Handle badge display when its properties have been changed (color, font, ...)
@@ -139,6 +153,17 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
 -(void)setBadge:(UILabel *)badgeLabel
 {
     objc_setAssociatedObject(self, &UIButton_badgeKey, badgeLabel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+
+-(CALayer *) badgeLayer {
+
+    return objc_getAssociatedObject(self, &UIButton_miniBadgeKey);
+}
+
+-(void) setBadgeLayer:(CALayer *)badgeLayer {
+    
+    objc_setAssociatedObject(self, &UIButton_miniBadgeKey, badgeLayer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 // Badge value to be display
@@ -279,6 +304,23 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
 {
     NSNumber *number = [NSNumber numberWithBool:shouldAnimateBadge];
     objc_setAssociatedObject(self, &UIButton_shouldAnimateBadgeKey, number, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+//
+-(void) showMiniBadge {
+
+    [self miniBadgeInit];
+    self.badgeLayer = [CALayer layer];
+    self.badgeLayer.frame = CGRectMake(self.badgeOriginX, self.badgeOriginY, 5, 5);
+    self.badgeLayer.cornerRadius = 2.5;
+    self.badgeLayer.backgroundColor = self.badgeBGColor.CGColor;
+
+    [self.layer addSublayer:self.badgeLayer];
+}
+
+-(void) hideMiniBadge {
+    
+    [self.badgeLayer removeFromSuperlayer];
 }
 
 

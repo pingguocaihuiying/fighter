@@ -122,7 +122,7 @@
 // 设置webView
 - (void)setWebView{
     
-    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49)];
+    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49 - 64)];
     _webView.delegate = self;
     _webView.backgroundColor = [UIColor clearColor];
     _webView.opaque = NO;
@@ -590,6 +590,10 @@
         NSLog(@"dict:%@",dict);
         NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         if ([dict[@"status"] isEqualToString:@"success"]) {
+            
+            NSDate *recordDate = [NSDate date];
+            [[NSUserDefaults standardUserDefaults]setObject:recordDate forKey:@"FinishDate"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
             
             // 发送通知
             [[NSNotificationCenter defaultCenter] postNotificationName:RechargeResultNoti object:@"RECHARGE"];
