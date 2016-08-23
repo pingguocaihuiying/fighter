@@ -39,7 +39,7 @@
     [super viewDidLoad];
     
     [self setSubViews];
-    self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//    self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     [self setWebView];
     [self getVoteInfo];
     [self setLoadingImageView];
@@ -135,7 +135,7 @@
 }
 
 - (void)setWebView{
-    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49)];
+    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49 - 64)];
     
     _webView.delegate = self;
     
@@ -370,9 +370,6 @@
     return YES;
 }
 
-- (IBAction)cancelShareButtonClicked:(id)sender {
-    self.bgView.hidden = YES;
-}
 
 - (NSString *)encodeToPercentEscapeString: (NSString *) input
 {

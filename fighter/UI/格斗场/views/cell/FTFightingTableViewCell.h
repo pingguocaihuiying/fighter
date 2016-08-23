@@ -34,6 +34,7 @@ typedef NS_ENUM(int, FTMatchListButtonActionType){
     @property (weak, nonatomic) id<FTFightingTableViewCellButtonsClickedDelegate> buttonsClickedDelegate;
 
     @property (weak, nonatomic) IBOutlet UIButton *goToWatchButton;//前去观看
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *goToWatchButtonWidth;
     @property (weak, nonatomic) IBOutlet UIButton *buyTicketButton;//购票
     @property (weak, nonatomic) IBOutlet UIButton *supportButton;//赞助
     @property (weak, nonatomic) IBOutlet UIButton *followButton;//关注

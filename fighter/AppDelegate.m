@@ -301,11 +301,22 @@
 
 - (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken
 {
-    NSLog(@"deviceToken:%@",deviceToken);
+//    NSLog(@"deviceToken:%@",deviceToken);
+    
+    //将deviceToken保存在本地
+    if (deviceToken) {
+        NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
+        NSLog(@"deviceToken 处理前 :%@",token);
+        token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+        token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
+        token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
+        NSLog(@"deviceToken 处理后 :%@",token);
+        [[NSUserDefaults standardUserDefaults]setObject:deviceToken forKey:@"deviceToken"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+    }
+    
 //    [IXPushSdkApi registerDeviceToken:deviceToken
 //                              channel:@"test" version:@"1.0" appId:1670128310];
-
-    
     
     // 格斗东西 开发板
     [IXPushSdkApi registerDeviceToken:deviceToken

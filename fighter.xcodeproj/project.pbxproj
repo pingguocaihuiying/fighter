@@ -292,6 +292,7 @@
 		E68D160E1CFD31F100AB5A8C /* FTHomepageMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E68D160C1CFD31F100AB5A8C /* FTHomepageMainViewController.xib */; };
 		E68D16131CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D16121CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m */; };
 		E68D16171CFD819500AB5A8C /* UIImage+FTLYZImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E68D16161CFD819500AB5A8C /* UIImage+FTLYZImage.m */; };
+		E68E6B661D655EAE00553F31 /* FTMatchPreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68E6B651D655EAE00553F31 /* FTMatchPreViewController.m */; };
 		E68EC50B1CC4B85D00A338C8 /* FTFilterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68EC5091CC4B85D00A338C8 /* FTFilterTableViewController.m */; };
 		E68EC50C1CC4B85D00A338C8 /* FTFilterTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E68EC50A1CC4B85D00A338C8 /* FTFilterTableViewController.xib */; };
 		E6956EA61CBE21A1008DEEDB /* FTNewsBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6956EA51CBE21A1008DEEDB /* FTNewsBean.m */; };
@@ -843,6 +844,8 @@
 		E68D16121CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+FTLYZLabel.m"; path = "改变行高/UILabel+FTLYZLabel.m"; sourceTree = "<group>"; };
 		E68D16151CFD819500AB5A8C /* UIImage+FTLYZImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+FTLYZImage.h"; path = "Categorys/图片模糊处理/UIImage+FTLYZImage.h"; sourceTree = "<group>"; };
 		E68D16161CFD819500AB5A8C /* UIImage+FTLYZImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+FTLYZImage.m"; path = "Categorys/图片模糊处理/UIImage+FTLYZImage.m"; sourceTree = "<group>"; };
+		E68E6B641D655EAE00553F31 /* FTMatchPreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTMatchPreViewController.h; path = "UI/格斗场/viewControllers/尚未开赛/FTMatchPreViewController.h"; sourceTree = "<group>"; };
+		E68E6B651D655EAE00553F31 /* FTMatchPreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTMatchPreViewController.m; path = "UI/格斗场/viewControllers/尚未开赛/FTMatchPreViewController.m"; sourceTree = "<group>"; };
 		E68EC5081CC4B85D00A338C8 /* FTFilterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTFilterTableViewController.h; sourceTree = "<group>"; };
 		E68EC5091CC4B85D00A338C8 /* FTFilterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTFilterTableViewController.m; sourceTree = "<group>"; };
 		E68EC50A1CC4B85D00A338C8 /* FTFilterTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTFilterTableViewController.xib; sourceTree = "<group>"; };
@@ -2019,6 +2022,7 @@
 		E659F36C1D12A64600B41129 /* viewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E68E6B631D655DCA00553F31 /* 尚未开赛 */,
 				9258ED291D530C0D00F489A5 /* 直播页面 */,
 				E6BFBEE11D23CE8B0044F4B0 /* 发起约战 */,
 				E659F3731D12ABA700B41129 /* main－比赛列表 */,
@@ -2406,6 +2410,15 @@
 				E6E688E41D002F7D00708C24 /* 赛事list */,
 			);
 			name = cell;
+			sourceTree = "<group>";
+		};
+		E68E6B631D655DCA00553F31 /* 尚未开赛 */ = {
+			isa = PBXGroup;
+			children = (
+				E68E6B641D655EAE00553F31 /* FTMatchPreViewController.h */,
+				E68E6B651D655EAE00553F31 /* FTMatchPreViewController.m */,
+			);
+			name = "尚未开赛";
 			sourceTree = "<group>";
 		};
 		E68EC5071CC4B71400A338C8 /* filter */ = {
@@ -3463,6 +3476,7 @@
 				3D500DEC1D6C460600ACBD0D /* NSDate+TaskDate.m in Sources */,
 				E6B458DE1CB7B2B100FB4261 /* FTTableViewController.m in Sources */,
 				E6C4D7ED1CEC5E7B00D73BFC /* FTUserTools.m in Sources */,
+				E68E6B661D655EAE00553F31 /* FTMatchPreViewController.m in Sources */,
 				3D4B19691CDB7AE20022DFB0 /* FTSexPickerView.m in Sources */,
 				3D06155A1D36302600FDA86F /* NSData+Base64.m in Sources */,
 				3D7B98A41CE0190600B80B8D /* FTAbountUsViewController.m in Sources */,
@@ -3689,7 +3703,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: peng qu (LQHT8X75PQ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_BITCODE = NO;
@@ -3728,7 +3742,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "fd696b1c-386d-4b23-bf86-88ab3cc3228c";
 			};
 			name = Debug;
 		};
@@ -3739,8 +3753,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: peng qu (LQHT8X75PQ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: peng qu (LQHT8X75PQ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3777,7 +3791,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "fd696b1c-386d-4b23-bf86-88ab3cc3228c";
 			};
 			name = Release;
 		};

@@ -123,7 +123,7 @@
                             <constraint firstAttribute="width" constant="19" id="lQN-pg-gNI"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E26-Ex-uVi" userLabel="前去观战">
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E26-Ex-uVi" userLabel="前去观战">
                         <rect key="frame" x="128" y="128" width="120" height="24"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="120" id="71b-eB-01U"/>
@@ -377,7 +377,8 @@
                 <outlet property="betButton" destination="nDs-Gz-yiI" id="ime-UE-mBe"/>
                 <outlet property="buyTicketButton" destination="NjC-D9-in2" id="D1Z-MZ-5qj"/>
                 <outlet property="followButton" destination="sgg-J6-FCg" id="ebk-bA-qnc"/>
-                <outlet property="goToWatchButton" destination="E26-Ex-uVi" id="IO8-LP-MbJ"/>
+                <outlet property="goToWatchButton" destination="E26-Ex-uVi" id="NUY-qU-sG1"/>
+                <outlet property="goToWatchButtonWidth" destination="71b-eB-01U" id="Dw7-oP-VBm"/>
                 <outlet property="headerImage1" destination="pTL-au-YER" id="88v-24-XqC"/>
                 <outlet property="headerImage2" destination="Q1v-U1-Kag" id="mvi-iT-B1f"/>
                 <outlet property="nameLabel1" destination="HqF-zV-M1Z" id="dww-0U-beb"/>

@@ -7,7 +7,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTNewsDetail2ViewController">
             <connections>
-                <outlet property="bgView" destination="qns-6y-bLX" id="cM3-3n-z0I"/>
                 <outlet property="commentLabel" destination="IH5-RI-Pm8" id="ndQ-4j-i60"/>
                 <outlet property="thumbsUpButton" destination="a1r-3T-vph" id="nOW-99-VvB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -83,64 +82,10 @@
                         <constraint firstItem="uXf-a2-wlj" firstAttribute="top" secondItem="X4w-e8-K12" secondAttribute="top" constant="11" id="uiT-8M-AgF"/>
                     </constraints>
                 </view>
-                <view hidden="YES" alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qns-6y-bLX" userLabel="bgView">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ndy-kl-VRs" userLabel="shareView">
-                            <rect key="frame" x="0.0" y="348" width="320" height="204"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="43L-eG-wqD">
-                                    <rect key="frame" x="59" y="64" width="64" height="64"/>
-                                    <state key="normal" title="分享1"/>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YJO-9k-DiH">
-                                    <rect key="frame" x="221" y="64" width="64" height="64"/>
-                                    <state key="normal" title="分享2"/>
-                                </button>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="金属边框-改进ios" translatesAutoresizingMaskIntoConstraints="NO" id="Yss-nV-NIM">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="204"/>
-                                </imageView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L17-7O-5gV">
-                                    <rect key="frame" x="15" y="159" width="290" height="30"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="30" id="RhS-wZ-1Cd"/>
-                                    </constraints>
-                                    <state key="normal" title="取消">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="cancelShareButtonClicked:" destination="-1" eventType="touchUpInside" id="wbG-w3-ksu"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="204" id="9fN-EP-Yqg"/>
-                                <constraint firstAttribute="bottom" secondItem="Yss-nV-NIM" secondAttribute="bottom" id="Au0-OA-dgD"/>
-                                <constraint firstAttribute="trailing" secondItem="Yss-nV-NIM" secondAttribute="trailing" id="SGt-6p-KV2"/>
-                                <constraint firstItem="Yss-nV-NIM" firstAttribute="leading" secondItem="Ndy-kl-VRs" secondAttribute="leading" id="WBh-cf-ckz"/>
-                                <constraint firstItem="L17-7O-5gV" firstAttribute="leading" secondItem="Ndy-kl-VRs" secondAttribute="leading" constant="15" id="dbW-xB-IKv"/>
-                                <constraint firstAttribute="trailing" secondItem="L17-7O-5gV" secondAttribute="trailing" constant="15" id="fLX-Gc-Cx1"/>
-                                <constraint firstItem="Yss-nV-NIM" firstAttribute="top" secondItem="Ndy-kl-VRs" secondAttribute="top" id="gou-bQ-CKR"/>
-                                <constraint firstAttribute="bottom" secondItem="L17-7O-5gV" secondAttribute="bottom" constant="15" id="xGl-dG-C2l"/>
-                            </constraints>
-                        </view>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="Ndy-kl-VRs" firstAttribute="leading" secondItem="qns-6y-bLX" secondAttribute="leading" id="BAj-ux-kMX"/>
-                        <constraint firstAttribute="trailing" secondItem="Ndy-kl-VRs" secondAttribute="trailing" id="bty-aL-rV4"/>
-                        <constraint firstAttribute="bottom" secondItem="Ndy-kl-VRs" secondAttribute="bottom" constant="16" id="f4j-XK-La8"/>
-                    </constraints>
-                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="qns-6y-bLX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="6sN-oH-LpZ"/>
                 <constraint firstAttribute="bottom" secondItem="X4w-e8-K12" secondAttribute="bottom" id="JIQ-sr-xys"/>
-                <constraint firstAttribute="bottom" secondItem="qns-6y-bLX" secondAttribute="bottom" id="NG4-Jh-M6P"/>
-                <constraint firstItem="qns-6y-bLX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="TOg-WS-FaC"/>
-                <constraint firstAttribute="trailing" secondItem="qns-6y-bLX" secondAttribute="trailing" id="gLa-Xp-E0u"/>
                 <constraint firstAttribute="trailing" secondItem="X4w-e8-K12" secondAttribute="trailing" id="is3-8j-TVB"/>
                 <constraint firstItem="X4w-e8-K12" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jmK-wZ-rSi"/>
             </constraints>
@@ -151,6 +96,5 @@
         <image name="斜线分割" width="12" height="24"/>
         <image name="点赞" width="24" height="24"/>
         <image name="评论" width="24" height="24"/>
-        <image name="金属边框-改进ios" width="67" height="26"/>
     </resources>
 </document>

@@ -186,7 +186,7 @@
 }
 
 - (void)setWebView{
-    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49)];
+    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49 - 64)];
     _webView.delegate = self;
     
     //设置webview的背景色
@@ -219,6 +219,7 @@
         
         _webViewUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/video_page.html?objId=%@", objId];
         NSLog(@"webview url：%@", _webViewUrlString);
+        
     }else {
         
         _webViewUrlString = _webUrlString;
@@ -250,17 +251,6 @@
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     if (!localUser) {
         [self login];
-//        NSLog(@"微信登录");
-//        if ([WXApi isWXAppInstalled] ) {
-//            SendAuthReq *req = [[SendAuthReq alloc] init];
-//            req.scope = @"snsapi_userinfo";
-//            req.state = @"fighter";
-//            [WXApi sendReq:req];
-//            
-//        }else{
-//            NSLog(@"目前只支持微信登录，请安装微信");
-//            [self showHUDWithMessage:@"目前只支持微信登录，请安装微信"];
-//        }
     }else{
         [self pushToCommentVC];
     }

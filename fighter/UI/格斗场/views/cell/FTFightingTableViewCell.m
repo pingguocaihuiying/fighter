@@ -11,6 +11,7 @@
 
 @interface FTFightingTableViewCell()
 @property (nonatomic, copy) NSString *matchID;
+
 @end
 
 @implementation FTFightingTableViewCell
@@ -23,6 +24,11 @@
     [_supportButton setBackgroundImage:[UIImage imageNamed:@"列表3按钮-赞助pre"] forState:UIControlStateHighlighted];
 //    [_followButton setBackgroundImage:[UIImage imageNamed:@"列表3按钮-已关注"] forState:UIControlStateHighlighted];
     [_betButton setBackgroundImage:[UIImage imageNamed:@"列表3按钮-下注pre"] forState:UIControlStateHighlighted];
+    
+    //调整在5代上，『前去观战』按钮的宽度
+    if(SCREEN_WIDTH == 320){
+        _goToWatchButtonWidth.constant *= SCALE;
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -45,9 +51,10 @@
 //- (IBAction)betButtonClicked:(id)sender {
 ////        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionBet andMatchBean:_matchBean];
 //}
-//- (IBAction)payButtonClicked:(id)sender {
+- (IBAction)payButtonClicked:(id)sender {
 //           [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionPay andMatchBean:_matchBean];
-//}
+    [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionPay andMatchBean:_matchBean andButton:sender];
+}
 
 - (void)setWithBean:(FTBaseBean *)bean{
     //转换传过来的baseBean为matchBean
@@ -85,10 +92,10 @@
     //比赛项目
     _raceTypeImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"格斗标签-%@", matchBean.label]];
     
-    //比赛状态：①未开始②进行中③已结束 status = 2 比赛进行中； = 3 比赛结束； 其他未开赛
+    //比赛状态：①未开始②进行中③已结束      status = 2 比赛进行中； = 3 比赛结束； 其他未开赛
     if ([matchBean.statu isEqualToString:@"2"]) {
         _stateLabelCenter.text = @"进行中...";
-    } else if ([matchBean.statu isEqualToString:@"1"]){
+    } else if ([matchBean.statu isEqualToString:@"3"]){
         _stateLabelCenter.text = @"比赛已结束";
     }else{
         _stateLabelCenter.text = @"尚未开赛";
