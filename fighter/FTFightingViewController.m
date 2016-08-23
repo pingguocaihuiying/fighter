@@ -163,7 +163,6 @@
     [NetWorking getMatchListWithPageNum:_pageNum andPageSize:_pageSize andStatus:status andPayStatus:payStatus andLabel:label andAgainstId:againstId andWeight:weight andUserId:userId andOption:^(NSArray *array) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];//隐藏hud
                 if (array && array.count > 0) {
-                    
                     if (_pageNum == 1) {//如果是第一页，清除历史数据
                         [_dateArray removeAllObjects];
                         [_matchesDic removeAllObjects];
@@ -175,7 +174,9 @@
                         for (int  i = 0; i < array.count; i++) {
                             NSDictionary *dic = array[i];
                             NSTimeInterval matchDateTimeStamp = [dic[@"theDate"] doubleValue ] / 1000;
+                            NSLog(@"theDate : %f", matchDateTimeStamp);
                             NSString *matchDateString = [FTTools getDateStringWith:matchDateTimeStamp];
+                            NSLog(@"theDate : %@", matchDateString);
                             [FTTools saveDateStr:matchDateString ToMutableArray:_dateArray];//处理
                             
                             FTMatchBean *matchBean = [FTMatchBean new];
@@ -206,6 +207,7 @@
                             [matchBeansArray addObject:matchBean];
                             [_matchesDic setObject:matchBeansArray forKey:matchDateString];
                         }
+                        
                     }
                     
                     //刷新成功
@@ -313,7 +315,7 @@
         FTMatchLiveViewController* matchLiveVC = [FTMatchLiveViewController new];
         matchLiveVC.matchBean = matchBean;
         [self.navigationController pushViewController:matchLiveVC animated:YES];
-    } else if ([matchBean.statu isEqualToString:@"1"]){
+    } else if ([matchBean.statu isEqualToString:@"3"]){
         NSLog(@"比赛结束");
         NSLog(@"url : %@", matchBean.urlRes);
         NSString *urlId;

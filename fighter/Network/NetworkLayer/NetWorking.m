@@ -1368,7 +1368,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     
     //获取当前登录用户的信息
     FTUserBean *userBean = [FTUserTools getLocalUser];
-    NSString *userId = _matchDetailBean.userId;//发起人id
+    NSString *userId = userBean.olduserid;//当前用户id
     NSString *objType = @"match";//类型
     NSString *objId = [NSString stringWithFormat:@"%@", _matchDetailBean.matchId];//比赛id
     NSString *tableName = @"pl-bet";//表名：1. 下注为：pl-bet； 2. 购票为：pl-tic 3. 赛事成本支付相关：pl-mat

@@ -92,10 +92,10 @@
     //比赛项目
     _raceTypeImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"格斗标签-%@", matchBean.label]];
     
-    //比赛状态：①未开始②进行中③已结束 status = 2 比赛进行中； = 3 比赛结束； 其他未开赛
+    //比赛状态：①未开始②进行中③已结束      status = 2 比赛进行中； = 3 比赛结束； 其他未开赛
     if ([matchBean.statu isEqualToString:@"2"]) {
         _stateLabelCenter.text = @"进行中...";
-    } else if ([matchBean.statu isEqualToString:@"1"]){
+    } else if ([matchBean.statu isEqualToString:@"3"]){
         _stateLabelCenter.text = @"比赛已结束";
     }else{
         _stateLabelCenter.text = @"尚未开赛";
