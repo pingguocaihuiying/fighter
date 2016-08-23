@@ -10,7 +10,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="388" id="KGk-i7-Jjw" customClass="FTTaskShareCell">
             <rect key="frame" x="0.0" y="0.0" width="519" height="388"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="519" height="387"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -63,7 +63,7 @@
                         </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eIG-nv-XKX">
+                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eIG-nv-XKX">
                         <rect key="frame" x="201" y="73" width="118" height="150"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="118" id="hjU-Kg-Co0"/>
@@ -73,7 +73,10 @@
                         <inset key="titleEdgeInsets" minX="-118" minY="120" maxX="0.0" maxY="0.0"/>
                         <inset key="imageEdgeInsets" minX="0.0" minY="-20" maxX="0.0" maxY="0.0"/>
                         <state key="normal" title="点击完成任务" image="日常任务分享大图标"/>
-                        <state key="highlighted" image="日常任务分享大图标"/>
+                        <state key="highlighted" image="日常任务分享大图标pre"/>
+                        <connections>
+                            <action selector="shareBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="KNX-cO-kGa"/>
+                        </connections>
                     </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gnD-Qw-OHL" userLabel="spaceView">
                         <rect key="frame" x="16" y="253" width="487" height="1"/>
@@ -112,10 +115,20 @@
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <state key="highlighted" backgroundImage="充值按钮bg-ios-press"/>
+                        <connections>
+                            <action selector="rechargeBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="IX4-Z9-nbW"/>
+                        </connections>
                     </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fv4-jq-dAN" userLabel="DownSpace">
+                        <rect key="frame" x="0.0" y="387" width="519" height="0.0"/>
+                        <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="po1-Pq-azV"/>
+                        </constraints>
+                    </view>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="fv4-jq-dAN" secondAttribute="bottom" id="5Ph-Kl-k7V"/>
                     <constraint firstItem="eIG-nv-XKX" firstAttribute="top" secondItem="lNF-4b-uzo" secondAttribute="bottom" id="5kg-bY-CVa"/>
                     <constraint firstItem="gnD-Qw-OHL" firstAttribute="top" secondItem="eIG-nv-XKX" secondAttribute="bottom" constant="30" id="6cK-P8-mwK"/>
                     <constraint firstItem="d0d-eO-mE3" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="8Tk-KD-0Ea"/>
@@ -123,13 +136,19 @@
                     <constraint firstItem="lNF-4b-uzo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="E1e-ZC-03M"/>
                     <constraint firstItem="UpA-9x-Dio" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="EZg-At-GYz"/>
                     <constraint firstItem="lNF-4b-uzo" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="FLY-5X-gsW"/>
+                    <constraint firstItem="fv4-jq-dAN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="S4z-Xq-P4R"/>
                     <constraint firstAttribute="bottom" secondItem="d0d-eO-mE3" secondAttribute="bottom" constant="20" id="YU2-De-mOi"/>
                     <constraint firstItem="UpA-9x-Dio" firstAttribute="top" secondItem="gnD-Qw-OHL" secondAttribute="top" constant="20" id="key-uq-ftf"/>
                     <constraint firstAttribute="trailing" secondItem="UpA-9x-Dio" secondAttribute="trailing" constant="16" id="nkf-fV-2v0"/>
                     <constraint firstAttribute="trailing" secondItem="gnD-Qw-OHL" secondAttribute="trailing" constant="16" id="o3f-K9-ia4"/>
+                    <constraint firstAttribute="trailing" secondItem="fv4-jq-dAN" secondAttribute="trailing" id="x6Z-XN-LBF"/>
                     <constraint firstItem="gnD-Qw-OHL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="z0X-qB-qyz"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="rechargeBtn" destination="d0d-eO-mE3" id="eYd-3v-YJI"/>
+                <outlet property="shareBtn" destination="eIG-nv-XKX" id="Dhg-5q-IAv"/>
+            </connections>
             <point key="canvasLocation" x="453.5" y="312"/>
         </tableViewCell>
     </objects>
@@ -137,5 +156,6 @@
         <image name="充值按钮bg-ios" width="21" height="26"/>
         <image name="充值按钮bg-ios-press" width="21" height="26"/>
         <image name="日常任务分享大图标" width="118" height="118"/>
+        <image name="日常任务分享大图标pre" width="118" height="118"/>
     </resources>
 </document>

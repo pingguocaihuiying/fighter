@@ -591,6 +591,10 @@
         NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         if ([dict[@"status"] isEqualToString:@"success"]) {
             
+            NSDate *recordDate = [NSDate date];
+            [[NSUserDefaults standardUserDefaults]setObject:recordDate forKey:@"FinishDate"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
             // 发送通知
             [[NSNotificationCenter defaultCenter] postNotificationName:RechargeResultNoti object:@"RECHARGE"];
             

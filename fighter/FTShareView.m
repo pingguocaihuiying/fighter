@@ -8,9 +8,6 @@
 
 #import "FTShareView.h"
 #import "Masonry.h"
-
-#import "WXApi.h"
-
 #import "WXApi.h"
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <TencentOpenAPI/sdkdef.h>

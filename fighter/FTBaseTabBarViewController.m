@@ -12,6 +12,9 @@
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "UIButton+Badge.h"
+#import "FTDailyTaskViewController.h"
+#import "FTFinishedTaskViewController.h"
+#import "NSDate+TaskDate.h"
 
 @interface FTBaseTabBarViewController () <UITabBarControllerDelegate>
 
@@ -127,7 +130,7 @@
     // 头部任务按钮
     self.taskBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.taskBtn.frame = CGRectMake(0, 0, 24, 24);
-    [self.taskBtn addTarget:self action:@selector(searchBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.taskBtn addTarget:self action:@selector(taskBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务"] forState:UIControlStateNormal];
     [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务pre"] forState:UIControlStateHighlighted];
@@ -243,13 +246,39 @@
     
     [self.taskBtn showMiniBadge];
     
-    [self shakingAnimation:self.taskBtn];
+//    [self shakingAnimation:self.taskBtn];
+//    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self.messageBtn hideMiniBadge];
+//    });
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.messageBtn hideMiniBadge];
-    });
+    // 获取上次做任务的时间记录
+    NSDate * recordDate = [[NSUserDefaults standardUserDefaults]objectForKey:@"FinishDate"];
+    
+    if (!recordDate ) {
+        
+        FTDailyTaskViewController * taskVC = [FTDailyTaskViewController new];
+        [self.navigationController  pushViewController:taskVC animated:YES];
+        
+        return;
+    }
+    
+    NSDate *taskDate = [NSDate taskDate];
+    
+    if ([recordDate timeIntervalSince1970] < [taskDate timeIntervalSince1970]) {
+        
+        FTDailyTaskViewController * taskVC = [FTDailyTaskViewController new];
+        [self.navigationController  pushViewController:taskVC animated:YES];
+        
+    }else {
+    
+        FTFinishedTaskViewController *finishTaskVC = [FTFinishedTaskViewController new];
+        [self.navigationController  pushViewController:finishTaskVC animated:YES];
+    }
+    
+    
+    
 }
-
 
 #pragma mark - delegate
 
@@ -309,6 +338,7 @@
 #pragma mark - 抖动动画
 #define Angle2Radian(angle) ((angle) / 180.0 * M_PI)
 - (void)shakingAnimation:(UIButton *)button {
+    
     CAKeyframeAnimation *anim = [CAKeyframeAnimation animation];
     anim.keyPath = @"transform.rotation";
     
