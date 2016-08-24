@@ -79,6 +79,9 @@
     
     //添加监听器，监听login
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateAvatar:) name:LoginNoti object:nil];
+    
+    //添加监听器，东西任务
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(remindDailyTask:) name:TaskNotification object:nil];
 }
 
 #pragma mark - 设置导航栏
@@ -202,6 +205,16 @@
     
 }
 
+
+- (void) remindDailyTask:(NSNotification *) noti {
+    
+    NSLog(@"remindDailyTask");
+    
+    [self.taskBtn showMiniBadge];
+    
+    [self shakingAnimation:self.taskBtn];
+}
+
 #pragma mark - button response
 
 // 头像点击事件
@@ -226,17 +239,7 @@
 - (void)messageBtnAction:(id)sender {
     
     NSLog(@"message button clicked");
-    
-//    static NSInteger count = 0;
-//    count ++;
-//    self.messageBtn.badgeValue = [NSString stringWithFormat:@"%ld",count];
-//    [self shakingAnimation];
-    
-    [self.messageBtn showMiniBadge];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-         [self.messageBtn hideMiniBadge];
-    });
+
 }
 
 // 任务按钮点击事件
@@ -244,14 +247,8 @@
     
     NSLog(@"task button clicked");
     
-    [self.taskBtn showMiniBadge];
-    
-//    [self shakingAnimation:self.taskBtn];
-//    
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [self.messageBtn hideMiniBadge];
-//    });
-    
+    [self.taskBtn hideMiniBadge];
+
     // 获取上次做任务的时间记录
     NSDate * recordDate = [[NSUserDefaults standardUserDefaults]objectForKey:@"FinishDate"];
     
@@ -275,8 +272,6 @@
         FTFinishedTaskViewController *finishTaskVC = [FTFinishedTaskViewController new];
         [self.navigationController  pushViewController:finishTaskVC animated:YES];
     }
-    
-    
     
 }
 
@@ -306,6 +301,7 @@
     
     return YES;
 }
+
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
 
@@ -339,19 +335,48 @@
 #define Angle2Radian(angle) ((angle) / 180.0 * M_PI)
 - (void)shakingAnimation:(UIButton *)button {
     
-    CAKeyframeAnimation *anim = [CAKeyframeAnimation animation];
-    anim.keyPath = @"transform.rotation";
+    // 放大动画
+    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    scaleAnimation.fromValue = [NSNumber numberWithFloat:1.0];
+    scaleAnimation.toValue = [NSNumber numberWithFloat:1.5];
+    scaleAnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
+    scaleAnimation.removedOnCompletion = NO;
+    scaleAnimation.duration = 0.1;
+    scaleAnimation.beginTime = 0.0;
     
-    anim.values = @[@(Angle2Radian(-15)),  @(Angle2Radian(15)), @(Angle2Radian(0))];
-    anim.duration = 0.20;
+    // 晃动动画
+    CAKeyframeAnimation *rotationAnimation = [CAKeyframeAnimation animation];
+    rotationAnimation.keyPath = @"transform.rotation";
+    rotationAnimation.values = @[@(Angle2Radian(-15)),  @(Angle2Radian(15)), @(Angle2Radian(0))];
+    rotationAnimation.duration = 0.20;
     
     // 动画次数设置为最大
-    anim.repeatCount = 3;
-    // 保持动画执行完毕后的状态
-    anim.removedOnCompletion = NO;
-    anim.fillMode = kCAFillModeForwards;
+    rotationAnimation.repeatCount = 3;
     
-    [button.layer addAnimation:anim forKey:@"shake"];
+    // 保持动画执行完毕后的状态
+    rotationAnimation.removedOnCompletion = NO;
+    rotationAnimation.fillMode = kCAFillModeForwards;
+    rotationAnimation.beginTime = 0.1;
+    
+    // 缩小动画
+    CABasicAnimation *shrinkAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    shrinkAnimation.fromValue = [NSNumber numberWithFloat:1.5];
+    shrinkAnimation.toValue = [NSNumber numberWithFloat:1.0];
+    shrinkAnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
+    shrinkAnimation.removedOnCompletion = NO;
+    shrinkAnimation.duration = 0.1;
+    shrinkAnimation.beginTime = 0.7;
+
+    
+    // 动画组
+    CAAnimationGroup *groupAnnimation = [CAAnimationGroup animation];
+    groupAnnimation.duration = 1.0;
+    groupAnnimation.removedOnCompletion = NO;
+    groupAnnimation.animations = @[rotationAnimation, scaleAnimation, shrinkAnimation];
+    groupAnnimation.repeatCount = 3;
+    //开演
+    [button.layer addAnimation:groupAnnimation forKey:@"groupAnnimation"];
+    
 }
 
 @end

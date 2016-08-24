@@ -881,6 +881,12 @@ static NSString *const tableCellId = @"tableCellId";
         [vc pushToDetailController:dic];
     }
     
+    
+    if([dic[@"taskLocalNotification"] isEqualToString:@"taskLocalNotification"]) {
+    
+        [self.tabBarVC taskBtnAction:nil];
+    }
+    
 }
 
 

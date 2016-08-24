@@ -10,6 +10,7 @@
 #import "FTPayViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "NSDate+TaskDate.h"
+#import "FTLocalNotification.h"
 
 @interface FTFinishedTaskViewController ()
 {
@@ -80,6 +81,8 @@
 
     self.taskView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     
+    [self setRemindBtn];
+    
     [self setTimeLabel];
     
     [self setTimer];
@@ -94,6 +97,15 @@
 
 - (IBAction)remindBtnAction:(id)sender {
     
+    if (self.remindBtn.selected) {
+        self.remindBtn.selected = NO;
+        [FTLocalNotification cancelTaskNotification];
+    }else {
+        
+        self.remindBtn.selected = YES;
+        [FTLocalNotification registTaskNotification];
+    }
+    
 }
 
 - (IBAction)rechargeBtnAction:(id)sender {
@@ -104,9 +116,15 @@
     [self presentViewController:baseNav animated:YES completion:nil];
     
 }
+#pragma mark - 初始化
 
-
-#pragma mark - timer
+- (void) setRemindBtn {
+    
+    NSString  *nonificationName = [[NSUserDefaults standardUserDefaults] objectForKey:@"taskNotification"];
+    if (nonificationName) {
+        self.remindBtn.selected = YES;
+    }
+}
 
 - (void) setTimeLabel {
     
@@ -162,11 +180,9 @@
     [self.mLabel setText:[NSString stringWithFormat:@"%ld",m]];
     [self.sLabel setText:[NSString stringWithFormat:@"%ld",s]];
     
-   
-    
-    
 }
 
+#pragma mark - timer
 
 - (void) setTimer {
     
