@@ -7,6 +7,7 @@
 //
 
 #import "FTTaskRemindCell.h"
+#import "FTLocalNotification.h"
 
 @implementation FTTaskRemindCell {
 
@@ -28,7 +29,7 @@
     //    self.contentView.opaque = NO;
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+    [self setRemindBtn];
     [self setTimeLabel];
     [self setTimer];
     
@@ -46,11 +47,15 @@
 }
 
 
-- (IBAction)remindBtnAction:(id)sender {
-    
-    
-}
+#pragma mark - 初始化
 
+- (void) setRemindBtn {
+
+    NSString  *nonificationName = [[NSUserDefaults standardUserDefaults] objectForKey:@"taskNotification"];
+    if (nonificationName) {
+        self.remindBtn.selected = YES;
+    }
+}
 
 - (void) setTimeLabel {
 
@@ -134,6 +139,19 @@
     
 }
 
+#pragma mark - remindButton response
 
+- (IBAction)remindBtnAction:(id)sender {
+    
+    if (self.remindBtn.selected) {
+        self.remindBtn.selected = NO;
+        [FTLocalNotification cancelTaskNotification];
+    }else {
+        
+        self.remindBtn.selected = YES;
+        [FTLocalNotification registTaskNotification];
+    }
+    
+}
 
 @end
