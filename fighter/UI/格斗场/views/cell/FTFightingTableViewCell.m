@@ -46,6 +46,7 @@
 //        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionSupport andMatchBean:_matchBean];
 //}
 - (IBAction)followButtonClicked:(id)sender {
+//    _matchBean.follow = !_matchBean.follow;
         [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionFollow andMatchBean:_matchBean andButton:sender];
 }
 //- (IBAction)betButtonClicked:(id)sender {
@@ -95,7 +96,9 @@
     //比赛状态：①未开始②进行中③已结束      status = 2 比赛进行中； = 3 比赛结束； 其他未开赛
     if ([matchBean.statu isEqualToString:@"2"]) {
         _stateLabelCenter.text = @"进行中...";
+        _goToWatchButton.hidden = NO;
     } else if ([matchBean.statu isEqualToString:@"3"]){
+        _goToWatchButton.hidden = NO;
         _stateLabelCenter.text = @"比赛已结束";
     }else{
         _stateLabelCenter.text = @"尚未开赛";

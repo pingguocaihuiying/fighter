@@ -105,7 +105,7 @@
                 [self getViewCount];
                 
                 //显示点赞数
-                _voteCountLabel.text = [NSString stringWithFormat:@"%@", _matchDetailBean.voteCount];
+                _voteCountLabel.text = [NSString stringWithFormat:@"(%@)", _matchDetailBean.voteCount];
                 [self getVoteStatus];//获取点赞信息
             }
             
@@ -131,7 +131,7 @@
 
 - (void)getVoteCount{
     [NetWorking getCountWithObjid:[NSString stringWithFormat:@"%@", _matchDetailBean.matchId] andTableName:@"v-mat" andOption:^(NSString *viewCount) {
-        _voteCountLabel.text = [NSString stringWithFormat:@"%@", viewCount];
+        _voteCountLabel.text = [NSString stringWithFormat:@"(%@)", viewCount];
     }];
 }
 
@@ -139,7 +139,7 @@
     [NetWorking getViewCountWithObjid: [NSString stringWithFormat:@"%@", _matchDetailBean.matchId] andTableName:@"ve-mat" andOption:^(NSString *viewCount) {
         if (viewCount) {
             NSLog(@"viewCount : %@", viewCount);
-            _viewCountLabel.text = [NSString stringWithFormat:@"%@", viewCount];
+            _viewCountLabel.text = [NSString stringWithFormat:@"(%@)", viewCount];
         }
     }];
 }
@@ -153,7 +153,7 @@
     [self setFighterInfo];//拳手信息.
     
 //    [self updateBetsInfo];//更新下注比例图
-    _voteCountLabel.text = [NSString stringWithFormat:@"%@", _matchDetailBean.voteCount];
+    _voteCountLabel.text = [NSString stringWithFormat:@"(%@)", _matchDetailBean.voteCount];
 }
 
 - (void)setTopNaviViews{
@@ -442,6 +442,14 @@
             _voteButton.enabled = YES;
             if (result) {
                 NSLog(@"更新点赞成功");
+                
+                //更新点赞数量(根据点赞、取消点赞，点赞数+1、-1，没有从服务器获取最新赞数)
+                NSString *voteCountString = _voteCountLabel.text;
+                voteCountString = [voteCountString stringByReplacingOccurrencesOfString:@"(" withString:@""];
+                voteCountString = [voteCountString stringByReplacingOccurrencesOfString:@")" withString:@""];
+                int voteCount = [voteCountString intValue];
+                voteCount = _voteButton.isSelected ? ++voteCount : --voteCount;
+                _voteCountLabel.text = [NSString stringWithFormat:@"(%d)", voteCount];
             }else{
                 NSLog(@"更新点赞失败");
             }

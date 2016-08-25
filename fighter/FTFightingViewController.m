@@ -413,9 +413,12 @@
         
     }else if (actionType == FTButtonActionFollow){
         NSLog(@"关注");
+        //在本次关注、取消关注未完成前，把按钮置为不可选状态
+        button.enabled = NO;
         FTUserBean *loginUserBean = [FTUserTools getLocalUser];
         if (loginUserBean) {
-            [NetWorking followObjWithObjId:matchBean.matchId anIsFollow:!matchBean.follow andTableName:@"f-mat" andOption:^(BOOL result) {
+            [NetWorking followObjWithObjId:matchBean.matchId anIsFollow:!button.isSelected andTableName:@"f-mat" andOption:^(BOOL result) {
+                button.enabled = YES;
                 if (result) {
                     NSLog(@"成功");
                     button.selected = !button.isSelected;
