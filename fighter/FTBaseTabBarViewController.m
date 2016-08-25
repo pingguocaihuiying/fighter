@@ -12,6 +12,9 @@
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "UIButton+Badge.h"
+#import "FTDailyTaskViewController.h"
+#import "FTFinishedTaskViewController.h"
+#import "NSDate+TaskDate.h"
 
 @interface FTBaseTabBarViewController () <UITabBarControllerDelegate>
 
@@ -20,6 +23,8 @@
 @property (nonatomic, strong) UIButton *messageBtn;
 
 @property (nonatomic, strong) UIButton *searchBtn;
+
+@property (nonatomic, strong) UIButton *taskBtn;
 
 @property (nonatomic, strong) UILabel *titleLabel;
 
@@ -74,6 +79,9 @@
     
     //添加监听器，监听login
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateAvatar:) name:LoginNoti object:nil];
+    
+    //添加监听器，东西任务
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(remindDailyTask:) name:TaskNotification object:nil];
 }
 
 #pragma mark - 设置导航栏
@@ -99,29 +107,40 @@
     
     
     
-    // 头部消息按钮
-    self.messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.messageBtn.frame = CGRectMake(0, 0, 24, 24);
-    [self.messageBtn addTarget:self action:@selector(messageBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+//    // 头部消息按钮
+//    self.messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.messageBtn.frame = CGRectMake(0, 0, 24, 24);
+//    [self.messageBtn addTarget:self action:@selector(messageBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息"] forState:UIControlStateNormal];
+//    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
+//    
+//    UIBarButtonItem *messageBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.messageBtn];
+//    
+//    // 头部搜索按钮
+//    self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.searchBtn.frame = CGRectMake(0, 0, 24, 24);
+//    [self.searchBtn addTarget:self action:@selector(searchBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索"] forState:UIControlStateNormal];
+//    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索pre"] forState:UIControlStateHighlighted];
+//    
+//    
+//    UIBarButtonItem *searchBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.searchBtn];
     
-    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息"] forState:UIControlStateNormal];
-    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
-    
-    UIBarButtonItem *messageBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.messageBtn];
-    
-    // 头部搜索按钮
-    self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.searchBtn.frame = CGRectMake(0, 0, 24, 24);
-    [self.searchBtn addTarget:self action:@selector(searchBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索"] forState:UIControlStateNormal];
-    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索pre"] forState:UIControlStateHighlighted];
-    
-    
-    UIBarButtonItem *searchBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.searchBtn];
-//
 //    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:messageBtnItem, searchBtnItem,nil];
-    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:messageBtnItem,nil];
+   
+    // 头部任务按钮
+    self.taskBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.taskBtn.frame = CGRectMake(0, 0, 24, 24);
+    [self.taskBtn addTarget:self action:@selector(taskBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务"] forState:UIControlStateNormal];
+    [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务pre"] forState:UIControlStateHighlighted];
+    
+    
+    UIBarButtonItem *taskBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.taskBtn];
+    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:taskBtnItem,nil];
     
     
     // title View
@@ -186,6 +205,16 @@
     
 }
 
+
+- (void) remindDailyTask:(NSNotification *) noti {
+    
+    NSLog(@"remindDailyTask");
+    
+    [self.taskBtn showMiniBadge];
+    
+    [self shakingAnimation:self.taskBtn];
+}
+
 #pragma mark - button response
 
 // 头像点击事件
@@ -199,24 +228,52 @@
 
 
 
-// 头像点击事件
+// 搜索按钮点击事件
 - (void)searchBtnAction:(id)sender {
     
     NSLog(@"serach button clicked");
     
 }
 
-// 头像点击事件
+// 消息按钮点击事件
 - (void)messageBtnAction:(id)sender {
     
     NSLog(@"message button clicked");
-    
-    static NSInteger count = 0;
-    count ++;
-    self.messageBtn.badgeValue = [NSString stringWithFormat:@"%ld",count];
-    [self shakingAnimation];
+
 }
 
+// 任务按钮点击事件
+- (void)taskBtnAction:(id)sender {
+    
+    NSLog(@"task button clicked");
+    
+    [self.taskBtn hideMiniBadge];
+
+    // 获取上次做任务的时间记录
+    NSDate * recordDate = [[NSUserDefaults standardUserDefaults]objectForKey:@"FinishDate"];
+    
+    if (!recordDate ) {
+        
+        FTDailyTaskViewController * taskVC = [FTDailyTaskViewController new];
+        [self.navigationController  pushViewController:taskVC animated:YES];
+        
+        return;
+    }
+    
+    NSDate *taskDate = [NSDate taskDate];
+    
+    if ([recordDate timeIntervalSince1970] < [taskDate timeIntervalSince1970]) {
+        
+        FTDailyTaskViewController * taskVC = [FTDailyTaskViewController new];
+        [self.navigationController  pushViewController:taskVC animated:YES];
+        
+    }else {
+    
+        FTFinishedTaskViewController *finishTaskVC = [FTFinishedTaskViewController new];
+        [self.navigationController  pushViewController:finishTaskVC animated:YES];
+    }
+    
+}
 
 #pragma mark - delegate
 
@@ -244,6 +301,7 @@
     
     return YES;
 }
+
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
 
@@ -275,20 +333,50 @@
 
 #pragma mark - 抖动动画
 #define Angle2Radian(angle) ((angle) / 180.0 * M_PI)
-- (void)shakingAnimation {
-    CAKeyframeAnimation *anim = [CAKeyframeAnimation animation];
-    anim.keyPath = @"transform.rotation";
+- (void)shakingAnimation:(UIButton *)button {
     
-    anim.values = @[@(Angle2Radian(-15)),  @(Angle2Radian(15)), @(Angle2Radian(0))];
-    anim.duration = 0.20;
+    // 放大动画
+    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    scaleAnimation.fromValue = [NSNumber numberWithFloat:1.0];
+    scaleAnimation.toValue = [NSNumber numberWithFloat:1.5];
+    scaleAnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
+    scaleAnimation.removedOnCompletion = NO;
+    scaleAnimation.duration = 0.1;
+    scaleAnimation.beginTime = 0.0;
+    
+    // 晃动动画
+    CAKeyframeAnimation *rotationAnimation = [CAKeyframeAnimation animation];
+    rotationAnimation.keyPath = @"transform.rotation";
+    rotationAnimation.values = @[@(Angle2Radian(-15)),  @(Angle2Radian(15)), @(Angle2Radian(0))];
+    rotationAnimation.duration = 0.20;
     
     // 动画次数设置为最大
-    anim.repeatCount = 3;
-    // 保持动画执行完毕后的状态
-    anim.removedOnCompletion = NO;
-    anim.fillMode = kCAFillModeForwards;
+    rotationAnimation.repeatCount = 3;
     
-    [self.messageBtn.layer addAnimation:anim forKey:@"shake"];
+    // 保持动画执行完毕后的状态
+    rotationAnimation.removedOnCompletion = NO;
+    rotationAnimation.fillMode = kCAFillModeForwards;
+    rotationAnimation.beginTime = 0.1;
+    
+    // 缩小动画
+    CABasicAnimation *shrinkAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    shrinkAnimation.fromValue = [NSNumber numberWithFloat:1.5];
+    shrinkAnimation.toValue = [NSNumber numberWithFloat:1.0];
+    shrinkAnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
+    shrinkAnimation.removedOnCompletion = NO;
+    shrinkAnimation.duration = 0.1;
+    shrinkAnimation.beginTime = 0.7;
+
+    
+    // 动画组
+    CAAnimationGroup *groupAnnimation = [CAAnimationGroup animation];
+    groupAnnimation.duration = 1.0;
+    groupAnnimation.removedOnCompletion = NO;
+    groupAnnimation.animations = @[rotationAnimation, scaleAnimation, shrinkAnimation];
+    groupAnnimation.repeatCount = 3;
+    //开演
+    [button.layer addAnimation:groupAnnimation forKey:@"groupAnnimation"];
+    
 }
 
 @end

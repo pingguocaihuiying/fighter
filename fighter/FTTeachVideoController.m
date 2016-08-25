@@ -160,12 +160,12 @@
                                    style:UIBarButtonItemStyleDone
                                    target:self
                                    action:@selector(backBtnAction:)];
-    //把左边的返回按钮左移
+    // 把左边的返回按钮左移
     [leftButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
     
-////    CGFloat buttonW = (SCREEN_WIDTH - 12*2)/3;
+//    CGFloat buttonW = (SCREEN_WIDTH - 12*2)/3;
 //    // 教练地址筛选按钮
 //    FTButton *rightBtn = [FTButton buttonWithtitle:@"按时间"];
 //    rightBtn.frame = CGRectMake(20, 0, 95, 40);
@@ -1350,6 +1350,10 @@
         NSLog(@"dict:%@",dict);
         NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         if ([dict[@"status"] isEqualToString:@"success"]) {
+            
+            NSDate *recordDate = [NSDate date];
+            [[NSUserDefaults standardUserDefaults]setObject:recordDate forKey:@"FinishDate"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
             
             // 发送通知
             [[NSNotificationCenter defaultCenter] postNotificationName:RechargeResultNoti object:@"RECHARGE"];;

@@ -335,6 +335,34 @@
 }
 
 
+#pragma mark - 通知处理
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    
+    NSLog(@"Local Notification info:%@",notification.userInfo);
+    
+    switch (application.applicationState) {
+        case UIApplicationStateActive:
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:TaskNotification object:nil];
+        }
+            break;
+            
+        case UIApplicationStateInactive:
+        {
+            [_mainVC pushMessage:[NSDictionary dictionaryWithObject:notification.userInfo forKey:@"click_param"]];
+        }
+            break;
+        case UIApplicationStateBackground:
+        {
+            //            [_mianVC pushMessage:userInfo[@"extra"]];
+        }
+            break;
+        default:
+            break;
+    }
+
+}
+
 // 对收到的消息进行处理:
 - (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
 
@@ -348,6 +376,7 @@
 //            [_mianVC pushMessage:userInfo[@"extra"]];
         }
             break;
+            
         case UIApplicationStateInactive:
         {
             [_mainVC pushMessage:userInfo[@"extra"]];
@@ -374,7 +403,7 @@
 //    
 //}
 
-
+#pragma mark -
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
