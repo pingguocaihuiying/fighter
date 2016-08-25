@@ -190,8 +190,8 @@
                             <action selector="betButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="gHF-nH-3j8"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:00 必图拳馆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s48-90-lXY" userLabel="开赛时间和地点">
-                        <rect key="frame" x="138" y="17" width="99" height="14"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:00 必图拳馆" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s48-90-lXY" userLabel="开赛时间和地点">
+                        <rect key="frame" x="91" y="17" width="193" height="14"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="14" id="O9k-UQ-7Te"/>
                         </constraints>
@@ -308,6 +308,7 @@
                     <constraint firstItem="rvy-Wm-j2C" firstAttribute="top" secondItem="qEx-Cp-w9O" secondAttribute="bottom" constant="4" id="PKt-M9-dq8"/>
                     <constraint firstItem="s48-90-lXY" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="PiO-nE-WCb"/>
                     <constraint firstAttribute="bottom" secondItem="E26-Ex-uVi" secondAttribute="bottom" constant="21" id="Qjy-Ax-Lue"/>
+                    <constraint firstItem="s48-90-lXY" firstAttribute="leading" secondItem="wFn-dp-SWU" secondAttribute="trailing" constant="1" id="Qr5-Vl-HYg"/>
                     <constraint firstItem="MKO-rV-fgy" firstAttribute="trailing" secondItem="BkN-W4-x90" secondAttribute="trailing" constant="-4" id="QrY-JO-a2a"/>
                     <constraint firstItem="zm0-D9-Agg" firstAttribute="trailing" secondItem="qEx-Cp-w9O" secondAttribute="trailing" constant="-4" id="R9m-mT-HQ7"/>
                     <constraint firstItem="kMm-FA-lQu" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="TdL-t4-XjC"/>
@@ -342,6 +343,7 @@
                     <constraint firstAttribute="trailing" secondItem="GGJ-1X-HVx" secondAttribute="trailing" constant="10" id="lfV-5c-zZQ"/>
                     <constraint firstItem="Zgr-ms-Rm7" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="lgF-pt-T8T"/>
                     <constraint firstItem="pTL-au-YER" firstAttribute="centerX" secondItem="wFn-dp-SWU" secondAttribute="centerX" id="mTy-Es-6Se"/>
+                    <constraint firstItem="czT-wm-4Ag" firstAttribute="leading" secondItem="s48-90-lXY" secondAttribute="trailing" constant="1" id="nvg-Hj-EaL"/>
                     <constraint firstItem="sgg-J6-FCg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="oFJ-bt-ltZ"/>
                     <constraint firstItem="HqF-zV-M1Z" firstAttribute="top" secondItem="wFn-dp-SWU" secondAttribute="bottom" constant="10" id="oJP-qo-EdO"/>
                     <constraint firstItem="BkN-W4-x90" firstAttribute="bottom" secondItem="kMm-FA-lQu" secondAttribute="bottom" constant="-7" id="oZX-WO-PeY"/>
@@ -357,6 +359,7 @@
                         <exclude reference="oJP-qo-EdO"/>
                         <exclude reference="Mkf-vV-mAa"/>
                         <exclude reference="jQ7-bg-3qM"/>
+                        <exclude reference="PiO-nE-WCb"/>
                         <exclude reference="6oj-VH-Iik"/>
                         <exclude reference="Tif-sS-JV8"/>
                         <exclude reference="AMD-Fi-7tI"/>
