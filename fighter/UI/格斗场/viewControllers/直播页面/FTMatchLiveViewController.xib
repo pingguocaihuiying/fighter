@@ -8,10 +8,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTMatchLiveViewController">
             <connections>
+                <outlet property="betButton1" destination="ad6-Ox-URi" id="bwb-Gh-aoi"/>
+                <outlet property="betButton2" destination="IqA-j3-DZU" id="W2D-p9-dCx"/>
                 <outlet property="betsNumLabel1" destination="Ovo-Rm-C5i" id="6Z7-9V-gOv"/>
                 <outlet property="betsNumLabel2" destination="qEw-Cw-p2O" id="T0J-FF-Q8P"/>
                 <outlet property="blueProgressBarHeight" destination="cqB-MQ-Ikv" id="AUa-Wy-xR7"/>
                 <outlet property="blueProgressBarImageView" destination="3bQ-MM-u6J" id="NVb-qp-sG0"/>
+                <outlet property="commentCountBottomView" destination="wRv-oT-I5h" id="Ruo-O7-bze"/>
                 <outlet property="commentCountLabel" destination="Rb0-rD-gKK" id="mp7-rp-0ge"/>
                 <outlet property="commentTableView" destination="PVa-6y-5z4" id="YBo-xT-8GW"/>
                 <outlet property="commentTableViewHeight" destination="2H8-X4-kup" id="ln2-wX-1tB"/>
@@ -123,7 +126,7 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ad6-Ox-URi" userLabel="下注1">
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ad6-Ox-URi" userLabel="下注1">
                                     <rect key="frame" x="10" y="113" width="88" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="88" id="S3P-cV-wyB"/>
@@ -134,7 +137,7 @@
                                         <action selector="betButton1Clicked:" destination="-1" eventType="touchUpInside" id="bUW-XX-L8d"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IqA-j3-DZU" userLabel="下注2">
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IqA-j3-DZU" userLabel="下注2">
                                     <rect key="frame" x="346" y="113" width="88" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="88" id="Bvy-9h-6d3"/>
@@ -169,8 +172,8 @@
                                                 <constraint firstAttribute="height" constant="22" id="k6k-w7-WbV"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="175" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ovo-Rm-C5i" userLabel="下注数1">
-                                            <rect key="frame" x="8" y="2" width="19" height="11"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ovo-Rm-C5i" userLabel="下注数1">
+                                            <rect key="frame" x="8" y="2" width="7" height="11"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="11" id="fCP-OU-v63"/>
                                             </constraints>
@@ -178,8 +181,8 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="57" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEw-Cw-p2O" userLabel="下注数2">
-                                            <rect key="frame" x="390" y="2" width="14" height="11"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEw-Cw-p2O" userLabel="下注数2">
+                                            <rect key="frame" x="397" y="2" width="7" height="11"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="11" id="b3r-da-dYa"/>
                                             </constraints>
@@ -314,7 +317,7 @@
                                                 </mask>
                                             </variation>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wRv-oT-I5h" userLabel="底边线">
+                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wRv-oT-I5h" userLabel="底边线">
                                             <rect key="frame" x="4" y="33" width="436" height="1"/>
                                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -391,7 +394,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0t6-aA-vsy" userLabel="底部View">
                     <rect key="frame" x="0.0" y="858" width="444" height="50"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jb8-bb-DGZ">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jb8-bb-DGZ">
                             <rect key="frame" x="15" y="0.0" width="148" height="49"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="49" id="ZfM-Un-yiL"/>
@@ -399,7 +402,7 @@
                             <state key="normal" image="详情页底部按钮一堆-分享"/>
                             <state key="highlighted" image="详情页底部按钮一堆-分享pre"/>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="斜线分割" translatesAutoresizingMaskIntoConstraints="NO" id="AiB-IP-ftD">
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="斜线分割" translatesAutoresizingMaskIntoConstraints="NO" id="AiB-IP-ftD">
                             <rect key="frame" x="149" y="13" width="12" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="24" id="SQa-Ig-j7H"/>
@@ -435,7 +438,7 @@
                                 <action selector="voteButtonClicked:" destination="-1" eventType="touchUpInside" id="lgF-ZS-QhZ"/>
                             </connections>
                         </button>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKr-1B-E34" userLabel="底部分割线">
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKr-1B-E34" userLabel="底部分割线">
                             <rect key="frame" x="0.0" y="0.0" width="444" height="1"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>

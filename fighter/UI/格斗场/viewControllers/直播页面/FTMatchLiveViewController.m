@@ -31,16 +31,44 @@
 @property (strong, nonatomic) IBOutlet UILabel *viewCountLabel;//观看数
 @property (strong, nonatomic) IBOutlet UILabel *voteCountLabel;//赞数
 @property (nonatomic, assign) BOOL isFirstLoadData;//是否增加过观看数
+@property (strong, nonatomic) IBOutlet UIView *commentCountBottomView;//评论数量下方的底边线
+@property (strong, nonatomic) IBOutlet UIButton *betButton1;
+@property (strong, nonatomic) IBOutlet UIButton *betButton2;
+
 @end
 
 @implementation FTMatchLiveViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setWebViewWidth];
+    
     [self setTopNaviViews];//上方导航栏
     [self initBaseData];
     [self getMatchDetailFromServer];//获取比赛详细信息
     [self initCommentTableView];    //设置评论tableview
+}
+
+- (void)setWebViewWidth{
+    _liveWebView.scrollView.scrollEnabled = NO;//禁止滚动
+    CGFloat progressWidthTotal = SCREEN_WIDTH - 32 - 191;
+    
+    //声明两个变量，只用于计算
+    int betsNum1 = 1;
+    int betsNum2 = 1;
+    
+    if(betsNum1 <= 0 || betsNum2 <= 0){
+        betsNum1 += 1;
+        betsNum2 += 1;
+    }
+    
+    float denominator = betsNum1 + betsNum2;
+    
+    CGFloat width1 = progressWidthTotal * (betsNum1 / denominator);
+    CGFloat width2 = progressWidthTotal * (betsNum2 / denominator);
+    _progressWidth1.constant = width1;
+    _progressWidth2.constant = width2;
 }
 
 - (void)getVoteStatus{
@@ -63,6 +91,10 @@
             
             //如果是第一次加载
             if (_isFirstLoadData) {
+                //比赛详情加载成功后，把下注按钮置为可用
+                _betButton1.enabled = YES;
+                _betButton2.enabled = YES;
+                
                 //根据比赛详情设置页面展示信息
                 [self initSubViews];
                 [self getCommentListData];//获取评论列表
@@ -118,8 +150,9 @@
 
 - (void)initSubViews{
     [self setLiveWebView];//直播页面
-    [self setFighterInfo];//拳手信息
-    [self updateBetsInfo];//更新下注比例图
+    [self setFighterInfo];//拳手信息.
+    
+//    [self updateBetsInfo];//更新下注比例图
     _voteCountLabel.text = [NSString stringWithFormat:@"%@", _matchDetailBean.voteCount];
 }
 
@@ -143,7 +176,7 @@
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     //如果用户安装了微信，再显示转发按钮
     if([WXApi isWXAppInstalled]){
-        self.navigationItem.rightBarButtonItem = shareButton;
+//        self.navigationItem.rightBarButtonItem = shareButton;
     }
     
     //设置默认标题
@@ -186,6 +219,22 @@
 
     _betsNumLabel1.text = [NSString stringWithFormat:@"%@", _matchDetailBean.bet1];
     _betsNumLabel2.text = [NSString stringWithFormat:@"%@", _matchDetailBean.bet2];
+}
+
+#pragma mark - 在xib文件加载时调整scrollView宽度为设备宽度
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder{
+    if (self = [super initWithCoder:aDecoder]) {
+        
+    }
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+
+    }
+    return self;
 }
 
 - (void)setLiveWebView{
@@ -232,7 +281,14 @@
         [_commentTableView reloadData];
         
         //更新评论数
-        _commentCountLabel.text = [NSString stringWithFormat:@"评论(%ld)", _commentsDataArray.count];
+        _commentCountLabel.text = [NSString stringWithFormat:@"评论(%ld)", (unsigned long)_commentsDataArray.count];
+        
+        //如果评论数为0，则隐藏分割线；否则，显示
+        if (_commentsDataArray && _commentsDataArray.count == 0) {
+            _commentCountBottomView.hidden = YES;
+        }else{
+            _commentCountBottomView.hidden = NO;
+        }
     }];
 }
 - (void)initCommentTableView{

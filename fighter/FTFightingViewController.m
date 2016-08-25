@@ -318,17 +318,21 @@
     } else if ([matchBean.statu isEqualToString:@"3"]){
         NSLog(@"比赛结束");
         NSLog(@"url : %@", matchBean.urlRes);
-        NSString *urlId;
-        if (matchBean.urlRes) {
-            
-        } else {
-            urlId = @"1";//默认ID
-        }
+        NSString *url = matchBean.urlRes;
+        NSArray *strArray = [url componentsSeparatedByString:@"id="];
+        NSString *idAndOtherStr = [strArray lastObject];
+        NSString *objId = [[idAndOtherStr componentsSeparatedByString:@"&"] firstObject];
+        
         FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
-        videoDetailVC.urlId = @"1";
-        FTVideoBean *videoBean = [FTVideoBean new];
-        videoBean.videosId = urlId;
-        videoDetailVC.videoBean = videoBean;
+        
+        if (matchBean.urlRes) {
+            FTVideoBean *videoBean = [FTVideoBean new];
+            videoBean.videosId = objId;
+            videoDetailVC.urlId = objId;
+            videoDetailVC.videoBean = videoBean;
+        }
+        
+
         
         [self.navigationController pushViewController:videoDetailVC animated:YES];
     }else{
