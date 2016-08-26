@@ -45,11 +45,9 @@
     self.delegate = self;
     
     
-    //  导航栏半透明属性设置为NO,阻止导航栏遮挡view
-    self.navigationController.navigationBar.translucent = NO;
-    
-    // 修改edgesForExtendedLayout,阻止导航栏遮挡View
-    //    self.edgesForExtendedLayout = UIRectEdgeNone;
+//    //  导航栏半透明属性设置为NO,阻止导航栏遮挡view
+//    self.navigationController.navigationBar.translucent = NO;
+//    UINavigationController *navigationVC = self.navigationController;
     
 }
 
@@ -86,6 +84,8 @@
 
 #pragma mark - 设置导航栏
 - (void) setNavigationbar {
+    
+
     
     //导航栏头像按钮
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
@@ -164,7 +164,7 @@
     // title label
     self.titleLabel = [[UILabel alloc]init];
     self.titleLabel.frame = CGRectMake(93, 0, 72, 22);
-    self.titleLabel.text = @"排行榜";
+    self.titleLabel.text = @"拳讯";
     self.titleLabel.textColor = [UIColor whiteColor];
     [self.navigationItem.titleView addSubview:self.titleLabel];
     
@@ -210,7 +210,10 @@
     
     NSLog(@"remindDailyTask");
     
+    [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务-新任务"] forState:UIControlStateNormal];
+    
     [self.taskBtn showMiniBadge];
+    
     
     [self shakingAnimation:self.taskBtn];
 }
@@ -247,6 +250,17 @@
     
     NSLog(@"task button clicked");
     
+    //获取登录信息，如果没有登录不能做任务，直接跳转登录页面
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    if (!localUser) {
+        [self login];
+        
+        return;
+    }
+    
+    [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务"] forState:UIControlStateNormal];
+    
     [self.taskBtn hideMiniBadge];
 
     // 获取上次做任务的时间记录
@@ -274,6 +288,17 @@
     }
     
 }
+
+#pragma mark  - login
+
+- (void)login{
+    
+    FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+    loginVC.title = @"登录";
+    FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+
 
 #pragma mark - delegate
 
@@ -328,6 +353,7 @@
 //        
 //        [[UIApplication sharedApplication].keyWindow addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:3];
 //    }
+    
 }
 
 

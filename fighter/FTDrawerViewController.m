@@ -102,6 +102,12 @@ static NSString *const tableCellId = @"tableCellId";
     
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    
+}
+
 - (void) dealloc {
     
     //销毁通知
@@ -122,6 +128,9 @@ static NSString *const tableCellId = @"tableCellId";
     
     //添加监听器，充值购买
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeCallback:) name:RechargeResultNoti object:nil];
+    
+    //添加监听器，充值购买
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(phoneLoginedCallback:) name:EditNotification object:nil];
 }
 
 // 设置显示版本号
@@ -310,7 +319,6 @@ static NSString *const tableCellId = @"tableCellId";
         [self.loginView setHidden:NO];//隐藏登录页面
     }
     
-    
 }
 
 
@@ -323,11 +331,12 @@ static NSString *const tableCellId = @"tableCellId";
         [self setNameLabelText:[localUser.username stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 //        [self setNameLabelText:localUser.username ];
         [self setAgeLabelText:localUser.age];
+//        [self setSexLabelText:localUser.sex ];
         [self setSexLabelText:[localUser.sex  stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//        [self set]
         [self setSexLabelText:localUser.sex];
         [self setHeightLabelText:localUser.height];
         [self setWeightLabelText:localUser.weight];
-        
     }
 }
 
@@ -788,6 +797,7 @@ static NSString *const tableCellId = @"tableCellId";
     
     _tabBarVC.tabBar.barTintColor = [UIColor blackColor];
     _tabBarVC.tabBar.translucent = NO;
+    _tabBarVC.navigationController.navigationBar.translucent = NO;
     _tabBarVC.drawerDelegate = self;
     _tabBarVC.openSliderDelegate = self.dynamicsDrawerViewController;
     
