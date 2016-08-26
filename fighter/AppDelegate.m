@@ -306,12 +306,12 @@
     //将deviceToken保存在本地
     if (deviceToken) {
         NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
-        NSLog(@"deviceToken 处理前 :%@",token);
+//        NSLog(@"deviceToken 处理前 :%@",token);
         token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
         token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
         token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
         NSLog(@"deviceToken 处理后 :%@",token);
-        [[NSUserDefaults standardUserDefaults]setObject:deviceToken forKey:@"deviceToken"];
+        [[NSUserDefaults standardUserDefaults]setObject:token forKey:@"deviceToken"];
         [[NSUserDefaults standardUserDefaults]synchronize];
     }
     

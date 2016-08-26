@@ -318,17 +318,21 @@
     } else if ([matchBean.statu isEqualToString:@"3"]){
         NSLog(@"比赛结束");
         NSLog(@"url : %@", matchBean.urlRes);
-        NSString *urlId;
-        if (matchBean.urlRes) {
-            
-        } else {
-            urlId = @"1";//默认ID
-        }
+        NSString *url = matchBean.urlRes;
+        NSArray *strArray = [url componentsSeparatedByString:@"id="];
+        NSString *idAndOtherStr = [strArray lastObject];
+        NSString *objId = [[idAndOtherStr componentsSeparatedByString:@"&"] firstObject];
+        
         FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
-        videoDetailVC.urlId = @"1";
-        FTVideoBean *videoBean = [FTVideoBean new];
-        videoBean.videosId = urlId;
-        videoDetailVC.videoBean = videoBean;
+        
+        if (matchBean.urlRes) {
+            FTVideoBean *videoBean = [FTVideoBean new];
+            videoBean.videosId = objId;
+            videoDetailVC.urlId = objId;
+            videoDetailVC.videoBean = videoBean;
+        }
+        
+
         
         [self.navigationController pushViewController:videoDetailVC animated:YES];
     }else{
@@ -409,9 +413,12 @@
         
     }else if (actionType == FTButtonActionFollow){
         NSLog(@"关注");
+        //在本次关注、取消关注未完成前，把按钮置为不可选状态
+        button.enabled = NO;
         FTUserBean *loginUserBean = [FTUserTools getLocalUser];
         if (loginUserBean) {
-            [NetWorking followObjWithObjId:matchBean.matchId anIsFollow:!matchBean.follow andTableName:@"f-mat" andOption:^(BOOL result) {
+            [NetWorking followObjWithObjId:matchBean.matchId anIsFollow:!button.isSelected andTableName:@"f-mat" andOption:^(BOOL result) {
+                button.enabled = YES;
                 if (result) {
                     NSLog(@"成功");
                     button.selected = !button.isSelected;
