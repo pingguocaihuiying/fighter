@@ -227,6 +227,9 @@
 //         propertValue = [@"女性" stringByAddingPercentEscapesUsingEncoding:NSISOLatin2StringEncoding];
         propertValue = @"女性";
     }
+    
+    NSStringEncoding enc =     CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF8);
+    [propertValue stringByAddingPercentEscapesUsingEncoding:enc];
     NSLog(@"sex:%@",propertValue);
     
     
@@ -237,6 +240,8 @@
 //    [propertValue stringByRemovingPercentEncoding];
 //    [propertValue stringByAddingPercentEscapesUsingEncoding:enc];
 //    [propertValue stringByReplacingPercentEscapesUsingEncoding:NSISOLatin1StringEncoding];
+    
+    
     if (propertValue == nil) {
         return;
     }

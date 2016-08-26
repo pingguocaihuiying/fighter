@@ -53,6 +53,8 @@
 //        NSLog(@"拳讯 view的宽度：%f,高度：%f",self.view.frame.size.width, self.view.frame.size.height);
     [super viewDidLoad];
     
+   
+    
     [self initTypeArray];//初始化标签数据
     
     [self initSubViews];
@@ -64,6 +66,11 @@
     [self getDataWithGetType:@"new" andCurrId:@"-1"];//初次加载数据
     
     [self.bottomGradualChangeView setHidden:YES];
+    
+    //  导航栏半透明属性设置为NO,阻止导航栏遮挡view
+    self.navigationController.navigationBar.translucent = NO;
+    
+    NSLog(@"infomation view did load");
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -75,6 +82,13 @@
     //  导航栏半透明属性设置为NO,阻止导航栏遮挡view
     self.navigationController.navigationBar.translucent = NO;
     
+    NSLog(@"infomation view will appear");
+    
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    
+   
 }
 
 

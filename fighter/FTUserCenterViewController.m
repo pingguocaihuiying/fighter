@@ -307,7 +307,11 @@
 
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         
+        [[NSNotificationCenter defaultCenter] postNotificationName:EditNotification object:nil];
+        
     }];
+    
+    
 }
 
 - (void)avatarBtnAction:(id)sender {

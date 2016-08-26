@@ -123,6 +123,7 @@
         NSString *currentDateStr = [dateFormatter stringFromDate:[NSDate date]];
         NSDate *currentDate = [dateFormatter dateFromString:currentDateStr];
         NSLog(@"currentDate %@ birthDay %@",currentDateStr,birth);
+        
         NSTimeInterval time=[currentDate timeIntervalSinceDate:birthDay];
         int age = ((int)time)/(3600*24*365);
         NSLog(@"year %d",age);
@@ -143,6 +144,7 @@
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        
         NSDate *date=[dateFormatter dateFromString:[array objectAtIndex:0]];
         NSLog(@"date:%@",date);
         NSLog(@"birth%@",self.birthday);

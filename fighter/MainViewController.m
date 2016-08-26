@@ -34,8 +34,6 @@ FTDrawerViewController *drawerVC;
     
     [drawerVC setNoti];
 
-    
-    
 }
 
 
