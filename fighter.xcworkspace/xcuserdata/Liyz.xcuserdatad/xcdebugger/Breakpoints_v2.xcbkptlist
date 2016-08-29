@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fighter/FTFightingViewController.m"
-            timestampString = "494159001.458583"
+            timestampString = "494163579.220565"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "465"
-            endingLineNumber = "465"
+            startingLineNumber = "463"
+            endingLineNumber = "463"
             landmarkName = "-buttonClickedWithActionType:andMatchBean:andButton:"
             landmarkType = "5">
          </BreakpointContent>

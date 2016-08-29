@@ -38,6 +38,7 @@
 #import "FTBetView.h"
 #import "FTPayViewController.h"
 #import "FTHomepageMainViewController.h"
+#import "FTPaySingleton.h"
 
 /**
  *  数据结构思路22：
@@ -391,13 +392,7 @@
     /**
      *  type为比赛状态，赛前、赛中、赛后分别对应0、1、2
      */
-    NSString *type = dic[@"type"];
-    
-    FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
-    NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-news",dic[@"objId"]];
-    
-    newsDetailVC.webUrlString = [@"http://www.gogogofight.com/page/news_page.html?" stringByAppendingString:str];
-    [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+    NSString *type = [NSString stringWithFormat:@"%@", dic[@"type"]];
     FTMatchBean *matchBean = [FTMatchBean new];
     matchBean.matchId = [NSString stringWithFormat:@"%@", dic[@"objId"]];
     if ([type isEqualToString:@"1"]) {
@@ -421,8 +416,11 @@
         matchPreVC.webViewURL = webViewURL;
         matchPreVC.title = @"赛前宣传";
         [self.navigationController pushViewController:matchPreVC animated:YES];
-    }else{
-
+    }else if ([type isEqualToString:@"2"]){//更新余额
+        FTPaySingleton *paySingleton = [FTPaySingleton shareInstance];
+        [paySingleton fetchBalanceFromWeb:^{
+            NSLog(@"更新余额成功");
+        }];
     }
 }
 
