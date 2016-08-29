@@ -117,7 +117,6 @@
     //比赛状态：①未开始②进行中③已结束      status = 2 比赛进行中； = 3 比赛结束； 其他未开赛
     if ([matchBean.statu isEqualToString:@"2"]) {
         _stateLabelCenter.text = @"进行中...";
-        
         _goToWatchButton.hidden = NO;
         _betButton.hidden = YES;
         _followButton.hidden = NO;

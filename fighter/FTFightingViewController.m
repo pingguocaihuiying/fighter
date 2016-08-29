@@ -225,7 +225,12 @@
                     
                 }else {
                     if (_pageNum == 1){
-                        [self.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+                        if (array == nil) {
+                            [self.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+                        }else{
+                            [self.tableView headerEndRefreshingWithResult:JHRefreshResultNone];
+                        }
+                        
                     }else if (_pageNum > 1){
                         [self.tableView footerEndRefreshing];
                     }

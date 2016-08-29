@@ -426,9 +426,11 @@
                 <outlet property="mainViewCenterY" destination="fjT-CJ-yfn" id="Q3H-Rv-5qI"/>
                 <outlet property="player1HeaderImageView" destination="VVd-b6-xtM" id="Q7K-em-Knx"/>
                 <outlet property="player1HeaderOutCircle" destination="dx0-3B-ZEa" id="lu5-HR-qQy"/>
+                <outlet property="player1NameLabel" destination="OeS-CG-B0c" id="Lok-fC-tqW"/>
                 <outlet property="player1SelectedIndexImageView" destination="z8L-JR-BOP" id="4Nk-cc-x0C"/>
                 <outlet property="player2HeaderImageView" destination="28g-Zw-pr7" id="ozk-Ld-vow"/>
                 <outlet property="player2HeaderOutCircle" destination="doP-sn-prW" id="pP6-E7-3cZ"/>
+                <outlet property="player2NameLabel" destination="1QO-uv-FZN" id="eWl-uc-P8e"/>
                 <outlet property="player2SelectedIndexImageView" destination="j5Y-4O-pRF" id="UJC-5l-XhO"/>
                 <outlet property="selectedPlayer1ImageView" destination="O7m-7g-nMI" id="yDt-ow-d9W"/>
                 <outlet property="selectedPlayer2ImageView" destination="Pus-4Q-dHb" id="db7-xa-37f"/>
