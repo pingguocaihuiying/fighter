@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "FTMatchDetailBean.h"
+#import "FTMatchBean.h"
 
 @interface NetWorking : NSObject
 
@@ -261,7 +262,7 @@
 //获取点赞数
 + (void)getCountWithObjid:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^)(NSString *viewCount))option;
 //下注
-+ (void)betWithObjid:(FTMatchDetailBean *)_matchDetailBean andIsPlayer1Win:(BOOL )isPlayer1Win andBetValue:(int )betValue andOption:(void (^)(BOOL result))option;
++ (void)betWithMatchBean:(FTMatchBean *)_matchBean andIsPlayer1Win:(BOOL )isPlayer1Win andBetValue:(int )betValue andOption:(void (^)(BOOL result))option;
 //关注、取消关注
 + (void)followObjWithObjId:(NSString *)objId anIsFollow:(BOOL)isFollow andTableName:(NSString *)tableName  andOption:(void (^)(BOOL result))option;
 

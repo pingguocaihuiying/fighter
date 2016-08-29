@@ -47,6 +47,7 @@
 #import "FTRankViewController.h"
 #import "FTStoreViewController.h"
 
+#import "FTFightingViewController.h"
 
 
 @interface FTDrawerViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
@@ -889,7 +890,14 @@ static NSString *const tableCellId = @"tableCellId";
         
         FTPracticeViewController *vc = [tabBartVC.viewControllers objectAtIndex:2];
         [vc pushToDetailController:dic];
+    }else if ([dic[@"urlType"] isEqualToString:@"match"]) {//比赛
+        [tabBartVC setSelectedIndex:1];
+        
+        FTFightingViewController *vc = [tabBartVC.viewControllers objectAtIndex:1];
+        [vc pushToDetailController:dic];
+        
     }
+    
     
     
     if([dic[@"taskLocalNotification"] isEqualToString:@"taskLocalNotification"]) {

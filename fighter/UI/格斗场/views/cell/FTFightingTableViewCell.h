@@ -19,6 +19,8 @@ typedef NS_ENUM(int, FTMatchListButtonActionType){
     FTButtonActionFollow = 3,//关注
     FTButtonActionBet = 4,//下注
     FTButtonActionPay = 5,//支付
+    FTButtonActionPlayer1 = 6,//点击了选手1的头像
+    FTButtonActionPlayer2 = 7,//点击了选手2的头像
 };
 
 @protocol FTFightingTableViewCellButtonsClickedDelegate <NSObject>
@@ -69,4 +71,10 @@ typedef NS_ENUM(int, FTMatchListButtonActionType){
     @property (weak, nonatomic) IBOutlet UIImageView *stateBackgroundImageBottom;
     @property (weak, nonatomic) IBOutlet UILabel *stateLabelCenterBottom;
     @property (weak, nonatomic) IBOutlet UIImageView *RMBImageViewBottom;
+
+    //头像的灰圈
+@property (strong, nonatomic) IBOutlet UIImageView *header1OutCircle;
+@property (strong, nonatomic) IBOutlet UIImageView *header2OutCircle;
+    
+
 @end

@@ -357,9 +357,11 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     NSString *requestURL = [NSString stringWithFormat:@"%@", request.URL];
     NSLog(@"requestURL : %@", requestURL);
+    
     if ([requestURL isEqualToString:@"js-call:onload"]) {
         [self disableLoadingAnimation];
     }
+    
     if ([requestURL hasPrefix:@"js-call:userId="]) {
         NSString *userId = [requestURL stringByReplacingOccurrencesOfString:@"js-call:userId=" withString:@""];
 //        NSLog(@"userId : %@", userId);
