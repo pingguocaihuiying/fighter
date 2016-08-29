@@ -97,7 +97,7 @@
 #define LoginNoti @"LoginNotifacation"
 #define QQShareResponse @"addShareResponse"
 #define TaskNotification @"taskNotification"
-
+#define EditNotification @"editNotification"
 
 //微博相关
 #define WB_App_ID @"3097376602"

@@ -42,9 +42,13 @@
 }
 @end
 
+
+/** 废弃的后台地址 **/
 //NSString * const Domain = @"http://www.loufang.studio/pugilist_adminTest";//测试环境
 //NSString * const Domain = @"http://www.loufang.studio/pugilist_admin";//生产环境
 //  http://www.gogogofight.com/
+
+/** 可用的后台地址 **/
 NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin";//生产环境
 //NSString * const Domain = @"http://192.168.85.45/pugilist_admin";//内网测试环境
 //NSString * const Domain = @"http://10.11.1.117:8080/pugilist_admin";//何后台开发环境

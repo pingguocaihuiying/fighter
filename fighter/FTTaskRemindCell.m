@@ -70,7 +70,7 @@
     NSString *currentDateString = [dateFormatter stringFromDate:currentDate];
    
     
-    NSString *dateString = [NSString stringWithFormat:@"%@ 6:10:00",currentDateString];
+    NSString *dateString = [NSString stringWithFormat:@"%@ 18:10:00",currentDateString];
     //设置转换格式
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
