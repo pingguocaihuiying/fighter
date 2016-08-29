@@ -59,6 +59,7 @@
     [aCoder encodeObject:self.interestList forKey:@"interestList"];
     
     [aCoder encodeObject:self.isBoxerChecked forKey:@"isBoxerChecked"];
+    
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
