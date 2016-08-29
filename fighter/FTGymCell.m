@@ -7,6 +7,7 @@
 //
 
 #import "FTGymCell.h"
+#import "UIImage+LabelImage.h"
 
 @implementation FTGymCell
 
@@ -35,7 +36,7 @@
     NSArray *labels = [labelsString componentsSeparatedByString:@","];
     
     for (NSString *label in labels) {
-        UIImageView *labelView = [[UIImageView alloc]initWithImage:[self imageForLabel:label]];
+        UIImageView *labelView = [[UIImageView alloc]initWithImage:[UIImage imageForLabel:label]];
         w = labelView.frame.size.width;
         h = labelView.frame.size.height;
         if (x + w <= width) {
@@ -55,35 +56,6 @@
 }
 
 
-- (UIImage *) imageForLabel:(NSString *)label {
-    
-    UIImage *image;
-    if ([label isEqualToString:@"拳击"]) {
-        image = [UIImage imageNamed:@"格斗标签-拳击"];
-    }else if ([label isEqualToString:@"综合格斗(MMA)"]) {
-        image = [UIImage imageNamed:@"格斗标签-综合格斗"];
-    }else if ([label isEqualToString:@"泰拳"]) {
-        image = [UIImage imageNamed:@"格斗标签-泰拳"];
-    }else if ([label isEqualToString:@"跆拳道"]) {
-        image = [UIImage imageNamed:@"格斗标签-跆拳道"];
-    }else if ([label isEqualToString:@"柔道"]) {
-        image = [UIImage imageNamed:@"格斗标签-柔道"];
-    }else if ([label isEqualToString:@"摔跤(WWE)"]) {
-        image = [UIImage imageNamed:@"格斗标签-摔跤"];
-    }else if ([label isEqualToString:@"相扑"]) {
-        image = [UIImage imageNamed:@"格斗标签-相扑"];
-    }else if ([label isEqualToString:@"女子格斗"]) {
-        image = [UIImage imageNamed:@"格斗标签-女子格斗"];
-    }else if ([label isEqualToString:@"街斗"]) {
-        image = [UIImage imageNamed:@"格斗标签-街斗"];
-    }else if ([label isEqualToString:@"其它"]) {
-        image = [UIImage imageNamed:@"格斗标签-其他"];
-    }else if ([label isEqualToString:@"Match"]) {
-        image = [UIImage imageNamed:@"格斗标签-比赛"];
-    }
-    return image;
-}
-
 
 - (CGFloat) caculateHeight:(NSString *) labelsString {
     
@@ -99,7 +71,7 @@
     NSArray *labels = [labelsString componentsSeparatedByString:@","];
     
     for (NSString *label in labels) {
-        UIImageView *labelView = [[UIImageView alloc]initWithImage:[self imageForLabel:label]];
+        UIImageView *labelView = [[UIImageView alloc]initWithImage:[UIImage imageForLabel:label]];
         w = labelView.frame.size.width;
         h = labelView.frame.size.height;
         if (x + w <= width) {

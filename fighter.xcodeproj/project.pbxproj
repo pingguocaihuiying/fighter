@@ -23,6 +23,7 @@
 		3D10DDEA1D4753C300E2D776 /* FTCollectionFowLaytout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D10DDE91D4753C300E2D776 /* FTCollectionFowLaytout.m */; };
 		3D1189FB1D5B20860083B568 /* FTDBRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1189F91D5B20860083B568 /* FTDBRecordViewController.m */; };
 		3D1189FC1D5B20860083B568 /* FTDBRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D1189FA1D5B20860083B568 /* FTDBRecordViewController.xib */; };
+		3D11B2741D744C5400B4C838 /* UIImage+LabelImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D11B2731D744C5400B4C838 /* UIImage+LabelImage.m */; };
 		3D13FB0C1D193A5A0060B9B4 /* fighter.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 3D13FB0B1D193A5A0060B9B4 /* fighter.entitlements */; };
 		3D13FB101D193BB80060B9B4 /* FTFightingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D13FB0E1D193BB80060B9B4 /* FTFightingViewController.m */; };
 		3D13FB111D193BB80060B9B4 /* FTFightingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D13FB0F1D193BB80060B9B4 /* FTFightingViewController.xib */; };
@@ -401,6 +402,8 @@
 		3D1189F81D5B20860083B568 /* FTDBRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDBRecordViewController.h; sourceTree = "<group>"; };
 		3D1189F91D5B20860083B568 /* FTDBRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDBRecordViewController.m; sourceTree = "<group>"; };
 		3D1189FA1D5B20860083B568 /* FTDBRecordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTDBRecordViewController.xib; sourceTree = "<group>"; };
+		3D11B2721D744C5400B4C838 /* UIImage+LabelImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+LabelImage.h"; sourceTree = "<group>"; };
+		3D11B2731D744C5400B4C838 /* UIImage+LabelImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+LabelImage.m"; sourceTree = "<group>"; };
 		3D13FB0B1D193A5A0060B9B4 /* fighter.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fighter.entitlements; sourceTree = "<group>"; };
 		3D13FB0D1D193BB80060B9B4 /* FTFightingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTFightingViewController.h; sourceTree = "<group>"; };
 		3D13FB0E1D193BB80060B9B4 /* FTFightingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTFightingViewController.m; sourceTree = "<group>"; };
@@ -2832,6 +2835,8 @@
 				3D500DE81D6AFE1900ACBD0D /* UIView+UIViewController.m */,
 				3D500DEA1D6C460500ACBD0D /* NSDate+TaskDate.h */,
 				3D500DEB1D6C460600ACBD0D /* NSDate+TaskDate.m */,
+				3D11B2721D744C5400B4C838 /* UIImage+LabelImage.h */,
+				3D11B2731D744C5400B4C838 /* UIImage+LabelImage.m */,
 			);
 			path = Categorys;
 			sourceTree = "<group>";
@@ -3540,6 +3545,7 @@
 				3DC9A4EE1CE5CD0700E16D19 /* FTRankViewController.m in Sources */,
 				3D7B98A01CDFA20D00B80B8D /* FTFiler.m in Sources */,
 				E66EAEA21CF8217F006CD6CE /* FTArenaTextTableViewCell.m in Sources */,
+				3D11B2741D744C5400B4C838 /* UIImage+LabelImage.m in Sources */,
 				3DFC41531D083A3F0067AC72 /* SDCycleScrollView.m in Sources */,
 				3D8B2E531D1D14B000E18280 /* FTCoachCell.m in Sources */,
 				3D0B44721D45D96F00EE08B3 /* FTNewsCell.m in Sources */,
