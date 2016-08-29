@@ -17,6 +17,7 @@
 @property (nonatomic, copy) NSString  *userName;//发起人姓名
 @property (nonatomic, copy) NSString  *userId;//发起人id
 @property (nonatomic, copy) NSString  *against;//迎战人姓名
+@property (nonatomic, copy) NSString  *againstId;//迎战人id
 
 @property (nonatomic, copy) NSString  *corporationName;//拳馆名
 
@@ -59,4 +60,5 @@
 @property (nonatomic,copy) NSString *urlRes;//赛后结果链接follow
 @property (nonatomic, assign) BOOL follow;//是否关注
 @property (nonatomic,copy) NSString *theDate;//比赛时间戳
+@property (nonatomic, assign) BOOL allowBet;//是否允许下注
 @end

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FTMatchDetailBean.h"
+#import "FTMatchBean.h"
 
 @protocol FTBetViewDelegate <NSObject>
 
@@ -25,7 +25,7 @@
 
 @interface FTBetView : UIView
 
-@property (nonatomic, strong) FTMatchDetailBean *matchDetailBean;
+@property (nonatomic, strong) FTMatchBean *matchBean;
 
 @property (nonatomic, weak)id<FTBetViewDelegate> delegate;
 @property (nonatomic, assign) int betValue;//当前的下注点数

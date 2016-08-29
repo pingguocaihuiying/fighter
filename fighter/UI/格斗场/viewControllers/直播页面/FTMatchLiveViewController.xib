@@ -126,7 +126,7 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ad6-Ox-URi" userLabel="下注1">
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ad6-Ox-URi" userLabel="下注1">
                                     <rect key="frame" x="10" y="113" width="88" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="88" id="S3P-cV-wyB"/>
@@ -137,7 +137,7 @@
                                         <action selector="betButton1Clicked:" destination="-1" eventType="touchUpInside" id="bUW-XX-L8d"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IqA-j3-DZU" userLabel="下注2">
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IqA-j3-DZU" userLabel="下注2">
                                     <rect key="frame" x="346" y="113" width="88" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="88" id="Bvy-9h-6d3"/>
@@ -276,8 +276,8 @@
                                                         <constraint firstAttribute="width" constant="22" id="vZo-H8-H3b"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NyK-Qf-FYR" userLabel="观看数">
-                                                    <rect key="frame" x="22" y="9" width="19" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NyK-Qf-FYR" userLabel="观看数">
+                                                    <rect key="frame" x="22" y="9" width="16" height="17"/>
                                                     <attributedString key="attributedText">
                                                         <fragment content="(0)">
                                                             <attributes>

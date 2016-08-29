@@ -11,13 +11,14 @@
 #import "FTShareView.h"
 #import "FTHomepageCommentTableViewCell.h"
 #import "FTBetView.h"
+#import "FTBetView0.h"
 #import "FTPayViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "FTCommentViewController.h"
 
-@interface FTMatchLiveViewController ()<UITableViewDelegate, UITableViewDataSource, FTBetViewDelegate, CommentSuccessDelegate>
+@interface FTMatchLiveViewController ()<UITableViewDelegate, UITableViewDataSource, FTBetViewDelegate, FTBetViewDelegate0, CommentSuccessDelegate>
 @property (strong, nonatomic) IBOutlet UIImageView *blueProgressBarImageView;
 
 @property (nonatomic, strong)NSArray *commentsDataArray;//评论数据源
@@ -92,8 +93,9 @@
             //如果是第一次加载
             if (_isFirstLoadData) {
                 //比赛详情加载成功后，把下注按钮置为可用
-                _betButton1.enabled = YES;
-                _betButton2.enabled = YES;
+                    //业务有改，直播时不让下注
+//                _betButton1.enabled = YES;
+//                _betButton2.enabled = YES;
                 
                 //根据比赛详情设置页面展示信息
                 [self initSubViews];
@@ -362,13 +364,19 @@
 - (IBAction)betButton1Clicked:(id)sender {
     //判断是否登录
     if ([self validateLoginInfo]) {
-        FTBetView *betView = [[[NSBundle mainBundle] loadNibNamed:@"FTBetView" owner:nil options:nil]lastObject];
-        betView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        betView.delegate = self;
-        betView.matchDetailBean = _matchDetailBean;
-        betView.isbetPlayer1Win = YES;
-        [betView updateDisplay];
-        [self.view addSubview:betView];
+        
+//        FTBetView *betView = [[[NSBundle mainBundle] loadNibNamed:@"FTBetView" owner:nil options:nil]lastObject];
+//        betView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//        betView.delegate = self;
+//        betView.matchDetailBean = _matchDetailBean;
+//        betView.isbetPlayer1Win = YES;
+//        [betView updateDisplay];
+//        [self.view addSubview:betView];
+        
+                FTBetView0 *betView0 = [[[NSBundle mainBundle] loadNibNamed:@"FTBetView0" owner:nil options:nil]lastObject];
+                betView0.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                betView0.delegate = self;
+                [self.view addSubview:betView0];
     }else{
         [self login];
     }
@@ -380,7 +388,7 @@
         FTBetView *betView = [[[NSBundle mainBundle] loadNibNamed:@"FTBetView" owner:nil options:nil]lastObject];
         betView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         betView.delegate = self;
-        betView.matchDetailBean = _matchDetailBean;
+        betView.matchBean = _matchBean;
         betView.isbetPlayer1Win = NO;
         [betView updateDisplay];
         [self.view addSubview:betView];
@@ -388,6 +396,19 @@
         [self login];
     }
 }
+
+//第一步中点击确认参与的回掉方法
+- (void)betStep1WithBetValues:(int)betValue andIsPlayer1Win:(BOOL)isPlayer1Win{
+    FTBetView *betView = [[[NSBundle mainBundle] loadNibNamed:@"FTBetView" owner:nil options:nil]lastObject];
+    betView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    betView.delegate = self;
+    betView.matchBean = _matchBean;
+    betView.isbetPlayer1Win = isPlayer1Win;
+    betView.betValue = betValue;
+    [betView updateDisplay];
+    [self.view addSubview:betView];
+}
+
 //点击赞助后的回掉
 - (void)betWithBetValues:(int)betValue andIsPlayer1Win:(BOOL)isPlayer1Win{
     NSLog(@"betValue : %d", betValue);

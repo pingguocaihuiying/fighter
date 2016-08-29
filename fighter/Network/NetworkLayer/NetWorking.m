@@ -1364,13 +1364,13 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     }];
 }
 //下注
-+ (void)betWithObjid:(FTMatchDetailBean *)_matchDetailBean andIsPlayer1Win:(BOOL )isPlayer1Win andBetValue:(int )betValue andOption:(void (^)(BOOL result))option{
++ (void)betWithMatchBean:(FTMatchBean *)_matchBean andIsPlayer1Win:(BOOL )isPlayer1Win andBetValue:(int )betValue andOption:(void (^)(BOOL result))option{
     
     //获取当前登录用户的信息
     FTUserBean *userBean = [FTUserTools getLocalUser];
     NSString *userId = userBean.olduserid;//当前用户id
     NSString *objType = @"match";//类型
-    NSString *objId = [NSString stringWithFormat:@"%@", _matchDetailBean.matchId];//比赛id
+    NSString *objId = [NSString stringWithFormat:@"%@", _matchBean.matchId];//比赛id
     NSString *tableName = @"pl-bet";//表名：1. 下注为：pl-bet； 2. 购票为：pl-tic 3. 赛事成本支付相关：pl-mat
     NSString *type = isPlayer1Win ? @"0" : @"1";//1. 下注（0- 投注发起方，默认；1-投注迎战方）;
     NSString *isDelated = @"2";//0-无效记录；1-s支付；2-p支付;3-RMB元支付(默认为元)
