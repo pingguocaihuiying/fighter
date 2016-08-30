@@ -182,6 +182,7 @@
     NSLog(@"updateURLString url : %@", updateURLString);
 
     [self getRequestWithUrl:updateURLString parameters:dic option:option];
+//    [self getRequestWithUrl:updateURLString parameters:dic option:option];
     
 }
 

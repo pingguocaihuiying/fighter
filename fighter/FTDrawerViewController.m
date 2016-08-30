@@ -328,14 +328,17 @@ static NSString *const tableCellId = @"tableCellId";
 
     if (localUser) {
         
+        
         [self loadAvatarWithString:localUser.headpic];
         [self setNameLabelText:[localUser.username stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 //        [self setNameLabelText:localUser.username ];
         [self setAgeLabelText:localUser.age];
 //        [self setSexLabelText:localUser.sex ];
         [self setSexLabelText:[localUser.sex  stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-//        [self set]
-        [self setSexLabelText:localUser.sex];
+//        [self setSexLabelText:[localUser.sex stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet letterCharacterSet]]];
+//        [self setSexLabelText:[localUser.sex stringByAddingPercentEscapesUsingEncoding:enc]];
+        
+//        [self setSexLabelText:[localUser.sex stringByRemovingPercentEncoding]];
         [self setHeightLabelText:localUser.height];
         [self setWeightLabelText:localUser.weight];
     }
@@ -430,6 +433,9 @@ static NSString *const tableCellId = @"tableCellId";
 - (IBAction)editingBtnAction:(id)sender {
    
     [MobClick event:@"homePage_Date"];
+    
+    NSLog(@"%@",[@"男性" stringByRemovingPercentEncoding]);
+    NSLog(@"%@",[[@"男性" stringByRemovingPercentEncoding] stringByRemovingPercentEncoding]);
     
     FTUserCenterViewController *userCenter = [[FTUserCenterViewController alloc]init];
     userCenter.title = @"个人资料";
@@ -781,16 +787,18 @@ static NSString *const tableCellId = @"tableCellId";
     rankHomeVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-底部排行榜pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     
-    // 兑吧
-    FTStoreViewController *duibaVC = [FTStoreViewController new];
-    duibaVC.title = @"格斗商城";
-    duibaVC.tabBarItem.title = @"格斗商城";
-    [duibaVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                   Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
-                                                   nil] forState:UIControlStateSelected];
     
-    duibaVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-商城"];
-    duibaVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-商城pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    // 版本1.6 隐藏兑吧商城
+//    // 兑吧
+//    FTStoreViewController *duibaVC = [FTStoreViewController new];
+//    duibaVC.title = @"格斗商城";
+//    duibaVC.tabBarItem.title = @"格斗商城";
+//    [duibaVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+//                                                   Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
+//                                                   nil] forState:UIControlStateSelected];
+//    
+//    duibaVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-商城"];
+//    duibaVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-商城pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 
 
     // 设置tabbar的属性
@@ -823,14 +831,14 @@ static NSString *const tableCellId = @"tableCellId";
     [self.dynamicsDrawerViewController  setPaneViewController:navi];
     
     
-    [self getDuibaConfigInfo:^{
-        
-        if (_duibaConfig == 0) {
-            
-           [self addTabBarVC:duibaVC];
-        }
-
-    }];
+////    [self getDuibaConfigInfo:^{
+////        
+////        if (_duibaConfig == 0) {
+////            
+////           [self addTabBarVC:duibaVC];
+////        }
+////
+//    }];
     
     // 推送
     [self checkPush];

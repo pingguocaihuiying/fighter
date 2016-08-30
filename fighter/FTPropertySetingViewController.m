@@ -73,8 +73,9 @@
     }
     
     NSString *propertValue = [self.propertyTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-    NSStringEncoding enc =     CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingISOLatin1);
-    [propertValue stringByAddingPercentEscapesUsingEncoding:enc];
+    
+//    NSStringEncoding enc =     CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingISOLatin1);
+//    [propertValue stringByAddingPercentEscapesUsingEncoding:enc];
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NetWorking *net = [NetWorking new];
