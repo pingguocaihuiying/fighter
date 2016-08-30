@@ -209,12 +209,12 @@
     }else {
         propertValue = @"女性";
     }
-    
+   
 //    // encode1 ISO-8859-1
-//    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingISOLatin1);
-//    [propertValue stringByRemovingPercentEncoding];
-//    [propertValue stringByAddingPercentEscapesUsingEncoding:enc];
-//    NSLog(@"sex:%@",propertValue);
+    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingISOLatin1);
+    const  char *cString = [propertValue UTF8String];;
+    NSString *remoteParam = [NSString  stringWithCString:cString encoding:enc];
+    NSLog(@"sex:%@",remoteParam);
     
 //    // encode2 Utf-8
 //    [propertValue stringByRemovingPercentEncoding];
@@ -227,19 +227,18 @@
 //    [propertValue stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     
-    if (propertValue == nil) {
+    if (remoteParam == nil) {
         return;
     }
     
     
 //    [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
     NetWorking *net = [NetWorking new];
-    [net updateUserByGet:propertValue Key:@"sex" option:^(NSDictionary *dict) {
+    [net updateUserByGet:remoteParam Key:@"sex" option:^(NSDictionary *dict) {
         NSLog(@"dict:%@",dict);
         if (dict != nil) {
             
             bool status = [dict[@"status"] boolValue];
-            NSLog(@" sever sex:%@",dict[@"data"]);
             
             if (status == true) {
                 
@@ -249,8 +248,9 @@
                 //从本地读取存储的用户信息
                 NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
                 FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-//                localUser.sex = [propertValue stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//                localUser.sex = [propertValue stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                 localUser.sex = propertValue ;
+                
                 //将用户信息保存在本地
                 NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
                 [[NSUserDefaults standardUserDefaults]setObject:userData forKey:@"loginUser"];
