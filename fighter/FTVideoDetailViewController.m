@@ -31,7 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self initBaseData];
     [self setSubViews];
     [self setWebView];
     [self getVoteInfo];
@@ -52,6 +52,19 @@
 - (void)viewWillDisappear:(BOOL)animated{
     //销毁通知
     [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+
+- (void)initBaseData{
+    if (!_videoBean.title) {
+        NSLog(@"没有标题");
+        [NetWorking getVideoById:[NSString stringWithFormat:@"%@", _videoBean.videosId] andOption:^(NSArray *array) {
+            FTVideoBean *videoBean = [FTVideoBean new];
+            [videoBean setValuesWithDic:[array firstObject]];
+            NSLog(@"视频详情加载完成");
+            _videoBean = videoBean;
+        }];
+    }
 }
 
 - (void)getVoteInfo{
