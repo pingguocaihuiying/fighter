@@ -204,36 +204,35 @@
     
     NSString *propertValue;
     if (self.maleBtn.selected) {
-//        propertValue = [@"男性" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//        propertValue = [@"男性" stringByReplacingPercentEscapesUsingEncoding:NSISOLatin2StringEncoding];
-//        propertValue = [@"男性" stringByAddingPercentEscapesUsingEncoding:NSISOLatin2StringEncoding];
-        
          propertValue = @"男性";
         
     }else {
-//        propertValue = [@"女性" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//        propertValue = [@"女性" stringByReplacingPercentEscapesUsingEncoding:NSISOLatin2StringEncoding];
-//         propertValue = [@"女性" stringByAddingPercentEscapesUsingEncoding:NSISOLatin2StringEncoding];
         propertValue = @"女性";
     }
     
-    NSStringEncoding enc =     CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF8);
-    [propertValue stringByAddingPercentEscapesUsingEncoding:enc];
-    NSLog(@"sex:%@",propertValue);
-    
-    
-
-
-//    [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-//    NSStringEncoding enc =     CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingISOLatin1);
+//    // encode1 ISO-8859-1
+//    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingISOLatin1);
 //    [propertValue stringByRemovingPercentEncoding];
 //    [propertValue stringByAddingPercentEscapesUsingEncoding:enc];
-//    [propertValue stringByReplacingPercentEscapesUsingEncoding:NSISOLatin1StringEncoding];
+//    NSLog(@"sex:%@",propertValue);
+    
+//    // encode2 Utf-8
+//    [propertValue stringByRemovingPercentEncoding];
+//    [propertValue stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+
+
+//    // encode3 Utf-8
+//    [propertValue stringByAddingPercentEscapesUsingEncoding:enc];
+//    [propertValue stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     
     if (propertValue == nil) {
         return;
     }
+    
+    
+//    [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
     NetWorking *net = [NetWorking new];
     [net updateUserByGet:propertValue Key:@"sex" option:^(NSDictionary *dict) {
         NSLog(@"dict:%@",dict);
@@ -250,8 +249,8 @@
                 //从本地读取存储的用户信息
                 NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
                 FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-                localUser.sex = [propertValue stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                
+//                localUser.sex = [propertValue stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                localUser.sex = propertValue ;
                 //将用户信息保存在本地
                 NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
                 [[NSUserDefaults standardUserDefaults]setObject:userData forKey:@"loginUser"];

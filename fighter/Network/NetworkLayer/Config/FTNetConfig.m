@@ -132,7 +132,7 @@ NSString * const UserWXLoginURL = @"/api/newuser/userWXLogin.do";
 
 #pragma mark  - 更新用户
 
-NSString * const UpdateUserURL = @"/api/newuser/updateUser.do";
+NSString * const UpdateUserURL = @"/api/newuser/updateUser2.do";
 
 NSString * const UploadUserIdCardURL = @"/api/newuser/updateUserCardpic.do";
 

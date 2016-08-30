@@ -84,9 +84,7 @@
         }
     }
     return  h + y;
-
 }
-
 
 
 - (void) clearLabelView {
@@ -95,7 +93,6 @@
         [view removeFromSuperview];
     }
 }
-
 
 
 - (void) layoutSubviews {
