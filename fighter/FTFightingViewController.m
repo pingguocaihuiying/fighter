@@ -166,7 +166,7 @@
     
     [NetWorking getMatchListWithPageNum:_pageNum andPageSize:_pageSize andStatus:status andPayStatus:payStatus andLabel:label andAgainstId:againstId andWeight:weight andUserId:userId andOption:^(NSArray *array) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];//隐藏hud
-                if (array && array.count > 0) {
+                if (array) {
                     if (_pageNum == 1) {//如果是第一页，清除历史数据
                         [_dateArray removeAllObjects];
                         [_matchesDic removeAllObjects];
@@ -334,6 +334,8 @@
         NSLog(@"比赛结束");
         NSLog(@"url : %@", matchBean.urlRes);
         NSString *url = matchBean.urlRes;
+        NSLog(@"url : %@", url);
+        
         NSArray *strArray = [url componentsSeparatedByString:@"id="];
         NSString *idAndOtherStr = [strArray lastObject];
         NSString *objId = [[idAndOtherStr componentsSeparatedByString:@"&"] firstObject];
@@ -444,10 +446,37 @@
     //获取当前登录用户的信息
 //    FTUserBean *userBean = [FTUserTools getLocalUser];
     
-    if (actionType == FTButtonActionWatch) {
-        FTMatchLiveViewController* matchLiveVC = [FTMatchLiveViewController new];
-        matchLiveVC.matchBean = matchBean;
-        [self.navigationController pushViewController:matchLiveVC animated:YES];
+    if (actionType == FTButtonActionWatch) {// status 2、比赛进行中 3、比赛结束
+//        FTMatchLiveViewController* matchLiveVC = [FTMatchLiveViewController new];
+//        matchLiveVC.matchBean = matchBean;
+//        [self.navigationController pushViewController:matchLiveVC animated:YES];
+        if ([matchBean.statu isEqualToString:@"2"]) {
+            NSLog(@"比赛进行中");
+            FTMatchLiveViewController* matchLiveVC = [FTMatchLiveViewController new];
+            matchLiveVC.matchBean = matchBean;
+            [self.navigationController pushViewController:matchLiveVC animated:YES];
+        } else if ([matchBean.statu isEqualToString:@"3"]){
+            NSLog(@"比赛结束");
+            NSString *url = matchBean.urlRes;
+            NSLog(@"url : %@", url);
+            
+            NSArray *strArray = [url componentsSeparatedByString:@"id="];
+            NSString *idAndOtherStr = [strArray lastObject];
+            NSString *objId = [[idAndOtherStr componentsSeparatedByString:@"&"] firstObject];
+            
+            FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
+            
+            if (matchBean.urlRes) {
+                FTVideoBean *videoBean = [FTVideoBean new];
+                videoBean.videosId = objId;
+                videoDetailVC.urlId = objId;
+                videoDetailVC.videoBean = videoBean;
+            }
+            
+            
+            
+            [self.navigationController pushViewController:videoDetailVC animated:YES];
+        }
     } else if (actionType == FTButtonActionBuyTicket){
         
     }else if (actionType == FTButtonActionSupport){
@@ -470,6 +499,7 @@
             }];
         }else{
             [FTTools loginwithVC:self];
+            button.enabled = YES;
         }
 #pragma mark - 下注
     }else if (actionType == FTButtonActionBet){

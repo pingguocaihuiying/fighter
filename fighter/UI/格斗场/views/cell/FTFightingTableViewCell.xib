@@ -25,7 +25,7 @@
                             <constraint firstAttribute="height" constant="150" id="bkF-xG-Zng"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="主页大头像-空头像" translatesAutoresizingMaskIntoConstraints="NO" id="wFn-dp-SWU" userLabel="主页大头像-灰圈1">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="主页大头像-灰圈" translatesAutoresizingMaskIntoConstraints="NO" id="wFn-dp-SWU" userLabel="主页大头像-灰圈1">
                         <rect key="frame" x="34" y="17" width="56" height="56"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="56" id="X2R-N3-BMn"/>
@@ -84,7 +84,7 @@
                             <constraint firstAttribute="width" constant="19" id="hDP-oh-fO0"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="主页大头像-空头像" translatesAutoresizingMaskIntoConstraints="NO" id="czT-wm-4Ag" userLabel="主页大头像-灰圈2">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="主页大头像-灰圈" translatesAutoresizingMaskIntoConstraints="NO" id="czT-wm-4Ag" userLabel="主页大头像-灰圈2">
                         <rect key="frame" x="285" y="17" width="56" height="56"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="56" id="8uC-Fg-02k"/>
@@ -429,7 +429,7 @@
     </objects>
     <resources>
         <image name="ko" width="19" height="10"/>
-        <image name="主页大头像-空头像" width="56" height="56"/>
+        <image name="主页大头像-灰圈" width="56" height="56"/>
         <image name="列表3按钮-下注" width="88" height="24"/>
         <image name="列表3按钮-关注" width="88" height="24"/>
         <image name="列表3按钮-已关注" width="88" height="24"/>

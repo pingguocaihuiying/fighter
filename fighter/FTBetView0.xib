@@ -39,7 +39,7 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="主页大头像-空头像" translatesAutoresizingMaskIntoConstraints="NO" id="dx0-3B-ZEa" userLabel="主页大头像-灰圈1">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="主页大头像-灰圈" translatesAutoresizingMaskIntoConstraints="NO" id="dx0-3B-ZEa" userLabel="主页大头像-灰圈1">
                             <rect key="frame" x="40" y="47" width="56" height="56"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="56" id="psA-vw-Qdw"/>
@@ -86,7 +86,7 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="主页大头像-空头像" translatesAutoresizingMaskIntoConstraints="NO" id="doP-sn-prW" userLabel="主页大头像-灰圈2">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="主页大头像-灰圈" translatesAutoresizingMaskIntoConstraints="NO" id="doP-sn-prW" userLabel="主页大头像-灰圈2">
                             <rect key="frame" x="184" y="47" width="56" height="56"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="56" id="5aM-SY-gID"/>
@@ -439,7 +439,7 @@
         </view>
     </objects>
     <resources>
-        <image name="主页大头像-空头像" width="56" height="56"/>
+        <image name="主页大头像-灰圈" width="56" height="56"/>
         <image name="充值_按钮" width="56" height="24"/>
         <image name="充值_按钮pre" width="56" height="24"/>
         <image name="协商支付二级-ios箭头" width="25" height="9"/>
