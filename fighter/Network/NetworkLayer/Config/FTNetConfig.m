@@ -17,6 +17,7 @@
 {
     return [NSString stringWithFormat:@"%@%@",host,path];
 }
+
 + (NSString *)showType{
     
     NSString *showType = [[NSUserDefaults standardUserDefaults]objectForKey:SHOWTYPE];
@@ -27,6 +28,7 @@
     }
     return showType;
 }
+
 + (void)changePreviewVersion{
     
     NSString *showType = [FTNetConfig showType];
@@ -51,7 +53,7 @@
 /** 可用的后台地址 **/
 NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin";//生产环境
 //NSString * const Domain = @"http://192.168.85.45/pugilist_admin";//内网测试环境
-//NSString * const Domain = @"http://10.11.1.117:8080/pugilist_admin";//何后台开发环境
+//NSString * const Domain = @"http://10.11.1.117/pugilist_admin";//何后台开发环境
 //NSString * const Domain = @"http://10.11.1.49/pugilist_admin";//余彧后台开发环境
 //获取新闻192.168.85.45
 NSString * const GetNewsURL = @"/api/news/getNews.do";
@@ -131,8 +133,8 @@ NSString * const UserLogoutURL = @"/api/newuser/userLogout.do";
 NSString * const UserWXLoginURL = @"/api/newuser/userWXLogin.do";
 
 #pragma mark  - 更新用户
-
-NSString * const UpdateUserURL = @"/api/newuser/updateUser2.do";
+NSString * const UpdateUserURL = @"/api/newuser/updateUser.do";
+//NSString * const UpdateUserURL = @"/api/newuser/updateUser2.do";
 
 NSString * const UploadUserIdCardURL = @"/api/newuser/updateUserCardpic.do";
 
