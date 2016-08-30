@@ -900,10 +900,8 @@ static NSString *const tableCellId = @"tableCellId";
         [vc pushToDetailController:dic];
     }else if ([dic[@"urlType"] isEqualToString:@"match"]) {//比赛
         [tabBartVC setSelectedIndex:1];
-        
         FTFightingViewController *vc = [tabBartVC.viewControllers objectAtIndex:1];
         [vc pushToDetailController:dic];
-        
     }
     
     

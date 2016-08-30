@@ -644,6 +644,11 @@
                 }
             }
             
+            /**
+             *  2016年8月30日 by liyz  隐藏身份认证的信息
+             */
+            cell.authenticationLabel.hidden = YES;
+            
             return cell;
         }else {
             
