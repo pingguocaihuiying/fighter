@@ -1,24 +1,18 @@
 PODS:
-  - AFNetworking (2.6.3):
-    - AFNetworking/NSURLConnection (= 2.6.3)
-    - AFNetworking/NSURLSession (= 2.6.3)
-    - AFNetworking/Reachability (= 2.6.3)
-    - AFNetworking/Security (= 2.6.3)
-    - AFNetworking/Serialization (= 2.6.3)
-    - AFNetworking/UIKit (= 2.6.3)
-  - AFNetworking/NSURLConnection (2.6.3):
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.6.3):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.3)
-  - AFNetworking/Security (2.6.3)
-  - AFNetworking/Serialization (2.6.3)
-  - AFNetworking/UIKit (2.6.3):
-    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - Base64 (1.1.2)
   - FMDB (2.6.2):
@@ -49,17 +43,17 @@ PODS:
     - pili-librtmp
   - PPiAwesomeButton (1.5.2):
     - FontAwesome+iOS
-  - Qiniu (7.0.20):
-    - AFNetworking (~> 2.0)
+  - Qiniu (7.1.0.1):
+    - AFNetworking (~> 3)
     - HappyDNS (~> 0.3)
   - RealReachability (1.1.7):
     - RealReachability/Connection (= 1.1.7)
     - RealReachability/Ping (= 1.1.7)
   - RealReachability/Connection (1.1.7)
   - RealReachability/Ping (1.1.7)
-  - SDWebImage (3.7.6):
-    - SDWebImage/Core (= 3.7.6)
-  - SDWebImage/Core (3.7.6)
+  - SDWebImage (3.8.1):
+    - SDWebImage/Core (= 3.8.1)
+  - SDWebImage/Core (3.8.1)
   - TencentOpenAPIV2_3 (3.1.0)
   - UMengAnalytics (4.0.4)
   - UMengFeedback (2.3.4)
@@ -67,7 +61,7 @@ PODS:
   - Weixin (1.6.2)
 
 DEPENDENCIES:
-  - AFNetworking (~> 2.6.3)
+  - AFNetworking (~> 3.1.0)
   - Base64 (~> 1.1.2)
   - FMDB (~> 2.6.2)
   - GTMBase64 (~> 1.0.0)
@@ -77,9 +71,9 @@ DEPENDENCIES:
   - OpenSSL-for-iOS (~> 1.0.2.d.1)
   - PLCameraStreamingKit (~> 1.7.1)
   - PPiAwesomeButton (~> 1.5.2)
-  - Qiniu (~> 7.0.20)
+  - Qiniu (~> 7.1.0.1)
   - RealReachability (~> 1.1.7)
-  - SDWebImage (~> 3.7.6)
+  - SDWebImage (~> 3.8.1)
   - TencentOpenAPIV2_3 (~> 3.1.0)
   - UMengAnalytics (~> 4.0.4)
   - UMengFeedback (~> 2.3.4)
@@ -96,7 +90,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
 
 SPEC CHECKSUMS:
-  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   FontAwesome+iOS: 9070b682a9255ca0fdc34bcfb129ad0ba2b73b87
@@ -111,15 +105,15 @@ SPEC CHECKSUMS:
   PLCameraStreamingKit: e67cc80087af50278ce9af3ae93fc54466fe71e0
   PLStreamingKit: 55c671786ebfa541105fa9d8df9e38fd28454210
   PPiAwesomeButton: 16f7279582fd36f65186b24b83ef876217363eb5
-  Qiniu: 8958e70c02fb563c8c04d555bb5041441c5f4216
+  Qiniu: 0e92ff0d1b9afbc55275306671284e4ebeb08d03
   RealReachability: 8b6644c6b3145f7552ed83bffb52c49b0f3b55e3
-  SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
+  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   TencentOpenAPIV2_3: 39d78d050d2f91a06718ed648a75b3dae27bfa72
   UMengAnalytics: 4ed421fb3bca63b26fc13c947743cabf3831d199
   UMengFeedback: 5283cc0e324dffca4dd54c4abb3cbded56487817
   WeiboSDK: bceab625ec59b7039ba721cc4ba9f5868804f63e
   Weixin: 032f4b1def7c7c3d7535809ba25107d5cdc9fccd
 
-PODFILE CHECKSUM: 0ec44900dd9773e8636d2002a2ef2e2d36d24dd2
+PODFILE CHECKSUM: fea4b9137a94ee716004791ba43cbe6b38cad2c8
 
 COCOAPODS: 1.0.1

@@ -29,7 +29,6 @@
 
 
 
-#import "AFHTTPRequestOperationManager.h"
 #import "UUID.h"
 #import "FTNetConfig.h"
 #import "RBRequestOperationManager.h"

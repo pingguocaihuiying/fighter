@@ -147,7 +147,7 @@
     NSLog(@"评论url：%@", urlString);
     
     //创建AAFNetWorKing管理者
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     NSLog(@"userId : %@, objId : %@, loginToken : %@, ts : %@, checkSign : %@, comment : %@, tableName : %@, ", userId ,objId , loginToken,ts ,checkSign ,comment,tableName);
@@ -161,7 +161,7 @@
                           @"tableName" : tableName
                           };
     
-    [manager POST:urlString parameters:dic success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager POST:urlString parameters:dic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
 
         if ([responseDic[@"status"] isEqualToString:@"success"]) {
@@ -177,7 +177,7 @@
         }
         
         //success
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         NSLog(@"评论失败，failure: %@", error);
         [self showHUDWithMessage:@"评论失败，请检查网络" isPop:NO];
     }];
