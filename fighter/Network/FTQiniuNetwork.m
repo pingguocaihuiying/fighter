@@ -11,7 +11,7 @@
 @implementation FTQiniuNetwork
 + (NSString *)getQiniuTokenWithMediaType:(NSString *)mediaType andKey:(NSString *)key andOption:(void (^)(NSString *token))option{
     NSString *qiniuToken = @"";
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSString *getQiniuTokenUrlString = @"";
@@ -46,14 +46,14 @@
     
         NSLog(@"getQiniuTokenUrlString : %@", getQiniuTokenUrlString);
     
-    [manager GET:getQiniuTokenUrlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager GET:getQiniuTokenUrlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"status : %@ message : %@",responseDic[@"status"],responseDic[@"message"]);
         if ([responseDic[@"status"] isEqualToString:@"success"]) {
             option(responseDic[@"data"]);
         }
 
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
         option(@"error");
     }];
     return qiniuToken;

@@ -10,7 +10,6 @@
 #import "FTDrawerStyler.h"
 
 //defin一些常量
-
 #define LeftMenuDefaultOpenStateRevealWidthHorizontal [UIScreen mainScreen].bounds.size.width *0.7 ////267.0;
 #define LeftMenuDefaultOpenStateRevealWidthVertical [UIScreen mainScreen].bounds.size.width *0.7
 #define PaneViewDefaultOpenStateRevealWidthHorizontal [UIScreen mainScreen].bounds.size.width *0.3

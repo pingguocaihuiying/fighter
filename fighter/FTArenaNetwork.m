@@ -9,19 +9,21 @@
 #import "FTArenaNetwork.h"
 
 @implementation FTArenaNetwork
+
 - (void)newPostWithDic:(NSDictionary *)dic andOption:(void (^)(NSDictionary *))option{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSString *getCategoryUrlString = [FTNetConfig host:Domain path:NewPostURL];
     NSLog(@"getCategoryUrlString : %@", getCategoryUrlString);
     
-    [manager POST:getCategoryUrlString parameters:dic success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager POST:getCategoryUrlString parameters:dic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         
         if (option) {
             option(responseDic);
         }
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         if (option) {
             option(nil);
         }
