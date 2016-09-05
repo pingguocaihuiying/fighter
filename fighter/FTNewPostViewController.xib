@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="16A201w" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -250,7 +250,7 @@
         <image name="弹出框用-类别选择-选中" width="18" height="18"/>
         <image name="格斗标签-综合格斗" width="68" height="14"/>
         <image name="添加标签" width="18" height="18"/>
-        <image name="金属边框-改进ios" width="67" height="60"/>
+        <image name="金属边框-改进ios" width="67" height="26"/>
         <image name="金属边框-选择类别单切ios" width="17" height="33"/>
     </resources>
 </document>
