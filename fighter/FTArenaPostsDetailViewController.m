@@ -70,11 +70,11 @@
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
     //    NSLog(@"get vote urlString : %@", urlString);
     //创建AAFNetWorKing管理者
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         //success
         //        NSLog(@"get vote info sucess. vote status : %@", responseDic[@"message"]);
@@ -86,7 +86,7 @@
         }
         
         [self updateVoteImageView];
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         //failure
     }];
 }
@@ -107,11 +107,11 @@
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
     //    NSLog(@"get vote urlString : %@", urlString);
     //创建AAFNetWorKing管理者
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         //success
         //        NSLog(@"get vote info sucess. vote status : %@", responseDic[@"message"]);
@@ -123,7 +123,7 @@
         }
         
         [self updateStarImageView];
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         //failure
     }];
 }
@@ -453,12 +453,12 @@
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
     NSLog(@"点赞url：%@", urlString);
     //创建AAFNetWorKing管理者
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"vote status : %@", responseDic[@"status"]);
         self.voteView.userInteractionEnabled = YES;
@@ -479,7 +479,7 @@
             NSLog(@"js method : %@", jsMethodString);
             [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
         }
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         //failure
         self.voteView.userInteractionEnabled = YES;
         NSLog(@"vote failure ：%@", error);
@@ -512,18 +512,18 @@
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@&isDelated=%@&query=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName, isDelated, query];
     //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
     //创建AAFNetWorKing管理者
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSLog(@"收藏url：%@", urlString);
-    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"收藏状态 status : %@, message : %@", responseDic[@"status"], responseDic[@"message"]);
         self.favourateView.userInteractionEnabled = YES;
         if ([responseDic[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
         }
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         //failure
         self.voteView.userInteractionEnabled = YES;
         NSLog(@"收藏 failure ：%@", error);
@@ -599,11 +599,11 @@
     addViewCountUrlString = [NSString stringWithFormat:@"%@?&objId=%@&tableName=%@", addViewCountUrlString, objId, tableName];
     NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);
     //创建AAFNetWorKing管理者
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);
-    [manager GET:addViewCountUrlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager GET:addViewCountUrlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         //success
         //        NSLog(@"get vote info sucess. vote status : %@", responseDic[@"message"]);
@@ -618,7 +618,7 @@
         }
         
         [self updateVoteImageView];
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         NSLog(@"向服务器增加视频数失败，error：%@", error);
     }];
 }
