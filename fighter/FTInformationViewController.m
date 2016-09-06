@@ -75,6 +75,8 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
+    
     [MobClick event:@"mainPage_BoxingNews"];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -86,10 +88,7 @@
     
 }
 
-- (void) viewDidAppear:(BOOL)animated {
-    
-   
-}
+
 
 
 - (void)initTypeArray{
