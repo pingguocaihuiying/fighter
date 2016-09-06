@@ -200,6 +200,12 @@
 		3DE95BA81CD86FA4005BF85C /* FTLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE95BA61CD86FA4005BF85C /* FTLoginViewController.xib */; };
 		3DE95BAD1CD8A042005BF85C /* FTRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95BAB1CD8A042005BF85C /* FTRegistViewController.m */; };
 		3DE95BAE1CD8A042005BF85C /* FTRegistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE95BAC1CD8A042005BF85C /* FTRegistViewController.xib */; };
+		3DF06C651D7E91F400623E45 /* FTGymDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF06C641D7E91F400623E45 /* FTGymDetailController.m */; };
+		3DF06C671D7E921B00623E45 /* FTGymDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DF06C661D7E921B00623E45 /* FTGymDetailController.xib */; };
+		3DF06C6C1D7E9A8800623E45 /* FTShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF06C6A1D7E9A8800623E45 /* FTShopViewController.m */; };
+		3DF06C6D1D7E9A8800623E45 /* FTShopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DF06C6B1D7E9A8800623E45 /* FTShopViewController.xib */; };
+		3DF06C711D7EBB2700623E45 /* FTShopNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF06C6F1D7EBB2700623E45 /* FTShopNewViewController.m */; };
+		3DF06C721D7EBB2700623E45 /* FTShopNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DF06C701D7EBB2700623E45 /* FTShopNewViewController.xib */; };
 		3DF658DA1D22440B009BDEF6 /* FTCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF658D91D22440B009BDEF6 /* FTCycleScrollView.m */; };
 		3DF86AE91D2E0900001A644B /* FTEncoderAndDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF86AE81D2E0900001A644B /* FTEncoderAndDecoder.m */; };
 		3DF90BB11CFED21C00BD83F8 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF90BB01CFED21C00BD83F8 /* CoreText.framework */; };
@@ -690,6 +696,15 @@
 		3DE95BAA1CD8A042005BF85C /* FTRegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRegistViewController.h; sourceTree = "<group>"; };
 		3DE95BAB1CD8A042005BF85C /* FTRegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRegistViewController.m; sourceTree = "<group>"; };
 		3DE95BAC1CD8A042005BF85C /* FTRegistViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRegistViewController.xib; sourceTree = "<group>"; };
+		3DF06C631D7E91F400623E45 /* FTGymDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymDetailController.h; sourceTree = "<group>"; };
+		3DF06C641D7E91F400623E45 /* FTGymDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymDetailController.m; sourceTree = "<group>"; };
+		3DF06C661D7E921B00623E45 /* FTGymDetailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymDetailController.xib; sourceTree = "<group>"; };
+		3DF06C691D7E9A8800623E45 /* FTShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTShopViewController.h; sourceTree = "<group>"; };
+		3DF06C6A1D7E9A8800623E45 /* FTShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTShopViewController.m; sourceTree = "<group>"; };
+		3DF06C6B1D7E9A8800623E45 /* FTShopViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTShopViewController.xib; sourceTree = "<group>"; };
+		3DF06C6E1D7EBB2700623E45 /* FTShopNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTShopNewViewController.h; sourceTree = "<group>"; };
+		3DF06C6F1D7EBB2700623E45 /* FTShopNewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTShopNewViewController.m; sourceTree = "<group>"; };
+		3DF06C701D7EBB2700623E45 /* FTShopNewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTShopNewViewController.xib; sourceTree = "<group>"; };
 		3DF658D81D22440B009BDEF6 /* FTCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCycleScrollView.h; sourceTree = "<group>"; };
 		3DF658D91D22440B009BDEF6 /* FTCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCycleScrollView.m; sourceTree = "<group>"; };
 		3DF86AE71D2E0900001A644B /* FTEncoderAndDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTEncoderAndDecoder.h; sourceTree = "<group>"; };
@@ -1733,6 +1748,9 @@
 				3DE1DEE81D3F071600511E92 /* FTGymDetailWebViewController.h */,
 				3DE1DEE91D3F071600511E92 /* FTGymDetailWebViewController.m */,
 				3DE1DEEA1D3F071600511E92 /* FTGymDetailWebViewController.xib */,
+				3DF06C631D7E91F400623E45 /* FTGymDetailController.h */,
+				3DF06C641D7E91F400623E45 /* FTGymDetailController.m */,
+				3DF06C661D7E921B00623E45 /* FTGymDetailController.xib */,
 			);
 			name = detail;
 			sourceTree = "<group>";
@@ -1763,6 +1781,19 @@
 				3DE95BAC1CD8A042005BF85C /* FTRegistViewController.xib */,
 			);
 			name = login;
+			sourceTree = "<group>";
+		};
+		3DF06C681D7E99F900623E45 /* 商城 */ = {
+			isa = PBXGroup;
+			children = (
+				3DF06C691D7E9A8800623E45 /* FTShopViewController.h */,
+				3DF06C6A1D7E9A8800623E45 /* FTShopViewController.m */,
+				3DF06C6B1D7E9A8800623E45 /* FTShopViewController.xib */,
+				3DF06C6E1D7EBB2700623E45 /* FTShopNewViewController.h */,
+				3DF06C6F1D7EBB2700623E45 /* FTShopNewViewController.m */,
+				3DF06C701D7EBB2700623E45 /* FTShopNewViewController.xib */,
+			);
+			name = "商城";
 			sourceTree = "<group>";
 		};
 		3DFC413E1D083A3F0067AC72 /* SDCycleScrollView */ = {
@@ -2589,6 +2620,7 @@
 		E6B458921CB7554F00FB4261 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				3DF06C681D7E99F900623E45 /* 商城 */,
 				3D6ABC841D66E39200CD37C8 /* 日常任务 */,
 				3D20193B1D582F2D009E80B1 /* 兑吧 */,
 				3DDE29AF1D2B5C2500876B30 /* 支付 */,
@@ -3136,6 +3168,7 @@
 				E627EE671D25273F00B424F5 /* FTGymCell.xib in Resources */,
 				E61AC8E21D73D90D00ECA283 /* FTBetView0.xib in Resources */,
 				3DC9A4EF1CE5CD0700E16D19 /* FTRankViewController.xib in Resources */,
+				3DF06C671D7E921B00623E45 /* FTGymDetailController.xib in Resources */,
 				3D4B194A1CDACF9A0022DFB0 /* FTUserCenterViewController.xib in Resources */,
 				E6B239031D066C88001F86BE /* FTHomepageCommentListViewController.xib in Resources */,
 				E67096911D2FA6BB00DB9F53 /* FTGymTimeSectionTableViewCell.xib in Resources */,
@@ -3147,11 +3180,13 @@
 				3D4122321D4F3F0E007EB996 /* FTAuthenticationView.xib in Resources */,
 				E627EE621D25122C00B424F5 /* FTChooseGymOrOpponentListViewController.xib in Resources */,
 				3D9001BC1D378CC100F9F60B /* FTTeachVideoDetailController.xib in Resources */,
+				3DF06C6D1D7E9A8800623E45 /* FTShopViewController.xib in Resources */,
 				3D4B19591CDB0CD90022DFB0 /* FTPropertySetingViewController.xib in Resources */,
 				9258ED2F1D530C6200F489A5 /* FTMatchLiveViewController.xib in Resources */,
 				3D6DA0E21CEEA96D00BAA8F0 /* FTBoxerCenter.xib in Resources */,
 				3DC9A4EA1CE5CC6C00E16D19 /* FTRankBaseViewController.xib in Resources */,
 				E6E688E91D002FB700708C24 /* FTHomepageRecordListTableViewCell.xib in Resources */,
+				3DF06C721D7EBB2700623E45 /* FTShopNewViewController.xib in Resources */,
 				3D7B98AA1CE048F200B80B8D /* FTManagerAccountViewController.xib in Resources */,
 				E67872741CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib in Resources */,
 				E6B7D2011CF6A750004191A3 /* FTArenaViewController.xib in Resources */,
@@ -3398,6 +3433,7 @@
 				3D6DA0E11CEEA96D00BAA8F0 /* FTBoxerCenter.m in Sources */,
 				E65EFC201CC89BD40039EE8A /* FTUserConfig.m in Sources */,
 				3D344FE51D5B048300786FD4 /* FTDuiBaWebView.m in Sources */,
+				3DF06C711D7EBB2700623E45 /* FTShopNewViewController.m in Sources */,
 				E6A9DDBF1CD9C88600CB9518 /* FTVideoDetailViewController.m in Sources */,
 				3D7C6B7C1CF2A2380088400D /* BoxerVideoController.m in Sources */,
 				3D5FB4BE1CDC7E6600FC1809 /* FTImageCollectionCell.m in Sources */,
@@ -3482,6 +3518,7 @@
 				E6AD700F1CF80CFA00329D1E /* FTLYZButton.m in Sources */,
 				3D4B195F1CDB56EF0022DFB0 /* FTHeightPickerView.m in Sources */,
 				E68050BE1CBF919A00678905 /* JHRefreshHeaderView.m in Sources */,
+				3DF06C651D7E91F400623E45 /* FTGymDetailController.m in Sources */,
 				E67096901D2FA6BB00DB9F53 /* FTGymTimeSectionTableViewCell.m in Sources */,
 				E6DB76131CBB9B430034253C /* FTOneImageInfoTableViewCell.m in Sources */,
 				3D8D73BD1CE97404009E2320 /* FTTableViewCell6.m in Sources */,
@@ -3491,6 +3528,7 @@
 				3D4122361D506A4B007EB996 /* FTPropertyCell.m in Sources */,
 				3D7B98B41CE06F9800B80B8D /* FTInputNewPhoneViewController.m in Sources */,
 				E6133A6C1CED6F8E00F53381 /* FTArenaBean.m in Sources */,
+				3DF06C6C1D7E9A8800623E45 /* FTShopViewController.m in Sources */,
 				3DFC41541D083A3F0067AC72 /* UIView+SDExtension.m in Sources */,
 				3D9001BB1D378CC100F9F60B /* FTTeachVideoDetailController.m in Sources */,
 				3D4B19531CDAEF840022DFB0 /* FTTableViewCell4.m in Sources */,
@@ -3763,8 +3801,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3813,8 +3851,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

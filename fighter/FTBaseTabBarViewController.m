@@ -8,6 +8,8 @@
 
 #import "FTBaseTabBarViewController.h"
 #import "FTStoreViewController.h"
+#import "FTShopViewController.h"
+
 #import "FTRankViewController.h"
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
@@ -315,7 +317,10 @@
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
 
-    if (tabBarController.selectedIndex != 3 && [viewController isKindOfClass:[FTStoreViewController class]]) {
+    @try {
+        
+    
+    if (tabBarController.selectedIndex != 4 && [viewController isKindOfClass:[FTShopViewController class]]) {
         
         //从本地读取存储的用户信息
         NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
@@ -334,7 +339,11 @@
         }
         
     }
-    
+    } @catch (NSException *exception) {
+        NSLog(@"exception:%@",exception);
+    } @finally {
+        
+    }
     return YES;
 }
 
