@@ -45,6 +45,8 @@
 		3D322AC91CEB171200039E2C /* FTRankHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D322AC71CEB171200039E2C /* FTRankHeaderCell.m */; };
 		3D322ACA1CEB171200039E2C /* FTRankHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D322AC81CEB171200039E2C /* FTRankHeaderCell.xib */; };
 		3D344FE51D5B048300786FD4 /* FTDuiBaWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D344FE41D5B048300786FD4 /* FTDuiBaWebView.m */; };
+		3D4040AD1D80060C00CDA675 /* FTGymLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4040AB1D80060C00CDA675 /* FTGymLevelCell.m */; };
+		3D4040AE1D80060C00CDA675 /* FTGymLevelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4040AC1D80060C00CDA675 /* FTGymLevelCell.xib */; };
 		3D41221B1D4F1EDA007EB996 /* FTAvatarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4122191D4F1EDA007EB996 /* FTAvatarCell.m */; };
 		3D41221C1D4F1EDA007EB996 /* FTAvatarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D41221A1D4F1EDA007EB996 /* FTAvatarCell.xib */; };
 		3D4122201D4F253E007EB996 /* FTLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D41221E1D4F253E007EB996 /* FTLabelCell.m */; };
@@ -453,6 +455,9 @@
 		3D322AC81CEB171200039E2C /* FTRankHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRankHeaderCell.xib; sourceTree = "<group>"; };
 		3D344FE31D5B048300786FD4 /* FTDuiBaWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDuiBaWebView.h; sourceTree = "<group>"; };
 		3D344FE41D5B048300786FD4 /* FTDuiBaWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDuiBaWebView.m; sourceTree = "<group>"; };
+		3D4040AA1D80060C00CDA675 /* FTGymLevelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymLevelCell.h; sourceTree = "<group>"; };
+		3D4040AB1D80060C00CDA675 /* FTGymLevelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymLevelCell.m; sourceTree = "<group>"; };
+		3D4040AC1D80060C00CDA675 /* FTGymLevelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymLevelCell.xib; sourceTree = "<group>"; };
 		3D4122181D4F1EDA007EB996 /* FTAvatarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTAvatarCell.h; sourceTree = "<group>"; };
 		3D4122191D4F1EDA007EB996 /* FTAvatarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTAvatarCell.m; sourceTree = "<group>"; };
 		3D41221A1D4F1EDA007EB996 /* FTAvatarCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTAvatarCell.xib; sourceTree = "<group>"; };
@@ -714,7 +719,6 @@
 		3DF06C731D7FC6C000623E45 /* FTShopOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTShopOrderViewController.h; sourceTree = "<group>"; };
 		3DF06C741D7FC6C000623E45 /* FTShopOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTShopOrderViewController.m; sourceTree = "<group>"; };
 		3DF06C751D7FC6C000623E45 /* FTShopOrderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTShopOrderViewController.xib; sourceTree = "<group>"; };
-		3DF06C7C1D7FFFAF00623E45 /* FTGymLevelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymLevelCell.h; sourceTree = "<group>"; };
 		3DF06C7D1D7FFFAF00623E45 /* FTGymLevelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymLevelCell.m; sourceTree = "<group>"; };
 		3DF06C7E1D7FFFAF00623E45 /* FTGymLevelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymLevelCell.xib; sourceTree = "<group>"; };
 		3DF658D81D22440B009BDEF6 /* FTCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCycleScrollView.h; sourceTree = "<group>"; };
@@ -1258,6 +1262,16 @@
 			name = customView;
 			sourceTree = "<group>";
 		};
+		3D4040A91D8005BB00CDA675 /* 拳馆评价cell */ = {
+			isa = PBXGroup;
+			children = (
+				3D4040AA1D80060C00CDA675 /* FTGymLevelCell.h */,
+				3D4040AB1D80060C00CDA675 /* FTGymLevelCell.m */,
+				3D4040AC1D80060C00CDA675 /* FTGymLevelCell.xib */,
+			);
+			name = "拳馆评价cell";
+			sourceTree = "<group>";
+		};
 		3D4122121D4F17DB007EB996 /* 个人资料 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1606,6 +1620,7 @@
 		3D8B2E551D1D14BC00E18280 /* cell */ = {
 			isa = PBXGroup;
 			children = (
+				3D4040A91D8005BB00CDA675 /* 拳馆评价cell */,
 				E6555ACF1D7FF6AD00748E66 /* 拳馆列表cell */,
 			);
 			name = cell;
@@ -1808,40 +1823,6 @@
 				3DF06C751D7FC6C000623E45 /* FTShopOrderViewController.xib */,
 			);
 			name = "商城";
-			sourceTree = "<group>";
-		};
-		3DF06C781D7FFE7300623E45 /* 拳馆评价 */ = {
-			isa = PBXGroup;
-			children = (
-				3DF06C7A1D7FFEB500623E45 /* view */,
-				3DF06C791D7FFE9900623E45 /* controller */,
-			);
-			name = "拳馆评价";
-			sourceTree = "<group>";
-		};
-		3DF06C791D7FFE9900623E45 /* controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = controller;
-			sourceTree = "<group>";
-		};
-		3DF06C7A1D7FFEB500623E45 /* view */ = {
-			isa = PBXGroup;
-			children = (
-				3DF06C7B1D7FFF5100623E45 /* cell */,
-			);
-			name = view;
-			sourceTree = "<group>";
-		};
-		3DF06C7B1D7FFF5100623E45 /* cell */ = {
-			isa = PBXGroup;
-			children = (
-				3DF06C7C1D7FFFAF00623E45 /* FTGymLevelCell.h */,
-				3DF06C7D1D7FFFAF00623E45 /* FTGymLevelCell.m */,
-				3DF06C7E1D7FFFAF00623E45 /* FTGymLevelCell.xib */,
-			);
-			name = cell;
 			sourceTree = "<group>";
 		};
 		3DFC413E1D083A3F0067AC72 /* SDCycleScrollView */ = {
@@ -3279,6 +3260,7 @@
 				E627EE621D25122C00B424F5 /* FTChooseGymOrOpponentListViewController.xib in Resources */,
 				3D9001BC1D378CC100F9F60B /* FTTeachVideoDetailController.xib in Resources */,
 				3DF06C6D1D7E9A8800623E45 /* FTShopViewController.xib in Resources */,
+				3D4040AE1D80060C00CDA675 /* FTGymLevelCell.xib in Resources */,
 				3D4B19591CDB0CD90022DFB0 /* FTPropertySetingViewController.xib in Resources */,
 				9258ED2F1D530C6200F489A5 /* FTMatchLiveViewController.xib in Resources */,
 				3D6DA0E21CEEA96D00BAA8F0 /* FTBoxerCenter.xib in Resources */,
@@ -3581,6 +3563,7 @@
 				E6B4589A1CB7563300FB4261 /* FTBaseViewController.m in Sources */,
 				3D7B98C81CE0D76800B80B8D /* FTWeixinInfoVC.m in Sources */,
 				E68050BB1CBF919A00678905 /* JHRefreshBaseView.m in Sources */,
+				3D4040AD1D80060C00CDA675 /* FTGymLevelCell.m in Sources */,
 				E6C5F4DC1D6EF55000F15AA3 /* FTLoadingView.m in Sources */,
 				E65F90B61CBDF106005CA3E6 /* NetWorking.m in Sources */,
 				3D9CA4041D5F0AE800B9622B /* UIView+MBProgressHUD.m in Sources */,
