@@ -9,6 +9,7 @@
 #import "FTShopNewViewController.h"
 #import "WXApi.h"
 #import "FTShopOrderViewController.h"
+#import "FTShopViewController.h"
 
 @interface FTShopNewViewController () <UIWebViewDelegate,UIAlertViewDelegate>
 {
@@ -49,6 +50,8 @@
     
     [self initWebView];
     
+    [self setNotifications];
+    
 }
 
 
@@ -59,6 +62,11 @@
     
     //添加监听器，充值购买
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxPayCallback:) name:WXPayResultNoti object:nil];
+    
+    if(self.needRefreshUrl!=nil){
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.needRefreshUrl]]];
+        self.needRefreshUrl=nil;
+    }
     
 }
 
@@ -80,6 +88,13 @@
 }
 
 #pragma mark - 初始化
+- (void) setNotifications {
+
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(shouldBackRefresh:) name:@"dbbackrefresh" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(shouldBackRoot:) name:@"dbbackroot" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(shouldBackRootRefresh:) name:@"dbbackrootrefresh" object:nil];
+    
+}
 
 - (void) initNavigationBar {
     
@@ -221,14 +236,7 @@
         return NO;
     }
     
-    // 打开新页面
-    if([url rangeOfString:@"dbnewopen"].location!=NSNotFound){
-        [url replaceCharactersInRange:[url rangeOfString:@"dbnewopen"] withString:@"none"];
-        
-        [self openNewVC:url];
-        return NO;
-    }
-    
+   
     
     // 刷新积分
     if([url rangeOfString:@"refreshPoint"].location!=NSNotFound){
@@ -236,16 +244,32 @@
         
         // 发送通知
         [[NSNotificationCenter defaultCenter] postNotificationName:RechargeResultNoti object:@"RECHARGE"];
-        
         return NO;
     }
     
-    // 后退并刷新
-    if([url rangeOfString:@"dbbackrefresh"].location!=NSNotFound){
-        [url replaceCharactersInRange:[url rangeOfString:@"dbbackrefresh"] withString:@"none"];
+    if([url rangeOfString:@"dbnewopen"].location!=NSNotFound){
+        [url replaceCharactersInRange:[url rangeOfString:@"dbnewopen"] withString:@"none"];
+        [self openNewVC:url];
+        return NO;
         
-        // 发送通知
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"dbbackrefresh" object:nil];
+    }else if([url rangeOfString:@"dbbackrefresh"].location!=NSNotFound){
+        [url replaceCharactersInRange:[url rangeOfString:@"dbbackrefresh"] withString:@"none"];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"dbbackrefresh" object:nil userInfo:[NSDictionary dictionaryWithObject:url  forKey:@"url"]];
+        return  NO;
+        
+    }else if([url rangeOfString:@"dbbackrootrefresh"].location!=NSNotFound){
+        [url replaceCharactersInRange:[url rangeOfString:@"dbbackrootrefresh"] withString:@"none"];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"dbbackrootrefresh" object:nil userInfo:[NSDictionary dictionaryWithObject:url forKey:@"url"]];
+        return NO;
+        
+    }else if([url rangeOfString:@"dbbackroot"].location!=NSNotFound){
+        [url replaceCharactersInRange:[url rangeOfString:@"dbbackroot"] withString:@"none"];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"dbbackroot" object:nil userInfo:[NSDictionary dictionaryWithObject:url forKey:@"url"]];
+        return NO;
+    }else if([url rangeOfString:@"dbback"].location!=NSNotFound){
+        
+        [url replaceCharactersInRange:[url rangeOfString:@"dbback"] withString:@"none"];
+        [self.navigationController popViewControllerAnimated:YES];
         
         return NO;
     }
@@ -260,6 +284,30 @@
     [self.navigationController pushViewController:newvc animated:YES];
 }
 
+-(void)shouldBackRefresh:(NSNotification*) notification{
+    NSInteger count = [self.navigationController.viewControllers count];
+    
+    
+    if(count>1){
+        FTShopNewViewController *second=[self.navigationController.viewControllers objectAtIndex:count-2];
+        second.needRefreshUrl=[notification.userInfo objectForKey:@"url"];
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)shouldBackRoot:(NSNotification*)notification{
+   
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+-(void)shouldBackRootRefresh:(NSNotification*)notification{
+    
+    FTShopViewController *rootVC= [self.navigationController.viewControllers objectAtIndex:0];
+    rootVC.needRefreshUrl=[notification.userInfo objectForKey:@"url"];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+}
 #pragma mark - 监听器回调
 
 - (void) rechargeCallback:(NSNotification *) noti {
