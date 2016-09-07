@@ -76,7 +76,6 @@
     
     [self.webView loadRequest: request];
 
-    
 }
 
 
@@ -85,8 +84,11 @@
 - (void) backBtnAction:(id)sender {
     
     [self.navigationController popViewControllerAnimated:YES];
-    
 }
 
+-(void)webViewDidFinishLoad:(UIWebView *)webView{
+    
+    self.title=[webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+}
 
 @end
