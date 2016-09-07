@@ -242,3 +242,6 @@ extern NSString * const DuiBaCheckCharegeURL ;
 
 // 商城首页
 extern NSString * const ShopURL;
+// 订单页
+extern NSString * const ShopOrderURL;
+

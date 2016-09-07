@@ -288,6 +288,14 @@
 // 验证app内购接口
 + (void) checkIAPByOrderNO:(NSString *)orderNO receipt:(NSString *) receipt transactionId:(NSString*)transactionId option:(void(^)(NSDictionary *dict))option;
 
+
+#pragma mark - 微信支付
+// 微信支付
++ (void)wxPayWithParamDic:(NSDictionary *)dic andOption:(void (^)(NSDictionary *dic))option ;
+// 微信支付结果查询
++ (void)wxPayStatusWithOrderNO:(NSString *)orederNO andOption:(void (^)(NSDictionary *dic))option ;
+
+
 #pragma mark - 获取标签
 // 获取教学视频标签
 + (void) getTeachLabelsWithOption:(void(^)(NSDictionary *dict))option;

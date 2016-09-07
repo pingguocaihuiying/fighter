@@ -271,5 +271,6 @@ NSString * const DuiBaChargeURL = @"/api/duiba/exchangeShop.do";
 NSString * const DuiBaCheckCharegeURL = @"/api/duiba/exchangeShopStates.do";
 
 NSString * const ShopURL = @"/shop/index.html";
+NSString * const ShopOrderURL = @"/shop/order.html";
 
 
