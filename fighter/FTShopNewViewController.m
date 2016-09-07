@@ -216,11 +216,33 @@
         
         return NO;
     }
-
+    
+    // 打开新页面
     if([url rangeOfString:@"dbnewopen"].location!=NSNotFound){
         [url replaceCharactersInRange:[url rangeOfString:@"dbnewopen"] withString:@"none"];
         
         [self openNewVC:url];
+        return NO;
+    }
+    
+    
+    // 刷新积分
+    if([url rangeOfString:@"refreshPoint"].location!=NSNotFound){
+        [url replaceCharactersInRange:[url rangeOfString:@"refreshPoint"] withString:@"none"];
+        
+        // 发送通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:RechargeResultNoti object:@"RECHARGE"];
+        
+        return NO;
+    }
+    
+    // 后退并刷新积分
+    if([url rangeOfString:@"dbbackrefresh"].location!=NSNotFound){
+        [url replaceCharactersInRange:[url rangeOfString:@"dbbackrefresh"] withString:@"none"];
+        
+        // 发送通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:RechargeResultNoti object:@"RECHARGE"];
+        
         return NO;
     }
 
