@@ -270,6 +270,7 @@ NSString * const DuiBaChargeURL = @"/api/duiba/exchangeShop.do";
 // 兑吧确定扣除积分接口
 NSString * const DuiBaCheckCharegeURL = @"/api/duiba/exchangeShopStates.do";
 
-
+NSString * const ShopURL = @"/shop/index.html";
+NSString * const ShopOrderURL = @"/shop/order.html";
 
 

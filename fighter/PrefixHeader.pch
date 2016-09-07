@@ -91,6 +91,7 @@
 #define WXLoginSecret_Key @"quanjijia123456"
 
 // 通知
+#define WXPayResultNoti @"WXPayResultNoti"
 #define WXLoginResultNoti @"WXLoginResutlNoti"
 #define WXShareResultNoti @"WXShareResultNoti"
 #define QQShareResultNoti @"QQShareResultNoti"

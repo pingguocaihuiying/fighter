@@ -240,3 +240,8 @@ extern NSString * const DuiBaChargeURL ;
 // 兑吧确定扣除积分接口
 extern NSString * const DuiBaCheckCharegeURL ;
 
+// 商城首页
+extern NSString * const ShopURL;
+// 订单页
+extern NSString * const ShopOrderURL;
+

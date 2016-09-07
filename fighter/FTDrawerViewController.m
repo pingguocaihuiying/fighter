@@ -44,7 +44,8 @@
 #import "FTPayViewController.h"
 
 #import "FTRankViewController.h"
-#import "FTStoreViewController.h"
+#import "FTStoreViewController.h" // 之前版本用兑吧商城，现在用自定义H5页面
+#import "FTShopViewController.h"  // 新版本商城
 
 #import "FTFightingViewController.h"
 
@@ -788,7 +789,7 @@ static NSString *const tableCellId = @"tableCellId";
     
     
     // 版本1.6 隐藏兑吧商城
-//    // 兑吧
+    // 兑吧
 //    FTStoreViewController *duibaVC = [FTStoreViewController new];
 //    duibaVC.title = @"格斗商城";
 //    duibaVC.tabBarItem.title = @"格斗商城";
@@ -798,7 +799,17 @@ static NSString *const tableCellId = @"tableCellId";
 //    
 //    duibaVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-商城"];
 //    duibaVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-商城pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-
+    
+    // 自定义H5页面商城
+    FTShopViewController *shopVC = [FTShopViewController new];
+    shopVC.title = @"格斗商城";
+    shopVC.tabBarItem.title = @"格斗商城";
+    [shopVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
+                                                nil] forState:UIControlStateSelected];
+    
+    shopVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-商城"];
+    shopVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-商城pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 
     // 设置tabbar的属性
     _tabBarVC = [FTBaseTabBarViewController new];
@@ -826,18 +837,20 @@ static NSString *const tableCellId = @"tableCellId";
     
     _tabBarVC.viewControllers = @[infoVC,fightingVC,practiceVC,rankHomeVC];
     
+//     _tabBarVC.viewControllers = @[infoVC,fightingVC,practiceVC,rankHomeVC,shopVC];
+    
     FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:_tabBarVC];
     [self.dynamicsDrawerViewController  setPaneViewController:navi];
     
     
-////    [self getDuibaConfigInfo:^{
-////        
-////        if (_duibaConfig == 0) {
-////            
-////           [self addTabBarVC:duibaVC];
-////        }
-////
-//    }];
+    [self getDuibaConfigInfo:^{
+        
+        if (_duibaConfig == 0) {
+            
+           [self addTabBarVC:shopVC];
+        }
+
+    }];
     
     // 推送
     [self checkPush];

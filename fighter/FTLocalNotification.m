@@ -13,38 +13,65 @@
 // 注册东西任务本地通知
 + (void) registTaskNotification {
 
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"HH:mm:ss"];
-    NSDate *now = [formatter dateFromString:@"18:10:00"];//触发通知的时间
-
-    UILocalNotification *noti = [[UILocalNotification alloc] init];
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateFormat:@"HH:mm:ss"];
+//    NSDate *now = [formatter dateFromString:@"18:10:00"];//触发通知的时间
+//
+//    UILocalNotification *noti = [[UILocalNotification alloc] init];
+//    
+//    if (noti) {
+//        
+//        //设置推送时间
+//        noti.fireDate = now;//=now
+//        //设置时区
+//        noti.timeZone = [NSTimeZone defaultTimeZone];
+//        //设置重复间隔
+//        noti.repeatInterval = NSCalendarUnitDay;//NSCalendarUnitMinute ,NSCalendarUnitDay
+//        //推送声音
+//        noti.soundName = UILocalNotificationDefaultSoundName;
+//        
+//        
+//        //内容
+//        noti.alertBody = @"今日东西任务已经刷新，赶紧去赚积分吧！";
+//        
+//        //设置userinfo 方便在之后需要撤销的时候使用
+//        NSDictionary *infoDic = [NSDictionary dictionaryWithObject:@"taskLocalNotification" forKey:@"taskLocalNotification"];
+//        noti.userInfo = infoDic;
+//        
+//        //添加推送到uiapplication
+//        UIApplication *app = [UIApplication sharedApplication];
+//        [app scheduleLocalNotification:noti];
+//    }
     
-    if (noti) {
-        
-        //设置推送时间
-        noti.fireDate = now;//=now
-        //设置时区
-        noti.timeZone = [NSTimeZone defaultTimeZone];
-        //设置重复间隔
-        noti.repeatInterval = NSCalendarUnitDay;//NSCalendarUnitMinute ,NSCalendarUnitDay
-        //推送声音
-        noti.soundName = UILocalNotificationDefaultSoundName;
-        
-        
-        //内容
-        noti.alertBody = @"今日东西任务已经刷新，赶紧去赚积分吧！";
-        
-        //设置userinfo 方便在之后需要撤销的时候使用
-        NSDictionary *infoDic = [NSDictionary dictionaryWithObject:@"taskLocalNotification" forKey:@"taskLocalNotification"];
-        noti.userInfo = infoDic;
-        
-        //添加推送到uiapplication
-        UIApplication *app = [UIApplication sharedApplication];
-        [app scheduleLocalNotification:noti];
-    }
+//    [[NSUserDefaults standardUserDefaults] setObject:@"taskNotification" forKey:@"taskNotification"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    
+
+    
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDate *date = [NSDate date];
+    NSDateComponents *componentsForFireDate = [calendar components:(NSCalendarUnitYear | NSCalendarUnitWeekOfYear|  NSCalendarUnitHour | NSCalendarUnitMinute| NSCalendarUnitSecond | NSCalendarUnitWeekday) fromDate: date];
+//    [componentsForFireDate setWeekday: 1] ; //for fixing Sunday
+    [componentsForFireDate setHour: 18] ; //for fixing 8PM hour
+    [componentsForFireDate setMinute:10] ;
+    [componentsForFireDate setSecond:0] ;
+    
+    NSDate *fireDateOfNotification = [calendar dateFromComponents: componentsForFireDate];
+    UILocalNotification *notification = [[UILocalNotification alloc]  init] ;
+    notification.fireDate = fireDateOfNotification ;
+    notification.timeZone = [NSTimeZone localTimeZone] ;
+    notification.alertBody = [NSString stringWithFormat: @"今日东西任务已经刷新，赶紧去赚积分吧！"] ;
+    notification.userInfo= [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"taskLocalNotification"] forKey:@"taskLocalNotification"];
+    notification.repeatInterval= NSCalendarUnitDay ;//NSCalendarUnitMinute ,NSCalendarUnitDay
+    notification.soundName=UILocalNotificationDefaultSoundName;
+    
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification] ;
     
     [[NSUserDefaults standardUserDefaults] setObject:@"taskNotification" forKey:@"taskNotification"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
 }
 
 

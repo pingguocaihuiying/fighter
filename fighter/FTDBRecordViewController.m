@@ -74,10 +74,6 @@ static NSString *originUserAgent;
     
     [super viewDidLoad];
     
-   
-    
-    [super viewDidLoad];
-    
     [self initNavigationBar];
     
     [self initWebView];
