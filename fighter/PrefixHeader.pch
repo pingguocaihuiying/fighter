@@ -27,6 +27,7 @@
 
     //标准红
 #define Custom_Red [UIColor colorWithHex:0xbe1e1e]
+#define Custom_Red_Value 0xbe1e1e
 
 //导入一些工具类
 #import "UIColor+YBColorCategory.h"

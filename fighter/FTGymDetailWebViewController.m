@@ -14,15 +14,19 @@
 #import "FTShareView.h"
 #import "FTEncoderAndDecoder.h"
 #import "NetWorking.h"
+#import "FTPayForGymVIPViewController.h"
+
 
 @interface FTGymDetailWebViewController ()<UIWebViewDelegate, CommentSuccessDelegate>
 {
     UIWebView *_webView;
     UIImageView *_loadingImageView;
     UIImageView *_loadingBgImageView;
+    
 }
 
 @property (nonatomic, copy)NSString *webUrlString;
+@property (nonatomic, strong) UITableView *tableView;//主tableview
 @end
 
 @implementation FTGymDetailWebViewController
@@ -85,9 +89,15 @@
 
 - (void)setSubViews{
     
-    [self setWebView];
+//    [self setWebView];
     
-    [self setLoadingImageView];
+//    [self setLoadingImageView];
+    [self setTableView];
+}
+
+#pragma mark - 设置tableView
+- (void)setTableView{
+    
 }
 
 // 设置webView
@@ -196,12 +206,17 @@
     
     [self.navigationController popViewControllerAnimated:YES];
 }
+- (IBAction)becomeVIPButtonClicked:(id)sender {
+    NSLog(@"成为会员");
+    FTPayForGymVIPViewController *payForGymVIPViewController = [[FTPayForGymVIPViewController alloc]init];
+    
+    [self.navigationController pushViewController:payForGymVIPViewController animated:YES];
+}
 
 #pragma mark - private method
 
 // 跳转登录界面方法
 - (void)login{
-    
     FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
     loginVC.title = @"登录";
     FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];

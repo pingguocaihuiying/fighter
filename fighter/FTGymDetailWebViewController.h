@@ -14,7 +14,7 @@
 
 // bottom view
 @property (weak, nonatomic) IBOutlet UIView *focusView; //关注
-@property (weak, nonatomic) IBOutlet UIView *shareView; // 分享
+//@property (weak, nonatomic) IBOutlet UIView *shareView; // 分享（9月1日 如掉了底部的分享功能）
 @property (weak, nonatomic) IBOutlet UIView *commentView; // 评论
 @property (weak, nonatomic) IBOutlet UIView *voteView; //拨号
 
@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *commentBtn; //评论按钮
 @property (weak, nonatomic) IBOutlet UIButton *shareBtn;// 分享按钮
 @property (weak, nonatomic) IBOutlet UIButton *dialBtn; // 点赞按钮
+@property (strong, nonatomic) IBOutlet UIButton *becomeVIPButton;
 
 
 @property (nonatomic, assign)BOOL hasVote;
