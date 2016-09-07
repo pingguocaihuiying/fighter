@@ -1680,6 +1680,64 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                       option:option];
 }
 
+
+#pragma mark - 微信支付
+// 微信支付
++ (void)wxPayWithParamDic:(NSDictionary *)dic andOption:(void (^)(NSDictionary *dic))option {
+    NSString *urlString = [FTNetConfig host:Domain path:WXPayURL];//GetWXPayStatus
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    //    NSLog(@"getGymInfoById %@", urlString);
+    [manager POST:urlString parameters:dic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSString *status = responseDic[@"status"];
+        NSLog(@"message : %@", responseDic[@"message"]);
+        if ([status isEqualToString:@"success"]) {
+            NSDictionary *dic = responseDic[@"data"];
+            
+            option(dic);
+        }else{
+            option(nil);
+        }
+    } failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
+        option(nil);
+    }];
+    
+    [self postRequestWithUrl:urlString parameters:dic option:option];
+}
+
+// 微信支付结果查询
++ (void)wxPayStatusWithOrderNO:(NSString *)orederNO andOption:(void (^)(NSDictionary *dic))option {
+    
+   
+    FTUserBean *localUser = [FTUserBean loginUser];
+    
+    if (!localUser) {
+        return;
+    }
+    
+    NSString *urlString = [FTNetConfig host:Domain path:GetWXPayStatus];//
+    
+    NSString *orderNo = orederNO;
+    NSString *userId = localUser.olduserid;
+    NSString *token = localUser.token;
+    // 时间戳
+    NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",token, orderNo,ts,userId,@"gedoujiagfdshgdfhlkgfkhgf526gfrd"]];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:orderNo forKey:@"out_trade_no"];
+    [dic setObject:userId forKey:@"userId"];
+    [dic setObject:token forKey:@"loginToken"];
+    [dic setObject:ts forKey:@"ts"];
+    [dic setObject:checkSign forKey:@"checkSign"];
+    
+    [self postRequestWithUrl:urlString parameters:dic option:option];
+}
+
 #pragma mark - 获取标签
 // 获取教学视频标签
 + (void) getTeachLabelsWithOption:(void(^)(NSDictionary *dict))option {

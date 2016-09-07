@@ -239,11 +239,13 @@ static WXSingleton * wxSingleton = nil;
         PayResp*response=(PayResp*)resp;
         switch(response.errCode){
             case WXSuccess:
+                [[NSNotificationCenter defaultCenter]postNotificationName:WXPayResultNoti object:@"SUCESS"];
                 //服务器端查询支付通知或查询API返回的结果再提示成功
                 NSLog(@"支付成功");
                 break;
             default:
                 NSLog(@"支付失败，retcode=%d",resp.errCode);
+                [[NSNotificationCenter defaultCenter]postNotificationName:WXPayResultNoti object:@"ERROR"];
                 break;
         }
     }

@@ -14,4 +14,6 @@
 
 - (void) addLabelWithMessage:(NSString *)message second:(NSInteger) second;
 
+- (void) addMessage:(NSString *)message;
+
 @end

@@ -8,9 +8,13 @@
 
 #import "FTShopNewViewController.h"
 #import "WXApi.h"
+#import "FTShopOrderViewController.h"
 
 @interface FTShopNewViewController () <UIWebViewDelegate,UIAlertViewDelegate>
-
+{
+    NSString *_orderNo;
+    NSString *_tradeNO;
+}
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 
@@ -38,14 +42,32 @@
 #pragma mark - life cycle
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
    
     [self initNavigationBar];
     
     [self initWebView];
     
-    [self setNotification];
+}
 
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    //添加监听器，充值购买
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeCallback:) name:RechargeResultNoti object:nil];
+    
+    //添加监听器，充值购买
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxPayCallback:) name:WXPayResultNoti object:nil];
+    
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    
+    //添加监听器，充值购买
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:RechargeResultNoti object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:WXPayResultNoti object:nil];
+   
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,14 +77,6 @@
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
-}
-
-#pragma mark - 监听器
-
-- (void) setNotification {
-    
-    
-    
 }
 
 #pragma mark - 初始化
@@ -133,7 +147,7 @@
         NSLog(@"norderNO = %@ ",orderNo);
         NSLog(@"price = %@",price);
         
-        
+        _orderNo = orderNo;
         //从本地读取存储的用户信息
         NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
         FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
@@ -146,9 +160,9 @@
         NSString *tableName = @"pl-shop";//表名：1. 下注为：pl-bet； 2. 购票为：pl-tic 3. 赛事成本支付相关：pl-mat
 //        NSString *type = matchBean.payType;//3. 赛事成本支付相关为支付类型，0-我支付，1-对方支付，2-赢家支付，3-AA支付，4-输家支付，5-赞助支付
         NSString *isDelated = @"3";//0-无效记录；1-s支付；2-p支付;3-RMB元支付(默认为元)
-        NSString *money = @"1";//交易人民币（单位：分）
+        NSString *money = price;//交易人民币（单位：分）
         NSString *payWay = @"1";//默认为0-积分支付； 值为1-微信支付
-        NSString *body = @"支付比赛场地费用";//商品描述，需传入应用市场上的APP名字-实际商品名称，天天爱消除-游戏充值，示例：腾讯充值中心-QQ会员充值
+        NSString *body = @"购买商品";//商品描述，需传入应用市场上的APP名字-实际商品名称，天天爱消除-游戏充值，示例：腾讯充值中心-QQ会员充值
         NSString *detail = @"";//商品详情，商品名称明细列表，示例：Ipad mini 16G 白色
         NSString *loginToken = localUser.token;//当前用户的login token
         NSString *ts = [NSString stringWithFormat:@"%lf", [[NSDate date] timeIntervalSince1970]];
@@ -159,6 +173,7 @@
                                                                                              @"objType":objType,
                                                                                              @"objId":objId,
                                                                                              @"tableName":tableName,
+                                                                                             @"isDelated":isDelated,
                                                                                              @"money":money,
                                                                                              @"payWay":payWay,
                                                                                              @"body":body,
@@ -174,7 +189,14 @@
         
         NSDictionary *parmamDic = dicBeforeMD5;
         
+        
+        
         [NetWorking WXpayWithParamDic:parmamDic andOption:^(NSDictionary* dic) {
+            NSLog(@"dic:%@",dic);
+            
+            _tradeNO = nil;
+            _tradeNO = dic[@"out_trade_no"];
+            
             if (dic && dic.count > 0) {
                 NSLog(@"成功");
                 PayReq *request = [[PayReq alloc] init];
@@ -192,7 +214,6 @@
             
         }];
         
-
         return NO;
     }
 
@@ -206,14 +227,61 @@
     return YES;
 }
 
-#pragma mark 5 activite
+#pragma mark  webView 交互
 - (void) openNewVC:(NSString *)urlString {
     
     FTShopNewViewController *newvc = [[FTShopNewViewController alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
     [self.navigationController pushViewController:newvc animated:YES];
 }
 
+#pragma mark - 监听器回调
+
+- (void) rechargeCallback:(NSNotification *) noti {
+
+    // 获取余额
+    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+    [singleton fetchBalanceFromWeb:^{}];
+}
 
 
+- (void) wxPayCallback:(NSNotification *) noti {
+    
+    NSString *msg = [noti object];
+    if ([msg isEqualToString:@"SUCESS"]) {
+        
+        if (_tradeNO == nil) {
+            return;
+        }
+        
+        [NetWorking wxPayStatusWithOrderNO:_tradeNO andOption:^(NSDictionary *dic) {
+            NSLog(@"dic:%@",dic);
+            NSLog(@"message:%@",dic[@"message"]);
+            NSString *status = dic[@"status"] ;
+            if ([status isEqualToString:@"success"]) {
+                [[UIApplication sharedApplication].keyWindow addMessage:@"购买商品支付成功~" ];
+            }else {
+                [[UIApplication sharedApplication].keyWindow addMessage:@"购买商品支付失败，请到兑换记录中去重新支付~" ];
+            }
+        }];
+        
+    }else {
+        [[UIApplication sharedApplication].keyWindow addMessage:@"微信支付失败，请到兑换记录中去重新支付~" ];
+    }
+    
+    [self openOrderVC];
+
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+
+    
+}
+
+
+- (void) openOrderVC {
+
+    FTShopOrderViewController *orderVC = [[FTShopOrderViewController alloc]init];
+    orderVC.orederNO = _orderNo;
+    
+    [self.navigationController pushViewController:orderVC animated:YES];
+}
 
 @end

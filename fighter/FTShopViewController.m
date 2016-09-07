@@ -85,9 +85,9 @@
 
 - (void) initWebview {
     
-        //从本地读取存储的用户信息
-        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    
+        FTUserBean *localUser = [FTUserBean loginUser];
     //
     //    if (!localUser) {
     //
@@ -122,9 +122,6 @@
 //    }];
 //    
     self.webView.delegate = self;
-    
-    
-    
     //获取网络请求地址url
     NSString *indexStr = [FTNetConfig host:Domain path:ShopURL];
     NSString *urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@",indexStr,localUser.olduserid,localUser.token];
