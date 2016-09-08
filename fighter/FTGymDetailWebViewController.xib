@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -21,12 +22,41 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R3j-DU-Pwe">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R3j-DU-Pwe">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                     <subviews>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="hom-tu-gmO">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TEO-cZ-MR7" userLabel="top Image View">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="154"/>
+                            <constraints>
+                                <constraint firstAttribute="width" priority="900" constant="320" id="Svg-u0-NmB"/>
+                                <constraint firstAttribute="width" secondItem="TEO-cZ-MR7" secondAttribute="height" multiplier="25:12" id="cL3-MR-V0C"/>
+                            </constraints>
+                        </imageView>
+                        <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Re-SN-vAj" userLabel="图片上半透明View">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="154"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1个视频 276张照片" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Exp-Xe-Ucl">
+                                    <rect key="frame" x="20" y="125" width="144" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wXL-Dy-ssq" userLabel="播放Button">
+                            <rect key="frame" x="130" y="47" width="60" height="60"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="60" id="2M4-4S-L2u"/>
+                                <constraint firstAttribute="width" constant="60" id="QcK-LH-IzB"/>
+                            </constraints>
+                            <state key="normal" backgroundImage="详情用视频播放"/>
+                            <state key="highlighted" backgroundImage="详情用视频播放pre"/>
+                        </button>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="hom-tu-gmO">
                             <rect key="frame" x="22" y="162" width="269" height="96"/>
                             <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="96" id="DR4-QL-Q33"/>
                                 <constraint firstAttribute="height" constant="96" id="Miy-Sz-RGg"/>
                             </constraints>
                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xUX-g3-U8l">
@@ -36,32 +66,45 @@
                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </collectionViewFlowLayout>
                         </collectionView>
-                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pca-hw-yyh" userLabel="评价View">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pca-hw-yyh" userLabel="评价View">
                             <rect key="frame" x="90" y="296" width="99" height="51"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="51" id="LMl-d8-lpf"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="51" id="NFL-T9-PaN"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HCG-S1-EZ0" userLabel="地址View">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HCG-S1-EZ0" userLabel="地址View">
                             <rect key="frame" x="90" y="392" width="111" height="51"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="51" id="0KO-mQ-sTy"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="51" id="xkF-j3-7qQ"/>
                             </constraints>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TEO-cZ-MR7">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="154"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="320" id="Svg-u0-NmB"/>
-                                <constraint firstAttribute="height" constant="154" id="tCc-2J-pcy"/>
-                            </constraints>
-                        </imageView>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="pca-hw-yyh" firstAttribute="top" secondItem="hom-tu-gmO" secondAttribute="bottom" constant="38" id="1h8-6g-ksg"/>
+                        <constraint firstItem="TEO-cZ-MR7" firstAttribute="leading" secondItem="R3j-DU-Pwe" secondAttribute="leading" id="3Fd-Ig-Zrg"/>
+                        <constraint firstAttribute="trailing" secondItem="pca-hw-yyh" secondAttribute="trailing" constant="131" id="Dcr-yf-Xbl"/>
+                        <constraint firstItem="TEO-cZ-MR7" firstAttribute="top" secondItem="R3j-DU-Pwe" secondAttribute="top" id="Eg7-w6-gGU"/>
+                        <constraint firstItem="5Re-SN-vAj" firstAttribute="height" secondItem="TEO-cZ-MR7" secondAttribute="height" id="Jio-kG-Xxc"/>
+                        <constraint firstItem="hom-tu-gmO" firstAttribute="leading" secondItem="R3j-DU-Pwe" secondAttribute="leading" constant="22" id="K8O-5g-cEB"/>
+                        <constraint firstItem="pca-hw-yyh" firstAttribute="leading" secondItem="R3j-DU-Pwe" secondAttribute="leading" constant="90" id="NC9-je-mFG"/>
+                        <constraint firstItem="HCG-S1-EZ0" firstAttribute="leading" secondItem="R3j-DU-Pwe" secondAttribute="leading" constant="90" id="Nou-sR-OEf"/>
                         <constraint firstItem="pca-hw-yyh" firstAttribute="top" secondItem="hom-tu-gmO" secondAttribute="bottom" constant="38" id="PUg-R2-ltp"/>
+                        <constraint firstAttribute="trailing" secondItem="hom-tu-gmO" secondAttribute="trailing" constant="29" id="Ph7-Ft-XJa"/>
                         <constraint firstItem="HCG-S1-EZ0" firstAttribute="top" secondItem="pca-hw-yyh" secondAttribute="bottom" constant="45" id="RrM-u6-oZg"/>
-                        <constraint firstItem="hom-tu-gmO" firstAttribute="top" secondItem="TEO-cZ-MR7" secondAttribute="bottom" constant="8" id="fVi-JE-KgG"/>
+                        <constraint firstAttribute="trailing" secondItem="TEO-cZ-MR7" secondAttribute="trailing" id="bSw-qr-DJl"/>
+                        <constraint firstItem="hom-tu-gmO" firstAttribute="top" secondItem="TEO-cZ-MR7" secondAttribute="bottom" constant="8" id="btu-Oa-Pmn"/>
+                        <constraint firstAttribute="trailing" secondItem="HCG-S1-EZ0" secondAttribute="trailing" constant="119" id="c0W-rF-yUe"/>
+                        <constraint firstItem="5Re-SN-vAj" firstAttribute="width" secondItem="TEO-cZ-MR7" secondAttribute="width" id="hwK-DV-udE"/>
+                        <constraint firstItem="5Re-SN-vAj" firstAttribute="centerX" secondItem="TEO-cZ-MR7" secondAttribute="centerX" id="iOL-8B-qAi"/>
+                        <constraint firstAttribute="bottom" secondItem="HCG-S1-EZ0" secondAttribute="bottom" constant="76" id="kRc-ZN-iVg"/>
+                        <constraint firstItem="5Re-SN-vAj" firstAttribute="centerY" secondItem="TEO-cZ-MR7" secondAttribute="centerY" id="ufc-Na-EeR"/>
+                        <constraint firstItem="wXL-Dy-ssq" firstAttribute="centerY" secondItem="TEO-cZ-MR7" secondAttribute="centerY" id="voZ-qp-B9X"/>
+                        <constraint firstItem="wXL-Dy-ssq" firstAttribute="centerX" secondItem="TEO-cZ-MR7" secondAttribute="centerX" id="wPg-fS-sOU"/>
+                        <constraint firstItem="HCG-S1-EZ0" firstAttribute="top" secondItem="pca-hw-yyh" secondAttribute="bottom" constant="45" id="yQX-S2-Xxt"/>
                     </constraints>
                 </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rdH-Uf-5rr" userLabel="bottomView">
@@ -119,8 +162,8 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pcr-Mv-85o" userLabel="成为会员view">
                             <rect key="frame" x="216" y="0.0" width="96" height="49"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7On-fZ-VaS">
-                                    <rect key="frame" x="11" y="13" width="74" height="24"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7On-fZ-VaS">
+                                    <rect key="frame" x="18" y="10" width="60" height="30"/>
                                     <state key="normal" title="成为会员">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
@@ -160,7 +203,11 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="rdH-Uf-5rr" firstAttribute="top" secondItem="R3j-DU-Pwe" secondAttribute="bottom" id="3gJ-9Q-MNq"/>
                 <constraint firstItem="rdH-Uf-5rr" firstAttribute="leading" secondItem="MDm-nr-BxI" secondAttribute="leading" id="8ak-lx-rf0"/>
+                <constraint firstItem="R3j-DU-Pwe" firstAttribute="leading" secondItem="MDm-nr-BxI" secondAttribute="leading" id="krH-gM-tbb"/>
+                <constraint firstItem="R3j-DU-Pwe" firstAttribute="top" secondItem="MDm-nr-BxI" secondAttribute="top" id="mcN-GX-bEY"/>
+                <constraint firstAttribute="trailing" secondItem="R3j-DU-Pwe" secondAttribute="trailing" id="pIl-hm-23z"/>
                 <constraint firstAttribute="trailing" secondItem="rdH-Uf-5rr" secondAttribute="trailing" id="wcA-E3-W56"/>
                 <constraint firstAttribute="bottom" secondItem="rdH-Uf-5rr" secondAttribute="bottom" id="xYR-at-Hf7"/>
             </constraints>
@@ -170,6 +217,8 @@
     <resources>
         <image name="关注pre" width="74" height="24"/>
         <image name="斜线分割" width="12" height="24"/>
+        <image name="详情用视频播放" width="60" height="60"/>
+        <image name="详情用视频播放pre" width="60" height="60"/>
         <image name="详情页底部按钮一堆-电话" width="24" height="24"/>
         <image name="详情页底部按钮一堆-评论" width="24" height="24"/>
     </resources>

@@ -363,6 +363,8 @@
 		E6EFA9EE1D7EC344005A23CD /* FTPayForGymVIPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6EFA9EC1D7EC344005A23CD /* FTPayForGymVIPViewController.m */; };
 		E6EFA9EF1D7EC344005A23CD /* FTPayForGymVIPViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6EFA9ED1D7EC344005A23CD /* FTPayForGymVIPViewController.xib */; };
 		E6EFDC8B1D421CD7004C98D2 /* FTGymListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDC8A1D421CD7004C98D2 /* FTGymListViewController.m */; };
+		E6F61D581D81067100971361 /* FTGymLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6F61D561D81067100971361 /* FTGymLevelCell.m */; };
+		E6F61D591D81067100971361 /* FTGymLevelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6F61D571D81067100971361 /* FTGymLevelCell.xib */; };
 		E6FE6A5D1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FE6A5B1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m */; };
 		E6FE6A5E1CEED3DC00D63847 /* FTArenaPostsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6FE6A5C1CEED3DC00D63847 /* FTArenaPostsDetailViewController.xib */; };
 /* End PBXBuildFile section */
@@ -592,7 +594,6 @@
 		3D7C6B831CF2A2990088400D /* BoxerInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoxerInfoController.h; sourceTree = "<group>"; };
 		3D7C6B841CF2A2990088400D /* BoxerInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoxerInfoController.m; sourceTree = "<group>"; };
 		3D7C6B851CF2A2990088400D /* BoxerInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BoxerInfoController.xib; sourceTree = "<group>"; };
-		3D893AF21D80146A007F6038 /* FTGymLevelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FTGymLevelCell.xib; sourceTree = "<group>"; };
 		3D8B2E501D1D14B000E18280 /* FTCoachCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCoachCell.h; sourceTree = "<group>"; };
 		3D8B2E511D1D14B000E18280 /* FTCoachCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCoachCell.m; sourceTree = "<group>"; };
 		3D8B2E521D1D14B000E18280 /* FTCoachCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTCoachCell.xib; sourceTree = "<group>"; };
@@ -984,6 +985,9 @@
 		E6EFA9ED1D7EC344005A23CD /* FTPayForGymVIPViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTPayForGymVIPViewController.xib; sourceTree = "<group>"; };
 		E6EFDC891D421CD7004C98D2 /* FTGymListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTGymListViewController.h; path = "UI/格斗场/viewControllers/发起约战/选择拳馆/拳馆列表/FTGymListViewController.h"; sourceTree = "<group>"; };
 		E6EFDC8A1D421CD7004C98D2 /* FTGymListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTGymListViewController.m; path = "UI/格斗场/viewControllers/发起约战/选择拳馆/拳馆列表/FTGymListViewController.m"; sourceTree = "<group>"; };
+		E6F61D551D81067100971361 /* FTGymLevelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymLevelCell.h; sourceTree = "<group>"; };
+		E6F61D561D81067100971361 /* FTGymLevelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymLevelCell.m; sourceTree = "<group>"; };
+		E6F61D571D81067100971361 /* FTGymLevelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymLevelCell.xib; sourceTree = "<group>"; };
 		E6FE6A5A1CEED3DC00D63847 /* FTArenaPostsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaPostsDetailViewController.h; sourceTree = "<group>"; };
 		E6FE6A5B1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaPostsDetailViewController.m; sourceTree = "<group>"; };
 		E6FE6A5C1CEED3DC00D63847 /* FTArenaPostsDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaPostsDetailViewController.xib; sourceTree = "<group>"; };
@@ -1257,7 +1261,9 @@
 		3D4040A91D8005BB00CDA675 /* 拳馆评价cell */ = {
 			isa = PBXGroup;
 			children = (
-				3D893AF21D80146A007F6038 /* FTGymLevelCell.xib */,
+				E6F61D551D81067100971361 /* FTGymLevelCell.h */,
+				E6F61D561D81067100971361 /* FTGymLevelCell.m */,
+				E6F61D571D81067100971361 /* FTGymLevelCell.xib */,
 			);
 			name = "拳馆评价cell";
 			sourceTree = "<group>";
@@ -3198,6 +3204,7 @@
 				3D7B988E1CDD027400B80B8D /* Area.plist in Resources */,
 				E6EFA9EF1D7EC344005A23CD /* FTPayForGymVIPViewController.xib in Resources */,
 				3D4B18F61CD8BF340022DFB0 /* FTSetPassWordViewController.xib in Resources */,
+				E6F61D591D81067100971361 /* FTGymLevelCell.xib in Resources */,
 				3DE95BA81CD86FA4005BF85C /* FTLoginViewController.xib in Resources */,
 				E636B1B41D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.xib in Resources */,
 				E678727A1CEB00980099CEE6 /* FTNewPostViewController.xib in Resources */,
@@ -3517,6 +3524,7 @@
 				3D6ABC881D66E43600CD37C8 /* FTDailyTaskViewController.m in Sources */,
 				E68050C11CBF919A00678905 /* UIView+JHExtension.m in Sources */,
 				E68D160D1CFD31F100AB5A8C /* FTHomepageMainViewController.m in Sources */,
+				E6F61D581D81067100971361 /* FTGymLevelCell.m in Sources */,
 				E61AC8E01D73D8EE00ECA283 /* FTBetView0.m in Sources */,
 				3DF658DA1D22440B009BDEF6 /* FTCycleScrollView.m in Sources */,
 				E6E580B31CBE523B00272242 /* FTBaseTableViewCell.m in Sources */,
