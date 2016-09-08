@@ -55,6 +55,17 @@
     [self initWebview];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+//    if(self.needRefreshUrl!=nil){
+//        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.needRefreshUrl]]];
+//        self.needRefreshUrl=nil;
+//    }
+    
+    [self.webView stringByEvaluatingJavaScriptFromString:@"reloadSource()"];
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
@@ -65,19 +76,14 @@
 
 -  (void) setNotification {
     
-    
-    
-    
     //注册通知，接收微信登录成功的消息
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginCallback:) name:WXLoginResultNoti object:nil];
     
     //添加监听器，监听login
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(phoneLoginedCallback:) name:LoginNoti object:nil];
     
-    
     //添加监听器，充值购买
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeCallback:) name:RechargeResultNoti object:nil];
-    
     
 }
 
