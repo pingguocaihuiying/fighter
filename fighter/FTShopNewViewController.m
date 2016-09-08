@@ -57,17 +57,17 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     
-    //添加监听器，充值购买
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeCallback:) name:RechargeResultNoti object:nil];
+
     
     //添加监听器，充值购买
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxPayCallback:) name:WXPayResultNoti object:nil];
     
-    if(self.needRefreshUrl!=nil){
-        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.needRefreshUrl]]];
-        self.needRefreshUrl=nil;
-    }
-    
+//    if(self.needRefreshUrl!=nil){
+//        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.needRefreshUrl]]];
+//        self.needRefreshUrl=nil;
+//    }
+
+    [self.webView stringByEvaluatingJavaScriptFromString:@"reloadSource()"];
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
@@ -291,10 +291,13 @@
     
     if(count>1){
         FTShopNewViewController *second=[self.navigationController.viewControllers objectAtIndex:count-2];
-        second.needRefreshUrl=[notification.userInfo objectForKey:@"url"];
+        second.needRefreshUrl = [second.request.URL absoluteString];
     }
+    NSString *urlString = [notification.userInfo objectForKey:@"url"];
+    NSURLRequest *request= [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    [self.webView loadRequest:request];
     
-    [self.navigationController popViewControllerAnimated:YES];
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)shouldBackRoot:(NSNotification*)notification{
@@ -309,6 +312,7 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
     
 }
+
 #pragma mark - 监听器回调
 
 //- (void) rechargeCallback:(NSNotification *) noti {
@@ -352,11 +356,16 @@
 
 
 - (void) openOrderVC {
-
-    FTShopOrderViewController *orderVC = [[FTShopOrderViewController alloc]init];
-    orderVC.orederNO = _orderNo;
     
-    [self.navigationController pushViewController:orderVC animated:YES];
+    FTUserBean *localUser = [FTUserBean loginUser];
+    
+    //获取网络请求地址url
+    NSString *indexStr = [FTNetConfig host:Domain path:ShopOrderURL];
+    NSString *urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@&orderNo=%@",indexStr,localUser.olduserid,localUser.token,_orderNo];
+    
+    FTShopNewViewController *newvc = [[FTShopNewViewController alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
+    [self.navigationController pushViewController:newvc animated:YES];
+    
 }
 
 @end
