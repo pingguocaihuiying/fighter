@@ -10,4 +10,6 @@
 
 @interface FTGymLevelCell : UITableViewCell
 
+@property (nonatomic, strong) UILabel *titleLabel;
+
 @end

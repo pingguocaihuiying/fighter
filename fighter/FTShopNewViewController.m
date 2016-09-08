@@ -73,7 +73,7 @@
 - (void) viewWillDisappear:(BOOL)animated {
     
     //添加监听器，充值购买
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:RechargeResultNoti object:nil];
+//    [[NSNotificationCenter defaultCenter]removeObserver:self name:RechargeResultNoti object:nil];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:WXPayResultNoti object:nil];
    
 }
@@ -117,8 +117,6 @@
     
 }
 
-
-
 #pragma mark - response
 
 - (void) backBtnAction:(id)sender {
@@ -149,7 +147,7 @@
     
     NSMutableString *url=[[NSMutableString alloc]initWithString:[request.URL absoluteString]];
     
-    
+    NSLog(@"url:%@",url);
     
     NSRange userIdRange = [url rangeOfString:@"js-call:userId="];
     NSRange orderNORange = [url rangeOfString:@"&orderNo="];
@@ -239,8 +237,11 @@
    
     
     // 刷新积分
-    if([url rangeOfString:@"refreshPoint"].location!=NSNotFound){
+    if([url rangeOfString:@"refreshPoint"].location!=NSNotFound && [url rangeOfString:@"dbnewopen"].location!=NSNotFound){
         [url replaceCharactersInRange:[url rangeOfString:@"refreshPoint"] withString:@"none"];
+        [url replaceCharactersInRange:[url rangeOfString:@"dbnewopen"] withString:@"none"];
+        
+        [self openNewVC:url];
         
         // 发送通知
         [[NSNotificationCenter defaultCenter] postNotificationName:RechargeResultNoti object:@"RECHARGE"];
@@ -310,12 +311,12 @@
 }
 #pragma mark - 监听器回调
 
-- (void) rechargeCallback:(NSNotification *) noti {
-
-    // 获取余额
-    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
-    [singleton fetchBalanceFromWeb:^{}];
-}
+//- (void) rechargeCallback:(NSNotification *) noti {
+//
+//    // 获取余额
+//    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+//    [singleton fetchBalanceFromWeb:^{}];
+//}
 
 
 - (void) wxPayCallback:(NSNotification *) noti {
@@ -330,7 +331,7 @@
         [NetWorking wxPayStatusWithOrderNO:_tradeNO andOption:^(NSDictionary *dic) {
             NSLog(@"dic:%@",dic);
             NSLog(@"message:%@",dic[@"message"]);
-            NSString *status = dic[@"status"] ;
+            NSString *status = dic[@"status"];
             if ([status isEqualToString:@"success"]) {
                 [[UIApplication sharedApplication].keyWindow addMessage:@"购买商品支付成功~" ];
             }else {
