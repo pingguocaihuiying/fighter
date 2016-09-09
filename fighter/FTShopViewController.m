@@ -16,6 +16,7 @@
     
     UIImageView *_loadingImageView;
     UIImageView *_loadingBgImageView;
+    BOOL _isAppeared;
 }
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
@@ -62,8 +63,17 @@
 //        self.needRefreshUrl=nil;
 //    }
     
-    [self.webView stringByEvaluatingJavaScriptFromString:@"reloadSource()"];
+    if (_isAppeared ) {
+        
+        _isAppeared = NO;
+        [self.webView stringByEvaluatingJavaScriptFromString:@"reloadSource()"];
+    }
     
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+
+    _isAppeared = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -141,6 +151,8 @@
     
     [self.webView loadRequest: request];
     
+    [self setJHRefresh];
+    
 }
 
 - (void)setJHRefresh{
@@ -149,10 +161,19 @@
     
     // 下拉刷新
     self.webView.scrollView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [weakSelf initWebview];
+        
+        FTUserBean *localUser = [FTUserBean loginUser];
+        //获取网络请求地址url
+        NSString *indexStr = [FTNetConfig host:Domain path:ShopURL];
+        NSString *urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@",indexStr,localUser.olduserid,localUser.token];
+        NSURL *url = [NSURL URLWithString:urlString];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        [weakSelf.webView loadRequest: request];
+
+        [weakSelf.webView.scrollView.mj_header beginRefreshing];
     }];
     
-    [self.webView.scrollView.mj_header beginRefreshing];
+    
     
 }
 
@@ -165,6 +186,7 @@
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     
+    [self.webView.scrollView.mj_header endRefreshing];
 //    [self disableLoadingAnimation];
     
 }
@@ -172,7 +194,6 @@
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     
     NSMutableString *url=[[NSMutableString alloc]initWithString:[request.URL absoluteString]];
-    
     
     if([url rangeOfString:@"js-call:userId="].location!= NSNotFound &&
        [url rangeOfString:@"&orderNo="].location!= NSNotFound &&

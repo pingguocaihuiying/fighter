@@ -126,7 +126,7 @@
 
 - (void)setSubViews{
     
-//    [self setWebView];
+    [self setWebView];
     
 //    [self setLoadingImageView];
     [self subViewFormat];//设置分割线颜色、label行间距等
