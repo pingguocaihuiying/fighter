@@ -91,7 +91,16 @@ static FTPaySingleton * singleton = nil;
             bean.descriptions = product.localizedTitle;// 产品标题
             bean.details = product.localizedDescription;// 产品描述信息
             bean.price = product.price;//价格
+            
+            NSLog(@"localizedTitle= %@",product.localizedTitle);
+            NSLog(@"localizedDescription= %@",product.localizedDescription);
         }
+        
+
+        NSLog(@"goodsId= %@",bean.goodsId);
+        NSLog(@"descriptions= %@",bean.descriptions);
+        NSLog(@"details= %@",bean.details);
+        NSLog(@"price= %@",bean.price);
         
         SKPayment *payment = nil;
         
