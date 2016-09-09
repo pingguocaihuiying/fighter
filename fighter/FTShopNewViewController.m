@@ -15,6 +15,7 @@
 {
     NSString *_orderNo;
     NSString *_tradeNO;
+    BOOL _isAppeared;
 }
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
@@ -55,23 +56,28 @@
 }
 
 
-- (void)viewWillAppear:(BOOL)animated {
-    
 
+- (void) viewDidAppear:(BOOL)animated {
     
     //添加监听器，充值购买
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxPayCallback:) name:WXPayResultNoti object:nil];
-    
-//    if(self.needRefreshUrl!=nil){
-//        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.needRefreshUrl]]];
-//        self.needRefreshUrl=nil;
-//    }
-
-    [self.webView stringByEvaluatingJavaScriptFromString:@"reloadSource()"];
+    if(self.needRefreshUrl!=nil){
+        
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.needRefreshUrl]]];
+        self.needRefreshUrl=nil;
+        
+    }else {
+        if (_isAppeared ) {
+            
+            _isAppeared = NO;
+            [self.webView stringByEvaluatingJavaScriptFromString:@"reloadSource()"];
+        }
+    }
 }
 
-- (void) viewWillDisappear:(BOOL)animated {
+- (void) viewDidDisappear:(BOOL)animated {
     
+    _isAppeared = YES;
     //添加监听器，充值购买
 //    [[NSNotificationCenter defaultCenter]removeObserver:self name:RechargeResultNoti object:nil];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:WXPayResultNoti object:nil];
@@ -79,6 +85,7 @@
 }
 
 - (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     
 }
@@ -210,7 +217,7 @@
         
         [NetWorking WXpayWithParamDic:parmamDic andOption:^(NSDictionary* dic) {
             NSLog(@"dic:%@",dic);
-            
+            NSLog(@"message:%@",[dic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
             _tradeNO = nil;
             _tradeNO = dic[@"out_trade_no"];
             
@@ -246,6 +253,10 @@
         // 发送通知
         [[NSNotificationCenter defaultCenter] postNotificationName:RechargeResultNoti object:@"RECHARGE"];
         return NO;
+        
+    }else if([url rangeOfString:@"refreshPoint"].location!=NSNotFound) {
+        // 发送通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:RechargeResultNoti object:@"RECHARGE"];
     }
     
     if([url rangeOfString:@"dbnewopen"].location!=NSNotFound){
@@ -338,16 +349,21 @@
             NSString *status = dic[@"status"];
             if ([status isEqualToString:@"success"]) {
                 [[UIApplication sharedApplication].keyWindow addMessage:@"购买商品支付成功~" ];
+                [self backRefresh];
             }else {
                 [[UIApplication sharedApplication].keyWindow addMessage:@"购买商品支付失败，请到兑换记录中去重新支付~" ];
+                [self.webView loadRequest:self.request];
             }
         }];
         
     }else {
+        
         [[UIApplication sharedApplication].keyWindow addMessage:@"微信支付失败，请到兑换记录中去重新支付~" ];
+        
+        [self.webView loadRequest:self.request];
     }
     
-    [self openOrderVC];
+    
 
 //    [self.navigationController popToRootViewControllerAnimated:YES];
 
@@ -355,16 +371,27 @@
 }
 
 
-- (void) openOrderVC {
+- (void) backRefresh {
     
     FTUserBean *localUser = [FTUserBean loginUser];
     
     //获取网络请求地址url
     NSString *indexStr = [FTNetConfig host:Domain path:ShopOrderURL];
     NSString *urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@&orderNo=%@",indexStr,localUser.olduserid,localUser.token,_orderNo];
+//    [[NSNotificationCenter defaultCenter]postNotificationName:@"dbbackrefresh" object:nil userInfo:[NSDictionary dictionaryWithObject:urlString  forKey:@"url"]];
     
-    FTShopNewViewController *newvc = [[FTShopNewViewController alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
-    [self.navigationController pushViewController:newvc animated:YES];
+    
+    NSInteger count = [self.navigationController.viewControllers count];
+    
+    
+    if(count>1){
+        FTShopNewViewController *second=[self.navigationController.viewControllers objectAtIndex:count-2];
+        second.needRefreshUrl = urlString;
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+    
+//    FTShopNewViewController *newvc = [[FTShopNewViewController alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
+//    [self.navigationController pushViewController:newvc animated:YES];
     
 }
 

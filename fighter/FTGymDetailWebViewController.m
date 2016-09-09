@@ -89,7 +89,7 @@
 
 - (void)setSubViews{
     
-//    [self setWebView];
+    [self setWebView];
     
 //    [self setLoadingImageView];
     [self setTableView];
