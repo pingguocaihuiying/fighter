@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="16A254g" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -16,13 +16,6 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="金属边框-改进ios" translatesAutoresizingMaskIntoConstraints="NO" id="u0r-qP-EXP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
-                    </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="e5x-mk-VB7">
-                        <rect key="frame" x="19" y="17" width="40" height="40"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="40" id="91Q-vw-20b"/>
-                            <constraint firstAttribute="height" constant="40" id="G2a-pl-e3r"/>
-                        </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="杨建平" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flr-cT-40h">
                         <rect key="frame" x="69" y="17" width="45" height="15"/>
@@ -60,6 +53,13 @@
                             <action selector="challengeButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="eNm-OU-p3F"/>
                         </connections>
                     </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="e5x-mk-VB7">
+                        <rect key="frame" x="19" y="17" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="91Q-vw-20b"/>
+                            <constraint firstAttribute="height" constant="40" id="G2a-pl-e3r"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
@@ -92,6 +92,6 @@
     <resources>
         <image name="ko" width="19" height="10"/>
         <image name="挑战" width="66" height="28"/>
-        <image name="金属边框-改进ios" width="67" height="60"/>
+        <image name="金属边框-改进ios" width="67" height="26"/>
     </resources>
 </document>

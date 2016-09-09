@@ -5,11 +5,33 @@
       "scale" : "1x"
     },
     {
+      "resizing" : {
+        "mode" : "3-part-horizontal",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1
+        },
+        "cap-insets" : {
+          "right" : 18,
+          "left" : 18
+        }
+      },
       "idiom" : "universal",
       "filename" : "轮播页码bg-ios@2x.png",
       "scale" : "2x"
     },
     {
+      "resizing" : {
+        "mode" : "3-part-horizontal",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1
+        },
+        "cap-insets" : {
+          "right" : 27,
+          "left" : 26
+        }
+      },
       "idiom" : "universal",
       "filename" : "轮播页码bg-ios@3x.png",
       "scale" : "3x"
