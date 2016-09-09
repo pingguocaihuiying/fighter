@@ -35,7 +35,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R3j-DU-Pwe">
+                <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R3j-DU-Pwe">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="会员卡" translatesAutoresizingMaskIntoConstraints="NO" id="TEO-cZ-MR7" userLabel="top Image View">
@@ -254,9 +254,62 @@
                                 <constraint firstItem="mWS-6F-YlP" firstAttribute="top" secondItem="pca-hw-yyh" secondAttribute="top" id="v63-iB-JyQ"/>
                             </constraints>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TEO-cZ-MR7">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="154"/>
-                            <color key="backgroundColor" red="0.77254901960784317" green="0.84313725490196079" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HCG-S1-EZ0" userLabel="地址View">
+                            <rect key="frame" x="0.0" y="307" width="320" height="47"/>
+                            <subviews>
+                                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LUa-tL-u3U" userLabel="50%黑透明背景View">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44W-eg-ZyD">
+                                    <rect key="frame" x="16" y="15" width="45" height="15"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="45" id="IQX-rY-2Oc"/>
+                                        <constraint firstAttribute="height" constant="15" id="xMY-ne-cHP"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="北京市 朝阳区花市大街9号" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="maN-Jk-hhR">
+                                    <rect key="frame" x="71" y="15" width="186" height="17"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" red="0.70588235290000001" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JVZ-C4-eCv" userLabel="分割线View">
+                                    <rect key="frame" x="273" y="7" width="1" height="34"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="1" id="d1a-DR-XS5"/>
+                                        <constraint firstAttribute="height" constant="34" id="gKo-Qc-WVw"/>
+                                    </constraints>
+                                </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KrB-Jh-LQh">
+                                    <rect key="frame" x="274" y="4" width="46" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="46" id="90G-cS-ejc"/>
+                                        <constraint firstAttribute="height" constant="40" id="kJf-2w-Ng8"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" image="地点 (2)"/>
+                                </button>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kJK-on-KFG" userLabel="seperatorView5">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="7Xd-DJ-xW8"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ef-NX-D9f" userLabel="seperatorView6">
+                                    <rect key="frame" x="0.0" y="46" width="320" height="1"/>
+                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="bf2-O3-FUS"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" priority="250" constant="44" id="0KO-mQ-sTy"/>
                                 <constraint firstAttribute="bottom" secondItem="LUa-tL-u3U" secondAttribute="bottom" id="1fE-wB-Oen"/>
@@ -358,18 +411,18 @@
                                 <constraint firstItem="Ev5-db-bnK" firstAttribute="centerY" secondItem="9PK-km-69L" secondAttribute="centerY" id="cxa-jK-pCQ"/>
                             </constraints>
                         </view>
-                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="斜线分割" translatesAutoresizingMaskIntoConstraints="NO" id="qhc-q1-uW2" userLabel="分割线2">
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="斜线分割" translatesAutoresizingMaskIntoConstraints="NO" id="qhc-q1-uW2" userLabel="分割线2">
                             <rect key="frame" x="204" y="13" width="12" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="24" id="6ZO-dU-Qhv"/>
                                 <constraint firstAttribute="width" constant="12" id="eau-MQ-0YG"/>
                             </constraints>
                         </imageView>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pcr-Mv-85o" userLabel="成为会员view">
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pcr-Mv-85o" userLabel="成为会员view">
                             <rect key="frame" x="216" y="0.0" width="96" height="49"/>
                             <subviews>
-                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7On-fZ-VaS">
-                                    <rect key="frame" x="11" y="13" width="74" height="24"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7On-fZ-VaS">
+                                    <rect key="frame" x="18" y="10" width="60" height="30"/>
                                     <state key="normal" title="成为会员">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
