@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="FTGymVIPCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="40" height="60"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="40" height="60"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8t9-17-NkZ" userLabel="headerImg1">
+                        <rect key="frame" x="1" y="1" width="38" height="38"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="38" id="0VA-Yc-won"/>
+                            <constraint firstAttribute="width" constant="38" id="AUi-wt-B69"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="19"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="主页大头像-灰圈" translatesAutoresizingMaskIntoConstraints="NO" id="nwa-4P-nVN" userLabel="主页大头像-灰圈1">
+                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="HfE-xc-Xnn"/>
+                            <constraint firstAttribute="height" constant="40" id="zsh-3u-Oln"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="甄子丹" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RS1-JY-jk1">
+                        <rect key="frame" x="2" y="46" width="36" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="12" id="vdd-3b-RaU"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.70588235294117641" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="8t9-17-NkZ" firstAttribute="centerY" secondItem="nwa-4P-nVN" secondAttribute="centerY" id="DPZ-sd-Mug"/>
+                <constraint firstItem="8t9-17-NkZ" firstAttribute="centerX" secondItem="nwa-4P-nVN" secondAttribute="centerX" id="Dcp-b0-rcf"/>
+                <constraint firstItem="nwa-4P-nVN" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="E1Q-ea-x1l"/>
+                <constraint firstItem="RS1-JY-jk1" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="ZvZ-g7-93i"/>
+                <constraint firstItem="RS1-JY-jk1" firstAttribute="top" secondItem="nwa-4P-nVN" secondAttribute="bottom" constant="6" id="gBh-UB-5Oi"/>
+                <constraint firstItem="nwa-4P-nVN" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="yLv-oz-CcP"/>
+            </constraints>
+            <connections>
+                <outlet property="headerBGHeight" destination="zsh-3u-Oln" id="osT-U4-MfS"/>
+                <outlet property="headerBGWidth" destination="HfE-xc-Xnn" id="RZf-Vz-AyR"/>
+                <outlet property="headerHeight" destination="0VA-Yc-won" id="bh3-xh-aDs"/>
+                <outlet property="headerImageView" destination="8t9-17-NkZ" id="UoH-is-ahi"/>
+                <outlet property="headerWidth" destination="AUi-wt-B69" id="k6X-LK-Pp7"/>
+                <outlet property="nameLabelTopHeight" destination="vdd-3b-RaU" id="AWo-38-sct"/>
+                <outlet property="vipNameLabel" destination="RS1-JY-jk1" id="xpk-bB-92b"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="主页大头像-灰圈" width="56" height="56"/>
+    </resources>
+</document>
