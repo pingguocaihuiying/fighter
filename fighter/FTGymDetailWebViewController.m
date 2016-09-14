@@ -69,7 +69,7 @@
     [self setSubViews];
     
     // 获取收藏信息
-    [self getAttentionInfo];
+//    [self getAttentionInfo];
     
 }
 
@@ -127,12 +127,11 @@
 
 - (void)setSubViews{
     
-    [self setWebView];
+//    [self setWebView];
     
 //    [self setLoadingImageView];
     [self subViewFormat];//设置分割线颜色、label行间距等
-    [self setCollectionView];//设置会员头像显示
-//    [self updateScoreView:_scoreView];
+    [self setCollectionView];//设置拳馆教练头像显示
     [FTTools updateScoreView:_scoreView withScore:1.5];
 }
 

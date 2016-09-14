@@ -376,8 +376,8 @@
 		E6F46C091D8164AE001387E2 /* FTGymVIPCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6F46C071D8164AE001387E2 /* FTGymVIPCollectionViewCell.xib */; };
 		E6F46C361D829161001387E2 /* FTGymPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6F46C341D829161001387E2 /* FTGymPhotosViewController.m */; };
 		E6F46C371D829161001387E2 /* FTGymPhotosViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6F46C351D829161001387E2 /* FTGymPhotosViewController.xib */; };
-		E6F46C3C1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6F46C3A1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.m */; };
-		E6F46C3D1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6F46C3B1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.xib */; };
+		E6F46C6A1D8936C1001387E2 /* FTGymPhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6F46C671D8936C1001387E2 /* FTGymPhotoCollectionViewCell.xib */; };
+		E6F46C6B1D8936C1001387E2 /* FTGymPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6F46C681D8936C1001387E2 /* FTGymPhotoCollectionViewCell.m */; };
 		E6F61D581D81067100971361 /* FTGymLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6F61D561D81067100971361 /* FTGymLevelCell.m */; };
 		E6F61D591D81067100971361 /* FTGymLevelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6F61D571D81067100971361 /* FTGymLevelCell.xib */; };
 		E6FE6A5D1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FE6A5B1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m */; };
@@ -1021,9 +1021,9 @@
 		E6F46C331D829161001387E2 /* FTGymPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymPhotosViewController.h; sourceTree = "<group>"; };
 		E6F46C341D829161001387E2 /* FTGymPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymPhotosViewController.m; sourceTree = "<group>"; };
 		E6F46C351D829161001387E2 /* FTGymPhotosViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymPhotosViewController.xib; sourceTree = "<group>"; };
-		E6F46C391D867BE3001387E2 /* FTGymPhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymPhotoCollectionViewCell.h; sourceTree = "<group>"; };
-		E6F46C3A1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymPhotoCollectionViewCell.m; sourceTree = "<group>"; };
-		E6F46C3B1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymPhotoCollectionViewCell.xib; sourceTree = "<group>"; };
+		E6F46C671D8936C1001387E2 /* FTGymPhotoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymPhotoCollectionViewCell.xib; sourceTree = "<group>"; };
+		E6F46C681D8936C1001387E2 /* FTGymPhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymPhotoCollectionViewCell.m; sourceTree = "<group>"; };
+		E6F46C691D8936C1001387E2 /* FTGymPhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymPhotoCollectionViewCell.h; sourceTree = "<group>"; };
 		E6F61D551D81067100971361 /* FTGymLevelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymLevelCell.h; sourceTree = "<group>"; };
 		E6F61D561D81067100971361 /* FTGymLevelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymLevelCell.m; sourceTree = "<group>"; };
 		E6F61D571D81067100971361 /* FTGymLevelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymLevelCell.xib; sourceTree = "<group>"; };
@@ -1707,7 +1707,8 @@
 		3D8B2E551D1D14BC00E18280 /* cell */ = {
 			isa = PBXGroup;
 			children = (
-				E6F46C381D867B9C001387E2 /* 拳馆照片 */,
+				E6F46C611D89354E001387E2 /* 拳馆照片列表 */,
+				3D4C6ED41D86583300881208 /* 拳馆照片cell */,
 				E6F46C041D815E8D001387E2 /* 拳馆的vip列表 */,
 				3D4040A91D8005BB00CDA675 /* 拳馆评价cell */,
 				E6555ACF1D7FF6AD00748E66 /* 拳馆列表cell */,
@@ -3138,14 +3139,14 @@
 			name = "查看拳馆照片";
 			sourceTree = "<group>";
 		};
-		E6F46C381D867B9C001387E2 /* 拳馆照片 */ = {
+		E6F46C611D89354E001387E2 /* 拳馆照片列表 */ = {
 			isa = PBXGroup;
 			children = (
-				E6F46C391D867BE3001387E2 /* FTGymPhotoCollectionViewCell.h */,
-				E6F46C3A1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.m */,
-				E6F46C3B1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.xib */,
+				E6F46C671D8936C1001387E2 /* FTGymPhotoCollectionViewCell.xib */,
+				E6F46C681D8936C1001387E2 /* FTGymPhotoCollectionViewCell.m */,
+				E6F46C691D8936C1001387E2 /* FTGymPhotoCollectionViewCell.h */,
 			);
-			name = "拳馆照片";
+			name = "拳馆照片列表";
 			sourceTree = "<group>";
 		};
 		E6FE6A591CEED34C00D63847 /* 详情 */ = {
@@ -3330,6 +3331,7 @@
 				3D7B988E1CDD027400B80B8D /* Area.plist in Resources */,
 				E6EFA9EF1D7EC344005A23CD /* FTPayForGymVIPViewController.xib in Resources */,
 				3D4B18F61CD8BF340022DFB0 /* FTSetPassWordViewController.xib in Resources */,
+				E6F46C6A1D8936C1001387E2 /* FTGymPhotoCollectionViewCell.xib in Resources */,
 				E6F61D591D81067100971361 /* FTGymLevelCell.xib in Resources */,
 				3DE95BA81CD86FA4005BF85C /* FTLoginViewController.xib in Resources */,
 				E636B1B41D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.xib in Resources */,
@@ -3352,7 +3354,6 @@
 				3D13FB0C1D193A5A0060B9B4 /* fighter.entitlements in Resources */,
 				E636B1AE1D2646840065C9C1 /* FTGymDetailViewController.xib in Resources */,
 				3DD2FC031D2A6AC50015F7AA /* FTTeachVideoCell.xib in Resources */,
-				E6F46C3D1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.xib in Resources */,
 				3D8B2E541D1D14B000E18280 /* FTCoachCell.xib in Resources */,
 				3D13FB181D1A1AA80060B9B4 /* FTPracticeViewController.xib in Resources */,
 				3DDE29BE1D2BB39F00876B30 /* FTPayViewController.xib in Resources */,
@@ -3677,6 +3678,7 @@
 				3D13FB1C1D1A3FFB0060B9B4 /* FTSegmentedControl.m in Sources */,
 				E6B7D2001CF6A750004191A3 /* FTArenaViewController.m in Sources */,
 				E6D74A4E1CB7B7EE00854337 /* MD5.m in Sources */,
+				E6F46C6B1D8936C1001387E2 /* FTGymPhotoCollectionViewCell.m in Sources */,
 				E6E688E81D002FB700708C24 /* FTHomepageRecordListTableViewCell.m in Sources */,
 				E6D74A4A1CB7B7EE00854337 /* UIView+YBAddtitions.m in Sources */,
 				E65D08C71CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m in Sources */,
@@ -3861,7 +3863,6 @@
 				E68050B91CBF919A00678905 /* JHRefreshCommonAniView.m in Sources */,
 				E644E77E1D0123F700F39E45 /* FTHomepageUserBean.m in Sources */,
 				E6D09E921CEDA10000B7C43E /* FTTools.m in Sources */,
-				E6F46C3C1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.m in Sources */,
 				3D9D92E41D337100006C42F0 /* FTPayCell.m in Sources */,
 				3DE95BAD1CD8A042005BF85C /* FTRegistViewController.m in Sources */,
 				E6D74A4B1CB7B7EE00854337 /* UUID.m in Sources */,
