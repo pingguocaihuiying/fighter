@@ -17,6 +17,7 @@
 #import "FTPayForGymVIPViewController.h"
 #import "FTGymVIPCollectionViewCell.h"
 #import "FTGymPhotosViewController.h"
+#import "FTGymCommentViewController.h"
 
 @interface FTGymDetailWebViewController ()<UIWebViewDelegate, CommentSuccessDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 {
@@ -126,7 +127,7 @@
 
 - (void)setSubViews{
     
-//    [self setWebView];
+    [self setWebView];
     
 //    [self setLoadingImageView];
     [self subViewFormat];//设置分割线颜色、label行间距等
@@ -423,10 +424,18 @@
 // 跳转评论页面
 - (void)pushToCommentVC{
     
-    FTCommentViewController *commentVC = [ FTCommentViewController new];
-    commentVC.delegate = self;
-    commentVC.gymBean = self.gymBean;
+//    FTCommentViewController *commentVC = [ FTCommentViewController new];
+//    commentVC.delegate = self;
+//    commentVC.gymBean = self.gymBean;
+//    [self.navigationController pushViewController:commentVC animated:YES];
+    
+    FTGymCommentViewController *commentVC = [ FTGymCommentViewController new];
+//    commentVC.delegate = self;
+//    commentVC.gymBean = self.gymBean;
     [self.navigationController pushViewController:commentVC animated:YES];
+
+   
+    
 }
 
 #pragma mark - 服务器交互
