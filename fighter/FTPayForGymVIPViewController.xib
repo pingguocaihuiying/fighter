@@ -95,9 +95,12 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XhS-VD-5Ce">
-                    <rect key="frame" x="141" y="257" width="105" height="30"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XhS-VD-5Ce">
+                    <rect key="frame" x="141" y="257" width="138" height="30"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="138" id="uFn-0I-STC"/>
+                    </constraints>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -152,6 +155,7 @@
                 <constraint firstItem="hp0-iP-RZm" firstAttribute="top" secondItem="Kqt-JH-2Z0" secondAttribute="bottom" constant="20" id="Chb-1G-dTt"/>
                 <constraint firstItem="nVL-sR-fee" firstAttribute="leading" secondItem="Ivi-dl-ypa" secondAttribute="trailing" constant="10" id="GrP-LM-KQi"/>
                 <constraint firstItem="bqO-6i-f6l" firstAttribute="top" secondItem="8j6-de-ZM6" secondAttribute="bottom" constant="8" id="IjY-uy-sGs"/>
+                <constraint firstItem="XhS-VD-5Ce" firstAttribute="centerY" secondItem="PaX-QF-4k7" secondAttribute="centerY" id="K66-tg-zWC"/>
                 <constraint firstItem="nVL-sR-fee" firstAttribute="top" secondItem="WWa-DU-lsx" secondAttribute="top" constant="70" id="L8x-ru-EGs"/>
                 <constraint firstItem="Ivi-dl-ypa" firstAttribute="centerY" secondItem="nVL-sR-fee" secondAttribute="centerY" id="OjA-e5-F8Z"/>
                 <constraint firstItem="WWa-DU-lsx" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="PJV-hm-b7C"/>
@@ -176,12 +180,15 @@
                 <constraint firstItem="Fp1-6e-MbN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="tYf-Nz-5dE"/>
                 <constraint firstItem="WWa-DU-lsx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="uXs-J5-j3v"/>
                 <constraint firstItem="PaX-QF-4k7" firstAttribute="leading" secondItem="Fp1-6e-MbN" secondAttribute="leading" id="vvh-3T-SnL"/>
+                <constraint firstItem="yB1-b2-mJi" firstAttribute="centerY" secondItem="PaX-QF-4k7" secondAttribute="centerY" id="xT5-bx-eYR"/>
                 <constraint firstItem="Fp1-6e-MbN" firstAttribute="top" secondItem="WWa-DU-lsx" secondAttribute="bottom" constant="15" id="z0Z-ju-8eb"/>
             </constraints>
             <variation key="default">
                 <mask key="constraints">
+                    <exclude reference="hYk-vO-ghh"/>
                     <exclude reference="a8t-ga-OUK"/>
                     <exclude reference="VJ8-Bt-v7v"/>
+                    <exclude reference="mnZ-Ah-ay3"/>
                 </mask>
             </variation>
         </view>

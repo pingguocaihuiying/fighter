@@ -1,4 +1,4 @@
-//
+ //
 //  FTGymDetailWebViewController.m
 //  fighter
 //
@@ -18,6 +18,7 @@
 #import "FTGymVIPCollectionViewCell.h"
 #import "FTGymPhotosViewController.h"
 #import "FTGymCommentViewController.h"
+#import "FTGymDetailBean.h"
 
 @interface FTGymDetailWebViewController ()<UIWebViewDelegate, CommentSuccessDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 {
@@ -51,9 +52,19 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *collectionViewPaddingRight;//右
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *collectionContainerViewHeight;
 
+@property (strong, nonatomic) IBOutlet UIImageView *gymShowImageView;
+@property (strong, nonatomic) IBOutlet UIView *haveVideoView;
+@property (strong, nonatomic) IBOutlet UIButton *haveVideoButton;
+
+@property (strong, nonatomic) IBOutlet UILabel *commentCountLabel;
+@property (strong, nonatomic) IBOutlet UILabel *videoAndImageCountLabel;
+
+
 @property (nonatomic, assign) BOOL displayAllVIP;//是否展示所有会员
 
 @property (nonatomic, strong) NSMutableArray *vipArray;
+
+@property (nonatomic, strong) FTGymDetailBean *gymDetailBean;//拳馆详情bean
 
 @end
 
@@ -64,6 +75,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initBaseData];
+    [self loadGymDataFromServer];
     [self setNavigationSytle];
     
     [self setSubViews];
@@ -75,11 +87,51 @@
 
 - (void)initBaseData{
     _vipArray = [NSMutableArray new];
-    for (int i = 0; i < 13; i++) {
-        NSString *name = [NSString stringWithFormat:@"李森%d", i];
-        NSDictionary *vipDic = @{@"image": @"详情页底部按钮一堆-赞pre", @"name": name};
-        [_vipArray addObject:vipDic];
+//    for (int i = 0; i < 13; i++) {
+//        NSString *name = [NSString stringWithFormat:@"李森%d", i];
+//        NSDictionary *vipDic = @{@"image": @"详情页底部按钮一堆-赞pre", @"name": name};
+//        [_vipArray addObject:vipDic];
+//    }
+}
+
+- (void)loadGymDataFromServer{
+    //获取拳馆的一些基本信息：视频、照片、地址等
+    [NetWorking getGymForGymDetailWithGymId:_gymBean.gymId andOption:^(NSDictionary *dic) {
+        _gymDetailBean = [FTGymDetailBean new];
+        [_gymDetailBean setValuesForKeysWithDictionary:dic];
+        [self updateGymBaseInfo];
+    }];
+    
+    //获取拳馆的教练列表
+    [NetWorking getCoachesWithCorporationid:_gymBean.corporationid andOption:^(NSArray *array) {
+        _vipArray = [NSMutableArray arrayWithArray:array];
+        NSDictionary *dic = [_vipArray firstObject];
+        NSLog(@"%@", dic[@"headUrl"]);
+        for(NSString *key in [dic allKeys]){
+            NSLog(@"key %@ : %@", key, dic[key]);
+        }
+        [_collectionView reloadData];
+    }];
+}
+
+- (void)updateGymBaseInfo{
+    //如果视频个数为0，隐藏上方视频标识
+    if (_gymDetailBean.videoCount == 0) {
+        _haveVideoView.hidden = YES;
+        _haveVideoButton.hidden = YES;
+    }else{
+        _haveVideoView.hidden = NO;
+        _haveVideoButton.hidden = NO;
     }
+    
+    //更新照片、视频个数
+    _videoAndImageCountLabel.text = [NSString stringWithFormat:@"%d个视频 %d张照片", _gymDetailBean.videoCount, _gymDetailBean.pictureCount];
+    
+    //更新评价星级
+    [FTTools updateScoreView:_scoreView withScore:_gymDetailBean.grade];
+    
+    //更新地址
+    _gymAdressLabel.text = _gymDetailBean.gym_location;
 }
 
 - (void) dealloc {
@@ -89,7 +141,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -132,7 +183,7 @@
 //    [self setLoadingImageView];
     [self subViewFormat];//设置分割线颜色、label行间距等
     [self setCollectionView];//设置拳馆教练头像显示
-    [FTTools updateScoreView:_scoreView withScore:1.5];
+    
 }
 
 - (void)subViewFormat{
@@ -270,7 +321,8 @@
             cell.vipNameLabel.text = @"收起";
         }else{
             NSDictionary *vipDic = _vipArray[indexPath.row];
-            cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
+//            cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
+            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]];
             cell.vipNameLabel.text = vipDic[@"name"];
         }
         
@@ -659,6 +711,9 @@
     _loadingBgImageView = nil;
 }
 
+- (IBAction)viewMoreCommentButtonClicked:(id)sender {
+    NSLog(@"查看更多评论");
+}
 
 
 #pragma mark life cycle
