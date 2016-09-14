@@ -364,7 +364,7 @@
             imageView.image = [UIImage imageNamed:@"火苗-红"];
         } else {
             if (!isIntegerScore && i == scoreInteger) {
-                imageView.image = [UIImage imageNamed:@"火苗-半-大宽边"];
+                imageView.image = [UIImage imageNamed:@"火苗-半-大宽边1"];
             } else {
                 imageView.image = [UIImage imageNamed:@"火苗-灰"];
             }

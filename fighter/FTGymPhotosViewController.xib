@@ -8,7 +8,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTGymPhotosViewController">
             <connections>
                 <outlet property="PhotosByUsersButton" destination="6dC-yu-dLi" id="abe-8q-frP"/>
+                <outlet property="bgImageView" destination="2bv-hB-84t" id="YXP-wB-2YR"/>
                 <outlet property="gymPhotosButton" destination="r6k-dB-Vfx" id="h29-Ku-H8Y"/>
+                <outlet property="mainView" destination="9bF-h1-bv5" id="duq-rC-FSE"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,8 +22,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnO-rf-BWe" userLabel="containerViewOf最热和最新">
                     <rect key="frame" x="146" y="10" width="308" height="35"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2bv-hB-84t">
-                            <rect key="frame" x="34" y="-46" width="240" height="128"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="二标签-左选中" translatesAutoresizingMaskIntoConstraints="NO" id="2bv-hB-84t">
+                            <rect key="frame" x="0.0" y="0.0" width="308" height="35"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6k-dB-Vfx">
                             <rect key="frame" x="0.0" y="0.0" width="152" height="35"/>
@@ -37,6 +39,9 @@
                             <state key="selected" title="拳馆拍照">
                                 <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
+                            <connections>
+                                <action selector="gymPhotosButtonClicked:" destination="-1" eventType="touchUpInside" id="16n-iw-rXk"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6dC-yu-dLi">
                             <rect key="frame" x="152" y="0.0" width="152" height="35"/>
@@ -45,30 +50,49 @@
                                 <constraint firstAttribute="width" constant="152" id="t2G-WL-V4a"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <inset key="titleEdgeInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="网友拍照">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="selected" title="网友拍照">
                                 <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
+                            <connections>
+                                <action selector="userPhotosButtonClicked:" destination="-1" eventType="touchUpInside" id="G8r-Ow-cdX"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="6dC-yu-dLi" firstAttribute="top" secondItem="tnO-rf-BWe" secondAttribute="top" id="1fh-aJ-9Xu"/>
+                        <constraint firstAttribute="bottom" secondItem="2bv-hB-84t" secondAttribute="bottom" id="EL5-Rb-brJ"/>
                         <constraint firstItem="r6k-dB-Vfx" firstAttribute="leading" secondItem="tnO-rf-BWe" secondAttribute="leading" id="Kjp-WW-Utk"/>
                         <constraint firstItem="r6k-dB-Vfx" firstAttribute="top" secondItem="tnO-rf-BWe" secondAttribute="top" id="hJw-vU-rUY"/>
                         <constraint firstItem="6dC-yu-dLi" firstAttribute="leading" secondItem="r6k-dB-Vfx" secondAttribute="trailing" id="mUy-Ei-kqo"/>
                         <constraint firstAttribute="height" constant="35" id="xad-IA-lGV"/>
+                        <constraint firstAttribute="trailing" secondItem="2bv-hB-84t" secondAttribute="trailing" id="xdt-Qg-0V8"/>
+                        <constraint firstItem="2bv-hB-84t" firstAttribute="leading" secondItem="tnO-rf-BWe" secondAttribute="leading" id="xor-yM-EXT"/>
+                        <constraint firstItem="2bv-hB-84t" firstAttribute="top" secondItem="tnO-rf-BWe" secondAttribute="top" id="ypw-ZL-L7l"/>
                         <constraint firstAttribute="width" constant="308" id="zm8-Ze-hDe"/>
                     </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9bF-h1-bv5">
+                    <rect key="frame" x="0.0" y="50" width="600" height="550"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="9bF-h1-bv5" secondAttribute="trailing" id="7Fg-F5-FKx"/>
+                <constraint firstItem="9bF-h1-bv5" firstAttribute="top" secondItem="tnO-rf-BWe" secondAttribute="bottom" constant="5" id="B8o-a0-o8H"/>
+                <constraint firstItem="9bF-h1-bv5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="CgY-AG-iue"/>
                 <constraint firstItem="tnO-rf-BWe" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="DUG-CX-k13"/>
                 <constraint firstItem="tnO-rf-BWe" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="bhA-jZ-ixe"/>
+                <constraint firstAttribute="bottom" secondItem="9bF-h1-bv5" secondAttribute="bottom" id="igu-Jd-OvU"/>
             </constraints>
         </view>
     </objects>
+    <resources>
+        <image name="二标签-左选中" width="308" height="35"/>
+    </resources>
 </document>

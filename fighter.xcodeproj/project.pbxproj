@@ -367,6 +367,8 @@
 		E6F46C091D8164AE001387E2 /* FTGymVIPCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6F46C071D8164AE001387E2 /* FTGymVIPCollectionViewCell.xib */; };
 		E6F46C361D829161001387E2 /* FTGymPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6F46C341D829161001387E2 /* FTGymPhotosViewController.m */; };
 		E6F46C371D829161001387E2 /* FTGymPhotosViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6F46C351D829161001387E2 /* FTGymPhotosViewController.xib */; };
+		E6F46C3C1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6F46C3A1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.m */; };
+		E6F46C3D1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6F46C3B1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.xib */; };
 		E6F61D581D81067100971361 /* FTGymLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6F61D561D81067100971361 /* FTGymLevelCell.m */; };
 		E6F61D591D81067100971361 /* FTGymLevelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6F61D571D81067100971361 /* FTGymLevelCell.xib */; };
 		E6FE6A5D1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FE6A5B1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m */; };
@@ -995,6 +997,9 @@
 		E6F46C331D829161001387E2 /* FTGymPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymPhotosViewController.h; sourceTree = "<group>"; };
 		E6F46C341D829161001387E2 /* FTGymPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymPhotosViewController.m; sourceTree = "<group>"; };
 		E6F46C351D829161001387E2 /* FTGymPhotosViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymPhotosViewController.xib; sourceTree = "<group>"; };
+		E6F46C391D867BE3001387E2 /* FTGymPhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymPhotoCollectionViewCell.h; sourceTree = "<group>"; };
+		E6F46C3A1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymPhotoCollectionViewCell.m; sourceTree = "<group>"; };
+		E6F46C3B1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymPhotoCollectionViewCell.xib; sourceTree = "<group>"; };
 		E6F61D551D81067100971361 /* FTGymLevelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymLevelCell.h; sourceTree = "<group>"; };
 		E6F61D561D81067100971361 /* FTGymLevelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymLevelCell.m; sourceTree = "<group>"; };
 		E6F61D571D81067100971361 /* FTGymLevelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymLevelCell.xib; sourceTree = "<group>"; };
@@ -1626,7 +1631,8 @@
 		3D8B2E551D1D14BC00E18280 /* cell */ = {
 			isa = PBXGroup;
 			children = (
-				E6F46C041D815E8D001387E2 /* 拳馆的vip列表cell */,
+				E6F46C381D867B9C001387E2 /* 拳馆照片 */,
+				E6F46C041D815E8D001387E2 /* 拳馆的vip列表 */,
 				3D4040A91D8005BB00CDA675 /* 拳馆评价cell */,
 				E6555ACF1D7FF6AD00748E66 /* 拳馆列表cell */,
 			);
@@ -3034,14 +3040,14 @@
 			name = "拳馆列表";
 			sourceTree = "<group>";
 		};
-		E6F46C041D815E8D001387E2 /* 拳馆的vip列表cell */ = {
+		E6F46C041D815E8D001387E2 /* 拳馆的vip列表 */ = {
 			isa = PBXGroup;
 			children = (
 				E6F46C051D8164AE001387E2 /* FTGymVIPCollectionViewCell.h */,
 				E6F46C061D8164AE001387E2 /* FTGymVIPCollectionViewCell.m */,
 				E6F46C071D8164AE001387E2 /* FTGymVIPCollectionViewCell.xib */,
 			);
-			name = "拳馆的vip列表cell";
+			name = "拳馆的vip列表";
 			sourceTree = "<group>";
 		};
 		E6F46C321D82912F001387E2 /* 查看拳馆照片 */ = {
@@ -3052,6 +3058,16 @@
 				E6F46C351D829161001387E2 /* FTGymPhotosViewController.xib */,
 			);
 			name = "查看拳馆照片";
+			sourceTree = "<group>";
+		};
+		E6F46C381D867B9C001387E2 /* 拳馆照片 */ = {
+			isa = PBXGroup;
+			children = (
+				E6F46C391D867BE3001387E2 /* FTGymPhotoCollectionViewCell.h */,
+				E6F46C3A1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.m */,
+				E6F46C3B1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.xib */,
+			);
+			name = "拳馆照片";
 			sourceTree = "<group>";
 		};
 		E6FE6A591CEED34C00D63847 /* 详情 */ = {
@@ -3258,6 +3274,7 @@
 				3D13FB0C1D193A5A0060B9B4 /* fighter.entitlements in Resources */,
 				E636B1AE1D2646840065C9C1 /* FTGymDetailViewController.xib in Resources */,
 				3DD2FC031D2A6AC50015F7AA /* FTTeachVideoCell.xib in Resources */,
+				E6F46C3D1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.xib in Resources */,
 				3D8B2E541D1D14B000E18280 /* FTCoachCell.xib in Resources */,
 				3D13FB181D1A1AA80060B9B4 /* FTPracticeViewController.xib in Resources */,
 				3DDE29BE1D2BB39F00876B30 /* FTPayViewController.xib in Resources */,
@@ -3757,6 +3774,7 @@
 				E68050B91CBF919A00678905 /* JHRefreshCommonAniView.m in Sources */,
 				E644E77E1D0123F700F39E45 /* FTHomepageUserBean.m in Sources */,
 				E6D09E921CEDA10000B7C43E /* FTTools.m in Sources */,
+				E6F46C3C1D867BE3001387E2 /* FTGymPhotoCollectionViewCell.m in Sources */,
 				3D9D92E41D337100006C42F0 /* FTPayCell.m in Sources */,
 				3DE95BAD1CD8A042005BF85C /* FTRegistViewController.m in Sources */,
 				E6D74A4B1CB7B7EE00854337 /* UUID.m in Sources */,
@@ -3840,8 +3858,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: peng qu (LQHT8X75PQ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: peng qu (LQHT8X75PQ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3886,8 +3904,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: peng qu (LQHT8X75PQ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: peng qu (LQHT8X75PQ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;

@@ -132,7 +132,7 @@
     [self subViewFormat];//设置分割线颜色、label行间距等
     [self setCollectionView];//设置会员头像显示
 //    [self updateScoreView:_scoreView];
-    [FTTools updateScoreView:_scoreView withScore:3.5];
+    [FTTools updateScoreView:_scoreView withScore:1.5];
 }
 
 - (void)subViewFormat{
