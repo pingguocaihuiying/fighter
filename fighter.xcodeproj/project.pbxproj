@@ -71,6 +71,15 @@
 		3D4B19631CDB59D60022DFB0 /* UIWindow+MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B19621CDB59D60022DFB0 /* UIWindow+MBProgressHUD.m */; };
 		3D4B19661CDB6CF80022DFB0 /* FTWeightPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B19651CDB6CF80022DFB0 /* FTWeightPickerView.m */; };
 		3D4B19691CDB7AE20022DFB0 /* FTSexPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B19681CDB7AE20022DFB0 /* FTSexPickerView.m */; };
+		3D4C6ED21D864FCF00881208 /* FTGymCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C6ED01D864FCF00881208 /* FTGymCommentCell.m */; };
+		3D4C6ED31D864FCF00881208 /* FTGymCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4C6ED11D864FCF00881208 /* FTGymCommentCell.xib */; };
+		3D4C6ED81D8658A300881208 /* FTGymPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C6ED61D8658A300881208 /* FTGymPhotoCell.m */; };
+		3D4C6ED91D8658A300881208 /* FTGymPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4C6ED71D8658A300881208 /* FTGymPhotoCell.xib */; };
+		3D4C6EDE1D8687E600881208 /* FTGymCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C6EDC1D8687E600881208 /* FTGymCommentViewController.m */; };
+		3D4C6EDF1D8687E600881208 /* FTGymCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4C6EDD1D8687E600881208 /* FTGymCommentViewController.xib */; };
+		3D4C6EE31D87A04C00881208 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C6EE21D87A04C00881208 /* UIPlaceHolderTextView.m */; };
+		3D4C6EE71D87A4C200881208 /* UIRemoveImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C6EE61D87A4C200881208 /* UIRemoveImageView.m */; };
+		3D4C6EEB1D87D43400881208 /* FTCameraAndAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C6EEA1D87D43400881208 /* FTCameraAndAlbum.m */; };
 		3D500DE91D6AFE1900ACBD0D /* UIView+UIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D500DE81D6AFE1900ACBD0D /* UIView+UIViewController.m */; };
 		3D500DEC1D6C460600ACBD0D /* NSDate+TaskDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D500DEB1D6C460600ACBD0D /* NSDate+TaskDate.m */; };
 		3D500DF01D6D4AEE00ACBD0D /* FTLocalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D500DEF1D6D4AEE00ACBD0D /* FTLocalNotification.m */; };
@@ -500,6 +509,21 @@
 		3D4B19671CDB7AE20022DFB0 /* FTSexPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSexPickerView.h; sourceTree = "<group>"; };
 		3D4B19681CDB7AE20022DFB0 /* FTSexPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTSexPickerView.m; sourceTree = "<group>"; };
 		3D4B196A1CDB7B770022DFB0 /* FTPickerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPickerViewDelegate.h; sourceTree = "<group>"; };
+		3D4C6ECF1D864FCF00881208 /* FTGymCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymCommentCell.h; sourceTree = "<group>"; };
+		3D4C6ED01D864FCF00881208 /* FTGymCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymCommentCell.m; sourceTree = "<group>"; };
+		3D4C6ED11D864FCF00881208 /* FTGymCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymCommentCell.xib; sourceTree = "<group>"; };
+		3D4C6ED51D8658A300881208 /* FTGymPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymPhotoCell.h; sourceTree = "<group>"; };
+		3D4C6ED61D8658A300881208 /* FTGymPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymPhotoCell.m; sourceTree = "<group>"; };
+		3D4C6ED71D8658A300881208 /* FTGymPhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymPhotoCell.xib; sourceTree = "<group>"; };
+		3D4C6EDB1D8687E600881208 /* FTGymCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymCommentViewController.h; sourceTree = "<group>"; };
+		3D4C6EDC1D8687E600881208 /* FTGymCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymCommentViewController.m; sourceTree = "<group>"; };
+		3D4C6EDD1D8687E600881208 /* FTGymCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymCommentViewController.xib; sourceTree = "<group>"; };
+		3D4C6EE11D87A04C00881208 /* UIPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPlaceHolderTextView.h; sourceTree = "<group>"; };
+		3D4C6EE21D87A04C00881208 /* UIPlaceHolderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPlaceHolderTextView.m; sourceTree = "<group>"; };
+		3D4C6EE51D87A4C200881208 /* UIRemoveImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIRemoveImageView.h; sourceTree = "<group>"; };
+		3D4C6EE61D87A4C200881208 /* UIRemoveImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIRemoveImageView.m; sourceTree = "<group>"; };
+		3D4C6EE91D87D43400881208 /* FTCameraAndAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCameraAndAlbum.h; sourceTree = "<group>"; };
+		3D4C6EEA1D87D43400881208 /* FTCameraAndAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCameraAndAlbum.m; sourceTree = "<group>"; };
 		3D500DE71D6AFE1900ACBD0D /* UIView+UIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+UIViewController.h"; sourceTree = "<group>"; };
 		3D500DE81D6AFE1900ACBD0D /* UIView+UIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+UIViewController.m"; sourceTree = "<group>"; };
 		3D500DEA1D6C460500ACBD0D /* NSDate+TaskDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TaskDate.h"; sourceTree = "<group>"; };
@@ -1271,9 +1295,13 @@
 		3D4040A91D8005BB00CDA675 /* 拳馆评价cell */ = {
 			isa = PBXGroup;
 			children = (
+				3D4C6EE01D87A02C00881208 /* UIPlaceHolderTextView */,
 				E6F61D551D81067100971361 /* FTGymLevelCell.h */,
 				E6F61D561D81067100971361 /* FTGymLevelCell.m */,
 				E6F61D571D81067100971361 /* FTGymLevelCell.xib */,
+				3D4C6ECF1D864FCF00881208 /* FTGymCommentCell.h */,
+				3D4C6ED01D864FCF00881208 /* FTGymCommentCell.m */,
+				3D4C6ED11D864FCF00881208 /* FTGymCommentCell.xib */,
 			);
 			name = "拳馆评价cell";
 			sourceTree = "<group>";
@@ -1393,6 +1421,54 @@
 				3D5FB48E1CDC30C700FC1809 /* imagePicker */,
 			);
 			name = picker;
+			sourceTree = "<group>";
+		};
+		3D4C6ED41D86583300881208 /* 拳馆照片cell */ = {
+			isa = PBXGroup;
+			children = (
+				3D4C6EE41D87A47700881208 /* 可删除ImageView */,
+				3D4C6ED51D8658A300881208 /* FTGymPhotoCell.h */,
+				3D4C6ED61D8658A300881208 /* FTGymPhotoCell.m */,
+				3D4C6ED71D8658A300881208 /* FTGymPhotoCell.xib */,
+			);
+			name = "拳馆照片cell";
+			sourceTree = "<group>";
+		};
+		3D4C6EDA1D8687A300881208 /* 拳馆评论 */ = {
+			isa = PBXGroup;
+			children = (
+				3D4C6EDB1D8687E600881208 /* FTGymCommentViewController.h */,
+				3D4C6EDC1D8687E600881208 /* FTGymCommentViewController.m */,
+				3D4C6EDD1D8687E600881208 /* FTGymCommentViewController.xib */,
+			);
+			name = "拳馆评论";
+			sourceTree = "<group>";
+		};
+		3D4C6EE01D87A02C00881208 /* UIPlaceHolderTextView */ = {
+			isa = PBXGroup;
+			children = (
+				3D4C6EE11D87A04C00881208 /* UIPlaceHolderTextView.h */,
+				3D4C6EE21D87A04C00881208 /* UIPlaceHolderTextView.m */,
+			);
+			name = UIPlaceHolderTextView;
+			sourceTree = "<group>";
+		};
+		3D4C6EE41D87A47700881208 /* 可删除ImageView */ = {
+			isa = PBXGroup;
+			children = (
+				3D4C6EE51D87A4C200881208 /* UIRemoveImageView.h */,
+				3D4C6EE61D87A4C200881208 /* UIRemoveImageView.m */,
+			);
+			name = "可删除ImageView";
+			sourceTree = "<group>";
+		};
+		3D4C6EE81D87D27100881208 /* cameraAndalbum */ = {
+			isa = PBXGroup;
+			children = (
+				3D4C6EE91D87D43400881208 /* FTCameraAndAlbum.h */,
+				3D4C6EEA1D87D43400881208 /* FTCameraAndAlbum.m */,
+			);
+			name = cameraAndalbum;
 			sourceTree = "<group>";
 		};
 		3D500DED1D6D4AC200ACBD0D /* model */ = {
@@ -1626,6 +1702,7 @@
 		3D8B2E551D1D14BC00E18280 /* cell */ = {
 			isa = PBXGroup;
 			children = (
+				3D4C6ED41D86583300881208 /* 拳馆照片cell */,
 				E6F46C041D815E8D001387E2 /* 拳馆的vip列表cell */,
 				3D4040A91D8005BB00CDA675 /* 拳馆评价cell */,
 				E6555ACF1D7FF6AD00748E66 /* 拳馆列表cell */,
@@ -2114,6 +2191,7 @@
 		E6555ACC1D7FF5BF00748E66 /* viewController */ = {
 			isa = PBXGroup;
 			children = (
+				3D4C6EDA1D8687A300881208 /* 拳馆评论 */,
 				E6F46C321D82912F001387E2 /* 查看拳馆照片 */,
 				E6EFA9EA1D7EC257005A23CD /* 成为会员 */,
 				3DE1DEE71D3F05DB00511E92 /* detail */,
@@ -2124,6 +2202,7 @@
 		E6555ACD1D7FF5D000748E66 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				3D4C6EE81D87D27100881208 /* cameraAndalbum */,
 				E6555ACE1D7FF69500748E66 /* 拳馆列表 */,
 				3D8B2E551D1D14BC00E18280 /* cell */,
 			);
@@ -3262,6 +3341,7 @@
 				3D13FB181D1A1AA80060B9B4 /* FTPracticeViewController.xib in Resources */,
 				3DDE29BE1D2BB39F00876B30 /* FTPayViewController.xib in Resources */,
 				3D6ABC891D66E43600CD37C8 /* FTDailyTaskViewController.xib in Resources */,
+				3D4C6EDF1D8687E600881208 /* FTGymCommentViewController.xib in Resources */,
 				3DDE29B91D2BAA8200876B30 /* FTDrawerPayCell.xib in Resources */,
 				E6BFBEE71D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib in Resources */,
 				E6A9DDC01CD9C88600CB9518 /* FTVideoDetailViewController.xib in Resources */,
@@ -3315,10 +3395,12 @@
 				3D5FB4931CDC311400FC1809 /* FTAssetsViewController.xib in Resources */,
 				3D7B98C41CE08DEE00B80B8D /* FTNewPasswordVC.xib in Resources */,
 				E696E4E11D2A39F800A89B60 /* FTOpponentCell.xib in Resources */,
+				3D4C6ED31D864FCF00881208 /* FTGymCommentCell.xib in Resources */,
 				E6035EBF1CC0C39500B10D36 /* FTCommentViewController.xib in Resources */,
 				3D6ABC951D66EC8B00CD37C8 /* FTTaskRemindCell.xib in Resources */,
 				E65D08D51CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.xib in Resources */,
 				3D7B98C91CE0D76800B80B8D /* FTWeixinInfoVC.xib in Resources */,
+				3D4C6ED91D8658A300881208 /* FTGymPhotoCell.xib in Resources */,
 				E68EC50C1CC4B85D00A338C8 /* FTFilterTableViewController.xib in Resources */,
 				3D7B98B01CE05F3300B80B8D /* FTPhoneViewController.xib in Resources */,
 				3D06154F1D35E17B00FDA86F /* FTPhoneCell.xib in Resources */,
@@ -3553,6 +3635,7 @@
 				E6574B4C1D2CB5EE009B8465 /* FTIncomePercentView.m in Sources */,
 				E636B1B31D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.m in Sources */,
 				3D500DE91D6AFE1900ACBD0D /* UIView+UIViewController.m in Sources */,
+				3D4C6ED81D8658A300881208 /* FTGymPhotoCell.m in Sources */,
 				3D4122301D4F3F02007EB996 /* FTAuthenticationView.m in Sources */,
 				3DC411F31CCF810A0030C229 /* FTDrawerTableViewFooter.m in Sources */,
 				3D6ABC881D66E43600CD37C8 /* FTDailyTaskViewController.m in Sources */,
@@ -3569,6 +3652,7 @@
 				3D6CFF3A1D06A41200CAC12A /* FTAlivePushStreamVC.m in Sources */,
 				E68EC50B1CC4B85D00A338C8 /* FTFilterTableViewController.m in Sources */,
 				E67872791CEB00980099CEE6 /* FTNewPostViewController.m in Sources */,
+				3D4C6EDE1D8687E600881208 /* FTGymCommentViewController.m in Sources */,
 				3DFC41511D083A3F0067AC72 /* TAPageControl.m in Sources */,
 				3D4B18F51CD8BF340022DFB0 /* FTSetPassWordViewController.m in Sources */,
 				3D7C6B811CF2A26D0088400D /* BoxerMatchController.m in Sources */,
@@ -3582,6 +3666,7 @@
 				E65D08C71CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m in Sources */,
 				3D06155C1D36302600FDA86F /* NSString+Base64.m in Sources */,
 				3DB240F41D3C60A6007F32C6 /* FTShareView2.m in Sources */,
+				3D4C6EE31D87A04C00881208 /* UIPlaceHolderTextView.m in Sources */,
 				E696E4E01D2A39F800A89B60 /* FTOpponentCell.m in Sources */,
 				3D7B98AF1CE05F3300B80B8D /* FTPhoneViewController.m in Sources */,
 				3D4B195C1CDB4D890022DFB0 /* FTDatePickerView.m in Sources */,
@@ -3595,6 +3680,7 @@
 				E68050BB1CBF919A00678905 /* JHRefreshBaseView.m in Sources */,
 				E6C5F4DC1D6EF55000F15AA3 /* FTLoadingView.m in Sources */,
 				E65F90B61CBDF106005CA3E6 /* NetWorking.m in Sources */,
+				3D4C6EE71D87A4C200881208 /* UIRemoveImageView.m in Sources */,
 				3D9CA4041D5F0AE800B9622B /* UIView+MBProgressHUD.m in Sources */,
 				E696E4E61D2A3DDA00A89B60 /* FTDefaultFullMatchingTableViewCell.m in Sources */,
 				E6EFA9EE1D7EC344005A23CD /* FTPayForGymVIPViewController.m in Sources */,
@@ -3672,6 +3758,7 @@
 				3DC411F01CCF80DD0030C229 /* FTDrawerTableViewHeader.m in Sources */,
 				3DE1DF061D40C74D00511E92 /* QQSingleton.m in Sources */,
 				E6A9DDB61CD9833200CB9518 /* FTVideoTableViewCell.m in Sources */,
+				3D4C6EEB1D87D43400881208 /* FTCameraAndAlbum.m in Sources */,
 				E668BBB71CE4353300071998 /* FTRankingListFilterView.m in Sources */,
 				3D0B446D1D45A4D400EE08B3 /* WBSingleton.m in Sources */,
 				3D10DDEA1D4753C300E2D776 /* FTCollectionFowLaytout.m in Sources */,
@@ -3679,6 +3766,7 @@
 				3D6ABC8D1D66E68A00CD37C8 /* FTFinishedTaskViewController.m in Sources */,
 				3D7B98B91CE078D600B80B8D /* FTInputCheckCodeViewController.m in Sources */,
 				3DE486EA1D659C9E00819D04 /* UIButton+Badge.m in Sources */,
+				3D4C6ED21D864FCF00881208 /* FTGymCommentCell.m in Sources */,
 				E6D74A481CB7B7EE00854337 /* UIColor+YBColorCategory.m in Sources */,
 				3D6947101CE3374000989440 /* FTUserViewController.m in Sources */,
 				3D197C531D41CCA30091048D /* WXSingleton.m in Sources */,
@@ -3915,8 +4003,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: peng qu (LQHT8X75PQ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: peng qu (LQHT8X75PQ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3954,7 +4042,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "834da066-e267-4d55-8315-723fb8b38522";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -3965,8 +4053,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: peng qu (LQHT8X75PQ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: peng qu (LQHT8X75PQ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4003,7 +4091,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "834da066-e267-4d55-8315-723fb8b38522";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

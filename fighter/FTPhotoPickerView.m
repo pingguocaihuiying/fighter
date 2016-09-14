@@ -80,7 +80,7 @@
     __weak UIImageView *weakBackImg= _backImgView;
     //完成按钮
     _doneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_doneBtn setTitle:@"确    认" forState:UIControlStateNormal];
+    [_doneBtn setTitle:@"取    消" forState:UIControlStateNormal];
     [_doneBtn setBackgroundImage:[UIImage imageNamed:@"主要按钮背景ios"] forState:UIControlStateNormal];
     [_doneBtn setBackgroundImage:[UIImage imageNamed:@"主要按钮背景ios-pre"] forState:UIControlStateHighlighted];
     [_doneBtn addTarget:self  action:@selector(confirmAction:) forControlEvents:UIControlEventTouchUpInside];
