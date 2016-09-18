@@ -73,7 +73,7 @@
     NSString *urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@&orderNo=%@",indexStr,localUser.olduserid,localUser.token,self.orederNO];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
+//    self.webView.opaque = NO;
     [self.webView loadRequest: request];
 
 }

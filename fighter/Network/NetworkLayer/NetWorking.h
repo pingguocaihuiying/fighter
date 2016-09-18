@@ -221,8 +221,14 @@
 //获取场地的使用信息
 + (void)getGymPlaceUsingInfoById:(NSString *)gymId andTimestamp:(NSString *)timestamp andOption:(void (^)(NSArray *array))option;
 
-//获取拳馆信息
+//获取拳馆信息(比赛模块)
 + (void)getGymInfoById:(NSString *)gymId andOption:(void (^)(NSDictionary *dic))option;
+
+//获取拳馆详细信息（学拳模块的拳馆 ）
++ (void)getGymForGymDetailWithGymId:(NSString *)gymId andOption:(void (^)(NSDictionary *dic))option;
+
+//根绝拳馆id获取拳馆的所有教练(拳馆模块)
++ (void)getCoachesWithCorporationid:(NSString *)corporationid andOption:(void (^)(NSArray *array))option;
 
 //获取拳手信息
 + (void)getBoxerListByWeight:(NSString *)weight andOverWeightLevel: (NSString *) overWeightLevel andPageSize:(NSString *)pageSize andPageNum:(int)pageNum andOption:(void (^)(NSArray *array))option;

@@ -378,6 +378,7 @@
 		E6F46C371D829161001387E2 /* FTGymPhotosViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6F46C351D829161001387E2 /* FTGymPhotosViewController.xib */; };
 		E6F46C6A1D8936C1001387E2 /* FTGymPhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6F46C671D8936C1001387E2 /* FTGymPhotoCollectionViewCell.xib */; };
 		E6F46C6B1D8936C1001387E2 /* FTGymPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6F46C681D8936C1001387E2 /* FTGymPhotoCollectionViewCell.m */; };
+		E6F46C6F1D893FE2001387E2 /* FTGymDetailBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6F46C6E1D893FE2001387E2 /* FTGymDetailBean.m */; };
 		E6F61D581D81067100971361 /* FTGymLevelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6F61D561D81067100971361 /* FTGymLevelCell.m */; };
 		E6F61D591D81067100971361 /* FTGymLevelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6F61D571D81067100971361 /* FTGymLevelCell.xib */; };
 		E6FE6A5D1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FE6A5B1CEED3DC00D63847 /* FTArenaPostsDetailViewController.m */; };
@@ -1024,6 +1025,8 @@
 		E6F46C671D8936C1001387E2 /* FTGymPhotoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymPhotoCollectionViewCell.xib; sourceTree = "<group>"; };
 		E6F46C681D8936C1001387E2 /* FTGymPhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymPhotoCollectionViewCell.m; sourceTree = "<group>"; };
 		E6F46C691D8936C1001387E2 /* FTGymPhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymPhotoCollectionViewCell.h; sourceTree = "<group>"; };
+		E6F46C6D1D893FE2001387E2 /* FTGymDetailBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymDetailBean.h; sourceTree = "<group>"; };
+		E6F46C6E1D893FE2001387E2 /* FTGymDetailBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymDetailBean.m; sourceTree = "<group>"; };
 		E6F61D551D81067100971361 /* FTGymLevelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymLevelCell.h; sourceTree = "<group>"; };
 		E6F61D561D81067100971361 /* FTGymLevelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymLevelCell.m; sourceTree = "<group>"; };
 		E6F61D571D81067100971361 /* FTGymLevelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymLevelCell.xib; sourceTree = "<group>"; };
@@ -1224,6 +1227,7 @@
 		3D13FB261D1A910E0060B9B4 /* 拳馆 */ = {
 			isa = PBXGroup;
 			children = (
+				E6F46C6C1D893FB9001387E2 /* Model */,
 				E6555ACD1D7FF5D000748E66 /* view */,
 				E6555ACC1D7FF5BF00748E66 /* viewController */,
 			);
@@ -3149,6 +3153,15 @@
 			name = "拳馆照片列表";
 			sourceTree = "<group>";
 		};
+		E6F46C6C1D893FB9001387E2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E6F46C6D1D893FE2001387E2 /* FTGymDetailBean.h */,
+				E6F46C6E1D893FE2001387E2 /* FTGymDetailBean.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		E6FE6A591CEED34C00D63847 /* 详情 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3756,6 +3769,7 @@
 				E65EFC2C1CC8B63C0039EE8A /* FTConfig.m in Sources */,
 				E68D16171CFD819500AB5A8C /* UIImage+FTLYZImage.m in Sources */,
 				3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */,
+				E6F46C6F1D893FE2001387E2 /* FTGymDetailBean.m in Sources */,
 				E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */,
 				3D4122201D4F253E007EB996 /* FTLabelCell.m in Sources */,
 				E6035EB81CC08D2800B10D36 /* FTNewsDetail2ViewController.m in Sources */,

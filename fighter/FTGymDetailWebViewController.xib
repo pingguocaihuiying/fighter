@@ -15,10 +15,14 @@
                 <outlet property="collectionView" destination="frn-jt-43p" id="jdF-mM-kcl"/>
                 <outlet property="collectionViewPaddingLeft" destination="e34-IC-c8z" id="gXf-lf-y1B"/>
                 <outlet property="collectionViewPaddingRight" destination="jYv-86-8Vf" id="rAg-PE-vQn"/>
+                <outlet property="commentCountLabel" destination="08q-k8-8jc" id="Bnn-Dw-ykS"/>
                 <outlet property="commentView" destination="9PK-km-69L" id="3yd-tn-YAK"/>
                 <outlet property="dialBtn" destination="TmS-Hu-nKc" id="Z04-AY-a3J"/>
                 <outlet property="focusView" destination="xpk-Hv-igO" id="OMC-V9-c9U"/>
                 <outlet property="gymAdressLabel" destination="maN-Jk-hhR" id="yff-ca-OSC"/>
+                <outlet property="gymShowImageView" destination="TEO-cZ-MR7" id="PLc-cD-5Vi"/>
+                <outlet property="haveVideoButton" destination="wXL-Dy-ssq" id="5jl-1w-6sp"/>
+                <outlet property="haveVideoView" destination="5Re-SN-vAj" id="6C0-m9-mxB"/>
                 <outlet property="scoreView" destination="FGK-qj-mVh" id="d2y-Aw-zck"/>
                 <outlet property="seperatorView1" destination="rpQ-Gb-5Sx" id="UM3-vn-w5B"/>
                 <outlet property="seperatorView2" destination="Jf3-C7-hYY" id="B7B-QH-hqk"/>
@@ -26,6 +30,7 @@
                 <outlet property="seperatorView4" destination="8xi-wB-n2p" id="2vT-3b-ZL8"/>
                 <outlet property="seperatorView5" destination="kJK-on-KFG" id="zVb-Th-Rf4"/>
                 <outlet property="seperatorView6" destination="6Ef-NX-D9f" id="FAW-aB-Bol"/>
+                <outlet property="videoAndImageCountLabel" destination="Exp-Xe-Ucl" id="2rY-Tc-PnC"/>
                 <outlet property="view" destination="MDm-nr-BxI" id="gun-f4-hDB"/>
                 <outlet property="voteView" destination="Pcr-Mv-85o" id="DyK-Bs-dqj"/>
             </connections>
@@ -49,13 +54,13 @@
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="轮播页码bg-ios" translatesAutoresizingMaskIntoConstraints="NO" id="l72-Mv-iRZ">
-                            <rect key="frame" x="103" y="130" width="115" height="18"/>
+                            <rect key="frame" x="108" y="130" width="104" height="18"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="18" id="Sie-T9-tOs"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1个视频 276张照片" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Exp-Xe-Ucl">
-                            <rect key="frame" x="113" y="133" width="95" height="11"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0个视频 0张照片" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Exp-Xe-Ucl">
+                            <rect key="frame" x="118" y="133" width="84" height="11"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="11" id="Kgo-rV-H5Z"/>
                             </constraints>
@@ -150,6 +155,9 @@
                                     </constraints>
                                     <inset key="imageEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" image="右箭头"/>
+                                    <connections>
+                                        <action selector="viewMoreCommentButtonClicked:" destination="-1" eventType="touchUpInside" id="rVW-Aw-keF"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="评价：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yUa-If-kY2">
                                     <rect key="frame" x="16" y="15" width="45" height="15"/>

@@ -49,6 +49,16 @@
 - (void)setSubViews{
     //设置label等控件的颜色
     [self setSubViewsColor];
+    [self addGestureToView];//给self.view添加单点事件，点击后收起键盘
+}
+
+- (void)addGestureToView{
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewTapped)];
+    [self.view addGestureRecognizer:tapGestureRecognizer];
+}
+
+- (void)viewTapped{
+    [_checkCodeTextField resignFirstResponder];//收起键盘
 }
 
 - (void)setSubViewsColor{
@@ -63,7 +73,7 @@
     
     NSMutableDictionary *attr = [NSMutableDictionary dictionary];
     attr[NSForegroundColorAttributeName] = [UIColor colorWithHex:0xb4b4b4];
-    NSAttributedString *checkCodePlaceholder = [[NSAttributedString alloc] initWithString:@"请输入验证码" attributes:attr];
+    NSAttributedString *checkCodePlaceholder = [[NSAttributedString alloc] initWithString:@"" attributes:attr];
     [self.checkCodeTextField setAttributedPlaceholder:checkCodePlaceholder];
     [self.checkCodeTextField setTextColor:[UIColor whiteColor]];
 }

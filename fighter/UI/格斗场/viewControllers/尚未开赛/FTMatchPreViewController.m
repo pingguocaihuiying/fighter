@@ -29,6 +29,7 @@
 
 - (void)setWebView{
     _webView = [UIWebView new];
+    _webView.opaque = NO;
     _webView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     _webView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_webView];

@@ -1203,7 +1203,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         option(nil);
     }];
 }
-//获取拳馆详细信息
+//获取拳馆详细信息(比赛模块用到的拳馆)
 + (void)getGymDetailWithGymId:(NSString *)gymId andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [NSString stringWithFormat:@"%@/api/match/%@.do", Domain, gymId];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -1227,6 +1227,58 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         option(nil);
     }];
 }
+//获取拳馆详细信息（学拳模块的拳馆 ）
++ (void)getGymForGymDetailWithGymId:(NSString *)gymId andOption:(void (^)(NSDictionary *dic))option{
+    NSString *urlString = [NSString stringWithFormat:@"%@/api/gym/%@.do", Domain, gymId];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"message : %@", responseDic[@"message"]);
+        NSString *status = responseDic[@"status"];
+        if ([status isEqualToString:@"success"]) {
+            NSDictionary *dic = responseDic[@"data"];
+            if (dic) {
+                option(dic);
+            }
+        } else {
+            option(nil);
+        }
+        
+    } failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
+        option(nil);
+    }];
+}
+
+//根绝拳馆id获取拳馆的所有教练
++ (void)getCoachesWithCorporationid:(NSString *)corporationid andOption:(void (^)(NSArray *array))option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetCoachListURL];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    urlString = [NSString stringWithFormat:@"%@?corporationid=%@", urlString, corporationid];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"message : %@", responseDic[@"message"]);
+        NSString *status = responseDic[@"status"];
+        if ([status isEqualToString:@"success"]) {
+            NSArray *array = responseDic[@"data"];
+            if (array && array != (id)[NSNull null]) {
+                option(array);
+            }
+        } else {
+            option(nil);
+        }
+        
+    } failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
+        option(nil);
+    }];
+}
+
+
 + (void)addViewCountWithObjid:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^)(BOOL result))option{
     //获取网络请求地址url
     NSString *addViewCountUrlString = [FTNetConfig host:Domain path:AddViewCountURL];
