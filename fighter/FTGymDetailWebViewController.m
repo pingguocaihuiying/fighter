@@ -127,7 +127,7 @@
 
 - (void)setSubViews{
     
-//    [self setWebView];
+    [self setWebView];
     
 //    [self setLoadingImageView];
     [self subViewFormat];//设置分割线颜色、label行间距等
@@ -423,15 +423,15 @@
 // 跳转评论页面
 - (void)pushToCommentVC{
     
-//    FTCommentViewController *commentVC = [ FTCommentViewController new];
-//    commentVC.delegate = self;
-//    commentVC.gymBean = self.gymBean;
-//    [self.navigationController pushViewController:commentVC animated:YES];
-    
-    FTGymCommentViewController *commentVC = [ FTGymCommentViewController new];
-//    commentVC.delegate = self;
-//    commentVC.gymBean = self.gymBean;
+    FTCommentViewController *commentVC = [ FTCommentViewController new];
+    commentVC.delegate = self;
+    commentVC.gymBean = self.gymBean;
     [self.navigationController pushViewController:commentVC animated:YES];
+    
+//    FTGymCommentViewController *commentVC = [ FTGymCommentViewController new];
+////    commentVC.delegate = self;
+////    commentVC.gymBean = self.gymBean;
+//    [self.navigationController pushViewController:commentVC animated:YES];
 
    
     

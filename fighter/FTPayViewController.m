@@ -19,10 +19,7 @@
 #import "FTEncoderAndDecoder.h"
 #import "FTPaySingleton.h"
 
-#define PowerCoin1 @"PowerCoin600P"//￥6
-#define PowerCoin2 @"Power_Coin3000P" //￥30
-#define PowerCoin3 @"PowerCoin_12800P" //￥128
-#define PowerCoin4 @"PowerCoin_58800P" //￥588
+
 
 
 enum{
@@ -148,28 +145,28 @@ enum{
     goodsBean1.goodsId = PowerCoin1;
     goodsBean1.price =  [[NSDecimalNumber alloc]initWithInt:6];
     goodsBean1.descriptions = @"Power币 600P";
-    goodsBean1.details = @"Power币 600P，可以用来购买视频，格斗东西app相关服务";
+    goodsBean1.details = @"Power币 600P，您可以用于购买我们的服务，包括不限于付费视频，优惠券等内容。";
     [_goodsArray addObject:goodsBean1];
     
     FTGoodsBean *goodsBean2 = [FTGoodsBean new];
     goodsBean2.goodsId = PowerCoin2;
     goodsBean2.price = [[NSDecimalNumber alloc]initWithInt:30];
     goodsBean2.descriptions = @"Power币 3000P";
-    goodsBean2.details = @"Power币 3000P，可以用来购买视频，格斗东西app相关服务";
+    goodsBean2.details = @"Power币 3000P，您可以用于购买我们的服务，包括不限于付费视频，优惠券等内容。";
     [_goodsArray addObject:goodsBean2];
     
     FTGoodsBean *goodsBean3 = [FTGoodsBean new];
     goodsBean3.goodsId = PowerCoin3;
     goodsBean3.price = [[NSDecimalNumber alloc]initWithInt:128];
     goodsBean3.descriptions = @"Power币 12800P";
-    goodsBean3.details = @"Power币 12800P，可以用来购买视频，格斗东西app相关服务";
+    goodsBean3.details = @"Power币 12800P，您可以用于购买我们的服务，包括不限于付费视频，优惠券等内容。";
     [_goodsArray addObject:goodsBean3];
     
     FTGoodsBean *goodsBean4 = [FTGoodsBean new];
     goodsBean4.goodsId = PowerCoin4;
     goodsBean4.price =[[NSDecimalNumber alloc]initWithInt:588];
     goodsBean4.descriptions = @"Power币 58800P";
-    goodsBean4.details = @"Power币 58800P，可以用来购买视频，格斗东西app相关服务";
+    goodsBean4.details = @"Power币 58800P，您可以用于购买我们的服务，包括不限于付费视频，优惠券等内容。";
     [_goodsArray addObject:goodsBean4];
     
 }
