@@ -8,15 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "FTPracticeViewController.h"
-
+#import "CellDelegate.h"
 @interface FTGymPhotoCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIView *photoContainer;
 @property (weak, nonatomic) IBOutlet UIButton *addPhotoBtn;
 @property (nonatomic, weak) id<TeachDelegate> delegate;
+@property (nonatomic, weak) id<CellDelegate> cellDelegate;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leadConstraint;
 
+- (void) addPhotoToContainer:(UIImage *) image;
+- (void) setPhotoContainerWithArray:(NSMutableArray *)photos;
+- (void) setAddPhotoBtnFrame;
 
 @end

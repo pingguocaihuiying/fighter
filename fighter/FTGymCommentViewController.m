@@ -13,9 +13,10 @@
 #import "FTCameraAndAlbum.h"
 #import "UIImage+LabelImage.h"
 
-@interface FTGymCommentViewController () 
+@interface FTGymCommentViewController () <UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *photos;
 
 @end
 
@@ -24,6 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self initData];
     [self setNavigationBar];
     [self setTableView];
 }
@@ -34,6 +36,11 @@
 }
 
 #pragma mark - 初始化
+
+- (void) initData {
+
+    _photos = [[NSMutableArray alloc]init];
+}
 
 - (void) setNavigationBar {
     
@@ -65,6 +72,8 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"FTGymCommentCell" bundle:nil] forCellReuseIdentifier:@"CommentCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"FTGymPhotoCell" bundle:nil] forCellReuseIdentifier:@"PhotoCell"];
     
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 50.0; // 设置为一个接近于行高“平均值”的数值
 }
 
 #pragma mark - response 
@@ -74,52 +83,57 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
+
+
 - (void) submitBtnAction:(id) sender {
 
     
 }
 
-//- (void) addPhotoBtnAction:(id) sender {
-//    FTCameraAndAlbum *cameraView = [[FTCameraAndAlbum alloc]init];
-//    [cameraView.albumBtn addTarget:self action:@selector(albumBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-//    [cameraView.cameraBtn addTarget:self action:@selector(cameraBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-////    cameraView.delegate = self;
-//    [self.view addSubview:cameraView];
-//}
 
-//
-//- (void) cameraBtnAction :(id) sender {
-//    
-//    [[[(UIButton *)sender superview] superview] removeFromSuperview];
-//    
-//    if([UIImagePickerController isCameraDeviceAvailable: UIImagePickerControllerCameraDeviceRear]) {
-//        
-//        UIImagePickerController * _imgPickerController = [[UIImagePickerController alloc]init];
-//        _imgPickerController.delegate = self;
-//        _imgPickerController.allowsEditing = YES;
-//        _imgPickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-//        
-//        [self.navigationController presentViewController:_imgPickerController animated:YES completion:nil];
-//    }
-//    
-//}
-//
-//- (void) albumBtnAction:(id) sender {
-//    
-//    [[[(UIButton *)sender superview] superview] removeFromSuperview];
-//    
-//    if([UIImagePickerController isCameraDeviceAvailable: UIImagePickerControllerCameraDeviceRear]) {
-//        
-//        UIImagePickerController * _imgPickerController = [[UIImagePickerController alloc]init];
-//        _imgPickerController.delegate = self;
-//        _imgPickerController.allowsEditing = YES;
-//        _imgPickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-//        
-//        [self.navigationController presentViewController:_imgPickerController animated:YES completion:nil];
-//    }
-//    [[[(UIButton *)sender superview] superview] removeFromSuperview];
-//}
-//
+
+- (void) addPhotoBtnAction:(id) sender {
+    FTCameraAndAlbum *cameraView = [[FTCameraAndAlbum alloc]init];
+    [cameraView.albumBtn addTarget:self action:@selector(albumBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [cameraView.cameraBtn addTarget:self action:@selector(cameraBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+//    cameraView.delegate = self;
+    [self.view addSubview:cameraView];
+}
+
+
+- (void) cameraBtnAction :(id) sender {
+    
+    [[[(UIButton *)sender superview] superview] removeFromSuperview];
+    
+    if([UIImagePickerController isCameraDeviceAvailable: UIImagePickerControllerCameraDeviceRear]) {
+        
+        UIImagePickerController * _imgPickerController = [[UIImagePickerController alloc]init];
+        _imgPickerController.delegate = self;
+        _imgPickerController.allowsEditing = YES;
+        _imgPickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+        
+        [self.navigationController presentViewController:_imgPickerController animated:YES completion:nil];
+    }
+    
+}
+
+- (void) albumBtnAction:(id) sender {
+    
+    [[[(UIButton *)sender superview] superview] removeFromSuperview];
+    
+    if([UIImagePickerController isCameraDeviceAvailable: UIImagePickerControllerCameraDeviceRear]) {
+        
+        UIImagePickerController * _imgPickerController = [[UIImagePickerController alloc]init];
+        _imgPickerController.delegate = self;
+        _imgPickerController.allowsEditing = YES;
+        _imgPickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        
+        [self.navigationController presentViewController:_imgPickerController animated:YES completion:nil];
+    }
+    [[[(UIButton *)sender superview] superview] removeFromSuperview];
+}
+
 #pragma mark - delegates
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -139,21 +153,24 @@
 }
 
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//
+//    if (indexPath.section == 0) {
+//        
+//        if (indexPath.row < 3) {
+//            return 50;
+//        }else {
+//            return 100;
+//        }
+//    }else {
+//        
+//        return 170;
+//    }
+//    
+//    return 0;
+//}
 
-    if (indexPath.section == 0) {
-        
-        if (indexPath.row < 3) {
-            return 50;
-        }else {
-            return 100;
-        }
-    }else {
-        return 170;
-    }
-    
-    return 0;
-}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 
@@ -189,8 +206,12 @@
     }else {
         
         FTGymPhotoCell *cell = (FTGymPhotoCell *)[tableView dequeueReusableCellWithIdentifier:@"PhotoCell"];
-
+        
         cell.delegate = self;
+        cell.cellDelegate = self;
+        [cell.addPhotoBtn addTarget:self action:@selector(addPhotoBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        [cell setPhotoContainerWithArray:_photos];
+        
         return cell;
     }
     
@@ -204,7 +225,31 @@
 }
 
 
+#pragma mark - cellDelegate
 
+- (void) endEditCell {
+    
+    NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:1];
+    [self.tableView reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+
+
+
+#pragma mark  - UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
+    [picker dismissViewControllerAnimated:YES completion:^{}];
+    NSLog(@"pics:%@",info);
+    UIImage *editImage = [info valueForKey:UIImagePickerControllerOriginalImage];
+    UIImage *img = [UIImage editImage:editImage side:200];
+    
+    [_photos addObject:img];
+    
+    FTGymPhotoCell *cell = (FTGymPhotoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] ];
+    [cell addPhotoToContainer:img];
+    [cell setAddPhotoBtnFrame];
+}
 
 
 @end

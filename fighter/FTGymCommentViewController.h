@@ -8,7 +8,8 @@
 
 #import "FTBaseViewController.h"
 #import "FTPracticeViewController.h"
+#import "CellDelegate.h"
 
-@interface FTGymCommentViewController : FTBaseViewController <TeachDelegate>
+@interface FTGymCommentViewController : FTBaseViewController <TeachDelegate,CellDelegate>
 
 @end
