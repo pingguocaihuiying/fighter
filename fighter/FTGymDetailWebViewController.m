@@ -475,15 +475,15 @@
 // 跳转评论页面
 - (void)pushToCommentVC{
     
-    FTCommentViewController *commentVC = [ FTCommentViewController new];
-    commentVC.delegate = self;
-    commentVC.gymBean = self.gymBean;
-    [self.navigationController pushViewController:commentVC animated:YES];
-    
-//    FTGymCommentViewController *commentVC = [ FTGymCommentViewController new];
-////    commentVC.delegate = self;
-////    commentVC.gymBean = self.gymBean;
+//    FTCommentViewController *commentVC = [ FTCommentViewController new];
+//    commentVC.delegate = self;
+//    commentVC.gymBean = self.gymBean;
 //    [self.navigationController pushViewController:commentVC animated:YES];
+    
+    FTGymCommentViewController *commentVC = [ FTGymCommentViewController new];
+//    commentVC.delegate = self;
+//    commentVC.gymBean = self.gymBean;
+    [self.navigationController pushViewController:commentVC animated:YES];
 
    
     
