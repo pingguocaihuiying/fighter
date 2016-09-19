@@ -338,9 +338,18 @@
         
         NSArray *strArray = [url componentsSeparatedByString:@"id="];
         NSString *idAndOtherStr = [strArray lastObject];
-        NSString *objId = [[idAndOtherStr componentsSeparatedByString:@"&"] firstObject];
+        NSString *objId = [[idAndOtherStr componentsSeparatedByString:@"&"] firstObject];//资讯或视频ID
         
         FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
+        
+        //判断是咨询还是视频
+        NSArray *typeStrArray= [url componentsSeparatedByString:@"&type="];
+        NSString *typeStr = [typeStrArray lastObject];
+        if ([typeStr isEqualToString:@"1"]) {//咨询
+            videoDetailVC.detailType = FTDetailTypeNews;
+        } else if ([typeStr isEqualToString:@"2"]) {//视频
+            videoDetailVC.detailType = FTDetailTypeVideo;
+        }
         
         if (matchBean.urlRes) {
             FTVideoBean *videoBean = [FTVideoBean new];

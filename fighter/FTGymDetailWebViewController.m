@@ -119,10 +119,15 @@
     if (_gymDetailBean.videoCount == 0) {
         _haveVideoView.hidden = YES;
         _haveVideoButton.hidden = YES;
+        
     }else{
         _haveVideoView.hidden = NO;
         _haveVideoButton.hidden = NO;
     }
+    
+    //更新展示照片
+    NSString *imageUrl = [NSString stringWithFormat:@"http://%@/%@", _gymDetailBean.urlprefix, _gymDetailBean.gym_show_img];
+    [_gymShowImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl]];
     
     //更新照片、视频个数
     _videoAndImageCountLabel.text = [NSString stringWithFormat:@"%d个视频 %d张照片", _gymDetailBean.videoCount, _gymDetailBean.pictureCount];
@@ -383,6 +388,7 @@
 - (IBAction)topImageClicked:(id)sender {
     NSLog(@"进入图集");
     FTGymPhotosViewController *photoViewController = [FTGymPhotosViewController new];
+    photoViewController.gymDetailBean = _gymDetailBean;
     [self.navigationController pushViewController:photoViewController animated:YES];
 }
 

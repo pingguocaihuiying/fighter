@@ -52,10 +52,11 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
 - (void)viewDidDisappear:(BOOL)animated{
     [_fullScreenScrollView removeFromSuperview];
 }
-
+//getPhotosByUsersWithCorporationid
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initBaseData];
+    [self loadUserPhotoDataFromServer];
     [self setSubViews];
 }
 
@@ -70,29 +71,44 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
     
 }
 
+- (void)loadUserPhotoDataFromServer{
+    [NetWorking getPhotosByUsersWithCorporationid:[NSString stringWithFormat:@"%d", _gymDetailBean.id] andOption:^(NSArray *array) {
+        [self setUserPhotoArrayWith:array];
+    }];
+}
+
 - (void)initPhotosArray{
     _photoArrayByGym = [NSMutableArray new];
     _photoArrayByUser = [NSMutableArray new];
-    for (int i = 0; i < 5; i++) {
-        NSMutableDictionary *dic = [NSMutableDictionary new];
-        NSMutableDictionary *dic2 = [NSMutableDictionary new];
-        if (i % 2== 0) {
-            [dic setValue:@"video" forKey:@"type"];//类型
-            [dic setValue:@"http://www.cntaijiquan.com/UploadFiles/taijiquanguan/2015/2/111025.jpg" forKey:@"imageurl"];//图片地址
-            [dic setValue:@"http://7xtvwy.com1.z0.glb.clouddn.com/testbylyz-0909.mp4" forKey:@"videourl"];//视频地址
-            
-            [dic2 setValue:@"video" forKey:@"type"];
-            [dic2 setValue:@"http://www.cntaijiquan.com/UploadFiles/taijiquanguan/2015/2/111025.jpg" forKey:@"imageurl"];
-            [dic2 setValue:@"http://7xtvwy.com1.z0.glb.clouddn.com/testbylyz-0909.mp4" forKey:@"videourl"];//视频地址
-        } else {
+    
+    //把图片地址放入_photoArrayByGym
+    NSArray *imagesArrayLeft = _gymDetailBean.gymImgs;
+    if (imagesArrayLeft && [imagesArrayLeft isKindOfClass:[NSArray class]]) {
+        for (int i = 0; i < imagesArrayLeft.count; i++) {
+            NSLog(@"imagesArrayLeft %d : %@", i, imagesArrayLeft[i]);
+            NSMutableDictionary *dic = [NSMutableDictionary new];
             [dic setValue:@"image" forKey:@"type"];
-            [dic setValue:@"http://d.hiphotos.baidu.com/baike/c0%3Dbaike60%2C5%2C5%2C60%2C20/sign=fe45376b2b34349b600b66d7a8837eab/c83d70cf3bc79f3d23b43241b9a1cd11728b296e.jpg" forKey:@"imageurl"];
-            
-            [dic2 setValue:@"image" forKey:@"type"];
-            [dic2 setValue:@"http://imgsrc.baidu.com/forum/pic/item/9accd43f8794a4c2926645ad0ef41bd5ac6e39b7.jpg" forKey:@"imageurl"];
+            NSString *imageUrl = [NSString stringWithFormat:@"http://%@/%@", _gymDetailBean.urlprefix, imagesArrayLeft[i]];
+            [dic setValue:imageUrl forKey:@"imageurl"];
+            NSLog(@"left imageUrl : %@", imageUrl);
+            [_photoArrayByGym addObject:dic];
         }
-        [_photoArrayByGym addObject:dic];
-        [_photoArrayByUser addObject:dic2];
+    }
+    
+    //把视频地址追加入_photoArrayByGym
+    NSArray *videoArrayLeft = _gymDetailBean.gymVideos;
+    if (videoArrayLeft && [videoArrayLeft isKindOfClass:[NSArray class]]) {
+        for (int i = 0; i < videoArrayLeft.count; i++) {
+            NSMutableDictionary *dic = [NSMutableDictionary new];
+            [dic setValue:@"video" forKey:@"type"];//类型
+            NSString *videoUrl = [NSString stringWithFormat:@"http://%@/%@", _gymDetailBean.urlprefix, videoArrayLeft[i]];
+            NSString *imageUrl = [NSString stringWithFormat:@"%@?vframe/png/offset/0", videoUrl];
+            [dic setValue:imageUrl forKey:@"imageurl"];//图片地址
+            
+            [dic setValue:videoUrl forKey:@"videourl"];//视频地址
+            NSLog(@"left videoUrl : %@", videoUrl);
+            [_photoArrayByGym addObject:dic];
+        }
     }
 }
 
@@ -104,11 +120,39 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
     [self setFullScreenScrollView];//设置全屏显示照片和视频的collectionView
 }
 
+//设置用户上传图片的数据源
+- (void)setUserPhotoArrayWith:(NSArray *)array{
+    for ( int i = 0; i < array.count; i++) {
+        NSDictionary *dicSrc = array[i];
+        NSMutableDictionary *dic = [NSMutableDictionary new];
+        if ([dicSrc[@"suffix"] isEqualToString:@"0"]) {//suffix 0 是图片，1是视频
+            [dic setValue:@"image" forKey:@"type"];//类型
+            NSString *imageUrl = [NSString stringWithFormat:@"http://%@/%@", _gymDetailBean.urlprefix, dicSrc[@"url"]];
+            
+            imageUrl = [imageUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSLog(@"imageUrl : %@", imageUrl);
+            [dic setValue:imageUrl forKey:@"imageurl"];//图片地址
+        } else if ([dicSrc[@"suffix"] isEqualToString:@"1"]) {
+            [dic setValue:@"video" forKey:@"type"];//类型
+            NSString *videoUrl = [NSString stringWithFormat:@"http://%@/%@", _gymDetailBean.urlprefix, dicSrc[@"url"]];
+            NSString *imageUrl = [NSString stringWithFormat:@"%@?vframe/png/offset/0", videoUrl];
+            imageUrl = [imageUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            [dic setValue:imageUrl forKey:@"imageurl"];//图片地址
+            videoUrl = [videoUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            [dic setValue:videoUrl forKey:@"videourl"];//视频地址
+            NSLog(@"videoUrl : %@", videoUrl);
+        }
+        [_photoArrayByUser addObject:dic];
+
+    }
+    [_photoCollectionViewRight reloadData];
+}
+
 // 设置导航栏
 - (void) setNavigationSytle {
     
     //设置默认标题
-    self.navigationItem.title = @"必图培训中心";
+    self.navigationItem.title = _gymDetailBean.gym_name;
     
     // 导航栏字体和背景
     self.navigationController.navigationBar.tintColor = [UIColor colorWithHex:0x828287];
@@ -156,15 +200,21 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
     
     //left
     _photoCollectionViewLeft = [[UICollectionView alloc]initWithFrame:CGRectMake(20 * SCALE, 0, _scrollViewContentWidth - 20 * 2 *SCALE, _scrollViewContentHeight)collectionViewLayout:flow];
-    [_photoCollectionViewLeft registerNib:[UINib nibWithNibName:@"FTGymPhotoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
+    [_photoCollectionViewLeft registerNib:[UINib nibWithNibName:@"FTGymPhotoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell1"];//FooCollectionViewCell
     _photoCollectionViewLeft.backgroundColor = [UIColor clearColor];
     _photoCollectionViewLeft.delegate = self;
     _photoCollectionViewLeft.dataSource = self;
     [_scrollView addSubview:_photoCollectionViewLeft];
     
     //right
-    _photoCollectionViewRight = [[UICollectionView alloc]initWithFrame:CGRectMake(_scrollViewContentWidth + 20 * SCALE, 0, _scrollViewContentWidth - 20 * 2 *SCALE, _scrollViewContentHeight)collectionViewLayout:flow];
-    [_photoCollectionViewRight registerNib:[UINib nibWithNibName:@"FTGymPhotoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
+    //flowlayout2
+    UICollectionViewFlowLayout *flow2 = [[UICollectionViewFlowLayout alloc]init];
+    flow2.itemSize = CGSizeMake(80 * SCALE, 80 * SCALE);//cell大小
+    flow2.minimumLineSpacing = 15 * SCALE;//行最小间距
+    flow2.minimumInteritemSpacing = 5 * SCALE;//列最小间距
+    _photoCollectionViewRight = [[UICollectionView alloc]initWithFrame:CGRectMake(_scrollViewContentWidth + 20 * SCALE, 0, _scrollViewContentWidth - 20 * 2 *SCALE, _scrollViewContentHeight)collectionViewLayout:flow2];
+    [_photoCollectionViewRight registerNib:[UINib nibWithNibName:@"FTGymPhotoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell2"];
+
     _photoCollectionViewRight.backgroundColor = [UIColor clearColor];
     _photoCollectionViewRight.delegate = self;
     _photoCollectionViewRight.dataSource = self;
@@ -190,14 +240,19 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
 - (void)fullScreenScrollViewTap:(id)sender{
     _fullScreenScrollView.hidden = YES;
     [UIApplication sharedApplication].statusBarHidden = NO;
+    _moviePlayer.contentURL = nil;
 }
 
 - (void)setFullScreenScrollViewContents{
-    //移除残留的subimageviews
+    //移除残留的subimageviews，把播放器从视野中移除，避免重叠
     NSArray *subviewsArray = [_fullScreenScrollView subviews];
     for(UIView *subview in subviewsArray){
         if ([subview isKindOfClass:[UIImageView class]]) {
                 [subview removeFromSuperview];
+        }else if (subview.tag == 9527){
+            CGRect r = subview.frame;
+            r.origin.x = -1000;
+            subview.frame = r;
         }
         
     }
@@ -225,6 +280,7 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
                 NSURL *url = [NSURL URLWithString:photoDic[@"videourl"]];
                 _moviePlayer = [[MPMoviePlayerController alloc]initWithContentURL:url];
                 _moviePlayer.view.frame = CGRectMake(i * SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                _moviePlayer.view.tag = 9527;
                 [_fullScreenScrollView addSubview:_moviePlayer.view];
                 
                 //配置属性
@@ -249,16 +305,21 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
     NSInteger number = 0;
     if (collectionView == _photoCollectionViewLeft) {
         number = _photoArrayByGym.count;
+        NSLog(@"left number %ld", number);
+        
     } else if (collectionView == _photoCollectionViewRight){
         number = _photoArrayByUser.count;
+        NSLog(@"right number %ld", number);
     }
+    
     return number;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    FTGymPhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    
+    FTGymPhotoCollectionViewCell *cell;
     if (collectionView == _photoCollectionViewLeft) {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell1" forIndexPath:indexPath];
+
         NSDictionary *dic = _photoArrayByGym[indexPath.row];
         [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"imageurl"]]];
         if ([dic[@"type"] isEqualToString:@"video"]) {
@@ -267,6 +328,7 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
             cell.isVideoView.hidden = YES;
         }
     }else if (collectionView == _photoCollectionViewRight){
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell2" forIndexPath:indexPath];
         NSDictionary *dic = _photoArrayByUser[indexPath.row];
         [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"imageurl"]]];
         if ([dic[@"type"] isEqualToString:@"video"]) {
@@ -275,7 +337,8 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
             cell.isVideoView.hidden = YES;
         }
     }
-    cell.backgroundColor = [UIColor clearColor];
+    cell.backgroundColor = [UIColor clearColor]; //FooCollectionViewCell
+//    FooCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     return cell;
 }
 

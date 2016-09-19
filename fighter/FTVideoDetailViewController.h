@@ -6,6 +6,21 @@
 //  Copyright © 2016 Mapbar. All rights reserved.
 //
 
+/**
+ *  咨询详情和视频详情整合在了一起
+ */
+
+typedef NS_ENUM(NSInteger, FTDetailType) {
+    /**
+     *  新闻类型
+     */
+    FTDetailTypeNews = 0,
+    /**
+     *  视频类型
+     */
+    FTDetailTypeVideo = 1
+};
+
 #import "FTBaseViewController.h"
 #import "FTVideoBean.h"
 #import "FTArenaBean.h"
@@ -18,6 +33,8 @@
 
 
 @interface FTVideoDetailViewController : FTBaseViewController
+
+@property (nonatomic, assign) FTDetailType detailType;
 
 @property (nonatomic, weak)id<FTVideoDetailDelegate> delegate;
 
