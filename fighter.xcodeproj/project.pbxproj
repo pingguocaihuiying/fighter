@@ -733,6 +733,7 @@
 		3DE95BAA1CD8A042005BF85C /* FTRegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRegistViewController.h; sourceTree = "<group>"; };
 		3DE95BAB1CD8A042005BF85C /* FTRegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRegistViewController.m; sourceTree = "<group>"; };
 		3DE95BAC1CD8A042005BF85C /* FTRegistViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRegistViewController.xib; sourceTree = "<group>"; };
+		3DEBD4681D8E897500FF7335 /* CellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellDelegate.h; sourceTree = "<group>"; };
 		3DF06C631D7E91F400623E45 /* FTGymDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymDetailController.h; sourceTree = "<group>"; };
 		3DF06C641D7E91F400623E45 /* FTGymDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymDetailController.m; sourceTree = "<group>"; };
 		3DF06C661D7E921B00623E45 /* FTGymDetailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymDetailController.xib; sourceTree = "<group>"; };
@@ -1901,6 +1902,14 @@
 				3DE95BAC1CD8A042005BF85C /* FTRegistViewController.xib */,
 			);
 			name = login;
+			sourceTree = "<group>";
+		};
+		3DEBD4671D8E892000FF7335 /* protocol */ = {
+			isa = PBXGroup;
+			children = (
+				3DEBD4681D8E897500FF7335 /* CellDelegate.h */,
+			);
+			name = protocol;
 			sourceTree = "<group>";
 		};
 		3DF06C681D7E99F900623E45 /* 商城 */ = {
@@ -3146,9 +3155,9 @@
 		E6F46C611D89354E001387E2 /* 拳馆照片列表 */ = {
 			isa = PBXGroup;
 			children = (
-				E6F46C671D8936C1001387E2 /* FTGymPhotoCollectionViewCell.xib */,
 				E6F46C681D8936C1001387E2 /* FTGymPhotoCollectionViewCell.m */,
 				E6F46C691D8936C1001387E2 /* FTGymPhotoCollectionViewCell.h */,
+				E6F46C671D8936C1001387E2 /* FTGymPhotoCollectionViewCell.xib */,
 			);
 			name = "拳馆照片列表";
 			sourceTree = "<group>";
@@ -3156,6 +3165,7 @@
 		E6F46C6C1D893FB9001387E2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3DEBD4671D8E892000FF7335 /* protocol */,
 				E6F46C6D1D893FE2001387E2 /* FTGymDetailBean.h */,
 				E6F46C6E1D893FE2001387E2 /* FTGymDetailBean.m */,
 			);

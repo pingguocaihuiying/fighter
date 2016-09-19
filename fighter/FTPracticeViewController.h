@@ -12,6 +12,7 @@
 @optional
 - (void) pushToController:(UIViewController *) viewController;
 - (void) pressentController:(UIViewController *) viewController;
+
 @end
 
 @interface FTPracticeViewController : FTBaseViewController <TeachDelegate>
