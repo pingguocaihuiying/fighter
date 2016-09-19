@@ -228,12 +228,20 @@
 #pragma mark - cellDelegate
 
 - (void) endEditCell {
-    
+    NSLog(@"endEditCell");
     NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:1];
     [self.tableView reloadRowsAtIndexPaths:@[indexpath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
-
+- (void) removeSubView:(id)object {
+    
+    NSLog(@"removeSubView");
+    UIImage *image = (UIImage *)object;
+    [_photos removeObject:image];
+    
+    NSLog(@"photos count:%ld",_photos.count);
+    
+}
 
 
 #pragma mark  - UIImagePickerControllerDelegate

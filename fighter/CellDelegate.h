@@ -12,5 +12,5 @@
 
 @optional
 - (void) endEditCell;
-
+- (void) removeSubView:(id)object;
 @end
