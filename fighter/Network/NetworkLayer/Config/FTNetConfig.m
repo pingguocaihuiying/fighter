@@ -222,6 +222,7 @@ NSString * const GetCoachByIdURL = @"/api/coach/{id}.do";
 NSString * const GetGymListURL = @"/api/gym/getGym.do";
 NSString * const GetGymListForArenaURL = @"/api/match/getGyms.do";
 NSString * const GetGymByIdURL = @"/api/gym/getVideosById.do";
+NSString *const GetGymPhotosByUsers = @"/api/gym/commentAttach.do";//获取用户拍摄的拳馆照片
 
 #pragma mark - 新格斗场
 NSString * const GetGymTimeSlotsByIdURL = @"/api/place/listTime.do";

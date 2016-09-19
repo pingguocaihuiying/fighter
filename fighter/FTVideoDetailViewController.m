@@ -37,7 +37,12 @@
     [self getVoteInfo];
     [self getStarInfo];
     [self setLoadingImageView];
-    [self addViewCount];
+    
+    //如果是视频，再增加观看数
+    if (_detailType == FTDetailTypeVideo) {
+        [self addViewCount];    
+    }
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -61,7 +66,7 @@
         [NetWorking getVideoById:[NSString stringWithFormat:@"%@", _videoBean.videosId] andOption:^(NSArray *array) {
             FTVideoBean *videoBean = [FTVideoBean new];
             [videoBean setValuesWithDic:[array firstObject]];
-            NSLog(@"视频详情加载完成");
+            NSLog(@"加载完成");
             _videoBean = videoBean;
         }];
     }
@@ -77,7 +82,7 @@
     NSString *objId = _videoBean.videosId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = @"v-video";
+    NSString *tableName = _detailType == FTDetailTypeNews ? @"v-news" : @"v-video";
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, GetStatusCheckKey]];
     
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
@@ -116,7 +121,7 @@
     NSString *objId = _videoBean.videosId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = @"col-video";
+    NSString *tableName = _detailType == FTDetailTypeNews ? @"col-news" : @"col-video";//@"v-video";
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, GetStatusCheckKey]];
     
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
@@ -177,7 +182,7 @@
     
     
     //设置默认标题
-    self.navigationItem.title = @"视频";
+    self.navigationItem.title = _detailType == FTDetailTypeNews ? @"拳讯" : @"视频";
 }
 
 - (void)setEvnetListenerOfBottomViews{
@@ -223,16 +228,16 @@
         NSLog(@"视频url：%@", url);
         url = [self encodeToPercentEscapeString:url];
     //    _videoBean.viewCount = @"100";
-        NSString *title = _videoBean.title;
+        
         NSString *objId = @"";
         if (_urlId) {
             objId = _urlId;
         }else if(_videoBean){
             objId = _videoBean.videosId;
         }
-        title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
-        _webViewUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/video_page.html?objId=%@", objId];
+        NSString *urlPrefix = _detailType == FTDetailTypeNews ? @"http://www.gogogofight.com/page/v2/news_page.html?objId=" : @"http://www.gogogofight.com/page/v2/video_page.html?objId=";
+        _webViewUrlString = [NSString stringWithFormat:@"%@%@", urlPrefix, objId];
         NSLog(@"webview url：%@", _webViewUrlString);
         
     }else {
@@ -243,7 +248,6 @@
     }
    
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webViewUrlString]]];
-//    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_videoBean.url]]];
     [self.view sendSubviewToBack:_webView];
 }
 
@@ -421,7 +425,7 @@
     NSString *objId = _videoBean.videosId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = @"v-video";
+    NSString *tableName = _detailType == FTDetailTypeNews ? @"v-news" : @"v-video";
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, self.hasVote ? AddVoteCheckKey: DeleteVoteCheckKey]];
     
     
@@ -474,7 +478,7 @@
     NSString *objId = _videoBean.videosId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = @"col-video";
+    NSString *tableName = _detailType == FTDetailTypeNews ? @"col-news" : @"col-video";
     NSString *query = @"delete-col";
 //    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, self.hasStar ?  @"" : query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
         NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
@@ -565,7 +569,14 @@
     
     FTCommentViewController *commentVC = [ FTCommentViewController new];
     commentVC.delegate = self;
-    commentVC.videoBean = self.videoBean;
+    if (_detailType == FTDetailTypeNews) {//拳讯
+        FTNewsBean *newsBean = [FTNewsBean new];
+        newsBean.newsId = _videoBean.videosId;
+        commentVC.newsBean = newsBean;
+    } else if (_detailType == FTDetailTypeVideo){//视频
+        commentVC.videoBean = self.videoBean;
+    }
+    
     [self.navigationController pushViewController:commentVC animated:YES];
 }
 
