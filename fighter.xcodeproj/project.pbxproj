@@ -282,6 +282,8 @@
 		E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E65D08C61CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib */; };
 		E65D08D41CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E65D08D21CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m */; };
 		E65D08D51CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E65D08D31CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.xib */; };
+		E65E2D001D8FE7D000D19B96 /* FTJoinGymSuccessAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = E65E2CFF1D8FE7D000D19B96 /* FTJoinGymSuccessAlertView.m */; };
+		E65E2D021D8FE7FF00D19B96 /* FTJoinGymSuccessAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E65E2D011D8FE7FF00D19B96 /* FTJoinGymSuccessAlertView.xib */; };
 		E65EFC201CC89BD40039EE8A /* FTUserConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E65EFC1F1CC89BD40039EE8A /* FTUserConfig.m */; };
 		E65EFC291CC8ADFD0039EE8A /* UIButton+LYZTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = E65EFC281CC8ADFD0039EE8A /* UIButton+LYZTitle.m */; };
 		E65EFC2C1CC8B63C0039EE8A /* FTConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E65EFC2B1CC8B63C0039EE8A /* FTConfig.m */; };
@@ -858,6 +860,9 @@
 		E65D08D11CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTOneBigImageInfoTableViewCell.h; sourceTree = "<group>"; };
 		E65D08D21CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTOneBigImageInfoTableViewCell.m; sourceTree = "<group>"; };
 		E65D08D31CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTOneBigImageInfoTableViewCell.xib; sourceTree = "<group>"; };
+		E65E2CFE1D8FE7D000D19B96 /* FTJoinGymSuccessAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTJoinGymSuccessAlertView.h; sourceTree = "<group>"; };
+		E65E2CFF1D8FE7D000D19B96 /* FTJoinGymSuccessAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTJoinGymSuccessAlertView.m; sourceTree = "<group>"; };
+		E65E2D011D8FE7FF00D19B96 /* FTJoinGymSuccessAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTJoinGymSuccessAlertView.xib; sourceTree = "<group>"; };
 		E65EFC1E1CC89BD40039EE8A /* FTUserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserConfig.h; sourceTree = "<group>"; };
 		E65EFC1F1CC89BD40039EE8A /* FTUserConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserConfig.m; sourceTree = "<group>"; };
 		E65EFC271CC8ADFD0039EE8A /* UIButton+LYZTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+LYZTitle.h"; sourceTree = "<group>"; };
@@ -2269,6 +2274,7 @@
 		E6555ACD1D7FF5D000748E66 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				E65E2CFD1D8FE77200D19B96 /* 成为会员成功的弹出提示 */,
 				3D4C6EE81D87D27100881208 /* cameraAndalbum */,
 				E6555ACE1D7FF69500748E66 /* 拳馆列表 */,
 				3D8B2E551D1D14BC00E18280 /* cell */,
@@ -2405,6 +2411,16 @@
 				3DE1DEF11D3F178F00511E92 /* FTGymBean.m */,
 			);
 			name = Bean;
+			sourceTree = "<group>";
+		};
+		E65E2CFD1D8FE77200D19B96 /* 成为会员成功的弹出提示 */ = {
+			isa = PBXGroup;
+			children = (
+				E65E2CFE1D8FE7D000D19B96 /* FTJoinGymSuccessAlertView.h */,
+				E65E2CFF1D8FE7D000D19B96 /* FTJoinGymSuccessAlertView.m */,
+				E65E2D011D8FE7FF00D19B96 /* FTJoinGymSuccessAlertView.xib */,
+			);
+			name = "成为会员成功的弹出提示";
 			sourceTree = "<group>";
 		};
 		E65F90B71CBDF9F6005CA3E6 /* main */ = {
@@ -3421,6 +3437,7 @@
 				3D0B44731D45D96F00EE08B3 /* FTNewsCell.xib in Resources */,
 				3DF06C771D7FC6C000623E45 /* FTShopOrderViewController.xib in Resources */,
 				3D1189FC1D5B20860083B568 /* FTDBRecordViewController.xib in Resources */,
+				E65E2D021D8FE7FF00D19B96 /* FTJoinGymSuccessAlertView.xib in Resources */,
 				E6549DF71D000AEB00B27483 /* FTRecordRankTableViewCell.xib in Resources */,
 				3D7B98901CDD1E5900B80B8D /* Area2.plist in Resources */,
 				E6F46C091D8164AE001387E2 /* FTGymVIPCollectionViewCell.xib in Resources */,
@@ -3761,6 +3778,7 @@
 				3DB240F41D3C60A6007F32C6 /* FTShareView2.m in Sources */,
 				3D4C6EE31D87A04C00881208 /* UIPlaceHolderTextView.m in Sources */,
 				E696E4E01D2A39F800A89B60 /* FTOpponentCell.m in Sources */,
+				E65E2D001D8FE7D000D19B96 /* FTJoinGymSuccessAlertView.m in Sources */,
 				3D7B98AF1CE05F3300B80B8D /* FTPhoneViewController.m in Sources */,
 				3D4B195C1CDB4D890022DFB0 /* FTDatePickerView.m in Sources */,
 				3DFC414E1D083A3F0067AC72 /* TAAbstractDotView.m in Sources */,
@@ -4099,8 +4117,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: peng qu (LQHT8X75PQ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: peng qu (LQHT8X75PQ)";
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4149,8 +4167,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: peng qu (LQHT8X75PQ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: peng qu (LQHT8X75PQ)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

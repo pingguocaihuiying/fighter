@@ -28,5 +28,6 @@
 
 //发送验证码
 @property (strong, nonatomic) IBOutlet UIButton *sendCheckCodeButton;
+@property (strong, nonatomic) IBOutlet UILabel *waitLabel;
 
 @end

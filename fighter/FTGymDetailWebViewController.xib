@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -381,7 +381,6 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TmS-Hu-nKc" userLabel="电话">
                                     <rect key="frame" x="36" y="13" width="24" height="24"/>
                                     <state key="normal" backgroundImage="详情页底部按钮一堆-电话"/>
-                                    <state key="highlighted" backgroundImage="关注pre"/>
                                     <connections>
                                         <action selector="dialButtonAction:" destination="-1" eventType="touchUpInside" id="Hi5-LE-t0Z"/>
                                     </connections>
@@ -481,7 +480,6 @@
         </view>
     </objects>
     <resources>
-        <image name="关注pre" width="74" height="24"/>
         <image name="右箭头" width="7" height="14"/>
         <image name="地点 (2)" width="14" height="19"/>
         <image name="斜线分割" width="12" height="24"/>
