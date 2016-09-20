@@ -22,5 +22,5 @@
 - (void) addPhotoToContainer:(UIImage *) image;
 - (void) setPhotoContainerWithArray:(NSMutableArray *)photos;
 - (void) setAddPhotoBtnFrame;
-
+- (void) clearContainer;
 @end

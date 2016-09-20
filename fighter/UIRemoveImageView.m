@@ -9,6 +9,7 @@
 #import "UIRemoveImageView.h"
 @interface UIRemoveImageView ()
 @property (nonatomic, strong) UIButton *removeBtn;
+@property (nonatomic, assign) BOOL removeButtonHidden;
 
 @end
 @implementation UIRemoveImageView
@@ -19,6 +20,7 @@
     self.removeBtnWidth = 18;
     self.removeBtnHeight = 18;
     [self setRemoveBtn];
+    
 }
 
 
@@ -28,6 +30,7 @@
         self.removeBtnWidth = 18;
         self.removeBtnHeight = 18;
         [self setRemoveBtn];
+        
     }
     
     return self;
@@ -50,7 +53,7 @@
 
 - (void) setRemoveBtn {
     
-    NSLog(@"set remove button action didi");
+    NSLog(@"set remove button ");
     if (self.removeBtn == nil) {
         
         self.removeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -80,14 +83,42 @@
 
 - (void) removeBtnAction:(UIButton *)sender {
     NSLog(@"removeBtnAction");
+    
+    if (self.delegate) {
+        [self.delegate removeImage:self.image];
+    }
+    
     [self removeFromSuperview];
     
 }
 
 
+- (void) showButton {
+
+    if (self.removeButtonHidden == YES) {
+        [self.removeBtn setHidden:NO];
+        self.removeButtonHidden = NO;
+    }
+}
+
+- (void) hideButton {
+    
+    if (self.removeButtonHidden == NO) {
+        [self.removeBtn setHidden:YES];
+        self.removeButtonHidden = YES;
+    }
+}
+
+
 -(void) longPressAction:(UIGestureRecognizer *) gesture {
     
-    [self.removeBtn setHidden:NO];
+    
+    [self.delegate showRemoveButton];
+}
+
+- (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+
+    [self.delegate hideRemoveButton];
 }
 
 @end

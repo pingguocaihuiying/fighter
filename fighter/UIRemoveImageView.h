@@ -8,9 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol UIImageViewDelegate <NSObject>
+
+@optional
+- (void) removeImage:(UIImage*)image;
+- (void) showRemoveButton;
+- (void) hideRemoveButton;
+@end
+
 @interface UIRemoveImageView : UIImageView
 
 @property(nonatomic, assign) NSInteger removeBtnWidth;
 @property(nonatomic, assign) NSInteger removeBtnHeight;
+@property(nonatomic, strong) id<UIImageViewDelegate> delegate;
 
+
+- (void) showButton;
+- (void) hideButton;
 @end
