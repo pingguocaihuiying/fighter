@@ -240,7 +240,7 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
 - (void)fullScreenScrollViewTap:(id)sender{
     _fullScreenScrollView.hidden = YES;
     [UIApplication sharedApplication].statusBarHidden = NO;
-    _moviePlayer.contentURL = nil;
+    _moviePlayer.contentURL = [NSURL URLWithString:@""];
 }
 
 - (void)setFullScreenScrollViewContents{

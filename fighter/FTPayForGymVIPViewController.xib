@@ -16,6 +16,7 @@
                 <outlet property="seperatorView2" destination="0Dk-yr-m27" id="gjT-Mu-3p1"/>
                 <outlet property="seperatorView3" destination="Kqt-JH-2Z0" id="afV-vp-2QT"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="waitLabel" destination="UFI-5d-SDn" id="eie-nC-cZ7"/>
                 <outlet property="ypyLabel" destination="wCb-bI-fX8" id="0LD-V9-xjV"/>
             </connections>
         </placeholder>
@@ -139,15 +140,22 @@
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <inset key="titleEdgeInsets" minX="10" minY="14" maxX="0.0" maxY="13"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="11" maxX="10" maxY="11"/>
-                    <state key="normal" title="微信支付" image="注册登录-微信" backgroundImage="支付选项背景-ios"/>
-                    <state key="highlighted" image="注册登录-微信" backgroundImage="支付选项背景pre-ios"/>
+                    <state key="normal" title="确认成为会员" backgroundImage="支付选项背景-ios"/>
+                    <state key="highlighted" backgroundImage="支付选项背景pre-ios"/>
                     <connections>
-                        <action selector="wechatPayButtonClicked:" destination="-1" eventType="touchUpInside" id="J0X-N7-RQv"/>
+                        <action selector="joinGymButtonClicked:" destination="-1" eventType="touchUpInside" id="ZwX-mD-oJe"/>
                     </connections>
                 </button>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请等待拳馆确认..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFI-5d-SDn" userLabel="请等待拳馆确认...">
+                    <rect key="frame" x="245" y="329" width="111" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.70588235294117641" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="UFI-5d-SDn" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="1qb-hn-2LA"/>
                 <constraint firstItem="0Dk-yr-m27" firstAttribute="bottom" secondItem="PaX-QF-4k7" secondAttribute="bottom" constant="15" id="9CL-VP-a5I"/>
                 <constraint firstItem="Kqt-JH-2Z0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9bD-Ad-h6v"/>
                 <constraint firstItem="Kqt-JH-2Z0" firstAttribute="top" secondItem="0Dk-yr-m27" secondAttribute="bottom" constant="15" id="Ag0-jS-Bvd"/>
@@ -162,6 +170,7 @@
                 <constraint firstAttribute="trailing" secondItem="bqO-6i-f6l" secondAttribute="trailing" id="Sdk-ec-wz5"/>
                 <constraint firstAttribute="trailing" secondItem="yB1-b2-mJi" secondAttribute="trailing" constant="15" id="TCb-9O-ESV"/>
                 <constraint firstItem="hp0-iP-RZm" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="VJ8-Bt-v7v"/>
+                <constraint firstItem="UFI-5d-SDn" firstAttribute="top" secondItem="Kqt-JH-2Z0" secondAttribute="top" constant="20" id="X4K-MS-OoF"/>
                 <constraint firstItem="8j6-de-ZM6" firstAttribute="centerY" secondItem="Fp1-6e-MbN" secondAttribute="centerY" id="ZWq-gA-L4A"/>
                 <constraint firstItem="0Dk-yr-m27" firstAttribute="top" secondItem="PaX-QF-4k7" secondAttribute="top" id="a8t-ga-OUK"/>
                 <constraint firstItem="wCb-bI-fX8" firstAttribute="baseline" secondItem="nVL-sR-fee" secondAttribute="baseline" constant="-3" id="aZW-nw-Qkl"/>
@@ -199,6 +208,5 @@
         <image name="会员卡" width="320" height="206"/>
         <image name="支付选项背景-ios" width="10" height="10"/>
         <image name="支付选项背景pre-ios" width="10" height="10"/>
-        <image name="注册登录-微信" width="27" height="22"/>
     </resources>
 </document>

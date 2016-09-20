@@ -77,11 +77,11 @@
     [self initBaseData];
     [self loadGymDataFromServer];
     [self setNavigationSytle];
-    
+//
     [self setSubViews];
-    
+//
     // 获取收藏信息
-//    [self getAttentionInfo];
+    [self getAttentionInfo];
     
 }
 
@@ -97,7 +97,9 @@
 - (void)loadGymDataFromServer{
     //获取拳馆的一些基本信息：视频、照片、地址等
     [NetWorking getGymForGymDetailWithGymId:_gymBean.gymId andOption:^(NSDictionary *dic) {
+        NSLog(@"dic : %@", dic);
         _gymDetailBean = [FTGymDetailBean new];
+//        [_gymDetailBean setValuesWithDic:dic];
         [_gymDetailBean setValuesForKeysWithDictionary:dic];
         [self updateGymBaseInfo];
     }];

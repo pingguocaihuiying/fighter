@@ -7,6 +7,7 @@
 //
 
 #import "FTPayForGymVIPViewController.h"
+#import "FTJoinGymSuccessAlertView.h"
 
 @interface FTPayForGymVIPViewController ()
 
@@ -87,9 +88,13 @@
     NSLog(@"发送验证码");
 }
 
-#pragma mark - 微信支付按钮被点击
-- (IBAction)wechatPayButtonClicked:(id)sender {
-    NSLog(@"微信支付");
+#pragma mark - 加入会员按钮被点击
+- (IBAction)joinGymButtonClicked:(id)sender {
+    NSLog(@"请求加入会员");
+    FTJoinGymSuccessAlertView *joinGynSuccessAlertView = [[[NSBundle mainBundle]loadNibNamed:@"FTJoinGymSuccessAlertView" owner:nil options:nil] firstObject];
+    joinGynSuccessAlertView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//    [self.view addSubview:joinGynSuccessAlertView];
+    [[[UIApplication sharedApplication] keyWindow] addSubview:joinGynSuccessAlertView];
 }
 
 - (void)didReceiveMemoryWarning {
