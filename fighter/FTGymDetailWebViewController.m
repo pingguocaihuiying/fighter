@@ -373,10 +373,18 @@
 - (IBAction)viewMoreCommentButtonClicked:(id)sender {
 
     //    NSLog(@"查看更多评论");
+    @try {
     
-    FTGymCommentsViewController *gymCommentsVC = [[FTGymCommentsViewController alloc]init];
-    gymCommentsVC.title = @"评论列表";
-    [self.navigationController pushViewController:gymCommentsVC animated:YES];
+        FTGymCommentsViewController *gymCommentsVC = [[FTGymCommentsViewController alloc]init];
+        gymCommentsVC.title = @"评论列表";
+        [self.navigationController pushViewController:gymCommentsVC animated:YES];
+    
+    } @catch (NSException *exception) {
+        
+        NSLog(@"exception:%@",exception);
+    } @finally {
+        
+    }
 }
 
 
