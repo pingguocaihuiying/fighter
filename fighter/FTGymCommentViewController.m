@@ -84,13 +84,10 @@
 }
 
 
-
-
 - (void) submitBtnAction:(id) sender {
 
     
 }
-
 
 
 - (void) addPhotoBtnAction:(id) sender {
