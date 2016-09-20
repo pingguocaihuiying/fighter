@@ -263,10 +263,18 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HCG-S1-EZ0" userLabel="地址View">
-                            <rect key="frame" x="0.0" y="307" width="320" height="47"/>
+                            <rect key="frame" x="0.0" y="307" width="320" height="44"/>
                             <subviews>
                                 <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LUa-tL-u3U" userLabel="50%黑透明背景View">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="北京市 朝阳区花市大街9号" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="maN-Jk-hhR">
+                                            <rect key="frame" x="67" y="15" width="186" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.70588235290000001" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44W-eg-ZyD">
@@ -279,14 +287,8 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="北京市 朝阳区花市大街9号" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="maN-Jk-hhR">
-                                    <rect key="frame" x="71" y="15" width="186" height="17"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <color key="textColor" red="0.70588235290000001" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JVZ-C4-eCv" userLabel="分割线View">
-                                    <rect key="frame" x="273" y="7" width="1" height="34"/>
+                                    <rect key="frame" x="273" y="5" width="1" height="34"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="1" id="d1a-DR-XS5"/>
@@ -294,7 +296,7 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KrB-Jh-LQh">
-                                    <rect key="frame" x="274" y="4" width="46" height="40"/>
+                                    <rect key="frame" x="274" y="2" width="46" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="46" id="90G-cS-ejc"/>
                                         <constraint firstAttribute="height" constant="40" id="kJf-2w-Ng8"/>
@@ -310,7 +312,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ef-NX-D9f" userLabel="seperatorView6">
-                                    <rect key="frame" x="0.0" y="46" width="320" height="1"/>
+                                    <rect key="frame" x="0.0" y="43" width="320" height="1"/>
                                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="1" id="bf2-O3-FUS"/>
@@ -324,14 +326,10 @@
                                 <constraint firstItem="kJK-on-KFG" firstAttribute="leading" secondItem="HCG-S1-EZ0" secondAttribute="leading" id="9bU-KV-Fj8"/>
                                 <constraint firstItem="6Ef-NX-D9f" firstAttribute="leading" secondItem="HCG-S1-EZ0" secondAttribute="leading" id="EF2-c2-yNs"/>
                                 <constraint firstAttribute="trailing" secondItem="LUa-tL-u3U" secondAttribute="trailing" id="GPZ-DB-pKR"/>
-                                <constraint firstAttribute="bottom" secondItem="maN-Jk-hhR" secondAttribute="bottom" constant="15" id="H2Z-dE-FJi"/>
-                                <constraint firstItem="maN-Jk-hhR" firstAttribute="leading" secondItem="44W-eg-ZyD" secondAttribute="trailing" constant="10" id="Oql-a0-iEZ"/>
-                                <constraint firstItem="maN-Jk-hhR" firstAttribute="top" secondItem="HCG-S1-EZ0" secondAttribute="top" constant="15" id="SMo-hu-QEy"/>
                                 <constraint firstAttribute="trailing" secondItem="6Ef-NX-D9f" secondAttribute="trailing" id="SdS-uY-QW9"/>
                                 <constraint firstAttribute="trailing" secondItem="kJK-on-KFG" secondAttribute="trailing" id="TJn-Gs-fhz"/>
                                 <constraint firstItem="44W-eg-ZyD" firstAttribute="leading" secondItem="HCG-S1-EZ0" secondAttribute="leading" constant="16" id="Uad-pP-nFy"/>
                                 <constraint firstItem="KrB-Jh-LQh" firstAttribute="centerY" secondItem="HCG-S1-EZ0" secondAttribute="centerY" id="WRT-VK-Gpv"/>
-                                <constraint firstItem="JVZ-C4-eCv" firstAttribute="leading" secondItem="maN-Jk-hhR" secondAttribute="trailing" constant="16" id="cUA-uZ-mF2"/>
                                 <constraint firstAttribute="bottom" secondItem="6Ef-NX-D9f" secondAttribute="bottom" id="cbg-nV-2TN"/>
                                 <constraint firstItem="LUa-tL-u3U" firstAttribute="top" secondItem="HCG-S1-EZ0" secondAttribute="top" id="fCF-at-JtG"/>
                                 <constraint firstItem="44W-eg-ZyD" firstAttribute="top" secondItem="HCG-S1-EZ0" secondAttribute="top" constant="15" id="fuB-un-KqG"/>

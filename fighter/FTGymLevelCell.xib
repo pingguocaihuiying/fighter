@@ -91,7 +91,7 @@
                 <outlet property="levelImage5" destination="07j-zU-9IR" id="jVy-GQ-lsW"/>
                 <outlet property="titleLabel" destination="uRb-Sr-yZI" id="ycG-de-AXM"/>
             </connections>
-            <point key="canvasLocation" x="31" y="265.5"/>
+            <point key="canvasLocation" x="97" y="261.5"/>
         </tableViewCell>
     </objects>
     <resources>

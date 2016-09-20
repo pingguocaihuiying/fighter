@@ -19,6 +19,7 @@
 #import "FTGymPhotosViewController.h"
 #import "FTGymCommentViewController.h"
 #import "FTGymDetailBean.h"
+#import "FTGymCommentsViewController.h"
 
 @interface FTGymDetailWebViewController ()<UIWebViewDelegate, CommentSuccessDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 {
@@ -365,6 +366,16 @@
     
 }
 
+#pragma mark - button response
+
+- (IBAction)viewMoreCommentButtonClicked:(id)sender {
+
+    //    NSLog(@"查看更多评论");
+    
+    FTGymCommentsViewController *gymCommentsVC = [[FTGymCommentsViewController alloc]init];
+    gymCommentsVC.title = @"评论列表";
+    [self.navigationController pushViewController:gymCommentsVC animated:YES];
+}
 
 
 #pragma mark - bottom button response
@@ -435,7 +446,6 @@
 // 点赞按钮点击事件
 - (IBAction)dialButtonAction:(id)sender {
     
-    
     NSString *urlStr = self.gymBean.gymTel;
     if (urlStr.length > 0) {
         UIAlertView *alertView =  [[UIAlertView alloc] initWithTitle:@""
@@ -491,8 +501,6 @@
 //    commentVC.gymBean = self.gymBean;
     [self.navigationController pushViewController:commentVC animated:YES];
 
-   
-    
 }
 
 #pragma mark - 服务器交互
@@ -716,21 +724,6 @@
     [_loadingBgImageView removeFromSuperview];
     _loadingBgImageView = nil;
 }
-
-- (IBAction)viewMoreCommentButtonClicked:(id)sender {
-    NSLog(@"查看更多评论");
-}
-
-
-#pragma mark life cycle
-
-#pragma mark life cycle
-
-#pragma mark life cycle
-
-#pragma mark life cycle
-
-#pragma mark life cycle
 
 
 @end
