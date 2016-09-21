@@ -98,7 +98,7 @@
 - (void)loadGymDataFromServer{
     //获取拳馆的一些基本信息：视频、照片、地址等
     [NetWorking getGymForGymDetailWithGymId:_gymBean.gymId andOption:^(NSDictionary *dic) {
-        NSLog(@"dic : %@", dic);
+//        NSLog(@"dic : %@", dic);
         _gymDetailBean = [FTGymDetailBean new];
 //        [_gymDetailBean setValuesWithDic:dic];
         [_gymDetailBean setValuesForKeysWithDictionary:dic];
@@ -174,6 +174,7 @@
     
     //设置返回按钮
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(backBtnAction:)];
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 0)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
     // 导航栏转发按钮
@@ -485,7 +486,7 @@
 - (IBAction)becomeVIPButtonClicked:(id)sender {
     NSLog(@"成为会员");
     FTPayForGymVIPViewController *payForGymVIPViewController = [[FTPayForGymVIPViewController alloc]init];
-    
+    payForGymVIPViewController.gymDetailBean = _gymDetailBean;
     [self.navigationController pushViewController:payForGymVIPViewController animated:YES];
 }
 

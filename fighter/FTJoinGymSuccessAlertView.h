@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol FTJoinGymSuccessAlertViewDelegate <NSObject>
+
+- (void)enterGymButtonClicked;
+
+@end
+
 @interface FTJoinGymSuccessAlertView : UIView
+
+@property (nonatomic, weak) id<FTJoinGymSuccessAlertViewDelegate> delegate;
 
 @end

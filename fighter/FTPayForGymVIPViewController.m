@@ -8,8 +8,9 @@
 
 #import "FTPayForGymVIPViewController.h"
 #import "FTJoinGymSuccessAlertView.h"
+#import "FTGymSourceViewController.h"
 
-@interface FTPayForGymVIPViewController ()
+@interface FTPayForGymVIPViewController ()<FTJoinGymSuccessAlertViewDelegate>
 
 @end
 
@@ -25,7 +26,7 @@
 - (void) setNavigationSytle {
     [UILabel new].textColor = [UIColor colorWithHex:Custom_Red_Value];
     //设置默认标题
-    self.navigationItem.title = @"必图培训中心";
+    self.navigationItem.title = _gymDetailBean.gym_name;
     
     // 导航栏字体和背景
     self.navigationController.navigationBar.tintColor = [UIColor colorWithHex:0x828287];
@@ -92,9 +93,17 @@
 - (IBAction)joinGymButtonClicked:(id)sender {
     NSLog(@"请求加入会员");
     FTJoinGymSuccessAlertView *joinGynSuccessAlertView = [[[NSBundle mainBundle]loadNibNamed:@"FTJoinGymSuccessAlertView" owner:nil options:nil] firstObject];
+    joinGynSuccessAlertView.delegate = self;
     joinGynSuccessAlertView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-//    [self.view addSubview:joinGynSuccessAlertView];
-    [[[UIApplication sharedApplication] keyWindow] addSubview:joinGynSuccessAlertView];
+    [self.view addSubview:joinGynSuccessAlertView];
+//    [[[UIApplication sharedApplication] keyWindow] addSubview:joinGynSuccessAlertView];
+}
+
+- (void)enterGymButtonClicked{
+    NSLog(@"进入拳馆预约课程");
+    FTGymSourceViewController *gymSourceViewController = [FTGymSourceViewController new];
+    gymSourceViewController.gymDetailBean = _gymDetailBean;
+    [self.navigationController pushViewController:gymSourceViewController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

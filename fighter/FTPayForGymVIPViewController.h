@@ -7,6 +7,7 @@
 //
 
 #import "FTBaseViewController.h"
+#import "FTGymDetailBean.h"
 
 @interface FTPayForGymVIPViewController : FTBaseViewController
 
@@ -29,5 +30,7 @@
 //发送验证码
 @property (strong, nonatomic) IBOutlet UIButton *sendCheckCodeButton;
 @property (strong, nonatomic) IBOutlet UILabel *waitLabel;
+
+@property (nonatomic, strong) FTGymDetailBean *gymDetailBean;//vc内暂时没有用到，此处用于往下个vc传值
 
 @end

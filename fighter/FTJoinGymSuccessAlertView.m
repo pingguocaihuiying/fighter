@@ -17,5 +17,11 @@
     // Drawing code
 }
 */
+- (IBAction)enterButtonClicked:(id)sender {
+    NSLog(@"点击进入");
+    if ([_delegate respondsToSelector:@selector(enterGymButtonClicked)]) {
+        [_delegate enterGymButtonClicked];
+    }
+}
 
 @end
