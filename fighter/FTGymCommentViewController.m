@@ -16,7 +16,14 @@
 @interface FTGymCommentViewController () <UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @property (nonatomic, strong) NSMutableArray *photos;
+
+@property(nonatomic, copy) NSString *urls;
+@property(nonatomic, copy) NSString *comment;
+@property(nonatomic, strong) NSNumber *comfort; // 舒适度
+@property(nonatomic, strong) NSNumber *strength; // 实力
+@property(nonatomic, strong) NSNumber *teachLevel;// 教学水平
 
 @end
 
@@ -40,6 +47,11 @@
 - (void) initData {
 
     _photos = [[NSMutableArray alloc]init];
+    
+    self.comfort = [NSNumber numberWithInteger:5];
+    self.strength = [NSNumber numberWithInteger:5];
+    self.teachLevel = [NSNumber numberWithInteger:5];
+    
 }
 
 - (void) setNavigationBar {
@@ -62,7 +74,6 @@
     [submitBtn addTarget:self action:@selector(submitBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:submitBtn];
-    
 }
 
 
@@ -85,8 +96,54 @@
 
 
 - (void) submitBtnAction:(id) sender {
-
     
+    if (self.comment == nil||self.comment.length == 0) {
+        [self.view showMessage:@"评论文字不能为空"];
+        return;
+    }
+    
+    NSMutableDictionary *prams = [[NSMutableDictionary alloc]init];
+    [prams setObject:self.comment forKey:@"comment"];
+    [prams setObject:self.objId forKey:@"objId"];
+    
+    if (self.urls) {
+        [prams setObject:self.urls forKey:@"urls"];
+    }
+    
+    if (self.comfort) {
+        [prams setObject:self.comfort forKey:@"comfort"];
+    }
+    
+    
+    if (self.strength) {
+        [prams setObject:self.strength forKey:@"strength"];
+    }
+    
+    
+    if (self.teachLevel) {
+        [prams setObject:self.teachLevel forKey:@"teachLevel"];
+    }
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [NetWorking addGymCommentWithPramDic:prams option:^(NSDictionary *dict) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        NSLog(@"dic:%@",dict);
+        NSLog(@"message:%@",dict[@"message"]);
+        
+        if (dict == nil) {
+            [self.view showMessage:@"网络不稳定，请稍后再试~"];
+        }
+        
+        BOOL status = [dict[@"status"] isEqualToString:@"success"];
+        if (status) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }else {
+            
+            [self.view showMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        }
+        
+    }];
+
 }
 
 
@@ -192,12 +249,13 @@
         if (indexPath.row <3) {
             
             FTGymLevelCell *cell = (FTGymLevelCell *)[tableView dequeueReusableCellWithIdentifier:@"LevelCell"];
-            
+            cell.cellDelegate = self;
+            cell.index = indexPath.row;
             return cell;
         }else {
             
             FTGymCommentCell *cell = (FTGymCommentCell *)[tableView dequeueReusableCellWithIdentifier:@"CommentCell"];
-            
+            cell.cellDelegate = self;
             return cell;
         }
     }else {
@@ -238,6 +296,23 @@
     
     NSLog(@"photos count:%ld",_photos.count);
     
+}
+
+- (void) gymLevel:(NSInteger)level index:(NSInteger)index {
+
+    if (index == 0) {
+        self.comfort = [NSNumber numberWithInteger:level];
+    }else if (index == 1) {
+        self.strength = [NSNumber numberWithInteger:level];
+    }else if (index == 2) {
+        self.teachLevel = [NSNumber numberWithInteger:level];
+    }
+}
+
+- (void) gymComment:(NSString *)comment {
+
+    self.comment = comment;
+
 }
 
 

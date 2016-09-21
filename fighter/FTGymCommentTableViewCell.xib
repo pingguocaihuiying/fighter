@@ -243,13 +243,13 @@
                         </collectionViewFlowLayout>
                     </collectionView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="duv-Lc-AP6" userLabel="点赞">
-                        <rect key="frame" x="284" y="266" width="68" height="24"/>
-                        <state key="normal" title="(205)" image="点赞"/>
+                        <rect key="frame" x="326" y="266" width="47" height="24"/>
+                        <state key="normal" title="(0)" image="点赞"/>
                         <state key="highlighted" image="点赞pre"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rnd-v5-2zM" userLabel="评论">
-                        <rect key="frame" x="372" y="261" width="68" height="34"/>
-                        <state key="normal" title="(205)" image="评论"/>
+                        <rect key="frame" x="393" y="261" width="47" height="34"/>
+                        <state key="normal" title="(0)" image="评论"/>
                         <state key="highlighted" image="评论pre"/>
                     </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M3N-YO-KAB" userLabel="DwonSpace">
@@ -302,12 +302,28 @@
             <connections>
                 <outlet property="CollectionHeightConstraint" destination="g3p-Ar-sYM" id="NvQ-IZ-EJU"/>
                 <outlet property="avatarImageView" destination="ZLH-wx-cky" id="iev-ox-UFS"/>
+                <outlet property="avatarMask" destination="coC-NP-Gtt" id="mPF-QY-EVr"/>
+                <outlet property="comfortImage1" destination="9Qd-lD-xjI" id="saf-Gx-TCL"/>
+                <outlet property="comfortImage2" destination="b5o-v5-5M9" id="owW-e8-zne"/>
+                <outlet property="comfortImage3" destination="d8O-S7-vra" id="MbU-rc-WAT"/>
+                <outlet property="comfortImage4" destination="9db-IA-g1v" id="CLP-33-wSN"/>
+                <outlet property="comfortImage5" destination="H1C-JY-5fa" id="fHb-jn-JSr"/>
                 <outlet property="commentButton" destination="Rnd-v5-2zM" id="gFa-wC-Puv"/>
                 <outlet property="containerView1" destination="y73-ts-nBt" id="Tdd-zN-qQo"/>
                 <outlet property="containerView2" destination="CpY-j7-ZTT" id="y0f-DK-M5H"/>
                 <outlet property="containerView3" destination="XCP-Q8-RLZ" id="gNT-19-eka"/>
                 <outlet property="detailLabel" destination="N2x-8p-scT" id="lpg-TB-MJS"/>
+                <outlet property="levelImage1" destination="dKG-Ut-nWi" id="g6V-2i-Kok"/>
+                <outlet property="levelImage2" destination="vwS-gE-E55" id="EOL-EL-cIQ"/>
+                <outlet property="levelImage3" destination="E4m-Yu-f6e" id="8dH-Zr-u1o"/>
+                <outlet property="levelImage4" destination="0J0-g8-GKe" id="pix-9A-oEi"/>
+                <outlet property="levelImage5" destination="zTl-hF-2gJ" id="SiI-nz-k1F"/>
                 <outlet property="nameLabel" destination="I8H-Xi-E7D" id="5fV-B6-yvA"/>
+                <outlet property="strengthImage1" destination="egc-40-3QS" id="T8t-iT-UFV"/>
+                <outlet property="strengthImage2" destination="eQU-aT-IOm" id="my9-VD-BJX"/>
+                <outlet property="strengthImage3" destination="ijX-oK-TPq" id="zIl-ua-bi2"/>
+                <outlet property="strengthImage4" destination="J8o-Jw-urI" id="rbz-qC-vEK"/>
+                <outlet property="strengthImage5" destination="xG5-6B-uq0" id="zoJ-53-c9X"/>
                 <outlet property="thumbsButton" destination="duv-Lc-AP6" id="0sg-mn-9Dw"/>
             </connections>
             <point key="canvasLocation" x="283" y="216.5"/>

@@ -13,4 +13,7 @@
 @optional
 - (void) endEditCell;
 - (void) removeSubView:(id)object;
+- (void) gymLevel:(NSInteger)level index:(NSInteger)index;
+- (void) gymComment:(NSString *)comment;
+
 @end

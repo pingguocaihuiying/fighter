@@ -10,4 +10,6 @@
 
 @interface FTGymCommentsViewController : FTBaseViewController
 
+@property(nonatomic, strong) NSString *objId;
+
 @end

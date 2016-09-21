@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "FTGymCommentBean.h"
 
 @interface FTGymCommentTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *avatarMask;
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
@@ -29,4 +30,32 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *CollectionHeightConstraint;
 
+// 舒适度
+@property (weak, nonatomic) IBOutlet UIImageView *comfortImage1;
+@property (weak, nonatomic) IBOutlet UIImageView *comfortImage2;
+@property (weak, nonatomic) IBOutlet UIImageView *comfortImage3;
+@property (weak, nonatomic) IBOutlet UIImageView *comfortImage4;
+@property (weak, nonatomic) IBOutlet UIImageView *comfortImage5;
+
+// 实力
+@property (weak, nonatomic) IBOutlet UIImageView *strengthImage1;
+@property (weak, nonatomic) IBOutlet UIImageView *strengthImage2;
+@property (weak, nonatomic) IBOutlet UIImageView *strengthImage3;
+@property (weak, nonatomic) IBOutlet UIImageView *strengthImage4;
+@property (weak, nonatomic) IBOutlet UIImageView *strengthImage5;
+
+// 教学水平
+@property (weak, nonatomic) IBOutlet UIImageView *levelImage1;
+@property (weak, nonatomic) IBOutlet UIImageView *levelImage2;
+@property (weak, nonatomic) IBOutlet UIImageView *levelImage3;
+@property (weak, nonatomic) IBOutlet UIImageView *levelImage4;
+@property (weak, nonatomic) IBOutlet UIImageView *levelImage5;
+
+//@property (nonatomic, strong) NSArray *comfortArray;
+//@property (nonatomic, strong) NSArray *strengthArray;
+//@property (nonatomic, strong) NSArray *levelArray;
+
+@property (nonatomic, strong) FTGymCommentBean *commentbean;
+
+- (void) setCellContentWithBean:(FTGymCommentBean *)bean;
 @end

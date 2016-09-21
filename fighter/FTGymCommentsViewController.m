@@ -8,10 +8,12 @@
 
 #import "FTGymCommentsViewController.h"
 #import "FTGymCommentTableViewCell.h"
+#import "FTGymCommentBean.h"
+
 @interface FTGymCommentsViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (nonatomic, strong) NSMutableArray<FTGymCommentBean *> *dataArray;
 @end
 
 @implementation FTGymCommentsViewController
@@ -20,6 +22,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self initData];
     
     [self initSubViews];
 }
@@ -35,6 +39,7 @@
 
     [self setNavigationBar];
     [self setTableView];
+    
 }
 
 - (void) setNavigationBar {
@@ -60,6 +65,40 @@
     self.tableView.estimatedRowHeight = 310; // 设置为一个接近于行高“平均值”的数值
 }
 
+#pragma mark - init data
+- (void) initData {
+    self.dataArray = [[NSMutableArray alloc]init];
+    [self getDataArrayFromWeb];
+}
+
+
+// 获取tableView data
+- (void) getDataArrayFromWeb {
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [NetWorking getGymComments:self.objId option:^(NSDictionary *dict) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        
+        NSLog(@"dic:%@",dict);
+        NSLog(@"message:%@",dict[@"message"]);
+        BOOL status = [dict[@"status"] isEqualToString:@"success"];
+        if (status) {
+            NSArray *tempArray = dict[@"data"];
+            for (NSDictionary *dic in tempArray) {
+                FTGymCommentBean *bean = [[FTGymCommentBean alloc]init];
+                [bean setValuesWithDic:dic];
+                [self.dataArray addObject:bean];
+            }
+            if (self.dataArray.count == 0) {
+                [self.view showMessage:@"还没有人评论哦，赶紧去抢沙发吧"];
+            }else {
+                [self.tableView reloadData];
+            }
+        }
+    }];
+}
+
+
 #pragma mark - response
 
 - (void) backBtnAction:(id) sender {
@@ -69,10 +108,9 @@
 
 
 #pragma mark - delegate
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 4;
+    return self.dataArray.count;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -97,16 +135,31 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+   
     @try {
-       
+        
+   
     FTGymCommentTableViewCell *cell = (FTGymCommentTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"CommentsCell"];
+    FTGymCommentBean *bean = [self.dataArray objectAtIndex:indexPath.section];
+    [cell setCellContentWithBean:bean];
+//    // 头像
+//    if (bean.headUrl.length > 0) {
+//        [cell.avatarMask setHidden:NO];
+//        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:bean.headUrl] placeholderImage:[UIImage imageNamed:@"头像-空"]];
+//    }else {
+//        [cell.avatarMask setHidden:YES];
+//        [cell.avatarImageView setImage:[UIImage imageNamed:@"头像-空"]];
+//    }
+//    
+//    // 用户名
+//    cell.nameLabel.text = bean.createName;
+//    
+//    //
+//    cell.detailLabel.text = bean.comment;
     
     return cell;
-        
     } @catch (NSException *exception) {
-        
-        NSLog(@"exception:%@",exception);
-        
+        NSLog(@"comment exception:%@",exception);
     } @finally {
         
     }

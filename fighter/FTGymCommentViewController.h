@@ -11,5 +11,5 @@
 #import "CellDelegate.h"
 
 @interface FTGymCommentViewController : FTBaseViewController <TeachDelegate,CellDelegate>
-
+@property (nonatomic,copy) NSString *objId;
 @end
