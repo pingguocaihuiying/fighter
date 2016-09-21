@@ -2230,10 +2230,10 @@
 		E6555ACC1D7FF5BF00748E66 /* viewController */ = {
 			isa = PBXGroup;
 			children = (
-				E6453F5F1D912E35000BAC31 /* 拳馆课程 */,
 				3D4C6EDA1D8687A300881208 /* 拳馆评论 */,
 				E6F46C321D82912F001387E2 /* 查看拳馆照片 */,
 				E6EFA9EA1D7EC257005A23CD /* 成为会员 */,
+				E6453F5F1D912E35000BAC31 /* 拳馆课程 */,
 				3DE1DEE71D3F05DB00511E92 /* detail */,
 			);
 			name = viewController;
