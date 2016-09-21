@@ -9,7 +9,7 @@
 #import "FTPayForGymVIPViewController.h"
 #import "FTJoinGymSuccessAlertView.h"
 
-@interface FTPayForGymVIPViewController ()
+@interface FTPayForGymVIPViewController ()<FTJoinGymSuccessAlertViewDelegate>
 
 @end
 
@@ -92,9 +92,14 @@
 - (IBAction)joinGymButtonClicked:(id)sender {
     NSLog(@"请求加入会员");
     FTJoinGymSuccessAlertView *joinGynSuccessAlertView = [[[NSBundle mainBundle]loadNibNamed:@"FTJoinGymSuccessAlertView" owner:nil options:nil] firstObject];
+    joinGynSuccessAlertView.delegate = self;
     joinGynSuccessAlertView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 //    [self.view addSubview:joinGynSuccessAlertView];
     [[[UIApplication sharedApplication] keyWindow] addSubview:joinGynSuccessAlertView];
+}
+
+- (void)enterGymButtonClicked{
+    NSLog(@"进入拳馆");
 }
 
 - (void)didReceiveMemoryWarning {
