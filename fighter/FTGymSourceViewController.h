@@ -7,7 +7,10 @@
 //
 
 #import "FTBaseViewController.h"
+#import "FTGymDetailBean.h"
 
 @interface FTGymSourceViewController : FTBaseViewController
+
+@property (nonatomic, strong) FTGymDetailBean *gymDetailBean;//vc内暂时没有用到，此处用于往下个vc传值
 
 @end

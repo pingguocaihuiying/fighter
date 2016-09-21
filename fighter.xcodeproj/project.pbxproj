@@ -2165,6 +2165,7 @@
 		E6453F5F1D912E35000BAC31 /* 拳馆课程 */ = {
 			isa = PBXGroup;
 			children = (
+				E6D3584E1D92A77400259682 /* cell */,
 				E6453F601D915BF2000BAC31 /* FTGymSourceViewController.h */,
 				E6453F611D915BF2000BAC31 /* FTGymSourceViewController.m */,
 				E6453F621D915BF2000BAC31 /* FTGymSourceViewController.xib */,
@@ -3053,6 +3054,21 @@
 				E6D2F8E61CEAA8BF00160788 /* cell */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		E6D3584E1D92A77400259682 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				E6D3584F1D92A77F00259682 /* 教练cell */,
+			);
+			name = cell;
+			sourceTree = "<group>";
+		};
+		E6D3584F1D92A77F00259682 /* 教练cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "教练cell";
 			sourceTree = "<group>";
 		};
 		E6D74A301CB7B7EE00854337 /* Tools */ = {
@@ -4110,6 +4126,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = LQHT8X75PQ;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4147,6 +4164,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = Dev620;
 			};
 			name = Debug;
 		};
@@ -4159,6 +4177,7 @@
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
+				DEVELOPMENT_TEAM = LQHT8X75PQ;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
