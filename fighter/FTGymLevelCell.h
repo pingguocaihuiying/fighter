@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol CellDelegate;
 @interface FTGymLevelCell : UITableViewCell
 
 
@@ -20,5 +21,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *levelImage5;
 
 @property (nonatomic, strong) NSArray *imagesViews;
+
+@property (nonatomic, weak) id<CellDelegate> cellDelegate;
+@property (nonatomic, assign) NSInteger index;
 
 @end

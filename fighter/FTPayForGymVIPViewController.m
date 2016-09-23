@@ -18,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self setNavigationSytle];
     [self setSubViews];
 }
@@ -64,6 +65,7 @@
 }
 
 - (void)setSubViewsColor{
+    
     _moneyValueLabel.textColor = Custom_Red;
     _RMBSignLabel.textColor = Custom_Red;
     _ypyLabel.textColor = Custom_Red;

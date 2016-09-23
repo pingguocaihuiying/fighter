@@ -48,7 +48,7 @@
                             <constraint firstAttribute="width" constant="21" id="my3-XN-GWl"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="火苗-灰" translatesAutoresizingMaskIntoConstraints="NO" id="07j-zU-9IR" userLabel="image5">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="火苗-红" translatesAutoresizingMaskIntoConstraints="NO" id="07j-zU-9IR" userLabel="image5">
                         <rect key="frame" x="234" y="9" width="21" height="28"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="21" id="lfQ-L9-FY8"/>
@@ -95,7 +95,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="火苗-灰" width="21" height="25"/>
         <image name="火苗-红" width="21" height="25"/>
     </resources>
 </document>

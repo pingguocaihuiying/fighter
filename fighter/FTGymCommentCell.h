@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "UIPlaceHolderTextView.h"
 
+@protocol CellDelegate;
+
 @interface FTGymCommentCell : UITableViewCell <UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIPlaceHolderTextView *textView;
+
+@property (nonatomic, weak) id<CellDelegate> cellDelegate;
 
 @end
