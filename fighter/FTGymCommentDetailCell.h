@@ -1,8 +1,8 @@
 //
-//  FTGymCommentTableViewCell.h
+//  FTGymCommentDetailCell.h
 //  fighter
 //
-//  Created by kang on 16/9/20.
+//  Created by kang on 2016/9/23.
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
@@ -10,12 +10,14 @@
 #import "FTGymCommentBean.h"
 @protocol CellDelegate;
 
-@interface FTGymCommentTableViewCell : UITableViewCell
+@interface FTGymCommentDetailCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarMask;
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *detailLabel;
 
@@ -53,9 +55,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *levelImage4;
 @property (weak, nonatomic) IBOutlet UIImageView *levelImage5;
 
-//@property (nonatomic, strong) NSArray *comfortArray;
-//@property (nonatomic, strong) NSArray *strengthArray;
-//@property (nonatomic, strong) NSArray *levelArray;
 
 @property (nonatomic, weak) id<CellDelegate> cellDelegate;
 @property (nonatomic, strong) FTGymCommentBean *commentbean;

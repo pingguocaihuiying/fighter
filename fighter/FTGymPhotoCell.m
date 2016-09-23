@@ -13,6 +13,8 @@
 #import "FTGymCommentViewController.h"
 #import "UIRemoveImageView.h"
 
+
+
 @interface FTGymPhotoCell() <UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIImageViewDelegate>
 {
 
@@ -42,7 +44,7 @@
 }
 
 
-- (void) addPhotoToContainer:(UIImage *) image {
+- (void) addPhotoToContainer:(UIImage *) image  type:(FTMediaType) mediaType{
     
     if (!imageViews) {
         imageViews = [[NSMutableArray alloc]init];
@@ -53,6 +55,10 @@
         [imageView setImage:image];
         imageView.delegate = self;
         [self.photoContainer addSubview:imageView];
+        
+        if (mediaType == FTMediaTypeVedio) {
+            [imageView setVedioImage];
+        }
         [imageViews addObject:imageView];
         
         horizontalLines++;
@@ -69,9 +75,8 @@
      [self setAddPhotoBtnFrame];
 }
 
-
+// 重新加载照片和视频
 - (void) setPhotoContainerWithArray:(NSMutableArray *)photos {
-    
     
     if (!imageViews) {
         imageViews = [[NSMutableArray alloc]init];
@@ -84,11 +89,20 @@
     verticalLines = 0;
     horizontalLines = 0;
     
-    for (UIImage *image in photos) {
+    for (NSDictionary *dic in photos) {
         
+        UIImage *image = dic[@"image"];
         UIRemoveImageView *imageView = [[UIRemoveImageView alloc]initWithFrame:CGRectMake(85 * horizontalLines, 95 * verticalLines, 80, 80)];
         [imageView setImage:image];
         imageView.delegate = self;
+        
+        // 判断是否是视频
+        NSString *typeString = dic[@"type"];
+        if ([typeString isEqualToString:@"video"]) {
+            [imageView setVedioImage];
+        }
+        
+        
         [self.photoContainer addSubview:imageView];
         [imageViews addObject:imageView];
         
@@ -104,6 +118,8 @@
     
 }
 
+
+// 清除所有照片视频
 - (void) clearContainer {
 
     for (UIImageView *imageView in imageViews) {
@@ -113,6 +129,7 @@
     }
 
 }
+
 
 - (void) setAddPhotoBtnFrame {
     

@@ -9,8 +9,9 @@
 #import "FTGymCommentsViewController.h"
 #import "FTGymCommentTableViewCell.h"
 #import "FTGymCommentBean.h"
+#import "CellDelegate.h"
 
-@interface FTGymCommentsViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface FTGymCommentsViewController ()<UITableViewDelegate,UITableViewDataSource,CellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray<FTGymCommentBean *> *dataArray;
@@ -85,6 +86,7 @@
         if (status) {
             NSArray *tempArray = dict[@"data"];
             for (NSDictionary *dic in tempArray) {
+                NSLog(@"dic:%@",dic);
                 FTGymCommentBean *bean = [[FTGymCommentBean alloc]init];
                 [bean setValuesWithDic:dic];
                 [self.dataArray addObject:bean];
@@ -138,10 +140,11 @@
    
     @try {
         
-   
     FTGymCommentTableViewCell *cell = (FTGymCommentTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"CommentsCell"];
+    cell.cellDelegate = self;
     FTGymCommentBean *bean = [self.dataArray objectAtIndex:indexPath.section];
     [cell setCellContentWithBean:bean];
+        
 //    // 头像
 //    if (bean.headUrl.length > 0) {
 //        [cell.avatarMask setHidden:NO];
@@ -165,23 +168,27 @@
     }
 }
 
-////去掉UItableview headerview黏性(sticky)
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    if (scrollView == self.tableView)
-//    {
-//        CGFloat sectionHeaderHeight = 10; //sectionHeaderHeight
-//        if (scrollView.contentOffset.y <= sectionHeaderHeight && scrollView.contentOffset.y >= 0) {
-//            
-//            scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
-//            
-//        } else if (scrollView.contentOffset.y >= sectionHeaderHeight) {
-//            
-//            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
-//            
-//        }
-//    }
-//}
+//去掉UItableview headerview黏性(sticky)
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView == self.tableView)
+    {
+        CGFloat sectionHeaderHeight = 10; //sectionHeaderHeight
+        if (scrollView.contentOffset.y <= sectionHeaderHeight && scrollView.contentOffset.y >= 0) {
+            
+            scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+            
+        } else if (scrollView.contentOffset.y >= sectionHeaderHeight) {
+            
+            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+        }
+    }
+}
 
+
+- (void) pushViewController:(UIViewController *)viewController {
+
+     [self.navigationController presentViewController:viewController animated:YES completion:nil];
+}
 #pragma mark - private
 
 

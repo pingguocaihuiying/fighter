@@ -6,9 +6,9 @@
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
-#import "FTBaseViewController.h"
+#import "FTBaseViewController2.h"
 
-@interface FTGymCommentsViewController : FTBaseViewController
+@interface FTGymCommentsViewController : FTBaseViewController2
 
 @property(nonatomic, strong) NSString *objId;
 

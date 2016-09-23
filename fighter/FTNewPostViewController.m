@@ -168,7 +168,11 @@
         //data是空
         NSLog(@"添加按钮被点击");
 
-        UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍摄视频或照片", @"从本地选取视频或照片", nil];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil
+                                                                delegate:self
+                                                       cancelButtonTitle:@"取消"
+                                                  destructiveButtonTitle:nil
+                                                       otherButtonTitles:@"拍摄视频或照片", @"从本地选取视频或照片", nil];
         [actionSheet showInView:self.view];
         
     }
@@ -231,13 +235,17 @@
 - (void)shootPictureOrVideo {
     [self pickMediaFromSource:UIImagePickerControllerSourceTypeCamera];
 }
+
 //选择存在的媒体文件
 #pragma -mark -处理选择的媒体文件
 - (void)selectExistsPictureOrVideo {
     [self pickMediaFromSource:UIImagePickerControllerSourceTypePhotoLibrary];
 }
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    
     self.lastChosenMediaType = info[UIImagePickerControllerMediaType];
+    
     if ([self.lastChosenMediaType isEqualToString:(NSString *)kUTTypeImage]) {
         //判断图片的张数和视频的个数，如果超出限制，则各处提示，不让继续添加
         if([self getImageCount] >= 10){
@@ -274,9 +282,8 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
--(UIImage *)getThumbnailImage:(NSURL *)videoURL
 
-{
+-(UIImage *)getThumbnailImage:(NSURL *)videoURL {
     
     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoURL options:nil];
     
@@ -497,7 +504,7 @@
         
         NSString *type = dic[@"type"];
         NSLog(@"type : %@", type);
-            //视频的key值要加上mp4作为后缀
+        //视频的key值要加上mp4作为后缀
 
         NSString *timeString = [self fixStringForDate:[NSDate date]];
         if([type isEqualToString:@"image"]){
@@ -506,11 +513,11 @@
 //            key = [NSString stringWithFormat:@"%@%@mp4", userId, ts];//key值取userId＋时间戳+mp4
             key = [NSString stringWithFormat:@"%@_%@mp4",timeString, userId];//key值取userId＋时间戳+mp4
         }
+        
         if([type isEqualToString:@"image"]){
             [_imageURLArray addObject:key];
         }else if([type isEqualToString:@"video"]){
             [_videoURLArray addObject:key];
-            
         }
         
         [FTQiniuNetwork getQiniuTokenWithMediaType:dic[@"type"] andKey:key andOption:^(NSString *token) {//***获取token
@@ -657,7 +664,7 @@
         //        HUD = nil;
     }];
 }
-#pragma -mark -添加标签按钮被点击
+#pragma -mark - 添加标签按钮被点击
 - (IBAction)addLabelButtonClicked:(id)sender {
     
 
@@ -687,7 +694,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma -mark -处理选择标签的回调
+#pragma -mark - 处理选择标签的回调
 - (void)chooseLabel:itemValueEn{
     NSLog(@"itemValueEn: %@", itemValueEn);
     

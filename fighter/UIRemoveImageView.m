@@ -9,7 +9,7 @@
 #import "UIRemoveImageView.h"
 @interface UIRemoveImageView ()
 @property (nonatomic, strong) UIButton *removeBtn;
-@property (nonatomic, assign) BOOL removeButtonHidden;
+//@property (nonatomic, assign) BOOL removeButtonHidden;
 
 @end
 @implementation UIRemoveImageView
@@ -23,14 +23,12 @@
     
 }
 
-
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         self.removeBtnWidth = 18;
         self.removeBtnHeight = 18;
         [self setRemoveBtn];
-        
     }
     
     return self;
@@ -72,12 +70,30 @@
         [self addSubview:self.removeBtn];
         
         
-        self.userInteractionEnabled =YES;
+        
+        // 长按手势
         UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressAction:)];
         longPressGr.minimumPressDuration = 1.0;
         [self addGestureRecognizer:longPressGr];
+        
+        // 单击手势
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singleTapAction:)];
+        tapGesture.numberOfTapsRequired = 1;
+        tapGesture.numberOfTouchesRequired = 1;
+        [self addGestureRecognizer:tapGesture];
+        
+        self.userInteractionEnabled =YES;
     }
-    
+}
+
+- (void) setVedioImage {
+
+    UIImageView *videoImage = [[UIImageView alloc]init];
+    videoImage.frame = CGRectMake(0, 0, 30, 24);
+    videoImage.image = [UIImage imageNamed:@"详情用视频播放"];
+    videoImage.center = self.center;
+    videoImage.userInteractionEnabled = YES;
+    [self addSubview:videoImage];
 }
 
 
@@ -89,36 +105,45 @@
     }
     
     [self removeFromSuperview];
-    
 }
 
 
 - (void) showButton {
 
-    if (self.removeButtonHidden == YES) {
-        [self.removeBtn setHidden:NO];
-        self.removeButtonHidden = NO;
-    }
+    [self.removeBtn setHidden:NO];
+//    if (self.removeButtonHidden == YES) {
+//        [self.removeBtn setHidden:NO];
+//        self.removeButtonHidden = NO;
+//    }
 }
 
 - (void) hideButton {
     
-    if (self.removeButtonHidden == NO) {
-        [self.removeBtn setHidden:YES];
-        self.removeButtonHidden = YES;
-    }
+     [self.removeBtn setHidden:YES];
+    
+//    if (self.removeButtonHidden == NO) {
+//        [self.removeBtn setHidden:YES];
+//        self.removeButtonHidden = YES;
+//    }
 }
 
 
 -(void) longPressAction:(UIGestureRecognizer *) gesture {
     
-    
     [self.delegate showRemoveButton];
 }
 
-- (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+
+- (void) singleTapAction:(UIGestureRecognizer *) gesture {
 
     [self.delegate hideRemoveButton];
+//    CGPoint point = [gesture locationInView:self];
+//    CGRect frame = [self convertRect:_removeBtn.frame toView:self];
+//    if (!CGRectContainsPoint(frame, point)) {
+//       
+//    }else {
+//        [self removeBtnAction:self.removeBtn];
+//    }
 }
 
 @end

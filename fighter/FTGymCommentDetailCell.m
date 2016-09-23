@@ -1,20 +1,18 @@
 //
-//  FTGymCommentTableViewCell.m
+//  FTGymCommentDetailCell.m
 //  fighter
 //
-//  Created by kang on 16/9/20.
+//  Created by kang on 2016/9/23.
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
-#import "FTGymCommentTableViewCell.h"
-#import "FTGymCommentBean.h"
+#import "FTGymCommentDetailCell.h"
 #import "CellDelegate.h"
-#import "FTLoginViewController.h"
-#import "FTBaseNavigationViewController.h"
 #import "FTGymPhotoCollectionViewCell.h"
+#import "NSDate+Tool.h"
 
 
-@interface FTGymCommentTableViewCell()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface FTGymCommentDetailCell()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
     BOOL thumbState;
     NSArray *dataSource;
@@ -22,12 +20,12 @@
 
 @end
 
-@implementation FTGymCommentTableViewCell
+@implementation FTGymCommentDetailCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-
+    
     self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -41,7 +39,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
@@ -59,19 +57,19 @@
             break;
         case GymCommentStateStrength: {
             array = @[_strengthImage1,
-                       _strengthImage2,
-                       _strengthImage3,
-                       _strengthImage4,
-                       _strengthImage5];
+                      _strengthImage2,
+                      _strengthImage3,
+                      _strengthImage4,
+                      _strengthImage5];
         }
             break;
         case GymCommentStateTeachLevel:{
             array = @[_levelImage1,
-                    _levelImage2,
-                    _levelImage3,
-                    _levelImage4,
-                    _levelImage5];
-
+                      _levelImage2,
+                      _levelImage3,
+                      _levelImage4,
+                      _levelImage5];
+            
         }
         default:
             break;
@@ -89,7 +87,7 @@
 }
 
 - (void) setCellContentWithBean:(FTGymCommentBean *)bean {
-
+    
     self.commentbean = bean;
     [self getThumbState];
     // 头像
@@ -103,6 +101,7 @@
     
     // 用户名
     self.nameLabel.text = bean.createName;
+    self.timeLabel.text = [NSDate dateString:bean.createTime];
     
     // 评论文字内容
     self.detailLabel.text = bean.comment;
@@ -132,14 +131,14 @@
         [self setCollectionView];
         self.CollectionHeightConstraint.constant = 40;
     }else {
-    
-         self.CollectionHeightConstraint.constant = 0;
+        
+        self.CollectionHeightConstraint.constant = 0;
     }
 }
 
 #pragma mark - 点赞
 - (void) getThumbState {
-
+    
     [NetWorking getVoteStatusWithObjid:[NSString stringWithFormat:@"%d",self.commentbean.id] andTableName:@"v-gym" andOption:^(BOOL result) {
         
         if (result) {
@@ -154,14 +153,7 @@
 
 - (IBAction)thumbButtonAction:(id)sender {
     
-    FTUserBean *loginUser = [FTUserBean loginUser];
-    if (!loginUser) {
-        
-        FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
-        loginVC.title = @"登录";
-        FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
-        [self.cellDelegate pushViewController:nav];
-    }
+   
     [NetWorking addVoteWithObjid:[NSString stringWithFormat:@"%d",self.commentbean.id] isAdd:thumbState? NO:YES andTableName:@"v-gym" andOption:^(BOOL result) {
         if (result) {
             
@@ -192,26 +184,16 @@
 }
 
 
-#pragma mark - collectionView 
+#pragma mark - collectionView
 - (void) setCollectionView {
-
-    //flowlayout
-    UICollectionViewFlowLayout *flow = [[UICollectionViewFlowLayout alloc]init];
-    flow.itemSize = CGSizeMake(40 * SCALE, 40 * SCALE);//cell大小
-//    flow.minimumLineSpacing = 15 * SCALE;//行最小间距
-    flow.minimumInteritemSpacing = 5 * SCALE;//列最小间距
-    flow.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
-    //left
-    [_collectionView registerNib:[UINib nibWithNibName:@"FTGymPhotoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell1"];//FooCollectionViewCell
-//    _collectionView.backgroundColor = [UIColor clearColor];
+    [_collectionView registerNib:[UINib nibWithNibName:@"FTGymPhotoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell1"];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
-
     
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-
+    
     return dataSource.count;
 }
 
@@ -224,7 +206,7 @@
     
     NSLog(@"imageURL:%@",imageURL);
     FTGymPhotoCollectionViewCell *cell;
-   
+    
     cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell1" forIndexPath:indexPath];
     
     if ([imageName hasSuffix:@"mp4"]) {
@@ -232,11 +214,11 @@
         cell.isVideoView.hidden = NO;
         [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:[imageURL stringByAppendingString:urlSuffix]]];
     }else {
-    
+        
         cell.isVideoView.hidden = YES;
         [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:imageURL]];
     }
-   
+    
     cell.backgroundColor = [UIColor clearColor];
     
     return cell;
@@ -244,13 +226,13 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
-
-    return CGSizeMake(40 * SCALE, 40 * SCALE);
+    
+    return CGSizeMake(80 * SCALE, 80 * SCALE);
 }
 
-//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section;
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
 
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    
     return 5;
 }
 

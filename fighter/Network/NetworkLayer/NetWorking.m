@@ -1485,7 +1485,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"vote status : %@", responseDic[@"status"]);
+//        NSLog(@"vote status : %@", responseDic[@"status"]);
         if ([responseDic[@"message"] isEqualToString:@"true"]) {
             option(true);
         }else{
