@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "FTMatchDetailBean.h"
+#import "FTMatchBean.h"
 
 @interface NetWorking : NSObject
 
@@ -207,6 +208,13 @@
 // Get Gym List
 + (void) getGymsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option;
 
+// Get Gym Comment List
++ (void) getGymComments:(NSString *)objectId option:(void (^)(NSDictionary *dict))option;
+
+// Add Gym Comment
++ (void) addGymCommentWithPramDic:(NSDictionary*)pramDic option:(void (^)(NSDictionary *dict))option;
+
+
 #pragma mark - 新格斗场
 //获取拳馆固定的时间段
 // Get Gym List for arena
@@ -220,8 +228,16 @@
 //获取场地的使用信息
 + (void)getGymPlaceUsingInfoById:(NSString *)gymId andTimestamp:(NSString *)timestamp andOption:(void (^)(NSArray *array))option;
 
-//获取拳馆信息
+//获取拳馆信息(比赛模块)
 + (void)getGymInfoById:(NSString *)gymId andOption:(void (^)(NSDictionary *dic))option;
+
+//获取拳馆详细信息（学拳模块的拳馆 ）
++ (void)getGymForGymDetailWithGymId:(NSString *)gymId andOption:(void (^)(NSDictionary *dic))option;
+
+//根绝拳馆id获取拳馆的所有教练(拳馆模块)
++ (void)getCoachesWithCorporationid:(NSString *)corporationid andOption:(void (^)(NSArray *array))option;
+//根绝拳馆id获取拳馆的所有照片（用户上传的）
++ (void)getPhotosByUsersWithCorporationid:(NSString *)corporationid andOption:(void (^)(NSArray *array))option;
 
 //获取拳手信息
 + (void)getBoxerListByWeight:(NSString *)weight andOverWeightLevel: (NSString *) overWeightLevel andPageSize:(NSString *)pageSize andPageNum:(int)pageNum andOption:(void (^)(NSArray *array))option;
@@ -261,7 +277,7 @@
 //获取点赞数
 + (void)getCountWithObjid:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^)(NSString *viewCount))option;
 //下注
-+ (void)betWithObjid:(FTMatchDetailBean *)_matchDetailBean andIsPlayer1Win:(BOOL )isPlayer1Win andBetValue:(int )betValue andOption:(void (^)(BOOL result))option;
++ (void)betWithMatchBean:(FTMatchBean *)_matchBean andIsPlayer1Win:(BOOL )isPlayer1Win andBetValue:(int )betValue andOption:(void (^)(BOOL result))option;
 //关注、取消关注
 + (void)followObjWithObjId:(NSString *)objId anIsFollow:(BOOL)isFollow andTableName:(NSString *)tableName  andOption:(void (^)(BOOL result))option;
 
@@ -286,6 +302,14 @@
 
 // 验证app内购接口
 + (void) checkIAPByOrderNO:(NSString *)orderNO receipt:(NSString *) receipt transactionId:(NSString*)transactionId option:(void(^)(NSDictionary *dict))option;
+
+
+#pragma mark - 微信支付
+// 微信支付
++ (void)wxPayWithParamDic:(NSDictionary *)dic andOption:(void (^)(NSDictionary *dic))option ;
+// 微信支付结果查询
++ (void)wxPayStatusWithOrderNO:(NSString *)orederNO andOption:(void (^)(NSDictionary *dic))option ;
+
 
 #pragma mark - 获取标签
 // 获取教学视频标签

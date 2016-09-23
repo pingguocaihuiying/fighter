@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTPayForGymVIPViewController">
+            <connections>
+                <outlet property="RMBSignLabel" destination="Ivi-dl-ypa" id="DuT-8n-Skb"/>
+                <outlet property="checkCodeTextField" destination="XhS-VD-5Ce" id="jUD-un-uLv"/>
+                <outlet property="moneyValueLabel" destination="nVL-sR-fee" id="CXy-HZ-3m2"/>
+                <outlet property="phoneNumberLabel" destination="8j6-de-ZM6" id="pYy-2Q-pOh"/>
+                <outlet property="sendCheckCodeButton" destination="yB1-b2-mJi" id="s97-lJ-qko"/>
+                <outlet property="seperatorView1" destination="bqO-6i-f6l" id="b96-iw-wm4"/>
+                <outlet property="seperatorView2" destination="0Dk-yr-m27" id="gjT-Mu-3p1"/>
+                <outlet property="seperatorView3" destination="Kqt-JH-2Z0" id="afV-vp-2QT"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="waitLabel" destination="UFI-5d-SDn" id="eie-nC-cZ7"/>
+                <outlet property="ypyLabel" destination="wCb-bI-fX8" id="0LD-V9-xjV"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="会员卡" translatesAutoresizingMaskIntoConstraints="NO" id="WWa-DU-lsx">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="Que-b8-w51"/>
+                        <constraint firstAttribute="height" constant="206" id="jZC-k6-5Ac"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nVL-sR-fee">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="MLA-dU-3fP"/>
+                        <constraint firstAttribute="height" constant="35" id="Y5C-wC-udE"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="48"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Y5C-wC-udE"/>
+                        </mask>
+                    </variation>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ivi-dl-ypa">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="pqI-1d-EhS"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="元/年" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wCb-bI-fX8">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="28" id="3MB-Pa-0RO"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前绑定手机：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fp1-6e-MbN">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="iD5-M4-7fE"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18565585698" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8j6-de-ZM6" userLabel="手机号">
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bqO-6i-f6l" userLabel="seperatorView1">
+                    <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="N4Y-qM-NIx"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入验证码：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PaX-QF-4k7">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="Kmt-bh-1nC"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XhS-VD-5Ce">
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="138" id="uFn-0I-STC"/>
+                    </constraints>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                </textField>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Dk-yr-m27" userLabel="seperatorView2">
+                    <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="2CV-KU-qOx"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yB1-b2-mJi">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="88" id="3Ve-aa-Eks"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <state key="normal" title="发送验证码" backgroundImage="主要按钮背景ios"/>
+                    <state key="highlighted" backgroundImage="主要按钮背景ios-pre"/>
+                    <connections>
+                        <action selector="sendCheckCodeButtonClicked:" destination="-1" eventType="touchUpInside" id="BpB-Bu-XQd"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kqt-JH-2Z0" userLabel="seperatorView3">
+                    <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Wo3-Yr-3V9"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hp0-iP-RZm">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="2fN-F2-hvf"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <inset key="titleEdgeInsets" minX="10" minY="14" maxX="0.0" maxY="13"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="11" maxX="10" maxY="11"/>
+                    <state key="normal" title="确认成为会员" backgroundImage="主要按钮背景ios"/>
+                    <state key="highlighted" backgroundImage="支付选项背景pre-ios"/>
+                    <connections>
+                        <action selector="joinGymButtonClicked:" destination="-1" eventType="touchUpInside" id="ZwX-mD-oJe"/>
+                    </connections>
+                </button>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请等待拳馆确认..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFI-5d-SDn" userLabel="请等待拳馆确认...">
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.70588235294117641" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="UFI-5d-SDn" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="1qb-hn-2LA"/>
+                <constraint firstItem="0Dk-yr-m27" firstAttribute="bottom" secondItem="PaX-QF-4k7" secondAttribute="bottom" constant="15" id="9CL-VP-a5I"/>
+                <constraint firstItem="Kqt-JH-2Z0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9bD-Ad-h6v"/>
+                <constraint firstItem="Kqt-JH-2Z0" firstAttribute="top" secondItem="0Dk-yr-m27" secondAttribute="bottom" constant="15" id="Ag0-jS-Bvd"/>
+                <constraint firstItem="wCb-bI-fX8" firstAttribute="leading" secondItem="nVL-sR-fee" secondAttribute="trailing" id="Aoi-al-en4"/>
+                <constraint firstItem="hp0-iP-RZm" firstAttribute="top" secondItem="Kqt-JH-2Z0" secondAttribute="bottom" constant="20" id="Chb-1G-dTt"/>
+                <constraint firstItem="nVL-sR-fee" firstAttribute="leading" secondItem="Ivi-dl-ypa" secondAttribute="trailing" constant="10" id="GrP-LM-KQi"/>
+                <constraint firstItem="bqO-6i-f6l" firstAttribute="top" secondItem="8j6-de-ZM6" secondAttribute="bottom" constant="8" id="IjY-uy-sGs"/>
+                <constraint firstItem="XhS-VD-5Ce" firstAttribute="centerY" secondItem="PaX-QF-4k7" secondAttribute="centerY" id="K66-tg-zWC"/>
+                <constraint firstItem="nVL-sR-fee" firstAttribute="top" secondItem="WWa-DU-lsx" secondAttribute="top" constant="70" id="L8x-ru-EGs"/>
+                <constraint firstItem="Ivi-dl-ypa" firstAttribute="centerY" secondItem="nVL-sR-fee" secondAttribute="centerY" id="OjA-e5-F8Z"/>
+                <constraint firstItem="WWa-DU-lsx" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="PJV-hm-b7C"/>
+                <constraint firstAttribute="trailing" secondItem="bqO-6i-f6l" secondAttribute="trailing" id="Sdk-ec-wz5"/>
+                <constraint firstAttribute="trailing" secondItem="yB1-b2-mJi" secondAttribute="trailing" constant="15" id="TCb-9O-ESV"/>
+                <constraint firstItem="hp0-iP-RZm" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="VJ8-Bt-v7v"/>
+                <constraint firstItem="UFI-5d-SDn" firstAttribute="top" secondItem="Kqt-JH-2Z0" secondAttribute="top" constant="20" id="X4K-MS-OoF"/>
+                <constraint firstItem="8j6-de-ZM6" firstAttribute="centerY" secondItem="Fp1-6e-MbN" secondAttribute="centerY" id="ZWq-gA-L4A"/>
+                <constraint firstItem="0Dk-yr-m27" firstAttribute="top" secondItem="PaX-QF-4k7" secondAttribute="top" id="a8t-ga-OUK"/>
+                <constraint firstItem="wCb-bI-fX8" firstAttribute="baseline" secondItem="nVL-sR-fee" secondAttribute="baseline" constant="-3" id="aZW-nw-Qkl"/>
+                <constraint firstItem="hp0-iP-RZm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="bFl-cm-wWO"/>
+                <constraint firstItem="XhS-VD-5Ce" firstAttribute="leading" secondItem="PaX-QF-4k7" secondAttribute="trailing" constant="20" id="cIz-YF-8gx"/>
+                <constraint firstAttribute="trailing" secondItem="Kqt-JH-2Z0" secondAttribute="trailing" id="eXY-G0-imP"/>
+                <constraint firstItem="0Dk-yr-m27" firstAttribute="leading" secondItem="PaX-QF-4k7" secondAttribute="leading" id="fqe-wB-MKO"/>
+                <constraint firstItem="8j6-de-ZM6" firstAttribute="leading" secondItem="Fp1-6e-MbN" secondAttribute="trailing" constant="20" id="hMU-Zm-Sf5"/>
+                <constraint firstItem="XhS-VD-5Ce" firstAttribute="centerY" secondItem="PaX-QF-4k7" secondAttribute="centerY" id="hYk-vO-ghh"/>
+                <constraint firstAttribute="trailing" secondItem="0Dk-yr-m27" secondAttribute="trailing" constant="8" id="hyr-mo-dU4"/>
+                <constraint firstItem="nVL-sR-fee" firstAttribute="centerX" secondItem="WWa-DU-lsx" secondAttribute="centerX" id="iBH-28-TJf"/>
+                <constraint firstAttribute="trailing" secondItem="hp0-iP-RZm" secondAttribute="trailing" constant="16" id="ioZ-Rn-xvb"/>
+                <constraint firstItem="bqO-6i-f6l" firstAttribute="leading" secondItem="Fp1-6e-MbN" secondAttribute="leading" id="mlS-RO-fgV"/>
+                <constraint firstItem="yB1-b2-mJi" firstAttribute="centerY" secondItem="XhS-VD-5Ce" secondAttribute="centerY" id="mnZ-Ah-ay3"/>
+                <constraint firstItem="PaX-QF-4k7" firstAttribute="top" secondItem="bqO-6i-f6l" secondAttribute="bottom" constant="15" id="qKN-TC-mBi"/>
+                <constraint firstItem="Fp1-6e-MbN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="tYf-Nz-5dE"/>
+                <constraint firstItem="WWa-DU-lsx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="uXs-J5-j3v"/>
+                <constraint firstItem="PaX-QF-4k7" firstAttribute="leading" secondItem="Fp1-6e-MbN" secondAttribute="leading" id="vvh-3T-SnL"/>
+                <constraint firstItem="yB1-b2-mJi" firstAttribute="centerY" secondItem="PaX-QF-4k7" secondAttribute="centerY" id="xT5-bx-eYR"/>
+                <constraint firstItem="Fp1-6e-MbN" firstAttribute="top" secondItem="WWa-DU-lsx" secondAttribute="bottom" constant="15" id="z0Z-ju-8eb"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="a8t-ga-OUK"/>
+                    <exclude reference="hYk-vO-ghh"/>
+                    <exclude reference="VJ8-Bt-v7v"/>
+                    <exclude reference="mnZ-Ah-ay3"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+    <resources>
+        <image name="主要按钮背景ios" width="30" height="30"/>
+        <image name="主要按钮背景ios-pre" width="30" height="30"/>
+        <image name="会员卡" width="320" height="206"/>
+        <image name="支付选项背景pre-ios" width="10" height="10"/>
+    </resources>
+</document>

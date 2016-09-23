@@ -336,5 +336,39 @@
     FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
     [vc.navigationController presentViewController:nav animated:YES completion:nil];
 }
-
+#pragma -mark 更新评分view
++ (void)updateScoreView:(UIView *)scoreView withScore:(float)scoreFloat{
+    NSArray *scoreImageViewsArray = [scoreView subviews];
+//    float scoreFloat = 3.5;//原评分
+    
+    //校正评分值为0~5
+    if (scoreFloat < 1) {
+        scoreFloat = 1;
+    }else if (scoreFloat > 5){
+        scoreFloat = 5;
+    }
+    
+    int scoreInteger = scoreFloat / 1;//评分的整数部分
+    BOOL isIntegerScore;
+    if (scoreFloat == scoreInteger) {
+        NSLog(@"评分为整数");
+        isIntegerScore = YES;
+    } else {
+        NSLog(@"评分为小数");
+        isIntegerScore = NO;
+    }
+    
+    for (int i = 0; i < 5; i++) {
+        UIImageView *imageView = scoreImageViewsArray[i];
+        if (i <= scoreInteger - 1) {
+            imageView.image = [UIImage imageNamed:@"火苗-红"];
+        } else {
+            if (!isIntegerScore && i == scoreInteger) {
+                imageView.image = [UIImage imageNamed:@"火苗-半-大宽边1"];
+            } else {
+                imageView.image = [UIImage imageNamed:@"火苗-灰"];
+            }
+        }
+    }
+}
 @end

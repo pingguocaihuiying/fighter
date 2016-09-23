@@ -11,13 +11,14 @@
 #import "FTShareView.h"
 #import "FTHomepageCommentTableViewCell.h"
 #import "FTBetView.h"
+#import "FTBetView0.h"
 #import "FTPayViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "FTCommentViewController.h"
 
-@interface FTMatchLiveViewController ()<UITableViewDelegate, UITableViewDataSource, FTBetViewDelegate, CommentSuccessDelegate>
+@interface FTMatchLiveViewController ()<UITableViewDelegate, UITableViewDataSource, FTBetViewDelegate, FTBetViewDelegate0, CommentSuccessDelegate>
 @property (strong, nonatomic) IBOutlet UIImageView *blueProgressBarImageView;
 
 @property (nonatomic, strong)NSArray *commentsDataArray;//评论数据源
@@ -31,16 +32,44 @@
 @property (strong, nonatomic) IBOutlet UILabel *viewCountLabel;//观看数
 @property (strong, nonatomic) IBOutlet UILabel *voteCountLabel;//赞数
 @property (nonatomic, assign) BOOL isFirstLoadData;//是否增加过观看数
+@property (strong, nonatomic) IBOutlet UIView *commentCountBottomView;//评论数量下方的底边线
+@property (strong, nonatomic) IBOutlet UIButton *betButton1;
+@property (strong, nonatomic) IBOutlet UIButton *betButton2;
+
 @end
 
 @implementation FTMatchLiveViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setWebViewWidth];
+    
     [self setTopNaviViews];//上方导航栏
     [self initBaseData];
     [self getMatchDetailFromServer];//获取比赛详细信息
     [self initCommentTableView];    //设置评论tableview
+}
+
+- (void)setWebViewWidth{
+    _liveWebView.scrollView.scrollEnabled = NO;//禁止滚动
+    CGFloat progressWidthTotal = SCREEN_WIDTH - 32 - 191;
+    
+    //声明两个变量，只用于计算
+    int betsNum1 = 1;
+    int betsNum2 = 1;
+    
+    if(betsNum1 <= 0 || betsNum2 <= 0){
+        betsNum1 += 1;
+        betsNum2 += 1;
+    }
+    
+    float denominator = betsNum1 + betsNum2;
+    
+    CGFloat width1 = progressWidthTotal * (betsNum1 / denominator);
+    CGFloat width2 = progressWidthTotal * (betsNum2 / denominator);
+    _progressWidth1.constant = width1;
+    _progressWidth2.constant = width2;
 }
 
 - (void)getVoteStatus{
@@ -63,6 +92,11 @@
             
             //如果是第一次加载
             if (_isFirstLoadData) {
+                //比赛详情加载成功后，把下注按钮置为可用
+                    //业务有改，直播时不让下注
+//                _betButton1.enabled = YES;
+//                _betButton2.enabled = YES;
+                
                 //根据比赛详情设置页面展示信息
                 [self initSubViews];
                 [self getCommentListData];//获取评论列表
@@ -73,7 +107,7 @@
                 [self getViewCount];
                 
                 //显示点赞数
-                _voteCountLabel.text = [NSString stringWithFormat:@"%@", _matchDetailBean.voteCount];
+                _voteCountLabel.text = [NSString stringWithFormat:@"(%@)", _matchDetailBean.voteCount];
                 [self getVoteStatus];//获取点赞信息
             }
             
@@ -99,7 +133,7 @@
 
 - (void)getVoteCount{
     [NetWorking getCountWithObjid:[NSString stringWithFormat:@"%@", _matchDetailBean.matchId] andTableName:@"v-mat" andOption:^(NSString *viewCount) {
-        _voteCountLabel.text = [NSString stringWithFormat:@"%@", viewCount];
+        _voteCountLabel.text = [NSString stringWithFormat:@"(%@)", viewCount];
     }];
 }
 
@@ -107,7 +141,7 @@
     [NetWorking getViewCountWithObjid: [NSString stringWithFormat:@"%@", _matchDetailBean.matchId] andTableName:@"ve-mat" andOption:^(NSString *viewCount) {
         if (viewCount) {
             NSLog(@"viewCount : %@", viewCount);
-            _viewCountLabel.text = [NSString stringWithFormat:@"%@", viewCount];
+            _viewCountLabel.text = [NSString stringWithFormat:@"(%@)", viewCount];
         }
     }];
 }
@@ -118,9 +152,10 @@
 
 - (void)initSubViews{
     [self setLiveWebView];//直播页面
-    [self setFighterInfo];//拳手信息
-    [self updateBetsInfo];//更新下注比例图
-    _voteCountLabel.text = [NSString stringWithFormat:@"%@", _matchDetailBean.voteCount];
+    [self setFighterInfo];//拳手信息.
+    
+//    [self updateBetsInfo];//更新下注比例图
+    _voteCountLabel.text = [NSString stringWithFormat:@"(%@)", _matchDetailBean.voteCount];
 }
 
 - (void)setTopNaviViews{
@@ -143,7 +178,7 @@
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     //如果用户安装了微信，再显示转发按钮
     if([WXApi isWXAppInstalled]){
-        self.navigationItem.rightBarButtonItem = shareButton;
+//        self.navigationItem.rightBarButtonItem = shareButton;
     }
     
     //设置默认标题
@@ -188,6 +223,22 @@
     _betsNumLabel2.text = [NSString stringWithFormat:@"%@", _matchDetailBean.bet2];
 }
 
+#pragma mark - 在xib文件加载时调整scrollView宽度为设备宽度
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder{
+    if (self = [super initWithCoder:aDecoder]) {
+        
+    }
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+
+    }
+    return self;
+}
+
 - (void)setLiveWebView{
     _liveWebView.scrollView.scrollEnabled = NO;//禁止滚动
     
@@ -199,7 +250,8 @@
      *  斗鱼直播  http://www.douyu.com/611813
      ufc  http://live.qq.com/10000202
      */
-    NSString *webURL = @"http://live.qq.com/10000202";
+    NSString *webURL = @"http://www.douyu.com/lanxiang1]";
+    webURL = _matchBean.url;
         [_liveWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:webURL]]];
     //根据不同的机型，调整遮盖view的高度，到达完美遮挡的目的
     NSLog(@"SCREEN_WIDTH : %f", SCREEN_WIDTH);
@@ -231,7 +283,14 @@
         [_commentTableView reloadData];
         
         //更新评论数
-        _commentCountLabel.text = [NSString stringWithFormat:@"评论(%ld)", _commentsDataArray.count];
+        _commentCountLabel.text = [NSString stringWithFormat:@"评论(%ld)", (unsigned long)_commentsDataArray.count];
+        
+        //如果评论数为0，则隐藏分割线；否则，显示
+        if (_commentsDataArray && _commentsDataArray.count == 0) {
+            _commentCountBottomView.hidden = YES;
+        }else{
+            _commentCountBottomView.hidden = NO;
+        }
     }];
 }
 - (void)initCommentTableView{
@@ -305,13 +364,19 @@
 - (IBAction)betButton1Clicked:(id)sender {
     //判断是否登录
     if ([self validateLoginInfo]) {
-        FTBetView *betView = [[[NSBundle mainBundle] loadNibNamed:@"FTBetView" owner:nil options:nil]lastObject];
-        betView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        betView.delegate = self;
-        betView.matchDetailBean = _matchDetailBean;
-        betView.isbetPlayer1Win = YES;
-        [betView updateDisplay];
-        [self.view addSubview:betView];
+        
+//        FTBetView *betView = [[[NSBundle mainBundle] loadNibNamed:@"FTBetView" owner:nil options:nil]lastObject];
+//        betView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//        betView.delegate = self;
+//        betView.matchDetailBean = _matchDetailBean;
+//        betView.isbetPlayer1Win = YES;
+//        [betView updateDisplay];
+//        [self.view addSubview:betView];
+        
+                FTBetView0 *betView0 = [[[NSBundle mainBundle] loadNibNamed:@"FTBetView0" owner:nil options:nil]lastObject];
+                betView0.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                betView0.delegate = self;
+                [self.view addSubview:betView0];
     }else{
         [self login];
     }
@@ -323,7 +388,7 @@
         FTBetView *betView = [[[NSBundle mainBundle] loadNibNamed:@"FTBetView" owner:nil options:nil]lastObject];
         betView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         betView.delegate = self;
-        betView.matchDetailBean = _matchDetailBean;
+        betView.matchBean = _matchBean;
         betView.isbetPlayer1Win = NO;
         [betView updateDisplay];
         [self.view addSubview:betView];
@@ -331,6 +396,19 @@
         [self login];
     }
 }
+
+//第一步中点击确认参与的回掉方法
+- (void)betStep1WithBetValues:(int)betValue andIsPlayer1Win:(BOOL)isPlayer1Win{
+    FTBetView *betView = [[[NSBundle mainBundle] loadNibNamed:@"FTBetView" owner:nil options:nil]lastObject];
+    betView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    betView.delegate = self;
+    betView.matchBean = _matchBean;
+    betView.isbetPlayer1Win = isPlayer1Win;
+    betView.betValue = betValue;
+    [betView updateDisplay];
+    [self.view addSubview:betView];
+}
+
 //点击赞助后的回掉
 - (void)betWithBetValues:(int)betValue andIsPlayer1Win:(BOOL)isPlayer1Win{
     NSLog(@"betValue : %d", betValue);
@@ -385,6 +463,14 @@
             _voteButton.enabled = YES;
             if (result) {
                 NSLog(@"更新点赞成功");
+                
+                //更新点赞数量(根据点赞、取消点赞，点赞数+1、-1，没有从服务器获取最新赞数)
+                NSString *voteCountString = _voteCountLabel.text;
+                voteCountString = [voteCountString stringByReplacingOccurrencesOfString:@"(" withString:@""];
+                voteCountString = [voteCountString stringByReplacingOccurrencesOfString:@")" withString:@""];
+                int voteCount = [voteCountString intValue];
+                voteCount = _voteButton.isSelected ? ++voteCount : --voteCount;
+                _voteCountLabel.text = [NSString stringWithFormat:@"(%d)", voteCount];
             }else{
                 NSLog(@"更新点赞失败");
             }

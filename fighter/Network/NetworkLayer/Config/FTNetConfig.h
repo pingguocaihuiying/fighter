@@ -180,6 +180,7 @@ extern NSString * const GetCoachByIdURL;
 extern NSString * const GetGymListURL;
 extern NSString * const GetGymListForArenaURL;
 extern NSString * const GetGymByIdURL;
+extern NSString *const GetGymPhotosByUsers;//获取用户拍摄的拳馆照片
 
 #pragma mark - 新格斗场
 //获取拳馆固定的时间段
@@ -239,4 +240,9 @@ extern NSString * const DuiBaChargeURL ;
 
 // 兑吧确定扣除积分接口
 extern NSString * const DuiBaCheckCharegeURL ;
+
+// 商城首页
+extern NSString * const ShopURL;
+// 订单页
+extern NSString * const ShopOrderURL;
 

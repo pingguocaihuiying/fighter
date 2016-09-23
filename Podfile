@@ -2,15 +2,15 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 target "fighter" do
-pod "AFNetworking", "~> 2.6.3"
-pod "SDWebImage", "~> 3.7.6"
+pod "AFNetworking", "~> 3.1.0"
+pod "SDWebImage", "~> 3.8.1"
 #pod "SDCycleScrollView", "~> 1.65"
 pod "MJRefresh", "~> 3.1.0"
 pod "FMDB", "~> 2.6.2"
 pod "RealReachability", "~> 1.1.7"
 pod "Masonry", "~> 1.0.1"
 pod "MBProgressHUD", "~> 0.9.2"
-pod "Qiniu", "~> 7.0.20"
+pod "Qiniu", "~> 7.1.0.1"
 
 #友盟统计
 pod "UMengAnalytics", "~> 4.0.4"

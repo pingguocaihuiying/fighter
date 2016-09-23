@@ -92,5 +92,6 @@
 //格式化生日
 - (NSString *) formaterBirthday;
 
++ (FTUserBean *) loginUser;
 
 @end

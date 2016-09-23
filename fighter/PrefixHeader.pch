@@ -27,6 +27,7 @@
 
     //标准红
 #define Custom_Red [UIColor colorWithHex:0xbe1e1e]
+#define Custom_Red_Value 0xbe1e1e
 
 //导入一些工具类
 #import "UIColor+YBColorCategory.h"
@@ -90,12 +91,15 @@
 #define WXLoginSecret_Key @"quanjijia123456"
 
 // 通知
+#define WXPayResultNoti @"WXPayResultNoti"
 #define WXLoginResultNoti @"WXLoginResutlNoti"
 #define WXShareResultNoti @"WXShareResultNoti"
 #define QQShareResultNoti @"QQShareResultNoti"
 #define RechargeResultNoti @"RechargeOrCharge"
 #define LoginNoti @"LoginNotifacation"
 #define QQShareResponse @"addShareResponse"
+#define TaskNotification @"taskNotification"
+#define EditNotification @"editNotification"
 
 //微博相关
 #define WB_App_ID @"3097376602"

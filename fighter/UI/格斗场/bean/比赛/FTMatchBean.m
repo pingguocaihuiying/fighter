@@ -15,6 +15,27 @@
     if ([key isEqualToString:@"id"]) {
         _matchId = [NSString stringWithFormat:@"%@", value];
     }
+//    else if ([key isEqualToString:@"follow"]){
+//        _follow = [value boolValue];
+//
+//    }else if ([key isEqualToString:@"allowBet"]){
+//        _allowBet = [value boolValue];
+//    }
+}
+
+- (void)setValuesForKeysWithDictionary:(NSDictionary<NSString *,id> *)keyedValues{
+    NSArray *keys = [keyedValues allKeys];
+    for( NSString * key in keys){//处理5s以下32位机子上bool值设置的bug
+        if ( [key isEqualToString:@"follow"]) {
+            BOOL value = [keyedValues[key] boolValue];
+            [keyedValues setValue:[NSNumber numberWithBool:value] forKey:key];
+        } else if ( [key isEqualToString:@"allowBet"]){
+            BOOL value = [keyedValues[key] boolValue];
+            [keyedValues setValue:[NSNumber numberWithBool:value] forKey:key];
+        }
+    }
+
+    [super setValuesForKeysWithDictionary:keyedValues];
 }
 
 //- (void)setValuesForKeysWithDictionary:(NSDictionary<NSString *,id> *)keyedValues{

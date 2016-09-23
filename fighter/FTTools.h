@@ -106,4 +106,8 @@
 
 //登录方法
 + (void)loginwithVC:(UIViewController *) vc;
+
+#pragma -mark 更新评分view
++ (void)updateScoreView:(UIView *)scoreView withScore:(float)scoreFloat;
+
 @end

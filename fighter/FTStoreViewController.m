@@ -209,8 +209,6 @@ static NSString *originUserAgent;
 #pragma mark - button response
 
 
-
-
 #pragma mark - WebViewDelegate
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     [self disableLoadingAnimation];
@@ -246,7 +244,6 @@ static NSString *originUserAgent;
             self.navigationItem.rightBarButtonItem=nil;
         }
     }
-    
 }
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
@@ -269,6 +266,7 @@ static NSString *originUserAgent;
         }
     }
     
+    
     if([url rangeOfString:@"dbnewopen"].location!=NSNotFound){
         [url replaceCharactersInRange:[url rangeOfString:@"dbnewopen"] withString:@"none"];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"OpenNewController" object:nil userInfo:[NSDictionary dictionaryWithObject:url forKey:@"url"]];
@@ -277,6 +275,7 @@ static NSString *originUserAgent;
     
     return YES;
 }
+
 
 -(void)onShareClick{
     

@@ -37,7 +37,7 @@
     
     
     //设置渐变
-//        NSLog(@"base view的宽度：%f,高度：%f",self.view.frame.size.width, self.view.frame.size.height);
+//    NSLog(@"base view的宽度：%f,高度：%f",self.view.frame.size.width, self.view.frame.size.height);
 //    NSLog(@"self view frame height : %f", self.view.frame.size.height);
 //    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 49 - 52, SCREEN_WIDTH, 52)];
     _bottomGradualChangeView = [[UIImageView alloc]initWithFrame:CGRectMake(0,SCREEN_HEIGHT - 52 - 49, SCREEN_WIDTH, 52)];

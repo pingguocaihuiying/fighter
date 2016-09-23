@@ -73,12 +73,17 @@
     }
     
     NSString *propertValue = [self.propertyTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-    NSStringEncoding enc =     CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingISOLatin1);
-    [propertValue stringByAddingPercentEscapesUsingEncoding:enc];
+    
+    // encode1 ISO-8859-1
+    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingISOLatin1);
+    const  char *cString = [propertValue UTF8String];;
+    NSString *remoteParam = [NSString  stringWithCString:cString encoding:enc];
+    NSLog(@"sex:%@",remoteParam);
+    
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NetWorking *net = [NetWorking new];
-    [net updateUserByGet:propertValue Key:@"username" option:^(NSDictionary *dict) {
+    [net updateUserByGet:remoteParam Key:@"username" option:^(NSDictionary *dict) {
         NSLog(@"dict:%@",dict);
         if (dict != nil) {
             [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -92,7 +97,7 @@
                 //从本地读取存储的用户信息
                 NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
                 FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-                localUser.username = self.propertyTextField.text;
+                localUser.username = [propertValue  stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                 
                 //将用户信息保存在本地
                 NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];

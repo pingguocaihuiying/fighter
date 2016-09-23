@@ -19,6 +19,8 @@
 //    self.navigationBarHidden = YES;
     self.navigationBar.barTintColor = [UIColor blackColor];
     
+    //  导航栏半透明属性设置为NO,阻止导航栏遮挡view
+    self.navigationBar.translucent = NO;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -8,10 +8,15 @@
 
 #import "FTBaseTabBarViewController.h"
 #import "FTStoreViewController.h"
+#import "FTShopViewController.h"
+
 #import "FTRankViewController.h"
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "UIButton+Badge.h"
+#import "FTDailyTaskViewController.h"
+#import "FTFinishedTaskViewController.h"
+#import "NSDate+TaskDate.h"
 
 @interface FTBaseTabBarViewController () <UITabBarControllerDelegate>
 
@@ -42,11 +47,9 @@
     self.delegate = self;
     
     
-    //  导航栏半透明属性设置为NO,阻止导航栏遮挡view
-    self.navigationController.navigationBar.translucent = NO;
-    
-    // 修改edgesForExtendedLayout,阻止导航栏遮挡View
-    //    self.edgesForExtendedLayout = UIRectEdgeNone;
+//    //  导航栏半透明属性设置为NO,阻止导航栏遮挡view
+//    self.navigationController.navigationBar.translucent = NO;
+//    UINavigationController *navigationVC = self.navigationController;
     
 }
 
@@ -76,10 +79,15 @@
     
     //添加监听器，监听login
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateAvatar:) name:LoginNoti object:nil];
+    
+    //添加监听器，东西任务
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(remindDailyTask:) name:TaskNotification object:nil];
 }
 
 #pragma mark - 设置导航栏
 - (void) setNavigationbar {
+    
+
     
     //导航栏头像按钮
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
@@ -127,10 +135,21 @@
     // 头部任务按钮
     self.taskBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.taskBtn.frame = CGRectMake(0, 0, 24, 24);
-    [self.taskBtn addTarget:self action:@selector(searchBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.taskBtn addTarget:self action:@selector(taskBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务"] forState:UIControlStateNormal];
-    [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务pre"] forState:UIControlStateHighlighted];
+    // 获取上次做任务的时间记录
+    NSDate * recordDate = [[NSUserDefaults standardUserDefaults]objectForKey:@"FinishDate"];
+    
+    NSDate *taskDate = [NSDate taskDate];
+    
+    if ([recordDate timeIntervalSince1970] < [taskDate timeIntervalSince1970]) {
+        
+        [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务-新任务"] forState:UIControlStateNormal];
+    }else {
+        [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务"] forState:UIControlStateNormal];
+    }
+    
+
     
     
     UIBarButtonItem *taskBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.taskBtn];
@@ -158,7 +177,7 @@
     // title label
     self.titleLabel = [[UILabel alloc]init];
     self.titleLabel.frame = CGRectMake(93, 0, 72, 22);
-    self.titleLabel.text = @"排行榜";
+    self.titleLabel.text = @"拳讯";
     self.titleLabel.textColor = [UIColor whiteColor];
     [self.navigationItem.titleView addSubview:self.titleLabel];
     
@@ -199,6 +218,19 @@
     
 }
 
+
+- (void) remindDailyTask:(NSNotification *) noti {
+    
+    NSLog(@"remindDailyTask");
+    
+    [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务-新任务"] forState:UIControlStateNormal];
+    
+    [self.taskBtn showMiniBadge];
+    
+    
+    [self shakingAnimation:self.taskBtn];
+}
+
 #pragma mark - button response
 
 // 头像点击事件
@@ -223,17 +255,7 @@
 - (void)messageBtnAction:(id)sender {
     
     NSLog(@"message button clicked");
-    
-//    static NSInteger count = 0;
-//    count ++;
-//    self.messageBtn.badgeValue = [NSString stringWithFormat:@"%ld",count];
-//    [self shakingAnimation];
-    
-    [self.messageBtn showMiniBadge];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-         [self.messageBtn hideMiniBadge];
-    });
+
 }
 
 // 任务按钮点击事件
@@ -241,13 +263,53 @@
     
     NSLog(@"task button clicked");
     
-    [self.taskBtn showMiniBadge];
+    //获取登录信息，如果没有登录不能做任务，直接跳转登录页面
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    if (!localUser) {
+        [self login];
+        
+        return;
+    }
     
-    [self shakingAnimation:self.taskBtn];
+    [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务"] forState:UIControlStateNormal];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.messageBtn hideMiniBadge];
-    });
+    [self.taskBtn hideMiniBadge];
+
+    // 获取上次做任务的时间记录
+    NSDate * recordDate = [[NSUserDefaults standardUserDefaults]objectForKey:@"FinishDate"];
+    
+    if (!recordDate ) {
+        
+        FTDailyTaskViewController * taskVC = [FTDailyTaskViewController new];
+        [self.navigationController  pushViewController:taskVC animated:YES];
+        
+        return;
+    }
+    
+    NSDate *taskDate = [NSDate taskDate];
+    
+    if ([recordDate timeIntervalSince1970] < [taskDate timeIntervalSince1970]) {
+        
+        FTDailyTaskViewController * taskVC = [FTDailyTaskViewController new];
+        [self.navigationController  pushViewController:taskVC animated:YES];
+        
+    }else {
+    
+        FTFinishedTaskViewController *finishTaskVC = [FTFinishedTaskViewController new];
+        [self.navigationController  pushViewController:finishTaskVC animated:YES];
+    }
+    
+}
+
+#pragma mark  - login
+
+- (void)login{
+    
+    FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+    loginVC.title = @"登录";
+    FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 
@@ -255,7 +317,10 @@
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
 
-    if (tabBarController.selectedIndex != 3 && [viewController isKindOfClass:[FTStoreViewController class]]) {
+    @try {
+        
+    
+    if (tabBarController.selectedIndex != 4 && [viewController isKindOfClass:[FTShopViewController class]]) {
         
         //从本地读取存储的用户信息
         NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
@@ -274,9 +339,14 @@
         }
         
     }
-    
+    } @catch (NSException *exception) {
+        NSLog(@"exception:%@",exception);
+    } @finally {
+        
+    }
     return YES;
 }
+
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
 
@@ -303,25 +373,56 @@
 //        
 //        [[UIApplication sharedApplication].keyWindow addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:3];
 //    }
+    
 }
 
 
 #pragma mark - 抖动动画
 #define Angle2Radian(angle) ((angle) / 180.0 * M_PI)
 - (void)shakingAnimation:(UIButton *)button {
-    CAKeyframeAnimation *anim = [CAKeyframeAnimation animation];
-    anim.keyPath = @"transform.rotation";
     
-    anim.values = @[@(Angle2Radian(-15)),  @(Angle2Radian(15)), @(Angle2Radian(0))];
-    anim.duration = 0.20;
+    // 放大动画
+    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    scaleAnimation.fromValue = [NSNumber numberWithFloat:1.0];
+    scaleAnimation.toValue = [NSNumber numberWithFloat:1.5];
+    scaleAnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
+    scaleAnimation.removedOnCompletion = NO;
+    scaleAnimation.duration = 0.1;
+    scaleAnimation.beginTime = 0.0;
+    
+    // 晃动动画
+    CAKeyframeAnimation *rotationAnimation = [CAKeyframeAnimation animation];
+    rotationAnimation.keyPath = @"transform.rotation";
+    rotationAnimation.values = @[@(Angle2Radian(-15)),  @(Angle2Radian(15)), @(Angle2Radian(0))];
+    rotationAnimation.duration = 0.20;
     
     // 动画次数设置为最大
-    anim.repeatCount = 3;
-    // 保持动画执行完毕后的状态
-    anim.removedOnCompletion = NO;
-    anim.fillMode = kCAFillModeForwards;
+    rotationAnimation.repeatCount = 3;
     
-    [button.layer addAnimation:anim forKey:@"shake"];
+    // 保持动画执行完毕后的状态
+    rotationAnimation.removedOnCompletion = NO;
+    rotationAnimation.fillMode = kCAFillModeForwards;
+    rotationAnimation.beginTime = 0.1;
+    
+    // 缩小动画
+    CABasicAnimation *shrinkAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    shrinkAnimation.fromValue = [NSNumber numberWithFloat:1.5];
+    shrinkAnimation.toValue = [NSNumber numberWithFloat:1.0];
+    shrinkAnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
+    shrinkAnimation.removedOnCompletion = NO;
+    shrinkAnimation.duration = 0.1;
+    shrinkAnimation.beginTime = 0.7;
+
+    
+    // 动画组
+    CAAnimationGroup *groupAnnimation = [CAAnimationGroup animation];
+    groupAnnimation.duration = 1.0;
+    groupAnnimation.removedOnCompletion = NO;
+    groupAnnimation.animations = @[rotationAnimation, scaleAnimation, shrinkAnimation];
+    groupAnnimation.repeatCount = 3;
+    //开演
+    [button.layer addAnimation:groupAnnimation forKey:@"groupAnnimation"];
+    
 }
 
 @end

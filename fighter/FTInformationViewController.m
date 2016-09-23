@@ -53,6 +53,8 @@
 //        NSLog(@"拳讯 view的宽度：%f,高度：%f",self.view.frame.size.width, self.view.frame.size.height);
     [super viewDidLoad];
     
+   
+    
     [self initTypeArray];//初始化标签数据
     
     [self initSubViews];
@@ -64,9 +66,16 @@
     [self getDataWithGetType:@"new" andCurrId:@"-1"];//初次加载数据
     
     [self.bottomGradualChangeView setHidden:YES];
+    
+    //  导航栏半透明属性设置为NO,阻止导航栏遮挡view
+    self.navigationController.navigationBar.translucent = NO;
+    
+    NSLog(@"infomation view did load");
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
     
     [MobClick event:@"mainPage_BoxingNews"];
     
@@ -75,7 +84,11 @@
     //  导航栏半透明属性设置为NO,阻止导航栏遮挡view
     self.navigationController.navigationBar.translucent = NO;
     
+    NSLog(@"infomation view will appear");
+    
 }
+
+
 
 
 - (void)initTypeArray{
@@ -108,12 +121,12 @@
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",newsType, newsCurrId, getType, ts, @"quanjijia222222"]];
     
     urlString = [NSString stringWithFormat:@"%@?newsType=%@&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@", urlString, newsType, newsCurrId, getType, ts, checkSign, [FTNetConfig showType]];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 //    NSLog(@"轮播图url : %@", urlString);
-    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
 
         NSString *status = responseDic[@"status"];
@@ -129,7 +142,7 @@
             }
         }
         
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
     }];
 }
 
@@ -255,7 +268,7 @@
         for(NSDictionary *dic in self.cycleDataSourceArray){
             [imagesURLStrings addObject:dic[@"img_big"]];
             [titlesArray addObject:dic[@"title"]];
-
+            NSLog(@"title : %@", dic[@"title"]);
         }
     }
     
@@ -269,7 +282,7 @@
     _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
 
 #pragma -mark -暂时隐藏轮播图的标题（没有给轮播图传title的值）
-//    _cycleScrollView.titlesGroup = titlesArray;
+    _cycleScrollView.titlesGroup = titlesArray;
     
     _cycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
     _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点pre"];

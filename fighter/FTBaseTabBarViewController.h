@@ -15,4 +15,6 @@
 @property (nonatomic, weak) id<FTDynamicsTransDelegate> drawerDelegate;
 @property (nonatomic,weak) id<OpenSliderDelegate> openSliderDelegate;
 
+// 任务按钮点击事件
+- (void)taskBtnAction:(id)sender;
 @end

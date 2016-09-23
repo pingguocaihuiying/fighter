@@ -60,13 +60,7 @@
     
     CGRect frame = self.frame;
     __weak __typeof(self) weakSelf = self;
-    [_panelView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weakSelf.mas_bottom).with.offset(-10);
-        make.right.equalTo(weakSelf.mas_right).with.offset(0);
-        make.left.equalTo(weakSelf.mas_left).with.offset(0);
-        make.height.equalTo(@250);
-        
-    }];
+
     
     //边框
     _backImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width-20, frame.size.height/3)];
@@ -83,36 +77,22 @@
         
     }];
     
+    __weak UIImageView *weakBackImg= _backImgView;
+    //完成按钮
+    _doneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_doneBtn setTitle:@"取    消" forState:UIControlStateNormal];
+    [_doneBtn setBackgroundImage:[UIImage imageNamed:@"主要按钮背景ios"] forState:UIControlStateNormal];
+    [_doneBtn setBackgroundImage:[UIImage imageNamed:@"主要按钮背景ios-pre"] forState:UIControlStateHighlighted];
+    [_doneBtn addTarget:self  action:@selector(confirmAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_panelView addSubview:_doneBtn];
     
-    //显示label
-    _resultLabel = [[UILabel alloc]init];
-    _resultLabel.font=[UIFont systemFontOfSize:16];
-    _resultLabel.textAlignment = NSTextAlignmentCenter;
-    _resultLabel.textColor = [UIColor colorWithHex:0x828287];;
-    _resultLabel.text = @"修改头像";
-    [_panelView addSubview:_resultLabel];
-    
-    [_resultLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakPanel.mas_top).with.offset(20);
-        make.right.equalTo(weakPanel.mas_right).with.offset(-40);
-        make.left.equalTo(weakPanel.mas_left).with.offset(40);
-        make.height.equalTo(@20);
+    //picker
+    [_doneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(weakBackImg.mas_bottom).with.offset(-20);
+        make.right.equalTo(weakBackImg.mas_right).with.offset(-40);
+        make.left.equalTo(weakBackImg.mas_left).with.offset(40);
+        make.height.equalTo(@45);
     }];
-    
-    
-    //    //分隔线
-    //    _separatView = [[UIView alloc] init];
-    //    _separatView.backgroundColor = Cell_Space_Color;
-    //    [_panelView addSubview:_separatView];
-    //
-    //    //分割线
-    __weak UILabel *weakLabel= _resultLabel;
-    //    [_separatView mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.top.equalTo(weakLabel.mas_bottom).with.offset(10);
-    //        make.right.equalTo(weakPanel.mas_right).with.offset(-40);
-    //        make.left.equalTo(weakPanel.mas_left).with.offset(40);
-    //        make.height.equalTo(@1.5);
-    //    }];
     
     
     self.cameraBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -123,16 +103,16 @@
     [self.cameraBtn setTitleColor:[UIColor colorWithHex:0xb4b4b4] forState:UIControlStateNormal];
     [self.panelView addSubview:self.cameraBtn];
     
+    __weak UIButton *weakButton= _doneBtn;
     [self.cameraBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(weakPanel.mas_centerX).with.offset(0);
         make.left.equalTo(weakPanel.mas_left).with.offset(40);
-        make.top.equalTo(weakLabel.mas_bottom).with.offset(20);
+        make.bottom.equalTo(weakButton.mas_top).with.offset(-20);
         make.height.equalTo(@80);
         
     }];
     
     self.albumBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    //    [self.femaleBtn setBackgroundColor:[UIColor blueColor]];
     [self.albumBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
     [self.albumBtn setImage:[UIImage imageNamed:@"相册"] forState:UIControlStateNormal];
     [self.albumBtn setImage:[UIImage imageNamed:@"相册pre"] forState:UIControlStateHighlighted];
@@ -142,27 +122,37 @@
     [self.albumBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(weakPanel.mas_right).with.offset(-40);
         make.left.equalTo(weakPanel.mas_centerX ).with.offset(0);
-        make.top.equalTo(weakLabel.mas_bottom).with.offset(20);
+        make.bottom.equalTo(weakButton.mas_top).with.offset(-20);
         make.height.equalTo(@80);
         
     }];
     
-   
-    //完成按钮
-    _doneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_doneBtn setTitle:@"取   消" forState:UIControlStateNormal];
-    [_doneBtn setBackgroundImage:[UIImage imageNamed:@"主要按钮背景ios"] forState:UIControlStateNormal];
-    [_doneBtn setBackgroundImage:[UIImage imageNamed:@"主要按钮背景ios-pre"] forState:UIControlStateHighlighted];
-    [_doneBtn addTarget:self  action:@selector(confirmAction:) forControlEvents:UIControlEventTouchUpInside];
-    [_panelView addSubview:_doneBtn];
     
-    //picker
-    __weak UIImageView *weakBackImg= _backImgView;
-    [_doneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weakBackImg.mas_bottom).with.offset(-20);
-        make.right.equalTo(weakBackImg.mas_right).with.offset(-15);
-        make.left.equalTo(weakBackImg.mas_left).with.offset(15);
-        make.height.equalTo(@45);
+    //显示label
+    _resultLabel = [[UILabel alloc]init];
+    _resultLabel.font=[UIFont systemFontOfSize:16];
+    _resultLabel.textAlignment = NSTextAlignmentCenter;
+    _resultLabel.textColor = [UIColor colorWithHex:0x828287];;
+    _resultLabel.text = @"修改头像";
+    [_panelView addSubview:_resultLabel];
+    
+    __weak UIButton *weakMaleBtn= _albumBtn;
+    [_resultLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(weakMaleBtn.mas_top).with.offset(-20);
+        make.right.equalTo(weakBackImg.mas_right).with.offset(-40);
+        make.left.equalTo(weakBackImg.mas_left).with.offset(40);
+        make.height.equalTo(@20);
+    }];
+    
+    
+    //添加_panelView 约束
+    __weak UILabel *weakLabel= _resultLabel;
+    [_panelView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(weakSelf.mas_bottom).with.offset(-64);
+        make.right.equalTo(weakSelf.mas_right).with.offset(-6);
+        make.left.equalTo(weakSelf.mas_left).with.offset(6);
+        make.top.equalTo(weakLabel.mas_top).with.offset(-15);
+        
     }];
 }
 

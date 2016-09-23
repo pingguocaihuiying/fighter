@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -49,6 +49,16 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o8S-2n-jtM">
+                        <rect key="frame" x="34" y="17" width="56" height="56"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="56" id="ghX-GC-4Lp"/>
+                            <constraint firstAttribute="width" constant="56" id="kpl-en-SEJ"/>
+                        </constraints>
+                        <connections>
+                            <action selector="player1ButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Yp3-b2-isl"/>
+                        </connections>
+                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="杨建平杨建平" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HqF-zV-M1Z">
                         <rect key="frame" x="20" y="83" width="84" height="14"/>
                         <constraints>
@@ -86,6 +96,16 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M0h-ph-RLk">
+                        <rect key="frame" x="285" y="17" width="56" height="56"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="56" id="XGd-3m-eOG"/>
+                            <constraint firstAttribute="height" constant="56" id="rmz-og-hkc"/>
+                        </constraints>
+                        <connections>
+                            <action selector="player2ButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="yru-qq-zr7"/>
+                        </connections>
+                    </button>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q1v-U1-Kag" userLabel="headerImg2">
                         <rect key="frame" x="288" y="20" width="50" height="50"/>
                         <constraints>
@@ -123,7 +143,7 @@
                             <constraint firstAttribute="width" constant="19" id="lQN-pg-gNI"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E26-Ex-uVi" userLabel="前去观战">
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E26-Ex-uVi" userLabel="前去观战">
                         <rect key="frame" x="128" y="128" width="120" height="24"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="120" id="71b-eB-01U"/>
@@ -179,7 +199,7 @@
                             <action selector="followButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Vi2-g6-MrC"/>
                         </connections>
                     </button>
-                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDs-Gz-yiI" userLabel="下注">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDs-Gz-yiI" userLabel="下注">
                         <rect key="frame" x="268" y="128" width="88" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="OgV-D8-p9u"/>
@@ -190,8 +210,8 @@
                             <action selector="betButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="gHF-nH-3j8"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:00 必图拳馆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s48-90-lXY" userLabel="开赛时间和地点">
-                        <rect key="frame" x="138" y="17" width="99" height="14"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:00 必图拳馆" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s48-90-lXY" userLabel="开赛时间和地点">
+                        <rect key="frame" x="91" y="17" width="193" height="14"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="14" id="O9k-UQ-7Te"/>
                         </constraints>
@@ -280,6 +300,7 @@
                     <constraint firstItem="zqF-Wz-Xcn" firstAttribute="trailing" secondItem="Hpr-oJ-bMw" secondAttribute="trailing" constant="-4" id="21D-fh-vEI"/>
                     <constraint firstItem="BkN-W4-x90" firstAttribute="centerX" secondItem="kMm-FA-lQu" secondAttribute="centerX" id="2WZ-YD-w5U"/>
                     <constraint firstItem="wFn-dp-SWU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="26" id="3Pt-AO-kpQ"/>
+                    <constraint firstItem="M0h-ph-RLk" firstAttribute="centerX" secondItem="czT-wm-4Ag" secondAttribute="centerX" id="4A8-Fj-KBI"/>
                     <constraint firstItem="MKO-rV-fgy" firstAttribute="centerY" secondItem="BkN-W4-x90" secondAttribute="centerY" id="4bt-UW-FXA"/>
                     <constraint firstItem="HqF-zV-M1Z" firstAttribute="centerX" secondItem="wFn-dp-SWU" secondAttribute="centerX" id="50L-Bo-KsN"/>
                     <constraint firstItem="kMm-FA-lQu" firstAttribute="top" secondItem="s48-90-lXY" secondAttribute="bottom" constant="8" id="50o-zS-eyS"/>
@@ -308,8 +329,10 @@
                     <constraint firstItem="rvy-Wm-j2C" firstAttribute="top" secondItem="qEx-Cp-w9O" secondAttribute="bottom" constant="4" id="PKt-M9-dq8"/>
                     <constraint firstItem="s48-90-lXY" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="PiO-nE-WCb"/>
                     <constraint firstAttribute="bottom" secondItem="E26-Ex-uVi" secondAttribute="bottom" constant="21" id="Qjy-Ax-Lue"/>
+                    <constraint firstItem="s48-90-lXY" firstAttribute="leading" secondItem="wFn-dp-SWU" secondAttribute="trailing" constant="1" id="Qr5-Vl-HYg"/>
                     <constraint firstItem="MKO-rV-fgy" firstAttribute="trailing" secondItem="BkN-W4-x90" secondAttribute="trailing" constant="-4" id="QrY-JO-a2a"/>
                     <constraint firstItem="zm0-D9-Agg" firstAttribute="trailing" secondItem="qEx-Cp-w9O" secondAttribute="trailing" constant="-4" id="R9m-mT-HQ7"/>
+                    <constraint firstItem="M0h-ph-RLk" firstAttribute="centerY" secondItem="czT-wm-4Ag" secondAttribute="centerY" id="RhT-eI-SVd"/>
                     <constraint firstItem="kMm-FA-lQu" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="TdL-t4-XjC"/>
                     <constraint firstItem="Hpr-oJ-bMw" firstAttribute="centerY" secondItem="kMm-FA-lQu" secondAttribute="centerY" id="Tif-sS-JV8"/>
                     <constraint firstItem="OSq-fI-wEm" firstAttribute="top" secondItem="6cc-BU-Ozv" secondAttribute="bottom" constant="-12" id="UAD-pu-N5s"/>
@@ -338,14 +361,17 @@
                     <constraint firstAttribute="bottom" secondItem="H9O-lJ-0l8" secondAttribute="bottom" constant="5" id="gag-XB-kRD"/>
                     <constraint firstItem="6cc-BU-Ozv" firstAttribute="top" secondItem="HqF-zV-M1Z" secondAttribute="bottom" constant="8" id="jQ7-bg-3qM"/>
                     <constraint firstItem="PkC-or-xcs" firstAttribute="centerX" secondItem="BkN-W4-x90" secondAttribute="centerX" id="jQh-fj-Z1f"/>
+                    <constraint firstItem="o8S-2n-jtM" firstAttribute="centerX" secondItem="wFn-dp-SWU" secondAttribute="centerX" id="jqs-00-3OC"/>
                     <constraint firstItem="E26-Ex-uVi" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="lPq-d5-jn9"/>
                     <constraint firstAttribute="trailing" secondItem="GGJ-1X-HVx" secondAttribute="trailing" constant="10" id="lfV-5c-zZQ"/>
                     <constraint firstItem="Zgr-ms-Rm7" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="lgF-pt-T8T"/>
                     <constraint firstItem="pTL-au-YER" firstAttribute="centerX" secondItem="wFn-dp-SWU" secondAttribute="centerX" id="mTy-Es-6Se"/>
+                    <constraint firstItem="czT-wm-4Ag" firstAttribute="leading" secondItem="s48-90-lXY" secondAttribute="trailing" constant="1" id="nvg-Hj-EaL"/>
                     <constraint firstItem="sgg-J6-FCg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="oFJ-bt-ltZ"/>
                     <constraint firstItem="HqF-zV-M1Z" firstAttribute="top" secondItem="wFn-dp-SWU" secondAttribute="bottom" constant="10" id="oJP-qo-EdO"/>
                     <constraint firstItem="BkN-W4-x90" firstAttribute="bottom" secondItem="kMm-FA-lQu" secondAttribute="bottom" constant="-7" id="oZX-WO-PeY"/>
                     <constraint firstItem="ybl-CX-kDR" firstAttribute="top" secondItem="czT-wm-4Ag" secondAttribute="bottom" constant="10" id="omk-DZ-uHF"/>
+                    <constraint firstItem="o8S-2n-jtM" firstAttribute="centerY" secondItem="wFn-dp-SWU" secondAttribute="centerY" id="pJd-In-h7C"/>
                     <constraint firstItem="PkC-or-xcs" firstAttribute="centerY" secondItem="BkN-W4-x90" secondAttribute="centerY" id="rYm-h4-AQb"/>
                     <constraint firstItem="wFn-dp-SWU" firstAttribute="top" secondItem="s48-90-lXY" secondAttribute="top" id="rbC-FW-uM9"/>
                     <constraint firstItem="wFn-dp-SWU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="17" id="tao-jB-lz7"/>
@@ -355,6 +381,7 @@
                     <mask key="constraints">
                         <exclude reference="tao-jB-lz7"/>
                         <exclude reference="oJP-qo-EdO"/>
+                        <exclude reference="PiO-nE-WCb"/>
                         <exclude reference="Mkf-vV-mAa"/>
                         <exclude reference="jQ7-bg-3qM"/>
                         <exclude reference="6oj-VH-Iik"/>
@@ -377,7 +404,10 @@
                 <outlet property="betButton" destination="nDs-Gz-yiI" id="ime-UE-mBe"/>
                 <outlet property="buyTicketButton" destination="NjC-D9-in2" id="D1Z-MZ-5qj"/>
                 <outlet property="followButton" destination="sgg-J6-FCg" id="ebk-bA-qnc"/>
-                <outlet property="goToWatchButton" destination="E26-Ex-uVi" id="IO8-LP-MbJ"/>
+                <outlet property="goToWatchButton" destination="E26-Ex-uVi" id="NUY-qU-sG1"/>
+                <outlet property="goToWatchButtonWidth" destination="71b-eB-01U" id="Dw7-oP-VBm"/>
+                <outlet property="header1OutCircle" destination="wFn-dp-SWU" id="evr-SS-9B5"/>
+                <outlet property="header2OutCircle" destination="czT-wm-4Ag" id="qlM-u2-sd6"/>
                 <outlet property="headerImage1" destination="pTL-au-YER" id="88v-24-XqC"/>
                 <outlet property="headerImage2" destination="Q1v-U1-Kag" id="mvi-iT-B1f"/>
                 <outlet property="nameLabel1" destination="HqF-zV-M1Z" id="dww-0U-beb"/>

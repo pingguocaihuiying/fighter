@@ -10,6 +10,7 @@
 #import <StoreKit/StoreKit.h>
 #import "Base64-umbrella.h"
 #import "GTMBase64-umbrella.h"
+#import "FTPayViewController.h"
 
 enum{
     PowerCoin600P=10,
@@ -26,6 +27,8 @@ static FTPaySingleton * singleton = nil;
     int _buyType;
     NSString * _orderNO;
 }
+
+@property (nonatomic, strong) NSMutableDictionary *goodsDict;
 @property (nonatomic, strong)NSString *orderNO;
 @property (nonatomic, strong) SKProductsRequest *productRequest;
 
@@ -40,6 +43,7 @@ static FTPaySingleton * singleton = nil;
     dispatch_once(&onceToken, ^{
         singleton = [super allocWithZone:zone];
         [singleton registNotifacation];
+        [singleton setGoodsArray];
         singleton.orderNO = @"1234567";
     });
     return singleton;
@@ -51,6 +55,40 @@ static FTPaySingleton * singleton = nil;
 
 - (id) copyWithZone:(NSZone *)zone;{
     return self;
+}
+
+- (void) setGoodsArray {
+
+    // 添加商品
+    _goodsDict = [[NSMutableDictionary alloc]init];
+    
+    FTGoodsBean *goodsBean1 = [FTGoodsBean new];
+    goodsBean1.goodsId = PowerCoin1;
+    goodsBean1.price =  [[NSDecimalNumber alloc]initWithInt:6];
+    goodsBean1.descriptions = @"Power币 600P";
+    goodsBean1.details = @"Power币 600P，您可以用于购买我们的服务，包括不限于付费视频，优惠券等内容。";
+    [_goodsDict setObject:goodsBean1 forKey:PowerCoin1];
+    
+    FTGoodsBean *goodsBean2 = [FTGoodsBean new];
+    goodsBean2.goodsId = PowerCoin2;
+    goodsBean2.price = [[NSDecimalNumber alloc]initWithInt:30];
+    goodsBean2.descriptions = @"Power币 3000P";
+    goodsBean2.details = @"Power币 3000P，您可以用于购买我们的服务，包括不限于付费视频，优惠券等内容。";
+    [_goodsDict setObject:goodsBean2 forKey:PowerCoin2];
+    
+    FTGoodsBean *goodsBean3 = [FTGoodsBean new];
+    goodsBean3.goodsId = PowerCoin3;
+    goodsBean3.price = [[NSDecimalNumber alloc]initWithInt:128];
+    goodsBean3.descriptions = @"Power币 12800P";
+    goodsBean3.details = @"Power币 12800P，您可以用于购买我们的服务，包括不限于付费视频，优惠券等内容。";
+    [_goodsDict setObject:goodsBean3 forKey:PowerCoin3];
+    
+    FTGoodsBean *goodsBean4 = [FTGoodsBean new];
+    goodsBean4.goodsId = PowerCoin4;
+    goodsBean4.price =[[NSDecimalNumber alloc]initWithInt:588];
+    goodsBean4.descriptions = @"Power币 58800P";
+    goodsBean4.details = @"Power币 58800P，您可以用于购买我们的服务，包括不限于付费视频，优惠券等内容。";
+    [_goodsDict setObject:goodsBean4 forKey:PowerCoin4];
 }
 
 #pragma mark - 注册通知
@@ -87,11 +125,20 @@ static FTPaySingleton * singleton = nil;
         FTGoodsBean *bean = [FTGoodsBean new];
         
         for(SKProduct *product in myProduct){
-            bean.goodsId =  product.productIdentifier; // Product id
-            bean.descriptions = product.localizedTitle;// 产品标题
-            bean.details = product.localizedDescription;// 产品描述信息
-            bean.price = product.price;//价格
+//            bean.goodsId =  product.productIdentifier; // Product id
+//            bean.descriptions = product.localizedTitle;// 产品标题
+//            bean.details = product.localizedDescription;// 产品描述信息
+//            bean.price = product.price;//价格
+            bean = [_goodsDict objectForKey:product.productIdentifier];
+            NSLog(@"localizedTitle= %@",product.localizedTitle);
+            NSLog(@"localizedDescription= %@",product.localizedDescription);
         }
+        
+        
+        NSLog(@"goodsId= %@",bean.goodsId);
+        NSLog(@"descriptions= %@",bean.descriptions);
+        NSLog(@"details= %@",bean.details);
+        NSLog(@"price= %@",bean.price);
         
         SKPayment *payment = nil;
         
@@ -148,7 +195,7 @@ static FTPaySingleton * singleton = nil;
         
     } @catch (NSException *exception) {
         
-        NSLog(@"exception:%@",exception);
+        NSLog(@"pay exception:%@",exception);
         
     } @finally {
         

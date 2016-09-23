@@ -19,7 +19,7 @@
             params:(NSDictionary *)params
            success:(void (^)(NSDictionary *responseJson))success
          dataError:(void (^)(NSString *errorCode, NSString *errorMessage))responseDataError
-           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+           failure:(void (^)(NSURLSessionTask *task, NSError *error))failure
 {
     [self postToPath:path params:params timeoutInterval:-1 success:success dataError:responseDataError failure:failure];
 }
@@ -28,7 +28,7 @@
            params:(NSDictionary *)params
           success:(void (^)(NSDictionary *responseJson))success
         dataError:(void (^)(NSString *errorCode, NSString *errorMessage))responseDataError
-          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+          failure:(void (^)(NSURLSessionTask *task, NSError *error))failure
 {
     [self getToPath:path params:params success:success dataError:responseDataError failure:failure];
 }
@@ -38,7 +38,7 @@
    timeoutInterval:(NSInteger)timeoutInterval
            success:(void (^)(NSDictionary *responseJson))success
          dataError:(void (^)(NSString *errorCode, NSString *errorMessage))responseDataError
-           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+           failure:(void (^)(NSURLSessionTask *task, NSError *error))failure
 {
     // 调整3840
     self.requestSerializer = [ AFHTTPRequestSerializer serializer];
@@ -55,9 +55,9 @@
     [macceptableContentTypes addObjectsFromArray:@[@"text/html",@"text/plain"]];
     self.responseSerializer.acceptableContentTypes = macceptableContentTypes;
     
-    [self POST:path parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        NSString *responseString = [operation responseString];
-        NSLog(@"\n---------------请求-----------\n%@\n\n----------响应-----------\n\n返回的json:\n\n%@\n------------------\n",operation.response.URL.absoluteString,responseString);
+    [self POST:path parameters:params progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+        
+        NSString *responseString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         NSData *jsonData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
         
         NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:nil];
@@ -70,9 +70,9 @@
             responseDataError(@"-1",@"服务器数据异常");
         }
         
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error:%@", error);
-        failure(operation,error);
+        failure(task,error);
         
     }];
 }
@@ -82,7 +82,7 @@
   timeoutInterval:(NSInteger)timeoutInterval
           success:(void (^)(NSDictionary *responseJson))success
         dataError:(void (^)(NSString *errorCode, NSString *errorMessage))responseDataError
-          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+          failure:(void (^)(NSURLSessionTask *task, NSError *error))failure
 {
     // 调整3840
     self.requestSerializer = [ AFHTTPRequestSerializer serializer];
@@ -99,9 +99,9 @@
     [macceptableContentTypes addObjectsFromArray:@[@"text/html",@"text/plain"]];
     self.responseSerializer.acceptableContentTypes = macceptableContentTypes;
     
-    [self GET:path parameters:params success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        NSString *responseString = [operation responseString];
-        NSLog(@"\n---------------请求-----------\n%@\n\n----------响应-----------\n\n返回的json:\n\n%@\n------------------\n",operation.response.URL.absoluteString,responseString);
+    [self GET:path parameters:params progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+        
+        NSString *responseString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         NSData *jsonData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
         
         NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:nil];
@@ -113,8 +113,8 @@
             responseDataError(@"-1",@"服务器数据异常");
         }
         
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-        failure(operation,error);
+    } failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
+        failure(task,error);
     }];
     
 }

@@ -7,6 +7,7 @@
 //
 
 #import "FTCoachCell.h"
+#import "UIImage+LabelImage.h"
 
 @implementation FTCoachCell
 
@@ -35,7 +36,7 @@
     NSArray *labels = [labelsString componentsSeparatedByString:@", "];
     
     for (NSString *label in labels) {
-        UIImageView *labelView = [[UIImageView alloc]initWithImage:[self imageForLabel:label]];
+        UIImageView *labelView = [[UIImageView alloc]initWithImage:[UIImage imageForLabel:label]];
         w = labelView.frame.size.width;
         h = labelView.frame.size.height;
         if (x + w <= width) {
@@ -55,37 +56,6 @@
 }
 
 
-- (UIImage *) imageForLabel:(NSString *)label {
-    
-    UIImage *image;
-    if ([label isEqualToString:@"Boxing"]) {
-        image = [UIImage imageNamed:@"格斗标签-拳击"];
-    }else if ([label isEqualToString:@"MMA"]) {
-        image = [UIImage imageNamed:@"格斗标签-综合格斗"];
-    }else if ([label isEqualToString:@"ThaiBoxing"]) {
-        image = [UIImage imageNamed:@"格斗标签-泰拳"];
-    }else if ([label isEqualToString:@"Taekwondo"]) {
-        image = [UIImage imageNamed:@"格斗标签-跆拳道"];
-    }else if ([label isEqualToString:@"Judo"]) {
-        image = [UIImage imageNamed:@"格斗标签-柔道"];
-    }else if ([label isEqualToString:@"Wrestling"]) {
-        image = [UIImage imageNamed:@"格斗标签-摔跤"];
-    }else if ([label isEqualToString:@"Sumo"]) {
-        image = [UIImage imageNamed:@"格斗标签-相扑"];
-    }else if ([label isEqualToString:@"FemaleWrestling"]) {
-        image = [UIImage imageNamed:@"格斗标签-女子格斗"];
-    }else if ([label isEqualToString:@"StreetFight"]) {
-        image = [UIImage imageNamed:@"格斗标签-街斗"];
-    }else if ([label isEqualToString:@"Others"]) {
-        image = [UIImage imageNamed:@"格斗标签-其他"];
-    }else if ([label isEqualToString:@"Match"]) {
-        image = [UIImage imageNamed:@"格斗标签-比赛"];
-    }
-    
-    return image;
-}
-
-
 - (CGFloat) caculateHeight:(NSString *) labelsString {
 
     if (!labelsString ||labelsString.length == 0)
@@ -100,7 +70,7 @@
     NSArray *labels = [labelsString componentsSeparatedByString:@", "];
     
     for (NSString *label in labels) {
-        UIImageView *labelView = [[UIImageView alloc]initWithImage:[self imageForLabel:label]];
+        UIImageView *labelView = [[UIImageView alloc]initWithImage:[UIImage imageForLabel:label]];
         w = labelView.frame.size.width;
         h = labelView.frame.size.height;
         if (x + w <= width) {
@@ -114,9 +84,7 @@
         }
     }
     return  h + y;
-
 }
-
 
 
 - (void) clearLabelView {
@@ -125,7 +93,6 @@
         [view removeFromSuperview];
     }
 }
-
 
 
 - (void) layoutSubviews {

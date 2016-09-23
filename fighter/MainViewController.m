@@ -34,15 +34,13 @@ FTDrawerViewController *drawerVC;
     
     [drawerVC setNoti];
 
-    
-    
 }
 
 
 - (void) pushMessage:(NSDictionary *)dic{
 
-    
     [drawerVC push:dic[@"click_param"]];
+    
 }
 
 - (void)didReceiveMemoryWarning {

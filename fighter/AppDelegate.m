@@ -301,15 +301,26 @@
 
 - (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken
 {
-    NSLog(@"deviceToken:%@",deviceToken);
+//    NSLog(@"deviceToken:%@",deviceToken);
+    
+    //将deviceToken保存在本地
+    if (deviceToken) {
+        NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
+//        NSLog(@"deviceToken 处理前 :%@",token);
+        token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+        token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
+        token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
+        NSLog(@"deviceToken 处理后 :%@",token);
+        [[NSUserDefaults standardUserDefaults]setObject:token forKey:@"deviceToken"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+    }
+    
 //    [IXPushSdkApi registerDeviceToken:deviceToken
 //                              channel:@"test" version:@"1.0" appId:1670128310];
-
     
-    
-    // 格斗东西 开发板
-    [IXPushSdkApi registerDeviceToken:deviceToken
-                              channel:@"test" version:@"1.0" appId:1104119343];
+//    // 格斗东西 开发板
+//    [IXPushSdkApi registerDeviceToken:deviceToken
+//                              channel:@"test" version:@"1.0" appId:1104119343];
     
     // 格斗东西 正式版
     [IXPushSdkApi registerDeviceToken:deviceToken
@@ -324,6 +335,34 @@
 }
 
 
+#pragma mark - 通知处理
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    
+    NSLog(@"Local Notification info:%@",notification.userInfo);
+    
+    switch (application.applicationState) {
+        case UIApplicationStateActive:
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:TaskNotification object:nil];
+        }
+            break;
+            
+        case UIApplicationStateInactive:
+        {
+            [_mainVC pushMessage:[NSDictionary dictionaryWithObject:notification.userInfo forKey:@"click_param"]];
+        }
+            break;
+        case UIApplicationStateBackground:
+        {
+            //            [_mianVC pushMessage:userInfo[@"extra"]];
+        }
+            break;
+        default:
+            break;
+    }
+
+}
+
 // 对收到的消息进行处理:
 - (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
 
@@ -337,6 +376,7 @@
 //            [_mianVC pushMessage:userInfo[@"extra"]];
         }
             break;
+            
         case UIApplicationStateInactive:
         {
             [_mainVC pushMessage:userInfo[@"extra"]];
@@ -363,7 +403,7 @@
 //    
 //}
 
-
+#pragma mark -
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

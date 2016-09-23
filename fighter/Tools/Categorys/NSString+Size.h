@@ -18,4 +18,6 @@
  */
 -(CGSize)sizeWithFont:(UIFont *)font maxSize:(CGSize)maxSize;
 -(CGSize)sizeWithFont:(UIFont *)font height:(CGFloat) height;
+
++ (NSString *) dateString;
 @end

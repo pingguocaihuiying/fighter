@@ -1,4 +1,4 @@
-//
+ //
 //  FTGymDetailWebViewController.m
 //  fighter
 //
@@ -14,15 +14,59 @@
 #import "FTShareView.h"
 #import "FTEncoderAndDecoder.h"
 #import "NetWorking.h"
+#import "FTPayForGymVIPViewController.h"
+#import "FTGymVIPCollectionViewCell.h"
+#import "FTGymPhotosViewController.h"
+#import "FTGymCommentViewController.h"
+#import "FTGymDetailBean.h"
+#import "FTGymCommentsViewController.h"
 
-@interface FTGymDetailWebViewController ()<UIWebViewDelegate, CommentSuccessDelegate>
+@interface FTGymDetailWebViewController ()<UIWebViewDelegate, CommentSuccessDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 {
     UIWebView *_webView;
     UIImageView *_loadingImageView;
     UIImageView *_loadingBgImageView;
+    
 }
 
 @property (nonatomic, copy)NSString *webUrlString;
+@property (strong, nonatomic) IBOutlet UILabel *gymAdressLabel;//地址label
+@property (strong, nonatomic) IBOutlet UIView *addressSeperatorView;//地址view中右边的分割线
+
+//顶部和底部的分割线
+@property (strong, nonatomic) IBOutlet UIView *seperatorView1;
+@property (strong, nonatomic) IBOutlet UIView *seperatorView2;
+@property (strong, nonatomic) IBOutlet UIView *seperatorView3;
+@property (strong, nonatomic) IBOutlet UIView *seperatorView4;
+@property (strong, nonatomic) IBOutlet UIView *seperatorView5;
+@property (strong, nonatomic) IBOutlet UIView *seperatorView6;
+
+//评分view
+@property (strong, nonatomic) IBOutlet UIView *scoreView;
+
+
+//展示拳手的collectionView
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+
+//collectionView左右离父视图的距离
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *collectionViewPaddingLeft;//左
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *collectionViewPaddingRight;//右
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *collectionContainerViewHeight;
+
+@property (strong, nonatomic) IBOutlet UIImageView *gymShowImageView;
+@property (strong, nonatomic) IBOutlet UIView *haveVideoView;
+@property (strong, nonatomic) IBOutlet UIButton *haveVideoButton;
+
+@property (strong, nonatomic) IBOutlet UILabel *commentCountLabel;
+@property (strong, nonatomic) IBOutlet UILabel *videoAndImageCountLabel;
+
+
+@property (nonatomic, assign) BOOL displayAllVIP;//是否展示所有会员
+
+@property (nonatomic, strong) NSMutableArray *vipArray;
+
+@property (nonatomic, strong) FTGymDetailBean *gymDetailBean;//拳馆详情bean
+
 @end
 
 @implementation FTGymDetailWebViewController
@@ -31,14 +75,71 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self initBaseData];
+    [self loadGymDataFromServer];
     [self setNavigationSytle];
-    
+//
     [self setSubViews];
-    
+//
     // 获取收藏信息
     [self getAttentionInfo];
     
+}
+
+- (void)initBaseData{
+    _vipArray = [NSMutableArray new];
+//    for (int i = 0; i < 13; i++) {
+//        NSString *name = [NSString stringWithFormat:@"李森%d", i];
+//        NSDictionary *vipDic = @{@"image": @"详情页底部按钮一堆-赞pre", @"name": name};
+//        [_vipArray addObject:vipDic];
+//    }
+}
+
+- (void)loadGymDataFromServer{
+    //获取拳馆的一些基本信息：视频、照片、地址等
+    [NetWorking getGymForGymDetailWithGymId:_gymBean.gymId andOption:^(NSDictionary *dic) {
+//        NSLog(@"dic : %@", dic);
+        _gymDetailBean = [FTGymDetailBean new];
+//        [_gymDetailBean setValuesWithDic:dic];
+        [_gymDetailBean setValuesForKeysWithDictionary:dic];
+        [self updateGymBaseInfo];
+    }];
+    
+    //获取拳馆的教练列表
+    [NetWorking getCoachesWithCorporationid:_gymBean.corporationid andOption:^(NSArray *array) {
+        _vipArray = [NSMutableArray arrayWithArray:array];
+        NSDictionary *dic = [_vipArray firstObject];
+        NSLog(@"%@", dic[@"headUrl"]);
+        for(NSString *key in [dic allKeys]){
+            NSLog(@"key %@ : %@", key, dic[key]);
+        }
+        [_collectionView reloadData];
+    }];
+}
+
+- (void)updateGymBaseInfo{
+    //如果视频个数为0，隐藏上方视频标识
+    if (_gymDetailBean.videoCount == 0) {
+        _haveVideoView.hidden = YES;
+        _haveVideoButton.hidden = YES;
+        
+    }else{
+        _haveVideoView.hidden = NO;
+        _haveVideoButton.hidden = NO;
+    }
+    
+    //更新展示照片
+    NSString *imageUrl = [NSString stringWithFormat:@"http://%@/%@", _gymDetailBean.urlprefix, _gymDetailBean.gym_show_img];
+    [_gymShowImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl]];
+    
+    //更新照片、视频个数
+    _videoAndImageCountLabel.text = [NSString stringWithFormat:@"%d个视频 %d张照片", _gymDetailBean.videoCount, _gymDetailBean.pictureCount];
+    
+    //更新评价星级
+    [FTTools updateScoreView:_scoreView withScore:_gymDetailBean.grade];
+    
+    //更新地址
+    _gymAdressLabel.text = _gymDetailBean.gym_location;
 }
 
 - (void) dealloc {
@@ -48,7 +149,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -74,6 +174,7 @@
     
     //设置返回按钮
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(backBtnAction:)];
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 0)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
     // 导航栏转发按钮
@@ -83,11 +184,170 @@
     
 }
 
+
 - (void)setSubViews{
     
-    [self setWebView];
+//    [self setWebView];
     
-    [self setLoadingImageView];
+//    [self setLoadingImageView];
+    [self subViewFormat];//设置分割线颜色、label行间距等
+    [self setCollectionView];//设置拳馆教练头像显示
+    
+}
+
+- (void)subViewFormat{
+    //分割线的颜色
+    _addressSeperatorView.backgroundColor = Cell_Space_Color;
+    _seperatorView1.backgroundColor = Cell_Space_Color;
+    _seperatorView2.backgroundColor = Cell_Space_Color;
+    _seperatorView3.backgroundColor = Cell_Space_Color;
+    _seperatorView4.backgroundColor = Cell_Space_Color;
+    _seperatorView5.backgroundColor = Cell_Space_Color;
+    _seperatorView6.backgroundColor = Cell_Space_Color;
+    
+    _gymAdressLabel.text = @"东直门东直门东直门东直门东直门东直门东直门东直门";
+    [UILabel setRowGapOfLabel:_gymAdressLabel withValue:6];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if (_vipArray.count > 6 && _displayAllVIP) {
+        if (indexPath.row == _vipArray.count) {
+            _displayAllVIP = !_displayAllVIP;
+            [self updateCollectionView];
+            NSLog(@"收起");
+        } else {
+            NSDictionary *vipDic = _vipArray[indexPath.row];
+            NSLog(@"vipName : %@", vipDic[@"name"]);
+        }
+    } else {
+        if (_vipArray.count > 6 && indexPath.row == 5) {
+            _displayAllVIP = !_displayAllVIP;
+            [self updateCollectionView];
+            NSLog(@"展开");
+        } else {
+            NSDictionary *vipDic = _vipArray[indexPath.row];
+            NSLog(@"vipName : %@", vipDic[@"name"]);
+        }
+    }
+}
+
+- (void)setCollectionView{
+    
+    //创建flowLayout
+    UICollectionViewFlowLayout *flowLayout = [UICollectionViewFlowLayout new];
+    flowLayout.minimumLineSpacing = 15;//最小行间距
+    flowLayout.minimumInteritemSpacing = 20;//最小列间距
+    flowLayout.itemSize = CGSizeMake(40, 60);
+    flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    _collectionView.collectionViewLayout = flowLayout;
+    
+    //针对6以下进行适配
+    if (SCREEN_WIDTH == 320) {
+        NSLog(@"苹果6以下");
+        _collectionViewPaddingLeft.constant *= SCALE;
+        _collectionViewPaddingRight.constant *= SCALE;
+        
+        flowLayout.minimumLineSpacing = 15 * SCALE;//最小行间距
+        flowLayout.minimumInteritemSpacing = 20 * SCALE;//最小列间距
+        flowLayout.itemSize = CGSizeMake(40 * SCALE, 60 * SCALE);
+        flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        _collectionView.collectionViewLayout = flowLayout;
+    }
+    
+    _collectionView.scrollEnabled = NO;//禁止滚动
+    
+    //设置代理
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
+    
+    //加载cell用于复用
+
+    [_collectionView registerNib:[UINib nibWithNibName:@"FTGymVIPCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
+    [self updateCollectionView];
+    
+}
+
+- (void)updateCollectionView{
+    
+    if (_vipArray.count > 6  && _displayAllVIP) {
+        NSInteger line;
+        if ((_vipArray.count + 1) % 6 == 0) {//如果刚好被整出
+                line = (_vipArray.count + 1) / 6;//行数
+        }else{//如果没有被整出
+            line = (_vipArray.count + 1) / 6 + 1;//行数
+        }
+        
+        NSLog(@"line : %ld", (long)line);
+        
+        
+        if (SCREEN_WIDTH == 320) {
+            NSLog(@"SCREEN_WIDTH == 320");
+            _collectionContainerViewHeight.constant = 30 + 60 * line * SCALE + 15 * (line - 1) * SCALE;
+        }else{
+            _collectionContainerViewHeight.constant = 30 + 60 * line + 15 * (line - 1);
+        }
+        
+        
+    } else {
+        
+        if (SCREEN_WIDTH == 320) {
+            NSLog(@"SCREEN_WIDTH == 320");
+            _collectionContainerViewHeight.constant = 30 + 60 * SCALE;
+        }else{
+            _collectionContainerViewHeight.constant = 90;
+        }
+    }
+    [_collectionView reloadData];
+}
+
+//多少组
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+
+//某组多少行
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    if (_vipArray) {
+        if(_vipArray.count > 6){
+            //如果源数据vip数量大于6，需要分行显示，则显示『更多』、『收起』项
+            return _vipArray.count + 1;
+        }else{
+            return _vipArray.count;
+        }
+    }else{
+        return 0;
+    }
+}
+
+//返回collectionView cell
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    FTGymVIPCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor clearColor];
+    
+    if (_displayAllVIP) {
+        if (_vipArray.count > 6 && indexPath.row == _vipArray.count) {//『收起』
+            cell.headerImageView.image = [UIImage imageNamed:@"学员列表-收起"];
+            cell.vipNameLabel.text = @"收起";
+        }else{
+            NSDictionary *vipDic = _vipArray[indexPath.row];
+//            cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
+            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]];
+            cell.vipNameLabel.text = vipDic[@"name"];
+        }
+        
+    } else {
+        if (_vipArray.count > 6 && indexPath.row == 5) {
+            cell.headerImageView.image = [UIImage imageNamed:@"学员列表-更多"];
+            cell.vipNameLabel.text = @"更多";
+        }else{
+            NSDictionary *vipDic = _vipArray[indexPath.row];
+            cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
+            cell.vipNameLabel.text = vipDic[@"name"];
+        }
+    }
+
+    
+    return cell;
 }
 
 // 设置webView
@@ -109,6 +369,26 @@
     
 }
 
+#pragma mark - button response
+
+- (IBAction)viewMoreCommentButtonClicked:(id)sender {
+
+    //    NSLog(@"查看更多评论");
+    @try {
+    
+        FTGymCommentsViewController *gymCommentsVC = [[FTGymCommentsViewController alloc]init];
+        gymCommentsVC.title = @"评论列表";
+        gymCommentsVC.objId = self.gymBean.gymId;
+        [self.navigationController pushViewController:gymCommentsVC animated:YES];
+    
+    } @catch (NSException *exception) {
+        
+        NSLog(@"exception:%@",exception);
+    } @finally {
+        
+    }
+}
+
 
 #pragma mark - bottom button response
 // 关注按钮点击事件
@@ -125,6 +405,14 @@
         self.focusView.userInteractionEnabled = NO;
         [self uploadStarStatusToServer];
     }
+}
+
+#pragma -mark - 点击头部图片
+- (IBAction)topImageClicked:(id)sender {
+    NSLog(@"进入图集");
+    FTGymPhotosViewController *photoViewController = [FTGymPhotosViewController new];
+    photoViewController.gymDetailBean = _gymDetailBean;
+    [self.navigationController pushViewController:photoViewController animated:YES];
 }
 
 // 分享按钮点击事件
@@ -170,7 +458,6 @@
 // 点赞按钮点击事件
 - (IBAction)dialButtonAction:(id)sender {
     
-    
     NSString *urlStr = self.gymBean.gymTel;
     if (urlStr.length > 0) {
         UIAlertView *alertView =  [[UIAlertView alloc] initWithTitle:@""
@@ -196,12 +483,17 @@
     
     [self.navigationController popViewControllerAnimated:YES];
 }
+- (IBAction)becomeVIPButtonClicked:(id)sender {
+    NSLog(@"成为会员");
+    FTPayForGymVIPViewController *payForGymVIPViewController = [[FTPayForGymVIPViewController alloc]init];
+    payForGymVIPViewController.gymDetailBean = _gymDetailBean;
+    [self.navigationController pushViewController:payForGymVIPViewController animated:YES];
+}
 
 #pragma mark - private method
 
 // 跳转登录界面方法
 - (void)login{
-    
     FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
     loginVC.title = @"登录";
     FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
@@ -211,10 +503,18 @@
 // 跳转评论页面
 - (void)pushToCommentVC{
     
-    FTCommentViewController *commentVC = [ FTCommentViewController new];
-    commentVC.delegate = self;
-    commentVC.gymBean = self.gymBean;
+//    FTCommentViewController *commentVC = [ FTCommentViewController new];
+//    commentVC.delegate = self;
+//    commentVC.gymBean = self.gymBean;
+//    [self.navigationController pushViewController:commentVC animated:YES];
+    
+    FTGymCommentViewController *commentVC = [ FTGymCommentViewController new];
+    commentVC.objId = self.gymBean.gymId;
+    commentVC.title = self.gymBean.gymName;
+//    commentVC.delegate = self;
+//    commentVC.gymBean = self.gymBean;
     [self.navigationController pushViewController:commentVC animated:YES];
+
 }
 
 #pragma mark - 服务器交互
@@ -438,18 +738,6 @@
     [_loadingBgImageView removeFromSuperview];
     _loadingBgImageView = nil;
 }
-
-
-
-#pragma mark life cycle
-
-#pragma mark life cycle
-
-#pragma mark life cycle
-
-#pragma mark life cycle
-
-#pragma mark life cycle
 
 
 @end

@@ -11,6 +11,7 @@
 
 @interface FTFightingTableViewCell()
 @property (nonatomic, copy) NSString *matchID;
+
 @end
 
 @implementation FTFightingTableViewCell
@@ -23,6 +24,11 @@
     [_supportButton setBackgroundImage:[UIImage imageNamed:@"列表3按钮-赞助pre"] forState:UIControlStateHighlighted];
 //    [_followButton setBackgroundImage:[UIImage imageNamed:@"列表3按钮-已关注"] forState:UIControlStateHighlighted];
     [_betButton setBackgroundImage:[UIImage imageNamed:@"列表3按钮-下注pre"] forState:UIControlStateHighlighted];
+    
+    //调整在5代上，『前去观战』按钮的宽度
+    if(SCREEN_WIDTH == 320){
+        _goToWatchButtonWidth.constant *= SCALE;
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -40,14 +46,24 @@
 //        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionSupport andMatchBean:_matchBean];
 //}
 - (IBAction)followButtonClicked:(id)sender {
+//    _matchBean.follow = !_matchBean.follow;
         [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionFollow andMatchBean:_matchBean andButton:sender];
 }
-//- (IBAction)betButtonClicked:(id)sender {
-////        [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionBet andMatchBean:_matchBean];
-//}
-//- (IBAction)payButtonClicked:(id)sender {
+- (IBAction)betButtonClicked:(id)sender {
+    [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionBet andMatchBean:_matchBean andButton:sender];
+}
+- (IBAction)payButtonClicked:(id)sender {
 //           [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionPay andMatchBean:_matchBean];
-//}
+    [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionPay andMatchBean:_matchBean andButton:sender];
+}
+
+- (IBAction)player1ButtonClicked:(id)sender {
+    [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionPlayer1 andMatchBean:_matchBean andButton:sender];
+}
+
+- (IBAction)player2ButtonClicked:(id)sender {
+    [_buttonsClickedDelegate buttonClickedWithActionType:FTButtonActionPlayer2 andMatchBean:_matchBean andButton:sender];
+}
 
 - (void)setWithBean:(FTBaseBean *)bean{
     //转换传过来的baseBean为matchBean
@@ -65,8 +81,14 @@
     _matchID = [NSString stringWithFormat:@"%@", matchBean.matchId];
     
     //头像
-    [_headerImage1 sd_setImageWithURL:[NSURL URLWithString:matchBean.headUrl1]];
-    [_headerImage2 sd_setImageWithURL:[NSURL URLWithString:matchBean.headUrl2]];
+    if (matchBean.headUrl1) {
+            [_headerImage1 sd_setImageWithURL:[NSURL URLWithString:matchBean.headUrl1]];//设置头像
+        _header1OutCircle.image = [UIImage imageNamed:@"主页大头像-灰圈"];//把红圈改为灰圈
+    }
+    if (matchBean.headUrl2) {
+        [_headerImage2 sd_setImageWithURL:[NSURL URLWithString:matchBean.headUrl2]];
+        _header2OutCircle.image = [UIImage imageNamed:@"主页大头像-灰圈"];
+    }
     
     //名字
     _nameLabel1.text = matchBean.userName;
@@ -80,18 +102,40 @@
     NSArray *timeStringArray = [[FTTools fixStringForDate:[NSString stringWithFormat:@"%@", matchBean.theDate]] componentsSeparatedByString:@" "];
     
     
-    _WhenAndWhereLabel.text = [NSString stringWithFormat:@"%@ %@", timeStringArray.lastObject, matchBean.corporationName];
+//    _WhenAndWhereLabel.text = [NSString stringWithFormat:@"%@ %@", timeStringArray.lastObject, matchBean.corporationName];
+    _WhenAndWhereLabel.text = [NSString stringWithFormat:@"%@", timeStringArray.lastObject];//现在只显示时间
     
     //比赛项目
-    _raceTypeImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"格斗标签-%@", matchBean.label]];
+    NSLog(@"matchBean.label : %@", matchBean.label);
+    NSString *labelNameCH = matchBean.label;
+    if ([labelNameCH isEqualToString:@"综合格斗(MMA)"]) {
+        labelNameCH = @"综合格斗";
+    }
     
-    //比赛状态：①未开始②进行中③已结束 status = 2 比赛进行中； = 3 比赛结束； 其他未开赛
+    _raceTypeImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"格斗标签-%@", labelNameCH]];
+    
+    //比赛状态：①未开始②进行中③已结束      status = 2 比赛进行中； = 3 比赛结束； 其他未开赛
     if ([matchBean.statu isEqualToString:@"2"]) {
         _stateLabelCenter.text = @"进行中...";
-    } else if ([matchBean.statu isEqualToString:@"1"]){
+        _goToWatchButton.hidden = NO;
+        _betButton.hidden = YES;
+        _followButton.hidden = NO;
+    } else if ([matchBean.statu isEqualToString:@"3"]){
         _stateLabelCenter.text = @"比赛已结束";
+        _goToWatchButton.hidden = NO;
+        _betButton.hidden = YES;
+        _followButton.hidden = YES;
     }else{
         _stateLabelCenter.text = @"尚未开赛";
+        _goToWatchButton.hidden = YES;
+        _betButton.hidden = NO;
+        _followButton.hidden = NO;
+    }
+    
+    //如果该比赛不允许下注，隐藏下注按钮
+    if (!matchBean.allowBet) {
+        NSLog(@"比赛不允许下注！");
+        _betButton.hidden = YES;
     }
     
     //初版的状态显示代码***************START******************

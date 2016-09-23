@@ -441,13 +441,13 @@
 - (void) caculateTableHeight {
 
     if (_cellH >0) {
-        if (self.dataArray == nil || self.dataArray.count <=0){
+        if (self.dataArray == nil || self.dataArray.count ==0){
             _tableH = _cellH;
         }else {
 //            _tableH = _cellH *7;
             _tableH = _cellH *self.dataArray.count;
-            if (_tableH > SCREEN_HEIGHT - self.Btnframe.origin.y -64) {
-                _tableH = ((NSInteger) (SCREEN_HEIGHT - self.Btnframe.origin.y -64)/_cellH) *40;
+            if (_tableH > (SCREEN_HEIGHT  - 64 - 49-40)) {
+                _tableH = ((NSInteger) (SCREEN_HEIGHT - 64 - 49-40)/_cellH) *40;
             }
         }
         

@@ -59,6 +59,7 @@
     [aCoder encodeObject:self.interestList forKey:@"interestList"];
     
     [aCoder encodeObject:self.isBoxerChecked forKey:@"isBoxerChecked"];
+    
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -123,6 +124,7 @@
         NSString *currentDateStr = [dateFormatter stringFromDate:[NSDate date]];
         NSDate *currentDate = [dateFormatter dateFromString:currentDateStr];
         NSLog(@"currentDate %@ birthDay %@",currentDateStr,birth);
+        
         NSTimeInterval time=[currentDate timeIntervalSinceDate:birthDay];
         int age = ((int)time)/(3600*24*365);
         NSLog(@"year %d",age);
@@ -143,6 +145,7 @@
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        
         NSDate *date=[dateFormatter dateFromString:[array objectAtIndex:0]];
         NSLog(@"date:%@",date);
         NSLog(@"birth%@",self.birthday);
@@ -173,6 +176,15 @@
     }
     _boxerRaceInfos = dic[@"boxerRaceInfos"];
     
+}
+
++ (FTUserBean *) loginUser {
+
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    return localUser;
 }
 
 @end

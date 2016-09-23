@@ -39,7 +39,7 @@
     [super viewDidLoad];
     
     [self setSubViews];
-    self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//    self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     [self setWebView];
     [self getVoteInfo];
     [self setLoadingImageView];
@@ -75,11 +75,11 @@
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
 //    NSLog(@"get vote urlString : %@", urlString);
     //创建AAFNetWorKing管理者
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         //success
 //        NSLog(@"get vote info sucess. vote status : %@", responseDic[@"message"]);
@@ -91,7 +91,7 @@
         }
 
         [self updateVoteImageView];
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         //failure
     }];
 }
@@ -135,7 +135,7 @@
 }
 
 - (void)setWebView{
-    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49)];
+    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49 - 64)];
     
     _webView.delegate = self;
     
@@ -233,7 +233,7 @@
     //背景框imageview
     _loadingBgImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"loading背景"]];
 //    _loadingBgImageView.frame = CGRectMake(20, 100, 100, 100);
-    _loadingBgImageView.center = self.view.center;
+    _loadingBgImageView.center = CGPointMake(self.view.center.x, self.view.center.y - 64);
     [self.view addSubview:_loadingBgImageView];
     //声明数组，用来存储所有动画图片
     _loadingImageView = [UIImageView new];
@@ -321,12 +321,12 @@
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
 //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
     //创建AAFNetWorKing管理者
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"vote status : %@", responseDic[@"status"]);
         self.voteView.userInteractionEnabled = YES;
@@ -347,7 +347,7 @@
             NSLog(@"js method : %@", jsMethodString);
             [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
         }
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         //failure
         self.voteView.userInteractionEnabled = YES;
         NSLog(@"vote failure ：%@", error);
@@ -357,9 +357,11 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     NSString *requestURL = [NSString stringWithFormat:@"%@", request.URL];
     NSLog(@"requestURL : %@", requestURL);
+    
     if ([requestURL isEqualToString:@"js-call:onload"]) {
         [self disableLoadingAnimation];
     }
+    
     if ([requestURL hasPrefix:@"js-call:userId="]) {
         NSString *userId = [requestURL stringByReplacingOccurrencesOfString:@"js-call:userId=" withString:@""];
 //        NSLog(@"userId : %@", userId);
@@ -370,9 +372,6 @@
     return YES;
 }
 
-- (IBAction)cancelShareButtonClicked:(id)sender {
-    self.bgView.hidden = YES;
-}
 
 - (NSString *)encodeToPercentEscapeString: (NSString *) input
 {

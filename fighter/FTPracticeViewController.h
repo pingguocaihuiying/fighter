@@ -9,8 +9,9 @@
 #import "FTBaseViewController.h"
 
 @protocol TeachDelegate <NSObject>
-
+@optional
 - (void) pushToController:(UIViewController *) viewController;
+- (void) pressentController:(UIViewController *) viewController;
 
 @end
 

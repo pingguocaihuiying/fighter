@@ -60,13 +60,6 @@
     
     CGRect frame = self.frame;
     __weak __typeof(self) weakSelf = self;
-    [_panelView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weakSelf.mas_bottom).with.offset(-10);
-        make.right.equalTo(weakSelf.mas_right).with.offset(0);
-        make.left.equalTo(weakSelf.mas_left).with.offset(0);
-        make.height.equalTo(@200);
-        
-    }];
     
     //边框
     _backImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width-20, frame.size.height/3)];
@@ -84,39 +77,24 @@
     }];
     
     
-    //显示label
-    _resultLabel = [[UILabel alloc]init];
-    _resultLabel.font=[UIFont systemFontOfSize:16];
-    _resultLabel.textAlignment = NSTextAlignmentCenter;
-    _resultLabel.textColor = [UIColor colorWithHex:0x828287];;
-    _resultLabel.text = @"请设置性别";
-    [_panelView addSubview:_resultLabel];
+    //完成按钮
+    _doneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_doneBtn setTitle:@"保    存" forState:UIControlStateNormal];
+    [_doneBtn setBackgroundImage:[UIImage imageNamed:@"主要按钮背景ios"] forState:UIControlStateNormal];
+    [_doneBtn setBackgroundImage:[UIImage imageNamed:@"主要按钮背景ios-pre"] forState:UIControlStateHighlighted];
+    [_doneBtn addTarget:self  action:@selector(confirmAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_panelView addSubview:_doneBtn];
     
-    [_resultLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakPanel.mas_top).with.offset(20);
-        make.right.equalTo(weakPanel.mas_right).with.offset(-40);
-        make.left.equalTo(weakPanel.mas_left).with.offset(40);
-        make.height.equalTo(@20);
+    __weak UIImageView *weakBackImg= _backImgView;
+    [_doneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(weakBackImg.mas_bottom).with.offset(-20);
+        make.right.equalTo(weakBackImg.mas_right).with.offset(-40);
+        make.left.equalTo(weakBackImg.mas_left).with.offset(40);
+        make.height.equalTo(@45);
     }];
     
     
-//    //分隔线
-//    _separatView = [[UIView alloc] init];
-//    _separatView.backgroundColor = Cell_Space_Color;
-//    [_panelView addSubview:_separatView];
-//    
-//    //分割线
-    __weak UILabel *weakLabel= _resultLabel;
-//    [_separatView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(weakLabel.mas_bottom).with.offset(10);
-//        make.right.equalTo(weakPanel.mas_right).with.offset(-40);
-//        make.left.equalTo(weakPanel.mas_left).with.offset(40);
-//        make.height.equalTo(@1.5);
-//    }];
-    
-    
     self.maleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [self.maleBtn setBackgroundColor:[UIColor greenColor]];
     [self.maleBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
     [self.maleBtn setImage:[UIImage imageNamed:@"单选-空"] forState:UIControlStateNormal];
     [self.maleBtn setImage:[UIImage imageNamed:@"单选-选中"] forState:UIControlStateSelected];
@@ -126,16 +104,16 @@
     self.maleBtn.selected = YES;
     [self.panelView addSubview:self.maleBtn];
     
+    __weak UIButton *weakButton= _doneBtn;
     [self.maleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(weakPanel.mas_centerX).with.offset(0);
         make.left.equalTo(weakPanel.mas_left).with.offset(40);
-        make.top.equalTo(weakLabel.mas_bottom).with.offset(20);
+        make.bottom.equalTo(weakButton.mas_top).with.offset(-20);
         make.height.equalTo(@30);
         
     }];
     
     self.femaleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [self.femaleBtn setBackgroundColor:[UIColor blueColor]];
     [self.femaleBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
     [self.femaleBtn setImage:[UIImage imageNamed:@"单选-空"] forState:UIControlStateNormal];
     [self.femaleBtn setImage:[UIImage imageNamed:@"单选-选中"] forState:UIControlStateSelected];
@@ -147,13 +125,13 @@
     [self.femaleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(weakPanel.mas_right).with.offset(-40);
         make.left.equalTo(weakPanel.mas_centerX ).with.offset(0);
-        make.top.equalTo(weakLabel.mas_bottom).with.offset(20);
+        make.bottom.equalTo(weakButton.mas_top).with.offset(-20);
         make.height.equalTo(@30);
         
     }];
     
     CGFloat width = self.maleBtn.frame.size.width;
-
+    
     self.maleBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0 , 0, (width/2 +4));
     // 设置titleEdgeInsets
     self.maleBtn.titleEdgeInsets = UIEdgeInsetsMake(0, (width/2 +4), 0, 0);
@@ -162,22 +140,33 @@
     // 设置titleEdgeInsets
     self.femaleBtn.titleEdgeInsets = UIEdgeInsetsMake(0, (width/2 +4), 0, 0);
     
-    //完成按钮
-    _doneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_doneBtn setTitle:@"确    认" forState:UIControlStateNormal];
-    [_doneBtn setBackgroundImage:[UIImage imageNamed:@"主要按钮背景ios"] forState:UIControlStateNormal];
-    [_doneBtn setBackgroundImage:[UIImage imageNamed:@"主要按钮背景ios-pre"] forState:UIControlStateHighlighted];
-    [_doneBtn addTarget:self  action:@selector(confirmAction:) forControlEvents:UIControlEventTouchUpInside];
-    [_panelView addSubview:_doneBtn];
     
-    //picker
-    __weak UIImageView *weakBackImg= _backImgView;
-    [_doneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weakBackImg.mas_bottom).with.offset(-20);
+    //显示label
+    _resultLabel = [[UILabel alloc]init];
+    _resultLabel.font=[UIFont systemFontOfSize:16];
+    _resultLabel.textAlignment = NSTextAlignmentCenter;
+    _resultLabel.textColor = [UIColor colorWithHex:0x828287];;
+    _resultLabel.text = @"请设置性别";
+    [_panelView addSubview:_resultLabel];
+    
+    __weak UIButton *weakMaleBtn= _maleBtn;
+    [_resultLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(weakMaleBtn.mas_top).with.offset(-20);
         make.right.equalTo(weakBackImg.mas_right).with.offset(-40);
         make.left.equalTo(weakBackImg.mas_left).with.offset(40);
-        make.height.equalTo(@45);
+        make.height.equalTo(@20);
     }];
+    
+    //添加_panelView 约束
+    __weak UILabel *weakLabel= _resultLabel;
+    [_panelView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(weakSelf.mas_bottom).with.offset(-64);
+        make.right.equalTo(weakSelf.mas_right).with.offset(-6);
+        make.left.equalTo(weakSelf.mas_left).with.offset(6);
+        make.top.equalTo(weakLabel.mas_top).with.offset(-15);
+        
+    }];
+
 }
 
 
@@ -215,38 +204,41 @@
     
     NSString *propertValue;
     if (self.maleBtn.selected) {
-//        propertValue = [@"男性" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//        propertValue = [@"男性" stringByReplacingPercentEscapesUsingEncoding:NSISOLatin2StringEncoding];
-//        propertValue = [@"男性" stringByAddingPercentEscapesUsingEncoding:NSISOLatin2StringEncoding];
-        
          propertValue = @"男性";
         
     }else {
-//        propertValue = [@"女性" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//        propertValue = [@"女性" stringByReplacingPercentEscapesUsingEncoding:NSISOLatin2StringEncoding];
-//         propertValue = [@"女性" stringByAddingPercentEscapesUsingEncoding:NSISOLatin2StringEncoding];
         propertValue = @"女性";
     }
-    NSLog(@"sex:%@",propertValue);
+   
+//    // encode1 ISO-8859-1
+    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingISOLatin1);
+    const  char *cString = [propertValue UTF8String];;
+    NSString *remoteParam = [NSString  stringWithCString:cString encoding:enc];
+    NSLog(@"sex:%@",remoteParam);
     
-    
-
-
-//    [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-//    NSStringEncoding enc =     CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingISOLatin1);
+//    // encode2 Utf-8
 //    [propertValue stringByRemovingPercentEncoding];
+//    [propertValue stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+
+
+//    // encode3 Utf-8
 //    [propertValue stringByAddingPercentEscapesUsingEncoding:enc];
-//    [propertValue stringByReplacingPercentEscapesUsingEncoding:NSISOLatin1StringEncoding];
-    if (propertValue == nil) {
+//    [propertValue stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    
+    if (remoteParam == nil) {
         return;
     }
+    
+    
+//    [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
     NetWorking *net = [NetWorking new];
-    [net updateUserByGet:propertValue Key:@"sex" option:^(NSDictionary *dict) {
+    [net updateUserByGet:remoteParam Key:@"sex" option:^(NSDictionary *dict) {
         NSLog(@"dict:%@",dict);
         if (dict != nil) {
             
             bool status = [dict[@"status"] boolValue];
-            NSLog(@" sever sex:%@",dict[@"data"]);
             
             if (status == true) {
                 
@@ -256,7 +248,8 @@
                 //从本地读取存储的用户信息
                 NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
                 FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-                localUser.sex = [propertValue stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//                localUser.sex = [propertValue stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                localUser.sex = propertValue ;
                 
                 //将用户信息保存在本地
                 NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];

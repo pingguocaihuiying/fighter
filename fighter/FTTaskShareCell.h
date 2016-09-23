@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface FTTaskShareCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIButton *shareBtn;
+@property (weak, nonatomic) IBOutlet UIButton *rechargeBtn;
 
 @end

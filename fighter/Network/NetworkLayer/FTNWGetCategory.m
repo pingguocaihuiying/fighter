@@ -42,13 +42,13 @@
 
 + (void)getCategoryWithOption:(void (^)(NSArray *array))option{
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSString *getCategoryUrlString = [FTNetConfig host:Domain path:GetCategoryURL];
     NSLog(@"getCategoryUrlString : %@", getCategoryUrlString);
     NSDictionary *dic = @{@"function": @1};
-    [manager POST:getCategoryUrlString parameters:dic success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager POST:getCategoryUrlString parameters:dic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSMutableArray *resultArray;
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         if ([responseDic[@"status"] isEqualToString:@"success"]) {
@@ -68,7 +68,7 @@
         if (option) {
             option(resultArray);
         }
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         if (option) {
             option(nil);
         }
@@ -108,13 +108,13 @@
 
 + (void)getTeachVideoCategoryWithOption:(void (^)(NSArray *array))option{
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSString *getCategoryUrlString = [FTNetConfig host:Domain path:GetCategoryURL];
     NSLog(@"getCategoryUrlString : %@", getCategoryUrlString);
     NSDictionary *dic = @{@"nameEn": @"teachVideo"};
-    [manager POST:getCategoryUrlString parameters:dic success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager POST:getCategoryUrlString parameters:dic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSMutableArray *resultArray;
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         if ([responseDic[@"status"] isEqualToString:@"success"]) {
@@ -134,7 +134,7 @@
         if (option) {
             option(resultArray);
         }
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         if (option) {
             option(nil);
         }

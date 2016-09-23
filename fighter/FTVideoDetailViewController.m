@@ -31,13 +31,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self initBaseData];
     [self setSubViews];
     [self setWebView];
     [self getVoteInfo];
     [self getStarInfo];
     [self setLoadingImageView];
-    [self addViewCount];
+    
+    //如果是视频，再增加观看数
+    if (_detailType == FTDetailTypeVideo) {
+        [self addViewCount];    
+    }
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -54,6 +59,19 @@
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
+
+- (void)initBaseData{
+    if (!_videoBean.title) {
+        NSLog(@"没有标题");
+        [NetWorking getVideoById:[NSString stringWithFormat:@"%@", _videoBean.videosId] andOption:^(NSArray *array) {
+            FTVideoBean *videoBean = [FTVideoBean new];
+            [videoBean setValuesWithDic:[array firstObject]];
+            NSLog(@"加载完成");
+            _videoBean = videoBean;
+        }];
+    }
+}
+
 - (void)getVoteInfo{
     
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
@@ -64,17 +82,17 @@
     NSString *objId = _videoBean.videosId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = @"v-video";
+    NSString *tableName = _detailType == FTDetailTypeNews ? @"v-news" : @"v-video";
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, GetStatusCheckKey]];
     
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
     //    NSLog(@"get vote urlString : %@", urlString);
     //创建AAFNetWorKing管理者
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask *_Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         //success
         //        NSLog(@"get vote info sucess. vote status : %@", responseDic[@"message"]);
@@ -86,9 +104,11 @@
         }
         
         [self updateVoteImageView];
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask *_Nonnull task, NSError * _Nonnull error) {
         //failure
     }];
+    
+    
 }
 
 - (void)getStarInfo{
@@ -101,17 +121,17 @@
     NSString *objId = _videoBean.videosId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = @"col-video";
+    NSString *tableName = _detailType == FTDetailTypeNews ? @"col-news" : @"col-video";//@"v-video";
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, GetStatusCheckKey]];
     
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
     //    NSLog(@"get vote urlString : %@", urlString);
     //创建AAFNetWorKing管理者
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask *_Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         //success
         //        NSLog(@"get vote info sucess. vote status : %@", responseDic[@"message"]);
@@ -123,7 +143,7 @@
         }
         
         [self updateStarImageView];
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask *_Nonnull task, NSError * _Nonnull error) {
         //failure
     }];
 }
@@ -162,7 +182,7 @@
     
     
     //设置默认标题
-    self.navigationItem.title = @"视频";
+    self.navigationItem.title = _detailType == FTDetailTypeNews ? @"拳讯" : @"视频";
 }
 
 - (void)setEvnetListenerOfBottomViews{
@@ -186,7 +206,7 @@
 }
 
 - (void)setWebView{
-    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49)];
+    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49 - 64)];
     _webView.delegate = self;
     
     //设置webview的背景色
@@ -208,17 +228,18 @@
         NSLog(@"视频url：%@", url);
         url = [self encodeToPercentEscapeString:url];
     //    _videoBean.viewCount = @"100";
-        NSString *title = _videoBean.title;
+        
         NSString *objId = @"";
         if (_urlId) {
             objId = _urlId;
         }else if(_videoBean){
             objId = _videoBean.videosId;
         }
-        title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
-        _webViewUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/video_page.html?objId=%@", objId];
+        NSString *urlPrefix = _detailType == FTDetailTypeNews ? @"http://www.gogogofight.com/page/v2/news_page.html?objId=" : @"http://www.gogogofight.com/page/v2/video_page.html?objId=";
+        _webViewUrlString = [NSString stringWithFormat:@"%@%@", urlPrefix, objId];
         NSLog(@"webview url：%@", _webViewUrlString);
+        
     }else {
         
         _webViewUrlString = _webUrlString;
@@ -227,7 +248,6 @@
     }
    
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webViewUrlString]]];
-//    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_videoBean.url]]];
     [self.view sendSubviewToBack:_webView];
 }
 
@@ -250,17 +270,6 @@
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     if (!localUser) {
         [self login];
-//        NSLog(@"微信登录");
-//        if ([WXApi isWXAppInstalled] ) {
-//            SendAuthReq *req = [[SendAuthReq alloc] init];
-//            req.scope = @"snsapi_userinfo";
-//            req.state = @"fighter";
-//            [WXApi sendReq:req];
-//            
-//        }else{
-//            NSLog(@"目前只支持微信登录，请安装微信");
-//            [self showHUDWithMessage:@"目前只支持微信登录，请安装微信"];
-//        }
     }else{
         [self pushToCommentVC];
     }
@@ -416,19 +425,18 @@
     NSString *objId = _videoBean.videosId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = @"v-video";
+    NSString *tableName = _detailType == FTDetailTypeNews ? @"v-news" : @"v-video";
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, self.hasVote ? AddVoteCheckKey: DeleteVoteCheckKey]];
     
     
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
     //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
     //创建AAFNetWorKing管理者
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
-    //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask *_Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"vote status : %@", responseDic[@"status"]);
         self.voteView.userInteractionEnabled = YES;
@@ -449,7 +457,7 @@
             NSLog(@"js method : %@", jsMethodString);
             [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
         }
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         //failure
         self.voteView.userInteractionEnabled = YES;
         NSLog(@"vote failure ：%@", error);
@@ -470,7 +478,7 @@
     NSString *objId = _videoBean.videosId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = @"col-video";
+    NSString *tableName = _detailType == FTDetailTypeNews ? @"col-news" : @"col-video";
     NSString *query = @"delete-col";
 //    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, self.hasStar ?  @"" : query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
         NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
@@ -481,18 +489,17 @@
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@&query=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName, query];
     //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
     //创建AAFNetWorKing管理者
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
-    //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    NSLog(@"收藏url：%@", urlString);
-    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask *_Nonnull task, id  _Nonnull responseObject)  {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"收藏状态 status : %@, message : %@", responseDic[@"status"], responseDic[@"message"]);
         self.favourateView.userInteractionEnabled = YES;
         if ([responseDic[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
         }
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         //failure
         self.voteView.userInteractionEnabled = YES;
         NSLog(@"收藏 failure ：%@", error);
@@ -562,7 +569,14 @@
     
     FTCommentViewController *commentVC = [ FTCommentViewController new];
     commentVC.delegate = self;
-    commentVC.videoBean = self.videoBean;
+    if (_detailType == FTDetailTypeNews) {//拳讯
+        FTNewsBean *newsBean = [FTNewsBean new];
+        newsBean.newsId = _videoBean.videosId;
+        commentVC.newsBean = newsBean;
+    } else if (_detailType == FTDetailTypeVideo){//视频
+        commentVC.videoBean = self.videoBean;
+    }
+    
     [self.navigationController pushViewController:commentVC animated:YES];
 }
 
@@ -591,11 +605,11 @@
     addViewCountUrlString = [NSString stringWithFormat:@"%@?&videosId=%@&ts=%@&checkSign=%@", addViewCountUrlString, videosId, ts, checkSign];
         NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);
     //创建AAFNetWorKing管理者
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);
-    [manager GET:addViewCountUrlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager GET:addViewCountUrlString parameters:nil progress:nil  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         //success
         //        NSLog(@"get vote info sucess. vote status : %@", responseDic[@"message"]);
@@ -610,7 +624,7 @@
         }
         
         [self updateVoteImageView];
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         NSLog(@"向服务器增加视频数失败，error：%@", error);
     }];
 }

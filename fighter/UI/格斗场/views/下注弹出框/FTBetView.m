@@ -38,7 +38,7 @@
     [UILabel setRowGapOfLabel:_titleLabel withValue:8];
     
     //显示余额
-    _balanceLabel.text = [NSString stringWithFormat:@"%ldP", _paySingleton.balance];
+    _balanceLabel.text = [NSString stringWithFormat:@"%ldP", (long)_paySingleton.balance];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder{
@@ -66,13 +66,14 @@
         [_textField resignFirstResponder];
     }
 }
+
+#pragma mark 确认下注
 - (IBAction)confirmButtonClicked:(id)sender {
     NSLog(@"确定参与");
     
     if (_betValue <= 0) {
-        NSLog(@"_betValue小于0");
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"下注数不能为0" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
-        [alertView show];
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"下注数不能为0"];
+        return;
     }
     
     if (_paySingleton.balance < _betValue) {//如果余额不足，跳转去充值
@@ -82,8 +83,8 @@
         
     } else {//否则，向服务器提交下注请求
             
-            [MBProgressHUD hideHUDForView:self animated:YES];
-            [NetWorking betWithObjid:_matchDetailBean andIsPlayer1Win:_isbetPlayer1Win andBetValue:_betValue andOption:^(BOOL result) {
+//            [MBProgressHUD hideHUDForView:self animated:YES];
+            [NetWorking betWithMatchBean:_matchBean andIsPlayer1Win:_isbetPlayer1Win andBetValue:_betValue andOption:^(BOOL result) {
                 if (result) {
                     NSLog(@"下注成功");
                     [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"下注成功"];
@@ -163,6 +164,18 @@
 
 
 - (void)updateDisplay{
+    //下注数
+    if (_betValue == 5) {
+        _betValueButton1.selected = YES;
+    } else if(_betValue == 10){
+        _betValueButton2.selected = YES;
+    }else if(_betValue == 50){
+        _betValueButton3.selected = YES;
+    }else{
+        _textField.text = [NSString stringWithFormat:@"%d", _betValue];
+    }
+    
+    
     //初始化NSMutableAttributedString
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]init];
     
@@ -171,7 +184,7 @@
     NSAttributedString *attr0 = [[NSAttributedString alloc]initWithString:str0 attributes:dictAttr0];
     [attributedString appendAttributedString:attr0];
     
-    NSString *str1 = _isbetPlayer1Win ? _matchDetailBean.userName : _matchDetailBean.against;
+    NSString *str1 = _isbetPlayer1Win ? _matchBean.userName : _matchBean.against;
     NSDictionary *dictAttr1 = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]};
     NSAttributedString *attr1 = [[NSAttributedString alloc]initWithString:str1 attributes:dictAttr1];
     [attributedString appendAttributedString:attr1];
@@ -181,7 +194,7 @@
     NSAttributedString *attr2 = [[NSAttributedString alloc]initWithString:str2 attributes:dictAttr2];
     [attributedString appendAttributedString:attr2];
     
-    NSString *str3 = _isbetPlayer1Win ? _matchDetailBean.against : _matchDetailBean.userName;
+    NSString *str3 = _isbetPlayer1Win ? _matchBean.against : _matchBean.userName;
     NSDictionary *dictAttr3 = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:14]};
     NSAttributedString *attr3 = [[NSAttributedString alloc]initWithString:str3 attributes:dictAttr3];
     [attributedString appendAttributedString:attr3];

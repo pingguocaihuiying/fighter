@@ -139,7 +139,7 @@ PLStreamingSendingBufferDelegate
     //          @"hosts": @{
     //                  ...
     //          }
-# warning 如果要运行 demo 这里应该填写服务端返回的某个流的 json 信息
+//# warning 如果要运行 demo 这里应该填写服务端返回的某个流的 json 信息
     
 //    1.你们的七牛账户
 //    2.hub（自定义的直播应用名，是直播流的集合，4到100字符，英文数字以及-_组成）

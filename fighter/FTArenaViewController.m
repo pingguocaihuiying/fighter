@@ -395,13 +395,13 @@
     
     NSString *urlString = [FTNetConfig host:Domain path:GetArenaListURL];
     NSString *tableName = @"damageblog";
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName];
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         NSLog(@"arena list  url : %@", urlString);
 
-    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         
         NSString *status = responseDic[@"status"];
@@ -441,7 +441,7 @@
             [self.tableViewController.tableView footerEndRefreshing];
         }
         
-    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+    } failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
         [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
         [self.tableViewController.tableView footerEndRefreshing];
     }];

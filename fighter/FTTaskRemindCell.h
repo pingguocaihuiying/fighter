@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface FTTaskRemindCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UIButton *remindBtn;
+
 
 @end

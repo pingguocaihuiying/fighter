@@ -31,6 +31,14 @@
 #import "FTMatchLiveViewController.h"
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
+#import "FTVideoDetailViewController.h"
+#import "FTVideoBean.h"
+#import "FTMatchPreViewController.h"
+#import "FTBetView0.h"
+#import "FTBetView.h"
+#import "FTPayViewController.h"
+#import "FTHomepageMainViewController.h"
+#import "FTPaySingleton.h"
 
 /**
  *  数据结构思路22：
@@ -38,7 +46,7 @@
  再用array顺序存放字典的key值（即日期），校正数据的顺序
  */
 
-@interface FTFightingViewController ()<UITableViewDelegate, UITableViewDataSource, FTFightingTableViewCellButtonsClickedDelegate>
+@interface FTFightingViewController ()<UITableViewDelegate, UITableViewDataSource, FTFightingTableViewCellButtonsClickedDelegate, FTBetViewDelegate0, FTBetViewDelegate>
 
 
 @property (nonatomic, strong)NSMutableArray *dateArray;//
@@ -65,7 +73,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self initBaseData];
     [self initSubViews];
     [self getMatchList];//初次加载数据
@@ -130,7 +138,7 @@
 
 
 - (void)getMatchList{
-    
+    //显示加载hud
     NSString *status = @"";
     NSString *payStatus = @"";
     NSString *label = @"";
@@ -157,8 +165,8 @@
     }
     
     [NetWorking getMatchListWithPageNum:_pageNum andPageSize:_pageSize andStatus:status andPayStatus:payStatus andLabel:label andAgainstId:againstId andWeight:weight andUserId:userId andOption:^(NSArray *array) {
-                if (array && array.count > 0) {
-                    
+        [MBProgressHUD hideHUDForView:self.view animated:YES];//隐藏hud
+                if (array) {
                     if (_pageNum == 1) {//如果是第一页，清除历史数据
                         [_dateArray removeAllObjects];
                         [_matchesDic removeAllObjects];
@@ -170,7 +178,9 @@
                         for (int  i = 0; i < array.count; i++) {
                             NSDictionary *dic = array[i];
                             NSTimeInterval matchDateTimeStamp = [dic[@"theDate"] doubleValue ] / 1000;
+                            NSLog(@"theDate : %f", matchDateTimeStamp);
                             NSString *matchDateString = [FTTools getDateStringWith:matchDateTimeStamp];
+                            NSLog(@"theDate : %@", matchDateString);
                             [FTTools saveDateStr:matchDateString ToMutableArray:_dateArray];//处理
                             
                             FTMatchBean *matchBean = [FTMatchBean new];
@@ -194,21 +204,37 @@
                             
                             FTMatchBean *matchBean = [FTMatchBean new];
                             [matchBean setValuesForKeysWithDictionary:dic];
-                            
-                            [_matchesDic setObject:matchBean forKey:matchDateString];
+                            NSMutableArray *matchBeansArray = _matchesDic[matchDateString];//存放某天所有比赛的数组
+                            if (!matchBeansArray) {
+                                matchBeansArray = [NSMutableArray new];
+                            }
+                            [matchBeansArray addObject:matchBean];
+                            [_matchesDic setObject:matchBeansArray forKey:matchDateString];
                         }
+                        
                     }
                     
                     //刷新成功
-                    [self.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
-                    [self.tableView footerEndRefreshing];
+                    if (_pageNum == 1) {
+                        [self.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+                    }else if (_pageNum > 1) {
+                        [self.tableView footerEndRefreshing];
+                    }
+
                     
                     [self.tableView reloadData];
                     
                 }else {
-                    //刷新失败
-                    [self.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
-                    [self.tableView footerEndRefreshing];
+                    if (_pageNum == 1){
+                        if (array == nil) {
+                            [self.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+                        }else{
+                            [self.tableView headerEndRefreshingWithResult:JHRefreshResultNone];
+                        }
+                        
+                    }else if (_pageNum > 1){
+                        [self.tableView footerEndRefreshing];
+                    }
                 }
     }];
 }
@@ -304,16 +330,53 @@
         FTMatchLiveViewController* matchLiveVC = [FTMatchLiveViewController new];
         matchLiveVC.matchBean = matchBean;
         [self.navigationController pushViewController:matchLiveVC animated:YES];
-    } else if ([matchBean.statu isEqualToString:@"1"]){
+    } else if ([matchBean.statu isEqualToString:@"3"]){
         NSLog(@"比赛结束");
+        NSLog(@"url : %@", matchBean.urlRes);
+        NSString *url = matchBean.urlRes;
+        NSLog(@"url : %@", url);
+        
+        NSArray *strArray = [url componentsSeparatedByString:@"id="];
+        NSString *idAndOtherStr = [strArray lastObject];
+        NSString *objId = [[idAndOtherStr componentsSeparatedByString:@"&"] firstObject];//资讯或视频ID
+        
+        FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
+        
+        //判断是咨询还是视频
+        NSArray *typeStrArray= [url componentsSeparatedByString:@"&type="];
+        NSString *typeStr = [typeStrArray lastObject];
+        if ([typeStr isEqualToString:@"1"]) {//咨询
+            videoDetailVC.detailType = FTDetailTypeNews;
+        } else if ([typeStr isEqualToString:@"2"]) {//视频
+            videoDetailVC.detailType = FTDetailTypeVideo;
+        }
+        
+        if (matchBean.urlRes) {
+            FTVideoBean *videoBean = [FTVideoBean new];
+            videoBean.videosId = objId;
+            videoDetailVC.urlId = objId;
+            videoDetailVC.videoBean = videoBean;
+        }
+        
+
+        
+        [self.navigationController pushViewController:videoDetailVC animated:YES];
     }else{
         NSLog(@"尚未开赛");
+        NSLog(@"url : %@", matchBean.urlPre);
+        
+        NSString *webViewURL;
+        if (matchBean.urlPre) {
+            webViewURL = matchBean.urlPre;
+        } else {
+            webViewURL = @"http://www.gogogofight.com";
+        }
+        FTMatchPreViewController *matchPreVC = [FTMatchPreViewController new];
+        matchPreVC.webViewURL = webViewURL;
+        matchPreVC.title = @"赛前宣传";
+        [self.navigationController pushViewController:matchPreVC animated:YES];
     }
 }
-
-
-
-
 
 - (void)setJHRefresh{
     //设置下拉刷新
@@ -337,13 +400,39 @@
 
 #pragma mark push响应方法
 - (void) pushToDetailController:(NSDictionary *)dic {
-    
-    FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
-    NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-news",dic[@"objId"]];
-    
-    newsDetailVC.webUrlString = [@"http://www.gogogofight.com/page/news_page.html?" stringByAppendingString:str];
-    [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
-    
+    /**
+     *  type为比赛状态，赛前、赛中、赛后分别对应0、1、2
+     */
+    NSString *type = [NSString stringWithFormat:@"%@", dic[@"type"]];
+    FTMatchBean *matchBean = [FTMatchBean new];
+    matchBean.matchId = [NSString stringWithFormat:@"%@", dic[@"objId"]];
+    if ([type isEqualToString:@"1"]) {
+        matchBean.url = dic[@"url"];
+        NSLog(@"比赛进行中");
+        FTMatchLiveViewController* matchLiveVC = [FTMatchLiveViewController new];
+        matchLiveVC.matchBean = matchBean;
+        [self.navigationController pushViewController:matchLiveVC animated:YES];
+    } else if ([type isEqualToString:@"0"]){
+        NSLog(@"尚未开赛");
+        matchBean.urlPre = dic[@"url"];
+        NSLog(@"url : %@", matchBean.urlPre);
+        
+        NSString *webViewURL;
+        if (matchBean.urlPre) {
+            webViewURL = matchBean.urlPre;
+        } else {
+            webViewURL = @"http://www.gogogofight.com";
+        }
+        FTMatchPreViewController *matchPreVC = [FTMatchPreViewController new];
+        matchPreVC.webViewURL = webViewURL;
+        matchPreVC.title = @"赛前宣传";
+        [self.navigationController pushViewController:matchPreVC animated:YES];
+    }else if ([type isEqualToString:@"2"]){//更新余额
+        FTPaySingleton *paySingleton = [FTPaySingleton shareInstance];
+        [paySingleton fetchBalanceFromWeb:^{
+            NSLog(@"更新余额成功");
+        }];
+    }
 }
 
 - (void)updateCountWithNewsBean:(FTNewsBean *)newsBean indexPath:(NSIndexPath *)indexPath{
@@ -366,19 +455,50 @@
     //获取当前登录用户的信息
 //    FTUserBean *userBean = [FTUserTools getLocalUser];
     
-    if (actionType == FTButtonActionWatch) {
-        FTMatchLiveViewController* matchLiveVC = [FTMatchLiveViewController new];
-        matchLiveVC.matchBean = matchBean;
-        [self.navigationController pushViewController:matchLiveVC animated:YES];
+    if (actionType == FTButtonActionWatch) {// status 2、比赛进行中 3、比赛结束
+//        FTMatchLiveViewController* matchLiveVC = [FTMatchLiveViewController new];
+//        matchLiveVC.matchBean = matchBean;
+//        [self.navigationController pushViewController:matchLiveVC animated:YES];
+        if ([matchBean.statu isEqualToString:@"2"]) {
+            NSLog(@"比赛进行中");
+            FTMatchLiveViewController* matchLiveVC = [FTMatchLiveViewController new];
+            matchLiveVC.matchBean = matchBean;
+            [self.navigationController pushViewController:matchLiveVC animated:YES];
+        } else if ([matchBean.statu isEqualToString:@"3"]){
+            NSLog(@"比赛结束");
+            NSString *url = matchBean.urlRes;
+            NSLog(@"url : %@", url);
+            
+            NSArray *strArray = [url componentsSeparatedByString:@"id="];
+            NSString *idAndOtherStr = [strArray lastObject];
+            NSString *objId = [[idAndOtherStr componentsSeparatedByString:@"&"] firstObject];
+            
+            FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
+            
+            if (matchBean.urlRes) {
+                FTVideoBean *videoBean = [FTVideoBean new];
+                videoBean.videosId = objId;
+                videoDetailVC.urlId = objId;
+                videoDetailVC.videoBean = videoBean;
+            }
+            
+            
+            
+            [self.navigationController pushViewController:videoDetailVC animated:YES];
+        }
     } else if (actionType == FTButtonActionBuyTicket){
         
     }else if (actionType == FTButtonActionSupport){
         
+
     }else if (actionType == FTButtonActionFollow){
         NSLog(@"关注");
+        //在本次关注、取消关注未完成前，把按钮置为不可选状态
+        button.enabled = NO;
         FTUserBean *loginUserBean = [FTUserTools getLocalUser];
         if (loginUserBean) {
-            [NetWorking followObjWithObjId:matchBean.matchId anIsFollow:!matchBean.follow andTableName:@"f-mat" andOption:^(BOOL result) {
+            [NetWorking followObjWithObjId:matchBean.matchId anIsFollow:!button.isSelected andTableName:@"f-mat" andOption:^(BOOL result) {
+                button.enabled = YES;
                 if (result) {
                     NSLog(@"成功");
                     button.selected = !button.isSelected;
@@ -388,21 +508,32 @@
             }];
         }else{
             [FTTools loginwithVC:self];
+            button.enabled = YES;
         }
-
+#pragma mark - 下注
     }else if (actionType == FTButtonActionBet){
-
+        NSLog(@"下注");
+        
+        if ([self validateLoginInfo]) {//先判断是否登录
+            FTBetView0 *betView0 = [[[NSBundle mainBundle] loadNibNamed:@"FTBetView0" owner:nil options:nil]lastObject];
+            betView0.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+            betView0.delegate = self;
+            betView0.matchBean = matchBean;
+            [betView0 updateDisplay];
+            [self.view addSubview:betView0];
+        }else{
+            [self login];
+        }
     }
     else if (actionType == FTButtonActionPay){
         /**
          *  点击支付后，先根据比赛id查到比赛需要支付的费用
          */
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         
         [NetWorking getGymDetailWithGymId:matchBean.matchId andOption:^(NSArray *array) {
             if (array && array.count > 0) {
                 NSLog(@"获取比赛详情成功");
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                
                 NSDictionary *dic = (NSDictionary *)array;
 //                [ZJModelTool createModelWithDictionary:dic modelName:nil];
                 FTMatchDetailBean *matchDetailBean = [FTMatchDetailBean new];
@@ -470,14 +601,43 @@
                 
             } else {
                 NSLog(@"获取比赛详情失败");
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
             }
         }];
         
+    }else if (actionType == FTButtonActionPlayer1){
+        NSLog(@"player1");
+        FTHomepageMainViewController *homepageMainViewController = [FTHomepageMainViewController new];
+        homepageMainViewController.olduserid = matchBean.userId;
+        [self.navigationController pushViewController:homepageMainViewController animated:YES];
+    }else if (actionType == FTButtonActionPlayer2){
+        NSLog(@"player2");
+        FTHomepageMainViewController *homepageMainViewController = [FTHomepageMainViewController new];
+        homepageMainViewController.olduserid = matchBean.againstId;
+        [self.navigationController pushViewController:homepageMainViewController animated:YES];
     }else{
         //其他
         NSLog(@"其他");
     }
+}
+
+- (BOOL)validateLoginInfo{
+    BOOL result = false;
+    //判断是否登录
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    if (!localUser) {
+        result = false;
+    }else{
+        result = true;
+    }
+    return result;
+}
+- (void)login{
+    FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+    loginVC.title = @"登录";
+    FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark - 迎战
@@ -534,8 +694,34 @@
     [self.navigationController pushViewController:launchNewMatchViewController animated:YES];
 }
 
+//跳转到充值界面
+- (void)pushToRechargeVC{
+    FTPayViewController *payVC = [[FTPayViewController alloc]init];
+    FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:payVC];
+    baseNav.navigationBarHidden = NO;
+    
+    [self.navigationController presentViewController:baseNav animated:YES completion:nil];
+}
+//第一步中点击确认参与的回掉方法
+- (void)betStep1WithBetValues:(int)betValue andIsPlayer1Win:(BOOL)isPlayer1Win  andMatchBean:(FTMatchBean *)matchBean{
+    FTBetView *betView = [[[NSBundle mainBundle] loadNibNamed:@"FTBetView" owner:nil options:nil]lastObject];
+    betView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    betView.delegate = self;
+//    betView.matchDetailBean = _matchDetailBean;
+    betView.isbetPlayer1Win = isPlayer1Win;
+    betView.betValue = betValue;
+    betView.matchBean = matchBean;
+    [betView updateDisplay];
+    [self.view addSubview:betView];
+}
 
-
+//点击赞助后的回掉
+- (void)betWithBetValues:(int)betValue andIsPlayer1Win:(BOOL)isPlayer1Win{
+    NSLog(@"betValue : %d", betValue);
+    NSLog(@"isPlayer1Win : %d", isPlayer1Win);
+    //刷新下注数
+//    [self getMatchDetailFromServer];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

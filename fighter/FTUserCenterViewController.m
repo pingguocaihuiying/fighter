@@ -307,7 +307,11 @@
 
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         
+        [[NSNotificationCenter defaultCenter] postNotificationName:EditNotification object:nil];
+        
     }];
+    
+    
 }
 
 - (void)avatarBtnAction:(id)sender {
@@ -639,6 +643,11 @@
                     [cell.authenticationLabel setText:@"身份信息正在审核中"];
                 }
             }
+            
+            /**
+             *  2016年8月30日 by liyz  隐藏身份认证的信息
+             */
+            cell.authenticationLabel.hidden = YES;
             
             return cell;
         }else {

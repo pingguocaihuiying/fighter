@@ -16,7 +16,7 @@
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QRr-Vi-KwH">
-                    <rect key="frame" x="67" y="202" width="280" height="332"/>
+                    <rect key="frame" x="67" y="170" width="280" height="332"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="弹出框背景" translatesAutoresizingMaskIntoConstraints="NO" id="4sB-Mk-fzg">
                             <rect key="frame" x="0.0" y="0.0" width="280" height="275"/>
@@ -262,7 +262,7 @@
                 <constraint firstItem="QRr-Vi-KwH" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Voc-Jh-1B7"/>
                 <constraint firstItem="f9T-nt-RLR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="gbD-OW-ech"/>
                 <constraint firstAttribute="bottom" secondItem="f9T-nt-RLR" secondAttribute="bottom" id="hKD-lq-KRO"/>
-                <constraint firstItem="QRr-Vi-KwH" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="lDo-BI-jor"/>
+                <constraint firstItem="QRr-Vi-KwH" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-32" id="lDo-BI-jor"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
             <connections>

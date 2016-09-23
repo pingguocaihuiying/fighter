@@ -17,6 +17,7 @@
 {
     return [NSString stringWithFormat:@"%@%@",host,path];
 }
+
 + (NSString *)showType{
     
     NSString *showType = [[NSUserDefaults standardUserDefaults]objectForKey:SHOWTYPE];
@@ -27,6 +28,7 @@
     }
     return showType;
 }
+
 + (void)changePreviewVersion{
     
     NSString *showType = [FTNetConfig showType];
@@ -42,12 +44,16 @@
 }
 @end
 
+
+/** 废弃的后台地址 **/
 //NSString * const Domain = @"http://www.loufang.studio/pugilist_adminTest";//测试环境
 //NSString * const Domain = @"http://www.loufang.studio/pugilist_admin";//生产环境
 //  http://www.gogogofight.com/
+
+/** 可用的后台地址 **/
 NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin";//生产环境
 //NSString * const Domain = @"http://192.168.85.45/pugilist_admin";//内网测试环境
-//NSString * const Domain = @"http://10.11.1.117:8080/pugilist_admin";//何后台开发环境
+//NSString * const Domain = @"http://10.11.1.117/pugilist_admin";//何后台开发环境
 //NSString * const Domain = @"http://10.11.1.49/pugilist_admin";//余彧后台开发环境
 //获取新闻192.168.85.45
 NSString * const GetNewsURL = @"/api/news/getNews.do";
@@ -72,8 +78,11 @@ NSString *const DeleteFollowURL = @"/api/follow/delete$Follow.do";
 NSString *const GetVideoURL = @"/api/videos/getVideos.do";
 //观看数
 NSString *const GetObjViewCountURL = @"/api/view/countView.do";
-//xx数
+//统计评论数
+NSString *const GetObjCommentCountURL = @"/api/ comment/ countComment.do";
+//统计点赞数
 NSString *const GetObjVoteCountURL = @"/api/comment/countVote.do";
+
 //增加视频观看数接口 域名/api/videos/upVideoViewN.do
 NSString *const AddViewCountURL = @"/api/view/addView.do";
 
@@ -127,8 +136,8 @@ NSString * const UserLogoutURL = @"/api/newuser/userLogout.do";
 NSString * const UserWXLoginURL = @"/api/newuser/userWXLogin.do";
 
 #pragma mark  - 更新用户
-
 NSString * const UpdateUserURL = @"/api/newuser/updateUser.do";
+//NSString * const UpdateUserURL = @"/api/newuser/updateUser2.do";
 
 NSString * const UploadUserIdCardURL = @"/api/newuser/updateUserCardpic.do";
 
@@ -206,7 +215,6 @@ NSString * const DeleteStarCheckKey =  @"gedoujia1ggghfdjskfgl1250";
 //发新帖 gedoujia1gdshjjgfkd52261225550
 NSString * const NewPostCheckKey =  @"gedoujia1gdshjjgfkd52261225550";
 
-
 #pragma mark - 学拳
 // coach
 NSString * const GetCoachListURL = @"/api/coach/list.do";
@@ -216,6 +224,7 @@ NSString * const GetCoachByIdURL = @"/api/coach/{id}.do";
 NSString * const GetGymListURL = @"/api/gym/getGym.do";
 NSString * const GetGymListForArenaURL = @"/api/match/getGyms.do";
 NSString * const GetGymByIdURL = @"/api/gym/getVideosById.do";
+NSString * const GetGymPhotosByUsers = @"/api/gym/commentAttach.do";//获取用户拍摄的拳馆照片
 
 #pragma mark - 新格斗场
 NSString * const GetGymTimeSlotsByIdURL = @"/api/place/listTime.do";
@@ -264,6 +273,7 @@ NSString * const DuiBaChargeURL = @"/api/duiba/exchangeShop.do";
 // 兑吧确定扣除积分接口
 NSString * const DuiBaCheckCharegeURL = @"/api/duiba/exchangeShopStates.do";
 
-
+NSString * const ShopURL = @"/shop/index.html";
+NSString * const ShopOrderURL = @"/shop/order.html";
 
 
