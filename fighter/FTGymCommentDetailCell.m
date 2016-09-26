@@ -161,23 +161,29 @@
         if (result) {
             
             thumbState = thumbState?NO:YES;
-            if (thumbState) {
-                self.commentbean.thumbCount ++;
-                
-                [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.thumbCount] forState:UIControlStateNormal];
-                
-                [self.thumbsButton setImage:[UIImage imageNamed:@"点赞pre"] forState:UIControlStateNormal];
-            }else {
-                
-                self.commentbean.thumbCount --;
-                
-                [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.thumbCount] forState:UIControlStateNormal];
-                
-                [self.thumbsButton setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateNormal];
-            }
+            [self setThumbState:thumbState];
         }
     }];
+}
+
+
+- (void) setThumbState:(BOOL) state {
     
+    if (state) {
+        
+        self.commentbean.thumbCount ++;
+        
+        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.thumbCount] forState:UIControlStateNormal];
+        
+        [self.thumbsButton setImage:[UIImage imageNamed:@"点赞pre"] forState:UIControlStateNormal];
+    }else {
+        
+        self.commentbean.thumbCount --;
+        
+        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.thumbCount] forState:UIControlStateNormal];
+        
+        [self.thumbsButton setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark - 评论
@@ -186,6 +192,14 @@
     
 }
 
+- (void) setCommentState:(BOOL) state {
+    
+    if (state) {
+        
+        self.commentbean.commentcount ++;
+        [self.commentButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.thumbCount] forState:UIControlStateNormal];
+    }
+}
 
 #pragma mark - collectionView
 - (void) setCollectionView {

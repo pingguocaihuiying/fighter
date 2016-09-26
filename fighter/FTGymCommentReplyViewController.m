@@ -10,10 +10,10 @@
 #import "FTGymCommentReplyCell.h"
 #import "FTGymCommentDetailCell.h"
 
-@interface FTGymCommentReplyViewController () <UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+@interface FTGymCommentReplyViewController () <UITableViewDelegate,UITableViewDataSource>
 {
 
-    CGFloat keyBoardHeight;
+    BOOL isKeyBoardShow;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -65,13 +65,15 @@
 - (void) setNotification {
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-     
                                              selector:@selector(keyboardWillShow:)
-     
                                                  name:UIKeyboardWillShowNotification
-     
                                                object:nil];
     
+    //增加监听，当键退出时收出消息
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
     
 }
 - (void) setNavigationBar {
@@ -104,7 +106,7 @@
     self.commentTextField.layer.masksToBounds = YES;
     self.commentTextField.layer.cornerRadius = 16;
     
-    self.commentTextField.delegate = self;
+//    self.commentTextField.delegate = self;
     
 //    self.commentButton.frame = CGRectMake(30, 12, 24, 24);
     self.commentTextField.leftView = self.leftView;
@@ -158,20 +160,8 @@
         if (result) {
             
             self.thumbState = self.thumbState?NO:YES;
-            if (self.thumbState) {
-                self.bean.thumbCount ++;
-                
-                [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.bean.thumbCount] forState:UIControlStateNormal];
-                
-                [self.thumbsButton setImage:[UIImage imageNamed:@"点赞pre"] forState:UIControlStateNormal];
-            }else {
-                
-                self.bean.thumbCount --;
-                
-                [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.bean.thumbCount] forState:UIControlStateNormal];
-                
-                [self.thumbsButton setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateNormal];
-            }
+            FTGymCommentDetailCell *cell = (FTGymCommentDetailCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+            [cell setThumbState:self.thumbState];
         }
     }];
 }
@@ -208,13 +198,11 @@
             [self.view showMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         }
     }];
-
 }
 
 #pragma mark - notification Action
 
 - (void)keyboardWillShow:(NSNotification *)aNotification
-
 {
     
     //创建自带来获取穿过来的对象的info配置信息
@@ -231,10 +219,55 @@
     
     //最后获取高度 宽度也是同理可以获取
     
-    keyBoardHeight = keyboardRect.size.height;
+    CGFloat height = keyboardRect.size.height;
+    
+    NSLog(@"height:%f",height);
+    
+    if (isKeyBoardShow == NO) {
+        __weak typeof(self) weakSelf = self;
+        [UIView animateWithDuration:0.3 animations:^{
+            CGRect frame = weakSelf.view.frame;
+            weakSelf.view.frame = CGRectMake(frame.origin.x, frame.origin.y - height, frame.size.width, frame.size.height);
+        }];
+        
+        isKeyBoardShow = YES;
+    }
     
 }
 
+//当键退出时调用
+- (void)keyboardWillHide:(NSNotification *)aNotification{
+
+    //创建自带来获取穿过来的对象的info配置信息
+    
+    NSDictionary *userInfo = [aNotification userInfo];
+    
+    //创建value来获取 userinfo里的键盘frame大小
+    
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    
+    //创建cgrect 来获取键盘的值
+    
+    CGRect keyboardRect = [aValue CGRectValue];
+    
+    //最后获取高度 宽度也是同理可以获取
+    
+    CGFloat height = keyboardRect.size.height;
+    
+    NSLog(@"height:%f",height);
+    
+    
+    if (isKeyBoardShow == YES) {
+        
+        __weak typeof(self) weakSelf = self;
+        [UIView animateWithDuration:0.3 animations:^{
+            CGRect frame = weakSelf.view.frame;
+            weakSelf.view.frame = CGRectMake(frame.origin.x, frame.origin.y + height, frame.size.width, frame.size.height);
+        }];
+        
+        isKeyBoardShow = NO;
+    }
+}
 
 
 #pragma mark - delegate
@@ -262,6 +295,8 @@
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     UIView *header = [UIView new];
+    UIView *downSpace = [[UIView alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, 0.5)];
+    downSpace.backgroundColor = Cell_Space_Color;
     return header;
 }
 
@@ -296,22 +331,5 @@
 }
 
 
-#pragma mark textFieldDelegate 
-
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-
-    [UIView animateWithDuration:0.5 animations:^{
-        CGRect frame = self.view.frame;
-        self.view.frame = CGRectMake(frame.origin.x, frame.origin.y - keyBoardHeight, frame.size.width, frame.size.height);
-    }];
-}
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-
-    [UIView animateWithDuration:0.5 animations:^{
-        CGRect frame = self.view.frame;
-        self.view.frame = CGRectMake(frame.origin.x, frame.origin.y + keyBoardHeight, frame.size.width, frame.size.height);
-    }];
-}
 
 @end
