@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="FTCoachBigImageCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="64" height="86"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="64" height="86"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xFh-36-ze7"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="李小龙" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85i-aQ-S0z">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="14" id="xgd-9G-Qy4"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.70588235294117641" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="xFh-36-ze7" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="17C-LA-Mhs"/>
+                <constraint firstAttribute="trailing" secondItem="xFh-36-ze7" secondAttribute="trailing" id="3K5-Jp-keb"/>
+                <constraint firstItem="xFh-36-ze7" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="SHE-CC-wmz"/>
+                <constraint firstItem="85i-aQ-S0z" firstAttribute="top" secondItem="xFh-36-ze7" secondAttribute="bottom" constant="8" id="TgR-rQ-avW"/>
+                <constraint firstAttribute="bottom" secondItem="85i-aQ-S0z" secondAttribute="bottom" id="v1s-ki-EjY"/>
+                <constraint firstItem="85i-aQ-S0z" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="w1E-K0-FK4"/>
+            </constraints>
+            <size key="customSize" width="130" height="93"/>
+            <connections>
+                <outlet property="coachImageView" destination="xFh-36-ze7" id="EBi-la-bCs"/>
+                <outlet property="coachNameLabel" destination="85i-aQ-S0z" id="Q1q-ef-a0w"/>
+            </connections>
+            <point key="canvasLocation" x="65" y="73.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

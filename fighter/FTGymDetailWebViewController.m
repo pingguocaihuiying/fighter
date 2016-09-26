@@ -67,6 +67,7 @@
 
 @property (nonatomic, strong) FTGymDetailBean *gymDetailBean;//拳馆详情bean
 
+
 @end
 
 @implementation FTGymDetailWebViewController
@@ -85,6 +86,8 @@
     [self getAttentionInfo];
     
 }
+
+
 
 - (void)initBaseData{
     _vipArray = [NSMutableArray new];
@@ -542,6 +545,8 @@
         [self updateAttentionButtonImg];
     }];
 }
+
+
 
 //把点赞信息更新至服务器
 - (void)uploadVoteStatusToServer{

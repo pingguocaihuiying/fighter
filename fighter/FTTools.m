@@ -213,6 +213,47 @@
     return weekday;
 }
 
+
++ (NSInteger )getWeekdayOfTodayAfterToday:(NSInteger)offsetDay{
+    NSInteger weekday;
+    NSDate *  senddate= [NSDate dateWithTimeIntervalSinceNow:24 * 60 * 60 * offsetDay];
+    NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
+    [dateformatter setDateFormat:@"yyy"];
+    NSString *  yearString = [dateformatter stringFromDate:senddate];
+    [dateformatter setDateFormat:@"MM"];
+    NSString *  monthString = [dateformatter stringFromDate:senddate];
+    [dateformatter setDateFormat:@"dd"];
+    NSString *  dayString = [dateformatter stringFromDate:senddate];
+    [dateformatter setDateFormat:@"EEE"];
+    
+    NSString *  weekString = [dateformatter stringFromDate:senddate];
+    //    NSLog(@"-%@",weekString);
+    int year = [yearString intValue];
+    //    NSLog(@"-%d", year);
+    int month = [monthString intValue];
+    //    NSLog(@"--%d", month);
+    int day = [dayString intValue];
+    //    NSLog(@"---%d", day);
+    
+    // 判断当前天是周几，从而计算出当周的周一是几号（负数表示上个月月末）
+    if ([weekString  isEqual: @"周一"] || [weekString  isEqual: @"Mon"]) {
+        weekday = 1;
+    } else if ([weekString isEqual:@"周二"] || [weekString  isEqual: @"Tue"]) {
+        weekday = 2;
+    } else if ([weekString isEqual:@"周三"] || [weekString  isEqual: @"Wed"]) {
+        weekday = 3;
+    } else if ([weekString isEqual:@"周四"] || [weekString  isEqual: @"Thu"]) {
+        weekday = 4;
+    } else if ([weekString isEqual:@"周五"] || [weekString  isEqual: @"Fri"]) {
+        weekday = 5;
+    } else if ([weekString isEqual:@"周六"] || [weekString  isEqual: @"Sat"]) {
+        weekday = 6;
+    } else if ([weekString isEqual:@"周日"] || [weekString  isEqual: @"Sun"]) {
+        weekday = 7;
+    }
+    return weekday;
+}
+
 + (NSString *)getDateStringWith:(NSTimeInterval)timestamp andTimeSection:(NSString *)timeSection{
     NSString *dateString = @"";
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestamp];

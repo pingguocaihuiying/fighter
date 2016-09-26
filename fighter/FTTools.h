@@ -47,6 +47,14 @@
 + (NSInteger )getWeekdayOfToday;//返回1234567
 
 /**
+ 获取某天后是周几
+
+ @param offsetDay 今天后的第几天今天 offset为0，明天offset为1
+
+ @return 周几：1、2、3、4、5、6、7
+ */
++ (NSInteger )getWeekdayOfTodayAfterToday:(NSInteger)offsetDay;
+/**
  *  根据“某天”的任意时间戳和“时间段”，确定实际时间
  *
  *  @param timestamp   时间戳
