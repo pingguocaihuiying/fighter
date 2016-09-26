@@ -10,6 +10,7 @@
 #import "FTCoachBigImageCollectionViewCell.h"
 #import "FTGymSourceView.h"
 #import "FTJoinGymSuccessAlertView.h"
+#import "FTGymOrderCourseView.h"
 
 @interface FTGymSourceViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, FTGymCourseTableViewDelegate>
 @property (strong, nonatomic) IBOutlet UILabel *balanceLabel;//动态label:余额的值
@@ -170,6 +171,9 @@
     NSLog(@"day : %ld, timeSection : %@", day, timeSection);
     if (courseCell.hasOrder) {
         NSLog(@"已经预约");
+        FTGymOrderCourseView *gymOrderCourseView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCourseView" owner:nil options:nil] firstObject];
+        gymOrderCourseView.frame = self.view.bounds;
+        [self.view addSubview:gymOrderCourseView];
     } else if (courseCell.canOrder) {
         NSLog(@"可以预约");
     }else {

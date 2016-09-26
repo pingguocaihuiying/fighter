@@ -8,14 +8,15 @@
 
 #import "FTGymOrderCourseView.h"
 
+@interface FTGymOrderCourseView()
+@property (strong, nonatomic) IBOutlet UIView *seperatorView1;
+
+@end
+
 @implementation FTGymOrderCourseView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (void)awakeFromNib{
+    [super awakeFromNib];
+    _seperatorView1.backgroundColor = Cell_Space_Color;
 }
-*/
-
 @end
