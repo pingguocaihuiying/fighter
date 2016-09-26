@@ -236,14 +236,6 @@
 
         return cell;
     }
-
-//    return cell;
-    //如果是最后一行，隐藏分割线
-    
-    
-
-    
-
 }
 
 
@@ -257,65 +249,6 @@
         NSString *timeSection = _timeSectionsArray[indexPath.row][@"timeSection"];
         [_delegate courseClickedWithCell:cell andDay:theTableView.index andTimeSection:timeSection];
     }
-//    NSMutableDictionary *mdic = _placesUsingInfoDic[[NSString stringWithFormat:@"%ld", theTableView.day]];//获取某天的可选时间段，如果不存在，则说明无数据
-//    
-//    
-//    NSString *timeSection2 = _timeSectionsArray[indexPath.row][@"timeSection"];//cell代表的固定时间段
-//
-//    //判断是不是过去的时间**********START*************
-//    BOOL isPastTime = false;
-//    if (_curWeekOffset == 0) {//是本周
-//        int today = (int)[FTTools getWeekdayOfToday];//今天是周几
-//        int theDay = theTableView.day;//当前要显示的时间段是周几
-//        
-//        if (theDay < today) {//过去
-//            isPastTime = true;
-//        }else if (theDay > today){//未来
-//            isPastTime = false;
-//        }else{//当天
-//            NSTimeInterval theTimeInterval = [FTTools getTimeIntervalWithAnyTimeIntervalOfDay:[[NSDate date] timeIntervalSince1970] andTimeString:[[timeSection2 componentsSeparatedByString:@"~"] firstObject]];//cell表示的时间段的起始时间戳
-//            NSTimeInterval nowTimeInterval = [[NSDate date] timeIntervalSince1970];//此刻的时间戳
-//            if (theTimeInterval < nowTimeInterval) {//过去
-//                isPastTime = true;
-//            } else {
-//                isPastTime = false;
-//            }
-//        }
-//    }else{//不是本周(是未来的周)
-//        isPastTime = false;
-//    }
-//    //判断是不是过去的时间**********END*************
-//    
-//    if (isPastTime) {
-//        
-//    }else{
-//        if (mdic) {//如果不为空，则说明有1个或1个以上时间段被占用，需要继续判断
-//            NSString *timeSection1 = mdic[@"timeSection"];//可选时间段
-//            if (![timeSection1 isEqualToString: timeSection2]) {//被占用的时间段和当前的不相同，可以选
-//                _selectedWeekday = theTableView.day;
-//                _selectedTimeSectionString = timeSection1;
-//                _selectedTimeSectionIDString = mdic[@"id"];
-//                _selectedWeekOffset = _curWeekOffset;
-//                
-//                [self reloadTableViews];
-//                
-//                
-//            } else {
-//                
-//            }
-//            
-//        }else{//如果mdic不存在，则说明任一时间段都可以选择，但要去掉已经过去的时间段
-//            
-//            
-//            _selectedWeekday = theTableView.day;
-//            _selectedTimeSectionString = timeSection2;
-//            _selectedTimeSectionIDString = [NSString stringWithFormat:@"%@", _timeSectionsArray[indexPath.row][@"id"]];
-//            _selectedWeekOffset = _curWeekOffset;
-//            
-//            [self reloadTableViews];
-//            
-//        }
-//    }
     
 }
 
