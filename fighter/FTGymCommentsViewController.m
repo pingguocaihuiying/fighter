@@ -145,20 +145,6 @@
     FTGymCommentBean *bean = [self.dataArray objectAtIndex:indexPath.section];
     [cell setCellContentWithBean:bean];
         
-//    // 头像
-//    if (bean.headUrl.length > 0) {
-//        [cell.avatarMask setHidden:NO];
-//        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:bean.headUrl] placeholderImage:[UIImage imageNamed:@"头像-空"]];
-//    }else {
-//        [cell.avatarMask setHidden:YES];
-//        [cell.avatarImageView setImage:[UIImage imageNamed:@"头像-空"]];
-//    }
-//    
-//    // 用户名
-//    cell.nameLabel.text = bean.createName;
-//    
-//    //
-//    cell.detailLabel.text = bean.comment;
     
     return cell;
     } @catch (NSException *exception) {
@@ -185,10 +171,16 @@
 }
 
 
-- (void) pushViewController:(UIViewController *)viewController {
+- (void) pressentViewController:(UIViewController *)viewController {
 
      [self.navigationController presentViewController:viewController animated:YES completion:nil];
 }
+
+- (void) pushViewController:(UIViewController *)viewController {
+    
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
 #pragma mark - private
 
 

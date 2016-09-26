@@ -1012,7 +1012,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     [dic setObject:objectId forKey:@"objId"];
     [dic setObject:@"c-gym" forKey:@"tableName"];
     [self getRequestWithUrl:urlString parameters:dic option:option];
-    
 }
 
 // Add Gym Comment

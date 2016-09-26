@@ -19,9 +19,11 @@
 @property (nonatomic, assign) int commentcount;//评论数
 @property (nonatomic, assign) int thumbCount;//点赞数
 
+@property (nonatomic, assign) NSInteger createTime;//评论时间
+
 @property (nonatomic, copy) NSString *comment;//评论内容
 @property (nonatomic, copy) NSString *createName;//
-@property (nonatomic, copy) NSString *createTime;//评论时间
+
 @property (nonatomic, copy) NSString *headUrl;//评论用户头像
 @property (nonatomic, strong) NSString *userId;//评论用户的userId
 @property (nonatomic, strong) NSString *objId;//评论拳馆id

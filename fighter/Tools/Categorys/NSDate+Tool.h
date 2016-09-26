@@ -13,11 +13,11 @@
 /**
  根据时间戳生成相对应格式的日期字符串
  
- @param timestamp 时间戳字符串
+ @param timestamp 时间戳
  
  @return 日期字符串
  */
-+(NSString *) dateString:(NSString *) timestamp;
++(NSString *) dateString:(NSInteger) timestamp;
 
 
 /**

@@ -34,7 +34,6 @@
     //将多余的部分切掉
     self.avatarImageView.layer.masksToBounds = YES;
     self.avatarImageView.layer.cornerRadius = 20;
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -101,7 +100,11 @@
     
     // 用户名
     self.nameLabel.text = bean.createName;
-    self.timeLabel.text = [NSDate dateString:bean.createTime];
+    
+    if (bean.createTime > 0) {
+        self.timeLabel.text = [NSDate dateString:bean.createTime];
+    }
+    
     
     // 评论文字内容
     self.detailLabel.text = bean.comment;
@@ -129,7 +132,7 @@
         
         dataSource = [bean.urls componentsSeparatedByString:@","];
         [self setCollectionView];
-        self.CollectionHeightConstraint.constant = 40;
+        self.CollectionHeightConstraint.constant = 80;
     }else {
         
         self.CollectionHeightConstraint.constant = 0;

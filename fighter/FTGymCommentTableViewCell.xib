@@ -216,6 +216,7 @@
                         </collectionViewFlowLayout>
                     </collectionView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="duv-Lc-AP6" userLabel="点赞">
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="(0)" image="点赞"/>
                         <state key="highlighted" image="点赞pre"/>
                         <connections>
@@ -223,6 +224,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rnd-v5-2zM" userLabel="评论">
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="(0)" image="评论"/>
                         <state key="highlighted" image="评论pre"/>
                         <connections>

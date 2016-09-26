@@ -29,5 +29,6 @@ typedef NS_ENUM(NSInteger, GymCommentState) {
 - (void) gymComment:(NSString *)comment;
 
 - (void) pushViewController:(UIViewController *) viewController;
+- (void) pressentViewController:(UIViewController *) viewController;
 
 @end

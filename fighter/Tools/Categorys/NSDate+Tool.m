@@ -11,10 +11,11 @@
 @implementation NSDate (Tool)
 
 
-+(NSString *) dateString:(NSString *) timestamp  {
++(NSString *) dateString:(NSInteger) timestamp  {
     
+    NSString *timeTemp = [NSString stringWithFormat:@"%ld",timestamp];
     NSDate *currentDate = [NSDate date];
-    NSDate *targetDate = [self dateWithTimestamp:timestamp];
+    NSDate *targetDate = [self dateWithTimestamp:timeTemp];
     
     
     NSInteger dateNum = [[self stringOfDate:currentDate formatter:@"YYYYMMdd"] integerValue];
@@ -23,16 +24,16 @@
     NSString *dateTimeString;
     if ((dateNum - dateNum2) > 2) {
         
-        dateTimeString = [self formatTimestamp:timestamp formatter:@"YYYY-MM-dd HH:mm:ss"];
+        dateTimeString = [self formatTimestamp:timeTemp formatter:@"YYYY-MM-dd HH:mm:ss"];
         
     }else if ((dateNum - dateNum2) == 1) {
         
-        NSString *tempString = [self formatTimestamp:timestamp formatter:@"HH:mm"];
+        NSString *tempString = [self formatTimestamp:timeTemp formatter:@"HH:mm"];
         dateTimeString = [NSString stringWithFormat:@"昨天 %@",tempString];
         
     }else {
         
-        dateTimeString = [self formatTimestamp:timestamp formatter:@"HH:mm"];
+        dateTimeString = [self formatTimestamp:timeTemp formatter:@"HH:mm"];
         
     }
     

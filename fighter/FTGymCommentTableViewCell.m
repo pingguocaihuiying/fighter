@@ -12,6 +12,7 @@
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "FTGymPhotoCollectionViewCell.h"
+#import "FTGymCommentReplyViewController.h"
 
 
 @interface FTGymCommentTableViewCell()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
@@ -160,7 +161,7 @@
         FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
         loginVC.title = @"登录";
         FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
-        [self.cellDelegate pushViewController:nav];
+        [self.cellDelegate pressentViewController:nav];
     }
     [NetWorking addVoteWithObjid:[NSString stringWithFormat:@"%d",self.commentbean.id] isAdd:thumbState? NO:YES andTableName:@"v-gym" andOption:^(BOOL result) {
         if (result) {
@@ -188,7 +189,11 @@
 #pragma mark - 评论
 - (IBAction)commentButtonAction:(id)sender {
     
-    
+    FTGymCommentReplyViewController *replyCommentVC = [[FTGymCommentReplyViewController alloc]init];
+    replyCommentVC.bean = self.commentbean;
+    replyCommentVC.objId = [NSString stringWithFormat:@"%d",self.commentbean.id];
+    replyCommentVC.thumbState = thumbState;
+    [self.cellDelegate pushViewController:replyCommentVC];
 }
 
 
