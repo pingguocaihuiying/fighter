@@ -230,6 +230,7 @@ NSString * const GetGymPhotosByUsers = @"/api/gym/commentAttach.do";//获取用�
 NSString * const GetGymTimeSlotsByIdURL = @"/api/place/listTime.do";
 NSString * const GetGymPlacesByIdURL = @"/api/place/listPlace.do";
 NSString * const GetGymPlacesUsingInfoByIdURL = @"/api/place/list.do";//GetGymInfoByIdURL
+NSString * const GetGymSourceInfoByIdURL = @"/api/place/listCource.do";
 NSString * const GetGymInfoByIdURL = @"/api/match/listms.do";
 NSString *const GetBoxerListURL = @"/api/boxer/list.do";
 NSString *const AddMatchURL = @"/api/match/save$Match.do";

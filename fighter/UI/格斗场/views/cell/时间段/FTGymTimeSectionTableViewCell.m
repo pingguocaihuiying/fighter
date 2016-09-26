@@ -13,6 +13,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    _bottomLineView.backgroundColor = Cell_Space_Color;
+    _rightLineView.backgroundColor = Cell_Space_Color;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -37,5 +39,13 @@
         _startTimeLabel.textColor = [UIColor colorWithHex:0x505050];
         _endTimeLabel.textColor = [UIColor colorWithHex:0x505050];
     }
+}
+
+- (void)setWhiteColor{
+        _startTimeLabel.textColor = [UIColor whiteColor];
+        _endTimeLabel.textColor = [UIColor whiteColor];
+    
+    _rightLineView.hidden = NO;//显示右侧分割线
+    
 }
 @end
