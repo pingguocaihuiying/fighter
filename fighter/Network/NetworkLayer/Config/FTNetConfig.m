@@ -78,8 +78,11 @@ NSString *const DeleteFollowURL = @"/api/follow/delete$Follow.do";
 NSString *const GetVideoURL = @"/api/videos/getVideos.do";
 //观看数
 NSString *const GetObjViewCountURL = @"/api/view/countView.do";
-//xx数
+//统计评论数
+NSString *const GetObjCommentCountURL = @"/api/ comment/ countComment.do";
+//统计点赞数
 NSString *const GetObjVoteCountURL = @"/api/comment/countVote.do";
+
 //增加视频观看数接口 域名/api/videos/upVideoViewN.do
 NSString *const AddViewCountURL = @"/api/view/addView.do";
 
@@ -212,7 +215,6 @@ NSString * const DeleteStarCheckKey =  @"gedoujia1ggghfdjskfgl1250";
 //发新帖 gedoujia1gdshjjgfkd52261225550
 NSString * const NewPostCheckKey =  @"gedoujia1gdshjjgfkd52261225550";
 
-
 #pragma mark - 学拳
 // coach
 NSString * const GetCoachListURL = @"/api/coach/list.do";
@@ -222,7 +224,7 @@ NSString * const GetCoachByIdURL = @"/api/coach/{id}.do";
 NSString * const GetGymListURL = @"/api/gym/getGym.do";
 NSString * const GetGymListForArenaURL = @"/api/match/getGyms.do";
 NSString * const GetGymByIdURL = @"/api/gym/getVideosById.do";
-NSString *const GetGymPhotosByUsers = @"/api/gym/commentAttach.do";//获取用户拍摄的拳馆照片
+NSString * const GetGymPhotosByUsers = @"/api/gym/commentAttach.do";//获取用户拍摄的拳馆照片
 
 #pragma mark - 新格斗场
 NSString * const GetGymTimeSlotsByIdURL = @"/api/place/listTime.do";

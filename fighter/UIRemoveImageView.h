@@ -25,4 +25,6 @@
 
 - (void) showButton;
 - (void) hideButton;
+- (void) setVedioImage;
+
 @end

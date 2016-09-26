@@ -381,6 +381,7 @@
     
         FTGymCommentsViewController *gymCommentsVC = [[FTGymCommentsViewController alloc]init];
         gymCommentsVC.title = @"评论列表";
+        gymCommentsVC.objId = self.gymBean.gymId;
         [self.navigationController pushViewController:gymCommentsVC animated:YES];
     
     } @catch (NSException *exception) {
@@ -511,6 +512,8 @@
 //    [self.navigationController pushViewController:commentVC animated:YES];
     
     FTGymCommentViewController *commentVC = [ FTGymCommentViewController new];
+    commentVC.objId = self.gymBean.gymId;
+    commentVC.title = self.gymBean.gymName;
 //    commentVC.delegate = self;
 //    commentVC.gymBean = self.gymBean;
     [self.navigationController pushViewController:commentVC animated:YES];

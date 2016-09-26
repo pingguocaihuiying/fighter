@@ -10,6 +10,14 @@
 
 @interface NSDate (TaskDate)
 
+
+
+/**
+ 日常任务每天的触发日期
+
+ @return 触发日期
+ */
 +(NSDate *) taskDate;
+
 
 @end

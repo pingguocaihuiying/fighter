@@ -208,6 +208,13 @@
 // Get Gym List
 + (void) getGymsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option;
 
+// Get Gym Comment List
++ (void) getGymComments:(NSString *)objectId option:(void (^)(NSDictionary *dict))option;
+
+// Add Gym Comment
++ (void) addGymCommentWithPramDic:(NSDictionary*)pramDic option:(void (^)(NSDictionary *dict))option;
+
+
 #pragma mark - 新格斗场
 //获取拳馆固定的时间段
 // Get Gym List for arena

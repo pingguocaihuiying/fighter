@@ -7,6 +7,7 @@
 //
 
 #import "FTGymLevelCell.h"
+#import "CellDelegate.h"
 
 @implementation FTGymLevelCell
 
@@ -53,18 +54,20 @@
 }
 
 
-- (void) setImageToIndex:(int) index {
+- (void) setImageToIndex:(int) level {
     
 //    NSLog(@"index=%i",index);
-    
-    for (int i = index; i >= 0 ; i--) {
+    [self.cellDelegate gymLevel:level index:self.index];
+    for (int i = level; i >= 0 ; i--) {
         UIImageView *imageView = [self.imagesViews objectAtIndex:i];
         [imageView setImage:[UIImage imageNamed:@"火苗-红"]];
     }
-    for (int i = index+1; i < 5 ; i++) {
+    for (int i = level+1; i < 5 ; i++) {
         UIImageView *imageView = [self.imagesViews objectAtIndex:i];
         [imageView setImage:[UIImage imageNamed:@"火苗-灰"]];
     }
+    
+    
 }
 
 
