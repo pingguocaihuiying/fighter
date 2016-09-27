@@ -492,10 +492,15 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)becomeVIPButtonClicked:(id)sender {
-    NSLog(@"成为会员");
-    FTPayForGymVIPViewController *payForGymVIPViewController = [[FTPayForGymVIPViewController alloc]init];
-    payForGymVIPViewController.gymDetailBean = _gymDetailBean;
-    [self.navigationController pushViewController:payForGymVIPViewController animated:YES];
+    
+    if ([FTTools hasLoginWithViewController:self]) {
+        NSLog(@"成为会员");
+        FTPayForGymVIPViewController *payForGymVIPViewController = [[FTPayForGymVIPViewController alloc]init];
+        payForGymVIPViewController.gymDetailBean = _gymDetailBean;
+        [self.navigationController pushViewController:payForGymVIPViewController animated:YES];
+    } 
+
+
 }
 
 #pragma mark - private method

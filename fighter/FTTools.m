@@ -433,4 +433,17 @@
     NSLog(@"---%d", day);
     return monthString;
 }
+
++(BOOL)hasLoginWithViewController:(UIViewController *) vc{
+    BOOL hasLogin = NO;
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    if (user) {
+        hasLogin = YES;
+    }else{
+        [FTTools loginwithVC:vc];
+    }
+    return hasLogin;
+}
+
 @end

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,6 +16,9 @@
                 <frame key="frameInset" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bvv-rP-Vte" userLabel="半透明黑色View">
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9月4日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8me-4i-jhw">
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -41,10 +45,14 @@
                 <constraints>
                     <constraint firstItem="QJw-NT-lQM" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="3gq-VS-DUE"/>
                     <constraint firstAttribute="bottom" secondItem="NDj-de-u0W" secondAttribute="bottom" id="4GR-1r-pwH"/>
+                    <constraint firstAttribute="trailing" secondItem="Bvv-rP-Vte" secondAttribute="trailing" id="4wP-sz-tkP"/>
                     <constraint firstItem="QJw-NT-lQM" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="AEf-zf-mej"/>
                     <constraint firstItem="KdK-Pp-Q4v" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="CxY-xa-Rcx"/>
+                    <constraint firstItem="Bvv-rP-Vte" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="GUE-8P-gd9"/>
                     <constraint firstItem="8me-4i-jhw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="16" id="Hq4-bs-MCT"/>
                     <constraint firstItem="KdK-Pp-Q4v" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Kal-fV-o8k"/>
+                    <constraint firstItem="Bvv-rP-Vte" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Uja-Ms-pIf"/>
+                    <constraint firstAttribute="bottom" secondItem="Bvv-rP-Vte" secondAttribute="bottom" id="ZPr-Wh-Ii8"/>
                     <constraint firstAttribute="trailing" secondItem="NDj-de-u0W" secondAttribute="trailing" id="q16-yS-Pm9"/>
                     <constraint firstItem="8me-4i-jhw" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="xjw-Dn-8Cq"/>
                     <constraint firstItem="NDj-de-u0W" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ylg-Uq-ohc"/>

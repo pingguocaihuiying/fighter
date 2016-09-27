@@ -123,6 +123,9 @@
 //登录方法
 + (void)loginwithVC:(UIViewController *) vc;
 
+//检查是否登录，没有登录就跳转到登录界面，并返回假
++(BOOL)hasLoginWithViewController:(UIViewController *) vc;
+
 #pragma -mark 更新评分view
 + (void)updateScoreView:(UIView *)scoreView withScore:(float)scoreFloat;
 
