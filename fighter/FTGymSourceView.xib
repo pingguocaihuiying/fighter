@@ -43,20 +43,6 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EsC-0O-e7k" userLabel="空的占位View">
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fn7-ny-37S" userLabel="今天View">
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1DX-vA-9Ve">
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstItem="1DX-vA-9Ve" firstAttribute="centerY" secondItem="fn7-ny-37S" secondAttribute="centerY" id="nYg-nR-tvK"/>
-                                        <constraint firstItem="1DX-vA-9Ve" firstAttribute="centerX" secondItem="fn7-ny-37S" secondAttribute="centerX" id="vX8-yD-hi6"/>
-                                    </constraints>
-                                </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ej4-BY-Jub" userLabel="dateView">
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -66,16 +52,12 @@
                                 <constraint firstAttribute="height" constant="45" id="3MF-cJ-gKe"/>
                                 <constraint firstAttribute="bottom" secondItem="Ej4-BY-Jub" secondAttribute="bottom" id="8kO-JG-mBj"/>
                                 <constraint firstItem="EsC-0O-e7k" firstAttribute="top" secondItem="kK9-vY-fN0" secondAttribute="top" id="Bbp-CT-SH9"/>
-                                <constraint firstAttribute="bottom" secondItem="fn7-ny-37S" secondAttribute="bottom" id="Lkm-5s-J5o"/>
                                 <constraint firstAttribute="bottom" secondItem="EsC-0O-e7k" secondAttribute="bottom" id="Oaf-k3-AI3"/>
-                                <constraint firstItem="fn7-ny-37S" firstAttribute="top" secondItem="kK9-vY-fN0" secondAttribute="top" id="QFV-vb-gDR"/>
-                                <constraint firstItem="Ej4-BY-Jub" firstAttribute="leading" secondItem="fn7-ny-37S" secondAttribute="trailing" id="ZXm-wU-QsP"/>
                                 <constraint firstItem="EsC-0O-e7k" firstAttribute="leading" secondItem="kK9-vY-fN0" secondAttribute="leading" id="aHK-pE-k9L"/>
-                                <constraint firstItem="fn7-ny-37S" firstAttribute="width" secondItem="EsC-0O-e7k" secondAttribute="width" id="ciN-uy-da5"/>
                                 <constraint firstAttribute="trailing" secondItem="Ej4-BY-Jub" secondAttribute="trailing" id="e5D-PQ-lcj"/>
                                 <constraint firstItem="Ej4-BY-Jub" firstAttribute="top" secondItem="kK9-vY-fN0" secondAttribute="top" id="gUe-3P-agx"/>
                                 <constraint firstItem="EsC-0O-e7k" firstAttribute="width" secondItem="kK9-vY-fN0" secondAttribute="width" multiplier="0.1428" id="oT0-rh-ak5"/>
-                                <constraint firstItem="fn7-ny-37S" firstAttribute="leading" secondItem="EsC-0O-e7k" secondAttribute="trailing" id="wf8-FE-p52"/>
+                                <constraint firstItem="Ej4-BY-Jub" firstAttribute="leading" secondItem="EsC-0O-e7k" secondAttribute="trailing" id="tzM-dR-hnC"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ehW-eU-cBa" userLabel="分割线3">
@@ -86,25 +68,25 @@
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VeU-ib-MUs" userLabel="表内容View">
                             <subviews>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nA1-NX-6mL" customClass="FTGymSourceTableView">
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nA1-NX-6mL" customClass="FTGymSourceTableView">
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </tableView>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4jN-B9-q9L" customClass="FTGymSourceTableView">
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4jN-B9-q9L" customClass="FTGymSourceTableView">
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </tableView>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ida-fS-Dfb" customClass="FTGymSourceTableView">
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ida-fS-Dfb" customClass="FTGymSourceTableView">
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </tableView>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Fq1-ru-Wff" customClass="FTGymSourceTableView">
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Fq1-ru-Wff" customClass="FTGymSourceTableView">
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </tableView>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WaW-0C-jeG" customClass="FTGymSourceTableView">
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WaW-0C-jeG" customClass="FTGymSourceTableView">
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </tableView>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4Gh-AF-wBB" customClass="FTGymSourceTableView">
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4Gh-AF-wBB" customClass="FTGymSourceTableView">
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </tableView>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9iS-Jg-A4g" customClass="FTGymSourceTableView">
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9iS-Jg-A4g" customClass="FTGymSourceTableView">
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </tableView>
                             </subviews>
@@ -190,6 +172,7 @@
                 <outlet property="t5" destination="4Gh-AF-wBB" id="jm0-Ok-l0g"/>
                 <outlet property="t6" destination="9iS-Jg-A4g" id="hRL-Ae-Zuk"/>
                 <outlet property="tableViewsHeight" destination="8LP-rD-0tI" id="uyj-2o-sjG"/>
+                <outlet property="titleLabel" destination="TLz-he-WHB" id="6sr-vB-J7x"/>
             </connections>
             <point key="canvasLocation" x="3.5" y="56"/>
         </view>

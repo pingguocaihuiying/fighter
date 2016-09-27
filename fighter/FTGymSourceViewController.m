@@ -11,6 +11,8 @@
 #import "FTGymSourceView.h"
 #import "FTJoinGymSuccessAlertView.h"
 #import "FTGymOrderCourseView.h"
+#import "FTOrderCoachViewController.h"
+#import "FTCoachSelfCourseViewController.h"
 
 @interface FTGymSourceViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, FTGymCourseTableViewDelegate>
 @property (strong, nonatomic) IBOutlet UILabel *balanceLabel;//动态label:余额的值
@@ -146,6 +148,12 @@
     _collectionViewHeight.constant = line * itemHeight + (line - 1) * lineSpacing;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"点击了第%ld个", indexPath.row);
+    FTOrderCoachViewController *orderCoachViewController = [FTOrderCoachViewController new];
+    [self.navigationController pushViewController:orderCoachViewController animated:YES];
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return 8;
 }
@@ -157,11 +165,8 @@
 }
 
 - (void)setGymSourceView{
-//    UIView *fooView = [UIView new];
-//    fooView.frame = _gymSourceViewContainerView.bounds;
-//    [_gymSourceViewContainerView addSubview:fooView];
-    
     _gymSourceView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymSourceView" owner:nil options:nil]firstObject];
+    _gymSourceView.courseType = FTOrderCourseTypeGym;
     _gymSourceView.frame = _gymSourceViewContainerView.bounds;
     _gymSourceView.delegate = self;
     [_gymSourceViewContainerView addSubview:_gymSourceView];
@@ -171,10 +176,14 @@
     NSLog(@"day : %ld, timeSection : %@", day, timeSection);
     if (courseCell.hasOrder) {
         NSLog(@"已经预约");
-        FTGymOrderCourseView *gymOrderCourseView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCourseView" owner:nil options:nil] firstObject];
-        gymOrderCourseView.frame = self.view.bounds;
-        [self.view addSubview:gymOrderCourseView];
+
     } else if (courseCell.canOrder) {
+        FTGymOrderCourseView *gymOrderCourseView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCourseView" owner:nil options:nil] firstObject];
+        gymOrderCourseView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//        gymOrderCourseView.belowView2.hidden = YES;
+//        gymOrderCourseView.belowView2Height.constant = 0;
+        gymOrderCourseView.status = FTGymCourseStatusCanOrder;
+        [[[UIApplication sharedApplication] keyWindow] addSubview:gymOrderCourseView];
         NSLog(@"可以预约");
     }else {
         NSLog(@"不可以预约");
@@ -190,6 +199,7 @@
         if (_timeSectionsArray && _timeSectionsArray.count > 0) {
             //获取时间段信息后，根据内容多少设置tableviews的高度，再刷新一次tableview
             _gymSourceView.timeSectionsArray = _timeSectionsArray;
+            _gymSourceView.tableViewsHeight.constant = 42 * _timeSectionsArray.count;
             [self gettimeSectionsUsingInfo];
         }
         
@@ -220,7 +230,7 @@
 }
 
 - (void)gotoGymDetail{
-    
+
 }
 
 - (void)didReceiveMemoryWarning {

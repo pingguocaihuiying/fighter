@@ -20,6 +20,7 @@
 #import "FTGymCommentViewController.h"
 #import "FTGymDetailBean.h"
 #import "FTGymCommentsViewController.h"
+#import "FTCoachSelfCourseViewController.h"
 
 @interface FTGymDetailWebViewController ()<UIWebViewDelegate, CommentSuccessDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 {
@@ -419,6 +420,10 @@
 
 // 分享按钮点击事件
 - (IBAction)shareButtonAction:(id)sender {
+    FTCoachSelfCourseViewController *coachSelfCourseViewController = [FTCoachSelfCourseViewController new];
+    [self.navigationController pushViewController:coachSelfCourseViewController animated:YES];
+    return;
+    
     [MobClick event:@"videoPage_DetailPage_shareUp"];
     
     NSString *str = [NSString stringWithFormat:@"gymId=%@",_gymBean.gymId];

@@ -23,7 +23,6 @@
 @property (strong, nonatomic) IBOutlet UIView *seperatorView7;
 
 @property (strong, nonatomic) IBOutlet UIView *dateView;//表头中周几、日期
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *tableViewsHeight;//tableViews的高度
 
 @property (weak, nonatomic) IBOutlet FTGymSourceTableView *t0;
 @property (weak, nonatomic) IBOutlet FTGymSourceTableView *t1;
@@ -58,12 +57,10 @@
     [self setDateLabels];
     
     //tableViews高度
-    _tableViewsHeight.constant = 600;
+    _tableViewsHeight.constant = 0;
     
     [self initTableViews];
 }
-
-
 
 - (void)setColor{
     _seperatorView1.backgroundColor = Cell_Space_Color;
@@ -77,8 +74,8 @@
 
 - (void)setDateLabels{
     
-    for (int i = 0; i < 6; i++) {
-        NSDate *  senddate=[NSDate dateWithTimeIntervalSinceNow: (24 * 60 * 60) * (i + 1)];
+    for (int i = 0; i < 7; i++) {
+        NSDate *  senddate=[NSDate dateWithTimeIntervalSinceNow: (24 * 60 * 60) * i];
         NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
         [dateformatter setDateFormat:@"yyy"];
         NSString *  yearString = [dateformatter stringFromDate:senddate];
@@ -105,6 +102,9 @@
             dateLabel.tag = 10000+i;
         }
         dateLabel.text = [NSString stringWithFormat:@"%d.%d", [monthString intValue], day];
+        if (i == 0) {
+            dateLabel.text = @"今天";
+        }
         dateLabel.font = [UIFont systemFontOfSize:11];
         dateLabel.textAlignment = NSTextAlignmentCenter;
         dateLabel.textColor = [UIColor whiteColor];
@@ -116,7 +116,8 @@
             dayLabel = [[UILabel alloc]initWithFrame:CGRectMake(i * lableWidth, 7 + 11 + 8, lableWidth, 12)];
             dayLabel.tag = 20000+i;
         }
-        dayLabel.text = [[weekString componentsSeparatedByString:@"周"] lastObject];;
+//        dayLabel.text = [[weekString componentsSeparatedByString:@"周"] lastObject];
+        dayLabel.text = weekString;
         dayLabel.font = [UIFont systemFontOfSize:12];
         dayLabel.textAlignment = NSTextAlignmentCenter;
         dayLabel.textColor = [UIColor whiteColor];
@@ -174,9 +175,17 @@
 }
 
 - (NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (_timeSectionsArray && _timeSectionsArray.count > 0) {
-        return _timeSectionsArray.count;
-    } else {
+    if (_courseType == FTOrderCourseTypeGym) {//公开课
+        if (_timeSectionsArray && _timeSectionsArray.count > 0) {
+            return _timeSectionsArray.count;
+        } else {
+            return 0;
+        }
+    } else if (_courseType == FTOrderCourseTypeCoach) {//预约教练
+        return 4;
+    }else if (_courseType == FTOrderCourseTypeCoachSelf) {//教练自己查看
+        return 4;
+    }else{
         return 0;
     }
 }
@@ -205,34 +214,46 @@
                 break;
             }
         }
-        if (dic) {
-            //        判断是不是过去的时间**********START*************
-            cell.hasCourseData = YES;
-            BOOL isPastTime = false;
-            
-            NSInteger today = (int)[FTTools getWeekdayOfToday];//今天是周几
-            NSInteger theDay = theTableView.index;//当前要显示的时间段是周几
-            
-            if (theDay != today) {//如果不是当天，那一定是未来的天
-                isPastTime = NO;
-            }else{//当天
-                NSTimeInterval theTimeInterval = [FTTools getTimeIntervalWithAnyTimeIntervalOfDay:[[NSDate date] timeIntervalSince1970] andTimeString:[[timeSection2 componentsSeparatedByString:@"~"] firstObject]];//cell表示的时间段的起始时间戳
-                NSTimeInterval nowTimeInterval = [[NSDate date] timeIntervalSince1970];//此刻的时间戳
-                if (theTimeInterval < nowTimeInterval) {//过去
-                    isPastTime = true;
-                } else {
-                    isPastTime = false;
-                }
-            }
-            //        判断是不是过去的时间**********END*************
-            
-            if (isPastTime) {
-                cell.isPast = YES;
+        
+        //        判断是不是过去的时间**********START*************
+        
+        BOOL isPastTime = false;
+        NSInteger today = (int)[FTTools getWeekdayOfToday];//今天是周几
+        NSInteger theDay = theTableView.index;//当前要显示的时间段是周几
+        
+        if (theDay != today) {//如果不是当天，那一定是未来的天
+            isPastTime = NO;
+        }else{//当天
+            NSTimeInterval theTimeInterval = [FTTools getTimeIntervalWithAnyTimeIntervalOfDay:[[NSDate date] timeIntervalSince1970] andTimeString:[[timeSection2 componentsSeparatedByString:@"~"] firstObject]];//cell表示的时间段的起始时间戳
+            NSTimeInterval nowTimeInterval = [[NSDate date] timeIntervalSince1970];//此刻的时间戳
+            if (theTimeInterval < nowTimeInterval) {//过去
+                isPastTime = true;
             } else {
-                cell.isPast = NO;
+                isPastTime = false;
             }
-            [cell setwithDic:dic];
         }
+        //        判断是不是过去的时间**********END*************
+        cell.isPast = isPastTime;
+        
+        if (_courseType == FTOrderCourseTypeGym) {//公开课
+            if (dic) {
+                cell.hasCourseData = YES;
+                [cell setwithDic:dic];
+            }
+        } else if (_courseType == FTOrderCourseTypeCoach) {//预约教练
+            if (!dic) {
+                cell.isEmpty = YES;
+            }
+            [cell setCoachCourseWithDic:dic];
+        }else if (_courseType == FTOrderCourseTypeCoachSelf) {//教练自己查看
+            if (!dic) {
+                cell.isEmpty = YES;
+            }
+            [cell setCoachCourseSelfWithDic:dic];
+        }else{
+            
+        }
+
 
         return cell;
     }

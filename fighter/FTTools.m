@@ -412,4 +412,25 @@
         }
     }
 }
++ (NSString *)getCurrentMonth{
+    NSDate *  senddate=[NSDate date];
+    NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
+    [dateformatter setDateFormat:@"yyy"];
+    NSString *  yearString = [dateformatter stringFromDate:senddate];
+    [dateformatter setDateFormat:@"MM"];
+    NSString *  monthString = [dateformatter stringFromDate:senddate];
+    [dateformatter setDateFormat:@"dd"];
+    NSString *  dayString = [dateformatter stringFromDate:senddate];
+    [dateformatter setDateFormat:@"EEE"];
+    
+    NSString *  weekString = [dateformatter stringFromDate:senddate];
+    NSLog(@"-%@",weekString);
+    int year = [yearString intValue];
+    NSLog(@"-%d", year);
+    int month = [monthString intValue];
+    NSLog(@"--%d", month);
+    int day = [dayString intValue];
+    NSLog(@"---%d", day);
+    return monthString;
+}
 @end
