@@ -8,9 +8,27 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, FTMediaType) {
+    FTMediaTypeImage,
+    FTMediaTypeVedio,
+};
+
+typedef NS_ENUM(NSInteger, GymCommentState) {
+    GymCommentStateComfort,
+    GymCommentStateStrength,
+    GymCommentStateTeachLevel,
+};
+
+
 @protocol CellDelegate <NSObject>
 
 @optional
 - (void) endEditCell;
 - (void) removeSubView:(id)object;
+- (void) gymLevel:(NSInteger)level index:(NSInteger)index;
+- (void) gymComment:(NSString *)comment;
+
+- (void) pushViewController:(UIViewController *) viewController;
+- (void) pressentViewController:(UIViewController *) viewController;
+
 @end

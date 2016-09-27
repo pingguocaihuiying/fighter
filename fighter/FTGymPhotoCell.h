@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FTPracticeViewController.h"
 #import "CellDelegate.h"
+
 @interface FTGymPhotoCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIView *photoContainer;
@@ -19,8 +20,10 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leadConstraint;
 
-- (void) addPhotoToContainer:(UIImage *) image;
+- (void) addPhotoToContainer:(UIImage *) image  type:(FTMediaType) mediaType;
+//- (void) addPhotoToContainer:(UIImage *) image;
 - (void) setPhotoContainerWithArray:(NSMutableArray *)photos;
 - (void) setAddPhotoBtnFrame;
 - (void) clearContainer;
+
 @end
