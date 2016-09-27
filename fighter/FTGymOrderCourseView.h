@@ -10,10 +10,4 @@
 
 @interface FTGymOrderCourseView : UIView
 
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) IBOutlet UIButton *segmentedButton;
-@property (weak, nonatomic) IBOutlet UIButton *confirmButton;
-@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
-
-
 @end
