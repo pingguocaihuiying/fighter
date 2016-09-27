@@ -304,6 +304,12 @@
 		E668BBB71CE4353300071998 /* FTRankingListFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BBB61CE4353300071998 /* FTRankingListFilterView.m */; };
 		E668BBBB1CE44E6400071998 /* FTCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BBBA1CE44E6400071998 /* FTCache.m */; };
 		E668BBBE1CE4523600071998 /* FTCacheBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BBBD1CE4523600071998 /* FTCacheBean.m */; };
+		E66BC0041D9A18F100B492D3 /* FTOrderCoachViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66BC0021D9A18F100B492D3 /* FTOrderCoachViewController.m */; };
+		E66BC0051D9A18F100B492D3 /* FTOrderCoachViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E66BC0031D9A18F100B492D3 /* FTOrderCoachViewController.xib */; };
+		E66BC00B1D9A67C700B492D3 /* FTCoachSelfCourseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E66BC0091D9A67C700B492D3 /* FTCoachSelfCourseViewController.m */; };
+		E66BC00C1D9A67C700B492D3 /* FTCoachSelfCourseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E66BC00A1D9A67C700B492D3 /* FTCoachSelfCourseViewController.xib */; };
+		E66BC0111D9A755000B492D3 /* FTCoachHistoryCourseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E66BC00F1D9A755000B492D3 /* FTCoachHistoryCourseTableViewCell.m */; };
+		E66BC0121D9A755000B492D3 /* FTCoachHistoryCourseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E66BC0101D9A755000B492D3 /* FTCoachHistoryCourseTableViewCell.xib */; };
 		E66D6EFA1CBCE81C008B015A /* RBRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6EF61CBCE81C008B015A /* RBRequestOperationManager.m */; };
 		E66D6EFB1CBCE81C008B015A /* FTNetConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E66D6EF91CBCE81C008B015A /* FTNetConfig.m */; };
 		E66EAEA21CF8217F006CD6CE /* FTArenaTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E66EAEA01CF8217F006CD6CE /* FTArenaTextTableViewCell.m */; };
@@ -915,6 +921,15 @@
 		E668BBBA1CE44E6400071998 /* FTCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCache.m; sourceTree = "<group>"; };
 		E668BBBC1CE4523600071998 /* FTCacheBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCacheBean.h; sourceTree = "<group>"; };
 		E668BBBD1CE4523600071998 /* FTCacheBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCacheBean.m; sourceTree = "<group>"; };
+		E66BC0011D9A18F100B492D3 /* FTOrderCoachViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTOrderCoachViewController.h; sourceTree = "<group>"; };
+		E66BC0021D9A18F100B492D3 /* FTOrderCoachViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTOrderCoachViewController.m; sourceTree = "<group>"; };
+		E66BC0031D9A18F100B492D3 /* FTOrderCoachViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTOrderCoachViewController.xib; sourceTree = "<group>"; };
+		E66BC0081D9A67C700B492D3 /* FTCoachSelfCourseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCoachSelfCourseViewController.h; sourceTree = "<group>"; };
+		E66BC0091D9A67C700B492D3 /* FTCoachSelfCourseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCoachSelfCourseViewController.m; sourceTree = "<group>"; };
+		E66BC00A1D9A67C700B492D3 /* FTCoachSelfCourseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTCoachSelfCourseViewController.xib; sourceTree = "<group>"; };
+		E66BC00E1D9A755000B492D3 /* FTCoachHistoryCourseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCoachHistoryCourseTableViewCell.h; sourceTree = "<group>"; };
+		E66BC00F1D9A755000B492D3 /* FTCoachHistoryCourseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCoachHistoryCourseTableViewCell.m; sourceTree = "<group>"; };
+		E66BC0101D9A755000B492D3 /* FTCoachHistoryCourseTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTCoachHistoryCourseTableViewCell.xib; sourceTree = "<group>"; };
 		E66D6EF51CBCE81C008B015A /* RBRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBRequestOperationManager.h; sourceTree = "<group>"; };
 		E66D6EF61CBCE81C008B015A /* RBRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBRequestOperationManager.m; sourceTree = "<group>"; };
 		E66D6EF81CBCE81C008B015A /* FTNetConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNetConfig.h; sourceTree = "<group>"; };
@@ -2337,6 +2352,16 @@
 		E6555ACC1D7FF5BF00748E66 /* viewController */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
+				3D8771221D91187E0001DB78 /* 拳馆评论列表 */,
+				3D4C6EDA1D8687A300881208 /* 拳馆评论 */,
+				E66BC0001D9A18A900B492D3 /* 预约私教 */,
+				E66BC0071D9A679A00B492D3 /* 教练查看自己的课表 */,
+				E6F46C321D82912F001387E2 /* 查看拳馆照片 */,
+				E6EFA9EA1D7EC257005A23CD /* 成为会员 */,
+				E6453F5F1D912E35000BAC31 /* 拳馆课程 */,
+=======
+>>>>>>> e07cfe1c87a1d97446e7965064dbae9680194b16
 				3DE1DEE71D3F05DB00511E92 /* detail */,
 				E6453F5F1D912E35000BAC31 /* 拳馆课程 */,
 				E6EFA9EA1D7EC257005A23CD /* 成为会员 */,
@@ -2576,6 +2601,44 @@
 			name = "缓存";
 			sourceTree = "<group>";
 		};
+		E66BC0001D9A18A900B492D3 /* 预约私教 */ = {
+			isa = PBXGroup;
+			children = (
+				E66BC0011D9A18F100B492D3 /* FTOrderCoachViewController.h */,
+				E66BC0021D9A18F100B492D3 /* FTOrderCoachViewController.m */,
+				E66BC0031D9A18F100B492D3 /* FTOrderCoachViewController.xib */,
+			);
+			name = "预约私教";
+			sourceTree = "<group>";
+		};
+		E66BC0061D9A532F00B492D3 /* 教练课程cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "教练课程cell";
+			sourceTree = "<group>";
+		};
+		E66BC0071D9A679A00B492D3 /* 教练查看自己的课表 */ = {
+			isa = PBXGroup;
+			children = (
+				E66BC00D1D9A752000B492D3 /* 历史课程记录cell */,
+				E66BC0081D9A67C700B492D3 /* FTCoachSelfCourseViewController.h */,
+				E66BC0091D9A67C700B492D3 /* FTCoachSelfCourseViewController.m */,
+				E66BC00A1D9A67C700B492D3 /* FTCoachSelfCourseViewController.xib */,
+			);
+			name = "教练查看自己的课表";
+			sourceTree = "<group>";
+		};
+		E66BC00D1D9A752000B492D3 /* 历史课程记录cell */ = {
+			isa = PBXGroup;
+			children = (
+				E66BC00E1D9A755000B492D3 /* FTCoachHistoryCourseTableViewCell.h */,
+				E66BC00F1D9A755000B492D3 /* FTCoachHistoryCourseTableViewCell.m */,
+				E66BC0101D9A755000B492D3 /* FTCoachHistoryCourseTableViewCell.xib */,
+			);
+			name = "历史课程记录cell";
+			sourceTree = "<group>";
+		};
 		E66D6EF21CBCE81C008B015A /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -2652,14 +2715,14 @@
 			name = "展示课程的tableView";
 			sourceTree = "<group>";
 		};
-		E66F49411D93F3C5005B39D1 /* 课程 */ = {
+		E66F49411D93F3C5005B39D1 /* 课程cell */ = {
 			isa = PBXGroup;
 			children = (
 				E66F49421D93F3DF005B39D1 /* FTGymSourceTableViewCell.h */,
 				E66F49431D93F3DF005B39D1 /* FTGymSourceTableViewCell.m */,
 				E66F49441D93F3DF005B39D1 /* FTGymSourceTableViewCell.xib */,
 			);
-			name = "课程";
+			name = "课程cell";
 			sourceTree = "<group>";
 		};
 		E67096841D2F99EF00DB9F53 /* 显示时间段的tableview */ = {
@@ -3184,7 +3247,8 @@
 		E6D3584E1D92A77400259682 /* cell */ = {
 			isa = PBXGroup;
 			children = (
-				E66F49411D93F3C5005B39D1 /* 课程 */,
+				E66BC0061D9A532F00B492D3 /* 教练课程cell */,
+				E66F49411D93F3C5005B39D1 /* 课程cell */,
 				E6D3584F1D92A77F00259682 /* 教练cell */,
 			);
 			name = cell;
@@ -3556,6 +3620,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E66BC0051D9A18F100B492D3 /* FTOrderCoachViewController.xib in Resources */,
 				E6A9DDA91CD8879A00CB9518 /* FTVideoViewController.xib in Resources */,
 				3DB240F71D3CC22D007F32C6 /* FTRechargeView.xib in Resources */,
 				E6E9E8951CDC718900976480 /* FTVideoCollectionViewCell.xib in Resources */,
@@ -3653,6 +3718,7 @@
 				3D7B98BF1CE0898400B80B8D /* FTOldPasswordVC.xib in Resources */,
 				3D2019401D583030009E80B1 /* FTStoreViewController.xib in Resources */,
 				3D7B98A51CE0190600B80B8D /* FTAbountUsViewController.xib in Resources */,
+				E66BC00C1D9A67C700B492D3 /* FTCoachSelfCourseViewController.xib in Resources */,
 				3D7C6B821CF2A26D0088400D /* BoxerMatchController.xib in Resources */,
 				E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */,
 				3D10DDE61D4733B900E2D776 /* SectionHeader.xib in Resources */,
@@ -3680,6 +3746,7 @@
 				3D7C6B871CF2A2990088400D /* BoxerInfoController.xib in Resources */,
 				3D6ABC831D66DAE700CD37C8 /* Assets.xcassets in Resources */,
 				E6B239091D067045001F86BE /* FTHomepageCommentTableViewCell.xib in Resources */,
+				E66BC0121D9A755000B492D3 /* FTCoachHistoryCourseTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4068,6 +4135,7 @@
 				E6F46C361D829161001387E2 /* FTGymPhotosViewController.m in Sources */,
 				3D0B44721D45D96F00EE08B3 /* FTNewsCell.m in Sources */,
 				E6A9DDA41CD8842E00CB9518 /* FTVideoViewController.m in Sources */,
+				E66BC00B1D9A67C700B492D3 /* FTCoachSelfCourseViewController.m in Sources */,
 				3DF86AE91D2E0900001A644B /* FTEncoderAndDecoder.m in Sources */,
 				3D10DDE41D47150B00E2D776 /* SectionHeader.m in Sources */,
 				E64EF10B1CB6614000CAE340 /* main.m in Sources */,
@@ -4075,6 +4143,8 @@
 				3D322AC91CEB171200039E2C /* FTRankHeaderCell.m in Sources */,
 				E65D08D41CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m in Sources */,
 				3DA6D1C41D20D8BD0049CD4A /* FTCycleScrollViewCell.m in Sources */,
+				E66BC0041D9A18F100B492D3 /* FTOrderCoachViewController.m in Sources */,
+				E66BC0111D9A755000B492D3 /* FTCoachHistoryCourseTableViewCell.m in Sources */,
 				E6B458D21CB75DA200FB4261 /* FTInformationViewController.m in Sources */,
 				3DE95BA71CD86FA4005BF85C /* FTLoginViewController.m in Sources */,
 				3DFC414F1D083A3F0067AC72 /* TAAnimatedDotView.m in Sources */,

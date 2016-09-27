@@ -30,6 +30,14 @@
  */
 + (NSString *)fixStringForDateWithoutTime:(NSString *)timestampString;//“年月日“
 
+
+/**
+ 获取当前月份
+
+ @return 月份，eg：1、2、3
+ */
++ (NSString *)getCurrentMonth;//获取当前月份
+
 /**
  *  根据时间戳返回日期
  *

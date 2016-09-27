@@ -11,6 +11,10 @@
 
 @interface FTGymOrderCourseView()
 @property (strong, nonatomic) IBOutlet UIView *seperatorView1;
+@property (strong, nonatomic) IBOutlet UILabel *messageLabel1;
+@property (strong, nonatomic) IBOutlet UIButton *button1;
+@property (strong, nonatomic) IBOutlet UIButton *button2;
+
 
 @end
 

@@ -37,6 +37,11 @@
                         <color key="textColor" red="0.14117647058823529" green="0.70196078431372544" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="可预约" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1CA-1P-cMe">
+                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9WZ-uE-WuB" userLabel="底部自定义分割线">
                         <color key="backgroundColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -49,9 +54,11 @@
                     <constraint firstAttribute="bottom" secondItem="9WZ-uE-WuB" secondAttribute="bottom" id="Eem-qi-jul"/>
                     <constraint firstAttribute="bottom" secondItem="zcb-cQ-jNl" secondAttribute="bottom" constant="11" id="HI8-6i-yPT"/>
                     <constraint firstItem="bGV-pQ-5em" firstAttribute="centerY" secondItem="MsA-Fm-5jq" secondAttribute="centerY" id="Nvg-1M-Kmo"/>
+                    <constraint firstItem="1CA-1P-cMe" firstAttribute="centerY" secondItem="MsA-Fm-5jq" secondAttribute="centerY" id="Yee-2f-n30"/>
                     <constraint firstItem="Ub5-ek-bTn" firstAttribute="top" secondItem="MsA-Fm-5jq" secondAttribute="top" constant="11" id="atA-sd-xM1"/>
                     <constraint firstItem="bGV-pQ-5em" firstAttribute="centerX" secondItem="MsA-Fm-5jq" secondAttribute="centerX" id="mrd-ki-ppx"/>
                     <constraint firstItem="9WZ-uE-WuB" firstAttribute="leading" secondItem="MsA-Fm-5jq" secondAttribute="leading" id="qL5-3p-XXg"/>
+                    <constraint firstItem="1CA-1P-cMe" firstAttribute="centerX" secondItem="MsA-Fm-5jq" secondAttribute="centerX" id="sCk-kA-z4G"/>
                     <constraint firstItem="zcb-cQ-jNl" firstAttribute="centerX" secondItem="MsA-Fm-5jq" secondAttribute="centerX" id="t4U-zy-N9g"/>
                     <constraint firstItem="Ub5-ek-bTn" firstAttribute="centerX" secondItem="MsA-Fm-5jq" secondAttribute="centerX" id="zXi-yp-T18"/>
                 </constraints>
@@ -60,6 +67,7 @@
             <connections>
                 <outlet property="courseNameLabel" destination="Ub5-ek-bTn" id="tbf-O4-nMt"/>
                 <outlet property="courseStatusLabel" destination="zcb-cQ-jNl" id="QDZ-1D-yaa"/>
+                <outlet property="orderStatusLabel" destination="1CA-1P-cMe" id="o9K-QV-5kJ"/>
                 <outlet property="selectionImage" destination="bGV-pQ-5em" id="BQI-EP-o3R"/>
             </connections>
             <point key="canvasLocation" x="188" y="174"/>
