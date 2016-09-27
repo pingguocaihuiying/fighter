@@ -39,7 +39,6 @@
 @property (nonatomic, strong) NSArray *timeSectionsArray;//拳馆的固定时间段
 @property (nonatomic, strong) NSMutableDictionary *placesUsingInfoDic;//场地、时间段的占用情况
 
-
 @end
 
 @implementation FTGymSourceViewController
