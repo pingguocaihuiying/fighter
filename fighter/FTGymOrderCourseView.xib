@@ -11,7 +11,118 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="FTGymOrderCourseView">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="弹出框背景" translatesAutoresizingMaskIntoConstraints="NO" id="eaL-1p-in0">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="280" id="3aa-Sn-sl5"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="切换状态" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UfC-XW-Vdp">
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9月4日  15:00 - 16:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zez-Ic-IS4">
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XIp-2n-sqK">
+                    <inset key="imageEdgeInsets" minX="-30" minY="0.0" maxX="30" maxY="0.0"/>
+                    <state key="normal" title="可预约" image="切换状态-滑块" backgroundImage="切换状态-红bg">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="segmentedButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="2rm-Mc-2A8"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Bd-gr-Jqq">
+                    <attributedString key="attributedText">
+                        <fragment content="*">
+                            <attributes>
+                                <color key="NSColor" red="0.96283501386642456" green="0.26681223511695862" blue="0.016123488545417786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content="24">
+                            <attributes>
+                                <color key="NSBackgroundColor" red="0.95818761873633251" green="0.95800907422761172" blue="1" alpha="0.0016126720183486239" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="NSColor" red="0.51007646322250366" green="0.50987964868545532" blue="0.53046542406082153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content="小时内仅可以改变一次">
+                            <attributes>
+                                <color key="NSBackgroundColor" red="0.95818761873633251" green="0.95800907422761172" blue="1" alpha="0.0016126720183486239" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="NSColor" red="0.51007646322250366" green="0.50987964868545532" blue="0.53046542406082153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <font key="NSFont" size="14" name=".PingFangSC-Regular"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j0r-HF-nRn" userLabel="space">
+                    <color key="backgroundColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="gGu-CQ-rwJ"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhP-fb-bKA">
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="确  定">
+                        <color key="titleColor" red="0.74636942148208618" green="0.11614120751619339" blue="0.11804688721895218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qq7-Co-VET">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="32" id="he6-IQ-eS7"/>
+                        <constraint firstAttribute="height" constant="32" id="t9i-Yg-raO"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                    <state key="normal" backgroundImage="取消X"/>
+                    <state key="highlighted" backgroundImage="取消Xpre"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.48605944113756616" green="0.48605944113756616" blue="0.48605944113756616" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="eaL-1p-in0" firstAttribute="left" secondItem="XIp-2n-sqK" secondAttribute="left" constant="-24" id="03H-91-hNw"/>
+                <constraint firstItem="j0r-HF-nRn" firstAttribute="trailing" secondItem="eaL-1p-in0" secondAttribute="trailing" id="4Ud-x0-48q"/>
+                <constraint firstItem="NhP-fb-bKA" firstAttribute="leading" secondItem="j0r-HF-nRn" secondAttribute="leading" constant="24" id="51p-On-9hl"/>
+                <constraint firstItem="eaL-1p-in0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="55W-zy-m4u"/>
+                <constraint firstItem="Qq7-Co-VET" firstAttribute="centerX" secondItem="eaL-1p-in0" secondAttribute="centerX" id="Ae7-1H-5vU"/>
+                <constraint firstItem="Qq7-Co-VET" firstAttribute="top" secondItem="eaL-1p-in0" secondAttribute="bottom" constant="30" id="FDw-Sm-jI7"/>
+                <constraint firstItem="j0r-HF-nRn" firstAttribute="leading" secondItem="eaL-1p-in0" secondAttribute="leading" id="GkS-dM-iGQ"/>
+                <constraint firstItem="eaL-1p-in0" firstAttribute="trailing" secondItem="XIp-2n-sqK" secondAttribute="trailing" constant="24" id="IbX-CE-OSH"/>
+                <constraint firstItem="XIp-2n-sqK" firstAttribute="top" secondItem="Zez-Ic-IS4" secondAttribute="bottom" constant="20" id="Lys-L0-eM9"/>
+                <constraint firstItem="j0r-HF-nRn" firstAttribute="top" secondItem="7Bd-gr-Jqq" secondAttribute="bottom" constant="20" id="PZk-hT-8Jx"/>
+                <constraint firstItem="7Bd-gr-Jqq" firstAttribute="top" secondItem="XIp-2n-sqK" secondAttribute="bottom" constant="15" id="SKh-Ge-u6w"/>
+                <constraint firstItem="Zez-Ic-IS4" firstAttribute="top" secondItem="UfC-XW-Vdp" secondAttribute="bottom" constant="15" id="Scu-6C-dpN"/>
+                <constraint firstItem="NhP-fb-bKA" firstAttribute="bottom" secondItem="eaL-1p-in0" secondAttribute="bottom" constant="-15" id="UT2-ca-LcU"/>
+                <constraint firstItem="NhP-fb-bKA" firstAttribute="top" secondItem="j0r-HF-nRn" secondAttribute="bottom" constant="15" id="cpK-Cm-ecV"/>
+                <constraint firstItem="7Bd-gr-Jqq" firstAttribute="centerX" secondItem="XIp-2n-sqK" secondAttribute="centerX" id="fe9-A2-SCH"/>
+                <constraint firstItem="UfC-XW-Vdp" firstAttribute="top" secondItem="eaL-1p-in0" secondAttribute="top" constant="20" id="glz-zR-yfm"/>
+                <constraint firstItem="UfC-XW-Vdp" firstAttribute="centerX" secondItem="Zez-Ic-IS4" secondAttribute="centerX" id="lsV-lz-FYz"/>
+                <constraint firstItem="j0r-HF-nRn" firstAttribute="trailing" secondItem="NhP-fb-bKA" secondAttribute="trailing" constant="24" id="rZK-rQ-w8I"/>
+                <constraint firstItem="UfC-XW-Vdp" firstAttribute="centerX" secondItem="eaL-1p-in0" secondAttribute="centerX" id="yGR-g5-8Ts"/>
+                <constraint firstItem="eaL-1p-in0" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="z6D-K3-OLR"/>
+            </constraints>
+            <connections>
+                <outlet property="cancelButton" destination="Qq7-Co-VET" id="GKL-hE-2U8"/>
+                <outlet property="confirmButton" destination="NhP-fb-bKA" id="VEc-3j-FXw"/>
+                <outlet property="dateLabel" destination="Zez-Ic-IS4" id="A0y-a6-NMl"/>
+                <outlet property="segmentedButton" destination="XIp-2n-sqK" id="pxx-du-FYB"/>
+            </connections>
+            <point key="canvasLocation" x="20.5" y="30.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="切换状态-滑块" width="120" height="30"/>
+        <image name="切换状态-红bg" width="232" height="30"/>
+        <image name="取消X" width="32" height="32"/>
+        <image name="取消Xpre" width="32" height="32"/>
+        <image name="弹出框背景" width="21" height="21"/>
+    </resources>
 </document>
