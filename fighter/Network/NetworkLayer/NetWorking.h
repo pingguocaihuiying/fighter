@@ -215,16 +215,20 @@
 
 // Add Gym Comment
 + (void) addGymCommentWithPramDic:(NSDictionary*)pramDic option:(void (^)(NSDictionary *dict))option;
-//验证验证码是否正确（请求加入会员部分）
-+ (void)validCheckCodeWithPhoneNum:(NSString *) phoneNum andCheckCode:(NSString *)checkCode andOption:(void (^)(NSDictionary *dic))option;
-//请求加入会员
-+ (void)requestToBeVIPWithCorporationid:(NSString *)corporationid andPhoneNum:(NSString *) phoneNum andCheckCode:(NSString *)checkCode andOption:(void (^)(NSDictionary *dic))option;
 
 // Get Comment for gym Comment List 获取拳馆二级评论
 + (void) getGymReplyComments:(NSString *)objectId option:(void (^)(NSDictionary *dict))option;
 
 // 添加拳馆二级评论
 + (void) addCommentForGymComment:(NSDictionary*)pramDic option:(void (^)(NSDictionary *dict))option;
+
+//验证验证码是否正确（请求加入会员部分）
++ (void)validCheckCodeWithPhoneNum:(NSString *) phoneNum andCheckCode:(NSString *)checkCode andOption:(void (^)(NSDictionary *dic))option;
+
+//请求加入会员
++ (void)requestToBeVIPWithCorporationid:(NSString *)corporationid andPhoneNum:(NSString *) phoneNum andCheckCode:(NSString *)checkCode andOption:(void (^)(NSDictionary *dic))option;
+
+
 #pragma mark - 新格斗场
 //获取拳馆固定的时间段
 // Get Gym List for arena
