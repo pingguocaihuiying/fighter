@@ -173,6 +173,15 @@ static FTPaySingleton * singleton = nil;
             NSLog(@"message:%@",dict[@"message"]);
             NSString *order = dict[@"data"][@"orderNo"];
             
+            if (dict == nil) {
+                UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:nil
+                                                                    message:@"从服务器获取订单数据失败，请稍后再试"
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"知道了"
+                                                          otherButtonTitles:nil];
+                [alerView show];
+                return ;
+            }
             if (order.length > 0) {
                 
                 _orderNO = order;
@@ -183,7 +192,7 @@ static FTPaySingleton * singleton = nil;
             }else {
                 
                 UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:nil
-                                                                    message:@"下单失败，请稍后再试~"
+                                                                    message:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
                                                                    delegate:nil
                                                           cancelButtonTitle:@"知道了"
                                                           otherButtonTitles:nil];

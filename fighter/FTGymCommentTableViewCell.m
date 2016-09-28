@@ -114,17 +114,22 @@
     [self setImageToIndex:bean.teachLevel levelTag:GymCommentStateTeachLevel];
     
     // 评论数
-    if (bean.commentcount > 0) {
-        [self.commentButton setTitle:[NSString stringWithFormat:@"(%d)",bean.commentcount] forState:UIControlStateNormal];
+    if (bean.commentCount > 0) {
+        [self.commentButton setTitle:[NSString stringWithFormat:@"(%d)",bean.commentCount] forState:UIControlStateNormal];
+    }else {
+        [self.commentButton setTitle:[NSString stringWithFormat:@"(0)"] forState:UIControlStateNormal];
     }
     
     // 点赞数
-    if (bean.thumbCount > 0) {
-        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",bean.thumbCount] forState:UIControlStateNormal];
+    if (bean.voteCount > 0) {
+        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",bean.voteCount] forState:UIControlStateNormal];
+    }else {
+        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(0)"] forState:UIControlStateNormal];
     }
     
     
     if (bean.urls.length > 0) {
+        
         if (dataSource == nil) {
             dataSource = [[NSArray alloc]init];
         }
@@ -134,14 +139,15 @@
         self.CollectionHeightConstraint.constant = 40;
     }else {
     
-         self.CollectionHeightConstraint.constant = 0;
+        dataSource = nil;
+        self.CollectionHeightConstraint.constant = 0;
     }
 }
 
 #pragma mark - 点赞
 - (void) getThumbState {
 
-    [NetWorking getVoteStatusWithObjid:[NSString stringWithFormat:@"%d",self.commentbean.id] andTableName:@"v-gym" andOption:^(BOOL result) {
+    [NetWorking getVoteStatusWithObjid:[NSString stringWithFormat:@"%d",self.commentbean.id] andTableName:@"v-cgym" andOption:^(BOOL result) {
         
         if (result) {
             thumbState = YES;
@@ -163,12 +169,11 @@
         FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
         [self.cellDelegate pressentViewController:nav];
     }
-    [NetWorking addVoteWithObjid:[NSString stringWithFormat:@"%d",self.commentbean.id] isAdd:thumbState? NO:YES andTableName:@"v-gym" andOption:^(BOOL result) {
+    [NetWorking addVoteWithObjid:[NSString stringWithFormat:@"%d",self.commentbean.id] isAdd:thumbState? NO:YES andTableName:@"v-cgym" andOption:^(BOOL result) {
         if (result) {
             
             thumbState = thumbState?NO:YES;
             [self setThumbState:thumbState];
-        
         }
     }];
     
@@ -178,16 +183,16 @@
 
     if (state) {
         
-        self.commentbean.thumbCount ++;
+        self.commentbean.voteCount ++;
         
-        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.thumbCount] forState:UIControlStateNormal];
+        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.voteCount] forState:UIControlStateNormal];
         
         [self.thumbsButton setImage:[UIImage imageNamed:@"点赞pre"] forState:UIControlStateNormal];
     }else {
         
-        self.commentbean.thumbCount --;
+        self.commentbean.voteCount --;
         
-        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.thumbCount] forState:UIControlStateNormal];
+        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.voteCount] forState:UIControlStateNormal];
         
         [self.thumbsButton setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateNormal];
     }
@@ -206,9 +211,8 @@
 - (void) setCommentState:(BOOL) state {
     
     if (state) {
-        
-        self.commentbean.commentcount ++;
-        [self.commentButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.thumbCount] forState:UIControlStateNormal];
+        self.commentbean.commentCount ++;
+        [self.commentButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.commentCount] forState:UIControlStateNormal];
     }
 }
 

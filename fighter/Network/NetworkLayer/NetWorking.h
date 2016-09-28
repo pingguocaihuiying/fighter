@@ -214,6 +214,9 @@
 // Add Gym Comment
 + (void) addGymCommentWithPramDic:(NSDictionary*)pramDic option:(void (^)(NSDictionary *dict))option;
 
+// Get Comment for gym Comment List 获取拳馆二级评论
++ (void) getGymReplyComments:(NSString *)objectId option:(void (^)(NSDictionary *dict))option;
+
 // 添加拳馆二级评论
 + (void) addCommentForGymComment:(NSDictionary*)pramDic option:(void (^)(NSDictionary *dict))option;
 #pragma mark - 新格斗场

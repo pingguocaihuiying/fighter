@@ -17,6 +17,12 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="我的拳馆bg" translatesAutoresizingMaskIntoConstraints="NO" id="Xww-fV-Nvm"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="我的拳馆" translatesAutoresizingMaskIntoConstraints="NO" id="cTn-kh-eaQ">
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="40s-lG-1vO"/>
+                            <constraint firstAttribute="height" constant="50" id="eTN-yv-aJL"/>
+                        </constraints>
+                    </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vBi-zv-h1y" userLabel="topView">
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="团课剩余课数：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I9w-Bv-GKE">
@@ -275,10 +281,12 @@
                     <constraint firstItem="Xww-fV-Nvm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Ot7-XD-a6d"/>
                     <constraint firstItem="vBi-zv-h1y" firstAttribute="leading" secondItem="Xww-fV-Nvm" secondAttribute="leading" constant="4" id="PDj-fx-fuz"/>
                     <constraint firstItem="Xww-fV-Nvm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Psa-CP-VAt"/>
+                    <constraint firstItem="cTn-kh-eaQ" firstAttribute="top" secondItem="Xww-fV-Nvm" secondAttribute="top" id="Q2j-XY-iGO"/>
                     <constraint firstItem="Xww-fV-Nvm" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailing" id="SYT-HV-Kxb"/>
                     <constraint firstItem="cbh-4e-7Qw" firstAttribute="leading" secondItem="6VJ-1m-OyH" secondAttribute="leading" id="UHW-yZ-0MR"/>
                     <constraint firstItem="UHj-Jc-vqg" firstAttribute="leading" secondItem="vBi-zv-h1y" secondAttribute="leading" id="cM4-Ib-ymT"/>
                     <constraint firstItem="CMi-7w-gvO" firstAttribute="trailing" secondItem="6VJ-1m-OyH" secondAttribute="trailing" id="eRF-ee-sqP"/>
+                    <constraint firstItem="cTn-kh-eaQ" firstAttribute="trailing" secondItem="Xww-fV-Nvm" secondAttribute="trailing" constant="-8" id="fPH-x1-oTa"/>
                     <constraint firstItem="Xww-fV-Nvm" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottom" id="hfr-ha-FKl"/>
                     <constraint firstItem="vBi-zv-h1y" firstAttribute="top" secondItem="Xww-fV-Nvm" secondAttribute="top" constant="4" id="jQH-nX-kOT"/>
                     <constraint firstItem="cbh-4e-7Qw" firstAttribute="trailing" secondItem="UHj-Jc-vqg" secondAttribute="trailing" id="mSb-59-lVx"/>
@@ -316,6 +324,7 @@
     <resources>
         <image name="主要按钮背景ios" width="30" height="30"/>
         <image name="主要按钮背景ios-pre" width="30" height="30"/>
+        <image name="我的拳馆" width="73" height="73"/>
         <image name="我的拳馆bg" width="33" height="23"/>
         <image name="拳馆占位图" width="24" height="24"/>
     </resources>
