@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -11,6 +11,7 @@
                 <outlet property="RMBSignLabel" destination="Ivi-dl-ypa" id="DuT-8n-Skb"/>
                 <outlet property="checkCodeTextField" destination="XhS-VD-5Ce" id="jUD-un-uLv"/>
                 <outlet property="moneyValueLabel" destination="nVL-sR-fee" id="CXy-HZ-3m2"/>
+                <outlet property="phoneNumTextField" destination="tIJ-fs-vbk" id="Qbv-d2-QH2"/>
                 <outlet property="phoneNumberLabel" destination="8j6-de-ZM6" id="pYy-2Q-pOh"/>
                 <outlet property="sendCheckCodeButton" destination="yB1-b2-mJi" id="s97-lJ-qko"/>
                 <outlet property="seperatorView1" destination="bqO-6i-f6l" id="b96-iw-wm4"/>
@@ -70,11 +71,17 @@
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18565585698" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8j6-de-ZM6" userLabel="手机号">
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18565585698" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8j6-de-ZM6" userLabel="手机号">
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tIJ-fs-vbk">
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                </textField>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bqO-6i-f6l" userLabel="seperatorView1">
                     <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -145,6 +152,7 @@
                 <constraint firstItem="UFI-5d-SDn" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="1qb-hn-2LA"/>
                 <constraint firstItem="0Dk-yr-m27" firstAttribute="bottom" secondItem="PaX-QF-4k7" secondAttribute="bottom" constant="15" id="9CL-VP-a5I"/>
                 <constraint firstItem="Kqt-JH-2Z0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9bD-Ad-h6v"/>
+                <constraint firstItem="tIJ-fs-vbk" firstAttribute="centerX" secondItem="8j6-de-ZM6" secondAttribute="centerX" id="ANI-6M-aYM"/>
                 <constraint firstItem="Kqt-JH-2Z0" firstAttribute="top" secondItem="0Dk-yr-m27" secondAttribute="bottom" constant="15" id="Ag0-jS-Bvd"/>
                 <constraint firstItem="wCb-bI-fX8" firstAttribute="leading" secondItem="nVL-sR-fee" secondAttribute="trailing" id="Aoi-al-en4"/>
                 <constraint firstItem="hp0-iP-RZm" firstAttribute="top" secondItem="Kqt-JH-2Z0" secondAttribute="bottom" constant="20" id="Chb-1G-dTt"/>
@@ -152,6 +160,7 @@
                 <constraint firstItem="bqO-6i-f6l" firstAttribute="top" secondItem="8j6-de-ZM6" secondAttribute="bottom" constant="8" id="IjY-uy-sGs"/>
                 <constraint firstItem="XhS-VD-5Ce" firstAttribute="centerY" secondItem="PaX-QF-4k7" secondAttribute="centerY" id="K66-tg-zWC"/>
                 <constraint firstItem="nVL-sR-fee" firstAttribute="top" secondItem="WWa-DU-lsx" secondAttribute="top" constant="70" id="L8x-ru-EGs"/>
+                <constraint firstItem="tIJ-fs-vbk" firstAttribute="width" secondItem="8j6-de-ZM6" secondAttribute="width" id="NpR-EN-Lka"/>
                 <constraint firstItem="Ivi-dl-ypa" firstAttribute="centerY" secondItem="nVL-sR-fee" secondAttribute="centerY" id="OjA-e5-F8Z"/>
                 <constraint firstItem="WWa-DU-lsx" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="PJV-hm-b7C"/>
                 <constraint firstAttribute="trailing" secondItem="bqO-6i-f6l" secondAttribute="trailing" id="Sdk-ec-wz5"/>
@@ -170,9 +179,11 @@
                 <constraint firstAttribute="trailing" secondItem="0Dk-yr-m27" secondAttribute="trailing" constant="8" id="hyr-mo-dU4"/>
                 <constraint firstItem="nVL-sR-fee" firstAttribute="centerX" secondItem="WWa-DU-lsx" secondAttribute="centerX" id="iBH-28-TJf"/>
                 <constraint firstAttribute="trailing" secondItem="hp0-iP-RZm" secondAttribute="trailing" constant="16" id="ioZ-Rn-xvb"/>
+                <constraint firstItem="tIJ-fs-vbk" firstAttribute="centerY" secondItem="8j6-de-ZM6" secondAttribute="centerY" id="k2h-pw-ZzV"/>
                 <constraint firstItem="bqO-6i-f6l" firstAttribute="leading" secondItem="Fp1-6e-MbN" secondAttribute="leading" id="mlS-RO-fgV"/>
                 <constraint firstItem="yB1-b2-mJi" firstAttribute="centerY" secondItem="XhS-VD-5Ce" secondAttribute="centerY" id="mnZ-Ah-ay3"/>
                 <constraint firstItem="PaX-QF-4k7" firstAttribute="top" secondItem="bqO-6i-f6l" secondAttribute="bottom" constant="15" id="qKN-TC-mBi"/>
+                <constraint firstItem="tIJ-fs-vbk" firstAttribute="height" secondItem="8j6-de-ZM6" secondAttribute="height" id="rAA-rn-oWi"/>
                 <constraint firstItem="Fp1-6e-MbN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="tYf-Nz-5dE"/>
                 <constraint firstItem="WWa-DU-lsx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="uXs-J5-j3v"/>
                 <constraint firstItem="PaX-QF-4k7" firstAttribute="leading" secondItem="Fp1-6e-MbN" secondAttribute="leading" id="vvh-3T-SnL"/>
