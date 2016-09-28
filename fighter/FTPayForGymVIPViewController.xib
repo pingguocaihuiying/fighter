@@ -9,10 +9,13 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTPayForGymVIPViewController">
             <connections>
                 <outlet property="RMBSignLabel" destination="Ivi-dl-ypa" id="DuT-8n-Skb"/>
+                <outlet property="becomeVIPButton" destination="hp0-iP-RZm" id="k38-75-ncD"/>
                 <outlet property="checkCodeTextField" destination="XhS-VD-5Ce" id="jUD-un-uLv"/>
+                <outlet property="checkCodeTextFieldLeading" destination="cIz-YF-8gx" id="aNc-SJ-s6m"/>
                 <outlet property="moneyValueLabel" destination="nVL-sR-fee" id="CXy-HZ-3m2"/>
                 <outlet property="phoneNumTextField" destination="tIJ-fs-vbk" id="Qbv-d2-QH2"/>
                 <outlet property="phoneNumberLabel" destination="8j6-de-ZM6" id="pYy-2Q-pOh"/>
+                <outlet property="phoneNumberLabelLeading" destination="hMU-Zm-Sf5" id="ZO8-6X-ZnV"/>
                 <outlet property="sendCheckCodeButton" destination="yB1-b2-mJi" id="s97-lJ-qko"/>
                 <outlet property="seperatorView1" destination="bqO-6i-f6l" id="b96-iw-wm4"/>
                 <outlet property="seperatorView2" destination="0Dk-yr-m27" id="gjT-Mu-3p1"/>

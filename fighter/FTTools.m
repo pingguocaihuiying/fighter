@@ -365,9 +365,10 @@
         }
         result = [NSString stringWithFormat:@"%@%@", result, value];
     }
-    
+    NSLog(@"md5前的result：%@", result);
     result  = [NSString stringWithFormat:@"%@%@", result, checkKey];
     result = [MD5 md5:result];
+    NSLog(@"md5后的result：%@", result);
     return result;
 }
 

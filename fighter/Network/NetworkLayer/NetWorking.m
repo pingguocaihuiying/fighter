@@ -46,10 +46,32 @@
     
     [dic setObject:localUser.olduserid forKey:@"userId"];
     [dic setObject:phoneNum forKey:@"phone"];
-    [dic setObject:@"bindphone" forKey:@"type"];
+    [dic setObject:@"gymmenbership" forKey:@"type"];
     
     [self postRequestWithUrl:urlString parameters:dic option:option];
     
+}
+
+//绑定手机时获取验证码(可以修改type类型的)
+- (void) getCheckCodeForNewBindingPhone:(NSString *)phoneNum withType:(NSString *)type
+                                 option:(void (^)(NSDictionary *dict))option{
+    
+    NSString *urlString = [FTNetConfig host:Domain path:SendSMSByTypeURL];
+    
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    
+    [dic setObject:localUser.olduserid forKey:@"userId"];
+    [dic setObject:phoneNum forKey:@"phone"];
+    [dic setObject:@"bindphone" forKey:@"type"];
+    if (type) {
+        [dic setObject:type forKey:@"type"];
+    }
+    
+    [self postRequestWithUrl:urlString parameters:dic option:option];
 }
 
 
@@ -1086,8 +1108,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     
 }
 
-
-
 #pragma mark - 赛事
 + (void)getGymTimeSlotsById:(NSString *) corporationID andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymTimeSlotsByIdURL];
@@ -1383,6 +1403,76 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         option(nil);
     }];
 }
+//验证验证码是否正确（请求加入会员部分）
++ (void)validCheckCodeWithPhoneNum:(NSString *) phoneNum andCheckCode:(NSString *)checkCode andOption:(void (^)(NSDictionary *dic))option{
+    NSString *urlString = [FTNetConfig host:Domain path:ValidCheckCode];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    //获取当前登录用户的信息
+    FTUserBean *userBean = [FTUserTools getLocalUser];
+    NSString *userId = userBean.olduserid;//当前用户id
+    NSString *loginToken = userBean.token;//当前用户的login token
+    NSString *ts = [NSString stringWithFormat:@"%lf", [[NSDate date] timeIntervalSince1970]];
+    
+    //md5前的checkSign字典
+    NSMutableDictionary *dicBeforeMD5 = [[NSMutableDictionary alloc]initWithDictionary:@{
+                                                                                         @"userId":userId,
+                                                                                         @"phone" : phoneNum,
+                                                                                         @"checkCode" : checkCode,
+                                                                                         @"type" : @"gymmenbership",
+                                                                                         @"loginToken":loginToken,
+                                                                                         @"ts":ts}];
+    NSString *checkSign = [FTTools md5Dictionary:dicBeforeMD5 withCheckKey:@"gedoujiahghfkd25gfd"];
+    [dicBeforeMD5 setValue:checkSign forKey:@"checkSign"];
+    NSDictionary *parmamDic = dicBeforeMD5;
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager POST:urlString parameters:parmamDic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"message : %@", responseDic[@"message"]);
+        if (responseDic) {
+            option(responseDic);
+        }
+        
+    } failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
+        option(nil);
+    }];
+}
+//请求加入会员
++ (void)requestToBeVIPWithCorporationid:(NSString *)corporationid andPhoneNum:(NSString *) phoneNum andCheckCode:(NSString *)checkCode andOption:(void (^)(NSDictionary *dic))option{
+    NSString *urlString = [FTNetConfig host:Domain path:BecomeGymMenberShipURL];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    urlString = [NSString stringWithFormat:@"%@?corporationid=%@", urlString, corporationid];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    //获取当前登录用户的信息
+    FTUserBean *userBean = [FTUserTools getLocalUser];
+    NSString *userId = userBean.olduserid;//当前用户id
+    NSString *loginToken = userBean.token;//当前用户的login token
+    NSString *ts = [NSString stringWithFormat:@"%lf", [[NSDate date] timeIntervalSince1970]];
+    
+    //md5前的checkSign字典
+    NSMutableDictionary *dicBeforeMD5 = [[NSMutableDictionary alloc]initWithDictionary:@{
+                                                                                         @"userId":userId,
+                                                                                         @"loginToken":loginToken,
+                                                                                         @"ts":ts}];
+    NSString *checkSign = [FTTools md5Dictionary:dicBeforeMD5 withCheckKey:@"gedoujiahtfht2g2rd"];
+    [dicBeforeMD5 setValue:checkSign forKey:@"checkSign"];
+    NSDictionary *parmamDic = dicBeforeMD5;
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager POST:urlString parameters:parmamDic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"message : %@", responseDic[@"message"]);
+        if (responseDic) {
+            option(responseDic);
+        }
+        
+    } failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
+        option(nil);
+    }];
+}
 
 //根绝拳馆id获取拳馆的所有照片（用户上传的）
 + (void)getPhotosByUsersWithCorporationid:(NSString *)corporationid andOption:(void (^)(NSArray *array))option{
@@ -1618,6 +1708,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", deviceToken, loginToken, objId, tableName, ts, userId, isFollow ? FollowCheckKey: CancelFollowCheckKey];
 //    NSLog(@"check sign : %@", checkSign);
 //    checkSign = [MD5 md5:checkSign];
+    
+    
     
     //md5前的checkSign字典
     NSMutableDictionary *dicBeforeMD5 = [[NSMutableDictionary alloc]initWithDictionary:@{

@@ -176,11 +176,14 @@ extern NSString * const GetVideoByIdURL;
 // coach 教练
 extern NSString * const GetCoachListURL;
 extern NSString * const GetCoachByIdURL;
+extern NSString * const ValidCheckCode ;
+
 // gym 拳馆
 extern NSString * const GetGymListURL;
 extern NSString * const GetGymListForArenaURL;
 extern NSString * const GetGymByIdURL;
-extern NSString *const GetGymPhotosByUsers;//获取用户拍摄的拳馆照片
+extern NSString * const GetGymPhotosByUsers;//获取用户拍摄的拳馆照片
+extern NSString * const BecomeGymMenberShipURL;
 
 #pragma mark - 新格斗场
 //获取拳馆固定的时间段

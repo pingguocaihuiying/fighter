@@ -11,9 +11,16 @@
 #import "FTGymSourceViewController.h"
 
 @interface FTPayForGymVIPViewController ()<FTJoinGymSuccessAlertViewDelegate>
+{
+    NSTimer *_timer;
+    NSInteger _t;
+}
 @property (strong, nonatomic) IBOutlet UITextField *phoneNumTextField;
 
 @property (nonatomic, assign) BOOL hasBindingPhoneNum;//是否绑定手机号
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *phoneNumberLabelLeading;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *checkCodeTextFieldLeading;
+@property (strong, nonatomic) IBOutlet UIButton *becomeVIPButton;
 
 @end
 
@@ -59,6 +66,16 @@
 }
 
 - (void)setPhoneNumViews{
+    if (SCREEN_WIDTH == 320) {
+        _phoneNumberLabelLeading.constant = 10;
+        _checkCodeTextFieldLeading.constant = 10;
+    }
+    
+    NSMutableDictionary *attr2 = [NSMutableDictionary dictionary];
+    attr2[NSForegroundColorAttributeName] = [UIColor colorWithHex:0xb4b4b4];
+    NSAttributedString *checkCodePlaceholder2 = [[NSAttributedString alloc] initWithString:@"输入验证码" attributes:attr2];
+    [_checkCodeTextField setAttributedPlaceholder:checkCodePlaceholder2];
+    
     FTUserBean *localUser = [FTUserTools getLocalUser];
     if (localUser.tel && ![localUser.tel isEqualToString:@""]) {//如果手机号存在
         _hasBindingPhoneNum = YES;
@@ -108,7 +125,17 @@
 }
 
 #pragma mark - 发送验证码
+//- (IBAction)sendCheckCodeButtonClicked:(id)sender {
+//
+//    
+//    NSLog(@"发送验证码");
+//}
+
 - (IBAction)sendCheckCodeButtonClicked:(id)sender {
+    
+    [_phoneNumTextField resignFirstResponder];
+    [_checkCodeTextField resignFirstResponder];
+    
     NSString *phoneNum;
     
     //根据绑定情况取手机号的值
@@ -118,17 +145,167 @@
         phoneNum = _phoneNumTextField.text;
     }
     
-    NSLog(@"发送验证码");
+    NSRange _range = [phoneNum rangeOfString:@" "];
+    if (_range.location != NSNotFound) {
+        //有空格
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"手机号不能包含空格"];
+        return;
+    }
+    
+    if (phoneNum.length == 0 ) {
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"手机号不能为空"];
+        return ;
+    }else {
+        if(phoneNum.length  != 11){
+            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"手机号长度不正确"];
+            return;
+        }
+    }
+    
+    
+    //    if ( ![[Regex new] isMobileNumber:self.acountTextField.text]) {
+    //        [self showHUDWithMessage:@"手机号不正确"];
+    //        return;
+    //    }
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NetWorking *net = [NetWorking new];
+    [net getCheckCodeForNewBindingPhone:phoneNum withType:@"gymmenbership"
+                              option:^(NSDictionary *dict) {
+                                  
+                                  [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                  NSLog(@"dict:%@",dict);
+                                  if (dict != nil) {
+                                      
+                                      bool status = [dict[@"status"] boolValue];
+                                      NSString *message = [dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                                      NSLog(@"message:%@",message);
+                                      
+                                      if (status == true) {
+                                          
+                                          [_sendCheckCodeButton setEnabled:NO];
+                                          _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateSendCheckCodeButton:) userInfo:nil repeats:YES];
+                                          _t = 60;
+                                          [self setSendCheckCodeBtnText:_t];
+                                          
+                                          
+                                          [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                          
+                                          
+                                      }else {
+                                          NSLog(@"message : %@", [dict[@"message"] class]);
+                                          [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                          //                [self showHUDWithMessage:@"验证码发送失败，稍后再试"];
+                                      }
+                                  }else {
+                                      [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
+                                      
+                                  }
+                                  
+                              }];
+    
+}
+
+
+- (void) updateSendCheckCodeButton:(id) time {
+    _t--;
+    if (_t > 0) {
+        [self setSendCheckCodeBtnText:_t];
+    }else {
+        
+        [_sendCheckCodeButton setEnabled:YES];
+        _timer.fireDate = [NSDate distantPast];
+    }
+    
+}
+
+- (void) setSendCheckCodeBtnText:(NSInteger)t {
+    
+    [_sendCheckCodeButton setTitle:[NSString stringWithFormat:@"重新发送%ld",t] forState:UIControlStateDisabled];
 }
 
 #pragma mark - 加入会员按钮被点击
 - (IBAction)joinGymButtonClicked:(id)sender {
+    
+    
+    [_phoneNumTextField resignFirstResponder];
+    [_checkCodeTextField resignFirstResponder];
+    
+    NSString *phoneNum;
+    
+    //根据绑定情况取手机号的值
+    if (_hasBindingPhoneNum) {
+        phoneNum = _phoneNumberLabel.text;
+    }else{
+        phoneNum = _phoneNumTextField.text;
+    }
+    
+    NSRange _range = [phoneNum rangeOfString:@" "];
+    if (_range.location != NSNotFound) {
+        //有空格
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"手机号不能包含空格"];
+        return;
+    }
+    
+    if (phoneNum.length == 0 ) {
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"手机号不能为空"];
+        return ;
+    }else {
+        if(phoneNum.length  != 11){
+            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"手机号长度不正确"];
+            return;
+        }
+    }
+    
+    
+    if ([self.checkCodeTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length == 0 ) {
+        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"验证码不能为空"];
+        return ;
+    }else {
+        if(self.checkCodeTextField.text.length  != 6){
+            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"验证码不正确"];
+            return;
+        }
+    }
+    
     NSLog(@"请求加入会员");
-    FTJoinGymSuccessAlertView *joinGynSuccessAlertView = [[[NSBundle mainBundle]loadNibNamed:@"FTJoinGymSuccessAlertView" owner:nil options:nil] firstObject];
-    joinGynSuccessAlertView.delegate = self;
-    joinGynSuccessAlertView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    [self.view addSubview:joinGynSuccessAlertView];
-//    [[[UIApplication sharedApplication] keyWindow] addSubview:joinGynSuccessAlertView];
+//    [[UIApplication sharedApplication]keyWindow] hidehu
+    //成为会员成功提示start
+//    FTJoinGymSuccessAlertView *joinGynSuccessAlertView = [[[NSBundle mainBundle]loadNibNamed:@"FTJoinGymSuccessAlertView" owner:nil options:nil] firstObject];
+//    joinGynSuccessAlertView.delegate = self;
+//    joinGynSuccessAlertView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//    [self.view addSubview:joinGynSuccessAlertView];
+    //成为会员成功提示end
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [NetWorking validCheckCodeWithPhoneNum:phoneNum andCheckCode:_checkCodeTextField.text andOption:^(NSDictionary *dic) {
+        NSString *status = dic[@"status"];
+        NSString *message = dic[@"message"];
+        
+        if ([status isEqualToString:@"success"]) {
+            NSLog(@"验证码正确");
+                [NetWorking requestToBeVIPWithCorporationid:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andPhoneNum:phoneNum andCheckCode:_checkCodeTextField.text andOption:^(NSDictionary *dic) {
+                    NSString *status = dic[@"status"];
+                    NSString *message = dic[@"message"];
+                    NSLog(@"status : %@\n message : %@", dic[@"status"], dic[@"message"]);
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    if ([status isEqualToString:@"success"]){
+                        [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"申请加入会员成功"];
+                        _becomeVIPButton.hidden = YES;
+                        _waitLabel.hidden = NO;
+                    }else{
+                        [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:message];
+                    }
+                }];
+            
+        } else if ([status isEqualToString:@"error"])  {
+            NSLog(@"status : %@\n message : %@", status, message);
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:message];
+        }
+        
+    }];
+    
+
+
 }
 
 - (void)enterGymButtonClicked{

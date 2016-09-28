@@ -192,7 +192,7 @@
  *  获取时间段信息
  */
 - (void)getTimeSection{
-    _gymDetailBean.corporationid = 158;
+//    _gymDetailBean.corporationid = 158;
     [NetWorking getGymTimeSlotsById:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSArray *array) {
         _timeSectionsArray = array;
         if (_timeSectionsArray && _timeSectionsArray.count > 0) {
