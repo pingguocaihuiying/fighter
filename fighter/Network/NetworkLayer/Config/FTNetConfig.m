@@ -219,12 +219,14 @@ NSString * const NewPostCheckKey =  @"gedoujia1gdshjjgfkd52261225550";
 // coach
 NSString * const GetCoachListURL = @"/api/coach/list.do";
 NSString * const GetCoachByIdURL = @"/api/coach/{id}.do";
+NSString * const ValidCheckCode = @"/api/user/save$checkPhoneCode.do";
 
 // gym 拳馆
 NSString * const GetGymListURL = @"/api/gym/getGym.do";
 NSString * const GetGymListForArenaURL = @"/api/match/getGyms.do";
 NSString * const GetGymByIdURL = @"/api/gym/getVideosById.do";
 NSString * const GetGymPhotosByUsers = @"/api/gym/commentAttach.do";//获取用户拍摄的拳馆照片
+NSString * const BecomeGymMenberShipURL = @"/api/gymmenbership/save$GymMenberShip.do";
 
 #pragma mark - 新格斗场
 NSString * const GetGymTimeSlotsByIdURL = @"/api/place/listTime.do";

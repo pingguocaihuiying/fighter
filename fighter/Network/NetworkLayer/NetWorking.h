@@ -64,7 +64,9 @@
 //绑定手机时获取验证码
 - (void) getCheckCodeForNewBindingPhone:(NSString *)phoneNum
                                  option:(void (^)(NSDictionary *dict))option;
-
+//绑定手机时获取验证码(可以修改type类型的)
+- (void) getCheckCodeForNewBindingPhone:(NSString *)phoneNum withType:(NSString *)type
+                                 option:(void (^)(NSDictionary *dict))option;
 //更换手机时获取旧手机号验证码
 - (void) getCheckCodeForExistPhone:(NSString *)phoneNum
                                 type:(NSString *)type
@@ -213,7 +215,10 @@
 
 // Add Gym Comment
 + (void) addGymCommentWithPramDic:(NSDictionary*)pramDic option:(void (^)(NSDictionary *dict))option;
-
+//验证验证码是否正确（请求加入会员部分）
++ (void)validCheckCodeWithPhoneNum:(NSString *) phoneNum andCheckCode:(NSString *)checkCode andOption:(void (^)(NSDictionary *dic))option;
+//请求加入会员
++ (void)requestToBeVIPWithCorporationid:(NSString *)corporationid andPhoneNum:(NSString *) phoneNum andCheckCode:(NSString *)checkCode andOption:(void (^)(NSDictionary *dic))option;
 
 #pragma mark - 新格斗场
 //获取拳馆固定的时间段
