@@ -11,6 +11,9 @@
 #import "FTGymSourceViewController.h"
 
 @interface FTPayForGymVIPViewController ()<FTJoinGymSuccessAlertViewDelegate>
+@property (strong, nonatomic) IBOutlet UITextField *phoneNumTextField;
+
+@property (nonatomic, assign) BOOL hasBindingPhoneNum;//是否绑定手机号
 
 @end
 
@@ -18,7 +21,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self setNavigationSytle];
     [self setSubViews];
 }
@@ -53,6 +55,24 @@
     //设置label等控件的颜色
     [self setSubViewsColor];
     [self addGestureToView];//给self.view添加单点事件，点击后收起键盘
+    [self setPhoneNumViews];
+}
+
+- (void)setPhoneNumViews{
+    FTUserBean *localUser = [FTUserTools getLocalUser];
+    if (localUser.tel && ![localUser.tel isEqualToString:@""]) {//如果手机号存在
+        _hasBindingPhoneNum = YES;
+        _phoneNumberLabel.hidden = NO;
+        _phoneNumberLabel.text = localUser.tel;
+    }else{
+        _hasBindingPhoneNum = NO;
+        _phoneNumTextField.hidden = NO;//显示手机号输入框
+        
+        NSMutableDictionary *attr = [NSMutableDictionary dictionary];
+        attr[NSForegroundColorAttributeName] = [UIColor colorWithHex:0xb4b4b4];
+        NSAttributedString *checkCodePlaceholder = [[NSAttributedString alloc] initWithString:@"请输入手机号" attributes:attr];
+        [_phoneNumTextField setAttributedPlaceholder:checkCodePlaceholder]; 
+    }
 }
 
 - (void)addGestureToView{
@@ -61,6 +81,7 @@
 }
 
 - (void)viewTapped{
+    [_phoneNumTextField resignFirstResponder];
     [_checkCodeTextField resignFirstResponder];//收起键盘
 }
 
@@ -88,6 +109,15 @@
 
 #pragma mark - 发送验证码
 - (IBAction)sendCheckCodeButtonClicked:(id)sender {
+    NSString *phoneNum;
+    
+    //根据绑定情况取手机号的值
+    if (_hasBindingPhoneNum) {
+        phoneNum = _phoneNumberLabel.text;
+    }else{
+        phoneNum = _phoneNumTextField.text;
+    }
+    
     NSLog(@"发送验证码");
 }
 
