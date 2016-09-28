@@ -15,6 +15,7 @@
 #import "JHRefresh.h"
 #import "FTGymDetailWebViewController.h"
 #import "FTGymBean.h"
+#import "FTGymVIPCellTableViewCell.h"
 
 @interface FTGymView () <UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, FTCycleScrollViewDelegate,FTSelectCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -107,7 +108,10 @@
     [_tableView setBackgroundColor:[UIColor clearColor]];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    
     [_tableView registerNib:[UINib nibWithNibName:@"FTGymCell" bundle:nil]  forCellReuseIdentifier:@"gymCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"FTGymVIPCellTableViewCell" bundle:nil]  forCellReuseIdentifier:@"gymVIPCell"];
+    
     //    _tableView.tableHeaderView = _cycleScrollView;
     _tableView.tableHeaderView = _gymCycleScrollView;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -365,14 +369,16 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    NSDictionary *dic = [_dataSourceArray objectAtIndex:indexPath.row];
+    
     static FTGymCell * cell =nil;
     static dispatch_once_t tonceToken;
     dispatch_once(&tonceToken, ^{
         cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
     });
     
-    NSDictionary *dic = [_dataSourceArray objectAtIndex:indexPath.row];
     CGFloat labelView_H = [cell caculateHeight:dic[@"gymType"]];
+    
 //    NSString *string = [NSString stringWithFormat:@"%@,%@,%@",dic[@"gymType"],dic[@"gymType"],dic[@"gymType"]];
 //     CGFloat labelView_H = [cell caculateHeight:string];
 //    CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];

@@ -1064,6 +1064,35 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     NSLog(@"pram:%@",dic);
     
     [self getRequestWithUrl:urlString parameters:dic option:option];
+}
+
+// 添加拳馆二级评论
++ (void) addCommentForGymComment:(NSDictionary*)pramDic option:(void (^)(NSDictionary *dict))option  {
+    
+    NSString *urlString = [FTNetConfig host:Domain path:CommentURL];
+    NSLog(@"urlString=%@",urlString);
+    
+    FTUserBean *loginuser = [FTUserBean loginUser];
+    NSString *userId = loginuser.olduserid;
+    NSString *token = loginuser.token;
+    NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];// 时间戳
+    
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:@"c-cgym" forKey:@"tableName"];
+    [dic setObject:userId forKey:@"userId"];
+    [dic setObject:token forKey:@"loginToken"];
+    [dic setObject:ts forKey:@"ts"];
+    
+    [dic addEntriesFromDictionary:pramDic];
+    
+    NSString *checkSign = [FTTools md5Dictionary:dic withCheckKey:@"gedoujia12555521254"];
+    
+    [dic setObject:checkSign forKey:@"checkSign"];
+    
+    NSLog(@"pram:%@",dic);
+    
+    [self getRequestWithUrl:urlString parameters:dic option:option];
     
 }
 

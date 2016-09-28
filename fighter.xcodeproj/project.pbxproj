@@ -165,6 +165,12 @@
 		3D9001BC1D378CC100F9F60B /* FTTeachVideoDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D9001BA1D378CC100F9F60B /* FTTeachVideoDetailController.xib */; };
 		3D9666BF1D9A7FEA00E90DA5 /* FTGymCoachStateSwitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9666BE1D9A7FEA00E90DA5 /* FTGymCoachStateSwitcher.m */; };
 		3D9666C11D9A801C00E90DA5 /* FTGymCoachStateSwitcher.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D9666C01D9A801C00E90DA5 /* FTGymCoachStateSwitcher.xib */; };
+		3D9666C61D9A98A000E90DA5 /* FTGymRechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9666C41D9A98A000E90DA5 /* FTGymRechargeViewController.m */; };
+		3D9666C71D9A98A000E90DA5 /* FTGymRechargeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D9666C51D9A98A000E90DA5 /* FTGymRechargeViewController.xib */; };
+		3D9666CB1D9AAE0C00E90DA5 /* FTGymOrderCoachView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9666CA1D9AAE0C00E90DA5 /* FTGymOrderCoachView.m */; };
+		3D9666CD1D9AAE2100E90DA5 /* FTGymOrderCoachView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D9666CC1D9AAE2100E90DA5 /* FTGymOrderCoachView.xib */; };
+		3D9666D31D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9666D11D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.m */; };
+		3D9666D41D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D9666D21D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.xib */; };
 		3D9CA4041D5F0AE800B9622B /* UIView+MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CA4031D5F0AE800B9622B /* UIView+MBProgressHUD.m */; };
 		3D9D92E41D337100006C42F0 /* FTPayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9D92E21D337100006C42F0 /* FTPayCell.m */; };
 		3D9D92E51D337100006C42F0 /* FTPayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D9D92E31D337100006C42F0 /* FTPayCell.xib */; };
@@ -694,6 +700,15 @@
 		3D9666BD1D9A7FEA00E90DA5 /* FTGymCoachStateSwitcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymCoachStateSwitcher.h; sourceTree = "<group>"; };
 		3D9666BE1D9A7FEA00E90DA5 /* FTGymCoachStateSwitcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymCoachStateSwitcher.m; sourceTree = "<group>"; };
 		3D9666C01D9A801C00E90DA5 /* FTGymCoachStateSwitcher.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymCoachStateSwitcher.xib; sourceTree = "<group>"; };
+		3D9666C31D9A98A000E90DA5 /* FTGymRechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymRechargeViewController.h; sourceTree = "<group>"; };
+		3D9666C41D9A98A000E90DA5 /* FTGymRechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymRechargeViewController.m; sourceTree = "<group>"; };
+		3D9666C51D9A98A000E90DA5 /* FTGymRechargeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymRechargeViewController.xib; sourceTree = "<group>"; };
+		3D9666C91D9AAE0C00E90DA5 /* FTGymOrderCoachView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymOrderCoachView.h; sourceTree = "<group>"; };
+		3D9666CA1D9AAE0C00E90DA5 /* FTGymOrderCoachView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymOrderCoachView.m; sourceTree = "<group>"; };
+		3D9666CC1D9AAE2100E90DA5 /* FTGymOrderCoachView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymOrderCoachView.xib; sourceTree = "<group>"; };
+		3D9666D01D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymVIPCellTableViewCell.h; sourceTree = "<group>"; };
+		3D9666D11D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymVIPCellTableViewCell.m; sourceTree = "<group>"; };
+		3D9666D21D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymVIPCellTableViewCell.xib; sourceTree = "<group>"; };
 		3D9CA4021D5F0AE800B9622B /* UIView+MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MBProgressHUD.h"; sourceTree = "<group>"; };
 		3D9CA4031D5F0AE800B9622B /* UIView+MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MBProgressHUD.m"; sourceTree = "<group>"; };
 		3D9D92E11D337100006C42F0 /* FTPayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPayCell.h; sourceTree = "<group>"; };
@@ -1865,6 +1880,46 @@
 			name = "教练切换状态弹出框";
 			sourceTree = "<group>";
 		};
+		3D9666C21D9A985400E90DA5 /* 拳馆充值 */ = {
+			isa = PBXGroup;
+			children = (
+				3D9666C31D9A98A000E90DA5 /* FTGymRechargeViewController.h */,
+				3D9666C41D9A98A000E90DA5 /* FTGymRechargeViewController.m */,
+				3D9666C51D9A98A000E90DA5 /* FTGymRechargeViewController.xib */,
+			);
+			name = "拳馆充值";
+			sourceTree = "<group>";
+		};
+		3D9666C81D9AAD1D00E90DA5 /*  拳馆预约私教弹出框 */ = {
+			isa = PBXGroup;
+			children = (
+				3D9666C91D9AAE0C00E90DA5 /* FTGymOrderCoachView.h */,
+				3D9666CA1D9AAE0C00E90DA5 /* FTGymOrderCoachView.m */,
+				3D9666CC1D9AAE2100E90DA5 /* FTGymOrderCoachView.xib */,
+			);
+			name = " 拳馆预约私教弹出框";
+			sourceTree = "<group>";
+		};
+		3D9666CE1D9B53C100E90DA5 /* 会员cell */ = {
+			isa = PBXGroup;
+			children = (
+				3D9666D01D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.h */,
+				3D9666D11D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.m */,
+				3D9666D21D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.xib */,
+			);
+			name = "会员cell";
+			sourceTree = "<group>";
+		};
+		3D9666CF1D9B53D400E90DA5 /* 非会员cell */ = {
+			isa = PBXGroup;
+			children = (
+				3D8B2E561D1D157200E18280 /* FTGymCell.h */,
+				3D8B2E571D1D157200E18280 /* FTGymCell.m */,
+				E627EE661D25273F00B424F5 /* FTGymCell.xib */,
+			);
+			name = "非会员cell";
+			sourceTree = "<group>";
+		};
 		3DA6D1BD1D20C6CC0049CD4A /* cycleScrollView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2361,6 +2416,7 @@
 				3D15E4A91D95111C0078F9E7 /* 拳馆评论回复列表 */,
 				E66BC0001D9A18A900B492D3 /* 预约私教 */,
 				E66BC0071D9A679A00B492D3 /* 教练查看自己的课表 */,
+				3D9666C21D9A985400E90DA5 /* 拳馆充值 */,
 			);
 			name = viewController;
 			sourceTree = "<group>";
@@ -2388,9 +2444,8 @@
 		E6555ACF1D7FF6AD00748E66 /* 拳馆列表cell */ = {
 			isa = PBXGroup;
 			children = (
-				3D8B2E561D1D157200E18280 /* FTGymCell.h */,
-				3D8B2E571D1D157200E18280 /* FTGymCell.m */,
-				E627EE661D25273F00B424F5 /* FTGymCell.xib */,
+				3D9666CF1D9B53D400E90DA5 /* 非会员cell */,
+				3D9666CE1D9B53C100E90DA5 /* 会员cell */,
 			);
 			name = "拳馆列表cell";
 			sourceTree = "<group>";
@@ -2684,6 +2739,7 @@
 				E66F49371D93D849005B39D1 /* 展示课程的tableView */,
 				E66F49301D93AF6B005B39D1 /* 课程表 */,
 				3D9666BC1D9A7F0E00E90DA5 /* 教练切换状态弹出框 */,
+				3D9666C81D9AAD1D00E90DA5 /*  拳馆预约私教弹出框 */,
 			);
 			name = "其他view";
 			sourceTree = "<group>";
@@ -3666,6 +3722,7 @@
 				E6BFBEE71D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib in Resources */,
 				E6A9DDC01CD9C88600CB9518 /* FTVideoDetailViewController.xib in Resources */,
 				3D7B98B51CE06F9800B80B8D /* FTInputNewPhoneViewController.xib in Resources */,
+				3D9666C71D9A98A000E90DA5 /* FTGymRechargeViewController.xib in Resources */,
 				E6DB76141CBB9B430034253C /* FTOneImageInfoTableViewCell.xib in Resources */,
 				3D7B98BA1CE078D600B80B8D /* FTInputCheckCodeViewController.xib in Resources */,
 				3D8D73C31CE9DEFE009E2320 /* FTRankTableVIewCell.xib in Resources */,
@@ -3727,8 +3784,10 @@
 				3D4C6ED91D8658A300881208 /* FTGymPhotoCell.xib in Resources */,
 				E68EC50C1CC4B85D00A338C8 /* FTFilterTableViewController.xib in Resources */,
 				3D7B98B01CE05F3300B80B8D /* FTPhoneViewController.xib in Resources */,
+				3D9666CD1D9AAE2100E90DA5 /* FTGymOrderCoachView.xib in Resources */,
 				3D06154F1D35E17B00FDA86F /* FTPhoneCell.xib in Resources */,
 				E66EAEA31CF8217F006CD6CE /* FTArenaTextTableViewCell.xib in Resources */,
+				3D9666D41D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.xib in Resources */,
 				3D322ACA1CEB171200039E2C /* FTRankHeaderCell.xib in Resources */,
 				3D6DA0E41CEED9ED00BAA8F0 /* BoxerCenterHeader.xib in Resources */,
 				3D41222B1D4F3A6B007EB996 /* FTAuthenticationCell.xib in Resources */,
@@ -4069,6 +4128,7 @@
 				3D7B98971CDEE1E900B80B8D /* FTSettingViewController.m in Sources */,
 				E65EFC2C1CC8B63C0039EE8A /* FTConfig.m in Sources */,
 				E68D16171CFD819500AB5A8C /* UIImage+FTLYZImage.m in Sources */,
+				3D9666C61D9A98A000E90DA5 /* FTGymRechargeViewController.m in Sources */,
 				3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */,
 				E6F46C6F1D893FE2001387E2 /* FTGymDetailBean.m in Sources */,
 				E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */,
@@ -4123,6 +4183,7 @@
 				3D11B2741D744C5400B4C838 /* UIImage+LabelImage.m in Sources */,
 				E66F49451D93F3DF005B39D1 /* FTGymSourceTableViewCell.m in Sources */,
 				3DFC41531D083A3F0067AC72 /* SDCycleScrollView.m in Sources */,
+				3D9666D31D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.m in Sources */,
 				3D8B2E531D1D14B000E18280 /* FTCoachCell.m in Sources */,
 				E6F46C361D829161001387E2 /* FTGymPhotosViewController.m in Sources */,
 				3D0B44721D45D96F00EE08B3 /* FTNewsCell.m in Sources */,
@@ -4181,6 +4242,7 @@
 				E67872731CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m in Sources */,
 				3D87712F1D9275E00001DB78 /* FTGymCommentBean.m in Sources */,
 				E668BBBB1CE44E6400071998 /* FTCache.m in Sources */,
+				3D9666CB1D9AAE0C00E90DA5 /* FTGymOrderCoachView.m in Sources */,
 				3D8D73B41CE95198009E2320 /* FTRankTableView.m in Sources */,
 				E66D6EFB1CBCE81C008B015A /* FTNetConfig.m in Sources */,
 				3DC412251CD0C3780030C229 /* NSString+Size.m in Sources */,
