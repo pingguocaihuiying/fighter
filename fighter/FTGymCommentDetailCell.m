@@ -115,13 +115,13 @@
     [self setImageToIndex:bean.teachLevel levelTag:GymCommentStateTeachLevel];
     
     // 评论数
-    if (bean.commentcount > 0) {
-        [self.commentButton setTitle:[NSString stringWithFormat:@"(%d)",bean.commentcount] forState:UIControlStateNormal];
+    if (bean.commentCount > 0) {
+        [self.commentButton setTitle:[NSString stringWithFormat:@"(%d)",bean.commentCount] forState:UIControlStateNormal];
     }
     
     // 点赞数
-    if (bean.thumbCount > 0) {
-        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",bean.thumbCount] forState:UIControlStateNormal];
+    if (bean.voteCount > 0) {
+        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",bean.voteCount] forState:UIControlStateNormal];
     }
     
     
@@ -146,10 +146,10 @@
         
         if (result) {
             thumbState = YES;
-            [self.thumbsButton setImage:[UIImage imageNamed:@"点赞pre"] forState:UIControlStateNormal];
+            [self.thumbsButton setImage:[UIImage imageNamed:@"点赞pre"] forState:UIControlStateSelected];
         }else {
             thumbState = NO;
-            [self.thumbsButton setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateNormal];
+            [self.thumbsButton setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateSelected];
         }
     }];
 }
@@ -166,23 +166,22 @@
     }];
 }
 
-
 - (void) setThumbState:(BOOL) state {
     
     if (state) {
         
-        self.commentbean.thumbCount ++;
+        self.commentbean.voteCount ++;
         
-        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.thumbCount] forState:UIControlStateNormal];
+        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.voteCount] forState:UIControlStateNormal];
         
-        [self.thumbsButton setImage:[UIImage imageNamed:@"点赞pre"] forState:UIControlStateNormal];
+        [self.thumbsButton setImage:[UIImage imageNamed:@"点赞pre"] forState:UIControlStateSelected];
     }else {
         
-        self.commentbean.thumbCount --;
+        self.commentbean.voteCount --;
         
-        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.thumbCount] forState:UIControlStateNormal];
+        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.voteCount] forState:UIControlStateNormal];
         
-        [self.thumbsButton setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateNormal];
+        [self.thumbsButton setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateSelected];
     }
 }
 
@@ -196,8 +195,8 @@
     
     if (state) {
         
-        self.commentbean.commentcount ++;
-        [self.commentButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.thumbCount] forState:UIControlStateNormal];
+        self.commentbean.commentCount ++;
+        [self.commentButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.commentCount] forState:UIControlStateNormal];
     }
 }
 

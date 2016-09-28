@@ -10,6 +10,7 @@
 #import "FTGymCommentTableViewCell.h"
 #import "FTGymCommentBean.h"
 #import "CellDelegate.h"
+#import "FTGymCommentReplyViewController.h"
 
 @interface FTGymCommentsViewController ()<UITableViewDelegate,UITableViewDataSource,CellDelegate>
 
@@ -137,21 +138,24 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-   
-    @try {
-        
     FTGymCommentTableViewCell *cell = (FTGymCommentTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"CommentsCell"];
     cell.cellDelegate = self;
     FTGymCommentBean *bean = [self.dataArray objectAtIndex:indexPath.section];
     [cell setCellContentWithBean:bean];
-        
     
     return cell;
-    } @catch (NSException *exception) {
-        NSLog(@"comment exception:%@",exception);
-    } @finally {
-        
-    }
+}
+
+-  (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    
+    FTGymCommentBean *bean = [self.dataArray objectAtIndex:indexPath.section];
+    
+    FTGymCommentReplyViewController *replyCommentVC = [[FTGymCommentReplyViewController alloc]init];
+    replyCommentVC.bean = bean;
+    replyCommentVC.objId = [NSString stringWithFormat:@"%d",bean.id];
+    [self.navigationController  pushViewController:replyCommentVC animated:YES];
+    
 }
 
 //去掉UItableview headerview黏性(sticky)

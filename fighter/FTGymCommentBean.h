@@ -16,8 +16,8 @@
 @property (nonatomic, assign) int strength;//实力
 @property (nonatomic, assign) int teachLevel;//教学水平
 
-@property (nonatomic, assign) int commentcount;//评论数
-@property (nonatomic, assign) int thumbCount;//点赞数
+@property (nonatomic, assign) int commentCount;//评论数
+@property (nonatomic, assign) int voteCount;//点赞数
 
 @property (nonatomic, assign) NSInteger createTime;//评论时间
 

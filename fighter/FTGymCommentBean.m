@@ -18,8 +18,8 @@
     _strength = [dic[@"strength"] floatValue];
     _teachLevel = [dic[@"teachLevel"] intValue];
     
-    _commentcount = [dic[@"commentcount"] intValue];
-    _thumbCount = [dic[@"thumbCount"] intValue];
+    _commentCount = [dic[@"commentCount"] intValue];
+    _voteCount = [dic[@"voteCount"] intValue];
     
     self.comment = dic[@"comment"];
     self.createName = dic[@"createName"];

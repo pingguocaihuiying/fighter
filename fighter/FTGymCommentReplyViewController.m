@@ -124,7 +124,7 @@
 - (void) getDataArrayFromWeb {
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [NetWorking getGymComments:self.objId option:^(NSDictionary *dict) {
+    [NetWorking getGymReplyComments:self.objId option:^(NSDictionary *dict) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         
         NSLog(@"dic:%@",dict);
@@ -156,7 +156,7 @@
 
 - (IBAction)thumbsButtonAction:(id)sender {
     
-    [NetWorking addVoteWithObjid:[NSString stringWithFormat:@"%d",self.bean.id] isAdd:self.thumbState? NO:YES andTableName:@"v-gym" andOption:^(BOOL result) {
+    [NetWorking addVoteWithObjid:[NSString stringWithFormat:@"%d",self.bean.id] isAdd:self.thumbState? NO:YES andTableName:@"v-cgym" andOption:^(BOOL result) {
         if (result) {
             
             self.thumbState = self.thumbState?NO:YES;
@@ -192,6 +192,13 @@
         
         BOOL status = [dict[@"status"] isEqualToString:@"success"];
         if (status) {
+            
+            FTGymCommentDetailCell *cell = (FTGymCommentDetailCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+            [cell setCommentState:YES];
+            
+            [self.commentTextField setText:@""];
+            [self.commentTextField resignFirstResponder];
+            
             [self getDataArrayFromWeb];
         }else {
             
@@ -220,7 +227,9 @@
     //最后获取高度 宽度也是同理可以获取
     
     CGFloat height = keyboardRect.size.height;
-    
+    if (height <= 0) {
+        height = 282;
+    }
     NSLog(@"height:%f",height);
     
     if (isKeyBoardShow == NO) {
@@ -316,13 +325,12 @@
         }else {
             
             FTGymCommentReplyCell *cell = (FTGymCommentReplyCell *)[tableView dequeueReusableCellWithIdentifier:@"CommentReplyCell"];
-            FTGymCommentBean *bean = [self.dataArray objectAtIndex:indexPath.section];
+            FTGymCommentBean *bean = [self.dataArray objectAtIndex:indexPath.row];
             [cell setCellContentWithBean:bean];
 
             return cell;
         }
         
-       
     } @catch (NSException *exception) {
         NSLog(@"comment exception:%@",exception);
     } @finally {

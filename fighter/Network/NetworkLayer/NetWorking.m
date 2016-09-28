@@ -1036,6 +1036,18 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     [self getRequestWithUrl:urlString parameters:dic option:option];
 }
 
+// Get Comment for gym Comment List
++ (void) getGymReplyComments:(NSString *)objectId option:(void (^)(NSDictionary *dict))option  {
+    
+    NSString *urlString = [FTNetConfig host:Domain path:GetCommentsURL];
+    NSLog(@"urlString=%@",urlString);
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:objectId forKey:@"objId"];
+    [dic setObject:@"c-cgym" forKey:@"tableName"];
+    [self getRequestWithUrl:urlString parameters:dic option:option];
+}
+
+
 // Add Gym Comment
 + (void) addGymCommentWithPramDic:(NSDictionary*)pramDic option:(void (^)(NSDictionary *dict))option  {
     

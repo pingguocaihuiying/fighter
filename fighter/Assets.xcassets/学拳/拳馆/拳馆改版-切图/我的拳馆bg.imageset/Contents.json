@@ -13,10 +13,10 @@
           "height" : 1
         },
         "cap-insets" : {
-          "bottom" : 28,
-          "top" : 17,
-          "right" : 33,
-          "left" : 33
+          "bottom" : 29,
+          "top" : 18,
+          "right" : 18,
+          "left" : 16
         }
       },
       "idiom" : "universal",
@@ -24,22 +24,7 @@
       "scale" : "2x"
     },
     {
-      "resizing" : {
-        "mode" : "9-part",
-        "center" : {
-          "mode" : "tile",
-          "width" : 1,
-          "height" : 1
-        },
-        "cap-insets" : {
-          "bottom" : 43,
-          "top" : 31,
-          "right" : 50,
-          "left" : 46
-        }
-      },
       "idiom" : "universal",
-      "filename" : "我的拳馆bg@3x.png",
       "scale" : "3x"
     }
   ],
