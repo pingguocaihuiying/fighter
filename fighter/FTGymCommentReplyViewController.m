@@ -180,7 +180,7 @@
     // 提交评论
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self.commentButton setEnabled:NO];
-    [NetWorking addGymCommentWithPramDic:prams option:^(NSDictionary *dict) {
+    [NetWorking addCommentForGymComment:prams option:^(NSDictionary *dict) {
         [self.commentButton setEnabled:YES];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSLog(@"dic:%@",dict);
