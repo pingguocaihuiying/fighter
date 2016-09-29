@@ -299,7 +299,7 @@
                     if ([status isEqualToString:@"success"]){
                         [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"申请加入会员成功"];
                         _gymVIPType = FTGymVIPTypeApplying;
-                        FTGymDetailWebViewController *gymDetailViewController = [self.navigationController viewControllers][1];
+//                        FTGymDetailWebViewController *gymDetailViewController = [self.navigationController viewControllers][1];
                         
                         _becomeVIPButton.hidden = YES;
                         _waitLabel.hidden = NO;

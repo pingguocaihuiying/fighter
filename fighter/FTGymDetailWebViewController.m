@@ -84,7 +84,7 @@
     [self setNavigationSytle];
 //
     [self setSubViews];
-//
+    
     // 获取收藏信息
     [self getAttentionInfo];
     
@@ -109,6 +109,7 @@
             _gymVIPType = [type integerValue];//
             if (_gymVIPType == FTGymVIPTypeYep) {
                 [_becomeVIPButton setTitle:@"已经是会员" forState:UIControlStateNormal];
+                [_becomeVIPButton setTitleColor:[UIColor colorWithHex:0xb4b4b4] forState:UIControlStateNormal];
             }else if (_gymVIPType == FTGymVIPTypeApplying){
                 _becomeVIPButton.enabled = YES;
             }
@@ -137,7 +138,8 @@
         for(NSString *key in [dic allKeys]){
             NSLog(@"key %@ : %@", key, dic[key]);
         }
-        [_collectionView reloadData];
+//        [_collectionView reloadData];
+        [self updateCollectionView];
     }];
 }
 
@@ -287,7 +289,7 @@
     //加载cell用于复用
 
     [_collectionView registerNib:[UINib nibWithNibName:@"FTGymVIPCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
-    [self updateCollectionView];
+//    [self updateCollectionView];
     
 }
 
@@ -347,8 +349,9 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     FTGymVIPCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
+    NSLog(@"indexPath.row : %ld ", indexPath.row);
     
-    if (_displayAllVIP) {
+    if (_displayAllVIP) {//展示所有
         if (_vipArray.count > 6 && indexPath.row == _vipArray.count) {//『收起』
             cell.headerImageView.image = [UIImage imageNamed:@"学员列表-收起"];
             cell.vipNameLabel.text = @"收起";
@@ -359,15 +362,25 @@
             cell.vipNameLabel.text = vipDic[@"name"];
         }
         
-    } else {
-        if (_vipArray.count > 6 && indexPath.row == 5) {
-            cell.headerImageView.image = [UIImage imageNamed:@"学员列表-更多"];
-            cell.vipNameLabel.text = @"更多";
+    } else {//只展示第一行
+        
+        if (indexPath.row >= 5) {
+            if (_vipArray.count > 6) {
+                if (indexPath.row == 5) {
+                    cell.headerImageView.image = [UIImage imageNamed:@"学员列表-更多"];
+                    cell.vipNameLabel.text = @"更多";
+                }
+            }else{
+                NSDictionary *vipDic = _vipArray[indexPath.row];
+                cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
+                cell.vipNameLabel.text = vipDic[@"name"];
+            }
         }else{
             NSDictionary *vipDic = _vipArray[indexPath.row];
             cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
             cell.vipNameLabel.text = vipDic[@"name"];
         }
+
     }
 
     
