@@ -69,6 +69,7 @@
 @property (nonatomic, strong) FTGymDetailBean *gymDetailBean;//拳馆详情bean
 
 
+
 @end
 
 @implementation FTGymDetailWebViewController
@@ -78,11 +79,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initBaseData];
+    [self getVIPInfo];
     [self loadGymDataFromServer];
     [self setNavigationSytle];
 //
     [self setSubViews];
-//
+    
     // 获取收藏信息
     [self getAttentionInfo];
     
@@ -91,12 +93,31 @@
 
 
 - (void)initBaseData{
-    _vipArray = [NSMutableArray new];
-//    for (int i = 0; i < 13; i++) {
-//        NSString *name = [NSString stringWithFormat:@"李森%d", i];
-//        NSDictionary *vipDic = @{@"image": @"详情页底部按钮一堆-赞pre", @"name": name};
-//        [_vipArray addObject:vipDic];
-//    }
+    _gymVIPType = FTGymVIPTypeNope;
+}
+
+- (void)getVIPInfo{
+    [NetWorking getVIPInfoWithGymId:_gymBean.corporationid andOption:^(NSDictionary *dic) {
+        
+        //无数据：非会员
+        //"type"为会员类型： 0准会员 1会员 2往期会员
+        
+        NSString *status = dic[@"status"];
+        NSLog(@"status : %@", status);
+        if ([status isEqualToString:@"success"]) {
+            NSString *type = dic[@"data"][@"type"];
+            _gymVIPType = [type integerValue];//
+            if (_gymVIPType == FTGymVIPTypeYep) {
+                [_becomeVIPButton setTitle:@"已经是会员" forState:UIControlStateNormal];
+                [_becomeVIPButton setTitleColor:[UIColor colorWithHex:0xb4b4b4] forState:UIControlStateNormal];
+            }else if (_gymVIPType == FTGymVIPTypeApplying){
+                _becomeVIPButton.enabled = YES;
+            }
+        }else{
+            _gymVIPType = FTGymVIPTypeNope;
+            _becomeVIPButton.enabled = YES;
+        }
+    }];
 }
 
 - (void)loadGymDataFromServer{
@@ -117,7 +138,8 @@
         for(NSString *key in [dic allKeys]){
             NSLog(@"key %@ : %@", key, dic[key]);
         }
-        [_collectionView reloadData];
+//        [_collectionView reloadData];
+        [self updateCollectionView];
     }];
 }
 
@@ -267,7 +289,7 @@
     //加载cell用于复用
 
     [_collectionView registerNib:[UINib nibWithNibName:@"FTGymVIPCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
-    [self updateCollectionView];
+//    [self updateCollectionView];
     
 }
 
@@ -327,8 +349,9 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     FTGymVIPCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
+    NSLog(@"indexPath.row : %ld ", indexPath.row);
     
-    if (_displayAllVIP) {
+    if (_displayAllVIP) {//展示所有
         if (_vipArray.count > 6 && indexPath.row == _vipArray.count) {//『收起』
             cell.headerImageView.image = [UIImage imageNamed:@"学员列表-收起"];
             cell.vipNameLabel.text = @"收起";
@@ -339,15 +362,25 @@
             cell.vipNameLabel.text = vipDic[@"name"];
         }
         
-    } else {
-        if (_vipArray.count > 6 && indexPath.row == 5) {
-            cell.headerImageView.image = [UIImage imageNamed:@"学员列表-更多"];
-            cell.vipNameLabel.text = @"更多";
+    } else {//只展示第一行
+        
+        if (indexPath.row >= 5) {
+            if (_vipArray.count > 6) {
+                if (indexPath.row == 5) {
+                    cell.headerImageView.image = [UIImage imageNamed:@"学员列表-更多"];
+                    cell.vipNameLabel.text = @"更多";
+                }
+            }else{
+                NSDictionary *vipDic = _vipArray[indexPath.row];
+                cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
+                cell.vipNameLabel.text = vipDic[@"name"];
+            }
         }else{
             NSDictionary *vipDic = _vipArray[indexPath.row];
             cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
             cell.vipNameLabel.text = vipDic[@"name"];
         }
+
     }
 
     
@@ -497,6 +530,7 @@
         NSLog(@"成为会员");
         FTPayForGymVIPViewController *payForGymVIPViewController = [[FTPayForGymVIPViewController alloc]init];
         payForGymVIPViewController.gymDetailBean = _gymDetailBean;
+        payForGymVIPViewController.gymVIPType = _gymVIPType;
         [self.navigationController pushViewController:payForGymVIPViewController animated:YES];
     } 
 

@@ -230,6 +230,7 @@ NSString * const BecomeGymMenberShipURL = @"/api/gymmenbership/save$GymMenberShi
 
 #pragma mark - 新格斗场
 NSString * const GetGymTimeSlotsByIdURL = @"/api/place/listTime.do";
+NSString *const GetGymVIPInfoURL = @"/api/gymmenbership/find.do";
 NSString * const GetGymPlacesByIdURL = @"/api/place/listPlace.do";
 NSString * const GetGymPlacesUsingInfoByIdURL = @"/api/place/list.do";//GetGymInfoByIdURL
 NSString * const GetGymSourceInfoByIdURL = @"/api/place/listCource.do";

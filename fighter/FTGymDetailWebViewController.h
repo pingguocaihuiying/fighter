@@ -6,8 +6,16 @@
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
+typedef NS_ENUM(NSInteger, FTGymVIPType){
+    FTGymVIPTypeNope = -1,
+    FTGymVIPTypeApplying = 0,
+    FTGymVIPTypeYep = 1,
+    FTGymVIPTypeBefore = 2
+};
+
 #import "FTBaseViewController.h"
 #import "FTGymBean.h"
+
 @interface FTGymDetailWebViewController : FTBaseViewController
 
 @property (nonatomic ,strong) FTGymBean *gymBean;
@@ -30,5 +38,6 @@
 @property (nonatomic, assign)BOOL hasVote;
 @property (nonatomic, assign)BOOL hasAttention;
 
+@property (nonatomic, assign) FTGymVIPType gymVIPType;//当前用户是否是当前拳馆的会员
 
 @end

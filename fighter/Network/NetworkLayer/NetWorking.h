@@ -338,4 +338,7 @@
 //  获取兑吧地址
 + (void) GetDuiBaConfig:(void (^)(NSDictionary *dict))option;
 
+//查询当前用户是否是指定拳馆的会员
++ (void)getVIPInfoWithGymId:(NSString *) corporationID andOption:(void (^)(NSDictionary *dic))option;
+
 @end

@@ -9,6 +9,7 @@
 #import "FTPayForGymVIPViewController.h"
 #import "FTJoinGymSuccessAlertView.h"
 #import "FTGymSourceViewController.h"
+#import "FTGymDetailWebViewController.h"
 
 @interface FTPayForGymVIPViewController ()<FTJoinGymSuccessAlertViewDelegate>
 {
@@ -63,6 +64,30 @@
     [self setSubViewsColor];
     [self addGestureToView];//给self.view添加单点事件，点击后收起键盘
     [self setPhoneNumViews];
+    [self setWithVIPInfo];//设置
+}
+
+- (void)setWithVIPInfo{
+    if (_gymVIPType == FTGymVIPTypeApplying) {
+        _waitLabel.hidden = NO;
+        _becomeVIPButton.hidden = YES;
+        _sendCheckCodeButton.enabled = NO;
+        [_sendCheckCodeButton setTitleColor:[UIColor colorWithHex:0xb4b4b4] forState:UIControlStateNormal];
+    }else if (_gymVIPType == FTGymVIPTypeYep){
+        _becomeVIPButton.hidden = YES;
+        [self showEnterGymCourseView];
+    }else if (_gymVIPType == FTGymVIPTypeYep){
+//        _becomeVIPButton.hidden = NO;
+    }
+}
+
+- (void)showEnterGymCourseView{
+    //成为会员成功提示start
+    FTJoinGymSuccessAlertView *joinGynSuccessAlertView = [[[NSBundle mainBundle]loadNibNamed:@"FTJoinGymSuccessAlertView" owner:nil options:nil] firstObject];
+    joinGynSuccessAlertView.delegate = self;
+    joinGynSuccessAlertView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    [self.view addSubview:joinGynSuccessAlertView];
+    //成为会员成功提示end
 }
 
 - (void)setPhoneNumViews{
@@ -125,11 +150,6 @@
 }
 
 #pragma mark - 发送验证码
-//- (IBAction)sendCheckCodeButtonClicked:(id)sender {
-//
-//    
-//    NSLog(@"发送验证码");
-//}
 
 - (IBAction)sendCheckCodeButtonClicked:(id)sender {
     
@@ -162,11 +182,7 @@
         }
     }
     
-    
-    //    if ( ![[Regex new] isMobileNumber:self.acountTextField.text]) {
-    //        [self showHUDWithMessage:@"手机号不正确"];
-    //        return;
-    //    }
+
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NetWorking *net = [NetWorking new];
     [net getCheckCodeForNewBindingPhone:phoneNum withType:@"gymmenbership"
@@ -268,13 +284,6 @@
     }
     
     NSLog(@"请求加入会员");
-//    [[UIApplication sharedApplication]keyWindow] hidehu
-    //成为会员成功提示start
-//    FTJoinGymSuccessAlertView *joinGynSuccessAlertView = [[[NSBundle mainBundle]loadNibNamed:@"FTJoinGymSuccessAlertView" owner:nil options:nil] firstObject];
-//    joinGynSuccessAlertView.delegate = self;
-//    joinGynSuccessAlertView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-//    [self.view addSubview:joinGynSuccessAlertView];
-    //成为会员成功提示end
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [NetWorking validCheckCodeWithPhoneNum:phoneNum andCheckCode:_checkCodeTextField.text andOption:^(NSDictionary *dic) {
         NSString *status = dic[@"status"];
@@ -289,8 +298,13 @@
                     [MBProgressHUD hideHUDForView:self.view animated:YES];
                     if ([status isEqualToString:@"success"]){
                         [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"申请加入会员成功"];
+                        _gymVIPType = FTGymVIPTypeApplying;
+//                        FTGymDetailWebViewController *gymDetailViewController = [self.navigationController viewControllers][1];
+                        
                         _becomeVIPButton.hidden = YES;
                         _waitLabel.hidden = NO;
+                        _timer.fireDate = [NSDate distantPast];
+                        _sendCheckCodeButton.hidden = YES;
                     }else{
                         [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:message];
                     }
@@ -303,9 +317,6 @@
         }
         
     }];
-    
-
-
 }
 
 - (void)enterGymButtonClicked{
