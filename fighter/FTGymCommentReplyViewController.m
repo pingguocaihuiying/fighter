@@ -160,6 +160,8 @@
 
 - (IBAction)thumbsButtonAction:(id)sender {
     
+    [self.commentTextField resignFirstResponder];
+    
     [NetWorking addVoteWithObjid:[NSString stringWithFormat:@"%d",self.bean.id] isAdd:self.thumbState? NO:YES andTableName:@"v-cgym" andOption:^(BOOL result) {
         if (result) {
             
@@ -171,6 +173,8 @@
 }
 
 - (IBAction)commentButtonAcrtion:(id)sender {
+    
+    [self.commentTextField resignFirstResponder];
     
     if (self.commentTextField.text == 0) {
         [self.view showMessage:@"评论文字不能为空"];
@@ -343,5 +347,20 @@
 }
 
 
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [self.commentTextField resignFirstResponder];
+    
+}
+
+- (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    
+    UITouch *touch = [[touches allObjects] objectAtIndex:0];
+    if (touch.view == self.tableView) {
+        [self.commentTextField resignFirstResponder];
+    }
+    
+}
 
 @end

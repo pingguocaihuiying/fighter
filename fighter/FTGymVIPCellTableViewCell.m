@@ -12,7 +12,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization codeself.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    // Initialization code
+    self.backgroundColor = [UIColor clearColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
