@@ -213,7 +213,6 @@
         }
         
     }];
-    
 }
 
 - (void) sortArray {
@@ -379,24 +378,29 @@
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSDictionary *dic = [_dataSourceArray objectAtIndex:indexPath.row];
-    
-    static FTGymCell * cell =nil;
-    static dispatch_once_t tonceToken;
-    dispatch_once(&tonceToken, ^{
-        cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
-    });
-    
-    CGFloat labelView_H = [cell caculateHeight:dic[@"gymType"]];
-    
-//    NSString *string = [NSString stringWithFormat:@"%@,%@,%@",dic[@"gymType"],dic[@"gymType"],dic[@"gymType"]];
-//     CGFloat labelView_H = [cell caculateHeight:string];
-//    CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-//    NSLog(@"h=%f", size.height + 1);
-    
-    if (labelView_H == 0) {
-        return 88;
+    if ([dic[@"isGymUser"] integerValue] == 1) {
+        return 400;
+    }else {
+        
+        static FTGymCell * cell =nil;
+        static dispatch_once_t tonceToken;
+        dispatch_once(&tonceToken, ^{
+            cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
+        });
+        
+        CGFloat labelView_H = [cell caculateHeight:dic[@"gymType"]];
+        
+        //    NSString *string = [NSString stringWithFormat:@"%@,%@,%@",dic[@"gymType"],dic[@"gymType"],dic[@"gymType"]];
+        //     CGFloat labelView_H = [cell caculateHeight:string];
+        //    CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        //    NSLog(@"h=%f", size.height + 1);
+        
+        if (labelView_H == 0) {
+            return 88;
+        }
+        return 88 + labelView_H;
     }
-    return 88 + labelView_H;
+    
 }
 
 //headerView高度
@@ -449,7 +453,6 @@
     
     [sectionHeader addSubview:headerView];
     return sectionHeader;
-    
 }
 
 
@@ -459,9 +462,9 @@
     if ([dic[@"isGymUser"] integerValue] == 1) {
         
         FTGymVIPCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"gymVIPCell"];
-        cell.surplusCourse.text = dic[@"remainTime"];
+        cell.surplusCourse.text = [NSString stringWithFormat:@"%ld",[dic[@"remainTime"] integerValue]];
         cell.deadline.text = dic[@"expireTime"];
-        cell.balanceLabel.text = dic[@"userMoney"];
+        cell.balanceLabel.text = [NSString stringWithFormat:@"%ld",[dic[@"userMoney"] integerValue]];
         
         cell.gymName.text = dic[@"gymName"];
         cell.gymAddress.text = dic[@"gymLocation"];
@@ -487,6 +490,7 @@
             [cell.gymImageView setImage:[UIImage imageNamed:@"拳馆占位图"]];
         }
         
+        return cell;
     }else { //非会员
         
         FTGymCell *cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
@@ -527,20 +531,20 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    FTGymCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [cell setSelected:NO];
-    
-    
-    FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
-    //获取对应的bean，传递给下个vc
-    NSDictionary *newsDic = [self.dataSourceArray objectAtIndex:indexPath.row];
-    FTGymBean *bean = [FTGymBean new];
-    [bean setValuesWithDic:newsDic];
-    gymDetailWebViewController.gymBean = bean;
-    
-    if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
-        [self.delegate pushToController:gymDetailWebViewController];
-    }
+//    FTGymCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    [cell setSelected:NO];
+//    
+//    
+//    FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
+//    //获取对应的bean，传递给下个vc
+//    NSDictionary *newsDic = [self.dataSourceArray objectAtIndex:indexPath.row];
+//    FTGymBean *bean = [FTGymBean new];
+//    [bean setValuesWithDic:newsDic];
+//    gymDetailWebViewController.gymBean = bean;
+//    
+//    if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
+//        [self.delegate pushToController:gymDetailWebViewController];
+//    }
 
 }
 
