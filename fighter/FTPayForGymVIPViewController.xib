@@ -30,13 +30,13 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="会员卡" translatesAutoresizingMaskIntoConstraints="NO" id="WWa-DU-lsx">
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="会员卡" translatesAutoresizingMaskIntoConstraints="NO" id="WWa-DU-lsx">
                     <constraints>
                         <constraint firstAttribute="width" constant="320" id="Que-b8-w51"/>
                         <constraint firstAttribute="height" constant="206" id="jZC-k6-5Ac"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nVL-sR-fee">
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nVL-sR-fee">
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="MLA-dU-3fP"/>
                         <constraint firstAttribute="height" constant="35" id="Y5C-wC-udE"/>
@@ -50,7 +50,7 @@
                         </mask>
                     </variation>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ivi-dl-ypa">
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ivi-dl-ypa">
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="pqI-1d-EhS"/>
                     </constraints>
@@ -58,7 +58,7 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="元/年" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wCb-bI-fX8">
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="元/年" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wCb-bI-fX8">
                     <constraints>
                         <constraint firstAttribute="height" constant="28" id="3MB-Pa-0RO"/>
                     </constraints>
@@ -191,7 +191,7 @@
                 <constraint firstItem="WWa-DU-lsx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="uXs-J5-j3v"/>
                 <constraint firstItem="PaX-QF-4k7" firstAttribute="leading" secondItem="Fp1-6e-MbN" secondAttribute="leading" id="vvh-3T-SnL"/>
                 <constraint firstItem="yB1-b2-mJi" firstAttribute="centerY" secondItem="PaX-QF-4k7" secondAttribute="centerY" id="xT5-bx-eYR"/>
-                <constraint firstItem="Fp1-6e-MbN" firstAttribute="top" secondItem="WWa-DU-lsx" secondAttribute="bottom" constant="15" id="z0Z-ju-8eb"/>
+                <constraint firstItem="Fp1-6e-MbN" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="15" id="xVC-S8-jBT"/>
             </constraints>
             <variation key="default">
                 <mask key="constraints">

@@ -349,7 +349,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     FTGymVIPCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
-    NSLog(@"indexPath.row : %ld ", indexPath.row);
+//    NSLog(@"indexPath.row : %ld ", indexPath.row);
     
     if (_displayAllVIP) {//展示所有
         if (_vipArray.count > 6 && indexPath.row == _vipArray.count) {//『收起』

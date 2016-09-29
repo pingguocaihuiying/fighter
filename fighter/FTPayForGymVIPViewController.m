@@ -305,6 +305,12 @@
                         _waitLabel.hidden = NO;
                         _timer.fireDate = [NSDate distantPast];
                         _sendCheckCodeButton.hidden = YES;
+                        
+                        //更改userDefaults中绑定的手机号
+                        FTUserBean *localUser = [FTUserTools getLocalUser];
+                        localUser.tel = phoneNum;
+                        [[NSUserDefaults standardUserDefaults]setObject:localUser forKey:LoginUser];
+                        [[NSUserDefaults standardUserDefaults]synchronize];
                     }else{
                         [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:message];
                     }
