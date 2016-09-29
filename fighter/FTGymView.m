@@ -173,6 +173,12 @@
     [dic setObject:_gymTag forKey:@"gymTag"];
     [dic setObject:_getType forKey:@"getType"];
     [dic setObject:showType forKey:@"showType"];
+    
+    NSString *userId = [FTUserBean loginUser].olduserid;
+    // 判断用户登录
+    if (userId && userId.length >0) {
+        [dic setObject:userId forKey:@"userId"];
+    }
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@",_gymType,_gymCurrId,_gymTag, _getType, ts, @"quanjijia222222"]];
     
@@ -186,7 +192,7 @@
         [self.tableView footerEndRefreshing];
         
         NSLog(@"table dict:%@",dict);
-        NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+//        NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         if (dict != nil) {
             
             NSArray *tempArray = dict[@"data"];
@@ -207,12 +213,15 @@
         }
         
     }];
+    
 }
 
 - (void) sortArray {
+    
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     for (NSDictionary *dic in _dataSourceArray) {
         [dict setObject:dic forKey:dic];
+        NSLog(@"dic:%@",dict);
     }
 
     [_dataSourceArray removeAllObjects];
@@ -444,39 +453,75 @@
 }
 
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
-    FTGymCell *cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
-    [cell clearLabelView];
-    cell.backgroundColor = [UIColor clearColor];
-    
     NSDictionary *dic = [_dataSourceArray objectAtIndex:indexPath.row];
-    
-    [cell.title setText:dic[@"gymName"]];
-    [cell.subtitle setText:dic[@"gymLocation"]];
-    
-//    [cell.avatarImageView.layer setMasksToBounds:YES];
-//    cell.avatarImageView.layer.cornerRadius = 28;
-   
-    NSString *imgStr = dic[@"gymShowImg"];
-    if (imgStr && imgStr.length > 0) {
-        NSArray *tempArray = [imgStr componentsSeparatedByString:@","];
-         NSString *urlStr = [NSString stringWithFormat:@"http://%@/%@",dic[@"urlPrefix"],[tempArray objectAtIndex:0]];
+    if ([dic[@"isGymUser"] integerValue] == 1) {
         
-        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"拳馆占位图"]];
-    }else {
-    
-        [cell.avatarImageView setImage:[UIImage imageNamed:@"拳馆占位图"]];
+        FTGymVIPCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"gymVIPCell"];
+        cell.surplusCourse.text = dic[@"remainTime"];
+        cell.deadline.text = dic[@"expireTime"];
+        cell.balanceLabel.text = dic[@"userMoney"];
+        
+        cell.gymName.text = dic[@"gymName"];
+        cell.gymAddress.text = dic[@"gymLocation"];
+        cell.gymPhone.text = dic[@"gymTel"];
+        
+        
+        cell.courseDate.text = dic[@"dateNext"];
+        cell.courseTime.text = dic[@"timeSectionNext"];
+        cell.course.text = dic[@"labelNext"];
+        
+        cell.orderDate.text = dic[@"datePrev"];
+        cell.orderTime.text = dic[@"timeSectionPrev"];
+        cell.order.text = dic[@"labelPrev"];
+        
+        NSString *imgStr = dic[@"gymShowImg"];
+        if (imgStr && imgStr.length > 0) {
+            NSArray *tempArray = [imgStr componentsSeparatedByString:@","];
+            NSString *urlStr = [NSString stringWithFormat:@"http://%@/%@",dic[@"urlPrefix"],[tempArray objectAtIndex:0]];
+            
+            [cell.gymImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"拳馆占位图"]];
+        }else {
+            
+            [cell.gymImageView setImage:[UIImage imageNamed:@"拳馆占位图"]];
+        }
+        
+    }else { //非会员
+        
+        FTGymCell *cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
+        [cell clearLabelView];
+        cell.backgroundColor = [UIColor clearColor];
+        
+        
+        
+        [cell.title setText:dic[@"gymName"]];
+        [cell.subtitle setText:dic[@"gymLocation"]];
+        
+        //    [cell.avatarImageView.layer setMasksToBounds:YES];
+        //    cell.avatarImageView.layer.cornerRadius = 28;
+        
+        NSString *imgStr = dic[@"gymShowImg"];
+        if (imgStr && imgStr.length > 0) {
+            NSArray *tempArray = [imgStr componentsSeparatedByString:@","];
+            NSString *urlStr = [NSString stringWithFormat:@"http://%@/%@",dic[@"urlPrefix"],[tempArray objectAtIndex:0]];
+            
+            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"拳馆占位图"]];
+        }else {
+            
+            [cell.avatarImageView setImage:[UIImage imageNamed:@"拳馆占位图"]];
+        }
+        
+        //    NSString *string = [NSString stringWithFormat:@"%@,%@,%@",dic[@"gymType"],dic[@"gymType"],dic[@"gymType"]];
+        //    [cell labelsViewAdapter:string];
+        
+        [cell labelsViewAdapter:dic[@"gymType"]];
+        
+        return cell;
     }
-   
-//    NSString *string = [NSString stringWithFormat:@"%@,%@,%@",dic[@"gymType"],dic[@"gymType"],dic[@"gymType"]];
-//    [cell labelsViewAdapter:string];
     
-    [cell labelsViewAdapter:dic[@"gymType"]];
+    return nil;
     
-    return cell;
 }
 
 

@@ -56,7 +56,7 @@
     self.commentCount = dic[@"commentCount"];
     self.viewCount = dic[@"viewCount"];
     
-    self.gymFrom = dic[@"gym_from"];
+    self.gymFrom = dic[@"gymFrom"];
     
 }
 
