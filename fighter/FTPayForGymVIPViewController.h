@@ -8,6 +8,7 @@
 
 #import "FTBaseViewController.h"
 #import "FTGymDetailBean.h"
+#import "FTGymDetailWebViewController.h"
 
 @interface FTPayForGymVIPViewController : FTBaseViewController
 
@@ -32,5 +33,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *waitLabel;
 
 @property (nonatomic, strong) FTGymDetailBean *gymDetailBean;//vc内暂时没有用到，此处用于往下个vc传值
+
+@property (nonatomic, assign) FTGymVIPType gymVIPType;//当前用户是否是当前拳馆的会员
 
 @end

@@ -69,6 +69,7 @@
 @property (nonatomic, strong) FTGymDetailBean *gymDetailBean;//拳馆详情bean
 
 
+
 @end
 
 @implementation FTGymDetailWebViewController
@@ -78,6 +79,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initBaseData];
+    [self getVIPInfo];
     [self loadGymDataFromServer];
     [self setNavigationSytle];
 //
@@ -91,12 +93,30 @@
 
 
 - (void)initBaseData{
-    _vipArray = [NSMutableArray new];
-//    for (int i = 0; i < 13; i++) {
-//        NSString *name = [NSString stringWithFormat:@"李森%d", i];
-//        NSDictionary *vipDic = @{@"image": @"详情页底部按钮一堆-赞pre", @"name": name};
-//        [_vipArray addObject:vipDic];
-//    }
+    _gymVIPType = FTGymVIPTypeNope;
+}
+
+- (void)getVIPInfo{
+    [NetWorking getVIPInfoWithGymId:_gymBean.corporationid andOption:^(NSDictionary *dic) {
+        
+        //无数据：非会员
+        //"type"为会员类型： 0准会员 1会员 2往期会员
+        
+        NSString *status = dic[@"status"];
+        NSLog(@"status : %@", status);
+        if ([status isEqualToString:@"success"]) {
+            NSString *type = dic[@"data"][@"type"];
+            _gymVIPType = [type integerValue];//
+            if (_gymVIPType == FTGymVIPTypeYep) {
+                [_becomeVIPButton setTitle:@"已经是会员" forState:UIControlStateNormal];
+            }else if (_gymVIPType == FTGymVIPTypeApplying){
+                _becomeVIPButton.enabled = YES;
+            }
+        }else{
+            _gymVIPType = FTGymVIPTypeNope;
+            _becomeVIPButton.enabled = YES;
+        }
+    }];
 }
 
 - (void)loadGymDataFromServer{
@@ -497,6 +517,7 @@
         NSLog(@"成为会员");
         FTPayForGymVIPViewController *payForGymVIPViewController = [[FTPayForGymVIPViewController alloc]init];
         payForGymVIPViewController.gymDetailBean = _gymDetailBean;
+        payForGymVIPViewController.gymVIPType = _gymVIPType;
         [self.navigationController pushViewController:payForGymVIPViewController animated:YES];
     } 
 

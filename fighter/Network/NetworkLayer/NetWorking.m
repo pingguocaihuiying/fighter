@@ -1443,7 +1443,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 + (void)requestToBeVIPWithCorporationid:(NSString *)corporationid andPhoneNum:(NSString *) phoneNum andCheckCode:(NSString *)checkCode andOption:(void (^)(NSDictionary *dic))option{
     NSString *urlString = [FTNetConfig host:Domain path:BecomeGymMenberShipURL];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    urlString = [NSString stringWithFormat:@"%@?corporationid=%@", urlString, corporationid];
     //设置请求返回的数据类型为默认类型（NSData类型)
     //获取当前登录用户的信息
     FTUserBean *userBean = [FTUserTools getLocalUser];
@@ -1453,6 +1452,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     
     //md5前的checkSign字典
     NSMutableDictionary *dicBeforeMD5 = [[NSMutableDictionary alloc]initWithDictionary:@{
+                                                                                         @"corporationid":corporationid,
                                                                                          @"userId":userId,
                                                                                          @"loginToken":loginToken,
                                                                                          @"ts":ts}];
@@ -2057,9 +2057,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 
 //  获取兑吧地址
 + (void) GetDuiBaConfig:(void (^)(NSDictionary *dict))option {
-    
     NSString *getDuiBaConfigString = [FTNetConfig host:Domain path:DuiBaConfigURL];
-    
     NSString *configName = @"show_shop";
     // 时间戳
     NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
@@ -2073,6 +2071,29 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     NSLog(@"dic:%@",dic);
     
     [self getRequestWithUrl:getDuiBaConfigString parameters:dic option:option];
+}
+
++ (void)getVIPInfoWithGymId:(NSString *) corporationID andOption:(void (^)(NSDictionary *dic))option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetGymVIPInfoURL];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    urlString = [NSString stringWithFormat:@"%@?corporationid=%@&userId=%@&", urlString, corporationID, [FTUserTools getLocalUser].olduserid];
+    NSLog(@"getGymTimeSlotsById urlString : %@", urlString);
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+        //        [ZJModelTool createModelWithDictionary:responseObject modelName:nil];
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+//        NSLog(@"message : %@", responseDic[@"message"]);
+//        NSDictionary *dic = responseDic[@"data"];
+        if (responseDic && responseDic != (id)[NSNull null]) {
+            option(responseDic);
+        }else{
+            option(nil);
+        }
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
+        option(nil);
+    }];
 }
 
 @end
