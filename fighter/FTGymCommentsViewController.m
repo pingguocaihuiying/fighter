@@ -154,8 +154,8 @@
     FTGymCommentReplyViewController *replyCommentVC = [[FTGymCommentReplyViewController alloc]init];
     replyCommentVC.bean = bean;
     replyCommentVC.objId = [NSString stringWithFormat:@"%d",bean.id];
+    replyCommentVC.refreshBlock = [self getRefreshBlock];
     [self.navigationController  pushViewController:replyCommentVC animated:YES];
-    
 }
 
 //去掉UItableview headerview黏性(sticky)
@@ -174,7 +174,7 @@
     }
 }
 
-
+#pragma mark - CellDelegate
 - (void) pressentViewController:(UIViewController *)viewController {
 
      [self.navigationController presentViewController:viewController animated:YES completion:nil];
@@ -183,6 +183,18 @@
 - (void) pushViewController:(UIViewController *)viewController {
     
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (RefreshBlock) getRefreshBlock {
+
+    __weak typeof(self) weakSelf = self;
+    
+    RefreshBlock refreshBlock = ^(){
+        
+        [weakSelf.tableView reloadData];
+    };
+    
+    return refreshBlock;
 }
 
 #pragma mark - private

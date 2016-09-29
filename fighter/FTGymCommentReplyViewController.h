@@ -8,9 +8,12 @@
 
 #import "FTBaseViewController2.h"
 @class FTGymCommentBean;
+typedef void(^RefreshBlock)();
 
 @interface FTGymCommentReplyViewController : FTBaseViewController2
 @property(nonatomic, strong) NSString *objId;
 @property (nonatomic, strong) FTGymCommentBean *bean;
 @property (nonatomic, assign) BOOL thumbState;
+@property (nonatomic, copy) RefreshBlock refreshBlock;
+
 @end
