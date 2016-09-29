@@ -297,6 +297,7 @@
                     <constraint firstItem="cbh-4e-7Qw" firstAttribute="trailing" secondItem="6VJ-1m-OyH" secondAttribute="trailing" id="zo3-lD-uqR"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="balanceLabel" destination="5DR-W1-SaL" id="xMk-rx-384"/>
                 <outlet property="bottomView" destination="CMi-7w-gvO" id="Yys-ks-Ajl"/>
@@ -307,7 +308,7 @@
                 <outlet property="deadline" destination="eEQ-tl-Asm" id="Gje-Kw-c8a"/>
                 <outlet property="gymAccessButton" destination="ZBS-BJ-k2v" id="blT-57-GoR"/>
                 <outlet property="gymAddress" destination="s7O-tL-aP9" id="mwH-SO-oUd"/>
-                <outlet property="gymImageView" destination="Yli-X4-rPu" id="jf4-eN-8qI"/>
+                <outlet property="gymImageView" destination="Yli-X4-rPu" id="bo4-Ag-eDd"/>
                 <outlet property="gymName" destination="7x4-Ig-xHh" id="XQH-Js-uUg"/>
                 <outlet property="gymPhone" destination="zft-OH-zHc" id="8wj-C4-mhO"/>
                 <outlet property="gymView" destination="UHj-Jc-vqg" id="xK3-Xa-u9f"/>
@@ -315,17 +316,17 @@
                 <outlet property="orderDate" destination="2Un-Ob-6vr" id="k4o-BP-1mi"/>
                 <outlet property="orderTime" destination="r1k-15-ubk" id="XP1-oT-vTz"/>
                 <outlet property="orderView" destination="6VJ-1m-OyH" id="6Vv-j8-khA"/>
-                <outlet property="surplusCourse" destination="hRF-Lm-2eO" id="sDr-sU-eeY"/>
+                <outlet property="surplusCourse" destination="hRF-Lm-2eO" id="9xN-8z-OUr"/>
                 <outlet property="topView" destination="vBi-zv-h1y" id="PFp-XA-G4O"/>
             </connections>
-            <point key="canvasLocation" x="120" y="23"/>
+            <point key="canvasLocation" x="75" y="73"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="主要按钮背景ios" width="30" height="30"/>
         <image name="主要按钮背景ios-pre" width="30" height="30"/>
         <image name="我的拳馆" width="73" height="73"/>
-        <image name="我的拳馆bg" width="33" height="23"/>
+        <image name="我的拳馆bg" width="360" height="400"/>
         <image name="拳馆占位图" width="24" height="24"/>
     </resources>
 </document>
