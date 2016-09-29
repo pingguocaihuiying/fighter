@@ -16,6 +16,8 @@
 #import "FTGymDetailWebViewController.h"
 #import "FTGymBean.h"
 #import "FTGymVIPCellTableViewCell.h"
+#import "FTGymDetailBean.h"
+#import "FTGymSourceViewController.h"
 
 @interface FTGymView () <UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, FTCycleScrollViewDelegate,FTSelectCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -124,8 +126,9 @@
 
 // 获取轮播图数据
 - (void) getCycleScrollViewDataFromWeb {
-    
+
     NSMutableDictionary *dic = [NSMutableDictionary new];
+    
     [dic setObject:@"Hot" forKey:@"gymType"];
     [dic setObject:@"-1" forKey:@"gymCurrId"];
     [dic setObject:@"1" forKey:@"gymTag"];
@@ -531,6 +534,7 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+
 //    FTGymCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 //    [cell setSelected:NO];
 //    
@@ -545,6 +549,38 @@
 //    if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
 //        [self.delegate pushToController:gymDetailWebViewController];
 //    }
+
+//    FTGymCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    [cell setSelected:NO];
+    
+    
+    
+    //获取对应的bean，传递给下个vc
+    NSDictionary *newsDic = [self.dataSourceArray objectAtIndex:indexPath.row];
+    FTGymBean *bean = [FTGymBean new];
+    [bean setValuesWithDic:newsDic];
+    
+    NSString *isGymUser = [NSString stringWithFormat:@"%@", bean.isGymUser];
+    NSLog(@"isGymUser : %@", isGymUser);
+    if ([isGymUser isEqualToString:@"1"]) {
+        NSLog(@"是会员");
+        FTGymSourceViewController *gymSourceViewController = [FTGymSourceViewController new];
+        FTGymDetailBean *detailBean = [FTGymDetailBean new];
+        detailBean.gym_name = bean.gymName;
+        detailBean.corporationid = [bean.corporationid intValue];
+        gymSourceViewController.gymDetailBean = detailBean;
+        if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
+            [self.delegate pushToController:gymSourceViewController];
+        }
+        return;
+    }else {
+        
+        FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
+        gymDetailWebViewController.gymBean = bean;
+        if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
+            [self.delegate pushToController:gymDetailWebViewController];
+        }
+    }
 
 }
 

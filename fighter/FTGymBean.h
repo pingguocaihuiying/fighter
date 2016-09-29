@@ -53,6 +53,8 @@
 @property (nonatomic,copy) NSString *viewCount;
 @property (nonatomic,copy) NSString *gymFrom;
 
+@property (nonatomic, copy) NSString *isGymUser;//当前用户是否是该拳馆的会员
+
 
 
 @end

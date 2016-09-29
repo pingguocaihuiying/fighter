@@ -297,6 +297,7 @@
                     <constraint firstItem="cbh-4e-7Qw" firstAttribute="trailing" secondItem="6VJ-1m-OyH" secondAttribute="trailing" id="zo3-lD-uqR"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="balanceLabel" destination="5DR-W1-SaL" id="xMk-rx-384"/>
                 <outlet property="bottomView" destination="CMi-7w-gvO" id="Yys-ks-Ajl"/>
@@ -318,7 +319,7 @@
                 <outlet property="surplusCourse" destination="hRF-Lm-2eO" id="9xN-8z-OUr"/>
                 <outlet property="topView" destination="vBi-zv-h1y" id="PFp-XA-G4O"/>
             </connections>
-            <point key="canvasLocation" x="120" y="23"/>
+            <point key="canvasLocation" x="75" y="73"/>
         </tableViewCell>
     </objects>
     <resources>

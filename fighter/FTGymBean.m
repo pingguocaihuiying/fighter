@@ -57,7 +57,8 @@
     self.viewCount = dic[@"viewCount"];
     
     self.gymFrom = dic[@"gymFrom"];
-    
+    self.isGymUser = [NSString stringWithFormat:@"%@", dic[@"isGymUser"]];
+
 }
 
 

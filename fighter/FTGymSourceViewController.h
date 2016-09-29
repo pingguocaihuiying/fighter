@@ -11,6 +11,6 @@
 
 @interface FTGymSourceViewController : FTBaseViewController
 
-@property (nonatomic, strong) FTGymDetailBean *gymDetailBean;//vc内暂时没有用到，此处用于往下个vc传值
+@property (nonatomic, strong) FTGymDetailBean *gymDetailBean;
 
 @end
