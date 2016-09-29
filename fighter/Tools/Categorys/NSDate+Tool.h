@@ -10,6 +10,23 @@
 
 @interface NSDate (Tool)
 
+
+/**
+ 生成日期时间字符串，用下划线间隔日期和时间
+
+ @return 日期字符串
+ */
++ (NSString *) dateTimeStringWithUnderlineSpace;
+
+
+/**
+  生成日期时间字符串，用空格间隔日期和时间
+
+ @return 日期字符串
+ */
++ (NSString *) dateTimeStringWithBlankSpace;
+
+
 /**
  根据时间戳生成相对应格式的日期字符串
  

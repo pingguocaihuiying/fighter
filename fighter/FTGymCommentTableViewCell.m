@@ -13,7 +13,7 @@
 #import "FTBaseNavigationViewController.h"
 #import "FTGymPhotoCollectionViewCell.h"
 #import "FTGymCommentReplyViewController.h"
-
+#import "FTEncoderAndDecoder.h"
 
 @interface FTGymCommentTableViewCell()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
@@ -38,6 +38,7 @@
     self.avatarImageView.layer.masksToBounds = YES;
     self.avatarImageView.layer.cornerRadius = 20;
     
+    [self setCollectionView];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -137,6 +138,7 @@
         dataSource = [bean.urls componentsSeparatedByString:@","];
         [self setCollectionView];
         self.CollectionHeightConstraint.constant = 40;
+        [_collectionView reloadData];
     }else {
     
         dataSource = nil;
@@ -146,7 +148,7 @@
 
 #pragma mark - 点赞
 - (void) getThumbState {
-
+    
     [NetWorking getVoteStatusWithObjid:[NSString stringWithFormat:@"%d",self.commentbean.id] andTableName:@"v-cgym" andOption:^(BOOL result) {
         
         if (result) {
@@ -205,6 +207,7 @@
     replyCommentVC.bean = self.commentbean;
     replyCommentVC.objId = [NSString stringWithFormat:@"%d",self.commentbean.id];
     replyCommentVC.thumbState = thumbState;
+    replyCommentVC.refreshBlock = [self.cellDelegate getRefreshBlock];
     [self.cellDelegate pushViewController:replyCommentVC];
 }
 
@@ -220,19 +223,11 @@
 #pragma mark - collectionView 
 - (void) setCollectionView {
 
-    //flowlayout
-    UICollectionViewFlowLayout *flow = [[UICollectionViewFlowLayout alloc]init];
-    flow.itemSize = CGSizeMake(40 * SCALE, 40 * SCALE);//cell大小
-//    flow.minimumLineSpacing = 15 * SCALE;//行最小间距
-    flow.minimumInteritemSpacing = 5 * SCALE;//列最小间距
-    flow.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    
     //left
     [_collectionView registerNib:[UINib nibWithNibName:@"FTGymPhotoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell1"];//FooCollectionViewCell
-//    _collectionView.backgroundColor = [UIColor clearColor];
+    //    _collectionView.backgroundColor = [UIColor clearColor];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
-
     
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -243,23 +238,28 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     NSString *urlPrefix = @"http://7xtvwy.com1.z0.glb.clouddn.com/";
-    NSString *urlSuffix = @"?vframe/png/offset/0";
+    NSString *imageSuffix = @"?imageView2/2/w/200";
+    NSString *videoSuffix = @"?vframe/png/offset/0";
+    
     NSString *imageName = dataSource[indexPath.row];
     NSString *imageURL = [urlPrefix stringByAppendingString:imageName];
     
-    NSLog(@"imageURL:%@",imageURL);
     FTGymPhotoCollectionViewCell *cell;
    
     cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell1" forIndexPath:indexPath];
+
+    // 处理空格
+    imageURL = [imageURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     if ([imageName hasSuffix:@"mp4"]) {
         
         cell.isVideoView.hidden = NO;
-        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:[imageURL stringByAppendingString:urlSuffix]]];
+        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:[imageURL stringByAppendingString:videoSuffix]]];
     }else {
     
         cell.isVideoView.hidden = YES;
-        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:imageURL]];
+        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:[imageURL stringByAppendingString:imageSuffix]]];
+        
     }
    
     cell.backgroundColor = [UIColor clearColor];

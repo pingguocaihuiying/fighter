@@ -10,7 +10,7 @@
 #import "CellDelegate.h"
 #import "FTGymPhotoCollectionViewCell.h"
 #import "NSDate+Tool.h"
-
+#import "FTEncoderAndDecoder.h"
 
 @interface FTGymCommentDetailCell()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
@@ -142,14 +142,14 @@
 #pragma mark - 点赞
 - (void) getThumbState {
     
-    [NetWorking getVoteStatusWithObjid:[NSString stringWithFormat:@"%d",self.commentbean.id] andTableName:@"v-gym" andOption:^(BOOL result) {
+    [NetWorking getVoteStatusWithObjid:[NSString stringWithFormat:@"%d",self.commentbean.id] andTableName:@"v-cgym" andOption:^(BOOL result) {
         
         if (result) {
             thumbState = YES;
-            [self.thumbsButton setImage:[UIImage imageNamed:@"点赞pre"] forState:UIControlStateSelected];
+            [self.thumbsButton setImage:[UIImage imageNamed:@"点赞pre"] forState:UIControlStateDisabled];
         }else {
             thumbState = NO;
-            [self.thumbsButton setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateSelected];
+            [self.thumbsButton setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateDisabled];
         }
     }];
 }
@@ -157,7 +157,7 @@
 - (IBAction)thumbButtonAction:(id)sender {
     
    
-    [NetWorking addVoteWithObjid:[NSString stringWithFormat:@"%d",self.commentbean.id] isAdd:thumbState? NO:YES andTableName:@"v-gym" andOption:^(BOOL result) {
+    [NetWorking addVoteWithObjid:[NSString stringWithFormat:@"%d",self.commentbean.id] isAdd:thumbState? NO:YES andTableName:@"v-cgym" andOption:^(BOOL result) {
         if (result) {
             
             thumbState = thumbState?NO:YES;
@@ -168,20 +168,22 @@
 
 - (void) setThumbState:(BOOL) state {
     
-    if (state) {
+    thumbState = thumbState? NO:YES;
+    
+    if (thumbState) {
         
         self.commentbean.voteCount ++;
         
-        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.voteCount] forState:UIControlStateNormal];
+        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.voteCount] forState:UIControlStateDisabled];
         
-        [self.thumbsButton setImage:[UIImage imageNamed:@"点赞pre"] forState:UIControlStateSelected];
+        [self.thumbsButton setImage:[UIImage imageNamed:@"点赞pre"] forState:UIControlStateDisabled];
     }else {
         
         self.commentbean.voteCount --;
         
-        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.voteCount] forState:UIControlStateNormal];
+        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.voteCount] forState:UIControlStateDisabled];
         
-        [self.thumbsButton setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateSelected];
+        [self.thumbsButton setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateDisabled];
     }
 }
 
@@ -216,25 +218,29 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     NSString *urlPrefix = @"http://7xtvwy.com1.z0.glb.clouddn.com/";
-    NSString *urlSuffix = @"?vframe/png/offset/0";
+    NSString *imageSuffix = @"?imageView2/2/w/200";
+    NSString *videoSuffix = @"?vframe/png/offset/0";
+    
     NSString *imageName = dataSource[indexPath.row];
     NSString *imageURL = [urlPrefix stringByAppendingString:imageName];
     
-    NSLog(@"imageURL:%@",imageURL);
     FTGymPhotoCollectionViewCell *cell;
     
     cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell1" forIndexPath:indexPath];
     
+    // 处理空格
+    imageURL = [imageURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
     if ([imageName hasSuffix:@"mp4"]) {
         
         cell.isVideoView.hidden = NO;
-        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:[imageURL stringByAppendingString:urlSuffix]]];
+        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:[imageURL stringByAppendingString:videoSuffix]]];
     }else {
         
         cell.isVideoView.hidden = YES;
-        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:imageURL]];
+        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:[imageURL stringByAppendingString:imageSuffix]]];
+        
     }
-    
     cell.backgroundColor = [UIColor clearColor];
     
     return cell;

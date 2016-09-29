@@ -151,7 +151,11 @@
 
 - (void) backBtnAction:(id) sender {
     
+    
     [self.navigationController popViewControllerAnimated:YES];
+    if (_refreshBlock) {
+        _refreshBlock();
+    }
 }
 
 - (IBAction)thumbsButtonAction:(id)sender {

@@ -13,7 +13,7 @@
 #import "FTCameraAndAlbum.h"
 #import "UIImage+LabelImage.h"
 #import <AVFoundation/AVFoundation.h>
-#import "NSString+Size.h"
+#import "NSDate+Tool.h"
 #import "QiniuSDK.h"
 #import "FTQiniuNetwork.h"
 
@@ -173,9 +173,6 @@
     [prams setObject:self.comment forKey:@"comment"];
     [prams setObject:self.objId forKey:@"objId"];
     
-    if (self.urls) {
-        [prams setObject:self.urls forKey:@"urls"];
-    }
     
     if (self.comfort) {
         [prams setObject:self.comfort forKey:@"comfort"];
@@ -302,7 +299,7 @@
     FTGymPhotoCell *cell = (FTGymPhotoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] ];
     
     NSString *userId = [FTUserBean loginUser].olduserid;
-    NSString *timeString = [NSString dateString];
+    NSString *timeString = [NSDate dateTimeStringWithUnderlineSpace];
     NSString *key;
     
     if ([lastChosenMediaType isEqualToString:(NSString *)kUTTypeImage]) {
@@ -342,7 +339,6 @@
         
         key = [NSString stringWithFormat:@"%@_%@mp4",timeString, userId];//key值取userId＋时间戳+mp4
         [_urls addObject:key];
-        
     }
 }
 
@@ -424,7 +420,6 @@
     if (section == 1) {
         return 10;
     }
-    
     return 0;
 }
 
