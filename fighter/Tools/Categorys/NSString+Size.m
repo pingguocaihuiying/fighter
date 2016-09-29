@@ -27,15 +27,8 @@
     return [self boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
 }
 
-+ (NSString *) dateString
-{
-    NSDate *date = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd_HH:mm:ss"];
-    NSString *dateStr = [dateFormatter stringFromDate:date];
-    return dateStr;
-}
+
+
 
 
 @end
