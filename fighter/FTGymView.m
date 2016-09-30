@@ -75,6 +75,9 @@
     [self getCycleScrollViewDataFromWeb];
     [self getTableViewDataFromWeb];
     
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getTableViewDataFromWeb) name:USER_SIGN_OUT object:nil];
+    
+    
 }
 
 - (void) initSubviews {

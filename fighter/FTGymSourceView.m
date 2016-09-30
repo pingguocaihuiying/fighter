@@ -49,6 +49,8 @@
 - (void)awakeFromNib{
     [super awakeFromNib];
     [self initSubViews];
+    
+    _t0.backgroundColor = [UIColor clearColor];
 }
 
 - (void)initSubViews{
@@ -136,6 +138,16 @@
 }
 
 - (void)initTableViews{
+    //设置背景色，兼容iPad
+//    _t0.backgroundView.alpha = 0;
+//    _t1.backgroundView.alpha = 0;
+//    _t2.backgroundView.alpha = 0;
+//    _t3.backgroundView.alpha = 0;
+//    _t4.backgroundView.alpha = 0;
+//    _t5.backgroundView.alpha = 0;
+//    _t6.backgroundView.alpha = 0;
+    
+    
     //设置tableivew的星期几，0为第一列，只显示时间段，其他index对应周几（1、2、3等）
     _t0.index = 0;
     _t1.index = [FTTools getWeekdayOfTodayAfterToday:0];

@@ -26,5 +26,6 @@
 @property (nonatomic, strong) NSArray *gymVideos;//视频地址数组
 @property (nonatomic, copy) NSString *urlprefix;//图片、视频地址前缀  coachs
 @property (nonatomic, strong) NSArray *coachs;//拳馆的所有教练
-@property (nonatomic, copy) NSString *gym_tel;//拳馆电话 
+@property (nonatomic, copy) NSString *gym_tel;//拳馆电话
+
 @end

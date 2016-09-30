@@ -130,6 +130,8 @@
         
         [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"退出成功"];
         
+        [FTUserTools sendSignOutNotification];
+        
     }];
 }
 

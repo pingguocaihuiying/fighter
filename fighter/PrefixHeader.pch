@@ -116,6 +116,10 @@
 //和750的比例
 #define SCALE  (SCREEN_WIDTH / (750 / 2))
 
+//用户注销的通知
+#define USER_SIGN_OUT @"userSignOut"
+
+
 //#define ShowType @"showType"
 
 
