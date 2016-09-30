@@ -60,7 +60,7 @@
                                 <color key="textColor" red="0.70582723617553711" green="0.70591342449188232" blue="0.70579797029495239" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B8m-EN-9Uc">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B8m-EN-9Uc">
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.70582723619999999" green="0.70591342450000005" blue="0.70579797030000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -123,7 +123,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="142" id="4S6-ht-XWQ"/>
-                            <constraint firstItem="7x4-Ig-xHh" firstAttribute="bottom" secondItem="Yli-X4-rPu" secondAttribute="centerY" constant="7.5" id="4XB-42-sIM"/>
+                            <constraint firstItem="7x4-Ig-xHh" firstAttribute="bottom" secondItem="Yli-X4-rPu" secondAttribute="centerY" constant="-7.5" id="4XB-42-sIM"/>
                             <constraint firstItem="7x4-Ig-xHh" firstAttribute="trailing" secondItem="UHj-Jc-vqg" secondAttribute="trailing" constant="-16" id="Af3-cf-GHj"/>
                             <constraint firstItem="s7O-tL-aP9" firstAttribute="trailing" secondItem="7x4-Ig-xHh" secondAttribute="trailing" id="R9F-WE-wB7"/>
                             <constraint firstItem="Yli-X4-rPu" firstAttribute="leading" secondItem="UHj-Jc-vqg" secondAttribute="leading" constant="16" id="Yif-SR-MXW"/>
@@ -299,10 +299,12 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
-                <outlet property="balanceLabel" destination="5DR-W1-SaL" id="xMk-rx-384"/>
+                <outlet property="balanceLabel" destination="5DR-W1-SaL" id="5zt-6t-Yed"/>
+                <outlet property="balanceTextLabel" destination="9w0-hU-y9h" id="Ngc-qj-PF4"/>
                 <outlet property="bottomView" destination="CMi-7w-gvO" id="Yys-ks-Ajl"/>
                 <outlet property="course" destination="fUO-hX-Xu5" id="E4Q-YL-ZLx"/>
                 <outlet property="courseDate" destination="s3F-W2-Kq2" id="rIs-mL-HYU"/>
+                <outlet property="courseDateLeadConstraint" destination="sax-HS-oFA" id="szF-Bh-efq"/>
                 <outlet property="courseTime" destination="3RD-dU-vwf" id="2IV-ud-1Z5"/>
                 <outlet property="courseView" destination="cbh-4e-7Qw" id="Doj-2G-9ev"/>
                 <outlet property="deadline" destination="eEQ-tl-Asm" id="Gje-Kw-c8a"/>
@@ -314,10 +316,12 @@
                 <outlet property="gymView" destination="UHj-Jc-vqg" id="xK3-Xa-u9f"/>
                 <outlet property="order" destination="M5Z-Fs-b4V" id="p9n-Zq-9bw"/>
                 <outlet property="orderDate" destination="2Un-Ob-6vr" id="k4o-BP-1mi"/>
+                <outlet property="orderDateLeadConstraint" destination="66a-6D-PzU" id="As4-35-zWt"/>
                 <outlet property="orderTime" destination="r1k-15-ubk" id="XP1-oT-vTz"/>
                 <outlet property="orderView" destination="6VJ-1m-OyH" id="6Vv-j8-khA"/>
                 <outlet property="surplusCourse" destination="hRF-Lm-2eO" id="9xN-8z-OUr"/>
                 <outlet property="topView" destination="vBi-zv-h1y" id="PFp-XA-G4O"/>
+                <outlet property="yuanLabel" destination="B8m-EN-9Uc" id="Wi4-8C-7in"/>
             </connections>
             <point key="canvasLocation" x="75" y="73"/>
         </tableViewCell>
