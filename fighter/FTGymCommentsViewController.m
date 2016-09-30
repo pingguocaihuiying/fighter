@@ -11,10 +11,24 @@
 #import "FTGymCommentBean.h"
 #import "CellDelegate.h"
 #import "FTGymCommentReplyViewController.h"
+#import "FTGymCommentViewController.h"
+#import "FTLoginViewController.h"
+#import "FTBaseNavigationViewController.h"
 
-@interface FTGymCommentsViewController ()<UITableViewDelegate,UITableViewDataSource,CellDelegate>
 
+@interface FTGymCommentsViewController ()<UITableViewDelegate,UITableViewDataSource,CellDelegate,UITextFieldDelegate>
+{
+    BOOL thumbState;
+    BOOL hasGetThumbState;
+}
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
+@property (weak, nonatomic) IBOutlet UIView *leftView;
+@property (weak, nonatomic) IBOutlet UITextField *commenTextField;
+@property (weak, nonatomic) IBOutlet UIButton *thumbButton;
+@property (weak, nonatomic) IBOutlet UIButton *commentButton;
+
+
 @property (nonatomic, strong) NSMutableArray<FTGymCommentBean *> *dataArray;
 @end
 
@@ -41,6 +55,7 @@
 
     [self setNavigationBar];
     [self setTableView];
+    [self setBottomView];
     
 }
 
@@ -67,12 +82,34 @@
     self.tableView.estimatedRowHeight = 310; // 设置为一个接近于行高“平均值”的数值
 }
 
+- (void) setBottomView {
+    
+    //将多余的部分切掉
+    self.commenTextField.layer.masksToBounds = YES;
+    self.commenTextField.layer.cornerRadius = 16;
+    //    self.commentTextField.delegate = self;
+    
+    //    self.commentButton.frame = CGRectMake(30, 12, 24, 24);
+    self.commenTextField.leftView = self.leftView;
+    self.commenTextField.leftViewMode = UITextFieldViewModeAlways;
+}
+
+
+- (void) setThumbState:(BOOL) state {
+    
+    if (state) {
+        [self.thumbButton setImage:[UIImage imageNamed:@"点赞pre"] forState:UIControlStateNormal];
+    }else {
+        [self.thumbButton setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateNormal];
+    }
+}
+
 #pragma mark - init data
 - (void) initData {
     self.dataArray = [[NSMutableArray alloc]init];
     [self getDataArrayFromWeb];
+    [self getThumbState];
 }
-
 
 // 获取tableView data
 - (void) getDataArrayFromWeb {
@@ -81,8 +118,8 @@
     [NetWorking getGymComments:self.objId option:^(NSDictionary *dict) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         
-        NSLog(@"dic:%@",dict);
-        NSLog(@"message:%@",dict[@"message"]);
+//        NSLog(@"dic:%@",dict);
+//        NSLog(@"message:%@",dict[@"message"]);
         BOOL status = [dict[@"status"] isEqualToString:@"success"];
         if (status) {
             NSArray *tempArray = dict[@"data"];
@@ -97,24 +134,87 @@
             }else {
                 [self.tableView reloadData];
             }
+        }else {
+            [self.view showMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         }
     }];
 }
 
+- (void) getThumbState {
+    
+    FTUserBean *userbean = [FTUserBean loginUser];
+    if (!userbean) {
+        return;
+    }
+
+    [NetWorking getVoteStatusWithObjid:self.objId andTableName:@"v-gym" andOption:^(BOOL result) {
+        hasGetThumbState = YES;
+        thumbState = result;
+        NSLog(@"%@",thumbState?@"点赞成功":@"取消点赞");
+        [self setThumbState:thumbState];
+    }];
+}
 
 #pragma mark - response
-
 - (void) backBtnAction:(id) sender {
     
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (IBAction)thumbButtonAction:(id)sender {
+    
+    FTUserBean *user = [FTUserBean loginUser];
+    if (!user) {
+        [self login];
+        return;
+    }
+    
+    if (!hasGetThumbState) {
+        [self getThumbState];
+    }
+    
+    //获取网络请求地址url
+    NSString *urlString = [FTNetConfig host:Domain path:thumbState?DeleteVoteURL:AddVoteURL];
+    NSString *userId = user.olduserid;
+    NSString *objId = self.objId;
+    NSString *loginToken = user.token;
+    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
+    NSString *tableName = @"v-gym";
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, thumbState ?DeleteVoteCheckKey: AddVoteCheckKey]];
+    
+    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
+    
+    [NetWorking getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *dict) {
+        
+        if (dict) {
+            NSLog(@"点赞状态 status : %@, message : %@", dict[@"status"], dict[@"message"]);
+            if ([dict[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
+                
+                thumbState = thumbState? NO:YES;
+                [self setThumbState:thumbState];
+                
+            }
+        }
+    }];
+
+}
+
+- (IBAction)commentButtonAction:(id)sender {
+    
+    FTGymCommentViewController *commentVC = [ FTGymCommentViewController new];
+    commentVC.objId = self.objId;
+    commentVC.title = self.title;
+    [self.navigationController pushViewController:commentVC animated:YES];
+    
+}
 
 #pragma mark - delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     return self.dataArray.count;
 }
+
+
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
@@ -188,17 +288,31 @@
 - (RefreshBlock) getRefreshBlock {
 
     __weak typeof(self) weakSelf = self;
-    
     RefreshBlock refreshBlock = ^(){
-        
         [weakSelf.tableView reloadData];
     };
     
     return refreshBlock;
 }
 
+#pragma mark - UITextFieldDelegate
+- (BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
+
+    FTGymCommentViewController *commentVC = [ FTGymCommentViewController new];
+    commentVC.objId = self.objId;
+    commentVC.title = self.title;
+    [self.navigationController pushViewController:commentVC animated:YES];
+    
+    return NO;
+}
+
 #pragma mark - private
-
-
+// 跳转登录界面方法
+- (void)login{
+    FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+    loginVC.title = @"登录";
+    FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
 
 @end

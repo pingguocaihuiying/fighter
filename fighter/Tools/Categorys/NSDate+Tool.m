@@ -51,7 +51,7 @@
  */
 +(NSString *) dateString:(NSInteger) timestamp  {
     
-    NSString *timeTemp = [NSString stringWithFormat:@"%ld",timestamp];
+    NSString *timeTemp = [NSString stringWithFormat:@"%ld",(long)timestamp];
     NSDate *currentDate = [NSDate date];
     NSDate *targetDate = [self dateWithTimestamp:timeTemp];
     
@@ -146,6 +146,27 @@
 }
 
 
+/**
+ 将下划线间隔日期字符串修改为年月日间隔的日期字符串
+
+ @param dateString 下划线间隔日期字符串
+
+ @return 年月日间隔字符串
+ */
++ (NSString *) changeUnderlineDateToWordDate:(NSString *) dateString {
+    
+    if (dateString.length >=10) {
+        NSString *year = [dateString substringToIndex:4];
+        NSString *month= [dateString substringWithRange:NSMakeRange(5, 2)];
+        NSString *day = [dateString substringWithRange:NSMakeRange(8, 2)];
+        
+        return [NSString stringWithFormat:@"%@年%@月%@日",year,month,day];
+    }
+    
+    
+    return @"";
+    
+}
 
 
 

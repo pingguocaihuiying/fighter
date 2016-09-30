@@ -36,10 +36,14 @@
     return YES;
 }
 
-- (void)textViewDidEndEditing:(UITextView *)textView {
+- (void) textViewDidBeginEditing:(UITextView *)textView {
+//     [self.cellDelegate gymComment:textView.text];
+}
 
+- (void)textViewDidEndEditing:(UITextView *)textView {
     [self.cellDelegate gymComment:textView.text];
 }
+
 //- (void)textViewDidBeginEditing:(UITextView *)textView;
 //- (void)textViewDidEndEditing:(UITextView *)textView;
 //
