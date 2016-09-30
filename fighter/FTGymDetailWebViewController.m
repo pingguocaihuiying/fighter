@@ -166,6 +166,9 @@
     
     //更新地址
     _gymAdressLabel.text = _gymDetailBean.gym_location;
+    
+    //更新评论数
+    _commentCountLabel.text = [NSString stringWithFormat:@"%d人评价", _gymDetailBean.commentcount];
 }
 
 - (void) dealloc {

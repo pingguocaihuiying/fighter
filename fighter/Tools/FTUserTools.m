@@ -15,5 +15,7 @@
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     return localUser;
 }
-
++ (void)sendSignOutNotification{
+    [[NSNotificationCenter defaultCenter]postNotificationName:USER_SIGN_OUT object:nil];
+}
 @end
