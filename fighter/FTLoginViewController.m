@@ -242,6 +242,8 @@
 {
     return YES;
 }
+
+
 /*
 #pragma mark - Navigation
 
@@ -251,5 +253,11 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+
+    [self.acountTextField resignFirstResponder];
+    [self.passwordTextField resignFirstResponder];
+}
 
 @end

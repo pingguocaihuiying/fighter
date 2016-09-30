@@ -16,4 +16,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
 @property (weak, nonatomic) IBOutlet UIButton *rechargeButton;
 
+@property (nonatomic, assign) NSInteger corporationId;
+
 @end

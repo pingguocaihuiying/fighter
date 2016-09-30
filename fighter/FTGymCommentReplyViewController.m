@@ -11,10 +11,7 @@
 #import "FTGymCommentDetailCell.h"
 
 @interface FTGymCommentReplyViewController () <UITableViewDelegate,UITableViewDataSource>
-{
 
-    BOOL isKeyBoardShow;
-}
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
@@ -225,21 +222,16 @@
 
 - (void)keyboardWillShow:(NSNotification *)aNotification
 {
-    
     //创建自带来获取穿过来的对象的info配置信息
-    
     NSDictionary *userInfo = [aNotification userInfo];
     
     //创建value来获取 userinfo里的键盘frame大小
-    
     NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
     
     //创建cgrect 来获取键盘的值
-    
     CGRect keyboardRect = [aValue CGRectValue];
     
     //最后获取高度 宽度也是同理可以获取
-    
     CGFloat height = keyboardRect.size.height;
     if (height <= 0) {
         height = 282;
@@ -249,60 +241,38 @@
     CGRect currentFrame = [self.view convertRect:self.bottomView.frame toView:self.view];
     NSLog(@"y position before animation :(%f)",currentFrame.origin.y);
     
-    if (isKeyBoardShow == NO) {
-        __weak typeof(self) weakSelf = self;
-        [UIView animateWithDuration:0.3 animations:^{
-            CGRect frame = weakSelf.view.frame;
-            weakSelf.view.frame = CGRectMake(frame.origin.x, frame.origin.y - height, frame.size.width, frame.size.height);
-        }];
-        
-        isKeyBoardShow = YES;
-    }
-    
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect frame = weakSelf.view.frame;
+        weakSelf.view.frame = CGRectMake(frame.origin.x, frame.origin.y - height, frame.size.width, frame.size.height);
+    }];
 }
 
 //当键退出时调用
 - (void)keyboardWillHide:(NSNotification *)aNotification{
 
     //创建自带来获取穿过来的对象的info配置信息
-    
     NSDictionary *userInfo = [aNotification userInfo];
     
     //创建value来获取 userinfo里的键盘frame大小
-    
     NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
     
     //创建cgrect 来获取键盘的值
-    
     CGRect keyboardRect = [aValue CGRectValue];
     
     //最后获取高度 宽度也是同理可以获取
-    
     CGFloat height = keyboardRect.size.height;
     
-    NSLog(@"height:%f",height);
-    
-    
-    CGRect currentFrame = [self.view convertRect:self.bottomView.frame toView:self.view];
-    NSLog(@"y position after animation:%f",currentFrame.origin.y);
-    
-    if (isKeyBoardShow == YES) {
-        
-        __weak typeof(self) weakSelf = self;
-        [UIView animateWithDuration:0.3 animations:^{
-            CGRect frame = weakSelf.view.frame;
-            weakSelf.view.frame = CGRectMake(frame.origin.x, frame.origin.y + height, frame.size.width, frame.size.height);
-        }];
-        
-        isKeyBoardShow = NO;
-    }
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect frame = weakSelf.view.frame;
+        weakSelf.view.frame = CGRectMake(frame.origin.x, frame.origin.y + height, frame.size.width, frame.size.height);
+    }];
 }
 
 
 - (void)keyBoardFrameWillChanged:(NSNotification *)note
 {
-    //获取键盘的frame
-    CGRect frame =  [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
     //获取键盘的动画时间
     CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
@@ -310,28 +280,16 @@
 //    //创建自带来获取穿过来的对象的info配置信息
     NSDictionary *userInfo = [note userInfo];
     NSLog(@"userInfo:%@",userInfo);
-//    
-//    //创建value来获取 userinfo里的键盘frame大小
-//    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-//    CGRect keyboardRect = [aValue CGRectValue];
+    CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
-    //最后获取高度 宽度也是同理可以获取
-    CGFloat height = isKeyBoardShow?frame.size.height:-frame.size.height;;
-    
-    
+
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration animations:^{
         
-        CGRect frame = weakSelf.view.frame;
-        weakSelf.view.frame = CGRectMake(frame.origin.x, frame.origin.y + height, frame.size.width, frame.size.height);
-        
         //改变底部工具条的底部约束
-        weakSelf.bottomViewBottomContraint.constant =  height;
+        weakSelf.bottomViewBottomContraint.constant =  endFrame.origin.y - SCREEN_HEIGHT;
         [weakSelf.view layoutIfNeeded];//刷新布局，使得工具条随键盘frame改变有动画
     }];
-    
-    isKeyBoardShow = isKeyBoardShow?NO:YES;
-
 }
 
 

@@ -16,6 +16,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *surplusCourse; //剩余课时
 @property (weak, nonatomic) IBOutlet UILabel *deadline;// 截止日期
 @property (weak, nonatomic) IBOutlet UILabel *balanceLabel;// 账户余额label
+@property (weak, nonatomic) IBOutlet UILabel *balanceTextLabel;
+@property (weak, nonatomic) IBOutlet UILabel *yuanLabel;
+
 
 // gym view 拳馆信息
 @property (weak, nonatomic) IBOutlet UIView *gymView;
@@ -29,12 +32,15 @@
 @property (weak, nonatomic) IBOutlet UILabel *courseDate;//课时日期
 @property (weak, nonatomic) IBOutlet UILabel *courseTime;//课时时间
 @property (weak, nonatomic) IBOutlet UILabel *course;// 课程
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *courseDateLeadConstraint;
+
 
 // order view 约课记录
 @property (weak, nonatomic) IBOutlet UIView *orderView;
 @property (weak, nonatomic) IBOutlet UILabel *orderDate;
 @property (weak, nonatomic) IBOutlet UILabel *orderTime;
 @property (weak, nonatomic) IBOutlet UILabel *order;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *orderDateLeadConstraint;
 
 // bottom view 进入拳馆按钮
 @property (weak, nonatomic) IBOutlet UIView *bottomView;

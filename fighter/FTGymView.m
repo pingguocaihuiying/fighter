@@ -546,26 +546,6 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
 
-//    FTGymCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-//    [cell setSelected:NO];
-//    
-//    
-//    FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
-//    //获取对应的bean，传递给下个vc
-//    NSDictionary *newsDic = [self.dataSourceArray objectAtIndex:indexPath.row];
-//    FTGymBean *bean = [FTGymBean new];
-//    [bean setValuesWithDic:newsDic];
-//    gymDetailWebViewController.gymBean = bean;
-//    
-//    if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
-//        [self.delegate pushToController:gymDetailWebViewController];
-//    }
-
-//    FTGymCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-//    [cell setSelected:NO];
-    
-    
-    
     //获取对应的bean，传递给下个vc
     NSDictionary *newsDic = [self.dataSourceArray objectAtIndex:indexPath.row];
     FTGymBean *bean = [FTGymBean new];

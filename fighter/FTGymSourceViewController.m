@@ -13,6 +13,9 @@
 #import "FTGymOrderCourseView.h"
 #import "FTOrderCoachViewController.h"
 #import "FTCoachSelfCourseViewController.h"
+#import "FTGymRechargeViewController.h"
+#import "FTBaseNavigationViewController.h"
+
 
 @interface FTGymSourceViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, FTGymCourseTableViewDelegate, FTGymOrderCourseViewDelegate>
 @property (strong, nonatomic) IBOutlet UILabel *balanceLabel;//动态label:余额的值
@@ -108,10 +111,24 @@
         self.navigationItem.rightBarButtonItem = gymDetailButton;
 }
 
+
+#pragma mark - response 
+
 - (void)backBtnAction:(id)sender{
     NSLog(@"返回");
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+
+- (IBAction)rechargeButtonAction:(id)sender {
+    
+    FTGymRechargeViewController *gymRechargeViewController = [FTGymRechargeViewController new];
+    gymRechargeViewController.corporationId = self.gymDetailBean.corporationid;
+    FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:gymRechargeViewController];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+
+
 
 - (void)getCoachesOfGymFromServer{
     [NetWorking getCoachesWithCorporationid:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSArray *array) {
