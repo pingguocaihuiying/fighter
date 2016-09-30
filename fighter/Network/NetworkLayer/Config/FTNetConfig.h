@@ -191,7 +191,9 @@ extern NSString *const DeleteCourseBookCheckSign;//取消约课
 //获取拳馆vip信息
 extern NSString *const GetGymVIPInfoURL;
 //约课
-extern NSString * const OrderCourseURL;
+extern NSString * const OrderCourseURL;//
+//取消约课
+extern NSString * const DeleteOrderCourseURL;
 //获取拳馆固定的时间段
 extern NSString * const GetGymTimeSlotsByIdURL;
 //获取拳馆的场地信息

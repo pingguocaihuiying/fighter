@@ -9,12 +9,10 @@
 
 #import <UIKit/UIKit.h>
 
-/**
- 自定义一个tableView，只为了给它增加一个index属性
- */
+
 @interface FTGymSourceTableView : UITableView
 
 @property (nonatomic, assign) NSInteger index;
-@property (nonatomic, copy) NSString *dateString;
-
+@property (nonatomic, copy) NSString *dateString;//日期
+@property (nonatomic, copy) NSString *timeStampString;//那天的任一时间戳
 @end

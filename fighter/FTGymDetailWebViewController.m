@@ -22,7 +22,7 @@
 #import "FTGymCommentsViewController.h"
 #import "FTCoachSelfCourseViewController.h"
 
-@interface FTGymDetailWebViewController ()<UIWebViewDelegate, CommentSuccessDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface FTGymDetailWebViewController ()<UIWebViewDelegate, CommentSuccessDelegate, UICollectionViewDelegate, UICollectionViewDataSource, FTLoginViewControllerDelegate>
 {
     UIWebView *_webView;
     UIImageView *_loadingImageView;

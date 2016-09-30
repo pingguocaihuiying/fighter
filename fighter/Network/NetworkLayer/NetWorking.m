@@ -2098,35 +2098,47 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     }];
 }
 
-- (NSString *)getUserId{
++ (NSString *)getUserId{
     return [FTUserTools getLocalUser].olduserid;
 }
 
-- (NSString *)getLoginToken{
++ (NSString *)getLoginToken{
     return [FTUserTools getLocalUser].token;
 }
 
-- (NSString *)getTimeStamp13{
++ (NSString *)getTimeStamp13{
     return [NSString stringWithFormat:@"%lf", [[NSDate date] timeIntervalSince1970] * 1000];
 }
 
 //约课
-- (void)orderCourseWithGymId:(NSString *)gymId andTimeSectionId:(NSString *)timeSectionId andCourseId:(NSString *) courseId andOption:(void (^)(NSDictionary *dic))option{
-    NSString *urlString = [FTNetConfig host:Domain path:OrderCourseURL];
++ (void)orderCourseWithParamsDic:(NSMutableDictionary *)dic andOption:(void (^)(NSDictionary *dic))option{
+    NSString *path;
+    NSString *checkKey;
+    NSString *bookType = dic[@"bookType"];
+    if ([bookType isEqualToString:@"save"]) {
+        path = OrderCourseURL;
+        checkKey = SaveCourseBookCheckSign;
+    } else if ([bookType isEqualToString:@"delete"]) {
+        path = DeleteOrderCourseURL;
+        checkKey = DeleteCourseBookCheckSign;
+    }
+    NSString *urlString = [FTNetConfig host:Domain path:path];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     //md5前的checkSign字典
     NSMutableDictionary *dicBeforeMD5 = [[NSMutableDictionary alloc]initWithDictionary:@{
-                                                                                         @"userId":[self getUserId],
-                                                                                         @"corporationid" : gymId,
-                                                                                         @"date" : [self getTimeStamp13],
-                                                                                         @"timeId" : timeSectionId,
+                                                                                         @"userId":[NetWorking getUserId],
+                                                                                         @"corporationid" : dic[@"gymId"],
+                                                                                         @"date" : dic[@"date"],
+                                                                                         @"timeId" : dic[@"timeId"],
+                                                                                         @"timeSection" : dic[@"timeSection"],
                                                                                          @"loginToken":[self getLoginToken],
-                                                                                         @"courseId" : courseId,
+                                                                                         @"courseId" : dic[@"courseId"],
+                                                                                         @"type" : dic[@"type"],
                                                                                          @"ts":[self getTimeStamp13]}];
-    NSString *checkSign = [FTTools md5Dictionary:dicBeforeMD5 withCheckKey:SaveCourseBookCheckSign];
+    NSString *checkSign = [FTTools md5Dictionary:dicBeforeMD5 withCheckKey:checkKey];
     [dicBeforeMD5 setValue:checkSign forKey:@"checkSign"];
     NSDictionary *parmamDic = dicBeforeMD5;
     

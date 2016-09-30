@@ -79,7 +79,7 @@
     _dateTimeStampArray = [NSMutableArray new];
     
     for (int i = 0; i < 6; i++) {
-        NSString *dateTimeStamp = [NSString stringWithFormat:@"%lf",  ([[NSDate date]timeIntervalSince1970] + (24 * 60 * 60 * i)) * 1000];
+        NSString *dateTimeStamp = [NSString stringWithFormat:@"%.0lf",  ([[NSDate date]timeIntervalSince1970] + (24 * 60 * 60 * i)) * 1000];
         [_dateTimeStampArray addObject:dateTimeStamp];
         NSDate *  senddate=[NSDate dateWithTimeIntervalSinceNow: (24 * 60 * 60) * i];
         NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
@@ -154,12 +154,12 @@
     _t6.dateString = _dateArray [5];
 
     //日期时间戳string
-    _t1.dateString = _dateTimeStampArray [0];
-    _t2.dateString = _dateTimeStampArray [1];
-    _t3.dateString = _dateTimeStampArray [2];
-    _t4.dateString = _dateTimeStampArray [3];
-    _t5.dateString = _dateTimeStampArray [4];
-    _t6.dateString = _dateTimeStampArray [5];
+    _t1.timeStampString = _dateTimeStampArray [0];
+    _t2.timeStampString = _dateTimeStampArray [1];
+    _t3.timeStampString = _dateTimeStampArray [2];
+    _t4.timeStampString = _dateTimeStampArray [3];
+    _t5.timeStampString = _dateTimeStampArray [4];
+    _t6.timeStampString = _dateTimeStampArray [5];
     
     
     //注册cell用于复用
@@ -267,6 +267,7 @@
             if (dic) {
                 cell.hasCourseData = YES;
                 [cell setwithDic:dic];
+                cell.courserCellDic = dic;
             }
         } else if (_courseType == FTOrderCourseTypeCoach) {//预约教练
             if (!dic) {
@@ -278,6 +279,7 @@
                 cell.isEmpty = YES;
             }
             [cell setCoachCourseSelfWithDic:dic];
+            
         }else{
             
         }
@@ -296,7 +298,8 @@
     FTGymSourceTableViewCell *cell = [tableView viewWithTag:(10000 + indexPath.row)];
     if (cell.hasCourseData && !cell.isPast) {//如果有课程数据，而且是未来可以预约的
         NSString *timeSection = _timeSectionsArray[indexPath.row][@"timeSection"];
-        [_delegate courseClickedWithCell:cell andDay:theTableView.index andTimeSection:timeSection andDateString: theTableView.dateString];
+//        [_delegate courseClickedWithCell:cell andDay:theTableView.index andTimeSection:timeSection andDateString: theTableView.timeStampString];
+        [_delegate courseClickedWithCell:cell andDay:theTableView.index andTimeSection:timeSection andDateString:theTableView.dateString andTimeStamp:theTableView.timeStampString];
     }
     
 }

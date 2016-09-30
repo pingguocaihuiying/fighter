@@ -36,6 +36,7 @@
     [super viewDidLoad];
     [self setNavigationSytle];
     [self setSubViews];
+    [self getVIPInfo];
 }
 
 // 设置导航栏
@@ -63,13 +64,35 @@
     self.navigationItem.leftBarButtonItem = leftButton;
     
 }
-
+- (void)getVIPInfo{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //无数据：非会员
+        //"type"为会员类型： 0准会员 1会员 2往期会员
+        
+        NSString *status = dic[@"status"];
+        NSLog(@"status : %@", status);
+        if ([status isEqualToString:@"success"]) {
+            NSString *type = dic[@"data"][@"type"];
+            _gymVIPType = [type integerValue];//
+            if (_gymVIPType == FTGymVIPTypeYep) {
+                [self showEnterGymCourseView];
+            }else if (_gymVIPType == FTGymVIPTypeApplying){
+                _becomeVIPButton.enabled = YES;
+            }
+        }else{
+            _gymVIPType = FTGymVIPTypeNope;
+            _becomeVIPButton.enabled = YES;
+        }
+        [self setWithVIPInfo];
+    }];
+}
 - (void)setSubViews{
     //设置label等控件的颜色
     [self setSubViewsColor];
     [self addGestureToView];//给self.view添加单点事件，点击后收起键盘
     [self setPhoneNumViews];
-    [self setWithVIPInfo];//设置
 }
 
 - (void)setWithVIPInfo{
@@ -309,7 +332,13 @@
                     if ([status isEqualToString:@"success"]){
                         [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"申请加入会员成功"];
                         _gymVIPType = FTGymVIPTypeApplying;
-//                        FTGymDetailWebViewController *gymDetailViewController = [self.navigationController viewControllers][1];
+                        NSArray *vcArray = [self.navigationController viewControllers];
+                        for(UIViewController *vc in vcArray){
+                            if ([vc isKindOfClass:[FTGymDetailWebViewController class]]) {
+                                FTGymDetailWebViewController *detailVC = (FTGymDetailWebViewController *)vc;
+                                detailVC.gymVIPType = _gymVIPType;
+                            }
+                        }
                         
                         _becomeVIPButton.hidden = YES;
                         _waitLabel.hidden = NO;
@@ -318,7 +347,6 @@
                         
                         //显示刷新按钮
                         _refreshView.hidden = NO;
-                        
                         
                         //更改userDefaults中绑定的手机号
                         FTUserBean *localUser = [FTUserTools getLocalUser];

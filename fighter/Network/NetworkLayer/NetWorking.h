@@ -230,7 +230,7 @@
 
 #pragma mark - 约课
 //约课
-- (void)orderCourseWithGymId:(NSString *)gymId andTimeSectionId:(NSString *)timeSectionId andCourseId:(NSString *) courseId andOption:(void (^)(NSDictionary *dic))option;
++ (void)orderCourseWithParamsDic:(NSMutableDictionary *)dic andOption:(void (^)(NSDictionary *dic))option;
 
 #pragma mark - 新格斗场
 //获取拳馆固定的时间段
@@ -258,7 +258,7 @@
 + (void)getPhotosByUsersWithCorporationid:(NSString *)corporationid andOption:(void (^)(NSArray *array))option;
 
 //获取拳手信息
-+ (void)getBoxerListByWeight:(NSString *)weight andOverWeightLevel: (NSString *) overWeightLevel andPageSize:(NSString *)pageSize andPageNum:(int)pageNum andOption:(void (^)(NSArray *array))option;
++ (void)getBoxerListByWeight:(NSString *)weight andOverWeightLevel: (NSString *) overWeightLevel andPageSize:(NSString *)pageSize andPageNum:(int)pageNum  andOption:(void (^)(NSArray *array))option;
 
 //添加赛事
 + (void)addMatchWithParams:(NSDictionary *)dic andOption:(void (^)(BOOL result))option;
