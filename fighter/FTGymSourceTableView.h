@@ -15,5 +15,6 @@
 @interface FTGymSourceTableView : UITableView
 
 @property (nonatomic, assign) NSInteger index;
+@property (nonatomic, copy) NSString *dateString;
 
 @end

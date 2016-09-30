@@ -75,6 +75,9 @@
                 <constraint firstAttribute="bottom" secondItem="ygX-tJ-3o4" secondAttribute="bottom" id="e5e-h8-lSb"/>
                 <constraint firstAttribute="trailing" secondItem="ygX-tJ-3o4" secondAttribute="trailing" id="vXO-bg-OcK"/>
             </constraints>
+            <connections>
+                <outlet property="gymNameLabel" destination="J6B-XE-cHd" id="bMc-5s-v2G"/>
+            </connections>
             <point key="canvasLocation" x="529" y="320.5"/>
         </view>
     </objects>

@@ -230,7 +230,8 @@ NSString * const BecomeGymMenberShipURL = @"/api/gymmenbership/save$GymMenberShi
 
 #pragma mark - 新格斗场
 NSString * const GetGymTimeSlotsByIdURL = @"/api/place/listTime.do";
-NSString *const GetGymVIPInfoURL = @"/api/gymmenbership/find.do";
+NSString *const GetGymVIPInfoURL = @"/api/gymmenbership/find.do";//
+NSString * const OrderCourseURL = @"/api/coursebook/save$CourseBook.do";
 NSString * const GetGymPlacesByIdURL = @"/api/place/listPlace.do";
 NSString * const GetGymPlacesUsingInfoByIdURL = @"/api/place/list.do";//GetGymInfoByIdURL
 NSString * const GetGymSourceInfoByIdURL = @"/api/place/listCource.do";
@@ -238,6 +239,10 @@ NSString * const GetGymInfoByIdURL = @"/api/match/listms.do";
 NSString *const GetBoxerListURL = @"/api/boxer/list.do";
 NSString *const AddMatchURL = @"/api/match/save$Match.do";
 NSString *const GetMatchListURL = @"/api/match/list.do";
+
+NSString *const SaveCourseBookCheckSign = @"gedoujiaghdrfskflges2gfd";
+NSString *const DeleteCourseBookCheckSign = @"gedoujiajhjgfdlh25gfd";
+
 //迎战or拒战
 NSString *const ResponseToMatchURL = @"/api/match/save$mc.do";
 //微信支付
