@@ -123,15 +123,12 @@
         NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         
         
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"loginUser"];
-        [[NSUserDefaults standardUserDefaults]synchronize];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:LoginUser];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         
         [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"退出成功"];
-        
-        [FTUserTools sendSignOutNotification];
-        
     }];
 }
 
