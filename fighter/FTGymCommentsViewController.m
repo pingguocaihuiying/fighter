@@ -120,6 +120,10 @@
         
 //        NSLog(@"dic:%@",dict);
 //        NSLog(@"message:%@",dict[@"message"]);
+        if (dict == nil) {
+            return [self.view showMessage:@"网络繁忙~"];
+        }
+        
         BOOL status = [dict[@"status"] isEqualToString:@"success"];
         if (status) {
             NSArray *tempArray = dict[@"data"];
@@ -150,7 +154,7 @@
     [NetWorking getVoteStatusWithObjid:self.objId andTableName:@"v-gym" andOption:^(BOOL result) {
         hasGetThumbState = YES;
         thumbState = result;
-        NSLog(@"%@",thumbState?@"点赞成功":@"取消点赞");
+//        NSLog(@"%@",thumbState?@"点赞成功":@"取消点赞");
         [self setThumbState:thumbState];
     }];
 }
@@ -187,7 +191,7 @@
     [NetWorking getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *dict) {
         
         if (dict) {
-            NSLog(@"点赞状态 status : %@, message : %@", dict[@"status"], dict[@"message"]);
+//            NSLog(@"点赞状态 status : %@, message : %@", dict[@"status"], dict[@"message"]);
             if ([dict[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
                 
                 thumbState = thumbState? NO:YES;
@@ -201,6 +205,12 @@
 
 - (IBAction)commentButtonAction:(id)sender {
     
+    FTUserBean *user = [FTUserBean loginUser];
+    if (!user) {
+        [self login];
+        return;
+    }
+
     FTGymCommentViewController *commentVC = [ FTGymCommentViewController new];
     commentVC.objId = self.objId;
     commentVC.title = self.title;
@@ -295,8 +305,15 @@
     return refreshBlock;
 }
 
+
 #pragma mark - UITextFieldDelegate
 - (BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
+
+    FTUserBean *user = [FTUserBean loginUser];
+    if (!user) {
+        [self login];
+        return NO;
+    }
 
     FTGymCommentViewController *commentVC = [ FTGymCommentViewController new];
     commentVC.objId = self.objId;

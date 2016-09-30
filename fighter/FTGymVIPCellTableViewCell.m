@@ -15,12 +15,19 @@
     // Initialization code
     self.backgroundColor = [UIColor clearColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    [self setBalanceLabelPosition];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+-(void) setBalanceLabelPosition {
 
-    // Configure the view for the selected state
+    if (SCALE < 1) {
+        self.balanceTextLabel.text = @"余额：";
+        self.yuanLabel.hidden = YES;
+        
+        self.courseDateLeadConstraint.constant = 10;
+        self.orderDateLeadConstraint.constant = 10;
+    }
 }
 
 @end
