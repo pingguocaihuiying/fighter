@@ -18,12 +18,12 @@ typedef NS_ENUM(NSInteger, FTGymCourseStatus) {
     FTGymCourseStatusHasOrder,
     FTGymCourseStatusCanOrder,
     FTGymCourseStatusCantOrder,
-    FTGymCourseStatusCancelOrder
+    FTGymCourseStatusCancelOrder,
+    FTGymCourseStatusIsFull
 };
 
 @protocol FTGymOrderCourseViewDelegate <NSObject>
-
-
+- (void)bookSuccess;
 
 @end
 
@@ -35,4 +35,10 @@ typedef NS_ENUM(NSInteger, FTGymCourseStatus) {
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *belowView1Height;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *belowView2Height;
 @property (nonatomic, assign) FTGymCourseStatus status;
+@property (nonatomic, strong) NSDictionary *courserCellDic;//存放一小段课程
+@property (nonatomic, copy) NSString *dateTimeStamp;//课程那一天的时间戳
+@property (nonatomic, copy) NSString *dateString;//课程那一天的日期，eg：7月8日
+@property (nonatomic, copy) NSString *gymId;//拳馆id
+@property (nonatomic, weak) id<FTGymOrderCourseViewDelegate> delegate;
+
 @end

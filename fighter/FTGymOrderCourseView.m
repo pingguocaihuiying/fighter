@@ -13,6 +13,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *messageLabel1;
 @property (strong, nonatomic) IBOutlet UIButton *button1;
 @property (strong, nonatomic) IBOutlet UIButton *button2;
+@property (strong, nonatomic) IBOutlet UILabel *timeLabelFoo;
+@property (strong, nonatomic) IBOutlet UILabel *courserNameLabelFoo;
 
 
 @end
@@ -25,7 +27,7 @@
 }
 - (IBAction)courseDetailButtonClicked:(id)sender {
     
-    if (_status == FTGymCourseStatusCanOrder || _status == FTGymCourseStatusCantOrder) {
+    if (_status == FTGymCourseStatusCanOrder || _status == FTGymCourseStatusCantOrder || _status == FTGymCourseStatusIsFull) {
         NSLog(@"课程详情");
     } else if (_status == FTGymCourseStatusCancelOrder) {
         NSLog(@"点错了");
@@ -36,12 +38,74 @@
 - (IBAction)confirmButtonClicked:(id)sender {
     if (_status == FTGymCourseStatusCanOrder) {
         NSLog(@"确定预约");
-        self.status = FTGymCourseStatusHasOrder;
+        NSMutableDictionary *dic = [NSMutableDictionary new];
+        [dic setObject:_gymId forKey:@"gymId"];
+        [dic setObject:_courserCellDic[@"timeId"] forKey:@"timeId"];
+        [dic setObject:_courserCellDic[@"courseId"] forKey:@"courseId"];//date
+        [dic setObject:_dateTimeStamp forKey:@"date"];
+        [dic setObject:@"0" forKey:@"type"];
+        [dic setObject:@"save" forKey:@"bookType"];
+        [dic setObject:_courserCellDic[@"timeSection"] forKey:@"timeSection"];
+        
+        [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
+       [NetWorking orderCourseWithParamsDic:(NSMutableDictionary *)dic andOption:^(NSDictionary *dic) {
+           [MBProgressHUD hideHUDForView:[[UIApplication sharedApplication] keyWindow] animated:YES];
+            NSLog(@"dic : %@", dic);
+            NSString *status = dic[@"status"];
+            NSString *message = dic[@"message"];
+            if ([status isEqualToString:@"success"]) {
+                NSLog(@"约课成功");
+                _messageLabel1.text = @"预约成功！";
+                
+                if ([_delegate respondsToSelector:@selector(bookSuccess)]) {
+                    [_delegate bookSuccess];//刷新课程信息
+                }
+                self.status = FTGymCourseStatusHasOrder;
+            } else {
+                NSLog(@"约课失败，message  %@", message);
+                [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:message];
+            }
+        }];
+        
+        
     } else if (_status == FTGymCourseStatusCancelOrder) {
         NSLog(@"确定取消预约");
-        [self removeFromSuperview];
+        
+        NSMutableDictionary *dic = [NSMutableDictionary new];
+        [dic setObject:_gymId forKey:@"gymId"];
+        [dic setObject:_courserCellDic[@"timeId"] forKey:@"timeId"];
+        [dic setObject:_courserCellDic[@"courseId"] forKey:@"courseId"];//date
+        [dic setObject:_dateTimeStamp forKey:@"date"];
+        [dic setObject:@"0" forKey:@"type"];
+        [dic setObject:@"delete" forKey:@"bookType"];
+        [dic setObject:_courserCellDic[@"timeSection"] forKey:@"timeSection"];
+        
+        [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
+        [NetWorking orderCourseWithParamsDic:(NSMutableDictionary *)dic andOption:^(NSDictionary *dic) {
+            [MBProgressHUD hideHUDForView:[[UIApplication sharedApplication] keyWindow] animated:YES];
+            NSLog(@"dic : %@", dic);
+            NSString *status = dic[@"status"];
+            NSString *message = dic[@"message"];
+            if ([status isEqualToString:@"success"]) {
+                NSLog(@"取消约课成功");
+                [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"取消成功"];
+                if ([_delegate respondsToSelector:@selector(bookSuccess)]) {
+                    [_delegate bookSuccess];//刷新课程信息
+                }
+                [self removeFromSuperview];
+            } else {
+                NSLog(@"取消约课失败，message  %@", message);
+                [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:message];
+            }
+        }];
+
+        
+        
     }else if (_status == FTGymCourseStatusCancelOrder) {
         NSLog(@"不可预约下，点击了确定");
+        [self removeFromSuperview];
+    }else if (_status == FTGymCourseStatusIsFull) {
+        NSLog(@"满员，点击了确定");
         [self removeFromSuperview];
     }
 }
@@ -62,6 +126,8 @@
         case FTGymCourseStatusHasOrder:
         {
             NSLog(@"已经预约");
+            _messageLabel1.textColor = [UIColor colorWithHex:0x25b33c];
+            _messageLabel1.text = @"预约成功";
             [self showBelowView2];
         }
         break;
@@ -69,17 +135,29 @@
         {
             NSLog(@"可以预约");
             _messageLabel1.textColor = [UIColor colorWithHex:0x24b33c];
-            _messageLabel1.text = @"8 / 15 可预约";
+            _messageLabel1.text = [NSString stringWithFormat:@"%@ / %@ 可预约", _courserCellDic[@"hasOrderCount"], _courserCellDic[@"topLimit"]];
             [_button1 setTitle:@"课程详情" forState:UIControlStateNormal];
             [_button2 setTitle:@"确定预约" forState:UIControlStateNormal];
             [self showBelowView1];
+        }
+            break;
+            
+        case FTGymCourseStatusIsFull:
+        {
+            NSLog(@"满员无法预约");
+            _messageLabel1.textColor = [UIColor redColor];
+            _messageLabel1.text = [NSString stringWithFormat:@"%@ / %@ 已经满员", _courserCellDic[@"hasOrderCount"], _courserCellDic[@"topLimit"]];
+            [_button1 setTitle:@"课程详情" forState:UIControlStateNormal];
+            [_button2 setTitle:@"确定" forState:UIControlStateNormal];
+            [self showBelowView1];
+            
         }
             break;
         case FTGymCourseStatusCantOrder:
         {
             NSLog(@"不可以预约");
             _messageLabel1.textColor = [UIColor redColor];
-            _messageLabel1.text = @"15 / 15 已经满员";
+            _messageLabel1.text = @"不可预约";
             [_button1 setTitle:@"课程详情" forState:UIControlStateNormal];
             [_button2 setTitle:@"确定" forState:UIControlStateNormal];
             [self showBelowView1];
@@ -95,6 +173,7 @@
             
         }
             break;
+
         default:
             break;
     }
@@ -116,6 +195,13 @@
 
 - (IBAction)cancelButtonClicked:(id)sender {
     [self removeFromSuperview];
+}
+
+- (void)setCourserCellDic:(NSDictionary *)courserCellDic{
+    _courserCellDic = courserCellDic;
+    
+    _timeLabelFoo.text = [NSString stringWithFormat:@"%@ %@", _dateString, _courserCellDic[@"timeSection"]];
+    _courserNameLabelFoo.text = _courserCellDic[@"label"];
 }
 
 

@@ -274,8 +274,10 @@
                 <outlet property="belowView2Height" destination="9MB-Ku-QgN" id="mi5-Sz-Hbm"/>
                 <outlet property="button1" destination="Xb6-0l-9E5" id="b9A-GJ-m4s"/>
                 <outlet property="button2" destination="f58-3I-kpK" id="f9y-zo-w41"/>
+                <outlet property="courserNameLabelFoo" destination="dT4-Tp-rNN" id="t9W-qe-AiZ"/>
                 <outlet property="messageLabel1" destination="7fq-W6-txs" id="0z5-fQ-HE6"/>
                 <outlet property="seperatorView1" destination="e3n-pq-oN7" id="b7P-HB-Q5K"/>
+                <outlet property="timeLabelFoo" destination="wfS-5H-O0U" id="b7J-Tc-xfb"/>
             </connections>
             <point key="canvasLocation" x="39" y="-52"/>
         </view>

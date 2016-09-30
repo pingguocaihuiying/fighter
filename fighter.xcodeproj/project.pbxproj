@@ -2319,9 +2319,7 @@
 			isa = PBXGroup;
 			children = (
 				E66F492F1D93AF63005B39D1 /* 其他view */,
-				E6453F601D915BF2000BAC31 /* FTGymSourceViewController.h */,
-				E6453F611D915BF2000BAC31 /* FTGymSourceViewController.m */,
-				E6453F621D915BF2000BAC31 /* FTGymSourceViewController.xib */,
+				E6E76A9B1D9E47CF00AB0928 /* 拳馆公开课vc */,
 			);
 			name = "拳馆课程";
 			sourceTree = "<group>";
@@ -3417,6 +3415,16 @@
 				E6E688E71D002FB700708C24 /* FTHomepageRecordListTableViewCell.xib */,
 			);
 			name = "赛事list";
+			sourceTree = "<group>";
+		};
+		E6E76A9B1D9E47CF00AB0928 /* 拳馆公开课vc */ = {
+			isa = PBXGroup;
+			children = (
+				E6453F601D915BF2000BAC31 /* FTGymSourceViewController.h */,
+				E6453F611D915BF2000BAC31 /* FTGymSourceViewController.m */,
+				E6453F621D915BF2000BAC31 /* FTGymSourceViewController.xib */,
+			);
+			name = "拳馆公开课vc";
 			sourceTree = "<group>";
 		};
 		E6E9E8851CDC44D100976480 /* collectionView */ = {
