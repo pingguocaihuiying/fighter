@@ -42,26 +42,35 @@
 
 @implementation FTGymView
 
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect {
- // Drawing code
- }
- */
+
 - (id) initWithFrame:(CGRect)frame {
     
     self = [super initWithFrame:frame];
     if (self) {
         
         [self initialization];
-        //        [self initSubviews];
+        [self setNotification];
+        
         [self setBackgroundColor:[UIColor clearColor]];
     }
     
     return self;
 }
 
+- (void) dealloc {
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma  mark - 初始化
+- (void) setNotification {
+
+    //注册通知，接收微信登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginCallback:) name:WXLoginResultNoti object:nil];
+    
+    //添加监听器，监听login
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(phoneLoginedCallback:) name:LoginNoti object:nil];
+}
 
 - (void) initialization {
     
@@ -684,8 +693,32 @@
     if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
         [self.delegate pushToController:gymSourceViewController];
     }
+}
 
+
+#pragma mark - 通知事件
+
+// 微信登录响应
+- (void) wxLoginCallback:(NSNotification *)noti{
+    NSString *msg = [noti object];
+    if ([msg isEqualToString:@"SUCESS"]) {
+        
+        [self getTableViewDataFromWeb];
+    }
+}
+
+// 微信登录响应
+- (void) phoneLoginedCallback:(NSNotification *)noti {
     
+    NSString *msg = [noti object];
+    if ([msg isEqualToString:@"LOGOUT"]) {//退出登录
+        
+        self.currentPage = 1;
+        self.getType = @"new";
+        self.gymCurrId = @"-1";
+    }
+    
+    [self getTableViewDataFromWeb];
 }
 
 @end
