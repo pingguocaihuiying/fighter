@@ -32,6 +32,8 @@
 @property (weak, nonatomic) IBOutlet FTGymSourceTableView *t5;
 @property (weak, nonatomic) IBOutlet FTGymSourceTableView *t6;
 
+@property (nonatomic, strong) NSMutableArray *dateArray;//存储日期的字符串数组eg：7月8日
+@property (nonatomic, strong) NSMutableArray *dateTimeStampArray;//存储每天时间戳的字符串数组
 
 @end
 
@@ -73,8 +75,12 @@
 }
 
 - (void)setDateLabels{
+    _dateArray = [NSMutableArray new];
+    _dateTimeStampArray = [NSMutableArray new];
     
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 6; i++) {
+        NSString *dateTimeStamp = [NSString stringWithFormat:@"%lf",  ([[NSDate date]timeIntervalSince1970] + (24 * 60 * 60 * i)) * 1000];
+        [_dateTimeStampArray addObject:dateTimeStamp];
         NSDate *  senddate=[NSDate dateWithTimeIntervalSinceNow: (24 * 60 * 60) * i];
         NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
         [dateformatter setDateFormat:@"yyy"];
@@ -102,6 +108,10 @@
             dateLabel.tag = 10000+i;
         }
         dateLabel.text = [NSString stringWithFormat:@"%d.%d", [monthString intValue], day];
+        
+        NSString *dateString = [NSString stringWithFormat:@"%d月%d日", [monthString intValue], day];
+        [_dateArray addObject:dateString];
+        
         if (i == 0) {
             dateLabel.text = @"今天";
         }
@@ -134,6 +144,24 @@
     _t4.index = [FTTools getWeekdayOfTodayAfterToday:3];
     _t5.index = [FTTools getWeekdayOfTodayAfterToday:4];
     _t6.index = [FTTools getWeekdayOfTodayAfterToday:5];
+    
+    //日期string
+    _t1.dateString = _dateArray [0];
+    _t2.dateString = _dateArray [1];
+    _t3.dateString = _dateArray [2];
+    _t4.dateString = _dateArray [3];
+    _t5.dateString = _dateArray [4];
+    _t6.dateString = _dateArray [5];
+
+    //日期时间戳string
+    _t1.dateString = _dateTimeStampArray [0];
+    _t2.dateString = _dateTimeStampArray [1];
+    _t3.dateString = _dateTimeStampArray [2];
+    _t4.dateString = _dateTimeStampArray [3];
+    _t5.dateString = _dateTimeStampArray [4];
+    _t6.dateString = _dateTimeStampArray [5];
+    
+    
     //注册cell用于复用
     [_t0 registerNib:[UINib nibWithNibName:@"FTGymTimeSectionTableViewCell" bundle:nil] forCellReuseIdentifier:@"timeSectionCell"];
     [_t1 registerNib:[UINib nibWithNibName:@"FTGymSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceCell"];
@@ -268,7 +296,7 @@
     FTGymSourceTableViewCell *cell = [tableView viewWithTag:(10000 + indexPath.row)];
     if (cell.hasCourseData && !cell.isPast) {//如果有课程数据，而且是未来可以预约的
         NSString *timeSection = _timeSectionsArray[indexPath.row][@"timeSection"];
-        [_delegate courseClickedWithCell:cell andDay:theTableView.index andTimeSection:timeSection];
+        [_delegate courseClickedWithCell:cell andDay:theTableView.index andTimeSection:timeSection andDateString: theTableView.dateString];
     }
     
 }

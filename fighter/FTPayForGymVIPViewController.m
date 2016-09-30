@@ -22,6 +22,11 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *phoneNumberLabelLeading;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *checkCodeTextFieldLeading;
 @property (strong, nonatomic) IBOutlet UIButton *becomeVIPButton;
+@property (strong, nonatomic) IBOutlet UIView *refreshView;
+@property (strong, nonatomic) IBOutlet UIImageView *outCircleImageView;
+
+@property (nonatomic, assign) BOOL stopAnimation;
+@property (nonatomic, assign) double angle;
 
 @end
 
@@ -73,6 +78,10 @@
         _becomeVIPButton.hidden = YES;
         _sendCheckCodeButton.enabled = NO;
         [_sendCheckCodeButton setTitleColor:[UIColor colorWithHex:0xb4b4b4] forState:UIControlStateNormal];
+        _checkCodeTextField.enabled = NO;
+        
+        _refreshView.hidden = NO;
+        
     }else if (_gymVIPType == FTGymVIPTypeYep){
         _becomeVIPButton.hidden = YES;
         [self showEnterGymCourseView];
@@ -85,6 +94,7 @@
     //成为会员成功提示start
     FTJoinGymSuccessAlertView *joinGynSuccessAlertView = [[[NSBundle mainBundle]loadNibNamed:@"FTJoinGymSuccessAlertView" owner:nil options:nil] firstObject];
     joinGynSuccessAlertView.delegate = self;
+    joinGynSuccessAlertView.gymNameLabel.text = _gymDetailBean.gym_name;
     joinGynSuccessAlertView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     [self.view addSubview:joinGynSuccessAlertView];
     //成为会员成功提示end
@@ -306,10 +316,17 @@
                         _timer.fireDate = [NSDate distantPast];
                         _sendCheckCodeButton.hidden = YES;
                         
+                        //显示刷新按钮
+                        _refreshView.hidden = NO;
+                        
+                        
                         //更改userDefaults中绑定的手机号
                         FTUserBean *localUser = [FTUserTools getLocalUser];
                         localUser.tel = phoneNum;
-                        [[NSUserDefaults standardUserDefaults]setObject:localUser forKey:LoginUser];
+                        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:localUser];
+                        [[NSUserDefaults standardUserDefaults]setObject:data forKey:LoginUser];
+                        
+                        
                         [[NSUserDefaults standardUserDefaults]synchronize];
                     }else{
                         [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:message];
@@ -330,6 +347,56 @@
     FTGymSourceViewController *gymSourceViewController = [FTGymSourceViewController new];
     gymSourceViewController.gymDetailBean = _gymDetailBean;
     [self.navigationController pushViewController:gymSourceViewController animated:YES];
+}
+- (IBAction)refreshButtonClicked:(id)sender {
+    _stopAnimation = NO;
+    [self startAnimation];
+    [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSDictionary *dic) {
+        
+        //从服务器获取数据后，停止动画
+        _stopAnimation = YES;
+        
+        //无数据：非会员
+        //"type"为会员类型： 0准会员 1会员 2往期会员
+        
+        NSString *status = dic[@"status"];
+        NSLog(@"status : %@", status);
+        if ([status isEqualToString:@"success"]) {
+            NSString *type = dic[@"data"][@"type"];
+            _gymVIPType = [type integerValue];//
+            if (_gymVIPType == FTGymVIPTypeYep) {
+                
+                //隐藏刷新按钮
+                _refreshView.hidden = NO;
+                
+                //显示进入约客提示框
+                [self showEnterGymCourseView];
+                
+            }else if (_gymVIPType == FTGymVIPTypeApplying){
+                
+            }
+        }else{
+            
+        }
+    }];
+}
+
+-(void) startAnimation
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.01];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(endAnimation)];
+    _outCircleImageView.transform = CGAffineTransformMakeRotation(_angle * (M_PI / 180.0f));
+    [UIView commitAnimations];
+}
+
+-(void)endAnimation
+{
+    if (!_stopAnimation) {
+        _angle += 20;
+        [self startAnimation];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

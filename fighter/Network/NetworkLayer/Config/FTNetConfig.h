@@ -186,8 +186,12 @@ extern NSString * const GetGymPhotosByUsers;//获取用户拍摄的拳馆照片
 extern NSString * const BecomeGymMenberShipURL;
 
 #pragma mark - 新格斗场
+extern NSString *const SaveCourseBookCheckSign;//约课
+extern NSString *const DeleteCourseBookCheckSign;//取消约课
 //获取拳馆vip信息
 extern NSString *const GetGymVIPInfoURL;
+//约课
+extern NSString * const OrderCourseURL;
 //获取拳馆固定的时间段
 extern NSString * const GetGymTimeSlotsByIdURL;
 //获取拳馆的场地信息

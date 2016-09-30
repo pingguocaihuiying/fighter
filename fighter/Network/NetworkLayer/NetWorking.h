@@ -228,6 +228,9 @@
 //请求加入会员
 + (void)requestToBeVIPWithCorporationid:(NSString *)corporationid andPhoneNum:(NSString *) phoneNum andCheckCode:(NSString *)checkCode andOption:(void (^)(NSDictionary *dic))option;
 
+#pragma mark - 约课
+//约课
+- (void)orderCourseWithGymId:(NSString *)gymId andTimeSectionId:(NSString *)timeSectionId andCourseId:(NSString *) courseId andOption:(void (^)(NSDictionary *dic))option;
 
 #pragma mark - 新格斗场
 //获取拳馆固定的时间段

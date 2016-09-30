@@ -2073,6 +2073,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     [self getRequestWithUrl:getDuiBaConfigString parameters:dic option:option];
 }
 
+
+
 + (void)getVIPInfoWithGymId:(NSString *) corporationID andOption:(void (^)(NSDictionary *dic))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymVIPInfoURL];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -2096,4 +2098,48 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     }];
 }
 
+- (NSString *)getUserId{
+    return [FTUserTools getLocalUser].olduserid;
+}
+
+- (NSString *)getLoginToken{
+    return [FTUserTools getLocalUser].token;
+}
+
+- (NSString *)getTimeStamp13{
+    return [NSString stringWithFormat:@"%lf", [[NSDate date] timeIntervalSince1970] * 1000];
+}
+
+//约课
+- (void)orderCourseWithGymId:(NSString *)gymId andTimeSectionId:(NSString *)timeSectionId andCourseId:(NSString *) courseId andOption:(void (^)(NSDictionary *dic))option{
+    NSString *urlString = [FTNetConfig host:Domain path:OrderCourseURL];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    //md5前的checkSign字典
+    NSMutableDictionary *dicBeforeMD5 = [[NSMutableDictionary alloc]initWithDictionary:@{
+                                                                                         @"userId":[self getUserId],
+                                                                                         @"corporationid" : gymId,
+                                                                                         @"date" : [self getTimeStamp13],
+                                                                                         @"timeId" : timeSectionId,
+                                                                                         @"loginToken":[self getLoginToken],
+                                                                                         @"courseId" : courseId,
+                                                                                         @"ts":[self getTimeStamp13]}];
+    NSString *checkSign = [FTTools md5Dictionary:dicBeforeMD5 withCheckKey:SaveCourseBookCheckSign];
+    [dicBeforeMD5 setValue:checkSign forKey:@"checkSign"];
+    NSDictionary *parmamDic = dicBeforeMD5;
+    
+    [manager POST:urlString parameters:parmamDic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        if (responseDic && responseDic != (id)[NSNull null]) {
+            option(responseDic);
+        }else{
+            option(nil);
+        }
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
+        option(nil);
+    }];
+    
+}
 @end

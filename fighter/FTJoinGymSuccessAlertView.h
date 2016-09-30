@@ -17,5 +17,6 @@
 @interface FTJoinGymSuccessAlertView : UIView
 
 @property (nonatomic, weak) id<FTJoinGymSuccessAlertViewDelegate> delegate;
+@property (strong, nonatomic) IBOutlet UILabel *gymNameLabel;
 
 @end

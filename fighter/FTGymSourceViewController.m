@@ -171,16 +171,14 @@
     [_gymSourceViewContainerView addSubview:_gymSourceView];
 
 }
-- (void)courseClickedWithCell:(FTGymSourceTableViewCell *)courseCell andDay:(NSInteger)day andTimeSection:(NSString *)timeSection{
-    NSLog(@"day : %ld, timeSection : %@", day, timeSection);
+- (void)courseClickedWithCell:(FTGymSourceTableViewCell *)courseCell andDay:(NSInteger)day andTimeSection:(NSString *)timeSection andDateString:(NSString *)dateString{
+    NSLog(@"day : %ld, timeSection : %@ dateString : %@", day, timeSection, dateString);
     if (courseCell.hasOrder) {
         NSLog(@"已经预约");
 
     } else if (courseCell.canOrder) {
         FTGymOrderCourseView *gymOrderCourseView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCourseView" owner:nil options:nil] firstObject];
         gymOrderCourseView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-//        gymOrderCourseView.belowView2.hidden = YES;
-//        gymOrderCourseView.belowView2Height.constant = 0;
         gymOrderCourseView.status = FTGymCourseStatusCanOrder;
         [[[UIApplication sharedApplication] keyWindow] addSubview:gymOrderCourseView];
         NSLog(@"可以预约");
