@@ -194,7 +194,7 @@
         
         [self.tableView footerEndRefreshing];
         
-        NSLog(@"table dict:%@",dict);
+//        NSLog(@"table dict:%@",dict);
 //        NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         if (dict != nil) {
             
@@ -223,7 +223,6 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     for (NSDictionary *dic in _dataSourceArray) {
         [dict setObject:dic forKey:dic];
-        NSLog(@"dic:%@",dict);
     }
 
     [_dataSourceArray removeAllObjects];
@@ -403,7 +402,6 @@
         }
         return 88 + labelView_H;
     }
-    
 }
 
 //headerView高度
@@ -462,27 +460,32 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSDictionary *dic = [_dataSourceArray objectAtIndex:indexPath.row];
+    FTGymBean *bean = [FTGymBean new];
+    [bean setValuesWithDic:dic];
+    
     if ([dic[@"isGymUser"] integerValue] == 1) {
+        NSLog(@"dic:%@",dic);
         
         FTGymVIPCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"gymVIPCell"];
-        cell.surplusCourse.text = [NSString stringWithFormat:@"%ld",[dic[@"remainTime"] integerValue]];
-        cell.deadline.text = dic[@"expireTime"];
-        cell.balanceLabel.text = [NSString stringWithFormat:@"%ld",[dic[@"userMoney"] integerValue]];
+        cell.surplusCourse.text = bean.surplusCourse;
+        cell.deadline.text = bean.deadline;
+        cell.balanceLabel.text = bean.userMoney;
         
-        cell.gymName.text = dic[@"gymName"];
-        cell.gymAddress.text = dic[@"gymLocation"];
-        cell.gymPhone.text = dic[@"gymTel"];
+        cell.gymName.text = bean.gymName;
+        cell.gymAddress.text = bean.gymLocation;
+        cell.gymPhone.text = bean.gymTel;
         
         
-        cell.courseDate.text = dic[@"dateNext"];
-        cell.courseTime.text = dic[@"timeSectionNext"];
-        cell.course.text = dic[@"labelNext"];
+        cell.courseDate.text = bean.courseDate;
+        cell.courseTime.text =bean.courseTime;
+        cell.course.text = bean.course;
         
-        cell.orderDate.text = dic[@"datePrev"];
-        cell.orderTime.text = dic[@"timeSectionPrev"];
-        cell.order.text = dic[@"labelPrev"];
+        cell.orderDate.text = bean.orderDate;
+        cell.orderTime.text = bean.orderTime;
+        cell.order.text = bean.order;
         
-        NSString *imgStr = dic[@"gymShowImg"];
+        
+        NSString *imgStr = bean.gymShowImg;// dic[@"gymShowImg"];
         if (imgStr && imgStr.length > 0) {
             NSArray *tempArray = [imgStr componentsSeparatedByString:@","];
             NSString *urlStr = [NSString stringWithFormat:@"http://%@/%@",dic[@"urlPrefix"],[tempArray objectAtIndex:0]];
@@ -492,6 +495,12 @@
             
             [cell.gymImageView setImage:[UIImage imageNamed:@"拳馆占位图"]];
         }
+        
+        
+        // 进入拳馆按钮
+        cell.gymAccessButton.tag = [indexPath row];
+        [cell.gymAccessButton addTarget:self action:@selector(enterGymBUttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        
         
         return cell;
     }else { //非会员
@@ -528,7 +537,6 @@
     }
     
     return nil;
-    
 }
 
 
@@ -560,9 +568,7 @@
     FTGymBean *bean = [FTGymBean new];
     [bean setValuesWithDic:newsDic];
     
-    NSString *isGymUser = [NSString stringWithFormat:@"%@", bean.isGymUser];
-    NSLog(@"isGymUser : %@", isGymUser);
-    if ([isGymUser isEqualToString:@"1"]) {
+    if (bean.isGymUser) {
         NSLog(@"是会员");
         FTGymSourceViewController *gymSourceViewController = [FTGymSourceViewController new];
         FTGymDetailBean *detailBean = [FTGymDetailBean new];
@@ -588,8 +594,7 @@
 #pragma mark -FTSelectCellDelegate
 
 - (void) selectedValue:(NSDictionary *)dic {
-    
-    
+
     _gymType = dic[@"itemValueEn"];
     _gymType_ZH = dic[@"itemValue"];
     _gymCurrId = @"-1";
@@ -680,6 +685,27 @@
     }];
     
     return selectBtn;
+}
+
+
+- (void) enterGymBUttonAction:(UIButton *) sender {
+
+    //获取对应的bean，传递给下个vc
+    NSDictionary *newsDic = [self.dataSourceArray objectAtIndex:sender.tag];
+    FTGymBean *bean = [FTGymBean new];
+    [bean setValuesWithDic:newsDic];
+    
+    FTGymSourceViewController *gymSourceViewController = [FTGymSourceViewController new];
+    FTGymDetailBean *detailBean = [FTGymDetailBean new];
+    detailBean.gym_name = bean.gymName;
+    detailBean.corporationid = [bean.corporationid intValue];
+    gymSourceViewController.gymDetailBean = detailBean;
+    
+    if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
+        [self.delegate pushToController:gymSourceViewController];
+    }
+
+    
 }
 
 @end

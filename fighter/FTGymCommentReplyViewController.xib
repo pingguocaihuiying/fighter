@@ -9,6 +9,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTGymCommentReplyViewController">
             <connections>
                 <outlet property="bottomView" destination="dLG-sF-x9m" id="ftR-sz-qjx"/>
+                <outlet property="bottomViewBottomContraint" destination="HRQ-M7-seP" id="pXg-51-Gkf"/>
                 <outlet property="commentButton" destination="2ic-V2-kvn" id="c7e-Es-Pmf"/>
                 <outlet property="commentTextField" destination="hw6-ab-tHi" id="hgS-NT-rRt"/>
                 <outlet property="leftView" destination="5CR-3x-urF" id="jcc-UG-aJH"/>
@@ -90,8 +91,8 @@
                 <constraint firstItem="bhN-4o-mJC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="CBb-NG-KLe"/>
                 <constraint firstAttribute="trailing" secondItem="bhN-4o-mJC" secondAttribute="trailing" id="CiC-GI-99g"/>
                 <constraint firstItem="bhN-4o-mJC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="DW8-22-hYv"/>
-                <constraint firstAttribute="bottom" secondItem="dLG-sF-x9m" secondAttribute="bottom" id="HRQ-M7-seP"/>
-                <constraint firstAttribute="trailing" secondItem="dLG-sF-x9m" secondAttribute="trailing" id="a17-Jo-7SM"/>
+                <constraint firstItem="dLG-sF-x9m" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="HRQ-M7-seP"/>
+                <constraint firstItem="dLG-sF-x9m" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="a17-Jo-7SM"/>
                 <constraint firstItem="dLG-sF-x9m" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="eG2-KD-mOF"/>
                 <constraint firstItem="dLG-sF-x9m" firstAttribute="top" secondItem="bhN-4o-mJC" secondAttribute="bottom" id="ygH-UF-LLY"/>
             </constraints>

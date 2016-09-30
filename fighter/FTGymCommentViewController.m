@@ -308,8 +308,8 @@
     NSString *key;
     
     if ([lastChosenMediaType isEqualToString:(NSString *)kUTTypeImage]) {
-        // 照片
         
+        // 照片
         UIImage *editImage = [info valueForKey:UIImagePickerControllerOriginalImage];
         UIImage *img = [UIImage editImage:editImage side:200];
         
@@ -324,12 +324,11 @@
         [_photos addObject:dic];
         [cell addPhotoToContainer:img type:FTMediaTypeImage];
         
-        key = [NSString stringWithFormat:@"%@_%@",timeString, userId];
+        key = [NSString stringWithFormat:@"%@_%@.png",timeString, userId];
         [_urls addObject:key];
         
     }else if([lastChosenMediaType isEqualToString:(NSString *)kUTTypeMovie]){
         // 视频
-        
         NSURL *videoURL = info[UIImagePickerControllerMediaURL];
         NSData *movieData = [NSData dataWithContentsOfURL:videoURL];
         
@@ -342,7 +341,7 @@
         [_photos addObject:dic];
         [cell addPhotoToContainer:img type:FTMediaTypeVedio];
         
-        key = [NSString stringWithFormat:@"%@_%@mp4",timeString, userId];//key值取userId＋时间戳+mp4
+        key = [NSString stringWithFormat:@"%@_%@.mp4",timeString, userId];//key值取userId＋时间戳+mp4
         [_urls addObject:key];
     }
 }

@@ -23,6 +23,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *thumbsButton;
 @property (weak, nonatomic) IBOutlet UIButton *commentButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewBottomContraint;
 
 @property (nonatomic, strong) NSMutableArray<FTGymCommentBean *> *dataArray;
 @end
@@ -64,15 +65,20 @@
 
 - (void) setNotification {
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardWillShow:)
+//                                                 name:UIKeyboardWillShowNotification
+//                                               object:nil];
+//    
+//    //增加监听，当键退出时收出消息
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardWillHide:)
+//                                                 name:UIKeyboardWillHideNotification
+//                                               object:nil];
     
-    //增加监听，当键退出时收出消息
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
+                                             selector:@selector(keyBoardFrameWillChanged:)
+                                                 name:UIKeyboardWillChangeFrameNotification
                                                object:nil];
     
 }
@@ -240,6 +246,9 @@
     }
     NSLog(@"height:%f",height);
     
+    CGRect currentFrame = [self.view convertRect:self.bottomView.frame toView:self.view];
+    NSLog(@"y position before animation :(%f)",currentFrame.origin.y);
+    
     if (isKeyBoardShow == NO) {
         __weak typeof(self) weakSelf = self;
         [UIView animateWithDuration:0.3 animations:^{
@@ -274,6 +283,9 @@
     NSLog(@"height:%f",height);
     
     
+    CGRect currentFrame = [self.view convertRect:self.bottomView.frame toView:self.view];
+    NSLog(@"y position after animation:%f",currentFrame.origin.y);
+    
     if (isKeyBoardShow == YES) {
         
         __weak typeof(self) weakSelf = self;
@@ -284,6 +296,42 @@
         
         isKeyBoardShow = NO;
     }
+}
+
+
+- (void)keyBoardFrameWillChanged:(NSNotification *)note
+{
+    //获取键盘的frame
+    CGRect frame =  [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    //获取键盘的动画时间
+    CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+//    //创建自带来获取穿过来的对象的info配置信息
+    NSDictionary *userInfo = [note userInfo];
+    NSLog(@"userInfo:%@",userInfo);
+//    
+//    //创建value来获取 userinfo里的键盘frame大小
+//    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+//    CGRect keyboardRect = [aValue CGRectValue];
+    
+    //最后获取高度 宽度也是同理可以获取
+    CGFloat height = isKeyBoardShow?frame.size.height:-frame.size.height;;
+    
+    
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:duration animations:^{
+        
+        CGRect frame = weakSelf.view.frame;
+        weakSelf.view.frame = CGRectMake(frame.origin.x, frame.origin.y + height, frame.size.width, frame.size.height);
+        
+        //改变底部工具条的底部约束
+        weakSelf.bottomViewBottomContraint.constant =  height;
+        [weakSelf.view layoutIfNeeded];//刷新布局，使得工具条随键盘frame改变有动画
+    }];
+    
+    isKeyBoardShow = isKeyBoardShow?NO:YES;
+
 }
 
 

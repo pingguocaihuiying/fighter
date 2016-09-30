@@ -67,4 +67,14 @@
  */
 + (NSString *) stringOfDate:(NSDate *)date formatter:(NSString *)formatter;
 
+
+
+/**
+ 将下划线间隔日期字符串修改为年月日间隔的日期字符串
+ 
+ @param dateString 下划线间隔日期字符串
+ 
+ @return 年月日间隔字符串
+ */
++ (NSString *) changeUnderlineDateToWordDate:(NSString *) dateString;
 @end
