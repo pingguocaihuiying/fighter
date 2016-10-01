@@ -53,6 +53,20 @@
 @property (nonatomic,copy) NSString *viewCount;
 @property (nonatomic,copy) NSString *gymFrom;
 
+@property (nonatomic, assign) BOOL isGymUser;//当前用户是否是该拳馆的会员
+
+@property (nonatomic,copy) NSString *surplusCourse;
+@property (nonatomic,copy) NSString *deadline;
+@property (nonatomic,copy) NSString *userMoney;
+
+@property (nonatomic,copy) NSString *courseDate;
+@property (nonatomic,copy) NSString *courseTime;
+@property (nonatomic,copy) NSString *course;
+
+@property (nonatomic,copy) NSString *orderDate;
+@property (nonatomic,copy) NSString *orderTime;
+@property (nonatomic,copy) NSString *order;
+
 
 
 @end

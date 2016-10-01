@@ -219,21 +219,31 @@ NSString * const NewPostCheckKey =  @"gedoujia1gdshjjgfkd52261225550";
 // coach
 NSString * const GetCoachListURL = @"/api/coach/list.do";
 NSString * const GetCoachByIdURL = @"/api/coach/{id}.do";
+NSString * const ValidCheckCode = @"/api/user/save$checkPhoneCode.do";
 
 // gym 拳馆
 NSString * const GetGymListURL = @"/api/gym/getGym.do";
 NSString * const GetGymListForArenaURL = @"/api/match/getGyms.do";
 NSString * const GetGymByIdURL = @"/api/gym/getVideosById.do";
 NSString * const GetGymPhotosByUsers = @"/api/gym/commentAttach.do";//获取用户拍摄的拳馆照片
+NSString * const BecomeGymMenberShipURL = @"/api/gymmenbership/save$GymMenberShip.do";
 
 #pragma mark - 新格斗场
 NSString * const GetGymTimeSlotsByIdURL = @"/api/place/listTime.do";
+NSString *const GetGymVIPInfoURL = @"/api/gymmenbership/find.do";//
+NSString * const OrderCourseURL = @"/api/coursebook/save$CourseBook.do";
+NSString * const DeleteOrderCourseURL = @"/api/coursebook/delete$CourseBook.do";
 NSString * const GetGymPlacesByIdURL = @"/api/place/listPlace.do";
 NSString * const GetGymPlacesUsingInfoByIdURL = @"/api/place/list.do";//GetGymInfoByIdURL
+NSString * const GetGymSourceInfoByIdURL = @"/api/place/listCource.do";
 NSString * const GetGymInfoByIdURL = @"/api/match/listms.do";
 NSString *const GetBoxerListURL = @"/api/boxer/list.do";
 NSString *const AddMatchURL = @"/api/match/save$Match.do";
 NSString *const GetMatchListURL = @"/api/match/list.do";
+
+NSString *const SaveCourseBookCheckSign = @"gedoujiaghdrfskflges2gfd";
+NSString *const DeleteCourseBookCheckSign = @"gedoujiajhjgfdlh25gfd";
+
 //迎战or拒战
 NSString *const ResponseToMatchURL = @"/api/match/save$mc.do";
 //微信支付

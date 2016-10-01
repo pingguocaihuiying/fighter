@@ -30,6 +30,14 @@
  */
 + (NSString *)fixStringForDateWithoutTime:(NSString *)timestampString;//“年月日“
 
+
+/**
+ 获取当前月份
+
+ @return 月份，eg：1、2、3
+ */
++ (NSString *)getCurrentMonth;//获取当前月份
+
 /**
  *  根据时间戳返回日期
  *
@@ -46,6 +54,14 @@
 //获取今天是周几
 + (NSInteger )getWeekdayOfToday;//返回1234567
 
+/**
+ 获取某天后是周几
+
+ @param offsetDay 今天后的第几天今天 offset为0，明天offset为1
+
+ @return 周几：1、2、3、4、5、6、7
+ */
++ (NSInteger )getWeekdayOfTodayAfterToday:(NSInteger)offsetDay;
 /**
  *  根据“某天”的任意时间戳和“时间段”，确定实际时间
  *
@@ -106,6 +122,9 @@
 
 //登录方法
 + (void)loginwithVC:(UIViewController *) vc;
+
+//检查是否登录，没有登录就跳转到登录界面，并返回假
++(BOOL)hasLoginWithViewController:(UIViewController *) vc;
 
 #pragma -mark 更新评分view
 + (void)updateScoreView:(UIView *)scoreView withScore:(float)scoreFloat;

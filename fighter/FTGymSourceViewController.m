@@ -7,8 +7,17 @@
 //
 
 #import "FTGymSourceViewController.h"
+#import "FTCoachBigImageCollectionViewCell.h"
+#import "FTGymSourceView.h"
+#import "FTJoinGymSuccessAlertView.h"
+#import "FTGymOrderCourseView.h"
+#import "FTOrderCoachViewController.h"
+#import "FTCoachSelfCourseViewController.h"
+#import "FTGymRechargeViewController.h"
+#import "FTBaseNavigationViewController.h"
 
-@interface FTGymSourceViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
+
+@interface FTGymSourceViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, FTGymCourseTableViewDelegate, FTGymOrderCourseViewDelegate>
 @property (strong, nonatomic) IBOutlet UILabel *balanceLabel;//动态label:余额的值
 @property (strong, nonatomic) IBOutlet UILabel *yuanLabel;//固定label：『元』
 
@@ -24,8 +33,16 @@
 @property (strong, nonatomic) IBOutlet UIView *seperatorView1;
 @property (strong, nonatomic) IBOutlet UIView *seperatorView2;
 @property (strong, nonatomic) IBOutlet UIView *seperatorView3;
-@property (strong, nonatomic) IBOutlet UIView *seperatorView4;
-@property (strong, nonatomic) IBOutlet UIView *seperatorView5;
+
+
+@property (strong, nonatomic) IBOutlet UIView *gymSourceViewContainerView;//课程表view的父view
+
+@property (nonatomic, strong) FTGymSourceView *gymSourceView;//课程表
+
+@property (nonatomic, strong) NSArray *timeSectionsArray;//拳馆的固定时间段
+@property (nonatomic, strong) NSMutableDictionary *placesUsingInfoDic;//场地、时间段的占用情况
+
+@property (nonatomic, strong) NSArray *coachArray;//教练列表
 
 @end
 
@@ -33,13 +50,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initBaseConfig];
+    [self getCoachesOfGymFromServer];//获取该拳馆的教练列表
     [self setSubViews];
+    [self getTimeSection];//获取拳馆时间段配置
+}
+
+- (void)initBaseConfig{
+//    _placesUsingInfoDic = [NSMutableDictionary new];
+    //key为周几（数字类型），value为数组，存储那一天的课程信息
+//    for (int i = 0; i < 6; i++) {
+//       [_placesUsingInfoDic setObject:[NSMutableArray new] forKey:[NSString stringWithFormat:@"%ld", [FTTools getWeekdayOfTodayAfterToday:i]]];
+//    }
+
 }
 
 - (void)setSubViews{
     [self initSomeViewsBaseProperties];//初始化一些label颜色、分割线颜色等
     [self setNaviView];//设置导航栏
-    [self setCollectionView];//设置教练模块的view
+    
+    
+    [self setGymSourceView];
 }
 
 - (void)initSomeViewsBaseProperties{
@@ -51,8 +82,7 @@
     _seperatorView1.backgroundColor = Cell_Space_Color;
     _seperatorView2.backgroundColor = Cell_Space_Color;
     _seperatorView3.backgroundColor = Cell_Space_Color;
-    _seperatorView4.backgroundColor = Cell_Space_Color;
-    _seperatorView5.backgroundColor = Cell_Space_Color;
+
 }
 
 - (void)setNaviView{
@@ -81,9 +111,32 @@
         self.navigationItem.rightBarButtonItem = gymDetailButton;
 }
 
+
+#pragma mark - response 
+
 - (void)backBtnAction:(id)sender{
     NSLog(@"返回");
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+- (IBAction)rechargeButtonAction:(id)sender {
+    
+    FTGymRechargeViewController *gymRechargeViewController = [FTGymRechargeViewController new];
+    gymRechargeViewController.corporationId = self.gymDetailBean.corporationid;
+    FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:gymRechargeViewController];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+
+
+
+- (void)getCoachesOfGymFromServer{
+    [NetWorking getCoachesWithCorporationid:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSArray *array) {
+        if (array && array.count > 0) {
+            _coachArray = array;
+            [self setCollectionView];//设置教练模块的view
+        }
+    }];
 }
 
 - (void)setCollectionView{
@@ -110,10 +163,10 @@
     _collectionView.dataSource = self;
     
     //加载cell用于复用
-    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
+    [_collectionView registerNib:[UINib nibWithNibName:@"FTCoachBigImageCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
     
     //根据数据源个数，计算collectionView的高度（这段代码应该放在获取数据源之后）
-    NSInteger count = 8;//cell总数
+    NSInteger count = _coachArray.count;//cell总数
     NSInteger line = 0;//行数
     NSInteger numberPerLine = 4;//每行cell数
     if(count % numberPerLine == 0){
@@ -124,34 +177,130 @@
     _collectionViewHeight.constant = line * itemHeight + (line - 1) * lineSpacing;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"点击了第%ld个", indexPath.row);
+    FTOrderCoachViewController *orderCoachViewController = [FTOrderCoachViewController new];
+    [self.navigationController pushViewController:orderCoachViewController animated:YES];
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 8;
+    return _coachArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor redColor];
+    FTCoachBigImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
+    NSDictionary *coachDic = _coachArray[indexPath.row];
+    cell.coachNameLabel.text = coachDic[@"name"];
+    [cell.coachImageView sd_setImageWithURL:[NSURL URLWithString:coachDic[@"headUrl"]]];
     return cell;
 }
 
-- (void)gotoGymDetail{
+- (void)setGymSourceView{
+    _gymSourceView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymSourceView" owner:nil options:nil]firstObject];
+    _gymSourceView.courseType = FTOrderCourseTypeGym;
+    _gymSourceView.frame = _gymSourceViewContainerView.bounds;
+    _gymSourceView.delegate = self;
+    [_gymSourceViewContainerView addSubview:_gymSourceView];
+
+}
+- (void)courseClickedWithCell:(FTGymSourceTableViewCell *)courseCell andDay:(NSInteger)day andTimeSection:(NSString *) timeSection andDateString:(NSString *) dateString andTimeStamp:(NSString *)timeStamp{
+    NSLog(@"day : %ld, timeSection : %@ dateString : %@", day, timeSection, dateString);
     
+    FTGymOrderCourseView *gymOrderCourseView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCourseView" owner:nil options:nil] firstObject];
+    gymOrderCourseView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    gymOrderCourseView.dateString = dateString;
+    gymOrderCourseView.dateTimeStamp = timeStamp;
+    
+    if (courseCell.hasOrder) {
+        NSLog(@"已经预约");
+
+        NSDictionary *courseCellDic = courseCell.courserCellDic;
+        gymOrderCourseView.courserCellDic = courseCellDic;
+        
+        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+        gymOrderCourseView.delegate = self;
+        gymOrderCourseView.status = FTGymCourseStatusHasOrder;
+        [[[UIApplication sharedApplication] keyWindow] addSubview:gymOrderCourseView];
+
+    } else if (courseCell.canOrder) {
+        
+        
+        NSDictionary *courseCellDic = courseCell.courserCellDic;
+        gymOrderCourseView.courserCellDic = courseCellDic;
+        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+        gymOrderCourseView.delegate = self;
+        gymOrderCourseView.status = FTGymCourseStatusCanOrder;
+        [[[UIApplication sharedApplication] keyWindow] addSubview:gymOrderCourseView];
+        NSLog(@"可以预约");
+        
+
+    }else if (courseCell.isFull) {
+        
+        
+        NSDictionary *courseCellDic = courseCell.courserCellDic;
+        gymOrderCourseView.courserCellDic = courseCellDic;
+        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+        gymOrderCourseView.delegate = self;
+        gymOrderCourseView.status = FTGymCourseStatusIsFull;
+        [[[UIApplication sharedApplication] keyWindow] addSubview:gymOrderCourseView];
+        NSLog(@"满员");
+    }else{
+        //不能预约（可能因为数据无效等原因）
+    }
+}
+
+- (void)bookSuccess{
+    //预订成功后，刷新课程预订信息
+    [self gettimeSectionsUsingInfo];
+}
+
+/**
+ *  获取时间段信息
+ */
+- (void)getTimeSection{
+    [NetWorking getGymTimeSlotsById:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSArray *array) {
+        _timeSectionsArray = array;
+        if (_timeSectionsArray && _timeSectionsArray.count > 0) {
+            //获取时间段信息后，根据内容多少设置tableviews的高度，再刷新一次tableview
+            _gymSourceView.timeSectionsArray = _timeSectionsArray;
+            _gymSourceView.tableViewsHeight.constant = 42 * _timeSectionsArray.count;
+            [self gettimeSectionsUsingInfo];
+        }
+        
+    }];
+}
+
+
+//获取场地使用信息
+- (void)gettimeSectionsUsingInfo{
+    NSString *timestampString = [NSString stringWithFormat:@"%.0f", [[NSDate date]timeIntervalSince1970]];
+    
+    [NetWorking getGymSourceInfoById:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid]  andTimestamp:timestampString  andOption:^(NSArray *array) {
+        _placesUsingInfoDic = [NSMutableDictionary new];
+        if (array) {
+            for(NSDictionary *dic in array){
+                NSString *theDate = [NSString stringWithFormat:@"%@", dic[@"theDate"]];//周几
+                NSMutableArray *mArray = _placesUsingInfoDic[theDate];
+                if(!mArray){
+                    mArray = [NSMutableArray new];
+                    [_placesUsingInfoDic setValue:mArray forKey:theDate];
+                }
+                [mArray addObject:dic];
+            }
+            //获取场地使用信息后，刷新UI
+            _gymSourceView.placesUsingInfoDic = _placesUsingInfoDic;
+            [_gymSourceView reloadTableViews];
+        }
+    }];
+}
+
+- (void)gotoGymDetail{
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

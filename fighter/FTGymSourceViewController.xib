@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -13,11 +13,10 @@
                 <outlet property="collectionViewHeight" destination="j1p-ui-Y52" id="VSa-fI-z9n"/>
                 <outlet property="collectionViewLeftMargin" destination="g3j-lJ-J2I" id="c4I-fG-lsh"/>
                 <outlet property="collectionViewRightMargin" destination="ugl-gw-fUw" id="lxu-Bv-iMi"/>
+                <outlet property="gymSourceViewContainerView" destination="kbk-Q5-wcT" id="0el-f4-PJa"/>
                 <outlet property="seperatorView1" destination="IiS-DV-udx" id="ulT-GQ-6Qi"/>
                 <outlet property="seperatorView2" destination="XGr-Hs-lF9" id="F5q-ae-vME"/>
                 <outlet property="seperatorView3" destination="F1N-MC-SKd" id="9Iv-PJ-Yut"/>
-                <outlet property="seperatorView4" destination="S94-Lw-fZ0" id="eFY-Wd-uiq"/>
-                <outlet property="seperatorView5" destination="eXz-Cg-3qK" id="lJp-WN-DyK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="yuanLabel" destination="rrC-LB-o2V" id="NK2-xy-xYE"/>
             </connections>
@@ -67,6 +66,9 @@
                                             <state key="normal" title="充值" backgroundImage="充值">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="rechargeButtonAction:" destination="-1" eventType="touchUpInside" id="RUj-Lj-4h5"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rrC-LB-o2V">
                                             <constraints>
@@ -184,42 +186,15 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kbk-Q5-wcT" userLabel="课程表View">
-                            <subviews>
-                                <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zAe-sY-fyt" userLabel="背景半透明View">
-                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S94-Lw-fZ0" userLabel="分割线4">
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="1" id="4u0-DB-XPN"/>
-                                    </constraints>
-                                </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eXz-Cg-3qK" userLabel="分割线5">
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="1" id="s6R-uf-V9N"/>
-                                    </constraints>
-                                </view>
-                            </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="S94-Lw-fZ0" firstAttribute="leading" secondItem="kbk-Q5-wcT" secondAttribute="leading" id="4s0-ck-rK7"/>
-                                <constraint firstAttribute="trailing" secondItem="zAe-sY-fyt" secondAttribute="trailing" id="9Ux-ya-0an"/>
-                                <constraint firstAttribute="bottom" secondItem="eXz-Cg-3qK" secondAttribute="bottom" id="JKS-bp-hEl"/>
-                                <constraint firstAttribute="trailing" secondItem="eXz-Cg-3qK" secondAttribute="trailing" id="a6g-Uk-1aC"/>
-                                <constraint firstItem="S94-Lw-fZ0" firstAttribute="top" secondItem="kbk-Q5-wcT" secondAttribute="top" id="btq-0g-el3"/>
-                                <constraint firstItem="zAe-sY-fyt" firstAttribute="top" secondItem="kbk-Q5-wcT" secondAttribute="top" id="dgI-aj-V42"/>
                                 <constraint firstAttribute="height" priority="1" constant="300" id="dob-Uc-3Vb"/>
-                                <constraint firstItem="eXz-Cg-3qK" firstAttribute="leading" secondItem="kbk-Q5-wcT" secondAttribute="leading" id="haC-CM-8Eu"/>
-                                <constraint firstItem="zAe-sY-fyt" firstAttribute="leading" secondItem="kbk-Q5-wcT" secondAttribute="leading" id="uD3-LB-WDT"/>
-                                <constraint firstAttribute="bottom" secondItem="zAe-sY-fyt" secondAttribute="bottom" id="w2J-s6-xBX"/>
-                                <constraint firstAttribute="trailing" secondItem="S94-Lw-fZ0" secondAttribute="trailing" id="xhS-qm-4Qb"/>
                             </constraints>
                         </view>
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="moQ-zL-4v7" secondAttribute="trailing" id="5j0-U9-xRH"/>
-                        <constraint firstAttribute="bottom" secondItem="kbk-Q5-wcT" secondAttribute="bottom" id="6O3-Pf-eQm"/>
+                        <constraint firstAttribute="bottom" secondItem="kbk-Q5-wcT" secondAttribute="bottom" constant="10" id="6O3-Pf-eQm"/>
                         <constraint firstItem="uqF-1u-LyU" firstAttribute="leading" secondItem="u4m-sL-hTN" secondAttribute="leading" id="96T-gQ-UtX"/>
                         <constraint firstItem="moQ-zL-4v7" firstAttribute="leading" secondItem="u4m-sL-hTN" secondAttribute="leading" id="JoS-hT-duD"/>
                         <constraint firstAttribute="trailing" secondItem="uqF-1u-LyU" secondAttribute="trailing" id="WZZ-db-2c4"/>

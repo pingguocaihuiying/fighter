@@ -176,19 +176,32 @@ extern NSString * const GetVideoByIdURL;
 // coach 教练
 extern NSString * const GetCoachListURL;
 extern NSString * const GetCoachByIdURL;
+extern NSString * const ValidCheckCode ;
+
 // gym 拳馆
 extern NSString * const GetGymListURL;
 extern NSString * const GetGymListForArenaURL;
 extern NSString * const GetGymByIdURL;
-extern NSString *const GetGymPhotosByUsers;//获取用户拍摄的拳馆照片
+extern NSString * const GetGymPhotosByUsers;//获取用户拍摄的拳馆照片
+extern NSString * const BecomeGymMenberShipURL;
 
 #pragma mark - 新格斗场
+extern NSString *const SaveCourseBookCheckSign;//约课
+extern NSString *const DeleteCourseBookCheckSign;//取消约课
+//获取拳馆vip信息
+extern NSString *const GetGymVIPInfoURL;
+//约课
+extern NSString * const OrderCourseURL;//
+//取消约课
+extern NSString * const DeleteOrderCourseURL;
 //获取拳馆固定的时间段
 extern NSString * const GetGymTimeSlotsByIdURL;
 //获取拳馆的场地信息
 extern NSString * const GetGymPlacesByIdURL;
 //获取拳馆的场地使用信息
 extern NSString * const GetGymPlacesUsingInfoByIdURL;
+//获取拳馆的课程占用信息
+extern NSString * const GetGymSourceInfoByIdURL;
 //获取拳馆的基本信息
 extern NSString * const GetGymInfoByIdURL;
 //获取拳手列表

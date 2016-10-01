@@ -6,6 +6,13 @@
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
+@protocol FTLoginViewControllerDelegate <NSObject>
+
+@optional
+- (void)loginSuccess;
+
+@end
+
 #import <UIKit/UIKit.h>
 
 @interface FTLoginViewController : UIViewController

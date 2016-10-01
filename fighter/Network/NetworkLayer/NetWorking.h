@@ -64,7 +64,9 @@
 //绑定手机时获取验证码
 - (void) getCheckCodeForNewBindingPhone:(NSString *)phoneNum
                                  option:(void (^)(NSDictionary *dict))option;
-
+//绑定手机时获取验证码(可以修改type类型的)
+- (void) getCheckCodeForNewBindingPhone:(NSString *)phoneNum withType:(NSString *)type
+                                 option:(void (^)(NSDictionary *dict))option;
 //更换手机时获取旧手机号验证码
 - (void) getCheckCodeForExistPhone:(NSString *)phoneNum
                                 type:(NSString *)type
@@ -214,6 +216,21 @@
 // Add Gym Comment
 + (void) addGymCommentWithPramDic:(NSDictionary*)pramDic option:(void (^)(NSDictionary *dict))option;
 
+// Get Comment for gym Comment List 获取拳馆二级评论
++ (void) getGymReplyComments:(NSString *)objectId option:(void (^)(NSDictionary *dict))option;
+
+// 添加拳馆二级评论
++ (void) addCommentForGymComment:(NSDictionary*)pramDic option:(void (^)(NSDictionary *dict))option;
+
+//验证验证码是否正确（请求加入会员部分）
++ (void)validCheckCodeWithPhoneNum:(NSString *) phoneNum andCheckCode:(NSString *)checkCode andOption:(void (^)(NSDictionary *dic))option;
+
+//请求加入会员
++ (void)requestToBeVIPWithCorporationid:(NSString *)corporationid andPhoneNum:(NSString *) phoneNum andCheckCode:(NSString *)checkCode andOption:(void (^)(NSDictionary *dic))option;
+
+#pragma mark - 约课
+//约课
++ (void)orderCourseWithParamsDic:(NSMutableDictionary *)dic andOption:(void (^)(NSDictionary *dic))option;
 
 #pragma mark - 新格斗场
 //获取拳馆固定的时间段
@@ -227,7 +244,8 @@
 
 //获取场地的使用信息
 + (void)getGymPlaceUsingInfoById:(NSString *)gymId andTimestamp:(NSString *)timestamp andOption:(void (^)(NSArray *array))option;
-
+//获取拳馆课程预约信息
++ (void)getGymSourceInfoById:(NSString *)gymId andTimestamp:(NSString *)timestamp andOption:(void (^)(NSArray *array))option;
 //获取拳馆信息(比赛模块)
 + (void)getGymInfoById:(NSString *)gymId andOption:(void (^)(NSDictionary *dic))option;
 
@@ -240,7 +258,7 @@
 + (void)getPhotosByUsersWithCorporationid:(NSString *)corporationid andOption:(void (^)(NSArray *array))option;
 
 //获取拳手信息
-+ (void)getBoxerListByWeight:(NSString *)weight andOverWeightLevel: (NSString *) overWeightLevel andPageSize:(NSString *)pageSize andPageNum:(int)pageNum andOption:(void (^)(NSArray *array))option;
++ (void)getBoxerListByWeight:(NSString *)weight andOverWeightLevel: (NSString *) overWeightLevel andPageSize:(NSString *)pageSize andPageNum:(int)pageNum  andOption:(void (^)(NSArray *array))option;
 
 //添加赛事
 + (void)addMatchWithParams:(NSDictionary *)dic andOption:(void (^)(BOOL result))option;
@@ -322,5 +340,8 @@
 
 //  获取兑吧地址
 + (void) GetDuiBaConfig:(void (^)(NSDictionary *dict))option;
+
+//查询当前用户是否是指定拳馆的会员
++ (void)getVIPInfoWithGymId:(NSString *) corporationID andOption:(void (^)(NSDictionary *dic))option;
 
 @end

@@ -126,6 +126,8 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
         NSDictionary *dicSrc = array[i];
         NSMutableDictionary *dic = [NSMutableDictionary new];
         if ([dicSrc[@"suffix"] isEqualToString:@"0"]) {//suffix 0 是图片，1是视频
+            
+            NSLog(@"url:%@",dicSrc[@"url"]);
             [dic setValue:@"image" forKey:@"type"];//类型
             NSString *imageUrl = [NSString stringWithFormat:@"http://%@/%@", _gymDetailBean.urlprefix, dicSrc[@"url"]];
             

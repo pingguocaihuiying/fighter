@@ -60,5 +60,7 @@
 @property (nonatomic, strong) FTGymCommentBean *commentbean;
 
 - (void) setCellContentWithBean:(FTGymCommentBean *)bean;
+- (void) setThumbState:(BOOL) state;
+- (void) setCommentState:(BOOL) state;
 
 @end

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTCoachSelfCourseViewController">
+            <connections>
+                <outlet property="courseHistoryTableViewHeight" destination="qZN-dv-uWz" id="5ux-bX-bes"/>
+                <outlet property="gymSourceViewContainerView" destination="FfX-ED-VLS" id="B4E-YD-h6J"/>
+                <outlet property="historyOrderTableView" destination="8fs-OF-eP3" id="rxa-Lm-ssB"/>
+                <outlet property="tableViewHeight" destination="Edr-OQ-rIg" id="DDe-Yb-x0H"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="izI-Ce-O19">
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FfX-ED-VLS" userLabel="tableviewsContainerView">
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" priority="250" constant="128" id="Edr-OQ-rIg"/>
+                            </constraints>
+                        </view>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8fs-OF-eP3">
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" priority="250" constant="539" id="qZN-dv-uWz"/>
+                            </constraints>
+                            <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </tableView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="8fs-OF-eP3" firstAttribute="leading" secondItem="izI-Ce-O19" secondAttribute="leading" id="92K-j4-5c4"/>
+                        <constraint firstAttribute="bottom" secondItem="8fs-OF-eP3" secondAttribute="bottom" id="gPH-yx-SWs"/>
+                        <constraint firstItem="8fs-OF-eP3" firstAttribute="top" secondItem="FfX-ED-VLS" secondAttribute="bottom" id="gQU-SY-Z7j"/>
+                        <constraint firstItem="FfX-ED-VLS" firstAttribute="top" secondItem="izI-Ce-O19" secondAttribute="top" id="hHd-Jz-Vjs"/>
+                        <constraint firstAttribute="trailing" secondItem="FfX-ED-VLS" secondAttribute="trailing" id="nrL-IP-FTL"/>
+                        <constraint firstItem="FfX-ED-VLS" firstAttribute="leading" secondItem="izI-Ce-O19" secondAttribute="leading" id="oY6-wn-psX"/>
+                        <constraint firstAttribute="trailing" secondItem="8fs-OF-eP3" secondAttribute="trailing" id="zYo-KI-nic"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="FfX-ED-VLS" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="0m2-GX-RMh"/>
+                <constraint firstAttribute="trailing" secondItem="izI-Ce-O19" secondAttribute="trailing" id="LcR-WJ-ubB"/>
+                <constraint firstItem="izI-Ce-O19" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="TcU-1v-p1S"/>
+                <constraint firstAttribute="bottom" secondItem="izI-Ce-O19" secondAttribute="bottom" id="fm9-Td-vuw"/>
+                <constraint firstItem="izI-Ce-O19" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jI4-en-ZRb"/>
+            </constraints>
+            <point key="canvasLocation" x="26.5" y="52.5"/>
+        </view>
+    </objects>
+</document>

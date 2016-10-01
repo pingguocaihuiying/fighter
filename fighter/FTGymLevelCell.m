@@ -47,7 +47,7 @@
     for (int i = 0; i< 5; i++) {
         UIImageView *imageView = [self.imagesViews objectAtIndex:i];
         if (CGRectContainsPoint(imageView.frame, point) ) {
-            [self setImageToIndex:i];
+            [self setImageToIndex:i+1];
             break;
         }
     }
@@ -58,11 +58,11 @@
     
 //    NSLog(@"index=%i",index);
     [self.cellDelegate gymLevel:level index:self.index];
-    for (int i = level; i >= 0 ; i--) {
+    for (int i = level-1; i >= 0 ; i--) {
         UIImageView *imageView = [self.imagesViews objectAtIndex:i];
         [imageView setImage:[UIImage imageNamed:@"火苗-红"]];
     }
-    for (int i = level+1; i < 5 ; i++) {
+    for (int i = level; i < 5 ; i++) {
         UIImageView *imageView = [self.imagesViews objectAtIndex:i];
         [imageView setImage:[UIImage imageNamed:@"火苗-灰"]];
     }

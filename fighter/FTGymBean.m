@@ -7,6 +7,7 @@
 //
 
 #import "FTGymBean.h"
+#import "NSDate+Tool.h"
 
 @implementation FTGymBean
 
@@ -56,9 +57,27 @@
     self.commentCount = dic[@"commentCount"];
     self.viewCount = dic[@"viewCount"];
     
-    self.gymFrom = dic[@"gym_from"];
+    self.gymFrom = dic[@"gymFrom"];
     
+    self.isGymUser =  [dic[@"isGymUser"] boolValue];
+    
+    self.surplusCourse = [NSString stringWithFormat:@"%d",[dic[@"remainTime"] intValue]];
+    self.userMoney = [NSString stringWithFormat:@"%.2f",[dic[@"userMoney"] floatValue]/100];
+    self.deadline = [NSDate changeUnderlineDateToWordDate:dic[@"expireTime"]];
+    
+
+    self.courseDate = [NSDate changeUnderlineDateToWordDate:dic[@"dateNext"]];
+    self.courseTime = dic[@"timeSectionNext"];
+    self.course = dic[@"labelNext"];
+    
+    self.orderDate = [NSDate changeUnderlineDateToWordDate:dic[@"datePrev"]];
+    self.orderTime = dic[@"timeSectionPrev"];
+    self.order = dic[@"labelPrev"];
+
 }
+
+
+
 
 
 @end

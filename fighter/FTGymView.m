@@ -15,6 +15,9 @@
 #import "JHRefresh.h"
 #import "FTGymDetailWebViewController.h"
 #import "FTGymBean.h"
+#import "FTGymVIPCellTableViewCell.h"
+#import "FTGymDetailBean.h"
+#import "FTGymSourceViewController.h"
 
 @interface FTGymView () <UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, FTCycleScrollViewDelegate,FTSelectCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -39,26 +42,35 @@
 
 @implementation FTGymView
 
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect {
- // Drawing code
- }
- */
+
 - (id) initWithFrame:(CGRect)frame {
     
     self = [super initWithFrame:frame];
     if (self) {
         
         [self initialization];
-        //        [self initSubviews];
+        [self setNotification];
+        
         [self setBackgroundColor:[UIColor clearColor]];
     }
     
     return self;
 }
 
+- (void) dealloc {
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma  mark - 初始化
+- (void) setNotification {
+
+    //注册通知，接收微信登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginCallback:) name:WXLoginResultNoti object:nil];
+    
+    //添加监听器，监听login
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(phoneLoginedCallback:) name:LoginNoti object:nil];
+}
 
 - (void) initialization {
     
@@ -71,6 +83,9 @@
     
     [self getCycleScrollViewDataFromWeb];
     [self getTableViewDataFromWeb];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getTableViewDataFromWeb) name:USER_SIGN_OUT object:nil];
+    
     
 }
 
@@ -107,7 +122,10 @@
     [_tableView setBackgroundColor:[UIColor clearColor]];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    
     [_tableView registerNib:[UINib nibWithNibName:@"FTGymCell" bundle:nil]  forCellReuseIdentifier:@"gymCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"FTGymVIPCellTableViewCell" bundle:nil]  forCellReuseIdentifier:@"gymVIPCell"];
+    
     //    _tableView.tableHeaderView = _cycleScrollView;
     _tableView.tableHeaderView = _gymCycleScrollView;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -120,8 +138,9 @@
 
 // 获取轮播图数据
 - (void) getCycleScrollViewDataFromWeb {
-    
+
     NSMutableDictionary *dic = [NSMutableDictionary new];
+    
     [dic setObject:@"Hot" forKey:@"gymType"];
     [dic setObject:@"-1" forKey:@"gymCurrId"];
     [dic setObject:@"1" forKey:@"gymTag"];
@@ -169,6 +188,12 @@
     [dic setObject:_gymTag forKey:@"gymTag"];
     [dic setObject:_getType forKey:@"getType"];
     [dic setObject:showType forKey:@"showType"];
+    
+    NSString *userId = [FTUserBean loginUser].olduserid;
+    // 判断用户登录
+    if (userId && userId.length >0) {
+        [dic setObject:userId forKey:@"userId"];
+    }
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@",_gymType,_gymCurrId,_gymTag, _getType, ts, @"quanjijia222222"]];
     
@@ -181,8 +206,8 @@
         
         [self.tableView footerEndRefreshing];
         
-        NSLog(@"table dict:%@",dict);
-        NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+//        NSLog(@"table dict:%@",dict);
+//        NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         if (dict != nil) {
             
             NSArray *tempArray = dict[@"data"];
@@ -206,6 +231,7 @@
 }
 
 - (void) sortArray {
+    
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     for (NSDictionary *dic in _dataSourceArray) {
         [dict setObject:dic forKey:dic];
@@ -365,23 +391,29 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static FTGymCell * cell =nil;
-    static dispatch_once_t tonceToken;
-    dispatch_once(&tonceToken, ^{
-        cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
-    });
-    
     NSDictionary *dic = [_dataSourceArray objectAtIndex:indexPath.row];
-    CGFloat labelView_H = [cell caculateHeight:dic[@"gymType"]];
-//    NSString *string = [NSString stringWithFormat:@"%@,%@,%@",dic[@"gymType"],dic[@"gymType"],dic[@"gymType"]];
-//     CGFloat labelView_H = [cell caculateHeight:string];
-//    CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-//    NSLog(@"h=%f", size.height + 1);
-    
-    if (labelView_H == 0) {
-        return 88;
+    if ([dic[@"isGymUser"] integerValue] == 1) {
+        return 400;
+    }else {
+        
+        static FTGymCell * cell =nil;
+        static dispatch_once_t tonceToken;
+        dispatch_once(&tonceToken, ^{
+            cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
+        });
+        
+        CGFloat labelView_H = [cell caculateHeight:dic[@"gymType"]];
+        
+        //    NSString *string = [NSString stringWithFormat:@"%@,%@,%@",dic[@"gymType"],dic[@"gymType"],dic[@"gymType"]];
+        //     CGFloat labelView_H = [cell caculateHeight:string];
+        //    CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        //    NSLog(@"h=%f", size.height + 1);
+        
+        if (labelView_H == 0) {
+            return 88;
+        }
+        return 88 + labelView_H;
     }
-    return 88 + labelView_H;
 }
 
 //headerView高度
@@ -434,61 +466,118 @@
     
     [sectionHeader addSubview:headerView];
     return sectionHeader;
-    
 }
-
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
-    FTGymCell *cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
-    [cell clearLabelView];
-    cell.backgroundColor = [UIColor clearColor];
-    
     NSDictionary *dic = [_dataSourceArray objectAtIndex:indexPath.row];
+    FTGymBean *bean = [FTGymBean new];
+    [bean setValuesWithDic:dic];
     
-    [cell.title setText:dic[@"gymName"]];
-    [cell.subtitle setText:dic[@"gymLocation"]];
-    
-//    [cell.avatarImageView.layer setMasksToBounds:YES];
-//    cell.avatarImageView.layer.cornerRadius = 28;
-   
-    NSString *imgStr = dic[@"gymShowImg"];
-    if (imgStr && imgStr.length > 0) {
-        NSArray *tempArray = [imgStr componentsSeparatedByString:@","];
-         NSString *urlStr = [NSString stringWithFormat:@"http://%@/%@",dic[@"urlPrefix"],[tempArray objectAtIndex:0]];
+    if ([dic[@"isGymUser"] integerValue] == 1) {
+        NSLog(@"dic:%@",dic);
         
-        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"拳馆占位图"]];
-    }else {
-    
-        [cell.avatarImageView setImage:[UIImage imageNamed:@"拳馆占位图"]];
+        FTGymVIPCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"gymVIPCell"];
+        cell.surplusCourse.text = bean.surplusCourse;
+        cell.deadline.text = bean.deadline;
+        cell.balanceLabel.text = bean.userMoney;
+        
+        cell.gymName.text = bean.gymName;
+        cell.gymAddress.text = bean.gymLocation;
+        cell.gymPhone.text = bean.gymTel;
+        
+        
+        cell.courseDate.text = bean.courseDate;
+        cell.courseTime.text =bean.courseTime;
+        cell.course.text = bean.course;
+        
+        cell.orderDate.text = bean.orderDate;
+        cell.orderTime.text = bean.orderTime;
+        cell.order.text = bean.order;
+        
+        
+        NSString *imgStr = bean.gymShowImg;// dic[@"gymShowImg"];
+        if (imgStr && imgStr.length > 0) {
+            NSArray *tempArray = [imgStr componentsSeparatedByString:@","];
+            NSString *urlStr = [NSString stringWithFormat:@"http://%@/%@",dic[@"urlPrefix"],[tempArray objectAtIndex:0]];
+            
+            [cell.gymImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"拳馆占位图"]];
+        }else {
+            
+            [cell.gymImageView setImage:[UIImage imageNamed:@"拳馆占位图"]];
+        }
+        
+        
+        // 进入拳馆按钮
+        cell.gymAccessButton.tag = [indexPath row];
+        [cell.gymAccessButton addTarget:self action:@selector(enterGymBUttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        return cell;
+    }else { //非会员
+        
+        FTGymCell *cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
+        [cell clearLabelView];
+        cell.backgroundColor = [UIColor clearColor];
+        
+        
+        
+        [cell.title setText:dic[@"gymName"]];
+        [cell.subtitle setText:dic[@"gymLocation"]];
+        
+        //    [cell.avatarImageView.layer setMasksToBounds:YES];
+        //    cell.avatarImageView.layer.cornerRadius = 28;
+        
+        NSString *imgStr = dic[@"gymShowImg"];
+        if (imgStr && imgStr.length > 0) {
+            NSArray *tempArray = [imgStr componentsSeparatedByString:@","];
+            NSString *urlStr = [NSString stringWithFormat:@"http://%@/%@",dic[@"urlPrefix"],[tempArray objectAtIndex:0]];
+            
+            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"拳馆占位图"]];
+        }else {
+            
+            [cell.avatarImageView setImage:[UIImage imageNamed:@"拳馆占位图"]];
+        }
+        
+        //    NSString *string = [NSString stringWithFormat:@"%@,%@,%@",dic[@"gymType"],dic[@"gymType"],dic[@"gymType"]];
+        //    [cell labelsViewAdapter:string];
+        
+        [cell labelsViewAdapter:dic[@"gymType"]];
+        
+        return cell;
     }
-   
-//    NSString *string = [NSString stringWithFormat:@"%@,%@,%@",dic[@"gymType"],dic[@"gymType"],dic[@"gymType"]];
-//    [cell labelsViewAdapter:string];
     
-    [cell labelsViewAdapter:dic[@"gymType"]];
-    
-    return cell;
+    return nil;
 }
 
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    FTGymCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [cell setSelected:NO];
-    
-    
-    FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
+
     //获取对应的bean，传递给下个vc
     NSDictionary *newsDic = [self.dataSourceArray objectAtIndex:indexPath.row];
     FTGymBean *bean = [FTGymBean new];
     [bean setValuesWithDic:newsDic];
-    gymDetailWebViewController.gymBean = bean;
     
-    if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
-        [self.delegate pushToController:gymDetailWebViewController];
+    if (bean.isGymUser) {
+        NSLog(@"是会员");
+        FTGymSourceViewController *gymSourceViewController = [FTGymSourceViewController new];
+        FTGymDetailBean *detailBean = [FTGymDetailBean new];
+        detailBean.gym_name = bean.gymName;
+        detailBean.corporationid = [bean.corporationid intValue];
+        gymSourceViewController.gymDetailBean = detailBean;
+        if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
+            [self.delegate pushToController:gymSourceViewController];
+        }
+        return;
+    }else {
+        
+        FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
+        gymDetailWebViewController.gymBean = bean;
+        if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
+            [self.delegate pushToController:gymDetailWebViewController];
+        }
     }
 
 }
@@ -497,8 +586,7 @@
 #pragma mark -FTSelectCellDelegate
 
 - (void) selectedValue:(NSDictionary *)dic {
-    
-    
+
     _gymType = dic[@"itemValueEn"];
     _gymType_ZH = dic[@"itemValue"];
     _gymCurrId = @"-1";
@@ -589,6 +677,51 @@
     }];
     
     return selectBtn;
+}
+
+
+- (void) enterGymBUttonAction:(UIButton *) sender {
+
+    //获取对应的bean，传递给下个vc
+    NSDictionary *newsDic = [self.dataSourceArray objectAtIndex:sender.tag];
+    FTGymBean *bean = [FTGymBean new];
+    [bean setValuesWithDic:newsDic];
+    
+    FTGymSourceViewController *gymSourceViewController = [FTGymSourceViewController new];
+    FTGymDetailBean *detailBean = [FTGymDetailBean new];
+    detailBean.gym_name = bean.gymName;
+    detailBean.corporationid = [bean.corporationid intValue];
+    gymSourceViewController.gymDetailBean = detailBean;
+    
+    if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
+        [self.delegate pushToController:gymSourceViewController];
+    }
+}
+
+
+#pragma mark - 通知事件
+
+// 微信登录响应
+- (void) wxLoginCallback:(NSNotification *)noti{
+    NSString *msg = [noti object];
+    if ([msg isEqualToString:@"SUCESS"]) {
+        
+        [self getTableViewDataFromWeb];
+    }
+}
+
+// 微信登录响应
+- (void) phoneLoginedCallback:(NSNotification *)noti {
+    
+    NSString *msg = [noti object];
+    if ([msg isEqualToString:@"LOGOUT"]) {//退出登录
+        
+        self.currentPage = 1;
+        self.getType = @"new";
+        self.gymCurrId = @"-1";
+    }
+    
+    [self getTableViewDataFromWeb];
 }
 
 @end

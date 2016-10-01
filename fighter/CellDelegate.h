@@ -19,6 +19,7 @@ typedef NS_ENUM(NSInteger, GymCommentState) {
     GymCommentStateTeachLevel,
 };
 
+typedef void(^RefreshBlock)();
 
 @protocol CellDelegate <NSObject>
 
@@ -29,5 +30,8 @@ typedef NS_ENUM(NSInteger, GymCommentState) {
 - (void) gymComment:(NSString *)comment;
 
 - (void) pushViewController:(UIViewController *) viewController;
+- (void) pressentViewController:(UIViewController *) viewController;
+
+- (RefreshBlock) getRefreshBlock;
 
 @end

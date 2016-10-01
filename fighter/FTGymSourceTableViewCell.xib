@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="mCV-KW-jfE" customClass="FTGymSourceTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="176" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mCV-KW-jfE" id="MsA-Fm-5jq">
+                <frame key="frameInset" width="176" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="日期选定圈" translatesAutoresizingMaskIntoConstraints="NO" id="bGV-pQ-5em">
+                        <constraints>
+                            <constraint firstAttribute="width" constant="43" id="5Sk-yp-6PT"/>
+                            <constraint firstAttribute="height" constant="40" id="Mxc-zZ-XTd"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ub5-ek-bTn">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="9" id="vLa-Ma-Ba3"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                        <color key="textColor" red="0.14117647058823529" green="0.70196078431372544" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zcb-cQ-jNl">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="9" id="psW-f0-qmq"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                        <color key="textColor" red="0.14117647058823529" green="0.70196078431372544" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="可预约" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1CA-1P-cMe">
+                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9WZ-uE-WuB" userLabel="底部自定义分割线">
+                        <color key="backgroundColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="cep-ii-NiN"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="9WZ-uE-WuB" secondAttribute="trailing" id="CBX-3O-ZXv"/>
+                    <constraint firstAttribute="bottom" secondItem="9WZ-uE-WuB" secondAttribute="bottom" id="Eem-qi-jul"/>
+                    <constraint firstAttribute="bottom" secondItem="zcb-cQ-jNl" secondAttribute="bottom" constant="11" id="HI8-6i-yPT"/>
+                    <constraint firstItem="bGV-pQ-5em" firstAttribute="centerY" secondItem="MsA-Fm-5jq" secondAttribute="centerY" id="Nvg-1M-Kmo"/>
+                    <constraint firstItem="1CA-1P-cMe" firstAttribute="centerY" secondItem="MsA-Fm-5jq" secondAttribute="centerY" id="Yee-2f-n30"/>
+                    <constraint firstItem="Ub5-ek-bTn" firstAttribute="top" secondItem="MsA-Fm-5jq" secondAttribute="top" constant="11" id="atA-sd-xM1"/>
+                    <constraint firstItem="bGV-pQ-5em" firstAttribute="centerX" secondItem="MsA-Fm-5jq" secondAttribute="centerX" id="mrd-ki-ppx"/>
+                    <constraint firstItem="9WZ-uE-WuB" firstAttribute="leading" secondItem="MsA-Fm-5jq" secondAttribute="leading" id="qL5-3p-XXg"/>
+                    <constraint firstItem="1CA-1P-cMe" firstAttribute="centerX" secondItem="MsA-Fm-5jq" secondAttribute="centerX" id="sCk-kA-z4G"/>
+                    <constraint firstItem="zcb-cQ-jNl" firstAttribute="centerX" secondItem="MsA-Fm-5jq" secondAttribute="centerX" id="t4U-zy-N9g"/>
+                    <constraint firstItem="Ub5-ek-bTn" firstAttribute="centerX" secondItem="MsA-Fm-5jq" secondAttribute="centerX" id="zXi-yp-T18"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <connections>
+                <outlet property="courseNameLabel" destination="Ub5-ek-bTn" id="tbf-O4-nMt"/>
+                <outlet property="courseStatusLabel" destination="zcb-cQ-jNl" id="QDZ-1D-yaa"/>
+                <outlet property="orderStatusLabel" destination="1CA-1P-cMe" id="o9K-QV-5kJ"/>
+                <outlet property="selectionImage" destination="bGV-pQ-5em" id="BQI-EP-o3R"/>
+            </connections>
+            <point key="canvasLocation" x="188" y="174"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="日期选定圈" width="43" height="40"/>
+    </resources>
+</document>

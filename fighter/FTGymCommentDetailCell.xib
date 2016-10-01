@@ -8,11 +8,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="384" id="eem-Gn-t6Y" customClass="FTGymCommentDetailCell">
-            <rect key="frame" x="0.0" y="0.0" width="456" height="384"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="355" id="eem-Gn-t6Y" customClass="FTGymCommentDetailCell">
+            <rect key="frame" x="0.0" y="0.0" width="456" height="355"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eem-Gn-t6Y" id="hYS-VE-fLX">
-                <frame key="frameInset" width="456" height="383"/>
+                <frame key="frameInset" width="456" height="354"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27C-ZU-8le" userLabel="UpSpace">
@@ -205,8 +205,8 @@
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="头像-空" translatesAutoresizingMaskIntoConstraints="NO" id="9mQ-xb-anF">
                         <constraints>
-                            <constraint firstAttribute="height" constant="80" id="3wi-vh-1SW"/>
-                            <constraint firstAttribute="width" constant="80" id="hke-Qo-i3a"/>
+                            <constraint firstAttribute="height" constant="40" id="3wi-vh-1SW"/>
+                            <constraint firstAttribute="width" constant="40" id="hke-Qo-i3a"/>
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="圆头像边框" translatesAutoresizingMaskIntoConstraints="NO" id="VaF-Dw-TUE"/>
@@ -220,15 +220,17 @@
                         <color key="textColor" red="0.39212441444396973" green="0.39217507839202881" blue="0.39210724830627441" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDr-de-clq" userLabel="点赞">
+                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDr-de-clq" userLabel="点赞">
                         <state key="normal" title="(0)" image="点赞"/>
+                        <state key="disabled" image="点赞"/>
                         <state key="highlighted" image="点赞pre"/>
                         <connections>
                             <action selector="thumbButtonAction:" destination="eem-Gn-t6Y" eventType="touchUpInside" id="62w-G1-EGe"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oDZ-NF-WHq" userLabel="评论">
+                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oDZ-NF-WHq" userLabel="评论">
                         <state key="normal" title="(0)" image="评论"/>
+                        <state key="disabled" image="评论"/>
                         <state key="highlighted" image="评论pre"/>
                         <connections>
                             <action selector="commentButtonAction:" destination="eem-Gn-t6Y" eventType="touchUpInside" id="Bak-BW-AdQ"/>
@@ -311,7 +313,7 @@
                 <outlet property="thumbsButton" destination="VDr-de-clq" id="7sP-wI-xNH"/>
                 <outlet property="timeLabel" destination="Ch9-gc-ryd" id="FJD-Dj-Y3k"/>
             </connections>
-            <point key="canvasLocation" x="283" y="253"/>
+            <point key="canvasLocation" x="283" y="238.5"/>
         </tableViewCell>
     </objects>
     <resources>

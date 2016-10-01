@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="SFU-6s-py6" customClass="FTGymCoachStateSwitcher">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="弹出框背景" translatesAutoresizingMaskIntoConstraints="NO" id="05s-2t-vCu">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="280" id="83J-uy-pyh"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="切换状态" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Pf-Ot-FxG">
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9月4日  15:00 - 16:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gmh-Wv-Ejr">
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DYe-h6-HtY">
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <inset key="imageEdgeInsets" minX="-30" minY="0.0" maxX="30" maxY="0.0"/>
+                    <state key="normal" title="可预约" image="切换状态-滑块" backgroundImage="切换状态-红bg">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="segmentedButtonAction:" destination="SFU-6s-py6" eventType="touchUpInside" id="ZZv-Rt-gsG"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="107-Ke-FOR">
+                    <attributedString key="attributedText">
+                        <fragment content="*">
+                            <attributes>
+                                <color key="NSColor" red="0.96283501386642456" green="0.26681223511695862" blue="0.016123488545417786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content="24">
+                            <attributes>
+                                <color key="NSBackgroundColor" red="0.95818761873633251" green="0.95800907422761172" blue="1" alpha="0.0016126720183486239" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="NSColor" red="0.51007646322250366" green="0.50987964868545532" blue="0.53046542406082153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content="小时内仅可以改变一次">
+                            <attributes>
+                                <color key="NSBackgroundColor" red="0.95818761873633251" green="0.95800907422761172" blue="1" alpha="0.0016126720183486239" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="NSColor" red="0.51007646322250366" green="0.50987964868545532" blue="0.53046542406082153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <font key="NSFont" size="14" name=".PingFangSC-Regular"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cC9-Xx-Olc" userLabel="space">
+                    <color key="backgroundColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="8Br-EO-nF4"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cAB-jz-0Up">
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="确  定">
+                        <color key="titleColor" red="0.74636942149999996" green="0.1161412075" blue="0.11804688720000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PkN-6l-hBI">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="GUw-MK-o2A"/>
+                        <constraint firstAttribute="width" constant="32" id="JPK-Te-4Pp"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                    <state key="normal" backgroundImage="取消X"/>
+                    <state key="highlighted" backgroundImage="取消Xpre"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.48605944109999999" green="0.48605944109999999" blue="0.48605944109999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="05s-2t-vCu" firstAttribute="trailing" secondItem="DYe-h6-HtY" secondAttribute="trailing" constant="24" id="7RT-7J-acY"/>
+                <constraint firstItem="05s-2t-vCu" firstAttribute="centerY" secondItem="SFU-6s-py6" secondAttribute="centerY" id="A1I-V4-Zdt"/>
+                <constraint firstItem="DYe-h6-HtY" firstAttribute="top" secondItem="gmh-Wv-Ejr" secondAttribute="bottom" constant="20" id="A8A-sd-TOc"/>
+                <constraint firstItem="5Pf-Ot-FxG" firstAttribute="top" secondItem="05s-2t-vCu" secondAttribute="top" constant="20" id="CsF-u9-HvL"/>
+                <constraint firstItem="5Pf-Ot-FxG" firstAttribute="centerX" secondItem="gmh-Wv-Ejr" secondAttribute="centerX" id="DuS-YN-hcN"/>
+                <constraint firstItem="gmh-Wv-Ejr" firstAttribute="top" secondItem="5Pf-Ot-FxG" secondAttribute="bottom" constant="15" id="Fbo-ZI-dtK"/>
+                <constraint firstItem="cAB-jz-0Up" firstAttribute="top" secondItem="cC9-Xx-Olc" secondAttribute="bottom" constant="15" id="POX-Vw-qDW"/>
+                <constraint firstItem="cAB-jz-0Up" firstAttribute="leading" secondItem="cC9-Xx-Olc" secondAttribute="leading" constant="24" id="PeS-cg-uWk"/>
+                <constraint firstItem="cC9-Xx-Olc" firstAttribute="top" secondItem="107-Ke-FOR" secondAttribute="bottom" constant="20" id="UA2-46-66X"/>
+                <constraint firstItem="107-Ke-FOR" firstAttribute="centerX" secondItem="DYe-h6-HtY" secondAttribute="centerX" id="UDi-Ye-2jo"/>
+                <constraint firstItem="5Pf-Ot-FxG" firstAttribute="centerX" secondItem="05s-2t-vCu" secondAttribute="centerX" id="Upr-kd-b0W"/>
+                <constraint firstItem="cAB-jz-0Up" firstAttribute="bottom" secondItem="05s-2t-vCu" secondAttribute="bottom" constant="-15" id="bZX-lA-5Wo"/>
+                <constraint firstItem="cC9-Xx-Olc" firstAttribute="trailing" secondItem="cAB-jz-0Up" secondAttribute="trailing" constant="24" id="cQO-B8-Mxx"/>
+                <constraint firstItem="05s-2t-vCu" firstAttribute="left" secondItem="DYe-h6-HtY" secondAttribute="left" constant="-24" id="d03-5y-OGD"/>
+                <constraint firstItem="cC9-Xx-Olc" firstAttribute="trailing" secondItem="05s-2t-vCu" secondAttribute="trailing" id="ee6-TR-Lps"/>
+                <constraint firstItem="107-Ke-FOR" firstAttribute="top" secondItem="DYe-h6-HtY" secondAttribute="bottom" constant="15" id="elO-hE-e1g"/>
+                <constraint firstItem="cC9-Xx-Olc" firstAttribute="leading" secondItem="05s-2t-vCu" secondAttribute="leading" id="hyq-MP-d0i"/>
+                <constraint firstItem="PkN-6l-hBI" firstAttribute="top" secondItem="05s-2t-vCu" secondAttribute="bottom" constant="30" id="jwx-aZ-g1c"/>
+                <constraint firstItem="PkN-6l-hBI" firstAttribute="centerX" secondItem="05s-2t-vCu" secondAttribute="centerX" id="muG-GG-5dF"/>
+                <constraint firstItem="05s-2t-vCu" firstAttribute="centerX" secondItem="SFU-6s-py6" secondAttribute="centerX" id="oTb-La-k3I"/>
+            </constraints>
+            <connections>
+                <outlet property="cancelButton" destination="PkN-6l-hBI" id="Z1P-Fg-dUa"/>
+                <outlet property="confirmButton" destination="cAB-jz-0Up" id="HuR-TT-skZ"/>
+                <outlet property="dateLabel" destination="gmh-Wv-Ejr" id="EnE-RO-v18"/>
+                <outlet property="segmentedButton" destination="DYe-h6-HtY" id="JvU-S6-PDV"/>
+            </connections>
+            <point key="canvasLocation" x="20.5" y="30.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="切换状态-滑块" width="120" height="30"/>
+        <image name="切换状态-红bg" width="232" height="30"/>
+        <image name="取消X" width="32" height="32"/>
+        <image name="取消Xpre" width="32" height="32"/>
+        <image name="弹出框背景" width="21" height="21"/>
+    </resources>
+</document>

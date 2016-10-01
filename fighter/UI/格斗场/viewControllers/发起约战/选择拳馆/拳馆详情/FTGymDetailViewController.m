@@ -356,35 +356,6 @@
 - (void)setSupportItems{
     _supportItemsArray = [NSMutableArray new];
     
-//    BOOL supportBathe  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_bathe"]] isEqualToString:@"1"];
-//    if (supportBathe) {
-//        [_supportItemsArray addObject:@"sup_bathe"];
-//    }
-//    
-//    BOOL supportApparatus  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_prop"]] isEqualToString:@"1"];
-//    if (supportApparatus) {
-//        [_supportItemsArray addObject:@"sup_prop"];
-//    }
-//    
-//    BOOL supportSecurity  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_security"]] isEqualToString:@"1"];
-//    if (supportSecurity) {
-//        [_supportItemsArray addObject:@"sup_security"];
-//    }
-//    
-//    BOOL supportShoot  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_shoot"]] isEqualToString:@"1"];
-//    if (supportShoot) {
-//        [_supportItemsArray addObject:@"sup_shoot"];
-//    }
-//    
-//    BOOL supportWifi  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_wifi"]] isEqualToString:@"1"];
-//    if (supportWifi) {
-//        [_supportItemsArray addObject:@"sup_wifi"];
-//    }
-//    
-//    BOOL supportReferee  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_referee"]] isEqualToString:@"1"];
-//    if (supportReferee) {
-//        [_supportItemsArray addObject:@"sup_referee"];
-//    }
     BOOL supportBathe  = [[NSString stringWithFormat:@"%@", _gymInfoDic[@"sup_bathe"]] isEqualToString:@"1"];
     if (!supportBathe) {
         [_supportItemsArray addObject:@"sup_bathe"];

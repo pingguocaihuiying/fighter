@@ -10,11 +10,50 @@
 
 @implementation NSDate (Tool)
 
+/**
+ 生成日期时间字符串，用下划线间隔日期和时间
+ 
+ @return 日期字符串
+ */
++ (NSString *) dateTimeStringWithUnderlineSpace
+{
+    NSDate *date = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd_HH:mm:ss"];
+    NSString *dateStr = [dateFormatter stringFromDate:date];
+    return dateStr;
+}
 
-+(NSString *) dateString:(NSString *) timestamp  {
+
+/**
+ 生成日期时间字符串，用空格间隔日期和时间
+ 
+ @return 日期字符串
+ */
++ (NSString *) dateTimeStringWithBlankSpace
+{
+    NSDate *date = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateStr = [dateFormatter stringFromDate:date];
+    return dateStr;
+}
+
+
+/**
+ 根据时间戳生成相对应格式的日期字符串
+ 
+ @param timestamp 时间戳
+ 
+ @return 日期字符串
+ */
++(NSString *) dateString:(NSInteger) timestamp  {
     
+    NSString *timeTemp = [NSString stringWithFormat:@"%ld",(long)timestamp];
     NSDate *currentDate = [NSDate date];
-    NSDate *targetDate = [self dateWithTimestamp:timestamp];
+    NSDate *targetDate = [self dateWithTimestamp:timeTemp];
     
     
     NSInteger dateNum = [[self stringOfDate:currentDate formatter:@"YYYYMMdd"] integerValue];
@@ -23,16 +62,16 @@
     NSString *dateTimeString;
     if ((dateNum - dateNum2) > 2) {
         
-        dateTimeString = [self formatTimestamp:timestamp formatter:@"YYYY-MM-dd HH:mm:ss"];
+        dateTimeString = [self formatTimestamp:timeTemp formatter:@"YYYY-MM-dd HH:mm:ss"];
         
     }else if ((dateNum - dateNum2) == 1) {
         
-        NSString *tempString = [self formatTimestamp:timestamp formatter:@"HH:mm"];
+        NSString *tempString = [self formatTimestamp:timeTemp formatter:@"HH:mm"];
         dateTimeString = [NSString stringWithFormat:@"昨天 %@",tempString];
         
     }else {
         
-        dateTimeString = [self formatTimestamp:timestamp formatter:@"HH:mm"];
+        dateTimeString = [self formatTimestamp:timeTemp formatter:@"HH:mm"];
         
     }
     
@@ -40,6 +79,14 @@
 }
 
 
+/**
+ 根据时间戳生成指定格式的日期字符串
+ 
+ @param timestamp 时间戳字符串
+ @param formatter  指定的日期格式
+ 
+ @return 指定格式的日期字符串
+ */
 + (NSString *) formatTimestamp:(NSString *)timestamp formatter:(NSString *)formatter {
     
     NSDate *date ;
@@ -54,6 +101,14 @@
     return [self  stringOfDate:date formatter:formatter];
 }
 
+
+/**
+ 将时间戳字符串 转换成NSDate对象
+ 
+ @param timestamp 日期时间戳字符串
+ 
+ @return NSDate对象
+ */
 
 + (NSDate *) dateWithTimestamp:(NSString *)timestamp {
     
@@ -70,6 +125,14 @@
 }
 
 
+/**
+ 根日期NSDate对象 生成制定格式的日期字符串比如“2016-9-23”
+ 
+ @param date      日期对象
+ @param formatter 日期字符串格式
+ 
+ @return 返回制定格式的字符串
+ */
 + (NSString *) stringOfDate:(NSDate *)date formatter:(NSString *)formatter {
     
     //用于格式化NSDate对象
@@ -81,6 +144,30 @@
     
     return dateString;
 }
+
+
+/**
+ 将下划线间隔日期字符串修改为年月日间隔的日期字符串
+
+ @param dateString 下划线间隔日期字符串
+
+ @return 年月日间隔字符串
+ */
++ (NSString *) changeUnderlineDateToWordDate:(NSString *) dateString {
+    
+    if (dateString.length >=10) {
+        NSString *year = [dateString substringToIndex:4];
+        NSString *month= [dateString substringWithRange:NSMakeRange(5, 2)];
+        NSString *day = [dateString substringWithRange:NSMakeRange(8, 2)];
+        
+        return [NSString stringWithFormat:@"%@年%@月%@日",year,month,day];
+    }
+    
+    
+    return @"";
+    
+}
+
 
 
 @end

@@ -13,7 +13,7 @@
 #import "FTCameraAndAlbum.h"
 #import "UIImage+LabelImage.h"
 #import <AVFoundation/AVFoundation.h>
-#import "NSString+Size.h"
+#import "NSDate+Tool.h"
 #import "QiniuSDK.h"
 #import "FTQiniuNetwork.h"
 
@@ -21,6 +21,7 @@
 @interface FTGymCommentViewController () <UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) UITextView *commentTextView;
 
 @property (nonatomic, strong) NSMutableArray *photos;
 @property (nonatomic, strong) NSMutableArray *urls;
@@ -104,6 +105,8 @@
 
 - (void) addPhotoBtnAction:(id) sender {
     
+    [self.commentTextView resignFirstResponder];
+    
     if (self.photos.count >= 10) {
         [self.view showMessage:@"图片和视频最多只能添加10个"];
         return ;
@@ -164,6 +167,8 @@
 
 - (void) submitBtnAction:(id) sender {
     
+    [self.commentTextView resignFirstResponder];
+    
     if (self.comment == nil||self.comment.length == 0) {
         [self.view showMessage:@"评论文字不能为空"];
         return;
@@ -173,9 +178,6 @@
     [prams setObject:self.comment forKey:@"comment"];
     [prams setObject:self.objId forKey:@"objId"];
     
-    if (self.urls) {
-        [prams setObject:self.urls forKey:@"urls"];
-    }
     
     if (self.comfort) {
         [prams setObject:self.comfort forKey:@"comfort"];
@@ -302,12 +304,12 @@
     FTGymPhotoCell *cell = (FTGymPhotoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] ];
     
     NSString *userId = [FTUserBean loginUser].olduserid;
-    NSString *timeString = [NSString dateString];
+    NSString *timeString = [NSDate dateTimeStringWithUnderlineSpace];
     NSString *key;
     
     if ([lastChosenMediaType isEqualToString:(NSString *)kUTTypeImage]) {
-        // 照片
         
+        // 照片
         UIImage *editImage = [info valueForKey:UIImagePickerControllerOriginalImage];
         UIImage *img = [UIImage editImage:editImage side:200];
         
@@ -322,12 +324,11 @@
         [_photos addObject:dic];
         [cell addPhotoToContainer:img type:FTMediaTypeImage];
         
-        key = [NSString stringWithFormat:@"%@_%@",timeString, userId];
+        key = [NSString stringWithFormat:@"%@_%@.png",timeString, userId];
         [_urls addObject:key];
         
     }else if([lastChosenMediaType isEqualToString:(NSString *)kUTTypeMovie]){
         // 视频
-        
         NSURL *videoURL = info[UIImagePickerControllerMediaURL];
         NSData *movieData = [NSData dataWithContentsOfURL:videoURL];
         
@@ -340,9 +341,8 @@
         [_photos addObject:dic];
         [cell addPhotoToContainer:img type:FTMediaTypeVedio];
         
-        key = [NSString stringWithFormat:@"%@_%@mp4",timeString, userId];//key值取userId＋时间戳+mp4
+        key = [NSString stringWithFormat:@"%@_%@.mp4",timeString, userId];//key值取userId＋时间戳+mp4
         [_urls addObject:key];
-        
     }
 }
 
@@ -424,7 +424,6 @@
     if (section == 1) {
         return 10;
     }
-    
     return 0;
 }
 
@@ -457,6 +456,7 @@
             
             FTGymCommentCell *cell = (FTGymCommentCell *)[tableView dequeueReusableCellWithIdentifier:@"CommentCell"];
             cell.cellDelegate = self;
+            self.commentTextView = cell.textView; ;
             return cell;
         }
     }else {
@@ -474,6 +474,10 @@
     return nil;
 }
 
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+
+    [self.commentTextView resignFirstResponder];
+}
 
 #pragma mark - Pressent
 - (void) pressentController:(UIViewController *) viewController {
@@ -528,7 +532,12 @@
 }
 
 
-
+- (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+    [super touchesBegan:touches withEvent:event];
+    
+    [self.commentTextView resignFirstResponder];
+}
 
 
 

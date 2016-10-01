@@ -117,7 +117,6 @@ static NSString *const tableCellId = @"tableCellId";
 }
 
 #pragma mark - 初始化
-
 // 设置监听器
 - (void) setNoti {
     

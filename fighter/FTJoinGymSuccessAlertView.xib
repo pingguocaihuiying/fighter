@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -13,7 +13,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ygX-tJ-3o4" userLabel="黑色半透明背景">
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tp9-30-BBj" userLabel="弹出框">
                     <subviews>
@@ -75,6 +75,9 @@
                 <constraint firstAttribute="bottom" secondItem="ygX-tJ-3o4" secondAttribute="bottom" id="e5e-h8-lSb"/>
                 <constraint firstAttribute="trailing" secondItem="ygX-tJ-3o4" secondAttribute="trailing" id="vXO-bg-OcK"/>
             </constraints>
+            <connections>
+                <outlet property="gymNameLabel" destination="J6B-XE-cHd" id="bMc-5s-v2G"/>
+            </connections>
             <point key="canvasLocation" x="529" y="320.5"/>
         </view>
     </objects>

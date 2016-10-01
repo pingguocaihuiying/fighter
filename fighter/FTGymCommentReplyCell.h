@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FTGymCommentBean.h"
 
 @interface FTGymCommentReplyCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *avatarMask;
+
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *detailLabel;
+
+
+- (void) setCellContentWithBean:(FTGymCommentBean *)bean;
 
 @end

@@ -10,14 +10,31 @@
 
 @interface NSDate (Tool)
 
+
+/**
+ 生成日期时间字符串，用下划线间隔日期和时间
+
+ @return 日期字符串
+ */
++ (NSString *) dateTimeStringWithUnderlineSpace;
+
+
+/**
+  生成日期时间字符串，用空格间隔日期和时间
+
+ @return 日期字符串
+ */
++ (NSString *) dateTimeStringWithBlankSpace;
+
+
 /**
  根据时间戳生成相对应格式的日期字符串
  
- @param timestamp 时间戳字符串
+ @param timestamp 时间戳
  
  @return 日期字符串
  */
-+(NSString *) dateString:(NSString *) timestamp;
++(NSString *) dateString:(NSInteger) timestamp;
 
 
 /**
@@ -50,4 +67,14 @@
  */
 + (NSString *) stringOfDate:(NSDate *)date formatter:(NSString *)formatter;
 
+
+
+/**
+ 将下划线间隔日期字符串修改为年月日间隔的日期字符串
+ 
+ @param dateString 下划线间隔日期字符串
+ 
+ @return 年月日间隔字符串
+ */
++ (NSString *) changeUnderlineDateToWordDate:(NSString *) dateString;
 @end

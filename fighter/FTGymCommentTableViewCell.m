@@ -12,7 +12,8 @@
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "FTGymPhotoCollectionViewCell.h"
-
+#import "FTGymCommentReplyViewController.h"
+#import "FTEncoderAndDecoder.h"
 
 @interface FTGymCommentTableViewCell()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
@@ -37,6 +38,7 @@
     self.avatarImageView.layer.masksToBounds = YES;
     self.avatarImageView.layer.cornerRadius = 20;
     
+    [self setCollectionView];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -113,17 +115,22 @@
     [self setImageToIndex:bean.teachLevel levelTag:GymCommentStateTeachLevel];
     
     // 评论数
-    if (bean.commentcount > 0) {
-        [self.commentButton setTitle:[NSString stringWithFormat:@"(%d)",bean.commentcount] forState:UIControlStateNormal];
+    if (bean.commentCount > 0) {
+        [self.commentButton setTitle:[NSString stringWithFormat:@"(%d)",bean.commentCount] forState:UIControlStateNormal];
+    }else {
+        [self.commentButton setTitle:[NSString stringWithFormat:@"(0)"] forState:UIControlStateNormal];
     }
     
     // 点赞数
-    if (bean.thumbCount > 0) {
-        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",bean.thumbCount] forState:UIControlStateNormal];
+    if (bean.voteCount > 0) {
+        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",bean.voteCount] forState:UIControlStateNormal];
+    }else {
+        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(0)"] forState:UIControlStateNormal];
     }
     
     
     if (bean.urls.length > 0) {
+        
         if (dataSource == nil) {
             dataSource = [[NSArray alloc]init];
         }
@@ -131,16 +138,18 @@
         dataSource = [bean.urls componentsSeparatedByString:@","];
         [self setCollectionView];
         self.CollectionHeightConstraint.constant = 40;
+        [_collectionView reloadData];
     }else {
     
-         self.CollectionHeightConstraint.constant = 0;
+        dataSource = nil;
+        self.CollectionHeightConstraint.constant = 0;
     }
 }
 
 #pragma mark - 点赞
 - (void) getThumbState {
-
-    [NetWorking getVoteStatusWithObjid:[NSString stringWithFormat:@"%d",self.commentbean.id] andTableName:@"v-gym" andOption:^(BOOL result) {
+    
+    [NetWorking getVoteStatusWithObjid:[NSString stringWithFormat:@"%d",self.commentbean.id] andTableName:@"v-cgym" andOption:^(BOOL result) {
         
         if (result) {
             thumbState = YES;
@@ -160,54 +169,65 @@
         FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
         loginVC.title = @"登录";
         FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
-        [self.cellDelegate pushViewController:nav];
+        [self.cellDelegate pressentViewController:nav];
     }
-    [NetWorking addVoteWithObjid:[NSString stringWithFormat:@"%d",self.commentbean.id] isAdd:thumbState? NO:YES andTableName:@"v-gym" andOption:^(BOOL result) {
+    [NetWorking addVoteWithObjid:[NSString stringWithFormat:@"%d",self.commentbean.id] isAdd:thumbState? NO:YES andTableName:@"v-cgym" andOption:^(BOOL result) {
         if (result) {
             
             thumbState = thumbState?NO:YES;
-            if (thumbState) {
-                self.commentbean.thumbCount ++;
-                
-                [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.thumbCount] forState:UIControlStateNormal];
-                
-                [self.thumbsButton setImage:[UIImage imageNamed:@"点赞pre"] forState:UIControlStateNormal];
-            }else {
-                
-                self.commentbean.thumbCount --;
-                
-                [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.thumbCount] forState:UIControlStateNormal];
-                
-                [self.thumbsButton setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateNormal];
-            }
+            [self setThumbState:thumbState];
         }
     }];
     
 }
 
+- (void) setThumbState:(BOOL) state {
+
+    if (state) {
+        
+        self.commentbean.voteCount ++;
+        
+        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.voteCount] forState:UIControlStateNormal];
+        
+        [self.thumbsButton setImage:[UIImage imageNamed:@"点赞pre"] forState:UIControlStateNormal];
+    }else {
+        
+        self.commentbean.voteCount --;
+        
+        [self.thumbsButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.voteCount] forState:UIControlStateNormal];
+        
+        [self.thumbsButton setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateNormal];
+    }
+}
+
 #pragma mark - 评论
 - (IBAction)commentButtonAction:(id)sender {
     
+    FTGymCommentReplyViewController *replyCommentVC = [[FTGymCommentReplyViewController alloc]init];
+    replyCommentVC.bean = self.commentbean;
+    replyCommentVC.objId = [NSString stringWithFormat:@"%d",self.commentbean.id];
+    replyCommentVC.thumbState = thumbState;
+    replyCommentVC.refreshBlock = [self.cellDelegate getRefreshBlock];
+    [self.cellDelegate pushViewController:replyCommentVC];
+}
+
+- (void) setCommentState:(BOOL) state {
     
+    if (state) {
+        self.commentbean.commentCount ++;
+        [self.commentButton setTitle:[NSString stringWithFormat:@"(%d)",self.commentbean.commentCount] forState:UIControlStateNormal];
+    }
 }
 
 
 #pragma mark - collectionView 
 - (void) setCollectionView {
 
-    //flowlayout
-    UICollectionViewFlowLayout *flow = [[UICollectionViewFlowLayout alloc]init];
-    flow.itemSize = CGSizeMake(40 * SCALE, 40 * SCALE);//cell大小
-//    flow.minimumLineSpacing = 15 * SCALE;//行最小间距
-    flow.minimumInteritemSpacing = 5 * SCALE;//列最小间距
-    flow.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    
     //left
     [_collectionView registerNib:[UINib nibWithNibName:@"FTGymPhotoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell1"];//FooCollectionViewCell
-//    _collectionView.backgroundColor = [UIColor clearColor];
+    //    _collectionView.backgroundColor = [UIColor clearColor];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
-
     
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -218,23 +238,28 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     NSString *urlPrefix = @"http://7xtvwy.com1.z0.glb.clouddn.com/";
-    NSString *urlSuffix = @"?vframe/png/offset/0";
+    NSString *imageSuffix = @"?imageView2/2/w/200";
+    NSString *videoSuffix = @"?vframe/png/offset/0";
+    
     NSString *imageName = dataSource[indexPath.row];
     NSString *imageURL = [urlPrefix stringByAppendingString:imageName];
     
-    NSLog(@"imageURL:%@",imageURL);
     FTGymPhotoCollectionViewCell *cell;
    
     cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell1" forIndexPath:indexPath];
+
+    // 处理空格
+    imageURL = [imageURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     if ([imageName hasSuffix:@"mp4"]) {
         
         cell.isVideoView.hidden = NO;
-        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:[imageURL stringByAppendingString:urlSuffix]]];
+        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:[imageURL stringByAppendingString:videoSuffix]]];
     }else {
     
         cell.isVideoView.hidden = YES;
-        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:imageURL]];
+        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:[imageURL stringByAppendingString:imageSuffix]]];
+        
     }
    
     cell.backgroundColor = [UIColor clearColor];
