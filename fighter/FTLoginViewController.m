@@ -172,6 +172,9 @@
                                         FTUserBean *user = [FTUserBean new];
                                         [user setValuesForKeysWithDictionary:userDic];
                                         
+                                        user.identity = dict[@"identity"];
+                                        user.interestList = dict[@"interestList"];
+                                        
                                         //将用户信息保存在本地
                                         NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
                                         [[NSUserDefaults standardUserDefaults]setObject:userData forKey:@"loginUser"];
