@@ -104,6 +104,18 @@
     NSString *fixString = [dateFormatter stringFromDate:date];
     return fixString;
 }
++ (NSString *)fixStringForDateWithoutTime2:(NSString *)timestampString{
+    timestampString = [NSString stringWithFormat:@"%@", timestampString];
+    timestampString = [timestampString substringToIndex:timestampString.length - 3];
+    NSTimeInterval timeInterval = [timestampString doubleValue];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:kCFDateFormatterFullStyle];
+    [dateFormatter setDateFormat:@"yyyy年MM月dd日"];
+    NSString *fixString = [dateFormatter stringFromDate:date];
+    return fixString;
+}
 + (BOOL)isNumText:(NSString *)str{
     
     NSCharacterSet*cs;

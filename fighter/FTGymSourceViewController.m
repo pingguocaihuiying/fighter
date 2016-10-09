@@ -43,6 +43,9 @@
 @property (nonatomic, strong) NSMutableDictionary *placesUsingInfoDic;//场地、时间段的占用情况
 
 @property (nonatomic, strong) NSArray *coachArray;//教练列表
+@property (strong, nonatomic) IBOutlet UILabel *remainingTimesLabel;//团课剩余次数
+@property (strong, nonatomic) IBOutlet UILabel *validTimelineLabel;//有效期标签
+
 
 @end
 
@@ -53,6 +56,7 @@
     [self initBaseConfig];
     [self getCoachesOfGymFromServer];//获取该拳馆的教练列表
     [self setSubViews];
+    [self getVIPInfo];
     [self getTimeSection];//获取拳馆时间段配置
 }
 
@@ -180,6 +184,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"点击了第%ld个", indexPath.row);
     FTOrderCoachViewController *orderCoachViewController = [FTOrderCoachViewController new];
+    orderCoachViewController.gymDetailBean = _gymDetailBean;
     [self.navigationController pushViewController:orderCoachViewController animated:YES];
 }
 
@@ -253,6 +258,69 @@
 - (void)bookSuccess{
     //预订成功后，刷新课程预订信息
     [self gettimeSectionsUsingInfo];
+}
+
+
+/**
+ 获取会员信息
+ */
+- (void)getVIPInfo{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //无数据：非会员
+        //"type"为会员类型： 0准会员 1会员 2往期会员
+        
+        NSString *status = dic[@"status"];
+        NSLog(@"status : %@", status);
+        FTGymVIPType gymVIPType;
+        if ([status isEqualToString:@"success"]) {
+            NSString *type = dic[@"data"][@"type"];
+            gymVIPType = [type integerValue];
+            if (gymVIPType == FTGymVIPTypeYep) {//如果已经是会员，更新会员信息的展示
+                [self updateVIPInfoUIWithDic:dic[@"data"]];
+            }else if (gymVIPType == FTGymVIPTypeApplying){
+                
+            }
+        }else{
+            gymVIPType = FTGymVIPTypeNope;
+            
+        }
+        
+    }];
+}
+
+- (void)updateVIPInfoUIWithDic:(NSDictionary *)dic{
+    
+    //团课剩余次数
+    NSString *remainingTime = dic[@"remainTime"];
+    if (!remainingTime) {
+        remainingTime = @"0";
+    }
+    _remainingTimesLabel.text = [NSString stringWithFormat:@"团课剩余次数：%@次", remainingTime];
+    
+    //有效期
+    NSString *validTimeString = dic[@"expireTime"];
+    
+    if (validTimeString) {
+        NSString *validTime = [FTTools fixStringForDateWithoutTime2:validTimeString];
+        _validTimelineLabel.text = [NSString stringWithFormat:@"有效期：%@", validTime];
+        
+        //如果是320屏幕，把中文的『：』改用『:』达到最简单适配的目的
+        if (SCREEN_WIDTH == 320) {
+            _validTimelineLabel.text = [NSString stringWithFormat:@"有效期:%@", validTime];
+        }
+        
+    } else {
+        _validTimelineLabel.text = [NSString stringWithFormat:@""];
+    }
+    
+    //余额
+    NSString *balance = dic[@"money"];
+    if (!balance) {
+      balance = @"0";
+    }
+    _balanceLabel.text = balance;
 }
 
 /**

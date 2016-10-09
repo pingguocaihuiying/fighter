@@ -7,7 +7,10 @@
 //
 
 #import "FTBaseViewController.h"
+#import "FTGymDetailBean.h"
 
 @interface FTOrderCoachViewController : FTBaseViewController
+
+@property (nonatomic, strong) FTGymDetailBean *gymDetailBean;
 
 @end

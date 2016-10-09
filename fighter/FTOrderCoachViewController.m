@@ -40,12 +40,52 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setSubViews];
+    [self getVIPInfo];//获取余额等会员信息
 }
 
 - (void)setSubViews{
     [self initSomeViewsBaseProperties];//初始化一些label颜色、分割线颜色等
     [self setNaviView];//设置导航栏
     [self setGymSourceView];
+}
+
+/**
+ 获取会员信息
+ */
+- (void)getVIPInfo{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //无数据：非会员
+        //"type"为会员类型： 0准会员 1会员 2往期会员
+        
+        NSString *status = dic[@"status"];
+        NSLog(@"status : %@", status);
+        FTGymVIPType gymVIPType;
+        if ([status isEqualToString:@"success"]) {
+            NSString *type = dic[@"data"][@"type"];
+            gymVIPType = [type integerValue];
+            if (gymVIPType == FTGymVIPTypeYep) {//如果已经是会员，更新会员信息的展示
+                [self updateVIPInfoUIWithDic:dic[@"data"]];
+            }else if (gymVIPType == FTGymVIPTypeApplying){
+                
+            }
+        }else{
+            gymVIPType = FTGymVIPTypeNope;
+            
+        }
+        
+    }];
+}
+
+- (void)updateVIPInfoUIWithDic:(NSDictionary *)dic{
+    
+    //余额
+    NSString *balance = dic[@"money"];
+    if (!balance) {
+        balance = @"0";
+    }
+    _balanceLabel.text = balance;
 }
 
 - (void)initSomeViewsBaseProperties{

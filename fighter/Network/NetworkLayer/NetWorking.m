@@ -1182,7 +1182,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     assert(gymId);
     FTUserBean *localUserBean = [FTUserTools getLocalUser];
-    urlString = [NSString stringWithFormat:@"%@?corporationid=%@&date=%@&userId=%@", urlString, gymId, timestamp, localUserBean.olduserid];
+    urlString = [NSString stringWithFormat:@"%@?corporationid=%@&userId=%@", urlString, gymId, localUserBean.olduserid];
     
     NSLog(@"getGymPlaceUsingInfoById %@", urlString);
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {

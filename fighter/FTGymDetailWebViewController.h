@@ -6,12 +6,7 @@
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
-typedef NS_ENUM(NSInteger, FTGymVIPType){
-    FTGymVIPTypeNope = -1,
-    FTGymVIPTypeApplying = 0,
-    FTGymVIPTypeYep = 1,
-    FTGymVIPTypeBefore = 2
-};
+
 
 #import "FTBaseViewController.h"
 #import "FTGymBean.h"
