@@ -1182,7 +1182,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     assert(gymId);
     FTUserBean *localUserBean = [FTUserTools getLocalUser];
-    urlString = [NSString stringWithFormat:@"%@?corporationid=%@&date=%@&userId=%@", urlString, gymId, timestamp, localUserBean.olduserid];
+    urlString = [NSString stringWithFormat:@"%@?corporationid=%@&userId=%@", urlString, gymId, localUserBean.olduserid];
     
     NSLog(@"getGymPlaceUsingInfoById %@", urlString);
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
@@ -1196,6 +1196,30 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         option(nil);
     }];
 }
+
+//获取教练课程信息
++ (void)getCoachCourceInfoByCoachId:(NSString *)coachId andGymId:(NSString *)gymId andOption:(void (^)(NSArray *array))option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetCoachCourceInfoByIdURL];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    assert(gymId);
+    FTUserBean *localUserBean = [FTUserTools getLocalUser];
+    urlString = [NSString stringWithFormat:@"%@?corporationid=%@&userId=%@&coachUserId=%@", urlString, gymId, localUserBean.olduserid, gymId];
+    
+    NSLog(@"getGymPlaceUsingInfoById %@", urlString);
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"message : %@", responseDic[@"message"]);
+        NSArray *array = responseDic[@"data"];
+        if (array && array != (id)[NSNull null]) {
+            option(array);
+        }
+    } failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
+        option(nil);
+    }];
+}
+
 //获取拳馆信息
 + (void)getGymInfoById:(NSString *)corporationID andOption:(void (^)(NSDictionary *dic))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymInfoByIdURL];

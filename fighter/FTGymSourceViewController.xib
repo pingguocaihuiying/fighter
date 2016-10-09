@@ -14,9 +14,11 @@
                 <outlet property="collectionViewLeftMargin" destination="g3j-lJ-J2I" id="c4I-fG-lsh"/>
                 <outlet property="collectionViewRightMargin" destination="ugl-gw-fUw" id="lxu-Bv-iMi"/>
                 <outlet property="gymSourceViewContainerView" destination="kbk-Q5-wcT" id="0el-f4-PJa"/>
+                <outlet property="remainingTimesLabel" destination="yDQ-XE-X7l" id="fYe-Gd-f2v"/>
                 <outlet property="seperatorView1" destination="IiS-DV-udx" id="ulT-GQ-6Qi"/>
                 <outlet property="seperatorView2" destination="XGr-Hs-lF9" id="F5q-ae-vME"/>
                 <outlet property="seperatorView3" destination="F1N-MC-SKd" id="9Iv-PJ-Yut"/>
+                <outlet property="validTimelineLabel" destination="KJk-Jh-UpE" id="Ljc-Te-Wrf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="yuanLabel" destination="rrC-LB-o2V" id="NK2-xy-xYE"/>
             </connections>
@@ -33,7 +35,7 @@
                                 <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3S3-Dt-osA" userLabel="背景半透明View">
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="团课剩余次数：99次" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDQ-XE-X7l">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="团课剩余次数：0次" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDQ-XE-X7l">
                                     <constraints>
                                         <constraint firstAttribute="height" constant="12" id="bOJ-sw-Hti"/>
                                     </constraints>
@@ -41,7 +43,7 @@
                                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有效期：2017年12月31日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJk-Jh-UpE">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有效期：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJk-Jh-UpE">
                                     <constraints>
                                         <constraint firstAttribute="width" constant="139" id="GD2-qJ-R4M"/>
                                         <constraint firstAttribute="height" constant="12" id="mwd-in-x7V"/>

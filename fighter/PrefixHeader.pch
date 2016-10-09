@@ -131,6 +131,12 @@
 
 //#define ShowType @"showType"
 
+typedef NS_ENUM(NSInteger, FTGymVIPType){
+    FTGymVIPTypeNope = -1,
+    FTGymVIPTypeApplying = 0,
+    FTGymVIPTypeYep = 1,
+    FTGymVIPTypeBefore = 2
+};
 
 #endif /* PrefixHeader_pch */
 

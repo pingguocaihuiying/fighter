@@ -202,6 +202,8 @@ extern NSString * const GetGymPlacesByIdURL;
 extern NSString * const GetGymPlacesUsingInfoByIdURL;
 //获取拳馆的课程占用信息
 extern NSString * const GetGymSourceInfoByIdURL;
+//获取教练的课程占用信息
+extern NSString * const GetCoachCourceInfoByIdURL;
 //获取拳馆的基本信息
 extern NSString * const GetGymInfoByIdURL;
 //获取拳手列表

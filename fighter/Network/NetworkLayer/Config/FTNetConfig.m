@@ -236,6 +236,7 @@ NSString * const DeleteOrderCourseURL = @"/api/coursebook/delete$CourseBook.do";
 NSString * const GetGymPlacesByIdURL = @"/api/place/listPlace.do";
 NSString * const GetGymPlacesUsingInfoByIdURL = @"/api/place/list.do";//GetGymInfoByIdURL
 NSString * const GetGymSourceInfoByIdURL = @"/api/place/listCource.do";
+NSString * const GetCoachCourceInfoByIdURL = @"/api/coursebook/listCoachSyllabus.do";
 NSString * const GetGymInfoByIdURL = @"/api/match/listms.do";
 NSString *const GetBoxerListURL = @"/api/boxer/list.do";
 NSString *const AddMatchURL = @"/api/match/save$Match.do";
