@@ -284,6 +284,12 @@
     return YES;
 }
 
+- (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+    [self.acountTextField resignFirstResponder];
+    [self.checkCodeTextField resignFirstResponder];
+}
+
 
 
 @end
