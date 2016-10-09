@@ -183,10 +183,14 @@ static WXSingleton * wxSingleton = nil;
                                     
                                     
                                     NSLog(@"微信注册成功,message:%@", message);
+                                     NSLog(@"dict:%@", dict);
                                     NSLog(@"微信登录信息:%@",dict[@"data"][@"user"]);
                                     NSDictionary *userDic = dict[@"data"][@"user"];
                                     FTUserBean *user = [FTUserBean new];
                                     [user setValuesForKeysWithDictionary:userDic];
+                                    
+                                    user.identity = dict[@"identity"];
+                                    user.interestList = dict[@"interestList"];
                                     
                                     //从本地读取存储的用户信息
                                     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
@@ -214,6 +218,7 @@ static WXSingleton * wxSingleton = nil;
                                     NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
                                     [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
                                     [[NSUserDefaults standardUserDefaults]synchronize];
+                                    
                                     //发送通知，告诉评论页面微信登录成功
                                     [[NSNotificationCenter defaultCenter] postNotificationName:WXLoginResultNoti object:@"SUCESS"];
                                     //                            [[NSNotificationCenter defaultCenter] postNotificationName:@"loginAction" object:nil];

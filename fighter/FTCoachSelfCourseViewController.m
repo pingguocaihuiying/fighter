@@ -28,6 +28,7 @@
     // Do any additional setup after loading the view from its nib.
     [self setSubViews];
 }
+
 - (void)setSubViews{
     [self initSomeViewsBaseProperties];//初始化一些label颜色、分割线颜色等
     [self setNaviView];//设置导航栏
