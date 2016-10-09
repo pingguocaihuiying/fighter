@@ -284,6 +284,8 @@
         } else if (_courseType == FTOrderCourseTypeCoach) {//预约教练
             if (!dic) {
                 cell.isEmpty = YES;
+            }else{
+                cell.courserCellDic = dic;
             }
             [cell setCoachCourseWithDic:dic];
         }else if (_courseType == FTOrderCourseTypeCoachSelf) {//教练自己查看
@@ -308,11 +310,18 @@
     FTGymSourceTableView *theTableView = (FTGymSourceTableView *)tableView;
     NSLog(@"周几：%ld,row : %ld", theTableView.index, indexPath.row);
     FTGymSourceTableViewCell *cell = [tableView viewWithTag:(10000 + indexPath.row)];
-    if (cell.hasCourseData && !cell.isPast) {//如果有课程数据，而且是未来可以预约的
+    if (_courseType == FTOrderCourseTypeGym) {
+        if (cell.hasCourseData && !cell.isPast) {//如果有课程数据，而且是未来可以预约的
+            NSString *timeSection = _timeSectionsArray[indexPath.row][@"timeSection"];
+            [_delegate courseClickedWithCell:cell andDay:theTableView.index andTimeSection:timeSection andDateString:theTableView.dateString andTimeStamp:theTableView.timeStampString];
+        }
+    } else if (_courseType == FTOrderCourseTypeCoach) {
         NSString *timeSection = _timeSectionsArray[indexPath.row][@"timeSection"];
-//        [_delegate courseClickedWithCell:cell andDay:theTableView.index andTimeSection:timeSection andDateString: theTableView.timeStampString];
         [_delegate courseClickedWithCell:cell andDay:theTableView.index andTimeSection:timeSection andDateString:theTableView.dateString andTimeStamp:theTableView.timeStampString];
+    }else if (_courseType == FTOrderCourseTypeCoachSelf){
+        
     }
+
     
 }
 

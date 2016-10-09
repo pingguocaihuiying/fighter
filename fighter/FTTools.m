@@ -459,4 +459,29 @@
     return hasLogin;
 }
 
++ (NSString *)getAgeWithTimeStamp:(NSString *)timeStampString{
+    NSString *age = @"0";
+    
+    if (timeStampString) {
+        timeStampString = [timeStampString substringToIndex:timeStampString.length - 3];
+    }else{
+        return age;
+    }
+    
+    
+    NSDateFormatter *dateFormater = [NSDateFormatter new];
+    [dateFormater setDateFormat:@"yyyy"];
+    NSString *currentYear = [dateFormater stringFromDate:[NSDate date]];
+    int currentYearInt = [currentYear intValue];
+    
+    NSString *birthYear = [dateFormater stringFromDate:[NSDate dateWithTimeIntervalSince1970:[timeStampString doubleValue]]];
+    int birthYearInt = [birthYear intValue];
+    
+    int ageInt = currentYearInt - birthYearInt;
+    if (age < 0) {
+        ageInt = 0;
+    }
+    age = [NSString stringWithFormat:@"%d", ageInt];
+    return age;
+}
 @end

@@ -28,4 +28,5 @@
  */
 
 + (UIImage *)makeThumbnailFromImage:(UIImage *)srcImage scale:(double)imageScale;
++ (UIImage *) imageForENLabel:(NSString *)label;
 @end

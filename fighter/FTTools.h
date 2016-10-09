@@ -137,4 +137,13 @@
 #pragma -mark 更新评分view
 + (void)updateScoreView:(UIView *)scoreView withScore:(float)scoreFloat;
 
+
+/**
+ 根据时间戳计算年龄
+
+ @param timeStampString 13位时间戳
+
+ @return 年龄
+ */
++ (NSString *)getAgeWithTimeStamp:(NSString *)timeStampString;
 @end

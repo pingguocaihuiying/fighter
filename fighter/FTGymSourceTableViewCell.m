@@ -91,8 +91,31 @@
             _orderStatusLabel.textColor = [UIColor colorWithHex:0x24b33c];
             _orderStatusLabel.text = @"可预约";
         } else {
-            _orderStatusLabel.textColor = [UIColor colorWithHex:0x24b33c];
-            _orderStatusLabel.text = @"已约";
+            
+                    //"type":"0"//类型，0-团课预约（表明不可预约），2-私教预约,3-其他（例如：教练把某日期时段设为不可预约）
+            NSString *type = _courserCellDic[@"type"];
+            
+            if ([type isEqualToString:@"3"]) {
+                //如果不可约
+                _orderStatusLabel.textColor = [UIColor colorWithHex:0xb4b4b4];
+                _orderStatusLabel.text = @"不可约";
+                
+            } else {
+                //如果已约
+                _orderStatusLabel.textColor = [UIColor whiteColor];
+                _orderStatusLabel.text = @"已约";
+                
+                //"myIsOrd": 1,//当前用户是否预定该课程， 0 - 没有，1 - 已有预约
+                NSString *myIsOrd = _courserCellDic[@"myIsOrd"];
+                if ([myIsOrd isEqualToString:@"1"]) {//如果是自己约的
+                    _selectionImage.hidden = NO;
+                }
+                
+            }
+            
+            
+            
+            
         }
 
     }

@@ -15,6 +15,7 @@
 #import "FTCoachSelfCourseViewController.h"
 #import "FTGymRechargeViewController.h"
 #import "FTBaseNavigationViewController.h"
+#import "FTCoachBean.h"
 
 
 @interface FTGymSourceViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, FTGymCourseTableViewDelegate, FTGymOrderCourseViewDelegate>
@@ -183,8 +184,13 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"点击了第%ld个", indexPath.row);
+    NSDictionary *coachDic = _coachArray[indexPath.row];
+    FTCoachBean *coachBean = [FTCoachBean new];
+    [coachBean setWithDic:coachDic];
+    
     FTOrderCoachViewController *orderCoachViewController = [FTOrderCoachViewController new];
     orderCoachViewController.gymDetailBean = _gymDetailBean;
+    orderCoachViewController.coachBean = coachBean;
     [self.navigationController pushViewController:orderCoachViewController animated:YES];
 }
 
