@@ -99,9 +99,12 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ehr-89-cK8">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="r88-bt-yYD"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <state key="normal" title="确  定">
-                        <color key="titleColor" red="0.74636942149999996" green="0.1161412075" blue="0.11804688720000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" title="确  定" backgroundImage="课程详情">
+                        <color key="titleColor" red="0.1603316068649292" green="0.58323210477828979" blue="0.21234935522079468" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="confirmButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="9Uw-ZX-sHl"/>
@@ -158,5 +161,6 @@
         <image name="取消X" width="32" height="32"/>
         <image name="取消Xpre" width="32" height="32"/>
         <image name="弹出框背景" width="21" height="21"/>
+        <image name="课程详情" width="9" height="9"/>
     </resources>
 </document>

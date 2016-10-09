@@ -62,7 +62,7 @@
     NSString *dateTimeString;
     if ((dateNum - dateNum2) > 2) {
         
-        dateTimeString = [self formatTimestamp:timeTemp formatter:@"YYYY-MM-dd HH:mm:ss"];
+        dateTimeString = [self formatTimestamp:timeTemp formatter:@"YYYY-MM-dd HH:mm"];
         
     }else if ((dateNum - dateNum2) == 1) {
         

@@ -17,7 +17,8 @@
 #import "FTDailyTaskViewController.h"
 #import "FTFinishedTaskViewController.h"
 #import "NSDate+TaskDate.h"
-
+#import "FTPracticeViewController.h"
+#import "FTCoachSelfCourseViewController.h"
 @interface FTBaseTabBarViewController () <UITabBarControllerDelegate>
 
 @property (nonatomic, strong) UIButton *avatarBtn;
@@ -317,14 +318,12 @@
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
 
-    @try {
-        
     
+    // 判断商城是否登录
     if (tabBarController.selectedIndex != 4 && [viewController isKindOfClass:[FTShopViewController class]]) {
         
         //从本地读取存储的用户信息
-        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+        FTUserBean *localUser = [FTUserBean loginUser];
         
         if ( !localUser) {
             
@@ -339,11 +338,26 @@
         }
         
     }
-    } @catch (NSException *exception) {
-        NSLog(@"exception:%@",exception);
-    } @finally {
-        
-    }
+    
+    
+    
+//    if (tabBarController.selectedIndex != 2 && [viewController isKindOfClass:[FTPracticeViewController class]]) {
+//    
+//        FTCoachSelfCourseViewController *coachSelfCourseVC = [FTCoachSelfCourseViewController new];
+//        coachSelfCourseVC.title = @"学拳";
+//        coachSelfCourseVC.tabBarItem.title = @"学拳";
+//        [coachSelfCourseVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+//                                                       Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
+//                                                       nil] forState:UIControlStateSelected];
+//        coachSelfCourseVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-教练"];
+//        coachSelfCourseVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-教练pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//        
+//        NSMutableArray * tempVCs = [tabBarController.viewControllers mutableCopy];
+//        [tempVCs removeObjectAtIndex:2];
+//        [tempVCs insertObject:coachSelfCourseVC atIndex:2];
+//        tabBarController.viewControllers = [tempVCs copy];
+//    }
+   
     return YES;
 }
 
