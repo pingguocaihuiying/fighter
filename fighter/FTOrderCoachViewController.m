@@ -10,6 +10,7 @@
 #import "UIImage+LabelImage.h"
 #import "FTGymSourceView.h"
 #import "FTGymOrderCourseView.h"
+#import "FTGymOrderCoachView.h"
 
 @interface FTOrderCoachViewController ()<FTGymCourseTableViewDelegate, FTGymOrderCourseViewDelegate>
 
@@ -33,6 +34,7 @@
 @property (nonatomic, strong) NSMutableDictionary *placesUsingInfoDic;//场地、时间段的占用情况
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *topMainViewHeight;
 
+@property (nonatomic, copy) NSString *balance;
 
 @end
 
@@ -99,6 +101,7 @@
     if (!balance) {
         balance = @"0";
     }
+    _balance = balance;
     _balanceLabel.text = balance;
 }
 
@@ -195,6 +198,19 @@
     
     if (courseCell.isEmpty) {//如果是空的，说明可以预约
         NSLog(@"可以预约");
+        FTGymOrderCoachView *gymOrderCoachView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCoachView" owner:nil options:nil] firstObject];
+        gymOrderCoachView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        gymOrderCoachView.dateString = dateString;
+        gymOrderCoachView.dateTimeStamp = timeStamp;
+        gymOrderCoachView.price = _coachBean.price;
+        gymOrderCoachView.coachName = _coachBean.name;
+        gymOrderCoachView.courserCellDic = courseCell.courserCellDic;
+        gymOrderCoachView.timeSection = timeSection;
+        gymOrderCoachView.balance = _balance;
+        
+        [gymOrderCoachView setDisplay];
+        
+        [[[UIApplication sharedApplication] keyWindow] addSubview:gymOrderCoachView];
     }else{
         NSDictionary *courseDic = courseCell.courserCellDic;
         NSString *type = courseDic[@"type"];

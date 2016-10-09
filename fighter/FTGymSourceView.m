@@ -316,8 +316,11 @@
             [_delegate courseClickedWithCell:cell andDay:theTableView.index andTimeSection:timeSection andDateString:theTableView.dateString andTimeStamp:theTableView.timeStampString];
         }
     } else if (_courseType == FTOrderCourseTypeCoach) {
-        NSString *timeSection = _timeSectionsArray[indexPath.row][@"timeSection"];
-        [_delegate courseClickedWithCell:cell andDay:theTableView.index andTimeSection:timeSection andDateString:theTableView.dateString andTimeStamp:theTableView.timeStampString];
+        if (!cell.isPast) {
+            NSString *timeSection = _timeSectionsArray[indexPath.row][@"timeSection"];
+            [_delegate courseClickedWithCell:cell andDay:theTableView.index andTimeSection:timeSection andDateString:theTableView.dateString andTimeStamp:theTableView.timeStampString];
+        }
+
     }else if (_courseType == FTOrderCourseTypeCoachSelf){
         
     }

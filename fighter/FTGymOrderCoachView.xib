@@ -12,6 +12,11 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view alpha="0.59999999999999998" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hpi-2X-cam" userLabel="黑色半透明view">
+                    <frame key="frameInset" width="375" height="667"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="弹出框背景" translatesAutoresizingMaskIntoConstraints="NO" id="RUh-bL-QWy">
                     <constraints>
                         <constraint firstAttribute="width" constant="280" id="Qe7-21-8k2"/>
@@ -123,7 +128,7 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="0WZ-aS-c0Z" firstAttribute="leading" secondItem="RUh-bL-QWy" secondAttribute="leading" constant="18" id="7r3-AS-xrG"/>
                 <constraint firstItem="cco-7l-SxS" firstAttribute="trailing" secondItem="RUh-bL-QWy" secondAttribute="trailing" constant="-3.5" id="9ck-3m-gSS"/>
