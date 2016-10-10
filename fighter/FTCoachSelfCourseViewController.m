@@ -27,6 +27,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setSubViews];
+    
+    [self getTeachRecordFromServer];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 - (void)setSubViews{
@@ -66,10 +73,9 @@
     UIBarButtonItem *gymDetailButton = [[UIBarButtonItem alloc]initWithTitle:@"个人主页" style:UIBarButtonItemStylePlain target:self action:@selector(gotoCoachHomepage)];
     self.navigationItem.rightBarButtonItem = gymDetailButton;
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
+
+
 - (void)setGymSourceView{
     _gymSourceView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymSourceView" owner:nil options:nil]firstObject];
     _gymSourceView.titleLabel.text = [NSString stringWithFormat:@"%d月", [[FTTools getCurrentMonth] intValue]];
@@ -80,6 +86,7 @@
     _gymSourceView.tableViewsHeight.constant = 42 * 4;
     [_gymSourceView reloadTableViews];
 }
+
 
 - (void)courseClickedWithCell:(FTGymSourceTableViewCell *)courseCell andDay:(NSInteger)day andTimeSection:(NSString *)timeSection{
     NSLog(@"day : %ld, timeSection : %@", day, timeSection);
@@ -138,6 +145,16 @@
     }];
 }
 
+- (void) getTeachRecordFromServer {
+    
+    [NetWorking getCoachTeachRecordWithCorporationid:self.corporationid option:^(NSDictionary *dict) {
+        SLog(@"dict:%@",dict);
+        
+        [self.historyOrderTableView reloadData];
+    }];
+    
+}
+
 - (void)setTableview{
     _historyOrderTableView.delegate = self;
     _historyOrderTableView.dataSource = self;
@@ -146,7 +163,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return 6;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -163,32 +180,46 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView = [UIView new];
-    headerView.backgroundColor = [UIColor clearColor];
-    headerView.frame = CGRectMake(0, 0, tableView.width, 40);
+    headerView.backgroundColor = [UIColor colorWithHex:0x282828];
+    headerView.frame = CGRectMake(0, 0, tableView.width, 20);
     
-    //下半部view
-    UIView *contentView = [[UIView alloc]initWithFrame:CGRectMake(0, 20, tableView.width, 20)];
-    contentView.backgroundColor = [UIColor colorWithHex:0x282828];
-    [headerView addSubview:contentView];
+//    //下半部view
+//    UIView *contentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
+//    contentView.backgroundColor = [UIColor colorWithHex:0x282828];
+//    [headerView addSubview:contentView];
     
     UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(16, 4, 75, 12)];
     label1.textColor = [UIColor colorWithHex:0xb4b4b4];
     label1.font = [UIFont systemFontOfSize:12];
     label1.text = @"本月完成课程";
-    [contentView addSubview:label1];
+    [headerView addSubview:label1];
     
     UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(label1.frame.origin.x + label1.width, 4, 50, 12)];
     label2.textColor = [UIColor colorWithHex:0xb4b4b4];
     label2.text = @"24节";
     label2.font = [UIFont systemFontOfSize:12];
-    [contentView addSubview:label2];
+    [headerView addSubview:label2];
     
     return headerView;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 40;
+- (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+
+    UIView *footerView = [UIView new];
+    footerView.backgroundColor = [UIColor clearColor];
+    footerView.frame = CGRectMake(0, 0, tableView.width, 20);
+    
+    return  footerView;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 20;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 20;
+}
+
 
 - (void)backBtnAction{
     [self.navigationController popViewControllerAnimated:YES];
@@ -197,14 +228,5 @@
 - (void)gotoCoachHomepage{
     NSLog(@"去个人主页");
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
