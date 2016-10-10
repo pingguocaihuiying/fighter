@@ -461,8 +461,9 @@
 
 + (NSString *)getAgeWithTimeStamp:(NSString *)timeStampString{
     NSString *age = @"0";
-    
+    timeStampString = [NSString stringWithFormat:@"%@", timeStampString];
     if (timeStampString) {
+        timeStampString = [NSString stringWithFormat:@"%@", timeStampString];
         timeStampString = [timeStampString substringToIndex:timeStampString.length - 3];
     }else{
         return age;

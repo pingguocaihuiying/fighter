@@ -219,6 +219,7 @@
     NSLog(@"day : %ld, timeSection : %@ dateString : %@", day, timeSection, dateString);
     
     FTGymOrderCourseView *gymOrderCourseView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCourseView" owner:nil options:nil] firstObject];
+    gymOrderCourseView.courseType = FTOrderCourseTypeGym;
     gymOrderCourseView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     gymOrderCourseView.dateString = dateString;
     gymOrderCourseView.dateTimeStamp = timeStamp;
@@ -306,7 +307,7 @@
     _remainingTimesLabel.text = [NSString stringWithFormat:@"团课剩余次数：%@次", remainingTime];
     
     //有效期
-    NSString *validTimeString = dic[@"expireTime"];
+    NSString *validTimeString = [NSString stringWithFormat:@"%@", dic[@"expireTime"]];
     
     if (validTimeString) {
         NSString *validTime = [FTTools fixStringForDateWithoutTime2:validTimeString];
@@ -320,13 +321,16 @@
     } else {
         _validTimelineLabel.text = [NSString stringWithFormat:@""];
     }
-    
+
     //余额
     NSString *balance = dic[@"money"];
     if (!balance) {
       balance = @"0";
     }
-    _balanceLabel.text = balance;
+    balance = [NSString stringWithFormat:@"%@", balance];
+    balance = [NSString stringWithFormat:@"%.0lf", [balance doubleValue] / 100];
+    
+    _balanceLabel.text = [NSString stringWithFormat:@"%@", balance];
 }
 
 /**

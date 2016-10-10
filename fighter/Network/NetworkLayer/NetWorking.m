@@ -1237,7 +1237,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     assert(gymId);
     FTUserBean *localUserBean = [FTUserTools getLocalUser];
-    urlString = [NSString stringWithFormat:@"%@?corporationid=%@&userId=%@&coachUserId=%@", urlString, gymId, localUserBean.olduserid, gymId];
+    urlString = [NSString stringWithFormat:@"%@?corporationid=%@&userId=%@&coachUserId=%@", urlString, gymId, localUserBean.olduserid, coachId];
     
     NSLog(@"getGymPlaceUsingInfoById %@", urlString);
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
@@ -2191,9 +2191,24 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                                                                                          @"timeId" : dic[@"timeId"],
                                                                                          @"timeSection" : dic[@"timeSection"],
                                                                                          @"loginToken":[self getLoginToken],
-                                                                                         @"courseId" : dic[@"courseId"],
+//                                                                                         @"courseId" : dic[@"courseId"],
                                                                                          @"type" : dic[@"type"],
                                                                                          @"ts":[self getTimeStamp13]}];
+    NSString *courseId = dic[@"courseId"];//课程id，团课必填
+    if(courseId){
+        [dicBeforeMD5 setObject:courseId forKey:@"courseId"];
+    }
+    
+    NSString *coachUserId = dic[@"coachUserId"];//教练id，私教课必填
+    if(coachUserId){
+        [dicBeforeMD5 setObject:coachUserId forKey:@"coachUserId"];
+    }
+    
+    NSString *fenString = dic[@"price"];//教练id，私教课必填
+    if(fenString){
+        [dicBeforeMD5 setObject:fenString forKey:@"price"];
+    }
+    
     NSString *checkSign = [FTTools md5Dictionary:dicBeforeMD5 withCheckKey:checkKey];
     [dicBeforeMD5 setValue:checkSign forKey:@"checkSign"];
     NSDictionary *parmamDic = dicBeforeMD5;
