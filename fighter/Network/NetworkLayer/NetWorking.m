@@ -2225,4 +2225,51 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     }];
     
 }
+
+/**
+ 教练更改可约不可约状态
+
+ @param dic    入参
+ @param option block回掉
+ */
++ (void)changeCourseStatusWithParamsDic:(NSMutableDictionary *)dic andOption:(void (^)(NSDictionary *dic))option{
+    NSString *path;
+    NSString *checkKey;
+    
+        path = ChangeCourseStatusURL;
+        checkKey = ChangeCourseStatusCheckSign;
+    
+    NSString *urlString = [FTNetConfig host:Domain path:path];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //设置请求返回的数据类型为默认类型（NSData类型)
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    //md5前的checkSign字典
+    NSMutableDictionary *dicBeforeMD5 = [[NSMutableDictionary alloc]initWithDictionary:@{
+                                                                                         @"userId":[NetWorking getUserId],
+                                                                                         @"corporationid" : dic[@"gymId"],
+                                                                                         @"date" : dic[@"date"],
+                                                                                         @"timeId" : dic[@"timeId"],
+                                                                                         @"timeSection" : dic[@"timeSection"],
+                                                                                         @"loginToken":[self getLoginToken],
+                                                                                       @"isDelated" : dic[@"isDelated"],
+                                                                                         @"type" : dic[@"type"],
+                                                                                         @"ts":[self getTimeStamp13]}];
+    
+    NSString *checkSign = [FTTools md5Dictionary:dicBeforeMD5 withCheckKey:checkKey];
+    [dicBeforeMD5 setValue:checkSign forKey:@"checkSign"];
+    NSDictionary *parmamDic = dicBeforeMD5;
+    
+    [manager POST:urlString parameters:parmamDic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        if (responseDic && responseDic != (id)[NSNull null]) {
+            option(responseDic);
+        }else{
+            option(nil);
+        }
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
+        option(nil);
+    }];
+    
+}
 @end

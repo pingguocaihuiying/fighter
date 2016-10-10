@@ -291,14 +291,13 @@
             }
             [cell setCoachCourseWithDic:dic];
         }else if (_courseType == FTOrderCourseTypeCoachSelf) {//教练自己查看
-//            if (!dic) {
-//                NSLog(@"dic 不存在 empty");
-//                cell.isEmpty = YES;
-//            }else{
-//                cell.isEmpty = NO;
-//                NSLog(@"dic存在");
-//            }
-//            [cell setCoachCourseSelfWithDic:dic];
+            if (!dic) {
+                cell.isEmpty = YES;
+            }else{
+                cell.isEmpty = NO;
+                cell.courserCellDic = dic;
+            }
+            [cell setCoachCourseSelfWithDic:dic];
             
         }else{
             
@@ -323,12 +322,12 @@
         }
     } else if (_courseType == FTOrderCourseTypeCoach) {
         if (!cell.isPast) {
-            NSString *timeSection = _timeSectionsArray[indexPath.row][@"timeSection"];
             [_delegate courseClickedWithCell:cell andDay:theTableView.index andTimeSectionIndex:indexPath.row andDateString:theTableView.dateString andTimeStamp:theTableView.timeStampString];
         }
-
     }else if (_courseType == FTOrderCourseTypeCoachSelf){
-        
+        if (!cell.isPast) {
+            [_delegate courseClickedWithCell:cell andDay:theTableView.index andTimeSectionIndex:indexPath.row andDateString:theTableView.dateString andTimeStamp:theTableView.timeStampString];
+        }
     }
 
     

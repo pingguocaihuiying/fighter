@@ -52,6 +52,18 @@
 
 @implementation FTGymSourceViewController
 
+- (void)viewWillAppear:(BOOL)animated{
+    //注册通知，当充值完成时，获取最新余额
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeMoney:) name:@"RechargeMoneytNoti" object:nil];
+}
+
+- (void)rechargeMoney:(id)info{
+    NSString *msg = [info object];
+    if ([msg isEqualToString:@"SUCESS"]){
+        [self getVIPInfo];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initBaseConfig];

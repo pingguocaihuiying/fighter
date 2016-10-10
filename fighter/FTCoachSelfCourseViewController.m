@@ -9,8 +9,9 @@
 #import "FTCoachSelfCourseViewController.h"
 #import "FTGymSourceView.h"
 #import "FTCoachHistoryCourseTableViewCell.h"
+#import "FTGymCoachStateSwitcher.h"
 
-@interface FTCoachSelfCourseViewController ()<FTGymCourseTableViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface FTCoachSelfCourseViewController ()<FTGymCourseTableViewDelegate, UITableViewDelegate, UITableViewDataSource, FTCoachChangeCourseStatusDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *historyOrderTableView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *tableViewHeight;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *courseHistoryTableViewHeight;
@@ -41,6 +42,7 @@
     [self setNaviView];//设置导航栏
     [self setGymSourceView];
     [self setTableview];
+    [self getTimeSection];//获取时间段信息
 }
 
 - (void)initSomeViewsBaseProperties{
@@ -75,9 +77,9 @@
 }
 
 
-
 - (void)setGymSourceView{
     _gymSourceView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymSourceView" owner:nil options:nil]firstObject];
+    _gymSourceView.courseType = FTOrderCourseTypeCoachSelf;
     _gymSourceView.titleLabel.text = [NSString stringWithFormat:@"%d月", [[FTTools getCurrentMonth] intValue]];
     _gymSourceView.frame = _gymSourceViewContainerView.bounds;
     _gymSourceView.courseType = FTOrderCourseTypeCoachSelf;
@@ -88,29 +90,59 @@
 }
 
 
-- (void)courseClickedWithCell:(FTGymSourceTableViewCell *)courseCell andDay:(NSInteger)day andTimeSection:(NSString *)timeSection{
-    NSLog(@"day : %ld, timeSection : %@", day, timeSection);
-    if (courseCell.hasOrder) {
-        NSLog(@"已经预约");
-        
-    } else if (courseCell.canOrder) {
-        //        FTGymOrderCourseView *gymOrderCourseView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCourseView" owner:nil options:nil] firstObject];
-        //        gymOrderCourseView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        //        //        gymOrderCourseView.belowView2.hidden = YES;
-        //        //        gymOrderCourseView.belowView2Height.constant = 0;
-        //        gymOrderCourseView.status = FTGymCourseStatusCanOrder;
-        //        [[[UIApplication sharedApplication] keyWindow] addSubview:gymOrderCourseView];
+- (void)courseClickedWithCell:(FTGymSourceTableViewCell *)courseCell andDay:(NSInteger)day andTimeSectionIndex:(NSInteger) timeSectionIndex andDateString:(NSString *) dateString andTimeStamp:(NSString *)timeStamp{
+    NSLog(@"day : %ld, timeSection : %@ dateString : %@", day, _timeSectionsArray[timeSectionIndex][@"timeSection"], dateString);
+    
+    if (courseCell.isEmpty) {//如果是空的，说明可以预约
         NSLog(@"可以预约");
-    }else {
-        NSLog(@"不可以预约");
+        FTGymCoachStateSwitcher *gymCoachStateSwitcher = [[[NSBundle mainBundle]loadNibNamed:@"FTGymCoachStateSwitcher" owner:nil options:nil]firstObject];
+        gymCoachStateSwitcher.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
+        gymCoachStateSwitcher.delegate = self;
+        gymCoachStateSwitcher.canOrderOriginal = YES;
+        gymCoachStateSwitcher.canOrder = YES;
+        
+        gymCoachStateSwitcher.timeSection = _timeSectionsArray[timeSectionIndex][@"timeSection"];
+        gymCoachStateSwitcher.timeSectionId = _timeSectionsArray[timeSectionIndex][@"id"];
+        gymCoachStateSwitcher.dateString = dateString;
+        gymCoachStateSwitcher.dateTimeStamp = timeStamp;
+        gymCoachStateSwitcher.corporationid = _corporationid;
+        
+        [gymCoachStateSwitcher updateDisplay];
+        
+        [self.view addSubview:gymCoachStateSwitcher];
+        
+    }else{
+        NSDictionary *courseDic = courseCell.courserCellDic;
+        NSString *type = courseDic[@"type"];
+        
+        if ([type isEqualToString:@"3"]) {//如果不可约
+            NSLog(@"不可预约");
+            FTGymCoachStateSwitcher *gymCoachStateSwitcher = [[[NSBundle mainBundle]loadNibNamed:@"FTGymCoachStateSwitcher" owner:nil options:nil]firstObject];
+            gymCoachStateSwitcher.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
+            gymCoachStateSwitcher.delegate = self;
+            gymCoachStateSwitcher.canOrderOriginal = NO;
+            gymCoachStateSwitcher.canOrder = NO;
+            
+            gymCoachStateSwitcher.timeSection = _timeSectionsArray[timeSectionIndex][@"timeSection"];
+            gymCoachStateSwitcher.timeSectionId = _timeSectionsArray[timeSectionIndex][@"id"];
+            gymCoachStateSwitcher.dateString = dateString;
+            gymCoachStateSwitcher.dateTimeStamp = timeStamp;
+            gymCoachStateSwitcher.corporationid = _corporationid;
+            
+            [gymCoachStateSwitcher updateDisplay];
+            
+            [self.view addSubview:gymCoachStateSwitcher];
+        } else {//如果已约
+            
+        }
     }
+    
 }
 /**
  *  获取时间段信息
  */
 - (void)getTimeSection{
-    int corporationid = 158;
-    [NetWorking getGymTimeSlotsById:[NSString stringWithFormat:@"%d", corporationid] andOption:^(NSArray *array) {
+    [NetWorking getGymTimeSlotsById:[NSString stringWithFormat:@"%@", _corporationid] andOption:^(NSArray *array) {
         _timeSectionsArray = array;
         if (_timeSectionsArray && _timeSectionsArray.count > 0) {
             //获取时间段信息后，根据内容多少设置tableviews的高度，再刷新一次tableview
@@ -124,9 +156,9 @@
 
 //获取场地使用信息
 - (void)gettimeSectionsUsingInfo{
-    NSString *timestampString = [NSString stringWithFormat:@"%.0f", [[NSDate date]timeIntervalSince1970]];
-    
-    [NetWorking getGymSourceInfoById:[NSString stringWithFormat:@"%d", 1]  andTimestamp:timestampString  andOption:^(NSArray *array) {
+    FTUserBean *localBean = [FTUserTools getLocalUser];
+    NSString *userId = localBean.olduserid;//教练的id
+    [NetWorking getCoachCourceInfoByCoachId:userId andGymId:[NSString stringWithFormat:@"%@", _corporationid] andOption:^(NSArray *array) {
         _placesUsingInfoDic = [NSMutableDictionary new];
         if (array) {
             for(NSDictionary *dic in array){
@@ -223,6 +255,10 @@
 
 - (void)backBtnAction{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)changeCourseStatusSuccess{
+    [self gettimeSectionsUsingInfo];
 }
 
 - (void)gotoCoachHomepage{
