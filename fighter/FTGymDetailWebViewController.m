@@ -362,7 +362,9 @@
             NSDictionary *vipDic = _vipArray[indexPath.row];
 //            cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
             [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]];
-            cell.vipNameLabel.text = vipDic[@"name"];
+            
+            NSString *name = vipDic[@"name"];
+            cell.vipNameLabel.text = name;
         }
         
     } else {//只展示第一行
