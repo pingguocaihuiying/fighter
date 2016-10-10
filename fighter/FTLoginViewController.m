@@ -172,8 +172,8 @@
                                         FTUserBean *user = [FTUserBean new];
                                         [user setValuesForKeysWithDictionary:userDic];
                                         
-                                        user.identity = dict[@"identity"];
-                                        user.interestList = dict[@"interestList"];
+                                        user.identity = dict[@"data"][@"identity"];
+                                        user.interestList = dict[@"data"][@"interestList"];
                                         
                                         //将用户信息保存在本地
                                         NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
