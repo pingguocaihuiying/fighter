@@ -232,13 +232,22 @@
  查看教练授课记录
  
  @param corporationid 拳馆id
- @param option  授课记录json字典
+ @param option  +记录json字典
  */
 + (void) getCoachTeachRecordWithCorporationid:(NSString*)corporationid option:(void (^)(NSDictionary *dict))option;
 
 #pragma mark - 约课
 //约课
 + (void)orderCourseWithParamsDic:(NSMutableDictionary *)dic andOption:(void (^)(NSDictionary *dic))option;
+
+#pragma mark - 教练更改可约不可约状态
+/**
+ 教练更改可约不可约状态
+ 
+ @param dic    入参
+ @param option block回掉
+ */
++ (void)changeCourseStatusWithParamsDic:(NSMutableDictionary *)dic andOption:(void (^)(NSDictionary *dic))option;
 
 #pragma mark - 新格斗场
 //获取拳馆固定的时间段

@@ -41,6 +41,7 @@
 @implementation FTOrderCoachViewController
 
 - (void)viewWillAppear:(BOOL)animated{
+    //注册通知，当充值完成时，获取最新余额
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeMoney:) name:@"RechargeMoneytNoti" object:nil];
 }
 

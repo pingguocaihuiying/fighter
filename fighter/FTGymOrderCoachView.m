@@ -18,6 +18,7 @@
 
 - (void)awakeFromNib{
     [super awakeFromNib];
+    //注册通知，用于接收充值成功的通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeMoney:) name:@"RechargeMoneytNoti" object:nil];
 }
 
@@ -47,7 +48,7 @@
             if (gymVIPType == FTGymVIPTypeYep) {//如果已经是会员，更新会员信息的展示
 //                [self updateVIPInfoUIWithDic:dic[@"data"]];
                 //更新余额
-                NSString *balance = dic[@"money"];
+                NSString *balance = dic[@"data"][@"money"];
                 if (!balance) {
                     balance = @"0";
                 }
