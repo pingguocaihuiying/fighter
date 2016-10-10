@@ -10,4 +10,5 @@
 
 @interface FTCoachSelfCourseViewController : FTBaseViewController
 
+@property (nonatomic, copy) NSString *corporationid;
 @end

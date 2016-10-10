@@ -228,6 +228,8 @@ NSString * const GetGymByIdURL = @"/api/gym/getVideosById.do";
 NSString * const GetGymPhotosByUsers = @"/api/gym/commentAttach.do";//获取用户拍摄的拳馆照片
 NSString * const BecomeGymMenberShipURL = @"/api/gymmenbership/save$GymMenberShip.do";
 
+
+NSString * const GetCoachTeachRecord = @"/api/coursebook/get$CourseHistory.do";
 #pragma mark - 新格斗场
 NSString * const GetGymTimeSlotsByIdURL = @"/api/place/listTime.do";
 NSString *const GetGymVIPInfoURL = @"/api/gymmenbership/find.do";//

@@ -105,6 +105,8 @@
 #define WXShareResultNoti @"WXShareResultNoti"
 #define QQShareResultNoti @"QQShareResultNoti"
 #define RechargeResultNoti @"RechargeOrCharge"
+#define RechargeMoneytNoti @"RechargeMoneytNoti"
+
 #define LoginNoti @"LoginNotifacation"
 #define QQShareResponse @"addShareResponse"
 #define TaskNotification @"taskNotification"

@@ -228,6 +228,14 @@
 //请求加入会员
 + (void)requestToBeVIPWithCorporationid:(NSString *)corporationid andPhoneNum:(NSString *) phoneNum andCheckCode:(NSString *)checkCode andOption:(void (^)(NSDictionary *dic))option;
 
+/**
+ 查看教练授课记录
+ 
+ @param corporationid 拳馆id
+ @param option  授课记录json字典
+ */
++ (void) getCoachTeachRecordWithCorporationid:(NSString*)corporationid option:(void (^)(NSDictionary *dict))option;
+
 #pragma mark - 约课
 //约课
 + (void)orderCourseWithParamsDic:(NSMutableDictionary *)dic andOption:(void (^)(NSDictionary *dic))option;
