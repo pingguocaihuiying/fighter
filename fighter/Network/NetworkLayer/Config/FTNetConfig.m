@@ -228,20 +228,25 @@ NSString * const GetGymByIdURL = @"/api/gym/getVideosById.do";
 NSString * const GetGymPhotosByUsers = @"/api/gym/commentAttach.do";//获取用户拍摄的拳馆照片
 NSString * const BecomeGymMenberShipURL = @"/api/gymmenbership/save$GymMenberShip.do";
 
+
+NSString * const GetCoachTeachRecord = @"/api/coursebook/get$CourseHistory.do";
 #pragma mark - 新格斗场
 NSString * const GetGymTimeSlotsByIdURL = @"/api/place/listTime.do";
 NSString *const GetGymVIPInfoURL = @"/api/gymmenbership/find.do";//
 NSString * const OrderCourseURL = @"/api/coursebook/save$CourseBook.do";
+NSString * const ChangeCourseStatusURL = @"/api/coursebook/save$bookAble.do";
 NSString * const DeleteOrderCourseURL = @"/api/coursebook/delete$CourseBook.do";
 NSString * const GetGymPlacesByIdURL = @"/api/place/listPlace.do";
 NSString * const GetGymPlacesUsingInfoByIdURL = @"/api/place/list.do";//GetGymInfoByIdURL
 NSString * const GetGymSourceInfoByIdURL = @"/api/place/listCource.do";
+NSString * const GetCoachCourceInfoByIdURL = @"/api/coursebook/listCoachSyllabus.do";
 NSString * const GetGymInfoByIdURL = @"/api/match/listms.do";
 NSString *const GetBoxerListURL = @"/api/boxer/list.do";
 NSString *const AddMatchURL = @"/api/match/save$Match.do";
 NSString *const GetMatchListURL = @"/api/match/list.do";
 
 NSString *const SaveCourseBookCheckSign = @"gedoujiaghdrfskflges2gfd";
+NSString *const ChangeCourseStatusCheckSign = @"gedoujiajhgfdsh5826fds";
 NSString *const DeleteCourseBookCheckSign = @"gedoujiajhjgfdlh25gfd";
 
 //迎战or拒战

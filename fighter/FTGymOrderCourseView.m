@@ -71,33 +71,73 @@
     } else if (_status == FTGymCourseStatusCancelOrder) {
         NSLog(@"确定取消预约");
         
-        NSMutableDictionary *dic = [NSMutableDictionary new];
-        [dic setObject:_gymId forKey:@"gymId"];
-        [dic setObject:_courserCellDic[@"timeId"] forKey:@"timeId"];
-        [dic setObject:_courserCellDic[@"courseId"] forKey:@"courseId"];//date
-        [dic setObject:_dateTimeStamp forKey:@"date"];
-        [dic setObject:@"0" forKey:@"type"];
-        [dic setObject:@"delete" forKey:@"bookType"];
-        [dic setObject:_courserCellDic[@"timeSection"] forKey:@"timeSection"];
-        
-        [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
-        [NetWorking orderCourseWithParamsDic:(NSMutableDictionary *)dic andOption:^(NSDictionary *dic) {
-            [MBProgressHUD hideHUDForView:[[UIApplication sharedApplication] keyWindow] animated:YES];
-            NSLog(@"dic : %@", dic);
-            NSString *status = dic[@"status"];
-            NSString *message = dic[@"message"];
-            if ([status isEqualToString:@"success"]) {
-                NSLog(@"取消约课成功");
-                [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"取消成功"];
-                if ([_delegate respondsToSelector:@selector(bookSuccess)]) {
-                    [_delegate bookSuccess];//刷新课程信息
+        if (_courseType == FTOrderCourseTypeGym) {
+            NSMutableDictionary *dic = [NSMutableDictionary new];
+            [dic setObject:_gymId forKey:@"gymId"];
+            [dic setObject:_courserCellDic[@"timeId"] forKey:@"timeId"];
+            [dic setObject:_courserCellDic[@"courseId"] forKey:@"courseId"];//date
+            [dic setObject:_dateTimeStamp forKey:@"date"];
+            [dic setObject:@"0" forKey:@"type"];
+            [dic setObject:@"delete" forKey:@"bookType"];
+            [dic setObject:_courserCellDic[@"timeSection"] forKey:@"timeSection"];
+            
+            [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
+            [NetWorking orderCourseWithParamsDic:(NSMutableDictionary *)dic andOption:^(NSDictionary *dic) {
+                [MBProgressHUD hideHUDForView:[[UIApplication sharedApplication] keyWindow] animated:YES];
+                NSLog(@"dic : %@", dic);
+                NSString *status = dic[@"status"];
+                NSString *message = dic[@"message"];
+                if ([status isEqualToString:@"success"]) {
+                    NSLog(@"取消约课成功");
+                    [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"取消成功"];
+                    if ([_delegate respondsToSelector:@selector(bookSuccess)]) {
+                        [_delegate bookSuccess];//刷新课程信息
+                    }
+                    [self removeFromSuperview];
+                } else {
+                    NSLog(@"取消约课失败，message  %@", message);
+                    [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:message];
                 }
-                [self removeFromSuperview];
-            } else {
-                NSLog(@"取消约课失败，message  %@", message);
-                [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:message];
-            }
-        }];
+            }];
+        } else if (_courseType == FTOrderCourseTypeCoach) {
+            NSMutableDictionary *dic = [NSMutableDictionary new];
+            [dic setObject:_gymId forKey:@"gymId"];
+            [dic setObject:_timeSectionId forKey:@"timeId"];
+            [dic setObject:_dateTimeStamp forKey:@"date"];
+            [dic setObject:@"2" forKey:@"type"];
+            [dic setObject:@"delete" forKey:@"bookType"];
+            [dic setObject:_timeSection forKey:@"timeSection"];//
+            [dic setObject:_coachUserId forKey:@"coachUserId"];
+            
+            //    NSString *fenString = [NSString stringWithFormat:@"%.0lf", [_price doubleValue] * 100];
+            [dic setObject:_price forKey:@"price"];
+            
+            
+            [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
+            [NetWorking orderCourseWithParamsDic:(NSMutableDictionary *)dic andOption:^(NSDictionary *dic) {
+                [MBProgressHUD hideHUDForView:[[UIApplication sharedApplication] keyWindow] animated:YES];
+                NSLog(@"dic : %@", dic);
+                NSString *status = dic[@"status"];
+                NSString *message = dic[@"message"];
+                if ([status isEqualToString:@"success"]) {
+                    NSLog(@"取消约课成功");
+                    [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"取消约课成功"];
+                    
+                    [self removeFromSuperview];
+                    
+                    if ([_delegate respondsToSelector:@selector(bookSuccess)]) {
+                        [_delegate bookSuccess];//刷新课程信息
+                    }
+                    
+                } else {
+                    NSLog(@"约课失败，message  %@", message);
+                    [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:message];
+                }
+            }];
+
+        }
+        
+
 
         
         
@@ -199,8 +239,11 @@
 
 - (void)setCourserCellDic:(NSDictionary *)courserCellDic{
     _courserCellDic = courserCellDic;
-    
-    _timeLabelFoo.text = [NSString stringWithFormat:@"%@ %@", _dateString, _courserCellDic[@"timeSection"]];
+    NSString *timeSection = _courserCellDic[@"timeSection"];
+    if (!timeSection) {
+        timeSection = _timeSection;
+    }
+    _timeLabelFoo.text = [NSString stringWithFormat:@"%@ %@", _dateString, timeSection];
     _courserNameLabelFoo.text = _courserCellDic[@"label"];
 }
 

@@ -17,7 +17,7 @@
 #import "FTGymBean.h"
 #import "FTGymVIPCellTableViewCell.h"
 #import "FTGymDetailBean.h"
-#import "FTGymSourceViewController.h"
+#import "FTGymSourceViewController2.h"
 
 @interface FTGymView () <UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, FTCycleScrollViewDelegate,FTSelectCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -174,7 +174,6 @@
         [self initTableView];
         
     }];
-    
 }
 
 // 获取tableView 数据
@@ -207,6 +206,8 @@
         [self.tableView footerEndRefreshing];
         
 //        NSLog(@"table dict:%@",dict);
+//        SLog(@"table dic:%@",dict);
+//        SLog(@"拳馆名称：%@",[dict[@"gymName"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
 //        NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         if (dict != nil) {
             
@@ -220,7 +221,7 @@
             }
             
             [self.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
-            [self sortArray];
+//            [self sortArray];
             [_tableView reloadData];
             
         }else {
@@ -230,17 +231,39 @@
     }];
 }
 
+
+
+/**
+ 拳馆列表数据排重
+ */
 - (void) sortArray {
     
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    for (NSDictionary *dic in _dataSourceArray) {
-        [dict setObject:dic forKey:dic];
+//    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+//    for (NSDictionary *dic in _dataSourceArray) {
+//        [dict setObject:dic forKey:dic];
+//        
+//        SLog(@"table dic:%@",dic);
+//        SLog(@"拳馆名称：%@",[dic[@"gymName"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+//    }
+//
+//    [_dataSourceArray removeAllObjects];
+//    for (int i =0; i< [dict allValues].count; i++) {
+//        [_dataSourceArray addObject:[[dict allValues] objectAtIndex:i]];
+//    }
+    
+    
+    NSMutableArray *categoryArray = [[NSMutableArray alloc] init];
+    
+    for (unsigned i = 0; i < [_dataSourceArray count]; i++){
+        
+        if ([categoryArray containsObject:[_dataSourceArray objectAtIndex:i]] == NO){
+            
+            [categoryArray addObject:[_dataSourceArray objectAtIndex:i]];
+        }
     }
-
+    
     [_dataSourceArray removeAllObjects];
-    for (int i =0; i< [dict allValues].count; i++) {
-        [_dataSourceArray addObject:[[dict allValues] objectAtIndex:i]];
-    }
+    [_dataSourceArray addObjectsFromArray:categoryArray];
 }
 #pragma mark - 上下拉刷新
 - (void)setJHRefresh{
@@ -258,6 +281,7 @@
 //        }
         
         [sself getTableViewDataFromWeb];
+//        [sself.tableView reloadData];
         
     }];
     //设置上拉刷新
@@ -272,6 +296,8 @@
         }
         
         [sself getTableViewDataFromWeb];
+        [sself sortArray];
+//        [sself.tableView reloadData];
     }];
 }
 
@@ -554,7 +580,6 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-
     //获取对应的bean，传递给下个vc
     NSDictionary *newsDic = [self.dataSourceArray objectAtIndex:indexPath.row];
     FTGymBean *bean = [FTGymBean new];
@@ -562,11 +587,18 @@
     
     if (bean.isGymUser) {
         NSLog(@"是会员");
-        FTGymSourceViewController *gymSourceViewController = [FTGymSourceViewController new];
+        FTGymSourceViewController2 *gymSourceViewController = [FTGymSourceViewController2 new];
         FTGymDetailBean *detailBean = [FTGymDetailBean new];
         detailBean.gym_name = bean.gymName;
         detailBean.corporationid = [bean.corporationid intValue];
         gymSourceViewController.gymDetailBean = detailBean;
+        
+        //获取对应的bean，传递给下个vc
+        NSDictionary *newsDic = [self.dataSourceArray objectAtIndex:indexPath.row];
+        FTGymBean *bean = [FTGymBean new];
+        [bean setValuesWithDic:newsDic];
+        gymSourceViewController.gymBean = bean;
+        
         if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
             [self.delegate pushToController:gymSourceViewController];
         }
@@ -592,6 +624,7 @@
     _gymCurrId = @"-1";
     _getType = @"new";
     [self getTableViewDataFromWeb];
+//    [self.tableView reloadData];
 }
 - (void) selectedValue:(NSString *)value style:(FTRankTableViewStyle)style {
     
@@ -687,11 +720,13 @@
     FTGymBean *bean = [FTGymBean new];
     [bean setValuesWithDic:newsDic];
     
-    FTGymSourceViewController *gymSourceViewController = [FTGymSourceViewController new];
+    FTGymSourceViewController2 *gymSourceViewController = [FTGymSourceViewController2 new];
     FTGymDetailBean *detailBean = [FTGymDetailBean new];
     detailBean.gym_name = bean.gymName;
     detailBean.corporationid = [bean.corporationid intValue];
     gymSourceViewController.gymDetailBean = detailBean;
+    
+    
     
     if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
         [self.delegate pushToController:gymSourceViewController];
@@ -707,10 +742,11 @@
     if ([msg isEqualToString:@"SUCESS"]) {
         
         [self getTableViewDataFromWeb];
+//        [self.tableView reloadData];
     }
 }
 
-// 微信登录响应
+// 账号登录响应
 - (void) phoneLoginedCallback:(NSNotification *)noti {
     
     NSString *msg = [noti object];
@@ -722,6 +758,7 @@
     }
     
     [self getTableViewDataFromWeb];
+//    [self.tableView reloadData];
 }
 
 @end

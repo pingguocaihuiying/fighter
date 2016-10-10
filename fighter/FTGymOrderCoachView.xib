@@ -12,6 +12,11 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view alpha="0.59999999999999998" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hpi-2X-cam" userLabel="黑色半透明view">
+                    <frame key="frameInset" width="375" height="667"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="弹出框背景" translatesAutoresizingMaskIntoConstraints="NO" id="RUh-bL-QWy">
                     <constraints>
                         <constraint firstAttribute="width" constant="280" id="Qe7-21-8k2"/>
@@ -99,9 +104,12 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ehr-89-cK8">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="r88-bt-yYD"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <state key="normal" title="确  定">
-                        <color key="titleColor" red="0.74636942149999996" green="0.1161412075" blue="0.11804688720000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" title="确  定" backgroundImage="课程详情">
+                        <color key="titleColor" red="0.1603316068649292" green="0.58323210477828979" blue="0.21234935522079468" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="confirmButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="9Uw-ZX-sHl"/>
@@ -120,7 +128,7 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="0WZ-aS-c0Z" firstAttribute="leading" secondItem="RUh-bL-QWy" secondAttribute="leading" constant="18" id="7r3-AS-xrG"/>
                 <constraint firstItem="cco-7l-SxS" firstAttribute="trailing" secondItem="RUh-bL-QWy" secondAttribute="trailing" constant="-3.5" id="9ck-3m-gSS"/>
@@ -158,5 +166,6 @@
         <image name="取消X" width="32" height="32"/>
         <image name="取消Xpre" width="32" height="32"/>
         <image name="弹出框背景" width="21" height="21"/>
+        <image name="课程详情" width="9" height="9"/>
     </resources>
 </document>

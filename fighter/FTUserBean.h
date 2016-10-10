@@ -74,6 +74,8 @@
 @property (nonatomic, copy)NSString *name;//name
 @property (nonatomic, copy)NSString *background;//个人用户目前没有;//背景图
 @property (nonatomic, copy)NSArray* identity;//身份（服务器传来一个数组，自己遍历查身份）
+
+
 @property (nonatomic, copy)NSString* headUrl;//头像
 @property (nonatomic, copy)NSString *query;//身份标识
 @property (nonatomic, copy)NSString *brief;//简介
@@ -87,6 +89,10 @@
 @property (nonatomic, copy)NSString *knockout;//击倒数
 
 @property (nonatomic, assign) NSString *isBoxerChecked;
+
+// 拳馆相关字段
+@property (nonatomic, copy)NSString *corporationid;
+
 //计算年龄
 - (NSString *) age;
 //格式化生日

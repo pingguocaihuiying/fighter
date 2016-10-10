@@ -12,6 +12,9 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xje-3F-c1o">
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="弹出框背景" translatesAutoresizingMaskIntoConstraints="NO" id="05s-2t-vCu">
                     <constraints>
                         <constraint firstAttribute="width" constant="280" id="83J-uy-pyh"/>
@@ -76,6 +79,9 @@
                     <state key="normal" title="确  定">
                         <color key="titleColor" red="0.74636942149999996" green="0.1161412075" blue="0.11804688720000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
+                    <connections>
+                        <action selector="confirmButtonClicked:" destination="SFU-6s-py6" eventType="touchUpInside" id="DCg-pG-B0m"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PkN-6l-hBI">
                     <constraints>
@@ -85,9 +91,12 @@
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                     <state key="normal" backgroundImage="取消X"/>
                     <state key="highlighted" backgroundImage="取消Xpre"/>
+                    <connections>
+                        <action selector="cancelButtonClicked:" destination="SFU-6s-py6" eventType="touchUpInside" id="hFB-Uv-gm2"/>
+                    </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="0.48605944109999999" green="0.48605944109999999" blue="0.48605944109999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="05s-2t-vCu" firstAttribute="trailing" secondItem="DYe-h6-HtY" secondAttribute="trailing" constant="24" id="7RT-7J-acY"/>
                 <constraint firstItem="05s-2t-vCu" firstAttribute="centerY" secondItem="SFU-6s-py6" secondAttribute="centerY" id="A1I-V4-Zdt"/>
@@ -100,11 +109,15 @@
                 <constraint firstItem="cC9-Xx-Olc" firstAttribute="top" secondItem="107-Ke-FOR" secondAttribute="bottom" constant="20" id="UA2-46-66X"/>
                 <constraint firstItem="107-Ke-FOR" firstAttribute="centerX" secondItem="DYe-h6-HtY" secondAttribute="centerX" id="UDi-Ye-2jo"/>
                 <constraint firstItem="5Pf-Ot-FxG" firstAttribute="centerX" secondItem="05s-2t-vCu" secondAttribute="centerX" id="Upr-kd-b0W"/>
+                <constraint firstItem="xje-3F-c1o" firstAttribute="top" secondItem="SFU-6s-py6" secondAttribute="top" id="VrB-sH-eaF"/>
                 <constraint firstItem="cAB-jz-0Up" firstAttribute="bottom" secondItem="05s-2t-vCu" secondAttribute="bottom" constant="-15" id="bZX-lA-5Wo"/>
                 <constraint firstItem="cC9-Xx-Olc" firstAttribute="trailing" secondItem="cAB-jz-0Up" secondAttribute="trailing" constant="24" id="cQO-B8-Mxx"/>
                 <constraint firstItem="05s-2t-vCu" firstAttribute="left" secondItem="DYe-h6-HtY" secondAttribute="left" constant="-24" id="d03-5y-OGD"/>
+                <constraint firstAttribute="trailing" secondItem="xje-3F-c1o" secondAttribute="trailing" id="e9G-XL-ozU"/>
+                <constraint firstAttribute="bottom" secondItem="xje-3F-c1o" secondAttribute="bottom" id="eNd-IS-UZG"/>
                 <constraint firstItem="cC9-Xx-Olc" firstAttribute="trailing" secondItem="05s-2t-vCu" secondAttribute="trailing" id="ee6-TR-Lps"/>
                 <constraint firstItem="107-Ke-FOR" firstAttribute="top" secondItem="DYe-h6-HtY" secondAttribute="bottom" constant="15" id="elO-hE-e1g"/>
+                <constraint firstItem="xje-3F-c1o" firstAttribute="leading" secondItem="SFU-6s-py6" secondAttribute="leading" id="hAz-Sb-WuJ"/>
                 <constraint firstItem="cC9-Xx-Olc" firstAttribute="leading" secondItem="05s-2t-vCu" secondAttribute="leading" id="hyq-MP-d0i"/>
                 <constraint firstItem="PkN-6l-hBI" firstAttribute="top" secondItem="05s-2t-vCu" secondAttribute="bottom" constant="30" id="jwx-aZ-g1c"/>
                 <constraint firstItem="PkN-6l-hBI" firstAttribute="centerX" secondItem="05s-2t-vCu" secondAttribute="centerX" id="muG-GG-5dF"/>

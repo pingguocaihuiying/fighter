@@ -95,8 +95,7 @@
     self.tableView.estimatedRowHeight = 50.0; // 设置为一个接近于行高“平均值”的数值
 }
 
-#pragma mark - response 
-
+#pragma mark - response
 - (void) backBtnAction:(id) sender {
 
     [self.navigationController popViewControllerAnimated:YES];

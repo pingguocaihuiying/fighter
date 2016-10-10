@@ -172,9 +172,16 @@
                                         FTUserBean *user = [FTUserBean new];
                                         [user setValuesForKeysWithDictionary:userDic];
                                         
+                                        user.corporationid = [NSString stringWithFormat:@"%ld",[dict[@"data"][@"corporationid"] integerValue]];
+                                        user.identity = dict[@"data"][@"identity"];
+                                        user.interestList = dict[@"data"][@"interestList"];
+                                        
+                                        NSString *corporationid = dict[@"data"][@"corporationid"];
+                                        NSLog(@"corporationid:%@",corporationid);
+                                        
                                         //将用户信息保存在本地
                                         NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
-                                        [[NSUserDefaults standardUserDefaults]setObject:userData forKey:@"loginUser"];
+                                        [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
                                         [[NSUserDefaults standardUserDefaults]synchronize];
                                         
                                         

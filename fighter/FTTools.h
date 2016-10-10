@@ -30,6 +30,14 @@
  */
 + (NSString *)fixStringForDateWithoutTime:(NSString *)timestampString;//“年月日“
 
+/**
+ *  根据时间戳返回日期
+ *
+ *  @param timestampString 时间戳
+ *
+ *  @return 返回时间，格式："yyyy年MM月dd日"
+ */
++ (NSString *)fixStringForDateWithoutTime2:(NSString *)timestampString;//“年月日“
 
 /**
  获取当前月份
@@ -129,4 +137,13 @@
 #pragma -mark 更新评分view
 + (void)updateScoreView:(UIView *)scoreView withScore:(float)scoreFloat;
 
+
+/**
+ 根据时间戳计算年龄
+
+ @param timeStampString 13位时间戳
+
+ @return 年龄
+ */
++ (NSString *)getAgeWithTimeStamp:(NSString *)timeStampString;
 @end

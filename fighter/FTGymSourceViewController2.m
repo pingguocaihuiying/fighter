@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
-#import "FTGymSourceViewController.h"
+#import "FTGymSourceViewController2.h"
 #import "FTCoachBigImageCollectionViewCell.h"
 #import "FTGymSourceView.h"
 #import "FTJoinGymSuccessAlertView.h"
@@ -15,9 +15,11 @@
 #import "FTCoachSelfCourseViewController.h"
 #import "FTGymRechargeViewController.h"
 #import "FTBaseNavigationViewController.h"
+#import "FTCoachBean.h"
+#import "FTGymDetailWebViewController.h"
 
 
-@interface FTGymSourceViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, FTGymCourseTableViewDelegate, FTGymOrderCourseViewDelegate>
+@interface FTGymSourceViewController2 ()<UICollectionViewDelegate, UICollectionViewDataSource, FTGymCourseTableViewDelegate, FTGymOrderCourseViewDelegate>
 @property (strong, nonatomic) IBOutlet UILabel *balanceLabel;//动态label:余额的值
 @property (strong, nonatomic) IBOutlet UILabel *yuanLabel;//固定label：『元』
 
@@ -43,26 +45,42 @@
 @property (nonatomic, strong) NSMutableDictionary *placesUsingInfoDic;//场地、时间段的占用情况
 
 @property (nonatomic, strong) NSArray *coachArray;//教练列表
+@property (strong, nonatomic) IBOutlet UILabel *remainingTimesLabel;//团课剩余次数
+@property (strong, nonatomic) IBOutlet UILabel *validTimelineLabel;//有效期标签
+
 
 @end
 
-@implementation FTGymSourceViewController
+@implementation FTGymSourceViewController2
+
+- (void)viewWillAppear:(BOOL)animated{
+    //注册通知，当充值完成时，获取最新余额
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeMoney:) name:@"RechargeMoneytNoti" object:nil];
+}
+
+- (void)rechargeMoney:(id)info{
+    NSString *msg = [info object];
+    if ([msg isEqualToString:@"SUCESS"]){
+        [self getVIPInfo];
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initBaseConfig];
     [self getCoachesOfGymFromServer];//获取该拳馆的教练列表
     [self setSubViews];
+    [self getVIPInfo];
     [self getTimeSection];//获取拳馆时间段配置
 }
 
 - (void)initBaseConfig{
-//    _placesUsingInfoDic = [NSMutableDictionary new];
+    //    _placesUsingInfoDic = [NSMutableDictionary new];
     //key为周几（数字类型），value为数组，存储那一天的课程信息
-//    for (int i = 0; i < 6; i++) {
-//       [_placesUsingInfoDic setObject:[NSMutableArray new] forKey:[NSString stringWithFormat:@"%ld", [FTTools getWeekdayOfTodayAfterToday:i]]];
-//    }
-
+    //    for (int i = 0; i < 6; i++) {
+    //       [_placesUsingInfoDic setObject:[NSMutableArray new] forKey:[NSString stringWithFormat:@"%ld", [FTTools getWeekdayOfTodayAfterToday:i]]];
+    //    }
+    
 }
 
 - (void)setSubViews{
@@ -82,7 +100,7 @@
     _seperatorView1.backgroundColor = Cell_Space_Color;
     _seperatorView2.backgroundColor = Cell_Space_Color;
     _seperatorView3.backgroundColor = Cell_Space_Color;
-
+    
 }
 
 - (void)setNaviView{
@@ -107,12 +125,12 @@
     [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 0)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
-        UIBarButtonItem *gymDetailButton = [[UIBarButtonItem alloc]initWithTitle:@"拳馆详情" style:UIBarButtonItemStylePlain target:self action:@selector(gotoGymDetail)];
-        self.navigationItem.rightBarButtonItem = gymDetailButton;
+    UIBarButtonItem *gymDetailButton = [[UIBarButtonItem alloc]initWithTitle:@"拳馆详情" style:UIBarButtonItemStylePlain target:self action:@selector(gotoGymDetail)];
+    self.navigationItem.rightBarButtonItem = gymDetailButton;
 }
 
 
-#pragma mark - response 
+#pragma mark - response
 
 - (void)backBtnAction:(id)sender{
     NSLog(@"返回");
@@ -148,7 +166,7 @@
     
     //设置layout
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
-        //item宽、高、行间距
+    //item宽、高、行间距
     CGFloat itemWidth = 64 * SCALE;
     CGFloat itemHeight = 64 * SCALE + 8 + 14;
     CGFloat lineSpacing = 15 * SCALE;
@@ -179,7 +197,13 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"点击了第%ld个", indexPath.row);
+    NSDictionary *coachDic = _coachArray[indexPath.row];
+    FTCoachBean *coachBean = [FTCoachBean new];
+    [coachBean setWithDic:coachDic];
+    
     FTOrderCoachViewController *orderCoachViewController = [FTOrderCoachViewController new];
+    orderCoachViewController.gymDetailBean = _gymDetailBean;
+    orderCoachViewController.coachBean = coachBean;
     [self.navigationController pushViewController:orderCoachViewController animated:YES];
 }
 
@@ -202,19 +226,20 @@
     _gymSourceView.frame = _gymSourceViewContainerView.bounds;
     _gymSourceView.delegate = self;
     [_gymSourceViewContainerView addSubview:_gymSourceView];
-
+    
 }
 - (void)courseClickedWithCell:(FTGymSourceTableViewCell *)courseCell andDay:(NSInteger)day andTimeSection:(NSString *) timeSection andDateString:(NSString *) dateString andTimeStamp:(NSString *)timeStamp{
     NSLog(@"day : %ld, timeSection : %@ dateString : %@", day, timeSection, dateString);
     
     FTGymOrderCourseView *gymOrderCourseView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCourseView" owner:nil options:nil] firstObject];
+    gymOrderCourseView.courseType = FTOrderCourseTypeGym;
     gymOrderCourseView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     gymOrderCourseView.dateString = dateString;
     gymOrderCourseView.dateTimeStamp = timeStamp;
     
     if (courseCell.hasOrder) {
         NSLog(@"已经预约");
-
+        
         NSDictionary *courseCellDic = courseCell.courserCellDic;
         gymOrderCourseView.courserCellDic = courseCellDic;
         
@@ -222,7 +247,7 @@
         gymOrderCourseView.delegate = self;
         gymOrderCourseView.status = FTGymCourseStatusHasOrder;
         [[[UIApplication sharedApplication] keyWindow] addSubview:gymOrderCourseView];
-
+        
     } else if (courseCell.canOrder) {
         
         
@@ -234,7 +259,7 @@
         [[[UIApplication sharedApplication] keyWindow] addSubview:gymOrderCourseView];
         NSLog(@"可以预约");
         
-
+        
     }else if (courseCell.isFull) {
         
         
@@ -253,6 +278,72 @@
 - (void)bookSuccess{
     //预订成功后，刷新课程预订信息
     [self gettimeSectionsUsingInfo];
+}
+
+
+/**
+ 获取会员信息
+ */
+- (void)getVIPInfo{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //无数据：非会员
+        //"type"为会员类型： 0准会员 1会员 2往期会员
+        
+        NSString *status = dic[@"status"];
+        NSLog(@"status : %@", status);
+        FTGymVIPType gymVIPType;
+        if ([status isEqualToString:@"success"]) {
+            NSString *type = dic[@"data"][@"type"];
+            gymVIPType = [type integerValue];
+            if (gymVIPType == FTGymVIPTypeYep) {//如果已经是会员，更新会员信息的展示
+                [self updateVIPInfoUIWithDic:dic[@"data"]];
+            }else if (gymVIPType == FTGymVIPTypeApplying){
+                
+            }
+        }else{
+            gymVIPType = FTGymVIPTypeNope;
+            
+        }
+        
+    }];
+}
+
+- (void)updateVIPInfoUIWithDic:(NSDictionary *)dic{
+    
+    //团课剩余次数
+    NSString *remainingTime = dic[@"remainTime"];
+    if (!remainingTime) {
+        remainingTime = @"0";
+    }
+    _remainingTimesLabel.text = [NSString stringWithFormat:@"团课剩余次数：%@次", remainingTime];
+    
+    //有效期
+    NSString *validTimeString = [NSString stringWithFormat:@"%@", dic[@"expireTime"]];
+    
+    if (validTimeString) {
+        NSString *validTime = [FTTools fixStringForDateWithoutTime2:validTimeString];
+        _validTimelineLabel.text = [NSString stringWithFormat:@"有效期：%@", validTime];
+        
+        //如果是320屏幕，把中文的『：』改用『:』达到最简单适配的目的
+        if (SCREEN_WIDTH == 320) {
+            _validTimelineLabel.text = [NSString stringWithFormat:@"有效期:%@", validTime];
+        }
+        
+    } else {
+        _validTimelineLabel.text = [NSString stringWithFormat:@""];
+    }
+    
+    //余额
+    NSString *balance = dic[@"money"];
+    if (!balance) {
+        balance = @"0";
+    }
+    balance = [NSString stringWithFormat:@"%@", balance];
+    balance = [NSString stringWithFormat:@"%.0lf", [balance doubleValue] / 100];
+    
+    _balanceLabel.text = [NSString stringWithFormat:@"%@", balance];
 }
 
 /**
@@ -296,7 +387,12 @@
 }
 
 - (void)gotoGymDetail{
-
+    FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
+    FTGymBean *gymBean = [FTGymBean new];
+    gymBean.corporationid = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+    gymBean.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.id];
+    gymDetailWebViewController.gymBean = gymBean;
+    [self.navigationController pushViewController:gymDetailWebViewController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

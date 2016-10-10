@@ -183,14 +183,22 @@ static WXSingleton * wxSingleton = nil;
                                     
                                     
                                     NSLog(@"微信注册成功,message:%@", message);
-                                    NSLog(@"微信登录信息:%@",dict[@"data"][@"user"]);
+                                    NSLog(@"dict:%@", dict);
+//                                    NSLog(@"微信登录信息:%@",dict[@"data"][@"user"]);
                                     NSDictionary *userDic = dict[@"data"][@"user"];
                                     FTUserBean *user = [FTUserBean new];
                                     [user setValuesForKeysWithDictionary:userDic];
                                     
+                                    user.corporationid = dict[@"data"][@"corporationid"];
+                                    user.identity = dict[@"data"][@"identity"];
+                                    user.interestList = dict[@"data"][@"interestList"];
+                                    
+                                    NSString *corporationid =  [[NSString stringWithFormat:@"%ld",[dict[@"data"][@"corporationid"] integerValue]] copy];
+                                    NSLog(@"corporationid:%@",corporationid);
+                                    NSLog(@"user.corporationid:%@",[user.corporationid copy]);
+                                    
                                     //从本地读取存储的用户信息
-                                    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-                                    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+                                    FTUserBean *localUser = [FTUserBean loginUser];
                                     
                                     //存储token openid
                                     [[NSUserDefaults standardUserDefaults] setObject:user.openId forKey:@"wxopenId"];
@@ -214,6 +222,7 @@ static WXSingleton * wxSingleton = nil;
                                     NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
                                     [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
                                     [[NSUserDefaults standardUserDefaults]synchronize];
+                                    
                                     //发送通知，告诉评论页面微信登录成功
                                     [[NSNotificationCenter defaultCenter] postNotificationName:WXLoginResultNoti object:@"SUCESS"];
                                     //                            [[NSNotificationCenter defaultCenter] postNotificationName:@"loginAction" object:nil];

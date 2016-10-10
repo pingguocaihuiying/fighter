@@ -117,14 +117,13 @@
         
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:LoginUser];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+
         [[NSNotificationCenter defaultCenter] postNotificationName:LoginNoti object:@"LOGOUT"];
         
         NSLog(@"dict:%@",dict);
         NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-        
-        
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:LoginUser];
-        [[NSUserDefaults standardUserDefaults] synchronize];
         
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         

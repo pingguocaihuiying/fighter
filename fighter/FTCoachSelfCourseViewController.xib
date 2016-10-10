@@ -39,7 +39,7 @@
                     <constraints>
                         <constraint firstItem="8fs-OF-eP3" firstAttribute="leading" secondItem="izI-Ce-O19" secondAttribute="leading" id="92K-j4-5c4"/>
                         <constraint firstAttribute="bottom" secondItem="8fs-OF-eP3" secondAttribute="bottom" id="gPH-yx-SWs"/>
-                        <constraint firstItem="8fs-OF-eP3" firstAttribute="top" secondItem="FfX-ED-VLS" secondAttribute="bottom" id="gQU-SY-Z7j"/>
+                        <constraint firstItem="8fs-OF-eP3" firstAttribute="top" secondItem="FfX-ED-VLS" secondAttribute="bottom" constant="20" id="gQU-SY-Z7j"/>
                         <constraint firstItem="FfX-ED-VLS" firstAttribute="top" secondItem="izI-Ce-O19" secondAttribute="top" id="hHd-Jz-Vjs"/>
                         <constraint firstAttribute="trailing" secondItem="FfX-ED-VLS" secondAttribute="trailing" id="nrL-IP-FTL"/>
                         <constraint firstItem="FfX-ED-VLS" firstAttribute="leading" secondItem="izI-Ce-O19" secondAttribute="leading" id="oY6-wn-psX"/>
