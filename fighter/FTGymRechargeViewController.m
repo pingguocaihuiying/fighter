@@ -106,8 +106,8 @@
         if (status) {
             NSDictionary *tempDic = dic[@"data"];
             NSInteger tempId = [tempDic[@"id"] integerValue];
-            self.balance = [tempDic[@"money"] integerValue]/100;
-            [self.blanceLabel setText:[NSString stringWithFormat:@"%.2f",self.balance]];
+            self.balance = [tempDic[@"money"] integerValue];
+            [self.blanceLabel setText:[NSString stringWithFormat:@"%.2f",self.balance/100]];
             if (tempId != 0) {
                  self.membershipId = [NSString stringWithFormat:@"%ld",tempId];
             }

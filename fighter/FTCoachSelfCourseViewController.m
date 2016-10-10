@@ -9,6 +9,8 @@
 #import "FTCoachSelfCourseViewController.h"
 #import "FTGymSourceView.h"
 #import "FTCoachHistoryCourseTableViewCell.h"
+#import "NSDate+Tool.h"
+#import "FTCourseHistoryBean.h"
 
 @interface FTCoachSelfCourseViewController ()<FTGymCourseTableViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UITableView *historyOrderTableView;
@@ -19,6 +21,8 @@
 
 @property (nonatomic, strong) NSArray *timeSectionsArray;//拳馆的固定时间段
 @property (nonatomic, strong) NSMutableDictionary *placesUsingInfoDic;//场地、时间段的占用情况
+@property (nonatomic, strong) NSMutableArray *historyArray;
+
 @end
 
 @implementation FTCoachSelfCourseViewController
@@ -148,12 +152,62 @@
 - (void) getTeachRecordFromServer {
     
     [NetWorking getCoachTeachRecordWithCorporationid:self.corporationid option:^(NSDictionary *dict) {
+        
         SLog(@"dict:%@",dict);
+        BOOL status = [dict[@"status"] isEqualToString:@"success"]? YES:NO;
+        if (status) {
+            
+            [self sortArray:dict[@"data"]];
+        }
         
         [self.historyOrderTableView reloadData];
     }];
-    
 }
+
+
+- (void) sortArray:(NSArray *)tempArray {
+    
+    if (!_historyArray) {
+        _historyArray = [[NSMutableArray alloc]init];
+    }
+    
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+    
+    for (NSDictionary *dic in tempArray) {
+        
+        FTCourseHistoryBean *bean = [[FTCourseHistoryBean alloc]init];
+        [bean setValuesWithDic:dic];
+        
+        NSString *currentYearMonthString = [NSDate currentYearMonthString];
+        NSString *dateString = [NSDate yearMonthString:bean.date];
+        
+        if ([dateString isEqualToString:currentYearMonthString]) {
+        
+            bean.dateString = [NSDate monthDayStringWithWordSpace:bean.date];
+            
+        }else {
+            bean.dateString = [NSDate dateStringWithWordSpace:bean.date];
+        }
+        
+        NSLog(@"dateString:%@",bean.dateString);
+        
+        if ([dict.allKeys containsObject:dateString]) {
+            NSMutableArray *array = [dict objectForKey:@"dateString"];
+            [array addObject:bean];
+            
+        }else {
+            
+            NSMutableArray *array = [[NSMutableArray alloc]init];
+            [array addObject:bean];
+            [_historyArray addObject:array];
+            [dict setObject:array forKey:@"dateString"];
+            
+        }
+    }
+}
+
+#pragma mark -
+
 
 - (void)setTableview{
     _historyOrderTableView.delegate = self;
@@ -163,17 +217,26 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 6;
+    
+    return _historyArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    NSArray *array =_historyArray[section];
+    return array.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     FTCoachHistoryCourseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    FTCourseHistoryBean *bean = _historyArray[indexPath.section][indexPath.row];
+
+    cell.dateLabel.text = bean.dateString;
+    cell.timeSectionLabel.text = bean.timeSection;
+    cell.nameLabel.text = bean.createName;
     
     return cell;
 }
@@ -196,7 +259,7 @@
     
     UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(label1.frame.origin.x + label1.width, 4, 50, 12)];
     label2.textColor = [UIColor colorWithHex:0xb4b4b4];
-    label2.text = @"24节";
+    label2.text = [NSString stringWithFormat:@"%ld节",[_historyArray[section] count] ];
     label2.font = [UIFont systemFontOfSize:12];
     [headerView addSubview:label2];
     

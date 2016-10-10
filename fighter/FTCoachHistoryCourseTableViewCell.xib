@@ -13,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="320" height="43"/>
+                <frame key="frameInset" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bvv-rP-Vte" userLabel="半透明黑色View">
@@ -60,7 +60,10 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="dateLabel" destination="8me-4i-jhw" id="4HH-Oa-85N"/>
                 <outlet property="dividingLineView" destination="NDj-de-u0W" id="zSJ-Dz-WSl"/>
+                <outlet property="nameLabel" destination="QJw-NT-lQM" id="zSl-c9-nYw"/>
+                <outlet property="timeSectionLabel" destination="KdK-Pp-Q4v" id="WZK-SZ-jxU"/>
             </connections>
         </tableViewCell>
     </objects>
