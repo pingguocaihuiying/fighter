@@ -77,4 +77,31 @@
  @return 年月日间隔字符串
  */
 + (NSString *) changeUnderlineDateToWordDate:(NSString *) dateString;
+
+
+
+#pragma mark -
+
++ (NSString *) currentYearString;
+
++ (NSString *) yearString:(NSInteger)timestamp ;
+
++ (NSString *) currentMonthString ;
+
++ (NSString *) monthString:(NSInteger) timestamp ;
+
++ (NSString *) currentDayString ;
+
++ (NSString *) dayString:(NSInteger) timestamp ;
+
+
+#pragma mark -
+
++ (NSString *) currentYearMonthString ;
+
++ (NSString *) yearMonthString:(NSInteger) timestamp ;
+
++ (NSString *) dateStringWithWordSpace:(NSInteger) timestamp;
+
++ (NSString *) monthDayStringWithWordSpace:(NSInteger) timestamp;
 @end

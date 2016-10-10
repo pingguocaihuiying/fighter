@@ -11,4 +11,10 @@
 
 @interface FTCoachHistoryCourseTableViewCell : FTBaseTableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *timeSectionLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+
 @end
