@@ -159,6 +159,7 @@
     NSString *tableName = @"pl-gym";//拳馆会员充值
     NSString *isDelated = @"3";//0-无效记录；1-s支付；2-p支付;3-RMB元支付(默认为元)
     NSString *money =  [NSString stringWithFormat:@"%ld",self.rechargeMoney*100];//交易人民币（单位：分）
+    money = @"1";
     NSString *payWay = @"1";//默认为0-积分支付； 值为1-微信支付
     NSString *body = @"拳馆会员充值";//商品描述，需传入应用市场上的APP名字-实际商品名称，天天爱消除-游戏充值，示例：腾讯充值中心-QQ会员充值
     NSString *detail =  [NSString stringWithFormat:@"拳馆会员充值：%ld元",self.rechargeMoney];//商品详情，商品名称明细列表，示例：Ipad mini 16G 白色

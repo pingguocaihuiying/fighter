@@ -28,8 +28,12 @@ typedef NS_ENUM(NSInteger, FTGymCourseStatus) {
 @end
 
 #import <UIKit/UIKit.h>
+#import "FTGymSourceView.h"
 
 @interface FTGymOrderCourseView : UIView
+
+@property (nonatomic, assign) FTOrderCourseType courseType;//课程表类型
+
 @property (strong, nonatomic) IBOutlet UIView *belowView1;
 @property (strong, nonatomic) IBOutlet UIView *belowView2;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *belowView1Height;
@@ -40,5 +44,15 @@ typedef NS_ENUM(NSInteger, FTGymCourseStatus) {
 @property (nonatomic, copy) NSString *dateString;//课程那一天的日期，eg：7月8日
 @property (nonatomic, copy) NSString *gymId;//拳馆id
 @property (nonatomic, weak) id<FTGymOrderCourseViewDelegate> delegate;
+
+
+
+//下面是预约私教可能用到的字段
+@property (nonatomic, copy) NSString *coachName;//教练名字
+@property (nonatomic, copy) NSString *price;//预约的私教的价格
+@property (nonatomic, copy) NSString *timeSection;//时间段
+@property (nonatomic, copy) NSString *timeSectionId;//时间段id
+@property (nonatomic, copy) NSString *balance;//余额
+@property (nonatomic, copy) NSString *coachUserId;//教练id
 
 @end
