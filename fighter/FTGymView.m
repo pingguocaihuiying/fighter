@@ -259,7 +259,6 @@
         if ([categoryArray containsObject:[_dataSourceArray objectAtIndex:i]] == NO){
             
             [categoryArray addObject:[_dataSourceArray objectAtIndex:i]];
-            
         }
     }
     

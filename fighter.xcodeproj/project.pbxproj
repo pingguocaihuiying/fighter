@@ -148,6 +148,7 @@
 		3D7C6B821CF2A26D0088400D /* BoxerMatchController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D7C6B801CF2A26D0088400D /* BoxerMatchController.xib */; };
 		3D7C6B861CF2A2990088400D /* BoxerInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C6B841CF2A2990088400D /* BoxerInfoController.m */; };
 		3D7C6B871CF2A2990088400D /* BoxerInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D7C6B851CF2A2990088400D /* BoxerInfoController.xib */; };
+		3D8242721DAB7A36004C0382 /* FTCourseHistoryBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8242711DAB7A36004C0382 /* FTCourseHistoryBean.m */; };
 		3D8771261D9118CA0001DB78 /* FTGymCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8771241D9118CA0001DB78 /* FTGymCommentsViewController.m */; };
 		3D8771271D9118CA0001DB78 /* FTGymCommentsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D8771251D9118CA0001DB78 /* FTGymCommentsViewController.xib */; };
 		3D87712B1D9133D00001DB78 /* FTGymCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8771291D9133D00001DB78 /* FTGymCommentTableViewCell.m */; };
@@ -674,6 +675,8 @@
 		3D7C6B831CF2A2990088400D /* BoxerInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoxerInfoController.h; sourceTree = "<group>"; };
 		3D7C6B841CF2A2990088400D /* BoxerInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoxerInfoController.m; sourceTree = "<group>"; };
 		3D7C6B851CF2A2990088400D /* BoxerInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BoxerInfoController.xib; sourceTree = "<group>"; };
+		3D8242701DAB7A36004C0382 /* FTCourseHistoryBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCourseHistoryBean.h; sourceTree = "<group>"; };
+		3D8242711DAB7A36004C0382 /* FTCourseHistoryBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCourseHistoryBean.m; sourceTree = "<group>"; };
 		3D8771231D9118CA0001DB78 /* FTGymCommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymCommentsViewController.h; sourceTree = "<group>"; };
 		3D8771241D9118CA0001DB78 /* FTGymCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymCommentsViewController.m; sourceTree = "<group>"; };
 		3D8771251D9118CA0001DB78 /* FTGymCommentsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymCommentsViewController.xib; sourceTree = "<group>"; };
@@ -1819,6 +1822,15 @@
 			name = boxerVideo;
 			sourceTree = "<group>";
 		};
+		3D82426F1DAB79E0004C0382 /* bean */ = {
+			isa = PBXGroup;
+			children = (
+				3D8242701DAB7A36004C0382 /* FTCourseHistoryBean.h */,
+				3D8242711DAB7A36004C0382 /* FTCourseHistoryBean.m */,
+			);
+			name = bean;
+			sourceTree = "<group>";
+		};
 		3D8771221D91187E0001DB78 /* 拳馆评论列表 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2679,6 +2691,7 @@
 		E66BC0071D9A679A00B492D3 /* 教练查看自己的课表 */ = {
 			isa = PBXGroup;
 			children = (
+				3D82426F1DAB79E0004C0382 /* bean */,
 				E66BC00D1D9A752000B492D3 /* 历史课程记录cell */,
 				E66BC0081D9A67C700B492D3 /* FTCoachSelfCourseViewController.h */,
 				E66BC0091D9A67C700B492D3 /* FTCoachSelfCourseViewController.m */,
@@ -4206,6 +4219,7 @@
 				E66F49451D93F3DF005B39D1 /* FTGymSourceTableViewCell.m in Sources */,
 				3DFC41531D083A3F0067AC72 /* SDCycleScrollView.m in Sources */,
 				3D9666D31D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.m in Sources */,
+				3D8242721DAB7A36004C0382 /* FTCourseHistoryBean.m in Sources */,
 				3D8B2E531D1D14B000E18280 /* FTCoachCell.m in Sources */,
 				E6F46C361D829161001387E2 /* FTGymPhotosViewController.m in Sources */,
 				3D0B44721D45D96F00EE08B3 /* FTNewsCell.m in Sources */,
