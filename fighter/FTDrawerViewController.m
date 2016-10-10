@@ -866,7 +866,7 @@ static NSString *const tableCellId = @"tableCellId";
     BOOL isCoach = NO;
     
     if (loginUser) {
-        NSLog(@"identity count:%ld",loginUser.identity.count);
+        NSLog(@"corporationid :%@",loginUser.corporationid);
         for (NSDictionary *dic in loginUser.identity) {
             if ([dic[@"itemValueEn"] isEqualToString:@"coach"]) {
                 isCoach = YES;
@@ -875,7 +875,9 @@ static NSString *const tableCellId = @"tableCellId";
         }
     }
     
-    if (isCoach) {
+    if (isCoach && loginUser.corporationid) {
+        
+        _coachSelfCourseVC.corporationid = loginUser.corporationid;
         _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_coachSelfCourseVC,_rankHomeVC];
     }else {
         _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_practiceVC,_rankHomeVC];

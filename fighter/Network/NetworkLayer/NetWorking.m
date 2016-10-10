@@ -1108,6 +1108,38 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     
 }
 
+
+/**
+ 查看教练授课记录
+
+ @param corporationid 拳馆id
+ @param option  授课记录json字典
+ */
++ (void) getCoachTeachRecordWithCorporationid:(NSString*)corporationid option:(void (^)(NSDictionary *dict))option {
+
+    NSString *urlString = [FTNetConfig host:Domain path:GetCoachTeachRecord];
+    NSLog(@"urlString=%@",urlString);
+
+    
+    FTUserBean *loginuser = [FTUserBean loginUser];
+    NSString *userId = loginuser.olduserid;
+    NSString *token = loginuser.token;
+    NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];// 时间戳
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:userId forKey:@"userId"];
+    [dic setObject:token forKey:@"loginToken"];
+    [dic setObject:ts forKey:@"ts"];
+    [dic setObject:@"2" forKey:@"type"];
+    [dic setObject:corporationid forKey:@"corporationid"];
+    
+    NSString *checkSign = [FTTools md5Dictionary:dic withCheckKey:@"gedoujiahtdfh3gf24"];
+    [dic setObject:checkSign forKey:@"checkSign"];
+
+    
+    [self postRequestWithUrl:urlString parameters:dic option:option];
+}
+
 #pragma mark - 赛事
 + (void)getGymTimeSlotsById:(NSString *) corporationID andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymTimeSlotsByIdURL];

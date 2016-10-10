@@ -229,13 +229,20 @@
         }
         
         [NetWorking wxPayStatusWithOrderNO:_tradeNO andOption:^(NSDictionary *dic) {
+            
             NSLog(@"dic:%@",dic);
             NSLog(@"message:%@",dic[@"message"]);
             NSString *status = dic[@"status"];
+            
             if ([status isEqualToString:@"success"]) {
+                
                 [self.view showMessage:@"微信支付成功~"];
                 //查询余额信息
                 [self getMembershipInfoFromServer];
+                
+                //发送通知
+                [[NSNotificationCenter defaultCenter] postNotificationName:RechargeMoneytNoti object:@"SUCESS"];
+                
             }else {
                 [self.view showMessage:@"微信支付失败，请稍后再试~"];
             }
