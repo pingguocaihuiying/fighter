@@ -53,8 +53,8 @@
 
 @interface FTDrawerViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
 {
-    // 兑吧地址
-    NSInteger _duibaConfig;
+    // 商城配置
+    NSInteger _shopConfig;
 }
 //@property (nonatomic, strong) NSMutableArray *interestsArray;
 //@property (nonatomic, strong) FTDrawerTableViewHeader *header;
@@ -83,9 +83,8 @@ static NSString *const tableCellId = @"tableCellId";
     
     if (self) {
         
-        _duibaConfig = 1;
-//        // 获取兑吧展示配置
-//        [self getDuibaConfigInfo];
+        _shopConfig = 1;
+
     }
     
     return self;
@@ -269,7 +268,7 @@ static NSString *const tableCellId = @"tableCellId";
         [self tableViewAdapter];
     }
     
-    [self setHomeViewController];
+    [self settabBarChildViewControllers];
 }
 
 
@@ -291,7 +290,7 @@ static NSString *const tableCellId = @"tableCellId";
     }else if ([msg isEqualToString:@"ERROR"]){
         [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"微信登录失败"];
     }
-    [self setHomeViewController];
+    [self settabBarChildViewControllers];
 }
 
 #pragma mark - 充值回调
@@ -633,7 +632,6 @@ static NSString *const tableCellId = @"tableCellId";
         }
         
         FTPaySingleton *singleton = [FTPaySingleton shareInstance];
-        NSLog(@"balance:%ld",singleton.balance);
         [cell setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
         
         return cell;
@@ -700,12 +698,15 @@ static NSString *const tableCellId = @"tableCellId";
 
 #pragma mark 个人主页入口
 - (void)gotoHomepageWithUseroldid:(NSString *)olduserid{
+    
     if (!olduserid) {
         //从本地读取存储的用户信息
         NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
         FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
         olduserid = localUser.olduserid;
+        
     }
+    
     FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
     homepageViewController.olduserid = olduserid;
     
@@ -716,8 +717,7 @@ static NSString *const tableCellId = @"tableCellId";
     [self presentViewController:baseNav animated:YES completion:nil];
 }
 
-#pragma mark - private methods
-
+#pragma mark - 设置tabbar
 
 - (void) settabBarItemViewControllers {
 
@@ -828,7 +828,6 @@ static NSString *const tableCellId = @"tableCellId";
 
     }
     
-    
     // 自定义H5页面商城
     if (_shopVC == nil) {
         
@@ -845,10 +844,9 @@ static NSString *const tableCellId = @"tableCellId";
     
 }
 
-- (void) setHomeViewController {
-    
-    [self settabBarItemViewControllers];
-   
+
+- (void) setTabbarViewController {
+
     // 设置tabbar的属性
     if (_tabBarVC == nil) {
         
@@ -860,15 +858,21 @@ static NSString *const tableCellId = @"tableCellId";
         _tabBarVC.drawerDelegate = self;
         _tabBarVC.openSliderDelegate = self.dynamicsDrawerViewController;
     }
-   
+    
+}
+
+
+- (void) settabBarChildViewControllers {
     
     FTUserBean *loginUser = [FTUserBean loginUser];
     BOOL isCoach = NO;
     
     if (loginUser) {
-        NSLog(@"corporationid :%@",loginUser.corporationid);
+        
         for (NSDictionary *dic in loginUser.identity) {
+            
             if ([dic[@"itemValueEn"] isEqualToString:@"coach"]) {
+                
                 isCoach = YES;
                 break;
             }
@@ -879,25 +883,44 @@ static NSString *const tableCellId = @"tableCellId";
         
         _coachSelfCourseVC.corporationid = loginUser.corporationid;
         _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_coachSelfCourseVC,_rankHomeVC];
+        
     }else {
+        
         _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_practiceVC,_rankHomeVC];
     }
+}
+
+
+- (void) setHomeViewController {
     
-    FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:_tabBarVC];
+    // 初始化tabBar child控制器
+    [self settabBarItemViewControllers];
     
-    [self.dynamicsDrawerViewController  setPaneViewController:navi];
+    // 初始化tabBar
+    [self setTabbarViewController];
     
-    [self getDuibaConfigInfo:^{
+    // 设置tabBar child控制器
+    [self settabBarChildViewControllers];
+    
+    // 设置格斗商城
+    [self getShopConfigInfo:^{
         
-        if (_duibaConfig == 0) {
+        if (_shopConfig == 0) {
             
-           [self addTabBarVC:_shopVC];
+            [self addTabBarVC:_shopVC];
         }
     }];
     
     // 推送
     [self checkPush];
+    
+    
+    FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:_tabBarVC];
+    [self.dynamicsDrawerViewController  setPaneViewController:navi];
 }
+
+
+
 
 
 - (void) addTabBarVC:(UIViewController *)viewController {
@@ -912,6 +935,7 @@ static NSString *const tableCellId = @"tableCellId";
 }
 
 
+#pragma mark - 推送
 
 - (void) checkPush {
 
@@ -972,7 +996,7 @@ static NSString *const tableCellId = @"tableCellId";
 #pragma mark - 网络通讯
 
 // 获取兑吧地址
-- (void) getDuibaConfigInfo:(void (^)(void)) option{
+- (void) getShopConfigInfo:(void (^)(void)) option{
 
     [NetWorking GetDuiBaConfig:^(NSDictionary *dict) {
         
@@ -985,7 +1009,7 @@ static NSString *const tableCellId = @"tableCellId";
         NSDictionary *dict_data = [dict[@"data"] objectAtIndex:0];
         if (dict_data) {
             
-            _duibaConfig = [dict_data[@"config_value"] integerValue];
+            _shopConfig = [dict_data[@"config_value"] integerValue];
         }
         
         option();

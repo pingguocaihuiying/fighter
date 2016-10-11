@@ -136,6 +136,10 @@
         }
         
         dataSource = [bean.urls componentsSeparatedByString:@","];
+        for (NSString *string in dataSource) {
+            NSLog(@"string:%@",string);
+        }
+        
         [self setCollectionView];
         self.CollectionHeightConstraint.constant = 40;
         [_collectionView reloadData];

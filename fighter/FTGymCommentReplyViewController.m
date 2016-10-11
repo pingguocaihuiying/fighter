@@ -9,6 +9,8 @@
 #import "FTGymCommentReplyViewController.h"
 #import "FTGymCommentReplyCell.h"
 #import "FTGymCommentDetailCell.h"
+#import "FTLoginViewController.h"
+#import "FTBaseNavigationViewController.h"
 
 @interface FTGymCommentReplyViewController () <UITableViewDelegate,UITableViewDataSource>
 
@@ -163,6 +165,10 @@
 
 - (IBAction)thumbsButtonAction:(id)sender {
     
+    if (![self isLogined]) {
+        return;
+    }
+
     [self.commentTextField resignFirstResponder];
     
     [NetWorking addVoteWithObjid:[NSString stringWithFormat:@"%d",self.bean.id] isAdd:self.thumbState? NO:YES andTableName:@"v-cgym" andOption:^(BOOL result) {
@@ -176,6 +182,10 @@
 }
 
 - (IBAction)commentButtonAcrtion:(id)sender {
+    
+    if (![self isLogined]) {
+        return;
+    }
     
     [self.commentTextField resignFirstResponder];
     
@@ -366,6 +376,18 @@
     if (touch.view == self.tableView) {
         [self.commentTextField resignFirstResponder];
     }
+    
+}
+
+
+#pragma mark - private
+// 跳转登录界面方法
+- (void)login{
+    
+    FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+    loginVC.title = @"登录";
+    FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
     
 }
 

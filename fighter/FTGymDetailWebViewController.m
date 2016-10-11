@@ -211,7 +211,6 @@
 //    self.navigationItem.rightBarButtonItem = shareButton;
     //因为拳馆详情的web页还没做，先隐藏掉分享功能
     
-    
 }
 
 

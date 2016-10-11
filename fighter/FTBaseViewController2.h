@@ -10,4 +10,6 @@
 
 @interface FTBaseViewController2 : UIViewController
 
+- (BOOL) isLogined;
+
 @end

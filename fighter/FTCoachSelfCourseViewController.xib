@@ -11,6 +11,7 @@
                 <outlet property="courseHistoryTableViewHeight" destination="qZN-dv-uWz" id="5ux-bX-bes"/>
                 <outlet property="gymSourceViewContainerView" destination="FfX-ED-VLS" id="B4E-YD-h6J"/>
                 <outlet property="historyOrderTableView" destination="8fs-OF-eP3" id="rxa-Lm-ssB"/>
+                <outlet property="scrollView" destination="izI-Ce-O19" id="ufr-gm-QWE"/>
                 <outlet property="tableViewHeight" destination="Edr-OQ-rIg" id="DDe-Yb-x0H"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -45,6 +46,9 @@
                         <constraint firstItem="FfX-ED-VLS" firstAttribute="leading" secondItem="izI-Ce-O19" secondAttribute="leading" id="oY6-wn-psX"/>
                         <constraint firstAttribute="trailing" secondItem="8fs-OF-eP3" secondAttribute="trailing" id="zYo-KI-nic"/>
                     </constraints>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="QTE-Og-Vgy"/>
+                    </connections>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
