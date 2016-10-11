@@ -18,7 +18,7 @@
 @interface FTGymCommentTableViewCell()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
     BOOL thumbState;
-    NSArray *dataSource;
+    NSMutableArray *dataSource;
 }
 
 @end
@@ -131,18 +131,19 @@
     
     if (bean.urls.length > 0) {
         
-        if (dataSource == nil) {
-            dataSource = [[NSArray alloc]init];
-        }
         
-        dataSource = [bean.urls componentsSeparatedByString:@","];
-        for (NSString *string in dataSource) {
-            NSLog(@"string:%@",string);
-        }
+        dataSource = [NSMutableArray arrayWithArray:[bean.urls componentsSeparatedByString:@","]];
+        [dataSource removeObject:@""];
         
-        [self setCollectionView];
         self.CollectionHeightConstraint.constant = 40;
-        [_collectionView reloadData];
+        if (dataSource.count > 0) {
+            //在主线程中更新屏幕
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_collectionView reloadData];
+            });
+            
+        }
+        
     }else {
     
         dataSource = nil;
@@ -227,13 +228,11 @@
 #pragma mark - collectionView 
 - (void) setCollectionView {
 
-    //left
-    [_collectionView registerNib:[UINib nibWithNibName:@"FTGymPhotoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell1"];//FooCollectionViewCell
-    //    _collectionView.backgroundColor = [UIColor clearColor];
-    _collectionView.delegate = self;
+    [_collectionView registerNib:[UINib nibWithNibName:@"FTGymPhotoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell1"];
     _collectionView.dataSource = self;
-    
+    _collectionView.delegate = self;
 }
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
 
     return dataSource.count;

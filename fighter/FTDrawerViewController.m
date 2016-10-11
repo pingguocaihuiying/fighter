@@ -888,6 +888,15 @@ static NSString *const tableCellId = @"tableCellId";
         
         _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_practiceVC,_rankHomeVC];
     }
+    
+    // 设置格斗商城
+    [self getShopConfigInfo:^{
+        
+        if (_shopConfig == 0) {
+            
+            [self addTabBarVC:_shopVC];
+        }
+    }];
 }
 
 
@@ -902,14 +911,7 @@ static NSString *const tableCellId = @"tableCellId";
     // 设置tabBar child控制器
     [self settabBarChildViewControllers];
     
-    // 设置格斗商城
-    [self getShopConfigInfo:^{
-        
-        if (_shopConfig == 0) {
-            
-            [self addTabBarVC:_shopVC];
-        }
-    }];
+    
     
     // 推送
     [self checkPush];
@@ -918,9 +920,6 @@ static NSString *const tableCellId = @"tableCellId";
     FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:_tabBarVC];
     [self.dynamicsDrawerViewController  setPaneViewController:navi];
 }
-
-
-
 
 
 - (void) addTabBarVC:(UIViewController *)viewController {
