@@ -17,7 +17,7 @@
 #import "FTGymBean.h"
 #import "FTGymVIPCellTableViewCell.h"
 #import "FTGymDetailBean.h"
-#import "FTGymSourceViewController.h"
+#import "FTGymSourceViewController2.h"
 
 @interface FTGymView () <UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, FTCycleScrollViewDelegate,FTSelectCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -587,11 +587,15 @@
     
     if (bean.isGymUser) {
         NSLog(@"是会员");
-        FTGymSourceViewController *gymSourceViewController = [FTGymSourceViewController new];
+        FTGymSourceViewController2 *gymSourceViewController = [FTGymSourceViewController2 new];
         FTGymDetailBean *detailBean = [FTGymDetailBean new];
         detailBean.gym_name = bean.gymName;
         detailBean.corporationid = [bean.corporationid intValue];
         gymSourceViewController.gymDetailBean = detailBean;
+        
+        //获取对应的bean，传递给下个vc
+        gymSourceViewController.gymBean = bean;
+        
         if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
             [self.delegate pushToController:gymSourceViewController];
         }
@@ -713,11 +717,13 @@
     FTGymBean *bean = [FTGymBean new];
     [bean setValuesWithDic:newsDic];
     
-    FTGymSourceViewController *gymSourceViewController = [FTGymSourceViewController new];
+    FTGymSourceViewController2 *gymSourceViewController = [FTGymSourceViewController2 new];
     FTGymDetailBean *detailBean = [FTGymDetailBean new];
     detailBean.gym_name = bean.gymName;
     detailBean.corporationid = [bean.corporationid intValue];
     gymSourceViewController.gymDetailBean = detailBean;
+    
+    
     
     if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
         [self.delegate pushToController:gymSourceViewController];

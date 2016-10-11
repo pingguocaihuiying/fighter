@@ -8,7 +8,7 @@
 
 #import "FTPayForGymVIPViewController.h"
 #import "FTJoinGymSuccessAlertView.h"
-#import "FTGymSourceViewController.h"
+#import "FTGymSourceViewController2.h"
 #import "FTGymDetailWebViewController.h"
 
 @interface FTPayForGymVIPViewController ()<FTJoinGymSuccessAlertViewDelegate>
@@ -372,7 +372,7 @@
 
 - (void)enterGymButtonClicked{
     NSLog(@"进入拳馆预约课程");
-    FTGymSourceViewController *gymSourceViewController = [FTGymSourceViewController new];
+    FTGymSourceViewController2 *gymSourceViewController = [FTGymSourceViewController2 new];
     gymSourceViewController.gymDetailBean = _gymDetailBean;
     [self.navigationController pushViewController:gymSourceViewController animated:YES];
 }

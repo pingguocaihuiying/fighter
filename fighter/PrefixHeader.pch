@@ -106,6 +106,7 @@
 #define QQShareResultNoti @"QQShareResultNoti"
 #define RechargeResultNoti @"RechargeOrCharge"
 #define RechargeMoneytNoti @"RechargeMoneytNoti"
+#define BookCoachSuccessNotification @"RechargeMoneytNoti"
 
 #define LoginNoti @"LoginNotifacation"
 #define QQShareResponse @"addShareResponse"
