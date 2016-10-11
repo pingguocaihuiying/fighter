@@ -183,8 +183,14 @@
             _messageLabel1.textColor = [UIColor colorWithHex:0x24b33c];
             _messageLabel1.text = [NSString stringWithFormat:@"%@ / %@ 可预约", _courserCellDic[@"hasOrderCount"], _courserCellDic[@"topLimit"]];
             [_button1 setTitle:@"课程详情" forState:UIControlStateNormal];
+
             [_button2 setTitle:@"确定预约" forState:UIControlStateNormal];
             [self showBelowView1];
+            
+            NSString *webViewURL = _courserCellDic[@"url"];
+            if (!webViewURL) {
+                _button1.hidden = YES;
+            }
         }
             break;
             
@@ -197,6 +203,10 @@
             [_button2 setTitle:@"确定" forState:UIControlStateNormal];
             [self showBelowView1];
             
+            NSString *webViewURL = _courserCellDic[@"url"];
+            if (!webViewURL) {
+                _button1.hidden = YES;
+            }
         }
             break;
         case FTGymCourseStatusCantOrder:
@@ -207,6 +217,11 @@
             [_button1 setTitle:@"课程详情" forState:UIControlStateNormal];
             [_button2 setTitle:@"确定" forState:UIControlStateNormal];
             [self showBelowView1];
+            
+            NSString *webViewURL = _courserCellDic[@"url"];
+            if (!webViewURL) {
+                _button1.hidden = YES;
+            }
         }
         case FTGymCourseStatusCancelOrder:
         {

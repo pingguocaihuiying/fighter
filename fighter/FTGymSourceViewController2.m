@@ -49,6 +49,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *validTimelineLabel;//有效期标签
 
 
+
 @end
 
 @implementation FTGymSourceViewController2
@@ -236,53 +237,54 @@
 }
 - (void)courseClickedWithCell:(FTGymSourceTableViewCell *)courseCell andDay:(NSInteger)day andTimeSection:(NSString *) timeSection andDateString:(NSString *) dateString andTimeStamp:(NSString *)timeStamp{
     NSLog(@"day : %ld, timeSection : %@ dateString : %@", day, timeSection, dateString);
-    
-    FTGymOrderCourseView *gymOrderCourseView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCourseView" owner:nil options:nil] firstObject];
-    gymOrderCourseView.courseType = FTOrderCourseTypeGym;
-    gymOrderCourseView.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
-    gymOrderCourseView.dateString = dateString;
-    gymOrderCourseView.dateTimeStamp = timeStamp;
-    
-    NSDictionary *courseDic = courseCell.courserCellDic;
-    NSString *webViewURL = courseDic[@"url"];
-    gymOrderCourseView.webViewURL = webViewURL;
-    
-    if (courseCell.hasOrder) {
-        NSLog(@"已经预约");
+
         
-        NSDictionary *courseCellDic = courseCell.courserCellDic;
-        gymOrderCourseView.courserCellDic = courseCellDic;
+        FTGymOrderCourseView *gymOrderCourseView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCourseView" owner:nil options:nil] firstObject];
+        gymOrderCourseView.courseType = FTOrderCourseTypeGym;
+        gymOrderCourseView.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
+        gymOrderCourseView.dateString = dateString;
+        gymOrderCourseView.dateTimeStamp = timeStamp;
         
-        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
-        gymOrderCourseView.delegate = self;
-        gymOrderCourseView.status = FTGymCourseStatusHasOrder;
-        [self.view addSubview:gymOrderCourseView];
+        NSDictionary *courseDic = courseCell.courserCellDic;
+        NSString *webViewURL = courseDic[@"url"];
+        gymOrderCourseView.webViewURL = webViewURL;
         
-    } else if (courseCell.canOrder) {
-        
-        
-        NSDictionary *courseCellDic = courseCell.courserCellDic;
-        gymOrderCourseView.courserCellDic = courseCellDic;
-        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
-        gymOrderCourseView.delegate = self;
-        gymOrderCourseView.status = FTGymCourseStatusCanOrder;
-        [self.view addSubview:gymOrderCourseView];
-        NSLog(@"可以预约");
-        
-        
-    }else if (courseCell.isFull) {
-        
-        
-        NSDictionary *courseCellDic = courseCell.courserCellDic;
-        gymOrderCourseView.courserCellDic = courseCellDic;
-        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
-        gymOrderCourseView.delegate = self;
-        gymOrderCourseView.status = FTGymCourseStatusIsFull;
-        [self.view addSubview:gymOrderCourseView];
-        NSLog(@"满员");
-    }else{
-        //不能预约（可能因为数据无效等原因）
-    }
+        if (courseCell.hasOrder) {
+            NSLog(@"已经预约");
+            
+            NSDictionary *courseCellDic = courseCell.courserCellDic;
+            gymOrderCourseView.courserCellDic = courseCellDic;
+            
+            gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+            gymOrderCourseView.delegate = self;
+            gymOrderCourseView.status = FTGymCourseStatusHasOrder;
+            [self.view addSubview:gymOrderCourseView];
+            
+        } else if (courseCell.canOrder) {
+            
+            
+            NSDictionary *courseCellDic = courseCell.courserCellDic;
+            gymOrderCourseView.courserCellDic = courseCellDic;
+            gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+            gymOrderCourseView.delegate = self;
+            gymOrderCourseView.status = FTGymCourseStatusCanOrder;
+            [self.view addSubview:gymOrderCourseView];
+            NSLog(@"可以预约");
+            
+            
+        }else if (courseCell.isFull) {
+            
+            
+            NSDictionary *courseCellDic = courseCell.courserCellDic;
+            gymOrderCourseView.courserCellDic = courseCellDic;
+            gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+            gymOrderCourseView.delegate = self;
+            gymOrderCourseView.status = FTGymCourseStatusIsFull;
+            [self.view addSubview:gymOrderCourseView];
+            NSLog(@"满员");
+        }else{
+            //不能预约（可能因为数据无效等原因）
+        }
 }
 
 - (void)bookSuccess{
