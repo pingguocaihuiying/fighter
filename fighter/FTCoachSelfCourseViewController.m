@@ -15,6 +15,15 @@
 
 
 @interface FTCoachSelfCourseViewController ()<FTGymCourseTableViewDelegate, UITableViewDelegate, UITableViewDataSource, FTCoachChangeCourseStatusDelegate>
+{
+    CGFloat scrollY;
+    CGFloat tableY;
+    NSSet<UITouch *> *touchSet;
+    UIEvent *touchEvent;
+}
+
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
 @property (strong, nonatomic) IBOutlet UITableView *historyOrderTableView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *tableViewHeight;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *courseHistoryTableViewHeight;
@@ -83,6 +92,7 @@
 
 
 - (void)setGymSourceView{
+    
     _gymSourceView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymSourceView" owner:nil options:nil]firstObject];
     _gymSourceView.courseType = FTOrderCourseTypeCoachSelf;
     _gymSourceView.titleLabel.text = [NSString stringWithFormat:@"%d月", [[FTTools getCurrentMonth] intValue]];
@@ -94,55 +104,19 @@
     [_gymSourceView reloadTableViews];
 }
 
-
-- (void)courseClickedWithCell:(FTGymSourceTableViewCell *)courseCell andDay:(NSInteger)day andTimeSectionIndex:(NSInteger) timeSectionIndex andDateString:(NSString *) dateString andTimeStamp:(NSString *)timeStamp{
-    NSLog(@"day : %ld, timeSection : %@ dateString : %@", day, _timeSectionsArray[timeSectionIndex][@"timeSection"], dateString);
-    
-    if (courseCell.isEmpty) {//如果是空的，说明可以预约
-        NSLog(@"可以预约");
-        FTGymCoachStateSwitcher *gymCoachStateSwitcher = [[[NSBundle mainBundle]loadNibNamed:@"FTGymCoachStateSwitcher" owner:nil options:nil]firstObject];
-        gymCoachStateSwitcher.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
-        gymCoachStateSwitcher.delegate = self;
-        gymCoachStateSwitcher.canOrderOriginal = YES;
-        gymCoachStateSwitcher.canOrder = YES;
-        
-        gymCoachStateSwitcher.timeSection = _timeSectionsArray[timeSectionIndex][@"timeSection"];
-        gymCoachStateSwitcher.timeSectionId = _timeSectionsArray[timeSectionIndex][@"id"];
-        gymCoachStateSwitcher.dateString = dateString;
-        gymCoachStateSwitcher.dateTimeStamp = timeStamp;
-        gymCoachStateSwitcher.corporationid = _corporationid;
-        
-        [gymCoachStateSwitcher updateDisplay];
-        
-        [self.view addSubview:gymCoachStateSwitcher];
-        
-    }else{
-        NSDictionary *courseDic = courseCell.courserCellDic;
-        NSString *type = courseDic[@"type"];
-        
-        if ([type isEqualToString:@"3"]) {//如果不可约
-            NSLog(@"不可预约");
-            FTGymCoachStateSwitcher *gymCoachStateSwitcher = [[[NSBundle mainBundle]loadNibNamed:@"FTGymCoachStateSwitcher" owner:nil options:nil]firstObject];
-            gymCoachStateSwitcher.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
-            gymCoachStateSwitcher.delegate = self;
-            gymCoachStateSwitcher.canOrderOriginal = NO;
-            gymCoachStateSwitcher.canOrder = NO;
-            
-            gymCoachStateSwitcher.timeSection = _timeSectionsArray[timeSectionIndex][@"timeSection"];
-            gymCoachStateSwitcher.timeSectionId = _timeSectionsArray[timeSectionIndex][@"id"];
-            gymCoachStateSwitcher.dateString = dateString;
-            gymCoachStateSwitcher.dateTimeStamp = timeStamp;
-            gymCoachStateSwitcher.corporationid = _corporationid;
-            
-            [gymCoachStateSwitcher updateDisplay];
-            
-            [self.view addSubview:gymCoachStateSwitcher];
-        } else {//如果已约
-            
-        }
-    }
-    
+- (void)setTableview{
+    _historyOrderTableView.delegate = self;
+    _historyOrderTableView.dataSource = self;
+    [_historyOrderTableView registerNib:[UINib nibWithNibName:@"FTCoachHistoryCourseTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
+    //    _tableViewHeight.constant = 40 *
 }
+
+
+
+
+
+#pragma mark - NetWorking
+
 /**
  *  获取时间段信息
  */
@@ -239,23 +213,17 @@
     }
 }
 
-#pragma mark -
+#pragma mark - delegate
 
-
-- (void)setTableview{
-    _historyOrderTableView.delegate = self;
-    _historyOrderTableView.dataSource = self;
-    [_historyOrderTableView registerNib:[UINib nibWithNibName:@"FTCoachHistoryCourseTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
-//    _tableViewHeight.constant = 40 * 
-}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return _historyArray.count;
+    return _historyArray.count *8;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSArray *array =_historyArray[section];
+//    NSArray *array =_historyArray[section];
+    NSArray *array =_historyArray[0];
     return array.count;
 }
 
@@ -265,7 +233,8 @@
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    FTCourseHistoryBean *bean = _historyArray[indexPath.section][indexPath.row];
+//    FTCourseHistoryBean *bean = _historyArray[indexPath.section][indexPath.row];
+    FTCourseHistoryBean *bean = _historyArray[0][indexPath.row];
 
     cell.dateLabel.text = bean.dateString;
     cell.timeSectionLabel.text = bean.timeSection;
@@ -292,7 +261,7 @@
     
     UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(label1.frame.origin.x + label1.width, 4, 50, 12)];
     label2.textColor = [UIColor colorWithHex:0xb4b4b4];
-    label2.text = [NSString stringWithFormat:@"%ld节",[_historyArray[section] count] ];
+    label2.text = [NSString stringWithFormat:@"%ld节",[_historyArray[0] count] ];
     label2.font = [UIFont systemFontOfSize:12];
     [headerView addSubview:label2];
     
@@ -317,6 +286,96 @@
 }
 
 
+#pragma mark - scorllView Delegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+
+    scrollY = self.scrollView.contentOffset.y;
+    tableY = self.historyOrderTableView.contentOffset.y;
+    
+    if (scrollView == self.historyOrderTableView) {
+        NSLog(@"offSetY:%f",scrollView.contentOffset.y);
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    
+    CGFloat offsetY = scrollView.contentOffset.y;
+    
+    if (scrollView == self.historyOrderTableView) {
+        NSLog(@"offSetY:%f",scrollView.contentOffset.y);
+        if (offsetY > tableY) {//向上
+            if (scrollY < self.tableViewHeight.constant +20.0) {
+                
+                [self.historyOrderTableView touchesCancelled:touchSet withEvent:touchEvent];
+                return;
+            }
+            
+        }else {
+        
+            
+        }
+    }
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+
+    if (scrollView == self.scrollView) {
+        NSLog(@"offSetY:%f",scrollView.contentOffset.y);
+    }
+}
+
+#pragma mark - response
+
+- (void)courseClickedWithCell:(FTGymSourceTableViewCell *)courseCell andDay:(NSInteger)day andTimeSectionIndex:(NSInteger) timeSectionIndex andDateString:(NSString *) dateString andTimeStamp:(NSString *)timeStamp{
+    NSLog(@"day : %ld, timeSection : %@ dateString : %@", day, _timeSectionsArray[timeSectionIndex][@"timeSection"], dateString);
+    
+    if (courseCell.isEmpty) {//如果是空的，说明可以预约
+        NSLog(@"可以预约");
+        FTGymCoachStateSwitcher *gymCoachStateSwitcher = [[[NSBundle mainBundle]loadNibNamed:@"FTGymCoachStateSwitcher" owner:nil options:nil]firstObject];
+        gymCoachStateSwitcher.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
+        gymCoachStateSwitcher.delegate = self;
+        gymCoachStateSwitcher.canOrderOriginal = YES;
+        gymCoachStateSwitcher.canOrder = YES;
+        
+        gymCoachStateSwitcher.timeSection = _timeSectionsArray[timeSectionIndex][@"timeSection"];
+        gymCoachStateSwitcher.timeSectionId = _timeSectionsArray[timeSectionIndex][@"id"];
+        gymCoachStateSwitcher.dateString = dateString;
+        gymCoachStateSwitcher.dateTimeStamp = timeStamp;
+        gymCoachStateSwitcher.corporationid = _corporationid;
+        
+        [gymCoachStateSwitcher updateDisplay];
+        
+        [self.view addSubview:gymCoachStateSwitcher];
+        
+    }else{
+        NSDictionary *courseDic = courseCell.courserCellDic;
+        NSString *type = courseDic[@"type"];
+        
+        if ([type isEqualToString:@"3"]) {//如果不可约
+            NSLog(@"不可预约");
+            FTGymCoachStateSwitcher *gymCoachStateSwitcher = [[[NSBundle mainBundle]loadNibNamed:@"FTGymCoachStateSwitcher" owner:nil options:nil]firstObject];
+            gymCoachStateSwitcher.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
+            gymCoachStateSwitcher.delegate = self;
+            gymCoachStateSwitcher.canOrderOriginal = NO;
+            gymCoachStateSwitcher.canOrder = NO;
+            
+            gymCoachStateSwitcher.timeSection = _timeSectionsArray[timeSectionIndex][@"timeSection"];
+            gymCoachStateSwitcher.timeSectionId = _timeSectionsArray[timeSectionIndex][@"id"];
+            gymCoachStateSwitcher.dateString = dateString;
+            gymCoachStateSwitcher.dateTimeStamp = timeStamp;
+            gymCoachStateSwitcher.corporationid = _corporationid;
+            
+            [gymCoachStateSwitcher updateDisplay];
+            
+            [self.view addSubview:gymCoachStateSwitcher];
+        } else {//如果已约
+            
+        }
+    }
+    
+}
+
 - (void)backBtnAction{
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -327,6 +386,12 @@
 
 - (void)gotoCoachHomepage{
     NSLog(@"去个人主页");
+}
+
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    touchSet = touches;
+    touchEvent = event;
 }
 
 @end

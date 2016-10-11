@@ -7,6 +7,8 @@
 //
 
 #import "FTBaseViewController.h"
+#import "FTLoginViewController.h"
+#import "FTBaseNavigationViewController.h"
 
 @interface FTBaseViewController ()
 
@@ -50,6 +52,32 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+#pragma mark - private
+
+// 跳转登录界面方法
+- (BOOL) isLogined {
+    
+    FTUserBean *user = [FTUserBean loginUser];
+    if (!user) {
+        
+        FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+        loginVC.title = @"登录";
+        FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+        [self.navigationController presentViewController:nav animated:YES completion:nil];
+        
+        return NO;
+    }
+    
+    return YES;
+}
+
+
+- (void) backBtnAction:(id) sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*
