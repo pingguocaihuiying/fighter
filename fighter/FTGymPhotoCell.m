@@ -92,7 +92,7 @@
     for (NSDictionary *dic in photos) {
         
         UIImage *image = dic[@"image"];
-        UIRemoveImageView *imageView = [[UIRemoveImageView alloc]initWithFrame:CGRectMake(85 * horizontalLines, 95 * verticalLines, 80, 80)];
+        UIRemoveImageView *imageView = [[UIRemoveImageView alloc]initWithFrame:CGRectMake(85 * horizontalLines, 95 * verticalLines, 80 *SCALE, 80 *SCALE)];
         [imageView setImage:image];
         imageView.delegate = self;
         

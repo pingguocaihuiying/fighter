@@ -220,7 +220,6 @@
         return;
     }
 
-
     FTGymCommentViewController *commentVC = [ FTGymCommentViewController new];
     commentVC.objId = self.objId;
     commentVC.title = self.title;
