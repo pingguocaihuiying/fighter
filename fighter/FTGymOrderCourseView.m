@@ -10,6 +10,7 @@
 #import "FTMatchPreViewController.h"
 
 @interface FTGymOrderCourseView()
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UIView *seperatorView1;
 @property (strong, nonatomic) IBOutlet UILabel *messageLabel1;
 @property (strong, nonatomic) IBOutlet UIButton *button1;
@@ -228,6 +229,7 @@
             NSLog(@"取消预约确认");
             _messageLabel1.textColor = [UIColor redColor];
             _messageLabel1.text = @"请确认取消该预约";
+            _titleLabel.text = @"确认取消预约";
             [_button1 setTitle:@"点错了" forState:UIControlStateNormal];
             [_button2 setTitle:@"确定" forState:UIControlStateNormal];
             [self showBelowView1];
