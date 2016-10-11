@@ -120,6 +120,9 @@
         dateLabel.font = [UIFont systemFontOfSize:11];
         dateLabel.textAlignment = NSTextAlignmentCenter;
         dateLabel.textColor = [UIColor whiteColor];
+        if (i == 0) {
+            dateLabel.textColor = [UIColor colorWithHex:0x22b33c];
+        }
         [_dateView addSubview:dateLabel];
         
         //添加周几label
@@ -133,6 +136,9 @@
         dayLabel.font = [UIFont systemFontOfSize:12];
         dayLabel.textAlignment = NSTextAlignmentCenter;
         dayLabel.textColor = [UIColor whiteColor];
+        if (i == 0) {
+            dayLabel.textColor = [UIColor colorWithHex:0x22b33c];//如果是今天，改成绿色
+        }
         [_dateView addSubview:dayLabel];
     }
 }
