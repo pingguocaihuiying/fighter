@@ -11,6 +11,7 @@
 #import "FTGymSourceView.h"
 #import "FTGymOrderCourseView.h"
 #import "FTGymOrderCoachView.h"
+#import "FTHomepageMainViewController.h"
 
 @interface FTOrderCoachViewController ()<FTGymCourseTableViewDelegate, FTCoachOrderCourseViewDelegate, FTGymOrderCourseViewDelegate>
 
@@ -340,6 +341,9 @@
     
     //刷新余额
     [self getVIPInfo];
+    
+    //发送消费通知
+    [[NSNotificationCenter defaultCenter]postNotification:[NSNotification notificationWithName:BookCoachSuccessNotification object:nil]];
 }
 
 - (void)bookCoachSuccess{
@@ -348,6 +352,9 @@
     
     //刷新余额
     [self getVIPInfo];
+    
+    //发送消费通知
+    [[NSNotificationCenter defaultCenter]postNotification:[NSNotification notificationWithName:BookCoachSuccessNotification object:nil]];
 }
 
 - (void)backBtnAction{
@@ -356,6 +363,9 @@
 
 - (void)gotoCoachHomepage{
     NSLog(@"去个人主页");
+    FTHomepageMainViewController *homepageMainViewController = [FTHomepageMainViewController new];
+    homepageMainViewController.coachId = _coachBean.id;
+    [self.navigationController pushViewController:homepageMainViewController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

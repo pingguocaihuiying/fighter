@@ -7,6 +7,7 @@
 //
 
 #import "FTGymOrderCourseView.h"
+#import "FTMatchPreViewController.h"
 
 @interface FTGymOrderCourseView()
 @property (strong, nonatomic) IBOutlet UIView *seperatorView1;
@@ -29,6 +30,11 @@
     
     if (_status == FTGymCourseStatusCanOrder || _status == FTGymCourseStatusCantOrder || _status == FTGymCourseStatusIsFull) {
         NSLog(@"课程详情");
+        FTMatchPreViewController *matchPreVC = [FTMatchPreViewController new];
+        matchPreVC.webViewURL = _webViewURL;
+        matchPreVC.title = @"课程详情";
+        UIViewController *vc = (UIViewController *)_delegate;
+        [vc.navigationController pushViewController:matchPreVC animated:YES];
     } else if (_status == FTGymCourseStatusCancelOrder) {
         NSLog(@"点错了");
         [self removeFromSuperview];

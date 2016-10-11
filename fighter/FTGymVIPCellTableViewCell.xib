@@ -251,7 +251,7 @@
                                     <constraint firstAttribute="height" constant="0.5" id="gvL-E2-ksu"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZBS-BJ-k2v">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZBS-BJ-k2v">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="fyU-eu-2nK"/>
                                 </constraints>

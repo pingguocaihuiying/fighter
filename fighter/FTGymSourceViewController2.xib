@@ -45,7 +45,6 @@
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有效期：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r0i-5i-SpZ">
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="139" id="PTg-ZY-zMd"/>
                                         <constraint firstAttribute="height" constant="12" id="XXO-Ke-Oig"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -65,9 +64,12 @@
                                                 <constraint firstAttribute="width" constant="138" id="yvG-lS-Eho"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <state key="normal" title="充值">
+                                            <state key="normal" title="充值" backgroundImage="充值">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="rechargeButtonAction:" destination="-1" eventType="touchUpInside" id="zAs-NU-q8l"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPk-7B-aPy">
                                             <constraints>
@@ -216,4 +218,7 @@
             <point key="canvasLocation" x="51" y="20"/>
         </view>
     </objects>
+    <resources>
+        <image name="充值" width="37" height="40"/>
+    </resources>
 </document>

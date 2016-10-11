@@ -55,8 +55,14 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     //注册通知，当充值完成时，获取最新余额
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeMoney:) name:@"RechargeMoneytNoti" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeMoney:) name:RechargeMoneytNoti object:nil];
+    
+    //注册 预约私教成功 的通知，收到通知后获取最新会员信息（余额等）
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getVIPInfo) name:BookCoachSuccessNotification object:nil];
 }
+
+
+
 
 - (void)rechargeMoney:(id)info{
     NSString *msg = [info object];
@@ -233,9 +239,13 @@
     
     FTGymOrderCourseView *gymOrderCourseView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCourseView" owner:nil options:nil] firstObject];
     gymOrderCourseView.courseType = FTOrderCourseTypeGym;
-    gymOrderCourseView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    gymOrderCourseView.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
     gymOrderCourseView.dateString = dateString;
     gymOrderCourseView.dateTimeStamp = timeStamp;
+    
+    NSDictionary *courseDic = courseCell.courserCellDic;
+    NSString *webViewURL = courseDic[@"url"];
+    gymOrderCourseView.webViewURL = webViewURL;
     
     if (courseCell.hasOrder) {
         NSLog(@"已经预约");
@@ -246,7 +256,7 @@
         gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
         gymOrderCourseView.delegate = self;
         gymOrderCourseView.status = FTGymCourseStatusHasOrder;
-        [[[UIApplication sharedApplication] keyWindow] addSubview:gymOrderCourseView];
+        [self.view addSubview:gymOrderCourseView];
         
     } else if (courseCell.canOrder) {
         
@@ -256,7 +266,7 @@
         gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
         gymOrderCourseView.delegate = self;
         gymOrderCourseView.status = FTGymCourseStatusCanOrder;
-        [[[UIApplication sharedApplication] keyWindow] addSubview:gymOrderCourseView];
+        [self.view addSubview:gymOrderCourseView];
         NSLog(@"可以预约");
         
         
@@ -268,7 +278,7 @@
         gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
         gymOrderCourseView.delegate = self;
         gymOrderCourseView.status = FTGymCourseStatusIsFull;
-        [[[UIApplication sharedApplication] keyWindow] addSubview:gymOrderCourseView];
+        [self.view addSubview:gymOrderCourseView];
         NSLog(@"满员");
     }else{
         //不能预约（可能因为数据无效等原因）
@@ -278,6 +288,7 @@
 - (void)bookSuccess{
     //预订成功后，刷新课程预订信息
     [self gettimeSectionsUsingInfo];
+    [self getVIPInfo];
 }
 
 
@@ -285,9 +296,9 @@
  获取会员信息
  */
 - (void)getVIPInfo{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSDictionary *dic) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        
         //无数据：非会员
         //"type"为会员类型： 0准会员 1会员 2往期会员
         
@@ -365,9 +376,11 @@
 
 //获取场地使用信息
 - (void)gettimeSectionsUsingInfo{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *timestampString = [NSString stringWithFormat:@"%.0f", [[NSDate date]timeIntervalSince1970]];
     
     [NetWorking getGymSourceInfoById:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid]  andTimestamp:timestampString  andOption:^(NSArray *array) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         _placesUsingInfoDic = [NSMutableDictionary new];
         if (array) {
             for(NSDictionary *dic in array){
@@ -388,10 +401,8 @@
 
 - (void)gotoGymDetail{
     FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
-    FTGymBean *gymBean = [FTGymBean new];
-    gymBean.corporationid = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
-    gymBean.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.id];
-    gymDetailWebViewController.gymBean = gymBean;
+    
+    gymDetailWebViewController.gymBean = _gymBean;
     [self.navigationController pushViewController:gymDetailWebViewController animated:YES];
 }
 

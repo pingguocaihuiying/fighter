@@ -594,9 +594,6 @@
         gymSourceViewController.gymDetailBean = detailBean;
         
         //获取对应的bean，传递给下个vc
-        NSDictionary *newsDic = [self.dataSourceArray objectAtIndex:indexPath.row];
-        FTGymBean *bean = [FTGymBean new];
-        [bean setValuesWithDic:newsDic];
         gymSourceViewController.gymBean = bean;
         
         if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
