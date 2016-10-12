@@ -506,36 +506,8 @@
         NSLog(@"dic:%@",dic);
         
         FTGymVIPCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"gymVIPCell"];
-        cell.surplusCourse.text = bean.surplusCourse;
-        cell.deadline.text = bean.deadline;
-        cell.balanceLabel.text = bean.userMoney;
-        
-        cell.gymName.text = bean.gymName;
-        cell.gymAddress.text = bean.gymLocation;
-        cell.gymPhone.text = bean.gymTel;
-        
-        
-        cell.courseDate.text = bean.courseDate;
-        cell.courseTime.text = bean.courseTime;
-        cell.course.text = [NSString gymNameAdapter:bean.course];//[bean.course removeString:@"(MMA)"];
-        
-        cell.orderDate.text = bean.orderDate;
-        cell.orderTime.text = bean.orderTime;
-        cell.order.text = [NSString gymNameAdapter:bean.order];//[bean.order removeString:@"(MMA)"];;
-        
-        
-        NSString *imgStr = bean.gymShowImg;// dic[@"gymShowImg"];
-        if (imgStr && imgStr.length > 0) {
-            NSArray *tempArray = [imgStr componentsSeparatedByString:@","];
-            NSString *urlStr = [NSString stringWithFormat:@"http://%@/%@",dic[@"urlPrefix"],[tempArray objectAtIndex:0]];
-            
-            [cell.gymImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"拳馆占位图"]];
-        }else {
-            
-            [cell.gymImageView setImage:[UIImage imageNamed:@"拳馆占位图"]];
-        }
-        
-        
+       
+        [cell setValueWithBean:bean];
         // 进入拳馆按钮
         cell.gymAccessButton.tag = [indexPath row];
         [cell.gymAccessButton addTarget:self action:@selector(enterGymBUttonAction:) forControlEvents:UIControlEventTouchUpInside];

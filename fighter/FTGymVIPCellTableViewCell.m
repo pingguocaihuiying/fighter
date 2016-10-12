@@ -7,6 +7,7 @@
 //
 
 #import "FTGymVIPCellTableViewCell.h"
+#import "NSString+Tool.h"
 
 @implementation FTGymVIPCellTableViewCell
 
@@ -17,6 +18,13 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     [self setBalanceLabelPosition];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshBalance:) name:RechargeMoneytNoti object:nil];
+}
+
+- (void) dealloc {
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void) setBalanceLabelPosition {
@@ -30,4 +38,51 @@
     }
 }
 
+
+- (void) setValueWithBean:(FTGymBean *)bean {
+
+    self.bean = bean;
+    
+    self.surplusCourse.text = bean.surplusCourse;
+    self.deadline.text = bean.deadline;
+    self.balanceLabel.text = bean.userMoney;
+    
+    self.gymName.text = bean.gymName;
+    self.gymAddress.text = bean.gymLocation;
+    self.gymPhone.text = bean.gymTel;
+    
+    
+    self.courseDate.text = bean.courseDate;
+    self.courseTime.text = bean.courseTime;
+    self.course.text = [NSString gymNameAdapter:bean.course];//[bean.course removeString:@"(MMA)"];
+    
+    self.orderDate.text = bean.orderDate;
+    self.orderTime.text = bean.orderTime;
+    self.order.text = [NSString gymNameAdapter:bean.order];//[bean.order removeString:@"(MMA)"];;
+    
+    
+    NSString *imgStr = bean.gymShowImg;// dic[@"gymShowImg"];
+    if (imgStr && imgStr.length > 0) {
+        NSArray *tempArray = [imgStr componentsSeparatedByString:@","];
+        NSString *urlStr = [NSString stringWithFormat:@"http://%@/%@",bean.urlPrefix,[tempArray objectAtIndex:0]];
+        
+        [self.gymImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"拳馆占位图"]];
+    }else {
+        
+        [self.gymImageView setImage:[UIImage imageNamed:@"拳馆占位图"]];
+    }
+
+}
+
+- (void) refreshBalance:(NSNotification *)noti {
+    
+    NSString *object = [noti object];
+    if ([object isEqualToString:@"SUCCESS"]) {
+        NSDictionary *dic = [noti userInfo];
+        if ([dic[@"corporationId"] integerValue] ==  [self.bean.corporationid integerValue]) {
+            self.balanceLabel.text = dic[@"balance"];
+        }
+    }
+    
+}
 @end
