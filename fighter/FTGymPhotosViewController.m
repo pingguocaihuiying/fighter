@@ -289,7 +289,7 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
                 //配置属性
                 
                 //是否自动播放
-                _moviePlayer.shouldAutoplay = YES;
+                _moviePlayer.shouldAutoplay = NO;
                 [_moviePlayer prepareToPlay];
                 _moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
                 [_moviePlayer.view.subviews firstObject].gestureRecognizers = nil;//去掉播放器的默认手势
