@@ -137,7 +137,7 @@
         self.CollectionHeightConstraint.constant = 40;
         if (dataSource.count > 0) {
             //在主线程中更新屏幕
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 [_collectionView reloadData];
             });
             

@@ -12,7 +12,9 @@
 #import "NSDate+Tool.h"
 #import "FTCourseHistoryBean.h"
 #import "FTGymCoachStateSwitcher.h"
-#import "JHRefresh.h"
+#import "UIScrollView+MJRefresh.h"
+#import "MJRefreshNormalHeader.h"
+#import "MJRefreshAutoNormalFooter.h"
 
 
 @interface FTCoachSelfCourseViewController ()<FTGymCourseTableViewDelegate, UITableViewDelegate, UITableViewDataSource, FTCoachChangeCourseStatusDelegate>
@@ -55,7 +57,7 @@
 #pragma mark  - 初始化数据
 - (void) initData {
     
-    [self jHRefreshAction];
+    [self setJHRefresh];
     [self getTimeSection];//获取时间段信息
     [self getTeachRecordFromServer];//获取课程记录信息
 }
@@ -127,21 +129,20 @@
 
 #pragma mark - NetWorking
 
-- (void) jHRefreshAction {
+- (void)setJHRefresh{
     
-    //设置下拉刷新
-    __block typeof(self) sself = self;
-    [self.scrollView addRefreshHeaderViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
-        //发请求的方法区域
+    __unsafe_unretained __typeof(self) weakSelf = self;
     
-        [sself getTimeSection];
-//        [sself gettimeSectionsUsingInfo];
-        [sself getTeachRecordFromServer];
+    // 下拉刷新
+    self.scrollView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf.scrollView.mj_header setHidden:NO];
         
+        [weakSelf getTimeSection];
+        //        [sself gettimeSectionsUsingInfo];
+        [weakSelf getTeachRecordFromServer];
+        
+        [weakSelf.scrollView.mj_header beginRefreshing];
     }];
-//    //设置上拉刷新
-//    [self.scrollView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
-//    }];
 }
 
 
@@ -196,13 +197,9 @@
             [self sortArray:dict[@"data"]];
             
             [self.historyOrderTableView reloadData];
-            
-            [self.historyOrderTableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
-        }else {
-        
-            [self.historyOrderTableView headerEndRefreshingWithResult:JHRefreshResultFailure];
         }
         
+        [self.scrollView.mj_header endRefreshing];
     }];
 }
 
@@ -212,6 +209,7 @@
     if (!_historyArray) {
         _historyArray = [[NSMutableArray alloc]init];
     }
+    [_historyArray removeAllObjects];
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
     for (NSDictionary *dic in tempArray) {
