@@ -370,6 +370,7 @@
     NSLog(@"去个人主页");
     FTHomepageMainViewController *homepageMainViewController = [FTHomepageMainViewController new];
     homepageMainViewController.coachId = _coachBean.id;
+    homepageMainViewController.olduserid = _coachBean.userId;
     [self.navigationController pushViewController:homepageMainViewController animated:YES];
 }
 
