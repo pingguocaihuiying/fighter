@@ -131,7 +131,6 @@
     
     if (bean.urls.length > 0) {
         
-        
         dataSource = [NSMutableArray arrayWithArray:[bean.urls componentsSeparatedByString:@","]];
         [dataSource removeObject:@""];
         
