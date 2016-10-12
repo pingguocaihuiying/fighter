@@ -10,5 +10,6 @@
 
 @interface NSString (Tool)
 
-- (NSString *) removeString:(NSString *)willRemoveString;
++ (NSString *) gymNameAdapter:(NSString *)gymName;
+
 @end
