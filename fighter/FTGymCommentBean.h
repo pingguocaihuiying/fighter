@@ -19,7 +19,7 @@
 @property (nonatomic, assign) int commentCount;//评论数
 @property (nonatomic, assign) int voteCount;//点赞数
 
-@property (nonatomic, assign) NSInteger createTime;//评论时间
+@property (nonatomic, copy) NSString *createTime;//评论时间
 
 @property (nonatomic, copy) NSString *comment;//评论内容
 @property (nonatomic, copy) NSString *createName;//

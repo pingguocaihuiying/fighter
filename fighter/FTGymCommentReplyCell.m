@@ -52,9 +52,7 @@
     
     // 评论文字内容
     self.detailLabel.text = bean.comment;
-    
 }
-
 
 
 @end
