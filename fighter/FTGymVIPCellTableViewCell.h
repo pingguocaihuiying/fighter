@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FTGymBean.h"
 
 @interface FTGymVIPCellTableViewCell : UITableViewCell
 
@@ -46,7 +47,8 @@
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIButton *gymAccessButton;
 
+@property (nonatomic, strong) FTGymBean *bean;
 
-
+- (void) setValueWithBean:(FTGymBean *)bean;
 
 @end
