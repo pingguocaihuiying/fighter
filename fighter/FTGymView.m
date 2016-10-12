@@ -517,11 +517,11 @@
         
         cell.courseDate.text = bean.courseDate;
         cell.courseTime.text = bean.courseTime;
-        cell.course.text = [bean.course removeString:@"(MMA)"];
+        cell.course.text = [NSString gymNameAdapter:bean.course];//[bean.course removeString:@"(MMA)"];
         
         cell.orderDate.text = bean.orderDate;
         cell.orderTime.text = bean.orderTime;
-        cell.order.text = [bean.order removeString:@"(MMA)"];;
+        cell.order.text = [NSString gymNameAdapter:bean.order];//[bean.order removeString:@"(MMA)"];;
         
         
         NSString *imgStr = bean.gymShowImg;// dic[@"gymShowImg"];
