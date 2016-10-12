@@ -19,6 +19,8 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leadConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *buttonWidthConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *buttonHeightConstraint;
 
 - (void) addPhotoToContainer:(UIImage *) image  type:(FTMediaType) mediaType;
 //- (void) addPhotoToContainer:(UIImage *) image;

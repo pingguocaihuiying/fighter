@@ -345,6 +345,8 @@
     NSInteger dateNum2  = [[self stringOfDate:targetDate formatter:@"YYYYMMdd"] integerValue];
     
     NSLog(@"dateNUm2:%ld",dateNum2);
+    NSLog(@"currentDate:%@",[self stringOfDate:currentDate formatter:@"YYYY-MM-dd HH:mm:ss"] );
+    NSLog(@"targetDate:%@",[self stringOfDate:targetDate formatter:@"YYYY-MM-dd HH:mm:ss"] );
     
     NSString *dateTimeString;
     if ((dateNum - dateNum2) >= 2) {
@@ -358,16 +360,26 @@
         
     }else {
         
-        NSInteger timeNum = [[self stringOfDate:currentDate formatter:@"HHmm"] integerValue];
-        NSInteger stampNum  = [[self stringOfDate:targetDate formatter:@"HHmm"] integerValue];
+        NSInteger interval = [currentDate timeIntervalSince1970] - [timestamp longLongValue]/1000;
         
-        if (timeNum == stampNum) {
-            dateTimeString = [self formatTimestamp:timestamp formatter:@"刚刚"];
-        }else if (timeNum - stampNum < 60) {
-            dateTimeString = [NSString stringWithFormat:@"%ld分钟前",timeNum - stampNum];
+//        NSInteger timeNum = [[self stringOfDate:currentDate formatter:@"HHmm"] integerValue];
+//        NSInteger stampNum  = [[self stringOfDate:targetDate formatter:@"HHmm"] integerValue];
+        
+        if (interval < 60) {
+            dateTimeString = @"刚刚";
+        }else if (interval < 60 *60) {
+            dateTimeString = [NSString stringWithFormat:@"%ld分钟前",interval/60];
         }else {
-            dateTimeString = [NSString stringWithFormat:@"%ld小时前",(timeNum - stampNum)%60];
+            dateTimeString = [NSString stringWithFormat:@"%ld小时前",interval/60/60];
         }
+        
+//        if (timeNum == stampNum) {
+//            dateTimeString = [self formatTimestamp:timestamp formatter:@"刚刚"];
+//        }else if (timeNum - stampNum < 60) {
+//            dateTimeString = [NSString stringWithFormat:@"%ld分钟前",timeNum - stampNum];
+//        }else {
+//            dateTimeString = [NSString stringWithFormat:@"%ld小时前",(timeNum - stampNum)/60];
+//        }
         //        dateTimeString = [self formatTimestamp:timestamp formatter:@"HH:mm"];
         
     }

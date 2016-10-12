@@ -149,6 +149,7 @@
 		3D7C6B861CF2A2990088400D /* BoxerInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C6B841CF2A2990088400D /* BoxerInfoController.m */; };
 		3D7C6B871CF2A2990088400D /* BoxerInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D7C6B851CF2A2990088400D /* BoxerInfoController.xib */; };
 		3D8242721DAB7A36004C0382 /* FTCourseHistoryBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8242711DAB7A36004C0382 /* FTCourseHistoryBean.m */; };
+		3D8242751DAE3B39004C0382 /* NSString+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8242741DAE3B39004C0382 /* NSString+Tool.m */; };
 		3D8771261D9118CA0001DB78 /* FTGymCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8771241D9118CA0001DB78 /* FTGymCommentsViewController.m */; };
 		3D8771271D9118CA0001DB78 /* FTGymCommentsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D8771251D9118CA0001DB78 /* FTGymCommentsViewController.xib */; };
 		3D87712B1D9133D00001DB78 /* FTGymCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D8771291D9133D00001DB78 /* FTGymCommentTableViewCell.m */; };
@@ -677,6 +678,8 @@
 		3D7C6B851CF2A2990088400D /* BoxerInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BoxerInfoController.xib; sourceTree = "<group>"; };
 		3D8242701DAB7A36004C0382 /* FTCourseHistoryBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCourseHistoryBean.h; sourceTree = "<group>"; };
 		3D8242711DAB7A36004C0382 /* FTCourseHistoryBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCourseHistoryBean.m; sourceTree = "<group>"; };
+		3D8242731DAE3B39004C0382 /* NSString+Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Tool.h"; sourceTree = "<group>"; };
+		3D8242741DAE3B39004C0382 /* NSString+Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Tool.m"; sourceTree = "<group>"; };
 		3D8771231D9118CA0001DB78 /* FTGymCommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymCommentsViewController.h; sourceTree = "<group>"; };
 		3D8771241D9118CA0001DB78 /* FTGymCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymCommentsViewController.m; sourceTree = "<group>"; };
 		3D8771251D9118CA0001DB78 /* FTGymCommentsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymCommentsViewController.xib; sourceTree = "<group>"; };
@@ -3380,6 +3383,8 @@
 				3D11B2731D744C5400B4C838 /* UIImage+LabelImage.m */,
 				3D15E4D21D95654E0078F9E7 /* NSDate+Tool.h */,
 				3D15E4D31D95654E0078F9E7 /* NSDate+Tool.m */,
+				3D8242731DAE3B39004C0382 /* NSString+Tool.h */,
+				3D8242741DAE3B39004C0382 /* NSString+Tool.m */,
 			);
 			path = Categorys;
 			sourceTree = "<group>";
@@ -4150,6 +4155,7 @@
 				3D15E4AD1D9512A10078F9E7 /* FTGymCommentReplyViewController.m in Sources */,
 				3D2019491D5831CF009E80B1 /* CreditNavigationController.m in Sources */,
 				3D4B18F91CD974B80022DFB0 /* MainViewController.m in Sources */,
+				3D8242751DAE3B39004C0382 /* NSString+Tool.m in Sources */,
 				3D4122361D506A4B007EB996 /* FTPropertyCell.m in Sources */,
 				3D7B98B41CE06F9800B80B8D /* FTInputNewPhoneViewController.m in Sources */,
 				E6133A6C1CED6F8E00F53381 /* FTArenaBean.m in Sources */,
