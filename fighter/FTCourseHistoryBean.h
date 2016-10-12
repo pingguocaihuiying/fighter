@@ -20,11 +20,11 @@
 @property (nonatomic, copy) NSString *updateName;
 
 
-@property (nonatomic, assign) NSInteger createTime;
-@property (nonatomic, assign) NSInteger createTimeTamp;
-@property (nonatomic, assign) NSInteger updateTime;
-@property (nonatomic, assign) NSInteger updateTimeTamp;
-@property (nonatomic, assign) NSInteger date;
+@property (nonatomic, copy) NSString *createTime;
+@property (nonatomic, copy) NSString *createTimeTamp;
+@property (nonatomic, copy) NSString *updateTime;
+@property (nonatomic, copy) NSString *updateTimeTamp;
+@property (nonatomic, copy) NSString *date;
 
 @property (nonatomic, assign) NSInteger price;
 @property (nonatomic, assign) NSInteger signStatus;

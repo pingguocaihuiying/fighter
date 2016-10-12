@@ -12,6 +12,7 @@
 #import "NSDate+Tool.h"
 #import "FTCourseHistoryBean.h"
 #import "FTGymCoachStateSwitcher.h"
+#import "JHRefresh.h"
 
 
 @interface FTCoachSelfCourseViewController ()<FTGymCourseTableViewDelegate, UITableViewDelegate, UITableViewDataSource, FTCoachChangeCourseStatusDelegate>
@@ -43,7 +44,7 @@
     // Do any additional setup after loading the view from its nib.
     [self setSubViews];
     
-    [self getTeachRecordFromServer];
+    [self initData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,12 +52,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark  - 初始化数据
+- (void) initData {
+    
+    [self jHRefreshAction];
+    [self getTimeSection];//获取时间段信息
+    [self getTeachRecordFromServer];//获取课程记录信息
+}
+
+#pragma mark  - 初始化界面
 - (void)setSubViews{
+    
     [self initSomeViewsBaseProperties];//初始化一些label颜色、分割线颜色等
     [self setNaviView];//设置导航栏
     [self setGymSourceView];
     [self setTableview];
-    [self getTimeSection];//获取时间段信息
 }
 
 - (void)initSomeViewsBaseProperties{
@@ -117,10 +127,29 @@
 
 #pragma mark - NetWorking
 
+- (void) jHRefreshAction {
+    
+    //设置下拉刷新
+    __block typeof(self) sself = self;
+    [self.scrollView addRefreshHeaderViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
+        //发请求的方法区域
+    
+        [sself getTimeSection];
+//        [sself gettimeSectionsUsingInfo];
+        [sself getTeachRecordFromServer];
+        
+    }];
+//    //设置上拉刷新
+//    [self.scrollView addRefreshFooterViewWithAniViewClass:[JHRefreshCommonAniView class] beginRefresh:^{
+//    }];
+}
+
+
 /**
  *  获取时间段信息
  */
 - (void)getTimeSection{
+    
     [NetWorking getGymTimeSlotsById:[NSString stringWithFormat:@"%@", _corporationid] andOption:^(NSArray *array) {
         _timeSectionsArray = array;
         if (_timeSectionsArray && _timeSectionsArray.count > 0) {
@@ -165,9 +194,15 @@
         if (status) {
             
             [self sortArray:dict[@"data"]];
+            
+            [self.historyOrderTableView reloadData];
+            
+            [self.historyOrderTableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+        }else {
+        
+            [self.historyOrderTableView headerEndRefreshingWithResult:JHRefreshResultFailure];
         }
         
-        [self.historyOrderTableView reloadData];
     }];
 }
 
@@ -179,7 +214,6 @@
     }
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
-    
     for (NSDictionary *dic in tempArray) {
         
         FTCourseHistoryBean *bean = [[FTCourseHistoryBean alloc]init];
@@ -189,26 +223,23 @@
         NSString *dateString = [NSDate yearMonthString:bean.date];
         
         if ([dateString isEqualToString:currentYearMonthString]) {
-        
             bean.dateString = [NSDate monthDayStringWithWordSpace:bean.date];
             
         }else {
             bean.dateString = [NSDate dateStringWithWordSpace:bean.date];
         }
         
-        NSLog(@"dateString:%@",bean.dateString);
+        NSLog(@"dateString:%@",dateString);
         
         if ([dict.allKeys containsObject:dateString]) {
-            NSMutableArray *array = [dict objectForKey:@"dateString"];
+            NSMutableArray *array = [dict objectForKey:dateString];
             [array addObject:bean];
             
         }else {
-            
             NSMutableArray *array = [[NSMutableArray alloc]init];
             [array addObject:bean];
             [_historyArray addObject:array];
-            [dict setObject:array forKey:@"dateString"];
-            
+            [dict setObject:array forKey:dateString];
         }
     }
 }
@@ -218,12 +249,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return _historyArray.count *8;
+    return _historyArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    NSArray *array =_historyArray[section];
-    NSArray *array =_historyArray[0];
+    NSArray *array =_historyArray[section];
+//    NSArray *array =_historyArray[0];
     return array.count;
 }
 
@@ -233,8 +264,8 @@
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-//    FTCourseHistoryBean *bean = _historyArray[indexPath.section][indexPath.row];
-    FTCourseHistoryBean *bean = _historyArray[0][indexPath.row];
+    FTCourseHistoryBean *bean = _historyArray[indexPath.section][indexPath.row];
+//    FTCourseHistoryBean *bean = _historyArray[0][indexPath.row];
 
     cell.dateLabel.text = bean.dateString;
     cell.timeSectionLabel.text = bean.timeSection;
@@ -261,7 +292,7 @@
     
     UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(label1.frame.origin.x + label1.width, 4, 50, 12)];
     label2.textColor = [UIColor colorWithHex:0xb4b4b4];
-    label2.text = [NSString stringWithFormat:@"%ld节",[_historyArray[0] count] ];
+    label2.text = [NSString stringWithFormat:@"%ld节",[_historyArray[section] count] ];
     label2.font = [UIFont systemFontOfSize:12];
     [headerView addSubview:label2];
     
@@ -288,34 +319,34 @@
 
 #pragma mark - scorllView Delegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-
-    scrollY = self.scrollView.contentOffset.y;
-    tableY = self.historyOrderTableView.contentOffset.y;
-    
-    if (scrollView == self.historyOrderTableView) {
-        NSLog(@"offSetY:%f",scrollView.contentOffset.y);
-    }
+//
+//    scrollY = self.scrollView.contentOffset.y;
+//    tableY = self.historyOrderTableView.contentOffset.y;
+//    
+//    if (scrollView == self.historyOrderTableView) {
+//        NSLog(@"offSetY:%f",scrollView.contentOffset.y);
+//    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
     
-    CGFloat offsetY = scrollView.contentOffset.y;
-    
-    if (scrollView == self.historyOrderTableView) {
-        NSLog(@"offSetY:%f",scrollView.contentOffset.y);
-        if (offsetY > tableY) {//向上
-            if (scrollY < self.tableViewHeight.constant +20.0) {
-                
-                [self.historyOrderTableView touchesCancelled:touchSet withEvent:touchEvent];
-                return;
-            }
-            
-        }else {
-        
-            
-        }
-    }
+//    CGFloat offsetY = scrollView.contentOffset.y;
+//    
+//    if (scrollView == self.historyOrderTableView) {
+//        NSLog(@"offSetY:%f",scrollView.contentOffset.y);
+//        if (offsetY > tableY) {//向上
+//            if (scrollY < self.tableViewHeight.constant +20.0) {
+//                
+//                [self.historyOrderTableView touchesCancelled:touchSet withEvent:touchEvent];
+//                return;
+//            }
+//            
+//        }else {
+//        
+//            
+//        }
+//    }
 }
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {

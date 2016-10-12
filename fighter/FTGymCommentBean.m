@@ -23,7 +23,7 @@
     
     self.comment = dic[@"comment"];
     self.createName = dic[@"createName"];
-    self.createTime = [dic[@"createTime"] integerValue];
+    self.createTime = [NSString stringWithFormat:@"%@",dic[@"createTime"]];
     self.headUrl = dic[@"headUrl"];
     self.userId = dic[@"userId"];
     self.objId = dic[@"objId"];

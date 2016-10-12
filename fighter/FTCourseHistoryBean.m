@@ -21,11 +21,11 @@
     self.createName = dic[@"createName"];
     self.updateName = dic[@"updateName"];
     
-    self.date = [dic[@"date"] longLongValue];
-    self.createTime = [dic[@"createTime"] longLongValue];
-    self.createTimeTamp = [dic[@"createTimeTamp"] longLongValue];
-    self.updateTime = [dic[@"updateTime"] longLongValue];
-    self.updateTimeTamp = [dic[@"updateTimeTamp"] longLongValue];
+    self.date = [NSString stringWithFormat:@"%lld",[dic[@"date"] longLongValue]];
+    self.createTime = [NSString stringWithFormat:@"%lld",[dic[@"createTime"] longLongValue]];
+    self.createTimeTamp = [NSString stringWithFormat:@"%lld",[dic[@"createTimeTamp"] longLongValue]];
+    self.updateTime = [NSString stringWithFormat:@"%lld",[dic[@"updateTime"] longLongValue]];
+    self.updateTimeTamp = [NSString stringWithFormat:@"%lld",[dic[@"updateTimeTamp"] longLongValue]];
     
     self.price = [dic[@"price"] integerValue];
     self.theDate = [dic[@"theDate"] integerValue];
