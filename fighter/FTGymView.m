@@ -18,6 +18,7 @@
 #import "FTGymVIPCellTableViewCell.h"
 #import "FTGymDetailBean.h"
 #import "FTGymSourceViewController2.h"
+#import "NSString+Tool.h"
 
 @interface FTGymView () <UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, FTCycleScrollViewDelegate,FTSelectCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -515,12 +516,12 @@
         
         
         cell.courseDate.text = bean.courseDate;
-        cell.courseTime.text =bean.courseTime;
-        cell.course.text = bean.course;
+        cell.courseTime.text = bean.courseTime;
+        cell.course.text = [bean.course removeString:@"(MMA)"];
         
         cell.orderDate.text = bean.orderDate;
         cell.orderTime.text = bean.orderTime;
-        cell.order.text = bean.order;
+        cell.order.text = [bean.order removeString:@"(MMA)"];;
         
         
         NSString *imgStr = bean.gymShowImg;// dic[@"gymShowImg"];
@@ -757,5 +758,10 @@
     [self getTableViewDataFromWeb];
 //    [self.tableView reloadData];
 }
+
+
+#pragma mark  - private
+
+
 
 @end
