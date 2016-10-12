@@ -127,7 +127,7 @@
     if ((_rechargeMoney - 100000) >0) {
         
         _rechargeMoney  = _rechargeMoney - 100000;
-        self.rechargeLabel.text = [NSString stringWithFormat:@"%ld",_rechargeMoney];
+        self.rechargeLabel.text = [NSString stringWithFormat:@"%ld",_rechargeMoney/100];
     }
 }
 
@@ -137,7 +137,7 @@
         
         _rechargeMoney  = _rechargeMoney + 100000;
         
-        self.rechargeLabel.text = [NSString stringWithFormat:@"%ld",_rechargeMoney];
+        self.rechargeLabel.text = [NSString stringWithFormat:@"%ld",_rechargeMoney/100];
     }
 }
 
@@ -251,7 +251,11 @@
                 
                 
                 //发送通知
-                [[NSNotificationCenter defaultCenter] postNotificationName:RechargeMoneytNoti object:@"SUCESS"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:RechargeMoneytNoti object:@"SUCESS" userInfo:@{
+                                                                                                                          @"balance":[NSString stringWithFormat:@"%.2f",_balance/100],
+                                                                                                                          @"corporationId":[NSString stringWithFormat:@"%ld",_corporationId],
+                                                                                                                          @"userId":[[FTUserBean loginUser] olduserid],
+                                                                                                                          }];
                 
             }else {
                 [self.view showMessage:@"微信支付失败，请稍后再试~"];
@@ -269,7 +273,7 @@
 - (void) setBalance:(CGFloat)balance {
     
     _balance = balance;
-    self.blanceLabel.text = [NSString stringWithFormat:@"%.2f",_balance];
+    self.blanceLabel.text = [NSString stringWithFormat:@"%.2f",_balance/100];
     
 }
 

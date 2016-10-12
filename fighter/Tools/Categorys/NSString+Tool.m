@@ -10,15 +10,12 @@
 
 @implementation NSString (Tool)
 
-- (NSString *) removeString:(NSString *)willRemoveString {
- 
-    NSMutableString *string = [NSMutableString self];
-    
-    NSRange range = [self rangeOfString:willRemoveString];
-    if (range.location != NSNotFound) {
-        [string deleteCharactersInRange:range];
++ (NSString *) gymNameAdapter:(NSString *)gymName {
+
+    if ([gymName isEqualToString:@"综合格斗(MMA)"]) {
+        gymName  = @"综合格斗";
     }
     
-    return string;
+    return gymName;
 }
 @end
