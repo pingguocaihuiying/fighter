@@ -347,8 +347,11 @@
     //刷新余额
     [self getVIPInfo];
     
+    if (SCREEN_WIDTH != 320) {
+        [[NSNotificationCenter defaultCenter]postNotification:[NSNotification notificationWithName:BookCoachSuccessNotification object:nil]];
+    }
     //发送消费通知
-    [[NSNotificationCenter defaultCenter]postNotification:[NSNotification notificationWithName:BookCoachSuccessNotification object:nil]];
+    
 }
 
 - (void)bookCoachSuccess{
@@ -357,9 +360,10 @@
     
     //刷新余额
     [self getVIPInfo];
-    
+    if (SCREEN_WIDTH != 320) {
     //发送消费通知
-    [[NSNotificationCenter defaultCenter]postNotification:[NSNotification notificationWithName:BookCoachSuccessNotification object:nil]];
+        [[NSNotificationCenter defaultCenter]postNotification:[NSNotification notificationWithName:BookCoachSuccessNotification object:nil]];
+    }
 }
 
 - (void)backBtnAction{
