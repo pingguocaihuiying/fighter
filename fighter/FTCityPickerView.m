@@ -310,8 +310,8 @@
     
     NSString *propertValue = [self.cityArray objectAtIndex:selectedC];
     
-    NetWorking *net = [NetWorking new];
-    [net updateUserWithValue:[propertValue stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+    
+    [NetWorking updateUserWithValue:[propertValue stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
                          Key:@"address"
                       option:^(NSDictionary *dict) {
                           NSLog(@"dict:%@",dict);

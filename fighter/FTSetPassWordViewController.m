@@ -114,8 +114,8 @@
         return;
     }
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NetWorking *net = [NetWorking new];
-    [net registUserWithPhoneNumber:self.userId
+
+    [NetWorking registUserWithPhoneNumber:self.userId
                           password:self.passwordTextField.text
                          checkCode:self.checkCode
                             option:^(NSDictionary *dict) {

@@ -75,8 +75,8 @@
     
     if (localUser.tel.length > 0) {//2.1 已经绑定过手机的用户：直接修改绑定手机
         
-        NetWorking *net = [NetWorking new];
-        [net getCheckCodeForExistPhone:localUser.tel
+
+        [NetWorking getCheckCodeForExistPhone:localUser.tel
                                     type:@"2"
                                   option:^(NSDictionary *dict) {
                                       [MBProgressHUD hideHUDForView:self.view animated:YES];

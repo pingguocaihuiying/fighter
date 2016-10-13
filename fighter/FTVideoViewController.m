@@ -160,8 +160,7 @@
     urlString = [NSString stringWithFormat:@"%@?videosType=%@&videosCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&videosTag=%@", urlString, videoType, videoCurrId, getType, ts, checkSign, [FTNetConfig showType], self.videosTag];
     
 //    NSLog(@"urlString:%@",urlString);
-    NetWorking *net = [[NetWorking alloc]init];
-    [net getVideos:urlString option:^(NSDictionary *responseDic) {
+    [NetWorking getVideos:urlString option:^(NSDictionary *responseDic) {
         
         if (responseDic != nil) {
             NSString *status = responseDic[@"status"];

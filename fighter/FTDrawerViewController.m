@@ -417,9 +417,7 @@ static NSString *const tableCellId = @"tableCellId";
 //微信快捷登录按钮
 - (IBAction)weichatBtnAction:(id)sender {
     
-    
-    NetWorking *net = [[NetWorking alloc]init];
-    [net weixinRequest];
+    [NetWorking weixinRequest];
     
     NSLog(@"微信快捷按钮");
 }

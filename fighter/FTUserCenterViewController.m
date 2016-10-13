@@ -155,8 +155,7 @@
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    NetWorking *net = [NetWorking new];
-    [net bindingPhoneNumber:cell.phoneTextField.text
+    [NetWorking bindingPhoneNumber:cell.phoneTextField.text
                   checkCode:cell.checkCodeTextField.text
                      option:^(NSDictionary *dict) {
                          [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -228,8 +227,7 @@
     //    }
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NetWorking *net = [NetWorking new];
-    [net getCheckCodeForNewBindingPhone:cell.phoneTextField.text
+    [NetWorking getCheckCodeForNewBindingPhone:cell.phoneTextField.text
                                  option:^(NSDictionary *dict) {
                                      
                                      [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -960,9 +958,8 @@
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    NetWorking *net = [NetWorking new];
     __unsafe_unretained typeof(self) weakSelf = self;
-    [net updateUserHeaderWithLocallUrl:localImageUrl
+    [NetWorking updateUserHeaderWithLocallUrl:localImageUrl
                          Key:@"img"
                       option:^(NSDictionary *dict) {
                           NSLog(@"dict:%@",dict);

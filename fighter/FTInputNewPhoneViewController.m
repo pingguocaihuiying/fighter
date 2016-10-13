@@ -75,8 +75,8 @@
     if ([self.type isEqualToString:@"changephone"]) {//更改手机
         
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        NetWorking *net = [NetWorking new];
-        [net getCheckCodeForNewPhone:self.phoneTextfield.text
+       
+        [NetWorking getCheckCodeForNewPhone:self.phoneTextfield.text
                                 type:self.type
                                 option:^(NSDictionary *dict) {
             [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -113,8 +113,8 @@
     }else if ([self.type isEqualToString:@"bindphone"]){//绑定手机
         
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        NetWorking *net = [NetWorking new];
-        [net getCheckCodeForNewBindingPhone:self.phoneTextfield.text
+        
+        [NetWorking getCheckCodeForNewBindingPhone:self.phoneTextfield.text
                                      option:^(NSDictionary *dict) {
                                          
                     [MBProgressHUD hideHUDForView:self.view animated:YES];

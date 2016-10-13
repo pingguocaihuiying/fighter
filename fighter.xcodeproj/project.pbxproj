@@ -4400,7 +4400,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "0a4ed102-6f90-47e1-86ca-ac13de70f2c9";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -4423,8 +4424,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peng qu (KE77LSQE2H)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: peng qu (LQHT8X75PQ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: peng qu (LQHT8X75PQ)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4439,7 +4440,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "0a4ed102-6f90-47e1-86ca-ac13de70f2c9";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4452,8 +4453,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: peng qu (LQHT8X75PQ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = LQHT8X75PQ;
 				ENABLE_BITCODE = NO;
@@ -4492,9 +4493,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0a4ed102-6f90-47e1-86ca-ac13de70f2c9";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -4506,7 +4507,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: peng qu (LQHT8X75PQ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = LQHT8X75PQ;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4544,9 +4545,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.viewer.fighter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0a4ed102-6f90-47e1-86ca-ac13de70f2c9";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

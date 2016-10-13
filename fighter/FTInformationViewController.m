@@ -195,8 +195,8 @@
     
     urlString = [NSString stringWithFormat:@"%@?newsType=%@&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@", urlString, newsType, newsCurrId, getType, ts, checkSign, [FTNetConfig showType]];
     NSLog(@"获取资讯 url ： %@", urlString);
-    NetWorking *net = [[NetWorking alloc]init];
-    [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
+    
+    [NetWorking getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
         
         if (responseDic != nil) {
             NSString *status = responseDic[@"status"];

@@ -82,8 +82,8 @@
     
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NetWorking *net = [NetWorking new];
-    [net updateUserByGet:remoteParam Key:@"username" option:^(NSDictionary *dict) {
+
+    [NetWorking updateUserByGet:remoteParam Key:@"username" option:^(NSDictionary *dict) {
         NSLog(@"dict:%@",dict);
         if (dict != nil) {
             [MBProgressHUD hideHUDForView:self.view animated:YES];
