@@ -298,8 +298,8 @@
     
     
     NSLog(@"urlString:%@",urlString);
-    NetWorking *net = [[NetWorking alloc]init];
-    [net getVideos:urlString option:^(NSDictionary *responseDic) {
+    
+    [NetWorking getVideos:urlString option:^(NSDictionary *responseDic) {
         
         NSLog(@"responseDic:%@",responseDic);
         NSLog(@"message:%@",[responseDic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);

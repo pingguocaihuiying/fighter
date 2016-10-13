@@ -151,8 +151,8 @@
 //    }
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NetWorking *net = [NetWorking new];
-    [net loginWithPhoneNumber:self.acountTextField.text
+   
+    [NetWorking loginWithPhoneNumber:self.acountTextField.text
                      password:self.passwordTextField.text
                        option:^(NSDictionary *dict) {
                                  [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -224,8 +224,7 @@
 - (IBAction)weichatBtnAction:(id)sender {
     
     //请求微信登录
-    NetWorking *net = [[NetWorking alloc]init];
-    [net weixinRequest];
+    [NetWorking weixinRequest];
 
 }
 

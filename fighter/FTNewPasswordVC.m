@@ -109,10 +109,10 @@
         return;
     }
     
-    NetWorking *net = [NetWorking new];
+
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [net updatePassword:self.oldPassword
+    [NetWorking updatePassword:self.oldPassword
             newPassword:self.passwordTextField.text
                  option:^(NSDictionary *dict) {
                      [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -130,7 +130,7 @@
                                    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
                                    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
                                 
-                                   [net loginWithPhoneNumber:localUser.tel
+                                   [NetWorking loginWithPhoneNumber:localUser.tel
                                                     password:self.passwordTextField.text
                                                       option:^(NSDictionary *loginDict) {
                                                           

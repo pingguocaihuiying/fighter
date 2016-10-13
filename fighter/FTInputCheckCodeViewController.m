@@ -82,8 +82,7 @@
     
     if ([self.type isEqualToString:@"2"]) {//2.1 已经绑定过手机的用户,先验证旧手机
         
-        NetWorking *net = [NetWorking new];
-        [net checkCodeForExistPhone:self.phoneNum
+        [NetWorking checkCodeForExistPhone:self.phoneNum
                           checkCode:self.checkCodeTextField.text
                                   option:^(NSDictionary *dict) {
                                 [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -120,8 +119,7 @@
 
     }if ([self.type isEqualToString:@"changephone"]) {//2.2 已经绑定过手机的用户：验证完旧手机，直接修改绑定手机
         
-        NetWorking *net = [NetWorking new];
-        [net changgeBindingPhone:self.phoneNum
+        [NetWorking changgeBindingPhone:self.phoneNum
                        checkCode:self.checkCodeTextField.text
                           option:^(NSDictionary *dict) {
                                 [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -164,8 +162,7 @@
         
     }else if ([self.type isEqualToString:@"bindphone"]){//2.3 未绑定手机用户，绑定手机后修改密码
         
-        NetWorking *net = [NetWorking new];
-        [net bindingPhoneNumber:self.phoneNum
+        [NetWorking bindingPhoneNumber:self.phoneNum
                       checkCode:self.checkCodeTextField.text
                          option:^(NSDictionary *dict) {
                     [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -221,8 +218,8 @@
     }
     
     
-//    NetWorking *net = [NetWorking new];
-//    [net bindingPhoneNumber:self.phoneNum checkCode:self.checkCodeTextField.text option:^(NSDictionary *dict) {
+
+//    [NetWorking bindingPhoneNumber:self.phoneNum checkCode:self.checkCodeTextField.text option:^(NSDictionary *dict) {
 //        NSLog(@"dict:%@",dict);
 //        if (dict != nil) {
 //            

@@ -472,10 +472,10 @@
     
     urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@&userId=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName, _olduserid];
 //        urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName];
-    NetWorking *net = [[NetWorking alloc]init];
+    
     NSLog(@"个人中心获取帖子列表 url ： %@", urlString);
     
-    [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
+    [NetWorking getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
         if (responseDic != nil) {
             NSString *status = responseDic[@"status"];
             if ([status isEqualToString:@"success"]) {

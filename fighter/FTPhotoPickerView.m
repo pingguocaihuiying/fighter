@@ -240,8 +240,8 @@
 //    }
     //    propertValue = [NSString stringWithFormat:@"%ld",selectW];
     
-//    NetWorking *net = [NetWorking new];
-//    [net updateUserWithValue:propertValue
+
+//    [NetWorking updateUserWithValue:propertValue
 //                         Key:@"sex"
 //                      option:^(NSDictionary *dict) {
 //                          NSLog(@"dict:%@",dict);
