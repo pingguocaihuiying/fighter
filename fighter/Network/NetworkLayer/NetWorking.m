@@ -20,7 +20,7 @@
 
 #pragma mark - 验证码
 //获取短信验证码
-- (void) getCheckCodeWithPhoneNumber:(NSString *)phoneNum option:(void (^)(NSDictionary *dict))option{
++ (void) getCheckCodeWithPhoneNumber:(NSString *)phoneNum option:(void (^)(NSDictionary *dict))option{
     
     NSString *urlString = [FTNetConfig host:Domain path:GetPhoneCodeURL];
     
@@ -33,7 +33,7 @@
 
 
 //绑定手机时获取验证码
-- (void) getCheckCodeForNewBindingPhone:(NSString *)phoneNum
++ (void) getCheckCodeForNewBindingPhone:(NSString *)phoneNum
                                  option:(void (^)(NSDictionary *dict))option{
     
     NSString *urlString = [FTNetConfig host:Domain path:SendSMSByTypeURL];
@@ -53,7 +53,7 @@
 }
 
 //绑定手机时获取验证码(可以修改type类型的)
-- (void) getCheckCodeForNewBindingPhone:(NSString *)phoneNum withType:(NSString *)type
++ (void) getCheckCodeForNewBindingPhone:(NSString *)phoneNum withType:(NSString *)type
                                  option:(void (^)(NSDictionary *dict))option{
     
     NSString *urlString = [FTNetConfig host:Domain path:SendSMSByTypeURL];
@@ -76,7 +76,7 @@
 
 
 //更换手机时获取 旧手机号 验证码
-- (void) getCheckCodeForExistPhone:(NSString *)phoneNum
++ (void) getCheckCodeForExistPhone:(NSString *)phoneNum
                                 type:(NSString *)type
                               option:(void (^)(NSDictionary *dict))option{
     
@@ -92,7 +92,7 @@
 
 
 //更换手机时获取 新手机号 验证码
-- (void) getCheckCodeForNewPhone:(NSString *)phoneNum
++ (void) getCheckCodeForNewPhone:(NSString *)phoneNum
                             type:(NSString *)type
                           option:(void (^)(NSDictionary *dict))option {
 
@@ -110,7 +110,7 @@
 
 #pragma mark - 注册，登录，退出登录
 //手机号注册用户
-- (void) registUserWithPhoneNumber:(NSString *)phoneNum
++ (void) registUserWithPhoneNumber:(NSString *)phoneNum
                           password:(NSString *)password
                          checkCode:(NSString *)checkcode
                             option:(void (^)(NSDictionary *dict))option{
@@ -143,7 +143,7 @@
 }
 
 //手机号登录
-- (void) loginWithPhoneNumber:(NSString *)phoneNum
++ (void) loginWithPhoneNumber:(NSString *)phoneNum
                           password:(NSString *)password
                             option:(void (^)(NSDictionary *dict))option{
     
@@ -168,7 +168,7 @@
 
 
 //退出登录
-- (void) loginOut:(void (^)(NSDictionary *dict))option {
++ (void) loginOut:(void (^)(NSDictionary *dict))option {
     
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
@@ -193,7 +193,7 @@
 #pragma mark - 修改用户数据
 
 //修改用户数据  -get
-- (void) updateUserByGet:(NSString *)value
++ (void) updateUserByGet:(NSString *)value
                        Key:(NSString *)key
                     option:(void (^)(NSDictionary *dict))option{
     
@@ -210,7 +210,7 @@
 
 
 //修改用户数据  --post
-- (void) updateUserWithValue:(NSString *)value
++ (void) updateUserWithValue:(NSString *)value
                          Key:(NSString *)key
                       option:(void (^)(NSDictionary *dict))option {
     
@@ -227,7 +227,7 @@
 
 
 //修改用户头像
-- (void) updateUserHeaderWithLocallUrl:(NSURL *)localUrl
++ (void) updateUserHeaderWithLocallUrl:(NSURL *)localUrl
                          Key:(NSString *)key
                       option:(void (^)(NSDictionary *dict))option{
     
@@ -284,7 +284,7 @@
 
 //接口地址: 域名/api/newuser/updatePassword.do
 //修改用户密码
-- (void) updatePassword:(NSString *) oldpass
++ (void) updatePassword:(NSString *) oldpass
             newPassword:(NSString *) newPass
                  option:(void (^)(NSDictionary *dict))option{
     
@@ -315,7 +315,7 @@
 #pragma mark - 绑定手机、微信
 
 //检查用户是否绑定手机
-- (void) isBindingPhoneNum:(void (^)(NSDictionary *dict))option {
++ (void) isBindingPhoneNum:(void (^)(NSDictionary *dict))option {
 
     NSString *isBindingURLString = [FTNetConfig host:Domain path:ISBindingPhoneURL];
     
@@ -336,7 +336,7 @@
 
 
 //绑定手机号码
-- (void) bindingPhoneNumber:(NSString *)phoneNum
++ (void) bindingPhoneNumber:(NSString *)phoneNum
                   checkCode:(NSString *)checkcode
                      option:(void (^)(NSDictionary *dict))option{
     
@@ -374,7 +374,7 @@
 
 
 //验证 旧手机 验证码
-- (void) checkCodeForExistPhone:(NSString *)phoneNum
++ (void) checkCodeForExistPhone:(NSString *)phoneNum
                   checkCode:(NSString *)checkcode
                      option:(void (^)(NSDictionary *dict))option{
     
@@ -400,7 +400,7 @@
 
 
 //修改绑定手机
-- (void) changgeBindingPhone:(NSString *)phoneNum
++ (void) changgeBindingPhone:(NSString *)phoneNum
                     checkCode:(NSString *)checkcode
                        option:(void (^)(NSDictionary *dict))option{
     
@@ -439,7 +439,7 @@
 
 
 //绑定微信号
-- (void) bindingWeixin:(NSString *)openId
++ (void) bindingWeixin:(NSString *)openId
 //                  checkCode:(NSString *)checkcode
                 option:(void (^)(NSDictionary *dict))option {
 
@@ -473,7 +473,7 @@
 #pragma mark - 微信相关
 
 //向微信请求数据
-- (void) weixinRequest {
++ (void) weixinRequest {
 
     if ([WXApi isWXAppInstalled] ) {
         SendAuthReq *req = [[SendAuthReq alloc] init];
@@ -490,7 +490,7 @@
 
 
 //请求微信的token和openId
-- (void) requestWeixinTokenAdnOpenId:(NSString *)code
++ (void) requestWeixinTokenAdnOpenId:(NSString *)code
                               option:(void (^)(NSDictionary *dict))option {
 
     NSString *accessUrlStr = [NSString stringWithFormat:@"%@/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code", WX_BASE_URL, WX_App_ID, WX_App_Secret, code];
@@ -500,7 +500,7 @@
 
 
 //获取微信用户信息
-- (void) requestWeixinUserInfoWithToken:(NSString *)token
++ (void) requestWeixinUserInfoWithToken:(NSString *)token
                                  openId:(NSString *)openId
                                  option:(void(^)(NSDictionary *dict)) option {
     NSString *userinfoURL = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@", token, openId];
@@ -511,7 +511,7 @@
 
 
 //向服务器注册微信用户，或者登录微信用户
-- (void) requestWeixinUser:(NSDictionary *)wxInfoDic
++ (void) requestWeixinUser:(NSDictionary *)wxInfoDic
                     option:(void (^)(NSDictionary *dict))option{
     
     for(NSString *key in [wxInfoDic allKeys]){
@@ -538,20 +538,13 @@
     [self getRequestWithUrl:wxLoginURLString parameters:nil option:option];
 }
 
-- (NSString *) userId {
-    
-    //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-    
-    return localUser.olduserid;
-}
+
 
 
 #pragma mark - 排行榜
 
 //获取排行榜列表信息
-- (void) getRankListWithLabel:(NSString *)label
++ (void) getRankListWithLabel:(NSString *)label
                          race:(NSString *)race
                 FeatherWeight:(NSString *)featherWeight
                       pageNum:(NSInteger)pagenum
@@ -586,7 +579,7 @@
 
 
 //获取排行榜标签
-- (void) getRankLabels:(void (^)(NSDictionary *dict))option {
++ (void) getRankLabels:(void (^)(NSDictionary *dict))option {
 
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     
@@ -600,126 +593,24 @@
 
 #pragma mark - 视频
 //获取排行榜标签
-- (void) getVideos:(NSString *) urlString  option:(void (^)(NSDictionary *dict))option {
++ (void) getVideos:(NSString *) urlString  option:(void (^)(NSDictionary *dict))option {
     
     [self getRequestWithUrl:urlString parameters:nil option:option];
 }
 
-#pragma mark - news 
+#pragma mark - 分装用户登录参数
 
-
-#pragma mark - 封装请求---对象方法
-//post请求
-- (void) postRequestWithUrl:(NSString *)urlString
-                 parameters:(NSDictionary *)dic
-                     option:(void (^)(NSDictionary *dict))option {
++ (NSString *) userId {
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    //从本地读取存储的用户信息
+    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     
-//    NSLog(@"RegisterUserURL url : %@", urlString);
-    [manager POST:urlString
-       parameters:dic
-         progress:nil
-          success:^(NSURLSessionTask *_Nonnull task, id  _Nonnull responseObject) {
-              NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-//              NSLog(@"responsedic:%@",responseDic);
-              
-              if (option) {
-                  option(responseDic);
-              }
-          }
-          failure:^(NSURLSessionTask *_Nonnull task, NSError * _Nonnull error) {
-              NSLog(@"error:%@",error);
-              if (option) {
-                  option(nil);
-              }
-              
-          }];
+    return localUser.olduserid;
 }
 
 
-
-//post  请求上传二进制数据
-- (void) postUploadDataWithURL:(NSString *)urlString
-                    parameters:(NSDictionary *)dic
-              appendParameters:(NSDictionary *)appendDic
-                        option:(void (^)(NSDictionary *dict))option {
-    
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    [manager POST:urlString
-       parameters:dic
-     
-constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-    
-                for (NSString *key in [appendDic allKeys] ) {
-                    
-                    [formData appendPartWithFileURL:appendDic[key] name:key error:nil];
-                }
-                
-            }
-         progress:nil
-          success:^(NSURLSessionTask *_Nonnull task, id  _Nonnull responseObject) {
-              
-              NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-//              NSLog(@"responsedic:%@",responseDic);
-              
-              if (option) {
-                  option(responseDic);
-              }
-              
-              
-          }
-          failure:^(NSURLSessionTask *_Nonnull task, NSError * _Nonnull error) {
-              
-              if (option) {
-                  option(nil);
-              }
-          }];
-    
-    
-}
-
-
-//get请求
-- (void) getRequestWithUrl:(NSString *)urlString
-                parameters:(NSDictionary *)dic
-                    option:(void (^)(NSDictionary *dict))option {
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-//    NSLog(@"RegisterUserURL url : %@", urlString);
-    [manager GET:urlString
-      parameters:dic
-        progress:nil
-         success:^(NSURLSessionTask *_Nonnull task, id  _Nonnull responseObject) {
-             NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-//             NSLog(@"responsedic:%@",responseDic);
-             
-             if (option) {
-                 option(responseDic);
-             }
-         }
-         failure:^(NSURLSessionTask *_Nonnull task, NSError * _Nonnull error) {
-             NSLog(@"error:%@",error);
-             if (option) {
-                 option(nil);
-             }
-         }];
-}
-
-
-
-
-
-- (NSDictionary *) setJsonDataWithKey:(NSString*)key   value:(NSString *)value {
++ (NSDictionary *) setJsonDataWithKey:(NSString*)key   value:(NSString *)value {
     
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
@@ -1669,8 +1560,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //获取点赞状态
 + (void)getVoteStatusWithObjid:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^)(BOOL result))option{
     
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *user = [FTUserBean loginUser];
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
     

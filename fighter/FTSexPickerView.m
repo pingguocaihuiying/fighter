@@ -233,8 +233,8 @@
     
     
 //    [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-    NetWorking *net = [NetWorking new];
-    [net updateUserByGet:remoteParam Key:@"sex" option:^(NSDictionary *dict) {
+
+    [NetWorking updateUserByGet:remoteParam Key:@"sex" option:^(NSDictionary *dict) {
         NSLog(@"dict:%@",dict);
         if (dict != nil) {
             

@@ -120,9 +120,9 @@ static WXSingleton * wxSingleton = nil;
         //请求头像和昵称
         if (wxRequestType == WXRequestTypeNameAndHeader) {
             
-            NetWorking *net = [[NetWorking alloc]init];
+            
             // 1.请求access_token openId
-            [net requestWeixinTokenAdnOpenId:temp.code option:^(NSDictionary *tokenDic) {
+            [NetWorking requestWeixinTokenAdnOpenId:temp.code option:^(NSDictionary *tokenDic) {
                 
                 if (tokenDic) {
                     
@@ -131,7 +131,7 @@ static WXSingleton * wxSingleton = nil;
                     [[NSUserDefaults standardUserDefaults] setObject:tokenDic[@"openid"] forKey:@"wxOpenId"];
                     [[NSUserDefaults standardUserDefaults]synchronize];
                     //2.请求微信用户信息
-                    [net requestWeixinUserInfoWithToken:tokenDic[@"access_token"] openId:tokenDic[@"openid"] option:^(NSDictionary *userDict) {
+                    [NetWorking requestWeixinUserInfoWithToken:tokenDic[@"access_token"] openId:tokenDic[@"openid"] option:^(NSDictionary *userDict) {
                         
                         //从本地读取存储的用户信息
                         NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
@@ -156,20 +156,20 @@ static WXSingleton * wxSingleton = nil;
             
         }else {//请求所有数据
             
-            NetWorking *net = [[NetWorking alloc]init];
+           
             // 1.请求access_token openId
-            [net requestWeixinTokenAdnOpenId:temp.code option:^(NSDictionary *tokenDic) {
+            [NetWorking requestWeixinTokenAdnOpenId:temp.code option:^(NSDictionary *tokenDic) {
                 
                 if (tokenDic) {
                     
                     
                     //2.请求微信用户信息
-                    [net requestWeixinUserInfoWithToken:tokenDic[@"access_token"] openId:tokenDic[@"openid"] option:^(NSDictionary *userDict) {
+                    [NetWorking requestWeixinUserInfoWithToken:tokenDic[@"access_token"] openId:tokenDic[@"openid"] option:^(NSDictionary *userDict) {
                         
                         if (userDict) {
                             
                             //3.向格斗家服务器注册
-                            [net requestWeixinUser:userDict option:^(NSDictionary *dict) {
+                            [NetWorking requestWeixinUser:userDict option:^(NSDictionary *dict) {
                                 
                                 if (dict) {
                                     bool status = [dict[@"status"] boolValue];

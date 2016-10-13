@@ -11,8 +11,8 @@
 
 @interface FTGymRechargeViewController ()
 
-@property (nonatomic, assign) NSInteger rechargeMoney; // 充值金额
-@property (nonatomic, assign) CGFloat balance; // 充值金额
+@property (nonatomic, assign) NSInteger rechargeMoney; // 充值金额 分
+@property (nonatomic, assign) CGFloat balance; // 账户余额 分
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (nonatomic, copy) NSString *membershipId;
 @property (nonatomic, copy) NSString *tradeNO;
@@ -40,8 +40,8 @@
 #pragma mark - 初始化
 
 - (void) initData {
-    _rechargeMoney = 1000;
-    
+    _rechargeMoney = 100000;
+    self.balance = 0;
     [self getMembershipInfoFromServer];
     
 }
@@ -107,7 +107,7 @@
             NSDictionary *tempDic = dic[@"data"];
             NSInteger tempId = [tempDic[@"id"] integerValue];
             self.balance = [tempDic[@"money"] integerValue];
-            [self.blanceLabel setText:[NSString stringWithFormat:@"%.2f",self.balance/100]];
+//            [self.blanceLabel setText:[NSString stringWithFormat:@"%.2f",self.balance/100]];
             if (tempId != 0) {
                  self.membershipId = [NSString stringWithFormat:@"%ld",tempId];
             }
@@ -124,24 +124,29 @@
 
 - (IBAction)subButtonAction:(id)sender {
     
-    if ((_rechargeMoney - 1000) >0) {
+    if ((_rechargeMoney - 100000) >0) {
         
-        _rechargeMoney  = _rechargeMoney - 1000;
-        self.rechargeLabel.text = [NSString stringWithFormat:@"%ld",_rechargeMoney];
+        _rechargeMoney  = _rechargeMoney - 100000;
+        self.rechargeLabel.text = [NSString stringWithFormat:@"%ld",_rechargeMoney/100];
     }
 }
 
 - (IBAction)addButtonAction:(id)sender {
     
-    if ((_rechargeMoney + 1000) <=10000) {
+    if ((_rechargeMoney + 100000) <=1000000) {
         
-        _rechargeMoney  = _rechargeMoney + 1000;
+        _rechargeMoney  = _rechargeMoney + 100000;
         
-        self.rechargeLabel.text = [NSString stringWithFormat:@"%ld",_rechargeMoney];
+        self.rechargeLabel.text = [NSString stringWithFormat:@"%ld",_rechargeMoney/100];
     }
 }
 
 - (IBAction)rechargeButtonAction:(id)sender {
+    
+    if (![WXApi isWXAppInstalled] ) {
+        [self.view showMessage:@"当前设备未安装微信，请安装微信后再来充值~"];
+        return;
+    }
     
     if (self.membershipId == nil || self.membershipId.length == 0) {
         
@@ -158,7 +163,8 @@
     NSString *objId = self.membershipId; //会员信息id
     NSString *tableName = @"pl-gym";//拳馆会员充值
     NSString *isDelated = @"3";//0-无效记录；1-s支付；2-p支付;3-RMB元支付(默认为元)
-    NSString *money =  [NSString stringWithFormat:@"%ld",self.rechargeMoney*100];//交易人民币（单位：分）
+    NSString *money =  [NSString stringWithFormat:@"%ld",self.rechargeMoney];//交易人民币（单位：分）
+//    NSString *money =  [NSString stringWithFormat:@"%d",1];//交易人民币（单位：分）
 //        NSString *money =  [NSString stringWithFormat:@"%ld",self.rechargeMoney / 1000];//交易人民币（单位：分）
     NSString *payWay = @"1";//默认为0-积分支付； 值为1-微信支付
     NSString *body = @"拳馆会员充值";//商品描述，需传入应用市场上的APP名字-实际商品名称，天天爱消除-游戏充值，示例：腾讯充值中心-QQ会员充值
@@ -237,11 +243,19 @@
             if ([status isEqualToString:@"success"]) {
                 
                 [self.view showMessage:@"微信支付成功~"];
+                
+                self.balance = _balance + _rechargeMoney;
+                
                 //查询余额信息
                 [self getMembershipInfoFromServer];
                 
+                
                 //发送通知
-                [[NSNotificationCenter defaultCenter] postNotificationName:RechargeMoneytNoti object:@"SUCESS"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:RechargeMoneytNoti object:@"SUCCESS" userInfo:@{
+                                                                                                                          @"balance":[NSString stringWithFormat:@"%.2f",_balance/100],
+                                                                                                                          @"corporationId":[NSString stringWithFormat:@"%ld",_corporationId],
+                                                                                                                          @"userId":[[FTUserBean loginUser] olduserid],
+                                                                                                                          }];
                 
             }else {
                 [self.view showMessage:@"微信支付失败，请稍后再试~"];
@@ -253,6 +267,13 @@
         [self.view showMessage:@"微信支付失败，请稍后再试~"];
 
     }
+    
+}
+
+- (void) setBalance:(CGFloat)balance {
+    
+    _balance = balance;
+    self.blanceLabel.text = [NSString stringWithFormat:@"%.2f",_balance/100];
     
 }
 

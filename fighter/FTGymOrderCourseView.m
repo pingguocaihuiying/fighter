@@ -7,8 +7,10 @@
 //
 
 #import "FTGymOrderCourseView.h"
+#import "FTMatchPreViewController.h"
 
 @interface FTGymOrderCourseView()
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UIView *seperatorView1;
 @property (strong, nonatomic) IBOutlet UILabel *messageLabel1;
 @property (strong, nonatomic) IBOutlet UIButton *button1;
@@ -29,6 +31,11 @@
     
     if (_status == FTGymCourseStatusCanOrder || _status == FTGymCourseStatusCantOrder || _status == FTGymCourseStatusIsFull) {
         NSLog(@"课程详情");
+        FTMatchPreViewController *matchPreVC = [FTMatchPreViewController new];
+        matchPreVC.webViewURL = _webViewURL;
+        matchPreVC.title = @"课程详情";
+        UIViewController *vc = (UIViewController *)_delegate;
+        [vc.navigationController pushViewController:matchPreVC animated:YES];
     } else if (_status == FTGymCourseStatusCancelOrder) {
         NSLog(@"点错了");
         [self removeFromSuperview];
@@ -177,8 +184,14 @@
             _messageLabel1.textColor = [UIColor colorWithHex:0x24b33c];
             _messageLabel1.text = [NSString stringWithFormat:@"%@ / %@ 可预约", _courserCellDic[@"hasOrderCount"], _courserCellDic[@"topLimit"]];
             [_button1 setTitle:@"课程详情" forState:UIControlStateNormal];
+
             [_button2 setTitle:@"确定预约" forState:UIControlStateNormal];
             [self showBelowView1];
+            
+            NSString *webViewURL = _courserCellDic[@"url"];
+            if (!webViewURL) {
+                _button1.hidden = YES;
+            }
         }
             break;
             
@@ -191,6 +204,10 @@
             [_button2 setTitle:@"确定" forState:UIControlStateNormal];
             [self showBelowView1];
             
+            NSString *webViewURL = _courserCellDic[@"url"];
+            if (!webViewURL) {
+                _button1.hidden = YES;
+            }
         }
             break;
         case FTGymCourseStatusCantOrder:
@@ -201,12 +218,18 @@
             [_button1 setTitle:@"课程详情" forState:UIControlStateNormal];
             [_button2 setTitle:@"确定" forState:UIControlStateNormal];
             [self showBelowView1];
+            
+            NSString *webViewURL = _courserCellDic[@"url"];
+            if (!webViewURL) {
+                _button1.hidden = YES;
+            }
         }
         case FTGymCourseStatusCancelOrder:
         {
             NSLog(@"取消预约确认");
             _messageLabel1.textColor = [UIColor redColor];
             _messageLabel1.text = @"请确认取消该预约";
+            _titleLabel.text = @"确认取消预约";
             [_button1 setTitle:@"点错了" forState:UIControlStateNormal];
             [_button2 setTitle:@"确定" forState:UIControlStateNormal];
             [self showBelowView1];

@@ -208,8 +208,8 @@
     
     // 导航栏转发按钮
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithTitle:@"分享" style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonAction:)];
-    self.navigationItem.rightBarButtonItem = shareButton;
-    
+//    self.navigationItem.rightBarButtonItem = shareButton;
+    //因为拳馆详情的web页还没做，先隐藏掉分享功能
     
 }
 
@@ -377,12 +377,14 @@
                 }
             }else{
                 NSDictionary *vipDic = _vipArray[indexPath.row];
-                cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
+//                cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
+                [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]];
                 cell.vipNameLabel.text = vipDic[@"name"];
             }
         }else{
             NSDictionary *vipDic = _vipArray[indexPath.row];
-            cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
+//            cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
+            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]];
             cell.vipNameLabel.text = vipDic[@"name"];
         }
 

@@ -22,6 +22,7 @@
     NSInteger horizontalLines;//横向
     NSInteger verticalLines;// 纵向
     NSMutableArray *imageViews;
+    
 }
 
 @end
@@ -51,7 +52,7 @@
     }
     
     if (image != nil) {
-        UIRemoveImageView *imageView = [[UIRemoveImageView alloc]initWithFrame:CGRectMake(85 * horizontalLines, 95 * verticalLines, 80, 80)];
+        UIRemoveImageView *imageView = [[UIRemoveImageView alloc]initWithFrame:CGRectMake(85 *SCALE * horizontalLines, 95 *SCALE * verticalLines, 80 *SCALE, 80 *SCALE)];
         [imageView setImage:image];
         imageView.delegate = self;
         [self.photoContainer addSubview:imageView];
@@ -92,7 +93,7 @@
     for (NSDictionary *dic in photos) {
         
         UIImage *image = dic[@"image"];
-        UIRemoveImageView *imageView = [[UIRemoveImageView alloc]initWithFrame:CGRectMake(85 * horizontalLines, 95 * verticalLines, 80, 80)];
+        UIRemoveImageView *imageView = [[UIRemoveImageView alloc]initWithFrame:CGRectMake(85 *SCALE * horizontalLines, 95 *SCALE * verticalLines, 80 *SCALE, 80 *SCALE)];
         [imageView setImage:image];
         imageView.delegate = self;
         
@@ -134,8 +135,11 @@
 - (void) setAddPhotoBtnFrame {
     
 //    [self.addPhotoBtn setTranslatesAutoresizingMaskIntoConstraints:NO];
-    self.topConstraint.constant = 95 * verticalLines;
-    self.leadConstraint.constant = 85 * horizontalLines;
+    self.topConstraint.constant = 95 * verticalLines *SCALE;
+    self.leadConstraint.constant = 85 * horizontalLines *SCALE;
+    self.buttonWidthConstraint.constant = 80 *SCALE;
+    self.buttonHeightConstraint.constant = 80 *SCALE;
+    
 //    self.addPhotoBtn.frame = CGRectMake(85 * horizontalLines, 95 * verticalLines, 80, 80);
     
 }

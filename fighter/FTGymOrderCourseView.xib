@@ -278,6 +278,7 @@
                 <outlet property="messageLabel1" destination="7fq-W6-txs" id="0z5-fQ-HE6"/>
                 <outlet property="seperatorView1" destination="e3n-pq-oN7" id="b7P-HB-Q5K"/>
                 <outlet property="timeLabelFoo" destination="wfS-5H-O0U" id="b7J-Tc-xfb"/>
+                <outlet property="titleLabel" destination="yCY-DP-jmd" id="v5p-QX-OjL"/>
             </connections>
             <point key="canvasLocation" x="39" y="-52"/>
         </view>

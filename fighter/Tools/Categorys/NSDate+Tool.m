@@ -10,6 +10,7 @@
 
 @implementation NSDate (Tool)
 
+#pragma mark  - date time string from current date
 /**
  生成日期时间字符串，用下划线间隔日期和时间
  
@@ -42,66 +43,7 @@
 }
 
 
-/**
- 根据时间戳生成相对应格式的日期字符串
- 
- @param timestamp 时间戳
- 
- @return 日期字符串
- */
-+(NSString *) dateString:(NSInteger) timestamp  {
-    
-    NSString *timeTemp = [NSString stringWithFormat:@"%ld",(long)timestamp];
-    NSDate *currentDate = [NSDate date];
-    NSDate *targetDate = [self dateWithTimestamp:timeTemp];
-    
-    
-    NSInteger dateNum = [[self stringOfDate:currentDate formatter:@"YYYYMMdd"] integerValue];
-    NSInteger dateNum2  = [[self stringOfDate:targetDate formatter:@"YYYYMMdd"] integerValue];
-    
-    NSString *dateTimeString;
-    if ((dateNum - dateNum2) > 2) {
-        
-        dateTimeString = [self formatTimestamp:timeTemp formatter:@"YYYY-MM-dd HH:mm"];
-        
-    }else if ((dateNum - dateNum2) == 1) {
-        
-        NSString *tempString = [self formatTimestamp:timeTemp formatter:@"HH:mm"];
-        dateTimeString = [NSString stringWithFormat:@"昨天 %@",tempString];
-        
-    }else {
-        
-        dateTimeString = [self formatTimestamp:timeTemp formatter:@"HH:mm"];
-        
-    }
-    
-    return dateTimeString;
-}
-
 #pragma mark -
-/**
- 根据时间戳生成指定格式的日期字符串
- 
- @param timestamp 时间戳字符串
- @param formatter  指定的日期格式
- 
- @return 指定格式的日期字符串
- */
-+ (NSString *) formatTimestamp:(NSString *)timestamp formatter:(NSString *)formatter {
-    
-    NSDate *date ;
-    if (timestamp.length == 10) {
-        date = [NSDate dateWithTimeIntervalSince1970:[timestamp floatValue]];
-        
-    }else if (timestamp.length == 13) {
-        date = [NSDate dateWithTimeIntervalSince1970:[timestamp floatValue]/1000];
-        
-    }
-    
-    return [self  stringOfDate:date formatter:formatter];
-}
-
-
 
 /**
  将时间戳字符串 转换成NSDate对象
@@ -111,19 +53,34 @@
  @return NSDate对象
  */
 
-+ (NSDate *) dateWithTimestamp:(NSString *)timestamp {
++ (NSDate *) dateWithTimestamp:(NSString *) timestamp {
     
     NSDate *date ;
-    if (timestamp.length == 10) {
-        date = [NSDate dateWithTimeIntervalSince1970:[timestamp floatValue]];
-        
-    }else if (timestamp.length == 13) {
-        date = [NSDate dateWithTimeIntervalSince1970:[timestamp floatValue]/1000];
-        
+    if (timestamp.length == 13) {
+        date = [NSDate dateWithTimeIntervalSince1970:[timestamp longLongValue]/1000];
+    }else if (timestamp.length == 10)  {
+        date = [NSDate dateWithTimeIntervalSince1970:[timestamp longLongValue] ];
     }
     
     return date;
 }
+
+
+/**
+ 根据时间戳生成指定格式的日期字符串
+ 
+ @param timestamp 时间戳字符串
+ @param formatter  指定的日期格式
+ 
+ @return 指定格式的日期字符串
+ */
++ (NSString *) formatTimestamp:(NSString *) timestamp formatter:(NSString *)formatter {
+    
+    NSDate *date = [self dateWithTimestamp:timestamp];
+    
+    return [self  stringOfDate:date formatter:formatter];
+}
+
 
 
 /**
@@ -164,13 +121,12 @@
         return [NSString stringWithFormat:@"%@年%@月%@日",year,month,day];
     }
     
-    
     return @"";
-    
 }
 
 
 #pragma mark -
+
 + (NSString *) currentYearString {
     
     NSDate *date = [NSDate date];
@@ -182,15 +138,9 @@
     return year;
 }
 
-+ (NSString *) yearString:(NSInteger)timestamp {
++ (NSString *) yearString:(NSString *)timestamp {
     
-    NSDate *date;
-    if (timestamp > 9999999999) {
-        date = [NSDate dateWithTimeIntervalSince1970:timestamp/1000];
-    }else {
-        date = [NSDate dateWithTimeIntervalSince1970:timestamp];
-    }
-   
+    NSDate *date = [self dateWithTimestamp:timestamp];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateStyle:NSDateFormatterFullStyle];
@@ -212,14 +162,9 @@
     return month;
 }
 
-+ (NSString *) monthString:(NSInteger) timestamp {
++ (NSString *) monthString:(NSString *) timestamp {
     
-    NSDate *date;
-    if (timestamp > 9999999999) {
-        date = [NSDate dateWithTimeIntervalSince1970:timestamp/1000];
-    }else {
-        date = [NSDate dateWithTimeIntervalSince1970:timestamp];
-    }
+    NSDate *date = [self dateWithTimestamp:timestamp];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateStyle:NSDateFormatterFullStyle];
@@ -242,14 +187,9 @@
 }
 
 
-+ (NSString *) dayString:(NSInteger) timestamp {
++ (NSString *) dayString:(NSString *) timestamp {
     
-    NSDate *date;
-    if (timestamp > 9999999999) {
-        date = [NSDate dateWithTimeIntervalSince1970:timestamp/1000];
-    }else {
-        date = [NSDate dateWithTimeIntervalSince1970:timestamp];
-    }
+   NSDate *date = [self dateWithTimestamp:timestamp];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateStyle:NSDateFormatterFullStyle];
@@ -273,14 +213,9 @@
 }
 
 
-+ (NSString *)yearMonthString:(NSInteger) timestamp {
++ (NSString *)yearMonthString:(NSString *) timestamp {
     
-    NSDate *date;
-    if (timestamp > 9999999999) {
-        date = [NSDate dateWithTimeIntervalSince1970:timestamp/1000];
-    }else {
-        date = [NSDate dateWithTimeIntervalSince1970:timestamp];
-    }
+    NSDate *date = [self dateWithTimestamp:timestamp];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateStyle:NSDateFormatterFullStyle];
@@ -290,24 +225,19 @@
     return day;
 }
 
-#pragma mark - 
+#pragma mark - date string from timestamp
 
 
 /**
- 根据时间戳生成日期字符创，格式：2016年10月10日
+ 根据时间戳生成日期字符串，格式：2016年10月10日
  
  @param timestamp 时间戳
  
  @return 日期字符串
  */
-+ (NSString *) dateStringWithWordSpace:(NSInteger) timestamp {
++ (NSString *) dateStringWithWordSpace:(NSString *) timestamp {
     
-    NSDate *date;
-    if (timestamp > 9999999999) {
-        date = [NSDate dateWithTimeIntervalSince1970:timestamp/1000];
-    }else {
-        date = [NSDate dateWithTimeIntervalSince1970:timestamp];
-    }
+    NSDate *date = [self dateWithTimestamp:timestamp];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateStyle:NSDateFormatterFullStyle];
@@ -317,7 +247,27 @@
     return dateString;
 }
 
+/**
+ 根据时间戳生成日期字符串，格式：2016_10_10
+ 
+ @param timestamp 时间戳
+ 
+ @return 日期字符串
+ */
++ (NSString *) dateStringWithUnderLineSpace:(NSString *) timestamp {
+    
+    NSDate *date = [self dateWithTimestamp:timestamp];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
+    [dateFormatter setDateFormat:@"yyyy_MM_dd"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    
+    return dateString;
+}
 
+
+#pragma mark - month day string from timestamp
 
 /**
  根据时间戳生成日期字符创，格式：10月10日
@@ -326,14 +276,9 @@
 
  @return 日期字符串
  */
-+ (NSString *) monthDayStringWithWordSpace:(NSInteger) timestamp {
++ (NSString *) monthDayStringWithWordSpace:(NSString *) timestamp {
     
-    NSDate *date;
-    if (timestamp > 9999999999) {
-        date = [NSDate dateWithTimeIntervalSince1970:timestamp/1000.0];
-    }else {
-        date = [NSDate dateWithTimeIntervalSince1970:timestamp];
-    }
+    NSDate *date = [self dateWithTimestamp:timestamp];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateStyle:NSDateFormatterFullStyle];
@@ -342,5 +287,105 @@
     
     return monthDay;
 }
+
+#pragma mark - time string from timestamp
+/**
+ 根据时间戳生成日期字符串，格式：15:30
+ 
+ @param timestamp 时间戳
+ 
+ @return 日期字符串
+ */
++ (NSString *) timeStringWithHM:(NSString *) timestamp {
+    
+    NSDate *date = [self dateWithTimestamp:timestamp];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
+    [dateFormatter setDateFormat:@"HH:mm"];
+    NSString *timeString = [dateFormatter stringFromDate:date];
+    
+    return timeString;
+}
+
+/**
+ 根据时间戳生成日期字符串，格式：15:30:58
+ 
+ @param timestamp 时间戳
+ 
+ @return 日期字符串
+ */
++ (NSString *) timeStringWithHMS:(NSString *) timestamp {
+    
+    NSDate *date = [self dateWithTimestamp:timestamp];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
+    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    NSString *timeString = [dateFormatter stringFromDate:date];
+    
+    return timeString;
+}
+
+#pragma mark - 根据时间戳生成相应的字符串
+
+/**
+ 根据时间戳生成相对应格式的日期字符串
+ 
+ @param timestamp 时间戳
+ 
+ @return 日期字符串
+ */
++(NSString *) dateString:(NSString *) timestamp  {
+    
+    NSDate *currentDate = [NSDate date];
+    NSDate *targetDate = [self dateWithTimestamp:timestamp];
+    
+    NSInteger dateNum = [[self stringOfDate:currentDate formatter:@"YYYYMMdd"] integerValue];
+    NSInteger dateNum2  = [[self stringOfDate:targetDate formatter:@"YYYYMMdd"] integerValue];
+    
+    NSLog(@"dateNUm2:%ld",dateNum2);
+    NSLog(@"currentDate:%@",[self stringOfDate:currentDate formatter:@"YYYY-MM-dd HH:mm:ss"] );
+    NSLog(@"targetDate:%@",[self stringOfDate:targetDate formatter:@"YYYY-MM-dd HH:mm:ss"] );
+    
+    NSString *dateTimeString;
+    if ((dateNum - dateNum2) >= 2) {
+        
+        dateTimeString = [self formatTimestamp:timestamp formatter:@"YYYY-MM-dd"];
+        
+    }else if ((dateNum - dateNum2) == 1) {
+        
+        NSString *tempString = [self formatTimestamp:timestamp formatter:@"HH:mm"];
+        dateTimeString = [NSString stringWithFormat:@"昨天 %@",tempString];
+        
+    }else {
+        
+        NSInteger interval = [currentDate timeIntervalSince1970] - [timestamp longLongValue]/1000;
+        
+//        NSInteger timeNum = [[self stringOfDate:currentDate formatter:@"HHmm"] integerValue];
+//        NSInteger stampNum  = [[self stringOfDate:targetDate formatter:@"HHmm"] integerValue];
+        
+        if (interval < 60) {
+            dateTimeString = @"刚刚";
+        }else if (interval < 60 *60) {
+            dateTimeString = [NSString stringWithFormat:@"%ld分钟前",interval/60];
+        }else {
+            dateTimeString = [NSString stringWithFormat:@"%ld小时前",interval/60/60];
+        }
+        
+//        if (timeNum == stampNum) {
+//            dateTimeString = [self formatTimestamp:timestamp formatter:@"刚刚"];
+//        }else if (timeNum - stampNum < 60) {
+//            dateTimeString = [NSString stringWithFormat:@"%ld分钟前",timeNum - stampNum];
+//        }else {
+//            dateTimeString = [NSString stringWithFormat:@"%ld小时前",(timeNum - stampNum)/60];
+//        }
+        //        dateTimeString = [self formatTimestamp:timestamp formatter:@"HH:mm"];
+        
+    }
+    
+    return dateTimeString;
+}
+
 
 @end

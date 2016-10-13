@@ -233,7 +233,8 @@
     //背景框imageview
     _loadingBgImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"loading背景"]];
 //    _loadingBgImageView.frame = CGRectMake(20, 100, 100, 100);
-    _loadingBgImageView.center = CGPointMake(self.view.center.x, self.view.center.y - 64);
+//    _loadingBgImageView.center = CGPointMake(self.view.center.x, self.view.center.y - 64);
+    _loadingBgImageView.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT/ 2 - 64);
     [self.view addSubview:_loadingBgImageView];
     //声明数组，用来存储所有动画图片
     _loadingImageView = [UIImageView new];

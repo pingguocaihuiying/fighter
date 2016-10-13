@@ -34,7 +34,7 @@
  
  @return 日期字符串
  */
-+(NSString *) dateString:(NSInteger) timestamp;
++(NSString *) dateString:(NSString *) timestamp;
 
 
 /**
@@ -84,24 +84,24 @@
 
 + (NSString *) currentYearString;
 
-+ (NSString *) yearString:(NSInteger)timestamp ;
++ (NSString *) yearString:(NSString *)timestamp ;
 
 + (NSString *) currentMonthString ;
 
-+ (NSString *) monthString:(NSInteger) timestamp ;
++ (NSString *) monthString:(NSString *) timestamp ;
 
 + (NSString *) currentDayString ;
 
-+ (NSString *) dayString:(NSInteger) timestamp ;
++ (NSString *) dayString:(NSString *) timestamp ;
 
 
 #pragma mark -
 
 + (NSString *) currentYearMonthString ;
 
-+ (NSString *) yearMonthString:(NSInteger) timestamp ;
++ (NSString *) yearMonthString:(NSString *) timestamp ;
 
-+ (NSString *) dateStringWithWordSpace:(NSInteger) timestamp;
++ (NSString *) dateStringWithWordSpace:(NSString *) timestamp;
 
-+ (NSString *) monthDayStringWithWordSpace:(NSInteger) timestamp;
++ (NSString *) monthDayStringWithWordSpace:(NSString *) timestamp;
 @end

@@ -13,4 +13,7 @@
 
 @property (nonatomic, strong)FTBaseBean *bean;
 @property (nonatomic, strong)UIImageView *bottomGradualChangeView;
+
+- (BOOL) isLogined;
+
 @end

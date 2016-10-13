@@ -275,6 +275,7 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
             UIImageView *photoImageView = [[UIImageView alloc]initWithFrame:CGRectMake(i * SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
             photoImageView.contentMode = UIViewContentModeScaleAspectFit;
             [photoImageView sd_setImageWithURL:[NSURL URLWithString:photoDic[@"imageurl"]]];
+            [photoImageView sd_setImageWithURL:[NSURL URLWithString:photoDic[@"imageurl"]] placeholderImage:[UIImage imageNamed:@"小占位图"]];
             [_fullScreenScrollView addSubview:photoImageView];
         } else if ([photoDic[@"type"] isEqualToString:@"video"]){
             //初始化播放器(只初始化一次)
@@ -288,7 +289,7 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
                 //配置属性
                 
                 //是否自动播放
-                _moviePlayer.shouldAutoplay = YES;
+                _moviePlayer.shouldAutoplay = NO;
                 [_moviePlayer prepareToPlay];
                 _moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
                 [_moviePlayer.view.subviews firstObject].gestureRecognizers = nil;//去掉播放器的默认手势
@@ -324,6 +325,7 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
 
         NSDictionary *dic = _photoArrayByGym[indexPath.row];
         [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"imageurl"]]];
+        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"imageurl"]] placeholderImage:[UIImage imageNamed:@"小占位图"]];
         if ([dic[@"type"] isEqualToString:@"video"]) {
             cell.isVideoView.hidden = NO;
         } else {
@@ -332,7 +334,8 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
     }else if (collectionView == _photoCollectionViewRight){
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell2" forIndexPath:indexPath];
         NSDictionary *dic = _photoArrayByUser[indexPath.row];
-        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"imageurl"]]];
+//        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"imageurl"]]];
+        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"imageurl"]] placeholderImage:[UIImage imageNamed:@"小占位图"]];
         if ([dic[@"type"] isEqualToString:@"video"]) {
             cell.isVideoView.hidden = NO;
         } else {

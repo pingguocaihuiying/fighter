@@ -186,9 +186,14 @@
 
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     
-    return localUser;
+    if (localUserData) {
+        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+        return localUser;
+    }
+    
+    return nil;
+    
 }
 
 @end

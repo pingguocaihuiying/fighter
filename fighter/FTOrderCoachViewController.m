@@ -11,6 +11,7 @@
 #import "FTGymSourceView.h"
 #import "FTGymOrderCourseView.h"
 #import "FTGymOrderCoachView.h"
+#import "FTHomepageMainViewController.h"
 
 @interface FTOrderCoachViewController ()<FTGymCourseTableViewDelegate, FTCoachOrderCourseViewDelegate, FTGymOrderCourseViewDelegate>
 
@@ -35,7 +36,7 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *topMainViewHeight;
 
 @property (nonatomic, copy) NSString *balance;
-
+@property (nonatomic, assign) BOOL isLoadCourseDataComplete;//已经加载课程数据
 @end
 
 @implementation FTOrderCoachViewController
@@ -212,53 +213,53 @@
 
 - (void)courseClickedWithCell:(FTGymSourceTableViewCell *)courseCell andDay:(NSInteger)day andTimeSectionIndex:(NSInteger) timeSectionIndex andDateString:(NSString *) dateString andTimeStamp:(NSString *)timeStamp{
     NSLog(@"day : %ld, timeSection : %@ dateString : %@", day, _timeSectionsArray[timeSectionIndex][@"timeSection"], dateString);
-    
-    if (courseCell.isEmpty) {//如果是空的，说明可以预约
-        NSLog(@"可以预约");
-        FTGymOrderCoachView *gymOrderCoachView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCoachView" owner:nil options:nil] firstObject];
-        gymOrderCoachView.delegate = self;
-        gymOrderCoachView.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
-        gymOrderCoachView.dateString = dateString;
-        gymOrderCoachView.dateTimeStamp = timeStamp;
-        gymOrderCoachView.price = _coachBean.price;
-        gymOrderCoachView.coachName = _coachBean.name;
-        gymOrderCoachView.courserCellDic = courseCell.courserCellDic;
-        gymOrderCoachView.timeSection = _timeSectionsArray[timeSectionIndex][@"timeSection"];
-        gymOrderCoachView.timeSectionId = _timeSectionsArray[timeSectionIndex][@"id"];
-        gymOrderCoachView.balance = _balance;
-        gymOrderCoachView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
-        gymOrderCoachView.coachUserId = _coachBean.userId;
+    if (_isLoadCourseDataComplete) {
         
-        [gymOrderCoachView setDisplay];
-        
-//        [[[UIApplication sharedApplication] keyWindow] addSubview:gymOrderCoachView];
-        [self.view addSubview:gymOrderCoachView];
-    }else{
-        NSDictionary *courseDic = courseCell.courserCellDic;
-        NSString *type = courseDic[@"type"];
-        
-        if ([type isEqualToString:@"3"]) {//如果不可约
-            NSLog(@"不可预约");
-        } else {//如果已约
-            //"myIsOrd": 1,//当前用户是否预定该课程， 0 - 没有，1 - 已有预约
-            NSString *myIsOrd = [NSString stringWithFormat:@"%@", courseDic[@"myIsOrd"]];
-            if ([myIsOrd isEqualToString:@"1"]) {//如果是自己约的
-                NSLog(@"取消预约");
-                FTGymOrderCourseView *gymOrderCourseView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCourseView" owner:nil options:nil] firstObject];
-                gymOrderCourseView.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
-                gymOrderCourseView.courseType = FTOrderCourseTypeCoach;
-                gymOrderCourseView.dateString = dateString;
-                gymOrderCourseView.dateTimeStamp = timeStamp;
-                
-                gymOrderCourseView.price = _coachBean.price;
-                gymOrderCourseView.coachName = _coachBean.name;
-                gymOrderCourseView.courserCellDic = courseCell.courserCellDic;
-                gymOrderCourseView.timeSection = _timeSectionsArray[timeSectionIndex][@"timeSection"];
-                gymOrderCourseView.timeSectionId = _timeSectionsArray[timeSectionIndex][@"id"];
-                gymOrderCourseView.balance = _balance;
-                gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
-                gymOrderCourseView.coachUserId = _coachBean.userId;
-
+        if (courseCell.isEmpty) {//如果是空的，说明可以预约
+            NSLog(@"可以预约");
+            FTGymOrderCoachView *gymOrderCoachView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCoachView" owner:nil options:nil] firstObject];
+            gymOrderCoachView.delegate = self;
+            gymOrderCoachView.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
+            gymOrderCoachView.dateString = dateString;
+            gymOrderCoachView.dateTimeStamp = timeStamp;
+            gymOrderCoachView.price = _coachBean.price;
+            gymOrderCoachView.coachName = _coachBean.name;
+            gymOrderCoachView.courserCellDic = courseCell.courserCellDic;
+            gymOrderCoachView.timeSection = _timeSectionsArray[timeSectionIndex][@"timeSection"];
+            gymOrderCoachView.timeSectionId = _timeSectionsArray[timeSectionIndex][@"id"];
+            gymOrderCoachView.balance = _balance;
+            gymOrderCoachView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+            gymOrderCoachView.coachUserId = _coachBean.userId;
+            
+            [gymOrderCoachView setDisplay];
+            
+            [self.view addSubview:gymOrderCoachView];
+        }else{
+            NSDictionary *courseDic = courseCell.courserCellDic;
+            NSString *type = courseDic[@"type"];
+            
+            if ([type isEqualToString:@"3"]) {//如果不可约
+                NSLog(@"不可预约");
+            } else {//如果已约
+                //"myIsOrd": 1,//当前用户是否预定该课程， 0 - 没有，1 - 已有预约
+                NSString *myIsOrd = [NSString stringWithFormat:@"%@", courseDic[@"myIsOrd"]];
+                if ([myIsOrd isEqualToString:@"1"]) {//如果是自己约的
+                    NSLog(@"取消预约");
+                    FTGymOrderCourseView *gymOrderCourseView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCourseView" owner:nil options:nil] firstObject];
+                    gymOrderCourseView.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
+                    gymOrderCourseView.courseType = FTOrderCourseTypeCoach;
+                    gymOrderCourseView.dateString = dateString;
+                    gymOrderCourseView.dateTimeStamp = timeStamp;
+                    
+                    gymOrderCourseView.price = _coachBean.price;
+                    gymOrderCourseView.coachName = _coachBean.name;
+                    gymOrderCourseView.courserCellDic = courseCell.courserCellDic;
+                    gymOrderCourseView.timeSection = _timeSectionsArray[timeSectionIndex][@"timeSection"];
+                    gymOrderCourseView.timeSectionId = _timeSectionsArray[timeSectionIndex][@"id"];
+                    gymOrderCourseView.balance = _balance;
+                    gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+                    gymOrderCourseView.coachUserId = _coachBean.userId;
+                    
                     NSLog(@"已经预约");
                     
                     NSDictionary *courseCellDic = courseCell.courserCellDic;
@@ -268,30 +269,34 @@
                     gymOrderCourseView.delegate = self;
                     gymOrderCourseView.status = FTGymCourseStatusHasOrder;
                     [self.view addSubview:gymOrderCourseView];
+                    
+                }else{
+                    NSLog(@"已被别人约了");
+                    FTGymOrderCoachView *gymOrderCoachView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCoachView" owner:nil options:nil] firstObject];
+                    gymOrderCoachView.delegate = self;
+                    gymOrderCoachView.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
+                    gymOrderCoachView.dateString = dateString;
+                    gymOrderCoachView.dateTimeStamp = timeStamp;
+                    gymOrderCoachView.price = _coachBean.price;
+                    gymOrderCoachView.coachName = _coachBean.name;
+                    gymOrderCoachView.courserCellDic = courseCell.courserCellDic;
+                    gymOrderCoachView.timeSection = _timeSectionsArray[timeSectionIndex][@"timeSection"];
+                    gymOrderCoachView.timeSectionId = _timeSectionsArray[timeSectionIndex][@"id"];
+                    gymOrderCoachView.balance = _balance;
+                    gymOrderCoachView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+                    gymOrderCoachView.coachUserId = _coachBean.userId;
+                    
+                    [gymOrderCoachView setDisplayWithInfo];
+                    gymOrderCoachView.bookedByOthers = YES;
+                    
+                    [self.view addSubview:gymOrderCoachView];
+                }
                 
-            }else{
-                NSLog(@"已被别人约了");
-                FTGymOrderCoachView *gymOrderCoachView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCoachView" owner:nil options:nil] firstObject];
-                gymOrderCoachView.delegate = self;
-                gymOrderCoachView.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
-                gymOrderCoachView.dateString = dateString;
-                gymOrderCoachView.dateTimeStamp = timeStamp;
-                gymOrderCoachView.price = _coachBean.price;
-                gymOrderCoachView.coachName = _coachBean.name;
-                gymOrderCoachView.courserCellDic = courseCell.courserCellDic;
-                gymOrderCoachView.timeSection = _timeSectionsArray[timeSectionIndex][@"timeSection"];
-                gymOrderCoachView.timeSectionId = _timeSectionsArray[timeSectionIndex][@"id"];
-                gymOrderCoachView.balance = _balance;
-                gymOrderCoachView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
-                gymOrderCoachView.coachUserId = _coachBean.userId;
-                
-                [gymOrderCoachView setDisplayWithInfo];
-                gymOrderCoachView.bookedByOthers = YES;
-                
-                [self.view addSubview:gymOrderCoachView];
             }
-            
         }
+    } else {
+        NSLog(@"没有加载到课程数据");
+        [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"没有加载到课程信息"];
     }
 
 }
@@ -316,6 +321,7 @@
     
     [NetWorking getCoachCourceInfoByCoachId:_coachBean.userId andGymId:_coachBean.corporationid andOption:^(NSArray *array) {
         _placesUsingInfoDic = [NSMutableDictionary new];
+        _isLoadCourseDataComplete = YES;
         if (array) {
             for(NSDictionary *dic in array){
                 NSString *theDate = [NSString stringWithFormat:@"%@", dic[@"theDate"]];//周几
@@ -340,6 +346,12 @@
     
     //刷新余额
     [self getVIPInfo];
+    
+    if (SCREEN_WIDTH != 320) {
+        [[NSNotificationCenter defaultCenter]postNotification:[NSNotification notificationWithName:BookCoachSuccessNotification object:nil]];
+    }
+    //发送消费通知
+    
 }
 
 - (void)bookCoachSuccess{
@@ -348,6 +360,10 @@
     
     //刷新余额
     [self getVIPInfo];
+    if (SCREEN_WIDTH != 320) {
+    //发送消费通知
+        [[NSNotificationCenter defaultCenter]postNotification:[NSNotification notificationWithName:BookCoachSuccessNotification object:nil]];
+    }
 }
 
 - (void)backBtnAction{
@@ -356,6 +372,10 @@
 
 - (void)gotoCoachHomepage{
     NSLog(@"去个人主页");
+    FTHomepageMainViewController *homepageMainViewController = [FTHomepageMainViewController new];
+    homepageMainViewController.coachId = _coachBean.id;
+    homepageMainViewController.olduserid = _coachBean.userId;
+    [self.navigationController pushViewController:homepageMainViewController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

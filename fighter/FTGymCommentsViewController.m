@@ -160,22 +160,28 @@
 }
 
 #pragma mark - response
-- (void) backBtnAction:(id) sender {
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
+//- (void) backBtnAction:(id) sender {
+//    
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
 
+
+/**
+ 点赞/取消点赞
+
+ @param sender 点赞按钮
+ */
 - (IBAction)thumbButtonAction:(id)sender {
     
-    FTUserBean *user = [FTUserBean loginUser];
-    if (!user) {
-        [self login];
+    if (![self isLogined]) {
         return;
     }
     
     if (!hasGetThumbState) {
         [self getThumbState];
     }
+    
+    FTUserBean *user = [FTUserBean loginUser];
     
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:thumbState?DeleteVoteURL:AddVoteURL];
@@ -203,11 +209,14 @@
 
 }
 
+/**
+ 跳转评论拳馆页面
+
+ @param sender 评论按钮
+ */
 - (IBAction)commentButtonAction:(id)sender {
     
-    FTUserBean *user = [FTUserBean loginUser];
-    if (!user) {
-        [self login];
+    if (![self isLogined]) {
         return;
     }
 
@@ -266,6 +275,7 @@
     replyCommentVC.objId = [NSString stringWithFormat:@"%d",bean.id];
     replyCommentVC.refreshBlock = [self getRefreshBlock];
     [self.navigationController  pushViewController:replyCommentVC animated:YES];
+    
 }
 
 //去掉UItableview headerview黏性(sticky)

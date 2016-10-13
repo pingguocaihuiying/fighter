@@ -112,8 +112,8 @@
         [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"tabels"];
         [[NSUserDefaults standardUserDefaults]synchronize];
         
-        NetWorking *net = [[NetWorking alloc]init];
-        [net getRankLabels:^(NSDictionary *dict) {
+        
+        [NetWorking getRankLabels:^(NSDictionary *dict) {
             if (dict != nil) {
                 if ([dict[@"status"] isEqualToString:@"success"]) {
                     

@@ -217,8 +217,8 @@
     
 
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NetWorking *net = [NetWorking new];
-    [net getCheckCodeForNewBindingPhone:phoneNum withType:@"gymmenbership"
+
+    [NetWorking getCheckCodeForNewBindingPhone:phoneNum withType:@"gymmenbership"
                               option:^(NSDictionary *dict) {
                                   
                                   [MBProgressHUD hideHUDForView:self.view animated:YES];

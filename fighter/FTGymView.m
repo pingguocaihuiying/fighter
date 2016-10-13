@@ -18,6 +18,7 @@
 #import "FTGymVIPCellTableViewCell.h"
 #import "FTGymDetailBean.h"
 #import "FTGymSourceViewController2.h"
+#import "NSString+Tool.h"
 
 @interface FTGymView () <UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, FTCycleScrollViewDelegate,FTSelectCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -505,36 +506,8 @@
         NSLog(@"dic:%@",dic);
         
         FTGymVIPCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"gymVIPCell"];
-        cell.surplusCourse.text = bean.surplusCourse;
-        cell.deadline.text = bean.deadline;
-        cell.balanceLabel.text = bean.userMoney;
-        
-        cell.gymName.text = bean.gymName;
-        cell.gymAddress.text = bean.gymLocation;
-        cell.gymPhone.text = bean.gymTel;
-        
-        
-        cell.courseDate.text = bean.courseDate;
-        cell.courseTime.text =bean.courseTime;
-        cell.course.text = bean.course;
-        
-        cell.orderDate.text = bean.orderDate;
-        cell.orderTime.text = bean.orderTime;
-        cell.order.text = bean.order;
-        
-        
-        NSString *imgStr = bean.gymShowImg;// dic[@"gymShowImg"];
-        if (imgStr && imgStr.length > 0) {
-            NSArray *tempArray = [imgStr componentsSeparatedByString:@","];
-            NSString *urlStr = [NSString stringWithFormat:@"http://%@/%@",dic[@"urlPrefix"],[tempArray objectAtIndex:0]];
-            
-            [cell.gymImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"拳馆占位图"]];
-        }else {
-            
-            [cell.gymImageView setImage:[UIImage imageNamed:@"拳馆占位图"]];
-        }
-        
-        
+       
+        [cell setValueWithBean:bean];
         // 进入拳馆按钮
         cell.gymAccessButton.tag = [indexPath row];
         [cell.gymAccessButton addTarget:self action:@selector(enterGymBUttonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -594,9 +567,6 @@
         gymSourceViewController.gymDetailBean = detailBean;
         
         //获取对应的bean，传递给下个vc
-        NSDictionary *newsDic = [self.dataSourceArray objectAtIndex:indexPath.row];
-        FTGymBean *bean = [FTGymBean new];
-        [bean setValuesWithDic:newsDic];
         gymSourceViewController.gymBean = bean;
         
         if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
@@ -760,5 +730,10 @@
     [self getTableViewDataFromWeb];
 //    [self.tableView reloadData];
 }
+
+
+#pragma mark  - private
+
+
 
 @end

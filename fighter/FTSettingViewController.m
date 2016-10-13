@@ -109,11 +109,10 @@
     
     [MobClick event:@"homePage_SetUp_Logout"];
     
-    NetWorking *net = [NetWorking new];
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    [net loginOut:^(NSDictionary *dict) {
+    [NetWorking loginOut:^(NSDictionary *dict) {
         
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         

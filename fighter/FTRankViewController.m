@@ -127,8 +127,7 @@
 
 -(void) getContentDataFromWeb {
 
-    NetWorking *net = [[NetWorking alloc]init];
-    [net getRankListWithLabel:_selectKind
+    [NetWorking getRankListWithLabel:_selectKind
                          race:_selectMatch
                 FeatherWeight:_selectLevel
                       pageNum:_pageNum
@@ -400,8 +399,7 @@
 //获取列表筛选标签
 - (void) getRankListLabelArray {
     
-    NetWorking *net = [[NetWorking alloc]init];
-    [net getRankLabels:^(NSDictionary *dict) {
+    [NetWorking getRankLabels:^(NSDictionary *dict) {
         //NSLog(@"Labels:%@",dict);
         if (dict != nil) {
 //             NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);

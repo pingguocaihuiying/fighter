@@ -45,6 +45,7 @@ typedef NS_ENUM(NSInteger, FTGymCourseStatus) {
 @property (nonatomic, copy) NSString *gymId;//拳馆id
 @property (nonatomic, weak) id<FTGymOrderCourseViewDelegate> delegate;
 
+@property (nonatomic, copy) NSString *webViewURL;//webview url
 
 
 //下面是预约私教可能用到的字段

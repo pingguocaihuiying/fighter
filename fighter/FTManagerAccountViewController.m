@@ -83,8 +83,8 @@
     NSString *wxName = [[NSUserDefaults standardUserDefaults]objectForKey:@"wxName"];
     NSString *wxHeaderPic = [[NSUserDefaults standardUserDefaults]objectForKey:@"wxHeaderPic"];
 
-    NetWorking *net = [[NetWorking alloc]init];
-    [net bindingWeixin:wxOpenId  option:^(NSDictionary *dict) {
+    
+    [NetWorking bindingWeixin:wxOpenId  option:^(NSDictionary *dict) {
         NSLog(@"dict:%@",dict);
         if (dict != nil) {
             
@@ -210,8 +210,7 @@
             
         }else {//手机登录未绑定微信, 用微信登录绑定微信
             
-            NetWorking *net = [[NetWorking alloc]init];
-            [net weixinRequest];
+            [NetWorking weixinRequest];
             
         }
         
@@ -234,8 +233,7 @@
     }
     else  if (indexPath.row == 2) {
         
-        NetWorking *net= [[NetWorking alloc]init];
-        [net isBindingPhoneNum:^(NSDictionary *dict) {
+        [NetWorking isBindingPhoneNum:^(NSDictionary *dict) {
             NSLog(@"dict:%@",dict);
             if (dict != nil) {
                 
