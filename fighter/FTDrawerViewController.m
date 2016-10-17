@@ -876,16 +876,27 @@ static NSString *const tableCellId = @"tableCellId";
             }
         }
     }
+    NSInteger selectIndex = _tabBarVC.selectedIndex;
     
     if (isCoach && loginUser.corporationid) {
         
         _coachSelfCourseVC.corporationid = loginUser.corporationid;
-        _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_coachSelfCourseVC,_rankHomeVC];
+        if ([self isContainShopVC]) {
+            _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_coachSelfCourseVC,_rankHomeVC,_shopVC];
+        }else {
+            _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_coachSelfCourseVC,_rankHomeVC];
+        }
         
     }else {
         
-        _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_practiceVC,_rankHomeVC];
+        if ([self isContainShopVC]) {
+            _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_practiceVC,_rankHomeVC,_shopVC];
+        }else {
+            _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_practiceVC,_rankHomeVC];
+        }
+        
     }
+    _tabBarVC.selectedIndex = selectIndex;
     
     // 设置格斗商城
     [self getShopConfigInfo:^{
@@ -929,6 +940,15 @@ static NSString *const tableCellId = @"tableCellId";
     NSArray *items = [[NSArray alloc]initWithArray:mutabelItems];
     
     self.tabBarVC.viewControllers = items;
+}
+
+- (BOOL) isContainShopVC {
+
+    NSMutableArray *mutabelItems = [[NSMutableArray alloc]initWithArray:self.tabBarVC.viewControllers];
+    if (![mutabelItems containsObject:_shopVC]) {
+        return NO;
+    }
+    return YES;
 }
 
 
