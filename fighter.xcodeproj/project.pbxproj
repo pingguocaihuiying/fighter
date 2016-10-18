@@ -275,6 +275,7 @@
 		E616C77C1CF58D03006EFA0B /* libc++abi.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E616C77B1CF58D03006EFA0B /* libc++abi.tbd */; };
 		E61AC8E01D73D8EE00ECA283 /* FTBetView0.m in Sources */ = {isa = PBXBuildFile; fileRef = E61AC8DF1D73D8EE00ECA283 /* FTBetView0.m */; };
 		E61AC8E21D73D90D00ECA283 /* FTBetView0.xib in Resources */ = {isa = PBXBuildFile; fileRef = E61AC8E11D73D90D00ECA283 /* FTBetView0.xib */; };
+		E61E59041DB5C923002FE239 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E61E59061DB5C923002FE239 /* InfoPlist.strings */; };
 		E61FE1691DA9E5650085B046 /* FTCoachBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E61FE1681DA9E5650085B046 /* FTCoachBean.m */; };
 		E61FE16E1DAB997B0085B046 /* FTGymSourceViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = E61FE16C1DAB997B0085B046 /* FTGymSourceViewController2.m */; };
 		E61FE16F1DAB997B0085B046 /* FTGymSourceViewController2.xib in Resources */ = {isa = PBXBuildFile; fileRef = E61FE16D1DAB997B0085B046 /* FTGymSourceViewController2.xib */; };
@@ -878,6 +879,9 @@
 		E61AC8DE1D73D8EE00ECA283 /* FTBetView0.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBetView0.h; sourceTree = "<group>"; };
 		E61AC8DF1D73D8EE00ECA283 /* FTBetView0.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBetView0.m; sourceTree = "<group>"; };
 		E61AC8E11D73D90D00ECA283 /* FTBetView0.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTBetView0.xib; sourceTree = "<group>"; };
+		E61E59051DB5C923002FE239 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		E61E59071DB5C927002FE239 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E61E59081DB5C96E002FE239 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E61FE1671DA9E5650085B046 /* FTCoachBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCoachBean.h; sourceTree = "<group>"; };
 		E61FE1681DA9E5650085B046 /* FTCoachBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCoachBean.m; sourceTree = "<group>"; };
 		E61FE16B1DAB997B0085B046 /* FTGymSourceViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymSourceViewController2.h; sourceTree = "<group>"; };
@@ -2246,6 +2250,14 @@
 			name = "第二个确认界面";
 			sourceTree = "<group>";
 		};
+		E61E59011DB5C89F002FE239 /* Localize */ = {
+			isa = PBXGroup;
+			children = (
+				E61E59061DB5C923002FE239 /* InfoPlist.strings */,
+			);
+			name = Localize;
+			sourceTree = "<group>";
+		};
 		E61FE1661DA9E5430085B046 /* 教练 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2376,6 +2388,7 @@
 		E64EF1081CB6614000CAE340 /* fighter */ = {
 			isa = PBXGroup;
 			children = (
+				E61E59011DB5C89F002FE239 /* Localize */,
 				3D13FB0B1D193A5A0060B9B4 /* fighter.entitlements */,
 				3D0615501D362FFD00FDA86F /* EncodeAndDecode */,
 				3D17F7221D0052A0003AB660 /* OtherSDK */,
@@ -3825,6 +3838,7 @@
 				3D7B98B01CE05F3300B80B8D /* FTPhoneViewController.xib in Resources */,
 				3D9666CD1D9AAE2100E90DA5 /* FTGymOrderCoachView.xib in Resources */,
 				3D06154F1D35E17B00FDA86F /* FTPhoneCell.xib in Resources */,
+				E61E59041DB5C923002FE239 /* InfoPlist.strings in Resources */,
 				E66EAEA31CF8217F006CD6CE /* FTArenaTextTableViewCell.xib in Resources */,
 				3D9666D41D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.xib in Resources */,
 				3D322ACA1CEB171200039E2C /* FTRankHeaderCell.xib in Resources */,
@@ -4339,6 +4353,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		E61E59061DB5C923002FE239 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E61E59051DB5C923002FE239 /* zh-Hans */,
+				E61E59071DB5C927002FE239 /* Base */,
+				E61E59081DB5C96E002FE239 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		E64EF1121CB6614000CAE340 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -4494,7 +4518,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -4546,7 +4570,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
