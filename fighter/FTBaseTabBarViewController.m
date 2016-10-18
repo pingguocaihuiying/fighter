@@ -318,25 +318,25 @@
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
 
     
-    // 判断商城是否登录
-    if (tabBarController.selectedIndex != 4 && [viewController isKindOfClass:[FTShopViewController class]]) {
-        
-        //从本地读取存储的用户信息
-        FTUserBean *localUser = [FTUserBean loginUser];
-        
-        if ( !localUser) {
-            
-            FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
-            loginVC.title = @"登录";
-            FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
-            [self.navigationController presentViewController:nav animated:YES completion:nil];
-            
-            [[UIApplication sharedApplication].keyWindow addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:3];
-            
-            return NO;
-        }
-        
-    }
+//    // 判断商城是否登录
+//    if (tabBarController.selectedIndex != 4 && [viewController isKindOfClass:[FTShopViewController class]]) {
+//        
+//        //从本地读取存储的用户信息
+//        FTUserBean *localUser = [FTUserBean loginUser];
+//        
+//        if ( !localUser) {
+//            
+//            FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+//            loginVC.title = @"登录";
+//            FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+//            [self.navigationController presentViewController:nav animated:YES completion:nil];
+//            
+//            [[UIApplication sharedApplication].keyWindow addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:3];
+//            
+//            return NO;
+//        }
+//        
+//    }
     
     
     
