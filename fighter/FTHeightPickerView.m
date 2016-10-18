@@ -274,8 +274,7 @@
     
     NSString *propertValue = [NSString stringWithFormat:@"%ld",selectH];
     
-    NetWorking *net = [NetWorking new];
-    [net updateUserWithValue:propertValue
+    [NetWorking updateUserWithValue:propertValue
                          Key:@"height"
                       option:^(NSDictionary *dict) {
                           NSLog(@"dict:%@",dict);

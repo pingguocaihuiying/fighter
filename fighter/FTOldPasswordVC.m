@@ -90,8 +90,8 @@
     
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NetWorking *net = [NetWorking new];
-    [net loginWithPhoneNumber:tel
+   
+    [NetWorking loginWithPhoneNumber:tel
                      password:self.passwordTextField.text
                        option:^(NSDictionary *dict) {
                            

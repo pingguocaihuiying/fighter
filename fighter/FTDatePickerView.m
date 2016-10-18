@@ -337,8 +337,8 @@
 
     NSString *propertValue = [NSString stringWithFormat:@"%ld-%ld-%ld",(long)selectY,(long)selectM,(long)selectD];
     
-    NetWorking *net = [NetWorking new];
-    [net updateUserWithValue:propertValue
+    
+    [NetWorking updateUserWithValue:propertValue
                          Key:@"birthday"
                       option:^(NSDictionary *dict) {
                           NSLog(@"dict:%@",dict);

@@ -140,20 +140,36 @@
 //            [self.webView loadRequest:self.request];
 //        }
 //    }];
-//    
-    self.webView.delegate = self;
-    //获取网络请求地址url
-    NSString *indexStr = [FTNetConfig host:Domain path:ShopURL];
-    NSString *urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@",indexStr,localUser.olduserid,localUser.token];
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//
+    
+    if (localUser) {
+        
+        self.webView.delegate = self;
+        //获取网络请求地址url
+        NSString *indexStr = [FTNetConfig host:Domain path:ShopURL];
+        NSString *urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@",indexStr,localUser.olduserid,localUser.token];
+        NSURL *url = [NSURL URLWithString:urlString];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        [self.webView loadRequest: request];
+    }else {
+        
+        self.webView.delegate = self;
+        //获取网络请求地址url
+        NSString *indexStr = [FTNetConfig host:Domain path:ShopNewURL];
+//        NSString *urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@",indexStr,localUser.olduserid,localUser.token];
+        NSURL *url = [NSURL URLWithString:indexStr];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        [self.webView loadRequest: request];
+        
+    }
+    
     
 //    NSString *body = [NSString stringWithFormat: @"userId=%@&loginToken=%@", localUser.olduserid,localUser.token];
 //    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL: url];
 //    [request setHTTPMethod: @"POST"];
 //    [request setHTTPBody: [body dataUsingEncoding: NSUTF8StringEncoding]];
     
-    [self.webView loadRequest: request];
+    
     
     [self setJHRefresh];
     
@@ -167,17 +183,24 @@
     self.webView.scrollView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
         FTUserBean *localUser = [FTUserBean loginUser];
-        //获取网络请求地址url
-        NSString *indexStr = [FTNetConfig host:Domain path:ShopURL];
-        NSString *urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@",indexStr,localUser.olduserid,localUser.token];
-        NSURL *url = [NSURL URLWithString:urlString];
-        NSURLRequest *request = [NSURLRequest requestWithURL:url];
-        [weakSelf.webView loadRequest: request];
+        if (localUser) {
+            //获取网络请求地址url
+            NSString *indexStr = [FTNetConfig host:Domain path:ShopURL];
+            NSString *urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@",indexStr,localUser.olduserid,localUser.token];
+            NSURL *url = [NSURL URLWithString:urlString];
+            NSURLRequest *request = [NSURLRequest requestWithURL:url];
+            [weakSelf.webView loadRequest: request];
+        }else {
+            //获取网络请求地址url
+            NSString *indexStr = [FTNetConfig host:Domain path:ShopNewURL];
+            NSURL *url = [NSURL URLWithString:indexStr];
+            NSURLRequest *request = [NSURLRequest requestWithURL:url];
+            [self.webView loadRequest: request];
+        }
+        
 
         [weakSelf.webView.scrollView.mj_header beginRefreshing];
     }];
-    
-    
     
 }
 
@@ -225,7 +248,6 @@
 
 
 #pragma mark - 通知事件
-
 // 微信登录响应
 - (void) wxLoginCallback:(NSNotification *)noti{
     NSString *msg = [noti object];
@@ -235,7 +257,7 @@
     }
 }
 
-// 微信登录响应
+// 手机登录响应
 - (void) phoneLoginedCallback:(NSNotification *)noti {
     
     [self initWebview];

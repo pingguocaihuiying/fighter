@@ -97,6 +97,11 @@
 #pragma mark - 初始化
 - (void) setNotifications {
 
+    //注册通知，接收微信登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginCallback:) name:WXLoginResultNoti object:nil];
+    //添加监听器，监听手机login
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(phoneLoginedCallback:) name:LoginNoti object:nil];
+    
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(shouldBackRefresh:) name:@"dbbackrefresh" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(shouldBackRoot:) name:@"dbbackroot" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(shouldBackRootRefresh:) name:@"dbbackrootrefresh" object:nil];
@@ -124,8 +129,27 @@
     
 }
 
-#pragma mark - response
+- (void) loginRefresh {
 
+    NSMutableString *url=[[NSMutableString alloc]initWithString:[self.request.URL absoluteString]];
+    FTUserBean *localUser = [FTUserBean loginUser];
+    if (localUser) {
+        
+        if([url rangeOfString:@"loginState=false"].location!=NSNotFound){
+            
+            NSString *urlString = [NSString stringWithFormat: @"userId=%@&loginToken=%@",localUser.olduserid,localUser.token];
+            [url replaceCharactersInRange:[url rangeOfString:@"shopNew"] withString:@"shop"];
+            [url replaceCharactersInRange:[url rangeOfString:@"loginState=false"] withString:@"none=1"];
+            [url replaceCharactersInRange:[url rangeOfString:@"userId=?&loginToken=?"] withString:urlString];
+            
+            self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+            [self.webView loadRequest:self.request];
+        }
+    }
+    
+}
+
+#pragma mark - response
 - (void) backBtnAction:(id)sender {
     
     [self.navigationController popViewControllerAnimated:YES];
@@ -155,6 +179,19 @@
     NSMutableString *url=[[NSMutableString alloc]initWithString:[request.URL absoluteString]];
     
     NSLog(@"url:%@",url);
+    // 检测登录
+    if([url rangeOfString:@"toLogin=1"].location!=NSNotFound){
+        
+        if ([self isLogined]) {
+            
+            FTUserBean *localUser = [FTUserBean loginUser];
+            NSString *urlString = [NSString stringWithFormat: @"userId=%@&loginToken=%@",localUser.olduserid,localUser.token];
+            [url replaceCharactersInRange:[url rangeOfString:@"toLogin=1"] withString:urlString];
+            [self openNewVC:url];
+            
+        }
+        return NO;
+    }
     
     NSRange userIdRange = [url rangeOfString:@"js-call:userId="];
     NSRange orderNORange = [url rangeOfString:@"&orderNo="];
@@ -173,8 +210,7 @@
         
         _orderNo = orderNo;
         //从本地读取存储的用户信息
-        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+         FTUserBean *localUser = [FTUserBean loginUser];
         
         NSString *userId = localUser.olduserid;//发起人id
         NSLog(@"userId = %@ ",userId);
@@ -332,6 +368,24 @@
 //    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
 //    [singleton fetchBalanceFromWeb:^{}];
 //}
+
+#pragma mark - 通知事件
+// 微信登录响应
+- (void) wxLoginCallback:(NSNotification *)noti{
+    NSString *msg = [noti object];
+    if ([msg isEqualToString:@"SUCESS"]) {
+        
+//        [self.webView stringByEvaluatingJavaScriptFromString:@"reloadSource()"];
+        [self loginRefresh];
+    }
+}
+
+// 手机登录响应
+- (void) phoneLoginedCallback:(NSNotification *)noti {
+//    [self.webView stringByEvaluatingJavaScriptFromString:@"reloadSource()"];
+    [self loginRefresh];
+}
+
 
 
 - (void) wxPayCallback:(NSNotification *) noti {

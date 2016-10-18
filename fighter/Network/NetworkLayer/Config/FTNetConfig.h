@@ -260,8 +260,10 @@ extern NSString * const DuiBaChargeURL ;
 // 兑吧确定扣除积分接口
 extern NSString * const DuiBaCheckCharegeURL ;
 
-// 商城首页
+// 商城首页-已登录
 extern NSString * const ShopURL;
+// 商城首页-未登录
+extern NSString * const ShopNewURL;
 // 订单页
 extern NSString * const ShopOrderURL;
 

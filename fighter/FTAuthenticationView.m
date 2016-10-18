@@ -184,8 +184,8 @@ UINavigationControllerDelegate, FTPickerViewDelegate>
     
     // 2、跟新用真实姓名
     [MBProgressHUD showHUDAddedTo:self animated:YES];
-    NetWorking *net = [NetWorking new];
-    [net updateUserByGet:propertValue Key:@"realname" option:^(NSDictionary *dict) {
+   
+    [NetWorking updateUserByGet:propertValue Key:@"realname" option:^(NSDictionary *dict) {
         NSLog(@"dict:%@",dict);
         if (dict != nil) {
             

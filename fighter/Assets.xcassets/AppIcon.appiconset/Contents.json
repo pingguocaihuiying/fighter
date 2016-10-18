@@ -45,6 +45,27 @@
       "idiom" : "iphone",
       "filename" : "G格斗家logo@180ios.png",
       "scale" : "3x"
+    },
+    {
+      "size" : "40x40",
+      "idiom" : "ipad",
+      "filename" : "G格斗家logo@80ios-1.png",
+      "unassigned" : true,
+      "scale" : "2x"
+    },
+    {
+      "size" : "76x76",
+      "idiom" : "ipad",
+      "filename" : "G格斗家logo@76ios.png",
+      "unassigned" : true,
+      "scale" : "1x"
+    },
+    {
+      "size" : "76x76",
+      "idiom" : "ipad",
+      "filename" : "G格斗家logo@152ios.PNG",
+      "unassigned" : true,
+      "scale" : "2x"
     }
   ],
   "info" : {

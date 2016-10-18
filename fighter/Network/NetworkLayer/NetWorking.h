@@ -16,18 +16,18 @@
 /*****************************      封装请求      ********************************/
 
 //get请求
-- (void) getRequestWithUrl:(NSString *)urlString
++ (void) getRequestWithUrl:(NSString *)urlString
                 parameters:(NSDictionary *)dic
                     option:(void (^)(NSDictionary *dict))option;
 
 //post请求
-- (void) postRequestWithUrl:(NSString *)urlString
++ (void) postRequestWithUrl:(NSString *)urlString
                  parameters:(NSDictionary *)dic
                      option:(void (^)(NSDictionary *dict))option;
 
 
 //post请求上传二进制数据
-- (void) postUploadDataWithURL:(NSString *)urlString
++ (void) postUploadDataWithURL:(NSString *)urlString
                     parameters:(NSDictionary *)dic
               appendParameters:(NSDictionary *)appendDic
                         option:(void (^)(NSDictionary *dict))option;
@@ -57,55 +57,55 @@
 /*****************************    获取短信验证码   ********************************/
 
 //获取短信验证码
-- (void) getCheckCodeWithPhoneNumber:(NSString *)phonenum
++ (void) getCheckCodeWithPhoneNumber:(NSString *)phonenum
                               option:(void (^)(NSDictionary *dict))option;
 
 
 //绑定手机时获取验证码
-- (void) getCheckCodeForNewBindingPhone:(NSString *)phoneNum
++ (void) getCheckCodeForNewBindingPhone:(NSString *)phoneNum
                                  option:(void (^)(NSDictionary *dict))option;
 //绑定手机时获取验证码(可以修改type类型的)
-- (void) getCheckCodeForNewBindingPhone:(NSString *)phoneNum withType:(NSString *)type
++ (void) getCheckCodeForNewBindingPhone:(NSString *)phoneNum withType:(NSString *)type
                                  option:(void (^)(NSDictionary *dict))option;
 //更换手机时获取旧手机号验证码
-- (void) getCheckCodeForExistPhone:(NSString *)phoneNum
++ (void) getCheckCodeForExistPhone:(NSString *)phoneNum
                                 type:(NSString *)type
                               option:(void (^)(NSDictionary *dict))option;
 
 //更换手机时获取新手机号验证码
-- (void) getCheckCodeForNewPhone:(NSString *)phoneNum
++ (void) getCheckCodeForNewPhone:(NSString *)phoneNum
                             type:(NSString *)type
                           option:(void (^)(NSDictionary *dict))option;
 
 #pragma mark - 注册登录
 /*****************************    注册登录   ***********************************/
 //手机号注册用户
-- (void) registUserWithPhoneNumber:(NSString *)phoneNum
++ (void) registUserWithPhoneNumber:(NSString *)phoneNum
                           password:(NSString *)password
                          checkCode:(NSString *)checkCode
                             option:(void (^)(NSDictionary *dict))option;
 
 
 //手机号登录
-- (void) loginWithPhoneNumber:(NSString *)phoneNum
++ (void) loginWithPhoneNumber:(NSString *)phoneNum
                      password:(NSString *)password
                        option:(void (^)(NSDictionary *dict))option;
 
 
 //用户退出登录
-- (void) loginOut:(void (^)(NSDictionary *dict))option ;
++ (void) loginOut:(void (^)(NSDictionary *dict))option ;
 
 
 #pragma mark -  更新用户
 /*****************************    更新用户   *********************************/
 
 //修改用户数据  --post
-- (void) updateUserWithValue:(NSString *)value
++ (void) updateUserWithValue:(NSString *)value
                          Key:(NSString *)key
                       option:(void (^)(NSDictionary *dict))option;
 
 //修改用户头像
-- (void) updateUserHeaderWithLocallUrl:(NSURL *)localUrl
++ (void) updateUserHeaderWithLocallUrl:(NSURL *)localUrl
                                    Key:(NSString *)key
                                 option:(void (^)(NSDictionary *dict))option;
 
@@ -114,58 +114,58 @@
                       Key:(NSString *)key  option:(void (^)(NSDictionary *dict))option;
 
 //修改用户数据  ---get
-- (void) updateUserByGet:(NSString *)value
++ (void) updateUserByGet:(NSString *)value
                      Key:(NSString *)key
                   option:(void (^)(NSDictionary *dict))option;
 
 //检查用户是否绑定手机
-- (void) isBindingPhoneNum:(void (^)(NSDictionary *dict))option;
++ (void) isBindingPhoneNum:(void (^)(NSDictionary *dict))option;
 
 
 
 #pragma mark -  微信
 /*****************************    微信   ******************************/
 //绑定微信号
-- (void) bindingWeixin:(NSString *)openId
++ (void) bindingWeixin:(NSString *)openId
 //                  checkCode:(NSString *)checkcode
                      option:(void (^)(NSDictionary *dict))option;
 
 
-- (void) updatePassword:(NSString *) oldpass
++ (void) updatePassword:(NSString *) oldpass
             newPassword:(NSString *) newPass
                  option:(void (^)(NSDictionary *dict))option;
 
 
 //微信登录请求
-- (void) weixinRequest;
++ (void) weixinRequest;
 
 //请求微信的token和openId
-- (void) requestWeixinTokenAdnOpenId:(NSString *)code
++ (void) requestWeixinTokenAdnOpenId:(NSString *)code
                               option:(void (^)(NSDictionary *dict))option;
 
 //获取微信用户信息
-- (void) requestWeixinUserInfoWithToken:(NSString *)token
++ (void) requestWeixinUserInfoWithToken:(NSString *)token
                                  openId:(NSString *)openId
                                  option:(void(^)(NSDictionary *dict)) option;
 
 //向服务器注册微信用户，或者登录微信用户
-- (void) requestWeixinUser:(NSDictionary *)wxInfoDic
++ (void) requestWeixinUser:(NSDictionary *)wxInfoDic
                     option:(void (^)(NSDictionary *dict))option;
 
 #pragma mark -  binding phone
 /***************************     binding phone    ********************************/
 
 //绑定手机号码
-- (void) bindingPhoneNumber:(NSString *)phoneNum
++ (void) bindingPhoneNumber:(NSString *)phoneNum
                   checkCode:(NSString *)checkcode
                      option:(void (^)(NSDictionary *dict))option;
 //验证旧手机验证码
-- (void) checkCodeForExistPhone:(NSString *)phoneNum
++ (void) checkCodeForExistPhone:(NSString *)phoneNum
                     checkCode:(NSString *)checkcode
                        option:(void (^)(NSDictionary *dict))option;
 
 //修改绑定手机
-- (void) changgeBindingPhone:(NSString *)phoneNum
++ (void) changgeBindingPhone:(NSString *)phoneNum
                    checkCode:(NSString *)checkcode
                       option:(void (^)(NSDictionary *dict))option;
 
@@ -174,18 +174,18 @@
 #pragma mark - 排行榜
 /***************************     排行榜     ***********************************/
 //获取排行榜列表信息
-- (void) getRankListWithLabel:(NSString *)label
++ (void) getRankListWithLabel:(NSString *)label
                          race:(NSString *)race
                 FeatherWeight:(NSString *)featherWeight
                       pageNum:(NSInteger)pagenum
                        option:(void (^)(NSDictionary *dict))option;
 
 //获取排行榜标签
-- (void) getRankLabels:(void (^)(NSDictionary *dict))option;
++ (void) getRankLabels:(void (^)(NSDictionary *dict))option;
 
 #pragma mark - 视频
 //获取排行榜标签
-- (void) getVideos:(NSString *) urlString  option:(void (^)(NSDictionary *dict))option;
++ (void) getVideos:(NSString *) urlString  option:(void (^)(NSDictionary *dict))option;
 
 //获取个人主页用户资料
 + (void)getHomepageUserInfoWithUserOldid:(NSString *)userOldid andBoxerId:(NSString *)boxerId andCoachId:(NSString *)coachId andCallbackOption:(void (^)(FTUserBean *userBean))userBeanOption;

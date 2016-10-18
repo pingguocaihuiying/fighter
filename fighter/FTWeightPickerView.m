@@ -276,8 +276,7 @@
     
     NSString *propertValue = [NSString stringWithFormat:@"%ld",selectW];
     NSLog(@"property:%@",propertValue);
-    NetWorking *net = [NetWorking new];
-    [net updateUserWithValue:propertValue
+    [NetWorking updateUserWithValue:propertValue
                          Key:@"weight"
                       option:^(NSDictionary *dict) {
                           NSLog(@"dict:%@",dict);

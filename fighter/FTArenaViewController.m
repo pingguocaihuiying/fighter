@@ -346,9 +346,8 @@
     urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@&source=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName, @"1"];
     
     NSLog(@"arena list urlString:%@",urlString);
-    NetWorking *net = [[NetWorking alloc]init];
     
-    [net getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
+    [NetWorking getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
 //        NSLog(@"responseDic:  %@", responseDic);
         if (responseDic != nil) {
             NSString *status = responseDic[@"status"];
