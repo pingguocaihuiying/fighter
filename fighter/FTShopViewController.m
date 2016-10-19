@@ -43,8 +43,7 @@
 -(id)initWithRequest:(NSURLRequest *)request{
     self=[super init];
     self.request=request;
-    
-    
+
     return self;
 }
 
