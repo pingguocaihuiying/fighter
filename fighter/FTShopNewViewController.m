@@ -135,7 +135,9 @@
     FTUserBean *localUser = [FTUserBean loginUser];
     if (localUser) {
         
-        if([url rangeOfString:@"loginState=false"].location!=NSNotFound){
+        
+        // 商品详情页登录后刷新
+        if([url rangeOfString:@"loginState=false"].location!=NSNotFound ){
             
             NSString *urlString = [NSString stringWithFormat: @"userId=%@&loginToken=%@",localUser.olduserid,localUser.token];
             [url replaceCharactersInRange:[url rangeOfString:@"shopNew"] withString:@"shop"];
@@ -145,6 +147,19 @@
             self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
             [self.webView loadRequest:self.request];
         }
+        
+        // 兑换记录页登陆后刷新
+        if ([url rangeOfString:@"toLogin=1"].location!=NSNotFound) {
+        
+            NSString *urlString = [NSString stringWithFormat: @"userId=%@&loginToken=%@",localUser.olduserid,localUser.token];
+            [url replaceCharactersInRange:[url rangeOfString:@"shopNew"] withString:@"shop"];
+            [url replaceCharactersInRange:[url rangeOfString:@"toLogin=1"] withString:@"none=1"];
+            [url replaceCharactersInRange:[url rangeOfString:@"userId=?&loginToken=?"] withString:urlString];
+            
+            self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+            [self.webView loadRequest:self.request];
+        }
+        
     }
     
 }
