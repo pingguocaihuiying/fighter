@@ -86,7 +86,7 @@
 
 //已登陆的用户信息
 #define LoginUser @"loginUser"
-//showType区分正式版，和编辑预览版的字断
+//showType区分正式版，和编辑预览版的字段
 #define SHOWTYPE @"showType"
 
 //类别（综合格斗、拳击、散打等等
