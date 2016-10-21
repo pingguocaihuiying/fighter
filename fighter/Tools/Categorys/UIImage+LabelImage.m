@@ -44,7 +44,7 @@
     if ([label isEqualToString:@"Boxing"]) {
         image = [UIImage imageNamed:@"格斗标签-拳击"];
     }else if ([label isEqualToString:@"MMA"]) {
-        image = [UIImage imageNamed:@"ThaiBoxing"];
+        image = [UIImage imageNamed:@"格斗标签-综合格斗"];
     }else if ([label isEqualToString:@"泰拳"]) {
         image = [UIImage imageNamed:@"格斗标签-泰拳"];
     }else if ([label isEqualToString:@"Taekwondo"]) {
