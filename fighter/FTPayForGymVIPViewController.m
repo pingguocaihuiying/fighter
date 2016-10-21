@@ -371,10 +371,25 @@
 }
 
 - (void)enterGymButtonClicked{
-    NSLog(@"进入拳馆预约课程");
-    FTGymSourceViewController2 *gymSourceViewController = [FTGymSourceViewController2 new];
-    gymSourceViewController.gymDetailBean = _gymDetailBean;
-    [self.navigationController pushViewController:gymSourceViewController animated:YES];
+//    NSLog(@"进入拳馆预约课程");
+//    FTGymSourceViewController2 *gymSourceViewController = [FTGymSourceViewController2 new];
+//    gymSourceViewController.gymDetailBean = _gymDetailBean;
+//    [self.navigationController pushViewController:gymSourceViewController animated:YES];
+    
+    /*
+     改版之后，返回拳馆详情页 10-21
+     */
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    UIViewController *detailVC = [self.navigationController viewControllers][1];
+    if([detailVC respondsToSelector:@selector(getVIPInfo)]){
+        [detailVC performSelector:@selector(getVIPInfo)];//刷新vip信息
+    }
+    UIViewController *detailVC2 = [self.navigationController viewControllers][2];
+    if([detailVC2 respondsToSelector:@selector(getVIPInfo)]){
+        [detailVC2 performSelector:@selector(getVIPInfo)];//刷新vip信息
+    }
+    
 }
 - (IBAction)refreshButtonClicked:(id)sender {
     _stopAnimation = NO;

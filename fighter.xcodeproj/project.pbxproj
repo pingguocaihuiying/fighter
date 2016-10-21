@@ -386,6 +386,8 @@
 		E6B7D2011CF6A750004191A3 /* FTArenaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6B7D1FF1CF6A750004191A3 /* FTArenaViewController.xib */; };
 		E6BFBEE61D23D55B0044F4B0 /* FTLaunchNewMatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6BFBEE41D23D55B0044F4B0 /* FTLaunchNewMatchViewController.m */; };
 		E6BFBEE71D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6BFBEE51D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib */; };
+		E6C3C5BF1DB89534007B199D /* FTGymCourceViewNew.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C3C5BE1DB89534007B199D /* FTGymCourceViewNew.m */; };
+		E6C3C5C11DB895F6007B199D /* FTGymCourceViewNew.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6C3C5C01DB895F6007B199D /* FTGymCourceViewNew.xib */; };
 		E6C4D7ED1CEC5E7B00D73BFC /* FTUserTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7EC1CEC5E7B00D73BFC /* FTUserTools.m */; };
 		E6C4D7F11CEC5FCE00D73BFC /* FTArenaNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7F01CEC5FCE00D73BFC /* FTArenaNetwork.m */; };
 		E6C5F4DC1D6EF55000F15AA3 /* FTLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C5F4DB1D6EF55000F15AA3 /* FTLoadingView.m */; };
@@ -1074,6 +1076,9 @@
 		E6BFBEE31D23D55B0044F4B0 /* FTLaunchNewMatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTLaunchNewMatchViewController.h; path = "UI/格斗场/viewControllers/发起约战/main/FTLaunchNewMatchViewController.h"; sourceTree = "<group>"; };
 		E6BFBEE41D23D55B0044F4B0 /* FTLaunchNewMatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTLaunchNewMatchViewController.m; path = "UI/格斗场/viewControllers/发起约战/main/FTLaunchNewMatchViewController.m"; sourceTree = "<group>"; };
 		E6BFBEE51D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTLaunchNewMatchViewController.xib; path = "UI/格斗场/viewControllers/发起约战/main/FTLaunchNewMatchViewController.xib"; sourceTree = "<group>"; };
+		E6C3C5BD1DB89534007B199D /* FTGymCourceViewNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymCourceViewNew.h; sourceTree = "<group>"; };
+		E6C3C5BE1DB89534007B199D /* FTGymCourceViewNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymCourceViewNew.m; sourceTree = "<group>"; };
+		E6C3C5C01DB895F6007B199D /* FTGymCourceViewNew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymCourceViewNew.xib; sourceTree = "<group>"; };
 		E6C4D7EB1CEC5E7B00D73BFC /* FTUserTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserTools.h; sourceTree = "<group>"; };
 		E6C4D7EC1CEC5E7B00D73BFC /* FTUserTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserTools.m; sourceTree = "<group>"; };
 		E6C4D7EF1CEC5FCE00D73BFC /* FTArenaNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaNetwork.h; sourceTree = "<group>"; };
@@ -2778,6 +2783,7 @@
 				E6D3584E1D92A77400259682 /* cell */,
 				E66F49371D93D849005B39D1 /* 展示课程的tableView */,
 				E66F49301D93AF6B005B39D1 /* 课程表 */,
+				E6C3C5BC1DB894A7007B199D /* 课程表-新 */,
 				3D9666BC1D9A7F0E00E90DA5 /* 教练切换状态弹出框 */,
 				3D9666C81D9AAD1D00E90DA5 /*  拳馆预约私教弹出框 */,
 			);
@@ -3193,6 +3199,23 @@
 			name = "发起约战主页";
 			sourceTree = "<group>";
 		};
+		E6C3C5BC1DB894A7007B199D /* 课程表-新 */ = {
+			isa = PBXGroup;
+			children = (
+				E6C3C5BD1DB89534007B199D /* FTGymCourceViewNew.h */,
+				E6C3C5BE1DB89534007B199D /* FTGymCourceViewNew.m */,
+				E6C3C5C01DB895F6007B199D /* FTGymCourceViewNew.xib */,
+			);
+			name = "课程表-新";
+			sourceTree = "<group>";
+		};
+		E6C3C5C21DB898FB007B199D /* 课程cell-新 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "课程cell-新";
+			sourceTree = "<group>";
+		};
 		E6C4D7EE1CEC5FB200D73BFC /* network */ = {
 			isa = PBXGroup;
 			children = (
@@ -3337,6 +3360,7 @@
 			children = (
 				E66BC0061D9A532F00B492D3 /* 教练课程cell */,
 				E66F49411D93F3C5005B39D1 /* 课程cell */,
+				E6C3C5C21DB898FB007B199D /* 课程cell-新 */,
 				E6D3584F1D92A77F00259682 /* 教练cell */,
 			);
 			name = cell;
@@ -3808,6 +3832,7 @@
 				E67872741CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib in Resources */,
 				E6F46C371D829161001387E2 /* FTGymPhotosViewController.xib in Resources */,
 				E6B7D2011CF6A750004191A3 /* FTArenaViewController.xib in Resources */,
+				E6C3C5C11DB895F6007B199D /* FTGymCourceViewNew.xib in Resources */,
 				3D9666C11D9A801C00E90DA5 /* FTGymCoachStateSwitcher.xib in Resources */,
 				E64EF1141CB6614000CAE340 /* Main.storyboard in Resources */,
 				3D7B989D1CDF896F00B80B8D /* FTTableViewCell5.xib in Resources */,
@@ -4186,6 +4211,7 @@
 				E68D16171CFD819500AB5A8C /* UIImage+FTLYZImage.m in Sources */,
 				3D9666C61D9A98A000E90DA5 /* FTGymRechargeViewController.m in Sources */,
 				3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */,
+				E6C3C5BF1DB89534007B199D /* FTGymCourceViewNew.m in Sources */,
 				E6F46C6F1D893FE2001387E2 /* FTGymDetailBean.m in Sources */,
 				E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */,
 				3D4122201D4F253E007EB996 /* FTLabelCell.m in Sources */,

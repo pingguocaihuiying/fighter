@@ -135,10 +135,10 @@
 //#define ShowType @"showType"
 
 typedef NS_ENUM(NSInteger, FTGymVIPType){
-    FTGymVIPTypeNope = -1,
-    FTGymVIPTypeApplying = 0,
-    FTGymVIPTypeYep = 1,
-    FTGymVIPTypeBefore = 2
+    FTGymVIPTypeNope = -1,//非会员
+    FTGymVIPTypeApplying = 0,//申请中
+    FTGymVIPTypeYep = 1,//是会员
+    FTGymVIPTypeBefore = 2//过期会员
 };
 
 #endif /* PrefixHeader_pch */
