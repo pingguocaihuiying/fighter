@@ -9,7 +9,8 @@
 #import "FTBaseViewController.h"
 #import "FTPracticeViewController.h"
 #import "CellDelegate.h"
-
+typedef void(^SpecialFreshBlock) ();
 @interface FTGymCommentViewController : FTBaseViewController <TeachDelegate,CellDelegate>
 @property (nonatomic,copy) NSString *objId;
+@property (nonatomic, strong) SpecialFreshBlock freshBlock;
 @end
