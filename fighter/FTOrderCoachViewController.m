@@ -49,7 +49,9 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     //注册通知，当充值完成时，获取最新余额
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeMoney:) name:@"RechargeMoneytNoti" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeMoney:) name:RechargeMoneytNoti object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(userLogin:) name:LoginNoti object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(userLogin:) name:WXLoginResultNoti object:nil];
 }
 
 - (void)viewDidLoad {
@@ -131,7 +133,12 @@
         [self getVIPInfo];
     }
 }
-
+- (void)userLogin:(id)info{
+    NSString *msg = [info object];
+    if ([msg isEqualToString:@"SUCESS"] || [msg isEqualToString:@"LOGIN"]){
+        [self getVIPInfo];
+    }
+}
 - (void)updateVIPInfoUIWithDic:(NSDictionary *)dic{
     
     //余额

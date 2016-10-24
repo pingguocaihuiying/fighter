@@ -229,8 +229,8 @@
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="a8t-ga-OUK"/>
-                    <exclude reference="VJ8-Bt-v7v"/>
                     <exclude reference="hYk-vO-ghh"/>
+                    <exclude reference="VJ8-Bt-v7v"/>
                     <exclude reference="mnZ-Ah-ay3"/>
                 </mask>
             </variation>

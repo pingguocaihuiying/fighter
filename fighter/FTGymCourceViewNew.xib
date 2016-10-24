@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -40,21 +39,14 @@
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="amp-lI-Mtg" userLabel="表头">
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WiI-GU-bVO" userLabel="空的占位View">
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ts7-Uv-hWa" userLabel="dateView">
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" red="0.098039215690000001" green="0.098039215690000001" blue="0.098039215690000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="WiI-GU-bVO" secondAttribute="bottom" id="7ds-xn-VQ2"/>
-                                <constraint firstItem="WiI-GU-bVO" firstAttribute="width" secondItem="amp-lI-Mtg" secondAttribute="width" multiplier="0.1428" id="J1s-WH-MOf"/>
                                 <constraint firstAttribute="height" constant="45" id="O8S-Tf-L9l"/>
-                                <constraint firstItem="WiI-GU-bVO" firstAttribute="top" secondItem="amp-lI-Mtg" secondAttribute="top" id="Ovo-B6-bji"/>
-                                <constraint firstItem="WiI-GU-bVO" firstAttribute="leading" secondItem="amp-lI-Mtg" secondAttribute="leading" id="e17-qz-DZn"/>
-                                <constraint firstItem="ts7-Uv-hWa" firstAttribute="leading" secondItem="WiI-GU-bVO" secondAttribute="trailing" id="gg1-ZM-LSz"/>
+                                <constraint firstItem="ts7-Uv-hWa" firstAttribute="leading" secondItem="amp-lI-Mtg" secondAttribute="leading" id="Scm-DA-PRS"/>
                                 <constraint firstItem="ts7-Uv-hWa" firstAttribute="top" secondItem="amp-lI-Mtg" secondAttribute="top" id="oaF-x4-UgQ"/>
                                 <constraint firstAttribute="bottom" secondItem="ts7-Uv-hWa" secondAttribute="bottom" id="r8B-5c-XIB"/>
                                 <constraint firstAttribute="trailing" secondItem="ts7-Uv-hWa" secondAttribute="trailing" id="zjF-oI-kKD"/>
@@ -68,59 +60,17 @@
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nb4-mZ-rsF" userLabel="表内容View">
                             <subviews>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MkA-CV-4Dl" customClass="FTGymSourceTableView">
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </tableView>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xrD-mv-qTA" customClass="FTGymSourceTableView">
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </tableView>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rwB-PT-V0s" customClass="FTGymSourceTableView">
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </tableView>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9cH-Hq-HF7" customClass="FTGymSourceTableView">
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </tableView>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="h0a-M5-jk7" customClass="FTGymSourceTableView">
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </tableView>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UMo-ft-3Pr" customClass="FTGymSourceTableView">
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </tableView>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="b5D-Ir-olS" customClass="FTGymSourceTableView">
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </tableView>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="b5D-Ir-olS" firstAttribute="top" secondItem="Nb4-mZ-rsF" secondAttribute="top" id="3Xs-pj-iqf"/>
-                                <constraint firstItem="9cH-Hq-HF7" firstAttribute="top" secondItem="Nb4-mZ-rsF" secondAttribute="top" id="5eF-jc-0R8"/>
-                                <constraint firstItem="xrD-mv-qTA" firstAttribute="leading" secondItem="MkA-CV-4Dl" secondAttribute="trailing" id="DKw-sx-PyB"/>
-                                <constraint firstItem="UMo-ft-3Pr" firstAttribute="width" secondItem="MkA-CV-4Dl" secondAttribute="width" id="E3R-RN-xmI"/>
-                                <constraint firstAttribute="bottom" secondItem="h0a-M5-jk7" secondAttribute="bottom" id="Fcp-zC-rsr"/>
-                                <constraint firstItem="h0a-M5-jk7" firstAttribute="top" secondItem="Nb4-mZ-rsF" secondAttribute="top" id="GRJ-DQ-rVC"/>
-                                <constraint firstItem="9cH-Hq-HF7" firstAttribute="width" secondItem="MkA-CV-4Dl" secondAttribute="width" id="I6z-23-a4m"/>
-                                <constraint firstItem="9cH-Hq-HF7" firstAttribute="leading" secondItem="rwB-PT-V0s" secondAttribute="trailing" id="Jx8-Zz-2Wx"/>
-                                <constraint firstItem="h0a-M5-jk7" firstAttribute="width" secondItem="MkA-CV-4Dl" secondAttribute="width" id="KqN-Il-rcq"/>
-                                <constraint firstItem="b5D-Ir-olS" firstAttribute="width" secondItem="MkA-CV-4Dl" secondAttribute="width" id="MlX-A2-aVx"/>
-                                <constraint firstItem="h0a-M5-jk7" firstAttribute="leading" secondItem="9cH-Hq-HF7" secondAttribute="trailing" id="Mnh-Id-jog"/>
-                                <constraint firstAttribute="bottom" secondItem="rwB-PT-V0s" secondAttribute="bottom" id="PJg-1T-D2r"/>
-                                <constraint firstItem="xrD-mv-qTA" firstAttribute="width" secondItem="MkA-CV-4Dl" secondAttribute="width" id="RW2-oU-K8w"/>
-                                <constraint firstItem="MkA-CV-4Dl" firstAttribute="width" secondItem="Nb4-mZ-rsF" secondAttribute="width" multiplier="0.1428" id="U4C-ei-bNE"/>
-                                <constraint firstAttribute="bottom" secondItem="9cH-Hq-HF7" secondAttribute="bottom" id="Yb7-Qi-UU1"/>
-                                <constraint firstItem="MkA-CV-4Dl" firstAttribute="leading" secondItem="Nb4-mZ-rsF" secondAttribute="leading" id="ZPC-aX-oBT"/>
-                                <constraint firstAttribute="bottom" secondItem="MkA-CV-4Dl" secondAttribute="bottom" id="dNt-AJ-0e9"/>
-                                <constraint firstItem="MkA-CV-4Dl" firstAttribute="top" secondItem="Nb4-mZ-rsF" secondAttribute="top" id="dgb-yn-zPf"/>
+                                <constraint firstItem="xrD-mv-qTA" firstAttribute="leading" secondItem="Nb4-mZ-rsF" secondAttribute="leading" id="KNe-bj-fSw"/>
+                                <constraint firstAttribute="trailing" secondItem="xrD-mv-qTA" secondAttribute="trailing" id="TeH-dA-pec"/>
                                 <constraint firstAttribute="height" constant="319" id="elT-SF-Ljd"/>
-                                <constraint firstItem="rwB-PT-V0s" firstAttribute="top" secondItem="Nb4-mZ-rsF" secondAttribute="top" id="f8X-yb-SM3"/>
-                                <constraint firstAttribute="bottom" secondItem="b5D-Ir-olS" secondAttribute="bottom" id="fBY-1A-dwo"/>
                                 <constraint firstItem="xrD-mv-qTA" firstAttribute="top" secondItem="Nb4-mZ-rsF" secondAttribute="top" id="ggN-s1-pe5"/>
-                                <constraint firstItem="rwB-PT-V0s" firstAttribute="leading" secondItem="xrD-mv-qTA" secondAttribute="trailing" id="hjx-Ma-Fbi"/>
-                                <constraint firstItem="UMo-ft-3Pr" firstAttribute="top" secondItem="Nb4-mZ-rsF" secondAttribute="top" id="jCu-hd-7sn"/>
-                                <constraint firstItem="rwB-PT-V0s" firstAttribute="width" secondItem="MkA-CV-4Dl" secondAttribute="width" id="lW6-7n-Ao2"/>
-                                <constraint firstItem="UMo-ft-3Pr" firstAttribute="leading" secondItem="h0a-M5-jk7" secondAttribute="trailing" id="nt2-0E-1jl"/>
-                                <constraint firstAttribute="bottom" secondItem="UMo-ft-3Pr" secondAttribute="bottom" id="w9S-Qf-pb6"/>
                                 <constraint firstAttribute="bottom" secondItem="xrD-mv-qTA" secondAttribute="bottom" id="ysH-gW-Bgs"/>
-                                <constraint firstItem="b5D-Ir-olS" firstAttribute="leading" secondItem="UMo-ft-3Pr" secondAttribute="trailing" id="zir-Wq-skG"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -164,13 +114,7 @@
                 <outlet property="seperatorView1" destination="xIF-FW-z2l" id="o3r-sa-rYz"/>
                 <outlet property="seperatorView2" destination="5gK-Qs-FUz" id="8B4-yH-lKP"/>
                 <outlet property="seperatorView3" destination="Hkx-Oy-xqQ" id="dfI-t9-lyF"/>
-                <outlet property="t0" destination="MkA-CV-4Dl" id="Kjv-io-LmC"/>
                 <outlet property="t1" destination="xrD-mv-qTA" id="ktw-vY-0tN"/>
-                <outlet property="t2" destination="rwB-PT-V0s" id="8BW-Xc-Oin"/>
-                <outlet property="t3" destination="9cH-Hq-HF7" id="GJk-I1-JLN"/>
-                <outlet property="t4" destination="h0a-M5-jk7" id="npY-Mz-Czz"/>
-                <outlet property="t5" destination="UMo-ft-3Pr" id="Ub9-hN-o13"/>
-                <outlet property="t6" destination="b5D-Ir-olS" id="fdl-TN-8lb"/>
                 <outlet property="tableViewsHeight" destination="elT-SF-Ljd" id="FEt-F9-BHc"/>
                 <outlet property="titleLabel" destination="E1b-Y0-90c" id="Mq2-rt-iPs"/>
             </connections>

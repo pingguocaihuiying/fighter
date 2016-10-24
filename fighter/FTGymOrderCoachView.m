@@ -19,7 +19,8 @@
 - (void)awakeFromNib{
     [super awakeFromNib];
     //注册通知，用于接收充值成功的通知
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeMoney:) name:@"RechargeMoneytNoti" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeMoney:) name:RechargeMoneytNoti object:nil];
+    
 }
 
 - (void)rechargeMoney:(id)info{
@@ -28,6 +29,8 @@
         [self getVIPInfo];
     }
 }
+
+
 
 /**
  获取会员信息

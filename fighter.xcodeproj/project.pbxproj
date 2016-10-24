@@ -388,6 +388,10 @@
 		E6BFBEE71D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6BFBEE51D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib */; };
 		E6C3C5BF1DB89534007B199D /* FTGymCourceViewNew.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C3C5BE1DB89534007B199D /* FTGymCourceViewNew.m */; };
 		E6C3C5C11DB895F6007B199D /* FTGymCourceViewNew.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6C3C5C01DB895F6007B199D /* FTGymCourceViewNew.xib */; };
+		E6C3C5EF1DBB44A2007B199D /* FTCourseTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C3C5EE1DBB44A2007B199D /* FTCourseTableHeaderView.m */; };
+		E6C3C5F11DBB44B0007B199D /* FTCourseTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6C3C5F01DBB44B0007B199D /* FTCourseTableHeaderView.xib */; };
+		E6C3C5F51DBB49F4007B199D /* FTGymSourceTableViewCellNew.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C3C5F31DBB49F4007B199D /* FTGymSourceTableViewCellNew.m */; };
+		E6C3C5F61DBB49F4007B199D /* FTGymSourceTableViewCellNew.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6C3C5F41DBB49F4007B199D /* FTGymSourceTableViewCellNew.xib */; };
 		E6C4D7ED1CEC5E7B00D73BFC /* FTUserTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7EC1CEC5E7B00D73BFC /* FTUserTools.m */; };
 		E6C4D7F11CEC5FCE00D73BFC /* FTArenaNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7F01CEC5FCE00D73BFC /* FTArenaNetwork.m */; };
 		E6C5F4DC1D6EF55000F15AA3 /* FTLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C5F4DB1D6EF55000F15AA3 /* FTLoadingView.m */; };
@@ -1079,6 +1083,12 @@
 		E6C3C5BD1DB89534007B199D /* FTGymCourceViewNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymCourceViewNew.h; sourceTree = "<group>"; };
 		E6C3C5BE1DB89534007B199D /* FTGymCourceViewNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymCourceViewNew.m; sourceTree = "<group>"; };
 		E6C3C5C01DB895F6007B199D /* FTGymCourceViewNew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymCourceViewNew.xib; sourceTree = "<group>"; };
+		E6C3C5ED1DBB44A2007B199D /* FTCourseTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCourseTableHeaderView.h; sourceTree = "<group>"; };
+		E6C3C5EE1DBB44A2007B199D /* FTCourseTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCourseTableHeaderView.m; sourceTree = "<group>"; };
+		E6C3C5F01DBB44B0007B199D /* FTCourseTableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTCourseTableHeaderView.xib; sourceTree = "<group>"; };
+		E6C3C5F21DBB49F4007B199D /* FTGymSourceTableViewCellNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymSourceTableViewCellNew.h; sourceTree = "<group>"; };
+		E6C3C5F31DBB49F4007B199D /* FTGymSourceTableViewCellNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymSourceTableViewCellNew.m; sourceTree = "<group>"; };
+		E6C3C5F41DBB49F4007B199D /* FTGymSourceTableViewCellNew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymSourceTableViewCellNew.xib; sourceTree = "<group>"; };
 		E6C4D7EB1CEC5E7B00D73BFC /* FTUserTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserTools.h; sourceTree = "<group>"; };
 		E6C4D7EC1CEC5E7B00D73BFC /* FTUserTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserTools.m; sourceTree = "<group>"; };
 		E6C4D7EF1CEC5FCE00D73BFC /* FTArenaNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaNetwork.h; sourceTree = "<group>"; };
@@ -3202,6 +3212,7 @@
 		E6C3C5BC1DB894A7007B199D /* 课程表-新 */ = {
 			isa = PBXGroup;
 			children = (
+				E6C3C5EC1DBB4449007B199D /* 表头单元格 */,
 				E6C3C5BD1DB89534007B199D /* FTGymCourceViewNew.h */,
 				E6C3C5BE1DB89534007B199D /* FTGymCourceViewNew.m */,
 				E6C3C5C01DB895F6007B199D /* FTGymCourceViewNew.xib */,
@@ -3212,8 +3223,21 @@
 		E6C3C5C21DB898FB007B199D /* 课程cell-新 */ = {
 			isa = PBXGroup;
 			children = (
+				E6C3C5F21DBB49F4007B199D /* FTGymSourceTableViewCellNew.h */,
+				E6C3C5F31DBB49F4007B199D /* FTGymSourceTableViewCellNew.m */,
+				E6C3C5F41DBB49F4007B199D /* FTGymSourceTableViewCellNew.xib */,
 			);
 			name = "课程cell-新";
+			sourceTree = "<group>";
+		};
+		E6C3C5EC1DBB4449007B199D /* 表头单元格 */ = {
+			isa = PBXGroup;
+			children = (
+				E6C3C5ED1DBB44A2007B199D /* FTCourseTableHeaderView.h */,
+				E6C3C5EE1DBB44A2007B199D /* FTCourseTableHeaderView.m */,
+				E6C3C5F01DBB44B0007B199D /* FTCourseTableHeaderView.xib */,
+			);
+			name = "表头单元格";
 			sourceTree = "<group>";
 		};
 		E6C4D7EE1CEC5FB200D73BFC /* network */ = {
@@ -3765,6 +3789,7 @@
 				E6F61D591D81067100971361 /* FTGymLevelCell.xib in Resources */,
 				3DE95BA81CD86FA4005BF85C /* FTLoginViewController.xib in Resources */,
 				E636B1B41D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.xib in Resources */,
+				E6C3C5F11DBB44B0007B199D /* FTCourseTableHeaderView.xib in Resources */,
 				E678727A1CEB00980099CEE6 /* FTNewPostViewController.xib in Resources */,
 				3D87712C1D9133D00001DB78 /* FTGymCommentTableViewCell.xib in Resources */,
 				3DA6D1C51D20D8BD0049CD4A /* FTCycleScrollViewCell.xib in Resources */,
@@ -3850,6 +3875,7 @@
 				E600B2821D9A9C8A007EB0F6 /* FTGymOrderCourseView.xib in Resources */,
 				E6FE6A5E1CEED3DC00D63847 /* FTArenaPostsDetailViewController.xib in Resources */,
 				3D8D73BE1CE97404009E2320 /* FTTableViewCell6.xib in Resources */,
+				E6C3C5F61DBB49F4007B199D /* FTGymSourceTableViewCellNew.xib in Resources */,
 				3D5FB4931CDC311400FC1809 /* FTAssetsViewController.xib in Resources */,
 				3D7B98C41CE08DEE00B80B8D /* FTNewPasswordVC.xib in Resources */,
 				E696E4E11D2A39F800A89B60 /* FTOpponentCell.xib in Resources */,
@@ -4234,6 +4260,7 @@
 				3DC411F01CCF80DD0030C229 /* FTDrawerTableViewHeader.m in Sources */,
 				3DE1DF061D40C74D00511E92 /* QQSingleton.m in Sources */,
 				E6A9DDB61CD9833200CB9518 /* FTVideoTableViewCell.m in Sources */,
+				E6C3C5EF1DBB44A2007B199D /* FTCourseTableHeaderView.m in Sources */,
 				3D4C6EEB1D87D43400881208 /* FTCameraAndAlbum.m in Sources */,
 				E668BBB71CE4353300071998 /* FTRankingListFilterView.m in Sources */,
 				3D87712B1D9133D00001DB78 /* FTGymCommentTableViewCell.m in Sources */,
@@ -4252,6 +4279,7 @@
 				E6C4D7ED1CEC5E7B00D73BFC /* FTUserTools.m in Sources */,
 				E68E6B661D655EAE00553F31 /* FTMatchPreViewController.m in Sources */,
 				3D4B19691CDB7AE20022DFB0 /* FTSexPickerView.m in Sources */,
+				E6C3C5F51DBB49F4007B199D /* FTGymSourceTableViewCellNew.m in Sources */,
 				3D06155A1D36302600FDA86F /* NSData+Base64.m in Sources */,
 				3D7B98A41CE0190600B80B8D /* FTAbountUsViewController.m in Sources */,
 				E6956EA61CBE21A1008DEEDB /* FTNewsBean.m in Sources */,

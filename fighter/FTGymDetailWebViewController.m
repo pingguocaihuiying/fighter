@@ -83,6 +83,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initBaseData];
+    [self registNoti];
     [self getVIPInfo];
     [self loadGymDataFromServer];
     [self setNavigationSytle];
@@ -93,12 +94,23 @@
     [self getAttentionInfo];
     
     [self getTimeSection];//获取拳馆时间段配置
+    
+    
 }
 
 
 
 - (void)initBaseData{
     _gymVIPType = FTGymVIPTypeNope;
+}
+
+
+/**
+ 注册登录的通知
+ */
+- (void)registNoti{
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(userLogin:) name:LoginNoti object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(userLogin:) name:WXLoginResultNoti object:nil];
 }
 
 - (void)getVIPInfo{
@@ -123,6 +135,13 @@
             _becomeVIPButton.enabled = YES;
         }
     }];
+}
+
+- (void)userLogin:(NSNotification *)noti{
+    NSString *info = [noti object];
+    if ([info isEqualToString:@"LOGIN"] || [info isEqualToString:@"SUCESS"]) {
+        [self getVIPInfo];
+    }
 }
 
 - (void)loadGymDataFromServer{
@@ -247,7 +266,7 @@
     _seperatorView5.backgroundColor = Cell_Space_Color;
     _seperatorView6.backgroundColor = Cell_Space_Color;
     
-    _gymAdressLabel.text = @"东直门东直门东直门东直门东直门东直门东直门东直门";
+//    _gymAdressLabel.text = @"东直门东直门东直门东直门东直门东直门东直门东直门";
     [UILabel setRowGapOfLabel:_gymAdressLabel withValue:6];
 }
 
@@ -323,7 +342,7 @@
 
 - (void)setGymSourceView{
     _gymSourceView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymCourceViewNew" owner:nil options:nil]firstObject];
-    _gymSourceView.courseType = FTOrderCourseTypeGym;
+//    _gymSourceView.courseType = FTOrderCourseTypeGym;
     _gymSourceView.frame = _gymSourceViewContainerView.bounds;
     _gymSourceView.delegate = self;
     [_gymSourceViewContainerView addSubview:_gymSourceView];
@@ -671,6 +690,9 @@
             //获取场地使用信息后，刷新UI
             _gymSourceView.placesUsingInfoDic = _placesUsingInfoDic;
             [_gymSourceView reloadTableViews];
+        }else{
+//            [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"没有查询到"];
+            NSLog(@"没有获取到数据");
         }
     }];
 }

@@ -385,10 +385,14 @@
     if([detailVC respondsToSelector:@selector(getVIPInfo)]){
         [detailVC performSelector:@selector(getVIPInfo)];//刷新vip信息
     }
-    UIViewController *detailVC2 = [self.navigationController viewControllers][2];
-    if([detailVC2 respondsToSelector:@selector(getVIPInfo)]){
-        [detailVC2 performSelector:@selector(getVIPInfo)];//刷新vip信息
+    
+    if ([self.navigationController viewControllers].count > 2) {
+        UIViewController *detailVC2 = [self.navigationController viewControllers][2];
+        if([detailVC2 respondsToSelector:@selector(getVIPInfo)]){
+            [detailVC2 performSelector:@selector(getVIPInfo)];//刷新vip信息
+        }
     }
+
     
 }
 - (IBAction)refreshButtonClicked:(id)sender {
