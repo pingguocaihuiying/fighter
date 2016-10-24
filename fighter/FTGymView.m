@@ -558,29 +558,34 @@
     FTGymBean *bean = [FTGymBean new];
     [bean setValuesWithDic:newsDic];
     
-    if (bean.isGymUser) {
-        NSLog(@"是会员");
-        FTGymSourceViewController2 *gymSourceViewController = [FTGymSourceViewController2 new];
+//    if (bean.isGymUser) {
+//        NSLog(@"是会员");
+//        FTGymSourceViewController2 *gymSourceViewController = [FTGymSourceViewController2 new];
+//        FTGymDetailBean *detailBean = [FTGymDetailBean new];
+//        detailBean.gym_name = bean.gymName;
+//        detailBean.corporationid = [bean.corporationid intValue];
+//        gymSourceViewController.gymDetailBean = detailBean;
+//        
+//        //获取对应的bean，传递给下个vc
+//        gymSourceViewController.gymBean = bean;
+//        
+//        if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
+//            [self.delegate pushToController:gymSourceViewController];
+//        }
+//        return;
+//    }else {
+    
         FTGymDetailBean *detailBean = [FTGymDetailBean new];
         detailBean.gym_name = bean.gymName;
         detailBean.corporationid = [bean.corporationid intValue];
-        gymSourceViewController.gymDetailBean = detailBean;
-        
-        //获取对应的bean，传递给下个vc
-        gymSourceViewController.gymBean = bean;
-        
-        if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
-            [self.delegate pushToController:gymSourceViewController];
-        }
-        return;
-    }else {
         
         FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
         gymDetailWebViewController.gymBean = bean;
+        gymDetailWebViewController.gymDetailBean = detailBean;
         if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
             [self.delegate pushToController:gymDetailWebViewController];
         }
-    }
+//    }
 
 }
 

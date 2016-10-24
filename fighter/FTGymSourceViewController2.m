@@ -1,7 +1,7 @@
 //
 //  FTGymSourceViewController.m
 //  fighter
-//
+//`
 //  Created by 李懿哲 on 16/9/20.
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
@@ -9,6 +9,7 @@
 #import "FTGymSourceViewController2.h"
 #import "FTCoachBigImageCollectionViewCell.h"
 #import "FTGymSourceView.h"
+#import "FTGymCourceViewNew.h"//新课程表
 #import "FTJoinGymSuccessAlertView.h"
 #import "FTGymOrderCourseView.h"
 #import "FTOrderCoachViewController.h"
@@ -17,6 +18,7 @@
 #import "FTBaseNavigationViewController.h"
 #import "FTCoachBean.h"
 #import "FTGymDetailWebViewController.h"
+#import "FTGymCourceViewNew.h"//新课程表
 
 
 @interface FTGymSourceViewController2 ()<UICollectionViewDelegate, UICollectionViewDataSource, FTGymCourseTableViewDelegate, FTGymOrderCourseViewDelegate>
@@ -39,7 +41,7 @@
 
 @property (strong, nonatomic) IBOutlet UIView *gymSourceViewContainerView;//课程表view的父view
 
-@property (nonatomic, strong) FTGymSourceView *gymSourceView;//课程表
+@property (nonatomic, strong) FTGymCourceViewNew *gymSourceView;//课程表
 
 @property (nonatomic, strong) NSArray *timeSectionsArray;//拳馆的固定时间段
 @property (nonatomic, strong) NSMutableDictionary *placesUsingInfoDic;//场地、时间段的占用情况
@@ -203,6 +205,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
     NSLog(@"点击了第%ld个", indexPath.row);
     NSDictionary *coachDic = _coachArray[indexPath.row];
     FTCoachBean *coachBean = [FTCoachBean new];
@@ -228,7 +231,7 @@
 }
 
 - (void)setGymSourceView{
-    _gymSourceView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymSourceView" owner:nil options:nil]firstObject];
+    _gymSourceView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymCourceViewNew" owner:nil options:nil]firstObject];
     _gymSourceView.courseType = FTOrderCourseTypeGym;
     _gymSourceView.frame = _gymSourceViewContainerView.bounds;
     _gymSourceView.delegate = self;
@@ -322,6 +325,8 @@
         
     }];
 }
+
+
 
 - (void)updateVIPInfoUIWithDic:(NSDictionary *)dic{
     

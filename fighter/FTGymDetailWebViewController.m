@@ -21,8 +21,11 @@
 #import "FTGymDetailBean.h"
 #import "FTGymCommentsViewController.h"
 #import "FTCoachSelfCourseViewController.h"
+#import "FTGymCourceViewNew.h"//新课程表
+#import "FTGymOrderCourseView.h"
+#import "FTOrderCoachViewController.h"
 
-@interface FTGymDetailWebViewController ()<UIWebViewDelegate, CommentSuccessDelegate, UICollectionViewDelegate, UICollectionViewDataSource, FTLoginViewControllerDelegate>
+@interface FTGymDetailWebViewController ()<UIWebViewDelegate, CommentSuccessDelegate, UICollectionViewDelegate, UICollectionViewDataSource, FTLoginViewControllerDelegate, FTGymOrderCourseViewDelegate, FTGymCourseTableViewDelegate>
 {
     UIWebView *_webView;
     UIImageView *_loadingImageView;
@@ -64,11 +67,12 @@
 
 @property (nonatomic, assign) BOOL displayAllVIP;//是否展示所有会员
 
-@property (nonatomic, strong) NSMutableArray *vipArray;
+@property (nonatomic, strong) NSMutableArray *coachArray;
 
-@property (nonatomic, strong) FTGymDetailBean *gymDetailBean;//拳馆详情bean
-
-
+@property (nonatomic, strong) FTGymCourceViewNew *gymSourceView;//课程表
+@property (strong, nonatomic) IBOutlet UIView *gymSourceViewContainerView;//课程表view的父view
+@property (nonatomic, strong) NSArray *timeSectionsArray;//拳馆的固定时间段
+@property (nonatomic, strong) NSMutableDictionary *placesUsingInfoDic;//场地、时间段的占用情况
 
 @end
 
@@ -88,6 +92,7 @@
     // 获取收藏信息
     [self getAttentionInfo];
     
+    [self getTimeSection];//获取拳馆时间段配置
 }
 
 
@@ -131,15 +136,23 @@
     }];
     
     //获取拳馆的教练列表
-    [NetWorking getCoachesWithCorporationid:_gymBean.corporationid andOption:^(NSArray *array) {
-        _vipArray = [NSMutableArray arrayWithArray:array];
-        NSDictionary *dic = [_vipArray firstObject];
-        NSLog(@"%@", dic[@"headUrl"]);
-        for(NSString *key in [dic allKeys]){
-            NSLog(@"key %@ : %@", key, dic[key]);
+//    [NetWorking getCoachesWithCorporationid:_gymBean.corporationid andOption:^(NSArray *array) {
+//        _coachArray = [NSMutableArray arrayWithArray:array];
+//        NSDictionary *dic = [_coachArray firstObject];
+//        NSLog(@"%@", dic[@"headUrl"]);
+//        for(NSString *key in [dic allKeys]){
+//            NSLog(@"key %@ : %@", key, dic[key]);
+//        }
+////        [_collectionView reloadData];
+//        [self updateCollectionView];
+//    }];
+    
+    [NetWorking getCoachesWithCorporationid:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSArray *array) {
+        if (array && array.count > 0) {
+            _coachArray = [NSMutableArray arrayWithArray:array];
+//            [self setCollectionView];//设置教练模块的view
+            [self updateCollectionView];
         }
-//        [_collectionView reloadData];
-        [self updateCollectionView];
     }];
 }
 
@@ -221,7 +234,7 @@
 //    [self setLoadingImageView];
     [self subViewFormat];//设置分割线颜色、label行间距等
     [self setCollectionView];//设置拳馆教练头像显示
-    
+    [self setGymSourceView];//设置课程表
 }
 
 - (void)subViewFormat{
@@ -239,25 +252,37 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (_vipArray.count > 6 && _displayAllVIP) {
-        if (indexPath.row == _vipArray.count) {
+    if (_coachArray.count > 6 && _displayAllVIP) {
+        if (indexPath.row == _coachArray.count) {
             _displayAllVIP = !_displayAllVIP;
             [self updateCollectionView];
             NSLog(@"收起");
         } else {
-            NSDictionary *vipDic = _vipArray[indexPath.row];
+            NSDictionary *vipDic = _coachArray[indexPath.row];
             NSLog(@"vipName : %@", vipDic[@"name"]);
+            [self pushToCoachVCWithDic:vipDic];
         }
     } else {
-        if (_vipArray.count > 6 && indexPath.row == 5) {
+        if (_coachArray.count > 6 && indexPath.row == 5) {
             _displayAllVIP = !_displayAllVIP;
             [self updateCollectionView];
             NSLog(@"展开");
         } else {
-            NSDictionary *vipDic = _vipArray[indexPath.row];
+            NSDictionary *vipDic = _coachArray[indexPath.row];
             NSLog(@"vipName : %@", vipDic[@"name"]);
+            [self pushToCoachVCWithDic:vipDic];
         }
     }
+}
+
+- (void)pushToCoachVCWithDic:(NSDictionary *)coachDic{
+    FTCoachBean *coachBean = [FTCoachBean new];
+    [coachBean setWithDic:coachDic];
+    
+    FTOrderCoachViewController *orderCoachViewController = [FTOrderCoachViewController new];
+    orderCoachViewController.gymDetailBean = _gymDetailBean;
+    orderCoachViewController.coachBean = coachBean;
+    [self.navigationController pushViewController:orderCoachViewController animated:YES];
 }
 
 - (void)setCollectionView{
@@ -296,14 +321,23 @@
     
 }
 
+- (void)setGymSourceView{
+    _gymSourceView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymCourceViewNew" owner:nil options:nil]firstObject];
+    _gymSourceView.courseType = FTOrderCourseTypeGym;
+    _gymSourceView.frame = _gymSourceViewContainerView.bounds;
+    _gymSourceView.delegate = self;
+    [_gymSourceViewContainerView addSubview:_gymSourceView];
+    
+}
+
 - (void)updateCollectionView{
     
-    if (_vipArray.count > 6  && _displayAllVIP) {
+    if (_coachArray.count > 6  && _displayAllVIP) {
         NSInteger line;
-        if ((_vipArray.count + 1) % 6 == 0) {//如果刚好被整出
-                line = (_vipArray.count + 1) / 6;//行数
+        if ((_coachArray.count + 1) % 6 == 0) {//如果刚好被整出
+                line = (_coachArray.count + 1) / 6;//行数
         }else{//如果没有被整出
-            line = (_vipArray.count + 1) / 6 + 1;//行数
+            line = (_coachArray.count + 1) / 6 + 1;//行数
         }
         
         NSLog(@"line : %ld", (long)line);
@@ -336,12 +370,12 @@
 
 //某组多少行
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    if (_vipArray) {
-        if(_vipArray.count > 6){
+    if (_coachArray) {
+        if(_coachArray.count > 6){
             //如果源数据vip数量大于6，需要分行显示，则显示『更多』、『收起』项
-            return _vipArray.count + 1;
+            return _coachArray.count + 1;
         }else{
-            return _vipArray.count;
+            return _coachArray.count;
         }
     }else{
         return 0;
@@ -355,11 +389,11 @@
 //    NSLog(@"indexPath.row : %ld ", indexPath.row);
     
     if (_displayAllVIP) {//展示所有
-        if (_vipArray.count > 6 && indexPath.row == _vipArray.count) {//『收起』
+        if (_coachArray.count > 6 && indexPath.row == _coachArray.count) {//『收起』
             cell.headerImageView.image = [UIImage imageNamed:@"学员列表-收起"];
             cell.vipNameLabel.text = @"收起";
         }else{
-            NSDictionary *vipDic = _vipArray[indexPath.row];
+            NSDictionary *vipDic = _coachArray[indexPath.row];
 //            cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
             [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]];
             
@@ -370,19 +404,19 @@
     } else {//只展示第一行
         
         if (indexPath.row >= 5) {
-            if (_vipArray.count > 6) {
+            if (_coachArray.count > 6) {
                 if (indexPath.row == 5) {
                     cell.headerImageView.image = [UIImage imageNamed:@"学员列表-更多"];
                     cell.vipNameLabel.text = @"更多";
                 }
             }else{
-                NSDictionary *vipDic = _vipArray[indexPath.row];
+                NSDictionary *vipDic = _coachArray[indexPath.row];
 //                cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
                 [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]];
                 cell.vipNameLabel.text = vipDic[@"name"];
             }
         }else{
-            NSDictionary *vipDic = _vipArray[indexPath.row];
+            NSDictionary *vipDic = _coachArray[indexPath.row];
 //            cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
             [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]];
             cell.vipNameLabel.text = vipDic[@"name"];
@@ -463,7 +497,7 @@
 - (IBAction)shareButtonAction:(id)sender {
     FTCoachSelfCourseViewController *coachSelfCourseViewController = [FTCoachSelfCourseViewController new];
     [self.navigationController pushViewController:coachSelfCourseViewController animated:YES];
-    return;
+//    return;
     
     [MobClick event:@"videoPage_DetailPage_shareUp"];
     
@@ -600,7 +634,46 @@
     }];
 }
 
+/**
+ *  获取时间段信息
+ */
+- (void)getTimeSection{
+    [NetWorking getGymTimeSlotsById:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSArray *array) {
+        _timeSectionsArray = array;
+        if (_timeSectionsArray && _timeSectionsArray.count > 0) {
+            //获取时间段信息后，根据内容多少设置tableviews的高度，再刷新一次tableview
+            _gymSourceView.timeSectionsArray = _timeSectionsArray;
+            _gymSourceView.tableViewsHeight.constant = 42 * _timeSectionsArray.count;
+            [self gettimeSectionsUsingInfo];
+        }
+        
+    }];
+}
 
+//获取场地使用信息
+- (void)gettimeSectionsUsingInfo{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *timestampString = [NSString stringWithFormat:@"%.0f", [[NSDate date]timeIntervalSince1970]];
+    
+    [NetWorking getGymSourceInfoById:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid]  andTimestamp:timestampString  andOption:^(NSArray *array) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        _placesUsingInfoDic = [NSMutableDictionary new];
+        if (array) {
+            for(NSDictionary *dic in array){
+                NSString *theDate = [NSString stringWithFormat:@"%@", dic[@"theDate"]];//周几
+                NSMutableArray *mArray = _placesUsingInfoDic[theDate];
+                if(!mArray){
+                    mArray = [NSMutableArray new];
+                    [_placesUsingInfoDic setValue:mArray forKey:theDate];
+                }
+                [mArray addObject:dic];
+            }
+            //获取场地使用信息后，刷新UI
+            _gymSourceView.placesUsingInfoDic = _placesUsingInfoDic;
+            [_gymSourceView reloadTableViews];
+        }
+    }];
+}
 
 //把点赞信息更新至服务器
 - (void)uploadVoteStatusToServer{
@@ -778,6 +851,77 @@
     //设置循环次数。0表示不限制
     _loadingImageView.animationRepeatCount = 0;
     [_loadingImageView startAnimating];
+}
+
+- (void)courseClickedWithCell:(FTGymSourceTableViewCell *)courseCell andDay:(NSInteger)day andTimeSection:(NSString *) timeSection andDateString:(NSString *) dateString andTimeStamp:(NSString *)timeStamp{
+    NSLog(@"day : %ld, timeSection : %@ dateString : %@", day, timeSection, dateString);
+    
+    if (![FTUserTools getLocalUser]) {
+        NSLog(@"没有登录");
+        [self login];
+        return;
+    }
+    
+    if(_gymVIPType != FTGymVIPTypeYep){
+        FTPayForGymVIPViewController *payForGymVIPViewController = [[FTPayForGymVIPViewController alloc]init];
+        payForGymVIPViewController.gymDetailBean = _gymDetailBean;
+        payForGymVIPViewController.gymVIPType = _gymVIPType;
+        [self.navigationController pushViewController:payForGymVIPViewController animated:YES];
+        return;
+    }
+    
+    FTGymOrderCourseView *gymOrderCourseView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCourseView" owner:nil options:nil] firstObject];
+    gymOrderCourseView.courseType = FTOrderCourseTypeGym;
+    gymOrderCourseView.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
+    gymOrderCourseView.dateString = dateString;
+    gymOrderCourseView.dateTimeStamp = timeStamp;
+    
+    NSDictionary *courseDic = courseCell.courserCellDic;
+    NSString *webViewURL = courseDic[@"url"];
+    gymOrderCourseView.webViewURL = webViewURL;
+    
+    if (courseCell.hasOrder) {
+        NSLog(@"已经预约");
+        
+        NSDictionary *courseCellDic = courseCell.courserCellDic;
+        gymOrderCourseView.courserCellDic = courseCellDic;
+        
+        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+        gymOrderCourseView.delegate = self;
+        gymOrderCourseView.status = FTGymCourseStatusHasOrder;
+        [self.view addSubview:gymOrderCourseView];
+        
+    } else if (courseCell.canOrder) {
+        
+        
+        NSDictionary *courseCellDic = courseCell.courserCellDic;
+        gymOrderCourseView.courserCellDic = courseCellDic;
+        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+        gymOrderCourseView.delegate = self;
+        gymOrderCourseView.status = FTGymCourseStatusCanOrder;
+        [self.view addSubview:gymOrderCourseView];
+        NSLog(@"可以预约");
+        
+        
+    }else if (courseCell.isFull) {
+        
+        
+        NSDictionary *courseCellDic = courseCell.courserCellDic;
+        gymOrderCourseView.courserCellDic = courseCellDic;
+        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+        gymOrderCourseView.delegate = self;
+        gymOrderCourseView.status = FTGymCourseStatusIsFull;
+        [self.view addSubview:gymOrderCourseView];
+        NSLog(@"满员");
+    }else{
+        //不能预约（可能因为数据无效等原因）
+    }
+}
+
+- (void)bookSuccess{
+    //预订成功后，刷新课程预订信息
+    [self gettimeSectionsUsingInfo];
+    [self getVIPInfo];
 }
 
 - (void)startLoadingAnimation{

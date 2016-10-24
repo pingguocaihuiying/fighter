@@ -12,6 +12,9 @@
 #import "FTGymOrderCourseView.h"
 #import "FTGymOrderCoachView.h"
 #import "FTHomepageMainViewController.h"
+#import "FTLoginViewController.h"
+#import "FTBaseNavigationViewController.h"
+#import "FTPayForGymVIPViewController.h"
 
 @interface FTOrderCoachViewController ()<FTGymCourseTableViewDelegate, FTCoachOrderCourseViewDelegate, FTGymOrderCourseViewDelegate>
 
@@ -37,6 +40,9 @@
 
 @property (nonatomic, copy) NSString *balance;
 @property (nonatomic, assign) BOOL isLoadCourseDataComplete;//已经加载课程数据
+
+@property (nonatomic, assign)FTGymVIPType gymVIPType;//会员类型
+
 @end
 
 @implementation FTOrderCoachViewController
@@ -48,9 +54,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initBaseData];
     [self setSubViews];
-    [self getVIPInfo];//获取余额等会员信息
+    
+    FTUserBean *localUser = [FTUserTools getLocalUser];
+    if (localUser) {
+        [self getVIPInfo];//获取余额等会员信息
+    }
+    
     [self getTimeSection];//获取时间段信息
+}
+
+
+/**
+ 初始化基本配置
+ */
+- (void)initBaseData{
+    _gymVIPType = FTGymVIPTypeNope;//默认非会员
+    
+
 }
 
 - (void)setSubViews{
@@ -78,22 +100,23 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSDictionary *dic) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        
         //无数据：非会员
         //"type"为会员类型： 0准会员 1会员 2往期会员
         
         NSString *status = dic[@"status"];
         NSLog(@"status : %@", status);
-        FTGymVIPType gymVIPType;
+        
         if ([status isEqualToString:@"success"]) {
             NSString *type = dic[@"data"][@"type"];
-            gymVIPType = [type integerValue];
-            if (gymVIPType == FTGymVIPTypeYep) {//如果已经是会员，更新会员信息的展示
+            _gymVIPType = [type integerValue];
+            if (_gymVIPType == FTGymVIPTypeYep) {//如果已经是会员，更新会员信息的展示
                 [self updateVIPInfoUIWithDic:dic[@"data"]];
-            }else if (gymVIPType == FTGymVIPTypeApplying){
+            }else if (_gymVIPType == FTGymVIPTypeApplying){
                 
             }
         }else{
-            gymVIPType = FTGymVIPTypeNope;
+            _gymVIPType = FTGymVIPTypeNope;
             
         }
         
@@ -215,6 +238,20 @@
     NSLog(@"day : %ld, timeSection : %@ dateString : %@", day, _timeSectionsArray[timeSectionIndex][@"timeSection"], dateString);
     if (_isLoadCourseDataComplete) {
         
+        if (![FTUserTools getLocalUser]) {
+            NSLog(@"没有登录");
+            [self login];
+            return;
+        }
+        
+        if(_gymVIPType != FTGymVIPTypeYep){
+            FTPayForGymVIPViewController *payForGymVIPViewController = [[FTPayForGymVIPViewController alloc]init];
+            payForGymVIPViewController.gymDetailBean = _gymDetailBean;
+            payForGymVIPViewController.gymVIPType = _gymVIPType;
+            [self.navigationController pushViewController:payForGymVIPViewController animated:YES];
+            return;
+        }
+        
         if (courseCell.isEmpty) {//如果是空的，说明可以预约
             NSLog(@"可以预约");
             FTGymOrderCoachView *gymOrderCoachView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCoachView" owner:nil options:nil] firstObject];
@@ -314,6 +351,14 @@
         }
         
     }];
+}
+
+// 跳转登录界面方法
+- (void)login{
+    FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+    loginVC.title = @"登录";
+    FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 //获取场地使用信息

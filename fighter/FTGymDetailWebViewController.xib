@@ -22,6 +22,7 @@
                 <outlet property="focusView" destination="xpk-Hv-igO" id="OMC-V9-c9U"/>
                 <outlet property="gymAdressLabel" destination="maN-Jk-hhR" id="yff-ca-OSC"/>
                 <outlet property="gymShowImageView" destination="TEO-cZ-MR7" id="PLc-cD-5Vi"/>
+                <outlet property="gymSourceViewContainerView" destination="3on-4R-rDq" id="pLV-kz-zQe"/>
                 <outlet property="haveVideoButton" destination="wXL-Dy-ssq" id="5jl-1w-6sp"/>
                 <outlet property="haveVideoView" destination="5Re-SN-vAj" id="6C0-m9-mxB"/>
                 <outlet property="scoreView" destination="FGK-qj-mVh" id="d2y-Aw-zck"/>
@@ -310,11 +311,20 @@
                                 <constraint firstItem="kJK-on-KFG" firstAttribute="top" secondItem="HCG-S1-EZ0" secondAttribute="top" id="xCy-CU-9UW"/>
                             </constraints>
                         </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3on-4R-rDq" userLabel="课程表View">
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" priority="750" constant="223" id="pD1-TV-7OP"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="3on-4R-rDq" firstAttribute="top" secondItem="HCG-S1-EZ0" secondAttribute="bottom" constant="10" id="1dI-VP-CHq"/>
+                        <constraint firstAttribute="trailing" secondItem="3on-4R-rDq" secondAttribute="trailing" id="200-Jf-swM"/>
                         <constraint firstItem="pca-hw-yyh" firstAttribute="top" secondItem="Moj-1j-73U" secondAttribute="bottom" constant="8" id="2qK-XB-1Hf"/>
                         <constraint firstItem="TEO-cZ-MR7" firstAttribute="leading" secondItem="R3j-DU-Pwe" secondAttribute="leading" id="3Fd-Ig-Zrg"/>
                         <constraint firstAttribute="trailing" secondItem="Moj-1j-73U" secondAttribute="trailing" id="3oe-aM-PGh"/>
+                        <constraint firstAttribute="bottom" secondItem="3on-4R-rDq" secondAttribute="bottom" constant="3" id="4fi-EY-ucf"/>
                         <constraint firstAttribute="trailing" secondItem="pca-hw-yyh" secondAttribute="trailing" id="Dcr-yf-Xbl"/>
                         <constraint firstItem="ZUw-6Z-o0X" firstAttribute="centerY" secondItem="TEO-cZ-MR7" secondAttribute="centerY" id="E1V-jW-g5b"/>
                         <constraint firstItem="TEO-cZ-MR7" firstAttribute="top" secondItem="R3j-DU-Pwe" secondAttribute="top" id="Eg7-w6-gGU"/>
@@ -327,13 +337,13 @@
                         <constraint firstItem="Exp-Xe-Ucl" firstAttribute="bottom" secondItem="TEO-cZ-MR7" secondAttribute="bottom" constant="-10" id="QEB-VN-oP8"/>
                         <constraint firstItem="Moj-1j-73U" firstAttribute="top" secondItem="5Re-SN-vAj" secondAttribute="bottom" id="RM5-Zh-6TE"/>
                         <constraint firstItem="ZUw-6Z-o0X" firstAttribute="height" secondItem="TEO-cZ-MR7" secondAttribute="height" id="VKO-Ec-fyc"/>
+                        <constraint firstItem="3on-4R-rDq" firstAttribute="leading" secondItem="R3j-DU-Pwe" secondAttribute="leading" id="XWm-Zz-QGX"/>
                         <constraint firstAttribute="trailing" secondItem="TEO-cZ-MR7" secondAttribute="trailing" id="bSw-qr-DJl"/>
                         <constraint firstAttribute="trailing" secondItem="HCG-S1-EZ0" secondAttribute="trailing" id="c0W-rF-yUe"/>
                         <constraint firstItem="ZUw-6Z-o0X" firstAttribute="centerX" secondItem="TEO-cZ-MR7" secondAttribute="centerX" id="dGe-Xj-qcu"/>
                         <constraint firstItem="Exp-Xe-Ucl" firstAttribute="centerX" secondItem="R3j-DU-Pwe" secondAttribute="centerX" id="hJ5-0Y-LZG"/>
                         <constraint firstItem="5Re-SN-vAj" firstAttribute="width" secondItem="TEO-cZ-MR7" secondAttribute="width" id="hwK-DV-udE"/>
                         <constraint firstItem="5Re-SN-vAj" firstAttribute="centerX" secondItem="TEO-cZ-MR7" secondAttribute="centerX" id="iOL-8B-qAi"/>
-                        <constraint firstAttribute="bottom" secondItem="HCG-S1-EZ0" secondAttribute="bottom" priority="250" constant="76" id="kRc-ZN-iVg"/>
                         <constraint firstItem="l72-Mv-iRZ" firstAttribute="width" secondItem="Exp-Xe-Ucl" secondAttribute="width" constant="20" id="ovr-2E-Zn1"/>
                         <constraint firstItem="l72-Mv-iRZ" firstAttribute="centerX" secondItem="Exp-Xe-Ucl" secondAttribute="centerX" id="swx-oM-d26"/>
                         <constraint firstItem="5Re-SN-vAj" firstAttribute="centerY" secondItem="TEO-cZ-MR7" secondAttribute="centerY" id="ufc-Na-EeR"/>
@@ -437,7 +447,7 @@
                 <constraint firstAttribute="trailing" secondItem="rdH-Uf-5rr" secondAttribute="trailing" id="wcA-E3-W56"/>
                 <constraint firstAttribute="bottom" secondItem="rdH-Uf-5rr" secondAttribute="bottom" id="xYR-at-Hf7"/>
             </constraints>
-            <point key="canvasLocation" x="337" y="308"/>
+            <point key="canvasLocation" x="336.5" y="307.5"/>
         </view>
     </objects>
     <resources>

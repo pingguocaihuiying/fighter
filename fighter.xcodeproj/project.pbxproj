@@ -275,6 +275,7 @@
 		E616C77C1CF58D03006EFA0B /* libc++abi.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E616C77B1CF58D03006EFA0B /* libc++abi.tbd */; };
 		E61AC8E01D73D8EE00ECA283 /* FTBetView0.m in Sources */ = {isa = PBXBuildFile; fileRef = E61AC8DF1D73D8EE00ECA283 /* FTBetView0.m */; };
 		E61AC8E21D73D90D00ECA283 /* FTBetView0.xib in Resources */ = {isa = PBXBuildFile; fileRef = E61AC8E11D73D90D00ECA283 /* FTBetView0.xib */; };
+		E61E59041DB5C923002FE239 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E61E59061DB5C923002FE239 /* InfoPlist.strings */; };
 		E61FE1691DA9E5650085B046 /* FTCoachBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E61FE1681DA9E5650085B046 /* FTCoachBean.m */; };
 		E61FE16E1DAB997B0085B046 /* FTGymSourceViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = E61FE16C1DAB997B0085B046 /* FTGymSourceViewController2.m */; };
 		E61FE16F1DAB997B0085B046 /* FTGymSourceViewController2.xib in Resources */ = {isa = PBXBuildFile; fileRef = E61FE16D1DAB997B0085B046 /* FTGymSourceViewController2.xib */; };
@@ -385,6 +386,8 @@
 		E6B7D2011CF6A750004191A3 /* FTArenaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6B7D1FF1CF6A750004191A3 /* FTArenaViewController.xib */; };
 		E6BFBEE61D23D55B0044F4B0 /* FTLaunchNewMatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6BFBEE41D23D55B0044F4B0 /* FTLaunchNewMatchViewController.m */; };
 		E6BFBEE71D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6BFBEE51D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib */; };
+		E6C3C5BF1DB89534007B199D /* FTGymCourceViewNew.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C3C5BE1DB89534007B199D /* FTGymCourceViewNew.m */; };
+		E6C3C5C11DB895F6007B199D /* FTGymCourceViewNew.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6C3C5C01DB895F6007B199D /* FTGymCourceViewNew.xib */; };
 		E6C4D7ED1CEC5E7B00D73BFC /* FTUserTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7EC1CEC5E7B00D73BFC /* FTUserTools.m */; };
 		E6C4D7F11CEC5FCE00D73BFC /* FTArenaNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7F01CEC5FCE00D73BFC /* FTArenaNetwork.m */; };
 		E6C5F4DC1D6EF55000F15AA3 /* FTLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C5F4DB1D6EF55000F15AA3 /* FTLoadingView.m */; };
@@ -878,6 +881,9 @@
 		E61AC8DE1D73D8EE00ECA283 /* FTBetView0.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTBetView0.h; sourceTree = "<group>"; };
 		E61AC8DF1D73D8EE00ECA283 /* FTBetView0.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTBetView0.m; sourceTree = "<group>"; };
 		E61AC8E11D73D90D00ECA283 /* FTBetView0.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTBetView0.xib; sourceTree = "<group>"; };
+		E61E59051DB5C923002FE239 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		E61E59071DB5C927002FE239 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E61E59081DB5C96E002FE239 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E61FE1671DA9E5650085B046 /* FTCoachBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCoachBean.h; sourceTree = "<group>"; };
 		E61FE1681DA9E5650085B046 /* FTCoachBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCoachBean.m; sourceTree = "<group>"; };
 		E61FE16B1DAB997B0085B046 /* FTGymSourceViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymSourceViewController2.h; sourceTree = "<group>"; };
@@ -1070,6 +1076,9 @@
 		E6BFBEE31D23D55B0044F4B0 /* FTLaunchNewMatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTLaunchNewMatchViewController.h; path = "UI/格斗场/viewControllers/发起约战/main/FTLaunchNewMatchViewController.h"; sourceTree = "<group>"; };
 		E6BFBEE41D23D55B0044F4B0 /* FTLaunchNewMatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTLaunchNewMatchViewController.m; path = "UI/格斗场/viewControllers/发起约战/main/FTLaunchNewMatchViewController.m"; sourceTree = "<group>"; };
 		E6BFBEE51D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTLaunchNewMatchViewController.xib; path = "UI/格斗场/viewControllers/发起约战/main/FTLaunchNewMatchViewController.xib"; sourceTree = "<group>"; };
+		E6C3C5BD1DB89534007B199D /* FTGymCourceViewNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymCourceViewNew.h; sourceTree = "<group>"; };
+		E6C3C5BE1DB89534007B199D /* FTGymCourceViewNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymCourceViewNew.m; sourceTree = "<group>"; };
+		E6C3C5C01DB895F6007B199D /* FTGymCourceViewNew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymCourceViewNew.xib; sourceTree = "<group>"; };
 		E6C4D7EB1CEC5E7B00D73BFC /* FTUserTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserTools.h; sourceTree = "<group>"; };
 		E6C4D7EC1CEC5E7B00D73BFC /* FTUserTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserTools.m; sourceTree = "<group>"; };
 		E6C4D7EF1CEC5FCE00D73BFC /* FTArenaNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaNetwork.h; sourceTree = "<group>"; };
@@ -2246,6 +2255,14 @@
 			name = "第二个确认界面";
 			sourceTree = "<group>";
 		};
+		E61E59011DB5C89F002FE239 /* Localize */ = {
+			isa = PBXGroup;
+			children = (
+				E61E59061DB5C923002FE239 /* InfoPlist.strings */,
+			);
+			name = Localize;
+			sourceTree = "<group>";
+		};
 		E61FE1661DA9E5430085B046 /* 教练 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2376,6 +2393,7 @@
 		E64EF1081CB6614000CAE340 /* fighter */ = {
 			isa = PBXGroup;
 			children = (
+				E61E59011DB5C89F002FE239 /* Localize */,
 				3D13FB0B1D193A5A0060B9B4 /* fighter.entitlements */,
 				3D0615501D362FFD00FDA86F /* EncodeAndDecode */,
 				3D17F7221D0052A0003AB660 /* OtherSDK */,
@@ -2765,6 +2783,7 @@
 				E6D3584E1D92A77400259682 /* cell */,
 				E66F49371D93D849005B39D1 /* 展示课程的tableView */,
 				E66F49301D93AF6B005B39D1 /* 课程表 */,
+				E6C3C5BC1DB894A7007B199D /* 课程表-新 */,
 				3D9666BC1D9A7F0E00E90DA5 /* 教练切换状态弹出框 */,
 				3D9666C81D9AAD1D00E90DA5 /*  拳馆预约私教弹出框 */,
 			);
@@ -3180,6 +3199,23 @@
 			name = "发起约战主页";
 			sourceTree = "<group>";
 		};
+		E6C3C5BC1DB894A7007B199D /* 课程表-新 */ = {
+			isa = PBXGroup;
+			children = (
+				E6C3C5BD1DB89534007B199D /* FTGymCourceViewNew.h */,
+				E6C3C5BE1DB89534007B199D /* FTGymCourceViewNew.m */,
+				E6C3C5C01DB895F6007B199D /* FTGymCourceViewNew.xib */,
+			);
+			name = "课程表-新";
+			sourceTree = "<group>";
+		};
+		E6C3C5C21DB898FB007B199D /* 课程cell-新 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "课程cell-新";
+			sourceTree = "<group>";
+		};
 		E6C4D7EE1CEC5FB200D73BFC /* network */ = {
 			isa = PBXGroup;
 			children = (
@@ -3324,6 +3360,7 @@
 			children = (
 				E66BC0061D9A532F00B492D3 /* 教练课程cell */,
 				E66F49411D93F3C5005B39D1 /* 课程cell */,
+				E6C3C5C21DB898FB007B199D /* 课程cell-新 */,
 				E6D3584F1D92A77F00259682 /* 教练cell */,
 			);
 			name = cell;
@@ -3795,6 +3832,7 @@
 				E67872741CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib in Resources */,
 				E6F46C371D829161001387E2 /* FTGymPhotosViewController.xib in Resources */,
 				E6B7D2011CF6A750004191A3 /* FTArenaViewController.xib in Resources */,
+				E6C3C5C11DB895F6007B199D /* FTGymCourceViewNew.xib in Resources */,
 				3D9666C11D9A801C00E90DA5 /* FTGymCoachStateSwitcher.xib in Resources */,
 				E64EF1141CB6614000CAE340 /* Main.storyboard in Resources */,
 				3D7B989D1CDF896F00B80B8D /* FTTableViewCell5.xib in Resources */,
@@ -3825,6 +3863,7 @@
 				3D7B98B01CE05F3300B80B8D /* FTPhoneViewController.xib in Resources */,
 				3D9666CD1D9AAE2100E90DA5 /* FTGymOrderCoachView.xib in Resources */,
 				3D06154F1D35E17B00FDA86F /* FTPhoneCell.xib in Resources */,
+				E61E59041DB5C923002FE239 /* InfoPlist.strings in Resources */,
 				E66EAEA31CF8217F006CD6CE /* FTArenaTextTableViewCell.xib in Resources */,
 				3D9666D41D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.xib in Resources */,
 				3D322ACA1CEB171200039E2C /* FTRankHeaderCell.xib in Resources */,
@@ -4172,6 +4211,7 @@
 				E68D16171CFD819500AB5A8C /* UIImage+FTLYZImage.m in Sources */,
 				3D9666C61D9A98A000E90DA5 /* FTGymRechargeViewController.m in Sources */,
 				3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */,
+				E6C3C5BF1DB89534007B199D /* FTGymCourceViewNew.m in Sources */,
 				E6F46C6F1D893FE2001387E2 /* FTGymDetailBean.m in Sources */,
 				E6B458DB1CB75E5000FB4261 /* FTBaseTabBarViewController.m in Sources */,
 				3D4122201D4F253E007EB996 /* FTLabelCell.m in Sources */,
@@ -4339,6 +4379,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		E61E59061DB5C923002FE239 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E61E59051DB5C923002FE239 /* zh-Hans */,
+				E61E59071DB5C927002FE239 /* Base */,
+				E61E59081DB5C96E002FE239 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		E64EF1121CB6614000CAE340 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -4453,7 +4503,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: peng qu (KE77LSQE2H)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = LQHT8X75PQ;
@@ -4506,7 +4555,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = fighter/fighter.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: peng qu (LQHT8X75PQ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = LQHT8X75PQ;
 				ENABLE_BITCODE = NO;
