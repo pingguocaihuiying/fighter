@@ -13,6 +13,7 @@
 
 @interface FTGymSourceTableViewCellNew : FTBaseTableViewCell
 
+@property (strong, nonatomic) IBOutlet UIView *bgView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *selectionImage;
 @property (nonatomic, assign) BOOL isAvailable;//是否可以选择
@@ -36,6 +37,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *orderStatusLabel;//预约人数
 @property (nonatomic, assign) BOOL isEmpty;//该时间段空闲，说明可以预约教练
 @property (strong, nonatomic) IBOutlet UIView *dividingLine;
+@property (strong, nonatomic) IBOutlet UILabel *blankInfoLabel;
 
 -(void)setwithDic:(NSDictionary *)dic;
+- (void)setBlank;
 @end

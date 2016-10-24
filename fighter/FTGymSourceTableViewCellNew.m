@@ -18,6 +18,7 @@
     _canOrder = NO;
     
     _dividingLine.backgroundColor = Cell_Space_Color;
+    _bgView.backgroundColor = [UIColor colorWithHex:0x191919];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -26,10 +27,15 @@
 }
 
 -(void)setwithDic:(NSDictionary *)dic{
+    _blankInfoLabel.hidden = YES;
+    _courseNameLabel.hidden = NO;
+    _courseTimeSectionLabel.hidden = NO;
+    _coachNameLabel.hidden = NO;
+    
     
     _courseNameLabel.text  = dic[@"courseName"];//课程名
     _courseTimeSectionLabel.text = dic[@"timeSection"];//时间段
-    _coachNameLabel.text = dic[@"coach"];//教练名
+    _coachNameLabel.text = [NSString stringWithFormat:@"教练：%@", dic[@"coach"]];//教练名
     
     //是否是过去的
     if (_isPast) {
@@ -69,6 +75,7 @@
             _hasOrderImageView.hidden = YES;
             _orderStatusLabel.hidden = YES;
             
+            _courseStatusLabel.hidden = YES;
             _orderStatusLabel.hidden = NO;
             _statusButton.hidden = NO;
         }
@@ -94,16 +101,31 @@
         }
         if (_canOrder) {
             _orderStatusLabel.textColor = [UIColor colorWithHex:0x24b33c];
-            [_statusButton setImage:[UIImage imageNamed:@"拳馆详情新课表-可用"] forState:UIControlStateNormal];
+            [_statusButton setBackgroundImage:[UIImage imageNamed:@"拳馆详情新课表-可用"] forState:UIControlStateNormal];
+            [_statusButton setBackgroundImage:[UIImage imageNamed:@"拳馆详情新课表-可用"] forState:UIControlStateDisabled];
             [_statusButton setTitle:@"预约" forState:UIControlStateNormal];
         } else {
         
             _orderStatusLabel.textColor = [UIColor colorWithHex:0xbe1e1e];
-            [_statusButton setImage:[UIImage imageNamed:@"拳馆详情新课表-不可用"] forState:UIControlStateNormal];
+            [_statusButton setBackgroundImage:[UIImage imageNamed:@"拳馆详情新课表-不可用"] forState:UIControlStateNormal];
+            [_statusButton setBackgroundImage:[UIImage imageNamed:@"拳馆详情新课表-不可用"] forState:UIControlStateDisabled];
             [_statusButton setTitle:@"已满" forState:UIControlStateNormal];
         }
     }
     
 }
-
+- (void)setBlank{
+    _courseStatusLabel.hidden = YES;
+    
+    _courseNameLabel.hidden = YES;
+    _courseTimeSectionLabel.hidden = YES;
+    _coachNameLabel.hidden = YES;
+    
+    _hasOrderImageView.hidden = YES;
+    _orderStatusLabel.hidden = YES;
+    _statusButton.hidden = YES;
+    
+    _blankInfoLabel.hidden = NO;
+//    _blankInfoLabel.textColor = [UIColor colorWithHex:0x505050];
+}
 @end

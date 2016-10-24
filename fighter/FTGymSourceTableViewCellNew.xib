@@ -16,6 +16,9 @@
                 <frame key="frameInset" width="439" height="49"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ubS-FO-tMr" userLabel="bgView">
+                        <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZW-bC-2zB">
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="ziK-lM-stF"/>
@@ -46,7 +49,7 @@
                             <constraint firstAttribute="height" constant="27" id="is5-5b-3uH"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <state key="normal" title="已满">
+                        <state key="normal">
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
@@ -78,6 +81,11 @@
                             <constraint firstAttribute="height" constant="1" id="DN2-LW-3a4"/>
                         </constraints>
                     </view>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无课程" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSl-gw-ZfM">
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
@@ -85,13 +93,19 @@
                     <constraint firstItem="TSP-Ky-429" firstAttribute="leading" secondItem="qMv-d3-eJ6" secondAttribute="trailing" constant="8" id="6Jg-WM-whk"/>
                     <constraint firstItem="qZW-bC-2zB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="6rK-92-kXw"/>
                     <constraint firstItem="2oR-lZ-9SK" firstAttribute="centerX" secondItem="TSP-Ky-429" secondAttribute="centerX" id="98g-W4-Azo"/>
+                    <constraint firstAttribute="trailing" secondItem="ubS-FO-tMr" secondAttribute="trailing" id="FQ3-uF-QuL"/>
                     <constraint firstItem="qMv-d3-eJ6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Jby-yF-OIQ"/>
+                    <constraint firstItem="rSl-gw-ZfM" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="RHz-fM-auZ"/>
                     <constraint firstItem="VKL-CW-8PE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="S2w-CT-ybo"/>
+                    <constraint firstItem="ubS-FO-tMr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="SpX-HF-00M"/>
                     <constraint firstItem="qZW-bC-2zB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="15" id="Vdf-xA-xiv"/>
                     <constraint firstItem="TSP-Ky-429" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="WVE-tT-fY8"/>
                     <constraint firstAttribute="trailing" secondItem="VKL-CW-8PE" secondAttribute="trailing" id="a5l-SF-ecy"/>
+                    <constraint firstItem="rSl-gw-ZfM" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="abt-jO-0Mk"/>
                     <constraint firstItem="t15-vs-yjS" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="bva-H0-ECZ"/>
                     <constraint firstItem="LsY-Vy-oPo" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="crS-7y-UMc"/>
+                    <constraint firstAttribute="bottom" secondItem="ubS-FO-tMr" secondAttribute="bottom" id="d02-PV-g3e"/>
+                    <constraint firstItem="ubS-FO-tMr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="hOo-NA-Knu"/>
                     <constraint firstAttribute="bottom" secondItem="VKL-CW-8PE" secondAttribute="bottom" id="htV-6c-QX4"/>
                     <constraint firstItem="W3P-E5-lUy" firstAttribute="top" secondItem="qZW-bC-2zB" secondAttribute="bottom" constant="8" id="pqb-ev-mmT"/>
                     <constraint firstItem="2oR-lZ-9SK" firstAttribute="centerY" secondItem="TSP-Ky-429" secondAttribute="centerY" id="r6e-BG-DTi"/>
@@ -102,6 +116,8 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="bgView" destination="ubS-FO-tMr" id="z1Z-Mh-Jzl"/>
+                <outlet property="blankInfoLabel" destination="rSl-gw-ZfM" id="Qd9-8i-G7i"/>
                 <outlet property="coachNameLabel" destination="LsY-Vy-oPo" id="Etk-8g-vea"/>
                 <outlet property="courseNameLabel" destination="qZW-bC-2zB" id="353-Re-A0G"/>
                 <outlet property="courseStatusLabel" destination="2oR-lZ-9SK" id="pxm-89-G98"/>

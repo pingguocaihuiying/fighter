@@ -389,7 +389,6 @@
 		E6C3C5BF1DB89534007B199D /* FTGymCourceViewNew.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C3C5BE1DB89534007B199D /* FTGymCourceViewNew.m */; };
 		E6C3C5C11DB895F6007B199D /* FTGymCourceViewNew.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6C3C5C01DB895F6007B199D /* FTGymCourceViewNew.xib */; };
 		E6C3C5EF1DBB44A2007B199D /* FTCourseTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C3C5EE1DBB44A2007B199D /* FTCourseTableHeaderView.m */; };
-		E6C3C5F11DBB44B0007B199D /* FTCourseTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6C3C5F01DBB44B0007B199D /* FTCourseTableHeaderView.xib */; };
 		E6C3C5F51DBB49F4007B199D /* FTGymSourceTableViewCellNew.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C3C5F31DBB49F4007B199D /* FTGymSourceTableViewCellNew.m */; };
 		E6C3C5F61DBB49F4007B199D /* FTGymSourceTableViewCellNew.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6C3C5F41DBB49F4007B199D /* FTGymSourceTableViewCellNew.xib */; };
 		E6C4D7ED1CEC5E7B00D73BFC /* FTUserTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E6C4D7EC1CEC5E7B00D73BFC /* FTUserTools.m */; };
@@ -1085,7 +1084,6 @@
 		E6C3C5C01DB895F6007B199D /* FTGymCourceViewNew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymCourceViewNew.xib; sourceTree = "<group>"; };
 		E6C3C5ED1DBB44A2007B199D /* FTCourseTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCourseTableHeaderView.h; sourceTree = "<group>"; };
 		E6C3C5EE1DBB44A2007B199D /* FTCourseTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCourseTableHeaderView.m; sourceTree = "<group>"; };
-		E6C3C5F01DBB44B0007B199D /* FTCourseTableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTCourseTableHeaderView.xib; sourceTree = "<group>"; };
 		E6C3C5F21DBB49F4007B199D /* FTGymSourceTableViewCellNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymSourceTableViewCellNew.h; sourceTree = "<group>"; };
 		E6C3C5F31DBB49F4007B199D /* FTGymSourceTableViewCellNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymSourceTableViewCellNew.m; sourceTree = "<group>"; };
 		E6C3C5F41DBB49F4007B199D /* FTGymSourceTableViewCellNew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymSourceTableViewCellNew.xib; sourceTree = "<group>"; };
@@ -3235,7 +3233,6 @@
 			children = (
 				E6C3C5ED1DBB44A2007B199D /* FTCourseTableHeaderView.h */,
 				E6C3C5EE1DBB44A2007B199D /* FTCourseTableHeaderView.m */,
-				E6C3C5F01DBB44B0007B199D /* FTCourseTableHeaderView.xib */,
 			);
 			name = "表头单元格";
 			sourceTree = "<group>";
@@ -3789,7 +3786,6 @@
 				E6F61D591D81067100971361 /* FTGymLevelCell.xib in Resources */,
 				3DE95BA81CD86FA4005BF85C /* FTLoginViewController.xib in Resources */,
 				E636B1B41D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.xib in Resources */,
-				E6C3C5F11DBB44B0007B199D /* FTCourseTableHeaderView.xib in Resources */,
 				E678727A1CEB00980099CEE6 /* FTNewPostViewController.xib in Resources */,
 				3D87712C1D9133D00001DB78 /* FTGymCommentTableViewCell.xib in Resources */,
 				3DA6D1C51D20D8BD0049CD4A /* FTCycleScrollViewCell.xib in Resources */,

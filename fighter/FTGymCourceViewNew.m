@@ -12,7 +12,7 @@
 #import "FTBaseTableViewCell.h"
 #import "FTCourseTableHeaderView.h"
 
-@interface FTGymCourceViewNew()<UITableViewDelegate, UITableViewDataSource>
+@interface FTGymCourceViewNew()<UITableViewDelegate, UITableViewDataSource, FTCourseTableHeaderViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *seperatorView1;
 @property (strong, nonatomic) IBOutlet UIView *seperatorView2;
@@ -35,7 +35,9 @@
 @property (nonatomic, strong) NSMutableArray *dateArray;//存储日期的字符串数组eg：7月8日
 @property (nonatomic, strong) NSMutableArray *dateTimeStampArray;//存储每天时间戳的字符串数组
 
-@property (nonatomic, assign) NSInteger curIndex;//当前展示的哪一天
+@property (nonatomic, assign) NSInteger curWeekDay;//当前展示的哪一天
+@property (nonatomic, copy) NSString *curDateString;//选中的那天的展示日期
+@property (nonatomic, copy) NSString *curTimeStampString;//选中的那天的时间戳
 
 @end
 
@@ -57,8 +59,11 @@
     //设置label等的颜色
     [self setColor];
     
-    //设置日期
+    //设置日期、初始化周几、日期数组
     [self setDateLabels];
+    
+    //默认周几为今天
+    _curWeekDay = [FTTools getWeekdayOfTodayAfterToday:0];
     
     //tableViews高度
     _tableViewsHeight.constant = 0;
@@ -101,67 +106,116 @@
         NSLog(@"--%d", month);
         int day = [dayString intValue];
         NSLog(@"---%d", day);
+//
+//        //添加月·日label
+//        CGFloat lableWidth = SCREEN_WIDTH / 6;//label宽度
+//        UILabel *dateLabel = [_dateView viewWithTag:10000 + i];
+//        if (!dateLabel) {
+//            dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(0 * lableWidth, 7, lableWidth, 11)];
+//            dateLabel.tag = 10000+i;
+//        }
+//        dateLabel.text = [NSString stringWithFormat:@"%d.%d", [monthString intValue], day];
+//        
+//        NSString *dateString = [NSString stringWithFormat:@"%d月%d日", [monthString intValue], day];
+//        [_dateArray addObject:dateString];
+//        
+//        if (i == 0) {
+//            dateLabel.text = @"今天";
+//        }
+//        dateLabel.font = [UIFont systemFontOfSize:11];
+//        dateLabel.textAlignment = NSTextAlignmentCenter;
+//        dateLabel.textColor = [UIColor whiteColor];
+//        if (i == 0) {
+////            dateLabel.textColor = [UIColor colorWithHex:0x22b33c];
+//        }
+//
+//        
+//        //添加周几label
+//        UILabel *dayLabel = [_dateView viewWithTag:20000 + i];
+//        if (!dayLabel) {
+//            dayLabel = [[UILabel alloc]initWithFrame:CGRectMake(0 * lableWidth, 7 + 11 + 8, lableWidth, 12)];
+//            dayLabel.tag = 20000+i;
+//        }
+//        //        dayLabel.text = [[weekString componentsSeparatedByString:@"周"] lastObject];
+//        dayLabel.text = weekString;
+//        dayLabel.font = [UIFont systemFontOfSize:12];
+//        dayLabel.textAlignment = NSTextAlignmentCenter;
+//        dayLabel.textColor = [UIColor whiteColor];
+//        if (i == 0) {
+////            dayLabel.textColor = [UIColor colorWithHex:0x22b33c];//如果是今天，改成绿色
+//        }
+//
+//        
+//        
+//        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(i * lableWidth, 0, lableWidth - 2, 45)];
+//        view.backgroundColor = [UIColor clearColor];
+//        
+//        //添加透明按钮响应点击事件
+//        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, lableWidth, 45)];
+//        button.tag = i;
+//        [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+//        
+//        [view addSubview:button];
+//        
+//        [view addSubview:dateLabel];
+//        
+//        [view addSubview:dayLabel];
+//        
+//        [_dateView addSubview:view];
         
-        //添加月·日label
+        
         CGFloat lableWidth = SCREEN_WIDTH / 6;//label宽度
-        UILabel *dateLabel = [_dateView viewWithTag:10000 + i];
-        if (!dateLabel) {
-            dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(0 * lableWidth, 7, lableWidth, 11)];
-            dateLabel.tag = 10000+i;
-        }
-        dateLabel.text = [NSString stringWithFormat:@"%d.%d", [monthString intValue], day];
-        
         NSString *dateString = [NSString stringWithFormat:@"%d月%d日", [monthString intValue], day];
         [_dateArray addObject:dateString];
-        
-        if (i == 0) {
-            dateLabel.text = @"今天";
-        }
-        dateLabel.font = [UIFont systemFontOfSize:11];
-        dateLabel.textAlignment = NSTextAlignmentCenter;
-        dateLabel.textColor = [UIColor whiteColor];
-        if (i == 0) {
-            dateLabel.textColor = [UIColor colorWithHex:0x22b33c];
-        }
 
         
-        //添加周几label
-        UILabel *dayLabel = [_dateView viewWithTag:20000 + i];
-        if (!dayLabel) {
-            dayLabel = [[UILabel alloc]initWithFrame:CGRectMake(0 * lableWidth, 7 + 11 + 8, lableWidth, 12)];
-            dayLabel.tag = 20000+i;
-        }
-        //        dayLabel.text = [[weekString componentsSeparatedByString:@"周"] lastObject];
-        dayLabel.text = weekString;
-        dayLabel.font = [UIFont systemFontOfSize:12];
-        dayLabel.textAlignment = NSTextAlignmentCenter;
-        dayLabel.textColor = [UIColor whiteColor];
-        if (i == 0) {
-            dayLabel.textColor = [UIColor colorWithHex:0x22b33c];//如果是今天，改成绿色
-        }
 
-        
-        
-        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(i * lableWidth, 0, lableWidth - 2, 45)];
+        //添加透明按钮响应点击事件
+
+        FTCourseTableHeaderView *view = [[FTCourseTableHeaderView alloc]initWithFrame:CGRectMake(i * lableWidth, 0, lableWidth, 45)];
         view.backgroundColor = [UIColor clearColor];
         
-        //添加透明按钮响应点击事件
-        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, lableWidth, 45)];
-        button.tag = [FTTools getWeekdayOfTodayAfterToday:i];
-        [button addTarget:self action:@selector(buttonClicke:) forControlEvents:UIControlEventTouchUpInside];
+        view.delegate = self;
+        [view initSubViewsWithIndex:i];
         
-        [view addSubview:button];
+        view.tag = 30000 + i;
         
-        [view addSubview:dateLabel];
-        
-        [view addSubview:dayLabel];
+        //默认选中第一个
+        if (i == 0) {
+            [view setSelected];
+        }else{
+            [view setDisSelected];
+        }
         
         [_dateView addSubview:view];
+        
     }
+    
+
 }
 
-- (void)buttonClicke:(UIButton *)button{
-    NSLog(@"week day : %ld", button.tag);
+- (void)buttonClickedWith:(NSInteger)index{
+    
+    //设置选中项
+    for(UIView *view in [_dateView subviews]){
+        if ([view isKindOfClass:[FTCourseTableHeaderView class]]) {
+            FTCourseTableHeaderView *headerView = (FTCourseTableHeaderView *)view;
+            if (view.tag == 30000 + index) {
+                [headerView setSelected];
+            } else {
+                [headerView setDisSelected];
+            }
+        }
+    }
+    
+    NSLog(@"button index : %ld", index);
+    NSLog(@"week day : %ld", [FTTools getWeekdayOfTodayAfterToday:index]);
+    
+    _curWeekDay = [FTTools getWeekdayOfTodayAfterToday:index];
+    _curDateString = _dateArray[index];
+    _curTimeStampString = _dateTimeStampArray[index];
+    
+    [_t1 reloadData];
 }
 
 - (void)initTableViews{
@@ -248,8 +302,9 @@
     FTGymSourceTableView *theTableView = (FTGymSourceTableView *)tableView;
  //其他显示课程的tableView
         FTGymSourceTableViewCellNew *cell = [tableView dequeueReusableCellWithIdentifier:@"sourceCell"];
+//    [cell.statusButton addTarget:self action:@selector(description) forControlEvents:UIControlEventTouchUpInside];
         cell.tag = 10000 + indexPath.row;
-        NSInteger index = theTableView.index;
+        NSInteger index = _curWeekDay;
         NSString *theDateKey = [NSString stringWithFormat:@"%ld", index];
         NSArray *courseArray = _placesUsingInfoDic[theDateKey];
         NSDictionary *dic;
@@ -287,6 +342,8 @@
                 cell.hasCourseData = YES;
                 [cell setwithDic:dic];
                 cell.courserCellDic = dic;
+            }else{//暂无课程
+                [cell setBlank];
             }
     
         
@@ -297,9 +354,8 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    FTGymSourceTableView *theTableView = (FTGymSourceTableView *)tableView;
-    NSLog(@"周几：%ld,row : %ld", theTableView.index, indexPath.row);
+
+    NSLog(@"row : %ld", indexPath.row);
     FTGymSourceTableViewCellNew *cell = [tableView viewWithTag:(10000 + indexPath.row)];
 //    if (_courseType == FTOrderCourseTypeGym) {
 //        if (cell.hasCourseData && !cell.isPast) {//如果有课程数据，而且是未来可以预约的
@@ -318,7 +374,7 @@
     
     if (cell.hasCourseData && !cell.isPast) {//如果有课程数据，而且是未来可以预约的
         NSString *timeSection = _timeSectionsArray[indexPath.row][@"timeSection"];
-        [_delegate courseClickedWithCell:cell andDay:theTableView.index andTimeSection:timeSection andDateString:theTableView.dateString andTimeStamp:theTableView.timeStampString];
+        [_delegate courseClickedWithCell:cell andDay:_curWeekDay andTimeSection:timeSection andDateString:_curDateString andTimeStamp:_curTimeStampString];
     }
 }
 
