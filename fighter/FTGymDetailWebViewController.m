@@ -474,8 +474,14 @@
     @try {
     
         FTGymCommentsViewController *gymCommentsVC = [[FTGymCommentsViewController alloc]init];
-        gymCommentsVC.title = @"评论列表";
+        gymCommentsVC.title = self.gymBean.gymName;//@"评论列表";
         gymCommentsVC.objId = self.gymBean.gymId;
+        
+        __weak typeof(self) weakself = self;
+        gymCommentsVC.freshBlock = ^(){
+            //更新评论数
+            weakself.commentCountLabel.text = [NSString stringWithFormat:@"%d人评价", ++weakself.gymDetailBean.commentcount];
+        };
         [self.navigationController pushViewController:gymCommentsVC animated:YES];
     
     } @catch (NSException *exception) {
@@ -618,6 +624,12 @@
     FTGymCommentViewController *commentVC = [ FTGymCommentViewController new];
     commentVC.objId = self.gymBean.gymId;
     commentVC.title = self.gymBean.gymName;
+    
+    __weak typeof(self) weakself = self;
+    commentVC.freshBlock = ^(){
+        //更新评论数
+        weakself.commentCountLabel.text = [NSString stringWithFormat:@"%d人评价", ++weakself.gymDetailBean.commentcount];
+    };
 //    commentVC.delegate = self;
 //    commentVC.gymBean = self.gymBean;
     [self.navigationController pushViewController:commentVC animated:YES];

@@ -942,6 +942,7 @@ static NSString *const tableCellId = @"tableCellId";
     self.tabBarVC.viewControllers = items;
 }
 
+
 - (BOOL) isContainShopVC {
 
     NSMutableArray *mutabelItems = [[NSMutableArray alloc]initWithArray:self.tabBarVC.viewControllers];
@@ -1033,4 +1034,6 @@ static NSString *const tableCellId = @"tableCellId";
         
     }];
 }
+
+
 @end

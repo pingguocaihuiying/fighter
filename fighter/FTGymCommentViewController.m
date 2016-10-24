@@ -214,6 +214,11 @@
         
         BOOL status = [dict[@"status"] isEqualToString:@"success"];
         if (status) {
+            
+            if (_freshBlock) {
+                _freshBlock();
+            }
+            
             [self.navigationController popViewControllerAnimated:YES];
         }else {
             
