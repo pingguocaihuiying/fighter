@@ -472,7 +472,7 @@
         }else{
             NSDictionary *vipDic = _coachArray[indexPath.row];
 //            cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
-            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]];
+            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]placeholderImage:[UIImage imageNamed:@"小占位图"]];
             
             NSString *name = vipDic[@"name"];
             cell.vipNameLabel.text = name;
@@ -489,13 +489,13 @@
             }else{
                 NSDictionary *vipDic = _coachArray[indexPath.row];
 //                cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
-                [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]];
+                [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]placeholderImage:[UIImage imageNamed:@"小占位图"]];
                 cell.vipNameLabel.text = vipDic[@"name"];
             }
         }else{
             NSDictionary *vipDic = _coachArray[indexPath.row];
 //            cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
-            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]];
+            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]placeholderImage:[UIImage imageNamed:@"小占位图"]];
             cell.vipNameLabel.text = vipDic[@"name"];
         }
 

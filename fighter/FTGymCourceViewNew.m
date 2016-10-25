@@ -149,6 +149,8 @@
     
     _curDateString = _dateArray[0];
     _curTimeStampString = _dateTimeStampArray[0];
+    
+    
 }
 
 - (void)buttonClickedWith:(NSInteger)index{
@@ -173,17 +175,23 @@
     _curTimeStampString = _dateTimeStampArray[index];
     
     [_t1 reloadData];
+    
+//    [self updateBlankView];
     NSArray *courseArray = _placesUsingInfoDic[[NSString stringWithFormat:@"%ld", _curWeekDay ]];
-    if (courseArray && courseArray.count > 1) {
+    if (courseArray) {
         _tableViewsHeight.constant = 50 * courseArray.count;
-//        [_t1 scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:courseArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+
         _isBlanOfSelectedDay = NO;
         [self updateBlankView];
+        
         [_scrollDelegate scrollToBottom];
     }else{
-        _isBlanOfSelectedDay = YES;
         _tableViewsHeight.constant = 0;
+        
+        _isBlanOfSelectedDay = YES;
         [self updateBlankView];
+        
+        
         [_scrollDelegate scrollToBottom];
     }
     
@@ -191,6 +199,7 @@
 
 //更新“暂无课程”view的显示状态
 - (void)updateBlankView{
+    
     if (_isBlanOfSelectedDay) {
         _noCourserInfoViewHeight.constant = 50;
         _noCourserInfoView.hidden = NO;
