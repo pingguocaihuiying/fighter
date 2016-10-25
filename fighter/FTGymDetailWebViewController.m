@@ -33,6 +33,12 @@
     
 }
 
+@property (strong, nonatomic) IBOutlet UIScrollView *mainScrollView;
+
+@property (strong, nonatomic) IBOutlet UILabel *telLabel;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *bottomViewHeight;
+
+
 @property (nonatomic, copy)NSString *webUrlString;
 @property (strong, nonatomic) IBOutlet UILabel *gymAdressLabel;//地址label
 @property (strong, nonatomic) IBOutlet UIView *addressSeperatorView;//地址view中右边的分割线
@@ -45,12 +51,18 @@
 @property (strong, nonatomic) IBOutlet UIView *seperatorView5;
 @property (strong, nonatomic) IBOutlet UIView *seperatorView6;
 
+@property (strong, nonatomic) IBOutlet UIView *seperatorView7;
+@property (strong, nonatomic) IBOutlet UIView *seperatorView8;
+
+@property (nonatomic, strong) UIBarButtonItem *joinVIPButton;
+
 //评分view
 @property (strong, nonatomic) IBOutlet UIView *scoreView;
 
 
 //展示拳手的collectionView
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) IBOutlet UIImageView *isVIPImage;
 
 //collectionView左右离父视图的距离
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *collectionViewPaddingLeft;//左
@@ -125,15 +137,37 @@
             NSString *type = dic[@"data"][@"type"];
             _gymVIPType = [type integerValue];//
             if (_gymVIPType == FTGymVIPTypeYep) {
-                [_becomeVIPButton setTitle:@"已经是会员" forState:UIControlStateNormal];
-                _becomeVIPButton.enabled = NO;
+//                [_becomeVIPButton setTitle:@"已经是会员" forState:UIControlStateNormal];
+//                _becomeVIPButton.enabled = NO;
+                
+                //右上角的“成为会员”
+                _joinVIPButton.enabled = NO;
+                _joinVIPButton.title = @"";
+                
+                //“我的拳馆”标识
+                _isVIPImage.hidden = NO;
+                
                 [_becomeVIPButton setTitleColor:[UIColor colorWithHex:0xb4b4b4] forState:UIControlStateNormal];
             }else if (_gymVIPType == FTGymVIPTypeApplying){
-                _becomeVIPButton.enabled = YES;
+//                _becomeVIPButton.enabled = YES;
+                
+                //右上角的“成为会员”
+                _joinVIPButton.enabled = YES;
+                _joinVIPButton.title = @"成为会员";
+                
+                //“我的拳馆”标识
+                _isVIPImage.hidden = YES;
             }
         }else{
             _gymVIPType = FTGymVIPTypeNope;
-            _becomeVIPButton.enabled = YES;
+//            _becomeVIPButton.enabled = YES;
+            
+            //右上角的“成为会员”
+            _joinVIPButton.enabled = YES;
+            _joinVIPButton.title = @"成为会员";
+            
+            //“我的拳馆”标识
+            _isVIPImage.hidden = YES;
         }
     }];
 }
@@ -142,6 +176,7 @@
     NSString *info = [noti object];
     if ([info isEqualToString:@"LOGIN"] || [info isEqualToString:@"SUCESS"]) {
         [self getVIPInfo];
+        [self gettimeSectionsUsingInfo];
     }
 }
 
@@ -188,7 +223,16 @@
     }
     
     //更新展示照片
-    NSString *imageUrl = [NSString stringWithFormat:@"http://%@/%@", _gymDetailBean.urlprefix, _gymDetailBean.gym_show_img];
+    NSArray *imageArray = _gymDetailBean.gymImgs;
+    NSString *imageURLString;
+    for(NSString *imageURL in imageArray){
+        imageURLString = imageURL;
+        if (imageURLString && imageURLString.length > 0) {
+            break;
+        }
+    }
+    
+    NSString *imageUrl = [NSString stringWithFormat:@"http://%@/%@", _gymDetailBean.urlprefix, imageURLString];
     [_gymShowImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl]];
     
     //更新照片、视频个数
@@ -199,7 +243,9 @@
     
     //更新地址
     _gymAdressLabel.text = _gymDetailBean.gym_location;
+    NSLog(@"行数 ：%ld", _gymAdressLabel.numberOfLines);
     
+//    _bottomViewHeight.constant = 165;
     //更新评论数
     _commentCountLabel.text = [NSString stringWithFormat:@"%d人评价", _gymDetailBean.commentcount];
 }
@@ -240,9 +286,10 @@
     self.navigationItem.leftBarButtonItem = leftButton;
     
     // 导航栏转发按钮
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithTitle:@"分享" style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonAction:)];
-//    self.navigationItem.rightBarButtonItem = shareButton;
-    //因为拳馆详情的web页还没做，先隐藏掉分享功能
+    _joinVIPButton = [[UIBarButtonItem alloc]initWithTitle:@"成为会员" style:UIBarButtonItemStylePlain target:self action:@selector(becomeVIPButtonClicked:)];
+    _joinVIPButton.enabled = NO;
+    self.navigationItem.rightBarButtonItem = _joinVIPButton;
+    //因为拳馆详情的web页还没做，先隐藏掉分享功能 || 10月25日改为 成为会员
     
 }
 
@@ -252,9 +299,16 @@
 //    [self setWebView];
     
 //    [self setLoadingImageView];
+    
     [self subViewFormat];//设置分割线颜色、label行间距等
     [self setCollectionView];//设置拳馆教练头像显示
     [self setGymSourceView];//设置课程表
+    
+    //电话
+    _telLabel.text = [NSString stringWithFormat:@"%@", _gymBean.gymTel];
+    _telLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dialButtonAction:)];
+    [_telLabel addGestureRecognizer:tap];
 }
 
 - (void)subViewFormat{
@@ -267,7 +321,9 @@
     _seperatorView5.backgroundColor = Cell_Space_Color;
     _seperatorView6.backgroundColor = Cell_Space_Color;
     
-//    _gymAdressLabel.text = @"东直门东直门东直门东直门东直门东直门东直门东直门";
+    _seperatorView7.backgroundColor = Cell_Space_Color;
+    _seperatorView8.backgroundColor = Cell_Space_Color;
+    
     [UILabel setRowGapOfLabel:_gymAdressLabel withValue:6];
 }
 
@@ -448,7 +504,7 @@
     return cell;
 }
 
-// 设置webView
+// 设置webView webView已废弃
 - (void)setWebView{
     
     _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49 - 64)];
