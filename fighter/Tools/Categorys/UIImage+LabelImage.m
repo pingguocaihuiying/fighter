@@ -23,7 +23,7 @@
         image = [UIImage imageNamed:@"格斗标签-跆拳道"];
     }else if ([label isEqualToString:@"柔道"]) {
         image = [UIImage imageNamed:@"格斗标签-柔道"];
-    }else if ([label isEqualToString:@"摔跤(WWE)"]) {
+    }else if ([label isEqualToString:@"摔跤"]) {
         image = [UIImage imageNamed:@"格斗标签-摔跤"];
     }else if ([label isEqualToString:@"相扑"]) {
         image = [UIImage imageNamed:@"格斗标签-相扑"];
@@ -38,6 +38,8 @@
     }
     return image;
 }
+
+
 + (UIImage *) imageForENLabel:(NSString *)label {
     
     UIImage *image;

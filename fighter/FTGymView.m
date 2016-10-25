@@ -207,12 +207,13 @@
         [self.tableView footerEndRefreshing];
         
 //        NSLog(@"table dict:%@",dict);
-//        SLog(@"table dic:%@",dict);
-//        SLog(@"拳馆名称：%@",[dict[@"gymName"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+        SLog(@"table dic:%@",dict);
+        
 //        NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         if (dict != nil) {
             
             NSArray *tempArray = dict[@"data"];
+            SLog(@"gymType：%@",[tempArray[0][@"gymType"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
             if ([_getType isEqualToString:@"new"]) {
                 _dataSourceArray = [NSMutableArray arrayWithArray:tempArray];
                 
