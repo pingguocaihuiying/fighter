@@ -38,6 +38,11 @@
 @property (nonatomic, assign) NSInteger curWeekDay;//当前展示的哪一天
 @property (nonatomic, copy) NSString *curDateString;//选中的那天的展示日期
 @property (nonatomic, copy) NSString *curTimeStampString;//选中的那天的时间戳
+@property (strong, nonatomic) IBOutlet UIView *noCourserInfoView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *noCourserInfoViewHeight;
+
+@property (nonatomic, assign) BOOL isBlanOfSelectedDay;//当前选中的日期是否有课程信息
+@property (strong, nonatomic) IBOutlet UILabel *blankInfoLabel;
 
 @end
 
@@ -69,6 +74,13 @@
     _tableViewsHeight.constant = 0;
     
     [self initTableViews];
+    
+    //没课程提示view
+    _noCourserInfoView.backgroundColor = [UIColor colorWithHex:0x191919];
+    _noCourserInfoViewHeight.constant = 0;
+    _noCourserInfoView.hidden = YES;
+    
+    _blankInfoLabel.textColor = [UIColor colorWithHex:0x505050];
 }
 
 - (void)setColor{
@@ -106,62 +118,6 @@
         NSLog(@"--%d", month);
         int day = [dayString intValue];
         NSLog(@"---%d", day);
-//
-//        //添加月·日label
-//        CGFloat lableWidth = SCREEN_WIDTH / 6;//label宽度
-//        UILabel *dateLabel = [_dateView viewWithTag:10000 + i];
-//        if (!dateLabel) {
-//            dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(0 * lableWidth, 7, lableWidth, 11)];
-//            dateLabel.tag = 10000+i;
-//        }
-//        dateLabel.text = [NSString stringWithFormat:@"%d.%d", [monthString intValue], day];
-//        
-//        NSString *dateString = [NSString stringWithFormat:@"%d月%d日", [monthString intValue], day];
-//        [_dateArray addObject:dateString];
-//        
-//        if (i == 0) {
-//            dateLabel.text = @"今天";
-//        }
-//        dateLabel.font = [UIFont systemFontOfSize:11];
-//        dateLabel.textAlignment = NSTextAlignmentCenter;
-//        dateLabel.textColor = [UIColor whiteColor];
-//        if (i == 0) {
-////            dateLabel.textColor = [UIColor colorWithHex:0x22b33c];
-//        }
-//
-//        
-//        //添加周几label
-//        UILabel *dayLabel = [_dateView viewWithTag:20000 + i];
-//        if (!dayLabel) {
-//            dayLabel = [[UILabel alloc]initWithFrame:CGRectMake(0 * lableWidth, 7 + 11 + 8, lableWidth, 12)];
-//            dayLabel.tag = 20000+i;
-//        }
-//        //        dayLabel.text = [[weekString componentsSeparatedByString:@"周"] lastObject];
-//        dayLabel.text = weekString;
-//        dayLabel.font = [UIFont systemFontOfSize:12];
-//        dayLabel.textAlignment = NSTextAlignmentCenter;
-//        dayLabel.textColor = [UIColor whiteColor];
-//        if (i == 0) {
-////            dayLabel.textColor = [UIColor colorWithHex:0x22b33c];//如果是今天，改成绿色
-//        }
-//
-//        
-//        
-//        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(i * lableWidth, 0, lableWidth - 2, 45)];
-//        view.backgroundColor = [UIColor clearColor];
-//        
-//        //添加透明按钮响应点击事件
-//        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, lableWidth, 45)];
-//        button.tag = i;
-//        [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
-//        
-//        [view addSubview:button];
-//        
-//        [view addSubview:dateLabel];
-//        
-//        [view addSubview:dayLabel];
-//        
-//        [_dateView addSubview:view];
         
         
         CGFloat lableWidth = SCREEN_WIDTH / 7;//label宽度
@@ -218,12 +174,30 @@
     
     [_t1 reloadData];
     NSArray *courseArray = _placesUsingInfoDic[[NSString stringWithFormat:@"%ld", _curWeekDay ]];
-    if (courseArray) {
+    if (courseArray && courseArray.count > 1) {
         _tableViewsHeight.constant = 50 * courseArray.count;
-        [_t1 scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:courseArray.count inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-        
+//        [_t1 scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:courseArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        _isBlanOfSelectedDay = NO;
+        [self updateBlankView];
+        [_scrollDelegate scrollToBottom];
+    }else{
+        _isBlanOfSelectedDay = YES;
+        _tableViewsHeight.constant = 0;
+        [self updateBlankView];
+        [_scrollDelegate scrollToBottom];
     }
     
+}
+
+//更新“暂无课程”view的显示状态
+- (void)updateBlankView{
+    if (_isBlanOfSelectedDay) {
+        _noCourserInfoViewHeight.constant = 50;
+        _noCourserInfoView.hidden = NO;
+    }else{
+        _noCourserInfoViewHeight.constant = 0;
+        _noCourserInfoView.hidden = YES;
+    }
 }
 
 - (void)initTableViews{
@@ -338,6 +312,7 @@
                 cell.courserCellDic = dic;
             }else{//暂无课程
                 [cell setBlank];
+                cell.hasCourseData = NO;
             }
     
         

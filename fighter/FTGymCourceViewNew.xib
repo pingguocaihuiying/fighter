@@ -62,9 +62,23 @@
                             <constraints>
                                 <constraint firstItem="xrD-mv-qTA" firstAttribute="leading" secondItem="Nb4-mZ-rsF" secondAttribute="leading" id="KNe-bj-fSw"/>
                                 <constraint firstAttribute="trailing" secondItem="xrD-mv-qTA" secondAttribute="trailing" id="TeH-dA-pec"/>
-                                <constraint firstAttribute="height" constant="320" id="elT-SF-Ljd"/>
+                                <constraint firstAttribute="height" constant="270" id="elT-SF-Ljd"/>
                                 <constraint firstItem="xrD-mv-qTA" firstAttribute="top" secondItem="Nb4-mZ-rsF" secondAttribute="top" id="ggN-s1-pe5"/>
                                 <constraint firstAttribute="bottom" secondItem="xrD-mv-qTA" secondAttribute="bottom" id="ysH-gW-Bgs"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mBD-IB-V84">
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无课程" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QnK-1I-CUx">
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="QnK-1I-CUx" firstAttribute="centerX" secondItem="mBD-IB-V84" secondAttribute="centerX" id="Bbw-r8-59A"/>
+                                <constraint firstAttribute="height" constant="50" id="HQ4-Yf-BEw"/>
+                                <constraint firstItem="QnK-1I-CUx" firstAttribute="centerY" secondItem="mBD-IB-V84" secondAttribute="centerY" id="s7o-Qh-nh7"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -74,15 +88,18 @@
                         <constraint firstItem="5gK-Qs-FUz" firstAttribute="leading" secondItem="Bg9-QH-mtN" secondAttribute="leading" id="7c6-Tl-4Si"/>
                         <constraint firstItem="Nb4-mZ-rsF" firstAttribute="top" secondItem="amp-lI-Mtg" secondAttribute="bottom" id="AS4-dh-wcP"/>
                         <constraint firstItem="xIF-FW-z2l" firstAttribute="top" secondItem="Bg9-QH-mtN" secondAttribute="top" id="ATN-D6-eRh"/>
+                        <constraint firstAttribute="bottom" secondItem="mBD-IB-V84" secondAttribute="bottom" id="Gs1-dm-Wp9"/>
                         <constraint firstAttribute="trailing" secondItem="5gK-Qs-FUz" secondAttribute="trailing" id="Ix0-Ym-iv5"/>
                         <constraint firstItem="E1b-Y0-90c" firstAttribute="centerX" secondItem="Bg9-QH-mtN" secondAttribute="centerX" id="LGj-rf-Qj7"/>
                         <constraint firstItem="Nb4-mZ-rsF" firstAttribute="leading" secondItem="Bg9-QH-mtN" secondAttribute="leading" id="OkY-N5-LNR"/>
-                        <constraint firstAttribute="bottom" secondItem="Nb4-mZ-rsF" secondAttribute="bottom" id="Orh-Ck-a9h"/>
                         <constraint firstItem="xIF-FW-z2l" firstAttribute="leading" secondItem="Bg9-QH-mtN" secondAttribute="leading" id="W6x-c6-yDu"/>
                         <constraint firstAttribute="trailing" secondItem="amp-lI-Mtg" secondAttribute="trailing" id="XLs-aO-kKr"/>
                         <constraint firstAttribute="trailing" secondItem="Nb4-mZ-rsF" secondAttribute="trailing" id="Xtv-uQ-9FW"/>
                         <constraint firstAttribute="trailing" secondItem="xIF-FW-z2l" secondAttribute="trailing" id="ac6-2x-ZTE"/>
+                        <constraint firstItem="mBD-IB-V84" firstAttribute="top" secondItem="Nb4-mZ-rsF" secondAttribute="bottom" id="cF2-NG-9gF"/>
                         <constraint firstItem="amp-lI-Mtg" firstAttribute="top" secondItem="5gK-Qs-FUz" secondAttribute="bottom" id="oBn-sv-rW7"/>
+                        <constraint firstAttribute="trailing" secondItem="mBD-IB-V84" secondAttribute="trailing" id="rd6-hd-K3e"/>
+                        <constraint firstItem="mBD-IB-V84" firstAttribute="leading" secondItem="Bg9-QH-mtN" secondAttribute="leading" id="tGa-lq-EUs"/>
                         <constraint firstItem="5gK-Qs-FUz" firstAttribute="top" secondItem="E1b-Y0-90c" secondAttribute="bottom" constant="10" id="vza-JU-L1B"/>
                         <constraint firstItem="amp-lI-Mtg" firstAttribute="leading" secondItem="Bg9-QH-mtN" secondAttribute="leading" id="xaA-Pw-MGq"/>
                     </constraints>
@@ -101,7 +118,10 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="blankInfoLabel" destination="QnK-1I-CUx" id="Gqb-t7-UbM"/>
                 <outlet property="dateView" destination="ts7-Uv-hWa" id="uGT-OG-jtP"/>
+                <outlet property="noCourserInfoView" destination="mBD-IB-V84" id="Cbf-69-t4j"/>
+                <outlet property="noCourserInfoViewHeight" destination="HQ4-Yf-BEw" id="786-h6-JDz"/>
                 <outlet property="seperatorView1" destination="xIF-FW-z2l" id="o3r-sa-rYz"/>
                 <outlet property="seperatorView2" destination="5gK-Qs-FUz" id="8B4-yH-lKP"/>
                 <outlet property="t1" destination="xrD-mv-qTA" id="ktw-vY-0tN"/>

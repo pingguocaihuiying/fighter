@@ -25,7 +25,7 @@
 #import "FTGymOrderCourseView.h"
 #import "FTOrderCoachViewController.h"
 
-@interface FTGymDetailWebViewController ()<UIWebViewDelegate, CommentSuccessDelegate, UICollectionViewDelegate, UICollectionViewDataSource, FTLoginViewControllerDelegate, FTGymOrderCourseViewDelegate, FTGymCourseTableViewDelegate>
+@interface FTGymDetailWebViewController ()<UIWebViewDelegate, CommentSuccessDelegate, UICollectionViewDelegate, UICollectionViewDataSource, FTLoginViewControllerDelegate, FTGymOrderCourseViewDelegate, FTGymCourseTableViewDelegate, FTScrollViewScollToBottomDelegate>
 {
     UIWebView *_webView;
     UIImageView *_loadingImageView;
@@ -402,6 +402,7 @@
 //    _gymSourceView.courseType = FTOrderCourseTypeGym;
     _gymSourceView.frame = _gymSourceViewContainerView.bounds;
     _gymSourceView.delegate = self;
+    _gymSourceView.scrollDelegate = self;
     [_gymSourceViewContainerView addSubview:_gymSourceView];
     
 }
@@ -538,6 +539,7 @@
         gymCommentsVC.freshBlock = ^(){
             //更新评论数
             weakself.commentCountLabel.text = [NSString stringWithFormat:@"%d人评价", ++weakself.gymDetailBean.commentcount];
+            [weakself loadGymDataFromServer];
         };
         [self.navigationController pushViewController:gymCommentsVC animated:YES];
     
@@ -1007,6 +1009,11 @@
     }else{
         //不能预约（可能因为数据无效等原因）
     }
+}
+
+-(void)scrollToBottom{
+//    UIView animation
+    _mainScrollView.contentOffset = CGPointMake(0, _mainScrollView.contentSize.height - _mainScrollView.height);
 }
 
 - (void)bookSuccess{

@@ -28,13 +28,19 @@
  - FTOrderCourseTypeCoach:     预约教练
  - FTOrderCourseTypeCoachSelf: 教练查看自己的预约
  */
+@protocol FTScrollViewScollToBottomDelegate <NSObject>
 
+-(void)scrollToBottom;
+
+@end
 
 #import <UIKit/UIKit.h>
 //#import "FTGymSourceTableViewCell.h"
 #import "FTGymSourceView.h"
 
 @interface FTGymCourceViewNew : UIView
+
+@property (nonatomic, weak) id<FTScrollViewScollToBottomDelegate> scrollDelegate;
 
 //@property (nonatomic, assign) FTOrderCourseType courseType;//课程表类型
 @property (nonatomic, strong) NSArray *timeSectionsArray;//拳馆的固定时间段

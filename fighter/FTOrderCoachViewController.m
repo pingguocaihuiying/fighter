@@ -93,7 +93,7 @@
     _ageLabel.text = [NSString stringWithFormat:@"%@岁", _coachBean.age];
     _achievementLabel.text = _coachBean.brief;
     _yuanPerClassLabel.text = [NSString stringWithFormat:@"%d元", [_coachBean.price intValue] / 100 ];
-    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_coachBean.headUrl]];
+    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_coachBean.headUrl] placeholderImage:[UIImage imageNamed:@"小占位图"]];
 }
 /**
  获取会员信息

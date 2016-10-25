@@ -38,7 +38,7 @@
                                 <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ice-PM-z0b">
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PTf-Lz-0d2">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="小占位图" translatesAutoresizingMaskIntoConstraints="NO" id="PTf-Lz-0d2">
                                     <constraints>
                                         <constraint firstAttribute="height" constant="80" id="cMd-wm-piz"/>
                                         <constraint firstAttribute="width" constant="80" id="nh8-vQ-v0W"/>
@@ -202,4 +202,7 @@
             <point key="canvasLocation" x="24.5" y="-680.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="小占位图" width="40" height="40"/>
+    </resources>
 </document>
