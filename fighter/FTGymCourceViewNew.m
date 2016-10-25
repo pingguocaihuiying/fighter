@@ -299,7 +299,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    FTGymSourceTableView *theTableView = (FTGymSourceTableView *)tableView;
+//    FTGymSourceTableView *theTableView = (FTGymSourceTableView *)tableView;
  //其他显示课程的tableView
         FTGymSourceTableViewCellNew *cell = [tableView dequeueReusableCellWithIdentifier:@"sourceCell"];
 //    [cell.statusButton addTarget:self action:@selector(description) forControlEvents:UIControlEventTouchUpInside];
@@ -321,7 +321,7 @@
         
         BOOL isPastTime = false;
         NSInteger today = (int)[FTTools getWeekdayOfToday];//今天是周几
-        NSInteger theDay = theTableView.index;//当前要显示的时间段是周几
+        NSInteger theDay = _curWeekDay;//当前要显示的时间段是周几
         
         if (theDay != today) {//如果不是当天，那一定是未来的天
             isPastTime = NO;

@@ -126,6 +126,7 @@
             _gymVIPType = [type integerValue];//
             if (_gymVIPType == FTGymVIPTypeYep) {
                 [_becomeVIPButton setTitle:@"已经是会员" forState:UIControlStateNormal];
+                _becomeVIPButton.enabled = NO;
                 [_becomeVIPButton setTitleColor:[UIColor colorWithHex:0xb4b4b4] forState:UIControlStateNormal];
             }else if (_gymVIPType == FTGymVIPTypeApplying){
                 _becomeVIPButton.enabled = YES;

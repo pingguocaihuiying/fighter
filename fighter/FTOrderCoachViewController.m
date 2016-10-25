@@ -137,6 +137,7 @@
     NSString *msg = [info object];
     if ([msg isEqualToString:@"SUCESS"] || [msg isEqualToString:@"LOGIN"]){
         [self getVIPInfo];
+        [self gettimeSectionsUsingInfo];
     }
 }
 - (void)updateVIPInfoUIWithDic:(NSDictionary *)dic{
