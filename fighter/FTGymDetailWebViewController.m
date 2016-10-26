@@ -399,7 +399,6 @@
 
 - (void)setGymSourceView{
     _gymSourceView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymCourceViewNew" owner:nil options:nil]firstObject];
-//    _gymSourceView.courseType = FTOrderCourseTypeGym;
     _gymSourceView.frame = _gymSourceViewContainerView.bounds;
     _gymSourceView.delegate = self;
     _gymSourceView.scrollDelegate = self;

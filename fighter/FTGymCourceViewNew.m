@@ -239,8 +239,22 @@
     
     [_t1 reloadData];
     NSArray *courseArray = _placesUsingInfoDic[[NSString stringWithFormat:@"%ld", _curWeekDay ]];
+
     if (courseArray) {
         _tableViewsHeight.constant = 50 * courseArray.count;
+        
+        _isBlanOfSelectedDay = NO;
+        [self updateBlankView];
+        
+        [_scrollDelegate scrollToBottom];
+    }else{
+        _tableViewsHeight.constant = 0;
+        
+        _isBlanOfSelectedDay = YES;
+        [self updateBlankView];
+        
+        
+        [_scrollDelegate scrollToBottom];
     }
 }
 
