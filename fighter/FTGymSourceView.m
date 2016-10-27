@@ -228,9 +228,17 @@
             return 0;
         }
     } else if (_courseType == FTOrderCourseTypeCoach) {//预约教练
-        return 4;
+        if (_timeSectionsArray && _timeSectionsArray.count > 0) {
+            return _timeSectionsArray.count;
+        } else {
+            return 0;
+        }
     }else if (_courseType == FTOrderCourseTypeCoachSelf) {//教练自己查看
-        return 4;
+        if (_timeSectionsArray && _timeSectionsArray.count > 0) {
+            return _timeSectionsArray.count;
+        } else {
+            return 0;
+        }
     }else{
         return 0;
     }
