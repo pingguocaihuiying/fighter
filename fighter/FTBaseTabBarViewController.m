@@ -133,28 +133,28 @@
     
 //    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:messageBtnItem, searchBtnItem,nil];
    
-    // 头部任务按钮
-    self.taskBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.taskBtn.frame = CGRectMake(0, 0, 24, 24);
-    [self.taskBtn addTarget:self action:@selector(taskBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    // 获取上次做任务的时间记录
-    NSDate * recordDate = [[NSUserDefaults standardUserDefaults]objectForKey:@"FinishDate"];
-    
-    NSDate *taskDate = [NSDate taskDate];
-    
-    if ([recordDate timeIntervalSince1970] < [taskDate timeIntervalSince1970]) {
-        
-        [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务-新任务"] forState:UIControlStateNormal];
-    }else {
-        [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务"] forState:UIControlStateNormal];
-    }
-    
-
-    
-    
-    UIBarButtonItem *taskBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.taskBtn];
-    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:taskBtnItem,nil];
+//    // 头部任务按钮
+//    self.taskBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.taskBtn.frame = CGRectMake(0, 0, 24, 24);
+//    [self.taskBtn addTarget:self action:@selector(taskBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    // 获取上次做任务的时间记录
+//    NSDate * recordDate = [[NSUserDefaults standardUserDefaults]objectForKey:@"FinishDate"];
+//    
+//    NSDate *taskDate = [NSDate taskDate];
+//    
+//    if ([recordDate timeIntervalSince1970] < [taskDate timeIntervalSince1970]) {
+//        
+//        [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务-新任务"] forState:UIControlStateNormal];
+//    }else {
+//        [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务"] forState:UIControlStateNormal];
+//    }
+//    
+//
+//    
+//    
+//    UIBarButtonItem *taskBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.taskBtn];
+//    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:taskBtnItem,nil];
     
     
     // title View
@@ -222,14 +222,15 @@
 
 - (void) remindDailyTask:(NSNotification *) noti {
     
-    NSLog(@"remindDailyTask");
-    
-    [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务-新任务"] forState:UIControlStateNormal];
-    
-    [self.taskBtn showMiniBadge];
-    
-    
-    [self shakingAnimation:self.taskBtn];
+    // 日常任务按钮，暂时隐藏
+//    NSLog(@"remindDailyTask");
+//    
+//    [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务-新任务"] forState:UIControlStateNormal];
+//    
+//    [self.taskBtn showMiniBadge];
+//    
+//    
+//    [self shakingAnimation:self.taskBtn];
 }
 
 #pragma mark - button response

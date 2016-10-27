@@ -261,7 +261,8 @@ static NSString *const tableCellId = @"tableCellId";
         FTPaySingleton *singleton = [FTPaySingleton shareInstance];
         [singleton fetchBalanceFromWeb:^{
         
-            [self refreshBalanceCell];
+             // 更新余额，暂时隐藏
+//            [self refreshBalanceCell];
         }];
         
         // 更新用户信息
@@ -282,7 +283,8 @@ static NSString *const tableCellId = @"tableCellId";
         FTPaySingleton *singleton = [FTPaySingleton shareInstance];
         [singleton fetchBalanceFromWeb:^{
             
-            [self refreshBalanceCell];
+             // 更新余额，暂时隐藏
+//            [self refreshBalanceCell];
         }];
         
         [self tableViewAdapter];
@@ -300,7 +302,8 @@ static NSString *const tableCellId = @"tableCellId";
     FTPaySingleton *singleton = [FTPaySingleton shareInstance];
     [singleton fetchBalanceFromWeb:^{
         
-        [self refreshBalanceCell];
+        // 更新余额，暂时隐藏
+//        [self refreshBalanceCell];
     }];
 }
 
@@ -575,8 +578,8 @@ static NSString *const tableCellId = @"tableCellId";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-//    return 4;
-    return 5;
+    return 4;
+//    return 5;
     
 }
 
@@ -585,10 +588,11 @@ static NSString *const tableCellId = @"tableCellId";
     if (indexPath.row == 0) {
         return 65;
     }
-    
-    if (indexPath.row == 1) {
-        return 85;
-    }
+   
+    // 余额 cell 暂时隐藏
+//    if (indexPath.row == 1) {
+//        return 85;
+//    }
     
 //    if (indexPath.row == 0) {
 //        return 85;
@@ -615,25 +619,8 @@ static NSString *const tableCellId = @"tableCellId";
         }
         return cell;
         
-    }else if (indexPath.row == 1) {
-        
-        FTDrawerPayCell *cell = [tableView dequeueReusableCellWithIdentifier:@"payCellId"];
-        cell.cellTitle.text = @"账户余额:";
-        cell.subtitle.text = @"0P";
-        
-        [cell.payBtn addTarget:self action:@selector(payBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-        
-        //从本地读取存储的用户信息
-        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-        if (localUserData == nil) {
-            return cell;
-        }
-        
-        FTPaySingleton *singleton = [FTPaySingleton shareInstance];
-        [cell setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
-        
-        return cell;
-    }else {
+    }
+    else {
         
         FTDrawerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCellId"];
         
@@ -651,18 +638,40 @@ static NSString *const tableCellId = @"tableCellId";
          return cell;
     }
     
+    // 余额cell 暂时被隐藏
+//    if (indexPath.row == 1) {
+//        
+//        FTDrawerPayCell *cell = [tableView dequeueReusableCellWithIdentifier:@"payCellId"];
+//        cell.cellTitle.text = @"账户余额:";
+//        cell.subtitle.text = @"0P";
+//        
+//        [cell.payBtn addTarget:self action:@selector(payBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+//        
+//        //从本地读取存储的用户信息
+//        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+//        if (localUserData == nil) {
+//            return cell;
+//        }
+//        
+//        FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+//        [cell setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
+//        
+//        return cell;
+//    }
+    
 }
+
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    NSLog(@"cell did select");
-    if (indexPath.row == 1) {
-        FTPayViewController *payVC = [[FTPayViewController alloc]init];
-        FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:payVC];
-        baseNav.navigationBarHidden = NO;
-        [self presentViewController:baseNav animated:YES completion:nil];
-        
-    }
+//    NSLog(@"cell did select");
+//    if (indexPath.row == 1) {
+//        FTPayViewController *payVC = [[FTPayViewController alloc]init];
+//        FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:payVC];
+//        baseNav.navigationBarHidden = NO;
+//        [self presentViewController:baseNav animated:YES completion:nil];
+//        
+//    }
 }
 
 #pragma  mark - FTDynamicsDelegate
@@ -921,7 +930,6 @@ static NSString *const tableCellId = @"tableCellId";
     [self settabBarChildViewControllers];
     
     
-    
     // 推送
     [self checkPush];
     
@@ -1001,7 +1009,6 @@ static NSString *const tableCellId = @"tableCellId";
         FTFightingViewController *vc = [tabBartVC.viewControllers objectAtIndex:1];
         [vc pushToDetailController:dic];
     }
-    
     
     if([dic[@"taskLocalNotification"] isEqualToString:@"taskLocalNotification"]) {
     
