@@ -189,7 +189,9 @@ static WXSingleton * wxSingleton = nil;
                                     FTUserBean *user = [FTUserBean new];
                                     [user setValuesForKeysWithDictionary:userDic];
                                     
-                                    user.corporationid = dict[@"data"][@"corporationid"];
+                                    if ([dict[@"data"][@"corporationid"] integerValue] > 0) {
+                                        user.corporationid = [NSString stringWithFormat:@"%ld",[dict[@"data"][@"corporationid"] integerValue]];
+                                    }
                                     user.identity = dict[@"data"][@"identity"];
                                     user.interestList = dict[@"data"][@"interestList"];
                                     
