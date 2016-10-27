@@ -75,10 +75,10 @@
     
     [self initTableViews];
     
-    //没课程提示view
+    //初始显示“暂无课程”view
     _noCourserInfoView.backgroundColor = [UIColor colorWithHex:0x191919];
-    _noCourserInfoViewHeight.constant = 0;
-    _noCourserInfoView.hidden = YES;
+    _noCourserInfoViewHeight.constant = 50;
+    _noCourserInfoView.hidden = NO;
     
     _blankInfoLabel.textColor = [UIColor colorWithHex:0x505050];
 }
@@ -246,7 +246,7 @@
         _isBlanOfSelectedDay = NO;
         [self updateBlankView];
         
-        [_scrollDelegate scrollToBottom];
+//        [_scrollDelegate scrollToBottom];
     }else{
         _tableViewsHeight.constant = 0;
         
@@ -254,7 +254,7 @@
         [self updateBlankView];
         
         
-        [_scrollDelegate scrollToBottom];
+//        [_scrollDelegate scrollToBottom];
     }
 }
 
