@@ -238,7 +238,10 @@
     _gymSourceView.courseType = FTOrderCourseTypeCoach;
     _gymSourceView.delegate = self;
     [_gymSourceViewContainerView addSubview:_gymSourceView];
-    _gymSourceView.tableViewsHeight.constant = 42 * 4;
+    if (_timeSectionsArray) {
+        _gymSourceView.tableViewsHeight.constant = 42 * _timeSectionsArray.count;
+    }
+    
     [_gymSourceView reloadTableViews];
 }
 
