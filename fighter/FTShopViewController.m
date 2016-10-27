@@ -52,7 +52,8 @@
     [super viewDidLoad];
    
     [self setNotification];
-    [self initWebview];
+    
+    [self setWebView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -102,51 +103,21 @@
 
 #pragma mark - 初始化
 
+- (void) setWebView {
+    [self initWebview];
+    [self setJHRefresh];
+}
+
 - (void) initWebview {
     
-    
-    
-        FTUserBean *localUser = [FTUserBean loginUser];
-    //
-    //    if (!localUser) {
-    //
-    ////        [self disableLoadingAnimation];
-    //
-    //        FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
-    //        loginVC.title = @"登录";
-    //        FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
-    //        [self.navigationController presentViewController:nav animated:YES completion:nil];
-    //
-    //        [[UIApplication sharedApplication].keyWindow addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:3];
-    //
-    //
-    //
-    //    }
-    
-    
-    
-//    
-//    [NetWorking getDuibaUrl:^(NSDictionary *dict) {
-//        
-//        NSLog(@"dict:%@",dict);
-//        if (!dict) {
-//            return ;
-//        }
-//        BOOL status = [dict[@"status"] boolValue];
-//        if (status) {
-//            
-//            self.request=[NSURLRequest requestWithURL:[NSURL URLWithString:dict[@"data"]]];
-//            [self.webView loadRequest:self.request];
-//        }
-//    }];
-//
-    
+    FTUserBean *localUser = [FTUserBean loginUser];
     if (localUser) {
         
         self.webView.delegate = self;
         //获取网络请求地址url
-        NSString *indexStr = [FTNetConfig host:Domain path:ShopURL];
+        NSString *indexStr = [FTNetConfig host:Domain path:ShopNewURL];
         NSString *urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@",indexStr,localUser.olduserid,localUser.token];
+        NSLog(@"shop home urlString:%@",urlString);
         NSURL *url = [NSURL URLWithString:urlString];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         [self.webView loadRequest: request];
@@ -155,22 +126,11 @@
         self.webView.delegate = self;
         //获取网络请求地址url
         NSString *indexStr = [FTNetConfig host:Domain path:ShopNewURL];
-//        NSString *urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@",indexStr,localUser.olduserid,localUser.token];
         NSURL *url = [NSURL URLWithString:indexStr];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         [self.webView loadRequest: request];
         
     }
-    
-    
-//    NSString *body = [NSString stringWithFormat: @"userId=%@&loginToken=%@", localUser.olduserid,localUser.token];
-//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL: url];
-//    [request setHTTPMethod: @"POST"];
-//    [request setHTTPBody: [body dataUsingEncoding: NSUTF8StringEncoding]];
-    
-    
-    
-    [self setJHRefresh];
     
 }
 
@@ -181,23 +141,7 @@
     // 下拉刷新
     self.webView.scrollView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
-        FTUserBean *localUser = [FTUserBean loginUser];
-        if (localUser) {
-            //获取网络请求地址url
-            NSString *indexStr = [FTNetConfig host:Domain path:ShopURL];
-            NSString *urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@",indexStr,localUser.olduserid,localUser.token];
-            NSURL *url = [NSURL URLWithString:urlString];
-            NSURLRequest *request = [NSURLRequest requestWithURL:url];
-            [weakSelf.webView loadRequest: request];
-        }else {
-            //获取网络请求地址url
-            NSString *indexStr = [FTNetConfig host:Domain path:ShopNewURL];
-            NSURL *url = [NSURL URLWithString:indexStr];
-            NSURLRequest *request = [NSURLRequest requestWithURL:url];
-            [self.webView loadRequest: request];
-        }
-        
-
+        [weakSelf initWebview];
         [weakSelf.webView.scrollView.mj_header beginRefreshing];
     }];
     
@@ -252,20 +196,20 @@
     NSString *msg = [noti object];
     if ([msg isEqualToString:@"SUCESS"]) {
         
-        [self initWebview];
+        [self setWebView];
     }
 }
 
 // 手机登录响应
 - (void) phoneLoginedCallback:(NSNotification *)noti {
     
-    [self initWebview];
+    [self setWebView];
 }
 
 // 充值后刷新界面
 - (void) rechargeCallback:(NSNotification *)noti {
     
-    [self initWebview];
+    [self setWebView];
 }
 
 

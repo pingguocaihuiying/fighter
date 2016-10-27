@@ -137,9 +137,6 @@ static NSString *originUserAgent;
 
 -  (void) setNotification {
 
-    
-    
-    
     //注册通知，接收微信登录成功的消息
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginCallback:) name:WXLoginResultNoti object:nil];
     
@@ -202,8 +199,6 @@ static NSString *originUserAgent;
     
     self.webView.delegate = self;
     
-    
-
 }
 
 #pragma mark - button response
