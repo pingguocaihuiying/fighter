@@ -156,7 +156,7 @@
                      password:self.passwordTextField.text
                        option:^(NSDictionary *dict) {
                                  [MBProgressHUD hideHUDForView:self.view animated:YES];
-                                NSLog(@"dict:%@",dict);
+                                SLog(@"dict:%@",dict);
                                 if (dict != nil) {
                                     
                                     bool status = [dict[@"status"] boolValue];
@@ -172,7 +172,10 @@
                                         FTUserBean *user = [FTUserBean new];
                                         [user setValuesForKeysWithDictionary:userDic];
                                         
-                                        user.corporationid = [NSString stringWithFormat:@"%ld",[dict[@"data"][@"corporationid"] integerValue]];
+                                        if ([dict[@"data"][@"corporationid"] integerValue] > 0) {
+                                            user.corporationid = [NSString stringWithFormat:@"%ld",[dict[@"data"][@"corporationid"] integerValue]];
+                                        }
+                                        
                                         user.identity = dict[@"data"][@"identity"];
                                         user.interestList = dict[@"data"][@"interestList"];
                                         
