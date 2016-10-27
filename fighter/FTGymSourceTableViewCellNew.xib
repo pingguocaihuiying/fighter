@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -13,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="439" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="439" height="49"/>
+                <frame key="frameInset" width="439" height="49.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ubS-FO-tMr" userLabel="bgView">
@@ -35,7 +35,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LsY-Vy-oPo">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LsY-Vy-oPo">
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="Sen-Tf-QYY"/>
                         </constraints>
@@ -111,6 +111,7 @@
                     <constraint firstItem="2oR-lZ-9SK" firstAttribute="centerY" secondItem="TSP-Ky-429" secondAttribute="centerY" id="r6e-BG-DTi"/>
                     <constraint firstItem="W3P-E5-lUy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="15" id="tJp-SG-Oob"/>
                     <constraint firstItem="LsY-Vy-oPo" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="u3A-5A-oh2"/>
+                    <constraint firstItem="rSl-gw-ZfM" firstAttribute="leading" secondItem="qZW-bC-2zB" secondAttribute="trailing" constant="30" id="wLT-Ze-ypn"/>
                     <constraint firstAttribute="trailing" secondItem="TSP-Ky-429" secondAttribute="trailing" constant="15" id="z7B-dt-LIl"/>
                 </constraints>
             </tableViewCellContentView>

@@ -38,9 +38,6 @@
 }
 
 - (void)initSubViewsWithIndex:(NSInteger)i{
-    
-        NSString *dateTimeStamp = [NSString stringWithFormat:@"%.0lf",  ([[NSDate date]timeIntervalSince1970] + (24 * 60 * 60 * i)) * 1000];
-//        [_dateTimeStampArray addObject:dateTimeStamp];
         NSDate *  senddate=[NSDate dateWithTimeIntervalSinceNow: (24 * 60 * 60) * i];
         NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
         [dateformatter setDateFormat:@"yyy"];
@@ -61,7 +58,7 @@
         NSLog(@"---%d", day);
         
         //添加月·日label
-        CGFloat lableWidth = SCREEN_WIDTH / 6;//label宽度
+        CGFloat lableWidth = SCREEN_WIDTH / 7;//label宽度
 //        UILabel *dateLabel = [_dateView viewWithTag:10000 + i];
         UILabel *dateLabel = [UILabel new];
     dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 7, lableWidth, 11)];

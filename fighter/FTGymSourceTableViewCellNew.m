@@ -125,7 +125,9 @@
     _orderStatusLabel.hidden = YES;
     _statusButton.hidden = YES;
     
-    _blankInfoLabel.hidden = NO;
-//    _blankInfoLabel.textColor = [UIColor colorWithHex:0x505050];
+    _blankInfoLabel.hidden = YES;
+    
+    
+    _hasCourseData = NO;
 }
 @end

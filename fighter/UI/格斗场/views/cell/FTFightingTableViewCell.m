@@ -126,9 +126,12 @@
         _betButton.hidden = YES;
         _followButton.hidden = YES;
     }else{
+        /* 李懿哲 10月27日 修改 ，一直隐藏下注按钮*/
+        
         _stateLabelCenter.text = @"尚未开赛";
         _goToWatchButton.hidden = YES;
-        _betButton.hidden = NO;
+//        _betButton.hidden = NO;
+        _betButton.hidden = YES;
         _followButton.hidden = NO;
     }
     
