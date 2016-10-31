@@ -43,9 +43,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     [self setSubViews];
-    
     [self initData];
 }
 
@@ -67,7 +65,7 @@
     
     [self initSomeViewsBaseProperties];//初始化一些label颜色、分割线颜色等
     [self setNaviView];//设置导航栏
-    [self setGymSourceView];
+    [self setGymSourceView];//设置课程表
     [self setTableview];
 }
 
@@ -120,7 +118,6 @@
     _historyOrderTableView.delegate = self;
     _historyOrderTableView.dataSource = self;
     [_historyOrderTableView registerNib:[UINib nibWithNibName:@"FTCoachHistoryCourseTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
-    //    _tableViewHeight.constant = 40 *
 }
 
 
