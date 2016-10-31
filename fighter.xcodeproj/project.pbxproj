@@ -216,7 +216,6 @@
 		3DDE29B91D2BAA8200876B30 /* FTDrawerPayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DDE29B71D2BAA8200876B30 /* FTDrawerPayCell.xib */; };
 		3DDE29BD1D2BB39F00876B30 /* FTPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DDE29BB1D2BB39F00876B30 /* FTPayViewController.m */; };
 		3DDE29BE1D2BB39F00876B30 /* FTPayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DDE29BC1D2BB39F00876B30 /* FTPayViewController.xib */; };
-		3DDE29C21D2CEFB300876B30 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DDE29C11D2CEFB300876B30 /* StoreKit.framework */; };
 		3DE0C9EF1D1BABB000C6ABE2 /* FTTeachVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0C9ED1D1BABB000C6ABE2 /* FTTeachVideoController.m */; };
 		3DE0C9F01D1BABB000C6ABE2 /* FTTeachVideoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE0C9EE1D1BABB000C6ABE2 /* FTTeachVideoController.xib */; };
 		3DE1DEEB1D3F071600511E92 /* FTGymDetailWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1DEE91D3F071600511E92 /* FTGymDetailWebViewController.m */; };
@@ -789,7 +788,6 @@
 		3DDE29BA1D2BB39F00876B30 /* FTPayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPayViewController.h; sourceTree = "<group>"; };
 		3DDE29BB1D2BB39F00876B30 /* FTPayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPayViewController.m; sourceTree = "<group>"; };
 		3DDE29BC1D2BB39F00876B30 /* FTPayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTPayViewController.xib; sourceTree = "<group>"; };
-		3DDE29C11D2CEFB300876B30 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3DE0C9EC1D1BABB000C6ABE2 /* FTTeachVideoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTeachVideoController.h; sourceTree = "<group>"; };
 		3DE0C9ED1D1BABB000C6ABE2 /* FTTeachVideoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTeachVideoController.m; sourceTree = "<group>"; };
 		3DE0C9EE1D1BABB000C6ABE2 /* FTTeachVideoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTeachVideoController.xib; sourceTree = "<group>"; };
@@ -1161,7 +1159,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DDE29C21D2CEFB300876B30 /* StoreKit.framework in Frameworks */,
 				3D17F7371D005377003AB660 /* libIXPushSdk.a in Frameworks */,
 				3DD54E351D0038C700888AC6 /* AddressBook.framework in Frameworks */,
 				3DD54E331D0038B700888AC6 /* AssetsLibrary.framework in Frameworks */,
@@ -3609,7 +3606,6 @@
 		FF4F6665A0FF96A7EF0453D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3DDE29C11D2CEFB300876B30 /* StoreKit.framework */,
 				3DD54E341D0038C700888AC6 /* AddressBook.framework */,
 				3DD54E321D0038B700888AC6 /* AssetsLibrary.framework */,
 				3DD54E301D0038A800888AC6 /* MediaPlayer.framework */,
@@ -3714,7 +3710,7 @@
 								enabled = 1;
 							};
 							com.apple.InAppPurchase = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.Maps.iOS = {
 								enabled = 0;
