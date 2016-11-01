@@ -16,6 +16,10 @@
 #import "MJRefreshNormalHeader.h"
 #import "MJRefreshAutoNormalFooter.h"
 
+typedef NS_ENUM(NSInteger, FTCoachCourseType) {
+    FTCoachCourseTypePublic,
+    FTCoachCourseTypePersonal
+};
 
 @interface FTCoachSelfCourseViewController ()<FTGymCourseTableViewDelegate, UITableViewDelegate, UITableViewDataSource, FTCoachChangeCourseStatusDelegate>
 {
@@ -24,6 +28,8 @@
     NSSet<UITouch *> *touchSet;
     UIEvent *touchEvent;
 }
+@property (nonatomic, assign) FTCoachCourseType coachCourseType;
+@property (strong, nonatomic) IBOutlet UIView *dividingViewTop;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
@@ -37,11 +43,16 @@
 @property (nonatomic, strong) NSMutableDictionary *placesUsingInfoDic;//场地、时间段的占用情况
 @property (nonatomic, strong) NSMutableArray *historyArray;
 
+@property (strong, nonatomic) IBOutlet UIButton *publicCourseButton;
+@property (strong, nonatomic) IBOutlet UIButton *personalCourseButton;
+
+
 @end
 
 @implementation FTCoachSelfCourseViewController
 
 - (void)viewDidLoad {
+    [self initDefaultConfig];
     [super viewDidLoad];
     [self setSubViews];
     [self initData];
@@ -69,8 +80,17 @@
     [self setTableview];
 }
 
+
+/**
+ 初始化默认配置：默认展示团课（或私课）
+ */
+- (void)initDefaultConfig{
+    _coachCourseType = FTCoachCourseTypePublic;
+}
+
 - (void)initSomeViewsBaseProperties{
     [self.bottomGradualChangeView removeFromSuperview];//移除底部的遮罩
+    _dividingViewTop.backgroundColor = Cell_Space_Color;
 }
 
 - (void)setNaviView{
@@ -98,6 +118,21 @@
     
     UIBarButtonItem *gymDetailButton = [[UIBarButtonItem alloc]initWithTitle:@"个人主页" style:UIBarButtonItemStylePlain target:self action:@selector(gotoCoachHomepage)];
     self.navigationItem.rightBarButtonItem = gymDetailButton;
+}
+
+/**
+    “我的团课”按钮被点击
+ @param sender
+ */
+- (IBAction)publicCourseButtonClicked:(id)sender {
+    
+}
+
+/**
+ “私教课程”按钮被点击
+ @param sender
+ */
+- (IBAction)personalCourseButtonClicked:(id)sender {
 }
 
 

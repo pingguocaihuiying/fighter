@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTCoachSelfCourseViewController">
             <connections>
                 <outlet property="courseHistoryTableViewHeight" destination="qZN-dv-uWz" id="5ux-bX-bes"/>
+                <outlet property="dividingViewTop" destination="UxA-iQ-hwh" id="aWG-DW-44i"/>
                 <outlet property="gymSourceViewContainerView" destination="FfX-ED-VLS" id="B4E-YD-h6J"/>
                 <outlet property="historyOrderTableView" destination="8fs-OF-eP3" id="rxa-Lm-ssB"/>
+                <outlet property="personalCourseButton" destination="Wgs-19-3US" id="94q-kf-t6R"/>
+                <outlet property="publicCourseButton" destination="SAC-mT-Nzo" id="uac-La-4UV"/>
                 <outlet property="scrollView" destination="izI-Ce-O19" id="ufr-gm-QWE"/>
                 <outlet property="tableViewHeight" destination="Edr-OQ-rIg" id="DDe-Yb-x0H"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -21,6 +25,61 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UxA-iQ-hwh">
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="bMF-ik-GPE"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wbb-TM-I39" userLabel="containerViewOf最热和最新">
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SAC-mT-Nzo">
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="EuO-J2-pho"/>
+                                <constraint firstAttribute="height" constant="35" id="edj-9E-TiB"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <inset key="titleEdgeInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="我的团课" backgroundImage="三标签-左-空">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="selected" backgroundImage="三标签-左-选中">
+                                <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="三标签-左-选中"/>
+                            <connections>
+                                <action selector="publicCourseButtonClicked:" destination="-1" eventType="touchUpInside" id="leY-GI-b3p"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wgs-19-3US">
+                            <constraints>
+                                <constraint firstAttribute="height" constant="35" id="7Is-2i-LL7"/>
+                                <constraint firstAttribute="width" constant="100" id="Pvz-le-85l"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <inset key="titleEdgeInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="私教课程" backgroundImage="三标签-右-空">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="selected" backgroundImage="三标签-右-选中">
+                                <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="三标签-右-选中"/>
+                            <connections>
+                                <action selector="personalCourseButtonClicked:" destination="-1" eventType="touchUpInside" id="zzE-sn-q9f"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="308" id="CxF-DW-0IZ"/>
+                        <constraint firstItem="SAC-mT-Nzo" firstAttribute="centerY" secondItem="wbb-TM-I39" secondAttribute="centerY" constant="2" id="KzX-rA-CBb"/>
+                        <constraint firstAttribute="height" constant="43" id="Rpx-oh-vyh"/>
+                        <constraint firstItem="SAC-mT-Nzo" firstAttribute="trailing" secondItem="wbb-TM-I39" secondAttribute="centerX" id="Yxc-mY-wXq"/>
+                        <constraint firstItem="Wgs-19-3US" firstAttribute="centerY" secondItem="wbb-TM-I39" secondAttribute="centerY" constant="2" id="Zp4-bC-Baz"/>
+                        <constraint firstItem="Wgs-19-3US" firstAttribute="leading" secondItem="wbb-TM-I39" secondAttribute="centerX" id="tEg-II-K09"/>
+                    </constraints>
+                </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="izI-Ce-O19">
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FfX-ED-VLS" userLabel="tableviewsContainerView">
@@ -54,12 +113,23 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="FfX-ED-VLS" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="0m2-GX-RMh"/>
+                <constraint firstItem="wbb-TM-I39" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="9Iw-ML-lKD"/>
                 <constraint firstAttribute="trailing" secondItem="izI-Ce-O19" secondAttribute="trailing" id="LcR-WJ-ubB"/>
-                <constraint firstItem="izI-Ce-O19" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="TcU-1v-p1S"/>
+                <constraint firstAttribute="trailing" secondItem="UxA-iQ-hwh" secondAttribute="trailing" id="MtK-4y-OdZ"/>
+                <constraint firstItem="UxA-iQ-hwh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ON7-CK-3tm"/>
                 <constraint firstAttribute="bottom" secondItem="izI-Ce-O19" secondAttribute="bottom" id="fm9-Td-vuw"/>
                 <constraint firstItem="izI-Ce-O19" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jI4-en-ZRb"/>
+                <constraint firstItem="wbb-TM-I39" firstAttribute="top" secondItem="UxA-iQ-hwh" secondAttribute="bottom" id="ldo-Uc-RW3"/>
+                <constraint firstItem="izI-Ce-O19" firstAttribute="top" secondItem="wbb-TM-I39" secondAttribute="bottom" id="rjQ-p3-drF"/>
+                <constraint firstItem="UxA-iQ-hwh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="sG3-RQ-zQM"/>
             </constraints>
             <point key="canvasLocation" x="26.5" y="52.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="三标签-右-空" width="102" height="35"/>
+        <image name="三标签-右-选中" width="102" height="35"/>
+        <image name="三标签-左-空" width="102" height="35"/>
+        <image name="三标签-左-选中" width="102" height="35"/>
+    </resources>
 </document>
