@@ -18,5 +18,4 @@
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
 @property (weak, nonatomic) IBOutlet UIButton *subButton;
 
-
 @end
