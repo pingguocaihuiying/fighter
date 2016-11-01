@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FTTraineeHeaderView : UIView
+@interface FTTraineeHeaderView : UICollectionReusableView
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeSectionLabel;
