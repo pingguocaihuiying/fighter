@@ -7,11 +7,11 @@
 //
 
 #import "FTBaseViewController2.h"
-
+#import "FTTraineeBaseViewController.h"
 
 /**
  教练端页面，展示上课学员
  */
-@interface FTTraineeViewController : FTBaseViewController2
+@interface FTTraineeViewController : FTTraineeBaseViewController
 
 @end

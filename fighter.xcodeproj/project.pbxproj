@@ -70,6 +70,15 @@
 		3D484D611DC7349B00E2EC8C /* FTTraineeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D484D5F1DC7349B00E2EC8C /* FTTraineeCell.xib */; };
 		3D484D671DC7369000E2EC8C /* FTTraineeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D484D661DC7369000E2EC8C /* FTTraineeHeaderView.m */; };
 		3D484D691DC7370B00E2EC8C /* FTTraineeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D484D681DC7370B00E2EC8C /* FTTraineeHeaderView.xib */; };
+		3D484D6C1DC843EA00E2EC8C /* FTTraineeBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D484D6B1DC843EA00E2EC8C /* FTTraineeBaseViewController.m */; };
+		3D484D721DC8772F00E2EC8C /* FTTraineeSkillViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D484D701DC8772F00E2EC8C /* FTTraineeSkillViewController.m */; };
+		3D484D731DC8772F00E2EC8C /* FTTraineeSkillViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D484D711DC8772F00E2EC8C /* FTTraineeSkillViewController.xib */; };
+		3D484D791DC87F4300E2EC8C /* FTTraineeGradeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D484D771DC87F4300E2EC8C /* FTTraineeGradeViewController.m */; };
+		3D484D7A1DC87F4300E2EC8C /* FTTraineeGradeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D484D781DC87F4300E2EC8C /* FTTraineeGradeViewController.xib */; };
+		3D484D801DC87FCB00E2EC8C /* FTTraineeSkillCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D484D7E1DC87FCB00E2EC8C /* FTTraineeSkillCell.m */; };
+		3D484D811DC87FCB00E2EC8C /* FTTraineeSkillCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D484D7F1DC87FCB00E2EC8C /* FTTraineeSkillCell.xib */; };
+		3D484D851DC87FE400E2EC8C /* FTTraineeGradeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D484D831DC87FE400E2EC8C /* FTTraineeGradeCell.m */; };
+		3D484D861DC87FE400E2EC8C /* FTTraineeGradeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D484D841DC87FE400E2EC8C /* FTTraineeGradeCell.xib */; };
 		3D4B18F51CD8BF340022DFB0 /* FTSetPassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B18F31CD8BF340022DFB0 /* FTSetPassWordViewController.m */; };
 		3D4B18F61CD8BF340022DFB0 /* FTSetPassWordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4B18F41CD8BF340022DFB0 /* FTSetPassWordViewController.xib */; };
 		3D4B18F91CD974B80022DFB0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B18F81CD974B80022DFB0 /* MainViewController.m */; };
@@ -558,6 +567,20 @@
 		3D484D651DC7369000E2EC8C /* FTTraineeHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeHeaderView.h; sourceTree = "<group>"; };
 		3D484D661DC7369000E2EC8C /* FTTraineeHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeHeaderView.m; sourceTree = "<group>"; };
 		3D484D681DC7370B00E2EC8C /* FTTraineeHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTraineeHeaderView.xib; sourceTree = "<group>"; };
+		3D484D6A1DC843EA00E2EC8C /* FTTraineeBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeBaseViewController.h; sourceTree = "<group>"; };
+		3D484D6B1DC843EA00E2EC8C /* FTTraineeBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeBaseViewController.m; sourceTree = "<group>"; };
+		3D484D6F1DC8772F00E2EC8C /* FTTraineeSkillViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeSkillViewController.h; sourceTree = "<group>"; };
+		3D484D701DC8772F00E2EC8C /* FTTraineeSkillViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeSkillViewController.m; sourceTree = "<group>"; };
+		3D484D711DC8772F00E2EC8C /* FTTraineeSkillViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTraineeSkillViewController.xib; sourceTree = "<group>"; };
+		3D484D761DC87F4300E2EC8C /* FTTraineeGradeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeGradeViewController.h; sourceTree = "<group>"; };
+		3D484D771DC87F4300E2EC8C /* FTTraineeGradeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeGradeViewController.m; sourceTree = "<group>"; };
+		3D484D781DC87F4300E2EC8C /* FTTraineeGradeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTraineeGradeViewController.xib; sourceTree = "<group>"; };
+		3D484D7D1DC87FCB00E2EC8C /* FTTraineeSkillCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeSkillCell.h; sourceTree = "<group>"; };
+		3D484D7E1DC87FCB00E2EC8C /* FTTraineeSkillCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeSkillCell.m; sourceTree = "<group>"; };
+		3D484D7F1DC87FCB00E2EC8C /* FTTraineeSkillCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTraineeSkillCell.xib; sourceTree = "<group>"; };
+		3D484D821DC87FE400E2EC8C /* FTTraineeGradeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeGradeCell.h; sourceTree = "<group>"; };
+		3D484D831DC87FE400E2EC8C /* FTTraineeGradeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeGradeCell.m; sourceTree = "<group>"; };
+		3D484D841DC87FE400E2EC8C /* FTTraineeGradeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTraineeGradeCell.xib; sourceTree = "<group>"; };
 		3D4B18F21CD8BF340022DFB0 /* FTSetPassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSetPassWordViewController.h; sourceTree = "<group>"; };
 		3D4B18F31CD8BF340022DFB0 /* FTSetPassWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTSetPassWordViewController.m; sourceTree = "<group>"; };
 		3D4B18F41CD8BF340022DFB0 /* FTSetPassWordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTSetPassWordViewController.xib; sourceTree = "<group>"; };
@@ -1568,7 +1591,10 @@
 		3D484D561DC72C2600E2EC8C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3D484D6D1DC8698300E2EC8C /* baseViewController */,
 				3D484D631DC7350A00E2EC8C /* TraineeViewController */,
+				3D484D6E1DC8767600E2EC8C /* TraineeSkillViewController */,
+				3D484D751DC87EFF00E2EC8C /* TraineeGradeViewController */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1578,6 +1604,8 @@
 			children = (
 				3D484D641DC7360100E2EC8C /* TraineeSectionHeaderView */,
 				3D484D621DC734D600E2EC8C /* TraineeCell */,
+				3D484D7B1DC87F5800E2EC8C /* TraineeSkillCell */,
+				3D484D7C1DC87F6D00E2EC8C /* TraineeGradeCell */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1610,6 +1638,55 @@
 				3D484D681DC7370B00E2EC8C /* FTTraineeHeaderView.xib */,
 			);
 			name = TraineeSectionHeaderView;
+			sourceTree = "<group>";
+		};
+		3D484D6D1DC8698300E2EC8C /* baseViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3D484D6A1DC843EA00E2EC8C /* FTTraineeBaseViewController.h */,
+				3D484D6B1DC843EA00E2EC8C /* FTTraineeBaseViewController.m */,
+			);
+			name = baseViewController;
+			sourceTree = "<group>";
+		};
+		3D484D6E1DC8767600E2EC8C /* TraineeSkillViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3D484D6F1DC8772F00E2EC8C /* FTTraineeSkillViewController.h */,
+				3D484D701DC8772F00E2EC8C /* FTTraineeSkillViewController.m */,
+				3D484D711DC8772F00E2EC8C /* FTTraineeSkillViewController.xib */,
+			);
+			name = TraineeSkillViewController;
+			sourceTree = "<group>";
+		};
+		3D484D751DC87EFF00E2EC8C /* TraineeGradeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3D484D761DC87F4300E2EC8C /* FTTraineeGradeViewController.h */,
+				3D484D771DC87F4300E2EC8C /* FTTraineeGradeViewController.m */,
+				3D484D781DC87F4300E2EC8C /* FTTraineeGradeViewController.xib */,
+			);
+			name = TraineeGradeViewController;
+			sourceTree = "<group>";
+		};
+		3D484D7B1DC87F5800E2EC8C /* TraineeSkillCell */ = {
+			isa = PBXGroup;
+			children = (
+				3D484D7D1DC87FCB00E2EC8C /* FTTraineeSkillCell.h */,
+				3D484D7E1DC87FCB00E2EC8C /* FTTraineeSkillCell.m */,
+				3D484D7F1DC87FCB00E2EC8C /* FTTraineeSkillCell.xib */,
+			);
+			name = TraineeSkillCell;
+			sourceTree = "<group>";
+		};
+		3D484D7C1DC87F6D00E2EC8C /* TraineeGradeCell */ = {
+			isa = PBXGroup;
+			children = (
+				3D484D821DC87FE400E2EC8C /* FTTraineeGradeCell.h */,
+				3D484D831DC87FE400E2EC8C /* FTTraineeGradeCell.m */,
+				3D484D841DC87FE400E2EC8C /* FTTraineeGradeCell.xib */,
+			);
+			name = TraineeGradeCell;
 			sourceTree = "<group>";
 		};
 		3D4B18E71CD8BC010022DFB0 /* userSetting */ = {
@@ -3881,6 +3958,8 @@
 				3DD2FC031D2A6AC50015F7AA /* FTTeachVideoCell.xib in Resources */,
 				3D8B2E541D1D14B000E18280 /* FTCoachCell.xib in Resources */,
 				3D13FB181D1A1AA80060B9B4 /* FTPracticeViewController.xib in Resources */,
+				3D484D861DC87FE400E2EC8C /* FTTraineeGradeCell.xib in Resources */,
+				3D484D811DC87FCB00E2EC8C /* FTTraineeSkillCell.xib in Resources */,
 				3DDE29BE1D2BB39F00876B30 /* FTPayViewController.xib in Resources */,
 				3D6ABC891D66E43600CD37C8 /* FTDailyTaskViewController.xib in Resources */,
 				3D4C6EDF1D8687E600881208 /* FTGymCommentViewController.xib in Resources */,
@@ -3912,6 +3991,7 @@
 				E627EE621D25122C00B424F5 /* FTChooseGymOrOpponentListViewController.xib in Resources */,
 				3D9001BC1D378CC100F9F60B /* FTTeachVideoDetailController.xib in Resources */,
 				3DF06C6D1D7E9A8800623E45 /* FTShopViewController.xib in Resources */,
+				3D484D731DC8772F00E2EC8C /* FTTraineeSkillViewController.xib in Resources */,
 				3D4B19591CDB0CD90022DFB0 /* FTPropertySetingViewController.xib in Resources */,
 				9258ED2F1D530C6200F489A5 /* FTMatchLiveViewController.xib in Resources */,
 				3D6DA0E21CEEA96D00BAA8F0 /* FTBoxerCenter.xib in Resources */,
@@ -3936,6 +4016,7 @@
 				E66BC00C1D9A67C700B492D3 /* FTCoachSelfCourseViewController.xib in Resources */,
 				3D7C6B821CF2A26D0088400D /* BoxerMatchController.xib in Resources */,
 				E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */,
+				3D484D7A1DC87F4300E2EC8C /* FTTraineeGradeViewController.xib in Resources */,
 				3D10DDE61D4733B900E2D776 /* SectionHeader.xib in Resources */,
 				E600B2821D9A9C8A007EB0F6 /* FTGymOrderCourseView.xib in Resources */,
 				E6FE6A5E1CEED3DC00D63847 /* FTArenaPostsDetailViewController.xib in Resources */,
@@ -4250,6 +4331,7 @@
 				E6B239021D066C88001F86BE /* FTHomepageCommentListViewController.m in Sources */,
 				E6E9E88B1CDC464A00976480 /* FTVideoCollectionView.m in Sources */,
 				3DFB7DEF1D23E55A00CC79EA /* TestCycleView.m in Sources */,
+				3D484D801DC87FCB00E2EC8C /* FTTraineeSkillCell.m in Sources */,
 				3D0615591D36302600FDA86F /* AESCrypt.m in Sources */,
 				E67096871D2F9A4400DB9F53 /* FTTimeSectionTableView.m in Sources */,
 				3DFC41521D083A3F0067AC72 /* SDCollectionViewCell.m in Sources */,
@@ -4292,6 +4374,7 @@
 				3D8242751DAE3B39004C0382 /* NSString+Tool.m in Sources */,
 				3D4122361D506A4B007EB996 /* FTPropertyCell.m in Sources */,
 				3D7B98B41CE06F9800B80B8D /* FTInputNewPhoneViewController.m in Sources */,
+				3D484D6C1DC843EA00E2EC8C /* FTTraineeBaseViewController.m in Sources */,
 				E6133A6C1CED6F8E00F53381 /* FTArenaBean.m in Sources */,
 				3DF06C6C1D7E9A8800623E45 /* FTShopViewController.m in Sources */,
 				3DFC41541D083A3F0067AC72 /* UIView+SDExtension.m in Sources */,
@@ -4336,6 +4419,7 @@
 				3D0B446D1D45A4D400EE08B3 /* WBSingleton.m in Sources */,
 				3D10DDEA1D4753C300E2D776 /* FTCollectionFowLaytout.m in Sources */,
 				3D7B98BE1CE0898400B80B8D /* FTOldPasswordVC.m in Sources */,
+				3D484D721DC8772F00E2EC8C /* FTTraineeSkillViewController.m in Sources */,
 				3D6ABC8D1D66E68A00CD37C8 /* FTFinishedTaskViewController.m in Sources */,
 				3D7B98B91CE078D600B80B8D /* FTInputCheckCodeViewController.m in Sources */,
 				3DE486EA1D659C9E00819D04 /* UIButton+Badge.m in Sources */,
@@ -4356,6 +4440,7 @@
 				E6F46C081D8164AE001387E2 /* FTGymVIPCollectionViewCell.m in Sources */,
 				3D20193F1D583030009E80B1 /* FTStoreViewController.m in Sources */,
 				E6304D451D2B5B4300E48CCB /* FTSetTicketPriceViewTableViewCell.m in Sources */,
+				3D484D851DC87FE400E2EC8C /* FTTraineeGradeCell.m in Sources */,
 				3DC9A4EE1CE5CD0700E16D19 /* FTRankViewController.m in Sources */,
 				3D7B98A01CDFA20D00B80B8D /* FTFiler.m in Sources */,
 				E66F493A1D93D87C005B39D1 /* FTGymSourceTableView.m in Sources */,
@@ -4367,6 +4452,7 @@
 				3D8242721DAB7A36004C0382 /* FTCourseHistoryBean.m in Sources */,
 				3D8B2E531D1D14B000E18280 /* FTCoachCell.m in Sources */,
 				E6F46C361D829161001387E2 /* FTGymPhotosViewController.m in Sources */,
+				3D484D791DC87F4300E2EC8C /* FTTraineeGradeViewController.m in Sources */,
 				3D0B44721D45D96F00EE08B3 /* FTNewsCell.m in Sources */,
 				E6A9DDA41CD8842E00CB9518 /* FTVideoViewController.m in Sources */,
 				E66BC00B1D9A67C700B492D3 /* FTCoachSelfCourseViewController.m in Sources */,
