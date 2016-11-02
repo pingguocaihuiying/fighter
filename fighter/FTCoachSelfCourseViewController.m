@@ -15,6 +15,7 @@
 #import "UIScrollView+MJRefresh.h"
 #import "MJRefreshNormalHeader.h"
 #import "MJRefreshAutoNormalFooter.h"
+#import "FTGymCourceViewNew.h"
 
 typedef NS_ENUM(NSInteger, FTCoachCourseType) {
     FTCoachCourseTypePublic,
@@ -36,7 +37,8 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
 @property (strong, nonatomic) IBOutlet UITableView *historyOrderTableView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *tableViewHeight;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *courseHistoryTableViewHeight;
-@property (nonatomic, strong) FTGymSourceView *gymSourceView;//课程表
+@property (nonatomic, strong) FTGymSourceView *gymSourceView;//课程表(私教)
+@property (nonatomic, strong) FTGymCourceViewNew *gymSourceViewPublic;//课程表(教练的团课)
 @property (strong, nonatomic) IBOutlet UIView *gymSourceViewContainerView;//课程表view的父view
 
 @property (nonatomic, strong) NSArray *timeSectionsArray;//拳馆的固定时间段
@@ -56,6 +58,7 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
     [super viewDidLoad];
     [self setSubViews];
     [self initData];
+    [self updateCourseTableDisplay];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,8 +70,8 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
 - (void) initData {
     
     [self setJHRefresh];
-    [self getTimeSection];//获取时间段信息
-    [self getTeachRecordFromServer];//获取课程记录信息
+//    [self getTimeSection];//获取时间段信息
+//    [self getTeachRecordFromServer];//获取课程记录信息
 }
 
 #pragma mark  - 初始化界面
@@ -76,8 +79,8 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
     
     [self initSomeViewsBaseProperties];//初始化一些label颜色、分割线颜色等
     [self setNaviView];//设置导航栏
-    [self setGymSourceView];//设置课程表
-    [self setTableview];
+//    [self setGymSourceView];//设置私课课程表
+    [self setTableview];//设置历史课程的tableView
 }
 
 
@@ -85,7 +88,8 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
  初始化默认配置：默认展示团课（或私课）
  */
 - (void)initDefaultConfig{
-    _coachCourseType = FTCoachCourseTypePublic;
+//    _coachCourseType = FTCoachCourseTypePublic; 11月2日 今天发版，暂时改为：默认显示私教课程
+        _coachCourseType = FTCoachCourseTypePersonal;
 }
 
 - (void)initSomeViewsBaseProperties{
@@ -125,7 +129,8 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
  @param sender
  */
 - (IBAction)publicCourseButtonClicked:(id)sender {
-    
+    _coachCourseType = FTCoachCourseTypePublic;
+    [self updateCourseTableDisplay];
 }
 
 /**
@@ -133,12 +138,57 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
  @param sender
  */
 - (IBAction)personalCourseButtonClicked:(id)sender {
+    _coachCourseType = FTCoachCourseTypePersonal;
+    [self updateCourseTableDisplay];
 }
 
 
+/**
+ 根据二选按钮的状态，更新要显示的课程表（团课、私教课）
+ */
+- (void)updateCourseTableDisplay{
+    
+    if (_coachCourseType == FTCoachCourseTypePublic) {
+    //团课
+        NSLog(@"更新团课信息");
+        //设置按钮的状态
+        _publicCourseButton.selected = YES;
+        _personalCourseButton.selected = NO;
+        [self setPublicCourseView];
+        [_gymSourceView removeFromSuperview]; //隐藏私教课程表
+    } else if(_coachCourseType == FTCoachCourseTypePersonal){
+    //私教
+        //设置按钮的状态
+        _publicCourseButton.selected = NO;
+        _personalCourseButton.selected = YES;
+        
+        [_gymSourceViewPublic removeFromSuperview];//隐藏公开课view
+        [self setPersonalCourseView];
+
+    }
+    
+}
+
+//设置团课课程表view
+- (void)setPublicCourseView{
+    [self setGymSourceViewPublic];//设置私教课程表
+    [self getTimeSection];//获取时间段信息
+    [self getPublicCourseRecordFromServer];//获取团课课程记录信息
+}
+
+//设置私教课程表view
+- (void)setPersonalCourseView{
+    [self setGymSourceView];//设置私课课程表
+    [self getTimeSection];//获取时间段信息
+    [self getTeachRecordFromServer];//获取私教课程记录信息
+}
+
 - (void)setGymSourceView{
     
-    _gymSourceView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymSourceView" owner:nil options:nil]firstObject];
+    if (!_gymSourceView) {
+        _gymSourceView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymSourceView" owner:nil options:nil]firstObject];
+    }
+    
     _gymSourceView.courseType = FTOrderCourseTypeCoachSelf;
     _gymSourceView.titleLabel.text = [NSString stringWithFormat:@"%d月", [[FTTools getCurrentMonth] intValue]];
     _gymSourceView.frame = _gymSourceViewContainerView.bounds;
@@ -147,6 +197,18 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
     [_gymSourceViewContainerView addSubview:_gymSourceView];
     _gymSourceView.tableViewsHeight.constant = 42 * 4;
     [_gymSourceView reloadTableViews];
+}
+
+- (void)setGymSourceViewPublic{
+    if (!_gymSourceViewPublic) {
+        _gymSourceViewPublic = [[[NSBundle mainBundle]loadNibNamed:@"FTGymCourceViewNew" owner:nil options:nil]firstObject];
+    }
+    
+    //    _gymSourceView.courseType = FTOrderCourseTypeGym;
+    _gymSourceViewPublic.frame = _gymSourceViewContainerView.bounds;
+    _gymSourceViewPublic.delegate = self;
+    [_gymSourceViewContainerView addSubview:_gymSourceViewPublic];
+    
 }
 
 - (void)setTableview{
@@ -187,15 +249,24 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
         _timeSectionsArray = array;
         if (_timeSectionsArray && _timeSectionsArray.count > 0) {
             //获取时间段信息后，根据内容多少设置tableviews的高度，再刷新一次tableview
-            _gymSourceView.timeSectionsArray = _timeSectionsArray;
-            _gymSourceView.tableViewsHeight.constant = 42 * _timeSectionsArray.count;
-            [self gettimeSectionsUsingInfo];
+            
+            if (_coachCourseType == FTCoachCourseTypePublic) {
+                _gymSourceViewPublic.timeSectionsArray = _timeSectionsArray;
+                _gymSourceViewPublic.tableViewsHeight.constant = 42 * _timeSectionsArray.count;
+                [self getPublicTimeSectionsUsingInfo];
+            } else if (_coachCourseType == FTCoachCourseTypePersonal){
+                _gymSourceView.timeSectionsArray = _timeSectionsArray;
+                _gymSourceView.tableViewsHeight.constant = 42 * _timeSectionsArray.count;
+                [self gettimeSectionsUsingInfo];
+            }
+            
+
         }
         
     }];
 }
 
-//获取场地使用信息
+//获取私教场地使用信息
 - (void)gettimeSectionsUsingInfo{
     FTUserBean *localBean = [FTUserTools getLocalUser];
     NSString *userId = localBean.olduserid;//教练的id
@@ -218,6 +289,42 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
     }];
 }
 
+//获取团课场地使用信息
+- (void)getPublicTimeSectionsUsingInfo{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *timestampString = [NSString stringWithFormat:@"%.0f", [[NSDate date]timeIntervalSince1970]];
+    
+    [NetWorking getGymSourceInfoById:[NSString stringWithFormat:@"%@", _corporationid]  andTimestamp:timestampString  andOption:^(NSArray *array) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        _placesUsingInfoDic = [NSMutableDictionary new];
+        if (array) {
+            for(NSDictionary *dic in array){
+                NSString *theDate = [NSString stringWithFormat:@"%@", dic[@"theDate"]];//周几
+                NSMutableArray *mArray = _placesUsingInfoDic[theDate];
+                if(!mArray){
+                    mArray = [NSMutableArray new];
+                    [_placesUsingInfoDic setValue:mArray forKey:theDate];
+                }
+                [mArray addObject:dic];
+            }
+            //获取场地使用信息后，刷新UI
+            _gymSourceViewPublic.placesUsingInfoDic = _placesUsingInfoDic;
+            [_gymSourceViewPublic reloadTableViews];
+        }
+    }];
+}
+
+
+/**
+ 获取公开课历史课程记录
+ */
+- (void)getPublicCourseRecordFromServer{
+    NSLog(@"**************获取公开课历史课程记录*****************");
+}
+
+/**
+ 获取私教的历史课程记录
+ */
 - (void) getTeachRecordFromServer {
     
     [NetWorking getCoachTeachRecordWithCorporationid:self.corporationid option:^(NSDictionary *dict) {
@@ -435,6 +542,72 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
         }
     }
     
+}
+
+- (void)courseClickedWithCell:(FTGymSourceTableViewCell *)courseCell andDay:(NSInteger)day andTimeSection:(NSString *) timeSection andDateString:(NSString *) dateString andTimeStamp:(NSString *)timeStamp{
+    NSLog(@"day : %ld, timeSection : %@ dateString : %@", day, timeSection, dateString);
+    
+//    if (![FTUserTools getLocalUser]) {
+//        NSLog(@"没有登录");
+//        [self login];
+//        return;
+//    }
+//    
+//    if(_gymVIPType != FTGymVIPTypeYep){
+//        FTPayForGymVIPViewController *payForGymVIPViewController = [[FTPayForGymVIPViewController alloc]init];
+//        payForGymVIPViewController.gymDetailBean = _gymDetailBean;
+//        payForGymVIPViewController.gymVIPType = _gymVIPType;
+//        [self.navigationController pushViewController:payForGymVIPViewController animated:YES];
+//        return;
+//    }
+//    
+//    FTGymOrderCourseView *gymOrderCourseView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCourseView" owner:nil options:nil] firstObject];
+//    gymOrderCourseView.courseType = FTOrderCourseTypeGym;
+//    gymOrderCourseView.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
+//    gymOrderCourseView.dateString = dateString;
+//    gymOrderCourseView.dateTimeStamp = timeStamp;
+    
+    NSDictionary *courseDic = courseCell.courserCellDic;
+    NSLog(@"课程的字典信息：%@", courseDic);
+//    NSString *webViewURL = courseDic[@"url"];
+//    gymOrderCourseView.webViewURL = webViewURL;
+//    
+//    if (courseCell.hasOrder) {
+//        NSLog(@"已经预约");
+//        
+//        NSDictionary *courseCellDic = courseCell.courserCellDic;
+//        gymOrderCourseView.courserCellDic = courseCellDic;
+//        
+//        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+//        gymOrderCourseView.delegate = self;
+//        gymOrderCourseView.status = FTGymCourseStatusHasOrder;
+//        [self.view addSubview:gymOrderCourseView];
+//        
+//    } else if (courseCell.canOrder) {
+//        
+//        
+//        NSDictionary *courseCellDic = courseCell.courserCellDic;
+//        gymOrderCourseView.courserCellDic = courseCellDic;
+//        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+//        gymOrderCourseView.delegate = self;
+//        gymOrderCourseView.status = FTGymCourseStatusCanOrder;
+//        [self.view addSubview:gymOrderCourseView];
+//        NSLog(@"可以预约");
+//        
+//        
+//    }else if (courseCell.isFull) {
+//        
+//        
+//        NSDictionary *courseCellDic = courseCell.courserCellDic;
+//        gymOrderCourseView.courserCellDic = courseCellDic;
+//        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+//        gymOrderCourseView.delegate = self;
+//        gymOrderCourseView.status = FTGymCourseStatusIsFull;
+//        [self.view addSubview:gymOrderCourseView];
+//        NSLog(@"满员");
+//    }else{
+//        //不能预约（可能因为数据无效等原因）
+//    }
 }
 
 - (void)backBtnAction{

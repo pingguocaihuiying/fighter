@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,14 +29,17 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UxA-iQ-hwh">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="bMF-ik-GPE"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wbb-TM-I39" userLabel="containerViewOf最热和最新">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wbb-TM-I39" userLabel="containerViewOf最热和最新">
+                    <rect key="frame" x="33.5" y="1" width="308" height="0.0"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SAC-mT-Nzo">
+                            <rect key="frame" x="54" y="-15.5" width="100" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="100" id="EuO-J2-pho"/>
                                 <constraint firstAttribute="height" constant="35" id="edj-9E-TiB"/>
@@ -52,6 +58,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wgs-19-3US">
+                            <rect key="frame" x="154" y="-15.5" width="100" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="35" id="7Is-2i-LL7"/>
                                 <constraint firstAttribute="width" constant="100" id="Pvz-le-85l"/>
@@ -74,21 +81,24 @@
                     <constraints>
                         <constraint firstAttribute="width" constant="308" id="CxF-DW-0IZ"/>
                         <constraint firstItem="SAC-mT-Nzo" firstAttribute="centerY" secondItem="wbb-TM-I39" secondAttribute="centerY" constant="2" id="KzX-rA-CBb"/>
-                        <constraint firstAttribute="height" constant="43" id="Rpx-oh-vyh"/>
+                        <constraint firstAttribute="height" id="Rpx-oh-vyh"/>
                         <constraint firstItem="SAC-mT-Nzo" firstAttribute="trailing" secondItem="wbb-TM-I39" secondAttribute="centerX" id="Yxc-mY-wXq"/>
                         <constraint firstItem="Wgs-19-3US" firstAttribute="centerY" secondItem="wbb-TM-I39" secondAttribute="centerY" constant="2" id="Zp4-bC-Baz"/>
                         <constraint firstItem="Wgs-19-3US" firstAttribute="leading" secondItem="wbb-TM-I39" secondAttribute="centerX" id="tEg-II-K09"/>
                     </constraints>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="izI-Ce-O19">
+                    <rect key="frame" x="0.0" y="1" width="375" height="666"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FfX-ED-VLS" userLabel="tableviewsContainerView">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" priority="250" constant="128" id="Edr-OQ-rIg"/>
                             </constraints>
                         </view>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8fs-OF-eP3">
+                            <rect key="frame" x="0.0" y="148" width="375" height="539"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" priority="250" constant="539" id="qZN-dv-uWz"/>
