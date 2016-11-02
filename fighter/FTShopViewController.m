@@ -105,7 +105,7 @@
 
 - (void) setWebView {
     [self initWebview];
-    [self setJHRefresh];
+    [self setMJRefresh];
 }
 
 - (void) initWebview {
@@ -134,9 +134,9 @@
     
 }
 
-- (void)setJHRefresh{
+- (void)setMJRefresh{
     
-    __unsafe_unretained __typeof(self) weakSelf = self;
+    __weak __typeof(self) weakSelf = self;
     
     // 下拉刷新
     self.webView.scrollView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
