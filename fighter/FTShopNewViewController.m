@@ -214,8 +214,6 @@
     
     
     // 检测登录
-    
-    
     if([url rangeOfString:@"toLogin=1"].location!=NSNotFound){
         
          if ([self isLogined]) {
