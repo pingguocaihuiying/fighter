@@ -27,7 +27,6 @@
 }
 
 -(void)setwithDic:(NSDictionary *)dic{
-    _blankInfoLabel.hidden = YES;
     _courseNameLabel.hidden = NO;
     _courseTimeSectionLabel.hidden = NO;
     _coachNameLabel.hidden = NO;
@@ -123,10 +122,7 @@
     
     _hasOrderImageView.hidden = YES;
     _orderStatusLabel.hidden = YES;
-    _statusButton.hidden = YES;
-    
-    _blankInfoLabel.hidden = YES;
-    
+    _statusButton.hidden = YES;    
     
     _hasCourseData = NO;
 }
