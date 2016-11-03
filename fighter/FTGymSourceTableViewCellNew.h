@@ -6,12 +6,17 @@
 //  Copyright © 2016 Mapbar. All rights reserved.
 //
 
-
+typedef NS_ENUM(NSInteger, FTGymPublicCourseType){//公开课课程表的类型
+    FTGymPublicCourseTypeForUser,//用户端
+    FTGymPublicCourseTypeForCoach//教练端
+};
 
 #import <UIKit/UIKit.h>
 #import "FTBaseTableViewCell.h"
 
 @interface FTGymSourceTableViewCellNew : FTBaseTableViewCell
+
+@property (nonatomic, assign) FTGymPublicCourseType courseType;
 
 @property (strong, nonatomic) IBOutlet UIView *bgView;
 
@@ -38,6 +43,9 @@
 @property (nonatomic, assign) BOOL isEmpty;//该时间段空闲，说明可以预约教练
 @property (strong, nonatomic) IBOutlet UIView *dividingLine;
 
--(void)setwithDic:(NSDictionary *)dic;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *orderCountRightMargin;//人数label右边距，用户看团课 8（默认），教练自己看-23
+@property (strong, nonatomic) IBOutlet UIImageView *rightArrowImageview;
+
+-(void)setwithDic:(NSDictionary *)dic andCourseType:(FTGymPublicCourseType) courseType;
 - (void)setBlank;
 @end

@@ -26,7 +26,7 @@
     
 }
 
--(void)setwithDic:(NSDictionary *)dic{
+-(void)setwithDic:(NSDictionary *)dic andCourseType:(FTGymPublicCourseType) courseType{
     _courseNameLabel.hidden = NO;
     _courseTimeSectionLabel.hidden = NO;
     _coachNameLabel.hidden = NO;
@@ -112,7 +112,23 @@
         }
     }
     
+    if (courseType == FTGymPublicCourseTypeForUser) {
+        _rightArrowImageview.hidden = YES;
+        _orderCountRightMargin.constant = 8;
+    } else if (courseType == FTGymPublicCourseTypeForCoach) {//如果教练端
+        
+        //需要显示的
+        _rightArrowImageview.hidden = NO;
+        _orderCountRightMargin.constant = -23;
+        
+        //需要隐藏的
+        _hasOrderImageView.hidden = YES;
+        _courseStatusLabel.hidden = YES;
+        _statusButton.hidden = YES;
+    }
 }
+
+
 - (void)setBlank{
     _courseStatusLabel.hidden = YES;
     

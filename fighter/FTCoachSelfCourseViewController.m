@@ -202,6 +202,7 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
 - (void)setGymSourceViewPublic{
     if (!_gymSourceViewPublic) {
         _gymSourceViewPublic = [[[NSBundle mainBundle]loadNibNamed:@"FTGymCourceViewNew" owner:nil options:nil]firstObject];
+        _gymSourceViewPublic.courseType = FTGymPublicCourseTypeForCoach;
     }
     
     //    _gymSourceView.courseType = FTOrderCourseTypeGym;

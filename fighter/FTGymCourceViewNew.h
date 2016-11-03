@@ -37,12 +37,13 @@
 #import <UIKit/UIKit.h>
 //#import "FTGymSourceTableViewCell.h"
 #import "FTGymSourceView.h"
+#import "FTGymSourceTableViewCellNew.h"
 
 @interface FTGymCourceViewNew : UIView
 
 @property (nonatomic, weak) id<FTScrollViewScollToBottomDelegate> scrollDelegate;
 
-//@property (nonatomic, assign) FTOrderCourseType courseType;//课程表类型
+@property (nonatomic, assign) FTGymPublicCourseType courseType;//课程表类型：用户 or 教练
 @property (nonatomic, strong) NSArray *timeSectionsArray;//拳馆的固定时间段
 @property (nonatomic, strong) NSMutableDictionary *placesUsingInfoDic;//场地、时间段的占用情况
 @property (nonatomic, weak) id<FTGymCourseTableViewDelegate> delegate;

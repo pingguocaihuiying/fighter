@@ -8,7 +8,6 @@
 
 #import "FTGymCourceViewNew.h"
 #import "FTGymSourceTableView.h"
-#import "FTGymSourceTableViewCellNew.h"
 #import "FTBaseTableViewCell.h"
 #import "FTCourseTableHeaderView.h"
 
@@ -331,7 +330,7 @@
     
             if (dic) {
                 cell.hasCourseData = YES;
-                [cell setwithDic:dic];
+                [cell setwithDic:dic andCourseType:_courseType];
                 cell.courserCellDic = dic;
             }else{//暂无课程
                 [cell setBlank];
