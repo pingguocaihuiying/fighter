@@ -64,6 +64,7 @@
 		3D4122321D4F3F0E007EB996 /* FTAuthenticationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4122311D4F3F0E007EB996 /* FTAuthenticationView.xib */; };
 		3D4122361D506A4B007EB996 /* FTPropertyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4122341D506A4B007EB996 /* FTPropertyCell.m */; };
 		3D4122371D506A4B007EB996 /* FTPropertyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4122351D506A4B007EB996 /* FTPropertyCell.xib */; };
+		3D430BD91DCB0FDE00532D01 /* FTTraineeSkillSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D430BD81DCB0FDE00532D01 /* FTTraineeSkillSectionHeaderView.m */; };
 		3D484D5A1DC72CB100E2EC8C /* FTTraineeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D484D581DC72CB100E2EC8C /* FTTraineeViewController.m */; };
 		3D484D5B1DC72CB100E2EC8C /* FTTraineeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D484D591DC72CB100E2EC8C /* FTTraineeViewController.xib */; };
 		3D484D601DC7349B00E2EC8C /* FTTraineeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D484D5E1DC7349B00E2EC8C /* FTTraineeCell.m */; };
@@ -558,6 +559,8 @@
 		3D4122331D506A4B007EB996 /* FTPropertyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPropertyCell.h; sourceTree = "<group>"; };
 		3D4122341D506A4B007EB996 /* FTPropertyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPropertyCell.m; sourceTree = "<group>"; };
 		3D4122351D506A4B007EB996 /* FTPropertyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTPropertyCell.xib; sourceTree = "<group>"; };
+		3D430BD71DCB0FDE00532D01 /* FTTraineeSkillSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeSkillSectionHeaderView.h; sourceTree = "<group>"; };
+		3D430BD81DCB0FDE00532D01 /* FTTraineeSkillSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeSkillSectionHeaderView.m; sourceTree = "<group>"; };
 		3D484D571DC72CB100E2EC8C /* FTTraineeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeViewController.h; sourceTree = "<group>"; };
 		3D484D581DC72CB100E2EC8C /* FTTraineeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeViewController.m; sourceTree = "<group>"; };
 		3D484D591DC72CB100E2EC8C /* FTTraineeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTraineeViewController.xib; sourceTree = "<group>"; };
@@ -1579,6 +1582,15 @@
 			name = "拳手认证";
 			sourceTree = "<group>";
 		};
+		3D430BD61DCB0F4800532D01 /* TraineeSkillSectionheader */ = {
+			isa = PBXGroup;
+			children = (
+				3D430BD71DCB0FDE00532D01 /* FTTraineeSkillSectionHeaderView.h */,
+				3D430BD81DCB0FDE00532D01 /* FTTraineeSkillSectionHeaderView.m */,
+			);
+			name = TraineeSkillSectionheader;
+			sourceTree = "<group>";
+		};
 		3D484D551DC72BEE00E2EC8C /* 训练 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1604,6 +1616,7 @@
 			children = (
 				3D484D641DC7360100E2EC8C /* TraineeSectionHeaderView */,
 				3D484D621DC734D600E2EC8C /* TraineeCell */,
+				3D430BD61DCB0F4800532D01 /* TraineeSkillSectionheader */,
 				3D484D7B1DC87F5800E2EC8C /* TraineeSkillCell */,
 				3D484D7C1DC87F6D00E2EC8C /* TraineeGradeCell */,
 			);
@@ -4515,6 +4528,7 @@
 				3DC412251CD0C3780030C229 /* NSString+Size.m in Sources */,
 				3D4122251D4F28BC007EB996 /* FTPhoneCheckCell.m in Sources */,
 				E68050B91CBF919A00678905 /* JHRefreshCommonAniView.m in Sources */,
+				3D430BD91DCB0FDE00532D01 /* FTTraineeSkillSectionHeaderView.m in Sources */,
 				E644E77E1D0123F700F39E45 /* FTHomepageUserBean.m in Sources */,
 				E6D09E921CEDA10000B7C43E /* FTTools.m in Sources */,
 				3D9D92E41D337100006C42F0 /* FTPayCell.m in Sources */,
@@ -4631,7 +4645,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "0a4ed102-6f90-47e1-86ca-ac13de70f2c9";
@@ -4672,7 +4686,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "0a4ed102-6f90-47e1-86ca-ac13de70f2c9";
 				SDKROOT = iphoneos;

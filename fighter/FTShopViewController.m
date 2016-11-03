@@ -165,6 +165,21 @@
     
     NSMutableString *url=[[NSMutableString alloc]initWithString:[request.URL absoluteString]];
     
+    // 检测登录
+    if([url rangeOfString:@"toLogin=1"].location!=NSNotFound){
+        
+        if ([self isLogined]) {
+            
+            FTUserBean *localUser = [FTUserBean loginUser];
+            NSString *urlString = [NSString stringWithFormat: @"userId=%@&loginToken=%@",localUser.olduserid,localUser.token];
+            [url replaceCharactersInRange:[url rangeOfString:@"toLogin=1"] withString:urlString];
+            
+        }else {
+            
+            return NO;
+        }
+    }
+    
     if([url rangeOfString:@"js-call:userId="].location!= NSNotFound &&
        [url rangeOfString:@"&orderNo="].location!= NSNotFound &&
        [url rangeOfString:@"&price="].location!= NSNotFound  ) {

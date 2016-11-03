@@ -357,8 +357,11 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
         FTCourseHistoryBean *bean = [[FTCourseHistoryBean alloc]init];
         [bean setValuesWithDic:dic];
         
-        NSString *currentYearMonthString = [NSDate currentYearMonthString];
-        NSString *dateString = [NSDate yearMonthString:bean.date];
+//        NSString *currentYearMonthString = [NSDate currentYearMonthString];
+//        NSString *dateString = [NSDate yearMonthString:bean.date];
+        NSString *currentYearMonthString = [NSDate currentYearString];
+        NSString *dateString = [NSDate yearString:bean.date];
+        
         
         if ([dateString isEqualToString:currentYearMonthString]) {
             bean.dateString = [NSDate monthDayStringWithWordSpace:bean.date];

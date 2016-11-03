@@ -16,7 +16,7 @@
     NSString *_orderNo;
     NSString *_tradeNO;
     BOOL _isAppeared;
-    BOOL _shouldReload;
+
 }
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
@@ -54,10 +54,7 @@
     
     [self setNotifications];
     
-    _shouldReload = YES;
 }
-
-
 
 - (void) viewDidAppear:(BOOL)animated {
     
@@ -72,17 +69,13 @@
         if (_isAppeared) {
             
             _isAppeared = NO;
-            
-            if (_shouldReload) {
-                NSLog(@"reloadSource excute");
-                _shouldReload = YES;
-                [self.webView stringByEvaluatingJavaScriptFromString:@"reloadSource()"];
-            }else {
-                 _shouldReload = YES;
-            }
-            
+            NSLog(@"reloadSource excute");
+            [self.webView stringByEvaluatingJavaScriptFromString:@"reloadSource()"];
         }
     }
+    
+    NSMutableString *url=[[NSMutableString alloc]initWithString:[self.request.URL absoluteString]];
+    NSLog(@"url:%@",url);
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
@@ -144,13 +137,12 @@
     FTUserBean *localUser = [FTUserBean loginUser];
     if (localUser) {
         
-        
         // 商品详情页登录后刷新
         if([url rangeOfString:@"loginState=false"].location!=NSNotFound ){
             
             NSString *urlString = [NSString stringWithFormat: @"userId=%@&loginToken=%@",localUser.olduserid,localUser.token];
 //            [url replaceCharactersInRange:[url rangeOfString:@"shopNew"] withString:@"shop"];
-            [url replaceCharactersInRange:[url rangeOfString:@"loginState=false"] withString:@"none=1"];
+            [url replaceCharactersInRange:[url rangeOfString:@"loginState=false"] withString:@"loginState=true"];
             [url replaceCharactersInRange:[url rangeOfString:@"userId=?&loginToken=?"] withString:urlString];
             
             self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
@@ -174,7 +166,6 @@
             
             self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
             [self.webView loadRequest:self.request];
-
         }
         
     }
@@ -214,8 +205,6 @@
     
     
     // 检测登录
-    
-    
     if([url rangeOfString:@"toLogin=1"].location!=NSNotFound){
         
          if ([self isLogined]) {
@@ -223,10 +212,9 @@
             FTUserBean *localUser = [FTUserBean loginUser];
             NSString *urlString = [NSString stringWithFormat: @"userId=%@&loginToken=%@",localUser.olduserid,localUser.token];
             [url replaceCharactersInRange:[url rangeOfString:@"toLogin=1"] withString:urlString];
-//            [self openNewVC:url];
-            _shouldReload = YES;
+            
          }else {
-             _shouldReload = NO;
+             
              return NO;
          }
     }
