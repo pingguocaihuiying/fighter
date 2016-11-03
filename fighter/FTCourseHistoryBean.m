@@ -35,6 +35,11 @@
     self.timeSection = dic[@"timeSection"];
     
     self.userId = dic[@"userId"];
+    
+    _hasGradeCount = [dic[@"hasGradeCount"] integerValue];
+    _attendCount = [dic[@"attendCount"] integerValue];
+    _hasOrderCount = [dic[@"hasOrderCount"] integerValue];
+    _topLimit = [dic[@"topLimit"] integerValue];
 }
 
 

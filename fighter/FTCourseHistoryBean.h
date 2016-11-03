@@ -39,4 +39,10 @@
 @property (nonatomic, copy) NSString *userId;
 
 @property (nonatomic, copy) NSString *dateString;
+
+@property (nonatomic, assign) NSInteger hasGradeCount;//已评分人数
+@property (nonatomic, assign) NSInteger attendCount;//签到（上课）人数
+@property (nonatomic, assign) NSInteger hasOrderCount;//预约人数
+@property (nonatomic, assign) NSInteger topLimit;//团课允许最大人数
+
 @end

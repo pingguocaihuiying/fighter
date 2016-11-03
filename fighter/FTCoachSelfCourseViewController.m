@@ -88,8 +88,8 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
  初始化默认配置：默认展示团课（或私课）
  */
 - (void)initDefaultConfig{
-//    _coachCourseType = FTCoachCourseTypePublic; 11月2日 今天发版，暂时改为：默认显示私教课程
-        _coachCourseType = FTCoachCourseTypePersonal;
+    _coachCourseType = FTCoachCourseTypePublic;//默认左侧按钮被点击，显示公开课
+//        _coachCourseType = FTCoachCourseTypePersonal;
 }
 
 - (void)initSomeViewsBaseProperties{
