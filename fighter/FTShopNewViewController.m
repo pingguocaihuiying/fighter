@@ -56,8 +56,6 @@
     
 }
 
-
-
 - (void) viewDidAppear:(BOOL)animated {
     
     //添加监听器，充值购买
@@ -144,7 +142,7 @@
             
             NSString *urlString = [NSString stringWithFormat: @"userId=%@&loginToken=%@",localUser.olduserid,localUser.token];
 //            [url replaceCharactersInRange:[url rangeOfString:@"shopNew"] withString:@"shop"];
-            [url replaceCharactersInRange:[url rangeOfString:@"loginState=false"] withString:@"none=1"];
+            [url replaceCharactersInRange:[url rangeOfString:@"loginState=false"] withString:@"loginState=true"];
             [url replaceCharactersInRange:[url rangeOfString:@"userId=?&loginToken=?"] withString:urlString];
             
             self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
@@ -168,7 +166,6 @@
             
             self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
             [self.webView loadRequest:self.request];
-
         }
         
     }
