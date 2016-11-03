@@ -24,7 +24,7 @@
                         <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZW-bC-2zB">
-                        <rect key="frame" x="23" y="10" width="0.0" height="12"/>
+                        <rect key="frame" x="23" y="10" width="190" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="ziK-lM-stF"/>
                         </constraints>
@@ -121,6 +121,7 @@
                     <constraint firstAttribute="bottom" secondItem="ubS-FO-tMr" secondAttribute="bottom" id="d02-PV-g3e"/>
                     <constraint firstItem="ubS-FO-tMr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="hOo-NA-Knu"/>
                     <constraint firstAttribute="bottom" secondItem="VKL-CW-8PE" secondAttribute="bottom" id="htV-6c-QX4"/>
+                    <constraint firstItem="LsY-Vy-oPo" firstAttribute="leading" secondItem="qZW-bC-2zB" secondAttribute="trailing" constant="5" id="iS9-N8-QUZ"/>
                     <constraint firstItem="W3P-E5-lUy" firstAttribute="top" secondItem="qZW-bC-2zB" secondAttribute="bottom" constant="8" id="pqb-ev-mmT"/>
                     <constraint firstItem="2oR-lZ-9SK" firstAttribute="centerY" secondItem="TSP-Ky-429" secondAttribute="centerY" id="r6e-BG-DTi"/>
                     <constraint firstItem="W3P-E5-lUy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="15" id="tJp-SG-Oob"/>

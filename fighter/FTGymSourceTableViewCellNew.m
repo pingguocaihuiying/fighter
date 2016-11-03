@@ -142,4 +142,9 @@
     
     _hasCourseData = NO;
 }
+
+- (void)hideRightArrow{
+    _rightArrowImageview.hidden = YES;
+}
+
 @end
