@@ -332,7 +332,6 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
             NSArray *arrayTemp = dict[@"data"];
             
             //测试用，给array赋值
-            
             arrayTemp = [self setTempArray];
             
             [self sortArray:arrayTemp];
@@ -380,7 +379,9 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
         @"timeId": @44,
         @"placeId": @0,
         @"coachUserId": @"4c364ca3120d4a01a2766f155c55cc3d",
-        @"hasOrderCount": @1,
+        @"hasOrderCount": @2,
+        @"topLimit" : @10,
+        @"hasGradeCount" : @"1",
         @"statu": @1,
         @"type": @"0",
         @"corporationid": @187,
@@ -445,8 +446,13 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
         SLog(@"dict:%@",dict);
         BOOL status = [dict[@"status"] isEqualToString:@"success"]? YES:NO;
         if (status) {
+            NSArray *arrayTemp = dict[@"data"];
             
-            [self sortArray:dict[@"data"]];
+            //测试用，给array赋值
+            arrayTemp = [self setTempArray];
+
+            
+            [self sortArray:arrayTemp];
             
             [self.historyOrderTableView reloadData];
         }
