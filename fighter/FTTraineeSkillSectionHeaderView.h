@@ -12,8 +12,12 @@
 
 @property (copy, nonatomic) NSString *title;
 @property (copy, nonatomic) NSString *detail;
+@property (copy, nonatomic) NSAttributedString *detailAttributeString;;
 
 @property (strong, nonatomic) UIColor *titleColor;
 @property (strong, nonatomic) UIColor *detailColor;
+
+@property (strong, nonatomic) UIFont *titleFont;
+@property (strong, nonatomic) UIFont *detailFont;
 
 @end

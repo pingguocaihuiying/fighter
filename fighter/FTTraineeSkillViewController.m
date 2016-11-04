@@ -8,9 +8,12 @@
 
 #import "FTTraineeSkillViewController.h"
 #import "FTTraineeSkillCell.h"
+#import "FTTraineeSkillSectionHeaderView.h"
+#import "FTTraineeGradeViewController.h"
 
 @interface FTTraineeSkillViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) NSArray *dataArray;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -21,6 +24,7 @@
     [super viewDidLoad];
     
     [self setNavigationbarStyle];
+    [self setSubView];
 }
 
 
@@ -56,7 +60,14 @@
 
 - (void) setTableView {
     
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     
+    self.tableView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    [self.tableView registerNib:[UINib nibWithNibName:@"FTTraineeSkillCell" bundle:nil] forCellReuseIdentifier:@"SkillCell"];
+    
+    //    self.tableView.estimatedRowHeight = 310; // 设置为一个接近于行高“平均值”的数值
+    self.tableView.estimatedSectionHeaderHeight = 90;
 }
 
 #pragma mark  - delegate
@@ -70,39 +81,44 @@
     return 45;
 }
 
-- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-
-    return 90;
-}
+//- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//
+//    return 90;
+//}
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    UIView *headerView = [[UIView alloc]init];
+    FTTraineeSkillSectionHeaderView *headerView = [[FTTraineeSkillSectionHeaderView alloc]init];
     
-    UIView *topLine = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5)];
-    UIView *bottomLine = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5)];
+    NSMutableAttributedString *attributedString =  [[NSMutableAttributedString alloc] initWithString:@"" attributes:@{NSKernAttributeName : @(1.5f)}];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineSpacing:7];
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, @"".length)];
     
-    topLine.backgroundColor = Cell_Space_Color;
-    bottomLine.backgroundColor = Cell_Space_Color;
-    
-    
+    headerView.detailAttributeString = attributedString;
+    headerView.title = @"";
     
     return headerView;
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    return nil;
+    
+    FTTraineeSkillCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SkillCell"];
+    cell.skillLabel.text = @"前手直拳：";
+    cell.gradeLabel.text = @"8888";
+    
+    return cell;
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    FTTraineeGradeViewController *gradeVC = [[FTTraineeGradeViewController alloc]init];
+    [self.navigationController pushViewController:gradeVC animated:YES];
 }
 
 #pragma mark - response
-- (void) backBtnAction:(id) sender {
-    
-}
+//- (void) backBtnAction:(id) sender {
+//    
+//}
 - (void) submitAction:(id) sender {
     
 }
