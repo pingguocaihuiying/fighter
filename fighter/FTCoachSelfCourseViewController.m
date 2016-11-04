@@ -16,6 +16,7 @@
 #import "MJRefreshNormalHeader.h"
 #import "MJRefreshAutoNormalFooter.h"
 #import "FTGymCourceViewNew.h"
+#import "FTPublicHistoryCourseTableViewCell.h"
 
 typedef NS_ENUM(NSInteger, FTCoachCourseType) {
     FTCoachCourseTypePublic,
@@ -43,7 +44,8 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
 
 @property (nonatomic, strong) NSArray *timeSectionsArray;//拳馆的固定时间段
 @property (nonatomic, strong) NSMutableDictionary *placesUsingInfoDic;//场地、时间段的占用情况
-@property (nonatomic, strong) NSMutableArray *historyArray;
+@property (nonatomic, strong) NSMutableArray *historyArray;//私教课程数据
+@property (nonatomic, strong) NSMutableArray *historyArrayPublic;//公开课课程数据
 
 @property (strong, nonatomic) IBOutlet UIButton *publicCourseButton;
 @property (strong, nonatomic) IBOutlet UIButton *personalCourseButton;
@@ -215,7 +217,8 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
 - (void)setTableview{
     _historyOrderTableView.delegate = self;
     _historyOrderTableView.dataSource = self;
-    [_historyOrderTableView registerNib:[UINib nibWithNibName:@"FTCoachHistoryCourseTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
+    [_historyOrderTableView registerNib:[UINib nibWithNibName:@"FTCoachHistoryCourseTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];//私教历史课程cell
+    [_historyOrderTableView registerNib:[UINib nibWithNibName:@"FTPublicHistoryCourseTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellForPublic"];//公开课历史课程cell
 }
 
 
@@ -321,6 +324,112 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
  */
 - (void)getPublicCourseRecordFromServer{
     NSLog(@"**************获取公开课历史课程记录*****************");
+    [NetWorking getCoachTeachRecordWithCorporationid:self.corporationid andCourseType:@"0" option:^(NSDictionary *dict) {
+        
+        SLog(@"dict:%@",dict);
+        BOOL status = [dict[@"status"] isEqualToString:@"success"]? YES:NO;
+        if (status) {
+            NSArray *arrayTemp = dict[@"data"];
+            
+            //测试用，给array赋值
+            
+            arrayTemp = [self setTempArray];
+            
+            [self sortArray:arrayTemp];
+            
+            [self.historyOrderTableView reloadData];
+        }
+        
+        [self.scrollView.mj_header endRefreshing];
+    }];
+}
+
+- (NSArray *)setTempArray{
+//    NSArray *array = [{
+//        "id": @33,
+//        "createName": "李懿哲",
+//        "createTime": 1478142181000,
+//        "updateName": "李懿哲",
+//        "updateTime": 1478142181000,
+//        "createTimeTamp": "1478142181000",
+//        "updateTimeTamp": "1478142181000",
+//        "courseId": 94,
+//        "date": 1478142600000,
+//        "timeId": 44,
+//        "placeId": 0,
+//        "coachUserId": "4c364ca3120d4a01a2766f155c55cc3d",
+//        "hasOrderCount": 1,
+//        "statu": 1,
+//        "type": "0",
+//        "corporationid": 187,
+//        "label": "拳击",
+//        "timeSection": "11:10~12:00"
+//    },{@"":@""}];
+    
+    NSDictionary *dic = @{
+        @"id": @33,
+        @"createName": @"李懿哲",
+        @"createTime": @1478142181000,
+        @"updateName": @"李懿哲",
+        @"updateTime": @1478142181000,
+        @"createTimeTamp": @"1478142181000",
+        @"updateTimeTamp": @"1478142181000",
+        @"courseId": @94,
+        @"date": @1478142600000,
+        @"timeId": @44,
+        @"placeId": @0,
+        @"coachUserId": @"4c364ca3120d4a01a2766f155c55cc3d",
+        @"hasOrderCount": @1,
+        @"statu": @1,
+        @"type": @"0",
+        @"corporationid": @187,
+        @"label": @"拳击",
+        @"timeSection": @"11:10~12:00"
+    };
+    NSDictionary *dic2 = @{
+                          @"id": @33,
+                          @"createName": @"茂凯",
+                          @"createTime": @1478142181000,
+                          @"updateName": @"李懿哲",
+                          @"updateTime": @1478142181000,
+                          @"createTimeTamp": @"1478142181000",
+                          @"updateTimeTamp": @"1478142181000",
+                          @"courseId": @94,
+                          @"date": @1478142600000,
+                          @"timeId": @44,
+                          @"placeId": @0,
+                          @"coachUserId": @"4c364ca3120d4a01a2766f155c55cc3d",
+                          @"hasOrderCount": @1,
+                          @"statu": @1,
+                          @"type": @"0",
+                          @"corporationid": @187,
+                          @"label": @"拳击",
+                          @"timeSection": @"11:10~12:00"
+                          };
+    NSDictionary *dic3 = @{
+                          @"id": @33,
+                          @"createName": @"李懿哲",
+                          @"createTime": @1478142181000,
+                          @"updateName": @"李懿哲",
+                          @"updateTime": @1478142181000,
+                          @"createTimeTamp": @"1478142181000",
+                          @"updateTimeTamp": @"1478142181000",
+                          @"courseId": @94,
+                          @"date": @1478142600000,
+                          @"timeId": @44,
+                          @"placeId": @0,
+                          @"coachUserId": @"4c364ca3120d4a01a2766f155c55cc3d",
+                          @"hasOrderCount": @1,
+                          @"statu": @1,
+                          @"type": @"0",
+                          @"corporationid": @187,
+                          @"label": @"拳击",
+                          @"timeSection": @"11:10~12:00"
+                          };
+    
+    NSArray *array = [[NSArray alloc]initWithObjects:dic, dic2, dic3, nil ];
+    
+    return array;
 }
 
 /**
@@ -328,7 +437,7 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
  */
 - (void) getTeachRecordFromServer {
     
-    [NetWorking getCoachTeachRecordWithCorporationid:self.corporationid option:^(NSDictionary *dict) {
+    [NetWorking getCoachTeachRecordWithCorporationid:self.corporationid andCourseType:@"2" option:^(NSDictionary *dict) {
         
         SLog(@"dict:%@",dict);
         BOOL status = [dict[@"status"] isEqualToString:@"success"]? YES:NO;
@@ -345,11 +454,19 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
 
 
 - (void) sortArray:(NSArray *)tempArray {
-    
-    if (!_historyArray) {
-        _historyArray = [[NSMutableArray alloc]init];
+    if (_coachCourseType == FTCoachCourseTypePublic) {//公开课
+        if (!_historyArrayPublic) {
+            _historyArrayPublic = [[NSMutableArray alloc]init];
+        }
+        [_historyArrayPublic removeAllObjects];
+    } else {//私教
+        if (!_historyArray) {
+            _historyArray = [[NSMutableArray alloc]init];
+        }
+        [_historyArray removeAllObjects];
     }
-    [_historyArray removeAllObjects];
+    
+
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
     for (NSDictionary *dic in tempArray) {
@@ -367,6 +484,7 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
             bean.dateString = [NSDate monthDayStringWithWordSpace:bean.date];
             
         }else {
+            
             bean.dateString = [NSDate dateStringWithWordSpace:bean.date];
         }
         
@@ -379,7 +497,7 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
         }else {
             NSMutableArray *array = [[NSMutableArray alloc]init];
             [array addObject:bean];
-            [_historyArray addObject:array];
+            [_coachCourseType == FTCoachCourseTypePublic ? _historyArrayPublic : _historyArray addObject:array];
             [dict setObject:array forKey:dateString];
         }
     }
@@ -390,29 +508,39 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return _historyArray.count;
+    return _coachCourseType == FTCoachCourseTypePublic ? _historyArrayPublic.count : _historyArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSArray *array =_historyArray[section];
-//    NSArray *array =_historyArray[0];
+    NSArray *array =(_coachCourseType == FTCoachCourseTypePublic ? _historyArrayPublic : _historyArray)[section];
     return array.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    FTCoachHistoryCourseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    cell.backgroundColor = [UIColor clearColor];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    FTCourseHistoryBean *bean = _historyArray[indexPath.section][indexPath.row];
-//    FTCourseHistoryBean *bean = _historyArray[0][indexPath.row];
+    if (_coachCourseType == FTCoachCourseTypePersonal) {//如果当前展示的是私教课
+        FTCourseHistoryBean *bean = _historyArray[indexPath.section][indexPath.row];
+        FTCoachHistoryCourseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        cell.backgroundColor = [UIColor clearColor];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        
+        //    FTCourseHistoryBean *bean = _historyArray[0][indexPath.row];
+        
 
-    cell.dateLabel.text = bean.dateString;
-    cell.timeSectionLabel.text = bean.timeSection;
-    cell.nameLabel.text = bean.createName;
-    
-    return cell;
+        
+        [cell setWithCourseHistoryBean:bean];
+        
+        return cell;
+    }else{//公开课
+        FTPublicHistoryCourseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellForPublic"];
+        cell.backgroundColor = [UIColor clearColor];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        FTCourseHistoryBean *bean = _historyArrayPublic[indexPath.section][indexPath.row];
+        [cell setWithCourseHistoryBean:bean];
+        return cell;
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -433,7 +561,7 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
     
     UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(label1.frame.origin.x + label1.width, 4, 50, 12)];
     label2.textColor = [UIColor colorWithHex:0xb4b4b4];
-    label2.text = [NSString stringWithFormat:@"%ld节",[_historyArray[section] count] ];
+    label2.text = [NSString stringWithFormat:@"%ld节",[(_coachCourseType == FTCoachCourseTypePublic ? _historyArrayPublic : _historyArray)[section] count] ];
     label2.font = [UIFont systemFontOfSize:12];
     [headerView addSubview:label2];
     

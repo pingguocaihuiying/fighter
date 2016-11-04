@@ -77,8 +77,8 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="coachNameLabel" destination="HJq-Np-MI6" id="eFQ-xA-EUT"/>
                 <outlet property="courseNameLabel" destination="rnH-Ot-MZq" id="pMN-Tt-vN0"/>
+                <outlet property="gradeInfoLabel" destination="HJq-Np-MI6" id="6rq-FP-oKn"/>
                 <outlet property="orderCountLabel" destination="teL-43-cdl" id="QdL-g2-ohR"/>
                 <outlet property="rightArrowImageview" destination="fWd-Rr-IDh" id="N1N-vm-KFF"/>
                 <outlet property="timeSectionLabel" destination="kTC-b3-c7T" id="FqY-kV-0K1"/>

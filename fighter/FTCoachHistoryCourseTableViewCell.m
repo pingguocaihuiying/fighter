@@ -26,4 +26,20 @@
     // Configure the view for the selected state
 }
 
+- (void)setWithCourseHistoryBean:(FTCourseHistoryBean *)courseHistoryBean{
+    _dateLabel.text = courseHistoryBean.dateString;
+    _timeSectionLabel.text = courseHistoryBean.timeSection;
+    _nameLabel.text = courseHistoryBean.createName;
+    
+    
+    if (courseHistoryBean.attendCount == 0) {//旷课
+        _gradeImageView.image = [UIImage imageNamed:@"学员状态-旷课"];
+    } else if(courseHistoryBean.hasGradeCount < courseHistoryBean.attendCount){//未评分
+        _gradeImageView.image = [UIImage imageNamed:@"学员状态-未评分"];
+    }else if(courseHistoryBean.hasGradeCount == courseHistoryBean.attendCount){//已评分
+        _gradeImageView.image = [UIImage imageNamed:@"学员状态-已评分"];
+    }
+    
+}
+
 @end
