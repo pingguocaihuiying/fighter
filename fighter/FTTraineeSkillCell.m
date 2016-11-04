@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.skillLabelWidthConstraint.constant = self.skillLabelWidthConstraint.constant *SCALE;
 }
 
