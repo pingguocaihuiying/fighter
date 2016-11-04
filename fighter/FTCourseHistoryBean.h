@@ -11,7 +11,7 @@
 @interface FTCourseHistoryBean : FTBaseBean
 
 @property (nonatomic, assign) NSInteger id;
-
+@property (nonatomic, copy) NSString *name;//课程名称
 @property (nonatomic, copy) NSString *coachUserId;
 @property (nonatomic, assign) NSInteger corporationid;
 

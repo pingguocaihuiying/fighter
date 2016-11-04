@@ -234,7 +234,7 @@
  @param corporationid 拳馆id
  @param option  +记录json字典
  */
-+ (void) getCoachTeachRecordWithCorporationid:(NSString*)corporationid option:(void (^)(NSDictionary *dict))option;
++ (void) getCoachTeachRecordWithCorporationid:(NSString*)corporationid andCourseType:(NSString *)courseType option:(void (^)(NSDictionary *dict))option;
 
 #pragma mark - 约课
 //约课

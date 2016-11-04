@@ -40,6 +40,7 @@
     _attendCount = [dic[@"attendCount"] integerValue];
     _hasOrderCount = [dic[@"hasOrderCount"] integerValue];
     _topLimit = [dic[@"topLimit"] integerValue];
+    _name = [NSString stringWithFormat:@"%@", dic[@"name"]];
 }
 
 

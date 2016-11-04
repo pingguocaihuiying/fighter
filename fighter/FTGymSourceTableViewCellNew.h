@@ -48,4 +48,5 @@ typedef NS_ENUM(NSInteger, FTGymPublicCourseType){//公开课课程表的类型
 
 -(void)setwithDic:(NSDictionary *)dic andCourseType:(FTGymPublicCourseType) courseType;
 - (void)setBlank;
+- (void)hideRightArrow;//此方法暂时修复了一个显示上的bug
 @end

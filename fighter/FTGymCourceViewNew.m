@@ -335,6 +335,7 @@
             }else{//暂无课程
                 [cell setBlank];
                 cell.hasCourseData = NO;
+                [cell hideRightArrow];//此方法暂时修复了一个显示上的bug
             }
     
         

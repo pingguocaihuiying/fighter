@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "FTBaseTableViewCell.h"
+#import "FTCourseHistoryBean.h"
 
 @interface FTCoachHistoryCourseTableViewCell : FTBaseTableViewCell
 
@@ -18,4 +19,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;//学生名字
 
 @property (strong, nonatomic) IBOutlet UIImageView *gradeImageView;//是否评分
+
+
+/**
+ 根据历史课程bean设置cell的显示
+
+ @param courseHistoryBean 历史课程bean
+ */
+- (void)setWithCourseHistoryBean:(FTCourseHistoryBean *)courseHistoryBean;
 @end
