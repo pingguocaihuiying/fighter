@@ -368,6 +368,7 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
     
     NSDictionary *dic = @{
         @"id": @33,
+        @"name": @"格斗之夜",
         @"createName": @"李懿哲",
         @"createTime": @1478142181000,
         @"updateName": @"李懿哲",
@@ -388,6 +389,7 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
     };
     NSDictionary *dic2 = @{
                           @"id": @33,
+                          @"name": @"格斗入门",
                           @"createName": @"茂凯",
                           @"createTime": @1478142181000,
                           @"updateName": @"李懿哲",
@@ -408,6 +410,7 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
                           };
     NSDictionary *dic3 = @{
                           @"id": @33,
+                          @"name": @"柔术从入门到精通",
                           @"createName": @"李懿哲",
                           @"createTime": @1478142181000,
                           @"updateName": @"李懿哲",
@@ -541,6 +544,11 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
         [cell setWithCourseHistoryBean:bean];
         return cell;
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    id bean = ((_coachCourseType == FTCoachCourseTypePublic) ? _historyArrayPublic : _historyArray )[indexPath.section][indexPath.row];
+    NSLog(@"课程bean:%@", bean);
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
