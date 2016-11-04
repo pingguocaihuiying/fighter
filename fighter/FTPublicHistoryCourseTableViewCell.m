@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    _orderCountLabel.textColor = [UIColor colorWithHex:0x22b33c];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
