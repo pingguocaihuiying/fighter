@@ -1049,6 +1049,8 @@
         NSArray *array = responseDic[@"data"];
         if (array && array != (id)[NSNull null]) {
             option(array);
+        }else{
+            option(nil);
         }
     } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         option(nil);

@@ -426,14 +426,14 @@
     NSLog(@"键盘弹出");
     if ([self.contentTextView isFirstResponder]) {
         CGRect rOfView = self.view.frame;
-        rOfView.origin.y = -200;
+        rOfView.origin.y = -136;
         self.view.frame = rOfView;
     }
 }
 - (void)keyBoardHide{
     NSLog(@"键盘收回");
     CGRect rOfView = self.view.frame;
-    rOfView.origin.y = 0;
+    rOfView.origin.y = 64;
     self.view.frame = rOfView;
 }
 
