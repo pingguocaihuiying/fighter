@@ -152,14 +152,23 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
     
     if (_coachCourseType == FTCoachCourseTypePublic) {
     //团课
+        //清空私教历史课程数据
+        [_historyArray removeAllObjects];
+        [_historyOrderTableView reloadData];
+        
         NSLog(@"更新团课信息");
         //设置按钮的状态
         _publicCourseButton.selected = YES;
         _personalCourseButton.selected = NO;
-        [self setPublicCourseView];
         [_gymSourceView removeFromSuperview]; //隐藏私教课程表
+        [self setPublicCourseView];
+        
     } else if(_coachCourseType == FTCoachCourseTypePersonal){
     //私教
+        //清空私教历史课程数据
+        [_historyArrayPublic removeAllObjects];
+        [_historyOrderTableView reloadData];
+        
         //设置按钮的状态
         _publicCourseButton.selected = NO;
         _personalCourseButton.selected = YES;
@@ -174,14 +183,14 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
 //设置团课课程表view
 - (void)setPublicCourseView{
     [self setGymSourceViewPublic];//设置私教课程表
-    [self getTimeSection];//获取时间段信息
+    [self getTimeSection];//获取时间段信息(成功之后再获取课程内容)
     [self getPublicCourseRecordFromServer];//获取团课课程记录信息
 }
 
 //设置私教课程表view
 - (void)setPersonalCourseView{
     [self setGymSourceView];//设置私课课程表
-    [self getTimeSection];//获取时间段信息
+    [self getTimeSection];//获取时间段信息(成功之后再获取课程内容)
     [self getTeachRecordFromServer];//获取私教课程记录信息
 }
 
@@ -197,7 +206,7 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
     _gymSourceView.courseType = FTOrderCourseTypeCoachSelf;
     _gymSourceView.delegate = self;
     [_gymSourceViewContainerView addSubview:_gymSourceView];
-    _gymSourceView.tableViewsHeight.constant = 42 * 4;
+//    _gymSourceView.tableViewsHeight.constant = 42 * 4;
     [_gymSourceView reloadTableViews];
 }
 
@@ -248,15 +257,22 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
  *  获取时间段信息
  */
 - (void)getTimeSection{
-    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [NetWorking getGymTimeSlotsById:[NSString stringWithFormat:@"%@", _corporationid] andOption:^(NSArray *array) {
+        
+        BOOL removeHUDSuccess;//是否成功移除，如果成功移除，可能还有其他HUD view，需要再次移除，直到返回false
+        removeHUDSuccess = [MBProgressHUD hideHUDForView:self.view animated:YES];
+        while (removeHUDSuccess) {
+            removeHUDSuccess = [MBProgressHUD hideHUDForView:self.view animated:YES];
+        }
+        
         _timeSectionsArray = array;
         if (_timeSectionsArray && _timeSectionsArray.count > 0) {
             //获取时间段信息后，根据内容多少设置tableviews的高度，再刷新一次tableview
             
             if (_coachCourseType == FTCoachCourseTypePublic) {
                 _gymSourceViewPublic.timeSectionsArray = _timeSectionsArray;
-                _gymSourceViewPublic.tableViewsHeight.constant = 42 * _timeSectionsArray.count;
+//                _gymSourceViewPublic.tableViewsHeight.constant = 42 * _timeSectionsArray.count;
                 [self getPublicTimeSectionsUsingInfo];
             } else if (_coachCourseType == FTCoachCourseTypePersonal){
                 _gymSourceView.timeSectionsArray = _timeSectionsArray;
@@ -272,9 +288,11 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
 
 //获取私教场地使用信息
 - (void)gettimeSectionsUsingInfo{
+    
     FTUserBean *localBean = [FTUserTools getLocalUser];
     NSString *userId = localBean.olduserid;//教练的id
     [NetWorking getCoachCourceInfoByCoachId:userId andGymId:[NSString stringWithFormat:@"%@", _corporationid] andOption:^(NSArray *array) {
+        
         _placesUsingInfoDic = [NSMutableDictionary new];
         if (array) {
             for(NSDictionary *dic in array){
@@ -295,11 +313,11 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
 
 //获取团课场地使用信息
 - (void)getPublicTimeSectionsUsingInfo{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     NSString *timestampString = [NSString stringWithFormat:@"%.0f", [[NSDate date]timeIntervalSince1970]];
     
     [NetWorking getGymSourceInfoById:[NSString stringWithFormat:@"%@", _corporationid]  andTimestamp:timestampString  andOption:^(NSArray *array) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        
         _placesUsingInfoDic = [NSMutableDictionary new];
         if (array) {
             for(NSDictionary *dic in array){
@@ -332,7 +350,7 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
             NSArray *arrayTemp = dict[@"data"];
             
             //测试用，给array赋值
-            arrayTemp = [self setTempArray];
+//            arrayTemp = [self setTempArray];
             
             [self sortArray:arrayTemp];
             
@@ -344,44 +362,24 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
 }
 
 - (NSArray *)setTempArray{
-//    NSArray *array = [{
-//        "id": @33,
-//        "createName": "李懿哲",
-//        "createTime": 1478142181000,
-//        "updateName": "李懿哲",
-//        "updateTime": 1478142181000,
-//        "createTimeTamp": "1478142181000",
-//        "updateTimeTamp": "1478142181000",
-//        "courseId": 94,
-//        "date": 1478142600000,
-//        "timeId": 44,
-//        "placeId": 0,
-//        "coachUserId": "4c364ca3120d4a01a2766f155c55cc3d",
-//        "hasOrderCount": 1,
-//        "statu": 1,
-//        "type": "0",
-//        "corporationid": 187,
-//        "label": "拳击",
-//        "timeSection": "11:10~12:00"
-//    },{@"":@""}];
-    
     NSDictionary *dic = @{
         @"id": @33,
         @"name": @"格斗之夜",
         @"createName": @"李懿哲",
-        @"createTime": @1478142181000,
+        @"createTime": @1472659200000,
         @"updateName": @"李懿哲",
-        @"updateTime": @1478142181000,
-        @"createTimeTamp": @"1478142181000",
-        @"updateTimeTamp": @"1478142181000",
+        @"updateTime": @1472659200000,
+        @"createTimeTamp": @"1472659200000",
+        @"updateTimeTamp": @"1472659200000",
         @"courseId": @94,
-        @"date": @1478142600000,
+        @"date": @1472659200000,
         @"timeId": @44,
         @"placeId": @0,
         @"coachUserId": @"4c364ca3120d4a01a2766f155c55cc3d",
         @"hasOrderCount": @2,
         @"topLimit" : @10,
         @"hasGradeCount" : @"1",
+        @"attendCount" : @"2",
         @"statu": @1,
         @"type": @"0",
         @"corporationid": @187,
@@ -407,6 +405,8 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
                           @"type": @"0",
                           @"corporationid": @187,
                           @"label": @"拳击",
+                          @"attendCount" : @"1",
+                          @"hasGradeCount" : @1,
                           @"timeSection": @"11:10~12:00"
                           };
     NSDictionary *dic3 = @{
@@ -445,7 +445,7 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
         
         SLog(@"dict:%@",dict);
         BOOL status = [dict[@"status"] isEqualToString:@"success"]? YES:NO;
-        if (status) {
+        if (1) {
             NSArray *arrayTemp = dict[@"data"];
             
             //测试用，给array赋值
@@ -509,6 +509,8 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
             [_coachCourseType == FTCoachCourseTypePublic ? _historyArrayPublic : _historyArray addObject:array];
             [dict setObject:array forKey:dateString];
         }
+        
+//        for(NSString *date in [dict.allKeys])
     }
 }
 

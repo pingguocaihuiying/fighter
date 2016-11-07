@@ -10,6 +10,8 @@
 
 @interface FTCoachHistoryCourseTableViewCell()
 @property (strong, nonatomic) IBOutlet UIView *dividingLineView;
+@property (strong, nonatomic) IBOutlet UIView *bgView;
+@property (strong, nonatomic) IBOutlet UIView *bottomDividingLine;
 
 @end
 
@@ -18,6 +20,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     _dividingLineView.backgroundColor = Cell_Space_Color;
+    _bgView.backgroundColor = [UIColor colorWithHex:0x191919];
+    _bottomDividingLine.backgroundColor = Cell_Space_Color;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

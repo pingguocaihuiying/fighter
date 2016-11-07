@@ -13,6 +13,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     _orderCountLabel.textColor = [UIColor colorWithHex:0x22b33c];
+    _bgView.backgroundColor = [UIColor colorWithHex:0x191919];
+    _bottomDividingLine.backgroundColor = Cell_Space_Color;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

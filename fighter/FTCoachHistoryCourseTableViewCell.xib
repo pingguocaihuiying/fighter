@@ -19,24 +19,24 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bvv-rP-Vte" userLabel="半透明黑色View">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Phg-bC-dHA" userLabel="bgView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                        <color key="backgroundColor" red="0.098039215690000001" green="0.098039215690000001" blue="0.098039215690000001" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9月4日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8me-4i-jhw">
-                        <rect key="frame" x="24" y="14" width="47" height="17"/>
+                        <rect key="frame" x="24" y="13" width="47" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18:00 - 19:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KdK-Pp-Q4v">
-                        <rect key="frame" x="117" y="14" width="87" height="17"/>
+                        <rect key="frame" x="117" y="13" width="87" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="王大锤" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QJw-NT-lQM">
-                        <rect key="frame" x="222" y="14" width="43" height="17"/>
+                        <rect key="frame" x="222" y="13" width="43" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -49,34 +49,46 @@
                         </constraints>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NDj-de-u0W">
-                        <rect key="frame" x="0.0" y="43" width="320" height="1"/>
+                        <rect key="frame" x="0.0" y="42" width="320" height="1"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="Eh8-K5-xzg"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nPQ-Dg-1lr" userLabel="底部分割线">
+                        <rect key="frame" x="0.0" y="41" width="320" height="1"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="RE0-3G-oro"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
+                    <constraint firstItem="Phg-bC-dHA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="1NO-bB-X7E"/>
+                    <constraint firstItem="Phg-bC-dHA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="2uN-aZ-MwA"/>
                     <constraint firstAttribute="bottom" secondItem="NDj-de-u0W" secondAttribute="bottom" id="4GR-1r-pwH"/>
-                    <constraint firstAttribute="trailing" secondItem="Bvv-rP-Vte" secondAttribute="trailing" id="4wP-sz-tkP"/>
                     <constraint firstItem="CXp-oJ-Q7q" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="87K-UM-9db"/>
                     <constraint firstItem="QJw-NT-lQM" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="AEf-zf-mej"/>
                     <constraint firstItem="KdK-Pp-Q4v" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="CxY-xa-Rcx"/>
-                    <constraint firstItem="Bvv-rP-Vte" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="GUE-8P-gd9"/>
                     <constraint firstItem="8me-4i-jhw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="16" id="Hq4-bs-MCT"/>
                     <constraint firstItem="KdK-Pp-Q4v" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Kal-fV-o8k"/>
+                    <constraint firstAttribute="bottom" secondItem="Phg-bC-dHA" secondAttribute="bottom" id="PfB-cY-pLp"/>
                     <constraint firstAttribute="trailing" secondItem="CXp-oJ-Q7q" secondAttribute="trailing" constant="8" id="QxI-51-Elg"/>
                     <constraint firstItem="CXp-oJ-Q7q" firstAttribute="leading" secondItem="QJw-NT-lQM" secondAttribute="trailing" constant="7" id="RQd-Mw-o3K"/>
-                    <constraint firstItem="Bvv-rP-Vte" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Uja-Ms-pIf"/>
-                    <constraint firstAttribute="bottom" secondItem="Bvv-rP-Vte" secondAttribute="bottom" id="ZPr-Wh-Ii8"/>
+                    <constraint firstAttribute="trailing" secondItem="nPQ-Dg-1lr" secondAttribute="trailing" id="e5A-Dg-3Yu"/>
+                    <constraint firstItem="NDj-de-u0W" firstAttribute="top" secondItem="nPQ-Dg-1lr" secondAttribute="bottom" id="mip-79-ABw"/>
+                    <constraint firstAttribute="trailing" secondItem="Phg-bC-dHA" secondAttribute="trailing" id="our-hW-njW"/>
                     <constraint firstAttribute="trailing" secondItem="NDj-de-u0W" secondAttribute="trailing" id="q16-yS-Pm9"/>
+                    <constraint firstItem="nPQ-Dg-1lr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="u12-8r-Y0l"/>
                     <constraint firstItem="8me-4i-jhw" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="xjw-Dn-8Cq"/>
                     <constraint firstItem="NDj-de-u0W" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ylg-Uq-ohc"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="bgView" destination="Phg-bC-dHA" id="DA4-W0-9X5"/>
+                <outlet property="bottomDividingLine" destination="nPQ-Dg-1lr" id="PIs-Au-Xet"/>
                 <outlet property="dateLabel" destination="8me-4i-jhw" id="4HH-Oa-85N"/>
                 <outlet property="dividingLineView" destination="NDj-de-u0W" id="zSJ-Dz-WSl"/>
                 <outlet property="gradeImageView" destination="CXp-oJ-Q7q" id="lzm-9I-8bb"/>
