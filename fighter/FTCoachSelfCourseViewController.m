@@ -211,6 +211,12 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
     //    _gymSourceView.courseType = FTOrderCourseTypeGym;
     _gymSourceViewPublic.frame = _gymSourceViewContainerView.bounds;
     _gymSourceViewPublic.delegate = self;
+    
+    __weak typeof(self) weakslef= self;
+    _gymSourceViewPublic.pushblock = ^(){
+        FTTraineeViewController *traineeListVC = [[FTTraineeViewController alloc]init];
+        [weakslef.navigationController pushViewController:traineeListVC animated:YES];
+    };
     [_gymSourceViewContainerView addSubview:_gymSourceViewPublic];
     
 }

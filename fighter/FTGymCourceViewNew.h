@@ -34,6 +34,7 @@
 
 @end
 
+typedef void(^PushBlock)();
 #import <UIKit/UIKit.h>
 //#import "FTGymSourceTableViewCell.h"
 #import "FTGymSourceView.h"
@@ -49,6 +50,6 @@
 @property (nonatomic, weak) id<FTGymCourseTableViewDelegate> delegate;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *tableViewsHeight;//tableViews的高度
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
-
+@property (nonatomic, copy) PushBlock pushblock;
 - (void)reloadTableViews;//刷新tableView
 @end

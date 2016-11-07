@@ -9,7 +9,8 @@
 #import "FTTraineeViewController.h"
 #import "FTTraineeCell.h"
 #import "FTTraineeHeaderView.h"
-
+#import "FTCollectionFowLaytout.h"
+#import "FTTraineeCollectionFowLaytout.h"
 
 @interface FTTraineeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -85,21 +86,28 @@
  */
 - (void) setCollectionView {
     
-    [self.collectionView registerNib:[UINib nibWithNibName:@"FTTraineeCell" bundle:nil] forCellWithReuseIdentifier:@"TraineeCell"];
-    [self.collectionView registerNib:[UINib nibWithNibName:@"FTTraineeHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
+    FTTraineeCollectionFowLaytout *layout = [FTTraineeCollectionFowLaytout new];
+    layout.headerItemSpace = 20*SCALE;
+    self.collectionView.collectionViewLayout =layout;
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
+    
+    [self.collectionView registerNib:[UINib nibWithNibName:@"FTTraineeCell" bundle:nil] forCellWithReuseIdentifier:@"TraineeCell"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"FTTraineeHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
+    
 }
 
 #pragma mark  - pull data from web 
 - (void) pullDataFromWebServer {
-    
-    self.collectionHeightConstraint.constant = 50 + ceil(15/4) *(80 * SCALE +20* SCALE) + 20* SCALE;
+//    double line = 15/4.0f;
+    double line = 15/4;
+    self.collectionHeightConstraint.constant = 50 + ceil(line) *(80 * SCALE +20* SCALE) + 20* SCALE;
+    NSLog(@"line number:%Lf",ceill(line));
+    NSLog(@"line :%f",line);
 }
 
-#pragma mark  - delegate 
-
+#pragma mark  - delegate
 - (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
 //    return _dataArray.count;
@@ -147,7 +155,7 @@
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(0, 24 * SCALE, 0, 24 * SCALE);
+    return UIEdgeInsetsMake(20*SCALE, 24 * SCALE, 20*SCALE, 24 * SCALE);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
