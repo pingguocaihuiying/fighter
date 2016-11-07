@@ -47,6 +47,8 @@
 #pragma mark  - 设置
 - (void) setSubviews {
 //    [self setNavigationbar];
+    [self setCollectionView];
+    [self pullDataFromWebServer];
 }
 
 
@@ -83,23 +85,25 @@
  */
 - (void) setCollectionView {
     
+    [self.collectionView registerNib:[UINib nibWithNibName:@"FTTraineeCell" bundle:nil] forCellWithReuseIdentifier:@"TraineeCell"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"FTTraineeHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
+    
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    
-    [self.collectionView registerNib:[UINib nibWithNibName:@"FTTraineeCell" bundle:nil] forCellWithReuseIdentifier:@"TraineeCell"];
-    [self.collectionView registerNib:[UINib nibWithNibName:@"SectionHeader" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
 }
 
 #pragma mark  - pull data from web 
 - (void) pullDataFromWebServer {
-
+    
+    self.collectionHeightConstraint.constant = 50 + ceil(15/4) *(80 * SCALE +20* SCALE) + 20* SCALE;
 }
 
 #pragma mark  - delegate 
 
 - (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return _dataArray.count;
+//    return _dataArray.count;
+    return 15;
 }
 
 
@@ -124,7 +128,8 @@
 
 - (__kindof UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     FTTraineeCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TraineeCell" forIndexPath:indexPath];
-    
+    cell.avatarImageView.image = [UIImage imageNamed:@"学员头像-无头像男"];
+    cell.nameLabel.text = @"traineeName";
     return cell;
 }
 

@@ -17,6 +17,7 @@
 #import "MJRefreshAutoNormalFooter.h"
 #import "FTGymCourceViewNew.h"
 #import "FTPublicHistoryCourseTableViewCell.h"
+#import "FTTraineeViewController.h"
 
 typedef NS_ENUM(NSInteger, FTCoachCourseType) {
     FTCoachCourseTypePublic,
@@ -557,6 +558,10 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     id bean = ((_coachCourseType == FTCoachCourseTypePublic) ? _historyArrayPublic : _historyArray )[indexPath.section][indexPath.row];
     NSLog(@"课程bean:%@", bean);
+    
+    FTTraineeViewController *traineeListVC = [[FTTraineeViewController alloc]init];
+    [self.navigationController pushViewController:traineeListVC animated:YES];
+    
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{

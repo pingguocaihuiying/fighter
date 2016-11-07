@@ -29,7 +29,6 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ybh-MZ-P6A" userLabel="Avatar Mask Image View"/>
                 </subviews>
             </view>
-            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Vu7-Hd-IaZ" secondAttribute="trailing" id="8ds-bG-als"/>
                 <constraint firstItem="Ybh-MZ-P6A" firstAttribute="trailing" secondItem="Vu7-Hd-IaZ" secondAttribute="trailing" id="JL2-8p-5ED"/>
