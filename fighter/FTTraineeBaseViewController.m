@@ -45,13 +45,13 @@
     self.navigationItem.leftBarButtonItem = leftButton;
     
     //导航栏右侧按钮
-    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc]initWithTitle:@"个人中心"
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc]initWithTitle:@"个人主页"
                                                                       style:UIBarButtonItemStyleDone
                                                                      target:self
                                                                      action:@selector(gotoHomePage:)];
     
     [rightBarButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    self.navigationItem.leftBarButtonItem = rightBarButton;
+    self.navigationItem.rightBarButtonItem = rightBarButton;
     
 }
 
@@ -60,8 +60,9 @@
 
 #pragma mark - response
 - (void) backBtnAction:(id) sender {
-
+    [self.navigationController popViewControllerAnimated:YES];
 }
+
 - (void) gotoHomePage:(id) sender {
     
 }

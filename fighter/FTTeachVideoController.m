@@ -42,6 +42,7 @@
 
 #import "SectionHeader.h"
 #import "FTCollectionFowLaytout.h"
+#import "FTTraineeCollectionFowLaytout.h"
 
 @interface FTTeachVideoController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FTVideoDetailDelegate,FTSelectCellDelegate, UIAlertViewDelegate> {
 
@@ -209,9 +210,9 @@
 #pragma -mark - 初始化collectionView
 - (void)initCollectionView{
     
-    FTCollectionFowLaytout *layout = [FTCollectionFowLaytout new];
-    layout.naviHeight = 40;
-    
+//    FTCollectionFowLaytout *layout = [FTCollectionFowLaytout new];
+//    layout.naviHeight = 40;
+    FTTraineeCollectionFowLaytout *layout = [FTTraineeCollectionFowLaytout new];
     self.collectionView.collectionViewLayout =layout;
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
