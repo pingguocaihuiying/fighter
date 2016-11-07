@@ -1,24 +1,18 @@
 //
-//  FTTraineeCollectionViewSectionHeader.m
+//  FTTraineeHeaderView.m
 //  fighter
 //
-//  Created by kang on 2016/10/31.
+//  Created by kang on 2016/11/7.
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
 #import "FTTraineeHeaderView.h"
 
-/**
- Trainee Collection View Section Header
- */
 @implementation FTTraineeHeaderView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
 }
-*/
 
 @end

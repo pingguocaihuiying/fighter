@@ -65,12 +65,13 @@
 		3D4122361D506A4B007EB996 /* FTPropertyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4122341D506A4B007EB996 /* FTPropertyCell.m */; };
 		3D4122371D506A4B007EB996 /* FTPropertyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4122351D506A4B007EB996 /* FTPropertyCell.xib */; };
 		3D430BD91DCB0FDE00532D01 /* FTTraineeSkillSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D430BD81DCB0FDE00532D01 /* FTTraineeSkillSectionHeaderView.m */; };
+		3D430BDD1DD02E3100532D01 /* FTTraineeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D430BDB1DD02E3100532D01 /* FTTraineeHeaderView.m */; };
+		3D430BDE1DD02E3100532D01 /* FTTraineeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D430BDC1DD02E3100532D01 /* FTTraineeHeaderView.xib */; };
+		3D430BE21DD05A4300532D01 /* FTTraineeCollectionFowLaytout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D430BE11DD05A4300532D01 /* FTTraineeCollectionFowLaytout.m */; };
 		3D484D5A1DC72CB100E2EC8C /* FTTraineeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D484D581DC72CB100E2EC8C /* FTTraineeViewController.m */; };
 		3D484D5B1DC72CB100E2EC8C /* FTTraineeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D484D591DC72CB100E2EC8C /* FTTraineeViewController.xib */; };
 		3D484D601DC7349B00E2EC8C /* FTTraineeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D484D5E1DC7349B00E2EC8C /* FTTraineeCell.m */; };
 		3D484D611DC7349B00E2EC8C /* FTTraineeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D484D5F1DC7349B00E2EC8C /* FTTraineeCell.xib */; };
-		3D484D671DC7369000E2EC8C /* FTTraineeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D484D661DC7369000E2EC8C /* FTTraineeHeaderView.m */; };
-		3D484D691DC7370B00E2EC8C /* FTTraineeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D484D681DC7370B00E2EC8C /* FTTraineeHeaderView.xib */; };
 		3D484D6C1DC843EA00E2EC8C /* FTTraineeBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D484D6B1DC843EA00E2EC8C /* FTTraineeBaseViewController.m */; };
 		3D484D721DC8772F00E2EC8C /* FTTraineeSkillViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D484D701DC8772F00E2EC8C /* FTTraineeSkillViewController.m */; };
 		3D484D731DC8772F00E2EC8C /* FTTraineeSkillViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D484D711DC8772F00E2EC8C /* FTTraineeSkillViewController.xib */; };
@@ -563,15 +564,17 @@
 		3D4122351D506A4B007EB996 /* FTPropertyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTPropertyCell.xib; sourceTree = "<group>"; };
 		3D430BD71DCB0FDE00532D01 /* FTTraineeSkillSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeSkillSectionHeaderView.h; sourceTree = "<group>"; };
 		3D430BD81DCB0FDE00532D01 /* FTTraineeSkillSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeSkillSectionHeaderView.m; sourceTree = "<group>"; };
+		3D430BDA1DD02E3100532D01 /* FTTraineeHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeHeaderView.h; sourceTree = "<group>"; };
+		3D430BDB1DD02E3100532D01 /* FTTraineeHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeHeaderView.m; sourceTree = "<group>"; };
+		3D430BDC1DD02E3100532D01 /* FTTraineeHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTraineeHeaderView.xib; sourceTree = "<group>"; };
+		3D430BE01DD05A4300532D01 /* FTTraineeCollectionFowLaytout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeCollectionFowLaytout.h; sourceTree = "<group>"; };
+		3D430BE11DD05A4300532D01 /* FTTraineeCollectionFowLaytout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeCollectionFowLaytout.m; sourceTree = "<group>"; };
 		3D484D571DC72CB100E2EC8C /* FTTraineeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeViewController.h; sourceTree = "<group>"; };
 		3D484D581DC72CB100E2EC8C /* FTTraineeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeViewController.m; sourceTree = "<group>"; };
 		3D484D591DC72CB100E2EC8C /* FTTraineeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTraineeViewController.xib; sourceTree = "<group>"; };
 		3D484D5D1DC7349B00E2EC8C /* FTTraineeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeCell.h; sourceTree = "<group>"; };
 		3D484D5E1DC7349B00E2EC8C /* FTTraineeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeCell.m; sourceTree = "<group>"; };
 		3D484D5F1DC7349B00E2EC8C /* FTTraineeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTraineeCell.xib; sourceTree = "<group>"; };
-		3D484D651DC7369000E2EC8C /* FTTraineeHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeHeaderView.h; sourceTree = "<group>"; };
-		3D484D661DC7369000E2EC8C /* FTTraineeHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeHeaderView.m; sourceTree = "<group>"; };
-		3D484D681DC7370B00E2EC8C /* FTTraineeHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTraineeHeaderView.xib; sourceTree = "<group>"; };
 		3D484D6A1DC843EA00E2EC8C /* FTTraineeBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeBaseViewController.h; sourceTree = "<group>"; };
 		3D484D6B1DC843EA00E2EC8C /* FTTraineeBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeBaseViewController.m; sourceTree = "<group>"; };
 		3D484D6F1DC8772F00E2EC8C /* FTTraineeSkillViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeSkillViewController.h; sourceTree = "<group>"; };
@@ -1596,6 +1599,15 @@
 			name = TraineeSkillSectionheader;
 			sourceTree = "<group>";
 		};
+		3D430BDF1DD059F900532D01 /* traineeCollectionViewLayout */ = {
+			isa = PBXGroup;
+			children = (
+				3D430BE01DD05A4300532D01 /* FTTraineeCollectionFowLaytout.h */,
+				3D430BE11DD05A4300532D01 /* FTTraineeCollectionFowLaytout.m */,
+			);
+			name = traineeCollectionViewLayout;
+			sourceTree = "<group>";
+		};
 		3D484D551DC72BEE00E2EC8C /* 训练 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1619,6 +1631,7 @@
 		3D484D5C1DC730AC00E2EC8C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3D430BDF1DD059F900532D01 /* traineeCollectionViewLayout */,
 				3D484D641DC7360100E2EC8C /* TraineeSectionHeaderView */,
 				3D484D621DC734D600E2EC8C /* TraineeCell */,
 				3D430BD61DCB0F4800532D01 /* TraineeSkillSectionheader */,
@@ -1651,9 +1664,9 @@
 		3D484D641DC7360100E2EC8C /* TraineeSectionHeaderView */ = {
 			isa = PBXGroup;
 			children = (
-				3D484D651DC7369000E2EC8C /* FTTraineeHeaderView.h */,
-				3D484D661DC7369000E2EC8C /* FTTraineeHeaderView.m */,
-				3D484D681DC7370B00E2EC8C /* FTTraineeHeaderView.xib */,
+				3D430BDA1DD02E3100532D01 /* FTTraineeHeaderView.h */,
+				3D430BDB1DD02E3100532D01 /* FTTraineeHeaderView.m */,
+				3D430BDC1DD02E3100532D01 /* FTTraineeHeaderView.xib */,
 			);
 			name = TraineeSectionHeaderView;
 			sourceTree = "<group>";
@@ -3991,6 +4004,7 @@
 				3D484D811DC87FCB00E2EC8C /* FTTraineeSkillCell.xib in Resources */,
 				3DDE29BE1D2BB39F00876B30 /* FTPayViewController.xib in Resources */,
 				3D6ABC891D66E43600CD37C8 /* FTDailyTaskViewController.xib in Resources */,
+				3D430BDE1DD02E3100532D01 /* FTTraineeHeaderView.xib in Resources */,
 				3D4C6EDF1D8687E600881208 /* FTGymCommentViewController.xib in Resources */,
 				3DDE29B91D2BAA8200876B30 /* FTDrawerPayCell.xib in Resources */,
 				E6BFBEE71D23D55B0044F4B0 /* FTLaunchNewMatchViewController.xib in Resources */,
@@ -4053,7 +4067,6 @@
 				E6C3C5F61DBB49F4007B199D /* FTGymSourceTableViewCellNew.xib in Resources */,
 				3D5FB4931CDC311400FC1809 /* FTAssetsViewController.xib in Resources */,
 				3D7B98C41CE08DEE00B80B8D /* FTNewPasswordVC.xib in Resources */,
-				3D484D691DC7370B00E2EC8C /* FTTraineeHeaderView.xib in Resources */,
 				E696E4E11D2A39F800A89B60 /* FTOpponentCell.xib in Resources */,
 				3D4C6ED31D864FCF00881208 /* FTGymCommentCell.xib in Resources */,
 				E6035EBF1CC0C39500B10D36 /* FTCommentViewController.xib in Resources */,
@@ -4289,7 +4302,7 @@
 			files = (
 				E6549DF61D000AEB00B27483 /* FTRecordRankTableViewCell.m in Sources */,
 				3D6DA0E11CEEA96D00BAA8F0 /* FTBoxerCenter.m in Sources */,
-				3D484D671DC7369000E2EC8C /* FTTraineeHeaderView.m in Sources */,
+				3D430BDD1DD02E3100532D01 /* FTTraineeHeaderView.m in Sources */,
 				E65EFC201CC89BD40039EE8A /* FTUserConfig.m in Sources */,
 				3D344FE51D5B048300786FD4 /* FTDuiBaWebView.m in Sources */,
 				3DF06C711D7EBB2700623E45 /* FTShopNewViewController.m in Sources */,
@@ -4497,6 +4510,7 @@
 				E66BC0041D9A18F100B492D3 /* FTOrderCoachViewController.m in Sources */,
 				E66BC0111D9A755000B492D3 /* FTCoachHistoryCourseTableViewCell.m in Sources */,
 				E6B458D21CB75DA200FB4261 /* FTInformationViewController.m in Sources */,
+				3D430BE21DD05A4300532D01 /* FTTraineeCollectionFowLaytout.m in Sources */,
 				3DE95BA71CD86FA4005BF85C /* FTLoginViewController.m in Sources */,
 				3DFC414F1D083A3F0067AC72 /* TAAnimatedDotView.m in Sources */,
 				E6C4D7F11CEC5FCE00D73BFC /* FTArenaNetwork.m in Sources */,

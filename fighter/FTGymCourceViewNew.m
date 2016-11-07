@@ -354,6 +354,13 @@
         NSString *timeSection = _timeSectionsArray[indexPath.row][@"timeSection"];
         [_delegate courseClickedWithCell:cell andDay:_curWeekDay andTimeSection:timeSection andDateString:_curDateString andTimeStamp:_curTimeStampString];
     }
+    
+    
+    //测试代码
+    if (self.pushblock) {
+        
+        self.pushblock();
+    }
 }
 
 @end
