@@ -11,6 +11,7 @@
 #import "FTTraineeHeaderView.h"
 #import "FTCollectionFowLaytout.h"
 #import "FTTraineeCollectionFowLaytout.h"
+#import "FTTraineeSkillViewController.h"
 
 @interface FTTraineeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -142,7 +143,9 @@
 }
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-
+    
+    FTTraineeSkillViewController *skillVC = [[FTTraineeSkillViewController alloc]init];
+    [self.navigationController pushViewController:skillVC animated:YES];
 }
 
 #pragma mark UICollectionViewDelegateFlowLayout

@@ -470,6 +470,7 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
 
 
 - (void) sortArray:(NSArray *)tempArray {
+    
     if (_coachCourseType == FTCoachCourseTypePublic) {//公开课
         if (!_historyArrayPublic) {
             _historyArrayPublic = [[NSMutableArray alloc]init];
@@ -491,16 +492,15 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
         [bean setValuesWithDic:dic];
         
 //        NSString *currentYearMonthString = [NSDate currentYearMonthString];
-//        NSString *dateString = [NSDate yearMonthString:bean.date];
+        NSString *dateString = [NSDate yearMonthString:bean.date];
         NSString *currentYearMonthString = [NSDate currentYearString];
-        NSString *dateString = [NSDate yearString:bean.date];
+        NSString *yearString = [NSDate yearString:bean.date];
         
-        
-        if ([dateString isEqualToString:currentYearMonthString]) {
+        // 同一年的只显示月日
+        if ([yearString isEqualToString:currentYearMonthString]) {
             bean.dateString = [NSDate monthDayStringWithWordSpace:bean.date];
             
-        }else {
-            
+        }else { // 不同年的显示年月日
             bean.dateString = [NSDate dateStringWithWordSpace:bean.date];
         }
         
