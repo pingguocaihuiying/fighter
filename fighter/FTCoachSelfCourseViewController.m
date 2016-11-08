@@ -495,12 +495,12 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
         NSString *currentYearMonthString = [NSDate currentYearString];
         NSString *yearString = [NSDate yearString:bean.date];
 
+
         if ([yearString isEqualToString:currentYearMonthString]) {
             bean.dateString = [NSDate monthDayStringWithWordSpace:bean.date];
         }else {
             bean.dateString = [NSDate dateStringWithWordSpace:bean.date];
         }
-        
         
         NSString *dateString = _coachCourseType == FTCoachCourseTypePublic ? [NSDate dateStringWithWordSpace:bean.date] : [NSDate dateStringWithYearMonth:bean.date];
         NSLog(@"dateString:%@",dateString);
@@ -586,11 +586,11 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
         FTCourseHistoryBean *bean = [_historyArrayPublic[section] firstObject];
         NSLog(@"beanFoo: %@", bean.date);
         
-        NSString *currentYearMonthString = [NSDate currentYearString];
+        NSString *currentYearString = [NSDate currentYearString];
         NSString *yearString = [NSDate yearString:bean.date];
         
         NSString *date = @"";
-        if ([yearString isEqualToString:currentYearMonthString]) {
+        if ([yearString isEqualToString:currentYearString]) {
             date = [NSDate monthDayStringWithWordSpace:bean.date];
         }else {
             date = [NSDate dateStringWithWordSpace:bean.date];
@@ -599,10 +599,30 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
         label1.text = date;
         [headerView addSubview:label1];
     } else {
-        UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(16, 4, 75, 12)];
+        FTCourseHistoryBean *bean = [_historyArray[section] firstObject];
+        NSString *currentYearMonthString = [NSDate currentYearMonthString2];
+        NSString *yearMonthString = [NSDate dateStringWithYearMonth:bean.date];
+        
+        NSString *currentMonthString = [NSDate currentMonthString];
+        NSString *monthString = [NSDate monthString:bean.date];
+        
+        NSString *date = @"";
+        UILabel *label1;
+        if ([yearMonthString isEqualToString:currentYearMonthString]) {
+            if ([monthString isEqualToString:currentMonthString]) {
+                    date = @"本月完成课程";
+            } else {
+                date = [NSString stringWithFormat:@"%@月完成课程", monthString];
+            }
+            label1 = [[UILabel alloc]initWithFrame:CGRectMake(16, 4, 75, 12)];
+        }else {
+            date = [NSString stringWithFormat:@"%@完成课程", yearMonthString];
+            label1 = [[UILabel alloc]initWithFrame:CGRectMake(16, 4, 120, 12)];
+        }
+        
         label1.textColor = [UIColor colorWithHex:0xb4b4b4];
         label1.font = [UIFont systemFontOfSize:12];
-        label1.text = @"本月完成课程";
+        label1.text = date;
         [headerView addSubview:label1];
         
         UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(label1.frame.origin.x + label1.width, 4, 50, 12)];
