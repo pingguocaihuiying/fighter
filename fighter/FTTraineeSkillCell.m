@@ -15,6 +15,7 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.5];
     self.skillLabelWidthConstraint.constant = self.skillLabelWidthConstraint.constant *SCALE;
+    self.bottomLine.backgroundColor = Cell_Space_Color;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

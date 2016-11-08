@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ 学员collection view section headerView
+ */
 @interface FTTraineeHeaderView : UICollectionReusableView
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeSectionLabel;

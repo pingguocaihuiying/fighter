@@ -175,7 +175,7 @@
                                                                            toItem:nil
                                                                         attribute:NSLayoutAttributeNotAnAttribute
                                                                        multiplier:1.0
-                                                                         constant:0.5];
+                                                                         constant:1.0];
     [self addConstraint:topConstraint];
     [self addConstraint:rightConstraint];
     [self addConstraint:leftConstraint];
@@ -222,13 +222,13 @@
                                                                        multiplier:1.0
                                                                          constant:0];
     
-    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:self.topLine
+    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:self.bottomLine
                                                                         attribute:NSLayoutAttributeHeight
                                                                         relatedBy:NSLayoutRelationGreaterThanOrEqual
                                                                            toItem:nil
                                                                         attribute:NSLayoutAttributeNotAnAttribute
                                                                        multiplier:1.0
-                                                                         constant:0.5];
+                                                                         constant:1.0];
     
     [self addConstraint:topConstraint];
     [self addConstraint:rightConstraint];
