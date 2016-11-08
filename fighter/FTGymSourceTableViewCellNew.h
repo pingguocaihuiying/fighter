@@ -30,7 +30,8 @@ typedef NS_ENUM(NSInteger, FTGymPublicCourseType){//公开课课程表的类型
 @property (strong, nonatomic) IBOutlet UILabel *courseStatusLabel;//课程状态：一结束
 @property (nonatomic, assign) BOOL canOrder;//可以预约：绿色
 @property (nonatomic, assign) BOOL hasOrder;//已经预约：有红圈
-@property (nonatomic, assign) BOOL isPast;//是否已经结束
+@property (nonatomic, assign) BOOL isPast;//是否是过去的，细分为：1⃣️正在进行中2⃣️确实已经结束了
+@property (nonatomic, assign) BOOL isUnderway;//是否正在进行中,默认否
 @property (nonatomic, assign) BOOL isFull;//是否已经满员 *注：满员是不可约的充分条件
 @property (strong, nonatomic) IBOutlet UIImageView *hasOrderImageView;
 

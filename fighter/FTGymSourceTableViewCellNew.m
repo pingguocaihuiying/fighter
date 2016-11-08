@@ -14,6 +14,7 @@
     [super awakeFromNib];
     //设置默认值
     _isPast = YES;
+    _isUnderway = NO;
     _hasOrder = NO;
     _canOrder = NO;
     
@@ -38,18 +39,32 @@
     
     //是否是过去的
     if (_isPast) {
-        
-        _courseStatusLabel.text = @"已结束";
-        _courseStatusLabel.hidden = NO;
-        
-        _courseNameLabel.textColor = [UIColor colorWithHex:0x5a5a5a];
-        _courseStatusLabel.textColor = [UIColor colorWithHex:0x505050];
-        _courseTimeSectionLabel.textColor = [UIColor colorWithHex:0x505050];
-        _coachNameLabel.textColor = [UIColor colorWithHex:0x505050];
-        
-        _hasOrderImageView.hidden = YES;
-        _orderStatusLabel.hidden = YES;
-        _statusButton.hidden = YES;
+        if (_isUnderway) {//正在进行中
+            _courseStatusLabel.text = @"进行中";
+            _courseStatusLabel.hidden = NO;
+            
+            _courseNameLabel.textColor = [UIColor colorWithHex:0x5a5a5a];
+            _courseStatusLabel.textColor = [UIColor colorWithHex:0x505050];
+            _courseTimeSectionLabel.textColor = [UIColor colorWithHex:0x505050];
+            _coachNameLabel.textColor = [UIColor colorWithHex:0x505050];
+            
+            _hasOrderImageView.hidden = YES;
+            _orderStatusLabel.hidden = YES;
+            _statusButton.hidden = YES;
+        } else {//确实已经过去了
+            _courseStatusLabel.text = @"已结束";
+            _courseStatusLabel.hidden = NO;
+            
+            _courseNameLabel.textColor = [UIColor colorWithHex:0x5a5a5a];
+            _courseStatusLabel.textColor = [UIColor colorWithHex:0x505050];
+            _courseTimeSectionLabel.textColor = [UIColor colorWithHex:0x505050];
+            _coachNameLabel.textColor = [UIColor colorWithHex:0x505050];
+            
+            _hasOrderImageView.hidden = YES;
+            _orderStatusLabel.hidden = YES;
+            _statusButton.hidden = YES;
+        }
+
     } else {
         //是否已经预约该课
         

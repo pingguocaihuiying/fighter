@@ -353,11 +353,11 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
         
         SLog(@"dict:%@",dict);
         BOOL status = [dict[@"status"] isEqualToString:@"success"]? YES:NO;
-        if (status) {
+        if (1) {
             NSArray *arrayTemp = dict[@"data"];
             
             //测试用，给array赋值
-//            arrayTemp = [self setTempArray];
+            arrayTemp = [self setTempArray];
             
             [self sortArray:arrayTemp];
             
@@ -420,13 +420,13 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
                           @"id": @33,
                           @"name": @"柔术从入门到精通",
                           @"createName": @"李懿哲",
-                          @"createTime": @1478142181000,
+                          @"createTime": @1422903722000,
                           @"updateName": @"李懿哲",
-                          @"updateTime": @1478142181000,
+                          @"updateTime": @1422903722000,
                           @"createTimeTamp": @"1478142181000",
                           @"updateTimeTamp": @"1478142181000",
                           @"courseId": @94,
-                          @"date": @1478142600000,
+                          @"date": @1422903722000,
                           @"timeId": @44,
                           @"placeId": @0,
                           @"coachUserId": @"4c364ca3120d4a01a2766f155c55cc3d",
@@ -493,14 +493,13 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
 //        NSString *currentYearMonthString = [NSDate currentYearMonthString];
 //        NSString *dateString = [NSDate yearMonthString:bean.date];
         NSString *currentYearMonthString = [NSDate currentYearString];
-        NSString *dateString = [NSDate yearString:bean.date];
+        NSString *yearString = [NSDate yearString:bean.date];
+        NSString *dateString = _coachCourseType == FTCoachCourseTypePublic ? [NSDate dateStringWithWordSpace:bean.date] : [NSDate dateStringWithYearMonth:bean.date];
         
         
-        if ([dateString isEqualToString:currentYearMonthString]) {
+        if ([yearString isEqualToString:currentYearMonthString]) {
             bean.dateString = [NSDate monthDayStringWithWordSpace:bean.date];
-            
         }else {
-            
             bean.dateString = [NSDate dateStringWithWordSpace:bean.date];
         }
         
@@ -575,22 +574,46 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
     headerView.backgroundColor = [UIColor colorWithHex:0x282828];
     headerView.frame = CGRectMake(0, 0, tableView.width, 20);
     
+    //
 //    //下半部view
 //    UIView *contentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.width, 20)];
 //    contentView.backgroundColor = [UIColor colorWithHex:0x282828];
 //    [headerView addSubview:contentView];
     
-    UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(16, 4, 75, 12)];
-    label1.textColor = [UIColor colorWithHex:0xb4b4b4];
-    label1.font = [UIFont systemFontOfSize:12];
-    label1.text = @"本月完成课程";
-    [headerView addSubview:label1];
+    if (_coachCourseType == FTCoachCourseTypePublic) {
+        UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(16, 4, 150, 12)];
+        label1.textColor = [UIColor colorWithHex:0xb4b4b4];
+        label1.font = [UIFont systemFontOfSize:12];
+        FTCourseHistoryBean *bean = [_historyArrayPublic[section] firstObject];
+        NSLog(@"beanFoo: %@", bean.date);
+        
+        NSString *currentYearMonthString = [NSDate currentYearString];
+        NSString *yearString = [NSDate yearString:bean.date];
+        
+        NSString *date = @"";
+        if ([yearString isEqualToString:currentYearMonthString]) {
+            date = [NSDate monthDayStringWithWordSpace:bean.date];
+        }else {
+            date = [NSDate dateStringWithWordSpace:bean.date];
+        }
+        
+        label1.text = date;
+        [headerView addSubview:label1];
+    } else {
+        UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(16, 4, 75, 12)];
+        label1.textColor = [UIColor colorWithHex:0xb4b4b4];
+        label1.font = [UIFont systemFontOfSize:12];
+        label1.text = @"本月完成课程";
+        [headerView addSubview:label1];
+        
+        UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(label1.frame.origin.x + label1.width, 4, 50, 12)];
+        label2.textColor = [UIColor colorWithHex:0xb4b4b4];
+        label2.text = [NSString stringWithFormat:@"%ld节", [_historyArray[section] count] ];
+        label2.font = [UIFont systemFontOfSize:12];
+        [headerView addSubview:label2];
+    }
     
-    UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(label1.frame.origin.x + label1.width, 4, 50, 12)];
-    label2.textColor = [UIColor colorWithHex:0xb4b4b4];
-    label2.text = [NSString stringWithFormat:@"%ld节",[(_coachCourseType == FTCoachCourseTypePublic ? _historyArrayPublic : _historyArray)[section] count] ];
-    label2.font = [UIFont systemFontOfSize:12];
-    [headerView addSubview:label2];
+
     
     return headerView;
 }
