@@ -14,6 +14,9 @@
     [super awakeFromNib];
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+//    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.5];
+    self.bottomLine.backgroundColor = Cell_Space_Color;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -58,7 +58,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JuJ-V4-IWX">
                         <color key="backgroundColor" red="0.098039215690000001" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="0.5" id="pTl-RB-m2t"/>
+                            <constraint firstAttribute="height" constant="1" id="pTl-RB-m2t"/>
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="前去编辑箭头-向右" translatesAutoresizingMaskIntoConstraints="NO" id="RSZ-me-mOL">
@@ -91,6 +91,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="bottomLine" destination="JuJ-V4-IWX" id="wTC-ri-E7j"/>
                 <outlet property="gradeLabel" destination="6M8-ih-B55" id="xOC-pP-HhC"/>
                 <outlet property="levelImage1" destination="v48-vx-DPB" id="8c8-zr-MXr"/>
                 <outlet property="levelImage2" destination="86S-FM-xBE" id="Nh9-31-Zlj"/>

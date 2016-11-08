@@ -104,6 +104,7 @@
 		3D4C6EE31D87A04C00881208 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C6EE21D87A04C00881208 /* UIPlaceHolderTextView.m */; };
 		3D4C6EE71D87A4C200881208 /* UIRemoveImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C6EE61D87A4C200881208 /* UIRemoveImageView.m */; };
 		3D4C6EEB1D87D43400881208 /* FTCameraAndAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C6EEA1D87D43400881208 /* FTCameraAndAlbum.m */; };
+		3D4CBDAB1DD1AE64005A20E4 /* FTTraineeSubmitPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CBDAA1DD1AE64005A20E4 /* FTTraineeSubmitPopupView.m */; };
 		3D500DE91D6AFE1900ACBD0D /* UIView+UIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D500DE81D6AFE1900ACBD0D /* UIView+UIViewController.m */; };
 		3D500DEC1D6C460600ACBD0D /* NSDate+TaskDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D500DEB1D6C460600ACBD0D /* NSDate+TaskDate.m */; };
 		3D500DF01D6D4AEE00ACBD0D /* FTLocalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D500DEF1D6D4AEE00ACBD0D /* FTLocalNotification.m */; };
@@ -629,6 +630,8 @@
 		3D4C6EE61D87A4C200881208 /* UIRemoveImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIRemoveImageView.m; sourceTree = "<group>"; };
 		3D4C6EE91D87D43400881208 /* FTCameraAndAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCameraAndAlbum.h; sourceTree = "<group>"; };
 		3D4C6EEA1D87D43400881208 /* FTCameraAndAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCameraAndAlbum.m; sourceTree = "<group>"; };
+		3D4CBDA91DD1AE64005A20E4 /* FTTraineeSubmitPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeSubmitPopupView.h; sourceTree = "<group>"; };
+		3D4CBDAA1DD1AE64005A20E4 /* FTTraineeSubmitPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeSubmitPopupView.m; sourceTree = "<group>"; };
 		3D500DE71D6AFE1900ACBD0D /* UIView+UIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+UIViewController.h"; sourceTree = "<group>"; };
 		3D500DE81D6AFE1900ACBD0D /* UIView+UIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+UIViewController.m"; sourceTree = "<group>"; };
 		3D500DEA1D6C460500ACBD0D /* NSDate+TaskDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TaskDate.h"; sourceTree = "<group>"; };
@@ -1631,6 +1634,7 @@
 		3D484D5C1DC730AC00E2EC8C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3D4CBDA81DD1AD73005A20E4 /* submitPopUpView */,
 				3D430BDF1DD059F900532D01 /* traineeCollectionViewLayout */,
 				3D484D641DC7360100E2EC8C /* TraineeSectionHeaderView */,
 				3D484D621DC734D600E2EC8C /* TraineeCell */,
@@ -1799,6 +1803,15 @@
 				3D4C6EEA1D87D43400881208 /* FTCameraAndAlbum.m */,
 			);
 			name = cameraAndalbum;
+			sourceTree = "<group>";
+		};
+		3D4CBDA81DD1AD73005A20E4 /* submitPopUpView */ = {
+			isa = PBXGroup;
+			children = (
+				3D4CBDA91DD1AE64005A20E4 /* FTTraineeSubmitPopupView.h */,
+				3D4CBDAA1DD1AE64005A20E4 /* FTTraineeSubmitPopupView.m */,
+			);
+			name = submitPopUpView;
 			sourceTree = "<group>";
 		};
 		3D500DED1D6D4AC200ACBD0D /* model */ = {
@@ -4401,6 +4414,7 @@
 				3D5FB4B91CDC41A500FC1809 /* FTAlbumsViewController.m in Sources */,
 				E6D74A471CB7B7EE00854337 /* UIButton+countDown.m in Sources */,
 				3D5FB4921CDC311400FC1809 /* FTAssetsViewController.m in Sources */,
+				3D4CBDAB1DD1AE64005A20E4 /* FTTraineeSubmitPopupView.m in Sources */,
 				3D6DA0E71CEEE24100BAA8F0 /* FTBoxerHeaderView.m in Sources */,
 				E6AA294B1D46317B0039FDB0 /* FTMatchBean.m in Sources */,
 				3D13FB301D1A96490060B9B4 /* FTPracticeCell.m in Sources */,

@@ -52,7 +52,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NPR-2d-OWm" userLabel="Bottom Line">
                         <color key="backgroundColor" red="0.23527306318283081" green="0.23530593514442444" blue="0.23526191711425781" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="0.5" id="c5Z-Ja-zBL"/>
+                            <constraint firstAttribute="height" constant="1" id="c5Z-Ja-zBL"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -74,6 +74,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="addButton" destination="moS-1X-LDE" id="rzp-R9-Nd3"/>
+                <outlet property="bottomLine" destination="NPR-2d-OWm" id="o5C-Bo-tH6"/>
                 <outlet property="editableGradeLabel" destination="jRJ-fX-Chz" id="Y44-hS-VRR"/>
                 <outlet property="gradeLabel" destination="Mye-Ad-5un" id="qVL-ho-RPf"/>
                 <outlet property="skillLabel" destination="kl1-QQ-ojd" id="yzn-qt-P7f"/>

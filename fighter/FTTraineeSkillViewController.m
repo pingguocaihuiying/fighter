@@ -10,6 +10,7 @@
 #import "FTTraineeSkillCell.h"
 #import "FTTraineeSkillSectionHeaderView.h"
 #import "FTTraineeGradeViewController.h"
+#import "FTTraineeSubmitPopupView.h"
 
 @interface FTTraineeSkillViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) NSArray *dataArray;
@@ -23,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigationbarStyle];
+    [self setNavigationbar];
     [self setSubViews];
 }
 
@@ -38,8 +39,7 @@
 /**
  设置到导航栏样式
  */
-- (void) setNavigationbarStyle {
-    
+- (void) setNavigationbar {
     
     //导航栏右侧按钮
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc]initWithTitle:@"发表"
@@ -48,7 +48,7 @@
                                                                      action:@selector(submitAction:)];
     
     [rightBarButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    self.navigationItem.leftBarButtonItem = rightBarButton;
+    self.navigationItem.rightBarButtonItem = rightBarButton;
     
 }
 
@@ -63,11 +63,11 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    self.tableView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+//    self.tableView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     [self.tableView registerNib:[UINib nibWithNibName:@"FTTraineeSkillCell" bundle:nil] forCellReuseIdentifier:@"SkillCell"];
 //    [self.tableView registerClass:[FTTraineeSkillSectionHeaderView class] forHeaderFooterViewReuseIdentifier:@"HeaderView"];
     //    self.tableView.estimatedRowHeight = 310; // 设置为一个接近于行高“平均值”的数值
-//    self.tableView.estimatedSectionHeaderHeight = 90;
+    self.tableView.estimatedSectionHeaderHeight = 90;
 }
 
 #pragma mark  - delegate
@@ -82,10 +82,10 @@
     return 45;
 }
 
-- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-
-    return 90;
-}
+//- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//
+//    return 90;
+//}
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
@@ -126,7 +126,19 @@
 //    
 //}
 - (void) submitAction:(id) sender {
-    
+    [self popUpView];
 }
 
+
+
+/**
+ 提交弹出框
+ */
+- (void) popUpView {
+    
+    FTTraineeSubmitPopupView *popUpView = [[FTTraineeSubmitPopupView alloc]init];
+    popUpView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    [[UIApplication sharedApplication].keyWindow addSubview:popUpView];
+    
+}
 @end
