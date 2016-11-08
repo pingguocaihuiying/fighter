@@ -138,6 +138,17 @@
     return year;
 }
 
++ (NSString *) currentYearMonthString2 {
+    
+    NSDate *date = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
+    [dateFormatter setDateFormat:@"yyyy年MM月"];
+    NSString *yearMonth = [dateFormatter stringFromDate:date];
+    
+    return yearMonth;
+}
+
 + (NSString *) yearString:(NSString *)timestamp {
     
     NSDate *date = [self dateWithTimestamp:timestamp];
