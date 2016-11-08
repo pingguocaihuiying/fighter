@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.5];
     self.skillLabelWidthConstraint.constant = self.skillLabelWidthConstraint.constant *SCALE;
 }
 

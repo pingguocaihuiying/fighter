@@ -470,6 +470,7 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
 
 
 - (void) sortArray:(NSArray *)tempArray {
+    
     if (_coachCourseType == FTCoachCourseTypePublic) {//公开课
         if (!_historyArrayPublic) {
             _historyArrayPublic = [[NSMutableArray alloc]init];
@@ -490,21 +491,19 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
         FTCourseHistoryBean *bean = [[FTCourseHistoryBean alloc]init];
         [bean setValuesWithDic:dic];
         
-//        NSString *currentYearMonthString = [NSDate currentYearMonthString];
-//        NSString *dateString = [NSDate yearMonthString:bean.date];
+        
         NSString *currentYearMonthString = [NSDate currentYearString];
         NSString *yearString = [NSDate yearString:bean.date];
-        NSString *dateString = _coachCourseType == FTCoachCourseTypePublic ? [NSDate dateStringWithWordSpace:bean.date] : [NSDate dateStringWithYearMonth:bean.date];
-        
-        
-//        if ([yearString isEqualToString:currentYearMonthString]) {
+
+
+        if ([yearString isEqualToString:currentYearMonthString]) {
             bean.dateString = [NSDate monthDayStringWithWordSpace:bean.date];
-//        }else {
-//            bean.dateString = [NSDate dateStringWithWordSpace:bean.date];
-//        }
+        }else {
+            bean.dateString = [NSDate dateStringWithWordSpace:bean.date];
+        }
         
+        NSString *dateString = _coachCourseType == FTCoachCourseTypePublic ? [NSDate dateStringWithWordSpace:bean.date] : [NSDate dateStringWithYearMonth:bean.date];
         NSLog(@"dateString:%@",dateString);
-        
         if ([dict.allKeys containsObject:dateString]) {
             NSMutableArray *array = [dict objectForKey:dateString];
             [array addObject:bean];

@@ -24,7 +24,7 @@
     [super viewDidLoad];
     
     [self setNavigationbarStyle];
-    [self setSubView];
+    [self setSubViews];
 }
 
 
@@ -53,7 +53,7 @@
 }
 
 
-- (void) setSubView {
+- (void) setSubViews {
     
     [self setTableView];
 }
@@ -65,15 +65,16 @@
     
     self.tableView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     [self.tableView registerNib:[UINib nibWithNibName:@"FTTraineeSkillCell" bundle:nil] forCellReuseIdentifier:@"SkillCell"];
-    
+//    [self.tableView registerClass:[FTTraineeSkillSectionHeaderView class] forHeaderFooterViewReuseIdentifier:@"HeaderView"];
     //    self.tableView.estimatedRowHeight = 310; // 设置为一个接近于行高“平均值”的数值
-    self.tableView.estimatedSectionHeaderHeight = 90;
+//    self.tableView.estimatedSectionHeaderHeight = 90;
 }
 
 #pragma mark  - delegate
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return self.dataArray.count;
+//    return self.dataArray.count;
+    return self.dataArray.count +10;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -81,25 +82,30 @@
     return 45;
 }
 
-//- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//
-//    return 90;
-//}
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+
+    return 90;
+}
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     FTTraineeSkillSectionHeaderView *headerView = [[FTTraineeSkillSectionHeaderView alloc]init];
     
-    NSMutableAttributedString *attributedString =  [[NSMutableAttributedString alloc] initWithString:@"" attributes:@{NSKernAttributeName : @(1.5f)}];
+//    FTTraineeSkillSectionHeaderView *headerView = (FTTraineeSkillSectionHeaderView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:@"HeaderView"];
+    headerView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.5];
+    NSString *detail = @"教练要为学员技能负责，一般来说，学员技能水平提升。如有特殊情况请速与管理员联系";
+    
+    NSMutableAttributedString *attributedString =  [[NSMutableAttributedString alloc] initWithString:detail attributes:@{NSKernAttributeName : @(1.5f)}];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:7];
-    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, @"".length)];
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, detail.length)];
     
     headerView.detailAttributeString = attributedString;
-    headerView.title = @"";
+    headerView.title = @"本节课可为5项技术评分";
     
     return headerView;
 }
+
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -122,7 +128,5 @@
 - (void) submitAction:(id) sender {
     
 }
-
-
 
 @end

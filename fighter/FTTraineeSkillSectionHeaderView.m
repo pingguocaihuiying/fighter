@@ -62,10 +62,7 @@
 }
 
 #pragma mark - constraint
-- (void) addHeightConstraint {
 
-    
-}
 /**
  add title label constraint
  */
@@ -91,8 +88,8 @@
                                                                         multiplier:1.0
                                                                           constant:0];
     
-    [self.titleLabel addConstraint:topConstraint];
-    [self.titleLabel addConstraint:centerXConstraint];
+    [self addConstraint:topConstraint];
+    [self addConstraint:centerXConstraint];
 
 }
 
@@ -117,7 +114,7 @@
                                                                                 toItem:self
                                                                              attribute:NSLayoutAttributeRight
                                                                             multiplier:1.0
-                                                                              constant:15];
+                                                                              constant:-15];
     
     NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:self.detailLabel
                                                                             attribute:NSLayoutAttributeLeft
@@ -125,11 +122,11 @@
                                                                                toItem:self
                                                                             attribute:NSLayoutAttributeLeft
                                                                            multiplier:1.0
-                                                                             constant:-15];
+                                                                             constant:15];
     
-    [self.detailLabel addConstraint:topConstraint];
-    [self.detailLabel addConstraint:rightConstriant];
-    [self.detailLabel addConstraint:leftConstraint];
+    [self addConstraint:topConstraint];
+    [self addConstraint:rightConstriant];
+    [self addConstraint:leftConstraint];
 }
 
 
@@ -173,16 +170,16 @@
 //                                                                       constant:0.5];
 
     NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:self.topLine
-                                                                        attribute:NSLayoutAttributeBottom
+                                                                        attribute:NSLayoutAttributeHeight
                                                                         relatedBy:NSLayoutRelationGreaterThanOrEqual
                                                                            toItem:nil
                                                                         attribute:NSLayoutAttributeNotAnAttribute
                                                                        multiplier:1.0
                                                                          constant:0.5];
-    [self.topLine addConstraint:topConstraint];
-    [self.topLine addConstraint:rightConstraint];
-    [self.topLine addConstraint:leftConstraint];
-    [self.topLine addConstraint:heightConstraint];
+    [self addConstraint:topConstraint];
+    [self addConstraint:rightConstraint];
+    [self addConstraint:leftConstraint];
+    [self addConstraint:heightConstraint];
 }
 
 
@@ -226,19 +223,19 @@
                                                                          constant:0];
     
     NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:self.topLine
-                                                                        attribute:NSLayoutAttributeBottom
+                                                                        attribute:NSLayoutAttributeHeight
                                                                         relatedBy:NSLayoutRelationGreaterThanOrEqual
                                                                            toItem:nil
                                                                         attribute:NSLayoutAttributeNotAnAttribute
                                                                        multiplier:1.0
                                                                          constant:0.5];
     
-    [self.bottomLine addConstraint:topConstraint];
-    [self.bottomLine addConstraint:rightConstraint];
-    [self.bottomLine addConstraint:leftConstraint];
-    [self.bottomLine addConstraint:bottomConstraint];
+    [self addConstraint:topConstraint];
+    [self addConstraint:rightConstraint];
+    [self addConstraint:leftConstraint];
+    [self addConstraint:bottomConstraint];
     
-    [self.bottomLine addConstraint:heightConstraint];
+    [self addConstraint:heightConstraint];
     
 }
 
