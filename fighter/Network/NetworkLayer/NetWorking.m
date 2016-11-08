@@ -1046,9 +1046,14 @@
         //        [ZJModelTool createModelWithDictionary:responseObject modelName:nil];
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"message : %@", responseDic[@"message"]);
+        NSString *status = responseDic[@"status"];
         NSArray *array = responseDic[@"data"];
-        if (array && array != (id)[NSNull null]) {
-            option(array);
+        if ([status isEqualToString:@"success"]) {
+            if (array && array != (id)[NSNull null]) {
+                option(array);
+            }else{
+                option(nil);
+            }
         }else{
             option(nil);
         }

@@ -310,23 +310,32 @@
         //        判断是不是过去的时间**********START*************
         
         BOOL isPastTime = false;
+        BOOL isUnderway = false;
         NSInteger today = (int)[FTTools getWeekdayOfToday];//今天是周几
         NSInteger theDay = _curWeekDay;//当前要显示的时间段是周几
         
         if (theDay != today) {//如果不是当天，那一定是未来的天
             isPastTime = NO;
         }else{//当天
-            NSTimeInterval theTimeInterval = [FTTools getTimeIntervalWithAnyTimeIntervalOfDay:[[NSDate date] timeIntervalSince1970] andTimeString:[[timeSection2 componentsSeparatedByString:@"~"] firstObject]];//cell表示的时间段的起始时间戳
+            NSTimeInterval theTimeIntervalStart = [FTTools getTimeIntervalWithAnyTimeIntervalOfDay:[[NSDate date] timeIntervalSince1970] andTimeString:[[timeSection2 componentsSeparatedByString:@"~"] firstObject]];//cell表示的时间段的起始时间戳
+            NSTimeInterval theTimeIntervalEnd = [FTTools getTimeIntervalWithAnyTimeIntervalOfDay:[[NSDate date] timeIntervalSince1970] andTimeString:[[timeSection2 componentsSeparatedByString:@"~"] lastObject]];//cell表示的时间段的起始时间戳
             NSTimeInterval nowTimeInterval = [[NSDate date] timeIntervalSince1970];//此刻的时间戳
-            if (theTimeInterval < nowTimeInterval) {//过去
+            
+            if (theTimeIntervalStart < nowTimeInterval) {//过去
                 isPastTime = true;
+                
+                //接着判断是否正在进行中
+                if(theTimeIntervalEnd > nowTimeInterval){
+                    isUnderway = true;
+                }
+                
             } else {
                 isPastTime = false;
             }
         }
         //        判断是不是过去的时间**********END*************
         cell.isPast = isPastTime;
-        
+        cell.isUnderway = isUnderway;
     
             if (dic) {
                 cell.hasCourseData = YES;

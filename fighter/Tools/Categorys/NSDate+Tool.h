@@ -86,6 +86,8 @@
 
 + (NSString *) yearString:(NSString *)timestamp ;
 
++ (NSString *) dateStringWithYearMonth:(NSString *) timestamp;
+
 + (NSString *) currentMonthString ;
 
 + (NSString *) monthString:(NSString *) timestamp ;

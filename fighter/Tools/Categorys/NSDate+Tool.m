@@ -246,6 +246,17 @@
     
     return dateString;
 }
++ (NSString *) dateStringWithYearMonth:(NSString *) timestamp {
+    
+    NSDate *date = [self dateWithTimestamp:timestamp];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
+    [dateFormatter setDateFormat:@"yyyy年MM月"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    
+    return dateString;
+}
 
 /**
  根据时间戳生成日期字符串，格式：2016_10_10
