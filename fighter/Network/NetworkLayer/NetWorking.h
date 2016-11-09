@@ -236,6 +236,18 @@
  */
 + (void) getCoachTeachRecordWithCorporationid:(NSString*)corporationid andCourseType:(NSString *)courseType option:(void (^)(NSDictionary *dict))option;
 
+
+#pragma mark - 训练
+/**
+ 查看教练授课记录
+ 
+ @param corporationid 拳馆id
+ @param option  授课记录json字典
+ @param courseType  课程类型，0：团课 2:私教
+ */
++ (void) getTraineeListWith:(NSDictionary *)dict  option:(void (^)(NSDictionary *dict))option;
+
+
 #pragma mark - 约课
 //约课
 + (void)orderCourseWithParamsDic:(NSMutableDictionary *)dic andOption:(void (^)(NSDictionary *dic))option;

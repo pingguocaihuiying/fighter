@@ -110,6 +110,7 @@
 		3D500DF01D6D4AEE00ACBD0D /* FTLocalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D500DEF1D6D4AEE00ACBD0D /* FTLocalNotification.m */; };
 		3D57D0501CEC0E7F0082BF24 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D04F1CEC0E7F0082BF24 /* DBManager.m */; };
 		3D5A3CBD1CFD1E1000FDB3C4 /* FTShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */; };
+		3D5E809C1DD328E100D0F250 /* FTTraineeBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5E809B1DD328E100D0F250 /* FTTraineeBean.m */; };
 		3D5FB4851CDC1F1D00FC1809 /* FTPhotoPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4841CDC1F1D00FC1809 /* FTPhotoPickerView.m */; };
 		3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4871CDC251B00FC1809 /* FTCityPickerView.m */; };
 		3D5FB4921CDC311400FC1809 /* FTAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4901CDC311400FC1809 /* FTAssetsViewController.m */; };
@@ -642,6 +643,8 @@
 		3D57D04F1CEC0E7F0082BF24 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
 		3D5A3CBB1CFD1E1000FDB3C4 /* FTShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTShareView.h; sourceTree = "<group>"; };
 		3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTShareView.m; sourceTree = "<group>"; };
+		3D5E809A1DD328E100D0F250 /* FTTraineeBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeBean.h; sourceTree = "<group>"; };
+		3D5E809B1DD328E100D0F250 /* FTTraineeBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeBean.m; sourceTree = "<group>"; };
 		3D5FB4831CDC1F1D00FC1809 /* FTPhotoPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPhotoPickerView.h; sourceTree = "<group>"; };
 		3D5FB4841CDC1F1D00FC1809 /* FTPhotoPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPhotoPickerView.m; sourceTree = "<group>"; };
 		3D5FB4861CDC251B00FC1809 /* FTCityPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCityPickerView.h; sourceTree = "<group>"; };
@@ -1614,6 +1617,7 @@
 		3D484D551DC72BEE00E2EC8C /* 训练 */ = {
 			isa = PBXGroup;
 			children = (
+				3D681DAF1DD305EA007706C2 /* Model */,
 				3D484D5C1DC730AC00E2EC8C /* View */,
 				3D484D561DC72C2600E2EC8C /* Controller */,
 			);
@@ -1867,6 +1871,15 @@
 				3D5FB4871CDC251B00FC1809 /* FTCityPickerView.m */,
 			);
 			name = customPickView;
+			sourceTree = "<group>";
+		};
+		3D681DAF1DD305EA007706C2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3D5E809A1DD328E100D0F250 /* FTTraineeBean.h */,
+				3D5E809B1DD328E100D0F250 /* FTTraineeBean.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		3D6947091CE305CD00989440 /* 用户中心 */ = {
@@ -4343,6 +4356,7 @@
 				3DF658DA1D22440B009BDEF6 /* FTCycleScrollView.m in Sources */,
 				E6E580B31CBE523B00272242 /* FTBaseTableViewCell.m in Sources */,
 				3DA6D1C91D20D94E0049CD4A /* FTCycleScrollViewCell2.m in Sources */,
+				3D5E809C1DD328E100D0F250 /* FTTraineeBean.m in Sources */,
 				E668BBB11CE32BA200071998 /* FTRankingListViewController.m in Sources */,
 				3DDE29BD1D2BB39F00876B30 /* FTPayViewController.m in Sources */,
 				3D4B19661CDB6CF80022DFB0 /* FTWeightPickerView.m in Sources */,
