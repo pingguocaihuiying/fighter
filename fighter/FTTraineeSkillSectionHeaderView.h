@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+
+/**
+ 学员技能点table view section headerView 
+ */
 @interface FTTraineeSkillSectionHeaderView : UIView
 
 @property (copy, nonatomic) NSString *title;

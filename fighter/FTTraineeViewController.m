@@ -11,6 +11,7 @@
 #import "FTTraineeHeaderView.h"
 #import "FTCollectionFowLaytout.h"
 #import "FTTraineeCollectionFowLaytout.h"
+#import "FTTraineeSkillViewController.h"
 
 @interface FTTraineeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -27,6 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setNavigationbar];
     [self setSubviews];
 }
 
@@ -47,18 +49,18 @@
 
 #pragma mark  - 设置
 - (void) setSubviews {
-//    [self setNavigationbar];
+    
     [self setCollectionView];
     [self pullDataFromWebServer];
 }
 
 
-///**
-// 设置到导航栏样式
-// */
-//- (void) setNavigationbar {
-//    self.title = @"我的课程";
-//    
+/**
+ 设置到导航栏样式
+ */
+- (void) setNavigationbar {
+    self.title = @"我的课程";
+    
 //    //设置左侧按钮
 //    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
 //                                   initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
@@ -77,8 +79,8 @@
 //    
 //    [rightBarButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
 //    self.navigationItem.leftBarButtonItem = rightBarButton;
-//   
-//}
+
+}
 
 
 /**
@@ -100,11 +102,18 @@
 
 #pragma mark  - pull data from web 
 - (void) pullDataFromWebServer {
-//    double line = 15/4.0f;
-    double line = 15/4;
-    self.collectionHeightConstraint.constant = 50 + ceil(line) *(80 * SCALE +20* SCALE) + 20* SCALE;
-    NSLog(@"line number:%Lf",ceill(line));
-    NSLog(@"line :%f",line);
+    
+    [self setCollectionViewHeight:15];
+}
+
+- (void) setCollectionViewHeight:(NSInteger)count {
+
+    CGFloat height = 50 + ceil(count/4.0f) *(85 * SCALE +20* SCALE) + 20* SCALE;
+    if (height <= SCREEN_HEIGHT - 64) {
+        self.collectionHeightConstraint.constant = height;
+    }else {
+        self.collectionHeightConstraint.constant = SCREEN_HEIGHT - 64;
+    }
 }
 
 #pragma mark  - delegate
@@ -142,14 +151,16 @@
 }
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-
+    
+    FTTraineeSkillViewController *skillVC = [[FTTraineeSkillViewController alloc]init];
+    [self.navigationController pushViewController:skillVC animated:YES];
 }
 
 #pragma mark UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    float width = 56 * SCALE;
-    float height = 80 * SCALE;
+    float width = 66 * SCALE;
+    float height = 85 * SCALE;
     return CGSizeMake(width, height);
 }
 

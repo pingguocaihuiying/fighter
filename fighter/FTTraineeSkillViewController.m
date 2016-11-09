@@ -10,6 +10,7 @@
 #import "FTTraineeSkillCell.h"
 #import "FTTraineeSkillSectionHeaderView.h"
 #import "FTTraineeGradeViewController.h"
+#import "FTTraineeSubmitPopupView.h"
 
 @interface FTTraineeSkillViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) NSArray *dataArray;
@@ -23,8 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setNavigationbarStyle];
-    [self setSubView];
+    [self setNavigationbar];
+    [self setSubViews];
 }
 
 
@@ -38,8 +39,7 @@
 /**
  设置到导航栏样式
  */
-- (void) setNavigationbarStyle {
-    
+- (void) setNavigationbar {
     
     //导航栏右侧按钮
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc]initWithTitle:@"发表"
@@ -48,12 +48,12 @@
                                                                      action:@selector(submitAction:)];
     
     [rightBarButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    self.navigationItem.leftBarButtonItem = rightBarButton;
+    self.navigationItem.rightBarButtonItem = rightBarButton;
     
 }
 
 
-- (void) setSubView {
+- (void) setSubViews {
     
     [self setTableView];
 }
@@ -63,9 +63,9 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    self.tableView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+//    self.tableView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     [self.tableView registerNib:[UINib nibWithNibName:@"FTTraineeSkillCell" bundle:nil] forCellReuseIdentifier:@"SkillCell"];
-    
+//    [self.tableView registerClass:[FTTraineeSkillSectionHeaderView class] forHeaderFooterViewReuseIdentifier:@"HeaderView"];
     //    self.tableView.estimatedRowHeight = 310; // 设置为一个接近于行高“平均值”的数值
     self.tableView.estimatedSectionHeaderHeight = 90;
 }
@@ -73,7 +73,8 @@
 #pragma mark  - delegate
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return self.dataArray.count;
+//    return self.dataArray.count;
+    return self.dataArray.count +10;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -90,16 +91,21 @@
     
     FTTraineeSkillSectionHeaderView *headerView = [[FTTraineeSkillSectionHeaderView alloc]init];
     
-    NSMutableAttributedString *attributedString =  [[NSMutableAttributedString alloc] initWithString:@"" attributes:@{NSKernAttributeName : @(1.5f)}];
+//    FTTraineeSkillSectionHeaderView *headerView = (FTTraineeSkillSectionHeaderView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:@"HeaderView"];
+    headerView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.5];
+    NSString *detail = @"教练要为学员技能负责，一般来说，学员技能水平提升。如有特殊情况请速与管理员联系";
+    
+    NSMutableAttributedString *attributedString =  [[NSMutableAttributedString alloc] initWithString:detail attributes:@{NSKernAttributeName : @(1.0f)}];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:7];
-    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, @"".length)];
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, detail.length)];
     
     headerView.detailAttributeString = attributedString;
-    headerView.title = @"";
+    headerView.title = @"本节课可为5项技术评分";
     
     return headerView;
 }
+
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -120,9 +126,28 @@
 //    
 //}
 - (void) submitAction:(id) sender {
-    
+    [self popUpView];
 }
 
 
 
+/**
+ 提交弹出框
+ */
+- (void) popUpView {
+    
+    FTTraineeSubmitPopupView *popUpView = [[FTTraineeSubmitPopupView alloc]init];
+    popUpView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    
+    NSDictionary *dic = @{@"前手直拳":@"很好",
+                          @"后手直拳":@"好",
+                          @"肘击横摆（左）":@"一般",
+                          @"肘击横摆（右）":@"差",
+                          @"后手勾拳":@"很好",
+                          };
+    popUpView.skillGradeDic = dic;
+    
+    [[UIApplication sharedApplication].keyWindow addSubview:popUpView];
+    
+}
 @end

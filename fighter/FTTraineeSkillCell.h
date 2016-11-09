@@ -20,7 +20,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *levelImage4;
 @property (weak, nonatomic) IBOutlet UIImageView *levelImage5;
 
+@property (weak, nonatomic) IBOutlet UIView *bottomLine;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *skillLabelWidthConstraint;
 
-
+@property (nonatomic, copy) NSArray *imagesViews;
 @end
