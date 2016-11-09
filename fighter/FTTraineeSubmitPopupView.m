@@ -62,7 +62,7 @@
 
 - (void) addSubviewsConstraint {
     
-    [self addPanelViewConstraint];
+    [self addPaneImageViewConstraint];
     [self addTitleLabelConstraint];
     [self addPanelViewConstraint];
     [self addTextImageViewConstraint];
@@ -72,6 +72,24 @@
     
 }
 
+#pragma mark - setter 
+
+- (void) setTitle:(NSString *)title {
+
+    if (![_title isEqualToString:title]) {
+        _title = title;
+        self.titleLabel.text = _title;
+    }
+}
+
+- (void) setSkillGradeDic:(NSDictionary *)skillGradeDic {
+
+    if (_skillGradeDic != skillGradeDic) {
+        _skillGradeDic = skillGradeDic;
+        [self setSkillLabels:_skillGradeDic];
+    }
+}
+
 #pragma mark - getter
 
 - (UIButton *) submitButton {
@@ -79,8 +97,8 @@
     if (!_submitButton) {
         _submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_submitButton setTitle:@"是的，就是这样" forState:UIControlStateNormal];
-        [_submitButton setImage:[UIImage imageNamed:@"课程详情"] forState:UIControlStateNormal];
-        [_submitButton setImage:[UIImage imageNamed:@"课程详情pre"] forState:UIControlStateHighlighted];
+        [_submitButton setBackgroundImage:[UIImage imageNamed:@"课程详情"] forState:UIControlStateNormal];
+        [_submitButton setBackgroundImage:[UIImage imageNamed:@"课程详情pre"] forState:UIControlStateHighlighted];
         [_submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_submitButton.titleLabel setFont:[UIFont systemFontOfSize:16]];
     }
@@ -115,6 +133,9 @@
         _titleLabel.textColor = [UIColor whiteColor];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         [_titleLabel sizeToFit];
+        
+        // test words
+        _titleLabel.text = @"李小龙  通过本节课";
     }
     
     return _titleLabel;
@@ -126,7 +147,12 @@
         _textView = [[UIPlaceHolderTextView alloc]init];
         _textView.textColor = [UIColor whiteColor];
         _textView.font = [UIFont systemFontOfSize:12];
+        _textView.backgroundColor = [UIColor clearColor];
         _textView.placeholder = @"一句话点评：";
+        _textView.placeholderColor = [UIColor colorWithHex:0x505050];
+        
+        // test words
+//        _textView.text = @"李小龙  通过本节课李小龙  通过本节课李小龙  通过本节课李小龙  通过本节课";
     }
     return _textView;
 }
@@ -159,7 +185,7 @@
 }
 #pragma mark - constraint 
 
-- (void) addPaneImageVIewConstraint {
+- (void) addPaneImageViewConstraint {
 
     [self.panelImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
     NSLayoutConstraint *centerXConstraint = [NSLayoutConstraint constraintWithItem:self.panelImageView
@@ -178,8 +204,8 @@
                                                                       multiplier:1.0
                                                                         constant:0];
     
-    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:self.panelImageView
-                                                                      attribute:NSLayoutAttributeHeight
+    NSLayoutConstraint *widthtConstraint = [NSLayoutConstraint constraintWithItem:self.panelImageView
+                                                                      attribute:NSLayoutAttributeWidth
                                                                       relatedBy:NSLayoutRelationGreaterThanOrEqual
                                                                          toItem:nil
                                                                       attribute:NSLayoutAttributeNotAnAttribute
@@ -188,7 +214,7 @@
     
     [self addConstraint:centerXConstraint];
     [self addConstraint:centerYConstraint];
-    [self addConstraint:heightConstraint];
+    [self addConstraint:widthtConstraint];
     
 }
 
@@ -289,7 +315,7 @@
                                                                           toItem:nil
                                                                        attribute:NSLayoutAttributeNotAnAttribute
                                                                       multiplier:1.0
-                                                                        constant:100 *SCALE];
+                                                                        constant:50 *SCALE];
     
     [self addConstraint:topConstraint];
     [self addConstraint:leftConstraint];
@@ -305,7 +331,7 @@
                                                                      attribute:NSLayoutAttributeTop
                                                                      relatedBy:NSLayoutRelationEqual
                                                                         toItem:self.textImageView
-                                                                     attribute:NSLayoutAttributeBottom
+                                                                     attribute:NSLayoutAttributeTop
                                                                     multiplier:1.0
                                                                       constant:5];
     
@@ -396,28 +422,28 @@
 
     [self.cancelButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     NSLayoutConstraint *centerXCnstraint = [NSLayoutConstraint constraintWithItem:self.cancelButton
-                                                                     attribute:NSLayoutAttributeCenterX
+                                                                     attribute:NSLayoutAttributeTop
                                                                      relatedBy:NSLayoutRelationEqual
-                                                                        toItem:self
-                                                                     attribute:NSLayoutAttributeCenterX
+                                                                        toItem:self.panelImageView
+                                                                     attribute:NSLayoutAttributeBottom
                                                                     multiplier:1.0
-                                                                      constant:0];
+                                                                      constant:20];
     
     NSLayoutConstraint *centerYCnstraint = [NSLayoutConstraint constraintWithItem:self.cancelButton
-                                                                      attribute:NSLayoutAttributeCenterY
+                                                                      attribute:NSLayoutAttributeCenterX
                                                                       relatedBy:NSLayoutRelationEqual
-                                                                         toItem:self
-                                                                      attribute:NSLayoutAttributeCenterY
+                                                                         toItem:self.panelImageView
+                                                                      attribute:NSLayoutAttributeCenterX
                                                                      multiplier:1.0
                                                                        constant:0];
     
     NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:self.cancelButton
                                                                        attribute:NSLayoutAttributeHeight
                                                                        relatedBy:NSLayoutRelationGreaterThanOrEqual
-                                                                          toItem:self
+                                                                          toItem:nil
                                                                        attribute:NSLayoutAttributeNotAnAttribute
                                                                       multiplier:1.0
-                                                                        constant:30];
+                                                                        constant:35];
     
     NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:self.cancelButton
                                                                         attribute:NSLayoutAttributeWidth
@@ -425,7 +451,7 @@
                                                                            toItem:nil
                                                                         attribute:NSLayoutAttributeNotAnAttribute
                                                                        multiplier:1.0
-                                                                         constant:30];
+                                                                         constant:35];
     
     
     
@@ -435,4 +461,111 @@
     [self addConstraint:heightConstraint];
 
 }
+
+#pragma mark - 
+
+- (void) setSkillLabels:(NSDictionary *) dic {
+
+    NSInteger i = 0;
+    for (NSString *key in dic.allKeys) {
+        NSString *value = [dic objectForKey:key];
+        
+        UILabel *keyLabel = [[UILabel alloc]init];
+        keyLabel.font = [UIFont systemFontOfSize:12];
+        keyLabel.textColor = [UIColor whiteColor];
+        keyLabel.textAlignment = NSTextAlignmentRight;
+        [keyLabel sizeToFit];
+        keyLabel.text = key;
+        [self.panelView addSubview:keyLabel];
+        [self addKeyLabelConstraint:keyLabel index:i];
+        
+        UILabel *valueLabel = [[UILabel alloc]init];
+        valueLabel.font = [UIFont systemFontOfSize:12];
+        valueLabel.textColor = [UIColor colorWithHex:0xbe1e1e];
+        valueLabel.textAlignment = NSTextAlignmentLeft;
+        [valueLabel sizeToFit];
+        valueLabel.text = value;
+        [self.panelView addSubview:valueLabel];
+        [self addValueLabelConstraint:valueLabel index:i];
+        i++;
+    }
+}
+
+- (void) addKeyLabelConstraint:(UILabel *) keylabel index:(NSInteger) indexline {
+
+    [keylabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:keylabel
+                                                                     attribute:NSLayoutAttributeTop
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:self.panelView
+                                                                     attribute:NSLayoutAttributeTop
+                                                                    multiplier:1.0
+                                                                      constant:23*indexline];
+    
+    NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:keylabel
+                                                                      attribute:NSLayoutAttributeRight
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:self.panelView
+                                                                      attribute:NSLayoutAttributeCenterX
+                                                                     multiplier:1.0
+                                                                       constant:-12];
+    
+//    NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:keylabel
+//                                                                       attribute:NSLayoutAttributeRight
+//                                                                       relatedBy:NSLayoutRelationEqual
+//                                                                          toItem:self.panelImageView
+//                                                                       attribute:NSLayoutAttributeRight
+//                                                                      multiplier:1.0
+//                                                                        constant:-16];
+    
+    [self.panelView addConstraint:topConstraint];
+    [self.panelView addConstraint:rightConstraint];
+    
+    if (indexline == _skillGradeDic.allKeys.count - 1) {
+        
+        NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:self.panelView
+                                                                           attribute:NSLayoutAttributeBottom
+                                                                           relatedBy:NSLayoutRelationEqual
+                                                                              toItem:keylabel
+                                                                           attribute:NSLayoutAttributeBottom
+                                                                          multiplier:1.0
+                                                                            constant:0];
+        [self.panelView addConstraint:bottomConstraint];
+    }
+//    [self.panelView addConstraint:rightConstraint];
+}
+
+- (void) addValueLabelConstraint:(UILabel *) valuelabel index:(NSInteger) indexline {
+    
+    [valuelabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:valuelabel
+                                                                     attribute:NSLayoutAttributeTop
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:self.panelView
+                                                                     attribute:NSLayoutAttributeTop
+                                                                    multiplier:1.0
+                                                                      constant:23*indexline];
+    
+    NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:valuelabel
+                                                                      attribute:NSLayoutAttributeLeft
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:self.panelView
+                                                                      attribute:NSLayoutAttributeCenterX
+                                                                     multiplier:1.0
+                                                                       constant:12];
+    
+    //    NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:keylabel
+    //                                                                       attribute:NSLayoutAttributeRight
+    //                                                                       relatedBy:NSLayoutRelationEqual
+    //                                                                          toItem:self.panelImageView
+    //                                                                       attribute:NSLayoutAttributeRight
+    //                                                                      multiplier:1.0
+    //                                                                        constant:-16];
+    
+    [self.panelView addConstraint:topConstraint];
+    [self.panelView addConstraint:leftConstraint];
+    //    [self.panelView addConstraint:rightConstraint];
+}
+
+
 @end

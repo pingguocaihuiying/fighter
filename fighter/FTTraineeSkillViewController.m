@@ -95,7 +95,7 @@
     headerView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.5];
     NSString *detail = @"教练要为学员技能负责，一般来说，学员技能水平提升。如有特殊情况请速与管理员联系";
     
-    NSMutableAttributedString *attributedString =  [[NSMutableAttributedString alloc] initWithString:detail attributes:@{NSKernAttributeName : @(1.5f)}];
+    NSMutableAttributedString *attributedString =  [[NSMutableAttributedString alloc] initWithString:detail attributes:@{NSKernAttributeName : @(1.0f)}];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:7];
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, detail.length)];
@@ -138,6 +138,15 @@
     
     FTTraineeSubmitPopupView *popUpView = [[FTTraineeSubmitPopupView alloc]init];
     popUpView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    
+    NSDictionary *dic = @{@"前手直拳":@"很好",
+                          @"后手直拳":@"好",
+                          @"肘击横摆（左）":@"一般",
+                          @"肘击横摆（右）":@"差",
+                          @"后手勾拳":@"很好",
+                          };
+    popUpView.skillGradeDic = dic;
+    
     [[UIApplication sharedApplication].keyWindow addSubview:popUpView];
     
 }

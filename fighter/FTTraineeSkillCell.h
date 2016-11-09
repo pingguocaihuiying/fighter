@@ -23,5 +23,5 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *skillLabelWidthConstraint;
 
-
+@property (nonatomic, copy) NSArray *imagesViews;
 @end
