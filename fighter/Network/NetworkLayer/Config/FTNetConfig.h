@@ -192,6 +192,10 @@ extern NSString * const GetGymPhotosByUsers;//获取用户拍摄的拳馆照片
 extern NSString * const BecomeGymMenberShipURL;
 extern NSString * const GetCoachTeachRecord;
 
+#pragma mark - 训练
+extern NSString * const GetTraineeListURL; //获取课程学员列表
+extern NSString * const GetTraineeGradeVersionURL;
+
 #pragma mark - 新格斗场
 extern NSString *const SaveCourseBookCheckSign;//约课ChangeCourseStatusCheckSign
 extern NSString *const DeleteCourseBookCheckSign;//取消约课

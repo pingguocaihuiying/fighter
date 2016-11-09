@@ -12,6 +12,7 @@
 #import "FTCollectionFowLaytout.h"
 #import "FTTraineeCollectionFowLaytout.h"
 #import "FTTraineeSkillViewController.h"
+#import "FTTraineeBean.h"
 
 @interface FTTraineeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -103,6 +104,39 @@
 #pragma mark  - pull data from web 
 - (void) pullDataFromWebServer {
     
+    FTUserBean *loginuser = [FTUserBean loginUser];
+    NSString *userId = loginuser.olduserid;
+    
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:self.bean.date forKey:@"date"];
+    [dic setObject:userId forKey:@"coachUserId"];
+    [dic setObject:[NSString stringWithFormat:@"%ld",self.bean.timeId] forKey:@"timeId"];
+    [dic setObject:[NSString stringWithFormat:@"%ld",self.bean.id] forKey:@"courseId"];
+    
+    if (self.courseType == FTCoachCourseTypePublic) {
+        [dic setObject:@"0" forKey:@"type"];//课程类型，0-团课，2-私教,3-其他
+    }else if(self.courseType == FTCoachCourseTypePersonal){
+        [dic setObject:@"2" forKey:@"type"];//课程类型，0-团课，2-私教,3-其他
+    }else {
+         [dic setObject:@"2" forKey:@"type"];//课程类型，0-团课，2-私教,3-其他
+    }
+    
+    [NetWorking getTraineeListWith:dic option:^(NSDictionary *dict) {
+        if (!dict) {
+            return;
+        }
+        
+        BOOL status = [dict[@"status"] isEqualToString:@"success"]?YES:NO;
+        if (status) {
+            self.dataArray = dict[@"data"];
+            [self setCollectionViewHeight:self.dataArray.count];
+        }
+    }];
+    //团课必填
+    
+    //私课必填
+    
     [self setCollectionViewHeight:15];
 }
 
@@ -127,14 +161,18 @@
 
 /**
  section headerView
-
  */
+
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
     if (kind == UICollectionElementKindSectionHeader){
         
         FTTraineeHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
+        headerView.timeSectionLabel.text = self.bean.timeSection;
+        headerView.dateLabel.text = self.bean.dateString;
+        headerView.courseLabel.text = self.bean.name;
         
+        headerView.memberLabel.text = [NSString stringWithFormat:@"%ld/%ld",self.bean.attendCount,self.bean.topLimit];
         return headerView;
     }
     
@@ -147,6 +185,13 @@
     FTTraineeCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TraineeCell" forIndexPath:indexPath];
     cell.avatarImageView.image = [UIImage imageNamed:@"学员头像-无头像男"];
     cell.nameLabel.text = @"traineeName";
+    
+    if (self.courseState == FTTraineeCourseStateComplete) {
+        cell.markImageView.hidden = YES;
+    }else {
+        cell.traineeStateImageView.hidden = YES;
+    }
+    
     return cell;
 }
 

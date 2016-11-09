@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR">
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="FTTraineeHeaderView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
@@ -70,6 +70,12 @@
                 <constraint firstItem="5mK-WJ-nQM" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="yql-xh-Iu2"/>
                 <constraint firstItem="LJJ-ft-Esd" firstAttribute="bottom" secondItem="U6b-Vx-4bR" secondAttribute="centerY" constant="-4" id="zy8-TO-l5r"/>
             </constraints>
+            <connections>
+                <outlet property="courseLabel" destination="5mK-WJ-nQM" id="3Vf-Oj-x53"/>
+                <outlet property="dateLabel" destination="LJJ-ft-Esd" id="IoO-1D-Zlo"/>
+                <outlet property="memberLabel" destination="G6b-hp-U2v" id="L4L-68-EC6"/>
+                <outlet property="timeSectionLabel" destination="GQ3-da-MIo" id="mLE-EL-v0H"/>
+            </connections>
             <point key="canvasLocation" x="263" y="-198"/>
         </collectionReusableView>
     </objects>

@@ -19,10 +19,7 @@
 #import "FTPublicHistoryCourseTableViewCell.h"
 #import "FTTraineeViewController.h"
 
-typedef NS_ENUM(NSInteger, FTCoachCourseType) {
-    FTCoachCourseTypePublic,
-    FTCoachCourseTypePersonal
-};
+
 
 @interface FTCoachSelfCourseViewController ()<FTGymCourseTableViewDelegate, UITableViewDelegate, UITableViewDataSource, FTCoachChangeCourseStatusDelegate>
 {
@@ -572,6 +569,9 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
     NSLog(@"课程bean:%@", bean);
     
     FTTraineeViewController *traineeListVC = [[FTTraineeViewController alloc]init];
+    traineeListVC.courseState = FTTraineeCourseStateComplete;
+    traineeListVC.courseType = _coachCourseType;
+    traineeListVC.bean = bean;
     [self.navigationController pushViewController:traineeListVC animated:YES];
     
 }

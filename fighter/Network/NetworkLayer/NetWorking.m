@@ -1032,6 +1032,26 @@
     [self postRequestWithUrl:urlString parameters:dic option:option];
 }
 
+
+
+#pragma mark - 训练
+/**
+ 查看教练授课记录
+ 
+ @param corporationid 拳馆id
+ @param option  授课记录json字典
+ @param courseType  课程类型，0：团课 2:私教
+ */
++ (void) getTraineeListWith:(NSDictionary *)dict  option:(void (^)(NSDictionary *dict))option {
+    
+    NSString *urlString = [FTNetConfig host:Domain path:GetTraineeListURL];
+    NSLog(@"urlString=%@",urlString);
+    
+    [self postRequestWithUrl:urlString parameters:dict option:option];
+    
+}
+
+
 + (void)getUserCourseHistoryWithOption:(void (^)(NSDictionary *dic)) option{
     NSString *urlString = [FTNetConfig host:Domain path:GetUserCourseHistoryURL];
     
@@ -1042,6 +1062,8 @@
     NSDictionary *dic = @{@"userId":loginedUser.olduserid};
     [NetWorking postRequestWithUrl:urlString parameters:dic option:option];
 }
+
+
 + (void)getUserSkillsWithCorporationid:(NSString *)corporationid andMemberUserId:(NSString *)memberUserId andVersion:(NSString *)version andParent:(NSString *)parent andOption:(void (^)(NSDictionary *dic)) option{
     NSString *urlString = [FTNetConfig host:Domain path:GetUserSkillsURL];
     
@@ -1076,6 +1098,7 @@
     
     [NetWorking postRequestWithUrl:urlString parameters:dic option:option];
 }
+
 
 #pragma mark - 赛事
 + (void)getGymTimeSlotsById:(NSString *) corporationID andOption:(void (^)(NSArray *array))option{

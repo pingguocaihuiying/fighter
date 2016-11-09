@@ -233,8 +233,12 @@ NSString * const GetGymByIdURL = @"/api/gym/getVideosById.do";
 NSString * const GetGymPhotosByUsers = @"/api/gym/commentAttach.do";//获取用户拍摄的拳馆照片
 NSString * const BecomeGymMenberShipURL = @"/api/gymmenbership/save$GymMenberShip.do";
 
-
 NSString * const GetCoachTeachRecord = @"/api/coursebook/get$CourseHistory.do";
+
+#pragma mark - 训练
+NSString * const GetTraineeListURL = @"/api/coursebook/findCourseMember.do"; //获取课程学员列表
+NSString * const GetTraineeGradeVersionURL = @"/api/gradedetail/get$Versions.do"; //获取学员技能点最新版本
+
 #pragma mark - 新格斗场
 NSString * const GetGymTimeSlotsByIdURL = @"/api/place/listTime.do";
 NSString *const GetGymVIPInfoURL = @"/api/gymmenbership/find.do";//
