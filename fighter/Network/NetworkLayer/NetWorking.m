@@ -1033,6 +1033,7 @@
 }
 
 
+
 #pragma mark - 训练
 /**
  查看教练授课记录
@@ -1051,6 +1052,52 @@
 }
 
 
++ (void)getUserCourseHistoryWithOption:(void (^)(NSDictionary *dic)) option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetUserCourseHistoryURL];
+    
+    FTUserBean *loginedUser = [FTUserBean loginUser];
+    if (!loginedUser) {
+        [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"userId为空，请先登录"];
+    }
+    NSDictionary *dic = @{@"userId":loginedUser.olduserid};
+    [NetWorking postRequestWithUrl:urlString parameters:dic option:option];
+}
+
+
++ (void)getUserSkillsWithCorporationid:(NSString *)corporationid andMemberUserId:(NSString *)memberUserId andVersion:(NSString *)version andParent:(NSString *)parent andOption:(void (^)(NSDictionary *dic)) option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetUserSkillsURL];
+    
+    FTUserBean *loginedUser = [FTUserBean loginUser];
+    if (!loginedUser) {
+        [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"userId为空，请先登录"];
+    }
+    NSMutableDictionary *dic = [NSMutableDictionary new];
+    
+    //通用的字段
+    [dic setValue:loginedUser.olduserid forKey:@"userId"];//当前用户的id
+    [dic setValue:loginedUser.token forKey:@"loginToken"];
+    [dic setValue:[self getTimeStamp13] forKey:@"ts"];
+    
+    
+    //个性化字段
+    [dic setValue:memberUserId forKey:@"memberUserId"];
+    
+    if (corporationid) {
+        [dic setValue:corporationid forKey:@"corporationid"];
+    }
+    if (version) {
+        [dic setValue:version forKey:@"versions"];
+    }
+    if (parent) {
+        [dic setValue:corporationid forKey:@"parent"];
+    }
+    
+    NSString *checkSign = [FTTools md5Dictionary:dic withCheckKey:GetUserSkillsCheckSign];
+    
+    [dic setValue:checkSign forKey:@"checkSign"];
+    
+    [NetWorking postRequestWithUrl:urlString parameters:dic option:option];
+}
 
 
 #pragma mark - 赛事

@@ -117,6 +117,7 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:LoginUser];
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:COURSE_VERSION];//清除本地的历史课程版本信息 16-11-9 by lyz
         [[NSUserDefaults standardUserDefaults] synchronize];
 
         [[NSNotificationCenter defaultCenter] postNotificationName:LoginNoti object:@"LOGOUT"];

@@ -14,7 +14,7 @@ typedef NS_ENUM(NSInteger, FTHomepageTableViewType) {
 
 @interface FTHomepageMainViewController : FTBaseViewController
 @property (weak, nonatomic) IBOutlet UILabel *briefIntroductionTextField;
-@property (weak, nonatomic) IBOutlet UIImageView *userBgImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *userBgImageView;//用户背景图
 @property (assign, nonatomic)FTHomepageTableViewType selectedType;
 
 @property (weak, nonatomic) IBOutlet UIView *dynamicInfomationButtonIndexView;

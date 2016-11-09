@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FTBaseTableViewCell.h"
 
-@interface FTTraineeSkillCell : UITableViewCell
+@interface FTTraineeSkillCell : FTBaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *skillLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gradeLabel;

@@ -145,14 +145,15 @@
                 _orderStatusLabel.textColor = [UIColor colorWithHex:0xb4b4b4];
                 _orderStatusLabel.text = @"不可约";
                 _selectionImage.hidden = YES;
-            }if ([type isEqualToString:@"0"]) {//团课预约
+            }else if ([type isEqualToString:@"0"]) {//团课预约
                 _orderStatusLabel.textColor = [UIColor whiteColor];
-                NSString *courseName = _courserCellDic[@"label"];
-                if (courseName && courseName.length > 0) {
-                    courseName = [courseName substringToIndex:0];
-                }else{
-                    courseName = @"团课";
-                }
+//                NSString *courseName = _courserCellDic[@"label"];//项目标签
+                NSString *courseName = _courserCellDic[@"name"];//课程名字
+//                if (courseName && courseName.length > 0) {
+////                    courseName = [courseName substringToIndex:1];
+//                }else{
+//                    courseName = @"团课";
+//                }
                 
                 _orderStatusLabel.text = courseName;
                 _selectionImage.hidden = NO;

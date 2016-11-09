@@ -290,7 +290,7 @@
         //        判断是不是过去的时间**********END*************
         cell.isPast = isPastTime;
         
-        if (_courseType == FTOrderCourseTypeGym) {//公开课
+        if (_courseType == FTOrderCourseTypeGym) {//团课
             if (dic) {
                 cell.hasCourseData = YES;
                 [cell setwithDic:dic];
