@@ -16,4 +16,12 @@
 //    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
+
+- (void) commentMarkLayer {
+    
+    CAShapeLayer *backgroundLayer = [[CAShapeLayer alloc]init];
+    CATextLayer *textLayer = [[CATextLayer alloc]init];
+}
+
+
 @end

@@ -19,4 +19,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *avatarContraintHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *avatarContrainWidth;
 
+@property (weak, nonatomic) IBOutlet UIImageView *traineeStateImageView;
+
+@property (weak, nonatomic) IBOutlet UIImageView *markImageView;// 新学员标记
+
 @end

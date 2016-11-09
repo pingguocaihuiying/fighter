@@ -108,7 +108,7 @@
 
 - (void) setCollectionViewHeight:(NSInteger)count {
 
-    CGFloat height = 50 + ceil(count/4.0f) *(80 * SCALE +20* SCALE) + 20* SCALE;
+    CGFloat height = 50 + ceil(count/4.0f) *(85 * SCALE +20* SCALE) + 20* SCALE;
     if (height <= SCREEN_HEIGHT - 64) {
         self.collectionHeightConstraint.constant = height;
     }else {
@@ -159,8 +159,8 @@
 #pragma mark UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    float width = 56 * SCALE;
-    float height = 80 * SCALE;
+    float width = 66 * SCALE;
+    float height = 85 * SCALE;
     return CGSizeMake(width, height);
 }
 
