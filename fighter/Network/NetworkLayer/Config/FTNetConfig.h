@@ -173,6 +173,12 @@ extern NSString * const GetVideoByIdURL;
 
 
 #pragma mark - 学拳
+
+//获取用户历史课程
+extern NSString *const GetUserCourseHistoryURL;
+extern NSString *const GetUserSkillsURL;
+extern NSString *const GetUserSkillsCheckSign;
+
 // coach 教练
 extern NSString * const GetCoachListURL;
 extern NSString * const GetCoachByIdURL;

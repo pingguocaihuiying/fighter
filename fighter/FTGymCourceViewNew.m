@@ -43,6 +43,9 @@
 @property (nonatomic, assign) BOOL isBlanOfSelectedDay;//当前选中的日期是否有课程信息
 @property (strong, nonatomic) IBOutlet UILabel *blankInfoLabel;
 
+@property (nonatomic, copy) NSString *userId;
+
+
 @end
 
 @implementation FTGymCourceViewNew
@@ -175,9 +178,9 @@
     
     [_t1 reloadData];
     
-//    [self updateBlankView];
+
     NSArray *courseArray = _placesUsingInfoDic[[NSString stringWithFormat:@"%ld", _curWeekDay ]];
-    if (courseArray) {
+    if (courseArray && courseArray.count > 0) {
         _tableViewsHeight.constant = 50 * courseArray.count;
 
         _isBlanOfSelectedDay = NO;
@@ -239,7 +242,7 @@
     [_t1 reloadData];
     NSArray *courseArray = _placesUsingInfoDic[[NSString stringWithFormat:@"%ld", _curWeekDay ]];
 
-    if (courseArray) {
+    if (courseArray && courseArray.count > 0) {
         _tableViewsHeight.constant = 50 * courseArray.count;
         
         _isBlanOfSelectedDay = NO;
@@ -273,10 +276,22 @@
     NSArray *courseArray = _placesUsingInfoDic[theDateKey];
     NSDictionary *dic;
     NSString *timeSection2 = _timeSectionsArray[indexPath.row][@"timeSection"];//cell代表的固定时间段
+    if (!_userId) {
+        FTUserBean *loginedUser = [FTUserBean loginUser];
+        _userId = loginedUser.olduserid;
+    }
     for(NSDictionary *dict in courseArray){
         if ([timeSection2 isEqualToString:dict[@"timeSection"]]) {
-            dic = dict;
-            break;
+            if (_courseType == FTGymPublicCourseTypeForCoach) {//如果是教练端，要过滤掉别的教练的课（非自己的高度返回0）
+                if ([_userId isEqualToString:dict[@"coachUserId"]]){
+                    dic = dict;
+                    break;
+                }
+            } else {
+                dic = dict;
+                break;
+            }
+
         }
     }
     if (dic) {

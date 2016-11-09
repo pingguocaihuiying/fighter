@@ -51,6 +51,7 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
 @property (strong, nonatomic) IBOutlet UIButton *publicCourseButton;
 @property (strong, nonatomic) IBOutlet UIButton *personalCourseButton;
 
+@property (nonatomic, copy) NSString *userId;
 
 @end
 
@@ -310,6 +311,7 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
                     [_placesUsingInfoDic setValue:mArray forKey:theDate];
                 }
                 [mArray addObject:dic];
+                
             }
             //获取场地使用信息后，刷新UI
             _gymSourceView.placesUsingInfoDic = _placesUsingInfoDic;
@@ -334,7 +336,13 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
                     mArray = [NSMutableArray new];
                     [_placesUsingInfoDic setValue:mArray forKey:theDate];
                 }
-                [mArray addObject:dic];
+                if (!_userId) {
+                    FTUserBean *loginedUser = [FTUserBean loginUser];
+                    _userId = loginedUser.olduserid;
+                }
+                if ([_userId isEqualToString:dic[@"coachUserId"]]){//如果是教练自己的课，才存起来
+                    [mArray addObject:dic];
+                }
             }
             //获取场地使用信息后，刷新UI
             _gymSourceViewPublic.placesUsingInfoDic = _placesUsingInfoDic;

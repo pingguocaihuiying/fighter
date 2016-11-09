@@ -236,6 +236,27 @@
  */
 + (void) getCoachTeachRecordWithCorporationid:(NSString*)corporationid andCourseType:(NSString *)courseType option:(void (^)(NSDictionary *dict))option;
 
+
+/**
+ 获取学员上课的历史记录
+
+ @param option 返回的json字典
+ */
++ (void)getUserCourseHistoryWithOption:(void (^)(NSDictionary *dic)) option;
+
+
+/**
+ 个人主页 或 教练给学员评分 用到的
+ 获取用户技能属性的接口
+
+ @param corporationid 拳馆id
+ @param memberUserId 要获取的用户的id（oldUserId)
+ @param version 选填：技能版本
+ @param parent 选填：技能的parentid
+ @param option block
+ */
++ (void)getUserSkillsWithCorporationid:(NSString *)corporationid andMemberUserId:(NSString *)memberUserId andVersion:(NSString *)version andParent:(NSString *)parent andOption:(void (^)(NSDictionary *dic)) option;
+
 #pragma mark - 约课
 //约课
 + (void)orderCourseWithParamsDic:(NSMutableDictionary *)dic andOption:(void (^)(NSDictionary *dic))option;
