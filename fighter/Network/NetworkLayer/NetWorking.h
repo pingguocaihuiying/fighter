@@ -250,6 +250,14 @@
 
 
 /**
+ 获取教练评论的内容，以及技能点信息
+
+ @param version 课程版本
+ @param option block
+ */
++ (void)getCourseCommentWithVersion:(NSString *)version andOption:(void (^)(NSDictionary *dic)) option;
+
+/**
  获取学员上课的历史记录
 
  @param option 返回的json字典

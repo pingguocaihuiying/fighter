@@ -3071,6 +3071,8 @@
 		E6735AD11CFC408F0068782C /* 个人主页 */ = {
 			isa = PBXGroup;
 			children = (
+				E6FEFA311DD1E5A700CEF6E3 /* bean */,
+				E6FEFA291DD1B8B800CEF6E3 /* cell */,
 				E68D16061CFD24DE00AB5A8C /* ViewController */,
 			);
 			name = "个人主页";
@@ -3184,8 +3186,7 @@
 		E68D16061CFD24DE00AB5A8C /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E6FEFA311DD1E5A700CEF6E3 /* bean */,
-				E6FEFA291DD1B8B800CEF6E3 /* cell */,
+				E6FEFA351DD3FDDE00CEF6E3 /* 教练评论详情 */,
 				E6B238FD1D066C09001F86BE /* main */,
 				E6B238FE1D066C13001F86BE /* 评论列表 */,
 			);
@@ -3855,6 +3856,13 @@
 				E6FEFA331DD1E5D200CEF6E3 /* FTUserCourseHistoryBean.m */,
 			);
 			name = bean;
+			sourceTree = "<group>";
+		};
+		E6FEFA351DD3FDDE00CEF6E3 /* 教练评论详情 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "教练评论详情";
 			sourceTree = "<group>";
 		};
 		FF4F6665A0FF96A7EF0453D8 /* Frameworks */ = {
