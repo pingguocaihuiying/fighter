@@ -17,13 +17,11 @@
     self.skillLabelWidthConstraint.constant = self.skillLabelWidthConstraint.constant *SCALE;
     self.bottomLine.backgroundColor = Cell_Space_Color;
     
-    self.imagesViews = @[
-                         _levelImage1,
-                         _levelImage2,
-                         _levelImage3,
-                         _levelImage4,
-                         _levelImage5,
-                         ];
+    self.ratingBar.fullSelectedImage = [UIImage imageNamed:@"火苗-红"];
+    self.ratingBar.unSelectedImage = [UIImage imageNamed:@"火苗-灰"];
+    
+    self.ratingBar.isIndicator = YES;//指示器，就不能滑动了，只显示评分结果
+    [self.ratingBar displayRating:5.0f];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -51,19 +49,7 @@
     return level;
 }
 
-- (void) setImageToIndex:(int) level {
-    
-    for (int i = level; i >= 0 ; i--) {
-        UIImageView *imageView = [self.imagesViews objectAtIndex:i];
-        [imageView setImage:[UIImage imageNamed:@"火苗-红"]];
-    }
-    for (int i = level+1; i < 5 ; i++) {
-        UIImageView *imageView = [self.imagesViews objectAtIndex:i];
-        [imageView setImage:[UIImage imageNamed:@"火苗-灰"]];
-    }
-    
-    
-}
+
 
 
 @end

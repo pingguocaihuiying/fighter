@@ -25,4 +25,12 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)subButtonAction:(id)sender {
+    
+}
+
+- (IBAction)addButtonAction:(id)sender {
+    
+}
+
 @end

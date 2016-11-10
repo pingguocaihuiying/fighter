@@ -182,15 +182,51 @@
 
 
 - (__kindof UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    
     FTTraineeCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TraineeCell" forIndexPath:indexPath];
+    
+//    FTTraineeBean *bean = [[FTTraineeBean alloc] initWithFTTraineeBeanDic:[self.dataArray objectAtIndex:indexPath.row]];
+//    if ([bean.sex isEqualToString:@"男性"]) {
+//        
+//        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:bean.headUrl] placeholderImage: [UIImage imageNamed:@"学员头像-无头像男"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//            if (image) {
+//                cell.avatarMaskImageView.image = [UIImage imageNamed:@"学员头像-有头像男"];
+//            }
+//        }];
+//        
+//    }else {
+//        
+//        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:bean.headUrl] placeholderImage: [UIImage imageNamed:@"学员头像-无头像女"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//            if (image) {
+//                cell.avatarMaskImageView.image = [UIImage imageNamed:@"学员头像-有头像女"];
+//            }
+//        }];
+//    }
+//    cell.nameLabel.text = bean.createName;
+//    
+//    
+//    if (self.courseState == FTTraineeCourseStateComplete) {
+//        cell.markImageView.hidden = YES;
+//        if (bean.signStatus) {
+//            cell.traineeStateImageView.image = [UIImage imageNamed:@"学员状态-旷课"];
+//        }else {
+//            if (bean.hasGrade == 0) {
+//                cell.traineeStateImageView.image = [UIImage imageNamed:@"学员状态-未评分"];
+//            }else {
+//                cell.traineeStateImageView.image = [UIImage imageNamed:@"学员状态-已评分"];
+//            }
+//        }
+//    }else {
+//        cell.traineeStateImageView.hidden = YES;
+//        if (bean.newMember == 0) {
+//            cell.markImageView.hidden = YES;
+//        }
+//    }
+    
     cell.avatarImageView.image = [UIImage imageNamed:@"学员头像-无头像男"];
     cell.nameLabel.text = @"traineeName";
-    
-    if (self.courseState == FTTraineeCourseStateComplete) {
-        cell.markImageView.hidden = YES;
-    }else {
-        cell.traineeStateImageView.hidden = YES;
-    }
     
     return cell;
 }

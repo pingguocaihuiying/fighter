@@ -18,7 +18,7 @@
 #import "FTGymCourceViewNew.h"
 #import "FTPublicHistoryCourseTableViewCell.h"
 #import "FTTraineeViewController.h"
-
+#import "FTTraineeSkillViewController.h"
 
 
 @interface FTCoachSelfCourseViewController ()<FTGymCourseTableViewDelegate, UITableViewDelegate, UITableViewDataSource, FTCoachChangeCourseStatusDelegate>
@@ -565,14 +565,28 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     id bean = ((_coachCourseType == FTCoachCourseTypePublic) ? _historyArrayPublic : _historyArray )[indexPath.section][indexPath.row];
     NSLog(@"课程bean:%@", bean);
     
-    FTTraineeViewController *traineeListVC = [[FTTraineeViewController alloc]init];
-    traineeListVC.courseState = FTTraineeCourseStateComplete;
-    traineeListVC.courseType = _coachCourseType;
-    traineeListVC.bean = bean;
-    [self.navigationController pushViewController:traineeListVC animated:YES];
+    if (_coachCourseType == FTCoachCourseTypePublic) {
+    
+        FTTraineeViewController *traineeListVC = [[FTTraineeViewController alloc]init];
+        traineeListVC.courseState = FTTraineeCourseStateComplete;
+        traineeListVC.courseType = _coachCourseType;
+        traineeListVC.bean = bean;
+        [self.navigationController pushViewController:traineeListVC animated:YES];
+    }else {
+        FTTraineeSkillViewController *traineeSkillVC = [[FTTraineeSkillViewController alloc]init];
+        //    traineeSkillVC.courseState = FTTraineeCourseStateComplete;
+        //    traineeSkillVC.courseType = _coachCourseType;
+        //    traineeSkillVC.bean = bean;
+        [self.navigationController pushViewController:traineeSkillVC animated:YES];
+    }
+        
+    
+    
+    
     
 }
 
