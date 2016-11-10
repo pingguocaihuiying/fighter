@@ -182,7 +182,7 @@ NSString * const IsValidatePhone =  @"/api/newuser/validatePhone.do";
 NSString * const GetRankListURL = @"/api/ranking/list.do";//排行榜
 NSString * const GetRankSearchItemURL = @"/api/ranking/getRankSearchItems.do";//排行帅选项
 NSString * const GetHomepageUserInfo = @"/api/user/read.do";
-
+NSString *const GetUserSkillsByVersion = @"/api/skillversions/getUserSkillVersions.do";
 
 //获取评论
 NSString * const GetCommentsURL =  @"/api/comment/listComment.do";
@@ -238,7 +238,6 @@ NSString * const GetCoachTeachRecord = @"/api/coursebook/get$CourseHistory.do";
 #pragma mark - 训练
 NSString * const GetTraineeListURL = @"/api/coursebook/findCourseMember.do"; //获取课程学员列表
 NSString * const GetTraineeGradeVersionURL = @"/api/gradedetail/get$Versions.do"; //获取学员技能点最新版本
-
 #pragma mark - 新格斗场
 NSString * const GetGymTimeSlotsByIdURL = @"/api/place/listTime.do";
 NSString *const GetGymVIPInfoURL = @"/api/gymmenbership/find.do";//

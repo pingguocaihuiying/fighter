@@ -145,6 +145,8 @@ extern NSString *const AddArenaViewCountCountURL;
 //获取个人主页用户信息
 extern NSString *const GetHomepageUserInfo;
 
+extern NSString *const GetUserSkillsByVersion;//api/skillversions/getUserSkillVersions.do
+
 
 //收藏
 extern NSString * const AddStarCheckKey;

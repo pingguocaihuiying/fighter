@@ -281,6 +281,7 @@
 		E6035EB91CC08D2800B10D36 /* FTNewsDetail2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6035EB71CC08D2800B10D36 /* FTNewsDetail2ViewController.xib */; };
 		E6035EBE1CC0C39500B10D36 /* FTCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6035EBC1CC0C39500B10D36 /* FTCommentViewController.m */; };
 		E6035EBF1CC0C39500B10D36 /* FTCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6035EBD1CC0C39500B10D36 /* FTCommentViewController.xib */; };
+		E6089B331DD46091006496B0 /* FTUserSkillScore.m in Sources */ = {isa = PBXBuildFile; fileRef = E6089B321DD46091006496B0 /* FTUserSkillScore.m */; };
 		E60DFB861D98C3EF009A864B /* FTGymSourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = E60DFB841D98C3EF009A864B /* FTGymSourceView.m */; };
 		E60DFB871D98C3EF009A864B /* FTGymSourceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E60DFB851D98C3EF009A864B /* FTGymSourceView.xib */; };
 		E61184941CC75EBE00F23EC7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E61184931CC75EBE00F23EC7 /* SystemConfiguration.framework */; };
@@ -454,6 +455,15 @@
 		E6FEFA2F1DD1B96600CEF6E3 /* FTUserCourseHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FEFA2D1DD1B96600CEF6E3 /* FTUserCourseHistoryTableViewCell.m */; };
 		E6FEFA301DD1B96600CEF6E3 /* FTUserCourseHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6FEFA2E1DD1B96600CEF6E3 /* FTUserCourseHistoryTableViewCell.xib */; };
 		E6FEFA341DD1E5D200CEF6E3 /* FTUserCourseHistoryBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FEFA331DD1E5D200CEF6E3 /* FTUserCourseHistoryBean.m */; };
+		E6FEFA391DD411D300CEF6E3 /* FTUserCourseCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FEFA371DD411D300CEF6E3 /* FTUserCourseCommentViewController.m */; };
+		E6FEFA3A1DD411D300CEF6E3 /* FTUserCourseCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6FEFA381DD411D300CEF6E3 /* FTUserCourseCommentViewController.xib */; };
+		E6FEFA3E1DD4218800CEF6E3 /* FTUserSkillGradeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FEFA3C1DD4218800CEF6E3 /* FTUserSkillGradeTableViewCell.m */; };
+		E6FEFA3F1DD4218800CEF6E3 /* FTUserSkillGradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6FEFA3D1DD4218800CEF6E3 /* FTUserSkillGradeTableViewCell.xib */; };
+		E6FEFA441DD427FA00CEF6E3 /* FTUserCourseCommentHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FEFA431DD427FA00CEF6E3 /* FTUserCourseCommentHeaderView.m */; };
+		E6FEFA461DD4280C00CEF6E3 /* FTUserCourseCommentHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6FEFA451DD4280C00CEF6E3 /* FTUserCourseCommentHeaderView.xib */; };
+		E6FEFA4C1DD4441200CEF6E3 /* UIView+DividingLine.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FEFA4B1DD4441200CEF6E3 /* UIView+DividingLine.m */; };
+		E6FEFA4F1DD448B100CEF6E3 /* FTCoachCommentBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FEFA4E1DD448B100CEF6E3 /* FTCoachCommentBottomView.m */; };
+		E6FEFA511DD448C600CEF6E3 /* FTCoachCommentBottomView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6FEFA501DD448C600CEF6E3 /* FTCoachCommentBottomView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -925,6 +935,8 @@
 		E6035EBB1CC0C39500B10D36 /* FTCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCommentViewController.h; sourceTree = "<group>"; };
 		E6035EBC1CC0C39500B10D36 /* FTCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCommentViewController.m; sourceTree = "<group>"; };
 		E6035EBD1CC0C39500B10D36 /* FTCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTCommentViewController.xib; sourceTree = "<group>"; };
+		E6089B311DD46091006496B0 /* FTUserSkillScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserSkillScore.h; sourceTree = "<group>"; };
+		E6089B321DD46091006496B0 /* FTUserSkillScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserSkillScore.m; sourceTree = "<group>"; };
 		E60DFB831D98C3EF009A864B /* FTGymSourceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymSourceView.h; sourceTree = "<group>"; };
 		E60DFB841D98C3EF009A864B /* FTGymSourceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymSourceView.m; sourceTree = "<group>"; };
 		E60DFB851D98C3EF009A864B /* FTGymSourceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymSourceView.xib; sourceTree = "<group>"; };
@@ -1221,6 +1233,20 @@
 		E6FEFA2E1DD1B96600CEF6E3 /* FTUserCourseHistoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTUserCourseHistoryTableViewCell.xib; sourceTree = "<group>"; };
 		E6FEFA321DD1E5D200CEF6E3 /* FTUserCourseHistoryBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserCourseHistoryBean.h; sourceTree = "<group>"; };
 		E6FEFA331DD1E5D200CEF6E3 /* FTUserCourseHistoryBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserCourseHistoryBean.m; sourceTree = "<group>"; };
+		E6FEFA361DD411D300CEF6E3 /* FTUserCourseCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserCourseCommentViewController.h; sourceTree = "<group>"; };
+		E6FEFA371DD411D300CEF6E3 /* FTUserCourseCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserCourseCommentViewController.m; sourceTree = "<group>"; };
+		E6FEFA381DD411D300CEF6E3 /* FTUserCourseCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTUserCourseCommentViewController.xib; sourceTree = "<group>"; };
+		E6FEFA3B1DD4218800CEF6E3 /* FTUserSkillGradeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserSkillGradeTableViewCell.h; sourceTree = "<group>"; };
+		E6FEFA3C1DD4218800CEF6E3 /* FTUserSkillGradeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserSkillGradeTableViewCell.m; sourceTree = "<group>"; };
+		E6FEFA3D1DD4218800CEF6E3 /* FTUserSkillGradeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTUserSkillGradeTableViewCell.xib; sourceTree = "<group>"; };
+		E6FEFA421DD427FA00CEF6E3 /* FTUserCourseCommentHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTUserCourseCommentHeaderView.h; sourceTree = "<group>"; };
+		E6FEFA431DD427FA00CEF6E3 /* FTUserCourseCommentHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTUserCourseCommentHeaderView.m; sourceTree = "<group>"; };
+		E6FEFA451DD4280C00CEF6E3 /* FTUserCourseCommentHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTUserCourseCommentHeaderView.xib; sourceTree = "<group>"; };
+		E6FEFA4A1DD4441200CEF6E3 /* UIView+DividingLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DividingLine.h"; sourceTree = "<group>"; };
+		E6FEFA4B1DD4441200CEF6E3 /* UIView+DividingLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DividingLine.m"; sourceTree = "<group>"; };
+		E6FEFA4D1DD448B100CEF6E3 /* FTCoachCommentBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCoachCommentBottomView.h; sourceTree = "<group>"; };
+		E6FEFA4E1DD448B100CEF6E3 /* FTCoachCommentBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCoachCommentBottomView.m; sourceTree = "<group>"; };
+		E6FEFA501DD448C600CEF6E3 /* FTCoachCommentBottomView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTCoachCommentBottomView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2479,6 +2505,24 @@
 			name = comment;
 			sourceTree = "<group>";
 		};
+		E6089B2F1DD46035006496B0 /* 评论子项及评分bean */ = {
+			isa = PBXGroup;
+			children = (
+				E6089B311DD46091006496B0 /* FTUserSkillScore.h */,
+				E6089B321DD46091006496B0 /* FTUserSkillScore.m */,
+			);
+			name = "评论子项及评分bean";
+			sourceTree = "<group>";
+		};
+		E6089B301DD46060006496B0 /* 学员历史课程bean */ = {
+			isa = PBXGroup;
+			children = (
+				E6FEFA321DD1E5D200CEF6E3 /* FTUserCourseHistoryBean.h */,
+				E6FEFA331DD1E5D200CEF6E3 /* FTUserCourseHistoryBean.m */,
+			);
+			name = "学员历史课程bean";
+			sourceTree = "<group>";
+		};
 		E6133A6D1CED6F9C00F53381 /* bean */ = {
 			isa = PBXGroup;
 			children = (
@@ -3105,6 +3149,8 @@
 		E6735AD11CFC408F0068782C /* 个人主页 */ = {
 			isa = PBXGroup;
 			children = (
+				E6FEFA311DD1E5A700CEF6E3 /* bean */,
+				E6FEFA291DD1B8B800CEF6E3 /* cell */,
 				E68D16061CFD24DE00AB5A8C /* ViewController */,
 			);
 			name = "个人主页";
@@ -3218,8 +3264,7 @@
 		E68D16061CFD24DE00AB5A8C /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E6FEFA311DD1E5A700CEF6E3 /* bean */,
-				E6FEFA291DD1B8B800CEF6E3 /* cell */,
+				E6FEFA351DD3FDDE00CEF6E3 /* 教练评论详情 */,
 				E6B238FD1D066C09001F86BE /* main */,
 				E6B238FE1D066C13001F86BE /* 评论列表 */,
 			);
@@ -3672,6 +3717,7 @@
 		E6D74A311CB7B7EE00854337 /* Categorys */ = {
 			isa = PBXGroup;
 			children = (
+				E6FEFA491DD4439200CEF6E3 /* 给uiview加上下分割线 */,
 				E68D16141CFD816500AB5A8C /* 图片模糊处理 */,
 				E6D74A321CB7B7EE00854337 /* UIButton+countDown.h */,
 				E6D74A331CB7B7EE00854337 /* UIButton+countDown.m */,
@@ -3867,6 +3913,7 @@
 		E6FEFA291DD1B8B800CEF6E3 /* cell */ = {
 			isa = PBXGroup;
 			children = (
+				E6FEFA401DD4219300CEF6E3 /* 教练评论详情技能cell */,
 				E6FEFA2A1DD1B8BF00CEF6E3 /* 学员历史课程cell */,
 			);
 			name = cell;
@@ -3885,10 +3932,69 @@
 		E6FEFA311DD1E5A700CEF6E3 /* bean */ = {
 			isa = PBXGroup;
 			children = (
-				E6FEFA321DD1E5D200CEF6E3 /* FTUserCourseHistoryBean.h */,
-				E6FEFA331DD1E5D200CEF6E3 /* FTUserCourseHistoryBean.m */,
+				E6089B301DD46060006496B0 /* 学员历史课程bean */,
+				E6089B2F1DD46035006496B0 /* 评论子项及评分bean */,
 			);
 			name = bean;
+			sourceTree = "<group>";
+		};
+		E6FEFA351DD3FDDE00CEF6E3 /* 教练评论详情 */ = {
+			isa = PBXGroup;
+			children = (
+				E6FEFA411DD427C700CEF6E3 /* 其他view */,
+				E6FEFA361DD411D300CEF6E3 /* FTUserCourseCommentViewController.h */,
+				E6FEFA371DD411D300CEF6E3 /* FTUserCourseCommentViewController.m */,
+				E6FEFA381DD411D300CEF6E3 /* FTUserCourseCommentViewController.xib */,
+			);
+			name = "教练评论详情";
+			sourceTree = "<group>";
+		};
+		E6FEFA401DD4219300CEF6E3 /* 教练评论详情技能cell */ = {
+			isa = PBXGroup;
+			children = (
+				E6FEFA3B1DD4218800CEF6E3 /* FTUserSkillGradeTableViewCell.h */,
+				E6FEFA3C1DD4218800CEF6E3 /* FTUserSkillGradeTableViewCell.m */,
+				E6FEFA3D1DD4218800CEF6E3 /* FTUserSkillGradeTableViewCell.xib */,
+			);
+			name = "教练评论详情技能cell";
+			sourceTree = "<group>";
+		};
+		E6FEFA411DD427C700CEF6E3 /* 其他view */ = {
+			isa = PBXGroup;
+			children = (
+				E6FEFA481DD442FD00CEF6E3 /* 教练评论内容view */,
+				E6FEFA471DD442BC00CEF6E3 /* 教练评论页headerView */,
+			);
+			name = "其他view";
+			sourceTree = "<group>";
+		};
+		E6FEFA471DD442BC00CEF6E3 /* 教练评论页headerView */ = {
+			isa = PBXGroup;
+			children = (
+				E6FEFA421DD427FA00CEF6E3 /* FTUserCourseCommentHeaderView.h */,
+				E6FEFA431DD427FA00CEF6E3 /* FTUserCourseCommentHeaderView.m */,
+				E6FEFA451DD4280C00CEF6E3 /* FTUserCourseCommentHeaderView.xib */,
+			);
+			name = "教练评论页headerView";
+			sourceTree = "<group>";
+		};
+		E6FEFA481DD442FD00CEF6E3 /* 教练评论内容view */ = {
+			isa = PBXGroup;
+			children = (
+				E6FEFA4D1DD448B100CEF6E3 /* FTCoachCommentBottomView.h */,
+				E6FEFA4E1DD448B100CEF6E3 /* FTCoachCommentBottomView.m */,
+				E6FEFA501DD448C600CEF6E3 /* FTCoachCommentBottomView.xib */,
+			);
+			name = "教练评论内容view";
+			sourceTree = "<group>";
+		};
+		E6FEFA491DD4439200CEF6E3 /* 给uiview加上下分割线 */ = {
+			isa = PBXGroup;
+			children = (
+				E6FEFA4A1DD4441200CEF6E3 /* UIView+DividingLine.h */,
+				E6FEFA4B1DD4441200CEF6E3 /* UIView+DividingLine.m */,
+			);
+			name = "给uiview加上下分割线";
 			sourceTree = "<group>";
 		};
 		FF4F6665A0FF96A7EF0453D8 /* Frameworks */ = {
@@ -4061,6 +4167,7 @@
 				3D8771271D9118CA0001DB78 /* FTGymCommentsViewController.xib in Resources */,
 				3DA6D1CA1D20D94E0049CD4A /* FTCycleScrollViewCell2.xib in Resources */,
 				E67926751D17B68F00AF30B3 /* FTFightingTableViewCell.xib in Resources */,
+				E6FEFA511DD448C600CEF6E3 /* FTCoachCommentBottomView.xib in Resources */,
 				3D15E4AE1D9512A10078F9E7 /* FTGymCommentReplyViewController.xib in Resources */,
 				E68050BA1CBF919A00678905 /* JHRefresh.bundle in Resources */,
 				3D7B988E1CDD027400B80B8D /* Area.plist in Resources */,
@@ -4145,6 +4252,7 @@
 				E6C3C5C11DB895F6007B199D /* FTGymCourceViewNew.xib in Resources */,
 				3D9666C11D9A801C00E90DA5 /* FTGymCoachStateSwitcher.xib in Resources */,
 				E64EF1141CB6614000CAE340 /* Main.storyboard in Resources */,
+				E6FEFA3F1DD4218800CEF6E3 /* FTUserSkillGradeTableViewCell.xib in Resources */,
 				E6FEFA301DD1B96600CEF6E3 /* FTUserCourseHistoryTableViewCell.xib in Resources */,
 				3D7B989D1CDF896F00B80B8D /* FTTableViewCell5.xib in Resources */,
 				3D13FB311D1A96490060B9B4 /* FTPracticeCell.xib in Resources */,
@@ -4156,6 +4264,7 @@
 				3D7B98A51CE0190600B80B8D /* FTAbountUsViewController.xib in Resources */,
 				E66BC00C1D9A67C700B492D3 /* FTCoachSelfCourseViewController.xib in Resources */,
 				3D7C6B821CF2A26D0088400D /* BoxerMatchController.xib in Resources */,
+				E6FEFA461DD4280C00CEF6E3 /* FTUserCourseCommentHeaderView.xib in Resources */,
 				E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */,
 				3D484D7A1DC87F4300E2EC8C /* FTTraineeGradeViewController.xib in Resources */,
 				3D10DDE61D4733B900E2D776 /* SectionHeader.xib in Resources */,
@@ -4169,6 +4278,7 @@
 				3D4C6ED31D864FCF00881208 /* FTGymCommentCell.xib in Resources */,
 				E6035EBF1CC0C39500B10D36 /* FTCommentViewController.xib in Resources */,
 				3D6ABC951D66EC8B00CD37C8 /* FTTaskRemindCell.xib in Resources */,
+				E6FEFA3A1DD411D300CEF6E3 /* FTUserCourseCommentViewController.xib in Resources */,
 				E65D08D51CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.xib in Resources */,
 				3D7B98C91CE0D76800B80B8D /* FTWeixinInfoVC.xib in Resources */,
 				3D4C6ED91D8658A300881208 /* FTGymPhotoCell.xib in Resources */,
@@ -4445,6 +4555,7 @@
 				3D13FB1C1D1A3FFB0060B9B4 /* FTSegmentedControl.m in Sources */,
 				E6B7D2001CF6A750004191A3 /* FTArenaViewController.m in Sources */,
 				E6D74A4E1CB7B7EE00854337 /* MD5.m in Sources */,
+				E6FEFA391DD411D300CEF6E3 /* FTUserCourseCommentViewController.m in Sources */,
 				E6F46C6B1D8936C1001387E2 /* FTGymPhotoCollectionViewCell.m in Sources */,
 				E6E688E81D002FB700708C24 /* FTHomepageRecordListTableViewCell.m in Sources */,
 				E6D74A4A1CB7B7EE00854337 /* UIView+YBAddtitions.m in Sources */,
@@ -4546,6 +4657,7 @@
 				3D2AEED01D2F3CBC00F94A59 /* FTPurchaseInApp.m in Sources */,
 				E6BFBEE61D23D55B0044F4B0 /* FTLaunchNewMatchViewController.m in Sources */,
 				E66D6EFA1CBCE81C008B015A /* RBRequestOperationManager.m in Sources */,
+				E6FEFA441DD427FA00CEF6E3 /* FTUserCourseCommentHeaderView.m in Sources */,
 				3D9D92EB1D34E9E3006C42F0 /* FTGoodsBean.m in Sources */,
 				3D8B2E591D1D157200E18280 /* FTGymCell.m in Sources */,
 				9258ED2E1D530C6200F489A5 /* FTMatchLiveViewController.m in Sources */,
@@ -4574,8 +4686,10 @@
 				3D197C531D41CCA30091048D /* WXSingleton.m in Sources */,
 				3D500DEC1D6C460600ACBD0D /* NSDate+TaskDate.m in Sources */,
 				E6B458DE1CB7B2B100FB4261 /* FTTableViewController.m in Sources */,
+				E6FEFA4C1DD4441200CEF6E3 /* UIView+DividingLine.m in Sources */,
 				E6C4D7ED1CEC5E7B00D73BFC /* FTUserTools.m in Sources */,
 				E68E6B661D655EAE00553F31 /* FTMatchPreViewController.m in Sources */,
+				E6FEFA4F1DD448B100CEF6E3 /* FTCoachCommentBottomView.m in Sources */,
 				3D4B19691CDB7AE20022DFB0 /* FTSexPickerView.m in Sources */,
 				E6C3C5F51DBB49F4007B199D /* FTGymSourceTableViewCellNew.m in Sources */,
 				3D06155A1D36302600FDA86F /* NSData+Base64.m in Sources */,
@@ -4616,12 +4730,14 @@
 				3DE95BA71CD86FA4005BF85C /* FTLoginViewController.m in Sources */,
 				3DFC414F1D083A3F0067AC72 /* TAAnimatedDotView.m in Sources */,
 				E6C4D7F11CEC5FCE00D73BFC /* FTArenaNetwork.m in Sources */,
+				E6089B331DD46091006496B0 /* FTUserSkillScore.m in Sources */,
 				3DC4121D1CD060190030C229 /* FTDrawerViewController.m in Sources */,
 				E6D74A4C1CB7B7EE00854337 /* HUD.m in Sources */,
 				3D6DA0D21CEE93CD00BAA8F0 /* FTNWGetCategory.m in Sources */,
 				3D06154E1D35E17B00FDA86F /* FTPhoneCell.m in Sources */,
 				E6A9DDBA1CD99E7700CB9518 /* FTBaseBean.m in Sources */,
 				3D20194B1D5831CF009E80B1 /* CreditWebViewController.m in Sources */,
+				E6FEFA3E1DD4218800CEF6E3 /* FTUserSkillGradeTableViewCell.m in Sources */,
 				3D41222A1D4F3A6B007EB996 /* FTAuthenticationCell.m in Sources */,
 				E6EFDC8B1D421CD7004C98D2 /* FTGymListViewController.m in Sources */,
 				E6B458971CB7560400FB4261 /* FTBaseNavigationViewController.m in Sources */,

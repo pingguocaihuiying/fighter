@@ -358,11 +358,11 @@
         
         SLog(@"dict:%@",dict);
         BOOL status = [dict[@"status"] isEqualToString:@"success"]? YES:NO;
-        if (1) {
+        if (status) {
             NSArray *arrayTemp = dict[@"data"];
             
             //测试用，给array赋值
-            arrayTemp = [self setTempArray];
+//            arrayTemp = [self setTempArray];
             
             [self sortArray:arrayTemp];
             
@@ -457,11 +457,11 @@
         
         SLog(@"dict:%@",dict);
         BOOL status = [dict[@"status"] isEqualToString:@"success"]? YES:NO;
-        if (1) {
+        if (status) {
             NSArray *arrayTemp = dict[@"data"];
             
             //测试用，给array赋值
-            arrayTemp = [self setTempArray];
+//            arrayTemp = [self setTempArray];
 
             
             [self sortArray:arrayTemp];

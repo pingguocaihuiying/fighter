@@ -793,6 +793,17 @@
         
     }];
 }
+#pragma mark 获取某节课教练的评价内容和
++ (void)getUserCourseHistoryWithOption:(void (^)(NSDictionary *dic)) option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetUserCourseHistoryURL];
+    
+    FTUserBean *loginedUser = [FTUserBean loginUser];
+    if (!loginedUser) {
+        [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"userId为空，请先登录"];
+    }
+    NSDictionary *dic = @{@"userId":loginedUser.olduserid};
+    [NetWorking postRequestWithUrl:urlString parameters:dic option:option];
+}
 
 + (void)getCommentsWithObjId:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^)(NSArray *))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetCommentsURL];
@@ -1052,17 +1063,27 @@
 }
 
 
-+ (void)getUserCourseHistoryWithOption:(void (^)(NSDictionary *dic)) option{
++ (void)getCourseCommentWithVersion:(NSString *)version andOption:(void (^)(NSDictionary *dic)) option{
     NSString *urlString = [FTNetConfig host:Domain path:GetUserCourseHistoryURL];
     
     FTUserBean *loginedUser = [FTUserBean loginUser];
     if (!loginedUser) {
         [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"userId为空，请先登录"];
     }
-    NSDictionary *dic = @{@"userId":loginedUser.olduserid};
+    NSDictionary *dic = @{@"userId":loginedUser.olduserid, @"versions":version};
     [NetWorking postRequestWithUrl:urlString parameters:dic option:option];
 }
 
++ (void)getUserSkillsByVersion:(NSString *)version andOption:(void (^)(NSDictionary *dic)) option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetUserSkillsByVersion];
+    
+    FTUserBean *loginedUser = [FTUserBean loginUser];
+    if (!loginedUser) {
+        [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"userId为空，请先登录"];
+    }
+    NSDictionary *dic = @{@"userId":loginedUser.olduserid, @"versions":version};
+    [NetWorking postRequestWithUrl:urlString parameters:dic option:option];
+}
 
 + (void)getUserSkillsWithCorporationid:(NSString *)corporationid andMemberUserId:(NSString *)memberUserId andVersion:(NSString *)version andParent:(NSString *)parent andOption:(void (^)(NSDictionary *dic)) option{
     NSString *urlString = [FTNetConfig host:Domain path:GetUserSkillsURL];
