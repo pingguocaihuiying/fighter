@@ -237,6 +237,13 @@
 + (void) getCoachTeachRecordWithCorporationid:(NSString*)corporationid andCourseType:(NSString *)courseType option:(void (^)(NSDictionary *dict))option;
 
 
+/**
+ 根据评论的版本号获取教练对用户的评分（及评论）
+
+ @param version 评论版本
+ @param option block
+ */
++ (void)getUserSkillsByVersion:(NSString *)version andOption:(void (^)(NSDictionary *dic)) option;
 
 #pragma mark - 训练
 /**

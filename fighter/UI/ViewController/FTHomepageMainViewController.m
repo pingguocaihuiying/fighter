@@ -65,6 +65,7 @@
 #import "FTUserCourseHistoryTableViewCell.h"//学员历史课程
 #import "FTUserCourseHistoryBean.h"//历史课程bean
 #import "NSDate+Tool.h"
+#import "FTUserCourseCommentViewController.h"
 
 @interface FTHomepageMainViewController ()<FTArenaDetailDelegate, FTSelectCellDelegate,FTTableViewdelegate, UIScrollViewDelegate, UIScrollViewAccessibilityDelegate, UICollectionViewDelegate, UICollectionViewDataSource, FTVideoDetailDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic)UIScrollView *scrollView;
@@ -509,11 +510,11 @@
         
         SLog(@"history dict:%@",dict);
         BOOL status = [dict[@"status"] isEqualToString:@"success"];
-        if (status) {
+        if (1) {
             NSArray *arrayTemp = dict[@"data"];
             
             //测试用，给array赋值
-//            arrayTemp = [self setTempArray];
+            arrayTemp = [self setTempArray];
             
             [self handleCourseVersionWithCourseArray:arrayTemp];
             
@@ -673,6 +674,7 @@
                           @"type": @"0",
                           @"corporationid": @187,
                           @"label": @"拳击",
+                          @"coachName": @"张三丰",
                           @"timeSection": @"11:10~12:00"
                           };
     NSDictionary *dic2 = @{
@@ -696,7 +698,8 @@
                            @"label": @"拳击",
                            @"attendCount" : @"1",
                            @"hasGradeCount" : @1,
-                           @"timeSection": @"11:10~12:00"
+                           @"timeSection": @"11:10~12:00",
+                           @"coachName": @"怀空",
                            };
     NSDictionary *dic3 = @{
                            @"id": @33,
@@ -717,7 +720,8 @@
                            @"type": @"0",
                            @"corporationid": @187,
                            @"label": @"拳击",
-                           @"timeSection": @"11:10~12:00"
+                           @"timeSection": @"11:10~12:00",
+                           @"coachName": @"丹伯多",
                            };
     
     NSArray *array = [[NSArray alloc]initWithObjects:dic, dic2, dic3, nil ];
@@ -1047,6 +1051,10 @@
         return headerView;
     }else if (tableView == _courseHistoryTableView){
         
+        if(!_courseHistoryArray || _courseHistoryArray.count == 0){//如果没有历史课程数据，则不反回headerView
+            return nil;
+        }
+        
         UIView *headerView = [UIView new];
         headerView.backgroundColor = [UIColor colorWithHex:0x282828];
         headerView.frame = CGRectMake(0, 0, tableView.width, 20);
@@ -1093,6 +1101,9 @@
     if (tableView == _recordRankTableView) {
         return 36;
     }else if (tableView == _courseHistoryTableView){
+        if(!_courseHistoryArray || _courseHistoryArray.count == 0){//如果没有历史课程数据，则不反回headerView
+            return 0;
+        }
         return 20;
     }
     return 0;
@@ -1214,7 +1225,8 @@
         }
     }else if (tableView == _courseHistoryTableView){
         NSLog(@"_courseHistoryTableView 被点击");
-        
+        FTUserCourseCommentViewController * userCourseCommentViewController = [FTUserCourseCommentViewController new];
+        [self.navigationController pushViewController:userCourseCommentViewController animated:YES];
         FTUserCourseHistoryBean *courseBean = _courseHistoryArray[indexPath.section][indexPath.row];
         NSString *version = courseBean.version;
         if (version) {
