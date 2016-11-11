@@ -12,5 +12,6 @@ typedef NS_ENUM(NSInteger, FTUserSkillType){
 #import "FTTraineeBaseViewController.h"
 
 @interface FTUserCourseCommentViewController : FTTraineeBaseViewController
-@property (nonatomic, assign) FTUserSkillType *type;//类型
+@property (nonatomic, assign) FTUserSkillType type;//类型
+@property (nonatomic, strong) NSMutableArray *skillArray;
 @end

@@ -110,6 +110,10 @@
 @property (nonatomic, strong) NSMutableArray *skillArray;//技能项（包括子项、母项）暂未用到，留备用
 @property (nonatomic, strong) NSMutableArray *fatherSkillArray;//技能母项
 @property (nonatomic, strong) NSMutableArray *childSkillArray;//技能子项
+
+@property (nonatomic, copy) NSString *localSkillVersionOld;//本地技能旧版本
+@property (nonatomic, copy) NSString *localSkillVersionNew;//从服务器获取的新技能版本
+
 @end
 
 @implementation FTHomepageMainViewController
@@ -538,12 +542,22 @@
 #pragma mark -获取用户技能点
 - (void) getSkillsFromServer {
     
-    [NetWorking getUserSkillsWithCorporationid:nil andMemberUserId:[FTUserBean loginUser].olduserid andVersion:nil andParent:nil andOption:^(NSDictionary *dict) {
+    NSString *localSkillVersion = [[NSUserDefaults standardUserDefaults]valueForKey:SKILL_VERSION];
+    
+    [NetWorking getUserSkillsWithCorporationid:nil andMemberUserId:[FTUserBean loginUser].olduserid andVersion:localSkillVersion andParent:nil andOption:^(NSDictionary *dict) {
         
         SLog(@"history dict:%@",dict);
         BOOL status = [dict[@"status"] isEqualToString:@"success"];
         if (status) {
             NSString *version = dict[@"data"][@"versions"];
+            //如果版本号不为空，存在本地
+            if (!version) {
+                version = @"-1";
+            }
+            [[NSUserDefaults standardUserDefaults]setValue:version forKey:SKILL_VERSION];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            
+            
             NSArray *arrayTemp = dict[@"data"][@"skills"];
             
             //初始化存储技能的数组们
@@ -1260,7 +1274,7 @@
         FTUserCourseHistoryBean *courseBean = _courseHistoryArray[indexPath.section][indexPath.row];
         NSString *version = courseBean.version;
         if (version) {
-            NSMutableDictionary *versionDic = [[NSUserDefaults standardUserDefaults]valueForKey:COURSE_VERSION];//从本地读取记录版本号已读、未读的字典
+            NSMutableDictionary *versionDic = [[NSUserDefaults standardUserDefaults]valueForKey:COURSE_VERSION];//从本地读取记录版本号已读、未读的字典/Users/mapbar/code/fighter/fighter/UI/ViewController/FTHomepageMainViewController.m
             if (versionDic) {
 //                [versionDic setValue:READ forKey:version];
                 
@@ -1278,6 +1292,23 @@
         
         FTUserCourseCommentViewController * userCourseCommentViewController = [FTUserCourseCommentViewController new];
         userCourseCommentViewController.type = FTUserSkillTypeChildSkill;
+        
+        //母项技能
+        FTUserSkillBean *fatherSkillBean = _fatherSkillArray[indexPath.row];
+        
+        //找出该母项技能下的所有子项
+        int parentId = fatherSkillBean.id;//母项id
+        NSMutableArray *childSkillArray = [NSMutableArray new];//点击的这一项的所有子项
+        
+        for(FTUserSkillBean *bean in _childSkillArray){
+            if (bean.parentId == parentId) {
+                [childSkillArray addObject:bean];
+            }
+        }
+        
+        //把筛选出来的该母项下所有的子项传值给下个vc
+        userCourseCommentViewController.skillArray = childSkillArray;
+        
         [self.navigationController pushViewController:userCourseCommentViewController animated:YES];
     }
 }
