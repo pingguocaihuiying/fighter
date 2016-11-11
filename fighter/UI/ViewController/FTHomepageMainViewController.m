@@ -1278,6 +1278,14 @@
         
         FTUserCourseCommentViewController * userCourseCommentViewController = [FTUserCourseCommentViewController new];
         userCourseCommentViewController.type = FTUserSkillTypeChildSkill;
+        
+        //母项技能
+        FTUserSkillBean *fatherSkillBean = _fatherSkillArray[indexPath.row];
+        int parentId = fatherSkillBean.parentId;
+        
+        
+        //找出该母项技能下的所有子项
+        
         [self.navigationController pushViewController:userCourseCommentViewController animated:YES];
     }
 }

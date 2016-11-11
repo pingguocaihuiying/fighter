@@ -22,18 +22,27 @@
         _subNumber = [subNumber intValue];
     }
     //父项id
-    NSString *parrentId = dic[@"parrent"];
-    if (parrentId) {
-        _parrentId = [parrentId intValue];
+    NSString *parentId = dic[@"parent"];
+    if (parentId) {
+        _parentId = [parentId intValue];
     }
     
     //如果父项id为0，说明自己为父项
-    _isParrent = _parrentId == 0;
+    _isParrent = _parentId == 0;
     
     //分值
     NSString *score = dic[@"score"];
     if (score) {
-        _score = [score floatValue];
+        
+        float scoreFloat = [score floatValue];
+        
+        if(scoreFloat < 0){
+            scoreFloat = 0;
+        }else if (scoreFloat > 99){
+            scoreFloat = 99;
+        }
+        
+        _score = scoreFloat;
     }
     
     //技能名字
