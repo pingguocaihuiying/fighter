@@ -5,7 +5,12 @@
 //  Created by 李懿哲 on 22/09/2016.
 //  Copyright © 2016 Mapbar. All rights reserved.
 //
+
+#import "FTCourseBean.h"
+
 @class FTGymSourceTableViewCell;
+
+
 //@protocol FTGymCourseTableViewDelegate <NSObject>
 //@optional
 //
@@ -34,7 +39,7 @@
 
 @end
 
-typedef void(^PushBlock)();
+typedef void(^PushBlock)(FTCourseBean *bean);
 #import <UIKit/UIKit.h>
 //#import "FTGymSourceTableViewCell.h"
 #import "FTGymSourceView.h"

@@ -237,13 +237,6 @@
 + (void) getCoachTeachRecordWithCorporationid:(NSString*)corporationid andCourseType:(NSString *)courseType option:(void (^)(NSDictionary *dict))option;
 
 
-/**
- 根据评论的版本号获取教练对用户的评分（及评论）
-
- @param version 评论版本
- @param option block
- */
-+ (void)getUserSkillsByVersion:(NSString *)version andOption:(void (^)(NSDictionary *dic)) option;
 
 #pragma mark - 训练
 /**
@@ -273,6 +266,15 @@
 
 
 /**
+ 根据评论的版本号获取教练对用户的评分（及评论）
+ 
+ @param version 评论版本
+ @param option block
+ */
++ (void)getUserSkillsByVersion:(NSString *)version andOption:(void (^)(NSDictionary *dic)) option;
+
+
+/**
  个人主页 或 教练给学员评分 用到的
  获取用户技能属性的接口
 
@@ -282,6 +284,7 @@
  @param parent 选填：技能的parentid
  @param option block
  */
+
 + (void)getUserSkillsWithCorporationid:(NSString *)corporationid andMemberUserId:(NSString *)memberUserId andVersion:(NSString *)version andParent:(NSString *)parent andOption:(void (^)(NSDictionary *dic)) option;
 
 
