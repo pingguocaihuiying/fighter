@@ -18,7 +18,7 @@
 #import "FTGymCourceViewNew.h"
 #import "FTPublicHistoryCourseTableViewCell.h"
 #import "FTTraineeViewController.h"
-
+#import "FTTraineeSkillViewController.h"
 
 
 @interface FTCoachSelfCourseViewController ()<FTGymCourseTableViewDelegate, UITableViewDelegate, UITableViewDataSource, FTCoachChangeCourseStatusDelegate>
@@ -219,11 +219,26 @@
     _gymSourceViewPublic.frame = _gymSourceViewContainerView.bounds;
     _gymSourceViewPublic.delegate = self;
     
+#warning mark -
     __weak typeof(self) weakslef= self;
-    _gymSourceViewPublic.pushblock = ^(){
-        FTTraineeViewController *traineeListVC = [[FTTraineeViewController alloc]init];
-        [weakslef.navigationController pushViewController:traineeListVC animated:YES];
+    _gymSourceViewPublic.pushblock = ^(id bean){
+        if (_coachCourseType == FTCoachCourseTypePublic) {
+            
+            FTTraineeViewController *traineeListVC = [[FTTraineeViewController alloc]init];
+            traineeListVC.courseState = FTTraineeCourseStateWaiting;
+            traineeListVC.courseType = weakslef.coachCourseType;
+            traineeListVC.bean = bean;
+            [weakslef.navigationController pushViewController:traineeListVC animated:YES];
+        }
+//        else {
+//            FTTraineeSkillViewController *traineeSkillVC = [[FTTraineeSkillViewController alloc]init];
+//            //    traineeSkillVC.courseState = FTTraineeCourseStateComplete;
+//            //    traineeSkillVC.courseType = _coachCourseType;
+//            //    traineeSkillVC.bean = bean;
+//            [weakslef.navigationController pushViewController:traineeSkillVC animated:YES];
+//        }
     };
+    
     [_gymSourceViewContainerView addSubview:_gymSourceViewPublic];
     
 }
@@ -565,14 +580,28 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     id bean = ((_coachCourseType == FTCoachCourseTypePublic) ? _historyArrayPublic : _historyArray )[indexPath.section][indexPath.row];
     NSLog(@"课程bean:%@", bean);
     
-    FTTraineeViewController *traineeListVC = [[FTTraineeViewController alloc]init];
-    traineeListVC.courseState = FTTraineeCourseStateComplete;
-    traineeListVC.courseType = _coachCourseType;
-    traineeListVC.bean = bean;
-    [self.navigationController pushViewController:traineeListVC animated:YES];
+    if (_coachCourseType == FTCoachCourseTypePublic) {
+    
+        FTTraineeViewController *traineeListVC = [[FTTraineeViewController alloc]init];
+        traineeListVC.courseState = FTTraineeCourseStateComplete;
+        traineeListVC.courseType = _coachCourseType;
+        traineeListVC.bean = bean;
+        [self.navigationController pushViewController:traineeListVC animated:YES];
+    }else {
+        FTTraineeSkillViewController *traineeSkillVC = [[FTTraineeSkillViewController alloc]init];
+//        traineeSkillVC.courseState = FTTraineeCourseStateComplete;
+//        traineeSkillVC.courseType = _coachCourseType;
+        traineeSkillVC.bean = bean;
+        [self.navigationController pushViewController:traineeSkillVC animated:YES];
+    }
+        
+    
+    
+    
     
 }
 

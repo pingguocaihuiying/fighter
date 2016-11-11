@@ -111,6 +111,7 @@
 		3D57D0501CEC0E7F0082BF24 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D04F1CEC0E7F0082BF24 /* DBManager.m */; };
 		3D5A3CBD1CFD1E1000FDB3C4 /* FTShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */; };
 		3D5E809C1DD328E100D0F250 /* FTTraineeBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5E809B1DD328E100D0F250 /* FTTraineeBean.m */; };
+		3D5E80A11DD4116600D0F250 /* FTTraineeSkillBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5E80A01DD4116600D0F250 /* FTTraineeSkillBean.m */; };
 		3D5FB4851CDC1F1D00FC1809 /* FTPhotoPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4841CDC1F1D00FC1809 /* FTPhotoPickerView.m */; };
 		3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4871CDC251B00FC1809 /* FTCityPickerView.m */; };
 		3D5FB4921CDC311400FC1809 /* FTAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4901CDC311400FC1809 /* FTAssetsViewController.m */; };
@@ -243,6 +244,10 @@
 		3DE1DEF61D3F472500511E92 /* FTPaySingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1DEF51D3F472500511E92 /* FTPaySingleton.m */; };
 		3DE1DF061D40C74D00511E92 /* QQSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1DF051D40C74D00511E92 /* QQSingleton.m */; };
 		3DE486EA1D659C9E00819D04 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE486E91D659C9E00819D04 /* UIButton+Badge.m */; };
+		3DE4A63A1DD44619008966AB /* FTRatingBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE4A6391DD44619008966AB /* FTRatingBar.m */; };
+		3DE4A63E1DD47F41008966AB /* FTSchedulePrivateBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE4A63D1DD47F41008966AB /* FTSchedulePrivateBean.m */; };
+		3DE4A6421DD557F1008966AB /* FTCourseBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE4A6411DD557F1008966AB /* FTCourseBean.m */; };
+		3DE4A6461DD564CE008966AB /* FTSchedulePublicBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE4A6451DD564CE008966AB /* FTSchedulePublicBean.m */; };
 		3DE95BA01CD8675B005BF85C /* FTDrawerStyler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95B9F1CD8675B005BF85C /* FTDrawerStyler.m */; };
 		3DE95BA31CD868C6005BF85C /* FTDynamicsDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95BA21CD868C6005BF85C /* FTDynamicsDrawerViewController.m */; };
 		3DE95BA71CD86FA4005BF85C /* FTLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE95BA51CD86FA4005BF85C /* FTLoginViewController.m */; };
@@ -661,6 +666,8 @@
 		3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTShareView.m; sourceTree = "<group>"; };
 		3D5E809A1DD328E100D0F250 /* FTTraineeBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeBean.h; sourceTree = "<group>"; };
 		3D5E809B1DD328E100D0F250 /* FTTraineeBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeBean.m; sourceTree = "<group>"; };
+		3D5E809F1DD4116600D0F250 /* FTTraineeSkillBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeSkillBean.h; sourceTree = "<group>"; };
+		3D5E80A01DD4116600D0F250 /* FTTraineeSkillBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeSkillBean.m; sourceTree = "<group>"; };
 		3D5FB4831CDC1F1D00FC1809 /* FTPhotoPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPhotoPickerView.h; sourceTree = "<group>"; };
 		3D5FB4841CDC1F1D00FC1809 /* FTPhotoPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPhotoPickerView.m; sourceTree = "<group>"; };
 		3D5FB4861CDC251B00FC1809 /* FTCityPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCityPickerView.h; sourceTree = "<group>"; };
@@ -870,6 +877,14 @@
 		3DE1DF051D40C74D00511E92 /* QQSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQSingleton.m; sourceTree = "<group>"; };
 		3DE486E81D659C9E00819D04 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		3DE486E91D659C9E00819D04 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
+		3DE4A6381DD44619008966AB /* FTRatingBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRatingBar.h; sourceTree = "<group>"; };
+		3DE4A6391DD44619008966AB /* FTRatingBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRatingBar.m; sourceTree = "<group>"; };
+		3DE4A63C1DD47F41008966AB /* FTSchedulePrivateBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSchedulePrivateBean.h; sourceTree = "<group>"; };
+		3DE4A63D1DD47F41008966AB /* FTSchedulePrivateBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTSchedulePrivateBean.m; sourceTree = "<group>"; };
+		3DE4A6401DD557F1008966AB /* FTCourseBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCourseBean.h; sourceTree = "<group>"; };
+		3DE4A6411DD557F1008966AB /* FTCourseBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTCourseBean.m; sourceTree = "<group>"; };
+		3DE4A6441DD564CE008966AB /* FTSchedulePublicBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTSchedulePublicBean.h; sourceTree = "<group>"; };
+		3DE4A6451DD564CE008966AB /* FTSchedulePublicBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTSchedulePublicBean.m; sourceTree = "<group>"; };
 		3DE95B9E1CD8675B005BF85C /* FTDrawerStyler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDrawerStyler.h; sourceTree = "<group>"; };
 		3DE95B9F1CD8675B005BF85C /* FTDrawerStyler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDrawerStyler.m; sourceTree = "<group>"; };
 		3DE95BA11CD868C6005BF85C /* FTDynamicsDrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDynamicsDrawerViewController.h; sourceTree = "<group>"; };
@@ -1680,6 +1695,7 @@
 		3D484D5C1DC730AC00E2EC8C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3DE4A6371DD445F0008966AB /* ratingBar */,
 				3D4CBDA81DD1AD73005A20E4 /* submitPopUpView */,
 				3D430BDF1DD059F900532D01 /* traineeCollectionViewLayout */,
 				3D484D641DC7360100E2EC8C /* TraineeSectionHeaderView */,
@@ -1878,6 +1894,24 @@
 			name = DataBase;
 			sourceTree = "<group>";
 		};
+		3D5E809D1DD4114000D0F250 /* traineeBean */ = {
+			isa = PBXGroup;
+			children = (
+				3D5E809A1DD328E100D0F250 /* FTTraineeBean.h */,
+				3D5E809B1DD328E100D0F250 /* FTTraineeBean.m */,
+			);
+			name = traineeBean;
+			sourceTree = "<group>";
+		};
+		3D5E809E1DD4115000D0F250 /* skillBean */ = {
+			isa = PBXGroup;
+			children = (
+				3D5E809F1DD4116600D0F250 /* FTTraineeSkillBean.h */,
+				3D5E80A01DD4116600D0F250 /* FTTraineeSkillBean.m */,
+			);
+			name = skillBean;
+			sourceTree = "<group>";
+		};
 		3D5FB48E1CDC30C700FC1809 /* imagePicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -1918,8 +1952,11 @@
 		3D681DAF1DD305EA007706C2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3D5E809A1DD328E100D0F250 /* FTTraineeBean.h */,
-				3D5E809B1DD328E100D0F250 /* FTTraineeBean.m */,
+				3DE4A6431DD564AF008966AB /* SchedulePublicBean */,
+				3DE4A63F1DD55735008966AB /* CourseBean */,
+				3DE4A63B1DD47F21008966AB /* SchedulePrivateBean */,
+				3D5E809E1DD4115000D0F250 /* skillBean */,
+				3D5E809D1DD4114000D0F250 /* traineeBean */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -2087,13 +2124,13 @@
 			name = boxerVideo;
 			sourceTree = "<group>";
 		};
-		3D82426F1DAB79E0004C0382 /* bean */ = {
+		3D82426F1DAB79E0004C0382 /* CourseHistoryBean */ = {
 			isa = PBXGroup;
 			children = (
 				3D8242701DAB7A36004C0382 /* FTCourseHistoryBean.h */,
 				3D8242711DAB7A36004C0382 /* FTCourseHistoryBean.m */,
 			);
-			name = bean;
+			name = CourseHistoryBean;
 			sourceTree = "<group>";
 		};
 		3D8771221D91187E0001DB78 /* 拳馆评论列表 */ = {
@@ -2345,6 +2382,42 @@
 				3D0B446C1D45A4D400EE08B3 /* WBSingleton.m */,
 			);
 			name = "单例";
+			sourceTree = "<group>";
+		};
+		3DE4A6371DD445F0008966AB /* ratingBar */ = {
+			isa = PBXGroup;
+			children = (
+				3DE4A6381DD44619008966AB /* FTRatingBar.h */,
+				3DE4A6391DD44619008966AB /* FTRatingBar.m */,
+			);
+			name = ratingBar;
+			sourceTree = "<group>";
+		};
+		3DE4A63B1DD47F21008966AB /* SchedulePrivateBean */ = {
+			isa = PBXGroup;
+			children = (
+				3DE4A63C1DD47F41008966AB /* FTSchedulePrivateBean.h */,
+				3DE4A63D1DD47F41008966AB /* FTSchedulePrivateBean.m */,
+			);
+			name = SchedulePrivateBean;
+			sourceTree = "<group>";
+		};
+		3DE4A63F1DD55735008966AB /* CourseBean */ = {
+			isa = PBXGroup;
+			children = (
+				3DE4A6401DD557F1008966AB /* FTCourseBean.h */,
+				3DE4A6411DD557F1008966AB /* FTCourseBean.m */,
+			);
+			name = CourseBean;
+			sourceTree = "<group>";
+		};
+		3DE4A6431DD564AF008966AB /* SchedulePublicBean */ = {
+			isa = PBXGroup;
+			children = (
+				3DE4A6441DD564CE008966AB /* FTSchedulePublicBean.h */,
+				3DE4A6451DD564CE008966AB /* FTSchedulePublicBean.m */,
+			);
+			name = SchedulePublicBean;
 			sourceTree = "<group>";
 		};
 		3DE95BA91CD86FB6005BF85C /* login */ = {
@@ -3022,7 +3095,7 @@
 		E66BC0071D9A679A00B492D3 /* 教练查看自己的课表 */ = {
 			isa = PBXGroup;
 			children = (
-				3D82426F1DAB79E0004C0382 /* bean */,
+				3D82426F1DAB79E0004C0382 /* CourseHistoryBean */,
 				E6433FE81DCB3F300062EF70 /* 团课历史课程cell */,
 				E66BC00D1D9A752000B492D3 /* 私教历史课程记录cell */,
 				E66BC0081D9A67C700B492D3 /* FTCoachSelfCourseViewController.h */,
@@ -4565,6 +4638,7 @@
 				E6D74A4A1CB7B7EE00854337 /* UIView+YBAddtitions.m in Sources */,
 				E65D08C71CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.m in Sources */,
 				3D06155C1D36302600FDA86F /* NSString+Base64.m in Sources */,
+				3DE4A63E1DD47F41008966AB /* FTSchedulePrivateBean.m in Sources */,
 				3DB240F41D3C60A6007F32C6 /* FTShareView2.m in Sources */,
 				3D4C6EE31D87A04C00881208 /* UIPlaceHolderTextView.m in Sources */,
 				E696E4E01D2A39F800A89B60 /* FTOpponentCell.m in Sources */,
@@ -4716,6 +4790,7 @@
 				3D8242721DAB7A36004C0382 /* FTCourseHistoryBean.m in Sources */,
 				3D8B2E531D1D14B000E18280 /* FTCoachCell.m in Sources */,
 				E6F46C361D829161001387E2 /* FTGymPhotosViewController.m in Sources */,
+				3DE4A6461DD564CE008966AB /* FTSchedulePublicBean.m in Sources */,
 				3D484D791DC87F4300E2EC8C /* FTTraineeGradeViewController.m in Sources */,
 				3D0B44721D45D96F00EE08B3 /* FTNewsCell.m in Sources */,
 				E6A9DDA41CD8842E00CB9518 /* FTVideoViewController.m in Sources */,
@@ -4725,6 +4800,7 @@
 				E64EF10B1CB6614000CAE340 /* main.m in Sources */,
 				E61185981CC78BF400F23EC7 /* FTUserBean.m in Sources */,
 				3D322AC91CEB171200039E2C /* FTRankHeaderCell.m in Sources */,
+				3D5E80A11DD4116600D0F250 /* FTTraineeSkillBean.m in Sources */,
 				E65D08D41CBCD59300651B19 /* FTOneBigImageInfoTableViewCell.m in Sources */,
 				3DA6D1C41D20D8BD0049CD4A /* FTCycleScrollViewCell.m in Sources */,
 				E66BC0041D9A18F100B492D3 /* FTOrderCoachViewController.m in Sources */,
@@ -4745,6 +4821,7 @@
 				3D41222A1D4F3A6B007EB996 /* FTAuthenticationCell.m in Sources */,
 				E6EFDC8B1D421CD7004C98D2 /* FTGymListViewController.m in Sources */,
 				E6B458971CB7560400FB4261 /* FTBaseNavigationViewController.m in Sources */,
+				3DE4A6421DD557F1008966AB /* FTCourseBean.m in Sources */,
 				3D4B19631CDB59D60022DFB0 /* UIWindow+MBProgressHUD.m in Sources */,
 				E668BBBE1CE4523600071998 /* FTCacheBean.m in Sources */,
 				3D06155B1D36302600FDA86F /* NSData+CommonCrypto.m in Sources */,
@@ -4758,6 +4835,7 @@
 				3DB240FA1D3CD236007F32C6 /* FTRechargeView.m in Sources */,
 				3DC31DD01CF859EC001BC364 /* FTArenaChooseLabelView.m in Sources */,
 				3D13FB1F1D1A40350060B9B4 /* FTSegmentItem.m in Sources */,
+				3DE4A63A1DD44619008966AB /* FTRatingBar.m in Sources */,
 				3D15E4B81D9518D10078F9E7 /* FTGymCommentDetailCell.m in Sources */,
 				E6D74A501CB7B7EE00854337 /* ZJModelTool.m in Sources */,
 				9210FE741D582EF000D147B4 /* FTBetView.m in Sources */,

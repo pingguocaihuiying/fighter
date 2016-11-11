@@ -8,21 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "FTBaseTableViewCell.h"
+#import "FTRatingBar.h"
 
 @interface FTTraineeSkillCell : FTBaseTableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *skillLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gradeLabel;
 
-@property (weak, nonatomic) IBOutlet UIImageView *levelImage1;
-@property (weak, nonatomic) IBOutlet UIImageView *levelImage2;
-@property (weak, nonatomic) IBOutlet UIImageView *levelImage3;
-@property (weak, nonatomic) IBOutlet UIImageView *levelImage4;
-@property (weak, nonatomic) IBOutlet UIImageView *levelImage5;
-
 @property (weak, nonatomic) IBOutlet UIView *bottomLine;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *skillLabelWidthConstraint;
+@property (weak, nonatomic) IBOutlet FTRatingBar *ratingBar;
 
-@property (nonatomic, copy) NSArray *imagesViews;
 @end

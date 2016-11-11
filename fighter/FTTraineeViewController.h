@@ -9,6 +9,7 @@
 #import "FTBaseViewController2.h"
 #import "FTTraineeBaseViewController.h"
 #import "FTCourseHistoryBean.h"
+#import "FTCourseBean.h"
 
 typedef NS_ENUM(NSInteger, FTTraineeCourseState) {
     FTTraineeCourseStateComplete,//历史课程
@@ -25,7 +26,7 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
  */
 @interface FTTraineeViewController : FTTraineeBaseViewController
 
-@property (nonatomic, strong) FTCourseHistoryBean *bean;
+@property (nonatomic, strong) id bean;
 @property (nonatomic, assign) FTTraineeCourseState courseState;
 @property (nonatomic, assign) FTCoachCourseType courseType;
 @end

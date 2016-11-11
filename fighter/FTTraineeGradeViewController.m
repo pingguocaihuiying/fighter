@@ -9,6 +9,7 @@
 #import "FTTraineeGradeViewController.h"
 #import "FTTraineeSkillSectionHeaderView.h"
 #import "FTTraineeGradeCell.h"
+#import "FTTraineeSkillBean.h"
 
 @interface FTTraineeGradeViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) NSArray *dataArray;
@@ -109,6 +110,10 @@
     FTTraineeGradeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GradeCell"];
     cell.skillLabel.text = @"前手直拳：";
     cell.gradeLabel.text = @"8888";
+    
+    FTTraineeSkillBean *bean = [[FTTraineeSkillBean alloc]initWithFTTraineeSkillBeanDic:[self.dataArray objectAtIndex:indexPath.row]];
+    cell.skillLabel.text = bean.name;
+    cell.gradeLabel.text = [NSString stringWithFormat:@"%ld",bean.score];
     
     return cell;
 }
