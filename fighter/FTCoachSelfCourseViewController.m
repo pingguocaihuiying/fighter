@@ -70,7 +70,7 @@
 #pragma mark  - 初始化数据
 - (void) initData {
     
-    [self setJHRefresh];
+//    [self setJHRefresh];
 //    [self getTimeSection];//获取时间段信息
 //    [self getTeachRecordFromServer];//获取课程记录信息
 }
