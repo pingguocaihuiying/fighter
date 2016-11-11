@@ -55,4 +55,26 @@
     
 }
 
+- (void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:[NSString stringWithFormat:@"%d", _id] forKey:@"id"];
+    [aCoder encodeObject:_name forKey:@"name"];
+    [aCoder encodeObject:[NSString stringWithFormat:@"%d", _subNumber] forKey:@"subNumber"];
+    [aCoder encodeObject:[NSString stringWithFormat:@"%f", _score] forKey:@"score"];
+    [aCoder encodeObject:[NSString stringWithFormat:@"%d", _parentId] forKey:@"parentId"];
+    [aCoder encodeObject:[NSString stringWithFormat:@"%d", _isParrent] forKey:@"isParrent"];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder{
+    if (self = [super init]) {
+
+        self.id = [[aDecoder decodeObjectForKey:@"id"] intValue];
+        self.name = [aDecoder decodeObjectForKey:@"name"];
+        self.subNumber = [[aDecoder decodeObjectForKey:@"subNumber"] intValue];
+        self.score = [[aDecoder decodeObjectForKey:@"score"] floatValue];
+        self.parentId = [[aDecoder decodeObjectForKey:@"parentId"] intValue];
+        self.isParrent = [[aDecoder decodeObjectForKey:@"subNumber"] boolValue];
+    }
+    return self;
+}
+
 @end

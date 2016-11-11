@@ -17,6 +17,8 @@
 #import "FTUserCourseHistoryBean.h"
 #import "FTUserChildSkillTopInfoView.h"
 #import "UILabel+FTLYZLabel.h"
+#import "FTTraineeSkillCell.h"
+#import "FTUserSkillBean.h"
 
 @interface FTUserCourseCommentViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) NSArray *dataArray;
@@ -43,9 +45,12 @@
     [self setNavigationbar];
     [self setSubViews];
     
-//    if (_type == FTUserSkillTypeCoachComment) {
+    if (_type == FTUserSkillTypeCoachComment) {
         [self loadDataFromServer];
-//    }
+    }else{
+        //直接刷新tableView，数据已经从上个页面传递过来了
+        [_tableView reloadData];
+    }
     
 }
 
@@ -121,26 +126,42 @@
     }
 }
 
-    - (void)setBottomCommentContentView{
-        _commentView = [[[NSBundle mainBundle]loadNibNamed:@"FTCoachCommentBottomView" owner:self options:nil]firstObject];//加载底部评论内容view
-        _commentView.frame = _commentContentView.bounds;
-        
-        [_commentContentView addSubview:_commentView];
-    }
+- (void)setBottomCommentContentView{
+    _commentView = [[[NSBundle mainBundle]loadNibNamed:@"FTCoachCommentBottomView" owner:self options:nil]firstObject];//加载底部评论内容view
+    _commentView.frame = _commentContentView.bounds;
+    
+    [_commentContentView addSubview:_commentView];
+}
     
 - (void) setTableView {
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
+    //根据_type类型去加载对应的cell文件
+    if (_type == FTUserSkillTypeCoachComment) {
     [self.tableView registerNib:[UINib nibWithNibName:@"FTUserSkillGradeTableViewCell" bundle:nil] forCellReuseIdentifier:@"GradeCell"];
+    }else if(_type == FTUserSkillTypeChildSkill){
+            [self.tableView registerNib:[UINib nibWithNibName:@"FTTraineeSkillCell" bundle:nil] forCellReuseIdentifier:@"GradeCell2"];
+    }
+
     self.tableView.estimatedSectionHeaderHeight = 90;
 }
 
 #pragma mark  - delegate
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    //    return self.dataArray.count;
-    return _skillScoreArray.count;
+    if (_type == FTUserSkillTypeCoachComment) {
+        if (_skillScoreArray) {
+            return _skillScoreArray.count;
+        }
+        
+    }else if(_type == FTUserSkillTypeChildSkill){
+        if (_skillArray) {
+            return _skillArray.count;
+        }
+    }
+    return 0;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -172,16 +193,31 @@
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    FTUserSkillGradeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GradeCell"];
-    cell.skillLabel.text = @"前手直拳：";
-    cell.gradeLabel.text = @"8888";
-    
-    FTUserSkillScore *bean = _skillScoreArray[indexPath.row];
+    if (_type == FTUserSkillTypeCoachComment) {
+        
+        FTUserSkillGradeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GradeCell"];
+        cell.skillLabel.text = @"前手直拳：";
+        cell.gradeLabel.text = @"8888";
+        
+        FTUserSkillScore *bean = _skillScoreArray[indexPath.row];
+        
+        [cell setWithBean:bean];
+        
+        
+        return cell;
+        
+    }else{
+        
+        FTTraineeSkillCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GradeCell2"];
+        
+        FTUserSkillBean *bean = _skillArray[indexPath.row];
+        
+        [cell setWithBean:bean];
+        
+        
+        return cell;
 
-    [cell setWithBean:bean];
-    
-    
-    return cell;
+    }
 }
 
 

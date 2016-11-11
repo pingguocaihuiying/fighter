@@ -141,8 +141,9 @@ typedef NS_ENUM(NSInteger, FTGymVIPType){
     FTGymVIPTypeBefore = 2//过期会员
 };
 
-//学员本地存储的历史课程版本号
-#define COURSE_VERSION @"CourseVersion"
+
+#define COURSE_VERSION @"CourseVersion"//学员本地存储的历史课程版本号
+#define SKILL_VERSION @"SkillVersion"//本地的学员技能版本
 
 #define READ @"read"//已读
 #define UNREAD @"unread"//未读

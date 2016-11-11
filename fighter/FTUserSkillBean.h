@@ -8,7 +8,7 @@
 
 #import "FTBaseBean.h"
 
-@interface FTUserSkillBean : FTBaseBean
+@interface FTUserSkillBean : FTBaseBean<NSCoding>
 
 @property (nonatomic, assign) int id;//技能id
 @property (nonatomic, copy) NSString *name;//技能名字
