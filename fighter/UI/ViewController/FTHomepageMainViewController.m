@@ -66,6 +66,7 @@
 #import "FTUserCourseHistoryBean.h"//历史课程bean
 #import "NSDate+Tool.h"
 #import "FTUserCourseCommentViewController.h"
+#import "FTUserSkillBean.h"
 
 @interface FTHomepageMainViewController ()<FTArenaDetailDelegate, FTSelectCellDelegate,FTTableViewdelegate, UIScrollViewDelegate, UIScrollViewAccessibilityDelegate, UICollectionViewDelegate, UICollectionViewDataSource, FTVideoDetailDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic)UIScrollView *scrollView;
@@ -105,6 +106,10 @@
 @property (strong, nonatomic) IBOutlet UITableView *skillsTableView;//技能属性tableview
 
 @property (nonatomic, strong) NSMutableArray *courseHistoryArray;//课程历史数据
+
+@property (nonatomic, strong) NSMutableArray *skillArray;//技能项（包括子项、母项）暂未用到，留备用
+@property (nonatomic, strong) NSMutableArray *fatherSkillArray;//技能母项
+@property (nonatomic, strong) NSMutableArray *childSkillArray;//技能子项
 @end
 
 @implementation FTHomepageMainViewController
@@ -510,11 +515,11 @@
         
         SLog(@"history dict:%@",dict);
         BOOL status = [dict[@"status"] isEqualToString:@"success"];
-        if (1) {
+        if (status) {
             NSArray *arrayTemp = dict[@"data"];
             
             //测试用，给array赋值
-            arrayTemp = [self setTempArray];
+//            arrayTemp = [self setTempArray];
             
             [self handleCourseVersionWithCourseArray:arrayTemp];
             
@@ -538,8 +543,30 @@
         SLog(@"history dict:%@",dict);
         BOOL status = [dict[@"status"] isEqualToString:@"success"];
         if (status) {
-            NSArray *arrayTemp = dict[@"data"];
-//            
+            NSString *version = dict[@"data"][@"versions"];
+            NSArray *arrayTemp = dict[@"data"][@"skills"];
+            
+            //初始化存储技能的数组们
+            _skillArray = [NSMutableArray new];//新建数组
+            _fatherSkillArray = [NSMutableArray new];//新建父项数组
+            _childSkillArray = [NSMutableArray new];//新建子项数组
+            
+            for(NSDictionary *skillDic in arrayTemp){
+                FTUserSkillBean *skillBean = [FTUserSkillBean new];
+                [skillBean setValuesWithDic:skillDic];
+                [_skillArray addObject:skillBean];
+                
+                if (skillBean.isParrent) {
+                    [_fatherSkillArray addObject:skillBean];
+                } else {
+                    [_childSkillArray addObject:skillBean];
+                }
+                
+            }
+            
+            [_skillsTableView reloadData];
+            
+            //            1
 //            //测试用，给array赋值
 //            //            arrayTemp = [self setTempArray];
 //            
@@ -984,7 +1011,9 @@
         }
 //        number = 10;
     }else if (tableView == _skillsTableView){
-        number = 20;
+        if (_fatherSkillArray) {
+            number = _fatherSkillArray.count;
+        }
     }
     return number;
 }
@@ -1167,7 +1196,8 @@
         return courseHistoryCell;
     }else if(tableView == _skillsTableView){//技能
         FTTraineeSkillCell *skillListCell = [tableView dequeueReusableCellWithIdentifier:@"skillListCell"];
-        
+        FTUserSkillBean *bean = _fatherSkillArray[indexPath.row];
+        [skillListCell setWithBean:bean];
         return skillListCell;
     }
     return cell;
@@ -1245,6 +1275,10 @@
         
     }else if (tableView == _skillsTableView){
         NSLog(@"_skillsTableView 被点击");
+        
+        FTUserCourseCommentViewController * userCourseCommentViewController = [FTUserCourseCommentViewController new];
+        userCourseCommentViewController.type = FTUserSkillTypeChildSkill;
+        [self.navigationController pushViewController:userCourseCommentViewController animated:YES];
     }
 }
 - (void) getDataFromDBWithVideoType:(NSString *)videosType  getType:(NSString *) getType {

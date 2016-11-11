@@ -6,6 +6,7 @@
 //  Copyright © 2016 Mapbar. All rights reserved.
 //
 
+
 #import <UIKit/UIKit.h>
 
 @interface FTUserCourseCommentHeaderView : UIView

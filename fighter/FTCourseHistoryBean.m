@@ -32,8 +32,8 @@
     self.timeId = [dic[@"timeId"] integerValue];
     self.type = [dic[@"type"] integerValue];
     
+    self.memberUserId = dic[@"memberUserId"];
     self.timeSection = dic[@"timeSection"];
-    
     self.userId = dic[@"userId"];
     
     _hasGradeCount = [dic[@"hasGradeCount"] integerValue];

@@ -15,6 +15,8 @@
 #import "FTCoachCommentBottomView.h"
 #import "FTUserSkillScore.h"
 #import "FTUserCourseHistoryBean.h"
+#import "FTUserChildSkillTopInfoView.h"
+#import "UILabel+FTLYZLabel.h"
 
 @interface FTUserCourseCommentViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) NSArray *dataArray;
@@ -40,7 +42,11 @@
     
     [self setNavigationbar];
     [self setSubViews];
-    [self loadDataFromServer];
+    
+//    if (_type == FTUserSkillTypeCoachComment) {
+        [self loadDataFromServer];
+//    }
+    
 }
 
 - (void)loadDataFromServer{
@@ -109,12 +115,19 @@
 - (void) setSubViews {
     
     [self setTableView];
-    _commentView = [[[NSBundle mainBundle]loadNibNamed:@"FTCoachCommentBottomView" owner:self options:nil]firstObject];//加载底部评论内容view
-    _commentView.frame = _commentContentView.bounds;
     
-    [_commentContentView addSubview:_commentView];
+    if (_type == FTUserSkillTypeCoachComment) {//如果是教练评论的，才加载底部的评论内容view
+        [self setBottomCommentContentView];
+    }
 }
 
+    - (void)setBottomCommentContentView{
+        _commentView = [[[NSBundle mainBundle]loadNibNamed:@"FTCoachCommentBottomView" owner:self options:nil]firstObject];//加载底部评论内容view
+        _commentView.frame = _commentContentView.bounds;
+        
+        [_commentContentView addSubview:_commentView];
+    }
+    
 - (void) setTableView {
     
     self.tableView.delegate = self;
@@ -142,9 +155,18 @@
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    FTUserCourseCommentHeaderView *userCourseCommentHeaderView = [[[NSBundle mainBundle]loadNibNamed:@"FTUserCourseCommentHeaderView" owner:self options:nil]firstObject];
-    [userCourseCommentHeaderView addTopDividingLine];
-    return userCourseCommentHeaderView;
+    if (_type == FTUserSkillTypeCoachComment) {
+        FTUserCourseCommentHeaderView *userCourseCommentHeaderView = [[[NSBundle mainBundle]loadNibNamed:@"FTUserCourseCommentHeaderView" owner:self options:nil]firstObject];
+        [userCourseCommentHeaderView addTopDividingLine];
+        return userCourseCommentHeaderView;
+    } else {
+        FTUserChildSkillTopInfoView *userSkilltHeaderView = [[[NSBundle mainBundle]loadNibNamed:@"FTUserChildSkillTopInfoView" owner:self options:nil]firstObject];
+        [UILabel setRowGapOfLabel:userSkilltHeaderView.skillDescLabel withValue:7];
+        
+        return userSkilltHeaderView;
+    }
+    
+
 }
 
 

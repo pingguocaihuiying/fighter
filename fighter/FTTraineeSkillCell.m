@@ -7,6 +7,7 @@
 //
 
 #import "FTTraineeSkillCell.h"
+#import "FTUserSkillBean.h"
 
 @implementation FTTraineeSkillCell
 
@@ -51,5 +52,11 @@
 
 
 
-
+- (void)setWithBean:(FTBaseBean *)bean{
+    FTUserSkillBean *skillBean = (FTUserSkillBean *)bean;
+    _skillLabel.text = skillBean.name;
+    _gradeLabel.text = [NSString stringWithFormat:@"%.0f", skillBean.score];
+   [self.ratingBar displayRating:[self levelOfGrade:skillBean.score / skillBean.subNumber]];
+    
+}
 @end

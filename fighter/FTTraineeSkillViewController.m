@@ -76,7 +76,7 @@
 
     NSString *corporationId = [NSString stringWithFormat:@"%ld",self.bean.corporationid];
 //    NSString *memberUserId = [NSString stringWithFormat:@"%@",self.bean.userId];
-    [NetWorking getUserSkillsWithCorporationid:corporationId andMemberUserId:self.bean.userId andVersion:nil andParent:nil andOption:^(NSDictionary *dic) {
+    [NetWorking getUserSkillsWithCorporationid:corporationId andMemberUserId:self.bean.memberUserId andVersion:nil andParent:nil andOption:^(NSDictionary *dic) {
         NSLog(@"dic:%@",dic);
         
     }];
