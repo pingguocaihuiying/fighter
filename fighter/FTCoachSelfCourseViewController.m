@@ -10,7 +10,7 @@
 #import "FTGymSourceView.h"
 #import "FTCoachHistoryCourseTableViewCell.h"
 #import "NSDate+Tool.h"
-#import "FTCourseHistoryBean.h"
+#import "FTHistoryCourseBean.h"
 #import "FTGymCoachStateSwitcher.h"
 #import "UIScrollView+MJRefresh.h"
 #import "MJRefreshNormalHeader.h"
@@ -508,21 +508,19 @@
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
     for (NSDictionary *dic in tempArray) {
         
-        FTCourseHistoryBean *bean = [[FTCourseHistoryBean alloc]init];
-        [bean setValuesWithDic:dic];
-        
-        
+        FTHistoryCourseBean *bean = [[FTHistoryCourseBean alloc]initWithFTHistoryCourseBeanDic:dic];
         NSString *currentYearMonthString = [NSDate currentYearString];
-        NSString *yearString = [NSDate yearString:bean.date];
+        NSString *date = [NSString stringWithFormat:@"%ld",bean.date];
+        NSString *yearString = [NSDate yearString:date];
 
 
         if ([yearString isEqualToString:currentYearMonthString]) {
-            bean.dateString = [NSDate monthDayStringWithWordSpace:bean.date];
+            bean.dateString = [NSDate monthDayStringWithWordSpace:date];
         }else {
-            bean.dateString = [NSDate dateStringWithWordSpace:bean.date];
+            bean.dateString = [NSDate dateStringWithWordSpace:date];
         }
         
-        NSString *dateString = _coachCourseType == FTCoachCourseTypePublic ? [NSDate dateStringWithWordSpace:bean.date] : [NSDate dateStringWithYearMonth:bean.date];
+        NSString *dateString = _coachCourseType == FTCoachCourseTypePublic ? [NSDate dateStringWithWordSpace:date] : [NSDate dateStringWithYearMonth:date];
         NSLog(@"dateString:%@",dateString);
         if ([dict.allKeys containsObject:dateString]) {
             NSMutableArray *array = [dict objectForKey:dateString];
@@ -555,7 +553,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (_coachCourseType == FTCoachCourseTypePersonal) {//如果当前展示的是私教课
-        FTCourseHistoryBean *bean = _historyArray[indexPath.section][indexPath.row];
+        FTHistoryCourseBean *bean = _historyArray[indexPath.section][indexPath.row];
         FTCoachHistoryCourseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -572,8 +570,7 @@
         FTPublicHistoryCourseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellForPublic"];
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        FTCourseHistoryBean *bean = _historyArrayPublic[indexPath.section][indexPath.row];
+        FTHistoryCourseBean *bean = _historyArrayPublic[indexPath.section][indexPath.row];
         [cell setWithCourseHistoryBean:bean];
         return cell;
     }
@@ -620,28 +617,30 @@
         UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(16, 4, 150, 12)];
         label1.textColor = [UIColor colorWithHex:0xb4b4b4];
         label1.font = [UIFont systemFontOfSize:12];
-        FTCourseHistoryBean *bean = [_historyArrayPublic[section] firstObject];
-        NSLog(@"beanFoo: %@", bean.date);
+        FTHistoryCourseBean *bean = [_historyArrayPublic[section] firstObject];
+        NSString *beanDate = [NSString stringWithFormat:@"%ld",bean.date];
+        NSLog(@"beanFoo: %@", beanDate);
         
         NSString *currentYearString = [NSDate currentYearString];
-        NSString *yearString = [NSDate yearString:bean.date];
+        NSString *yearString = [NSDate yearString:beanDate];
         
         NSString *date = @"";
         if ([yearString isEqualToString:currentYearString]) {
-            date = [NSDate monthDayStringWithWordSpace:bean.date];
+            date = [NSDate monthDayStringWithWordSpace:beanDate];
         }else {
-            date = [NSDate dateStringWithWordSpace:bean.date];
+            date = [NSDate dateStringWithWordSpace:beanDate];
         }
         
         label1.text = date;
         [headerView addSubview:label1];
     } else {
-        FTCourseHistoryBean *bean = [_historyArray[section] firstObject];
+        FTHistoryCourseBean *bean = [_historyArray[section] firstObject];
+        NSString *beanDate = [NSString stringWithFormat:@"%ld",bean.date];
         NSString *currentYearMonthString = [NSDate currentYearMonthString2];
-        NSString *yearMonthString = [NSDate dateStringWithYearMonth:bean.date];
+        NSString *yearMonthString = [NSDate dateStringWithYearMonth:beanDate];
         
         NSString *currentMonthString = [NSDate currentMonthString];
-        NSString *monthString = [NSDate monthString:bean.date];
+        NSString *monthString = [NSDate monthString:beanDate];
         
         NSString *date = @"";
         UILabel *label1;

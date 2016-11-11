@@ -8,7 +8,7 @@
 
 #import "FTBaseViewController2.h"
 #import "FTTraineeBaseViewController.h"
-#import "FTCourseHistoryBean.h"
+#import "FTHistoryCourseBean.h"
 #import "FTCourseBean.h"
 
 typedef NS_ENUM(NSInteger, FTTraineeCourseState) {

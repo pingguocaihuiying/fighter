@@ -117,13 +117,13 @@
         [dic setObject:[NSString stringWithFormat:@"%ld",courseBean.theDate] forKey:@"date"];
         [dic setObject:userId forKey:@"coachUserId"];
         [dic setObject:[NSString stringWithFormat:@"%ld",courseBean.timeId] forKey:@"timeId"];
-        [dic setObject:[NSString stringWithFormat:@"%ld",courseBean.id] forKey:@"courseId"];
+        [dic setObject:[NSString stringWithFormat:@"%ld",courseBean.courseId] forKey:@"courseId"];
     }else {
-        FTCourseHistoryBean *historyBean = (FTCourseHistoryBean *)_bean;
-        [dic setObject:[NSString stringWithFormat:@"%@",historyBean.date] forKey:@"date"];
+        FTHistoryCourseBean *historyBean = (FTHistoryCourseBean *)_bean;
+        [dic setObject:[NSString stringWithFormat:@"%ld",historyBean.date] forKey:@"date"];
         [dic setObject:userId forKey:@"coachUserId"];
         [dic setObject:[NSString stringWithFormat:@"%ld",historyBean.timeId] forKey:@"timeId"];
-        [dic setObject:[NSString stringWithFormat:@"%ld",historyBean.id] forKey:@"courseId"];
+        [dic setObject:[NSString stringWithFormat:@"%ld",historyBean.courseId] forKey:@"courseId"];
     }
     
 
@@ -135,8 +135,9 @@
          [dic setObject:@"2" forKey:@"type"];//课程类型，0-团课，2-私教,3-其他
     }
     
+    NSLog(@"dic:%@",dic);
     [NetWorking getTraineeListWith:dic option:^(NSDictionary *dict) {
-        NSLog(@"dic:%@",dict);
+        NSLog(@"dict:%@",dict);
         NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         if (!dict) {
             return;
@@ -146,13 +147,12 @@
         if (status) {
             self.dataArray = dict[@"data"];
             [self setCollectionViewHeight:self.dataArray.count];
+            [self.collectionView reloadData];
         }
     }];
     //团课必填
     
     //私课必填
-    
-    [self setCollectionViewHeight:15];
 }
 
 - (void) setCollectionViewHeight:(NSInteger)count {
@@ -168,8 +168,8 @@
 #pragma mark  - delegate
 - (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-//    return _dataArray.count;
-    return 15;
+    return _dataArray.count;
+//    return 15;
 }
 
 /**
@@ -189,7 +189,7 @@
             headerView.memberLabel.text = [NSString stringWithFormat:@"%ld/%ld",courseBean.hasOrderCount,courseBean.topLimit];
             
         }else {
-            FTCourseHistoryBean *historyBean = (FTCourseHistoryBean *)_bean;
+            FTHistoryCourseBean *historyBean = (FTHistoryCourseBean *)_bean;
             headerView.timeSectionLabel.text = historyBean.timeSection;
             headerView.dateLabel.text = historyBean.dateString;
             headerView.courseLabel.text = historyBean.name;
@@ -207,49 +207,12 @@
 - (__kindof UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     
-    
     FTTraineeCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TraineeCell" forIndexPath:indexPath];
+    FTTraineeBean *bean = [[FTTraineeBean alloc] initWithFTTraineeBeanDic:[self.dataArray objectAtIndex:indexPath.row]];
+    [cell setCellWithBean:bean state:self.courseState];
     
-//    FTTraineeBean *bean = [[FTTraineeBean alloc] initWithFTTraineeBeanDic:[self.dataArray objectAtIndex:indexPath.row]];
-//    if ([bean.sex isEqualToString:@"男性"]) {
-//        
-//        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:bean.headUrl] placeholderImage: [UIImage imageNamed:@"学员头像-无头像男"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//            if (image) {
-//                cell.avatarMaskImageView.image = [UIImage imageNamed:@"学员头像-有头像男"];
-//            }
-//        }];
-//        
-//    }else {
-//        
-//        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:bean.headUrl] placeholderImage: [UIImage imageNamed:@"学员头像-无头像女"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//            if (image) {
-//                cell.avatarMaskImageView.image = [UIImage imageNamed:@"学员头像-有头像女"];
-//            }
-//        }];
-//    }
-//    cell.nameLabel.text = bean.createName;
-//    
-//    
-//    if (self.courseState == FTTraineeCourseStateComplete) {
-//        cell.markImageView.hidden = YES;
-//        if (bean.signStatus) {
-//            cell.traineeStateImageView.image = [UIImage imageNamed:@"学员状态-旷课"];
-//        }else {
-//            if (bean.hasGrade == 0) {
-//                cell.traineeStateImageView.image = [UIImage imageNamed:@"学员状态-未评分"];
-//            }else {
-//                cell.traineeStateImageView.image = [UIImage imageNamed:@"学员状态-已评分"];
-//            }
-//        }
-//    }else {
-//        cell.traineeStateImageView.hidden = YES;
-//        if (bean.newMember == 0) {
-//            cell.markImageView.hidden = YES;
-//        }
-//    }
-    
-    cell.avatarImageView.image = [UIImage imageNamed:@"学员头像-无头像男"];
-    cell.nameLabel.text = @"traineeName";
+//    cell.avatarImageView.image = [UIImage imageNamed:@"学员头像-无头像男"];
+//    cell.nameLabel.text = @"traineeName";
     
     return cell;
 }

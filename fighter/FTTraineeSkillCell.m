@@ -52,11 +52,11 @@
 
 
 
-- (void)setWithBean:(FTBaseBean *)bean{
-    FTUserSkillBean *skillBean = (FTUserSkillBean *)bean;
-    _skillLabel.text = skillBean.name;
-    _gradeLabel.text = [NSString stringWithFormat:@"%.0f", skillBean.score];
-   [self.ratingBar displayRating:[self levelOfGrade:skillBean.score / skillBean.subNumber]];
+- (void)setWithBean:(FTTraineeSkillBean *)bean{
+    
+    _skillLabel.text = bean.name;
+    _gradeLabel.text = [NSString stringWithFormat:@"%ld",bean.score];
+   [self.ratingBar displayRating:[self levelOfGrade:bean.score / bean.subNumber]];
     
 }
 @end

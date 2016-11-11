@@ -224,6 +224,23 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];
+    
+    if (self.isIndicator) {
+        return;
+    }
+    
+    CGPoint point = [[touches anyObject] locationInView:self];
+    int newRating = (int) (point.x / (width+space)) + 1;
+    if (newRating > 5)
+        return;
+    
+    if (point.x < 0) {
+        newRating = 0;
+    }
+    
+    if (newRating != _rating){
+        [self displayRating:newRating];
+    }
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{

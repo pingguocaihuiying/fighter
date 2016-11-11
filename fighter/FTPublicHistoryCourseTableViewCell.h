@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FTCourseHistoryBean.h"
+#import "FTHistoryCourseBean.h"
 
 @interface FTPublicHistoryCourseTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UIView *bgView;
@@ -18,6 +18,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *orderCountLabel;
 @property (strong, nonatomic) IBOutlet UIView *bottomDividingLine;
 
-- (void)setWithCourseHistoryBean:(FTCourseHistoryBean *)courseHistoryBean;
+- (void)setWithCourseHistoryBean:(FTHistoryCourseBean *)courseHistoryBean;
 
 @end

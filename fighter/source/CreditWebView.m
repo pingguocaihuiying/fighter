@@ -16,7 +16,7 @@
 @implementation CreditWebView
 
 - (void) awakeFromNib {
-    
+     [super awakeFromNib];
 //    self.delegate=self;
 }
 

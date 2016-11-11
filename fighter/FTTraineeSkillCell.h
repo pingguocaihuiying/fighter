@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FTBaseTableViewCell.h"
 #import "FTRatingBar.h"
+#import "FTTraineeSkillBean.h"
 
 @interface FTTraineeSkillCell : FTBaseTableViewCell
 
@@ -19,5 +20,7 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *skillLabelWidthConstraint;
 @property (weak, nonatomic) IBOutlet FTRatingBar *ratingBar;
+
+- (void)setWithBean:(FTTraineeSkillBean *)bean;
 
 @end
