@@ -22,7 +22,7 @@
 
     // Configure the view for the selected state
 }
-- (void)setWithCourseHistoryBean:(FTCourseHistoryBean *)courseHistoryBean{
+- (void)setWithCourseHistoryBean:(FTHistoryCourseBean *)courseHistoryBean{
     _courseNameLabel.text = courseHistoryBean.name;
     _timeSectionLabel.text = courseHistoryBean.timeSection;
     

@@ -75,17 +75,24 @@
 - (void) pullDataFromServer {
 
     NSString *corporationId = [NSString stringWithFormat:@"%ld",self.bean.corporationid];
-//    NSString *memberUserId = [NSString stringWithFormat:@"%@",self.bean.userId];
-    [NetWorking getUserSkillsWithCorporationid:corporationId andMemberUserId:self.bean.memberUserId andVersion:nil andParent:nil andOption:^(NSDictionary *dic) {
-        NSLog(@"dic:%@",dic);
+    [NetWorking getUserSkillsWithCorporationid:corporationId andMemberUserId:self.bean.memberUserId andVersion:nil andParent:nil andOption:^(NSDictionary *dict) {
+        SLog(@"dic:%@",dict);
+        if (!dict) {
+            return;
+        }
         
+        BOOL status = [dict[@"status"] isEqualToString:@"success"]?YES:NO;
+        if(status) {
+            self.dataArray = dict[@"data"][@"skills"];
+            [self.tableView reloadData];
+        }
     }];
 }
 #pragma mark  - delegate
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-//    return self.dataArray.count;
-    return self.dataArray.count +10;
+    return self.dataArray.count;
+//    return self.dataArray.count +10;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -98,8 +105,6 @@
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     FTTraineeSkillSectionHeaderView *headerView = [[FTTraineeSkillSectionHeaderView alloc]init];
-    
-//    FTTraineeSkillSectionHeaderView *headerView = (FTTraineeSkillSectionHeaderView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:@"HeaderView"];
     headerView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.5];
     NSString *detail = @"教练要为学员技能负责，一般来说，学员技能水平提升。如有特殊情况请速与管理员联系";
     
@@ -110,7 +115,6 @@
     
     headerView.detailAttributeString = attributedString;
     headerView.title = @"本节课可为5项技术评分";
-    
     return headerView;
 }
 
@@ -118,13 +122,9 @@
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     FTTraineeSkillCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SkillCell"];
-//    cell.skillLabel.text = @"前手直拳：";
-//    cell.gradeLabel.text = @"8888";
     
-    [cell.ratingBar displayRating:5.0f];
     FTTraineeSkillBean *bean = [[FTTraineeSkillBean alloc]initWithFTTraineeSkillBeanDic:[self.dataArray objectAtIndex:indexPath.row]];
-    cell.skillLabel.text = bean.name;
-    cell.gradeLabel.text = [NSString stringWithFormat:@"%ld",bean.score];
+    [cell  setWithBean:bean];
     
     return cell;
 }

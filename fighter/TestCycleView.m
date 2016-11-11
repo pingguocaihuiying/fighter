@@ -42,6 +42,8 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
+    
     [self initialization];
     [self setupMainView];
 }

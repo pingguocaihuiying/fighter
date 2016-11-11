@@ -18,7 +18,7 @@
 			_name = [infoDic objectForKey:@"name"];
 			_parent = [[infoDic objectForKey:@"parent"] integerValue];
 			_id = [[infoDic objectForKey:@"id"] integerValue];
-
+            _subNumber = [[infoDic objectForKey:@"subNumber"] integerValue];
 		}
 	}
 	return self;

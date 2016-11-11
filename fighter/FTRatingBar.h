@@ -28,7 +28,7 @@
 @property (nonatomic,strong) UIImage *halfSelectedImage;
 @property (nonatomic,strong) UIImage *fullSelectedImage;
 
-@property (nonatomic, assign) CGFloat rating;
+@property (assign) CGFloat rating;
 
 /**
  *  设置评分值
@@ -42,7 +42,7 @@
  *
  *  @return 评分值
  */
-- (float)rating;
+- (CGFloat)rating;
 
 /**
  *  是否是指示器，如果是指示器，就不能滑动了，只显示结果，不是指示器的话就能滑动修改值

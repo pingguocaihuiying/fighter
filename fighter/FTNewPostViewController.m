@@ -548,7 +548,7 @@
 - (NSString *)fixStringForDate:(NSDate *)date
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateStyle:kCFDateFormatterFullStyle];
+    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
     [dateFormatter setDateFormat:@"yyyy-MM-dd_HH:mm:ss"];
     NSString *fixString = [dateFormatter stringFromDate:date];
     return fixString;

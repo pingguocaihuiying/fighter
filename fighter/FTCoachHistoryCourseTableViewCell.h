@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "FTBaseTableViewCell.h"
-#import "FTCourseHistoryBean.h"
+#import "FTHistoryCourseBean.h"
 
 @interface FTCoachHistoryCourseTableViewCell : FTBaseTableViewCell
 
@@ -26,5 +26,5 @@
 
  @param courseHistoryBean 历史课程bean
  */
-- (void)setWithCourseHistoryBean:(FTCourseHistoryBean *)courseHistoryBean;
+- (void)setWithCourseHistoryBean:(FTHistoryCourseBean *)courseHistoryBean;
 @end

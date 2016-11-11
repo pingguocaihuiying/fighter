@@ -18,6 +18,8 @@
 
 @property (nonatomic, assign) NSInteger id;
 
+@property (nonatomic, assign) NSInteger subNumber;//子项个数
+
 - (_Nonnull instancetype)initWithFTTraineeSkillBeanDic:(NSDictionary * _Nonnull)infoDic;
 
 @end

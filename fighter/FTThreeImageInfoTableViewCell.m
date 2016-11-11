@@ -69,7 +69,7 @@
 - (NSString *)fixStringForDate:(NSDate *)date
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateStyle:kCFDateFormatterFullStyle];
+    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
     [dateFormatter setDateFormat:@"yyyy.MM.dd HH:mm"];
     NSString *fixString = [dateFormatter stringFromDate:date];
     return fixString;

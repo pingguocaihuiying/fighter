@@ -15,22 +15,22 @@
 #pragma mark - 封装请求  成员方法
 /*****************************      封装请求      ********************************/
 
-//get请求
-+ (void) getRequestWithUrl:(NSString *)urlString
-                parameters:(NSDictionary *)dic
-                    option:(void (^)(NSDictionary *dict))option;
-
-//post请求
-+ (void) postRequestWithUrl:(NSString *)urlString
-                 parameters:(NSDictionary *)dic
-                     option:(void (^)(NSDictionary *dict))option;
-
-
-//post请求上传二进制数据
-+ (void) postUploadDataWithURL:(NSString *)urlString
-                    parameters:(NSDictionary *)dic
-              appendParameters:(NSDictionary *)appendDic
-                        option:(void (^)(NSDictionary *dict))option;
+////get请求
+//+ (void) getRequestWithUrl:(NSString *)urlString
+//                parameters:(NSDictionary *)dic
+//                    option:(void (^)(NSDictionary *dict))option;
+//
+////post请求
+//+ (void) postRequestWithUrl:(NSString *)urlString
+//                 parameters:(NSDictionary *)dic
+//                     option:(void (^)(NSDictionary *dict))option;
+//
+//
+////post请求上传二进制数据
+//+ (void) postUploadDataWithURL:(NSString *)urlString
+//                    parameters:(NSDictionary *)dic
+//              appendParameters:(NSDictionary *)appendDic
+//                        option:(void (^)(NSDictionary *dict))option;
 
 #pragma mark - 封装请求  类方法
 //post请求
