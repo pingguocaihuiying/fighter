@@ -7,10 +7,11 @@
 //
 
 #import "FTTraineeBaseViewController.h"
-
+#import "FTCourseHistoryBean.h"
 /**
  学员技能项展示页
  */
 @interface FTTraineeSkillViewController : FTTraineeBaseViewController
-
+//@property (nonatomic, assign) FTCoachCourseType courseType;
+@property (nonatomic, strong) FTCourseHistoryBean* bean;
 @end

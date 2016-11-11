@@ -219,11 +219,26 @@
     _gymSourceViewPublic.frame = _gymSourceViewContainerView.bounds;
     _gymSourceViewPublic.delegate = self;
     
+#warning mark -
     __weak typeof(self) weakslef= self;
-    _gymSourceViewPublic.pushblock = ^(){
-        FTTraineeViewController *traineeListVC = [[FTTraineeViewController alloc]init];
-        [weakslef.navigationController pushViewController:traineeListVC animated:YES];
+    _gymSourceViewPublic.pushblock = ^(id bean){
+        if (_coachCourseType == FTCoachCourseTypePublic) {
+            
+            FTTraineeViewController *traineeListVC = [[FTTraineeViewController alloc]init];
+            traineeListVC.courseState = FTTraineeCourseStateWaiting;
+            traineeListVC.courseType = weakslef.coachCourseType;
+            traineeListVC.bean = bean;
+            [weakslef.navigationController pushViewController:traineeListVC animated:YES];
+        }
+//        else {
+//            FTTraineeSkillViewController *traineeSkillVC = [[FTTraineeSkillViewController alloc]init];
+//            //    traineeSkillVC.courseState = FTTraineeCourseStateComplete;
+//            //    traineeSkillVC.courseType = _coachCourseType;
+//            //    traineeSkillVC.bean = bean;
+//            [weakslef.navigationController pushViewController:traineeSkillVC animated:YES];
+//        }
     };
+    
     [_gymSourceViewContainerView addSubview:_gymSourceViewPublic];
     
 }
@@ -578,9 +593,9 @@
         [self.navigationController pushViewController:traineeListVC animated:YES];
     }else {
         FTTraineeSkillViewController *traineeSkillVC = [[FTTraineeSkillViewController alloc]init];
-        //    traineeSkillVC.courseState = FTTraineeCourseStateComplete;
-        //    traineeSkillVC.courseType = _coachCourseType;
-        //    traineeSkillVC.bean = bean;
+//        traineeSkillVC.courseState = FTTraineeCourseStateComplete;
+//        traineeSkillVC.courseType = _coachCourseType;
+        traineeSkillVC.bean = bean;
         [self.navigationController pushViewController:traineeSkillVC animated:YES];
     }
         

@@ -10,6 +10,7 @@
 #import "FTGymSourceTableView.h"
 #import "FTBaseTableViewCell.h"
 #import "FTCourseTableHeaderView.h"
+#import "FTSchedulePublicBean.h"
 
 @interface FTGymCourceViewNew()<UITableViewDelegate, UITableViewDataSource, FTCourseTableHeaderViewDelegate>
 
@@ -379,12 +380,27 @@
         [_delegate courseClickedWithCell:cell andDay:_curWeekDay andTimeSection:timeSection andDateString:_curDateString andTimeStamp:_curTimeStampString];
     }
     
+#warning 测试代码
+    NSInteger index = _curWeekDay;
+    NSString *theDateKey = [NSString stringWithFormat:@"%ld", index];
+    NSArray *courseArray = _placesUsingInfoDic[theDateKey];
+    NSDictionary *dic;
+    NSString *timeSection2 = _timeSectionsArray[indexPath.row][@"timeSection"];//cell代表的固定时间段
+    for(NSDictionary *dict in courseArray){
+        if ([timeSection2 isEqualToString:dict[@"timeSection"]]) {
+            dic = dict;
+            break;
+        }
+    }
     
-    //测试代码
+    FTSchedulePublicBean *bean = [[FTSchedulePublicBean alloc] initWithFTSchedulePublicBeanDic:dic];
+    
     if (self.pushblock) {
         
-        self.pushblock();
+        self.pushblock(bean);
     }
 }
+
+
 
 @end

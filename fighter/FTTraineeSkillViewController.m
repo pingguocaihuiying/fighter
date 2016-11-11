@@ -27,6 +27,7 @@
     
     [self setNavigationbar];
     [self setSubViews];
+    [self pullDataFromServer];
 }
 
 
@@ -56,6 +57,8 @@
 
 - (void) setSubViews {
     
+    self.title = self.bean.createName;
+    
     [self setTableView];
 }
 
@@ -64,13 +67,20 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-//    self.tableView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     [self.tableView registerNib:[UINib nibWithNibName:@"FTTraineeSkillCell" bundle:nil] forCellReuseIdentifier:@"SkillCell"];
-//    [self.tableView registerClass:[FTTraineeSkillSectionHeaderView class] forHeaderFooterViewReuseIdentifier:@"HeaderView"];
-    //    self.tableView.estimatedRowHeight = 310; // 设置为一个接近于行高“平均值”的数值
     self.tableView.estimatedSectionHeaderHeight = 90;
 }
 
+#pragma mark - pull data
+- (void) pullDataFromServer {
+
+    NSString *corporationId = [NSString stringWithFormat:@"%ld",self.bean.corporationid];
+//    NSString *memberUserId = [NSString stringWithFormat:@"%@",self.bean.userId];
+    [NetWorking getUserSkillsWithCorporationid:corporationId andMemberUserId:self.bean.userId andVersion:nil andParent:nil andOption:^(NSDictionary *dic) {
+        NSLog(@"dic:%@",dic);
+        
+    }];
+}
 #pragma mark  - delegate
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
@@ -83,10 +93,7 @@
     return 45;
 }
 
-//- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//
-//    return 90;
-//}
+
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
@@ -111,13 +118,13 @@
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     FTTraineeSkillCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SkillCell"];
-    cell.skillLabel.text = @"前手直拳：";
-    cell.gradeLabel.text = @"8888";
+//    cell.skillLabel.text = @"前手直拳：";
+//    cell.gradeLabel.text = @"8888";
     
     [cell.ratingBar displayRating:5.0f];
-//    FTTraineeSkillBean *bean = [[FTTraineeSkillBean alloc]initWithFTTraineeSkillBeanDic:[self.dataArray objectAtIndex:indexPath.row]];
-//    cell.skillLabel.text = bean.name;
-//    cell.gradeLabel.text = [NSString stringWithFormat:@"%ld",bean.score];
+    FTTraineeSkillBean *bean = [[FTTraineeSkillBean alloc]initWithFTTraineeSkillBeanDic:[self.dataArray objectAtIndex:indexPath.row]];
+    cell.skillLabel.text = bean.name;
+    cell.gradeLabel.text = [NSString stringWithFormat:@"%ld",bean.score];
     
     return cell;
 }

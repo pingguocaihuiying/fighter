@@ -13,6 +13,10 @@
 #import "FTTraineeCollectionFowLaytout.h"
 #import "FTTraineeSkillViewController.h"
 #import "FTTraineeBean.h"
+#import "FTCourseBean.h"
+#import "FTSchedulePublicBean.h"
+#import "FTHomepageMainViewController.h"
+#import "FTBaseNavigationViewController.h"
 
 @interface FTTraineeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -107,13 +111,22 @@
     FTUserBean *loginuser = [FTUserBean loginUser];
     NSString *userId = loginuser.olduserid;
     
-    
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-    [dic setObject:self.bean.date forKey:@"date"];
-    [dic setObject:userId forKey:@"coachUserId"];
-    [dic setObject:[NSString stringWithFormat:@"%ld",self.bean.timeId] forKey:@"timeId"];
-    [dic setObject:[NSString stringWithFormat:@"%ld",self.bean.id] forKey:@"courseId"];
+    if (self.courseType == FTTraineeCourseStateWaiting) {
+        FTSchedulePublicBean *courseBean = (FTSchedulePublicBean *)_bean;
+        [dic setObject:[NSString stringWithFormat:@"%ld",courseBean.theDate] forKey:@"date"];
+        [dic setObject:userId forKey:@"coachUserId"];
+        [dic setObject:[NSString stringWithFormat:@"%ld",courseBean.timeId] forKey:@"timeId"];
+        [dic setObject:[NSString stringWithFormat:@"%ld",courseBean.id] forKey:@"courseId"];
+    }else {
+        FTCourseHistoryBean *historyBean = (FTCourseHistoryBean *)_bean;
+        [dic setObject:[NSString stringWithFormat:@"%@",historyBean.date] forKey:@"date"];
+        [dic setObject:userId forKey:@"coachUserId"];
+        [dic setObject:[NSString stringWithFormat:@"%ld",historyBean.timeId] forKey:@"timeId"];
+        [dic setObject:[NSString stringWithFormat:@"%ld",historyBean.id] forKey:@"courseId"];
+    }
     
+
     if (self.courseType == FTCoachCourseTypePublic) {
         [dic setObject:@"0" forKey:@"type"];//课程类型，0-团课，2-私教,3-其他
     }else if(self.courseType == FTCoachCourseTypePersonal){
@@ -123,6 +136,8 @@
     }
     
     [NetWorking getTraineeListWith:dic option:^(NSDictionary *dict) {
+        NSLog(@"dic:%@",dict);
+        NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         if (!dict) {
             return;
         }
@@ -157,8 +172,6 @@
     return 15;
 }
 
-
-
 /**
  section headerView
  */
@@ -168,11 +181,21 @@
     if (kind == UICollectionElementKindSectionHeader){
         
         FTTraineeHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
-        headerView.timeSectionLabel.text = self.bean.timeSection;
-        headerView.dateLabel.text = self.bean.dateString;
-        headerView.courseLabel.text = self.bean.name;
+        if (self.courseType == FTTraineeCourseStateWaiting) {
+            FTSchedulePublicBean *courseBean = (FTSchedulePublicBean *)_bean;
+            headerView.timeSectionLabel.text = courseBean.timeSection;
+            headerView.dateLabel.text = [NSString stringWithFormat:@"%ld",courseBean.theDate];
+            headerView.courseLabel.text = courseBean.courseName;
+            headerView.memberLabel.text = [NSString stringWithFormat:@"%ld/%ld",courseBean.hasOrderCount,courseBean.topLimit];
+            
+        }else {
+            FTCourseHistoryBean *historyBean = (FTCourseHistoryBean *)_bean;
+            headerView.timeSectionLabel.text = historyBean.timeSection;
+            headerView.dateLabel.text = historyBean.dateString;
+            headerView.courseLabel.text = historyBean.name;
+            headerView.memberLabel.text = [NSString stringWithFormat:@"%ld/%ld",historyBean.attendCount,historyBean.topLimit];
+        }
         
-        headerView.memberLabel.text = [NSString stringWithFormat:@"%ld/%ld",self.bean.attendCount,self.bean.topLimit];
         return headerView;
     }
     
@@ -274,7 +297,16 @@
 #pragma mark - response 
 
 - (void) gotoHomePage:(id) sender {
-
+    
+    NSString *userId = [FTUserBean loginUser].olduserid;
+    
+    FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
+    homepageViewController.olduserid = userId;
+    FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:homepageViewController];
+    baseNav.navigationBarHidden = NO;
+    
+    [self presentViewController:baseNav animated:YES completion:nil];
+    
 }
 
 @end

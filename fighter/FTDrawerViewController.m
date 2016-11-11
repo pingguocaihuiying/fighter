@@ -24,6 +24,7 @@
 
 #import "FTInformationViewController.h"
 #import "FTVideoViewController.h"
+#import "FTHomepageMainViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "FTBaseTabBarViewController.h"
 
@@ -38,7 +39,7 @@
 #import "FTSettingViewController.h"
 #import "NetWorking.h"
 #import "FTArenaViewController.h"
-#import "FTHomepageMainViewController.h"
+
 #import "FTFightingViewController.h"
 #import "FTPracticeViewController.h"
 #import "FTPayViewController.h"

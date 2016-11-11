@@ -567,5 +567,17 @@
     //    [self.panelView addConstraint:rightConstraint];
 }
 
+- (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+    CGPoint point = [[touches anyObject] locationInView:self];
+    CGRect frame = [self convertRect:self.panelImageView.frame toView:self];
+    
+    if (CGRectContainsPoint(frame, point)) {
+        return;
+    }else {
+        [self removeFromSuperview];
+    }
+}
+
 
 @end
