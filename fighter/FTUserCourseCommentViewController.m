@@ -186,14 +186,12 @@
         
         return userSkilltHeaderView;
     }
-    
-
 }
 
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (_type == FTUserSkillTypeCoachComment) {
+    if (_type == FTUserSkillTypeCoachComment) {//如果是教练评论详情
         
         FTUserSkillGradeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GradeCell"];
         cell.skillLabel.text = @"前手直拳：";
@@ -206,13 +204,18 @@
         
         return cell;
         
-    }else{
+    }else{//如果是技能子项详情
         
         FTTraineeSkillCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GradeCell2"];
         
-        FTUserSkillBean *bean = _skillArray[indexPath.row];
+        FTUserSkillBean *beanNew = _skillArray[indexPath.row];
+        FTUserSkillBean *beanOld = _skillArrayOld[indexPath.row];
         
-        [cell setWithBean:bean];
+        if (beanOld) {
+            [cell setWithSkillNewBean:beanNew andSkillOldBean:beanOld];
+        } else {
+            [cell setWithSkillBean:beanNew];
+        }
         
         
         return cell;

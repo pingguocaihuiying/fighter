@@ -13,5 +13,6 @@ typedef NS_ENUM(NSInteger, FTUserSkillType){
 
 @interface FTUserCourseCommentViewController : FTTraineeBaseViewController
 @property (nonatomic, assign) FTUserSkillType type;//类型
-@property (nonatomic, strong) NSMutableArray *skillArray;
+@property (nonatomic, strong) NSMutableArray *skillArray;//最新的子项技能array
+@property (nonatomic, strong) NSMutableArray *skillArrayOld;//原来的的子项技能array（用于和新的对比技能值变化）
 @end

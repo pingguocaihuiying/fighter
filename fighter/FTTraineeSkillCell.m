@@ -59,4 +59,41 @@
    [self.ratingBar displayRating:[self levelOfGrade:bean.score / bean.subNumber]];
     
 }
+
+- (void)setWithSkillBean:(FTUserSkillBean *)skillBean{
+    _skillLabel.text = skillBean.name;
+    _gradeLabel.text = [NSString stringWithFormat:@"%.0f",skillBean.score];
+    [self.ratingBar displayRating:[self levelOfGrade:skillBean.score]];
+    
+    /*
+     如果是父项，判断是否显示小红点
+     */
+    if (skillBean.isParrent && skillBean.hasNewVersion){
+        _redPoint.hidden = NO;
+    }else{
+        _redPoint.hidden = YES;
+    }
+    
+}
+
+- (void)setWithSkillNewBean:(FTUserSkillBean *)skillBeanNew andSkillOldBean:(FTUserSkillBean *)skillBeanOld{
+    _skillLabel.text = skillBeanOld.name;
+    _gradeLabel.text = [NSString stringWithFormat:@"%.0f",skillBeanOld.score];
+    [self.ratingBar displayRating:[self levelOfGrade:skillBeanOld.score]];
+    
+    /*
+     如果是父项，判断是否显示小红点
+     */
+    if (skillBeanOld.isParrent && skillBeanOld.hasNewVersion){
+        _redPoint.hidden = NO;
+    }else{
+        _redPoint.hidden = YES;
+    }
+    
+    [NSTimer timerWithTimeInterval:2 repeats:NO block:^(NSTimer * _Nonnull timer) {
+       [self.ratingBar displayRating:[self levelOfGrade:skillBeanNew.score]];
+    }];
+    
+}
+
 @end
