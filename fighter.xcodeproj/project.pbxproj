@@ -592,6 +592,7 @@
 		3D430BDC1DD02E3100532D01 /* FTTraineeHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTraineeHeaderView.xib; sourceTree = "<group>"; };
 		3D430BE01DD05A4300532D01 /* FTTraineeCollectionFowLaytout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeCollectionFowLaytout.h; sourceTree = "<group>"; };
 		3D430BE11DD05A4300532D01 /* FTTraineeCollectionFowLaytout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeCollectionFowLaytout.m; sourceTree = "<group>"; };
+		3D459B111DD96D08008B5F7E /* FTCourseHeaderFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FTCourseHeaderFile.h; sourceTree = "<group>"; };
 		3D484D571DC72CB100E2EC8C /* FTTraineeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeViewController.h; sourceTree = "<group>"; };
 		3D484D581DC72CB100E2EC8C /* FTTraineeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeViewController.m; sourceTree = "<group>"; };
 		3D484D591DC72CB100E2EC8C /* FTTraineeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTraineeViewController.xib; sourceTree = "<group>"; };
@@ -1671,6 +1672,27 @@
 			name = traineeCollectionViewLayout;
 			sourceTree = "<group>";
 		};
+		3D459B0F1DD96C48008B5F7E /* bean */ = {
+			isa = PBXGroup;
+			children = (
+				3DE4A6471DD5B978008966AB /* HistoryCourseBean */,
+				3DE4A6431DD564AF008966AB /* SchedulePublicBean */,
+				3DE4A63F1DD55735008966AB /* CourseBean */,
+				3DE4A63B1DD47F21008966AB /* SchedulePrivateBean */,
+				3D5E809E1DD4115000D0F250 /* skillBean */,
+				3D5E809D1DD4114000D0F250 /* traineeBean */,
+			);
+			name = bean;
+			sourceTree = "<group>";
+		};
+		3D459B101DD96C57008B5F7E /* protcol */ = {
+			isa = PBXGroup;
+			children = (
+				3D459B111DD96D08008B5F7E /* FTCourseHeaderFile.h */,
+			);
+			name = protcol;
+			sourceTree = "<group>";
+		};
 		3D484D551DC72BEE00E2EC8C /* 训练 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1952,12 +1974,8 @@
 		3D681DAF1DD305EA007706C2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3DE4A6471DD5B978008966AB /* HistoryCourseBean */,
-				3DE4A6431DD564AF008966AB /* SchedulePublicBean */,
-				3DE4A63F1DD55735008966AB /* CourseBean */,
-				3DE4A63B1DD47F21008966AB /* SchedulePrivateBean */,
-				3D5E809E1DD4115000D0F250 /* skillBean */,
-				3D5E809D1DD4114000D0F250 /* traineeBean */,
+				3D459B101DD96C57008B5F7E /* protcol */,
+				3D459B0F1DD96C48008B5F7E /* bean */,
 			);
 			name = Model;
 			sourceTree = "<group>";

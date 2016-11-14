@@ -10,16 +10,7 @@
 #import "FTTraineeBaseViewController.h"
 #import "FTHistoryCourseBean.h"
 #import "FTCourseBean.h"
-
-typedef NS_ENUM(NSInteger, FTTraineeCourseState) {
-    FTTraineeCourseStateComplete,//历史课程
-    FTTraineeCourseStateWaiting,//计划课程
-};
-
-typedef NS_ENUM(NSInteger, FTCoachCourseType) {
-    FTCoachCourseTypePublic,
-    FTCoachCourseTypePersonal
-};
+#import "FTCourseHeaderFile.h"
 
 /**
  教练端页面，展示上课学员
@@ -27,6 +18,6 @@ typedef NS_ENUM(NSInteger, FTCoachCourseType) {
 @interface FTTraineeViewController : FTTraineeBaseViewController
 
 @property (nonatomic, strong) id bean;
-@property (nonatomic, assign) FTTraineeCourseState courseState;
-@property (nonatomic, assign) FTCoachCourseType courseType;
+@property (nonatomic, assign) FTCourseState courseState;
+@property (nonatomic, assign) FTCourseType courseType;
 @end

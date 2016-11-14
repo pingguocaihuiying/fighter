@@ -58,7 +58,6 @@
 - (void) setSubViews {
     
     self.title = self.bean.createName;
-    
     [self setTableView];
 }
 
@@ -75,7 +74,8 @@
 - (void) pullDataFromServer {
 
     NSString *corporationId = [NSString stringWithFormat:@"%ld",self.bean.corporationid];
-    [NetWorking getUserSkillsWithCorporationid:corporationId andMemberUserId:self.bean.memberUserId andVersion:nil andParent:nil andOption:^(NSDictionary *dict) {
+    NSString *memberUserId = self.bean.memberUserId;
+    [NetWorking getUserSkillsWithCorporationid:corporationId andMemberUserId:memberUserId andVersion:nil andParent:nil andOption:^(NSDictionary *dict) {
         SLog(@"dic:%@",dict);
         if (!dict) {
             return;
@@ -88,6 +88,7 @@
         }
     }];
 }
+
 #pragma mark  - delegate
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
@@ -130,8 +131,15 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
     FTTraineeGradeViewController *gradeVC = [[FTTraineeGradeViewController alloc]init];
+    FTTraineeSkillBean *skillBean = [[FTTraineeSkillBean alloc]initWithFTTraineeSkillBeanDic:[self.dataArray objectAtIndex:indexPath.row]];
+    gradeVC.title = self.title;
+    gradeVC.bean = self.bean;
+    gradeVC.skillBean = skillBean;
     [self.navigationController pushViewController:gradeVC animated:YES];
+    
 }
 
 #pragma mark - response

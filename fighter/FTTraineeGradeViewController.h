@@ -7,7 +7,11 @@
 //
 
 #import "FTTraineeBaseViewController.h"
+#import "FTHistoryCourseBean.h"
+#import "FTTraineeSkillBean.h"
 
 @interface FTTraineeGradeViewController : FTTraineeBaseViewController
+@property (nonatomic, strong) FTHistoryCourseBean *bean;
+@property (nonatomic, strong) FTTraineeSkillBean *skillBean;
 
 @end

@@ -24,6 +24,7 @@
     
     [self setNavigationbar];
     [self setSubViews];
+    [self pullDataFromServer];
 }
 
 
@@ -67,6 +68,27 @@
     //    self.tableView.estimatedRowHeight = 310; // 设置为一个接近于行高“平均值”的数值
     self.tableView.estimatedSectionHeaderHeight = 90;
 }
+
+
+#pragma mark - pull data
+- (void) pullDataFromServer {
+    
+    NSString *corporationId = [NSString stringWithFormat:@"%ld",self.bean.corporationid];
+    NSString *parent = [NSString stringWithFormat:@"%ld",self.skillBean.parent];
+    [NetWorking getUserSkillsWithCorporationid:corporationId andMemberUserId:self.bean.memberUserId andVersion:nil andParent:parent andOption:^(NSDictionary *dict) {
+        SLog(@"dic:%@",dict);
+        if (!dict) {
+            return;
+        }
+        
+        BOOL status = [dict[@"status"] isEqualToString:@"success"]?YES:NO;
+        if(status) {
+            self.dataArray = dict[@"data"][@"skills"];
+            [self.tableView reloadData];
+        }
+    }];
+}
+
 
 #pragma mark  - delegate
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -119,8 +141,8 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    FTTraineeGradeViewController *gradeVC = [[FTTraineeGradeViewController alloc]init];
-    [self.navigationController pushViewController:gradeVC animated:YES];
+//    FTTraineeGradeViewController *gradeVC = [[FTTraineeGradeViewController alloc]init];
+//    [self.navigationController pushViewController:gradeVC animated:YES];
 }
 
 #pragma mark - response
