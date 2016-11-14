@@ -197,6 +197,8 @@ extern NSString * const GetCoachTeachRecord;
 #pragma mark - 训练
 extern NSString * const GetTraineeListURL; //获取课程学员列表
 extern NSString * const GetTraineeGradeVersionURL;
+extern NSString * const GetTraineeShouldGradeNumberURL;
+extern NSString * const SaveSkillVersionURL;
 
 #pragma mark - 新格斗场
 extern NSString *const SaveCourseBookCheckSign;//约课ChangeCourseStatusCheckSign

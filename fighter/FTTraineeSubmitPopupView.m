@@ -82,7 +82,7 @@
     }
 }
 
-- (void) setSkillGradeDic:(NSDictionary *)skillGradeDic {
+- (void) setSkillGradeDic:(NSMutableDictionary *)skillGradeDic {
 
     if (_skillGradeDic != skillGradeDic) {
         _skillGradeDic = skillGradeDic;
@@ -101,6 +101,7 @@
         [_submitButton setBackgroundImage:[UIImage imageNamed:@"课程详情pre"] forState:UIControlStateHighlighted];
         [_submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_submitButton.titleLabel setFont:[UIFont systemFontOfSize:16]];
+        [_cancelButton addTarget:self action:@selector(submitButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return _submitButton;
@@ -183,6 +184,58 @@
 
     [self removeFromSuperview];
 }
+
+- (void) submitButtonAction:(id) sender {
+    if (self.textView.text.length == 10) {
+        [self showMessage:@"评论不能为空"];
+        return;
+    }
+    
+    
+//    if (self.textView.text.length < 10) {
+//        [self showMessage:@"评论不能少于10个字"];
+//        return;
+//    }
+    
+    
+    NSMutableArray *increases = [[NSMutableArray alloc]init];
+    NSMutableArray *skills = [[NSMutableArray alloc]init];
+    
+    for (NSString *key in self.skillGradeDic.allKeys) {
+        NSString *value = self.skillGradeDic[key];
+        
+        [increases addObject:value];
+        [skills addObject:key];
+        
+    }
+    
+    NSDictionary *paramDic = @{
+                               @"increases":increases,
+                               @"skills":skills,
+                               @"evaluation":_textView.text,
+                               @"bookId":_bookId
+                               };
+    
+    
+    [MBProgressHUD showHUDAddedTo:self animated:YES];
+    [NetWorking saveSkillVersion:paramDic option:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUDForView:self animated:YES];
+        
+        if (!dic) {
+            [self showMessage:@"网络繁忙，请稍后再试~"];
+            return ;
+        }
+        
+        BOOL status = [dic[@"status"] isEqualToString:@"success"]? YES:NO;
+        if (!status) {
+            [self showMessage:[dic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        }else {
+            
+            [self removeFromSuperview];
+        }
+    }];
+}
+
 #pragma mark - constraint 
 
 - (void) addPaneImageViewConstraint {

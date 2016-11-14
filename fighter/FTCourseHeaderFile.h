@@ -21,5 +21,9 @@ typedef NS_ENUM(NSInteger, FTCourseType) {
     FTCourseTypePrivate //私课
 };
 
+typedef BOOL(^EditSkillBlock)(NSString *key, NSString *value);
+typedef void(^TransmitParamsBlock)(NSMutableDictionary *dic);
+
+
 
 #endif /* FTCourseHeaderFile_h */

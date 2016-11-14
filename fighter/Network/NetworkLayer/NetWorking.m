@@ -1121,6 +1121,56 @@
 }
 
 
+/**
+ 获取拳馆评分项子项最大数目限制
+
+ @param corporationId 拳馆id
+ @param option        返参数block
+ */
++ (void) getShouldEditSkillNumber:(NSString *)corporationId option:(void (^)(NSDictionary *dic)) option{
+    
+    NSString *w = [@"max_grade_skill" stringByAppendingString:corporationId];
+    
+    NSDictionary *dic = @{@"t":@"gym",
+                          @"q":@"max_grade_skill",
+                          @"w":w
+                          };
+    
+    NSString *url = [FTNetConfig host:Domain path:GetTraineeShouldGradeNumberURL];
+    
+    [NetWorking postRequestWithUrl:url parameters:dic option:option];
+}
+
+
+/**
+ 上课评分
+
+ @param paramDic 评分参数
+ @param option   返参数block
+ */
++ (void) saveSkillVersion:(NSDictionary *)paramDic option:(void (^)(NSDictionary *dic)) option {
+
+    NSString *checkSignKey = @"gedoujiahfd4mgf5233";
+    
+    FTUserBean *loginuser = [FTUserBean loginUser];
+    NSString *userId = loginuser.olduserid;
+    NSString *token = loginuser.token;
+    NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];// 时间戳
+    
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:userId forKey:@"userId"];
+    [dic setObject:token forKey:@"loginToken"];
+    [dic setObject:ts forKey:@"ts"];
+    
+    [dic addEntriesFromDictionary:paramDic];
+    NSString *checkSign = [FTTools md5Dictionary:dic withCheckKey:checkSignKey];
+    [dic setObject:checkSign forKey:@"checkSign"];
+    
+    NSString *url = [FTNetConfig host:Domain path:SaveSkillVersionURL];
+    [NetWorking postRequestWithUrl:url parameters:dic option:option];
+}
+
 #pragma mark - 赛事
 + (void)getGymTimeSlotsById:(NSString *) corporationID andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymTimeSlotsByIdURL];

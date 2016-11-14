@@ -18,7 +18,12 @@
     self.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.5];
     self.bottomLine.backgroundColor = Cell_Space_Color;
     [self setEditableGradeLabelText:@"未评"];
-    self.skillState = -1;
+    self.skillState = 0;
+    
+    __weak typeof(self) weakself = self;
+    self.transimitBlock = ^(NSMutableDictionary *dic) {
+        weakself.paramsNum = dic.allKeys.count;
+    };
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -27,15 +32,19 @@
     // Configure the view for the selected state
 }
 
-- (void)setWithBean:(FTTraineeSkillBean *)bean {
+- (void)setWithBean:(FTTraineeSkillBean *)bean block:(EditSkillBlock) block{
+    
+    self.editSkillBlock = block;
     self.skillBean = bean;
     self.skillLabel.text = bean.name;
     self.gradeLabel.text = [NSString stringWithFormat:@"%ld",bean.score];
     
 }
 
-- (void) setEditableGradeLabelText:(NSString *)grade {
-    self.editableGradeLabel.text = grade;
+- (void) setEditableGradeLabelText:(NSInteger)state {
+    self.editableGradeLabel.text = [self editSkillGrade:state];
+    self.skillBean.score += state;
+    self.gradeLabel.text = [NSString stringWithFormat:@"%ld",self.skillBean.score];
 }
 
 
@@ -45,8 +54,14 @@
     if (_skillState <-1) {
         _skillState = -1;
     }
+    if (self.editSkillBlock) {
+        NSString *value = [NSString stringWithFormat:@"%ld",_skillState];
+        BOOL isSet = self.editSkillBlock(self.skillBean.name ,value);
+        if (isSet) {
+            [self setEditableGradeLabelText:_skillState];
+        }
+    }
     
-    [self setEditableGradeLabelText:[self editSkillGrade:_skillState]];
 }
 
 - (IBAction)addButtonAction:(id)sender {
@@ -56,7 +71,14 @@
         _skillState = 2;
     }
     
-    [self setEditableGradeLabelText:[self editSkillGrade:_skillState]];
+    if (self.editSkillBlock) {
+        NSString *value = [NSString stringWithFormat:@"%ld",_skillState];
+        BOOL isSet = self.editSkillBlock(self.skillBean.name ,value);
+        if (isSet) {
+            [self setEditableGradeLabelText:_skillState];
+        }
+    }
+    
 }
 
 

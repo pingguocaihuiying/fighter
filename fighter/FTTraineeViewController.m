@@ -229,6 +229,7 @@
             FTHistoryCourseBean *historyBean = (FTHistoryCourseBean *)_bean;
             historyBean.createName = bean.createName;
             historyBean.memberUserId = bean.userId;
+            historyBean.bookId = bean.id;
             
             FTTraineeSkillViewController *skillVC = [[FTTraineeSkillViewController alloc]init];
             skillVC.bean = historyBean;

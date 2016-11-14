@@ -9,9 +9,12 @@
 #import "FTTraineeBaseViewController.h"
 #import "FTHistoryCourseBean.h"
 #import "FTTraineeSkillBean.h"
+#import "FTCourseHeaderFile.h"
 
 @interface FTTraineeGradeViewController : FTTraineeBaseViewController
 @property (nonatomic, strong) FTHistoryCourseBean *bean;
 @property (nonatomic, strong) FTTraineeSkillBean *skillBean;
+@property (assign, nonatomic) NSInteger shouldEditNum;
+@property (nonatomic, copy) TransmitParamsBlock paramsBlock;
 
 @end

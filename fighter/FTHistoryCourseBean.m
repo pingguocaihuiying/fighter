@@ -36,6 +36,8 @@
 			_createName = [infoDic objectForKey:@"createName"];
             _memberUserId = [infoDic  objectForKey:@"memberUserId"];
             _timeSection = [infoDic  objectForKey:@"timeSection"];
+            _bookId = [[infoDic objectForKey:@"bookId"] integerValue];
+            
 		}
 	}
 	return self;
@@ -68,6 +70,7 @@
         _createName = [infoDic objectForKey:@"createName"];
         _memberUserId = [infoDic  objectForKey:@"memberUserId"];
         _timeSection = [infoDic  objectForKey:@"timeSection"];
+        _bookId = [[infoDic objectForKey:@"bookId"] integerValue];
     }
 }
 @end
