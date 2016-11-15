@@ -110,7 +110,7 @@
 @property (nonatomic, strong) NSMutableArray *skillArray;//技能项（包括子项、母项）暂未用到，留备用
 @property (nonatomic, strong) NSMutableArray *fatherSkillArray;//技能母项
 @property (nonatomic, strong) NSMutableArray *childSkillArray;//技能子项
-@property (nonatomic, assign) BOOL hasNewVersion;//是否有新版本
+@property (nonatomic, assign) BOOL hasNewVersion;//是否有新版本（暂无用处，只是用来标记。。）
 @property (nonatomic, strong) NSMutableDictionary *fatherSkillVersionsDic;//用于记录那些父项有更新.key为技能id，value为0或1:0为没有更新，1为有更新
 
 @end
@@ -137,6 +137,14 @@
     if ([_userIdentity isEqualToString:@"0"]){//如果是普通用户
         //更新“历史课程”、“技能”按钮右边的红点显示与否
         [self updateButtonRightRedPointDisplay];
+        
+        if (_courseHistoryTableView) {
+            [_courseHistoryTableView reloadData];
+        }
+        
+        if (_skillsTableView) {
+            [_skillsTableView reloadData];
+        }
         
     }
     
@@ -1335,6 +1343,7 @@
                 
                 [mDicTest setValue:READ forKey:version];
 //                [versionDic setValue:UNREAD forKey:version];
+                [[NSUserDefaults standardUserDefaults]removeObjectForKey:COURSE_VERSION];
                 [[NSUserDefaults standardUserDefaults]setObject:mDicTest forKey:COURSE_VERSION];
                 [[NSUserDefaults standardUserDefaults]synchronize];
             }

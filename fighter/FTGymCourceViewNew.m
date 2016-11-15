@@ -190,7 +190,7 @@
         _isBlanOfSelectedDay = NO;
         [self updateBlankView];
         
-        [_scrollDelegate scrollToBottom];
+//        [_scrollDelegate scrollToBottom];
     }else{
         _tableViewsHeight.constant = 0;
         
@@ -198,7 +198,7 @@
         [self updateBlankView];
         
         
-        [_scrollDelegate scrollToBottom];
+//        [_scrollDelegate scrollToBottom];
     }
     
 }
@@ -252,15 +252,12 @@
         _isBlanOfSelectedDay = NO;
         [self updateBlankView];
         
-//        [_scrollDelegate scrollToBottom];
     }else{
         _tableViewsHeight.constant = 0;
         
         _isBlanOfSelectedDay = YES;
         [self updateBlankView];
         
-        
-//        [_scrollDelegate scrollToBottom];
     }
 }
 
