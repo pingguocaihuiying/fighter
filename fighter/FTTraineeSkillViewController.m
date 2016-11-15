@@ -14,7 +14,8 @@
 #import "FTTraineeSkillBean.h"
 
 @interface FTTraineeSkillViewController () <UITableViewDelegate,UITableViewDataSource>
-@property (strong, nonatomic) NSArray *dataArray;
+@property (copy, nonatomic) NSMutableArray *dataArray;
+@property (copy, nonatomic) NSMutableDictionary *subDic;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (assign, nonatomic) NSInteger shouldEditNum;
 @property (nonatomic, copy) TransmitParamsBlock paramsBlock;
@@ -31,7 +32,7 @@
     [self setNavigationbar];
     [self setSubViews];
     
-    [self getShouldEditSkillNumber];
+//    [self getShouldEditSkillNumber];
     [self pullDataFromServer];
     
     [self initData];
@@ -98,7 +99,24 @@
     return _editItems;
 }
 
+- (NSMutableArray *) dataArray {
 
+    if (!_dataArray) {
+        _dataArray = [[NSMutableArray alloc]init];
+    }
+    
+    return _dataArray;
+}
+
+
+- (NSMutableDictionary *) subDic {
+
+    if (!_subDic) {
+        _subDic = [[NSMutableDictionary alloc]init];
+    }
+    
+    return _subDic;
+}
 
 #pragma mark - pull data
 - (void) pullDataFromServer {
@@ -113,20 +131,45 @@
         
         BOOL status = [dict[@"status"] isEqualToString:@"success"]?YES:NO;
         if(status) {
-            self.dataArray = dict[@"data"][@"skills"];
+//            self.dataArray = dict[@"data"][@"skills"];
+            [self sortArray:dict[@"data"][@"skills"]];
             [self.tableView reloadData];
         }
     }];
 }
 
+- (void) sortArray:(NSArray *)dicArray {
+    
+    _shouldEditNum = 0;
+    for (NSDictionary *dic in dicArray) {
+        FTTraineeSkillBean *bean = [[FTTraineeSkillBean alloc]initWithFTTraineeSkillBeanDic:dic];
+        if (bean.parent == 0) {
+            [self.dataArray addObject:bean];
+        }else {
+            _shouldEditNum ++;
+            NSString *parent = [NSString stringWithFormat:@"%ld",bean.parent];
+            if (![self.subDic.allKeys containsObject:parent] ) {
+                NSMutableArray *array = [[NSMutableArray alloc]init];
+                [array addObject:bean];
+                [self.subDic setObject:array forKey:parent];
+            }else {
+                NSMutableArray *array = [self.subDic objectForKey:parent];
+                [array addObject:bean];
+                [self.subDic setObject:array forKey:parent];
+            }
+        }
+    }
+}
+
+
 - (void) getShouldEditSkillNumber {
 
     [NetWorking getShouldEditSkillNumber:[NSString stringWithFormat:@"%ld",self.bean.corporationid] option:^(NSDictionary *dict) {
-        SLog(@"dic:%@",dict);
+        SLog(@"pullDataFromServer:%@",dict);
         if (!dict) {
             return;
         }
-        
+        SLog(@"pullDataFromServer:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         BOOL status = [dict[@"status"] isEqualToString:@"success"]?YES:NO;
         if(status) {
             _shouldEditNum = [dict[@"data"] integerValue];
@@ -169,7 +212,7 @@
     
     FTTraineeSkillCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SkillCell"];
     
-    FTTraineeSkillBean *bean = [[FTTraineeSkillBean alloc]initWithFTTraineeSkillBeanDic:[self.dataArray objectAtIndex:indexPath.row]];
+    FTTraineeSkillBean *bean = [self.dataArray objectAtIndex:indexPath.row];
     [cell  setWithBean:bean];
     
     return cell;
@@ -177,12 +220,13 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
     FTTraineeGradeViewController *gradeVC = [[FTTraineeGradeViewController alloc]init];
-    FTTraineeSkillBean *skillBean = [[FTTraineeSkillBean alloc]initWithFTTraineeSkillBeanDic:[self.dataArray objectAtIndex:indexPath.row]];
+    FTTraineeSkillBean *parentBean = [self.dataArray objectAtIndex:indexPath.row];
+    NSMutableArray *array = [self.subDic objectForKey:[NSString stringWithFormat:@"%ld",parentBean.id]];
     gradeVC.title = self.title;
     gradeVC.bean = self.bean;
-    gradeVC.skillBean = skillBean;
+    gradeVC.parentBean = parentBean;
+    gradeVC.dataArray = array;
     gradeVC.shouldEditNum = self.shouldEditNum;
     gradeVC.paramsBlock = self.paramsBlock;
     [self.navigationController pushViewController:gradeVC animated:YES];
