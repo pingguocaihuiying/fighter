@@ -238,9 +238,6 @@
             [self.navigationController pushViewController:skillVC animated:YES];
         }
     }
-    
-
-    
 }
 
 #pragma mark UICollectionViewDelegateFlowLayout
