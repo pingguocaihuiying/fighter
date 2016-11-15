@@ -11,7 +11,7 @@
 #import "FTBaseTableViewCell.h"
 #import "FTCourseTableHeaderView.h"
 #import "FTSchedulePublicBean.h"
-
+#import "NSDate+Tool.h"
 @interface FTGymCourceViewNew()<UITableViewDelegate, UITableViewDataSource, FTCourseTableHeaderViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *seperatorView1;
@@ -381,24 +381,55 @@
     }
     
 #warning 测试代码
-    NSInteger index = _curWeekDay;
-    NSString *theDateKey = [NSString stringWithFormat:@"%ld", index];
-    NSArray *courseArray = _placesUsingInfoDic[theDateKey];
-    NSDictionary *dic;
-    NSString *timeSection2 = _timeSectionsArray[indexPath.row][@"timeSection"];//cell代表的固定时间段
-    for(NSDictionary *dict in courseArray){
-        if ([timeSection2 isEqualToString:dict[@"timeSection"]]) {
-            dic = dict;
-            break;
-        }
-    }
+  
     
-    FTSchedulePublicBean *bean = [[FTSchedulePublicBean alloc] initWithFTSchedulePublicBeanDic:dic];
-    
-    if (self.pushblock) {
+        NSInteger today = (int)[FTTools getWeekdayOfToday];//今天是周几
+        NSInteger theDay = _curWeekDay;//当前要显示的时间段是周几
         
-        self.pushblock(bean);
-    }
+        NSString *theDateKey = [NSString stringWithFormat:@"%ld", theDay];
+        NSArray *courseArray = _placesUsingInfoDic[theDateKey];
+        NSDictionary *dic;
+        NSString *timeSection = _timeSectionsArray[indexPath.row][@"timeSection"];//cell代表的固定时间段
+        for(NSDictionary *dict in courseArray){
+            if ([timeSection isEqualToString:dict[@"timeSection"]]) {
+                dic = dict;
+                break;
+            }
+        }
+        
+    
+        NSTimeInterval nowTimeInterval = [[NSDate date] timeIntervalSince1970];//此刻的时间戳
+        
+        NSInteger subDay = theDay - today;
+        if (subDay < 0) {
+            subDay = subDay+7;
+        }
+        
+        NSInteger timeStamp = nowTimeInterval +subDay *24*60*60;
+        NSString *dateString;
+    
+        NSString *currentYearMonthString = [NSDate currentYearString];
+        NSString *date = [NSString stringWithFormat:@"%ld",timeStamp];
+        NSString *yearString = [NSDate yearString:date];
+        
+        
+        if ([yearString isEqualToString:currentYearMonthString]) {
+            dateString = [NSDate monthDayStringWithWordSpace:date];
+        }else {
+            dateString = [NSDate dateStringWithWordSpace:date];
+        }
+        
+    
+        if (dic) {
+            FTSchedulePublicBean *bean = [[FTSchedulePublicBean alloc] initWithFTSchedulePublicBeanDic:dic];
+            bean.timestamp = timeStamp;
+            bean.dateString = dateString;
+            if (self.pushblock) {
+                self.pushblock(bean);
+            }
+            
+        }
+    
 }
 
 
