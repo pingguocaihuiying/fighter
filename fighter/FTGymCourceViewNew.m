@@ -12,6 +12,9 @@
 #import "FTCourseTableHeaderView.h"
 #import "FTSchedulePublicBean.h"
 #import "NSDate+Tool.h"
+#import "FTCourseHeaderFile.h"
+
+
 @interface FTGymCourceViewNew()<UITableViewDelegate, UITableViewDataSource, FTCourseTableHeaderViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *seperatorView1;
@@ -380,55 +383,73 @@
         [_delegate courseClickedWithCell:cell andDay:_curWeekDay andTimeSection:timeSection andDateString:_curDateString andTimeStamp:_curTimeStampString];
     }
     
-#warning 测试代码
+
   
+    /**************************************      生成时间戳          ********************************************/
+    NSInteger today = (int)[FTTools getWeekdayOfToday];//今天是周几
+    NSInteger theDay = _curWeekDay;//当前要显示的时间段是周几
     
-        NSInteger today = (int)[FTTools getWeekdayOfToday];//今天是周几
-        NSInteger theDay = _curWeekDay;//当前要显示的时间段是周几
-        
-        NSString *theDateKey = [NSString stringWithFormat:@"%ld", theDay];
-        NSArray *courseArray = _placesUsingInfoDic[theDateKey];
-        NSDictionary *dic;
-        NSString *timeSection = _timeSectionsArray[indexPath.row][@"timeSection"];//cell代表的固定时间段
-        for(NSDictionary *dict in courseArray){
-            if ([timeSection isEqualToString:dict[@"timeSection"]]) {
-                dic = dict;
-                break;
-            }
+    NSString *theDateKey = [NSString stringWithFormat:@"%ld", theDay];
+    NSArray *courseArray = _placesUsingInfoDic[theDateKey];
+    NSDictionary *dic;
+    NSString *timeSection = _timeSectionsArray[indexPath.row][@"timeSection"];//cell代表的固定时间段
+    for(NSDictionary *dict in courseArray){
+        if ([timeSection isEqualToString:dict[@"timeSection"]]) {
+            dic = dict;
+            break;
         }
-        
+    }
+    NSTimeInterval nowTimeInterval = [[NSDate date] timeIntervalSince1970];//此刻的时间戳
+    NSInteger subDay = theDay - today;
+    if (subDay < 0) {
+        subDay = subDay+7;
+    }
+    NSInteger timeStamp = (nowTimeInterval +subDay *24*60*60)*1000;
     
-        NSTimeInterval nowTimeInterval = [[NSDate date] timeIntervalSince1970];//此刻的时间戳
-        
-        NSInteger subDay = theDay - today;
-        if (subDay < 0) {
-            subDay = subDay+7;
-        }
-        
-        NSInteger timeStamp = nowTimeInterval +subDay *24*60*60;
-        NSString *dateString;
+    /**************************************      格式化时间戳为日期格式          ************************************/
+    NSString *dateString;
+    NSString *currentYearMonthString = [NSDate currentYearString];
+    NSString *date = [NSString stringWithFormat:@"%ld",timeStamp];
+    NSString *yearString = [NSDate yearString:date];
     
-        NSString *currentYearMonthString = [NSDate currentYearString];
-        NSString *date = [NSString stringWithFormat:@"%ld",timeStamp];
-        NSString *yearString = [NSDate yearString:date];
-        
-        
-        if ([yearString isEqualToString:currentYearMonthString]) {
-            dateString = [NSDate monthDayStringWithWordSpace:date];
-        }else {
-            dateString = [NSDate dateStringWithWordSpace:date];
-        }
-        
     
-        if (dic) {
-            FTSchedulePublicBean *bean = [[FTSchedulePublicBean alloc] initWithFTSchedulePublicBeanDic:dic];
-            bean.timestamp = timeStamp;
-            bean.dateString = dateString;
-            if (self.pushblock) {
-                self.pushblock(bean);
+    if ([yearString isEqualToString:currentYearMonthString]) {
+        dateString = [NSDate monthDayStringWithWordSpace:date];
+    }else {
+        dateString = [NSDate dateStringWithWordSpace:date];
+    }
+
+    /**************************************      判断课程状态          ************************************/
+    FTCourseState  courseState = FTCourseStateWaiting;
+    if (theDay == today) {
+        
+        NSTimeInterval theTimeIntervalStart = [FTTools getTimeIntervalWithAnyTimeIntervalOfDay:[[NSDate date] timeIntervalSince1970] andTimeString:[[timeSection componentsSeparatedByString:@"~"] firstObject]];//cell表示的时间段的起始时间戳
+        NSTimeInterval theTimeIntervalEnd = [FTTools getTimeIntervalWithAnyTimeIntervalOfDay:[[NSDate date] timeIntervalSince1970] andTimeString:[[timeSection componentsSeparatedByString:@"~"] lastObject]];//cell表示的时间段的起始时间戳
+        
+        
+        if (theTimeIntervalStart < nowTimeInterval) {//过去
+            courseState = FTCourseStateDone;
+            
+            //接着判断是否正在进行中
+            if(theTimeIntervalEnd > nowTimeInterval){
+                courseState = FTCourseStateTeaching;
             }
             
+        } else {
+            courseState = FTCourseStateWaiting;
         }
+    }
+    
+    /**************************************      跳转      ************************************/
+    if (dic && courseState == FTCourseStateWaiting) {
+        FTSchedulePublicBean *bean = [[FTSchedulePublicBean alloc] initWithFTSchedulePublicBeanDic:dic];
+        bean.timestamp = timeStamp;
+        bean.dateString = dateString;
+        if (self.pushblock) {
+            self.pushblock(bean);
+        }
+        
+    }
     
 }
 
