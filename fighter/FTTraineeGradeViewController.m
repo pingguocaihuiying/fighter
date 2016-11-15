@@ -139,8 +139,8 @@
 #pragma mark  - delegate
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    //    return self.dataArray.count;
-    return self.dataArray.count +10;
+        return self.dataArray.count;
+//    return self.dataArray.count +10;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -891,31 +891,34 @@ static NSString *const tableCellId = @"tableCellId";
     if (isCoach && loginUser.corporationid) {
         
         _coachSelfCourseVC.corporationid = loginUser.corporationid;
-        if ([self isContainShopVC]) {
-            _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_coachSelfCourseVC,_rankHomeVC,_shopVC];
-        }else {
-            _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_coachSelfCourseVC,_rankHomeVC];
-        }
-        
+//        if ([self isContainShopVC]) {
+//            _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_coachSelfCourseVC,_rankHomeVC,_shopVC];
+//        }else {
+//            _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_coachSelfCourseVC,_rankHomeVC];
+//        }
+        _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_coachSelfCourseVC,_rankHomeVC,_shopVC];
     }else {
         
-        if ([self isContainShopVC]) {
-            _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_practiceVC,_rankHomeVC,_shopVC];
-        }else {
-            _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_practiceVC,_rankHomeVC];
-        }
+        _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_practiceVC,_rankHomeVC,_shopVC];
+//        if ([self isContainShopVC]) {
+//            _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_practiceVC,_rankHomeVC,_shopVC];
+//        }else {
+//            _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_practiceVC,_rankHomeVC];
+//        }
         
     }
     _tabBarVC.selectedIndex = selectIndex;
     
-    // 设置格斗商城
-    [self getShopConfigInfo:^{
-        
-        if (_shopConfig == 0) {
-            
-            [self addTabBarVC:_shopVC];
-        }
-    }];
+    
+    
+//    // 设置格斗商城
+//    [self getShopConfigInfo:^{
+//        
+//        if (_shopConfig == 0) {
+//            
+//            [self addTabBarVC:_shopVC];
+//        }
+//    }];
 }
 
 
@@ -933,7 +936,6 @@ static NSString *const tableCellId = @"tableCellId";
     
     // 推送
     [self checkPush];
-    
     
     FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:_tabBarVC];
     [self.dynamicsDrawerViewController  setPaneViewController:navi];
@@ -1015,7 +1017,7 @@ static NSString *const tableCellId = @"tableCellId";
     
         [self.tabBarVC taskBtnAction:nil];
     }
-    
+
 }
 
 

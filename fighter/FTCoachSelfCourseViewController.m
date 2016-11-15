@@ -84,20 +84,6 @@
     [self setTableview];//设置历史课程的tableView
 }
 
-
-/**
- 初始化默认配置：默认展示团课（或私课）
- */
-- (void)initDefaultConfig{
-    _courseType = FTCourseTypePublic;//默认左侧按钮被点击，显示公开课
-//        _coachCourseType = FTCoachCourseTypePersonal;
-}
-
-- (void)initSomeViewsBaseProperties{
-    [self.bottomGradualChangeView removeFromSuperview];//移除底部的遮罩
-    _dividingViewTop.backgroundColor = Cell_Space_Color;
-}
-
 - (void)setNaviView{
     
     //设置默认标题
@@ -124,6 +110,21 @@
     UIBarButtonItem *gymDetailButton = [[UIBarButtonItem alloc]initWithTitle:@"个人主页" style:UIBarButtonItemStylePlain target:self action:@selector(gotoCoachHomepage)];
     self.navigationItem.rightBarButtonItem = gymDetailButton;
 }
+
+
+/**
+ 初始化默认配置：默认展示团课（或私课）
+ */
+- (void)initDefaultConfig{
+    _courseType = FTCourseTypePublic;//默认左侧按钮被点击，显示公开课
+//        _coachCourseType = FTCoachCourseTypePersonal;
+}
+
+- (void)initSomeViewsBaseProperties{
+    [self.bottomGradualChangeView removeFromSuperview];//移除底部的遮罩
+    _dividingViewTop.backgroundColor = Cell_Space_Color;
+}
+
 
 
 #pragma mark - response
@@ -494,6 +495,13 @@
 }
 
 
+
+
+/**
+ 历史课程排序分组
+
+ @param tempArray 历史课程字典数组
+ */
 - (void) sortArray:(NSArray *)tempArray {
     
     if (_courseType == FTCourseTypePublic) {//公开课
