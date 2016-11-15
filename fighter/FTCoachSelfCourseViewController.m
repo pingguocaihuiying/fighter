@@ -557,7 +557,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (_courseType == FTCourseTypePublic) {//公开课
+    if (_courseType == FTCourseTypePublic) {//团课
         
         FTPublicHistoryCourseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellForPublic"];
         cell.backgroundColor = [UIColor clearColor];

@@ -551,6 +551,11 @@
     
     NSString *localSkillVersion = [[NSUserDefaults standardUserDefaults]valueForKey:SKILL_VERSION];
     
+    /*
+        开发阶段，暂时把local version设为nil
+     */
+    localSkillVersion = nil;
+    
     [NetWorking getUserSkillsWithCorporationid:nil andMemberUserId:[FTUserBean loginUser].olduserid andVersion:localSkillVersion andParent:nil andOption:^(NSDictionary *dict) {
         
         SLog(@"history dict:%@",dict);
