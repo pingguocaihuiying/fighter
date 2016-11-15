@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "FTTraineeBean.h"
-#import "FTTraineeViewController.h"
+#import "FTCourseHeaderFile.h"
 
 /**
  学员列表cell
@@ -25,6 +25,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *markImageView;// 新学员标记
 
 
-- (void) setCellWithBean:(FTTraineeBean *)bean  state:(FTTraineeCourseState) state;
+- (void) setCellWithBean:(FTTraineeBean *)bean  state:(FTCourseState) state;
 
 @end

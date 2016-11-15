@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FTTraineeSkillBean.h"
+#import "FTCourseHeaderFile.h"
 
 @interface FTTraineeGradeCell : UITableViewCell
 
@@ -19,4 +21,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *subButton;
 
 @property (weak, nonatomic) IBOutlet UIView *bottomLine;
+
+- (void)setWithBean:(FTTraineeSkillBean *)bean block:(EditSkillBlock) block;
+
+@property (nonatomic, strong) FTTraineeSkillBean *skillBean;
+@property (nonatomic, assign) NSInteger skillState;
+@property (nonatomic, copy) EditSkillBlock editSkillBlock;
+@property (nonatomic, copy) TransmitParamsBlock transimitBlock;
+@property (nonatomic, assign) NSInteger paramsNum;
 @end

@@ -112,7 +112,7 @@
     NSString *userId = loginuser.olduserid;
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-    if (self.courseType == FTTraineeCourseStateWaiting) {
+    if (self.courseType == FTCourseStateWaiting) {
         FTSchedulePublicBean *courseBean = (FTSchedulePublicBean *)_bean;
         [dic setObject:[NSString stringWithFormat:@"%ld",courseBean.theDate] forKey:@"date"];
         [dic setObject:userId forKey:@"coachUserId"];
@@ -127,9 +127,9 @@
     }
     
 
-    if (self.courseType == FTCoachCourseTypePublic) {
+    if (self.courseType == FTCourseTypePublic) {
         [dic setObject:@"0" forKey:@"type"];//课程类型，0-团课，2-私教,3-其他
-    }else if(self.courseType == FTCoachCourseTypePersonal){
+    }else if(self.courseType == FTCourseTypePrivate){
         [dic setObject:@"2" forKey:@"type"];//课程类型，0-团课，2-私教,3-其他
     }else {
          [dic setObject:@"2" forKey:@"type"];//课程类型，0-团课，2-私教,3-其他
@@ -157,7 +157,8 @@
 
 - (void) setCollectionViewHeight:(NSInteger)count {
 
-    CGFloat height = 50 + ceil(count/4.0f) *(85 * SCALE +20* SCALE) + 20* SCALE;
+//    CGFloat height = 50 + ceil(count/4.0f) *(85 * SCALE +20* SCALE) + 20* SCALE;
+     CGFloat height = 50 + ceil(count/4.0f) *(85  +20* SCALE) + 20* SCALE;
     if (height <= SCREEN_HEIGHT - 64) {
         self.collectionHeightConstraint.constant = height;
     }else {
@@ -181,7 +182,7 @@
     if (kind == UICollectionElementKindSectionHeader){
         
         FTTraineeHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
-        if (self.courseType == FTTraineeCourseStateWaiting) {
+        if (self.courseType == FTCourseStateWaiting) {
             FTSchedulePublicBean *courseBean = (FTSchedulePublicBean *)_bean;
             headerView.timeSectionLabel.text = courseBean.timeSection;
             headerView.dateLabel.text = [NSString stringWithFormat:@"%ld",courseBean.theDate];
@@ -211,23 +212,43 @@
     FTTraineeBean *bean = [[FTTraineeBean alloc] initWithFTTraineeBeanDic:[self.dataArray objectAtIndex:indexPath.row]];
     [cell setCellWithBean:bean state:self.courseState];
     
-//    cell.avatarImageView.image = [UIImage imageNamed:@"学员头像-无头像男"];
-//    cell.nameLabel.text = @"traineeName";
-    
     return cell;
 }
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    FTTraineeSkillViewController *skillVC = [[FTTraineeSkillViewController alloc]init];
-    [self.navigationController pushViewController:skillVC animated:YES];
+    FTTraineeBean *bean = [[FTTraineeBean alloc] initWithFTTraineeBeanDic:[self.dataArray objectAtIndex:indexPath.row]];
+    if (bean.signStatus != 0) { // 旷课不评分
+        
+        if (self.courseType == FTCourseStateWaiting) {
+            //        FTSchedulePublicBean *courseBean = (FTSchedulePublicBean *)_bean;
+            
+            
+        }else  if (self.courseType == FTCourseStateDone){
+            
+            FTHistoryCourseBean *historyBean = (FTHistoryCourseBean *)_bean;
+            historyBean.createName = bean.createName;
+            historyBean.memberUserId = bean.userId;
+            historyBean.bookId = bean.id;
+            
+            FTTraineeSkillViewController *skillVC = [[FTTraineeSkillViewController alloc]init];
+            skillVC.bean = historyBean;
+            [self.navigationController pushViewController:skillVC animated:YES];
+        }
+    }
+    
+
+    
 }
 
 #pragma mark UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    float width = 66 * SCALE;
-    float height = 85 * SCALE;
+//    float width = 66 * SCALE;
+//    float height = 85 * SCALE;
+    
+    float width = 66 ;
+    float height = 85 ;
     return CGSizeMake(width, height);
 }
 

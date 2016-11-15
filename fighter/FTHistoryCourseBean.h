@@ -42,7 +42,9 @@
 
 @property (nonatomic, assign) NSInteger id;
 
-@property (nonnull, nonatomic, copy) NSString *createName;
+@property (nonatomic, assign) NSInteger bookId;
+
+@property (nonnull, nonatomic, copy) NSString *createName; // 私课学员名称
 
 @property (nonnull, nonatomic, copy) NSString *timeSection;
 

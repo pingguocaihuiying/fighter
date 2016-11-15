@@ -238,6 +238,8 @@ NSString * const GetCoachTeachRecord = @"/api/coursebook/get$CourseHistory.do";
 #pragma mark - 训练
 NSString * const GetTraineeListURL = @"/api/coursebook/findCourseMember.do"; //获取课程学员列表
 NSString * const GetTraineeGradeVersionURL = @"/api/gradedetail/get$Versions.do"; //获取学员技能点最新版本
+NSString * const GetTraineeShouldGradeNumberURL = @"/api/base/readField.do";//获取当前课程可评价子项数目
+NSString * const SaveSkillVersionURL = @"/api/skillversions/save$SkillVersions.do";// 上课评分
 #pragma mark - 新格斗场
 NSString * const GetGymTimeSlotsByIdURL = @"/api/place/listTime.do";
 NSString *const GetGymVIPInfoURL = @"/api/gymmenbership/find.do";//

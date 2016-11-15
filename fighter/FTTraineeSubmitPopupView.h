@@ -13,7 +13,7 @@
  学员评分提交弹出框view
  */
 @interface FTTraineeSubmitPopupView : UIView
-@property (nonatomic, copy) NSDictionary *skillGradeDic;
+@property (nonatomic, copy) NSMutableDictionary *skillGradeDic;
 @property (nonatomic, copy) NSString *title;
-
+@property (nonatomic, copy) NSString *bookId;
 @end

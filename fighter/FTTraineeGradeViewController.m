@@ -10,10 +10,17 @@
 #import "FTTraineeSkillSectionHeaderView.h"
 #import "FTTraineeGradeCell.h"
 #import "FTTraineeSkillBean.h"
+#import "FTCourseHeaderFile.h"
+#import "FTTraineeSubmitPopupView.h"
 
 @interface FTTraineeGradeViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) NSArray *dataArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (copy, nonatomic) NSMutableArray *editGrades; // 评分数组
+@property (copy, nonatomic) NSMutableArray *editSkills; // 技能点数组
+
+@property (copy, nonatomic) NSMutableDictionary *editItems; // 已评分项
+@property (nonatomic, copy) EditSkillBlock editSkillBlock;
 
 @end
 
@@ -24,6 +31,8 @@
     
     [self setNavigationbar];
     [self setSubViews];
+    [self pullDataFromServer];
+    [self initData];
 }
 
 
@@ -68,6 +77,65 @@
     self.tableView.estimatedSectionHeaderHeight = 90;
 }
 
+- (void) initData {
+
+    __weak typeof(self) weakSelf = self;
+    self.editSkillBlock = ^(NSString *key, NSString *value) {
+        
+        if (weakSelf.editItems.allKeys.count == weakSelf.shouldEditNum) {
+            if ([weakSelf.editItems.allKeys containsObject:key]) {
+                [weakSelf.view showMessage:[NSString stringWithFormat:@"本次课程最多只能为%ld项技能评分~",weakSelf.shouldEditNum]];
+                return NO;
+            }else {
+            
+                [weakSelf.editItems setObject:value forKey:key];
+                if(weakSelf.paramsBlock) {
+                    weakSelf.paramsBlock(weakSelf.editItems);
+                }
+                return YES;
+            }
+        }else {
+        
+            [weakSelf.editItems setObject:value forKey:key];
+            if(weakSelf.paramsBlock) {
+                weakSelf.paramsBlock(weakSelf.editItems);
+            }
+            return YES;
+        }
+    };
+}
+
+- (NSMutableDictionary *) editItems {
+
+    if (!_editItems) {
+        _editItems = [[NSMutableDictionary alloc]initWithCapacity:_shouldEditNum];
+    }
+    
+    return _editItems;
+}
+
+
+#pragma mark - pull data
+- (void) pullDataFromServer {
+    
+    NSString *corporationId = [NSString stringWithFormat:@"%ld",self.bean.corporationid];
+    NSString *parent = [NSString stringWithFormat:@"%ld",self.skillBean.parent];
+    [NetWorking getUserSkillsWithCorporationid:corporationId andMemberUserId:self.bean.memberUserId andVersion:nil andParent:parent andOption:^(NSDictionary *dict) {
+        SLog(@"dic:%@",dict);
+        if (!dict) {
+            return;
+        }
+        
+        BOOL status = [dict[@"status"] isEqualToString:@"success"]?YES:NO;
+        if(status) {
+            self.dataArray = dict[@"data"][@"skills"];
+            [self.tableView reloadData];
+        }
+    }];
+}
+
+
+
 #pragma mark  - delegate
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
@@ -99,7 +167,7 @@
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, detail.length)];
     
     headerView.detailAttributeString = attributedString;
-    headerView.title = @"本节课可为5项技术评分";
+    headerView.title = [NSString stringWithFormat:@"本节课可为%ld项技术评分",_shouldEditNum];;
     
     return headerView;
 }
@@ -108,26 +176,35 @@
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     FTTraineeGradeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GradeCell"];
-    cell.skillLabel.text = @"前手直拳：";
-    cell.gradeLabel.text = @"8888";
-    
     FTTraineeSkillBean *bean = [[FTTraineeSkillBean alloc]initWithFTTraineeSkillBeanDic:[self.dataArray objectAtIndex:indexPath.row]];
-    cell.skillLabel.text = bean.name;
-    cell.gradeLabel.text = [NSString stringWithFormat:@"%ld",bean.score];
+    [cell setWithBean:bean block:self.editSkillBlock];
     
     return cell;
 }
 
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    FTTraineeGradeViewController *gradeVC = [[FTTraineeGradeViewController alloc]init];
-    [self.navigationController pushViewController:gradeVC animated:YES];
-}
+
 
 #pragma mark - response
 //- (void) backBtnAction:(id) sender {
 //
 //}
 - (void) submitAction:(id) sender {
+    [self popUpView];
+}
+
+
+
+/**
+ 提交弹出框
+ */
+- (void) popUpView {
+    
+    FTTraineeSubmitPopupView *popUpView = [[FTTraineeSubmitPopupView alloc]init];
+    popUpView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    popUpView.bookId = [NSString stringWithFormat:@"%ld",self.bean.bookId];
+    popUpView.skillGradeDic = self.editItems;
+    
+    [[UIApplication sharedApplication].keyWindow addSubview:popUpView];
     
 }
 

@@ -16,6 +16,9 @@
 @interface FTTraineeSkillViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) NSArray *dataArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (assign, nonatomic) NSInteger shouldEditNum;
+@property (nonatomic, copy) TransmitParamsBlock paramsBlock;
+@property (copy, nonatomic) NSMutableDictionary *editItems; // 已评分项
 
 @end
 
@@ -27,7 +30,11 @@
     
     [self setNavigationbar];
     [self setSubViews];
+    
+    [self getShouldEditSkillNumber];
     [self pullDataFromServer];
+    
+    [self initData];
 }
 
 
@@ -58,7 +65,6 @@
 - (void) setSubViews {
     
     self.title = self.bean.createName;
-    
     [self setTableView];
 }
 
@@ -71,11 +77,35 @@
     self.tableView.estimatedSectionHeaderHeight = 90;
 }
 
+
+- (void) initData {
+    
+    __weak typeof(self) weakSelf = self;
+    self.paramsBlock = ^(NSMutableDictionary *dic) {
+        
+        if (dic!= weakSelf.editItems) {
+            weakSelf.editItems = dic;
+        }
+    };
+}
+
+- (NSMutableDictionary *) editItems {
+    
+    if (!_editItems) {
+        _editItems = [[NSMutableDictionary alloc]init];
+    }
+    
+    return _editItems;
+}
+
+
+
 #pragma mark - pull data
 - (void) pullDataFromServer {
 
     NSString *corporationId = [NSString stringWithFormat:@"%ld",self.bean.corporationid];
-    [NetWorking getUserSkillsWithCorporationid:corporationId andMemberUserId:self.bean.memberUserId andVersion:nil andParent:nil andOption:^(NSDictionary *dict) {
+    NSString *memberUserId = self.bean.memberUserId;
+    [NetWorking getUserSkillsWithCorporationid:corporationId andMemberUserId:memberUserId andVersion:nil andParent:nil andOption:^(NSDictionary *dict) {
         SLog(@"dic:%@",dict);
         if (!dict) {
             return;
@@ -88,6 +118,23 @@
         }
     }];
 }
+
+- (void) getShouldEditSkillNumber {
+
+    [NetWorking getShouldEditSkillNumber:[NSString stringWithFormat:@"%ld",self.bean.corporationid] option:^(NSDictionary *dict) {
+        SLog(@"dic:%@",dict);
+        if (!dict) {
+            return;
+        }
+        
+        BOOL status = [dict[@"status"] isEqualToString:@"success"]?YES:NO;
+        if(status) {
+            _shouldEditNum = [dict[@"data"] integerValue];
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+        }
+    }];
+}
+
 #pragma mark  - delegate
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
@@ -99,7 +146,6 @@
     
     return 45;
 }
-
 
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -114,7 +160,7 @@
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, detail.length)];
     
     headerView.detailAttributeString = attributedString;
-    headerView.title = @"本节课可为5项技术评分";
+    headerView.title =[NSString stringWithFormat:@"本节课可为%ld项技术评分",_shouldEditNum];
     return headerView;
 }
 
@@ -130,8 +176,17 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
     FTTraineeGradeViewController *gradeVC = [[FTTraineeGradeViewController alloc]init];
+    FTTraineeSkillBean *skillBean = [[FTTraineeSkillBean alloc]initWithFTTraineeSkillBeanDic:[self.dataArray objectAtIndex:indexPath.row]];
+    gradeVC.title = self.title;
+    gradeVC.bean = self.bean;
+    gradeVC.skillBean = skillBean;
+    gradeVC.shouldEditNum = self.shouldEditNum;
+    gradeVC.paramsBlock = self.paramsBlock;
     [self.navigationController pushViewController:gradeVC animated:YES];
+    
 }
 
 #pragma mark - response
@@ -149,18 +204,24 @@
  */
 - (void) popUpView {
     
-    FTTraineeSubmitPopupView *popUpView = [[FTTraineeSubmitPopupView alloc]init];
-    popUpView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    if (self.editItems.allKeys.count > 0) {
+        FTTraineeSubmitPopupView *popUpView = [[FTTraineeSubmitPopupView alloc]init];
+        popUpView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        popUpView.bookId = [NSString stringWithFormat:@"%ld",self.bean.bookId];
+        //    NSDictionary *dic = @{@"前手直拳":@"很好",
+        //                          @"后手直拳":@"好",
+        //                          @"肘击横摆（左）":@"一般",
+        //                          @"肘击横摆（右）":@"差",
+        //                          @"后手勾拳":@"很好",
+        //                          };
+        popUpView.skillGradeDic = self.editItems;
+        
+        [[UIApplication sharedApplication].keyWindow addSubview:popUpView];
+    }else {
     
-    NSDictionary *dic = @{@"前手直拳":@"很好",
-                          @"后手直拳":@"好",
-                          @"肘击横摆（左）":@"一般",
-                          @"肘击横摆（右）":@"差",
-                          @"后手勾拳":@"很好",
-                          };
-    popUpView.skillGradeDic = dic;
+        [self.view showMessage:@"还没有给学员评分，赶紧去评分吧~"];
+    }
     
-    [[UIApplication sharedApplication].keyWindow addSubview:popUpView];
     
 }
 @end

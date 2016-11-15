@@ -25,7 +25,7 @@
  @param bean  数据模型
  @param state 课程状态
  */
-- (void) setCellWithBean:(FTTraineeBean *)bean  state:(FTTraineeCourseState) courseState{
+- (void) setCellWithBean:(FTTraineeBean *)bean  state:(FTCourseState) courseState{
 
     NSString *sex = [bean.sex stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"sex:%@:",sex);
@@ -48,9 +48,9 @@
     self.nameLabel.text = bean.createName;
     
     
-    if (courseState == FTTraineeCourseStateComplete) {
+    if (courseState == FTCourseStateDone) {
         self.markImageView.hidden = YES;
-        if (bean.signStatus) {
+        if (bean.signStatus == 0) {
             self.traineeStateImageView.image = [UIImage imageNamed:@"学员状态-旷课"];
         }else {
             if (bean.hasGrade == 0) {

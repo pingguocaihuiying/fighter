@@ -19,7 +19,7 @@
 #import "FTPublicHistoryCourseTableViewCell.h"
 #import "FTTraineeViewController.h"
 #import "FTTraineeSkillViewController.h"
-
+#import "FTCourseHeaderFile.h"
 
 @interface FTCoachSelfCourseViewController ()<FTGymCourseTableViewDelegate, UITableViewDelegate, UITableViewDataSource, FTCoachChangeCourseStatusDelegate>
 {
@@ -28,7 +28,7 @@
     NSSet<UITouch *> *touchSet;
     UIEvent *touchEvent;
 }
-@property (nonatomic, assign) FTCoachCourseType coachCourseType;
+@property (nonatomic, assign) FTCourseType courseType;
 @property (strong, nonatomic) IBOutlet UIView *dividingViewTop;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -89,7 +89,7 @@
  初始化默认配置：默认展示团课（或私课）
  */
 - (void)initDefaultConfig{
-    _coachCourseType = FTCoachCourseTypePublic;//默认左侧按钮被点击，显示公开课
+    _courseType = FTCourseTypePublic;//默认左侧按钮被点击，显示公开课
 //        _coachCourseType = FTCoachCourseTypePersonal;
 }
 
@@ -130,7 +130,7 @@
  @param sender
  */
 - (IBAction)publicCourseButtonClicked:(id)sender {
-    _coachCourseType = FTCoachCourseTypePublic;
+    _courseType = FTCourseTypePublic;
     [self updateCourseTableDisplay];
 }
 
@@ -139,7 +139,7 @@
  @param sender
  */
 - (IBAction)personalCourseButtonClicked:(id)sender {
-    _coachCourseType = FTCoachCourseTypePersonal;
+    _courseType = FTCourseTypePrivate;
     [self updateCourseTableDisplay];
 }
 
@@ -149,7 +149,7 @@
  */
 - (void)updateCourseTableDisplay{
     
-    if (_coachCourseType == FTCoachCourseTypePublic) {
+    if (_courseType == FTCourseTypePublic) {
     //团课
         //清空私教历史课程数据
         [_historyArray removeAllObjects];
@@ -162,7 +162,7 @@
         [_gymSourceView removeFromSuperview]; //隐藏私教课程表
         [self setPublicCourseView];
         
-    } else if(_coachCourseType == FTCoachCourseTypePersonal){
+    } else if(_courseType == FTCourseTypePrivate){
     //私教
         //清空私教历史课程数据
         [_historyArrayPublic removeAllObjects];
@@ -222,14 +222,16 @@
 #warning mark -
     __weak typeof(self) weakslef= self;
     _gymSourceViewPublic.pushblock = ^(id bean){
-        if (_coachCourseType == FTCoachCourseTypePublic) {
-            
-            FTTraineeViewController *traineeListVC = [[FTTraineeViewController alloc]init];
-            traineeListVC.courseState = FTTraineeCourseStateWaiting;
-            traineeListVC.courseType = weakslef.coachCourseType;
-            traineeListVC.bean = bean;
-            [weakslef.navigationController pushViewController:traineeListVC animated:YES];
-        }
+        
+//        if (weakslef.courseType == FTCourseTypePublic) {
+//            
+//            FTTraineeViewController *traineeListVC = [[FTTraineeViewController alloc]init];
+//            traineeListVC.courseState = FTCourseStateWaiting;
+//            traineeListVC.courseType = weakslef.courseType;
+//            traineeListVC.bean = bean;
+//            [weakslef.navigationController pushViewController:traineeListVC animated:YES];
+//        }
+        
 //        else {
 //            FTTraineeSkillViewController *traineeSkillVC = [[FTTraineeSkillViewController alloc]init];
 //            //    traineeSkillVC.courseState = FTTraineeCourseStateComplete;
@@ -290,11 +292,11 @@
         if (_timeSectionsArray && _timeSectionsArray.count > 0) {
             //获取时间段信息后，根据内容多少设置tableviews的高度，再刷新一次tableview
             
-            if (_coachCourseType == FTCoachCourseTypePublic) {
+            if (_courseType == FTCourseTypePublic) {
                 _gymSourceViewPublic.timeSectionsArray = _timeSectionsArray;
 //                _gymSourceViewPublic.tableViewsHeight.constant = 42 * _timeSectionsArray.count;
                 [self getPublicTimeSectionsUsingInfo];
-            } else if (_coachCourseType == FTCoachCourseTypePersonal){
+            } else if (_courseType == FTCourseTypePrivate){
                 _gymSourceView.timeSectionsArray = _timeSectionsArray;
                 _gymSourceView.tableViewsHeight.constant = 42 * _timeSectionsArray.count;
                 [self gettimeSectionsUsingInfo];
@@ -491,7 +493,7 @@
 
 - (void) sortArray:(NSArray *)tempArray {
     
-    if (_coachCourseType == FTCoachCourseTypePublic) {//公开课
+    if (_courseType == FTCourseTypePublic) {//公开课
         if (!_historyArrayPublic) {
             _historyArrayPublic = [[NSMutableArray alloc]init];
         }
@@ -520,7 +522,7 @@
             bean.dateString = [NSDate dateStringWithWordSpace:date];
         }
         
-        NSString *dateString = _coachCourseType == FTCoachCourseTypePublic ? [NSDate dateStringWithWordSpace:date] : [NSDate dateStringWithYearMonth:date];
+        NSString *dateString = _courseType == FTCourseTypePublic ? [NSDate dateStringWithWordSpace:date] : [NSDate dateStringWithYearMonth:date];
         NSLog(@"dateString:%@",dateString);
         if ([dict.allKeys containsObject:dateString]) {
             NSMutableArray *array = [dict objectForKey:dateString];
@@ -529,7 +531,7 @@
         }else {
             NSMutableArray *array = [[NSMutableArray alloc]init];
             [array addObject:bean];
-            [_coachCourseType == FTCoachCourseTypePublic ? _historyArrayPublic : _historyArray addObject:array];
+            [_courseType == FTCourseTypePublic ? _historyArrayPublic : _historyArray addObject:array];
             [dict setObject:array forKey:dateString];
         }
         
@@ -542,35 +544,32 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return _coachCourseType == FTCoachCourseTypePublic ? _historyArrayPublic.count : _historyArray.count;
+    return _courseType == FTCourseTypePublic ? _historyArrayPublic.count : _historyArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSArray *array =(_coachCourseType == FTCoachCourseTypePublic ? _historyArrayPublic : _historyArray)[section];
+    NSArray *array =(_courseType == FTCourseTypePublic ? _historyArrayPublic : _historyArray)[section];
     return array.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (_coachCourseType == FTCoachCourseTypePersonal) {//如果当前展示的是私教课
-        FTHistoryCourseBean *bean = _historyArray[indexPath.section][indexPath.row];
-        FTCoachHistoryCourseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-        cell.backgroundColor = [UIColor clearColor];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (_courseType == FTCourseTypePublic) {//公开课
         
-        
-        //    FTCourseHistoryBean *bean = _historyArray[0][indexPath.row];
-        
-
-        
-        [cell setWithCourseHistoryBean:bean];
-        
-        return cell;
-    }else{//公开课
         FTPublicHistoryCourseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellForPublic"];
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         FTHistoryCourseBean *bean = _historyArrayPublic[indexPath.section][indexPath.row];
+        [cell setWithCourseHistoryBean:bean];
+        return cell;
+        
+    }else{//如果当前展示的是私教课
+        
+        FTHistoryCourseBean *bean = _historyArray[indexPath.section][indexPath.row];
+        FTCoachHistoryCourseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        cell.backgroundColor = [UIColor clearColor];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        //    FTCourseHistoryBean *bean = _historyArray[0][indexPath.row];
         [cell setWithCourseHistoryBean:bean];
         return cell;
     }
@@ -578,29 +577,34 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    id bean = ((_coachCourseType == FTCoachCourseTypePublic) ? _historyArrayPublic : _historyArray )[indexPath.section][indexPath.row];
-    NSLog(@"课程bean:%@", bean);
+//    id bean = ((_courseType == FTCourseTypePublic) ? _historyArrayPublic : _historyArray )[indexPath.section][indexPath.row];
+//    NSLog(@"课程bean:%@", bean);
     
-    if (_coachCourseType == FTCoachCourseTypePublic) {
+    if (_courseType == FTCourseTypePublic) {
     
+        FTHistoryCourseBean *bean = _historyArrayPublic[indexPath.section][indexPath.row];
+        
         FTTraineeViewController *traineeListVC = [[FTTraineeViewController alloc]init];
-        traineeListVC.courseState = FTTraineeCourseStateComplete;
-        traineeListVC.courseType = _coachCourseType;
+        traineeListVC.courseState = FTCourseStateDone;
+        traineeListVC.courseType = _courseType;
         traineeListVC.bean = bean;
         [self.navigationController pushViewController:traineeListVC animated:YES];
     }else {
+        
+        FTHistoryCourseBean *bean = _historyArray[indexPath.section][indexPath.row];
+        if (bean.attendCount == 0) {
+            return; // 旷课不能评分
+        }
         FTTraineeSkillViewController *traineeSkillVC = [[FTTraineeSkillViewController alloc]init];
-//        traineeSkillVC.courseState = FTTraineeCourseStateComplete;
-//        traineeSkillVC.courseType = _coachCourseType;
+//        traineeSkillVC.courseState = FTCourseStateDone;
+//        traineeSkillVC.courseType = _courseType;
         traineeSkillVC.bean = bean;
         [self.navigationController pushViewController:traineeSkillVC animated:YES];
     }
-        
-    
-    
-    
-    
+
 }
+
+
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView = [UIView new];
@@ -613,7 +617,7 @@
 //    contentView.backgroundColor = [UIColor colorWithHex:0x282828];
 //    [headerView addSubview:contentView];
     
-    if (_coachCourseType == FTCoachCourseTypePublic) {
+    if (_courseType == FTCourseTypePublic) {
         UILabel *label1 = [[UILabel alloc]initWithFrame:CGRectMake(16, 4, 150, 12)];
         label1.textColor = [UIColor colorWithHex:0xb4b4b4];
         label1.font = [UIFont systemFontOfSize:12];
@@ -725,9 +729,9 @@
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
 
-    if (scrollView == self.scrollView) {
-        NSLog(@"offSetY:%f",scrollView.contentOffset.y);
-    }
+//    if (scrollView == self.scrollView) {
+//        NSLog(@"offSetY:%f",scrollView.contentOffset.y);
+//    }
 }
 
 #pragma mark - response

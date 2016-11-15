@@ -288,6 +288,23 @@
 + (void)getUserSkillsWithCorporationid:(NSString *)corporationid andMemberUserId:(NSString *)memberUserId andVersion:(NSString *)version andParent:(NSString *)parent andOption:(void (^)(NSDictionary *dic)) option;
 
 
+/**
+ 获取拳馆评分项子项最大数目限制
+ 
+ @param corporationId 拳馆id
+ @param option        返参数block
+ */
++ (void) getShouldEditSkillNumber:(NSString *)corporationId option:(void (^)(NSDictionary *dic)) option;
+
+
+/**
+ 上课评分
+ 
+ @param paramDic 评分参数
+ @param option   返参数block
+ */
++ (void) saveSkillVersion:(NSDictionary *)paramDic option:(void (^)(NSDictionary *dic)) option;
+
 #pragma mark - 约课
 //约课
 + (void)orderCourseWithParamsDic:(NSMutableDictionary *)dic andOption:(void (^)(NSDictionary *dic))option;
