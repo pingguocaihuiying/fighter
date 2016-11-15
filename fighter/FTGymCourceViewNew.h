@@ -7,7 +7,7 @@
 //
 
 #import "FTCourseBean.h"
-
+#import "FTSchedulePublicBean.h"
 @class FTGymSourceTableViewCell;
 
 
@@ -39,7 +39,7 @@
 
 @end
 
-typedef void(^PushBlock)(FTCourseBean *bean);
+typedef void(^PushBlock)(FTSchedulePublicBean *bean);
 #import <UIKit/UIKit.h>
 //#import "FTGymSourceTableViewCell.h"
 #import "FTGymSourceView.h"
