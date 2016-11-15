@@ -1351,7 +1351,8 @@
         //点击的该母项技能
         FTUserSkillBean *fatherSkillBean = _fatherSkillArray[indexPath.row];
         
-
+        //母项页传递下去
+        userCourseCommentViewController.fatherSkillBean = fatherSkillBean;
 
         //把筛选出来的该母项下所有的子项传值给下个vc
         userCourseCommentViewController.skillArray = [self getChildrenSkillArrayWithParentID:fatherSkillBean.id fromSkillArray:_childSkillArray];
@@ -1370,7 +1371,7 @@
             for(FTUserSkillBean *beanItem in fatherSkillArrayOld){
                 if(beanItem.id == fatherSkillBean.id){
                     [fatherSkillArrayOld removeObject:beanItem];
-                    [fatherSkillArrayOld addObject:[fatherSkillBean copy]];
+                    [fatherSkillArrayOld addObject:fatherSkillBean];
                     [self saveSkillArray:fatherSkillArrayOld WithKey:FATHER_SKILLS_ARRAY];//存入本地
                     break;
                 }
