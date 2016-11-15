@@ -135,7 +135,7 @@
                                                 <action selector="videoButtonClicked:" destination="-1" eventType="touchUpInside" id="XgI-7R-gX7"/>
                                             </connections>
                                         </button>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="红点" translatesAutoresizingMaskIntoConstraints="NO" id="zv8-3G-qsx">
+                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="红点" translatesAutoresizingMaskIntoConstraints="NO" id="zv8-3G-qsx">
                                             <rect key="frame" x="318" y="14" width="8" height="8"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="8" id="SuX-fe-qZP"/>

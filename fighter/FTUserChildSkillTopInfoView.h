@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FTRatingBar.h"
 
 @interface FTUserChildSkillTopInfoView : UIView
 @property (strong, nonatomic) IBOutlet UILabel *skillName;
 
 @property (strong, nonatomic) IBOutlet UILabel *skillDescLabel;
 
-
+@property (strong, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (weak, nonatomic) IBOutlet FTRatingBar *ratingBar;
 @end

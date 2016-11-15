@@ -110,9 +110,8 @@
 @property (nonatomic, strong) NSMutableArray *skillArray;//技能项（包括子项、母项）暂未用到，留备用
 @property (nonatomic, strong) NSMutableArray *fatherSkillArray;//技能母项
 @property (nonatomic, strong) NSMutableArray *childSkillArray;//技能子项
-
-@property (nonatomic, copy) NSString *localSkillVersionOld;//本地技能旧版本
-@property (nonatomic, copy) NSString *localSkillVersionNew;//从服务器获取的新技能版本
+@property (nonatomic, assign) BOOL hasNewVersion;//是否有新版本
+@property (nonatomic, strong) NSMutableDictionary *fatherSkillVersionsDic;//用于记录那些父项有更新.key为技能id，value为0或1:0为没有更新，1为有更新
 
 @end
 
@@ -136,8 +135,8 @@
     self.navigationController.navigationBarHidden = YES;
     
     if ([_userIdentity isEqualToString:@"0"]){//如果是普通用户
-        //“控制课程”右边的红点是否显示
-        [self updateCourseHistoryButtonRightRedPointDisplay];
+        //更新“历史课程”、“技能”按钮右边的红点显示与否
+        [self updateButtonRightRedPointDisplay];
         
     }
     
@@ -531,7 +530,7 @@
             
             
             [self updateCourseHistoryButtonRightRedPointDisplay];//刷新课程按钮右边的红点
-            [_courseHistoryTableView reloadData];//舒心历史课程列表
+            [_courseHistoryTableView reloadData];//刷新历史课程列表
             
         }
         
@@ -548,19 +547,13 @@
         
         SLog(@"history dict:%@",dict);
         BOOL status = [dict[@"status"] isEqualToString:@"success"];
-        if (status) {
-            NSString *version = dict[@"data"][@"versions"];
-            //如果版本号不为空，存在本地
-            if (!version) {
-                version = @"-1";
-            }
-            [[NSUserDefaults standardUserDefaults]setValue:version forKey:SKILL_VERSION];
-            [[NSUserDefaults standardUserDefaults]synchronize];
-            
+        if (status) {//有新的版本
             
             NSArray *arrayTemp = dict[@"data"][@"skills"];
             
-            //初始化存储技能的数组们
+            /*
+             把从服务器获取的数据存入本地
+             */
             _skillArray = [NSMutableArray new];//新建数组
             _fatherSkillArray = [NSMutableArray new];//新建父项数组
             _childSkillArray = [NSMutableArray new];//新建子项数组
@@ -578,25 +571,98 @@
                 
             }
             
-            [_skillsTableView reloadData];
+            NSString *version = dict[@"data"][@"versions"];//从服务器获取的版本号
             
-            //            1
-//            //测试用，给array赋值
-//            //            arrayTemp = [self setTempArray];
-//            
-//            [self handleCourseVersionWithCourseArray:arrayTemp];
-//            
-//            [self sortArray:arrayTemp];
-//            
-//            
-//            [self updateCourseHistoryButtonRightRedPointDisplay];//刷新课程按钮右边的红点
-//            [_courseHistoryTableView reloadData];//舒心历史课程列表
+            if (version && (version != [NSNull null])) {//如果有版本号，说明有更新
+                _hasNewVersion = YES;
+                
+                [[NSUserDefaults standardUserDefaults]setValue:version forKey:SKILL_VERSION];
+                [[NSUserDefaults standardUserDefaults]synchronize];
+                
+                /*
+                 有更新的话，要处理红点的逻辑，把之前存储的技能信息拿出来做一下对比，确定哪些母项有更新
+                 */
+                NSArray *fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
+                
+                //遍历，查看母项的更新情况
+                for (FTUserSkillBean *newSkillBean in _fatherSkillArray){
+                    FTUserSkillBean *oldSkillBean;
+                    
+                        /*
+                         遍历本地存储的技能，对比score是否有更新
+                         */
+                    for(FTUserSkillBean *oldSkillBeanItem in fatherSkillArrayOld){
+                        if (newSkillBean.id == oldSkillBeanItem.id){
+                            oldSkillBean = oldSkillBeanItem;
+                            
+                            break;//退出内层循环
+                        }
+                    }
+                    
+                    if (oldSkillBean) {//如果oldSkillBean找到了，对比score
+                        if (oldSkillBean.score != newSkillBean.score) {
+                            //入股score不等，说明有更新，记录下来
+                            newSkillBean.hasNewVersion = YES;//
+                            [_fatherSkillVersionsDic setValue:@"1" forKey:[NSString stringWithFormat:@"%d", oldSkillBean.id]];
+                        }
+                    }
+
+                }
+                
+                //刷新技能按钮右边红点的显示
+                [self updateSkillButtonRightRedPointDisplay];
+                
+            } else {//如果服务器返回的version为空，说明没有版本（即第一次访问）
+                _hasNewVersion = NO;
+                
+                //把获取的技能信息存在本地
+                    //先把skillBean转换成data存入数组，再存入本地
+                [self saveSkillArray:_fatherSkillArray WithKey:FATHER_SKILLS_ARRAY];
+                [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
+            }
+        }else{
+            /*
+             没有新版本
+             */
+            _hasNewVersion = NO;
             
+            /*
+             从本地读取旧的数据展示
+             */
+            _fatherSkillArray = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
+            _childSkillArray = [self getLocalSkillArrayWithKey:CHILD_SKILLS_ARRAY];
         }
-        
-        
+        [_skillsTableView reloadData];//刷新课程表
     }];
 }
+
+- (void)saveSkillArray:(NSArray *)skillArray WithKey:(NSString *)key{
+    NSMutableArray *skillDataArray = [NSMutableArray new];
+    for(FTUserSkillBean *skillBeanItem in skillArray){
+        NSData *skillDataItem = [NSKeyedArchiver archivedDataWithRootObject:skillBeanItem];
+        [skillDataArray addObject:skillDataItem];
+    }
+    [[NSUserDefaults standardUserDefaults]setObject:skillDataArray forKey:key];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+}
+
+/**
+ 根据key从UserDefaults获取skillArray
+
+ @param key key
+ @return 技能数组
+ */
+- (NSMutableArray *)getLocalSkillArrayWithKey:(NSString *)key{
+    NSArray *skillDataArray = [[NSUserDefaults standardUserDefaults]objectForKey:key];
+    NSMutableArray *skillArray = [NSMutableArray new];
+    for (NSData *beanData in skillDataArray){
+        FTUserSkillBean *bean = [NSKeyedUnarchiver unarchiveObjectWithData:beanData];
+        [skillArray addObject:bean];
+    }
+    return skillArray;
+}
+
+
 
 - (void)handleCourseVersionWithCourseArray:(NSArray *)courseArray{
     
@@ -861,19 +927,6 @@
                 }
                 
                 [self.tableViewController.tableView reloadData];
-//                //缓存数据到DB
-//                if (mutableArray.count > 0) {
-//                    _noDynamicImageView.hidden = YES;
-//                    DBManager *dbManager = [DBManager shareDBManager];
-//                    [dbManager connect];
-//                    [dbManager cleanArenasTable];
-//                    
-//                    for (NSDictionary *dic in mutableArray)  {
-//                        [dbManager insertDataIntoArenas:dic];
-//                    }
-//                }
-                
-//                [self getDataFromDB];
                 
                 [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
                 [self.tableViewController.tableView footerEndRefreshing];
@@ -1211,7 +1264,7 @@
     }else if(tableView == _skillsTableView){//技能
         FTTraineeSkillCell *skillListCell = [tableView dequeueReusableCellWithIdentifier:@"skillListCell"];
         FTUserSkillBean *bean = _fatherSkillArray[indexPath.row];
-        [skillListCell setWithBean:bean];
+        [skillListCell setWithSkillBean:bean];
         return skillListCell;
     }
     return cell;
@@ -1290,28 +1343,95 @@
     }else if (tableView == _skillsTableView){
         NSLog(@"_skillsTableView 被点击");
         
+        
+        
         FTUserCourseCommentViewController * userCourseCommentViewController = [FTUserCourseCommentViewController new];
         userCourseCommentViewController.type = FTUserSkillTypeChildSkill;
         
-        //母项技能
+        //点击的该母项技能
         FTUserSkillBean *fatherSkillBean = _fatherSkillArray[indexPath.row];
         
-        //找出该母项技能下的所有子项
-        int parentId = fatherSkillBean.id;//母项id
-        NSMutableArray *childSkillArray = [NSMutableArray new];//点击的这一项的所有子项
+        //母项页传递下去
+        userCourseCommentViewController.fatherSkillBean = fatherSkillBean;
+
+        //把筛选出来的该母项下所有的子项传值给下个vc
+        userCourseCommentViewController.skillArray = [self getChildrenSkillArrayWithParentID:fatherSkillBean.id fromSkillArray:_childSkillArray];
         
-        for(FTUserSkillBean *bean in _childSkillArray){
-            if (bean.parentId == parentId) {
-                [childSkillArray addObject:bean];
+        if (fatherSkillBean.hasNewVersion) {
+            //把历史该母项的所有子项历史记录也传给下个vc
+            NSArray *childSkillArrayOld = [self getLocalSkillArrayWithKey:CHILD_SKILLS_ARRAY];
+            userCourseCommentViewController.skillArrayOld = [self getChildrenSkillArrayWithParentID:fatherSkillBean.id fromSkillArray:childSkillArrayOld];
+            
+            //点击后，把该条设为已读
+            [_fatherSkillVersionsDic setObject:@"0" forKey:[NSString stringWithFormat:@"%d", fatherSkillBean.id]];
+            
+            //并把这条点击过的母项存入本地
+            NSMutableArray *fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
+                //移除旧的母项，添加最新的母项
+            for(FTUserSkillBean *beanItem in fatherSkillArrayOld){
+                if(beanItem.id == fatherSkillBean.id){
+                    [fatherSkillArrayOld removeObject:beanItem];
+                    [fatherSkillArrayOld addObject:fatherSkillBean];
+                    [self saveSkillArray:fatherSkillArrayOld WithKey:FATHER_SKILLS_ARRAY];//存入本地
+                    break;
+                }
             }
         }
-        
-        //把筛选出来的该母项下所有的子项传值给下个vc
-        userCourseCommentViewController.skillArray = childSkillArray;
+
         
         [self.navigationController pushViewController:userCourseCommentViewController animated:YES];
     }
 }
+
+
+/**
+ 是否还有未查看的更新（用于判断顶部红点的展示与否）
+
+ @return BOOL
+ */
+- (BOOL)hasAnyUnreadSkillChange{
+    for(NSString *value in [_fatherSkillVersionsDic allValues]){
+        if ([value isEqualToString:@"1"]){
+            /*
+                如果有值为1的，说明有未读的，返回true
+             */
+            return true;
+        }
+    }
+    
+    
+     
+    return false;
+}
+
+- (BOOL)hasAnyUnreadCourseRecord{
+    NSDictionary *versionDic = [[NSUserDefaults standardUserDefaults]valueForKey:COURSE_VERSION];
+    for (NSString *version in [versionDic allKeys]){
+        NSString *hasRead = versionDic[version];
+        if ([hasRead isEqualToString:UNREAD]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+/**
+ 根据parentID筛选出子项skill
+
+ @param parentId 父项id
+ @param skillArray skillArray
+ @return 子项
+ */
+- (NSMutableArray *)getChildrenSkillArrayWithParentID:(int)parentId fromSkillArray:(NSArray *)skillArray{
+    NSMutableArray *childSkillArray = [NSMutableArray new];
+    for(FTUserSkillBean *bean in skillArray){
+        if (bean.parentId == parentId) {
+            [childSkillArray addObject:bean];
+        }
+    }
+    return childSkillArray;
+}
+
 - (void) getDataFromDBWithVideoType:(NSString *)videosType  getType:(NSString *) getType {
     
     //从数据库取数据
@@ -1388,14 +1508,31 @@
     }
 }
 
+- (void)updateButtonRightRedPointDisplay{
+    //历史课程的红点
+    [self updateCourseHistoryButtonRightRedPointDisplay];
+    
+    //技能按钮右边的红点
+    [self updateSkillButtonRightRedPointDisplay];
+}
+
+- (void)updateSkillButtonRightRedPointDisplay{
+    if ([self hasAnyUnreadSkillChange]) {
+        //如果有任何未读的记录，显示红点
+        _redPoint2.hidden = NO;
+    } else {
+        _redPoint2.hidden = YES;
+    }
+}
+
+/**
+ 刷新历史课程按钮右边的红点
+ */
 - (void)updateCourseHistoryButtonRightRedPointDisplay{
-    NSDictionary *versionDic = [[NSUserDefaults standardUserDefaults]valueForKey:COURSE_VERSION];
-    for (NSString *version in [versionDic allKeys]){
-        NSString *hasRead = versionDic[version];
-        if ([hasRead isEqualToString:UNREAD]) {
-            _redPoint1.hidden = NO;
-            return;
-        }
+    if ([self hasAnyUnreadCourseRecord]) {
+        //如果有任何未读的记录，显示红点
+        _redPoint1.hidden = NO;
+    } else {
         _redPoint1.hidden = YES;
     }
 }

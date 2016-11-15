@@ -10,8 +10,11 @@ typedef NS_ENUM(NSInteger, FTUserSkillType){
     FTUserSkillTypeChildSkill = 1 //技能子项提升详情
 } ;
 #import "FTTraineeBaseViewController.h"
+#import "FTUserSkillBean.h"
 
 @interface FTUserCourseCommentViewController : FTTraineeBaseViewController
 @property (nonatomic, assign) FTUserSkillType type;//类型
-@property (nonatomic, strong) NSMutableArray *skillArray;
+@property (nonatomic, strong) FTUserSkillBean *fatherSkillBean;//母项技能，用于展示上方的技能概览
+@property (nonatomic, strong) NSMutableArray *skillArray;//最新的子项技能array
+@property (nonatomic, strong) NSMutableArray *skillArrayOld;//原来的的子项技能array（用于和新的对比技能值变化）
 @end

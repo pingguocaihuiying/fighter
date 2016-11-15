@@ -11,8 +11,6 @@
 
 @interface FTCoachCommentBottomView()
 
-@property (strong, nonatomic) IBOutlet UIImageView *coachHeaderImageView;
-@property (strong, nonatomic) IBOutlet UILabel *coachNameLabel;
 
 
 @end
