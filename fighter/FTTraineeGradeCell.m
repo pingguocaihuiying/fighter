@@ -17,7 +17,7 @@
 //    self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.5];
     self.bottomLine.backgroundColor = Cell_Space_Color;
-    [self setEditableGradeLabelText:@"未评"];
+    [self.editableGradeLabel setText:@"未评"];
     self.skillState = 0;
     
     __weak typeof(self) weakself = self;

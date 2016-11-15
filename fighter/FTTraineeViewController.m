@@ -112,9 +112,9 @@
     NSString *userId = loginuser.olduserid;
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-    if (self.courseType == FTCourseStateWaiting) {
+    if (self.courseState == FTCourseStateWaiting) {
         FTSchedulePublicBean *courseBean = (FTSchedulePublicBean *)_bean;
-        [dic setObject:[NSString stringWithFormat:@"%ld",courseBean.theDate] forKey:@"date"];
+        [dic setObject:[NSString stringWithFormat:@"%ld",courseBean.timestamp] forKey:@"date"];
         [dic setObject:userId forKey:@"coachUserId"];
         [dic setObject:[NSString stringWithFormat:@"%ld",courseBean.timeId] forKey:@"timeId"];
         [dic setObject:[NSString stringWithFormat:@"%ld",courseBean.courseId] forKey:@"courseId"];
@@ -182,10 +182,10 @@
     if (kind == UICollectionElementKindSectionHeader){
         
         FTTraineeHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
-        if (self.courseType == FTCourseStateWaiting) {
+        if (self.courseState == FTCourseStateWaiting) {
             FTSchedulePublicBean *courseBean = (FTSchedulePublicBean *)_bean;
             headerView.timeSectionLabel.text = courseBean.timeSection;
-            headerView.dateLabel.text = [NSString stringWithFormat:@"%ld",courseBean.theDate];
+            headerView.dateLabel.text = courseBean.dateString;
             headerView.courseLabel.text = courseBean.courseName;
             headerView.memberLabel.text = [NSString stringWithFormat:@"%ld/%ld",courseBean.hasOrderCount,courseBean.topLimit];
             
@@ -221,8 +221,10 @@
     if (bean.signStatus != 0) { // 旷课不评分
         
         if (self.courseType == FTCourseStateWaiting) {
-            //        FTSchedulePublicBean *courseBean = (FTSchedulePublicBean *)_bean;
-            
+//            FTSchedulePublicBean *courseBean = (FTSchedulePublicBean *)_bean;
+            FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
+            homepageViewController.olduserid = bean.userId;
+            [self.navigationController pushViewController:homepageViewController animated:YES];
             
         }else  if (self.courseType == FTCourseStateDone){
             
@@ -236,9 +238,6 @@
             [self.navigationController pushViewController:skillVC animated:YES];
         }
     }
-    
-
-    
 }
 
 #pragma mark UICollectionViewDelegateFlowLayout
@@ -264,7 +263,7 @@
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 16 * SCALE;;
+    return 16 * SCALE;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
@@ -285,10 +284,7 @@
     
     FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
     homepageViewController.olduserid = userId;
-    FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:homepageViewController];
-    baseNav.navigationBarHidden = NO;
-    
-    [self presentViewController:baseNav animated:YES completion:nil];
+    [self.navigationController pushViewController:homepageViewController animated:YES];
     
 }
 

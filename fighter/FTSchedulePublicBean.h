@@ -40,6 +40,10 @@
 
 @property (nonnull, nonatomic, copy) NSString *subject;
 
+@property (nonatomic, assign) NSInteger timestamp; // 日期时间戳
+
+@property (nonnull, nonatomic, copy) NSString *dateString; // 格式化后的日期
+
 - (_Nonnull instancetype)initWithFTSchedulePublicBeanDic:(NSDictionary * _Nonnull)infoDic;
 
 @end

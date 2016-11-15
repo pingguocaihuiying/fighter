@@ -125,6 +125,8 @@
     self.navigationItem.rightBarButtonItem = gymDetailButton;
 }
 
+
+#pragma mark - response
 /**
     “我的团课”按钮被点击
  @param sender
@@ -223,14 +225,14 @@
     __weak typeof(self) weakslef= self;
     _gymSourceViewPublic.pushblock = ^(id bean){
         
-//        if (weakslef.courseType == FTCourseTypePublic) {
-//            
-//            FTTraineeViewController *traineeListVC = [[FTTraineeViewController alloc]init];
-//            traineeListVC.courseState = FTCourseStateWaiting;
-//            traineeListVC.courseType = weakslef.courseType;
-//            traineeListVC.bean = bean;
-//            [weakslef.navigationController pushViewController:traineeListVC animated:YES];
-//        }
+        if (weakslef.courseType == FTCourseTypePublic) {
+
+            FTTraineeViewController *traineeListVC = [[FTTraineeViewController alloc]init];
+            traineeListVC.courseState = FTCourseStateWaiting;
+            traineeListVC.courseType = weakslef.courseType;
+            traineeListVC.bean = bean;
+            [weakslef.navigationController pushViewController:traineeListVC animated:YES];
+        }
         
 //        else {
 //            FTTraineeSkillViewController *traineeSkillVC = [[FTTraineeSkillViewController alloc]init];
@@ -389,6 +391,7 @@
         [self.scrollView.mj_header endRefreshing];
     }];
 }
+
 
 - (NSArray *)setTempArray{
     NSDictionary *dic = @{
