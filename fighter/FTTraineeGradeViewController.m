@@ -14,7 +14,7 @@
 #import "FTTraineeSubmitPopupView.h"
 
 @interface FTTraineeGradeViewController ()<UITableViewDelegate,UITableViewDataSource>
-@property (strong, nonatomic) NSArray *dataArray;
+//@property (strong, nonatomic) NSArray *dataArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (copy, nonatomic) NSMutableArray *editGrades; // 评分数组
 @property (copy, nonatomic) NSMutableArray *editSkills; // 技能点数组
@@ -31,7 +31,7 @@
     
     [self setNavigationbar];
     [self setSubViews];
-    [self pullDataFromServer];
+//    [self pullDataFromServer];
     [self initData];
 }
 
@@ -41,7 +41,6 @@
 }
 
 #pragma mark  - 设置
-
 
 /**
  设置到导航栏样式
@@ -119,7 +118,9 @@
 - (void) pullDataFromServer {
     
     NSString *corporationId = [NSString stringWithFormat:@"%ld",self.bean.corporationid];
-    NSString *parent = [NSString stringWithFormat:@"%ld",self.skillBean.parent];
+    NSLog(@"corporationId:%@",corporationId);
+    NSString *parent = [NSString stringWithFormat:@"%ld",4];
+//    NSString *parent = [NSString stringWithFormat:@"%ld",self.parentBean.id];
     [NetWorking getUserSkillsWithCorporationid:corporationId andMemberUserId:self.bean.memberUserId andVersion:nil andParent:parent andOption:^(NSDictionary *dict) {
         SLog(@"dic:%@",dict);
         if (!dict) {
@@ -167,7 +168,7 @@
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, detail.length)];
     
     headerView.detailAttributeString = attributedString;
-    headerView.title = [NSString stringWithFormat:@"本节课可为%ld项技术评分",_shouldEditNum];;
+    headerView.title = [NSString stringWithFormat:@"本节课可为%ld项技术评分",_shouldEditNum];
     
     return headerView;
 }
@@ -176,7 +177,7 @@
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     FTTraineeGradeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GradeCell"];
-    FTTraineeSkillBean *bean = [[FTTraineeSkillBean alloc]initWithFTTraineeSkillBeanDic:[self.dataArray objectAtIndex:indexPath.row]];
+    FTTraineeSkillBean *bean = [self.dataArray objectAtIndex:indexPath.row];
     [cell setWithBean:bean block:self.editSkillBlock];
     
     return cell;
