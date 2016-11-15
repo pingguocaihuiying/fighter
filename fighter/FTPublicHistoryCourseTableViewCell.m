@@ -27,7 +27,7 @@
     _timeSectionLabel.text = courseHistoryBean.timeSection;
     
     
-    _orderCountLabel.text = [NSString stringWithFormat:@"%ld/%ld", courseHistoryBean.hasOrderCount, courseHistoryBean.topLimit];//预约人数、人数上限
+    _orderCountLabel.text = [NSString stringWithFormat:@"%ld/%ld", courseHistoryBean.attendCount, courseHistoryBean.topLimit];//预约人数、人数上限
     if (courseHistoryBean.hasOrderCount >= courseHistoryBean.topLimit) {//如果满员，显示红色
         _orderCountLabel.textColor = [UIColor colorWithHex:0xbe1e1e];
     } else {//否则，显示绿色
