@@ -384,6 +384,7 @@
     return result;
 }
 
+
 + (void)loginwithVC:(UIViewController *) vc{
     FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
     loginVC.title = @"登录";

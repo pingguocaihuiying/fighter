@@ -227,8 +227,8 @@
             [self.navigationController pushViewController:homepageViewController animated:YES];
             
         }else  if (self.courseState == FTCourseStateDone){
-            if (bean.signStatus != 0) {
-                // 旷课不评分
+            if (bean.signStatus != 0 && bean.hasGrade != 0) {
+                // 旷课和已经评分的不能评分
                 FTHistoryCourseBean *historyBean = (FTHistoryCourseBean *)_bean;
                 historyBean.createName = bean.createName;
                 historyBean.memberUserId = bean.userId;
@@ -239,7 +239,6 @@
                 [self.navigationController pushViewController:skillVC animated:YES];
             }
         }
-    
 }
 
 #pragma mark UICollectionViewDelegateFlowLayout

@@ -48,21 +48,26 @@
 }
 
 
+/**
+ 评分 减按钮响应事件
+
+ @param sender
+ */
 - (IBAction)subButtonAction:(id)sender {
     _skillState --;
     
     if (_skillState <-1) {
         _skillState = -1;
     }
-    if (self.editSkillBlock) {
-        NSString *value = [NSString stringWithFormat:@"%ld",_skillState];
-        BOOL isSet = self.editSkillBlock(self.skillBean.name ,value);
-        if (isSet) {
-            [self setEditableGradeLabelText:_skillState];
-        }
-    }
+    
+    [self runEditSkillBlock:_skillState];
 }
 
+/**
+ 评分 加按钮响应事件
+ 
+ @param sender
+ */
 - (IBAction)addButtonAction:(id)sender {
     _skillState ++;
     
@@ -70,17 +75,52 @@
         _skillState = 2;
     }
     
-    if (self.editSkillBlock) {
-        NSString *value = [NSString stringWithFormat:@"%ld",_skillState];
-        BOOL isSet = self.editSkillBlock(self.skillBean.name ,value);
-        if (isSet) {
-            [self setEditableGradeLabelText:_skillState];
-        }
-    }
+    [self runEditSkillBlock:_skillState];
     
 }
 
 
+/**
+ 将评分值返回 View Controller
+
+ @param skillState 评分变化值
+ */
+- (void) runEditSkillBlock:(NSInteger)skillState {
+
+    if (self.editSkillBlock) {
+        NSString *value = [NSString stringWithFormat:@"%ld",skillState];
+        BOOL isSet = self.editSkillBlock(self.skillBean.name ,value);
+        if (isSet) {
+            [self setEditableGradeLabelText:skillState];
+        }
+    }
+}
+
+
+
+/**
+ 设置评分值
+
+ @param skillState 评分变化值
+ */
+- (void) setSkillState:(NSInteger)skillState {
+    
+    if (_skillState != skillState) {
+        _skillState = skillState;
+        self.editableGradeLabel.text = [self editSkillGrade:skillState];
+        self.skillBean.score += skillState;
+        self.gradeLabel.text = [NSString stringWithFormat:@"%ld",self.skillBean.score];
+    }
+}
+
+
+/**
+ 评分值对应评价
+
+ @param state 评分变化值
+
+ @return 评分值对应评价字符串
+ */
 - (NSString *) editSkillGrade:(NSInteger) state {
     
     NSString *editeGrade;
