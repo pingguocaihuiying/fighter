@@ -10,7 +10,7 @@
 
 @interface FTTraineeBean : NSObject
 
-@property (nonatomic, assign) NSInteger updateTime;
+@property (nonatomic, assign) long updateTime;
 
 @property (nonnull, nonatomic, copy) NSString *timeSection;
 
@@ -46,7 +46,7 @@
 
 @property (nonatomic, assign) NSInteger date;
 
-@property (nonatomic, assign) NSInteger createTime;
+@property (nonatomic, assign) long createTime;
 
 @property (nonnull, nonatomic, copy) NSString *headUrl;
 

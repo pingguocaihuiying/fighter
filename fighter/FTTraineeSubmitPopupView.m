@@ -101,7 +101,7 @@
         [_submitButton setBackgroundImage:[UIImage imageNamed:@"课程详情pre"] forState:UIControlStateHighlighted];
         [_submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_submitButton.titleLabel setFont:[UIFont systemFontOfSize:16]];
-        [_cancelButton addTarget:self action:@selector(submitButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_submitButton addTarget:self action:@selector(submitButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return _submitButton;
@@ -186,8 +186,9 @@
 }
 
 - (void) submitButtonAction:(id) sender {
-    if (self.textView.text.length == 10) {
-        [self showMessage:@"评论不能为空"];
+    
+    if (self.textView.text.length == 0) {
+        [self showMessage:@"学员点评不能为空~"];
         return;
     }
     
@@ -198,17 +199,29 @@
 //    }
     
     
-    NSMutableArray *increases = [[NSMutableArray alloc]init];
-    NSMutableArray *skills = [[NSMutableArray alloc]init];
+//    NSMutableArray *increases = [[NSMutableArray alloc]init];
+//    NSMutableArray *skills = [[NSMutableArray alloc]init];
+//    
+//    
+//    for (NSString *key in self.skillGradeDic.allKeys) {
+//        NSString *value = self.skillGradeDic[key];
+//        
+//        [increases addObject:value];
+//        [skills addObject:key];
+//        
+//    }
+ 
+    
+    NSString *increases = @"";
+    NSString *skills = @"";
+    
     
     for (NSString *key in self.skillGradeDic.allKeys) {
         NSString *value = self.skillGradeDic[key];
-        
-        [increases addObject:value];
-        [skills addObject:key];
-        
+        [[skills stringByAppendingString:key] stringByAppendingString:@","];
+        [[increases stringByAppendingString:value] stringByAppendingString:@","];
     }
-    
+
     NSDictionary *paramDic = @{
                                @"increases":increases,
                                @"skills":skills,
@@ -228,6 +241,7 @@
         
         BOOL status = [dic[@"status"] isEqualToString:@"success"]? YES:NO;
         if (!status) {
+            SLog(@"message:%@",[dic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
             [self showMessage:[dic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         }else {
             

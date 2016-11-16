@@ -10,7 +10,7 @@
 
 @interface FTHistoryCourseBean : FTBaseBean
 
-@property (nonatomic, assign) NSInteger updateTime;
+@property (nonatomic, assign) NSTimeInterval updateTime;
 
 @property (nonatomic, assign) NSInteger corporationid;
 
@@ -24,9 +24,9 @@
 
 @property (nonatomic, assign) NSInteger placeId;
 
-@property (nonatomic, assign) NSInteger createTime;
+@property (nonatomic, assign) long createTime;
 
-@property (nonatomic, assign) NSInteger date;
+@property (nonatomic, assign) long date;//时间戳
 
 @property (nonatomic, assign) NSInteger timeId;
 

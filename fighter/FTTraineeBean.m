@@ -14,7 +14,7 @@
 	self = [super init];
 	if (self) {
 		if (infoDic) {
-			_updateTime = [[infoDic objectForKey:@"updateTime"] integerValue];
+			_updateTime = [[infoDic objectForKey:@"updateTime"] longValue];
 			_timeSection = [infoDic objectForKey:@"timeSection"];
 			_corporationid = [[infoDic objectForKey:@"corporationid"] integerValue];
 			_courseId = [[infoDic objectForKey:@"courseId"] integerValue];
@@ -32,7 +32,7 @@
 			_hasGrade = [[infoDic objectForKey:@"hasGrade"] integerValue];
 			_updateName = [infoDic objectForKey:@"updateName"];
 			_date = [[infoDic objectForKey:@"date"] integerValue];
-			_createTime = [[infoDic objectForKey:@"createTime"] integerValue];
+			_createTime = [[infoDic objectForKey:@"createTime"] longValue];
 			_headUrl = [infoDic objectForKey:@"headUrl"];
 			_createName = [infoDic objectForKey:@"createName"];
 			_coachUserId = [infoDic objectForKey:@"coachUserId"];

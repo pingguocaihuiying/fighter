@@ -178,6 +178,7 @@
                                         
                                         user.identity = dict[@"data"][@"identity"];
                                         user.interestList = dict[@"data"][@"interestList"];
+                                        user.isGymUser = dict[@"data"][@"isGymUser"];
                                         
                                         NSString *corporationid = dict[@"data"][@"corporationid"];
                                         NSLog(@"corporationid:%@",corporationid);

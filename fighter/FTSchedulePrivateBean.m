@@ -15,16 +15,16 @@
 	if (self) {
 		if (infoDic) {
 			_myIsOrd = [[infoDic objectForKey:@"myIsOrd"] integerValue];
-			_updateTime = [[infoDic objectForKey:@"updateTime"] integerValue];
+			_updateTime = [[infoDic objectForKey:@"updateTime"] longValue];
 			_timeSection = [infoDic objectForKey:@"timeSection"];
 			_corporationid = [[infoDic objectForKey:@"corporationid"] integerValue];
 			_courseId = [[infoDic objectForKey:@"courseId"] integerValue];
 			_coachUserId = [infoDic objectForKey:@"coachUserId"];
 			_userId = [infoDic objectForKey:@"userId"];
 			_timeId = [[infoDic objectForKey:@"timeId"] integerValue];
-			_createTime = [[infoDic objectForKey:@"createTime"] integerValue];
+			_createTime = [[infoDic objectForKey:@"createTime"] longValue];
 			_createTimeTamp = [infoDic objectForKey:@"createTimeTamp"];
-			_date = [[infoDic objectForKey:@"date"] integerValue];
+			_date = [[infoDic objectForKey:@"date"] longValue];
 			_theDate = [[infoDic objectForKey:@"theDate"] integerValue];
 			_placeId = [[infoDic objectForKey:@"placeId"] integerValue];
 			_updateName = [infoDic objectForKey:@"updateName"];
