@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fighter/UI/ViewController/FTHomepageMainViewController.m"
-            timestampString = "500901641.856729"
+            timestampString = "500979390.2037"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "878"
-            endingLineNumber = "878"
+            startingLineNumber = "898"
+            endingLineNumber = "898"
             landmarkName = "-displayCourseHistoryTableView"
             landmarkType = "7">
          </BreakpointContent>
@@ -52,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fighter/UI/ViewController/FTHomepageMainViewController.m"
-            timestampString = "500901660.001174"
+            timestampString = "500979390.2037"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "541"
-            endingLineNumber = "541"
+            startingLineNumber = "561"
+            endingLineNumber = "561"
             landmarkName = "-getCourseHistoryFromServer"
             landmarkType = "7">
          </BreakpointContent>
@@ -68,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fighter/FTCoachSelfCourseViewController.m"
-            timestampString = "500975681.124563"
+            timestampString = "500976429.322146"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "543"
-            endingLineNumber = "543"
+            startingLineNumber = "535"
+            endingLineNumber = "535"
             landmarkName = "@implementation FTCoachSelfCourseViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -84,11 +84,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "fighter/FTCoachSelfCourseViewController.m"
-            timestampString = "500975681.124563"
+            timestampString = "500976429.322146"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "553"
-            endingLineNumber = "553"
+            startingLineNumber = "545"
+            endingLineNumber = "545"
             landmarkName = "-sortArray:"
             landmarkType = "7">
          </BreakpointContent>
