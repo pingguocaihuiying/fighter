@@ -523,6 +523,7 @@
         
         FTHistoryCourseBean *bean = [[FTHistoryCourseBean alloc]initWithFTHistoryCourseBeanDic:dic];
         NSString *currentYearMonthString = [NSDate currentYearString];
+        NSLog(@"date:%f",bean.date);
         NSString *date = [NSString stringWithFormat:@"%.0f",bean.date];
         NSString *yearString = [NSDate yearString:date];
 
