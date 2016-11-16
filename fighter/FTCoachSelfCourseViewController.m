@@ -152,6 +152,21 @@
 }
 
 
+/**
+ 初始化默认配置：默认展示团课（或私课）
+ */
+- (void)initDefaultConfig{
+    _courseType = FTCourseTypePublic;//默认左侧按钮被点击，显示公开课
+//        _coachCourseType = FTCoachCourseTypePersonal;
+}
+
+- (void)initSomeViewsBaseProperties{
+    [self.bottomGradualChangeView removeFromSuperview];//移除底部的遮罩
+    _dividingViewTop.backgroundColor = Cell_Space_Color;
+}
+
+
+
 #pragma mark - response
 /**
     “我的团课”按钮被点击
@@ -520,6 +535,13 @@
 }
 
 
+
+
+/**
+ 历史课程排序分组
+
+ @param tempArray 历史课程字典数组
+ */
 - (void) sortArray:(NSArray *)tempArray {
     
     if (_courseType == FTCourseTypePublic) {//公开课

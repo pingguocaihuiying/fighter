@@ -43,8 +43,8 @@
 
 - (void) setEditableGradeLabelText:(NSInteger)state {
     self.editableGradeLabel.text = [self editSkillGrade:state];
-    self.skillBean.score += state;
-    self.gradeLabel.text = [NSString stringWithFormat:@"%ld",self.skillBean.score];
+//    self.skillBean.score = state;
+    self.gradeLabel.text = [NSString stringWithFormat:@"%ld",self.skillBean.score +state];
 }
 
 
@@ -61,7 +61,6 @@
             [self setEditableGradeLabelText:_skillState];
         }
     }
-    
 }
 
 - (IBAction)addButtonAction:(id)sender {

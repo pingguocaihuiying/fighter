@@ -218,26 +218,28 @@
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     FTTraineeBean *bean = [[FTTraineeBean alloc] initWithFTTraineeBeanDic:[self.dataArray objectAtIndex:indexPath.row]];
-    if (bean.signStatus != 0) { // 旷课不评分
+    
         
-        if (self.courseType == FTCourseStateWaiting) {
+        if (self.courseState == FTCourseStateWaiting) {
 //            FTSchedulePublicBean *courseBean = (FTSchedulePublicBean *)_bean;
             FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
             homepageViewController.olduserid = bean.userId;
             [self.navigationController pushViewController:homepageViewController animated:YES];
             
-        }else  if (self.courseType == FTCourseStateDone){
-            
-            FTHistoryCourseBean *historyBean = (FTHistoryCourseBean *)_bean;
-            historyBean.createName = bean.createName;
-            historyBean.memberUserId = bean.userId;
-            historyBean.bookId = bean.id;
-            
-            FTTraineeSkillViewController *skillVC = [[FTTraineeSkillViewController alloc]init];
-            skillVC.bean = historyBean;
-            [self.navigationController pushViewController:skillVC animated:YES];
+        }else  if (self.courseState == FTCourseStateDone){
+            if (bean.signStatus != 0) {
+                // 旷课不评分
+                FTHistoryCourseBean *historyBean = (FTHistoryCourseBean *)_bean;
+                historyBean.createName = bean.createName;
+                historyBean.memberUserId = bean.userId;
+                historyBean.bookId = bean.id;
+                
+                FTTraineeSkillViewController *skillVC = [[FTTraineeSkillViewController alloc]init];
+                skillVC.bean = historyBean;
+                [self.navigationController pushViewController:skillVC animated:YES];
+            }
         }
-    }
+    
 }
 
 #pragma mark UICollectionViewDelegateFlowLayout
