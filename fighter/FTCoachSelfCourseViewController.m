@@ -78,8 +78,8 @@
 - (void) wxLoginCallback:(NSNotification *)noti{
     NSString *msg = [noti object];
     if ([msg isEqualToString:@"SUCESS"]) {
-        _gymSourceViewPublic = nil;
-        _gymSourceView = nil;
+//        _gymSourceViewPublic = nil;
+//        _gymSourceView = nil;
         [self updateCourseTableDisplay];
     }
 }
@@ -89,8 +89,8 @@
     
     NSString *msg = [noti object];
     if ([msg isEqualToString:@"LOGIN"]) {//退出登录
-        _gymSourceViewPublic = nil;
-        _gymSourceView = nil;
+//        _gymSourceViewPublic = nil;
+//        _gymSourceView = nil;
         [self updateCourseTableDisplay];
     }
     
@@ -114,10 +114,6 @@
 /**
  初始化默认配置：默认展示团课（或私课）
  */
-- (void)initDefaultConfig{
-    _courseType = FTCourseTypePublic;//默认左侧按钮被点击，显示团课
-//        _coachCourseType = FTCoachCourseTypePersonal;
-}
 
 - (void)initSomeViewsBaseProperties{
     [self.bottomGradualChangeView removeFromSuperview];//移除底部的遮罩
@@ -160,10 +156,6 @@
 //        _coachCourseType = FTCoachCourseTypePersonal;
 }
 
-- (void)initSomeViewsBaseProperties{
-    [self.bottomGradualChangeView removeFromSuperview];//移除底部的遮罩
-    _dividingViewTop.backgroundColor = Cell_Space_Color;
-}
 
 
 
