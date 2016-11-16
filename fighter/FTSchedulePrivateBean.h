@@ -14,7 +14,7 @@
 
 @property (nonatomic, assign) NSInteger myIsOrd;
 
-@property (nonatomic, assign) long updateTime;
+@property (nonatomic, assign) NSTimeInterval updateTime;
 
 @property (nonnull, nonatomic, copy) NSString *timeSection;
 
@@ -28,11 +28,11 @@
 
 @property (nonatomic, assign) NSInteger timeId;
 
-@property (nonatomic, assign) long createTime;
+@property (nonatomic, assign) NSTimeInterval createTime;
 
 @property (nonnull, nonatomic, copy) NSString *createTimeTamp;
 
-@property (nonatomic, assign) long date;
+@property (nonatomic, assign) NSTimeInterval date;
 
 @property (nonatomic, assign) NSInteger theDate;
 

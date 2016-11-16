@@ -24,9 +24,9 @@
 
 @property (nonatomic, assign) NSInteger placeId;
 
-@property (nonatomic, assign) long createTime;
+@property (nonatomic, assign) NSTimeInterval createTime;
 
-@property (nonatomic, assign) long date;//时间戳
+@property (nonatomic, assign) NSTimeInterval date;//时间戳
 
 @property (nonatomic, assign) NSInteger timeId;
 

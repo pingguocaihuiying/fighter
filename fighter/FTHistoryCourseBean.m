@@ -14,7 +14,7 @@
 	if (self) {
 		if (infoDic) {
 			_hasOrderCount = [[infoDic objectForKey:@"hasOrderCount"] integerValue];
-			_updateTime = [[infoDic objectForKey:@"updateTime"] longValue];
+			_updateTime = [[infoDic objectForKey:@"updateTime"] doubleValue];
 			_corporationid = [[infoDic objectForKey:@"corporationid"] integerValue];
 			_name = [infoDic objectForKey:@"name"];
 			_statu = [[infoDic objectForKey:@"statu"] integerValue];
@@ -23,8 +23,8 @@
 			_coachUserId = [infoDic objectForKey:@"coachUserId"];
 			_placeId = [[infoDic objectForKey:@"placeId"] integerValue];
 			_attendCount = [[infoDic objectForKey:@"attendCount"] integerValue];
-			_createTime = [[infoDic objectForKey:@"createTime"] longValue];
-			_date = [[infoDic objectForKey:@"date"] longValue];
+			_createTime = [[infoDic objectForKey:@"createTime"] doubleValue];
+			_date = [[infoDic objectForKey:@"date"] doubleValue];
 			_timeId = [[infoDic objectForKey:@"timeId"] integerValue];
 			_updateName = [infoDic objectForKey:@"updateName"];
 			_label = [infoDic objectForKey:@"label"];
