@@ -10,14 +10,18 @@
 #import "UIPlaceHolderTextView.h"
 
 @interface FTTraineeSubmitPopupView ()
+{
+    BOOL keyBoardHidden;
+}
 @property (nonatomic, strong) UIButton *submitButton;
 @property (nonatomic, strong) UIButton *cancelButton;
 @property (nonatomic, strong) UIImageView *panelImageView;
 @property (nonatomic, strong) UIImageView *textImageView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIPlaceHolderTextView *textView;
-
+@property (nonatomic, strong) NSLayoutConstraint *centerYConstraint;
 @property (nonatomic, strong) UIView *panelView;
+
 @end
 
 @implementation FTTraineeSubmitPopupView
@@ -27,7 +31,9 @@
     self = [super init];
     
     if (self) {
+        [self setNotification];
         [self setSubviews];
+        keyBoardHidden = NO;
     }
     return self;
 }
@@ -37,9 +43,31 @@
     self = [super initWithFrame:frame];
     
     if (self) {
+        [self setNotification];
         [self setSubviews];
+        keyBoardHidden = NO;
     }
     return self;
+}
+
+
+- (void) setNotification {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    //增加监听，当键退出时收出消息
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
+    //    [[NSNotificationCenter defaultCenter] addObserver:self
+    //                                             selector:@selector(keyBoardFrameWillChanged:)
+    //                                                 name:UIKeyboardWillChangeFrameNotification
+    //                                               object:nil];
 }
 
 
@@ -263,7 +291,7 @@
                                                                     multiplier:1.0
                                                                       constant:0];
     
-    NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint constraintWithItem:self.panelImageView
+    _centerYConstraint = [NSLayoutConstraint constraintWithItem:self.panelImageView
                                                                        attribute:NSLayoutAttributeCenterY
                                                                        relatedBy:NSLayoutRelationEqual
                                                                           toItem:self
@@ -280,7 +308,7 @@
                                                                        constant:280*SCALE];
     
     [self addConstraint:centerXConstraint];
-    [self addConstraint:centerYConstraint];
+    [self addConstraint:_centerYConstraint];
     [self addConstraint:widthtConstraint];
     
 }
@@ -636,15 +664,61 @@
 
 - (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
-    CGPoint point = [[touches anyObject] locationInView:self];
-    CGRect frame = [self convertRect:self.panelImageView.frame toView:self];
-    
-    if (CGRectContainsPoint(frame, point)) {
-        return;
+    if (keyBoardHidden == NO) {
+        [self.textView resignFirstResponder];
     }else {
-        [self removeFromSuperview];
+        CGPoint point = [[touches anyObject] locationInView:self];
+        CGRect frame = [self convertRect:self.panelImageView.frame toView:self];
+        
+        if (CGRectContainsPoint(frame, point)) {
+            return;
+        }else {
+            [self removeFromSuperview];
+        }
     }
+    
 }
 
+
+#pragma mark - notification Action
+
+- (void)keyboardWillShow:(NSNotification *)aNotification
+{
+    keyBoardHidden = NO;
+    //获取键盘的动画时间
+    CGFloat duration = [aNotification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    //创建自带来获取穿过来的对象的info配置信息
+    NSDictionary *userInfo = [aNotification userInfo];
+    NSLog(@"userInfo:%@",userInfo);
+    CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    //改变底部工具条的底部约束
+    self.centerYConstraint.constant =  self.centerYConstraint.constant - 100;
+    
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:duration animations:^{
+        [weakSelf layoutIfNeeded];//刷新布局，使得工具条随键盘frame改变有动画
+    }];
+}
+
+//当键退出时调用
+- (void)keyboardWillHide:(NSNotification *)aNotification{
+    
+    keyBoardHidden = YES;
+    //获取键盘的动画时间
+    CGFloat duration = [aNotification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    //创建自带来获取穿过来的对象的info配置信息
+    NSDictionary *userInfo = [aNotification userInfo];
+    NSLog(@"userInfo:%@",userInfo);
+    CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    //改变底部工具条的底部约束
+   self.centerYConstraint.constant =  self.centerYConstraint.constant + 100;
+    
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:duration animations:^{
+        [weakSelf layoutIfNeeded];//刷新布局，使得工具条随键盘frame改变有动画
+    }];
+}
 
 @end
