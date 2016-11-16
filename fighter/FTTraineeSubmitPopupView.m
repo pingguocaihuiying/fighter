@@ -266,10 +266,10 @@
             [self showMessage:@"网络繁忙，请稍后再试~"];
             return ;
         }
-        
+        SLog(@"dic:%@",dic);
+        SLog(@"message:%@",[dic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         BOOL status = [dic[@"status"] isEqualToString:@"success"]? YES:NO;
         if (!status) {
-            SLog(@"message:%@",[dic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
             [self showMessage:[dic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         }else {
             
@@ -687,13 +687,13 @@
     keyBoardHidden = NO;
     //获取键盘的动画时间
     CGFloat duration = [aNotification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    //创建自带来获取穿过来的对象的info配置信息
-    NSDictionary *userInfo = [aNotification userInfo];
-    NSLog(@"userInfo:%@",userInfo);
-    CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//    //创建自带来获取穿过来的对象的info配置信息
+//    NSDictionary *userInfo = [aNotification userInfo];
+//    NSLog(@"userInfo:%@",userInfo);
+//    CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
     //改变底部工具条的底部约束
-    self.centerYConstraint.constant =  self.centerYConstraint.constant - 100;
+    self.centerYConstraint.constant =   - 100;
     
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration animations:^{
@@ -707,13 +707,13 @@
     keyBoardHidden = YES;
     //获取键盘的动画时间
     CGFloat duration = [aNotification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    //创建自带来获取穿过来的对象的info配置信息
-    NSDictionary *userInfo = [aNotification userInfo];
-    NSLog(@"userInfo:%@",userInfo);
-    CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//    //创建自带来获取穿过来的对象的info配置信息
+//    NSDictionary *userInfo = [aNotification userInfo];
+//    NSLog(@"userInfo:%@",userInfo);
+//    CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
     //改变底部工具条的底部约束
-   self.centerYConstraint.constant =  self.centerYConstraint.constant + 100;
+   self.centerYConstraint.constant = 0;
     
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration animations:^{
