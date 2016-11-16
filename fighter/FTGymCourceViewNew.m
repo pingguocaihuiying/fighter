@@ -277,7 +277,7 @@
     NSArray *courseArray = _placesUsingInfoDic[theDateKey];
     NSDictionary *dic;
     NSString *timeSection2 = _timeSectionsArray[indexPath.row][@"timeSection"];//cell代表的固定时间段
-    if (!_userId) {
+    if (true) {
         FTUserBean *loginedUser = [FTUserBean loginUser];
         _userId = loginedUser.olduserid;
     }

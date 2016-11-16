@@ -58,6 +58,7 @@
     //是否显示红点
     
     NSString *version = courseBean.version;
+//    NSString *version = @"100";
     if (version) {
         NSMutableDictionary *versionDic = [[NSUserDefaults standardUserDefaults]valueForKey:COURSE_VERSION];//从本地读取记录版本号已读、未读的字典
         NSString *value = versionDic[version];

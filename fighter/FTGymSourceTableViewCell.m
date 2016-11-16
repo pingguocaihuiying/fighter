@@ -148,14 +148,21 @@
             }else if ([type isEqualToString:@"0"]) {//团课预约
                 _orderStatusLabel.textColor = [UIColor whiteColor];
 //                NSString *courseName = _courserCellDic[@"label"];//项目标签
-                NSString *courseName = _courserCellDic[@"name"];//课程名字
+//                NSString *courseName = _courserCellDic[@"name"];//课程名字
+                
 //                if (courseName && courseName.length > 0) {
-////                    courseName = [courseName substringToIndex:1];
+//                    courseName = [courseName substringToIndex:2];
 //                }else{
 //                    courseName = @"团课";
 //                }
                 
-                _orderStatusLabel.text = courseName;
+                
+                
+                /*
+                    暂时固定写为“团课”
+                 */
+                
+                _orderStatusLabel.text = @"团课";
                 _selectionImage.hidden = NO;
             } else {// 2，私教预约
                 //如果已约

@@ -55,11 +55,45 @@
 @implementation FTCoachSelfCourseViewController
 
 - (void)viewDidLoad {
-    [self initDefaultConfig];
     [super viewDidLoad];
+    [self registLoginNoti];
+    [self initDefaultConfig];
     [self setSubViews];
-    [self initData];
     [self updateCourseTableDisplay];
+}
+
+
+/**
+ 注册登录的通知，在新用户登录时刷新
+ */
+- (void)registLoginNoti{
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginCallback:) name:WXLoginResultNoti object:nil];
+    
+    //添加监听器，监听login
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(phoneLoginedCallback:) name:LoginNoti object:nil];
+}
+
+// 微信登录响应
+- (void) wxLoginCallback:(NSNotification *)noti{
+    NSString *msg = [noti object];
+    if ([msg isEqualToString:@"SUCESS"]) {
+//        _gymSourceViewPublic = nil;
+//        _gymSourceView = nil;
+        [self updateCourseTableDisplay];
+    }
+}
+
+// 账号登录响应
+- (void) phoneLoginedCallback:(NSNotification *)noti {
+    
+    NSString *msg = [noti object];
+    if ([msg isEqualToString:@"LOGIN"]) {//退出登录
+//        _gymSourceViewPublic = nil;
+//        _gymSourceView = nil;
+        [self updateCourseTableDisplay];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,21 +101,23 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark  - 初始化数据
-- (void) initData {
-    
-//    [self setJHRefresh];
-//    [self getTimeSection];//获取时间段信息
-//    [self getTeachRecordFromServer];//获取课程记录信息
-}
 
 #pragma mark  - 初始化界面
 - (void)setSubViews{
     
     [self initSomeViewsBaseProperties];//初始化一些label颜色、分割线颜色等
     [self setNaviView];//设置导航栏
-//    [self setGymSourceView];//设置私课课程表
     [self setTableview];//设置历史课程的tableView
+}
+
+
+/**
+ 初始化默认配置：默认展示团课（或私课）
+ */
+
+- (void)initSomeViewsBaseProperties{
+    [self.bottomGradualChangeView removeFromSuperview];//移除底部的遮罩
+    _dividingViewTop.backgroundColor = Cell_Space_Color;
 }
 
 - (void)setNaviView{
@@ -120,10 +156,6 @@
 //        _coachCourseType = FTCoachCourseTypePersonal;
 }
 
-- (void)initSomeViewsBaseProperties{
-    [self.bottomGradualChangeView removeFromSuperview];//移除底部的遮罩
-    _dividingViewTop.backgroundColor = Cell_Space_Color;
-}
 
 
 
@@ -523,8 +555,10 @@
         
         FTHistoryCourseBean *bean = [[FTHistoryCourseBean alloc]initWithFTHistoryCourseBeanDic:dic];
         NSString *currentYearMonthString = [NSDate currentYearString];
+
         NSLog(@"date:%f",bean.date);
         NSString *date = [NSString stringWithFormat:@"%.0f",bean.date];
+
         NSString *yearString = [NSDate yearString:date];
 
 
@@ -566,7 +600,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (_courseType == FTCourseTypePublic) {//公开课
+    if (_courseType == FTCourseTypePublic) {//团课
         
         FTPublicHistoryCourseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellForPublic"];
         cell.backgroundColor = [UIColor clearColor];
@@ -634,7 +668,7 @@
         label1.textColor = [UIColor colorWithHex:0xb4b4b4];
         label1.font = [UIFont systemFontOfSize:12];
         FTHistoryCourseBean *bean = [_historyArrayPublic[section] firstObject];
-        NSString *beanDate = [NSString stringWithFormat:@"%ld",bean.date];
+        NSString *beanDate = [NSString stringWithFormat:@"%lld",bean.date];
         NSLog(@"beanFoo: %@", beanDate);
         
         NSString *currentYearString = [NSDate currentYearString];
@@ -651,7 +685,7 @@
         [headerView addSubview:label1];
     } else {
         FTHistoryCourseBean *bean = [_historyArray[section] firstObject];
-        NSString *beanDate = [NSString stringWithFormat:@"%ld",bean.date];
+        NSString *beanDate = [NSString stringWithFormat:@"%lld",bean.date];
         NSString *currentYearMonthString = [NSDate currentYearMonthString2];
         NSString *yearMonthString = [NSDate dateStringWithYearMonth:beanDate];
         
