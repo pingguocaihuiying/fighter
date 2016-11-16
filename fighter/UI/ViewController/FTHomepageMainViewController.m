@@ -717,7 +717,7 @@
                 NSString *version = courseDic[@"versions"];//从字典取出的value实际为int类型
                 if (version) {
                     version = [NSString stringWithFormat:@"%@", version];
-                    [versionDic setValue:UNREAD forKey:version];
+                    [versionDic setValue:READ forKey:version];
                 }
             }
         }

@@ -236,18 +236,24 @@
     return level;
 }
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //设置Cell的动画效果为3D效果
+    //设置x和y的初始值为0.1；
+    cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 1);
+    //x和y的最终值为1
+    [UIView animateWithDuration:1 animations:^{
+        cell.layer.transform = CATransform3DMakeScale(1, 1, 1);
+    }];
+}
+
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (_type == FTUserSkillTypeCoachComment) {//如果是教练评论详情
         
         FTUserSkillGradeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GradeCell"];
-        cell.skillLabel.text = @"前手直拳：";
-        cell.gradeLabel.text = @"8888";
-        
         FTUserSkillScore *bean = _skillScoreArray[indexPath.row];
-        
         [cell setWithBean:bean];
-        
         
         return cell;
         
