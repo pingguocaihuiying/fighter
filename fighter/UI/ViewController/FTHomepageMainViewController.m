@@ -684,7 +684,7 @@
         return;
     }
     
-    NSMutableDictionary *versionDic = [[NSUserDefaults standardUserDefaults]valueForKey:COURSE_VERSION];//从本地读取记录版本号已读、未读的字典
+    NSMutableDictionary *versionDic = [[NSMutableDictionary alloc]initWithDictionary:[[NSUserDefaults standardUserDefaults]valueForKey:COURSE_VERSION]];//从本地读取记录版本号已读、未读的字典
     
     if (!versionDic) {//如果不存在，说明本地没有课程的版本记录
         //创建一个新的字典

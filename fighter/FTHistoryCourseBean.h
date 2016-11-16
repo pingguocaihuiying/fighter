@@ -26,7 +26,7 @@
 
 @property (nonatomic, assign) NSInteger createTime;
 
-@property (nonatomic, assign) NSInteger date;
+@property (nonatomic, assign) long long date;
 
 @property (nonatomic, assign) NSInteger timeId;
 

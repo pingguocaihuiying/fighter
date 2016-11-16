@@ -24,7 +24,7 @@
 			_placeId = [[infoDic objectForKey:@"placeId"] integerValue];
 			_attendCount = [[infoDic objectForKey:@"attendCount"] integerValue];
 			_createTime = [[infoDic objectForKey:@"createTime"] integerValue];
-			_date = [[infoDic objectForKey:@"date"] integerValue];
+			_date = [[infoDic objectForKey:@"date"] longLongValue];
 			_timeId = [[infoDic objectForKey:@"timeId"] integerValue];
 			_updateName = [infoDic objectForKey:@"updateName"];
 			_label = [infoDic objectForKey:@"label"];

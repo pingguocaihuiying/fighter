@@ -90,9 +90,9 @@
         _redPoint.hidden = YES;
     }
     
-    [NSTimer timerWithTimeInterval:2 repeats:NO block:^(NSTimer * _Nonnull timer) {
-       [self.ratingBar displayRating:[self levelOfGrade:skillBeanNew.score]];
-    }];
+//    [NSTimer timerWithTimeInterval:2 repeats:NO block:^(NSTimer * _Nonnull timer) {
+//       [self.ratingBar displayRating:[self levelOfGrade:skillBeanNew.score]];
+//    }];
     
 }
 
