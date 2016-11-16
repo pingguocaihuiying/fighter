@@ -75,7 +75,7 @@
     self.tableView.dataSource = self;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"FTTraineeSkillCell" bundle:nil] forCellReuseIdentifier:@"SkillCell"];
-    self.tableView.estimatedSectionHeaderHeight = 90;
+    self.tableView.estimatedSectionHeaderHeight = 100;
 }
 
 

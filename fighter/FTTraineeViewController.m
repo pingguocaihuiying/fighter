@@ -114,13 +114,13 @@
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     if (self.courseState == FTCourseStateWaiting) {
         FTSchedulePublicBean *courseBean = (FTSchedulePublicBean *)_bean;
-        [dic setObject:[NSString stringWithFormat:@"%ld",courseBean.timestamp] forKey:@"date"];
+        [dic setObject:[NSString stringWithFormat:@"%.0f",courseBean.timestamp] forKey:@"date"];
         [dic setObject:userId forKey:@"coachUserId"];
         [dic setObject:[NSString stringWithFormat:@"%ld",courseBean.timeId] forKey:@"timeId"];
         [dic setObject:[NSString stringWithFormat:@"%ld",courseBean.courseId] forKey:@"courseId"];
     }else {
         FTHistoryCourseBean *historyBean = (FTHistoryCourseBean *)_bean;
-        [dic setObject:[NSString stringWithFormat:@"%ld",historyBean.date] forKey:@"date"];
+        [dic setObject:[NSString stringWithFormat:@"%.0f",historyBean.date] forKey:@"date"];
         [dic setObject:userId forKey:@"coachUserId"];
         [dic setObject:[NSString stringWithFormat:@"%ld",historyBean.timeId] forKey:@"timeId"];
         [dic setObject:[NSString stringWithFormat:@"%ld",historyBean.courseId] forKey:@"courseId"];
@@ -227,7 +227,7 @@
             [self.navigationController pushViewController:homepageViewController animated:YES];
             
         }else  if (self.courseState == FTCourseStateDone){
-            if (bean.signStatus != 0 && bean.hasGrade != 0) {
+            if (bean.signStatus != 0 && bean.hasGrade != 1) {
                 // 旷课和已经评分的不能评分
                 FTHistoryCourseBean *historyBean = (FTHistoryCourseBean *)_bean;
                 historyBean.createName = bean.createName;
