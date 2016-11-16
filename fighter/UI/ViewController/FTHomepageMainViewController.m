@@ -234,15 +234,21 @@
             /* 
              2016年11月新改动：普通用户除了“动态”，新增了两项数据：“课程记录“和”技术数据“。
              思路：修改原有的后边俩按钮的文本，以及点击事件
+             
+             2016年11月16日新增加：如果是在看其他人的主页，则不显示后两个按钮
              */
-            self.recordButton.hidden = NO;//显示第二个按钮
-            self.videoButton.hidden = NO;//显示第三个按钮
             
-            [self.recordButton setTitle:@"课程记录" forState:UIControlStateNormal];//修改第二个按钮的名字
-            [self.videoButton setTitle:@"技术数据" forState:UIControlStateNormal];//修改第三个按钮的名字
-
-            [self getCourseHistoryFromServer];
-            [self getSkillsFromServer];
+            if ([self isSelfHomepage]) {
+                self.recordButton.hidden = NO;//显示第二个按钮
+                self.videoButton.hidden = NO;//显示第三个按钮
+                
+                [self.recordButton setTitle:@"课程记录" forState:UIControlStateNormal];//修改第二个按钮的名字
+                [self.videoButton setTitle:@"技术数据" forState:UIControlStateNormal];//修改第三个按钮的名字
+                
+                [self getCourseHistoryFromServer];
+                [self getSkillsFromServer];
+            }
+            
             
         }else if ([_userIdentity isEqualToString:@"1"]) {//拳手
             
@@ -277,10 +283,9 @@
         _followTableName = @"f-user";
         
         [self getFollowInfo];//获取关注信息
-        //处理右上角的“转发”或“修改”：如果是自己的主页，则是“修改”，如果是别人的，则显示转发
-        FTUserBean *localUserBean = [FTUserTools getLocalUser];
         
-        if (localUserBean && [localUserBean.olduserid isEqualToString:self.olduserid]) {//如果是自己的主页
+        //处理右上角的“转发”或“修改”：如果是自己的主页，则是“修改”，如果是别人的，则显示转发
+        if ([self isSelfHomepage]) {//如果是自己的主页
             _shareAndModifyProfileButton.hidden = NO;
             [_shareAndModifyProfileButton setTitle:@"修改" forState:UIControlStateNormal];
             [_shareAndModifyProfileButton addTarget:self action:@selector(modifyProfile) forControlEvents:UIControlEventTouchUpInside];
@@ -306,6 +311,21 @@
         
          [self getDataFromWeb];//初次加载帖子数据
     }];
+}
+
+
+/**
+ 是否是自己的主页
+ */
+- (BOOL)isSelfHomepage{
+    BOOL result = NO;
+    FTUserBean *localUserBean = [FTUserTools getLocalUser];
+    if (localUserBean && [localUserBean.olduserid isEqualToString:self.olduserid]) {//如果是自己的主页
+        result = YES;
+    }else{//如果是别人的主页
+        result = NO;
+    }
+    return result;
 }
 
 - (void)getBoxerRaceInfo{
