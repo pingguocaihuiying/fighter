@@ -73,7 +73,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"FTTraineeGradeCell" bundle:nil] forCellReuseIdentifier:@"GradeCell"];
     //    [self.tableView registerClass:[FTTraineeSkillSectionHeaderView class] forHeaderFooterViewReuseIdentifier:@"HeaderView"];
     //    self.tableView.estimatedRowHeight = 310; // 设置为一个接近于行高“平均值”的数值
-    self.tableView.estimatedSectionHeaderHeight = 90;
+    self.tableView.estimatedSectionHeaderHeight = 100;
 }
 
 - (void) initData {

@@ -549,18 +549,16 @@
     }
     
 
-    
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
     for (NSDictionary *dic in tempArray) {
         
         FTHistoryCourseBean *bean = [[FTHistoryCourseBean alloc]initWithFTHistoryCourseBeanDic:dic];
         NSString *currentYearMonthString = [NSDate currentYearString];
 
-        NSLog(@"date:%f",bean.date);
+        NSLog(@"date:%.0f",bean.date);
         NSString *date = [NSString stringWithFormat:@"%.0f",bean.date];
 
         NSString *yearString = [NSDate yearString:date];
-
 
         if ([yearString isEqualToString:currentYearMonthString]) {
             bean.dateString = [NSDate monthDayStringWithWordSpace:date];
@@ -581,7 +579,7 @@
             [dict setObject:array forKey:dateString];
         }
         
-//        for(NSString *date in [dict.allKeys])
+
     }
 }
 
@@ -668,7 +666,7 @@
         label1.textColor = [UIColor colorWithHex:0xb4b4b4];
         label1.font = [UIFont systemFontOfSize:12];
         FTHistoryCourseBean *bean = [_historyArrayPublic[section] firstObject];
-        NSString *beanDate = [NSString stringWithFormat:@"%lld",bean.date];
+        NSString *beanDate = [NSString stringWithFormat:@"%.0f",bean.date];
         NSLog(@"beanFoo: %@", beanDate);
         
         NSString *currentYearString = [NSDate currentYearString];
@@ -685,7 +683,7 @@
         [headerView addSubview:label1];
     } else {
         FTHistoryCourseBean *bean = [_historyArray[section] firstObject];
-        NSString *beanDate = [NSString stringWithFormat:@"%lld",bean.date];
+        NSString *beanDate = [NSString stringWithFormat:@"%.0f",bean.date];
         NSString *currentYearMonthString = [NSDate currentYearMonthString2];
         NSString *yearMonthString = [NSDate dateStringWithYearMonth:beanDate];
         
