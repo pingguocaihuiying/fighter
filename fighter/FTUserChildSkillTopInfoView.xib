@@ -41,20 +41,30 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您在拳法上已经有所小成了！～您在拳法上已经有所小成了！～您在拳法上已经有所小成了！～您在拳法上已经有所小成了！～" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLy-m8-uQG">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLy-m8-uQG">
                     <rect key="frame" x="15" y="48" width="307" height="277"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" red="0.70588235294117641" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q0X-kC-b5g">
+                    <rect key="frame" x="0.0" y="339" width="337" height="1"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="akG-LK-dim"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="q0X-kC-b5g" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="0A9-QD-V9p"/>
                 <constraint firstItem="dGx-D4-4ww" firstAttribute="centerY" secondItem="Jwi-Si-QJN" secondAttribute="centerY" id="AXT-aI-giU"/>
                 <constraint firstAttribute="bottom" secondItem="mLy-m8-uQG" secondAttribute="bottom" constant="15" id="Atj-cp-kGD"/>
+                <constraint firstAttribute="bottom" secondItem="q0X-kC-b5g" secondAttribute="bottom" id="BeF-Hl-c3o"/>
                 <constraint firstItem="Jwi-Si-QJN" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="GdM-i7-6VE"/>
                 <constraint firstAttribute="trailing" secondItem="mLy-m8-uQG" secondAttribute="trailing" constant="15" id="Hjc-zN-gmE"/>
                 <constraint firstItem="OxD-U4-Ob9" firstAttribute="centerY" secondItem="Jwi-Si-QJN" secondAttribute="centerY" id="Rvw-Ru-ykM"/>
+                <constraint firstAttribute="trailing" secondItem="q0X-kC-b5g" secondAttribute="trailing" id="TDa-SJ-s0y"/>
                 <constraint firstItem="dGx-D4-4ww" firstAttribute="leading" secondItem="Jwi-Si-QJN" secondAttribute="trailing" constant="35" id="ZvZ-5t-IyJ"/>
                 <constraint firstItem="Jwi-Si-QJN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="fdE-j8-9Up"/>
                 <constraint firstItem="mLy-m8-uQG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="hC6-ok-zxg"/>
@@ -63,6 +73,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="bottomDividingLine" destination="q0X-kC-b5g" id="Kz1-uh-G10"/>
                 <outlet property="ratingBar" destination="dGx-D4-4ww" id="n2w-bD-bme"/>
                 <outlet property="scoreLabel" destination="OxD-U4-Ob9" id="DaO-Oq-egI"/>
                 <outlet property="skillDescLabel" destination="mLy-m8-uQG" id="YpV-xu-09u"/>

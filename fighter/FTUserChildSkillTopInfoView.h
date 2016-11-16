@@ -16,4 +16,5 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet FTRatingBar *ratingBar;
+@property (strong, nonatomic) IBOutlet UIView *bottomDividingLine;
 @end
