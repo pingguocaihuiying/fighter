@@ -183,7 +183,7 @@ static WXSingleton * wxSingleton = nil;
                                     
                                     
                                     NSLog(@"微信注册成功,message:%@", message);
-                                    NSLog(@"dict:%@", dict);
+                                    SLog(@"dict:%@", dict);
 //                                    NSLog(@"微信登录信息:%@",dict[@"data"][@"user"]);
                                     NSDictionary *userDic = dict[@"data"][@"user"];
                                     FTUserBean *user = [FTUserBean new];
@@ -194,6 +194,7 @@ static WXSingleton * wxSingleton = nil;
                                     }
                                     user.identity = dict[@"data"][@"identity"];
                                     user.interestList = dict[@"data"][@"interestList"];
+                                    user.isGymUser = dict[@"data"][@"isGymUser"];
                                     
                                     NSString *corporationid =  [[NSString stringWithFormat:@"%ld",[dict[@"data"][@"corporationid"] integerValue]] copy];
                                     NSLog(@"corporationid:%@",corporationid);

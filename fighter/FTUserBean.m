@@ -62,6 +62,7 @@
     // 用户身份
     [aCoder encodeObject:self.identity forKey:@"identity"];
     [aCoder encodeObject:self.corporationid forKey:@"corporationid"];
+    [aCoder encodeObject:self.isGymUser forKey:@"isGymUser"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -108,6 +109,7 @@
         self.isBoxerChecked = [aDecoder decodeObjectForKey:@"isBoxerChecked"];
         self.corporationid = [aDecoder decodeObjectForKey:@"corporationid"];
         self.identity = [aDecoder decodeObjectForKey:@"identity"];
+        self.isGymUser = [aDecoder decodeObjectForKey:@"isGymUser"];
     }
     return self;
 }

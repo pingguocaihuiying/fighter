@@ -363,10 +363,10 @@
     NSDate *currentDate = [NSDate date];
     NSDate *targetDate = [self dateWithTimestamp:timestamp];
     
-    NSInteger dateNum = [[self stringOfDate:currentDate formatter:@"YYYYMMdd"] integerValue];
-    NSInteger dateNum2  = [[self stringOfDate:targetDate formatter:@"YYYYMMdd"] integerValue];
+    long long  dateNum = [[self stringOfDate:currentDate formatter:@"YYYYMMdd"] longLongValue];
+    long long dateNum2  = [[self stringOfDate:targetDate formatter:@"YYYYMMdd"] longLongValue];
     
-    NSLog(@"dateNUm2:%ld",dateNum2);
+    NSLog(@"dateNUm2:%lld",dateNum2);
     NSLog(@"currentDate:%@",[self stringOfDate:currentDate formatter:@"YYYY-MM-dd HH:mm:ss"] );
     NSLog(@"targetDate:%@",[self stringOfDate:targetDate formatter:@"YYYY-MM-dd HH:mm:ss"] );
     
@@ -390,9 +390,9 @@
         if (interval < 60) {
             dateTimeString = @"刚刚";
         }else if (interval < 60 *60) {
-            dateTimeString = [NSString stringWithFormat:@"%ld分钟前",interval/60];
+            dateTimeString = [NSString stringWithFormat:@"%d分钟前",interval/60];
         }else {
-            dateTimeString = [NSString stringWithFormat:@"%ld小时前",interval/60/60];
+            dateTimeString = [NSString stringWithFormat:@"%d小时前",interval/60/60];
         }
         
 //        if (timeNum == stampNum) {

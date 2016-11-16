@@ -37,13 +37,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self initSubviews];
-    [self initPracticeView];
+    
     
      self.navigationController.navigationBarHidden = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-   
    
 }
 
@@ -77,9 +76,19 @@
     [_teachBtn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
     [_teachBtn setBackgroundImage:[UIImage imageNamed:@"三标签-左-选中"] forState:UIControlStateSelected];
     
+    FTUserBean *loginUser = [FTUserBean loginUser];
+    if (loginUser.isGymUser.count > 0) {
+    
+        [self gymBtnAction:nil];
+    }else {
+        [self teachBtnAction:nil];
+    }
 }
 
-// 练习view
+
+/**
+ 教学视频
+ */
 - (void) initPracticeView {
     
     if (!_practiceView) {
@@ -90,6 +99,10 @@
     [self.contentView addSubview:_practiceView];
 }
 
+
+/**
+ 教练
+ */
 - (void) initCoachView {
 
     if (!_coachView) {
@@ -101,6 +114,10 @@
     
 }
 
+
+/**
+ 拳馆
+ */
 - (void) initGymView {
     
     if (!_gymView) {

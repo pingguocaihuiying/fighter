@@ -1164,8 +1164,10 @@
     [dic setObject:ts forKey:@"ts"];
     
     [dic addEntriesFromDictionary:paramDic];
+    
     NSString *checkSign = [FTTools md5Dictionary:dic withCheckKey:checkSignKey];
     [dic setObject:checkSign forKey:@"checkSign"];
+    SLog(@"saveSkillVersion dic:%@",dic);
     
     NSString *url = [FTNetConfig host:Domain path:SaveSkillVersionURL];
     [NetWorking postRequestWithUrl:url parameters:dic option:option];
