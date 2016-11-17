@@ -50,15 +50,15 @@
     NSInteger level = 0;
     
     if (grade <20) {
-        level = 0;
-    }else if (level < 40) {
         level = 1;
-    }else if (level < 60) {
+    }else if (level < 40) {
         level = 2;
-    }else if (level < 80) {
+    }else if (level < 60) {
         level = 3;
-    }else if (level < 100) {
+    }else if (level < 80) {
         level = 4;
+    }else if (level < 100) {
+        level = 5;
     }
     
     return level;
