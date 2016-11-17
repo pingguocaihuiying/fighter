@@ -16,4 +16,6 @@
 @property (nonatomic, copy) NSMutableDictionary *skillGradeDic;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *bookId;
+@property (nonatomic, copy) NSMutableDictionary *notificationDic;
+
 @end

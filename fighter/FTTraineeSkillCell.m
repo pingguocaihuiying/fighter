@@ -55,14 +55,25 @@
 - (void)setWithBean:(FTTraineeSkillBean *)bean{
     
     _skillLabel.text = bean.name;
-    _gradeLabel.text = [NSString stringWithFormat:@"%ld",bean.score];
+    
+    if (bean.score >= 0 ) {
+        _gradeLabel.text = [NSString stringWithFormat:@"%ld",bean.score];
+    }else {
+        _gradeLabel.text = @"-";
+    }
+    
    [self.ratingBar displayRating:[self levelOfGrade:bean.score / bean.subNumber]];
     
 }
 
 - (void)setWithSkillBean:(FTUserSkillBean *)skillBean{
+    
     _skillLabel.text = skillBean.name;
-    _gradeLabel.text = [NSString stringWithFormat:@"%.0f",skillBean.score];
+    if (skillBean.score >= 0 ) {
+        _gradeLabel.text = [NSString stringWithFormat:@"%.0f",skillBean.score];
+    }else {
+        _gradeLabel.text = @"-";
+    }
     [self.ratingBar displayRating:[self levelOfGrade:skillBean.score]];
     
     /*
@@ -77,8 +88,14 @@
 }
 
 - (void)setWithSkillNewBean:(FTUserSkillBean *)skillBeanNew andSkillOldBean:(FTUserSkillBean *)skillBeanOld{
+    
     _skillLabel.text = skillBeanOld.name;
-    _gradeLabel.text = [NSString stringWithFormat:@"%.0f",skillBeanOld.score];
+    if (skillBeanOld.score >= 0 ) {
+        _gradeLabel.text = [NSString stringWithFormat:@"%.0f",skillBeanOld.score];
+    }else {
+        _gradeLabel.text = @"-";
+    }
+
     [self.ratingBar displayRating:[self levelOfGrade:skillBeanOld.score]];
     
     /*

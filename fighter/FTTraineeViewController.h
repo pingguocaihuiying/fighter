@@ -20,4 +20,6 @@
 @property (nonatomic, strong) id bean;
 @property (nonatomic, assign) FTCourseState courseState;
 @property (nonatomic, assign) FTCourseType courseType;
+@property (nonatomic, strong) NSMutableDictionary *notificationDic;
+
 @end

@@ -39,11 +39,46 @@
 }
 
 
+- (void) viewWillAppear:(BOOL)animated {
+    
+    [self addNotification];
+    
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    
+    [self removeNotification];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
+
+- (void) dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark  - 设置
+
+
+/**
+ 注册通知
+ */
+- (void) addNotification {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popViewController:) name:@"HadGradeSkill" object:nil];
+}
+
+
+/**
+ 删除通知
+ */
+- (void) removeNotification {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"HadGradeSkill" object:nil];
+}
 
 
 /**
@@ -123,6 +158,7 @@
 
     NSString *corporationId = [NSString stringWithFormat:@"%ld",self.bean.corporationid];
     NSString *memberUserId = self.bean.memberUserId;
+    NSLog(@"memberUserId:%@",memberUserId);
     [NetWorking getUserSkillsWithCorporationid:corporationId andMemberUserId:memberUserId andVersion:nil andParent:nil andOption:^(NSDictionary *dict) {
         SLog(@"dic:%@",dict);
         if (!dict) {
@@ -229,6 +265,7 @@
     gradeVC.dataArray = array;
     gradeVC.shouldEditNum = self.shouldEditNum;
     gradeVC.paramsBlock = self.paramsBlock;
+    gradeVC.editItems = self.editItems;
     [self.navigationController pushViewController:gradeVC animated:YES];
     
 }
@@ -252,20 +289,27 @@
         FTTraineeSubmitPopupView *popUpView = [[FTTraineeSubmitPopupView alloc]init];
         popUpView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         popUpView.bookId = [NSString stringWithFormat:@"%ld",self.bean.bookId];
-        //    NSDictionary *dic = @{@"前手直拳":@"很好",
-        //                          @"后手直拳":@"好",
-        //                          @"肘击横摆（左）":@"一般",
-        //                          @"肘击横摆（右）":@"差",
-        //                          @"后手勾拳":@"很好",
-        //                          };
         popUpView.skillGradeDic = self.editItems;
-        
+        popUpView.notificationDic = _notificationDic;
         [[UIApplication sharedApplication].keyWindow addSubview:popUpView];
     }else {
-    
         [self.view showMessage:@"还没有给学员评分，赶紧去评分吧~"];
     }
+}
+
+
+/**
+ 评论成功后返回学员列表
+ 
+ @param noti
+ */
+- (void) popViewController:(NSNotification *)noti{
     
-    
+    NSArray *controllers = self.navigationController.viewControllers;
+    UIViewController *parentController;
+    if (controllers.count >=2) {
+        parentController = [controllers objectAtIndex:controllers.count - 2];
+        [self.navigationController popToViewController:parentController animated:YES];
+    }
 }
 @end
