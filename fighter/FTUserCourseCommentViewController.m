@@ -275,7 +275,7 @@
         double mark = bean.score / bean.subNumber;
         
         if (0<mark&&mark<=9) {
-            desc = @"完事开头难，fighting!";
+            desc = @"万事开头难，fighting!";
         }else if (9<mark&&mark<=19) {
             desc = @"不断练习就会不断进步!";
         }else if (19<mark&&mark<=29) {

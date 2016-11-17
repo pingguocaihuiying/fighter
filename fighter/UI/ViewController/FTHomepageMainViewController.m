@@ -648,7 +648,7 @@
                     
                     if (oldSkillBean) {//如果oldSkillBean找到了，对比score
                         if (oldSkillBean.score != newSkillBean.score) {
-                            //入股score不等，说明有更新，记录下来
+                            //如果score不等，说明有更新，记录下来
                             newSkillBean.hasNewVersion = YES;//
                             [_fatherSkillVersionsDic setValue:@"1" forKey:[NSString stringWithFormat:@"%d", oldSkillBean.id]];
                         }
