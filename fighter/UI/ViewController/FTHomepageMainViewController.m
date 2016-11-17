@@ -574,7 +574,7 @@
     /*
         开发阶段，暂时把local version设为nil
      */
-    localSkillVersion = nil;
+//    localSkillVersion = nil;
     
     [NetWorking getUserSkillsWithCorporationid:nil andMemberUserId:[FTUserBean loginUser].olduserid andVersion:localSkillVersion andParent:nil andOption:^(NSDictionary *dict) {
         
