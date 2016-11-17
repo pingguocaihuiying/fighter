@@ -686,8 +686,8 @@
     }else {
         
         FTHistoryCourseBean *bean = _historyArray[indexPath.section][indexPath.row];
-        if (bean.attendCount == 0) {
-            return; // 旷课不能评分
+        if (bean.attendCount == 0 || bean.hasGradeCount >= bean.attendCount) {
+            return; // 旷课和已评分不能评分
         }
         FTTraineeSkillViewController *traineeSkillVC = [[FTTraineeSkillViewController alloc]init];
 //        traineeSkillVC.courseState = FTCourseStateDone;

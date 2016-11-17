@@ -19,5 +19,5 @@
 @property (nonatomic, copy) TransmitParamsBlock paramsBlock;
 @property (strong, nonatomic) NSMutableArray *dataArray;
 @property (strong, nonatomic) NSMutableDictionary *editItems; // 已评分项
-@property (nonatomic, copy) NSMutableDictionary *notificationDic;
+@property (nonatomic, strong) NSMutableDictionary *notificationDic;
 @end
