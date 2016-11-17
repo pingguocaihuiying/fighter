@@ -43,6 +43,8 @@
         _gradeImageView.image = [UIImage imageNamed:@"学员状态-未评分"];
     }else if(courseHistoryBean.hasGradeCount == courseHistoryBean.attendCount){//已评分
         _gradeImageView.image = [UIImage imageNamed:@"学员状态-已评分"];
+    }else if(courseHistoryBean.hasGradeCount > courseHistoryBean.attendCount){//已评分
+        _gradeImageView.image = [UIImage imageNamed:@"学员状态-已评分"];
     }
     
 }

@@ -269,6 +269,7 @@
         FTTraineeSubmitPopupView *popUpView = [[FTTraineeSubmitPopupView alloc]init];
         popUpView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         popUpView.bookId = [NSString stringWithFormat:@"%ld",self.bean.bookId];
+        popUpView.title = self.title;
         popUpView.skillGradeDic = self.editItems;
         popUpView.notificationDic = _notificationDic;
         [[UIApplication sharedApplication].keyWindow addSubview:popUpView];

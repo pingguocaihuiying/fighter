@@ -106,7 +106,7 @@
 
     if (![_title isEqualToString:title]) {
         _title = title;
-        self.titleLabel.text = _title;
+        self.titleLabel.text = [_title stringByAppendingString:@"  通过本节课"];
     }
 }
 
@@ -164,7 +164,7 @@
         [_titleLabel sizeToFit];
         
         // test words
-        _titleLabel.text = @"李小龙  通过本节课";
+        _titleLabel.text = @"xxx  通过本节课";
     }
     
     return _titleLabel;
@@ -255,7 +255,7 @@
                                @"bookId":_bookId
                                };
     
-    SLog(@"paramDic:%@",paramDic);
+//    SLog(@"paramDic:%@",paramDic);
     [MBProgressHUD showHUDAddedTo:self animated:YES];
     [NetWorking saveSkillVersion:paramDic option:^(NSDictionary *dic) {
         [MBProgressHUD hideHUDForView:self animated:YES];
@@ -264,15 +264,16 @@
             [self showMessage:@"网络繁忙，请稍后再试~"];
             return ;
         }
-        SLog(@"dic:%@",dic);
+//        SLog(@"dic:%@",dic);
         SLog(@"message:%@",[dic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         BOOL status = [dic[@"status"] isEqualToString:@"success"]? YES:NO;
         if (!status) {
             [self showMessage:[dic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         }else {
             
+            SLog(@"_notificationDic:%@",_notificationDic);
             [[NSNotificationCenter defaultCenter] postNotificationName:@"HadGradeSkill" object:nil userInfo:_notificationDic];
-//            [self removeFromSuperview];
+            [self removeFromSuperview];
         }
     }];
 }
