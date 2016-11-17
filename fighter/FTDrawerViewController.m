@@ -451,9 +451,9 @@ static NSString *const tableCellId = @"tableCellId";
     
     FTUserCenterViewController *userCenter = [[FTUserCenterViewController alloc]init];
     userCenter.title = @"个人资料";
+    userCenter.navigationSkipType = @"PRESENT";
     FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:userCenter];
     baseNav.navigationBarHidden = NO;
-//    baseNav.navigationBar.barTintColor = [UIColor blackColor];
     [self presentViewController:baseNav animated:YES completion:nil];
 }
 
@@ -708,13 +708,13 @@ static NSString *const tableCellId = @"tableCellId";
 - (void)gotoHomepageWithUseroldid:(NSString *)olduserid{
     
     NSString *userId = olduserid;
-    if (!userId) {
+    if (!userId || userId.length == 0) {
         userId = [FTUserBean loginUser].olduserid;
     }
     
     if (userId) {
         FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
-        homepageViewController.olduserid = olduserid;
+        homepageViewController.olduserid = userId;
         
         FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:homepageViewController];
         baseNav.navigationBarHidden = NO;
@@ -994,8 +994,6 @@ static NSString *const tableCellId = @"tableCellId";
     }else if ([dic[@"urlType"] isEqualToString:@"match"]) {//比赛
         [_tabBarVC setSelectedIndex:1];
         [_fightingVC pushToDetailController:dic];
-    }else if ([dic[@"urlType"] isEqualToString:@"g-coursec"]) {//教练评分通知，跳转个人主页显示
-        [self gotoHomepageWithUseroldid:nil];
     }
     
     //    else if ([dic[@"urlType"] isEqualToString:@"video"]) {
@@ -1012,7 +1010,12 @@ static NSString *const tableCellId = @"tableCellId";
     //        [infoVC pushToDetailController:dic];
     //    }
     
+    //教练评分通知，跳转个人主页显示
+    if ([dic[@"type"] isEqualToString:@"g-coursec"]) {
+        [self gotoHomepageWithUseroldid:nil];
+    }
     
+    // 每日任务
     if([dic[@"taskLocalNotification"] isEqualToString:@"taskLocalNotification"]) {
     
         [self.tabBarVC taskBtnAction:nil];

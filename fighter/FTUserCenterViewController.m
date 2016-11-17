@@ -72,42 +72,53 @@
 
 - (void) initSubviews {
     
-    [self initNavigationBar];
+    [self initPushNavigationBar];
     
     [self initTableView];
     
 }
 
-- (void) initNavigationBar {
-    
-    //设置左侧按钮
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
-                                   initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                   style:UIBarButtonItemStyleDone
-                                   target:self
-                                   action:@selector(backBtnAction:)];
-    //把左边的返回按钮左移
-    [leftButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    self.navigationItem.leftBarButtonItem = leftButton;
+- (void) initPushNavigationBar {
 
+    if ([_navigationSkipType isEqualToString:@"PRESENT"]) {
+        //设置左侧按钮
+        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
+                                       initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-取消"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                       style:UIBarButtonItemStyleDone
+                                       target:self
+                                       action:@selector(dismissBtnAction:)];
+        //把左边的返回按钮左移
+        [leftButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+        self.navigationItem.leftBarButtonItem = leftButton;
+    }else {
+        //设置左侧按钮
+        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
+                                       initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                       style:UIBarButtonItemStyleDone
+                                       target:self
+                                       action:@selector(popBtnAction:)];
+        //把左边的返回按钮左移
+        [leftButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+        self.navigationItem.leftBarButtonItem = leftButton;
+    }
+    
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     if (localUser.tel.length > 0) {
         return ;
     }
-
+    
     //导航栏右侧按钮,绑定手机号
     UIButton *bindingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [bindingBtn setTitle:@"确定" forState:UIControlStateNormal];
     [bindingBtn setBounds:CGRectMake(0, 0, 50, 14)];
     [bindingBtn setTitleColor:[UIColor colorWithHex:0xb4b4b4] forState:UIControlStateNormal];
     [bindingBtn addTarget:self action:@selector(bindingPhone:) forControlEvents:UIControlEventTouchUpInside];
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:bindingBtn];
     
 }
+
 
 - (void) initTableView {
 
@@ -295,20 +306,27 @@
 
 #pragma mark - response
 
+- (void) popBtnAction:(id) sender {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:EditNotification object:nil];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
 //监听器事件
 - (void) updateResponse:(id) sender {
     
     [self.tableView reloadData];
 }
 
-- (void) backBtnAction:(id) sender {
+- (void) dismissBtnAction:(id) sender {
 
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         
         [[NSNotificationCenter defaultCenter] postNotificationName:EditNotification object:nil];
         
     }];
-    
     
 }
 
