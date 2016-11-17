@@ -16,5 +16,5 @@
 @interface FTTraineeSkillViewController : FTTraineeBaseViewController
 
 @property (nonatomic, strong) FTHistoryCourseBean *bean;
-@property (nonatomic, copy) NSMutableDictionary *notificationDic;
+@property (nonatomic, strong) NSMutableDictionary *notificationDic;
 @end
