@@ -574,7 +574,7 @@
     /*
         开发阶段，暂时把local version设为nil
      */
-    localSkillVersion = nil;
+//    localSkillVersion = nil;
     
     [NetWorking getUserSkillsWithCorporationid:nil andMemberUserId:[FTUserBean loginUser].olduserid andVersion:localSkillVersion andParent:nil andOption:^(NSDictionary *dict) {
         
@@ -616,6 +616,10 @@
                  有更新的话，要处理红点的逻辑，把之前存储的技能信息拿出来做一下对比，确定哪些母项有更新
                  */
                 NSArray *fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
+                if (!fatherSkillArrayOld) {
+                    fatherSkillArrayOld = _fatherSkillArray;
+                    [self saveSkillArray:fatherSkillArrayOld WithKey:FATHER_SKILLS_ARRAY];
+                }
                 
                 //遍历，查看母项的更新情况
                 for (FTUserSkillBean *newSkillBean in _fatherSkillArray){
