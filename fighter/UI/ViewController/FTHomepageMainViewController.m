@@ -574,7 +574,7 @@
     /*
         开发阶段，暂时把local version设为nil
      */
-//    localSkillVersion = nil;
+    localSkillVersion = nil;
     
     [NetWorking getUserSkillsWithCorporationid:nil andMemberUserId:[FTUserBean loginUser].olduserid andVersion:localSkillVersion andParent:nil andOption:^(NSDictionary *dict) {
         
@@ -607,6 +607,7 @@
             NSString *version = dict[@"data"][@"versions"];//从服务器获取的版本号
             
             if (version && (version != [NSNull null])) {//如果有版本号，说明有更新
+
                 _hasNewVersion = YES;
                 
                 [[NSUserDefaults standardUserDefaults]setValue:version forKey:SKILL_VERSION];
@@ -616,11 +617,20 @@
                  有更新的话，要处理红点的逻辑，把之前存储的技能信息拿出来做一下对比，确定哪些母项有更新
                  */
                 NSArray *fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
-                if (!fatherSkillArrayOld) {
+                NSArray *childSkillArrayOld;
+                if (!fatherSkillArrayOld || fatherSkillArrayOld.count < 1) {//如果本地没有缓存，则把新数据缓存入本地
                     fatherSkillArrayOld = _fatherSkillArray;
-                    [self saveSkillArray:fatherSkillArrayOld WithKey:FATHER_SKILLS_ARRAY];
+                     childSkillArrayOld = _childSkillArray;
+                    [self saveSkillArray:_fatherSkillArray WithKey:FATHER_SKILLS_ARRAY];
+                    [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
                 }
                 
+                if (!childSkillArrayOld || childSkillArrayOld.count < 1) {//如果本地没有缓存，则把新数据缓存入本地
+                    childSkillArrayOld = _childSkillArray;
+                    [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
+                }
+                
+                fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
                 //遍历，查看母项的更新情况
                 for (FTUserSkillBean *newSkillBean in _fatherSkillArray){
                     FTUserSkillBean *oldSkillBean;
@@ -1115,8 +1125,13 @@
         }
 //        number = 10;
     }else if (tableView == _skillsTableView){
-        if (_fatherSkillArray) {
+        if (_fatherSkillArray && _fatherSkillArray.count > 0) {//先加在从服务器获取的最新的技能，没有的话去本地缓存找
             number = _fatherSkillArray.count;
+        }else{
+            NSArray *localFatherSkillArray = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
+            if (localFatherSkillArray && localFatherSkillArray.count > 0) {
+                number = _fatherSkillArray.count;
+            }
         }
     }
     return number;
