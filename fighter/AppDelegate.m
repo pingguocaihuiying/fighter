@@ -302,7 +302,7 @@
 - (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken
 {
 //    NSLog(@"deviceToken:%@",deviceToken);
-    
+    NSLog(@"deviceToken:%@",deviceToken);
     //将deviceToken保存在本地
     if (deviceToken) {
         NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
