@@ -156,10 +156,12 @@
     NSString *username = phoneNum;
     NSString *appendedPassword = [NSString stringWithFormat:@"%@%@", password, @"**#qwe"];
     NSString *md5String = [MD5 md5:appendedPassword];
-    
+    //设备独立的token
+    NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"];
     NSDictionary *dic = @{@"phone" : username,
                           @"password" : md5String,
                           @"city" : @"-1",
+                          @"token":deviceToken
                           };
     
     [self postRequestWithUrl:loginURLString parameters:dic option:option];
@@ -517,7 +519,6 @@
     for(NSString *key in [wxInfoDic allKeys]){
         NSLog(@"key:%@", key);
     }
-    
     NSString *openId = wxInfoDic[@"openid"];
     NSString *unionId = wxInfoDic[@"unionid"];
     NSString *timestampString = [NSString stringWithFormat:@"%.0lf",[[NSDate date] timeIntervalSince1970]];
@@ -530,12 +531,14 @@
     headpic = [FTEncoderAndDecoder encodeToPercentEscapeString:headpic];
     NSString *stemfrom = @"weixin";
     username = [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    //设备独立的token
+    NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"];
     
     NSString *wxLoginURLString = [FTNetConfig host:Domain path:UserWXLoginURL];
-    wxLoginURLString = [NSString stringWithFormat:@"%@?openId=%@&unionId=%@&timestamp=%@&imei=%@&username=%@&keyToken=%@&city=%@&headpic=%@&stemfrom=%@", wxLoginURLString, openId, unionId, timestampString, imei, username, keyTokenMD5, province, headpic, stemfrom];
+    wxLoginURLString = [NSString stringWithFormat:@"%@?openId=%@&unionId=%@&timestamp=%@&imei=%@&username=%@&keyToken=%@&city=%@&headpic=%@&stemfrom=%@&token=%@", wxLoginURLString, openId, unionId, timestampString, imei, username, keyTokenMD5, province, headpic, stemfrom,deviceToken];
 
-    
     [self getRequestWithUrl:wxLoginURLString parameters:nil option:option];
+    
 }
 
 

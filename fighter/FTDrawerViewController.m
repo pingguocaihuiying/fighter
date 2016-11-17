@@ -707,22 +707,20 @@ static NSString *const tableCellId = @"tableCellId";
 #pragma mark 个人主页入口
 - (void)gotoHomepageWithUseroldid:(NSString *)olduserid{
     
-    if (!olduserid) {
-        //从本地读取存储的用户信息
-        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-        olduserid = localUser.olduserid;
-        
+    NSString *userId = olduserid;
+    if (!userId) {
+        userId = [FTUserBean loginUser].olduserid;
     }
     
-    FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
-    homepageViewController.olduserid = olduserid;
+    if (userId) {
+        FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
+        homepageViewController.olduserid = olduserid;
+        
+        FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:homepageViewController];
+        baseNav.navigationBarHidden = NO;
+        [self presentViewController:baseNav animated:YES completion:nil];
+    }
     
-    
-    FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:homepageViewController];
-    baseNav.navigationBarHidden = NO;
-    
-    [self presentViewController:baseNav animated:YES completion:nil];
 }
 
 #pragma mark - 设置tabbar
@@ -806,7 +804,7 @@ static NSString *const tableCellId = @"tableCellId";
     
     
     
-    // 教练查看自己课程
+    // 教练课程
     if (_coachSelfCourseVC == nil) {
         
         _coachSelfCourseVC = [FTCoachSelfCourseViewController new];
@@ -981,37 +979,39 @@ static NSString *const tableCellId = @"tableCellId";
 //推送响应方法
 - (void) push:(NSDictionary *)dic {
 
-    FTBaseNavigationViewController *navi = (FTBaseNavigationViewController *)self.dynamicsDrawerViewController.paneViewController;
+//    FTBaseNavigationViewController *navi = (FTBaseNavigationViewController *)self.dynamicsDrawerViewController.paneViewController;
     
-    FTBaseTabBarViewController *tabBartVC = [navi.viewControllers firstObject];
     
     if ([dic[@"urlType"] isEqualToString:@"news"]) {
-        [tabBartVC setSelectedIndex:0];
+        [_tabBarVC setSelectedIndex:0];
+        [_infoVC pushToDetailController:dic];
         
-        FTInformationViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:0];
-        [infoVC pushToDetailController:dic];
-        
-    }else if ([dic[@"urlType"] isEqualToString:@"video"]) {
-        [tabBartVC setSelectedIndex:7];
-        
-        FTVideoViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:1];
-        [infoVC pushToDetailController:dic];
-        
-    }else if ([dic[@"urlType"] isEqualToString:@"arenas"]) {
-        [tabBartVC setSelectedIndex:6];
-        
-        FTArenaViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:2];
-        [infoVC pushToDetailController:dic];
-    }else if ([dic[@"urlType"] isEqualToString:@"teach"]) {
-        [tabBartVC setSelectedIndex:2];
-        
-        FTPracticeViewController *vc = [tabBartVC.viewControllers objectAtIndex:2];
-        [vc pushToDetailController:dic];
-    }else if ([dic[@"urlType"] isEqualToString:@"match"]) {//比赛
-        [tabBartVC setSelectedIndex:1];
-        FTFightingViewController *vc = [tabBartVC.viewControllers objectAtIndex:1];
-        [vc pushToDetailController:dic];
     }
+
+    else if ([dic[@"urlType"] isEqualToString:@"teach"]) { // 教学
+        [_tabBarVC setSelectedIndex:2];
+        [_practiceVC pushToDetailController:dic];
+    }else if ([dic[@"urlType"] isEqualToString:@"match"]) {//比赛
+        [_tabBarVC setSelectedIndex:1];
+        [_fightingVC pushToDetailController:dic];
+    }else if ([dic[@"urlType"] isEqualToString:@"g-coursec"]) {//教练评分通知，跳转个人主页显示
+        [self gotoHomepageWithUseroldid:nil];
+    }
+    
+    //    else if ([dic[@"urlType"] isEqualToString:@"video"]) {
+    //        [_tabBarVC setSelectedIndex:7];
+    //
+    //        FTVideoViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:1];
+    //        [_videoVC pushToDetailController:dic];
+    //
+    //    }
+    //    else if ([dic[@"urlType"] isEqualToString:@"arenas"]) {
+    //        [_tabBarVC setSelectedIndex:6];
+    //
+    //        FTArenaViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:2];
+    //        [infoVC pushToDetailController:dic];
+    //    }
+    
     
     if([dic[@"taskLocalNotification"] isEqualToString:@"taskLocalNotification"]) {
     
