@@ -13,6 +13,9 @@ typedef NS_ENUM(NSInteger, FTUserSkillType){
 #import "FTUserSkillBean.h"
 
 @interface FTUserCourseCommentViewController : FTTraineeBaseViewController
+
+@property (nonatomic, copy) NSString *courseRecordVersion;
+
 @property (nonatomic, assign) FTUserSkillType type;//类型
 @property (nonatomic, strong) FTUserSkillBean *fatherSkillBean;//母项技能，用于展示上方的技能概览
 @property (nonatomic, strong) NSMutableArray *skillArray;//最新的子项技能array
