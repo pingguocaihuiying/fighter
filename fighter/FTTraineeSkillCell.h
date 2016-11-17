@@ -22,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *skillLabelWidthConstraint;
 @property (weak, nonatomic) IBOutlet FTRatingBar *ratingBar;
 @property (strong, nonatomic) IBOutlet UIImageView *redPoint;
+@property (strong, nonatomic) UILabel *increaseLabel;//增加的技能点数
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *increaseLabelBottomSpace;
+@property (nonatomic, strong) FTUserSkillBean *skillBean;
 
 - (void)setWithBean:(FTTraineeSkillBean *)bean;
 - (void)setWithSkillBean:(FTUserSkillBean *) skillBean;

@@ -31,6 +31,8 @@
 @property (nonatomic, strong) NSMutableArray *skillScoreArray;//存储评分子项的数组
 @property (nonatomic, strong) FTUserChildSkillTopInfoView *userSkilltHeaderView;
 
+@property (nonatomic, strong) NSMutableArray *cellArray;
+
 @end
 
 @implementation FTUserCourseCommentViewController
@@ -50,12 +52,53 @@
     }else{
         //直接刷新tableView，数据已经从上个页面传递过来了
         [_tableView reloadData];
+        
+        [self setChildSkillView];
     }
     
 }
 
+- (void)setChildSkillView{
+    //创建cellArray
+    if (!_cellArray) {
+        _cellArray = [NSMutableArray new];
+    }
+    
+    for (int i = 0; i < _skillArray.count; i++) {
+        FTUserSkillBean *beanNew = _skillArray[i];
+        
+        FTTraineeSkillCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"FTTraineeSkillCell" owner:self options:nil] firstObject];
+        [_cellArray addObject:cell];
+        cell.skillBean = beanNew;
+        
+        cell.tag = 10000 + i;
+        cell.frame = CGRectMake(0, 80 + 45 * i, SCREEN_WIDTH, 45);
+        
+        
+        
+        
+        FTUserSkillBean *beanOld;
+        if (i < _skillArrayOld.count) {
+            beanOld = _skillArrayOld[i];
+        }
+        
+        
+        if (beanOld) {
+            cell.increaseLabel.hidden = NO;
+            [cell setWithSkillNewBean:beanNew andSkillOldBean:beanOld];
+        } else {
+            [cell setWithSkillBean:beanNew];
+        }
+        
+        [self.view addSubview:cell];
+    
+    }
+}
+
+
+
 - (void)loadDataFromServer{
-    [NetWorking getUserSkillsByVersion:@"1" andOption:^(NSDictionary *dic) {
+    [NetWorking getUserSkillsByVersion:_courseRecordVersion andOption:^(NSDictionary *dic) {
         BOOL status = [dic[@"status"] isEqualToString:@"success"];
         if (status) {
             NSArray *skillScroeArray = dic[@"data"][@"skills"];
@@ -183,7 +226,7 @@
         
     }else if(_type == FTUserSkillTypeChildSkill){
         if (_skillArray) {
-            return _skillArray.count;
+//            return _skillArray.count; /* 暂时去掉cell显示，改为uiview */
         }
     }
     return 0;
@@ -231,7 +274,7 @@
         
         double mark = bean.score / bean.subNumber;
         
-        if (1<mark&&mark<=9) {
+        if (0<mark&&mark<=9) {
             desc = @"完事开头难，fighting!";
         }else if (9<mark&&mark<=19) {
             desc = @"不断练习就会不断进步!";
@@ -253,8 +296,9 @@
             desc = @"我们的拳头是为了保卫家人和朋友";
         }else if (99<mark) {
             desc = @"你是职业的";
+        }else{
+            desc = @"还没有评过分哟";    
         }
-        desc = @"还没有评过分哟";
         
     }
     
@@ -278,37 +322,6 @@
     }
     
     return level;
-}
-
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-//    //设置Cell的动画效果为3D效果
-//    //设置x和y的初始值为0.1；
-//    cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 1);
-//    //x和y的最终值为1
-//    [UIView animateWithDuration:1 animations:^{
-//        cell.layer.transform = CATransform3DMakeScale(1, 1, 1);
-//    }];
-    if (_type == FTUserSkillTypeCoachComment) {//如果是教练评论详情
-        
-    }else{//如果是技能子项详情
-        
-        FTTraineeSkillCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GradeCell2"];
-        
-//        FTUserSkillBean *beanNew = _skillArray[indexPath.row];
-//        FTUserSkillBean *beanOld = _skillArrayOld[indexPath.row];
-//        
-//        if (beanOld) {
-//            [cell setWithSkillNewBean:beanNew andSkillOldBean:beanOld];
-//        } else {
-//            [cell setWithSkillBean:beanNew];
-//        }
-        
-        cell.gradeLabel.text = @"2344234";
-        
-    }
-    
-
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

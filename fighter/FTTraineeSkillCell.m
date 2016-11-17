@@ -23,6 +23,20 @@
     
     self.ratingBar.isIndicator = YES;//指示器，就不能滑动了，只显示评分结果
     [self.ratingBar displayRating:5.0f];
+    
+    [self addIncreaseLabel];
+}
+
+- (void)addIncreaseLabel{
+    CGRect r = _gradeLabel.frame;
+    r.origin.y -= 20;
+    r.origin.x += 8;
+    
+    _increaseLabel = [[UILabel alloc]initWithFrame:r];
+//    _increaseLabel.text = @"5";
+    _increaseLabel.textColor = [UIColor redColor];
+    _increaseLabel.hidden = YES;
+    [self addSubview:_increaseLabel];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -78,6 +92,7 @@
 
 - (void)setWithSkillNewBean:(FTUserSkillBean *)skillBeanNew andSkillOldBean:(FTUserSkillBean *)skillBeanOld{
     _skillLabel.text = skillBeanOld.name;
+    _increaseLabel.text = [NSString stringWithFormat:@"%.0f", skillBeanNew.score - skillBeanOld.score];
     _gradeLabel.text = [NSString stringWithFormat:@"%.0f",skillBeanOld.score];
     [self.ratingBar displayRating:[self levelOfGrade:skillBeanOld.score]];
     
@@ -88,12 +103,36 @@
         _redPoint.hidden = NO;
     }else{
         _redPoint.hidden = YES;
+        
+        
+        CGRect r =  _increaseLabel.frame;
+        r.origin.y += 15;
+        
+        /*
+         动画效果
+         */
+        
+        [UIView beginAnimations:@"UIViewAnimationCurveEaseOut" context:nil];
+        [UIView setAnimationDidStopSelector:@selector(animationStop)];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDuration:2.5];
+        
+        _increaseLabel.frame = r;
+        
+        [UIView commitAnimations];
     }
     
-//    [NSTimer timerWithTimeInterval:2 repeats:NO block:^(NSTimer * _Nonnull timer) {
-//       [self.ratingBar displayRating:[self levelOfGrade:skillBeanNew.score]];
-//    }];
+}
+- (void)animationStop{
+    
+    //移除的变化label
+    
+        _increaseLabel.hidden = YES;//隐藏变化值label
+        
+        //显示最新score
+        _gradeLabel.text = [NSString stringWithFormat:@"%.0f", _skillBean.score];
+//        _gradeLabel.text = @"73";
+    
     
 }
-
 @end

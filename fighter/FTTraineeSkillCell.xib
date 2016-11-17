@@ -14,45 +14,45 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="47" id="t7a-ST-pI1" customClass="FTTraineeSkillCell">
             <rect key="frame" x="0.0" y="0.0" width="347" height="47"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="t7a-ST-pI1" id="NT1-Lm-ed5">
+            <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="t7a-ST-pI1" id="NT1-Lm-ed5">
                 <rect key="frame" x="0.0" y="0.0" width="347" height="46"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="拳法：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ZZ-Fa-Qit">
-                        <rect key="frame" x="16" y="14.5" width="46" height="18"/>
+                        <rect key="frame" x="16" y="14" width="46" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8888" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6M8-ih-B55">
-                        <rect key="frame" x="263" y="12.5" width="44.5" height="21.5"/>
+                        <rect key="frame" x="263" y="12" width="45" height="22"/>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JuJ-V4-IWX">
-                        <rect key="frame" x="15" y="45.5" width="332" height="1"/>
+                        <rect key="frame" x="15" y="45" width="332" height="1"/>
                         <color key="backgroundColor" red="0.098039215690000001" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="pTl-RB-m2t"/>
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="前去编辑箭头-向右" translatesAutoresizingMaskIntoConstraints="NO" id="RSZ-me-mOL">
-                        <rect key="frame" x="315.5" y="11.5" width="23.5" height="24"/>
+                        <rect key="frame" x="316" y="11" width="23" height="24"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="23.5" id="7td-sq-95t"/>
                             <constraint firstAttribute="height" constant="24" id="ZaK-Ew-LRA"/>
                         </constraints>
                     </imageView>
                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="红点" translatesAutoresizingMaskIntoConstraints="NO" id="lcf-Gd-I8k">
-                        <rect key="frame" x="331" y="11.5" width="8" height="8"/>
+                        <rect key="frame" x="331" y="11" width="8" height="8"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="8" id="hQh-eW-kin"/>
                             <constraint firstAttribute="height" constant="8" id="mFO-8x-6st"/>
                         </constraints>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Acg-QJ-aG1" customClass="FTRatingBar">
-                        <rect key="frame" x="130" y="9.5" width="155" height="28"/>
+                        <rect key="frame" x="130" y="9" width="155" height="28"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="28" id="EAU-qo-JPX"/>

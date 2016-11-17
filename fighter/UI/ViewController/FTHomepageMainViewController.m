@@ -1355,10 +1355,14 @@
         }
     }else if (tableView == _courseHistoryTableView){
         NSLog(@"_courseHistoryTableView 被点击");
-        FTUserCourseCommentViewController * userCourseCommentViewController = [FTUserCourseCommentViewController new];
-        [self.navigationController pushViewController:userCourseCommentViewController animated:YES];
+        
         FTUserCourseHistoryBean *courseBean = _courseHistoryArray[indexPath.section][indexPath.row];
         NSString *version = courseBean.version;
+        
+        FTUserCourseCommentViewController * userCourseCommentViewController = [FTUserCourseCommentViewController new];
+        userCourseCommentViewController.courseRecordVersion = version;
+        [self.navigationController pushViewController:userCourseCommentViewController animated:YES];
+
         if (version) {
             NSMutableDictionary *versionDic = [[NSUserDefaults standardUserDefaults]valueForKey:COURSE_VERSION];//从本地读取记录版本号已读、未读的字典/Users/mapbar/code/fighter/fighter/UI/ViewController/FTHomepageMainViewController.m
             if (versionDic) {
