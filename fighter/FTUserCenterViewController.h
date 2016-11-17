@@ -15,4 +15,5 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (copy, nonatomic) NSString *navigationSkipType;
 @end

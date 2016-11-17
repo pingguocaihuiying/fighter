@@ -451,9 +451,9 @@ static NSString *const tableCellId = @"tableCellId";
     
     FTUserCenterViewController *userCenter = [[FTUserCenterViewController alloc]init];
     userCenter.title = @"个人资料";
+    userCenter.navigationSkipType = @"PRESENT";
     FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:userCenter];
     baseNav.navigationBarHidden = NO;
-//    baseNav.navigationBar.barTintColor = [UIColor blackColor];
     [self presentViewController:baseNav animated:YES completion:nil];
 }
 
