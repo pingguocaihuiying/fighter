@@ -1399,9 +1399,6 @@
         
     }else if (tableView == _skillsTableView){
         NSLog(@"_skillsTableView 被点击");
-        
-        
-        
         FTUserCourseCommentViewController * userCourseCommentViewController = [FTUserCourseCommentViewController new];
         userCourseCommentViewController.type = FTUserSkillTypeChildSkill;
         
@@ -1455,8 +1452,6 @@
             return true;
         }
     }
-    
-    
      
     return false;
 }
