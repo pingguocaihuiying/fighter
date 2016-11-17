@@ -302,7 +302,7 @@
 - (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken
 {
 //    NSLog(@"deviceToken:%@",deviceToken);
-    
+    NSLog(@"deviceToken:%@",deviceToken);
     //将deviceToken保存在本地
     if (deviceToken) {
         NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
@@ -318,9 +318,9 @@
 //    [IXPushSdkApi registerDeviceToken:deviceToken
 //                              channel:@"test" version:@"1.0" appId:1670128310];
     
-//    // 格斗东西 开发板
-//    [IXPushSdkApi registerDeviceToken:deviceToken
-//                              channel:@"test" version:@"1.0" appId:1104119343];
+    // 格斗东西 开发板
+    [IXPushSdkApi registerDeviceToken:deviceToken
+                              channel:@"test" version:@"1.0" appId:1104119343];
     
     // 格斗东西 正式版
     [IXPushSdkApi registerDeviceToken:deviceToken
