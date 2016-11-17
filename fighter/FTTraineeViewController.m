@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionHeightConstraint;
 
-@property (copy, nonatomic) NSArray *dataArray;
+@property (copy, nonatomic) NSMutableArray *dataArray;
 
 @end
 
@@ -33,6 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self addNotification];
     [self setNavigationbar];
     [self setSubviews];
 }
@@ -42,15 +43,42 @@
     [super didReceiveMemoryWarning];
 }
 
+
+- (void) dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark  - 通知
+
+/**
+ 注册通知
+ */
+- (void) addNotification {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hadGradeSkillAction:) name:@"HadGradeSkill" object:nil];
+}
+
+
+/**
+ 删除通知
+ */
+- (void) removeNotification {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"HadGradeSkill" object:nil];
+}
+
+
 #pragma mark - getter
 
-- (NSArray *) dataArray {
+- (NSMutableArray *) dataArray {
 
     if (!_dataArray) {
-        _dataArray = [[NSArray alloc]init];
+        _dataArray = [[NSMutableArray alloc]init];
     }
     return _dataArray;
 }
+
 
 #pragma mark  - 设置
 - (void) setSubviews {
@@ -145,15 +173,29 @@
         
         BOOL status = [dict[@"status"] isEqualToString:@"success"]?YES:NO;
         if (status) {
-            self.dataArray = dict[@"data"];
+            
+            NSArray *array = dict[@"data"];
+            [self sortArray:array];
+            
             [self setCollectionViewHeight:self.dataArray.count];
             [self.collectionView reloadData];
         }
     }];
-    //团课必填
-    
-    //私课必填
+   
 }
+
+
+- (void) sortArray:(NSArray *) dicArray {
+
+    [self.dataArray removeAllObjects];
+    
+    for (int i = 0 ;i < dicArray.count ;i++) {
+        NSDictionary *dic = [dicArray objectAtIndex:i];
+        FTTraineeBean *bean = [[FTTraineeBean alloc] initWithFTTraineeBeanDic:dic];
+        [self.dataArray addObject:bean];
+    }
+}
+
 
 - (void) setCollectionViewHeight:(NSInteger)count {
 
@@ -173,10 +215,10 @@
 //    return 15;
 }
 
+
 /**
  section headerView
  */
-
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
     if (kind == UICollectionElementKindSectionHeader){
@@ -209,7 +251,7 @@
     
     
     FTTraineeCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TraineeCell" forIndexPath:indexPath];
-    FTTraineeBean *bean = [[FTTraineeBean alloc] initWithFTTraineeBeanDic:[self.dataArray objectAtIndex:indexPath.row]];
+    FTTraineeBean *bean = [self.dataArray objectAtIndex:indexPath.row];
     [cell setCellWithBean:bean state:self.courseState];
     
     return cell;
@@ -217,7 +259,7 @@
 
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    FTTraineeBean *bean = [[FTTraineeBean alloc] initWithFTTraineeBeanDic:[self.dataArray objectAtIndex:indexPath.row]];
+    FTTraineeBean *bean = [self.dataArray objectAtIndex:indexPath.row];
     
         
         if (self.courseState == FTCourseStateWaiting) {
@@ -234,8 +276,12 @@
                 historyBean.memberUserId = bean.userId;
                 historyBean.bookId = bean.id;
                 
+                if (_notificationDic) {
+                    [_notificationDic setObject:indexPath forKey:@"traineeIndex"];
+                }
                 FTTraineeSkillViewController *skillVC = [[FTTraineeSkillViewController alloc]init];
                 skillVC.bean = historyBean;
+                skillVC.notificationDic = _notificationDic;
                 [self.navigationController pushViewController:skillVC animated:YES];
             }
         }
@@ -286,7 +332,20 @@
     FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
     homepageViewController.olduserid = userId;
     [self.navigationController pushViewController:homepageViewController animated:YES];
+}
+
+
+- (void) hadGradeSkillAction:(NSNotification *) noti {
+
+    NSDictionary *dic = [noti userInfo];
+    NSIndexPath *indexPath = [dic objectForKey:@"traineeIndex"];
     
+    if (indexPath) {
+        FTTraineeBean *bean = [self.dataArray objectAtIndex:indexPath.row];
+        bean.hasGrade = 1;
+        
+        [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+    }
 }
 
 @end

@@ -227,28 +227,26 @@
 //    }
     
     
-//    NSMutableArray *increases = [[NSMutableArray alloc]init];
-//    NSMutableArray *skills = [[NSMutableArray alloc]init];
-//    
-//    
-//    for (NSString *key in self.skillGradeDic.allKeys) {
-//        NSString *value = self.skillGradeDic[key];
-//        
-//        [increases addObject:value];
-//        [skills addObject:key];
-//        
-//    }
- 
     
-    NSString *increases = @"";
-    NSString *skills = @"";
-    
-    
-    for (NSString *key in self.skillGradeDic.allKeys) {
-        NSString *value = self.skillGradeDic[key];
-        [[skills stringByAppendingString:key] stringByAppendingString:@","];
-        [[increases stringByAppendingString:value] stringByAppendingString:@","];
+//    NSString *increases = [self.skillGradeDic.allValues componentsJoinedByString:@","];
+//    NSString *skills = [self.skillGradeDic.allKeys componentsJoinedByString:@","];
+
+    NSString *increases ;
+    NSString *skills ;
+    for (int i = 0; i < self.skillGradeDic.allKeys.count; i++) {
+        NSString *key = [self.skillGradeDic.allKeys objectAtIndex:i];
+        NSString *value = [self.skillGradeDic objectForKey:key];
+        
+        if (skills.length == 0) {
+            skills = key;
+            increases = value;
+        }else {
+            skills = [NSString stringWithFormat:@"%@,%@",skills,key];
+            increases = [NSString stringWithFormat:@"%@,%@",increases,value];
+        }
     }
+    
+
 
     NSDictionary *paramDic = @{
                                @"increases":increases,
@@ -257,7 +255,7 @@
                                @"bookId":_bookId
                                };
     
-    
+    SLog(@"paramDic:%@",paramDic);
     [MBProgressHUD showHUDAddedTo:self animated:YES];
     [NetWorking saveSkillVersion:paramDic option:^(NSDictionary *dic) {
         [MBProgressHUD hideHUDForView:self animated:YES];
@@ -266,14 +264,15 @@
             [self showMessage:@"网络繁忙，请稍后再试~"];
             return ;
         }
-        
+        SLog(@"dic:%@",dic);
+        SLog(@"message:%@",[dic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         BOOL status = [dic[@"status"] isEqualToString:@"success"]? YES:NO;
         if (!status) {
-            SLog(@"message:%@",[dic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
             [self showMessage:[dic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         }else {
             
-            [self removeFromSuperview];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"HadGradeSkill" object:nil userInfo:_notificationDic];
+//            [self removeFromSuperview];
         }
     }];
 }
@@ -687,13 +686,13 @@
     keyBoardHidden = NO;
     //获取键盘的动画时间
     CGFloat duration = [aNotification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    //创建自带来获取穿过来的对象的info配置信息
-    NSDictionary *userInfo = [aNotification userInfo];
-    NSLog(@"userInfo:%@",userInfo);
-    CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//    //创建自带来获取穿过来的对象的info配置信息
+//    NSDictionary *userInfo = [aNotification userInfo];
+//    NSLog(@"userInfo:%@",userInfo);
+//    CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
     //改变底部工具条的底部约束
-    self.centerYConstraint.constant =  self.centerYConstraint.constant - 100;
+    self.centerYConstraint.constant =   - 100;
     
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration animations:^{
@@ -707,13 +706,13 @@
     keyBoardHidden = YES;
     //获取键盘的动画时间
     CGFloat duration = [aNotification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    //创建自带来获取穿过来的对象的info配置信息
-    NSDictionary *userInfo = [aNotification userInfo];
-    NSLog(@"userInfo:%@",userInfo);
-    CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//    //创建自带来获取穿过来的对象的info配置信息
+//    NSDictionary *userInfo = [aNotification userInfo];
+//    NSLog(@"userInfo:%@",userInfo);
+//    CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
     //改变底部工具条的底部约束
-   self.centerYConstraint.constant =  self.centerYConstraint.constant + 100;
+   self.centerYConstraint.constant = 0;
     
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration animations:^{

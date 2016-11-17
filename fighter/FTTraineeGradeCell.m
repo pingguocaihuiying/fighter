@@ -37,14 +37,18 @@
     self.editSkillBlock = block;
     self.skillBean = bean;
     self.skillLabel.text = bean.name;
-    self.gradeLabel.text = [NSString stringWithFormat:@"%ld",bean.score];
     
+    if (bean.score >= 0 ) {
+        _gradeLabel.text = [NSString stringWithFormat:@"%ld",bean.score];
+    }else {
+        _gradeLabel.text = @"-";
+    }
 }
 
 - (void) setEditableGradeLabelText:(NSInteger)state {
     self.editableGradeLabel.text = [self editSkillGrade:state];
 //    self.skillBean.score = state;
-    self.gradeLabel.text = [NSString stringWithFormat:@"%ld",self.skillBean.score +state];
+//    self.gradeLabel.text = [NSString stringWithFormat:@"%ld",self.skillBean.score +state];
 }
 
 

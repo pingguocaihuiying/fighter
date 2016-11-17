@@ -56,23 +56,49 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self registLoginNoti];
+    [self addNotification];
     [self initDefaultConfig];
     [self setSubViews];
     [self updateCourseTableDisplay];
 }
 
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+
+- (void) dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark  - 通知
+
+
 /**
- 注册登录的通知，在新用户登录时刷新
+ 注册通知
  */
-- (void)registLoginNoti{
+- (void) addNotification {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hadGradeSkillAction:) name:@"HadGradeSkill" object:nil ];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginCallback:) name:WXLoginResultNoti object:nil];
     
     //添加监听器，监听login
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(phoneLoginedCallback:) name:LoginNoti object:nil];
 }
+
+
+/**
+ 删除通知
+ */
+- (void) removeNotification {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"HadGradeSkill" object:nil];
+}
+
+
 
 // 微信登录响应
 - (void) wxLoginCallback:(NSNotification *)noti{
@@ -96,10 +122,6 @@
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 
 #pragma mark  - 初始化界面
@@ -156,8 +178,25 @@
 //        _coachCourseType = FTCoachCourseTypePersonal;
 }
 
+#pragma mark - 通知响应
 
-
+- (void) hadGradeSkillAction:(NSNotification *) noti {
+    
+    NSDictionary *dic = [noti userInfo];
+    NSIndexPath *indexPath = [dic objectForKey:@"historyIndex"];
+    NSString *courseType = [dic objectForKey:@"courseType"];
+    if (indexPath) {
+        FTHistoryCourseBean *bean ;
+        if ([courseType isEqualToString:@"public"]) {
+             bean = _historyArrayPublic[indexPath.section][indexPath.row];
+        }else {
+            bean = _historyArray[indexPath.section][indexPath.row];
+        }
+        bean.hasGradeCount = bean.hasGradeCount +1;
+        
+        [self.historyOrderTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    }
+}
 
 #pragma mark - response
 /**
@@ -167,6 +206,7 @@
 - (IBAction)publicCourseButtonClicked:(id)sender {
     _courseType = FTCourseTypePublic;
     [self updateCourseTableDisplay];
+//    [self getTeachRecordFromServer];
 }
 
 /**
@@ -176,6 +216,7 @@
 - (IBAction)personalCourseButtonClicked:(id)sender {
     _courseType = FTCourseTypePrivate;
     [self updateCourseTableDisplay];
+//    [self getTeachRecordFromServer];
 }
 
 
@@ -624,6 +665,13 @@
 //    id bean = ((_courseType == FTCourseTypePublic) ? _historyArrayPublic : _historyArray )[indexPath.section][indexPath.row];
 //    NSLog(@"课程bean:%@", bean);
     
+    /* 构造评分完成后本地通知数据 */
+    NSMutableDictionary *notificationDic = [[NSMutableDictionary alloc] init];
+    [notificationDic setObject:indexPath forKey:@"historyIndex"];
+    NSString *courseType = (_courseType == FTCourseTypePublic) ?@"public":@"private";
+    [notificationDic setObject:courseType forKey:@"courseType"];
+    
+    
     if (_courseType == FTCourseTypePublic) {
     
         FTHistoryCourseBean *bean = _historyArrayPublic[indexPath.section][indexPath.row];
@@ -632,6 +680,8 @@
         traineeListVC.courseState = FTCourseStateDone;
         traineeListVC.courseType = _courseType;
         traineeListVC.bean = bean;
+        traineeListVC.notificationDic = notificationDic;
+        
         [self.navigationController pushViewController:traineeListVC animated:YES];
     }else {
         
@@ -643,6 +693,7 @@
 //        traineeSkillVC.courseState = FTCourseStateDone;
 //        traineeSkillVC.courseType = _courseType;
         traineeSkillVC.bean = bean;
+        traineeSkillVC.notificationDic = notificationDic;
         [self.navigationController pushViewController:traineeSkillVC animated:YES];
     }
 

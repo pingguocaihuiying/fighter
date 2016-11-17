@@ -19,8 +19,8 @@
 @property (copy, nonatomic) NSMutableArray *editGrades; // 评分数组
 @property (copy, nonatomic) NSMutableArray *editSkills; // 技能点数组
 
-@property (copy, nonatomic) NSMutableDictionary *editItems; // 已评分项
-@property (nonatomic, copy) EditSkillBlock editSkillBlock;
+@property (nonatomic, copy) EditSkillBlock editSkillBlock;  // 设置评分字典
+@property (nonatomic, copy) NSMutableDictionary *changedScoreDic;  //
 
 @end
 
@@ -36,11 +36,47 @@
 }
 
 
+- (void) viewWillAppear:(BOOL)animated {
+
+    [self addNotification];
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    
+    [self removeNotification];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
+
+- (void) dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark  - 设置
+
+
+/**
+ 注册通知
+ */
+- (void) addNotification {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popViewController:) name:@"HadGradeSkill" object:nil];
+}
+
+
+/**
+ 删除通知
+ */
+- (void) removeNotification {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"HadGradeSkill" object:nil];
+}
+
+
 
 /**
  设置到导航栏样式
@@ -81,28 +117,57 @@
     __weak typeof(self) weakSelf = self;
     self.editSkillBlock = ^(NSString *key, NSString *value) {
         
-        if (weakSelf.editItems.allKeys.count == weakSelf.shouldEditNum) {
-            if ([weakSelf.editItems.allKeys containsObject:key]) {
-                [weakSelf.view showMessage:[NSString stringWithFormat:@"本次课程最多只能为%ld项技能评分~",weakSelf.shouldEditNum]];
-                return NO;
-            }else {
-            
-                [weakSelf.editItems setObject:value forKey:key];
-                if(weakSelf.paramsBlock) {
-                    weakSelf.paramsBlock(weakSelf.editItems);
-                }
-                return YES;
-            }
+        if (weakSelf.editItems.allKeys.count == weakSelf.shouldEditNum && ![weakSelf.editItems.allKeys containsObject:key]) {
+            [weakSelf.view showMessage:[NSString stringWithFormat:@"本次课程最多只能为%ld项技能评分~",weakSelf.shouldEditNum]];
+            return NO;
         }else {
         
-            [weakSelf.editItems setObject:value forKey:key];
-            if(weakSelf.paramsBlock) {
-                weakSelf.paramsBlock(weakSelf.editItems);
-            }
+           [weakSelf editChangedSkillDiction:key Score:value];
             return YES;
         }
     };
 }
+
+
+/**
+ 编辑评分的技能，统计到字典editItems，以备提交发表
+
+ @param skill 技能名称
+ @param score 评分
+ */
+- (void) editChangedSkillDiction:(NSString *) skill Score:(NSString *) score {
+
+    [self.changedScoreDic setObject:score forKey:skill];
+    
+    [self.editItems setObject:score forKey:skill];
+    if(self.paramsBlock) {
+        self.paramsBlock(self.editItems);
+    }
+}
+
+
+/**
+ 统计当前技能点分数变化
+ */
+- (void) countChangedScoreForCurrentSkill {
+    
+    NSInteger totalChangeScore = 0;
+    for (NSString *key in self.changedScoreDic.allKeys) {
+        NSInteger value = [[self.changedScoreDic objectForKey:key] integerValue];
+        totalChangeScore += value;
+    }
+    
+    self.parentBean.score =  self.parentBean.score + totalChangeScore;
+}
+
+- (NSMutableDictionary *) changedScoreDic {
+
+    if (!_changedScoreDic) {
+        _changedScoreDic = [[NSMutableDictionary alloc]init];
+    }
+    return _changedScoreDic;
+}
+
 
 - (NSMutableDictionary *) editItems {
 
@@ -200,15 +265,33 @@
  */
 - (void) popUpView {
     
-    FTTraineeSubmitPopupView *popUpView = [[FTTraineeSubmitPopupView alloc]init];
-    popUpView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    popUpView.bookId = [NSString stringWithFormat:@"%ld",self.bean.bookId];
-    popUpView.skillGradeDic = self.editItems;
-    
-    [[UIApplication sharedApplication].keyWindow addSubview:popUpView];
-    
+    if (self.editItems.allKeys.count > 0) {
+        FTTraineeSubmitPopupView *popUpView = [[FTTraineeSubmitPopupView alloc]init];
+        popUpView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        popUpView.bookId = [NSString stringWithFormat:@"%ld",self.bean.bookId];
+        popUpView.skillGradeDic = self.editItems;
+        popUpView.notificationDic = _notificationDic;
+        [[UIApplication sharedApplication].keyWindow addSubview:popUpView];
+    }else {
+        
+        [self.view showMessage:@"还没有给学员评分，赶紧去评分吧~"];
+    }
 }
 
+/**
+ 评论成功后返回学员列表
+ 
+ @param noti
+ */
+- (void) popViewController:(NSNotification *)noti{
+
+    NSArray *controllers = self.navigationController.viewControllers;
+    UIViewController *parentController;
+    if (controllers.count >=3) {
+        parentController = [controllers objectAtIndex:controllers.count - 3];
+        [self.navigationController popToViewController:parentController animated:YES];
+    }
+}
 
 
 @end
