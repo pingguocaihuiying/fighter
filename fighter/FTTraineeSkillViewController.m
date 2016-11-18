@@ -32,7 +32,7 @@
     [self setNavigationbar];
     [self setSubViews];
     
-//    [self getShouldEditSkillNumber];
+    [self getShouldEditSkillNumber];
     [self pullDataFromServer];
     
     [self initData];
@@ -176,13 +176,13 @@
 
 - (void) sortArray:(NSArray *)dicArray {
     
-    _shouldEditNum = 0;
+//    _shouldEditNum = 0;
     for (NSDictionary *dic in dicArray) {
         FTTraineeSkillBean *bean = [[FTTraineeSkillBean alloc]initWithFTTraineeSkillBeanDic:dic];
         if (bean.parent == 0) {
             [self.dataArray addObject:bean];
         }else {
-            _shouldEditNum ++;
+//            _shouldEditNum ++;
             NSString *parent = [NSString stringWithFormat:@"%ld",bean.parent];
             if (![self.subDic.allKeys containsObject:parent] ) {
                 NSMutableArray *array = [[NSMutableArray alloc]init];

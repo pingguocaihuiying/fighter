@@ -86,7 +86,7 @@
         NSDate *  senddate=[NSDate dateWithTimeIntervalSinceNow: (24 * 60 * 60) * i];
         NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
         [dateformatter setDateFormat:@"yyy"];
-        NSString *  yearString = [dateformatter stringFromDate:senddate];
+//        NSString *  yearString = [dateformatter stringFromDate:senddate];
         [dateformatter setDateFormat:@"MM"];
         NSString *  monthString = [dateformatter stringFromDate:senddate];
         [dateformatter setDateFormat:@"dd"];
@@ -94,13 +94,13 @@
         [dateformatter setDateFormat:@"EEE"];
         
         NSString *  weekString = [dateformatter stringFromDate:senddate];
-        NSLog(@"-%@",weekString);
-        int year = [yearString intValue];
-        NSLog(@"-%d", year);
-        int month = [monthString intValue];
-        NSLog(@"--%d", month);
+//        NSLog(@"-%@",weekString);
+//        int year = [yearString intValue];
+//        NSLog(@"-%d", year);
+//        int month = [monthString intValue];
+//        NSLog(@"--%d", month);
         int day = [dayString intValue];
-        NSLog(@"---%d", day);
+//        NSLog(@"---%d", day);
         
         //添加月·日label
         CGFloat lableWidth = SCREEN_WIDTH / 7;//label宽度
@@ -317,17 +317,15 @@
             
         }
 
-
         return cell;
     }
 }
 
 
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     FTGymSourceTableView *theTableView = (FTGymSourceTableView *)tableView;
-    NSLog(@"周几：%ld,row : %ld", theTableView.index, indexPath.row);
+//    NSLog(@"周几：%ld,row : %ld", theTableView.index, indexPath.row);
     FTGymSourceTableViewCell *cell = [tableView viewWithTag:(10000 + indexPath.row)];
     if (_courseType == FTOrderCourseTypeGym) {
         if (cell.hasCourseData && !cell.isPast) {//如果有课程数据，而且是未来可以预约的
