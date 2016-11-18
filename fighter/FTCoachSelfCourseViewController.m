@@ -231,7 +231,7 @@
         [_historyArray removeAllObjects];
         [_historyOrderTableView reloadData];
         
-        NSLog(@"更新团课信息");
+//        NSLog(@"更新团课信息");
         //设置按钮的状态
         _publicCourseButton.selected = YES;
         _personalCourseButton.selected = NO;
@@ -446,10 +446,10 @@
  获取公开课历史课程记录
  */
 - (void)getPublicCourseRecordFromServer{
-    NSLog(@"**************获取公开课历史课程记录*****************");
+//    NSLog(@"**************获取公开课历史课程记录*****************");
     [NetWorking getCoachTeachRecordWithCorporationid:self.corporationid andCourseType:@"0" option:^(NSDictionary *dict) {
         
-        SLog(@"dict:%@",dict);
+//        SLog(@"dict:%@",dict);
         BOOL status = [dict[@"status"] isEqualToString:@"success"]? YES:NO;
         if (status) {
             NSArray *arrayTemp = dict[@"data"];
@@ -467,80 +467,6 @@
 }
 
 
-- (NSArray *)setTempArray{
-    NSDictionary *dic = @{
-        @"id": @33,
-        @"name": @"格斗之夜",
-        @"createName": @"李懿哲",
-        @"createTime": @1472659200000,
-        @"updateName": @"李懿哲",
-        @"updateTime": @1472659200000,
-        @"createTimeTamp": @"1472659200000",
-        @"updateTimeTamp": @"1472659200000",
-        @"courseId": @94,
-        @"date": @1472659200000,
-        @"timeId": @44,
-        @"placeId": @0,
-        @"coachUserId": @"4c364ca3120d4a01a2766f155c55cc3d",
-        @"hasOrderCount": @2,
-        @"topLimit" : @10,
-        @"hasGradeCount" : @"1",
-        @"attendCount" : @"2",
-        @"statu": @1,
-        @"type": @"0",
-        @"corporationid": @187,
-        @"label": @"拳击",
-        @"timeSection": @"11:10~12:00"
-    };
-    NSDictionary *dic2 = @{
-                          @"id": @33,
-                          @"name": @"格斗入门",
-                          @"createName": @"茂凯",
-                          @"createTime": @1478142181000,
-                          @"updateName": @"李懿哲",
-                          @"updateTime": @1478142181000,
-                          @"createTimeTamp": @"1478142181000",
-                          @"updateTimeTamp": @"1478142181000",
-                          @"courseId": @94,
-                          @"date": @1478142600000,
-                          @"timeId": @44,
-                          @"placeId": @0,
-                          @"coachUserId": @"4c364ca3120d4a01a2766f155c55cc3d",
-                          @"hasOrderCount": @1,
-                          @"statu": @1,
-                          @"type": @"0",
-                          @"corporationid": @187,
-                          @"label": @"拳击",
-                          @"attendCount" : @"1",
-                          @"hasGradeCount" : @1,
-                          @"timeSection": @"11:10~12:00"
-                          };
-    NSDictionary *dic3 = @{
-                          @"id": @33,
-                          @"name": @"柔术从入门到精通",
-                          @"createName": @"李懿哲",
-                          @"createTime": @1422903722000,
-                          @"updateName": @"李懿哲",
-                          @"updateTime": @1422903722000,
-                          @"createTimeTamp": @"1478142181000",
-                          @"updateTimeTamp": @"1478142181000",
-                          @"courseId": @94,
-                          @"date": @1422903722000,
-                          @"timeId": @44,
-                          @"placeId": @0,
-                          @"coachUserId": @"4c364ca3120d4a01a2766f155c55cc3d",
-                          @"hasOrderCount": @1,
-                          @"statu": @1,
-                          @"type": @"0",
-                          @"corporationid": @187,
-                          @"label": @"拳击",
-                          @"timeSection": @"11:10~12:00"
-                          };
-    
-    NSArray *array = [[NSArray alloc]initWithObjects:dic, dic2, dic3, nil ];
-    
-    return array;
-}
 
 /**
  获取私教的历史课程记录
@@ -549,14 +475,10 @@
     
     [NetWorking getCoachTeachRecordWithCorporationid:self.corporationid andCourseType:@"2" option:^(NSDictionary *dict) {
         
-        SLog(@"dict:%@",dict);
+//        SLog(@"dict:%@",dict);
         BOOL status = [dict[@"status"] isEqualToString:@"success"]? YES:NO;
         if (status) {
             NSArray *arrayTemp = dict[@"data"];
-            
-            //测试用，给array赋值
-//            arrayTemp = [self setTempArray];
-
             
             [self sortArray:arrayTemp];
             
@@ -596,7 +518,7 @@
         FTHistoryCourseBean *bean = [[FTHistoryCourseBean alloc]initWithFTHistoryCourseBeanDic:dic];
         NSString *currentYearMonthString = [NSDate currentYearString];
 
-        NSLog(@"date:%.0f",bean.date);
+//        NSLog(@"date:%.0f",bean.date);
         NSString *date = [NSString stringWithFormat:@"%.0f",bean.date];
 
         NSString *yearString = [NSDate yearString:date];
@@ -608,7 +530,7 @@
         }
         
         NSString *dateString = _courseType == FTCourseTypePublic ? [NSDate dateStringWithWordSpace:date] : [NSDate dateStringWithYearMonth:date];
-        NSLog(@"dateString:%@",dateString);
+//        NSLog(@"dateString:%@",dateString);
         if ([dict.allKeys containsObject:dateString]) {
             NSMutableArray *array = [dict objectForKey:dateString];
             [array addObject:bean];
@@ -718,7 +640,7 @@
         label1.font = [UIFont systemFontOfSize:12];
         FTHistoryCourseBean *bean = [_historyArrayPublic[section] firstObject];
         NSString *beanDate = [NSString stringWithFormat:@"%.0f",bean.date];
-        NSLog(@"beanFoo: %@", beanDate);
+//        NSLog(@"beanFoo: %@", beanDate);
         
         NSString *currentYearString = [NSDate currentYearString];
         NSString *yearString = [NSDate yearString:beanDate];
@@ -832,10 +754,10 @@
 #pragma mark - response
 
 - (void)courseClickedWithCell:(FTGymSourceTableViewCell *)courseCell andDay:(NSInteger)day andTimeSectionIndex:(NSInteger) timeSectionIndex andDateString:(NSString *) dateString andTimeStamp:(NSString *)timeStamp{
-    NSLog(@"day : %ld, timeSection : %@ dateString : %@", day, _timeSectionsArray[timeSectionIndex][@"timeSection"], dateString);
+//    NSLog(@"day : %ld, timeSection : %@ dateString : %@", day, _timeSectionsArray[timeSectionIndex][@"timeSection"], dateString);
     
     if (courseCell.isEmpty) {//如果是空的，说明可以预约
-        NSLog(@"可以预约");
+//        NSLog(@"可以预约");
         FTGymCoachStateSwitcher *gymCoachStateSwitcher = [[[NSBundle mainBundle]loadNibNamed:@"FTGymCoachStateSwitcher" owner:nil options:nil]firstObject];
         gymCoachStateSwitcher.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
         gymCoachStateSwitcher.delegate = self;
@@ -857,7 +779,7 @@
         NSString *type = courseDic[@"type"];
         
         if ([type isEqualToString:@"3"]) {//如果不可约
-            NSLog(@"不可预约");
+//            NSLog(@"不可预约");
             FTGymCoachStateSwitcher *gymCoachStateSwitcher = [[[NSBundle mainBundle]loadNibNamed:@"FTGymCoachStateSwitcher" owner:nil options:nil]firstObject];
             gymCoachStateSwitcher.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
             gymCoachStateSwitcher.delegate = self;
@@ -881,10 +803,10 @@
 }
 
 - (void)courseClickedWithCell:(FTGymSourceTableViewCell *)courseCell andDay:(NSInteger)day andTimeSection:(NSString *) timeSection andDateString:(NSString *) dateString andTimeStamp:(NSString *)timeStamp{
-    NSLog(@"day : %ld, timeSection : %@ dateString : %@", day, timeSection, dateString);
+//    NSLog(@"day : %ld, timeSection : %@ dateString : %@", day, timeSection, dateString);
     
-    NSDictionary *courseDic = courseCell.courserCellDic;
-    NSLog(@"课程的字典信息：%@", courseDic);
+//    NSDictionary *courseDic = courseCell.courserCellDic;
+//    NSLog(@"课程的字典信息：%@", courseDic);
 
 }
 
@@ -897,7 +819,7 @@
 }
 
 - (void)gotoCoachHomepage{
-    NSLog(@"去个人主页");
+//    NSLog(@"去个人主页");
 }
 
 

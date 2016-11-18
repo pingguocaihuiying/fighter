@@ -1130,12 +1130,13 @@
  */
 + (void) getShouldEditSkillNumber:(NSString *)corporationId option:(void (^)(NSDictionary *dic)) option{
     
-    NSString *w = [@"max_grade_skill" stringByAppendingString:corporationId];
+    NSString *w = [@"gym_corporationid=" stringByAppendingString:corporationId];
     
     NSDictionary *dic = @{@"t":@"gym",
                           @"q":@"max_grade_skill",
                           @"w":w
                           };
+    SLog(@"\n dic:%@",dic);
     
     NSString *url = [FTNetConfig host:Domain path:GetTraineeShouldGradeNumberURL];
     

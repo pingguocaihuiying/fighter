@@ -109,21 +109,21 @@
         NSDate *  senddate=[NSDate dateWithTimeIntervalSinceNow: (24 * 60 * 60) * i];
         NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
         [dateformatter setDateFormat:@"yyy"];
-        NSString *  yearString = [dateformatter stringFromDate:senddate];
+//        NSString *  yearString = [dateformatter stringFromDate:senddate];
         [dateformatter setDateFormat:@"MM"];
         NSString *  monthString = [dateformatter stringFromDate:senddate];
         [dateformatter setDateFormat:@"dd"];
         NSString *  dayString = [dateformatter stringFromDate:senddate];
         [dateformatter setDateFormat:@"EEE"];
         
-        NSString *  weekString = [dateformatter stringFromDate:senddate];
-        NSLog(@"-%@",weekString);
-        int year = [yearString intValue];
-        NSLog(@"-%d", year);
-        int month = [monthString intValue];
-        NSLog(@"--%d", month);
+//        NSString *  weekString = [dateformatter stringFromDate:senddate];
+//        NSLog(@"-%@",weekString);
+//        int year = [yearString intValue];
+//        NSLog(@"-%d", year);
+//        int month = [monthString intValue];
+//        NSLog(@"--%d", month);
         int day = [dayString intValue];
-        NSLog(@"---%d", day);
+//        NSLog(@"---%d", day);
         
         
         CGFloat lableWidth = SCREEN_WIDTH / 7;//label宽度
@@ -173,8 +173,8 @@
         }
     }
     
-    NSLog(@"button index : %ld", index);
-    NSLog(@"week day : %ld", [FTTools getWeekdayOfTodayAfterToday:index]);
+//    NSLog(@"button index : %ld", index);
+//    NSLog(@"week day : %ld", [FTTools getWeekdayOfTodayAfterToday:index]);
     
     _curWeekDay = [FTTools getWeekdayOfTodayAfterToday:index];
     _curDateString = _dateArray[index];
@@ -372,7 +372,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSLog(@"row : %ld", indexPath.row);
+//    NSLog(@"row : %ld", indexPath.row);
     FTGymSourceTableViewCellNew *cell = [tableView viewWithTag:(10000 + indexPath.row)];
     
     if (cell.hasCourseData && !cell.isPast) {//如果有课程数据，而且是未来可以预约的
