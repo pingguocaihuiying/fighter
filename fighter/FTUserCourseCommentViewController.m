@@ -265,6 +265,25 @@
     }
 }
 
+- (NSInteger) levelOfGrade:(float) grade {
+    
+    NSInteger level = 0;
+    
+    if (grade <20) {
+        level = 1;
+    }else if (level < 40) {
+        level = 2;
+    }else if (level < 60) {
+        level = 3;
+    }else if (level < 80) {
+        level = 4;
+    }else {
+        level = 5;
+    }
+    
+    return level;
+}
+
 - (NSString *)getParentSkillLevelDesc:(FTUserSkillBean *)bean{
     NSString *desc = @"";
     
@@ -305,24 +324,6 @@
     return desc;
 }
 
-- (NSInteger) levelOfGrade:(NSInteger) grade {
-    
-    NSInteger level = 0;
-    
-    if (grade <20) {
-        level = 0;
-    }else if (level < 40) {
-        level = 1;
-    }else if (level < 60) {
-        level = 2;
-    }else if (level < 80) {
-        level = 3;
-    }else if (level < 100) {
-        level = 4;
-    }
-    
-    return level;
-}
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     

@@ -57,7 +57,7 @@
         level = 3;
     }else if (level < 80) {
         level = 4;
-    }else if (level < 100) {
+    }else {
         level = 5;
     }
     
