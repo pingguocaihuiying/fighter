@@ -121,6 +121,7 @@
     }else{
         _redPoint.hidden = YES;
         
+        _increaseLabel.hidden = NO;//显示增长的值
         
         CGRect r =  _increaseLabel.frame;
         r.origin.y += 15;

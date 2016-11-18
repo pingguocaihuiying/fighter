@@ -30,36 +30,10 @@
     _skillLabel.text = skillScoreBean.skill;
     _editableGradeLabel.text = [self getStrWithScoreIncrease:skillScoreBean.increase];//等级：差、一般、好、很好
     
-    _gradeLabel.text = [NSString stringWithFormat:@"%.0f", skillScoreBean.score - skillScoreBean.increase];//分数
-    
-    /*
-        动画
-     */
-    [UIView beginAnimations:@"UIViewAnimationCurveEaseOut" context:nil];
-    [UIView setAnimationDuration:10];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationDidStopSelector:@selector(animnationStop)];
-    
-    _gradeLabel.text = [NSString stringWithFormat:@"%.0f", skillScoreBean.score];
-//    _increseLabel.frame = _scoreLabel.frame;
-//    _increseLabel.alpha = 0.2;
-    
-    [UIView commitAnimations];
+    _gradeLabel.text = [NSString stringWithFormat:@"%.0f", skillScoreBean.score];//分数
     
 }
 
-- (void)animnationStop{
-//    _increseLabel.hidden = YES;
-//    
-//    
-//    [UIView beginAnimations:nil context:nil];
-//    [UIView setAnimationDuration:0.5];
-//    
-//    _scoreLabel.text = @"78";
-//    
-//    [UIView commitAnimations];
-    
-}
 
 - (NSString *)getStrWithScoreIncrease:(float)increase{
     NSString *result = @"";

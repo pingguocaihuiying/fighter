@@ -41,7 +41,7 @@
 //        _gradeInfoLabel.textColor = [UIColor colorWithHex:0xbe1e1e];
         _gradeInfoLabel.textColor = [UIColor redColor];
         _gradeInfoLabel.text = @"有未评分学员";
-    } else if (courseHistoryBean.hasGradeCount == courseHistoryBean.attendCount){//已评分人数 = 签到人数，都已经评分
+    } else if (courseHistoryBean.hasGradeCount >= courseHistoryBean.attendCount){//已评分人数 = 签到人数，都已经评分
         _gradeInfoLabel.textColor = [UIColor colorWithHex:0x24b33c];
         _gradeInfoLabel.text = @"均已评分";
     }
