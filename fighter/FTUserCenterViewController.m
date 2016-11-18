@@ -295,7 +295,6 @@
 }
 
 #pragma mark - 认证拳手
-
 - (void) authenticationBtn:(id) sender {
 
     FTAuthenticationView *authenticationView = [[FTAuthenticationView alloc] init];
