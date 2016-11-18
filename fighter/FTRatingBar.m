@@ -171,11 +171,13 @@
  *  @param rating 评分值
  */
 -(void)displayRating:(float)rating{
+    
     [_s1 setImage:_unSelectedImage];
     [_s2 setImage:_unSelectedImage];
     [_s3 setImage:_unSelectedImage];
     [_s4 setImage:_unSelectedImage];
     [_s5 setImage:_unSelectedImage];
+    
     
     _halfSelectedImage = _halfSelectedImage == nil ? _unSelectedImage : _halfSelectedImage;
     
@@ -210,6 +212,48 @@
         [_s5 setImage:_fullSelectedImage];
     }
     
+    
+//    [_s1 setImage:_fullSelectedImage];
+//    [_s2 setImage:_fullSelectedImage];
+//    [_s3 setImage:_fullSelectedImage];
+//    [_s4 setImage:_fullSelectedImage];
+//    [_s5 setImage:_fullSelectedImage];
+//    
+//    _halfSelectedImage = _halfSelectedImage == nil ? _halfSelectedImage : _unSelectedImage;
+//    
+//    if (rating <= 4.5) {
+//        [_s5 setImage:_halfSelectedImage];
+//    }
+//    if (rating <= 4) {
+//        [_s5 setImage:_unSelectedImage];
+//    }
+//    if (rating <= 3.5) {
+//        [_s4 setImage:_halfSelectedImage];
+//    }
+//    if (rating <= 3) {
+//        [_s4 setImage:_unSelectedImage];
+//    }
+//    if (rating <= 2.5) {
+//        [_s3 setImage:_halfSelectedImage];
+//    }
+//    if (rating <= 2) {
+//        [_s3 setImage:_unSelectedImage];
+//    }
+//    if (rating <= 1.5) {
+//        [_s2 setImage:_unSelectedImage];
+//    }
+//    if (rating <= 1) {
+//        [_s2 setImage:_fullSelectedImage];
+//    }
+//    if (rating <= 0.5) {
+//        [_s1 setImage:_unSelectedImage];
+//    }
+//    if (rating <= 0) {
+//        [_s1 setImage:_fullSelectedImage];
+//    }
+//    
+//    
+   
     _rating = rating;
 }
 

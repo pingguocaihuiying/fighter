@@ -69,12 +69,13 @@
     self.window.rootViewController=_mainVC;
     
     
-    //推送消息
+    
     NSDictionary *dic = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    //推送消息
     if (dic != nil) {
         
         NSLog(@"push info:%@",dic);
-
+        
         [[NSUserDefaults standardUserDefaults] setObject:dic[@"extra"][@"click_param"] forKey:@"pushMessageDic"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
@@ -185,9 +186,9 @@
 }
 
 
-
 #pragma mark 设置爱心推
 - (void)  setIXPushWithApplication:(UIApplication *)application options:(NSDictionary *)launchOptions {
+    
     //设置爱心推
 #ifdef __IPHONE_8_0
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0){
@@ -322,9 +323,9 @@
     [IXPushSdkApi registerDeviceToken:deviceToken
                               channel:@"test" version:@"1.0" appId:1104119343];
     
-    // 格斗东西 正式版
-    [IXPushSdkApi registerDeviceToken:deviceToken
-                              channel:@"test" version:@"1.0" appId:1229394843];
+//    // 格斗东西 正式版
+//    [IXPushSdkApi registerDeviceToken:deviceToken
+//                              channel:@"test" version:@"1.0" appId:1229394843];
     
 }
 
