@@ -163,9 +163,7 @@
     [NetWorking getHomepageUserInfoWithUserOldid:_olduserid andBoxerId:_boxerId andCoachId:_coachId andCallbackOption:^(FTUserBean *userBean) {
         _userBean = userBean;
         [_headImageView sd_setImageWithURL:[NSURL URLWithString:userBean.headUrl]];
-        
-        
-        
+    
         self.sexLabel.text = userBean.sex;
         self.nameLabel.text = userBean.name;
 
@@ -197,7 +195,7 @@
             
         }
         NSLog(@"ageStr : %@", ageStr);
-//        NSLog(@"ageStr : %@", ageStr);
+
         self.ageLabel.text = [NSString stringWithFormat:@"%@岁", ageStr];
         if (userBean.boxerId) {
             _boxerId = userBean.boxerId;
