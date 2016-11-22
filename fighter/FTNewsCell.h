@@ -11,6 +11,8 @@
 
 @interface FTNewsCell : FTBaseTableViewCell
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeightConstraint;
+
 @property (weak, nonatomic) IBOutlet UIImageView *newsImageView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *labelImageView;

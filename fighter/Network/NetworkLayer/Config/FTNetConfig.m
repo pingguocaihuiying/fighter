@@ -29,6 +29,7 @@
     return showType;
 }
 
+
 + (void)changePreviewVersion{
     
     NSString *showType = [FTNetConfig showType];
@@ -42,8 +43,8 @@
     [[NSUserDefaults standardUserDefaults]synchronize];
     NSLog(@"已切换版本，当前showType:%@", [FTNetConfig showType]);
 }
-@end
 
+@end
 
 /** 废弃的后台地址 **/
 //NSString * const Domain = @"http://www.loufang.studio/pugilist_adminTest";//测试环境
