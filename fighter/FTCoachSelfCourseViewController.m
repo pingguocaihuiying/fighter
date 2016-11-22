@@ -475,7 +475,7 @@
     
     [NetWorking getCoachTeachRecordWithCorporationid:self.corporationid andCourseType:@"2" option:^(NSDictionary *dict) {
         
-//        SLog(@"dict:%@",dict);
+        SLog(@"dict:%@",dict);
         BOOL status = [dict[@"status"] isEqualToString:@"success"]? YES:NO;
         if (status) {
             NSArray *arrayTemp = dict[@"data"];

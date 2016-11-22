@@ -19,6 +19,7 @@
     UIView *aView = [[UIView alloc] initWithFrame:self.contentView.frame];
     aView.backgroundColor = [UIColor colorWithHex:0x191919];
     self.selectedBackgroundView = aView;
+    self.imageHeightConstraint.constant = 210 * SCALE;
     
     // Initialization code
 }

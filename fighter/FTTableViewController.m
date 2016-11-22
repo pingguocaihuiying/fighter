@@ -44,18 +44,17 @@
     
     self.tableView.showsVerticalScrollIndicator = NO;
     if (self.listType == FTCellTypeNews) {//新闻
-//        [self.tableView registerNib:[UINib nibWithNibName:@"FTOneBigImageInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell1"];
-//        [self.tableView registerNib:[UINib nibWithNibName:@"FTThreeImageInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell2"];
-//        [self.tableView registerNib:[UINib nibWithNibName:@"FTOneImageInfoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell3"];
         [self.tableView registerNib:[UINib nibWithNibName:@"FTNewsCell" bundle:nil] forCellReuseIdentifier:@"newsCell"];
+        self.tableView.estimatedRowHeight = 252;
+        
     }else if(self.listType == FTCellTypeArena){//帖子
         [self.tableView registerNib:[UINib nibWithNibName:@"FTArenaTextTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellArenaText"];
         [self.tableView registerNib:[UINib nibWithNibName:@"FTArenaImageTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellArenaImage"];
+        self.tableView.estimatedRowHeight = 217;
     }else if(self.listType == FTCellTypeFighting){//格斗场
         [self.tableView registerNib:[UINib nibWithNibName:@"FTFightingTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellFighting"];
+        self.tableView.estimatedRowHeight = 169;
     }
-    
-//    [self.tableView registerNib:[UINib nibWithNibName:@"FTVideoTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell4"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -96,37 +95,6 @@
         
         FTNewsCell *newsCell = (FTNewsCell *)cell;
         newsCell.indexPath = indexPath;
-
-//        NSString *layout = bean.layout;
-//        if ([layout isEqualToString:@"1"]) {//大图
-//            static NSString *cellider1 = @"cell1";
-//            cell = [tableView dequeueReusableCellWithIdentifier:cellider1];
-//            if (cell == nil) {
-//                cell = [[[NSBundle mainBundle]loadNibNamed:@"FTOneBigImageInfoTableViewCell" owner:self options:nil]firstObject];
-//                cell.backgroundColor = [UIColor clearColor];
-//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//            }
-//        }else if ([layout isEqualToString:@"3"]) {//三图
-//            static NSString *cellider2 = @"cell2";
-//            cell = [tableView dequeueReusableCellWithIdentifier:cellider2];
-//            if (cell == nil) {
-//                static int count = 0;
-//                count ++;
-//                NSLog(@"count : %d", count);
-//                cell = [[[NSBundle mainBundle]loadNibNamed:@"FTThreeImageInfoTableViewCell" owner:self options:nil]firstObject];
-//                cell.backgroundColor = [UIColor clearColor];
-//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//            }
-//        }else if ([layout isEqualToString:@"2"]) {//一图
-//            static NSString *cellider3 = @"cell3";
-//            cell = [tableView dequeueReusableCellWithIdentifier:cellider3];
-//            if (cell == nil) {
-//                cell = [[[NSBundle mainBundle]loadNibNamed:@"FTOneImageInfoTableViewCell" owner:self options:nil]firstObject];
-//                cell.backgroundColor = [UIColor clearColor];
-//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//            }
-//        }
-        
         [cell setWithBean:bean];
         
     }else if (self.listType == FTCellTypeArena){
@@ -207,23 +175,15 @@
     [headerView addSubview:headerlabel];
     return headerView;
 }
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     CGFloat height = 0;
     
     if (self.listType == FTCellTypeNews) {
-//        FTNewsBean *bean = self.sourceArray[indexPath.row];
-//        NSString *layout = bean.layout;
-//        if ([layout isEqualToString:@"1"]) {
-//            height = 218;
-//        }else if([layout isEqualToString:@"3"]){
-//            height = 163;
-//        }
-//        else if([layout isEqualToString:@"2"]){
-//            height = 146 ;//一张小图的cell，图片等比例放大了1.5倍
-//        }
-        height = 210+42+10;
+        height = 210 *SCALE +45;
     }else if(self.listType == FTCellTypeArena){
-       FTArenaBean *bean = self.sourceArray[indexPath.row];
+        FTArenaBean *bean = self.sourceArray[indexPath.row];
         NSString *videoUrl = bean.videoUrlNames == nil ? @"" : bean.videoUrlNames;
         NSString *pictureUrl = bean.pictureUrlNames == nil ? @"" : bean.pictureUrlNames;
         
@@ -242,8 +202,6 @@
         height = 169;
     }
     
-    
-//    NSLog(@"height : %f", height);
     return height;//130是视频界面的cell高度
 }
 
@@ -277,6 +235,7 @@
     }
     
 }
+
 #pragma mark - FTFightingTableViewCellButtonsClickedDelegate
 //格斗场主页面按钮的点击回掉
 - (void)buttonClickedWithIdentifycation:(NSString *)identifycationString andRaceId:(NSString *)raceId{
