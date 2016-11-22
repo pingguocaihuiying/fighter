@@ -31,7 +31,7 @@
                                    target:self
                                    action:@selector(popVC)];
 //    把左边的返回按钮左移
-        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 0)];
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
     self.navigationItem.leftBarButtonItem = leftButton;
     //修改title的字体
 //    NSDictionary * dict = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor];

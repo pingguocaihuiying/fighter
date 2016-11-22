@@ -51,9 +51,6 @@
         [self.tableView registerNib:[UINib nibWithNibName:@"FTArenaTextTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellArenaText"];
         [self.tableView registerNib:[UINib nibWithNibName:@"FTArenaImageTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellArenaImage"];
         self.tableView.estimatedRowHeight = 217;
-    }else if(self.listType == FTCellTypeFighting){//格斗场
-        [self.tableView registerNib:[UINib nibWithNibName:@"FTFightingTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellFighting"];
-        self.tableView.estimatedRowHeight = 169;
     }
 }
 
@@ -65,19 +62,12 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    if (_listType == FTCellTypeFighting) {
-        return 2;
-    }
+
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    if(_listType == FTCellTypeFighting){
-        return 2;
-    }
+
     return _sourceArray.count;
 }
 
@@ -123,58 +113,11 @@
 
         [cell setWithBean:bean];
 
-    }else if (self.listType == FTCellTypeFighting){
-//        FTArenaBean *bean = self.sourceArray[indexPath.row];
-        
-        static NSString *cellIdentityFighting = @"cellFighting";
-        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentityFighting];
-        FTFightingTableViewCell *fightingCell = (FTFightingTableViewCell *)cell;
-        fightingCell.buttonsClickedDelegate = self;
-        cell.backgroundColor = [UIColor clearColor];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        
-    }else{
-        NSLog(@"第一次加载，无网络数据");
-        static NSString *cellider = @"cell";
-        cell = [tableView dequeueReusableCellWithIdentifier:cellider];
-        if (cell == nil) {
-            
-            cell = [[FTOneImageInfoTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellider];
-            cell = [[[NSBundle mainBundle]loadNibNamed:@"FTOneBigImageInfoTableViewCell" owner:self options:nil]firstObject];
-            cell.backgroundColor = [UIColor clearColor];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
-        return  nil;
     }
     cell.clickedDelegate = self;
     return cell;
 }
 
-//headerView高度
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectio{
-    if (_listType == FTCellTypeFighting) {
-        return 34;
-    }
-        return 0;
-}
-
-//headerView
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 34)];
-//    headerView.backgroundColor = [UIColor yellowColor];
-    UILabel *headerlabel = [[UILabel alloc]initWithFrame:CGRectMake(8, 10, 100, 14)];
-//    headerlabel.backgroundColor = [UIColor redColor];
-    headerlabel.textColor = [UIColor colorWithHex:0xb4b4b4];
-    headerlabel.font = [UIFont systemFontOfSize:14];
-    if (section == 0) {
-        headerlabel.text = @"今日赛事";
-    }else if (section == 1){
-        headerlabel.text = @"明日赛事";
-    }
-    [headerView addSubview:headerlabel];
-    return headerView;
-}
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -198,8 +141,6 @@
             
         }
 
-    }else if(self.listType == FTCellTypeFighting){
-        height = 169;
     }
     
     return height;//130是视频界面的cell高度

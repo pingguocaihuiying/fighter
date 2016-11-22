@@ -60,7 +60,7 @@
     //设置返回按钮
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(backBtnAction)];
     //把左边的返回按钮左移
-        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 0)];
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
 }

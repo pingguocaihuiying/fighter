@@ -80,12 +80,11 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [MobClick event:@"mainPage_BoxingNews"];
-    self.navigationController.navigationBarHidden = YES;
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
-    //        self.tabBarController.navigationController.navigationBarHidden = NO;
-    //    self.navigationController.navigationBarHidden = NO;
+    
 }
 
 /**

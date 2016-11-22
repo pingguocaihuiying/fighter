@@ -141,7 +141,7 @@
     //设置返回按钮
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(popVC)];
     //把左边的返回按钮左移
-    //    [leftButton setImageInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
     //设置分享按钮
