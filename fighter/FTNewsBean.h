@@ -28,6 +28,8 @@
 @property (nonatomic,copy) NSString *voteCount;
 @property (nonatomic,copy) NSString *isReader;
 
+@property (nonatomic,copy) NSString *viewCount;
+
 - (void)setValuesWithDic:(NSDictionary *)dic;
 
 @end

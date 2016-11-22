@@ -35,8 +35,8 @@
         _selectionImage.hidden = YES;
         _courseNameLabel.text  = courseName;
         _courseStatusLabel.text = @"已结束";
-        _courseNameLabel.textColor = [UIColor colorWithHex:0x505050];
-        _courseStatusLabel.textColor = [UIColor colorWithHex:0x505050];
+        _courseNameLabel.textColor = Custom_Gray_Color;
+        _courseStatusLabel.textColor = Custom_Gray_Color;
     } else {
         //是否已经预约该课
         _hasOrder = [dic[@"myIsOrd"] integerValue];
@@ -84,7 +84,7 @@
     
     //过去了的
     if (_isPast) {
-        _orderStatusLabel.textColor = [UIColor colorWithHex:0xb4b4b4];
+        _orderStatusLabel.textColor = Nonmal_Text_Color;
         _orderStatusLabel.text = @"--";
         _selectionImage.hidden = YES;
     } else {
@@ -99,7 +99,7 @@
             
             if ([type isEqualToString:@"3"]) {
                 //如果不可约
-                _orderStatusLabel.textColor = [UIColor colorWithHex:0xb4b4b4];
+                _orderStatusLabel.textColor = Custom_Gray_Color;
                 _orderStatusLabel.text = @"不可约";
                 _selectionImage.hidden = YES;
             } else {
@@ -127,7 +127,7 @@
     
     //过去了的
     if (_isPast) {
-        _orderStatusLabel.textColor = [UIColor colorWithHex:0xb4b4b4];
+        _orderStatusLabel.textColor = Nonmal_Text_Color;
         _orderStatusLabel.text = @"--";
         _selectionImage.hidden = YES;
     } else {
@@ -142,7 +142,7 @@
             
             if ([type isEqualToString:@"3"]) {
                 //如果不可约
-                _orderStatusLabel.textColor = [UIColor colorWithHex:0xb4b4b4];
+                _orderStatusLabel.textColor = Custom_Gray_Color;
                 _orderStatusLabel.text = @"不可约";
                 _selectionImage.hidden = YES;
             }else if ([type isEqualToString:@"0"]) {//团课预约

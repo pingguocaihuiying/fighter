@@ -1360,17 +1360,17 @@
             }];
 
 
-        }else if ([type isEqualToString:@"2"]){//视频
-            NSLog(@"视频");
-            [NetWorking getVideoById:dic[@"urlId"] andOption:^(NSArray *array) {
-                FTVideoBean *videoBean = [FTVideoBean new];
-                [videoBean setValuesWithDic:[array firstObject]];
-                FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
-                videoDetailVC.urlId = dic[@"urlId"];
-                videoDetailVC.videoBean = videoBean;
-                [self.navigationController pushViewController:videoDetailVC animated:YES];
-            }];
-
+        }else if ([type isEqualToString:@"2"]){//视频  注释掉了这一段，不会有视频类型了，全部是news类型
+//            NSLog(@"视频");
+//            [NetWorking getVideoById:dic[@"urlId"] andOption:^(NSArray *array) {
+//                FTVideoBean *videoBean = [FTVideoBean new];
+//                [videoBean setValuesWithDic:[array firstObject]];
+//                FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
+//                videoDetailVC.urlId = dic[@"urlId"];
+////                videoDetailVC.videoBean = videoBean;
+//                [self.navigationController pushViewController:videoDetailVC animated:YES];
+//            }];
+//
         }
     }else if (tableView == _courseHistoryTableView){
         NSLog(@"_courseHistoryTableView 被点击");
