@@ -32,7 +32,7 @@
 #import "FTNewsBean.h"
 #import "UIButton+LYZTitle.h"
 #import "UIButton+WebCache.h"
-#import "FTRankingListViewController.h"
+
 #import "FTCache.h"
 #import "FTCacheBean.h"
 #import "FTRankViewController.h"

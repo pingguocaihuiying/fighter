@@ -19,7 +19,6 @@
 #import "FTNewsBean.h"
 #import "UIButton+LYZTitle.h"
 #import "UIButton+WebCache.h"
-#import "FTRankingListViewController.h"
 #import "FTRankViewController.h"
 #import "NetWorking.h"
 #import "FTLYZButton.h"

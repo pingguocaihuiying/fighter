@@ -52,6 +52,7 @@
 		3D322AC91CEB171200039E2C /* FTRankHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D322AC71CEB171200039E2C /* FTRankHeaderCell.m */; };
 		3D322ACA1CEB171200039E2C /* FTRankHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D322AC81CEB171200039E2C /* FTRankHeaderCell.xib */; };
 		3D344FE51D5B048300786FD4 /* FTDuiBaWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D344FE41D5B048300786FD4 /* FTDuiBaWebView.m */; };
+		3D3EC7181DE444C400C4A595 /* FTTraineeFeedbackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3EC7171DE444C400C4A595 /* FTTraineeFeedbackView.m */; };
 		3D41221B1D4F1EDA007EB996 /* FTAvatarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4122191D4F1EDA007EB996 /* FTAvatarCell.m */; };
 		3D41221C1D4F1EDA007EB996 /* FTAvatarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D41221A1D4F1EDA007EB996 /* FTAvatarCell.xib */; };
 		3D4122201D4F253E007EB996 /* FTLabelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D41221E1D4F253E007EB996 /* FTLabelCell.m */; };
@@ -341,7 +342,6 @@
 		E65EFC291CC8ADFD0039EE8A /* UIButton+LYZTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = E65EFC281CC8ADFD0039EE8A /* UIButton+LYZTitle.m */; };
 		E65EFC2C1CC8B63C0039EE8A /* FTConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E65EFC2B1CC8B63C0039EE8A /* FTConfig.m */; };
 		E65F90B61CBDF106005CA3E6 /* NetWorking.m in Sources */ = {isa = PBXBuildFile; fileRef = E65F90B51CBDF106005CA3E6 /* NetWorking.m */; };
-		E668BBB11CE32BA200071998 /* FTRankingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BBB01CE32BA200071998 /* FTRankingListViewController.m */; };
 		E668BBB71CE4353300071998 /* FTRankingListFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BBB61CE4353300071998 /* FTRankingListFilterView.m */; };
 		E668BBBB1CE44E6400071998 /* FTCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BBBA1CE44E6400071998 /* FTCache.m */; };
 		E668BBBE1CE4523600071998 /* FTCacheBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E668BBBD1CE4523600071998 /* FTCacheBean.m */; };
@@ -567,6 +567,8 @@
 		3D322AC81CEB171200039E2C /* FTRankHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRankHeaderCell.xib; sourceTree = "<group>"; };
 		3D344FE31D5B048300786FD4 /* FTDuiBaWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDuiBaWebView.h; sourceTree = "<group>"; };
 		3D344FE41D5B048300786FD4 /* FTDuiBaWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDuiBaWebView.m; sourceTree = "<group>"; };
+		3D3EC7161DE444C400C4A595 /* FTTraineeFeedbackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeFeedbackView.h; sourceTree = "<group>"; };
+		3D3EC7171DE444C400C4A595 /* FTTraineeFeedbackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeFeedbackView.m; sourceTree = "<group>"; };
 		3D4122181D4F1EDA007EB996 /* FTAvatarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTAvatarCell.h; sourceTree = "<group>"; };
 		3D4122191D4F1EDA007EB996 /* FTAvatarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTAvatarCell.m; sourceTree = "<group>"; };
 		3D41221A1D4F1EDA007EB996 /* FTAvatarCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTAvatarCell.xib; sourceTree = "<group>"; };
@@ -1041,8 +1043,6 @@
 		E65EFC2B1CC8B63C0039EE8A /* FTConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTConfig.m; sourceTree = "<group>"; };
 		E65F90B41CBDF106005CA3E6 /* NetWorking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorking.h; sourceTree = "<group>"; };
 		E65F90B51CBDF106005CA3E6 /* NetWorking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetWorking.m; sourceTree = "<group>"; };
-		E668BBAF1CE32BA200071998 /* FTRankingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankingListViewController.h; sourceTree = "<group>"; };
-		E668BBB01CE32BA200071998 /* FTRankingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankingListViewController.m; sourceTree = "<group>"; };
 		E668BBB51CE4353300071998 /* FTRankingListFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTRankingListFilterView.h; sourceTree = "<group>"; };
 		E668BBB61CE4353300071998 /* FTRankingListFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTRankingListFilterView.m; sourceTree = "<group>"; };
 		E668BBB91CE44E6400071998 /* FTCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCache.h; sourceTree = "<group>"; };
@@ -1556,6 +1556,37 @@
 			name = customView;
 			sourceTree = "<group>";
 		};
+		3D3EC7141DE4445300C4A595 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				3D3EC7151DE4447200C4A595 /* TraineeFeedbackView */,
+				E6FEFA291DD1B8B800CEF6E3 /* cell */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		3D3EC7151DE4447200C4A595 /* TraineeFeedbackView */ = {
+			isa = PBXGroup;
+			children = (
+				3D3EC7161DE444C400C4A595 /* FTTraineeFeedbackView.h */,
+				3D3EC7171DE444C400C4A595 /* FTTraineeFeedbackView.m */,
+			);
+			name = TraineeFeedbackView;
+			sourceTree = "<group>";
+		};
+		3D3EC7191DE4494300C4A595 /* viewController */ = {
+			isa = PBXGroup;
+			children = (
+				3DC9A4E51CE5CB9A00E16D19 /* base */,
+				3D7C6B741CF2A0BB0088400D /* main */,
+				3D7C6B751CF2A0F20088400D /* boxerCenter */,
+				3D7C6B781CF2A18A0088400D /* boxerVideo */,
+				3D7C6B771CF2A1690088400D /* boxMatch */,
+				3D7C6B761CF2A1490088400D /* boxerInfo */,
+			);
+			name = viewController;
+			sourceTree = "<group>";
+		};
 		3D4040A91D8005BB00CDA675 /* 拳馆评价cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1995,9 +2026,7 @@
 		3D69470A1CE305EB00989440 /* 排行榜 */ = {
 			isa = PBXGroup;
 			children = (
-				3DC9A4E51CE5CB9A00E16D19 /* base */,
-				3DC9A4E41CE59A1500E16D19 /* customView */,
-				E668BBB21CE32D2600071998 /* controller */,
+				3D3EC7191DE4494300C4A595 /* viewController */,
 				E668BBB31CE32D3400071998 /* view */,
 			);
 			name = "排行榜";
@@ -3038,23 +3067,10 @@
 			name = detail;
 			sourceTree = "<group>";
 		};
-		E668BBB21CE32D2600071998 /* controller */ = {
-			isa = PBXGroup;
-			children = (
-				3D7C6B741CF2A0BB0088400D /* main */,
-				3D7C6B751CF2A0F20088400D /* boxerCenter */,
-				3D7C6B781CF2A18A0088400D /* boxerVideo */,
-				3D7C6B771CF2A1690088400D /* boxMatch */,
-				3D7C6B761CF2A1490088400D /* boxerInfo */,
-				E668BBAF1CE32BA200071998 /* FTRankingListViewController.h */,
-				E668BBB01CE32BA200071998 /* FTRankingListViewController.m */,
-			);
-			name = controller;
-			sourceTree = "<group>";
-		};
 		E668BBB31CE32D3400071998 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				3DC9A4E41CE59A1500E16D19 /* customView */,
 				E668BBB41CE4340E00071998 /* 条件筛选 */,
 				3D322AC61CEB171200039E2C /* FTRankHeaderCell.h */,
 				3D322AC71CEB171200039E2C /* FTRankHeaderCell.m */,
@@ -3244,7 +3260,7 @@
 			isa = PBXGroup;
 			children = (
 				E6FEFA311DD1E5A700CEF6E3 /* bean */,
-				E6FEFA291DD1B8B800CEF6E3 /* cell */,
+				3D3EC7141DE4445300C4A595 /* view */,
 				E68D16061CFD24DE00AB5A8C /* ViewController */,
 			);
 			name = "个人主页";
@@ -4635,7 +4651,6 @@
 				E6E580B31CBE523B00272242 /* FTBaseTableViewCell.m in Sources */,
 				3DA6D1C91D20D94E0049CD4A /* FTCycleScrollViewCell2.m in Sources */,
 				3D5E809C1DD328E100D0F250 /* FTTraineeBean.m in Sources */,
-				E668BBB11CE32BA200071998 /* FTRankingListViewController.m in Sources */,
 				3DDE29BD1D2BB39F00876B30 /* FTPayViewController.m in Sources */,
 				3D4B19661CDB6CF80022DFB0 /* FTWeightPickerView.m in Sources */,
 				3D6CFF3A1D06A41200CAC12A /* FTAlivePushStreamVC.m in Sources */,
@@ -4843,6 +4858,7 @@
 				3D4B19631CDB59D60022DFB0 /* UIWindow+MBProgressHUD.m in Sources */,
 				E668BBBE1CE4523600071998 /* FTCacheBean.m in Sources */,
 				3D06155B1D36302600FDA86F /* NSData+CommonCrypto.m in Sources */,
+				3D3EC7181DE444C400C4A595 /* FTTraineeFeedbackView.m in Sources */,
 				E68050B81CBF919A00678905 /* JHRefreshAniBaseView.m in Sources */,
 				3D7C6B731CF29DDD0088400D /* FTSlideTabBar.m in Sources */,
 				E68D16131CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m in Sources */,
