@@ -262,7 +262,7 @@ static DBManager * _sharedDBManager = nil;
  */
 -(NSMutableArray *) searchLabel {
 
-    NSString *querySQL = @" SELECT distinct label  FROM labels";
+    NSString *querySQL = @" SELECT distinct label  FROM labels ORDER BY id";
     FMResultSet * rs = [_dataBase executeQuery:querySQL];
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:[rs columnCount]];
     
