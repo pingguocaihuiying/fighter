@@ -345,17 +345,18 @@
         //判断是咨询还是视频
         NSArray *typeStrArray= [url componentsSeparatedByString:@"&type="];
         NSString *typeStr = [typeStrArray lastObject];
-        if ([typeStr isEqualToString:@"1"]) {//咨询
+        if ([typeStr isEqualToString:@"1"]) {//资讯
             videoDetailVC.detailType = FTDetailTypeNews;
         } else if ([typeStr isEqualToString:@"2"]) {//视频
             videoDetailVC.detailType = FTDetailTypeVideo;
         }
         
         if (matchBean.urlRes) {
-            FTVideoBean *videoBean = [FTVideoBean new];
-            videoBean.videosId = objId;
+            FTNewsBean *newsBean = [FTNewsBean new];
+            newsBean.newsId = objId;
             videoDetailVC.urlId = objId;
-            videoDetailVC.videoBean = videoBean;
+//            videoDetailVC.videoBean = videoBean; // *  没有视频了 2016-11-21 by lyz */
+            videoDetailVC.newsBean = newsBean;
         }
         
 
@@ -479,7 +480,7 @@
                 FTVideoBean *videoBean = [FTVideoBean new];
                 videoBean.videosId = objId;
                 videoDetailVC.urlId = objId;
-                videoDetailVC.videoBean = videoBean;
+//                videoDetailVC.videoBean = videoBean; // *  没有视频了 2016-11-21 by lyz */
             }
             
             

@@ -148,7 +148,7 @@
                 _isVIPImage.hidden = NO;
                 
                 [_becomeVIPButton setTitleColor:[UIColor colorWithHex:0xb4b4b4] forState:UIControlStateNormal];
-            }else if (_gymVIPType == FTGymVIPTypeApplying){
+            }else {
 //                _becomeVIPButton.enabled = YES;
                 
                 //右上角的“成为会员”
@@ -158,7 +158,7 @@
                 //“我的拳馆”标识
                 _isVIPImage.hidden = YES;
             }
-        }else{
+        }else{//如果从接口读取失败，则默认按非会员处理
             _gymVIPType = FTGymVIPTypeNope;
 //            _becomeVIPButton.enabled = YES;
             

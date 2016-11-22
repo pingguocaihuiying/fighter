@@ -38,6 +38,9 @@
 #define Custom_Red [UIColor colorWithHex:0xbe1e1e]
 #define Custom_Red_Value 0xbe1e1e
 
+    //课程表”不可约“文字颜色
+#define Custom_Gray_Color [UIColor colorWithHex:0x505050]
+
 //导入一些工具类
 #import "UIColor+YBColorCategory.h"
 #import "MD5.h"

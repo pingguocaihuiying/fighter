@@ -22,12 +22,12 @@ typedef NS_ENUM(NSInteger, FTDetailType) {
 };
 
 #import "FTBaseViewController.h"
-#import "FTVideoBean.h"
+#import "FTNewsBean.h"
 #import "FTArenaBean.h"
 
 @protocol FTVideoDetailDelegate <NSObject>
 
-- (void)updateCountWithVideoBean:(FTVideoBean *)videoBean indexPath:(NSIndexPath *)indexPath;
+- (void)updateCountWithVideoBean:(FTNewsBean *)videoBean indexPath:(NSIndexPath *)indexPath;
 
 @end
 
@@ -44,7 +44,7 @@ typedef NS_ENUM(NSInteger, FTDetailType) {
 @property (weak, nonatomic) IBOutlet UIButton *thumbsUpButton;
 @property (nonatomic, assign)BOOL hasVote;
 @property (nonatomic, assign)BOOL hasStar;
-@property (nonatomic, strong)FTVideoBean *videoBean;
+@property (nonatomic, strong)FTNewsBean *newsBean;
 @property (nonatomic, strong) FTArenaBean *arenaBean;
 @property (weak, nonatomic) IBOutlet UIView *favourateView;
 @property (weak, nonatomic) IBOutlet UIView *shareView;

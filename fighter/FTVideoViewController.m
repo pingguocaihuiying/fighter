@@ -367,7 +367,7 @@
         }
 
         
-        videoDetailVC.videoBean = bean;
+//        videoDetailVC.videoBean = bean;// *  没有视频了 2016-11-21 by lyz */
         NSIndexPath *theIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
         NSLog(@"section : %ld, row : %ld", indexPath.section, indexPath.row);
         videoDetailVC.indexPath = theIndexPath;
@@ -508,6 +508,9 @@
 #pragma mark - response
 
 - (void)fttableView:(FTTableViewController *)tableView didSelectWithIndex:(NSIndexPath *)indexPath{
+    
+    NSAssert(1, @"视频列表这个vc已经废弃了，不维护了 2016-11-21 lyz备注");
+    
     //    NSLog(@"第%ld个cell被点击了。", indexPath.row);
     if (self.collectionViewDataSourceArray) {
         FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
@@ -516,7 +519,7 @@
         FTVideoBean *bean = [FTVideoBean new];
         [bean setValuesWithDic:newsDic];
         
-        videoDetailVC.videoBean = bean;
+//        videoDetailVC.videoBean = bean;// *  没有视频了 2016-11-21 by lyz */
         
         videoDetailVC.indexPath = indexPath;
         videoDetailVC.delegate = self;
