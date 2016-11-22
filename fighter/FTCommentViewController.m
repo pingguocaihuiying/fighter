@@ -43,7 +43,7 @@
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-取消"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(popVC)];
 //    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-取消"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(popVC)];
     //把左边的返回按钮左移
-    [leftButton setImageInsets:UIEdgeInsetsMake(0, -8, 0, 0)];
+     [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
     //设置右边的按钮

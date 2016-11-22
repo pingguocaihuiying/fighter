@@ -17,8 +17,6 @@
 
 @property (nonatomic ,copy)NSString *webViewUrlString;
 
-@property (nonatomic, strong) IBOutlet UIView *bgView;
-
 // bottom view
 @property (weak, nonatomic) IBOutlet UIView *favourateView; // 收藏
 @property (weak, nonatomic) IBOutlet UIView *shareView; // 分享

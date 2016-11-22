@@ -52,7 +52,7 @@
     [super viewDidLoad];
    
     [self setNotification];
-    
+    [self initNavigationBar];
     [self setWebView];
 }
 
@@ -103,9 +103,25 @@
 
 #pragma mark - 初始化
 
+- (void) initNavigationBar {
+    
+    //设置左侧按钮
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
+                                   initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                   style:UIBarButtonItemStyleDone
+                                   target:self
+                                   action:@selector(backBtnAction:)];
+    //把左边的返回按钮左移
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+    self.navigationItem.leftBarButtonItem = leftButton;
+}
+
+
 - (void) setWebView {
+    
     [self initWebview];
     [self setMJRefresh];
+    
 }
 
 - (void) initWebview {
@@ -204,6 +220,13 @@
     [self.navigationController pushViewController:newvc animated:YES];
 }
 
+
+#pragma mark - response
+- (void) backBtnAction:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
 
 #pragma mark - 通知事件
 // 微信登录响应

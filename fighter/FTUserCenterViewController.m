@@ -88,7 +88,7 @@
                                        target:self
                                        action:@selector(dismissBtnAction:)];
         //把左边的返回按钮左移
-        [leftButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
         self.navigationItem.leftBarButtonItem = leftButton;
     }else {
         //设置左侧按钮
@@ -98,7 +98,7 @@
                                        target:self
                                        action:@selector(popBtnAction:)];
         //把左边的返回按钮左移
-        [leftButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
         self.navigationItem.leftBarButtonItem = leftButton;
     }
     

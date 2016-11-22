@@ -41,7 +41,7 @@
                                    target:self
                                    action:@selector(backBtnAction:)];
     //把左边的返回按钮左移
-    [leftButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
     //导航栏右侧按钮
