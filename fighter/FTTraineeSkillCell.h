@@ -25,6 +25,7 @@
 @property (strong, nonatomic) UILabel *increaseLabel;//增加的技能点数
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *increaseLabelBottomSpace;
 @property (nonatomic, strong) FTUserSkillBean *skillBean;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *rightArrowWidth;
 
 - (void)setWithBean:(FTTraineeSkillBean *)bean;
 - (void)setWithSkillBean:(FTUserSkillBean *) skillBean;

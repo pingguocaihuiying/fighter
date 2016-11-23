@@ -347,7 +347,7 @@
         
         FTUserSkillBean *beanNew = _skillArray[indexPath.row];
         FTUserSkillBean *beanOld = _skillArrayOld[indexPath.row];
-        
+        cell.rightArrowWidth.constant = 0;//隐藏右箭头
         if (beanOld) {
             [cell setWithSkillNewBean:beanNew andSkillOldBean:beanOld];
         } else {

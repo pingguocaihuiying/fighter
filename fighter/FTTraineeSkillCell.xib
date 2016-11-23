@@ -81,6 +81,7 @@
                 <outlet property="gradeLabel" destination="6M8-ih-B55" id="xOC-pP-HhC"/>
                 <outlet property="ratingBar" destination="Acg-QJ-aG1" id="qFo-Ws-i2Z"/>
                 <outlet property="redPoint" destination="lcf-Gd-I8k" id="gCL-MW-RUF"/>
+                <outlet property="rightArrowWidth" destination="7td-sq-95t" id="a4V-gb-YOY"/>
                 <outlet property="skillLabel" destination="5ZZ-Fa-Qit" id="A1N-nc-YSq"/>
                 <outlet property="skillLabelWidthConstraint" destination="Kla-hZ-YKY" id="4JR-Vd-Fby"/>
             </connections>
