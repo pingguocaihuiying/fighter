@@ -20,10 +20,10 @@
                 <outlet property="buttonsContainerView" destination="w7F-5a-cpi" id="WIu-my-23f"/>
                 <outlet property="commentView" destination="Tht-ZE-6Yx" id="2go-90-bXc"/>
                 <outlet property="courseHistoryTableView" destination="EEL-EB-tkX" id="icO-3y-YgR"/>
-                <outlet property="dynamicButton" destination="7df-IC-vkp" id="Cbj-FN-7RW"/>
                 <outlet property="dynamicCountLabel" destination="Stx-Dh-b4u" id="1Vd-C6-I3f"/>
                 <outlet property="dynamicInfomationButtonIndexView" destination="EXM-It-hhX" id="hfX-K9-MTB"/>
                 <outlet property="fansCountLabel" destination="Qi8-1h-yVk" id="vao-oY-ksL"/>
+                <outlet property="firstButton" destination="7df-IC-vkp" id="kkg-l5-aoe"/>
                 <outlet property="followCountLabel" destination="hq1-y2-F0h" id="p4W-47-buq"/>
                 <outlet property="followImageView" destination="ZPe-p6-tQk" id="aYI-6Z-ZU7"/>
                 <outlet property="followView" destination="wKk-6g-7Nm" id="is6-2U-KyE"/>
@@ -37,18 +37,18 @@
                 <outlet property="mainScrollView" destination="5VW-nc-uEB" id="t33-lY-GAN"/>
                 <outlet property="nameLabel" destination="knz-hM-9pO" id="sfW-9J-VkX"/>
                 <outlet property="noDynamicImageView" destination="JFh-VB-mwn" id="tkf-LM-iKs"/>
-                <outlet property="recordButton" destination="Gi7-qG-aYf" id="LhE-fp-Yad"/>
                 <outlet property="recordButtonIndexView" destination="rQM-Rj-u8O" id="f8e-32-cjP"/>
                 <outlet property="recordListTableView" destination="9vw-tQ-n1p" id="J0a-0R-lCH"/>
                 <outlet property="recordRankTableView" destination="SMp-Yu-Vuk" id="OQl-bg-3jo"/>
                 <outlet property="recordRankTableViewHeight" destination="MFt-DO-Nk8" id="Iv7-aD-9vo"/>
                 <outlet property="redPoint1" destination="GfP-lY-L20" id="Fds-zt-q29"/>
                 <outlet property="redPoint2" destination="zv8-3G-qsx" id="aAl-Hx-hrh"/>
+                <outlet property="secondButton" destination="Gi7-qG-aYf" id="vO0-z2-Ava"/>
                 <outlet property="sexLabel" destination="ALV-T0-N44" id="ljv-eV-8tl"/>
                 <outlet property="shareAndModifyProfileButton" destination="ahg-E3-Fw3" id="tc1-BT-DM8"/>
                 <outlet property="skillsTableView" destination="srA-pb-G3r" id="PgO-DO-gvf"/>
+                <outlet property="thirdButton" destination="azx-fA-NXA" id="Ze2-rY-Xzq"/>
                 <outlet property="userBgImageView" destination="5y6-lb-RmI" id="BdQ-bZ-LTW"/>
-                <outlet property="videoButton" destination="azx-fA-NXA" id="cjz-yM-UNK"/>
                 <outlet property="videoButtonIndexView" destination="BWH-tj-PNj" id="YKz-To-5Qa"/>
                 <outlet property="videoCollectionView" destination="bT8-1A-Nbz" id="1QJ-h1-Eoc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -88,16 +88,23 @@
                                     <rect key="frame" x="0.0" y="224" width="375" height="40"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7df-IC-vkp">
-                                            <rect key="frame" x="31" y="0.0" width="62" height="40"/>
-                                            <state key="normal" title="动态信息">
+                                            <rect key="frame" x="47" y="0.0" width="31" height="40"/>
+                                            <state key="normal" title="视频">
                                                 <color key="titleColor" red="0.43493384122848511" green="0.43402445316314697" blue="0.45596396923065186" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <connections>
-                                                <action selector="dynamicInfomationButtonClicked:" destination="-1" eventType="touchUpInside" id="uTq-Iv-ZgY"/>
+                                                <action selector="firstButtonClicked:" destination="-1" eventType="touchUpInside" id="hoO-vp-s6H"/>
                                             </connections>
                                         </button>
+                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="红点" translatesAutoresizingMaskIntoConstraints="NO" id="zv8-3G-qsx">
+                                            <rect key="frame" x="80" y="16" width="8" height="8"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="8" id="SuX-fe-qZP"/>
+                                                <constraint firstAttribute="height" constant="8" id="rdA-Ai-ENU"/>
+                                            </constraints>
+                                        </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EXM-It-hhX" userLabel="indexView1">
-                                            <rect key="frame" x="31" y="37" width="62" height="3"/>
+                                            <rect key="frame" x="47" y="37" width="31" height="3"/>
                                             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="3" id="AV9-hK-EHm"/>
@@ -109,7 +116,7 @@
                                                 <color key="titleColor" red="0.43493384122848511" green="0.43402445316314697" blue="0.45596396923065186" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <connections>
-                                                <action selector="recordButtonClicked:" destination="-1" eventType="touchUpInside" id="qHy-BU-vOC"/>
+                                                <action selector="secondButtonClicked:" destination="-1" eventType="touchUpInside" id="6H7-Gv-OUB"/>
                                             </connections>
                                         </button>
                                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="红点" translatesAutoresizingMaskIntoConstraints="NO" id="GfP-lY-L20">
@@ -127,23 +134,16 @@
                                             </constraints>
                                         </view>
                                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azx-fA-NXA">
-                                            <rect key="frame" x="285" y="0.0" width="31" height="40"/>
-                                            <state key="normal" title="视频">
+                                            <rect key="frame" x="269" y="0.0" width="62" height="40"/>
+                                            <state key="normal" title="动态信息">
                                                 <color key="titleColor" red="0.43493384122848511" green="0.43402445316314697" blue="0.45596396923065186" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <connections>
-                                                <action selector="videoButtonClicked:" destination="-1" eventType="touchUpInside" id="XgI-7R-gX7"/>
+                                                <action selector="thirdButtonClicked:" destination="-1" eventType="touchUpInside" id="jAf-Jm-DT2"/>
                                             </connections>
                                         </button>
-                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="红点" translatesAutoresizingMaskIntoConstraints="NO" id="zv8-3G-qsx">
-                                            <rect key="frame" x="318" y="14" width="8" height="8"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="8" id="SuX-fe-qZP"/>
-                                                <constraint firstAttribute="height" constant="8" id="rdA-Ai-ENU"/>
-                                            </constraints>
-                                        </imageView>
                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BWH-tj-PNj" userLabel="indexView3">
-                                            <rect key="frame" x="285" y="37" width="31" height="3"/>
+                                            <rect key="frame" x="269" y="37" width="62" height="3"/>
                                             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="3" id="V6a-pO-GxF"/>
@@ -162,7 +162,6 @@
                                         <constraint firstItem="GfP-lY-L20" firstAttribute="centerY" secondItem="Gi7-qG-aYf" secondAttribute="centerY" constant="-2" id="VoV-M0-l1C"/>
                                         <constraint firstItem="7df-IC-vkp" firstAttribute="centerX" secondItem="w7F-5a-cpi" secondAttribute="centerX" multiplier="0.33" id="WYG-99-JZV"/>
                                         <constraint firstItem="azx-fA-NXA" firstAttribute="centerX" secondItem="w7F-5a-cpi" secondAttribute="centerX" multiplier="1.6" id="YIX-Hf-Wkm"/>
-                                        <constraint firstItem="zv8-3G-qsx" firstAttribute="centerY" secondItem="azx-fA-NXA" secondAttribute="centerY" constant="-2" id="ZKg-qq-bAq"/>
                                         <constraint firstItem="Gi7-qG-aYf" firstAttribute="centerX" secondItem="w7F-5a-cpi" secondAttribute="centerX" id="ZXO-Z7-FPy"/>
                                         <constraint firstItem="BWH-tj-PNj" firstAttribute="trailing" secondItem="azx-fA-NXA" secondAttribute="trailing" id="bF8-38-4Qh"/>
                                         <constraint firstItem="rQM-Rj-u8O" firstAttribute="leading" secondItem="Gi7-qG-aYf" secondAttribute="leading" id="fZm-Ru-psL"/>
@@ -170,9 +169,10 @@
                                         <constraint firstAttribute="bottom" secondItem="Gi7-qG-aYf" secondAttribute="bottom" id="lb1-Sr-0dn"/>
                                         <constraint firstItem="Gi7-qG-aYf" firstAttribute="top" secondItem="w7F-5a-cpi" secondAttribute="top" id="mZ3-9M-ZzU"/>
                                         <constraint firstAttribute="bottom" secondItem="BWH-tj-PNj" secondAttribute="bottom" id="oyY-vX-lBO"/>
+                                        <constraint firstItem="zv8-3G-qsx" firstAttribute="centerY" secondItem="7df-IC-vkp" secondAttribute="centerY" id="pq0-QQ-Fei"/>
                                         <constraint firstItem="azx-fA-NXA" firstAttribute="top" secondItem="w7F-5a-cpi" secondAttribute="top" id="uDD-Sw-ebS"/>
-                                        <constraint firstItem="zv8-3G-qsx" firstAttribute="leading" secondItem="azx-fA-NXA" secondAttribute="trailing" constant="2" id="uNf-0t-Q8a"/>
                                         <constraint firstAttribute="bottom" secondItem="azx-fA-NXA" secondAttribute="bottom" id="uid-G8-dJE"/>
+                                        <constraint firstItem="zv8-3G-qsx" firstAttribute="leading" secondItem="7df-IC-vkp" secondAttribute="trailing" constant="2" id="xwj-kV-1AA"/>
                                         <constraint firstItem="BWH-tj-PNj" firstAttribute="width" secondItem="azx-fA-NXA" secondAttribute="width" id="yav-FO-qXS"/>
                                         <constraint firstAttribute="bottom" secondItem="7df-IC-vkp" secondAttribute="bottom" id="zbZ-QO-YnQ"/>
                                     </constraints>
