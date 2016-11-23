@@ -32,6 +32,7 @@
 @property (nonatomic, strong) FTUserChildSkillTopInfoView *userSkilltHeaderView;
 
 @property (nonatomic, strong) NSMutableArray *cellArray;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *bottomCommentViewHeight;
 
 @end
 
@@ -51,9 +52,14 @@
         [self loadDataFromServer];
     }else{
         //直接刷新tableView，数据已经从上个页面传递过来了
+        _bottomCommentViewHeight.constant = 0;
         [_tableView reloadData];
         
-        [self setChildSkillView];
+        
+        /*
+            技能列表，用cell堆砌而成，没有用tableview
+         */
+//        [self setChildSkillView];
     }
     
 }
@@ -208,7 +214,7 @@
     
     //根据_type类型去加载对应的cell文件
     if (_type == FTUserSkillTypeCoachComment) {
-    [self.tableView registerNib:[UINib nibWithNibName:@"FTUserSkillGradeTableViewCell" bundle:nil] forCellReuseIdentifier:@"GradeCell"];
+        [self.tableView registerNib:[UINib nibWithNibName:@"FTUserSkillGradeTableViewCell" bundle:nil] forCellReuseIdentifier:@"GradeCell"];
     }else if(_type == FTUserSkillTypeChildSkill){
             [self.tableView registerNib:[UINib nibWithNibName:@"FTTraineeSkillCell" bundle:nil] forCellReuseIdentifier:@"GradeCell2"];
     }
@@ -226,7 +232,7 @@
         
     }else if(_type == FTUserSkillTypeChildSkill){
         if (_skillArray) {
-//            return _skillArray.count; /* 暂时去掉cell显示，改为uiview */
+            return _skillArray.count; /* 暂时去掉cell显示，改为uiview */
         }
     }
     return 0;
