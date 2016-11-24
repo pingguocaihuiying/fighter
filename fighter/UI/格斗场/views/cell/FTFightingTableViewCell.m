@@ -82,12 +82,12 @@
     
     //头像
     if (matchBean.headUrl1) {
-            [_headerImage1 sd_setImageWithURL:[NSURL URLWithString:matchBean.headUrl1]];//设置头像
-        _header1OutCircle.image = [UIImage imageNamed:@"主页大头像-灰圈"];//把红圈改为灰圈
+            [_headerImage1 sd_setImageWithURL:[NSURL URLWithString:matchBean.headUrl1] placeholderImage:[UIImage imageNamed:@"对战空头像"]];//设置头像
+        
     }
     if (matchBean.headUrl2) {
-        [_headerImage2 sd_setImageWithURL:[NSURL URLWithString:matchBean.headUrl2]];
-        _header2OutCircle.image = [UIImage imageNamed:@"主页大头像-灰圈"];
+        [_headerImage2 sd_setImageWithURL:[NSURL URLWithString:matchBean.headUrl2] placeholderImage:[UIImage imageNamed:@"对战空头像"]];
+        
     }
     
     //名字

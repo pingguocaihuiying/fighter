@@ -114,8 +114,8 @@
     self.shopBtn.frame = CGRectMake(0, 0, 24, 24);
     [self.shopBtn addTarget:self action:@selector(shopBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.shopBtn setImage:[UIImage imageNamed:@"底部导航-商城"] forState:UIControlStateNormal];
-    [self.shopBtn setImage:[UIImage imageNamed:@"底部导航-商城pre"] forState:UIControlStateHighlighted];
+    [self.shopBtn setImage:[UIImage imageNamed:@"右上角商城"] forState:UIControlStateNormal];
+//    [self.shopBtn setImage:[UIImage imageNamed:@"底部导航-商城pre"] forState:UIControlStateHighlighted];
     
     UIBarButtonItem *shopBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.shopBtn];
     self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:shopBtnItem,nil];
