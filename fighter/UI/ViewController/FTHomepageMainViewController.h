@@ -18,6 +18,8 @@ typedef NS_ENUM(NSInteger, FTHomepageSelectedType) {
     FTHomepageTableViewTypeSecond,
     FTHomepageTableViewTypeThird
 };
+
+
 #import "FTBaseViewController.h"
 
 @interface FTHomepageMainViewController : FTBaseViewController
@@ -61,5 +63,7 @@ typedef NS_ENUM(NSInteger, FTHomepageSelectedType) {
 @property (weak, nonatomic) IBOutlet UIView *commentView;
 @property (weak, nonatomic) IBOutlet UIButton *bottomNewPostsView;
 @property (weak, nonatomic) IBOutlet UIView *bottomFollowView;
+
+@property (copy, nonatomic) NSString *navigationSkipType;
 
 @end

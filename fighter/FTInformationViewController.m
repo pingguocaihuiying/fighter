@@ -624,8 +624,7 @@
 - (void)gotoHomepageWithUseroldid:(NSString *)olduserid{
     if (!olduserid) {
         //从本地读取存储的用户信息
-        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+        FTUserBean *localUser = [FTUserBean loginUser];
         olduserid = localUser.olduserid;
     }
         FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];

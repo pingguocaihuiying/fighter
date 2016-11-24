@@ -121,8 +121,7 @@
                 [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                 
                 //从本地读取存储的用户信息
-                NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-                FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+                FTUserBean *localUser = [FTUserBean loginUser];
                 localUser.openId = nil;
                 localUser.wxopenId = nil;
                 localUser.wxHeaderPic = nil;
@@ -165,8 +164,7 @@
     FTTableViewCell5 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     if (indexPath.row == 0) {
         cell.titleLabel.text = @"微信账号：";
@@ -198,8 +196,7 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     if (indexPath.row == 0) {
         

@@ -61,8 +61,7 @@
     
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     if (!localUser) {
         [self.logoutBtn setEnabled:NO];
     }
@@ -73,8 +72,7 @@
 - (void) viewWillAppear:(BOOL)animated {
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     if (!localUser) {
         [self.logoutBtn setHidden:YES];
     }else {
@@ -209,8 +207,7 @@
     
     if(indexPath.row == 0) {
         //从本地读取存储的用户信息
-        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+        FTUserBean *localUser = [FTUserBean loginUser];
         if (localUser) {
             FTManagerAccountViewController *managerVC = [[FTManagerAccountViewController alloc]init];
             managerVC.title = @"账号管理";

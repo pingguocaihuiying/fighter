@@ -246,8 +246,7 @@
                 [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                 
                 //从本地读取存储的用户信息
-                NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-                FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+               FTUserBean *localUser = [FTUserBean loginUser];
 //                localUser.sex = [propertValue stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                 localUser.sex = propertValue ;
                 
