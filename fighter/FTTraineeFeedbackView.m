@@ -27,4 +27,55 @@
 
 @implementation FTTraineeFeedbackView
 
+- (id) init {
+    
+    self = [super init];
+    
+    if (self) {
+        [self setNotification];
+        [self setSubviews];
+        keyBoardHidden = NO;
+    }
+    return self;
+}
+
+- (id) initWithFrame:(CGRect)frame {
+    
+    self = [super initWithFrame:frame];
+    
+    if (self) {
+        [self setNotification];
+        [self setSubviews];
+        keyBoardHidden = NO;
+    }
+    return self;
+}
+
+- (void) setSubviews {
+    
+    self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    
+    [self addSubview:self.panelImageView];
+    [self addSubview:self.titleLabel];
+    [self addSubview:self.panelView];
+    [self addSubview:self.submitButton];
+    [self addSubview:self.cancelButton];
+    
+    [self addSubviewsConstraint];
+    
+}
+
+
+- (void) addSubviewsConstraint {
+    
+    [self addPaneImageViewConstraint];
+    [self addTitleLabelConstraint];
+    [self addPanelViewConstraint];
+    [self addTextImageViewConstraint];
+    [self addTextViewConstraint];
+    [self addSubmitConstraint];
+    [self addCancelButtonConstraint];
+    
+}
+
 @end

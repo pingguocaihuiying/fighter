@@ -211,7 +211,7 @@ static DBManager * _sharedDBManager = nil;
 - (void) createLabelsTable {
     
     
-     NSString * sql = @"CREATE TABLE 'labels' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, 'item' TEXT, 'label' TEXT, 'type' INTEGER)";
+     NSString * sql = @"CREATE TABLE 'labels' ('id' INTEGER PRIMARY KEY  NOT NULL UNIQUE, 'item' TEXT, 'label' TEXT, 'type' INTEGER)";
     
     [self createTable:@"labels" sql:sql];
 }

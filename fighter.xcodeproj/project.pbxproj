@@ -65,6 +65,7 @@
 		3D4122321D4F3F0E007EB996 /* FTAuthenticationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4122311D4F3F0E007EB996 /* FTAuthenticationView.xib */; };
 		3D4122361D506A4B007EB996 /* FTPropertyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4122341D506A4B007EB996 /* FTPropertyCell.m */; };
 		3D4122371D506A4B007EB996 /* FTPropertyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4122351D506A4B007EB996 /* FTPropertyCell.xib */; };
+		3D4302001DE544B800582499 /* ConstraintTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4301FF1DE544B800582499 /* ConstraintTool.m */; };
 		3D430BD91DCB0FDE00532D01 /* FTTraineeSkillSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D430BD81DCB0FDE00532D01 /* FTTraineeSkillSectionHeaderView.m */; };
 		3D430BDD1DD02E3100532D01 /* FTTraineeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D430BDB1DD02E3100532D01 /* FTTraineeHeaderView.m */; };
 		3D430BDE1DD02E3100532D01 /* FTTraineeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D430BDC1DD02E3100532D01 /* FTTraineeHeaderView.xib */; };
@@ -587,6 +588,8 @@
 		3D4122331D506A4B007EB996 /* FTPropertyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPropertyCell.h; sourceTree = "<group>"; };
 		3D4122341D506A4B007EB996 /* FTPropertyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPropertyCell.m; sourceTree = "<group>"; };
 		3D4122351D506A4B007EB996 /* FTPropertyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTPropertyCell.xib; sourceTree = "<group>"; };
+		3D4301FE1DE544B800582499 /* ConstraintTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstraintTool.h; sourceTree = "<group>"; };
+		3D4301FF1DE544B800582499 /* ConstraintTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstraintTool.m; sourceTree = "<group>"; };
 		3D430BD71DCB0FDE00532D01 /* FTTraineeSkillSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeSkillSectionHeaderView.h; sourceTree = "<group>"; };
 		3D430BD81DCB0FDE00532D01 /* FTTraineeSkillSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeSkillSectionHeaderView.m; sourceTree = "<group>"; };
 		3D430BDA1DD02E3100532D01 /* FTTraineeHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeHeaderView.h; sourceTree = "<group>"; };
@@ -1683,6 +1686,15 @@
 				3D4122311D4F3F0E007EB996 /* FTAuthenticationView.xib */,
 			);
 			name = "拳手认证";
+			sourceTree = "<group>";
+		};
+		3D4301FD1DE5447500582499 /* ConstraintTool */ = {
+			isa = PBXGroup;
+			children = (
+				3D4301FE1DE544B800582499 /* ConstraintTool.h */,
+				3D4301FF1DE544B800582499 /* ConstraintTool.m */,
+			);
+			name = ConstraintTool;
 			sourceTree = "<group>";
 		};
 		3D430BD61DCB0F4800532D01 /* TraineeSkillSectionheader */ = {
@@ -3813,6 +3825,7 @@
 		E6D74A301CB7B7EE00854337 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				3D4301FD1DE5447500582499 /* ConstraintTool */,
 				E62BA9991D4B5EB500CB21FF /* 获取标签分类 */,
 				E6D09E8F1CEDA0CD00B7C43E /* tools */,
 				E68D16101CFD7C7A00AB5A8C /* 改变行间距 */,
@@ -4633,6 +4646,7 @@
 				E6D74A4F1CB7B7EE00854337 /* Regex.m in Sources */,
 				E61FE16E1DAB997B0085B046 /* FTGymSourceViewController2.m in Sources */,
 				3DE1DEF21D3F178F00511E92 /* FTGymBean.m in Sources */,
+				3D4302001DE544B800582499 /* ConstraintTool.m in Sources */,
 				3DE0C9EF1D1BABB000C6ABE2 /* FTTeachVideoController.m in Sources */,
 				E6D09E961CEDDDCF00B7C43E /* FTQiniuNetwork.m in Sources */,
 				E6574B4C1D2CB5EE009B8465 /* FTIncomePercentView.m in Sources */,
