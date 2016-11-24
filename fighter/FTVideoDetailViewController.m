@@ -301,9 +301,6 @@
 
 - (void)shareButtonClicked{
     
-//    NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-videos",_newsBean.newsId];
-//    _webUrlString = [@"http://www.gogogofight.com/page/video_page.html?" stringByAppendingString:str];
-    
     NSString *str = [NSString stringWithFormat:@"objId=%@",_newsBean.newsId];
     _webUrlString = [@"http://www.gogogofight.com/page/v2/news_page.html?" stringByAppendingString:str];
     

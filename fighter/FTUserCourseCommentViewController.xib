@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTUserCourseCommentViewController">
             <connections>
+                <outlet property="bottomCommentViewHeight" destination="WaA-Kr-Ngm" id="uMm-Ov-pMu"/>
                 <outlet property="commentContentView" destination="YwF-7F-KSV" id="g4L-g6-Fpz"/>
                 <outlet property="tableView" destination="IBg-b0-Pdv" id="Iwb-rO-Ldh"/>
                 <outlet property="tableViewHeight" destination="vVS-yS-qqM" id="2tN-pN-r2a"/>
@@ -22,16 +23,19 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IBg-b0-Pdv">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IBg-b0-Pdv">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="320"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="320" id="vVS-yS-qqM"/>
+                        <constraint firstAttribute="height" priority="250" constant="320" id="vVS-yS-qqM"/>
                     </constraints>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YwF-7F-KSV">
                     <rect key="frame" x="0.0" y="320" width="375" height="347"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="347" id="WaA-Kr-Ngm"/>
+                    </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

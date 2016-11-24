@@ -476,10 +476,10 @@
             FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
             
             if (matchBean.urlRes) {
-                FTVideoBean *videoBean = [FTVideoBean new];
-                videoBean.videosId = objId;
+                FTNewsBean *newsBean = [FTNewsBean new];
+                newsBean.newsId = objId;
                 videoDetailVC.urlId = objId;
-//                videoDetailVC.videoBean = videoBean; // *  没有视频了 2016-11-21 by lyz */
+                videoDetailVC.newsBean = newsBean;
             }
             
             

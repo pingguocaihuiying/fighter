@@ -126,8 +126,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initBaseData];//默认配置
     [self getHomepageUserInfo];
-    [self initBaseData];
+    
     [self initSubviews];
 }
 
@@ -163,9 +164,7 @@
     [NetWorking getHomepageUserInfoWithUserOldid:_olduserid andBoxerId:_boxerId andCoachId:_coachId andCallbackOption:^(FTUserBean *userBean) {
         _userBean = userBean;
         [_headImageView sd_setImageWithURL:[NSURL URLWithString:userBean.headUrl]];
-        
-        
-        
+    
         self.sexLabel.text = userBean.sex;
         self.nameLabel.text = userBean.name;
 
@@ -197,7 +196,7 @@
             
         }
         NSLog(@"ageStr : %@", ageStr);
-//        NSLog(@"ageStr : %@", ageStr);
+
         self.ageLabel.text = [NSString stringWithFormat:@"%@岁", ageStr];
         if (userBean.boxerId) {
             _boxerId = userBean.boxerId;
@@ -224,8 +223,8 @@
         
         if ([_userIdentity isEqualToString:@"0"]) {//普通用户
             //不显示战绩、视频项
-            self.recordButton.hidden = YES;//是否显示战绩按钮
-            self.videoButton.hidden = YES;//是否显示视频按钮
+            self.secondButton.hidden = YES;//是否显示战绩按钮
+            self.thirdButton.hidden = YES;//是否显示视频按钮
             
              _userBgImageView.backgroundColor = [UIColor blackColor];
             
@@ -239,11 +238,13 @@
              */
             
             if ([self isSelfHomepage]) {
-                self.recordButton.hidden = NO;//显示第二个按钮
-                self.videoButton.hidden = NO;//显示第三个按钮
+                _firstButton.hidden = NO;//显示第一个按钮
+                self.secondButton.hidden = NO;//显示第二个按钮
+                self.thirdButton.hidden = NO;//显示第三个按钮
                 
-                [self.recordButton setTitle:@"课程记录" forState:UIControlStateNormal];//修改第二个按钮的名字
-                [self.videoButton setTitle:@"技术数据" forState:UIControlStateNormal];//修改第三个按钮的名字
+                [self.firstButton setTitle:@"技术数据" forState:UIControlStateNormal];//修改第三个按钮的名字
+                [self.secondButton setTitle:@"课程记录" forState:UIControlStateNormal];//修改第二个按钮的名字
+                
                 
                 [self getCourseHistoryFromServer];
                 [self getSkillsFromServer];
@@ -262,15 +263,15 @@
             }
 
             //显示战绩、视频项
-            self.recordButton.hidden = NO;//是否显示战绩按钮
-            self.videoButton.hidden = NO;//是否显示视频按钮
+            self.secondButton.hidden = NO;//是否显示战绩按钮
+            self.thirdButton.hidden = NO;//是否显示视频按钮
             self.identityImageView1.hidden = NO;
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-拳"];
         }else if ([_userIdentity isEqualToString:@"2"]){//教练
             
             //显示视频，不显示战绩
-            self.recordButton.hidden = YES;//是否显示战绩按钮
-            self.videoButton.hidden = NO;//是否显示视频按钮
+            self.secondButton.hidden = YES;//是否显示战绩按钮
+            self.thirdButton.hidden = NO;//是否显示视频按钮
             self.identityImageView1.hidden = NO;
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-教"];
         }else if ([_userIdentity isEqualToString:@"1,2"]){//拳手、教练
@@ -386,7 +387,7 @@
  *  初始化一些默认配置
  */
 - (void)initBaseData{
-    _selectedType = FTHomepageDynamicInformation;
+    _selectedType = FTHomepageTableViewTypeFirst;
     _currentIndexString = @"all";
     _query = @"list-dam-blog-1";
     _pageNum = @"1";
@@ -429,14 +430,11 @@
 #pragma -mark 设置mainScrollView
 - (void)setMainScrollView{
     _mainScrollView.delegate = self;
-//    NSLog(@"buttonsView.y : %f", _buttonsContainerView.frame.origin.y);
 }
 #pragma -mark scrollView滚动
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if(scrollView == _mainScrollView){//如果是mainScrollView
     CGFloat offsetY = scrollView.contentOffset.y;
-//    NSLog(@"scrollView offset : %f", offsetY);
-//        NSLog(@"buttonsView.y : %f", _buttonsContainerView.frame.origin.y);
     if (offsetY >= 204 - 24 + 8) {
         _buttonsContainerView.top = 224 + (offsetY - (204 - 24 + 8));
         [[_buttonsContainerView superview] bringSubviewToFront:_buttonsContainerView];
@@ -446,45 +444,50 @@
     }
 }
 #pragma -mark -切换按钮的点击事件
-- (IBAction)dynamicInfomationButtonClicked:(id)sender {
+- (IBAction)firstButtonClicked:(id)sender {
     [MobClick event:@"rankingPage_HomePage_Match"];
-    _selectedType = FTHomepageDynamicInformation;
+    _selectedType = FTHomepageTableViewTypeFirst;
     [self refreshButtonsIndex];
 }
-- (IBAction)recordButtonClicked:(id)sender {
+- (IBAction)secondButtonClicked:(id)sender {
     [MobClick event:@"rankingPage_HomePage_Match"];
-    _selectedType = FTHomepageRecord;
+    _selectedType = FTHomepageTableViewTypeSecond;
     [self refreshButtonsIndex];
 }
-- (IBAction)videoButtonClicked:(id)sender {
+- (IBAction)thirdButtonClicked:(id)sender {
     [MobClick event:@"rankingPage_HomePage_VideoAll"];
-    _selectedType = FTHomepageVideo;
+    _selectedType = FTHomepageTableViewTypeThird;
     [self refreshButtonsIndex];
 }
 #pragma -mark 更新对应的界面显示
 -(void)refreshButtonsIndex{
     switch (_selectedType) {
-        case FTHomepageDynamicInformation://格斗场列表
-            //如果没有格斗场数据，则显示空图片
-            if (self.tableViewDataSourceArray && self.tableViewDataSourceArray.count > 0) {
-                _noDynamicImageView.hidden = YES;
-            }else{
-                _noDynamicImageView.hidden = NO;
-            }
+        case FTHomepageTableViewTypeFirst://视频 或 普通用户的技能属性
+            _noDynamicImageView.hidden = YES;//隐藏“暂无数据”view
+            
             //显示当前下标
             _dynamicInfomationButtonIndexView.hidden = NO;
             _recordButtonIndexView.hidden = YES;
             _videoButtonIndexView.hidden = YES;
+
             
-            //显示格斗场列表，并隐藏其他
-            _infoTableView.hidden = NO;
-            _videoCollectionView.hidden = YES;
+            //隐藏其余tableView，显示collectionView，并设置
+            _infoTableView.hidden = YES;
             _recordRankTableView.hidden = YES;
             _recordListTableView.hidden = YES;
-            _courseHistoryTableView.hidden = YES;//隐藏历史课程
-            _skillsTableView.hidden = YES;//隐藏技能列表
+            
+            if ([_userIdentity isEqualToString:@"0"]) {//如果是普通用户，展示技能列表
+                _skillsTableView.hidden = NO;
+                _courseHistoryTableView.hidden = YES;//隐藏历史课程tableview
+                [self displaySkillsTableView];
+            } else {//
+                _videoCollectionView.hidden = NO;
+                [self initCollectionView];
+            }
+            
+            
             break;
-        case FTHomepageRecord://赛事 或 普通用户的课程记录
+        case FTHomepageTableViewTypeSecond://赛事 或 普通用户的课程记录
             _noDynamicImageView.hidden = YES;//隐藏“暂无数据”view
             
             //显示当前下标
@@ -510,30 +513,30 @@
             }
             
             break;
-        case FTHomepageVideo://视频
-            _noDynamicImageView.hidden = YES;//隐藏“暂无数据”view
+        case FTHomepageTableViewTypeThird://格斗场列表
+            
+            
+            //如果没有格斗场数据，则显示空图片
+            if (self.tableViewDataSourceArray && self.tableViewDataSourceArray.count > 0) {
+                _noDynamicImageView.hidden = YES;
+            }else{
+                _noDynamicImageView.hidden = NO;
+            }
             
             //显示当前下标
             _dynamicInfomationButtonIndexView.hidden = YES;
             _recordButtonIndexView.hidden = YES;
             _videoButtonIndexView.hidden = NO;
             
-            //隐藏其余tableView，显示collectionView，并设置
-            _infoTableView.hidden = YES;
+            //显示格斗场列表，并隐藏其他
+            _infoTableView.hidden = NO;
+            _videoCollectionView.hidden = YES;
             _recordRankTableView.hidden = YES;
             _recordListTableView.hidden = YES;
-            
-            if ([_userIdentity isEqualToString:@"0"]) {//如果是普通用户，展示技能列表
-                _skillsTableView.hidden = NO;
-                _courseHistoryTableView.hidden = YES;//隐藏历史课程tableview
-                [self displaySkillsTableView];
-            } else {//
-                _videoCollectionView.hidden = NO;
-                [self initCollectionView];
-            }
-            
-
+            _courseHistoryTableView.hidden = YES;//隐藏历史课程
+            _skillsTableView.hidden = YES;//隐藏技能列表
             break;
+            
         default:
             break;
     }

@@ -5,17 +5,25 @@
 //  Created by Liyz on 5/31/16.
 //  Copyright © 2016 Mapbar. All rights reserved.
 //
-typedef NS_ENUM(NSInteger, FTHomepageTableViewType) {
-    FTHomepageDynamicInformation,
-    FTHomepageRecord,
-    FTHomepageVideo
+
+/**
+ 根据当前按钮的下标
+
+ - FTHomepageTableViewTypeFirst: 第一个
+ - FTHomepageTableViewTypeSecond: 第二个
+ - FTHomepageTableViewTypeThird: 第三个
+ */
+typedef NS_ENUM(NSInteger, FTHomepageSelectedType) {
+    FTHomepageTableViewTypeFirst,
+    FTHomepageTableViewTypeSecond,
+    FTHomepageTableViewTypeThird
 };
 #import "FTBaseViewController.h"
 
 @interface FTHomepageMainViewController : FTBaseViewController
 @property (weak, nonatomic) IBOutlet UILabel *briefIntroductionTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *userBgImageView;//用户背景图
-@property (assign, nonatomic)FTHomepageTableViewType selectedType;
+@property (assign, nonatomic)FTHomepageSelectedType selectedType;
 
 @property (weak, nonatomic) IBOutlet UIView *dynamicInfomationButtonIndexView;
 @property (weak, nonatomic) IBOutlet UIView *recordButtonIndexView;
@@ -41,9 +49,11 @@ typedef NS_ENUM(NSInteger, FTHomepageTableViewType) {
 @property (weak, nonatomic) IBOutlet UIImageView *identityImageView2;
 @property (weak, nonatomic) IBOutlet UIImageView *identityImageView3;
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
-@property (weak, nonatomic) IBOutlet UIButton *videoButton;
-@property (weak, nonatomic) IBOutlet UIButton *dynamicButton;
-@property (weak, nonatomic) IBOutlet UIButton *recordButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *thirdButton;
+@property (weak, nonatomic) IBOutlet UIButton *firstButton;
+@property (weak, nonatomic) IBOutlet UIButton *secondButton;
+
 @property (weak, nonatomic) IBOutlet UIImageView *noDynamicImageView;
 @property (weak, nonatomic) IBOutlet UIButton *shareAndModifyProfileButton;
 @property (weak, nonatomic) IBOutlet UIView *followView;
