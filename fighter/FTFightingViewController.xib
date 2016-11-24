@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,14 +25,17 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QlK-Xl-OCj" userLabel="上方分割线">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
                     <color key="backgroundColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="UdX-Rq-lcD"/>
                     </constraints>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fP9-66-aII" userLabel="containerViewOf筛选按钮">
+                    <rect key="frame" x="33.5" y="1" width="308" height="35"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F0c-nS-Bda" userLabel="All Ｍatches">
+                            <rect key="frame" x="0.0" y="0.0" width="100" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="100" id="L3U-5p-QMc"/>
                                 <constraint firstAttribute="height" constant="35" id="kwt-DD-xK9"/>
@@ -45,6 +51,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Owt-Tg-l3P" userLabel="About to Start Matches">
+                            <rect key="frame" x="100" y="0.0" width="100" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="35" id="QlW-7v-5W6"/>
                                 <constraint firstAttribute="width" constant="100" id="aW6-4M-Cz8"/>
@@ -62,6 +69,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edD-9Q-nEe" userLabel="Matched Matches">
+                            <rect key="frame" x="200" y="0.0" width="100" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="100" id="ctr-ef-jVO"/>
                                 <constraint firstAttribute="height" constant="35" id="dP3-Z4-haR"/>
@@ -92,6 +100,7 @@
                     </constraints>
                 </view>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="siy-OP-pv1" userLabel="发起比赛">
+                    <rect key="frame" x="295" y="614.5" width="80" height="52.5"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="aCM-3G-Nfm"/>
                         <constraint firstAttribute="height" constant="52.5" id="k5z-F8-Zpk"/>
@@ -103,24 +112,34 @@
                     </connections>
                 </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EZT-9C-4IF">
+                    <rect key="frame" x="0.0" y="1" width="375" height="666"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                 </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zr0-7r-vxW">
+                    <rect key="frame" x="266" y="50" width="59" height="30"/>
+                    <state key="normal" title="RankList"/>
+                    <connections>
+                        <action selector="rankListBtnAction:" destination="-1" eventType="touchUpInside" id="5Dm-cp-4Zr"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="EZT-9C-4IF" secondAttribute="trailing" id="0jd-UU-gCf"/>
                 <constraint firstAttribute="bottom" secondItem="siy-OP-pv1" secondAttribute="bottom" id="2vd-Gb-1Za"/>
+                <constraint firstItem="zr0-7r-vxW" firstAttribute="top" secondItem="3g8-Ka-zYk" secondAttribute="top" constant="50" id="58y-Ei-7DU"/>
                 <constraint firstAttribute="trailing" secondItem="siy-OP-pv1" secondAttribute="trailing" id="5zz-9P-NMx"/>
                 <constraint firstItem="QlK-Xl-OCj" firstAttribute="top" secondItem="3g8-Ka-zYk" secondAttribute="top" id="Cb0-TY-4Qf"/>
                 <constraint firstItem="EZT-9C-4IF" firstAttribute="leading" secondItem="3g8-Ka-zYk" secondAttribute="leading" id="EEl-bu-1Wa"/>
                 <constraint firstAttribute="bottom" secondItem="EZT-9C-4IF" secondAttribute="bottom" id="PNO-lE-5wB"/>
+                <constraint firstAttribute="trailing" secondItem="zr0-7r-vxW" secondAttribute="trailing" constant="50" id="TpI-4x-PUx"/>
                 <constraint firstItem="fP9-66-aII" firstAttribute="top" secondItem="QlK-Xl-OCj" secondAttribute="bottom" id="URG-Io-liZ"/>
                 <constraint firstItem="fP9-66-aII" firstAttribute="centerX" secondItem="3g8-Ka-zYk" secondAttribute="centerX" id="ddh-Wz-AiO"/>
                 <constraint firstItem="QlK-Xl-OCj" firstAttribute="leading" secondItem="3g8-Ka-zYk" secondAttribute="leading" id="oEa-pi-k5L"/>
                 <constraint firstItem="EZT-9C-4IF" firstAttribute="top" secondItem="QlK-Xl-OCj" secondAttribute="bottom" id="pEK-Ep-4nH"/>
                 <constraint firstAttribute="trailing" secondItem="QlK-Xl-OCj" secondAttribute="trailing" id="zPw-ix-Ici"/>
             </constraints>
-            <point key="canvasLocation" x="28" y="329"/>
+            <point key="canvasLocation" x="27.5" y="328.5"/>
         </view>
     </objects>
     <resources>

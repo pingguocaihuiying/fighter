@@ -29,6 +29,7 @@
     return showType;
 }
 
+
 + (void)changePreviewVersion{
     
     NSString *showType = [FTNetConfig showType];
@@ -42,7 +43,6 @@
     [[NSUserDefaults standardUserDefaults]synchronize];
     NSLog(@"已切换版本，当前showType:%@", [FTNetConfig showType]);
 }
-@end
 
 /** 可用的后台地址 **/
 NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin";//生产环境

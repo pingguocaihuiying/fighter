@@ -19,7 +19,6 @@
 #import "FTNewsBean.h"
 #import "UIButton+LYZTitle.h"
 #import "UIButton+WebCache.h"
-#import "FTRankingListViewController.h"
 #import "FTRankViewController.h"
 #import "NetWorking.h"
 #import "FTLYZButton.h"
@@ -684,11 +683,25 @@
     }];
 }
 
+#pragma mark - 排行榜
+
+/**
+ 排行榜按钮点击事件,跳转排行榜页面
+
+ @param sender 排行榜按钮
+ */
+- (IBAction)rankListBtnAction:(id)sender {
+    
+    FTRankViewController *rankHomeVC = [FTRankViewController new];
+    rankHomeVC.title = @"排行榜";
+    [self.navigationController pushViewController:rankHomeVC animated:YES];
+}
+
+#pragma mark - 参赛
+
 /**
  *  参赛按钮被点击
- *
  */
-#pragma mark - 参赛
 - (IBAction)entryButtonClicked:(id)sender {
     NSLog(@"参赛");
     FTLaunchNewMatchViewController *launchNewMatchViewController = [FTLaunchNewMatchViewController new];
@@ -723,6 +736,8 @@
     //刷新下注数
 //    [self getMatchDetailFromServer];
 }
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

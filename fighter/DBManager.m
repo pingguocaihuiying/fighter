@@ -211,7 +211,7 @@ static DBManager * _sharedDBManager = nil;
 - (void) createLabelsTable {
     
     
-     NSString * sql = @"CREATE TABLE 'labels' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, 'item' TEXT, 'label' TEXT, 'type' INTEGER)";
+     NSString * sql = @"CREATE TABLE 'labels' ('id' INTEGER PRIMARY KEY  NOT NULL UNIQUE, 'item' TEXT, 'label' TEXT, 'type' INTEGER)";
     
     [self createTable:@"labels" sql:sql];
 }
@@ -262,7 +262,7 @@ static DBManager * _sharedDBManager = nil;
  */
 -(NSMutableArray *) searchLabel {
 
-    NSString *querySQL = @" SELECT distinct label  FROM labels";
+    NSString *querySQL = @" SELECT distinct label  FROM labels ORDER BY id";
     FMResultSet * rs = [_dataBase executeQuery:querySQL];
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:[rs columnCount]];
     

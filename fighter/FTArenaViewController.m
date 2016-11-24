@@ -26,7 +26,6 @@
 #import "FTNewsBean.h"
 #import "UIButton+LYZTitle.h"
 #import "UIButton+WebCache.h"
-#import "FTRankingListViewController.h"
 #import "FTCache.h"
 #import "FTCacheBean.h"
 #import "FTRankViewController.h"
@@ -75,23 +74,19 @@
     [self getDataFromWeb];//初次加载数据
 //    [self reloadDate];
     
-
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [MobClick event:@"mainPage_BoxingNews"];
-    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
-    //        self.tabBarController.navigationController.navigationBarHidden = NO;
-    //    self.navigationController.navigationBarHidden = NO;
+    
 }
 
 /**
  *  初始化一些默认数据
  */
-
 - (void)initBaseConfig{
     _currentIndexString = @"all";
     _query = @"list-dam-blog-1";

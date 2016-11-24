@@ -19,6 +19,7 @@
 #import "NSDate+TaskDate.h"
 #import "FTPracticeViewController.h"
 #import "FTCoachSelfCourseViewController.h"
+
 @interface FTBaseTabBarViewController () <UITabBarControllerDelegate>
 
 @property (nonatomic, strong) UIButton *avatarBtn;
@@ -28,6 +29,8 @@
 @property (nonatomic, strong) UIButton *searchBtn;
 
 @property (nonatomic, strong) UIButton *taskBtn;
+
+@property (nonatomic, strong) UIButton *shopBtn;
 
 @property (nonatomic, strong) UILabel *titleLabel;
 
@@ -41,10 +44,7 @@
     [self setNotification];
     
     [self setNavigationbar];
-    
-//    [self loadAvatar];
-    
-    
+
     self.delegate = self;
     
     
@@ -109,6 +109,16 @@
     self.navigationItem.leftBarButtonItems  = [[NSArray alloc]initWithObjects:avatarButtonItem, nil];
     
     
+    // 商城按钮
+    self.shopBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.shopBtn.frame = CGRectMake(0, 0, 24, 24);
+    [self.shopBtn addTarget:self action:@selector(shopBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.shopBtn setImage:[UIImage imageNamed:@"底部导航-商城"] forState:UIControlStateNormal];
+    [self.shopBtn setImage:[UIImage imageNamed:@"底部导航-商城pre"] forState:UIControlStateHighlighted];
+    
+    UIBarButtonItem *shopBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.shopBtn];
+    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:shopBtnItem,nil];
     
 //    // 头部消息按钮
 //    self.messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -119,7 +129,7 @@
 //    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
 //    
 //    UIBarButtonItem *messageBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.messageBtn];
-//    
+//
 //    // 头部搜索按钮
 //    self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    self.searchBtn.frame = CGRectMake(0, 0, 24, 24);
@@ -182,19 +192,9 @@
     self.titleLabel.textColor = [UIColor whiteColor];
     [self.navigationItem.titleView addSubview:self.titleLabel];
     
-//    self.navigationItem.rightBarButtonItem = messageBtnItem;
-    
 }
 
 
-//- (void) loadAvatar {
-//
-//    if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
-//        
-//        [self.drawerDelegate addButtonToArray:self.avatarBtn];
-//    }
-//
-//}
 
 #pragma mark - 监听器响应
 
@@ -304,6 +304,19 @@
     
 }
 
+
+/**
+ 商城按钮点击事件
+
+ @param sender 商城按钮
+ */
+- (void) shopBtnAction:(id) sender {
+
+    FTShopViewController *shopVC = [FTShopViewController new];
+    shopVC.title = @"格斗商城";
+    [self.navigationController  pushViewController:shopVC animated:YES];
+}
+
 #pragma mark  - login
 
 - (void)login{
@@ -318,109 +331,16 @@
 #pragma mark - delegate
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
 
-    
-//    // 判断商城是否登录
-//    if (tabBarController.selectedIndex != 4 && [viewController isKindOfClass:[FTShopViewController class]]) {
-//        
-//        //从本地读取存储的用户信息
-//        FTUserBean *localUser = [FTUserBean loginUser];
-//        
-//        if ( !localUser) {
-//            
-//            FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
-//            loginVC.title = @"登录";
-//            FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
-//            [self.navigationController presentViewController:nav animated:YES completion:nil];
-//            
-//            [[UIApplication sharedApplication].keyWindow addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:3];
-//            
-//            return NO;
-//        }
-//        
-//    }
-    
-    
-    
-        
-   
-//    if (tabBarController.selectedIndex != 2 && [viewController isKindOfClass:[FTPracticeViewController class]]) {
-//    
-//        FTCoachSelfCourseViewController *coachSelfCourseVC = [FTCoachSelfCourseViewController new];
-//        coachSelfCourseVC.title = @"学拳";
-//        coachSelfCourseVC.tabBarItem.title = @"学拳";
-//        [coachSelfCourseVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-//                                                       Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
-//                                                       nil] forState:UIControlStateSelected];
-//        coachSelfCourseVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-教练"];
-//        coachSelfCourseVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-教练pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//        
-//        NSMutableArray *mutabelItems = [[NSMutableArray alloc]initWithArray:tabBarController.viewControllers];
-////        [mutabelItems addObject:coachSelfCourseVC];
-//        [mutabelItems replaceObjectAtIndex:2 withObject:coachSelfCourseVC];
-//        NSArray *items = [[NSArray alloc]initWithArray:mutabelItems];
-//        tabBarController.viewControllers = items;
-//        
-////        NSMutableArray * tempVCs = [tabBarController.viewControllers mutableCopy];
-//////        [tempVCs removeObjectAtIndex:2];
-//////        [tempVCs insertObject:coachSelfCourseVC atIndex:2];
-////        NSLog(@"tabBarController.viewControllers.count:%ld",tabBarController.viewControllers.count);
-////        
-////        tabBarController.viewControllers = [tempVCs copy];
-//        
-//
-//    }
-    
-   
     return YES;
         
 }
 
-//- (void)tabBarController:(UITabBarController *)tabBarController willBeginCustomizingViewControllers:(NSArray<__kindof UIViewController *> *)viewControllers {
-//
-//    FTCoachSelfCourseViewController *coachSelfCourseVC = [FTCoachSelfCourseViewController new];
-//    coachSelfCourseVC.title = @"学拳";
-//    coachSelfCourseVC.tabBarItem.title = @"学拳";
-//    [coachSelfCourseVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-//                                                          Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
-//                                                          nil] forState:UIControlStateSelected];
-//    coachSelfCourseVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-教练"];
-//    coachSelfCourseVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-教练pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    
-//    NSMutableArray *mutabelItems = [[NSMutableArray alloc]initWithArray:viewControllers];
-//    //        [mutabelItems addObject:coachSelfCourseVC];
-//    [mutabelItems replaceObjectAtIndex:2 withObject:coachSelfCourseVC];
-//    NSArray *items = [[NSArray alloc]initWithArray:mutabelItems];
-//    tabBarController.viewControllers = items;
-//    
-//}
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
 
     self.titleLabel.text = viewController.title;
-    
-    
-//    if (tabBarController.selectedIndex != 3) {
-//        return;
-//    }
-//    //从本地读取存储的用户信息
-//    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-//    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-//    
-//    if (localUser) {
-//        return;
-//    }
-//    
-//    if ( [viewController isKindOfClass:[FTStoreViewController class]]) {
-//        
-//        FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
-//        loginVC.title = @"登录";
-//        FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
-//        [self.navigationController presentViewController:nav animated:YES completion:nil];
-//        
-//        [[UIApplication sharedApplication].keyWindow addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:3];
-//    }
-    
 }
+
 
 
 #pragma mark - 抖动动画
