@@ -56,6 +56,7 @@
         [_tableView reloadData];
         
         
+        
         /*
             技能列表，用cell堆砌而成，没有用tableview
          */
@@ -347,6 +348,12 @@
         
         FTUserSkillBean *beanNew = _skillArray[indexPath.row];
         FTUserSkillBean *beanOld = _skillArrayOld[indexPath.row];
+        
+//#warning 给 beanOld 赋值，测试用
+//        beanOld = [FTUserSkillBean new];
+//        beanOld.score = 0;
+//        beanOld.name = @"fua";
+        
         cell.rightArrowWidth.constant = 0;//隐藏右箭头
         if (beanOld) {
             [cell setWithSkillNewBean:beanNew andSkillOldBean:beanOld];

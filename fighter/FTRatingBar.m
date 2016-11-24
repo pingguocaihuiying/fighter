@@ -212,6 +212,7 @@
         [_s5 setImage:_fullSelectedImage];
     }
     
+    [self setNeedsDisplay];
     
 //    [_s1 setImage:_fullSelectedImage];
 //    [_s2 setImage:_fullSelectedImage];

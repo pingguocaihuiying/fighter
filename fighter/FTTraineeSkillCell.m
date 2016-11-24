@@ -30,7 +30,7 @@
 - (void)addIncreaseLabel{
     CGRect r = _gradeLabel.frame;
     r.origin.y -= 20;
-    r.origin.x += 8;
+    r.origin.x += 23.5;
     
     _increaseLabel = [[UILabel alloc]initWithFrame:r];
 //    _increaseLabel.text = @"5";
@@ -51,11 +51,11 @@
     
     if (grade <20) {
         level = 1;
-    }else if (level < 40) {
+    }else if (grade < 40) {
         level = 2;
-    }else if (level < 60) {
+    }else if (grade < 60) {
         level = 3;
-    }else if (level < 80) {
+    }else if (grade < 80) {
         level = 4;
     }else {
         level = 5;
@@ -102,6 +102,10 @@
 }
 
 - (void)setWithSkillNewBean:(FTUserSkillBean *)skillBeanNew andSkillOldBean:(FTUserSkillBean *)skillBeanOld{
+    _skillBean = skillBeanNew;
+    _skillBeanOld = skillBeanOld;
+    
+    float increaseScore = skillBeanNew.score - skillBeanOld.score;
     
     _skillLabel.text = skillBeanOld.name;
 
@@ -114,17 +118,18 @@
     [self.ratingBar displayRating:[self levelOfGrade:skillBeanOld.score]];
     
     /*
-     如果是父项，判断是否显示小红点
+     判断是否是父项列表，还是在子项列表
      */
     if (skillBeanOld.isParrent && skillBeanOld.hasNewVersion){
-        _redPoint.hidden = NO;
+        _redPoint.hidden = NO;//显示小红点
     }else{
         _redPoint.hidden = YES;
         
         _increaseLabel.hidden = NO;//显示增长的值
+        _increaseLabel.text = [NSString stringWithFormat:@"%.0f", increaseScore];
         
         CGRect r =  _increaseLabel.frame;
-        r.origin.y += 15;
+        r.origin.y += 18;
         
         /*
          动画效果
@@ -133,24 +138,42 @@
         [UIView beginAnimations:@"UIViewAnimationCurveEaseOut" context:nil];
         [UIView setAnimationDidStopSelector:@selector(animationStop)];
         [UIView setAnimationDelegate:self];
-        [UIView setAnimationDuration:2.5];
+        [UIView setAnimationDuration:1.5];
         
         _increaseLabel.frame = r;
+        _increaseLabel.alpha = 0.3;
         
         [UIView commitAnimations];
     }
     
 }
 - (void)animationStop{
+    NSInteger scoreNew = _skillBean.score ;
     
+    if (scoreNew <= 0) {
+        scoreNew = 100;//如果新分数<=0,说明数据有异常，设为100，引起注意：这是个bug
+    }
     //移除的变化label
     
         _increaseLabel.hidden = YES;//隐藏变化值label
         
         //显示最新score
-        _gradeLabel.text = [NSString stringWithFormat:@"%.0f", _skillBean.score];
-//        _gradeLabel.text = @"73";
+        _gradeLabel.text = [NSString stringWithFormat:@"%ld", scoreNew];
     
+#warning 测试
     
+    _gradeLabel.text = [NSString stringWithFormat:@"%ld", scoreNew];
+    CATransition *anima = [CATransition animation];
+    anima.type = kCATransitionFade;//设置动画的类型
+    anima.subtype = kCATransitionFromRight; //设置动画的方向
+    anima.duration = 0.8f;
+    [_gradeLabel.layer addAnimation:anima forKey:@"fadeAnimation"];
+    
+    //更新评分bar
+    float rating = [self levelOfGrade:scoreNew];
+    NSLog(@"ratingrating : %f", rating);
+    [self.ratingBar displayRating:rating];
+    
+
 }
 @end
