@@ -115,9 +115,9 @@
                     <rect key="frame" x="0.0" y="1" width="375" height="666"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                 </tableView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zr0-7r-vxW">
-                    <rect key="frame" x="266" y="50" width="59" height="30"/>
-                    <state key="normal" title="RankList"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zr0-7r-vxW" userLabel="Rank Button">
+                    <rect key="frame" x="266" y="-3" width="94" height="30"/>
+                    <state key="normal" backgroundImage="右上排行榜"/>
                     <connections>
                         <action selector="rankListBtnAction:" destination="-1" eventType="touchUpInside" id="5Dm-cp-4Zr"/>
                     </connections>
@@ -127,12 +127,12 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="EZT-9C-4IF" secondAttribute="trailing" id="0jd-UU-gCf"/>
                 <constraint firstAttribute="bottom" secondItem="siy-OP-pv1" secondAttribute="bottom" id="2vd-Gb-1Za"/>
-                <constraint firstItem="zr0-7r-vxW" firstAttribute="top" secondItem="3g8-Ka-zYk" secondAttribute="top" constant="50" id="58y-Ei-7DU"/>
+                <constraint firstItem="zr0-7r-vxW" firstAttribute="top" secondItem="3g8-Ka-zYk" secondAttribute="top" constant="-3" id="58y-Ei-7DU"/>
                 <constraint firstAttribute="trailing" secondItem="siy-OP-pv1" secondAttribute="trailing" id="5zz-9P-NMx"/>
                 <constraint firstItem="QlK-Xl-OCj" firstAttribute="top" secondItem="3g8-Ka-zYk" secondAttribute="top" id="Cb0-TY-4Qf"/>
                 <constraint firstItem="EZT-9C-4IF" firstAttribute="leading" secondItem="3g8-Ka-zYk" secondAttribute="leading" id="EEl-bu-1Wa"/>
                 <constraint firstAttribute="bottom" secondItem="EZT-9C-4IF" secondAttribute="bottom" id="PNO-lE-5wB"/>
-                <constraint firstAttribute="trailing" secondItem="zr0-7r-vxW" secondAttribute="trailing" constant="50" id="TpI-4x-PUx"/>
+                <constraint firstItem="zr0-7r-vxW" firstAttribute="trailing" secondItem="3g8-Ka-zYk" secondAttribute="trailing" constant="-15" id="TpI-4x-PUx"/>
                 <constraint firstItem="fP9-66-aII" firstAttribute="top" secondItem="QlK-Xl-OCj" secondAttribute="bottom" id="URG-Io-liZ"/>
                 <constraint firstItem="fP9-66-aII" firstAttribute="centerX" secondItem="3g8-Ka-zYk" secondAttribute="centerX" id="ddh-Wz-AiO"/>
                 <constraint firstItem="QlK-Xl-OCj" firstAttribute="leading" secondItem="3g8-Ka-zYk" secondAttribute="leading" id="oEa-pi-k5L"/>
@@ -151,5 +151,6 @@
         <image name="三标签-左-选中" width="102" height="35"/>
         <image name="发起" width="80" height="52"/>
         <image name="发起pre" width="80" height="52"/>
+        <image name="右上排行榜" width="94" height="30"/>
     </resources>
 </document>

@@ -856,14 +856,14 @@ static NSString *const tableCellId = @"tableCellId";
     if (_homepageVC == nil) {
         
         _homepageVC = [FTHomepageMainViewController new];
-        _homepageVC.title = @"我的";
-        _homepageVC.tabBarItem.title = @"我的";
+        _homepageVC.title = @"我是拳手";
+        _homepageVC.tabBarItem.title = @"我是拳手";
         [_homepageVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                          Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
                                                          nil] forState:UIControlStateSelected];
         
-        _homepageVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳吧"];
-        _homepageVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳吧pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        _homepageVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-我是拳手"];
+        _homepageVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-我是拳手pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     }
     
 }
