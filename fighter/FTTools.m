@@ -450,8 +450,8 @@
 
 +(BOOL)hasLoginWithViewController:(UIViewController *) vc{
     BOOL hasLogin = NO;
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    FTUserBean *user = [FTUserBean loginUser];
     if (user) {
         hasLogin = YES;
     }else{

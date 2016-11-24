@@ -182,8 +182,7 @@
                                  [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"绑定手机成功"];
                                  
                                  //从本地读取存储的用户信息
-                                 NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-                                 FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+                                 FTUserBean *localUser = [FTUserBean loginUser];
                                  localUser.tel = cell.phoneTextField.text;
                                  
                                  //更新本地数据
@@ -313,14 +312,8 @@
     
 }
 
-//监听器事件
-- (void) updateResponse:(id) sender {
-    
-    [self.tableView reloadData];
-}
-
 - (void) dismissBtnAction:(id) sender {
-
+    
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         
         [[NSNotificationCenter defaultCenter] postNotificationName:EditNotification object:nil];
@@ -328,6 +321,14 @@
     }];
     
 }
+
+
+//监听器事件
+- (void) updateResponse:(id) sender {
+    
+    [self.tableView reloadData];
+}
+
 
 - (void)avatarBtnAction:(id)sender {
     
@@ -402,8 +403,7 @@
 - (void) tapAction:(UIGestureRecognizer *)recognizer {
 
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     if (localUser.tel.length == 0) {
         NSIndexPath *textFieldIndexPath = [NSIndexPath indexPathForRow:0 inSection:3];
@@ -459,8 +459,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     if (localUser.tel.length > 0) {
         return 4;
     }
@@ -562,8 +561,7 @@
 //    }
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     if (indexPath.section == 0) {
         FTAvatarCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AvatarCell"];
@@ -705,10 +703,8 @@
     NSLog(@"1234567890");
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
 
-    
     if (localUser.tel.length == 0) {
         NSIndexPath *textFieldIndexPath = [NSIndexPath indexPathForRow:0 inSection:3];
         __weak FTPhoneCheckCell *textFieldCell = [self.tableView cellForRowAtIndexPath:textFieldIndexPath];
@@ -994,8 +990,7 @@
                                   
                                   
                                   //从本地读取存储的用户信息
-                                  NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-                                  FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+                                  FTUserBean *localUser = [FTUserBean loginUser];
                                   localUser.headpic = dict[@"data"];
                                   
                                   //将用户信息保存在本地

@@ -127,8 +127,7 @@
                                if (status == true) {
                                    
                                     [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                                   NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-                                   FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+                                   FTUserBean *localUser = [FTUserBean loginUser];
                                 
                                    [NetWorking loginWithPhoneNumber:localUser.tel
                                                     password:self.passwordTextField.text

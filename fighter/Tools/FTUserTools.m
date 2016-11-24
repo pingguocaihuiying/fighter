@@ -11,8 +11,7 @@
 @implementation FTUserTools
 
 + (FTUserBean *)getLocalUser{
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     return localUser;
 }
 + (void)sendSignOutNotification{

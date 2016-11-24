@@ -95,8 +95,8 @@
     NSLog(@"commentViewClicke");
     
     //要先登录才能操作
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+   
+    FTUserBean *localUser = [FTUserBean loginUser];
     if (!localUser) {
         [self login];
     }else{

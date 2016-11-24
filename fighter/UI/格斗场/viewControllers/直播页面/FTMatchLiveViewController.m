@@ -429,9 +429,7 @@
 - (BOOL)validateLoginInfo{
     BOOL result = false;
     //判断是否登录
-        //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     if (!localUser) {
         result = false;
     }else{
@@ -447,8 +445,7 @@
 }
 - (IBAction)commentButtonClicked:(id)sender {
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     if (!localUser) {
         [self login];
     }else{
