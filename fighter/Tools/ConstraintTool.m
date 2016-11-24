@@ -9,22 +9,22 @@
 #import "ConstraintTool.h"
 #import <objc/runtime.h>
 
-struct  {
-    CGFloat x;
-    CGFloat y;
-};
+//struct  {
+//    CGFloat x;
+//    CGFloat y;
+//};
 @implementation ConstraintTool
 
-+ (void) AddConstraintTLBR:(CG) toItem:(UIView *)item {
- 
-    CGPoint
-}
-
-+ (void) addTopConstraint:(NSInteger) offset  item:(UIView *)item toItem:(UIView *) toItem {
-    
-    item.translatesAutoresizingMaskIntoConstraints = NO;
-    [item.constraints]
-}
+//+ (void) AddConstraintTLBR:(CG) toItem:(UIView *)item {
+// 
+//    CGPoint
+//}
+//
+//+ (void) addTopConstraint:(NSInteger) offset  item:(UIView *)item toItem:(UIView *) toItem {
+//    
+//    item.translatesAutoresizingMaskIntoConstraints = NO;
+//    [item.constraints]
+//}
 
 
 static char KxqExistedConstraintsKey;
