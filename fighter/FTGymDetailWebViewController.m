@@ -6,6 +6,13 @@
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
+#define itemsPerLine 5 //定义collectionView每行的个数
+#define itemWidth 56    //collection cell宽度
+#define itemHeight 78 //collection cell高度
+#define minLineSpacing 15//最小行距
+#define minInteritemSpacing 19.5//最小列间距
+
+
 #import "FTGymDetailWebViewController.h"
 #import "FTCommentViewController.h"
 #import "MBProgressHUD.h"
@@ -328,7 +335,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (_coachArray.count > 6 && _displayAllVIP) {
+    if (_coachArray.count > itemsPerLine && _displayAllVIP) {
         if (indexPath.row == _coachArray.count) {
             _displayAllVIP = !_displayAllVIP;
             [self updateCollectionView];
@@ -339,7 +346,7 @@
             [self pushToCoachVCWithDic:vipDic];
         }
     } else {
-        if (_coachArray.count > 6 && indexPath.row == 5) {
+        if (_coachArray.count > itemsPerLine && indexPath.row == itemsPerLine - 1) {
             _displayAllVIP = !_displayAllVIP;
             [self updateCollectionView];
             NSLog(@"展开");
@@ -365,21 +372,22 @@
     
     //创建flowLayout
     UICollectionViewFlowLayout *flowLayout = [UICollectionViewFlowLayout new];
-    flowLayout.minimumLineSpacing = 15;//最小行间距
-    flowLayout.minimumInteritemSpacing = 20;//最小列间距
-    flowLayout.itemSize = CGSizeMake(40, 60);
+    flowLayout.minimumLineSpacing = minLineSpacing;//最小行间距
+    flowLayout.minimumInteritemSpacing = minInteritemSpacing;//最小列间距
+//    flowLayout.itemSize = CGSizeMake(40, 60);
+    flowLayout.itemSize = CGSizeMake(itemWidth, itemHeight);
     flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     _collectionView.collectionViewLayout = flowLayout;
     
-    //针对6以下进行适配
+    //针对320屏进行适配
     if (SCREEN_WIDTH == 320) {
         NSLog(@"苹果6以下");
         _collectionViewPaddingLeft.constant *= SCALE;
         _collectionViewPaddingRight.constant *= SCALE;
         
-        flowLayout.minimumLineSpacing = 15 * SCALE;//最小行间距
-        flowLayout.minimumInteritemSpacing = 20 * SCALE;//最小列间距
-        flowLayout.itemSize = CGSizeMake(40 * SCALE, 60 * SCALE);
+        flowLayout.minimumLineSpacing  *= SCALE;//最小行间距
+        flowLayout.minimumInteritemSpacing *= SCALE;//最小列间距
+        flowLayout.itemSize = CGSizeMake(itemWidth * SCALE, itemHeight * SCALE);
         flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
         _collectionView.collectionViewLayout = flowLayout;
     }
@@ -409,12 +417,12 @@
 
 - (void)updateCollectionView{
     
-    if (_coachArray.count > 6  && _displayAllVIP) {
+    if (_coachArray.count > itemsPerLine  && _displayAllVIP) {
         NSInteger line;
-        if ((_coachArray.count + 1) % 6 == 0) {//如果刚好被整出
-                line = (_coachArray.count + 1) / 6;//行数
+        if ((_coachArray.count + 1) % itemsPerLine == 0) {//如果刚好被整除
+                line = (_coachArray.count + 1) / itemsPerLine;//行数
         }else{//如果没有被整出
-            line = (_coachArray.count + 1) / 6 + 1;//行数
+            line = (_coachArray.count + 1) / itemsPerLine + 1;//行数
         }
         
         NSLog(@"line : %ld", (long)line);
@@ -422,9 +430,9 @@
         
         if (SCREEN_WIDTH == 320) {
             NSLog(@"SCREEN_WIDTH == 320");
-            _collectionContainerViewHeight.constant = 30 + 60 * line * SCALE + 15 * (line - 1) * SCALE;
+            _collectionContainerViewHeight.constant = 10 + 15 + itemHeight * line * SCALE + 15 * (line - 1) * SCALE;
         }else{
-            _collectionContainerViewHeight.constant = 30 + 60 * line + 15 * (line - 1);
+            _collectionContainerViewHeight.constant = 10 + 15 + itemHeight * line + 15 * (line - 1);
         }
         
         
@@ -432,9 +440,9 @@
         
         if (SCREEN_WIDTH == 320) {
             NSLog(@"SCREEN_WIDTH == 320");
-            _collectionContainerViewHeight.constant = 30 + 60 * SCALE;
+            _collectionContainerViewHeight.constant = 10 + 15 + itemHeight * SCALE;
         }else{
-            _collectionContainerViewHeight.constant = 90;
+            _collectionContainerViewHeight.constant = 10 + 15 +itemHeight;
         }
     }
     [_collectionView reloadData];
@@ -448,8 +456,8 @@
 //某组多少行
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if (_coachArray) {
-        if(_coachArray.count > 6){
-            //如果源数据vip数量大于6，需要分行显示，则显示『更多』、『收起』项
+        if(_coachArray.count > itemsPerLine){
+            //如果源数据vip数量大于itemsPerLine，需要分行显示，则显示『更多』、『收起』项
             return _coachArray.count + 1;
         }else{
             return _coachArray.count;
@@ -466,13 +474,13 @@
 //    NSLog(@"indexPath.row : %ld ", indexPath.row);
     
     if (_displayAllVIP) {//展示所有
-        if (_coachArray.count > 6 && indexPath.row == _coachArray.count) {//『收起』
+        if (_coachArray.count > itemsPerLine && indexPath.row == _coachArray.count) {//『收起』
             cell.headerImageView.image = [UIImage imageNamed:@"学员列表-收起"];
             cell.vipNameLabel.text = @"收起";
         }else{
             NSDictionary *vipDic = _coachArray[indexPath.row];
 //            cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
-            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]placeholderImage:[UIImage imageNamed:@"小占位图"]];
+            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]placeholderImage:[UIImage imageNamed:@"头像-空"]];
             
             NSString *name = vipDic[@"name"];
             cell.vipNameLabel.text = name;
@@ -480,22 +488,22 @@
         
     } else {//只展示第一行
         
-        if (indexPath.row >= 5) {
-            if (_coachArray.count > 6) {
-                if (indexPath.row == 5) {
+        if (indexPath.row >= itemsPerLine - 1) {
+            if (_coachArray.count > itemsPerLine) {
+                if (indexPath.row == itemsPerLine - 1) {
                     cell.headerImageView.image = [UIImage imageNamed:@"学员列表-更多"];
                     cell.vipNameLabel.text = @"更多";
                 }
             }else{
                 NSDictionary *vipDic = _coachArray[indexPath.row];
 //                cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
-                [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]placeholderImage:[UIImage imageNamed:@"小占位图"]];
+                [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]placeholderImage:[UIImage imageNamed:@"头像-空"]];
                 cell.vipNameLabel.text = vipDic[@"name"];
             }
         }else{
             NSDictionary *vipDic = _coachArray[indexPath.row];
 //            cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
-            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]placeholderImage:[UIImage imageNamed:@"小占位图"]];
+            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]placeholderImage:[UIImage imageNamed:@"头像-空"]];
             cell.vipNameLabel.text = vipDic[@"name"];
         }
 
@@ -505,24 +513,7 @@
     return cell;
 }
 
-// 设置webView webView已废弃
-- (void)setWebView{
-    
-    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49 - 64)];
-    _webView.delegate = self;
-    _webView.backgroundColor = [UIColor clearColor];
-    _webView.opaque = NO;
-    [self.view addSubview:_webView];
-    
-    _webUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/m/hall.html?gymId=%@",self.gymBean.gymId];
-    
-    NSLog(@"webview url：%@", _webUrlString);
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webUrlString]]];
-    [self.view sendSubviewToBack:_webView];
-    
-    [self startLoadingAnimation];
-    
-}
+
 
 #pragma mark - button response
 
