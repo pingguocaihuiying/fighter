@@ -7,15 +7,16 @@
 //
 
 #import "FTBaseViewController.h"
+#import "ViewControllerTransitionDelegate.h"
 
-@protocol TeachDelegate <NSObject>
-@optional
-- (void) pushToController:(UIViewController *) viewController;
-- (void) pressentController:(UIViewController *) viewController;
+//@protocol TeachDelegate <NSObject>
+//@optional
+//- (void) pushToController:(UIViewController *) viewController;
+//- (void) pressentController:(UIViewController *) viewController;
+//
+//@end
 
-@end
-
-@interface FTPracticeViewController : FTBaseViewController <TeachDelegate>
+@interface FTPracticeViewController : FTBaseViewController <ViewControllerTransitionDelegate>
 
 
 #pragma mark push响应方法

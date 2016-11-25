@@ -9,8 +9,9 @@
 #import "FTGymListViewController.h"
 #import "FTGymViewForLaunchMatch.h"
 #import "FTLaunchNewMatchViewController.h"
+#import "ViewControllerTransitionDelegate.h"
 
-@interface FTGymListViewController ()<TeachDelegate>
+@interface FTGymListViewController ()<ViewControllerTransitionDelegate>
 
 @property (strong, nonatomic)  FTGymViewForLaunchMatch *gymView;
 

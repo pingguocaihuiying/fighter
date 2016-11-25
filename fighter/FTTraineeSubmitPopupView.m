@@ -207,76 +207,7 @@
     return _cancelButton;
 }
 
-#pragma mark - response
-- (void) cancelButtonAction:(id) sender {
 
-    [self removeFromSuperview];
-}
-
-- (void) submitButtonAction:(id) sender {
-    
-    if (self.textView.text.length == 0) {
-        [self showMessage:@"学员点评不能为空~"];
-        return;
-    }
-    
-    
-//    if (self.textView.text.length < 10) {
-//        [self showMessage:@"评论不能少于10个字"];
-//        return;
-//    }
-    
-    
-    
-//    NSString *increases = [self.skillGradeDic.allValues componentsJoinedByString:@","];
-//    NSString *skills = [self.skillGradeDic.allKeys componentsJoinedByString:@","];
-
-    NSString *increases ;
-    NSString *skills ;
-    for (int i = 0; i < self.skillGradeDic.allKeys.count; i++) {
-        NSString *key = [self.skillGradeDic.allKeys objectAtIndex:i];
-        NSString *value = [self.skillGradeDic objectForKey:key];
-        
-        if (skills.length == 0) {
-            skills = key;
-            increases = value;
-        }else {
-            skills = [NSString stringWithFormat:@"%@,%@",skills,key];
-            increases = [NSString stringWithFormat:@"%@,%@",increases,value];
-        }
-    }
-    
-
-
-    NSDictionary *paramDic = @{
-                               @"increases":increases,
-                               @"skills":skills,
-                               @"evaluation":_textView.text,
-                               @"bookId":_bookId
-                               };
-    
-//    SLog(@"paramDic:%@",paramDic);
-    [MBProgressHUD showHUDAddedTo:self animated:YES];
-    [NetWorking saveSkillVersion:paramDic option:^(NSDictionary *dic) {
-        [MBProgressHUD hideHUDForView:self animated:YES];
-        
-        if (!dic) {
-            [self showMessage:@"网络繁忙，请稍后再试~"];
-            return ;
-        }
-//        SLog(@"dic:%@",dic);
-        SLog(@"message:%@",[dic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-        BOOL status = [dic[@"status"] isEqualToString:@"success"]? YES:NO;
-        if (!status) {
-            [self showMessage:[dic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        }else {
-            
-            SLog(@"_notificationDic:%@",_notificationDic);
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"HadGradeSkill" object:nil userInfo:_notificationDic];
-            [self removeFromSuperview];
-        }
-    }];
-}
 
 #pragma mark - constraint 
 
@@ -557,7 +488,7 @@
 
 }
 
-#pragma mark - 
+#pragma mark - skill name and value
 
 - (void) setSkillLabels:(NSDictionary *) dic {
 
@@ -662,6 +593,10 @@
     //    [self.panelView addConstraint:rightConstraint];
 }
 
+
+
+#pragma mark - touch
+
 - (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
     if (keyBoardHidden == NO) {
@@ -718,6 +653,79 @@
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration animations:^{
         [weakSelf layoutIfNeeded];//刷新布局，使得工具条随键盘frame改变有动画
+    }];
+}
+
+#pragma mark - response
+- (void) cancelButtonAction:(id) sender {
+    
+    [self removeFromSuperview];
+}
+
+- (void) submitButtonAction:(id) sender {
+    
+    [self.textView resignFirstResponder];
+    
+    if (self.textView.text.length == 0) {
+        [self showMessage:@"学员点评不能为空~"];
+        return;
+    }
+    
+    
+    //    if (self.textView.text.length < 10) {
+    //        [self showMessage:@"评论不能少于10个字"];
+    //        return;
+    //    }
+    
+    
+    
+    //    NSString *increases = [self.skillGradeDic.allValues componentsJoinedByString:@","];
+    //    NSString *skills = [self.skillGradeDic.allKeys componentsJoinedByString:@","];
+    
+    NSString *increases ;
+    NSString *skills ;
+    for (int i = 0; i < self.skillGradeDic.allKeys.count; i++) {
+        NSString *key = [self.skillGradeDic.allKeys objectAtIndex:i];
+        NSString *value = [self.skillGradeDic objectForKey:key];
+        
+        if (skills.length == 0) {
+            skills = key;
+            increases = value;
+        }else {
+            skills = [NSString stringWithFormat:@"%@,%@",skills,key];
+            increases = [NSString stringWithFormat:@"%@,%@",increases,value];
+        }
+    }
+    
+    
+    
+    NSDictionary *paramDic = @{
+                               @"increases":increases,
+                               @"skills":skills,
+                               @"evaluation":_textView.text,
+                               @"bookId":_bookId
+                               };
+    
+    //    SLog(@"paramDic:%@",paramDic);
+    [MBProgressHUD showHUDAddedTo:self animated:YES];
+    [NetWorking saveSkillVersion:paramDic option:^(NSDictionary *dic) {
+        [MBProgressHUD hideHUDForView:self animated:YES];
+        
+        if (!dic) {
+            [self showMessage:@"网络繁忙，请稍后再试~"];
+            return ;
+        }
+        //        SLog(@"dic:%@",dic);
+        SLog(@"message:%@",[dic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+        BOOL status = [dic[@"status"] isEqualToString:@"success"]? YES:NO;
+        if (!status) {
+            [self showMessage:[dic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        }else {
+            
+            SLog(@"_notificationDic:%@",_notificationDic);
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"HadGradeSkill" object:nil userInfo:_notificationDic];
+            [self removeFromSuperview];
+        }
     }];
 }
 

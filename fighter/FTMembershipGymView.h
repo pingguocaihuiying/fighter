@@ -1,16 +1,20 @@
 //
-//  FTCoachView.h
+//  FTMembershipGymView.h
 //  fighter
 //
-//  Created by kang on 16/6/24.
+//  Created by kang on 2016/11/25.
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "FTPracticeViewController.h"
 #import "ViewControllerTransitionDelegate.h"
 
-@interface FTCoachView : UIView
+
+/**
+ 我的拳馆，展示我成为会员的拳馆
+ */
+@interface FTMembershipGymView : UIView
+
 @property (nonatomic, weak) id<ViewControllerTransitionDelegate> delegate;
 
 @end

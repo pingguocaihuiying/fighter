@@ -520,12 +520,18 @@
     NSString *headpic = wxInfoDic[@"headimgurl"];
     headpic = [FTEncoderAndDecoder encodeToPercentEscapeString:headpic];
     NSString *stemfrom = @"weixin";
-    username = [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    // 用户名转码  ISO 8859-1
+    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingISOLatin1);
+    const  char *cString = [username UTF8String];;
+    NSString *encodeUsername = [NSString  stringWithCString:cString encoding:enc];
+    
+//    username = [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     //设备独立的token
     NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"];
     
     NSString *wxLoginURLString = [FTNetConfig host:Domain path:UserWXLoginURL];
-    wxLoginURLString = [NSString stringWithFormat:@"%@?openId=%@&unionId=%@&timestamp=%@&imei=%@&username=%@&keyToken=%@&city=%@&headpic=%@&stemfrom=%@&token=%@", wxLoginURLString, openId, unionId, timestampString, imei, username, keyTokenMD5, province, headpic, stemfrom,deviceToken];
+    wxLoginURLString = [NSString stringWithFormat:@"%@?openId=%@&unionId=%@&timestamp=%@&imei=%@&username=%@&keyToken=%@&city=%@&headpic=%@&stemfrom=%@&token=%@", wxLoginURLString, openId, unionId, timestampString, imei, encodeUsername, keyTokenMD5, province, headpic, stemfrom,deviceToken];
 
     [self getRequestWithUrl:wxLoginURLString parameters:nil option:option];
     

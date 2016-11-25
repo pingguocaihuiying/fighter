@@ -11,7 +11,7 @@
 #import "FTPracticeView.h"
 #import "FTCoachView.h"
 #import "FTGymView.h"
-
+#import "FTMembershipGymView.h"
 #import "FTRankViewController.h"
 
 @interface FTPracticeViewController ()
@@ -20,7 +20,7 @@
 @property (strong, nonatomic)  FTPracticeView *practiceView;
 @property (strong, nonatomic)  FTCoachView *coachView;
 @property (strong, nonatomic)  FTGymView *gymView;
-
+@property (strong, nonatomic)  FTMembershipGymView *membershipGymView;
 
 @property (weak, nonatomic) IBOutlet UIButton *teachBtn;
 
@@ -28,6 +28,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *gymBtn;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *coachBtnWidthConstraint;
 
 @end
 
@@ -35,7 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
     [self initSubviews];
     
     
@@ -78,9 +79,10 @@
     
     FTUserBean *loginUser = [FTUserBean loginUser];
     if (loginUser.isGymUser.count > 0) {
-    
-        [self gymBtnAction:nil];
+        self.coachBtnWidthConstraint.constant = 100;
+        [self coachBtnAction:nil];
     }else {
+        self.coachBtnWidthConstraint.constant = 0;
         [self teachBtnAction:nil];
     }
 }
@@ -114,6 +116,15 @@
     
 }
 
+- (void) initMembershipGymView {
+    
+    if (!_membershipGymView) {
+        _membershipGymView = [[FTMembershipGymView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 100-59)];
+        _membershipGymView.delegate = self;
+    }
+    
+    [self.contentView addSubview:_membershipGymView];
+}
 
 /**
  拳馆
@@ -168,7 +179,8 @@
     _gymBtn.selected = NO;
     _gymBtn.enabled = YES;
     
-    [self initCoachView];
+//    [self initCoachView];
+    [self initMembershipGymView];
     
     [_practiceView removeFromSuperview];
     [_gymView removeFromSuperview];
