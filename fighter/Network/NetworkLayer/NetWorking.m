@@ -506,9 +506,9 @@
 + (void) requestWeixinUser:(NSDictionary *)wxInfoDic
                     option:(void (^)(NSDictionary *dict))option{
     
-    for(NSString *key in [wxInfoDic allKeys]){
-        NSLog(@"key:%@", key);
-    }
+//    for(NSString *key in [wxInfoDic allKeys]){
+//        NSLog(@"key:%@", key);
+//    }
     NSString *openId = wxInfoDic[@"openid"];
     NSString *unionId = wxInfoDic[@"unionid"];
     NSString *timestampString = [NSString stringWithFormat:@"%.0lf",[[NSDate date] timeIntervalSince1970]];
@@ -520,14 +520,37 @@
     NSString *headpic = wxInfoDic[@"headimgurl"];
     headpic = [FTEncoderAndDecoder encodeToPercentEscapeString:headpic];
     NSString *stemfrom = @"weixin";
-    username = [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    // 用户名转码  ISO 8859-1
+    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingISOLatin1);
+    const  char *cString = [username UTF8String];;
+    NSString *encodeUsername = [NSString  stringWithCString:cString encoding:enc];
+    
+//    username = [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     //设备独立的token
     NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"];
     
     NSString *wxLoginURLString = [FTNetConfig host:Domain path:UserWXLoginURL];
-    wxLoginURLString = [NSString stringWithFormat:@"%@?openId=%@&unionId=%@&timestamp=%@&imei=%@&username=%@&keyToken=%@&city=%@&headpic=%@&stemfrom=%@&token=%@", wxLoginURLString, openId, unionId, timestampString, imei, username, keyTokenMD5, province, headpic, stemfrom,deviceToken];
-
-    [self getRequestWithUrl:wxLoginURLString parameters:nil option:option];
+//    wxLoginURLString = [NSString stringWithFormat:@"%@?openId=%@&unionId=%@&timestamp=%@&imei=%@&username=%@&keyToken=%@&city=%@&headpic=%@&stemfrom=%@&token=%@", wxLoginURLString, openId, unionId, timestampString, imei, encodeUsername, keyTokenMD5, province, headpic, stemfrom,deviceToken];
+    
+//    // get 请求
+//    [self getRequestWithUrl:wxLoginURLString parameters:nil option:option];
+    
+    
+    NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] init];
+    [paramDic setObject:openId forKey:@"openId"];
+    [paramDic setObject:unionId forKey:@"unionId"];
+    [paramDic setObject:timestampString forKey:@"timestamp"];
+    [paramDic setObject:imei forKey:@"imei"];
+    [paramDic setObject:encodeUsername forKey:@"username"];
+    [paramDic setObject:keyTokenMD5 forKey:@"keyToken"];
+    [paramDic setObject:province forKey:@"city"];
+    [paramDic setObject:headpic forKey:@"headpic"];
+    [paramDic setObject:stemfrom forKey:@"stemfrom"];
+    [paramDic setObject:deviceToken forKey:@"token"];
+    
+    // post请求
+    [self postRequestWithUrl:wxLoginURLString parameters:paramDic option:option];
     
 }
 
