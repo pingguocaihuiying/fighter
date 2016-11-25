@@ -717,7 +717,7 @@ static NSString *const tableCellId = @"tableCellId";
     if (userId) {
         FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
         homepageViewController.olduserid = userId;
-        
+        homepageViewController.navigationSkipType = @"PRESENT";
         FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:homepageViewController];
         baseNav.navigationBarHidden = NO;
         [self presentViewController:baseNav animated:YES completion:nil];

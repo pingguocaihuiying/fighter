@@ -6,13 +6,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTPracticeViewController">
             <connections>
                 <outlet property="coachBtn" destination="8rA-AL-bmc" id="6ol-CR-g8o"/>
+                <outlet property="coachBtnWidthConstraint" destination="KL2-6V-mX1" id="W5V-SX-WVo"/>
                 <outlet property="contentView" destination="C5W-tU-Euq" id="m1s-zK-Txb"/>
                 <outlet property="gymBtn" destination="oPM-LB-3C0" id="qou-C7-y6Q"/>
                 <outlet property="teachBtn" destination="T3W-k8-lOl" id="nDd-HH-3vh"/>
@@ -32,10 +32,10 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9g2-BK-9Nm" userLabel="containerViewOf最热和最新">
-                    <rect key="frame" x="33.5" y="6" width="308" height="35"/>
+                    <rect key="frame" x="34" y="6" width="308" height="35"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T3W-k8-lOl" userLabel="TeachBtn">
-                            <rect key="frame" x="54" y="0.0" width="100" height="35"/>
+                            <rect key="frame" x="4" y="0.0" width="100" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="100" id="43f-IP-nCB"/>
                                 <constraint firstAttribute="height" constant="35" id="ooh-XB-yzc"/>
@@ -52,18 +52,18 @@
                                 <action selector="teachBtnAction:" destination="-1" eventType="touchUpInside" id="eZ2-N2-npR"/>
                             </connections>
                         </button>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8rA-AL-bmc" userLabel="CoachBtn">
-                            <rect key="frame" x="154" y="0.0" width="100" height="35"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8rA-AL-bmc" userLabel="CoachBtn">
+                            <rect key="frame" x="104" y="0.0" width="100" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="100" id="KL2-6V-mX1"/>
                                 <constraint firstAttribute="height" constant="35" id="sd6-OI-aXb"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="教练" backgroundImage="三标签-中-空">
+                            <state key="normal" title="我的拳馆" backgroundImage="三标签-中-空">
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
-                            <state key="selected" title="教练" backgroundImage="三标签-中-选中">
+                            <state key="selected" title="我的拳馆" backgroundImage="三标签-中-选中">
                                 <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="三标签-中-选中"/>
@@ -72,7 +72,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oPM-LB-3C0">
-                            <rect key="frame" x="154" y="0.0" width="100" height="35"/>
+                            <rect key="frame" x="204" y="0.0" width="100" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="100" id="crR-jc-Xdv"/>
                                 <constraint firstAttribute="height" constant="35" id="xpK-P6-pm6"/>
@@ -93,14 +93,14 @@
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="8rA-AL-bmc" firstAttribute="leading" secondItem="T3W-k8-lOl" secondAttribute="trailing" id="ARc-Sb-NOa"/>
-                        <constraint firstItem="oPM-LB-3C0" firstAttribute="leading" secondItem="9g2-BK-9Nm" secondAttribute="centerX" id="Atn-pR-Dot"/>
+                        <constraint firstItem="T3W-k8-lOl" firstAttribute="trailing" secondItem="8rA-AL-bmc" secondAttribute="leading" id="Eav-uy-S5D"/>
                         <constraint firstItem="T3W-k8-lOl" firstAttribute="top" secondItem="9g2-BK-9Nm" secondAttribute="top" id="Glk-dl-HYP"/>
+                        <constraint firstItem="8rA-AL-bmc" firstAttribute="centerX" secondItem="9g2-BK-9Nm" secondAttribute="centerX" id="PW0-zF-tsC"/>
                         <constraint firstAttribute="height" constant="35" id="Xo4-yh-oTG"/>
                         <constraint firstItem="8rA-AL-bmc" firstAttribute="top" secondItem="9g2-BK-9Nm" secondAttribute="top" id="aEY-31-mCz"/>
                         <constraint firstItem="oPM-LB-3C0" firstAttribute="top" secondItem="9g2-BK-9Nm" secondAttribute="top" id="emA-WJ-k7H"/>
+                        <constraint firstItem="oPM-LB-3C0" firstAttribute="leading" secondItem="8rA-AL-bmc" secondAttribute="trailing" id="h70-8z-f1g"/>
                         <constraint firstAttribute="width" constant="308" id="mSL-HN-F6S"/>
-                        <constraint firstItem="T3W-k8-lOl" firstAttribute="trailing" secondItem="9g2-BK-9Nm" secondAttribute="centerX" id="wwS-O2-KZy"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C5W-tU-Euq" userLabel="fooView">

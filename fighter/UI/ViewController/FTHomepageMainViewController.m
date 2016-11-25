@@ -1843,7 +1843,7 @@
 
 - (void) popBtnAction:(id) sender {
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:EditNotification object:nil];
+    
     
     [self.navigationController popViewControllerAnimated:YES];
     
@@ -1851,11 +1851,7 @@
 
 - (void) dismissBtnAction:(id) sender {
     
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:EditNotification object:nil];
-        
-    }];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     
 }
 

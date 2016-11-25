@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FTPracticeViewController.h"
+//#import "FTPracticeViewController.h"
 #import "CellDelegate.h"
-
+#import "ViewControllerTransitionDelegate.h"
 @interface FTGymPhotoCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIView *photoContainer;
 @property (weak, nonatomic) IBOutlet UIButton *addPhotoBtn;
-@property (nonatomic, weak) id<TeachDelegate> delegate;
+@property (nonatomic, weak) id<ViewControllerTransitionDelegate> delegate;
 @property (nonatomic, weak) id<CellDelegate> cellDelegate;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
