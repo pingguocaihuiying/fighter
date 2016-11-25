@@ -30,4 +30,10 @@
  添加底部分割线，高度1，颜色默认的灰色
  */
 - (void)addRightDividingLine;
+
+
+/**
+ 增加上下左右四个边线
+ */
+- (void)addFrameLine;
 @end

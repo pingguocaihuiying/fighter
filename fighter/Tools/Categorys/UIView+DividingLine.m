@@ -25,16 +25,23 @@
 }
 
 - (void)addLeftDividingLine{
-    UIView *bottomDividingLineView = [UIView new];
-    bottomDividingLineView.frame = CGRectMake(0, 0, self.width, 1);
-    bottomDividingLineView.backgroundColor = Cell_Space_Color;
-    [self addSubview:bottomDividingLineView];
+    UIView *leftDividingLineView = [UIView new];
+    leftDividingLineView.frame = CGRectMake(0, 0, 1, self.height);
+    leftDividingLineView.backgroundColor = Cell_Space_Color;
+    [self addSubview:leftDividingLineView];
 }
 
 - (void)addRightDividingLine{
-    UIView *bottomDividingLineView = [UIView new];
-    bottomDividingLineView.frame = CGRectMake(0, self.height - 1, self.width, 1);
-    bottomDividingLineView.backgroundColor = Cell_Space_Color;
-    [self addSubview:bottomDividingLineView];
+    UIView *rightDividingLineView = [UIView new];
+    rightDividingLineView.frame = CGRectMake(self.width - 1, 0, 1, self.height);
+    rightDividingLineView.backgroundColor = Cell_Space_Color;
+    [self addSubview:rightDividingLineView];
+}
+
+- (void)addFrameLine{
+    [self addTopDividingLine];
+    [self addLeftDividingLine];
+    [self addBottomDividingLine];
+    [self addRightDividingLine];
 }
 @end
