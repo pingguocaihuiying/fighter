@@ -39,8 +39,7 @@
     NSString *urlString = [FTNetConfig host:Domain path:SendSMSByTypeURL];
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     
@@ -59,8 +58,7 @@
     NSString *urlString = [FTNetConfig host:Domain path:SendSMSByTypeURL];
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     
@@ -173,8 +171,7 @@
 + (void) loginOut:(void (^)(NSDictionary *dict))option {
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     NSString *token = localUser.token;
@@ -234,8 +231,7 @@
                       option:(void (^)(NSDictionary *dict))option{
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     [dic setObject:localUser.olduserid forKey:@"userid" ];
@@ -262,8 +258,7 @@
                       Key:(NSString *)key  option:(void (^)(NSDictionary *dict))option {
 
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     [dic setObject:localUser.olduserid forKey:@"userid" ];
@@ -300,8 +295,7 @@
     NSString *passNew=  [MD5 md5:newpossword];
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSDictionary *dic = @{@"oldpassword" : passOld,
                           @"newpossword" : passNew,
@@ -323,8 +317,7 @@
     
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     NSString *olduserid = localUser.olduserid;
@@ -349,8 +342,7 @@
     
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     
@@ -413,8 +405,7 @@
     
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     
@@ -450,8 +441,7 @@
     
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     
@@ -604,8 +594,7 @@
 + (NSString *) userId {
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     return localUser.olduserid;
 }
@@ -614,8 +603,7 @@
 + (NSDictionary *) setJsonDataWithKey:(NSString*)key   value:(NSString *)value {
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     
@@ -1675,8 +1663,7 @@
 //点赞
 + (void)addVoteWithObjid:(NSString *)objId isAdd:(BOOL)isAdd andTableName:(NSString *)tableName andOption:(void (^)(BOOL result))option{
     
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *user = [FTUserBean loginUser];
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:isAdd ? AddVoteURL : DeleteVoteURL];
     
@@ -1794,8 +1781,7 @@
 + (void)followObjWithObjId:(NSString *)objId anIsFollow:(BOOL)isFollow andTableName:(NSString *)tableName andOption:(void (^)(BOOL result))option{
     
     
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *user = [FTUserBean loginUser];
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:isFollow ? FollowURL : CancelFollowURL];
     
@@ -1858,8 +1844,7 @@
     // 时间戳
     NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@",localUser.olduserid, localUser.token, ts,@"quanjijia222222"]];
     
@@ -1883,8 +1868,7 @@
     // 时间戳
     NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",localUser.olduserid, localUser.token,platform,ts,@"quanjijia222222"]];
     
@@ -1909,8 +1893,7 @@
     // 时间戳
     NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",localUser.olduserid, localUser.token,videoId,ts,@"quanjijia222222"]];
     
@@ -1934,8 +1917,7 @@
     // 时间戳
     NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",localUser.olduserid, localUser.token,videoId,ts,@"quanjijia222222"]];
     
@@ -1961,8 +1943,7 @@
     // 时间戳
     NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",localUser.olduserid, localUser.token,videoId,ts,@"quanjijia222222"]];
     
@@ -1991,8 +1972,7 @@
     // 时间戳
     NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@%@",localUser.olduserid, localUser.token,orderNO,transactionId,receipt,ts,@"quanjijia222222"]];
     
@@ -2032,8 +2012,7 @@
     NSDecimalNumber *fee = goodsBean.power; // 商品对应Power币
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@",localUser.olduserid, localUser.token,imei,body,detail,fee,goodsTag,ts,@"quanjijia222222"]];
     
@@ -2135,8 +2114,7 @@
     NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     if (!localUser) {
         return;

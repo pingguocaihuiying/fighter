@@ -876,7 +876,6 @@ static NSString *const tableCellId = @"tableCellId";
     if (_tabBarVC == nil) {
         
         _tabBarVC = [FTBaseTabBarViewController new];
-        
         _tabBarVC.tabBar.barTintColor = [UIColor blackColor];
         _tabBarVC.tabBar.translucent = NO;
         _tabBarVC.navigationController.navigationBar.translucent = NO;

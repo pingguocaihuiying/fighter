@@ -125,14 +125,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setNavigationbar];
     [self initBaseData];//默认配置
     [self getHomepageUserInfo];
     
     [self initSubviews];
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    self.navigationController.navigationBarHidden = YES;
+//    self.navigationController.navigationBarHidden = YES;
     
     if ([_userIdentity isEqualToString:@"0"]){//如果是普通用户
         //更新“历史课程”、“技能”按钮右边的红点显示与否
@@ -151,8 +155,10 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
-    self.navigationController.navigationBarHidden = NO;
+//    self.navigationController.navigationBarHidden = NO;
 }
+
+
 
 #pragma -mark *** 16年11月新需求 普通用户格斗属性和课程记录的入口 ***
 
@@ -1636,9 +1642,8 @@
 
 - (IBAction)followViewClicked:(id)sender {
     [MobClick event:@"rankingPage_HomePage_Follow"];
-    //从本地读取存储的用户信息，判断是否登陆。登陆之后才能进行关注操作
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    FTUserBean *localUser = [FTUserBean loginUser];
     if (!localUser) {
         [self login];
     }else{
@@ -1669,8 +1674,7 @@
 //把点赞信息更新至服务器
 - (void)uploadVoteStatusToServer{
     
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+   FTUserBean *user = [FTUserBean loginUser];
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:_hasFollow ? AddFollowURL : DeleteFollowURL];
     
@@ -1724,8 +1728,9 @@
 }
 #pragma mark 从服务器获取是否已经关注
 - (void)getFollowInfo{
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    
+    FTUserBean *user = [FTUserBean loginUser];
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
     NSString *userId = user.olduserid;
@@ -1800,4 +1805,60 @@
     [self.navigationController popViewControllerAnimated:YES];
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
+
+
+/************************************   code by kangxq   *************************************************/
+
+#pragma mark - 设置界面
+
+/**
+ 设置导航栏样式
+ */
+- (void) setNavigationbar {
+    
+    if ([_navigationSkipType isEqualToString:@"PRESENT"]) {
+        //设置左侧按钮
+        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
+                                       initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-取消"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                       style:UIBarButtonItemStyleDone
+                                       target:self
+                                       action:@selector(dismissBtnAction:)];
+        //把左边的返回按钮左移
+        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+        self.navigationItem.leftBarButtonItem = leftButton;
+    }else {
+        //设置左侧按钮
+        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
+                                       initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                       style:UIBarButtonItemStyleDone
+                                       target:self
+                                       action:@selector(popBtnAction:)];
+        //把左边的返回按钮左移
+        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+        self.navigationItem.leftBarButtonItem = leftButton;
+    }
+}
+
+#pragma mark - response
+
+- (void) popBtnAction:(id) sender {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:EditNotification object:nil];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
+- (void) dismissBtnAction:(id) sender {
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:EditNotification object:nil];
+        
+    }];
+    
+}
+
+
+
 @end

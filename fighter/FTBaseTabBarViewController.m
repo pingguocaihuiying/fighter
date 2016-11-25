@@ -30,9 +30,11 @@
 
 @property (nonatomic, strong) UIButton *taskBtn;
 
-@property (nonatomic, strong) UIButton *shopBtn;
+@property (nonatomic, strong) UIBarButtonItem *shopBtnItem;
 
 @property (nonatomic, strong) UILabel *titleLabel;
+
+@property (nonatomic, strong) UIButton *rankBtn;
 
 @end
 
@@ -58,11 +60,25 @@
 - (void) viewWillAppear:(BOOL)animated {
 
     [self.openSliderDelegate openSlider];
+    
+    if (self.selectedIndex == 1) {
+        
+         [self showRankButton];
+    }
+    
+   
+    
+    
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
     
     [self.openSliderDelegate closeSlider];
+    
+    if (self.selectedIndex == 1) {
+        
+        [self hideRankButton];
+    }
 }
 
 
@@ -88,11 +104,8 @@
 #pragma mark - 设置导航栏
 - (void) setNavigationbar {
     
-
-    
     //导航栏头像按钮
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     self.avatarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.avatarBtn.frame = CGRectMake(0, 0, 34, 34);
@@ -108,18 +121,19 @@
     UIBarButtonItem *avatarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.avatarBtn];
     self.navigationItem.leftBarButtonItems  = [[NSArray alloc]initWithObjects:avatarButtonItem, nil];
     
-    
     // 商城按钮
-    self.shopBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.shopBtn.frame = CGRectMake(0, 0, 24, 24);
-    [self.shopBtn addTarget:self action:@selector(shopBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *
+    self.shopBtnItem = [[UIBarButtonItem alloc] initWithTitle:@"商城" style:UIBarButtonItemStyleDone target:self action:@selector(shopBtnAction:)];
+    [self.shopBtnItem setTintColor:[UIColor colorWithHex:0x848484]];
+//   self.shopBtnItem = [[UIBarButtonItem alloc]
+//                                   initWithImage:[[UIImage imageNamed:@"右上角商城"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+//                                   style:UIBarButtonItemStyleDone
+//                                   target:self
+//                                   action:@selector(shopBtnAction:)];
     
-    [self.shopBtn setImage:[UIImage imageNamed:@"右上角商城"] forState:UIControlStateNormal];
-//    [self.shopBtn setImage:[UIImage imageNamed:@"底部导航-商城pre"] forState:UIControlStateHighlighted];
+    self.navigationItem.rightBarButtonItem = self.shopBtnItem;
     
-    UIBarButtonItem *shopBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.shopBtn];
-    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:shopBtnItem,nil];
-    
+    {
 //    // 头部消息按钮
 //    self.messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    self.messageBtn.frame = CGRectMake(0, 0, 24, 24);
@@ -166,6 +180,8 @@
 //    UIBarButtonItem *taskBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.taskBtn];
 //    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:taskBtnItem,nil];
     
+    }
+    
     
     // title View
     self.navigationItem.titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 22)];
@@ -194,6 +210,38 @@
     
 }
 
+
+/**
+ 显示排行榜按钮
+ */
+- (void) showRankButton {
+
+    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    UINavigationBar *navigationbar = self.navigationController.navigationBar;
+    [keyWindow insertSubview:self.rankBtn aboveSubview:navigationbar];
+}
+
+- (void) hideRankButton {
+    
+    [self.rankBtn removeFromSuperview];
+}
+/**
+ 设置排行榜按钮
+
+ @return 排行榜按钮
+ */
+- (UIButton *) rankBtn {
+    
+    if (!_rankBtn) {
+        _rankBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _rankBtn.frame = CGRectMake(SCREEN_WIDTH - 94 - 15, 61, 94, 30);
+        [_rankBtn addTarget:self action:@selector(rankListBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_rankBtn setImage:[UIImage imageNamed:@"右上排行榜"] forState:UIControlStateNormal];
+//        self.rankBtn.hidden = YES;
+    }
+    
+    return _rankBtn;
+}
 
 
 #pragma mark - 监听器响应
@@ -260,9 +308,9 @@
 
 }
 
-// 任务按钮点击事件
+// 任务按钮点击事件, 暂时注销
 - (void)taskBtnAction:(id)sender {
-    
+
     NSLog(@"task button clicked");
     
     //获取登录信息，如果没有登录不能做任务，直接跳转登录页面
@@ -317,6 +365,20 @@
     [self.navigationController  pushViewController:shopVC animated:YES];
 }
 
+
+/**
+ 排行榜按钮点击事件,跳转排行榜页面
+ 
+ @param sender 排行榜按钮
+ */
+
+- (void)rankListBtnAction:(id)sender {
+    
+    FTRankViewController *rankHomeVC = [FTRankViewController new];
+    rankHomeVC.title = @"排行榜";
+    [self.navigationController pushViewController:rankHomeVC animated:YES];
+}
+
 #pragma mark  - login
 
 - (void)login{
@@ -337,11 +399,16 @@
 
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-
+    
+    NSLog(@"select index:%ld",tabBarController.selectedIndex);
+    if (tabBarController.selectedIndex == 1) {
+        [self showRankButton];
+    }else {
+        [self hideRankButton];
+    }
     self.titleLabel.text = viewController.title;
+    
 }
-
-
 
 #pragma mark - 抖动动画
 #define Angle2Radian(angle) ((angle) / 180.0 * M_PI)

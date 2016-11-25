@@ -59,6 +59,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *abountToStartButton;
 @property (weak, nonatomic) IBOutlet UIButton *matchedButton;
 
+
+
 //当前选中的筛选条件：0、1、2，默认为0
 @property (nonatomic, assign)int conditionOffset;
 
@@ -73,6 +75,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+//    [self setNavigationbar];
     [self initBaseData];
     [self initSubViews];
     [self getMatchList];//初次加载数据
@@ -80,6 +84,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [MobClick event:@"mainPage_BoxingNews"];
+    
 }
 
 
@@ -101,7 +106,6 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setTableView];//设置tableview
 }
-
 
 
 #pragma mark - 筛选按钮的点击事件
@@ -683,19 +687,7 @@
     }];
 }
 
-#pragma mark - 排行榜
 
-/**
- 排行榜按钮点击事件,跳转排行榜页面
-
- @param sender 排行榜按钮
- */
-- (IBAction)rankListBtnAction:(id)sender {
-    
-    FTRankViewController *rankHomeVC = [FTRankViewController new];
-    rankHomeVC.title = @"排行榜";
-    [self.navigationController pushViewController:rankHomeVC animated:YES];
-}
 
 #pragma mark - 参赛
 

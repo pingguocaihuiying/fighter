@@ -134,10 +134,7 @@ static WXSingleton * wxSingleton = nil;
                     [NetWorking requestWeixinUserInfoWithToken:tokenDic[@"access_token"] openId:tokenDic[@"openid"] option:^(NSDictionary *userDict) {
                         
                         //从本地读取存储的用户信息
-                        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-                        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-                        
-                        
+                        FTUserBean *localUser = [FTUserBean loginUser];
                         localUser.wxopenId = userDict[@"openid"];
                         localUser.wxHeaderPic = userDict[@"headimgurl"];
                         localUser.wxName = userDict[@"nickname"];

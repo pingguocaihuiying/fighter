@@ -37,8 +37,7 @@
     
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
 //    self.headerUrl = localUser.wxHeaderPic;
 //    self.username = localUser.wxName;
     if (localUser.wxHeaderPic.length > 0) {
