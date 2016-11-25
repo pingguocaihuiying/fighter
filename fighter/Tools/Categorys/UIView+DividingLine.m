@@ -24,4 +24,17 @@
     [self addSubview:bottomDividingLineView];
 }
 
+- (void)addLeftDividingLine{
+    UIView *bottomDividingLineView = [UIView new];
+    bottomDividingLineView.frame = CGRectMake(0, 0, self.width, 1);
+    bottomDividingLineView.backgroundColor = Cell_Space_Color;
+    [self addSubview:bottomDividingLineView];
+}
+
+- (void)addRightDividingLine{
+    UIView *bottomDividingLineView = [UIView new];
+    bottomDividingLineView.frame = CGRectMake(0, self.height - 1, self.width, 1);
+    bottomDividingLineView.backgroundColor = Cell_Space_Color;
+    [self addSubview:bottomDividingLineView];
+}
 @end

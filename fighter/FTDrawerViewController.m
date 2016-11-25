@@ -38,7 +38,7 @@
 
 #import "FTSettingViewController.h"
 #import "NetWorking.h"
-#import "FTArenaViewController.h"
+#import "FTBoxingBarMainViewController.h"
 
 #import "FTFightingViewController.h"
 #import "FTPracticeViewController.h"
@@ -50,6 +50,7 @@
 
 #import "FTFightingViewController.h"
 #import "FTCoachSelfCourseViewController.h"
+
 
 
 @interface FTDrawerViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
@@ -67,7 +68,7 @@
 @property (nonatomic, strong) FTPracticeViewController *practiceVC;
 //@property (nonatomic, strong) FTRankViewController *rankHomeVC;
 //@property (nonatomic, strong) FTShopViewController *shopVC;
-@property (nonatomic, strong) FTArenaViewController *boxingBarVC;
+@property (nonatomic, strong) FTBoxingBarMainViewController *boxingBarVC;
 @property (nonatomic, strong) FTHomepageMainViewController *homepageVC;
 @property (nonatomic, strong) NSArray *labelArray; //标签数组
 
@@ -841,7 +842,7 @@ static NSString *const tableCellId = @"tableCellId";
     //拳吧
     if (_boxingBarVC == nil) {
         
-        _boxingBarVC = [FTArenaViewController new];
+        _boxingBarVC = [FTBoxingBarMainViewController new];
         _boxingBarVC.title = @"拳吧";
         _boxingBarVC.tabBarItem.title = @"拳吧";
         [_boxingBarVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:

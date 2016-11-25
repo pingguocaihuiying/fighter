@@ -12,7 +12,6 @@
 #import "WXApi.h"
 #import "UIImage+FTLYZImage.h"
 #import "FTTableViewController.h"
-#import "FTArenaViewController.h"
 #import "QuartzCore/QuartzCore.h"
 #import "FTNWGetCategory.h"
 #import "FTLabelBean.h"

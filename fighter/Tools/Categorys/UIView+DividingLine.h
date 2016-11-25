@@ -20,4 +20,14 @@
  添加底部分割线，高度1，颜色默认的灰色
  */
 - (void)addBottomDividingLine;
+
+/**
+ 添加底部分割线，高度1，颜色默认的灰色
+ */
+- (void)addLeftDividingLine;
+
+/**
+ 添加底部分割线，高度1，颜色默认的灰色
+ */
+- (void)addRightDividingLine;
 @end
