@@ -66,7 +66,7 @@
     
     //标题字体大小
     _titleLabel.font = [UIFont systemFontOfSize:15 * SCALE];
-    _subTitleLabel.font = [UIFont systemFontOfSize:11 *SCALE];
+    _subTitleLabel.font = [UIFont systemFontOfSize:11 * SCALE];
     
     //正副标题的上、左、右约束
     _subTitleTop.constant *= SCALE;
@@ -77,13 +77,6 @@
     _titleTrailing.constant *= SCALE;
 }
 
-- (void)setWithBean{
-    /*
-        如果副标题为空，移除副标题，这样正标题就会独占空间，显示为3行了，否则最多还是两行
-     */
-    if (0) {
-        [_subTitleLabel removeFromSuperview];
-    }
-}
+
 
 @end

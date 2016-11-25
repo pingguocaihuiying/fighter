@@ -514,12 +514,13 @@
     NSString *timestampString = [NSString stringWithFormat:@"%.0lf",[[NSDate date] timeIntervalSince1970]];
     NSString *imei = [UUID getUUID];
     NSString *username = wxInfoDic[@"nickname"];
+    NSLog(@"username : %@", username);
     NSString *keyToken = [NSString stringWithFormat:@"%@%@", WXLoginSecret_Key, timestampString];
     NSString *keyTokenMD5 = [MD5 md5:keyToken];
     NSString *province = wxInfoDic[@"province"];
     NSString *headpic = wxInfoDic[@"headimgurl"];
     headpic = [FTEncoderAndDecoder encodeToPercentEscapeString:headpic];
-    NSString *stemfrom = @"weixin";
+    NSString *stemfrom = @"iOS-weixin";
     username = [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     //设备独立的token
     NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"];
