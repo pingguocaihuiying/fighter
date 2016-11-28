@@ -205,9 +205,8 @@
     //友盟分享事件统计
     [MobClick event:@"newsPage_DetailPage_share"];
    
-    
     NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-news",_newsBean.newsId];
-    _webUrlString = [@"http://www.gogogofight.com/page/news_page.html?" stringByAppendingString:str];
+    _webUrlString = [@"http://www.gogogofight.com/page/v2/news_page.html?" stringByAppendingString:str];
     
     FTShareView *shareView = [FTShareView new];
     [shareView setUrl:_webUrlString];

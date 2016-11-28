@@ -21,8 +21,15 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mm9-bv-ESv" userLabel="上方分割线">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                    <color key="backgroundColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="oSn-A7-qbp"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ogc-k9-5RT">
-                    <rect key="frame" x="87" y="10" width="200" height="35"/>
+                    <rect key="frame" x="87" y="6" width="200" height="35"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="C1t-a8-yir"/>
@@ -30,7 +37,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L65-74-Mtk">
-                    <rect key="frame" x="0.0" y="50" width="375" height="617"/>
+                    <rect key="frame" x="0.0" y="46" width="375" height="621"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
@@ -39,9 +46,12 @@
                 <constraint firstItem="L65-74-Mtk" firstAttribute="top" secondItem="ogc-k9-5RT" secondAttribute="bottom" constant="5" id="BE9-t6-KTB"/>
                 <constraint firstAttribute="trailing" secondItem="L65-74-Mtk" secondAttribute="trailing" id="E78-ay-BjN"/>
                 <constraint firstItem="L65-74-Mtk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="IXQ-XU-L59"/>
+                <constraint firstItem="mm9-bv-ESv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Q9Q-7Z-KvD"/>
+                <constraint firstItem="mm9-bv-ESv" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="VWC-kS-XJJ"/>
+                <constraint firstItem="ogc-k9-5RT" firstAttribute="top" secondItem="mm9-bv-ESv" secondAttribute="bottom" constant="5" id="WfM-fl-iat"/>
                 <constraint firstAttribute="bottom" secondItem="L65-74-Mtk" secondAttribute="bottom" id="aCs-ZM-lLQ"/>
-                <constraint firstItem="ogc-k9-5RT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="gNe-D1-0gq"/>
                 <constraint firstItem="ogc-k9-5RT" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="prZ-eZ-8fJ"/>
+                <constraint firstAttribute="trailing" secondItem="mm9-bv-ESv" secondAttribute="trailing" id="wjY-df-q27"/>
             </constraints>
             <point key="canvasLocation" x="26.5" y="51.5"/>
         </view>

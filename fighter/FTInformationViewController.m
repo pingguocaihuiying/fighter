@@ -208,7 +208,7 @@
                     DBManager *dbManager = [DBManager shareDBManager];
                     [dbManager connect];
                     [dbManager cleanNewsTable];
-                    
+                    NSLog(@"lujing : %@", NSHomeDirectory());
                     for (NSDictionary *dic in mutableArray)  {
                         [dbManager insertDataIntoNews:dic];
                     }

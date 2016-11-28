@@ -166,7 +166,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"section : %ld, row : %ld", indexPath.section, indexPath.row);
+    [_delegate collectionView:collectionView didSelectItemAtIndexPath:indexPath];
 }
 
 @end
