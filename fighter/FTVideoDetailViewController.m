@@ -50,8 +50,8 @@
     self.navigationController.navigationBarHidden = NO;
     //    self.navigationController.tabBarController.tabBar.hidden = YES;
     
-    //注册通知，接收微信登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginResponse:) name:WXLoginResultNoti object:nil];
+    //注册通知，接收登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -558,12 +558,14 @@
     return outputStr;
 }
 
-- (void)wxLoginResponse:(NSNotification *)noti{
-    NSString *msg = [noti object];
-    if ([msg isEqualToString:@"SUCESS"]) {
-        [self showHUDWithMessage:@"微信登录成功，可以评论或点赞了"];
-    }else if ([msg isEqualToString:@"ERROR"]){
-        [self showHUDWithMessage:@"微信登录失败"];
+- (void)loginCallBack:(NSNotification *)noti{
+   
+    NSDictionary *userInfo = noti.userInfo;
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
+        
+        [self.view showMessage:@"微信登录成功，可以评论或点赞了"];
+    }else {
+        [self.view showMessage:@"微信登录失败"];
     }
 }
 

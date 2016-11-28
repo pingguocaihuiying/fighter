@@ -38,7 +38,7 @@
     [super viewDidLoad];
     
     [self initSubviews];
-    
+    [self setNotification];
     
      self.navigationController.navigationBarHidden = NO;
 }
@@ -46,6 +46,20 @@
 - (void)viewWillAppear:(BOOL)animated{
    
 }
+
+- (void) dealloc {
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void) setNotification {
+    
+    //注册通知，接收登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
+    
+    
+}
+
 
 - (void) initSubviews {
 
@@ -77,6 +91,12 @@
     [_teachBtn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
     [_teachBtn setBackgroundImage:[UIImage imageNamed:@"三标签-左-选中"] forState:UIControlStateSelected];
     
+    [self setsubViewsState];
+}
+
+
+- (void) setsubViewsState {
+    
     FTUserBean *loginUser = [FTUserBean loginUser];
     if (loginUser.isGymUser.count > 0) {
         self.coachBtnWidthConstraint.constant = 100;
@@ -86,7 +106,6 @@
         [self teachBtnAction:nil];
     }
 }
-
 
 /**
  教学视频
@@ -201,6 +220,18 @@
 
     [_practiceView removeFromSuperview];
     [_coachView removeFromSuperview];
+}
+
+
+
+// 登录响应
+- (void) loginCallBack:(NSNotification *)noti {
+    
+    NSDictionary *userInfo = noti.userInfo;
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
+        [self setsubViewsState];
+    }
+    
 }
 
 #pragma mark - 推送方法

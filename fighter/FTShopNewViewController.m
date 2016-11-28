@@ -100,10 +100,9 @@
 #pragma mark - 初始化
 - (void) setNotifications {
 
-    //注册通知，接收微信登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginCallback:) name:WXLoginResultNoti object:nil];
-    //添加监听器，监听手机login
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(phoneLoginedCallback:) name:LoginNoti object:nil];
+   
+    //添加监听器，监听登录通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallback:) name:LoginNoti object:nil];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(shouldBackRefresh:) name:@"dbbackrefresh" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(shouldBackRoot:) name:@"dbbackroot" object:nil];
@@ -399,20 +398,14 @@
 //}
 
 #pragma mark - 通知事件
-// 微信登录响应
-- (void) wxLoginCallback:(NSNotification *)noti{
-    NSString *msg = [noti object];
-    if ([msg isEqualToString:@"SUCESS"]) {
-        
-//        [self.webView stringByEvaluatingJavaScriptFromString:@"reloadSource()"];
+// 登录响应
+- (void) loginCallback:(NSNotification *)noti {
+    
+    NSDictionary *userInfo = noti.userInfo;
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
         [self loginRefresh];
     }
-}
-
-// 手机登录响应
-- (void) phoneLoginedCallback:(NSNotification *)noti {
-//    [self.webView stringByEvaluatingJavaScriptFromString:@"reloadSource()"];
-    [self loginRefresh];
+    
 }
 
 

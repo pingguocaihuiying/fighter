@@ -58,7 +58,7 @@
 #import "UIWindow+MBProgressHUD.h"
 #import "FTUserTools.h"//获取本地用户信息
 #import "RealReachability-umbrella.h"
-
+#import "FTNotificationTools.h" // 通知
 //导入配置信息类
 #import "FTNetConfig.h"
 #import "FTUserConfig.h"
@@ -104,19 +104,19 @@
 #define WX_App_Secret @"cadaab54424da8be313935d91f8fbbf4"
 #define WXLoginSecret_Key @"quanjijia123456"
 
-// 通知
-#define WXPayResultNoti @"WXPayResultNoti"
-#define WXLoginResultNoti @"WXLoginResutlNoti"
-#define WXShareResultNoti @"WXShareResultNoti"
-#define QQShareResultNoti @"QQShareResultNoti"
-#define RechargeResultNoti @"RechargeOrCharge"
-#define RechargeMoneytNoti @"RechargeMoneytNoti"
-#define BookCoachSuccessNotification @"RechargeMoneytNoti"
-
-#define LoginNoti @"LoginNotifacation"
-#define QQShareResponse @"addShareResponse"
-#define TaskNotification @"taskNotification"
-#define EditNotification @"editNotification"
+//// 通知
+//#define WXPayResultNoti @"WXPayResultNoti"
+//#define WXLoginResultNoti @"WXLoginResutlNoti"
+//#define WXShareResultNoti @"WXShareResultNoti"
+//#define QQShareResultNoti @"QQShareResultNoti"
+//#define RechargeResultNoti @"RechargeOrCharge"
+//#define RechargeMoneytNoti @"RechargeMoneytNoti"
+//#define BookCoachSuccessNotification @"RechargeMoneytNoti"
+//
+//#define LoginNoti @"LoginNotifacation"
+//#define QQShareResponse @"addShareResponse"
+//#define TaskNotification @"taskNotification"
+//#define EditNotification @"editNotification"
 
 //微博相关
 #define WB_App_ID @"3097376602"

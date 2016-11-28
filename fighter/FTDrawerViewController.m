@@ -131,11 +131,15 @@ static NSString *const tableCellId = @"tableCellId";
 // 设置监听器
 - (void) setNoti {
     
-    //注册通知，接收微信登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginCallback:) name:WXLoginResultNoti object:nil];
     
-    //添加监听器，监听login
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(phoneLoginedCallback:) name:LoginNoti object:nil];
+    //注册通知，接收登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
+    
+//    //注册通知，接收微信登录成功的消息
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginCallback:) name:WXLoginResultNoti object:nil];
+//    
+//    //添加监听器，监听login
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(phoneLoginedCallback:) name:LoginNoti object:nil];
     
     //添加监听器，充值购买
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeCallback:) name:RechargeResultNoti object:nil];
@@ -248,55 +252,39 @@ static NSString *const tableCellId = @"tableCellId";
 }
 
 #pragma mark - 登录回调
-// 登陆后更新用户中心数据
-- (void) phoneLoginedCallback:(NSNotification *)noti {
+
+
+// 登录响应
+- (void) loginCallBack:(NSNotification *)noti {
     
-    NSString *msg = [noti object];
-    if ([msg isEqualToString:@"LOGOUT"]) {//退出登录
-        
+    NSDictionary *userInfo = noti.userInfo;
+    
+    
+    if ([userInfo[@"type"] isEqualToString:@"Logout"]) {
         NSLog(@"执行退出登录");
         [self.loginView setHidden:NO];//显示登录页面
+    }else if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
         
-        
-    }else {
-        
-        // 获取余额
-        FTPaySingleton *singleton = [FTPaySingleton shareInstance];
-        [singleton fetchBalanceFromWeb:^{
-        
-             // 更新余额，暂时隐藏
-//            [self refreshBalanceCell];
-        }];
-        
-        // 更新用户信息
-        [self tableViewAdapter];
-    }
-    
-    [self settabBarChildViewControllers];
-}
-
-
-// 微信登录响应
-- (void) wxLoginCallback:(NSNotification *)noti{
-    NSString *msg = [noti object];
-    if ([msg isEqualToString:@"SUCESS"]) {
-        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"微信登录成功"];
-        
+//        [[UIApplication sharedApplication].keyWindow showMessage:@"登录成功"];
+        [[UIApplication sharedApplication].keyWindow showMessage:@"登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功"];
         // 获取余额
         FTPaySingleton *singleton = [FTPaySingleton shareInstance];
         [singleton fetchBalanceFromWeb:^{
             
-             // 更新余额，暂时隐藏
-//            [self refreshBalanceCell];
+            // 更新余额，暂时隐藏
+            //            [self refreshBalanceCell];
         }];
         
+        // 更新用户信息
         [self tableViewAdapter];
-        
-    }else if ([msg isEqualToString:@"ERROR"]){
-        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"微信登录失败"];
+    } else {
+        [[UIApplication sharedApplication].keyWindow showMessage:@"登录失败"];
     }
+    
     [self settabBarChildViewControllers];
+    
 }
+
 
 #pragma mark - 充值回调
 - (void) rechargeCallback:(NSNotification *)noti {

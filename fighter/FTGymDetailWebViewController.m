@@ -128,8 +128,10 @@
  注册登录的通知
  */
 - (void)registNoti{
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(userLogin:) name:LoginNoti object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(userLogin:) name:WXLoginResultNoti object:nil];
+    
+    //注册通知，接收登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
+    
 }
 
 - (void)getVIPInfo{
@@ -179,13 +181,19 @@
     }];
 }
 
-- (void)userLogin:(NSNotification *)noti{
-    NSString *info = [noti object];
-    if ([info isEqualToString:@"LOGIN"] || [info isEqualToString:@"SUCESS"]) {
+
+// 登录响应
+- (void) loginCallback:(NSNotification *)noti {
+    
+    NSDictionary *userInfo = noti.userInfo;
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
         [self getVIPInfo];
         [self gettimeSectionsUsingInfo];
     }
+    
 }
+
+
 
 - (void)loadGymDataFromServer{
     //获取拳馆的一些基本信息：视频、照片、地址等
