@@ -322,7 +322,7 @@ static DBManager * _sharedDBManager = nil;
  */
 - (void) createNewsTable {
     
-    NSString * sql = @"CREATE TABLE 'news' ('newsId' INTEGER PRIMARY KEY NOT NULL UNIQUE, 'author' TEXT, 'commentCount' INTEGER DEFAULT 0, 'img_big' TEXT, 'img_small_one' TEXT, 'img_small_three' TEXT, 'img_small_two' TEXT, 'layout' INTEGER, 'newsTime' TEXT, 'newsType' TEXT, 'summary' TEXT, 'title' TEXT, 'url' TEXT, 'voteCount' TEXT DEFAULT 0, 'isReader' BOOLEAN);";
+    NSString * sql = @"CREATE TABLE 'news' ('newsId' INTEGER PRIMARY KEY NOT NULL UNIQUE, 'author' TEXT, 'commentCount' INTEGER DEFAULT 0, 'img_big' TEXT, 'img_small_one' TEXT, 'img_small_three' TEXT, 'img_small_two' TEXT, 'layout' INTEGER, 'newsTime' TEXT,'onlineTime' TEXT, 'newsType' TEXT, 'summary' TEXT, 'title' TEXT, 'url' TEXT, 'voteCount' TEXT DEFAULT 0, 'isReader' BOOLEAN);";
     
     [self createTable:@"news" sql:sql];
 }
@@ -366,7 +366,7 @@ static DBManager * _sharedDBManager = nil;
     NSNumber *voteCount = [NSNumber numberWithInteger:[dic[@"voteCount"] integerValue]];
     NSNumber *layout = [NSNumber numberWithInteger:[dic[@"layout"] integerValue]];
     NSString *newsTime = dic[@"newsTime"];
-    
+    NSString *onlineTime = dic[@"onlineTime"];
     
     //1.判断数据是否已读
     FMResultSet * set = [_dataBase executeQuery:@"select objId from readCashe where objId = ?  and type = 'news' ",idNum];
@@ -375,7 +375,7 @@ static DBManager * _sharedDBManager = nil;
     BOOL exist = [set intForColumnIndex:0] >0 ?YES:NO;;
     NSNumber *isReader = [NSNumber numberWithBool:exist];
     
-    [_dataBase executeUpdate:@"INSERT INTO news (newsId, author,img_big, img_small_one ,img_small_three,img_small_two, newsType,summary,url ,title ,commentCount , voteCount ,layout ,newsTime,isReader) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+    [_dataBase executeUpdate:@"INSERT INTO news (newsId, author,img_big, img_small_one ,img_small_three,img_small_two, newsType,summary,url ,title ,commentCount , voteCount ,layout ,newsTime,onlineTime,isReader) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
      idNum,
      author,
      img_big,
@@ -390,6 +390,7 @@ static DBManager * _sharedDBManager = nil;
      voteCount ,
      layout ,
      newsTime,
+     onlineTime,
      isReader
      ];
     

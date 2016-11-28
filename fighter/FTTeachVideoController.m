@@ -143,11 +143,8 @@
 // 监听通知
 - (void) setNotifacation {
     
-    //注册通知，接收微信登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginAction:) name:WXLoginResultNoti object:nil];
-    
-    //添加监听器，监听login
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginAction:) name:LoginNoti object:nil];
+    //注册通知，接收登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
     
 }
 
@@ -1301,11 +1298,6 @@
 #pragma mark - 通知响应
 // 登录刷新
 - (void) loginAction:(NSNotification *) noti {
-
-//    // 获取余额
-//    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
-//    [self setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
-//    
 
     // 获取余额
     FTPaySingleton *singleton = [FTPaySingleton shareInstance];

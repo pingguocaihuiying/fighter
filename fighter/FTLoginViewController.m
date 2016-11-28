@@ -86,8 +86,8 @@
     self.navigationController.navigationBarHidden = NO;
     //    self.navigationController.tabBarController.tabBar.hidden = YES;
     
-    //注册通知，接收微信登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginResponseInLoginView:) name:WXLoginResultNoti object:nil];
+    //注册通知，接收登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -192,37 +192,23 @@
                                         
                                         [self.navigationController dismissViewControllerAnimated:YES completion:^{
                                             
-                                             [[NSNotificationCenter defaultCenter] postNotificationName:LoginNoti object:@"LOGIN"];
+                                            [FTNotificationTools postLoginNoti:FTLoginTypePhone];
+                                            
                                         
                                         }];
                                         
                                     }else {
                                         NSLog(@"message : %@", [dict[@"message"] class]);
-                                        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                        [[UIApplication sharedApplication].keyWindow showMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                                         
                                     }
                                 }else {
-                                    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
+                                    [[UIApplication sharedApplication].keyWindow showMessage:@"网络错误"];
                                     
                                 }
                                 
                             }];
 
-}
-
-//微信快捷登录 响应
-- (void)wxLoginResponseInLoginView:(NSNotification *)noti{
-    
-    NSString *msg = [noti object];
-    if ([msg isEqualToString:@"SUCESS"]) {
-        
-        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"微信登录成功"];
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-        
-    }else if ([msg isEqualToString:@"ERROR"]){
-        
-        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"微信登录失败"];
-    }
 }
 
 - (IBAction)weichatBtnAction:(id)sender {
@@ -231,6 +217,20 @@
     [NetWorking weixinRequest];
 
 }
+
+// 登录响应
+- (void) loginCallBack:(NSNotification *)noti {
+    
+    NSDictionary *userInfo = noti.userInfo;
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
+        
+        [[UIApplication sharedApplication].keyWindow showMessage:@"登录成功"];
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }else {
+        [[UIApplication sharedApplication].keyWindow showMessage:@"登录失败"];
+    }
+}
+
 
 #pragma mark - private methods
 

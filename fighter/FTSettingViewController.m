@@ -118,14 +118,15 @@
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:COURSE_VERSION];//清除本地的历史课程版本信息 16-11-9 by lyz
         [[NSUserDefaults standardUserDefaults] synchronize];
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:LoginNoti object:@"LOGOUT"];
+        
+        [FTNotificationTools postLoginNoti:FTLoginTypeLogout];
         
         NSLog(@"dict:%@",dict);
         NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         
-        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"退出成功"];
+        [[UIApplication sharedApplication].keyWindow showMessage:@"退出成功"];
     }];
 }
 

@@ -66,11 +66,8 @@
 #pragma  mark - 初始化
 - (void) setNotification {
 
-    //注册通知，接收微信登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginCallback:) name:WXLoginResultNoti object:nil];
-    
-    //添加监听器，监听login
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(phoneLoginedCallback:) name:LoginNoti object:nil];
+    //注册通知，接收登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
     
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getTableViewDataFromWeb) name:USER_SIGN_OUT object:nil];
@@ -712,29 +709,27 @@
 
 #pragma mark - 通知事件
 
-// 微信登录响应
-- (void) wxLoginCallback:(NSNotification *)noti{
-    NSString *msg = [noti object];
-    if ([msg isEqualToString:@"SUCESS"]) {
-        
-        [self getTableViewDataFromWeb];
-//        [self.tableView reloadData];
-    }
-}
-
-// 账号登录响应
-- (void) phoneLoginedCallback:(NSNotification *)noti {
+// 登录响应
+- (void) loginCallBack:(NSNotification *)noti {
     
-    NSString *msg = [noti object];
-    if ([msg isEqualToString:@"LOGOUT"]) {//退出登录
-        
+    NSDictionary *userInfo = noti.userInfo;
+    
+    // 退出登录
+    if ([userInfo[@"type"] isEqualToString:@"Logout"]) {
         self.currentPage = 1;
         self.getType = @"new";
         self.gymCurrId = @"-1";
+        
+        [self getTableViewDataFromWeb];
+        
+        return;
     }
     
-    [self getTableViewDataFromWeb];
-//    [self.tableView reloadData];
+    // 登录
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
+        [self getTableViewDataFromWeb];
+    }
+    
 }
 
 

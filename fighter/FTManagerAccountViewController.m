@@ -25,8 +25,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    //添加监听器，监听login
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showWeiXinNameAndHeader) name:WXLoginResultNoti object:nil];
+    //注册通知，接收登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
     
     [self initSubviews];
 }
@@ -74,70 +74,71 @@
     
 }
 
-
-//绑定微信
-- (void) showWeiXinNameAndHeader {
+// 登录响应
+- (void) loginCallBack:(NSNotification *)noti {
     
-   
-    NSString *wxOpenId = [[NSUserDefaults standardUserDefaults]objectForKey:@"wxopenId"];
-    NSString *wxName = [[NSUserDefaults standardUserDefaults]objectForKey:@"wxName"];
-    NSString *wxHeaderPic = [[NSUserDefaults standardUserDefaults]objectForKey:@"wxHeaderPic"];
-
-    
-    [NetWorking bindingWeixin:wxOpenId  option:^(NSDictionary *dict) {
-        NSLog(@"dict:%@",dict);
-        if (dict != nil) {
-            
-            bool status = [dict[@"status"] boolValue];
-            NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-            
-            if (status == true) {
+    NSDictionary *userInfo = noti.userInfo;
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"] && [userInfo[@"type"] isEqualToString:@"WeiXin"]) {
+        NSString *wxOpenId = [[NSUserDefaults standardUserDefaults]objectForKey:@"wxopenId"];
+        NSString *wxName = [[NSUserDefaults standardUserDefaults]objectForKey:@"wxName"];
+        NSString *wxHeaderPic = [[NSUserDefaults standardUserDefaults]objectForKey:@"wxHeaderPic"];
+        
+        
+        [NetWorking bindingWeixin:wxOpenId  option:^(NSDictionary *dict) {
+            NSLog(@"dict:%@",dict);
+            if (dict != nil) {
                 
-                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-
+                bool status = [dict[@"status"] boolValue];
+                NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
                 
-                NSDictionary *userDataDic = dict[@"data"];
-                NSDictionary *userDic = userDataDic[@"user"];
-                FTUserBean *user = [FTUserBean new];
-                [user setValuesForKeysWithDictionary:userDic];
-                
-                //更新本地数据
-                user.wxopenId = wxOpenId;
-                user.wxHeaderPic = wxHeaderPic;
-                user.wxName = wxName;
-                
-                NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
-                [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
-                [[NSUserDefaults standardUserDefaults]synchronize];
-            
-                [self.tableView reloadData];
-                FTWeixinInfoVC *wxVC = [[FTWeixinInfoVC alloc]init];
-                //    wxVC.headerUrl = localUser.wxHeaderPic;
-                //    wxVC.username = localUser.wxName;
-                wxVC.title = @"绑定微信";
-                [self.navigationController pushViewController:wxVC animated:YES];
+                if (status == true) {
+                    
+                    [[UIApplication sharedApplication].keyWindow showMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                    
+                    
+                    NSDictionary *userDataDic = dict[@"data"];
+                    NSDictionary *userDic = userDataDic[@"user"];
+                    FTUserBean *user = [FTUserBean new];
+                    [user setValuesForKeysWithDictionary:userDic];
+                    
+                    //更新本地数据
+                    user.wxopenId = wxOpenId;
+                    user.wxHeaderPic = wxHeaderPic;
+                    user.wxName = wxName;
+                    
+                    NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
+                    [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
+                    [[NSUserDefaults standardUserDefaults]synchronize];
+                    
+                    [self.tableView reloadData];
+                    FTWeixinInfoVC *wxVC = [[FTWeixinInfoVC alloc]init];
+                    //    wxVC.headerUrl = localUser.wxHeaderPic;
+                    //    wxVC.username = localUser.wxName;
+                    wxVC.title = @"绑定微信";
+                    [self.navigationController pushViewController:wxVC animated:YES];
+                }else {
+                    NSLog(@"message : %@", [dict[@"message"] class]);
+                    [[UIApplication sharedApplication].keyWindow showMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                    
+                    //从本地读取存储的用户信息
+                    FTUserBean *localUser = [FTUserBean loginUser];
+                    localUser.openId = nil;
+                    localUser.wxopenId = nil;
+                    localUser.wxHeaderPic = nil;
+                    localUser.wxName = nil;
+                    
+                    //将用户信息保存在本地
+                    NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
+                    [[NSUserDefaults standardUserDefaults]setObject:userData forKey:@"loginUser"];
+                    [[NSUserDefaults standardUserDefaults]synchronize];
+                }
             }else {
-                NSLog(@"message : %@", [dict[@"message"] class]);
-                [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                [[UIApplication sharedApplication].keyWindow showMessage:@" 微信登录失败"];
                 
-                //从本地读取存储的用户信息
-                FTUserBean *localUser = [FTUserBean loginUser];
-                localUser.openId = nil;
-                localUser.wxopenId = nil;
-                localUser.wxHeaderPic = nil;
-                localUser.wxName = nil;
-                
-                //将用户信息保存在本地
-                NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
-                [[NSUserDefaults standardUserDefaults]setObject:userData forKey:@"loginUser"];
-                [[NSUserDefaults standardUserDefaults]synchronize];
             }
-        }else {
-            [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@" 微信登录失败"];
-            
-        }
-    }];
-    
+        }];
+
+    }
     
 }
 

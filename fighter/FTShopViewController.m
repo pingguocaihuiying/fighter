@@ -90,11 +90,8 @@
 
 -  (void) setNotification {
     
-    //注册通知，接收微信登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginCallback:) name:WXLoginResultNoti object:nil];
-    
-    //添加监听器，监听login
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(phoneLoginedCallback:) name:LoginNoti object:nil];
+    //注册通知，接收登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
     
     //添加监听器，充值购买
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeCallback:) name:RechargeResultNoti object:nil];
@@ -229,20 +226,15 @@
 }
 
 #pragma mark - 通知事件
-// 微信登录响应
-- (void) wxLoginCallback:(NSNotification *)noti{
-    NSString *msg = [noti object];
-    if ([msg isEqualToString:@"SUCESS"]) {
-        
+// 登录响应
+- (void) loginCallBack:(NSNotification *)noti{
+    
+    NSDictionary *userInfo = noti.userInfo;
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
         [self setWebView];
     }
 }
 
-// 手机登录响应
-- (void) phoneLoginedCallback:(NSNotification *)noti {
-    
-    [self setWebView];
-}
 
 // 充值后刷新界面
 - (void) rechargeCallback:(NSNotification *)noti {

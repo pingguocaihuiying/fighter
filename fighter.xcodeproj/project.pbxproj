@@ -71,6 +71,7 @@
 		3D430BDE1DD02E3100532D01 /* FTTraineeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D430BDC1DD02E3100532D01 /* FTTraineeHeaderView.xib */; };
 		3D430BE21DD05A4300532D01 /* FTTraineeCollectionFowLaytout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D430BE11DD05A4300532D01 /* FTTraineeCollectionFowLaytout.m */; };
 		3D43C5EE1DE815B10067B0DB /* FTMembershipGymView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D43C5ED1DE815B10067B0DB /* FTMembershipGymView.m */; };
+		3D43C5F51DEC0ACA0067B0DB /* FTNotificationTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D43C5F41DEC0ACA0067B0DB /* FTNotificationTools.m */; };
 		3D484D5A1DC72CB100E2EC8C /* FTTraineeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D484D581DC72CB100E2EC8C /* FTTraineeViewController.m */; };
 		3D484D5B1DC72CB100E2EC8C /* FTTraineeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D484D591DC72CB100E2EC8C /* FTTraineeViewController.xib */; };
 		3D484D601DC7349B00E2EC8C /* FTTraineeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D484D5E1DC7349B00E2EC8C /* FTTraineeCell.m */; };
@@ -609,6 +610,8 @@
 		3D43C5EC1DE815B10067B0DB /* FTMembershipGymView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTMembershipGymView.h; sourceTree = "<group>"; };
 		3D43C5ED1DE815B10067B0DB /* FTMembershipGymView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTMembershipGymView.m; sourceTree = "<group>"; };
 		3D43C5F11DE816E30067B0DB /* ViewControllerTransitionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewControllerTransitionDelegate.h; sourceTree = "<group>"; };
+		3D43C5F31DEC0ACA0067B0DB /* FTNotificationTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNotificationTools.h; sourceTree = "<group>"; };
+		3D43C5F41DEC0ACA0067B0DB /* FTNotificationTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNotificationTools.m; sourceTree = "<group>"; };
 		3D459B111DD96D08008B5F7E /* FTCourseHeaderFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FTCourseHeaderFile.h; sourceTree = "<group>"; };
 		3D484D571DC72CB100E2EC8C /* FTTraineeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeViewController.h; sourceTree = "<group>"; };
 		3D484D581DC72CB100E2EC8C /* FTTraineeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeViewController.m; sourceTree = "<group>"; };
@@ -1764,6 +1767,15 @@
 				3D43C5F11DE816E30067B0DB /* ViewControllerTransitionDelegate.h */,
 			);
 			name = ViewControllerTransitionDelegate;
+			sourceTree = "<group>";
+		};
+		3D43C5F21DEC0A7E0067B0DB /* NotificationTools */ = {
+			isa = PBXGroup;
+			children = (
+				3D43C5F31DEC0ACA0067B0DB /* FTNotificationTools.h */,
+				3D43C5F41DEC0ACA0067B0DB /* FTNotificationTools.m */,
+			);
+			name = NotificationTools;
 			sourceTree = "<group>";
 		};
 		3D459B0F1DD96C48008B5F7E /* bean */ = {
@@ -3926,6 +3938,7 @@
 		E6D74A301CB7B7EE00854337 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				3D43C5F21DEC0A7E0067B0DB /* NotificationTools */,
 				3D43C5EF1DE816190067B0DB /* GlobalProtocol */,
 				3D4301FD1DE5447500582499 /* ConstraintTool */,
 				E62BA9991D4B5EB500CB21FF /* 获取标签分类 */,
@@ -5010,6 +5023,7 @@
 				9258ED281D51D6C500F489A5 /* FTMatchDetailBean.m in Sources */,
 				3DB240FA1D3CD236007F32C6 /* FTRechargeView.m in Sources */,
 				3DC31DD01CF859EC001BC364 /* FTArenaChooseLabelView.m in Sources */,
+				3D43C5F51DEC0ACA0067B0DB /* FTNotificationTools.m in Sources */,
 				3D13FB1F1D1A40350060B9B4 /* FTSegmentItem.m in Sources */,
 				3DE4A63A1DD44619008966AB /* FTRatingBar.m in Sources */,
 				3D15E4B81D9518D10078F9E7 /* FTGymCommentDetailCell.m in Sources */,
