@@ -183,7 +183,7 @@
 //获取排行榜标签
 + (void) getRankLabels:(void (^)(NSDictionary *dict))option;
 
-#pragma mark - 视频
+#pragma mark - 个人主页
 //获取排行榜标签
 + (void) getVideos:(NSString *) urlString  option:(void (^)(NSDictionary *dict))option;
 
@@ -202,6 +202,15 @@
 //获取单个视频信息
 + (void)getVideoById:(NSString *)videoId andOption:(void (^)(NSArray *array))option;
 
+/**
+ 评价教练
+ */
++ (void) commentCoachByParamDic:(NSDictionary *) params option:(void (^)(NSDictionary *dict))option;
+
+/**
+ 查看教练是否已经被评价
+ */
++ (void) checkIsCommentCoachByCoachUserId:(NSString *) coachUserId  courseOnceId:(NSString *) courseOnceId option:(void (^)(NSDictionary *dict))option ;
 
 #pragma mark - 学拳
 // Get Coach List

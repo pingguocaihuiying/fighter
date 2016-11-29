@@ -31,6 +31,8 @@
 - (void) awakeFromNib {
     [super awakeFromNib];
     [self setSubViews];
+    
+    
 //    [self addRightAndBottomConstriant];
 }
 
@@ -172,6 +174,8 @@
  */
 -(void)displayRating:(float)rating{
     
+    [self.delegate ratingChanged:rating];
+    
     [_s1 setImage:_unSelectedImage];
     [_s2 setImage:_unSelectedImage];
     [_s3 setImage:_unSelectedImage];
@@ -214,47 +218,6 @@
     
     [self setNeedsDisplay];
     
-//    [_s1 setImage:_fullSelectedImage];
-//    [_s2 setImage:_fullSelectedImage];
-//    [_s3 setImage:_fullSelectedImage];
-//    [_s4 setImage:_fullSelectedImage];
-//    [_s5 setImage:_fullSelectedImage];
-//    
-//    _halfSelectedImage = _halfSelectedImage == nil ? _halfSelectedImage : _unSelectedImage;
-//    
-//    if (rating <= 4.5) {
-//        [_s5 setImage:_halfSelectedImage];
-//    }
-//    if (rating <= 4) {
-//        [_s5 setImage:_unSelectedImage];
-//    }
-//    if (rating <= 3.5) {
-//        [_s4 setImage:_halfSelectedImage];
-//    }
-//    if (rating <= 3) {
-//        [_s4 setImage:_unSelectedImage];
-//    }
-//    if (rating <= 2.5) {
-//        [_s3 setImage:_halfSelectedImage];
-//    }
-//    if (rating <= 2) {
-//        [_s3 setImage:_unSelectedImage];
-//    }
-//    if (rating <= 1.5) {
-//        [_s2 setImage:_unSelectedImage];
-//    }
-//    if (rating <= 1) {
-//        [_s2 setImage:_fullSelectedImage];
-//    }
-//    if (rating <= 0.5) {
-//        [_s1 setImage:_unSelectedImage];
-//    }
-//    if (rating <= 0) {
-//        [_s1 setImage:_fullSelectedImage];
-//    }
-//    
-//    
-   
     _rating = rating;
 }
 
@@ -263,7 +226,7 @@
  *
  *  @return 评分值
  */
--(float)rating{
+-(float) rating{
     return _rating;
 }
 

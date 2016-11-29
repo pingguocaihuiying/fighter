@@ -18,8 +18,9 @@
 #import "FTUserChildSkillTopInfoView.h"
 #import "UILabel+FTLYZLabel.h"
 #import "FTTraineeSkillCell.h"
+#import "FTTraineeFeedbackView.h"
 
-@interface FTUserCourseCommentViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface FTUserCourseCommentViewController ()<UITableViewDelegate,UITableViewDataSource,RatingBarDelegate>
 @property (strong, nonatomic) NSArray *dataArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *commentContentView;
@@ -34,6 +35,17 @@
 @property (nonatomic, strong) NSMutableArray *cellArray;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *bottomCommentViewHeight;
 
+@property (nonatomic, strong) NSMutableDictionary *params;
+
+//
+@property (nonatomic, copy) NSString *coachName;
+@property (nonatomic, copy) NSString *coachUserId;
+@property (nonatomic, copy) NSString *coachAvatarUrl;
+
+@property (nonatomic, copy) NSString *courseOnceId;
+@property (nonatomic, copy) NSString *courseDate;
+@property (nonatomic, copy) NSString *courseTimeSection;
+@property (nonatomic, assign) float rating;
 @end
 
 @implementation FTUserCourseCommentViewController
@@ -103,8 +115,8 @@
 }
 
 
-
-- (void)loadDataFromServer{
+- (void)loadDataFromServer {
+    
     [NetWorking getUserSkillsByVersion:_courseRecordVersion andOption:^(NSDictionary *dic) {
         BOOL status = [dic[@"status"] isEqualToString:@"success"];
         if (status) {
@@ -123,12 +135,14 @@
             NSString *coachName = dic[@"data"][@"coachName"];
             NSString *coachAvatorURLString = dic[@"data"][@"headUrl"];
             
-            /*
-             测试数据
-             */
-//            for (int i = 0; i < 5; i++) {
-//                [_skillScoreArray addObject:[self getTestBean]];
-//            }
+            _coachName =  dic[@"data"][@"coachName"];
+            _coachUserId =  dic[@"data"][@"coachUserId"];
+            _coachAvatarUrl =  dic[@"data"][@"headUrl"];
+            
+            _courseOnceId =  dic[@"data"][@"courseOnceId"];
+            _courseDate =  dic[@"data"][@"date"];
+            _courseTimeSection =  dic[@"data"][@"timeSection"];
+            
             
             //根据教练评论的技能详情，设置tableView的高度、显示内容，以及评论内容
             _tableViewHeight.constant = 45 * _skillScoreArray.count + 76;// 45为cell高度，76为headerView高度
@@ -145,12 +159,52 @@
             }
             
             
+            [self checkCoachIsComment:_coachUserId courseOnceId:_courseOnceId];
             
         } else {
             [[[UIApplication sharedApplication]keyWindow] showHUDWithMessage:dic[@"message"]];
         }
     }];
 }
+
+
+/**
+ 查看教练是否已评价
+
+ @param coachUserId
+ @param courseOnceId
+ */
+- (void) checkCoachIsComment:(NSString *) coachUserId  courseOnceId:(NSString *) courseOnceId {
+
+    [NetWorking checkIsCommentCoachByCoachUserId:coachUserId courseOnceId:courseOnceId option:^(NSDictionary *dict) {
+        
+        if (!dict) {
+            return ;
+        }
+        SLog(@"dict:%@",dict);
+        BOOL status = [dict[@"status"] isEqualToString:@"success"];
+        if (status) {
+            NSString *commentCoachId = dict[@"data"][@"id"];
+            if (commentCoachId && commentCoachId.length > 0) {
+                [_commentView.commentButton setHidden:YES];
+                
+                _rating = [dict[@"data"][@"score"] floatValue];
+                [_commentView.ratingBar setHidden:NO];
+                [_commentView.ratingBar displayRating:_rating];
+                
+                [_commentView.hasCommentedLabel setHidden:NO];
+            }else {
+                [_commentView.commentButton setHidden:NO];
+            }
+
+        }else {
+        
+            [_commentView.commentButton setHidden:NO];
+        }
+        
+    }];
+}
+
 
 - (int)getChangeCount:(NSArray *)skillArray{
     int changeCount = 0;
@@ -201,10 +255,19 @@
     }
 }
 
+
+
+/**
+ 显示教练评论学员内容，以及学员评价课程按钮
+ */
 - (void)setBottomCommentContentView{
     _commentView = [[[NSBundle mainBundle]loadNibNamed:@"FTCoachCommentBottomView" owner:self options:nil]firstObject];//加载底部评论内容view
     _commentView.frame = _commentContentView.bounds;
+    [_commentView.commentButton setHidden:YES];
+    [_commentView.hasCommentedLabel setHidden:YES];
+    [_commentView.ratingBar setHidden:YES];
     
+    [_commentView.commentButton addTarget:self action:@selector(commentButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [_commentContentView addSubview:_commentView];
 }
     
@@ -390,6 +453,37 @@
     
 }
 
+
+/**
+ 学员评价课程按钮
+
+ @param sender commentButton
+ */
+- (void) commentButtonAction:(id) sender {
+    
+    FTTraineeFeedbackView *feedBackView = [[FTTraineeFeedbackView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    feedBackView.coachName = self.coachName;
+    feedBackView.coachAvatarUrl = self.coachAvatarUrl;
+    feedBackView.coachUserId = self.coachUserId;
+    
+    feedBackView.courseDate = self.courseDate;
+    feedBackView.courseTimeSection = self.courseTimeSection;
+    feedBackView.courseOnceId = self.courseOnceId;
+    
+    __weak typeof(self) weakself = self;
+    feedBackView.bloack = ^(float rating){
+        weakself.rating = rating;
+        [weakself.commentView.ratingBar setHidden:NO];
+        [weakself.commentView.ratingBar displayRating:rating];
+        
+        [weakself.commentView.hasCommentedLabel setHidden:NO];
+        
+        [weakself.commentView.commentButton setHidden:YES];
+    };
+    
+    [self.view addSubview:feedBackView];
+    
+}
 
 
 @end

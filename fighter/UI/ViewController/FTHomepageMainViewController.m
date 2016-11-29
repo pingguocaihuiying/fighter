@@ -137,7 +137,6 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    self.navigationController.navigationBarHidden = YES;
     
     if ([_userIdentity isEqualToString:@"0"]){//如果是普通用户
         //更新“历史课程”、“技能”按钮右边的红点显示与否

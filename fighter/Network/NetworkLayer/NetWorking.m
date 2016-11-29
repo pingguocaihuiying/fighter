@@ -915,6 +915,64 @@
 }
 
 
+/**
+ 评价教练
+
+ @param params
+ @param option
+ */
++ (void) commentCoachByParamDic:(NSDictionary *) params option:(void (^)(NSDictionary *dict))option {
+
+    FTUserBean *loginuser = [FTUserBean loginUser];
+    NSString *userId = loginuser.olduserid;
+    NSString *token = loginuser.token;
+    NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];// 时间戳
+    
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:userId forKey:@"userId"];
+    [dic setObject:token forKey:@"loginToken"];
+    [dic setObject:ts forKey:@"ts"];
+    
+    [dic addEntriesFromDictionary:params];
+    
+    NSString *checkSign = [FTTools md5Dictionary:dic withCheckKey:@"gedoujihgfdsg256"];
+    [dic setObject:checkSign forKey:@"checkSign"];
+
+    
+    NSString *urlString = [FTNetConfig host:Domain path:CommentCoachURL];
+    NSLog(@"dic:%@",dic);
+    NSLog(@"urlString:%@",urlString);
+    [self postRequestWithUrl:urlString parameters:dic option:option];
+}
+
+
+
+
+/**
+ 查看教练是否已经被评价
+
+ @param coachUserId 授课教练Id
+ @param courseOnceId 课程id
+ @param option
+ */
++ (void) checkIsCommentCoachByCoachUserId:(NSString *) coachUserId  courseOnceId:(NSString *) courseOnceId option:(void (^)(NSDictionary *dict))option {
+
+    
+    FTUserBean *loginuser = [FTUserBean loginUser];
+    NSString *userId = loginuser.olduserid;
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:userId forKey:@"userId"];
+    [dic setObject:coachUserId forKey:@"coachUserId"];
+    [dic setObject:courseOnceId forKey:@"courseOnceId"];
+    
+    NSString *urlString = [FTNetConfig host:Domain path:CheckIsCommentCoachURL];
+    NSLog(@"dic:%@",dic);
+    NSLog(@"urlString:%@",urlString);
+    [self postRequestWithUrl:urlString parameters:dic option:option];
+}
+
 #pragma mark - 学拳
 // Get Coach List
 + (void) getCoachsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option  {
