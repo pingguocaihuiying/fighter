@@ -126,6 +126,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setNotification];
     [self setNavigationbar];
     [self initBaseData];//默认配置
     [self getHomepageUserInfo];
@@ -136,7 +137,6 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    self.navigationController.navigationBarHidden = YES;
     
     if ([_userIdentity isEqualToString:@"0"]){//如果是普通用户
         //更新“历史课程”、“技能”按钮右边的红点显示与否
@@ -158,6 +158,10 @@
 //    self.navigationController.navigationBarHidden = NO;
 }
 
+- (void) dealloc {
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self ];
+}
 
 
 #pragma -mark *** 16年11月新需求 普通用户格斗属性和课程记录的入口 ***
@@ -166,6 +170,7 @@
 
 #pragma mark 获取用户的基本信息
 - (void)getHomepageUserInfo{
+    
     [NetWorking getHomepageUserInfoWithUserOldid:_olduserid andBoxerId:_boxerId andCoachId:_coachId andCallbackOption:^(FTUserBean *userBean) {
         _userBean = userBean;
         [_headImageView sd_setImageWithURL:[NSURL URLWithString:userBean.headUrl]];
@@ -407,24 +412,14 @@
     
     //调整行高
     [UILabel setRowGapOfLabel:self.briefIntroductionTextField withValue:6];
-
-    //设置左上角的返回按钮
-    UIButton *leftBackButton = [[UIButton alloc]init];
-//    [leftBackButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
-    [leftBackButton setImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
-    [leftBackButton addTarget:self action:@selector(popViewController) forControlEvents:UIControlEventTouchUpInside];
-//    leftBackButton.frame = CGRectMake(10, 30, 22, 22);
-    leftBackButton.frame = CGRectMake(-2, 19, 60, 44);
-    [self.view addSubview:leftBackButton];
-    [self.view bringSubviewToFront:leftBackButton];
     
-
     //设置主scrollView的滚动逻辑
     [self setMainScrollView];
     //设置格斗场的tableview cell
     [self initInfoTableView];
 
 }
+
 
 - (void)addGesture{
     UITapGestureRecognizer *tapOfVoteView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(followViewClicked:)];
@@ -1800,15 +1795,15 @@
 }
 
 
-
-- (void)popViewController{
-    [self.navigationController popViewControllerAnimated:YES];
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-}
-
-
 /************************************   code by kangxq   *************************************************/
+#pragma mark - notification 
 
+- (void) setNotification {
+    
+    if (self.isCurrentUser) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
+    }
+}
 #pragma mark - 设置界面
 
 /**
@@ -1816,34 +1811,66 @@
  */
 - (void) setNavigationbar {
     
-    if ([_navigationSkipType isEqualToString:@"PRESENT"]) {
-        //设置左侧按钮
-        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
-                                       initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-取消"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                       style:UIBarButtonItemStyleDone
-                                       target:self
-                                       action:@selector(dismissBtnAction:)];
-        //把左边的返回按钮左移
-        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
-        self.navigationItem.leftBarButtonItem = leftButton;
+//    if ([_navigationSkipType isEqualToString:@"PRESENT"]) {
+//        //设置左侧按钮
+//        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
+//                                       initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-取消"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+//                                       style:UIBarButtonItemStyleDone
+//                                       target:self
+//                                       action:@selector(dismissBtnAction:)];
+//        //把左边的返回按钮左移
+//        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+//        self.navigationItem.leftBarButtonItem = leftButton;
+//    }else {
+//        //设置左侧按钮
+//        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
+//                                       initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+//                                       style:UIBarButtonItemStyleDone
+//                                       target:self
+//                                       action:@selector(popBtnAction:)];
+//        //把左边的返回按钮左移
+//        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+//        self.navigationItem.leftBarButtonItem = leftButton;
+//    }
+    
+    if ([_navigationSkipType isEqualToString:@"TABBAR"]) {
+    
+        self.navigationController.navigationBar.hidden = NO;
+        
     }else {
-        //设置左侧按钮
-        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
-                                       initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                       style:UIBarButtonItemStyleDone
-                                       target:self
-                                       action:@selector(popBtnAction:)];
-        //把左边的返回按钮左移
-        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
-        self.navigationItem.leftBarButtonItem = leftButton;
+        
+        self.navigationController.navigationBar.hidden = YES;
+        
+        [self setBackButton];
     }
 }
+
+
+/**
+ 设置view上的返回按钮，非导航栏返回按钮
+ */
+- (void) setBackButton {
+    
+    //设置左上角的返回按钮
+    UIButton *leftBackButton = [[UIButton alloc]init];
+    leftBackButton.frame = CGRectMake(-2, 19, 60, 44);
+    [self.view addSubview:leftBackButton];
+    [self.view bringSubviewToFront:leftBackButton];
+    
+    if ([_navigationSkipType isEqualToString:@"PRESENT"]) {
+        [leftBackButton setImage:[UIImage imageNamed:@"头部48按钮一堆-取消"] forState:UIControlStateNormal];
+        [leftBackButton addTarget:self action:@selector(dismissBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    }else {
+        [leftBackButton setImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
+        [leftBackButton addTarget:self action:@selector(popBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+
+}
+
 
 #pragma mark - response
 
 - (void) popBtnAction:(id) sender {
-    
-    
     
     [self.navigationController popViewControllerAnimated:YES];
     
@@ -1851,8 +1878,21 @@
 
 - (void) dismissBtnAction:(id) sender {
     
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
+}
+
+- (void) loginCallBack:(NSNotification *) noti {
+
+    NSDictionary *userInfo = noti.userInfo;
+    if ([userInfo[@"Result"] isEqualToString:@"SUCCESS"]) {
+        
+        FTUserBean *loginUser = [FTUserBean loginUser];
+        if (loginUser) {
+            self.olduserid = loginUser.olduserid;
+            [self getHomepageUserInfo];
+        }
+    }
 }
 
 

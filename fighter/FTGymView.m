@@ -122,7 +122,7 @@
     _tableView.dataSource = self;
     
     [_tableView registerNib:[UINib nibWithNibName:@"FTGymCell" bundle:nil]  forCellReuseIdentifier:@"gymCell"];
-    [_tableView registerNib:[UINib nibWithNibName:@"FTGymVIPCellTableViewCell" bundle:nil]  forCellReuseIdentifier:@"gymVIPCell"];
+//    [_tableView registerNib:[UINib nibWithNibName:@"FTGymVIPCellTableViewCell" bundle:nil]  forCellReuseIdentifier:@"gymVIPCell"];
     
     //    _tableView.tableHeaderView = _cycleScrollView;
     _tableView.tableHeaderView = _gymCycleScrollView;
@@ -417,28 +417,21 @@
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSDictionary *dic = [_dataSourceArray objectAtIndex:indexPath.row];
-    if ([dic[@"isGymUser"] integerValue] == 1) {
-        return 400;
-    }else {
+    
         
-        static FTGymCell * cell =nil;
-        static dispatch_once_t tonceToken;
-        dispatch_once(&tonceToken, ^{
-            cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
-        });
-        
-        CGFloat labelView_H = [cell caculateHeight:dic[@"gymType"]];
-        
-        //    NSString *string = [NSString stringWithFormat:@"%@,%@,%@",dic[@"gymType"],dic[@"gymType"],dic[@"gymType"]];
-        //     CGFloat labelView_H = [cell caculateHeight:string];
-        //    CGSize size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-        //    NSLog(@"h=%f", size.height + 1);
-        
-        if (labelView_H == 0) {
-            return 88;
-        }
-        return 88 + labelView_H;
+    static FTGymCell * cell =nil;
+    static dispatch_once_t tonceToken;
+    dispatch_once(&tonceToken, ^{
+        cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
+    });
+    
+    CGFloat labelView_H = [cell caculateHeight:dic[@"gymType"]];
+
+    if (labelView_H == 0) {
+        return 88;
     }
+    return 88 + labelView_H;
+    
 }
 
 //headerView高度
@@ -500,52 +493,32 @@
     FTGymBean *bean = [FTGymBean new];
     [bean setValuesWithDic:dic];
     
-    if ([dic[@"isGymUser"] integerValue] == 1) {
-        NSLog(@"dic:%@",dic);
+    
+    FTGymCell *cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
+    [cell clearLabelView];
+    cell.backgroundColor = [UIColor clearColor];
+    
+    
+    
+    [cell.title setText:dic[@"gymName"]];
+    [cell.subtitle setText:dic[@"gymLocation"]];
+    
+    NSString *imgStr = dic[@"gymShowImg"];
+    if (imgStr && imgStr.length > 0) {
+        NSArray *tempArray = [imgStr componentsSeparatedByString:@","];
+        NSString *urlStr = [NSString stringWithFormat:@"http://%@/%@",dic[@"urlPrefix"],[tempArray objectAtIndex:0]];
         
-        FTGymVIPCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"gymVIPCell"];
-       
-        [cell setValueWithBean:bean];
-        // 进入拳馆按钮
-        cell.gymAccessButton.tag = [indexPath row];
-        [cell.gymAccessButton addTarget:self action:@selector(enterGymBUttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"拳馆占位图"]];
+    }else {
         
-        
-        return cell;
-    }else { //非会员
-        
-        FTGymCell *cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
-        [cell clearLabelView];
-        cell.backgroundColor = [UIColor clearColor];
-        
-        
-        
-        [cell.title setText:dic[@"gymName"]];
-        [cell.subtitle setText:dic[@"gymLocation"]];
-        
-        //    [cell.avatarImageView.layer setMasksToBounds:YES];
-        //    cell.avatarImageView.layer.cornerRadius = 28;
-        
-        NSString *imgStr = dic[@"gymShowImg"];
-        if (imgStr && imgStr.length > 0) {
-            NSArray *tempArray = [imgStr componentsSeparatedByString:@","];
-            NSString *urlStr = [NSString stringWithFormat:@"http://%@/%@",dic[@"urlPrefix"],[tempArray objectAtIndex:0]];
-            
-            [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"拳馆占位图"]];
-        }else {
-            
-            [cell.avatarImageView setImage:[UIImage imageNamed:@"拳馆占位图"]];
-        }
-        
-        //    NSString *string = [NSString stringWithFormat:@"%@,%@,%@",dic[@"gymType"],dic[@"gymType"],dic[@"gymType"]];
-        //    [cell labelsViewAdapter:string];
-        
-        [cell labelsViewAdapter:dic[@"gymType"]];
-        
-        return cell;
+        [cell.avatarImageView setImage:[UIImage imageNamed:@"拳馆占位图"]];
     }
     
-    return nil;
+    
+    [cell labelsViewAdapter:dic[@"gymType"]];
+    
+    return cell;
+    
 }
 
 
@@ -556,34 +529,17 @@
     FTGymBean *bean = [FTGymBean new];
     [bean setValuesWithDic:newsDic];
     
-//    if (bean.isGymUser) {
-//        NSLog(@"是会员");
-//        FTGymSourceViewController2 *gymSourceViewController = [FTGymSourceViewController2 new];
-//        FTGymDetailBean *detailBean = [FTGymDetailBean new];
-//        detailBean.gym_name = bean.gymName;
-//        detailBean.corporationid = [bean.corporationid intValue];
-//        gymSourceViewController.gymDetailBean = detailBean;
-//        
-//        //获取对应的bean，传递给下个vc
-//        gymSourceViewController.gymBean = bean;
-//        
-//        if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
-//            [self.delegate pushToController:gymSourceViewController];
-//        }
-//        return;
-//    }else {
+
+    FTGymDetailBean *detailBean = [FTGymDetailBean new];
+    detailBean.gym_name = bean.gymName;
+    detailBean.corporationid = [bean.corporationid intValue];
     
-        FTGymDetailBean *detailBean = [FTGymDetailBean new];
-        detailBean.gym_name = bean.gymName;
-        detailBean.corporationid = [bean.corporationid intValue];
-        
-        FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
-        gymDetailWebViewController.gymBean = bean;
-        gymDetailWebViewController.gymDetailBean = detailBean;
-        if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
-            [self.delegate pushToController:gymDetailWebViewController];
-        }
-//    }
+    FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
+    gymDetailWebViewController.gymBean = bean;
+    gymDetailWebViewController.gymDetailBean = detailBean;
+    if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
+        [self.delegate pushToController:gymDetailWebViewController];
+    }
 
 }
 

@@ -144,10 +144,8 @@
     [dic setObject:showType forKey:@"showType"];
     
     NSString *userId = [FTUserBean loginUser].olduserid;
-    // 判断用户登录
-    if (userId && userId.length >0) {
-        [dic setObject:userId forKey:@"userId"];
-    }
+    [dic setObject:userId forKey:@"userId"];
+    
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@",_gymType,_gymCurrId,_gymTag, _getType, ts, @"quanjijia222222"]];
     
@@ -156,26 +154,31 @@
     
     NSString *urlString = [NSString stringWithFormat:@"gymType=%@&gymCurrId=%@&gymTag=%@&getType=%@&ts=%@&checkSign=%@",_gymType,_gymCurrId,_gymTag,_getType, ts,checkSign];
     NSLog(@"urlstring:%@",urlString);
-    [NetWorking getGymsByDic:dic option:^(NSDictionary *dict) {
+    [NetWorking getMemberGymsByDic:dic option:^(NSDictionary *dict) {
         self.tableView.mj_footer.hidden = YES;
         self.tableView.mj_header.hidden = YES;
         
         SLog(@"table dic:%@",dict);
         
-        //        NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+        NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         if (dict == nil) {
+            return ;
+        }
+        
+        if ([dict[@"status"] isEqualToString:@"error"]) {
             return ;
         }
             
         NSArray *tempArray = dict[@"data"];
-        SLog(@"gymType：%@",[tempArray[0][@"gymType"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         
-        if ([_getType isEqualToString:@"new"]) {
-            _dataSourceArray = [NSMutableArray arrayWithArray:tempArray];
-            
-        }else {
-            [_dataSourceArray addObjectsFromArray:tempArray];
-            [self sortArray];
+        if (tempArray.count > 0) {
+            if ([_getType isEqualToString:@"new"]) {
+                _dataSourceArray = [NSMutableArray arrayWithArray:tempArray];
+                
+            }else {
+                [_dataSourceArray addObjectsFromArray:tempArray];
+                [self sortArray];
+            }
         }
         
         [_tableView reloadData];
@@ -291,19 +294,12 @@
     
     NSDictionary *userInfo = noti.userInfo;
     
-    // 退出登录
-    if ([userInfo[@"type"] isEqualToString:@"Logout"]) {
+    // 登录
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"] && ![userInfo[@"type"] isEqualToString:@"Logout"]) {
         self.currentPage = 1;
         self.getType = @"new";
         self.gymCurrId = @"-1";
         
-        [self getTableViewDataFromWeb];
-        
-        return;
-    }
-    
-    // 登录
-    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
         [self getTableViewDataFromWeb];
     }
     

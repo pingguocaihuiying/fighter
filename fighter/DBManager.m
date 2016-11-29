@@ -322,7 +322,7 @@ static DBManager * _sharedDBManager = nil;
  */
 - (void) createNewsTable {
     
-    NSString * sql = @"CREATE TABLE 'news' ('newsId' INTEGER PRIMARY KEY NOT NULL UNIQUE, 'author' TEXT, 'commentCount' INTEGER DEFAULT 0, 'img_big' TEXT, 'img_small_one' TEXT, 'img_small_three' TEXT, 'img_small_two' TEXT, 'layout' INTEGER, 'newsTime' TEXT,'onlineTime' TEXT, 'newsType' TEXT, 'summary' TEXT, 'title' TEXT, 'url' TEXT, 'voteCount' TEXT DEFAULT 0, 'isReader' BOOLEAN);";
+    NSString * sql = @"CREATE TABLE 'news' ('newsId' INTEGER PRIMARY KEY NOT NULL UNIQUE, 'author' TEXT, 'commentCount' INTEGER DEFAULT 0, 'img_big' TEXT, 'img_small_one' TEXT, 'img_small_three' TEXT, 'img_small_two' TEXT, 'layout' INTEGER, 'newsTime' TEXT,'onlineTime' TIMESTAMP, 'newsType' TEXT, 'summary' TEXT, 'title' TEXT, 'url' TEXT, 'voteCount' TEXT DEFAULT 0, 'isReader' BOOLEAN);";
     
     [self createTable:@"news" sql:sql];
 }
@@ -366,7 +366,7 @@ static DBManager * _sharedDBManager = nil;
     NSNumber *voteCount = [NSNumber numberWithInteger:[dic[@"voteCount"] integerValue]];
     NSNumber *layout = [NSNumber numberWithInteger:[dic[@"layout"] integerValue]];
     NSString *newsTime = dic[@"newsTime"];
-    NSString *onlineTime = dic[@"onlineTime"];
+    NSNumber *onlineTime = [NSNumber numberWithInteger:[dic[@"onlineTime"] doubleValue]];
     
     //1.判断数据是否已读
     FMResultSet * set = [_dataBase executeQuery:@"select objId from readCashe where objId = ?  and type = 'news' ",idNum];
@@ -455,9 +455,9 @@ static DBManager * _sharedDBManager = nil;
     NSNumber *pageNum = [NSNumber numberWithInteger:currentPage*20];
     FMResultSet * rs;
     if (type == nil || [type isEqualToString:@"All"]  || [type isEqualToString:@"old"]) {
-        rs = [_dataBase executeQuery:@"SELECT *  FROM news where newsType != 'Hot'  ORDER BY newsId DESC limit ?,20 ;",pageNum];
+        rs = [_dataBase executeQuery:@"SELECT *  FROM news where newsType != 'Hot'  ORDER BY onlineTime DESC limit ?,20 ;",pageNum];
     }else {
-         rs = [_dataBase executeQuery:@" SELECT *  FROM news where newsType = ? ORDER BY newsId DESC limit ?,20 ;",type,pageNum];
+         rs = [_dataBase executeQuery:@" SELECT *  FROM news where newsType = ? ORDER BY onlineTime DESC limit ?,20 ;",type,pageNum];
     }
     
     
@@ -496,10 +496,10 @@ static DBManager * _sharedDBManager = nil;
     
     FMResultSet * rs;
     if (type == nil || [type isEqualToString:@"All"]  || [type isEqualToString:@"old"]) {
-        rs = [_dataBase executeQuery:@"SELECT *  FROM news where newsType != 'Hot'   ORDER BY newsId DESC;"];
+        rs = [_dataBase executeQuery:@"SELECT *  FROM news where newsType != 'Hot'   ORDER BY onlineTime DESC;"];
         
     }else {
-        rs = [_dataBase executeQuery:@" SELECT *  FROM news where newsType= ? ORDER BY newsId DESC;",type];
+        rs = [_dataBase executeQuery:@" SELECT *  FROM news where newsType= ? ORDER BY onlineTime DESC;",type];
     }
     
     
