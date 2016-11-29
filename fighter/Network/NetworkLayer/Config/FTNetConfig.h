@@ -281,3 +281,25 @@ extern NSString * const ShopNewURL;
 // 订单页
 extern NSString * const ShopOrderURL;
 
+#pragma mark 拳吧
+
+/*
+ * url
+ */
+
+//获取版块
+extern NSString *const BoxingBarSectionURL;
+//查询用户是否关注某个版块
+extern NSString *const UserWhetherFollowModuleURL;
+//关注版块
+extern NSString *const FollowModuleURL;
+//取消关注版块
+extern NSString *const UnFollowModuleURL;
+
+/*
+ * checkSign
+ */
+//关注版块校验码
+extern NSString *const FollowModuleCheckSign;
+//取消关注版块校验码
+extern NSString *const UnFollowModuleCheckSign;

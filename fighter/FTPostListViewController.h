@@ -8,6 +8,10 @@
 
 #import "FTBaseViewController.h"
 
+#import "FTModuleBean.h"
+
 @interface FTPostListViewController : FTBaseViewController
+
+@property (nonatomic, strong) FTModuleBean *moduleBean;
 
 @end

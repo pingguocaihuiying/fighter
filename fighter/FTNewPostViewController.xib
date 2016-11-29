@@ -14,6 +14,7 @@
                 <outlet property="addLabelButton" destination="G8Y-cI-3a9" id="owY-L0-oSX"/>
                 <outlet property="contentTextView" destination="Hgj-pa-MPZ" id="UsT-j9-nyC"/>
                 <outlet property="contentTextViewContainer" destination="6I4-la-hWE" id="EME-Fl-jDt"/>
+                <outlet property="labelTypeView" destination="msl-Ii-sPk" id="45w-4O-o7R"/>
                 <outlet property="mediaPickerView" destination="hkQ-gO-N2a" id="ePy-2M-5Ox"/>
                 <outlet property="meidiaPickerViewHeight" destination="51N-ue-UTS" id="2Mu-NU-Vo7"/>
                 <outlet property="scrollView" destination="hFQ-NO-DZU" id="2So-mO-ff5"/>
@@ -225,8 +226,8 @@
                             <variation key="default">
                                 <mask key="constraints">
                                     <exclude reference="Kbn-ca-3eG"/>
-                                    <exclude reference="8QN-bK-hln"/>
                                     <exclude reference="xna-Ro-aU4"/>
+                                    <exclude reference="8QN-bK-hln"/>
                                 </mask>
                             </variation>
                         </view>

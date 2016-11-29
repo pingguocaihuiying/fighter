@@ -45,8 +45,8 @@
 }
 
 /** 可用的后台地址 **/
-NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin";//生产环境
-//NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin_test";//测试环境
+//NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin";//生产环境
+NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin_test";//测试环境
 //NSString * const Domain = @"http://192.168.85.45/pugilist_admin";//内网测试环境
 
 //NSString * const Domain = @"http://10.11.1.117/pugilist_admin";//何后台开发环境
@@ -297,6 +297,16 @@ NSString * const ShopURL = @"/shop/index.html";
 NSString * const ShopNewURL = @"/shopNew/index.html";
 NSString * const ShopOrderURL = @"/shop/order.html";
 
+#pragma mark 拳吧
+// URL
+NSString *const BoxingBarSectionURL = @"/api/damageplate/list.do";
+NSString *const UserWhetherFollowModuleURL = @"/api/damageplatefollow/find.do";
+NSString *const FollowModuleURL = @"/api/damageplatefollow/save$DamagePlateFollow.do";
+NSString *const UnFollowModuleURL = @"/api/damageplatefollow/delete$DamagePlateFollow.do";
+
+//校验码
+NSString *const FollowModuleCheckSign = @"gedoujihgf226g66";
+NSString *const UnFollowModuleCheckSign = @"gedoujihghdtfsh254";
 
 @end
 

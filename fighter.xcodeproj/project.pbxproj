@@ -373,6 +373,8 @@
 		E672C1551DEBFBFE00934206 /* FTPostListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E672C1531DEBFBFE00934206 /* FTPostListViewController.m */; };
 		E672C1561DEBFBFE00934206 /* FTPostListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E672C1541DEBFBFE00934206 /* FTPostListViewController.xib */; };
 		E672C15D1DEC081A00934206 /* FTPostListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E672C15C1DEC081A00934206 /* FTPostListTableView.m */; };
+		E672C1621DEC54FA00934206 /* FTModuleBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E672C1611DEC54FA00934206 /* FTModuleBean.m */; };
+		E672C1661DED301200934206 /* UIViewController+FTLoginCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = E672C1651DED301200934206 /* UIViewController+FTLoginCheck.m */; };
 		E67872731CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E67872711CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m */; };
 		E67872741CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E67872721CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib */; };
 		E67872791CEB00980099CEE6 /* FTNewPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E67872771CEB00980099CEE6 /* FTNewPostViewController.m */; };
@@ -1111,6 +1113,10 @@
 		E672C1541DEBFBFE00934206 /* FTPostListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTPostListViewController.xib; sourceTree = "<group>"; };
 		E672C15B1DEC081A00934206 /* FTPostListTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPostListTableView.h; sourceTree = "<group>"; };
 		E672C15C1DEC081A00934206 /* FTPostListTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPostListTableView.m; sourceTree = "<group>"; };
+		E672C1601DEC54FA00934206 /* FTModuleBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTModuleBean.h; sourceTree = "<group>"; };
+		E672C1611DEC54FA00934206 /* FTModuleBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTModuleBean.m; sourceTree = "<group>"; };
+		E672C1641DED301200934206 /* UIViewController+FTLoginCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+FTLoginCheck.h"; sourceTree = "<group>"; };
+		E672C1651DED301200934206 /* UIViewController+FTLoginCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+FTLoginCheck.m"; sourceTree = "<group>"; };
 		E67872701CEACEFC0099CEE6 /* FTArenaImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTArenaImageTableViewCell.h; sourceTree = "<group>"; };
 		E67872711CEACEFC0099CEE6 /* FTArenaImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTArenaImageTableViewCell.m; sourceTree = "<group>"; };
 		E67872721CEACEFC0099CEE6 /* FTArenaImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTArenaImageTableViewCell.xib; sourceTree = "<group>"; };
@@ -2733,8 +2739,8 @@
 		E6133A6D1CED6F9C00F53381 /* bean */ = {
 			isa = PBXGroup;
 			children = (
-				E6133A6A1CED6F8E00F53381 /* FTArenaBean.h */,
-				E6133A6B1CED6F8E00F53381 /* FTArenaBean.m */,
+				E672C15F1DEC54C800934206 /* 版块 */,
+				E672C15E1DEC54C200934206 /* 帖子 */,
 			);
 			name = bean;
 			sourceTree = "<group>";
@@ -3396,6 +3402,33 @@
 			name = "帖子列表（按板块）";
 			sourceTree = "<group>";
 		};
+		E672C15E1DEC54C200934206 /* 帖子 */ = {
+			isa = PBXGroup;
+			children = (
+				E6133A6A1CED6F8E00F53381 /* FTArenaBean.h */,
+				E6133A6B1CED6F8E00F53381 /* FTArenaBean.m */,
+			);
+			name = "帖子";
+			sourceTree = "<group>";
+		};
+		E672C15F1DEC54C800934206 /* 版块 */ = {
+			isa = PBXGroup;
+			children = (
+				E672C1601DEC54FA00934206 /* FTModuleBean.h */,
+				E672C1611DEC54FA00934206 /* FTModuleBean.m */,
+			);
+			name = "版块";
+			sourceTree = "<group>";
+		};
+		E672C1631DED2FC800934206 /* vc登录 */ = {
+			isa = PBXGroup;
+			children = (
+				E672C1641DED301200934206 /* UIViewController+FTLoginCheck.h */,
+				E672C1651DED301200934206 /* UIViewController+FTLoginCheck.m */,
+			);
+			name = "vc登录";
+			sourceTree = "<group>";
+		};
 		E6735AD11CFC408F0068782C /* 个人主页 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3984,6 +4017,7 @@
 		E6D74A311CB7B7EE00854337 /* Categorys */ = {
 			isa = PBXGroup;
 			children = (
+				E672C1631DED2FC800934206 /* vc登录 */,
 				E6FEFA491DD4439200CEF6E3 /* 给uiview加上下分割线 */,
 				E68D16141CFD816500AB5A8C /* 图片模糊处理 */,
 				E6D74A321CB7B7EE00854337 /* UIButton+countDown.h */,
@@ -4834,6 +4868,7 @@
 				3DA6D1C91D20D94E0049CD4A /* FTCycleScrollViewCell2.m in Sources */,
 				3D5E809C1DD328E100D0F250 /* FTTraineeBean.m in Sources */,
 				3DDE29BD1D2BB39F00876B30 /* FTPayViewController.m in Sources */,
+				E672C1621DEC54FA00934206 /* FTModuleBean.m in Sources */,
 				3D4B19661CDB6CF80022DFB0 /* FTWeightPickerView.m in Sources */,
 				3D6CFF3A1D06A41200CAC12A /* FTAlivePushStreamVC.m in Sources */,
 				E68EC50B1CC4B85D00A338C8 /* FTFilterTableViewController.m in Sources */,
@@ -5001,6 +5036,7 @@
 				3DC9A4EE1CE5CD0700E16D19 /* FTRankViewController.m in Sources */,
 				3D7B98A01CDFA20D00B80B8D /* FTFiler.m in Sources */,
 				E66F493A1D93D87C005B39D1 /* FTGymSourceTableView.m in Sources */,
+				E672C1661DED301200934206 /* UIViewController+FTLoginCheck.m in Sources */,
 				E66EAEA21CF8217F006CD6CE /* FTArenaTextTableViewCell.m in Sources */,
 				E672C15D1DEC081A00934206 /* FTPostListTableView.m in Sources */,
 				3D11B2741D744C5400B4C838 /* UIImage+LabelImage.m in Sources */,

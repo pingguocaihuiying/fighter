@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "FTMatchDetailBean.h"
 #import "FTMatchBean.h"
+#import "FTModuleBean.h"
 
 @interface NetWorking : NSObject
 
@@ -432,4 +433,29 @@
 //查询当前用户是否是指定拳馆的会员
 + (void)getVIPInfoWithGymId:(NSString *) corporationID andOption:(void (^)(NSDictionary *dic))option;
 
+#pragma mark - 拳吧
+/**
+ 获取模块信息
+ 
+ @param option 回调的字典
+ */
++ (void)getBoxingBarSectionsWithOption:(void (^)(NSDictionary *dic)) option;
+
+
+/**
+ 关注、取消关注版块
+
+ @param moduleBean 版块bean
+ @param option 回调block
+ @param isFollow 关注（yes）、取消（no）
+ */
++ (void)changeModuleFollowStatusWithModuleBean:(FTModuleBean *)moduleBean andBlock:(void (^)(NSDictionary *dic))block andIsFollow:(BOOL) isFollow  andFollowId:(NSString *)followId;
+
+/**
+ 用户是否关注版块
+
+ @param moduleBean 版块
+ @param block block
+ */
++ (void)userWhetherFollowModule:(FTModuleBean *)moduleBean withBlock:(void (^)(NSDictionary *dic)) block;
 @end
