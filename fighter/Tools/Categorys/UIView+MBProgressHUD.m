@@ -145,9 +145,17 @@
                                                                            constant:0];
     
 
+    NSLayoutConstraint *widthtConstraint = [NSLayoutConstraint constraintWithItem:imageView
+                                                                        attribute:NSLayoutAttributeWidth
+                                                                        relatedBy:NSLayoutRelationLessThanOrEqual
+                                                                           toItem:nil
+                                                                        attribute:NSLayoutAttributeNotAnAttribute
+                                                                       multiplier:1.0
+                                                                         constant:SCREEN_WIDTH - 60*SCALE];
     
     [self addConstraint:centerXConstraint];
     [self addConstraint:centerYConstraint];
+    [self addConstraint:widthtConstraint];
     
 }
 

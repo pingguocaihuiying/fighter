@@ -45,8 +45,8 @@
 }
 
 /** 可用的后台地址 **/
-NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin";//生产环境
-//NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin_test";//测试环境
+//NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin";//生产环境
+NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin_test";//测试环境
 //NSString * const Domain = @"http://192.168.85.45/pugilist_admin";//内网测试环境
 
 //NSString * const Domain = @"http://10.11.1.117/pugilist_admin";//何后台开发环境
@@ -223,6 +223,7 @@ NSString * const ValidCheckCode = @"/api/user/save$checkPhoneCode.do";
 
 // gym 拳馆
 NSString * const GetGymListURL = @"/api/gym/getGym.do";
+NSString * const GetMemberGymURL = @"/api/gym/getGymByMember.do"; // 获取会员拳馆
 NSString * const GetGymListForArenaURL = @"/api/match/getGyms.do";
 NSString * const GetGymByIdURL = @"/api/gym/getVideosById.do";
 NSString * const GetGymPhotosByUsers = @"/api/gym/commentAttach.do";//获取用户拍摄的拳馆照片

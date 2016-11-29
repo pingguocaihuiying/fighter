@@ -210,6 +210,9 @@
 // Get Gym List
 + (void) getGymsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option;
 
+// Get Member Gym List
++ (void) getMemberGymsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option;
+
 // Get Gym Comment List
 + (void) getGymComments:(NSString *)objectId option:(void (^)(NSDictionary *dict))option;
 

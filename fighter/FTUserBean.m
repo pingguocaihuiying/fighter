@@ -195,7 +195,22 @@
     }
     
     return nil;
-    
 }
 
+
+
+/**
+ 返回用户userId
+
+ @return userId
+ */
++ (NSString *) userId {
+
+    FTUserBean *loginUser = [self loginUser];
+    if (loginUser) {
+        return loginUser.olduserid;
+    }else {
+        return nil;
+    }
+}
 @end

@@ -100,4 +100,10 @@
 
 + (FTUserBean *) loginUser;
 
+/**
+ 返回用户userId
+ 
+ @return userId
+ */
++ (NSString *) userId;
 @end

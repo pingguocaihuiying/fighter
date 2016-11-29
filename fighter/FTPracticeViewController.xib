@@ -40,11 +40,12 @@
                                 <constraint firstAttribute="width" constant="100" id="43f-IP-nCB"/>
                                 <constraint firstAttribute="height" constant="35" id="ooh-XB-yzc"/>
                             </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="教学" backgroundImage="三标签-左-空">
+                            <state key="normal" title="视频教学" backgroundImage="三标签-左-空">
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
-                            <state key="selected" title="教学" backgroundImage="三标签-左-选中">
+                            <state key="selected" title="视频教学" backgroundImage="三标签-左-选中">
                                 <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="三标签-左-选中"/>
@@ -79,10 +80,10 @@
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="拳馆" backgroundImage="三标签-右-空">
+                            <state key="normal" title="更多拳馆" backgroundImage="三标签-右-空">
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
-                            <state key="selected" backgroundImage="三标签-右-选中">
+                            <state key="selected" title="更多拳馆" backgroundImage="三标签-右-选中">
                                 <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <state key="highlighted" backgroundImage="三标签-右-选中"/>

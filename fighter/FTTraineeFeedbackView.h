@@ -13,6 +13,7 @@
 @property (nonatomic, copy) NSString *coachName; // 教练名
 @property (nonatomic, copy) NSString *coachAvatarUrl; //教练头像路径
 @property (nonatomic, copy) NSString *courseDate; // 课程日期
+@property (nonatomic, copy) NSString *courseSectionTime; // 课程名
 @property (nonatomic, copy) NSString *courseName; // 课程名
 
 @property (nonatomic,assign) NSInteger rate; // 打分星级

@@ -18,6 +18,7 @@
 
 @property (nonatomic, strong) UILabel *coachNameLabel;  //教练名称
 @property (nonatomic, strong) UILabel *courseDateLabel; //课程日期
+@property (nonatomic, strong) UILabel *courseSectionLabel; //课程时间段
 @property (nonatomic, strong) UILabel *courseNameLabel; //课程名称
 @property (nonatomic, strong) UILabel *tipsLabel;       //反馈提示
 @property (nonatomic, strong) UILabel *feedbackLabel;   //反馈评价
@@ -131,6 +132,19 @@
     }
 }
 
+
+/**
+ 设置课程时间段
+
+ @param courseSectionTime 课程时间段
+ */
+- (void) setCourseSectionTime:(NSString *)courseSectionTime {
+    if (![_courseSectionTime isEqualToString:courseSectionTime]) {
+        _courseSectionTime = courseSectionTime;
+        [self.courseSectionLabel setText:_courseSectionTime];
+    }
+}
+
 /**
  设置课程名称
 
@@ -205,13 +219,13 @@
 - (UILabel *) coachNameLabel {
     if (!_coachNameLabel) {
         _coachNameLabel = [[UILabel alloc]init];
-        _coachNameLabel.font = [UIFont systemFontOfSize:16];
+        _coachNameLabel.font = [UIFont systemFontOfSize:14];
         _coachNameLabel.textColor = [UIColor whiteColor];
         _coachNameLabel.textAlignment = NSTextAlignmentCenter;
         [_coachNameLabel sizeToFit];
         
         // test words
-        _coachNameLabel.text = @"教练名称";
+        _coachNameLabel.text = @"教练名称  教练";
     }
     
     return _coachNameLabel;
@@ -239,6 +253,28 @@
 }
 
 
+
+/**
+ 课程时间段label，显示这节课当天上课时间段
+
+ @return courseSectionLabel
+ */
+- (UILabel *) courseSectionLabel {
+    
+    if (!_courseSectionLabel) {
+        _courseSectionLabel = [[UILabel alloc]init];
+        _courseSectionLabel.font = [UIFont systemFontOfSize:16];
+        _courseSectionLabel.textColor = [UIColor whiteColor];
+        _courseSectionLabel.textAlignment = NSTextAlignmentCenter;
+        [_courseSectionLabel sizeToFit];
+        
+        // test words
+        _courseSectionLabel.text = @"课程时间段";
+    }
+    
+    return _courseSectionLabel;
+}
+
 /**
  课程名称label，显示要评价的这节课的名称
 
@@ -247,7 +283,7 @@
 - (UILabel *) courseNameLabel {
     if (!_courseNameLabel) {
         _courseNameLabel = [[UILabel alloc]init];
-        _courseNameLabel.font = [UIFont systemFontOfSize:16];
+        _courseNameLabel.font = [UIFont systemFontOfSize:14];
         _courseNameLabel.textColor = [UIColor whiteColor];
         _courseNameLabel.textAlignment = NSTextAlignmentCenter;
         [_courseNameLabel sizeToFit];
@@ -268,8 +304,8 @@
 - (UILabel *) tipsLabel {
     if (!_tipsLabel) {
         _tipsLabel = [[UILabel alloc]init];
-        _tipsLabel.font = [UIFont systemFontOfSize:16];
-        _tipsLabel.textColor = [UIColor whiteColor];
+        _tipsLabel.font = [UIFont systemFontOfSize:12];
+        _tipsLabel.textColor = [UIColor colorWithHex:828287];
         _tipsLabel.textAlignment = NSTextAlignmentCenter;
         [_tipsLabel sizeToFit];
         
@@ -289,7 +325,7 @@
 - (UILabel *) feedbackLabel {
     if (!_feedbackLabel) {
         _feedbackLabel = [[UILabel alloc]init];
-        _feedbackLabel.font = [UIFont systemFontOfSize:16];
+        _feedbackLabel.font = [UIFont systemFontOfSize:14];
         _feedbackLabel.textColor = [UIColor whiteColor];
         _feedbackLabel.textAlignment = NSTextAlignmentCenter;
         [_feedbackLabel sizeToFit];
@@ -357,6 +393,13 @@
     
     return _submitButton;
 }
+
+
+
+
+#pragma mark - constraints
+
+
 
 #pragma mark - private
 
