@@ -255,6 +255,7 @@ NSString *const SaveCourseBookCheckSign = @"gedoujiaghdrfskflges2gfd";
 NSString *const ChangeCourseStatusCheckSign = @"gedoujiajhgfdsh5826fds";
 NSString *const DeleteCourseBookCheckSign = @"gedoujiajhjgfdlh25gfd";
 
+
 //迎战or拒战
 NSString *const ResponseToMatchURL = @"/api/match/save$mc.do";
 //微信支付
@@ -263,6 +264,12 @@ NSString *const WXPayURL = @"/api/pl/add$pl.do";
 NSString *const GetWXPayStatus = @"/api/pl/get$WxPaySta.do";
 //拳馆详细信息
 NSString *const GetGymDetailURL = @"/api/match/%@.do";
+
+#pragma mark - 个人主页
+// 个人主页评价教练接口
+NSString *const CommentCoachURL = @"api/coacheval/save$CoachEval.do";
+// 查看教练是否评价接口
+NSString *const CheckIsCommentCoachURL = @"/api/coacheval/find.do";
 
 #pragma mark - 充值、购买、积分
 // 查询余额接口

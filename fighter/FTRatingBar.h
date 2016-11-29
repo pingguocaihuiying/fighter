@@ -27,7 +27,7 @@
 @property (nonatomic,strong) UIImage *unSelectedImage;
 @property (nonatomic,strong) UIImage *halfSelectedImage;
 @property (nonatomic,strong) UIImage *fullSelectedImage;
-
+@property (nonatomic, weak) id<RatingBarDelegate> delegate;
 @property (assign) CGFloat rating;
 
 /**

@@ -245,6 +245,12 @@ extern NSString *const FollowURL;
 //取消关注
 extern NSString *const CancelFollowURL;
 
+#pragma mark - 个人主页
+// 个人主页评价教练接口
+extern NSString *const CommentCoachURL;
+// 查看教练是否评价接口
+extern NSString *const CheckIsCommentCoachURL;
+
 #pragma mark - 充值、购买、积分
 // 查询余额接口
 extern NSString * const QueryMoneyURL;
