@@ -196,7 +196,7 @@
     NSLog(@"获取资讯 url ： %@", urlString);
     
     [NetWorking getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
-        
+        SLog(@"responseDic:%@",responseDic);
         if (responseDic != nil) {
             NSString *status = responseDic[@"status"];
             if ([status isEqualToString:@"success"]) {

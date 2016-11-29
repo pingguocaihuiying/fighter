@@ -139,7 +139,7 @@
     
     if ([password isEqualToString:@""] || [username isEqualToString:@""]) {
         NSLog(@"用户名 密码必须全部填写");
-        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"用户名 密码必须全部填写"];
+        [[UIApplication sharedApplication].keyWindow showMessage:@"用户名 密码必须全部填写"];
         return;
     }
     
@@ -164,7 +164,7 @@
                                     
                                     if (status == true) {
                                         
-                                        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                        [[UIApplication sharedApplication].keyWindow showMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                                         
                                         NSDictionary *userDataDic = dict[@"data"];
                                         NSDictionary *userDic = userDataDic[@"user"];

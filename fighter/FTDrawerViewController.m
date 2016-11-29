@@ -265,8 +265,8 @@ static NSString *const tableCellId = @"tableCellId";
         [self.loginView setHidden:NO];//显示登录页面
     }else if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
         
-//        [[UIApplication sharedApplication].keyWindow showMessage:@"登录成功"];
-        [[UIApplication sharedApplication].keyWindow showMessage:@"登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功登录成功"];
+        [[UIApplication sharedApplication].keyWindow showMessage:@"登录成功"];
+        
         // 获取余额
         FTPaySingleton *singleton = [FTPaySingleton shareInstance];
         [singleton fetchBalanceFromWeb:^{
@@ -699,7 +699,7 @@ static NSString *const tableCellId = @"tableCellId";
     
     NSString *userId = olduserid;
     if (!userId || userId.length == 0) {
-        userId = [FTUserBean loginUser].olduserid;
+        userId = [FTUserBean userId];
     }
     
     if (userId) {
@@ -712,6 +712,8 @@ static NSString *const tableCellId = @"tableCellId";
     }
     
 }
+
+
 
 #pragma mark - 设置tabbar
 
@@ -850,7 +852,9 @@ static NSString *const tableCellId = @"tableCellId";
         [_homepageVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                          Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
                                                          nil] forState:UIControlStateSelected];
-        
+        _homepageVC.isCurrentUser = YES;
+        _homepageVC.navigationSkipType = @"TABBAR";
+        _homepageVC.olduserid = [FTUserBean userId];
         _homepageVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-我是拳手"];
         _homepageVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-我是拳手pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     }

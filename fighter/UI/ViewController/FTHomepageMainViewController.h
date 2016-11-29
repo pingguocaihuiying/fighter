@@ -64,6 +64,16 @@ typedef NS_ENUM(NSInteger, FTHomepageSelectedType) {
 @property (weak, nonatomic) IBOutlet UIButton *bottomNewPostsView;
 @property (weak, nonatomic) IBOutlet UIView *bottomFollowView;
 
+
+
+/**
+ 跳转个人主页的方式  TABBAR,PUSH,PRESENT
+ */
 @property (copy, nonatomic) NSString *navigationSkipType;
 
+
+/**
+ 是否是当前用户的个人主页
+ */
+@property (nonatomic,assign) BOOL isCurrentUser;
 @end

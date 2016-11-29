@@ -934,6 +934,16 @@
     [self getRequestWithUrl:urlString parameters:dic option:option];
 }
 
+// Get Gym List
++ (void) getMemberGymsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option  {
+    
+    NSString *urlString = [FTNetConfig host:Domain path:GetMemberGymURL];
+    NSLog(@"urlString=%@",urlString);
+    NSLog(@"dic = %@",dic);
+    [self getRequestWithUrl:urlString parameters:dic option:option];
+}
+
+
 + (void) getGymsForArenaByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option  {
     
     NSString *urlString = [FTNetConfig host:Domain path:GetGymListForArenaURL];
