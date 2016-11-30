@@ -1383,6 +1383,7 @@
         
         FTUserCourseCommentViewController * userCourseCommentViewController = [FTUserCourseCommentViewController new];
         userCourseCommentViewController.courseRecordVersion = version;
+        userCourseCommentViewController.courseName = courseBean.courseName;
         [self.navigationController pushViewController:userCourseCommentViewController animated:YES];
 
         if (version) {
@@ -1885,7 +1886,7 @@
 - (void) loginCallBack:(NSNotification *) noti {
 
     NSDictionary *userInfo = noti.userInfo;
-    if ([userInfo[@"Result"] isEqualToString:@"SUCCESS"]) {
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
         
         FTUserBean *loginUser = [FTUserBean loginUser];
         if (loginUser) {

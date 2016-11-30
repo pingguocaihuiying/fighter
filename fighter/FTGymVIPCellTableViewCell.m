@@ -14,7 +14,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.backgroundColor = [UIColor clearColor];
+//    self.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     [self setBalanceLabelPosition];
@@ -43,14 +44,18 @@
 
     self.bean = bean;
     
-    self.surplusCourse.text = bean.surplusCourse;
+    if (bean.surplusCourse.length > 0) {
+        self.surplusCourse.text = bean.surplusCourse;
+    }else {
+        self.surplusCourse.text = @"0";
+    }
+    
     self.deadline.text = bean.deadline;
     self.balanceLabel.text = bean.userMoney;
     
     self.gymName.text = bean.gymName;
     self.gymAddress.text = bean.gymLocation;
     self.gymPhone.text = bean.gymTel;
-    
     
     self.courseDate.text = bean.courseDate;
     self.courseTime.text = bean.courseTime;
@@ -71,7 +76,6 @@
         
         [self.gymImageView setImage:[UIImage imageNamed:@"拳馆占位图"]];
     }
-
 }
 
 - (void) refreshBalance:(NSNotification *)noti {
@@ -79,7 +83,7 @@
     NSString *object = [noti object];
     if ([object isEqualToString:@"SUCCESS"]) {
         NSDictionary *dic = [noti userInfo];
-        if ([dic[@"corporationId"] integerValue] ==  [self.bean.corporationid integerValue]) {
+        if ([dic[@"corporationId"] integerValue] ==  self.bean.corporationid) {
             self.balanceLabel.text = dic[@"balance"];
         }
     }

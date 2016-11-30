@@ -410,4 +410,29 @@
 }
 
 
+#pragma mark -
+
+/**
+ 根据时间戳返回正确的时间字符串格式
+ 如果是该年的日期择返回 月日格式
+ 如果不是该年则返回年月日格式
+
+ @param timestamp 时间戳
+ @return
+ */
++ (NSString *) recordDateString:(NSTimeInterval) timestamp {
+
+    NSString *currentYearMonthString = [self currentYearString];
+    
+    NSString *date = [NSString stringWithFormat:@"%.0f",timestamp];
+    
+    NSString *yearString = [NSDate yearString:date];
+    
+    if ([yearString isEqualToString:currentYearMonthString]) {
+        return  [NSDate monthDayStringWithWordSpace:date];
+    }else {
+        return [NSDate dateStringWithWordSpace:date];
+    }
+}
+
 @end

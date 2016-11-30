@@ -130,7 +130,7 @@
 - (void) setCoachName:(NSString *)coachName {
     if (![_coachName isEqualToString:coachName]) {
         _coachName = coachName;
-        [self.coachNameLabel setText:_coachName];
+        [self.coachNameLabel setText:[_coachName stringByAppendingString:@"  教练"]];
     }
 }
 
@@ -178,17 +178,17 @@
 
  @param rate 星级
  */
-- (void) setRate:(int)rate {
+- (void) setRate:(int) rate {
     
     if (_rate != rate) {
         
-        if (rate <= 1 || rate > 0) {
+        if (rate <= 1 && rate > 0) {
             _rate = 1;
-        }else if (rate <= 2 ||rate > 1) {
+        }else if (rate <= 2 && rate > 1) {
             _rate = 2;
-        }else if (rate <= 3 || rate > 2) {
+        }else if (rate <= 3 && rate > 2) {
             _rate = 3;
-        }else if (rate <= 4 || rate > 3) {
+        }else if (rate <= 4 && rate > 3) {
             _rate = 4;
         }else if ( rate > 4) {
             _rate = 5;
@@ -474,7 +474,7 @@
     
     NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:self.coachAvatarImageView
                                                                         attribute:NSLayoutAttributeHeight
-                                                                        relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                                        relatedBy:NSLayoutRelationEqual
                                                                            toItem:nil
                                                                         attribute:NSLayoutAttributeNotAnAttribute
                                                                        multiplier:1.0
@@ -482,7 +482,7 @@
     
     NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:self.coachAvatarImageView
                                                                         attribute:NSLayoutAttributeWidth
-                                                                        relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                                        relatedBy:NSLayoutRelationEqual
                                                                            toItem:nil
                                                                         attribute:NSLayoutAttributeNotAnAttribute
                                                                        multiplier:1.0
@@ -595,16 +595,9 @@
                                                                     multiplier:1.0
                                                                       constant:0];
     
-//    NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:self.courseDateLabel
-//                                                                         attribute:NSLayoutAttributeLeft
-//                                                                         relatedBy:NSLayoutRelationEqual
-//                                                                            toItem:self.panelView
-//                                                                         attribute:NSLayoutAttributeLeft
-//                                                                        multiplier:1.0
-//                                                                          constant:0];
+
     
     [self addConstraint:topConstraint];
-//    [self addConstraint:leftConstraint];
 }
 
 - (void) addCourseSectionLabelConstaint {
@@ -618,13 +611,6 @@
                                                                     multiplier:1.0
                                                                       constant:0];
     
-//    NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:self.courseSectionLabel
-//                                                                      attribute:NSLayoutAttributeRight
-//                                                                      relatedBy:NSLayoutRelationEqual
-//                                                                         toItem:self.panelView
-//                                                                      attribute:NSLayoutAttributeRight
-//                                                                     multiplier:1.0
-//                                                                       constant:0];
     NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:self.courseSectionLabel
                                                                        attribute:NSLayoutAttributeLeft
                                                                        relatedBy:NSLayoutRelationEqual
@@ -634,7 +620,6 @@
                                                                         constant:15];
     
     [self addConstraint:topConstraint];
-//    [self addConstraint:rightConstraint];
     [self addConstraint:leftConstraint];
 
 }
@@ -861,16 +846,16 @@
  @param rate 星级
  @return 评价
  */
-- (NSString *) rateString:(NSInteger) rate {
+- (NSString *) rateString:(int) rate {
     
     NSString *feedbackString;
-    if (rate <= 1 || rate > 0) {
+    if (rate <= 1 && rate > 0) {
         feedbackString = @"真的不怎么样";
-    }else if (rate <= 2 ||rate > 1) {
+    }else if (rate <= 2 && rate > 1) {
         feedbackString = @"感觉差点意思";
-    }else if (rate <= 3 || rate > 2) {
+    }else if (rate <= 3 && rate > 2) {
         feedbackString = @"还可以啦";
-    }else if (rate <= 4 || rate > 3) {
+    }else if (rate <= 4 && rate > 3) {
         feedbackString = @"教的不错哦";
     }else if ( rate > 4) {
         feedbackString = @"神级体验，完美无瑕！";
@@ -896,9 +881,9 @@
 - (void) submitButtonAction:(id) sender {
 
     NSDictionary *params = @{@"coachUserId":self.coachUserId,
-                                 @"coach":self.coachName,
-                                 @"courseOnceId":self.courseOnceId,
-                                 @"evaluation":self.feedbackLabel.text,
+                             @"coach":self.coachName,
+                             @"courseOnceId":self.courseOnceId,
+                             @"evaluation":self.feedbackLabel.text,
                              @"score":[NSNumber numberWithInt:self.rate],
                              };
     
@@ -907,12 +892,14 @@
         [MBProgressHUD hideHUDForView:self animated:YES];
         if (dict == nil) {
             [self showMessage:@"网络异常，请稍后再试~"];
+            return;
         }
         BOOL status = [dict[@"status"] isEqualToString:@"success"];
         if (status) {
             if(self.bloack) {
                 _bloack(self.rate);
             }
+            [self removeFromSuperview];
         }else {
             [self showMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         }

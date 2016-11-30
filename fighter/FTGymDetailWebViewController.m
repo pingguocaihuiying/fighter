@@ -135,7 +135,10 @@
 }
 
 - (void)getVIPInfo{
-    [NetWorking getVIPInfoWithGymId:_gymBean.corporationid andOption:^(NSDictionary *dic) {
+    
+    NSString *corporationId = [NSString stringWithFormat:@"%ld",_gymBean.corporationid];
+    
+    [NetWorking getVIPInfoWithGymId:corporationId andOption:^(NSDictionary *dic) {
         
         //无数据：非会员
         //"type"为会员类型： 0准会员 1会员 2往期会员
@@ -183,7 +186,7 @@
 
 
 // 登录响应
-- (void) loginCallback:(NSNotification *)noti {
+- (void) loginCallBack:(NSNotification *)noti {
     
     NSDictionary *userInfo = noti.userInfo;
     if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
@@ -197,7 +200,10 @@
 
 - (void)loadGymDataFromServer{
     //获取拳馆的一些基本信息：视频、照片、地址等
-    [NetWorking getGymForGymDetailWithGymId:_gymBean.gymId andOption:^(NSDictionary *dic) {
+    
+    NSString *gymId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
+    
+    [NetWorking getGymForGymDetailWithGymId:gymId andOption:^(NSDictionary *dic) {
 //        NSLog(@"dic : %@", dic);
         _gymDetailBean = [FTGymDetailBean new];
 //        [_gymDetailBean setValuesWithDic:dic];
@@ -529,10 +535,10 @@
 
     //    NSLog(@"查看更多评论");
     @try {
-    
+        
         FTGymCommentsViewController *gymCommentsVC = [[FTGymCommentsViewController alloc]init];
         gymCommentsVC.title = self.gymBean.gymName;//@"评论列表";
-        gymCommentsVC.objId = self.gymBean.gymId;
+        gymCommentsVC.objId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
         
         __weak typeof(self) weakself = self;
         gymCommentsVC.freshBlock = ^(){
@@ -680,7 +686,7 @@
 //    [self.navigationController pushViewController:commentVC animated:YES];
     
     FTGymCommentViewController *commentVC = [ FTGymCommentViewController new];
-    commentVC.objId = self.gymBean.gymId;
+    commentVC.objId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
     commentVC.title = self.gymBean.gymName;
     
     __weak typeof(self) weakself = self;
@@ -703,7 +709,7 @@
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
     NSString *userId = user.olduserid;
-    NSString *objId = _gymBean.gymId;
+    NSString *objId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = @"f-gym";
@@ -776,7 +782,7 @@
     NSString *urlString = [FTNetConfig host:Domain path:_hasVote ? AddVoteURL : DeleteVoteURL];
     
     NSString *userId = user.olduserid;
-    NSString *objId = self.gymBean.gymId;
+    NSString *objId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = @"v-gym";
@@ -823,7 +829,7 @@
     NSString *urlString = [FTNetConfig host:Domain path:self.hasAttention ? AddFollowURL : DeleteFollowURL];
     
     NSString *userId = user.olduserid;
-    NSString *objId = self.gymBean.gymId;;
+    NSString *objId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = @"f-gym";

@@ -267,7 +267,7 @@ NSString *const GetGymDetailURL = @"/api/match/%@.do";
 
 #pragma mark - 个人主页
 // 个人主页评价教练接口
-NSString *const CommentCoachURL = @"api/coacheval/save$CoachEval.do";
+NSString *const CommentCoachURL = @"/api/coacheval/save$CoachEval.do";
 // 查看教练是否评价接口
 NSString *const CheckIsCommentCoachURL = @"/api/coacheval/find.do";
 

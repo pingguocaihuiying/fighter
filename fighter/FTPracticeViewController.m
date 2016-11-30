@@ -94,7 +94,6 @@
     [self setsubViewsState];
 }
 
-
 - (void) setsubViewsState {
     
     FTUserBean *loginUser = [FTUserBean loginUser];
@@ -102,7 +101,7 @@
         self.coachBtnWidthConstraint.constant = 100;
         [self coachBtnAction:nil];
     }else {
-        self.coachBtnWidthConstraint.constant = 0;
+        self.coachBtnWidthConstraint.constant = -1;
         [self teachBtnAction:nil];
     }
 }
@@ -183,7 +182,7 @@
     
     [self initPracticeView];
     
-    [_coachView removeFromSuperview];
+    [_membershipGymView removeFromSuperview];
     [_gymView removeFromSuperview];
 }
 
@@ -219,7 +218,7 @@
     [self initGymView];
 
     [_practiceView removeFromSuperview];
-    [_coachView removeFromSuperview];
+    [_membershipGymView removeFromSuperview];
 }
 
 
