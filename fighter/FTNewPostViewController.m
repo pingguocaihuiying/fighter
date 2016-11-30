@@ -28,6 +28,8 @@
 @property (nonatomic, strong)FTArenaChooseLabelView *chooseLabelView;
 @property (nonatomic, strong)NSString *typeOfLabel;//选择的标签
 @property (nonatomic, assign) BOOL isSyncToArena;
+@property (strong, nonatomic) IBOutlet UIView *labelTypeView;
+
 @end
 
 @implementation FTNewPostViewController
@@ -87,6 +89,11 @@
 }
 
 - (void)setSubViews{
+    if (_moduleBean) {
+        _labelTypeView.hidden = YES;
+        _typeOfLabel = _moduleBean.name;
+    }
+    
     //去掉底部的遮罩层
     self.bottomGradualChangeView.hidden = YES;
     //设置顶部的按钮

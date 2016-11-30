@@ -734,7 +734,7 @@ static DBManager * _sharedDBManager = nil;
  *
  */
 -(NSMutableArray *) searchArenasWithLabel:(NSString *) label  hotTag:(NSString *)hotTag {
-    
+    label = [label stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     FMResultSet * rs;
     
     if ([self isHot:hotTag]) {

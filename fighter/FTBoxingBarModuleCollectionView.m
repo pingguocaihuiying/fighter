@@ -6,6 +6,8 @@
 //  Copyright © 2016 Mapbar. All rights reserved.
 //
 
+#define DISPLAY @1
+
 #import "FTBoxingBarModuleCollectionView.h"
 #import "FTModuleCollectionReusableView.h"
 #import "FTBoxingBarCollectionViewCell.h"
@@ -30,13 +32,8 @@
 
 
 - (void)initSubViews{
-    
-#warning 测试用
-    /*
-        初始化一些数据配置，测试用
-     */
-    _array = [[NSMutableArray alloc]initWithArray:@[@1,@1,@1,@1]];
-    
+
+    [self configSectionDisplayOrNot];
     
     /*
         设置collectionView
@@ -79,16 +76,19 @@
 
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return 4;
+    return _moduleBeanArray.count;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-//    return 6;
+
     if([_array[section] isEqual:@1]){
-        return 5;
+        NSDictionary *dic = _moduleBeanArray[section];
+        NSArray *moduleArray = [[dic allValues]firstObject];
+        return moduleArray.count;
     }else{
         return 0;
     }
+
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
@@ -119,6 +119,7 @@
         
         //设置图片
         NSNumber *number = _array[indexPath.section];
+        
         [rightButton setImage:[UIImage imageNamed:[number  isEqual: @1] ? @"展开收起箭头-下" : @"展开收起箭头-右"] forState:UIControlStateNormal];
         [headerView addSubview:rightButton];
         
@@ -142,8 +143,8 @@
             headerTitleLabel.font = [UIFont systemFontOfSize:12];
             headerTitleLabel.textColor = Nonmal_Text_Color;
         }
-        
-        headerTitleLabel.text = @"格斗项目";
+        NSDictionary *categoryDic = _moduleBeanArray[indexPath.section];
+        headerTitleLabel.text = [categoryDic.allKeys firstObject];
         
         [headerView addSubview:headerTitleLabel];
         
@@ -160,8 +161,9 @@
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    UICollectionViewCell *cell = [_collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    
+    FTBoxingBarCollectionViewCell *cell = [_collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    NSDictionary *categoryDic = _moduleBeanArray[indexPath.section];
+    [cell setWithBean:[categoryDic.allValues firstObject][indexPath.row]];
     return cell;
 }
 
@@ -169,4 +171,20 @@
     [_delegate collectionView:collectionView didSelectItemAtIndexPath:indexPath];
 }
 
+- (void)setWithData:(NSMutableArray *)moduleBeanArray{
+    _moduleBeanArray = moduleBeanArray;
+    [self configSectionDisplayOrNot];
+}
+
+- (void)configSectionDisplayOrNot{
+    /*
+     初始化一些数据配置，测试用
+     */
+//    _array = [[NSMutableArray alloc]initWithArray:@[@1,@1,@1,@1]];
+    _array = [NSMutableArray new];
+    for (int i = 0; i < _moduleBeanArray.count; i++) {
+        NSNumber *number = [[NSNumber alloc]initWithBool:DISPLAY];
+        [_array addObject:number];
+    }
+}
 @end

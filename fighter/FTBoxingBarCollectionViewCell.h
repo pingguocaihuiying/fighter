@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FTModuleBean.h"
 
 @interface FTBoxingBarCollectionViewCell : UICollectionViewCell
+
+
+/**
+ 根据属性设置cell
+
+ @param bean FTBoxingBarCollectionViewCell bean
+ */
+- (void)setWithBean:(FTModuleBean *)bean;
 
 @end

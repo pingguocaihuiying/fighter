@@ -301,7 +301,6 @@
 }
 
 
-
 #pragma mark -get data
 -(void) getDataFromDB {
     
@@ -341,6 +340,7 @@
     urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@&source=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName, @"1"];
     
     NSLog(@"arena list urlString:%@",urlString);
+    urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     [NetWorking getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
 //        NSLog(@"responseDic:  %@", responseDic);

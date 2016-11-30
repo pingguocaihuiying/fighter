@@ -305,6 +305,16 @@ NSString * const ShopURL = @"/shop/index.html";
 NSString * const ShopNewURL = @"/shopNew/index.html";
 NSString * const ShopOrderURL = @"/shop/order.html";
 
+#pragma mark 拳吧
+// URL
+NSString *const BoxingBarSectionURL = @"/api/damageplate/list.do";
+NSString *const UserWhetherFollowModuleURL = @"/api/damageplatefollow/find.do";
+NSString *const FollowModuleURL = @"/api/damageplatefollow/save$DamagePlateFollow.do";
+NSString *const UnFollowModuleURL = @"/api/damageplatefollow/delete$DamagePlateFollow.do";
+
+//校验码
+NSString *const FollowModuleCheckSign = @"gedoujihgf226g66";
+NSString *const UnFollowModuleCheckSign = @"gedoujihghdtfsh254";
 
 @end
 

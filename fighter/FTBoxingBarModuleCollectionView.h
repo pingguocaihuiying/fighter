@@ -19,4 +19,13 @@
 @property (nonatomic, weak) id<FTCollectionViewDelegate> delegate;
 @property (nonatomic, strong) UICollectionView *collectionView;
 
+@property (nonatomic, strong) NSMutableArray *moduleBeanArray;//存储版块的数组
+
+
+/**
+ 根据获取的数据配置数据源
+
+ @param moduleBeanArray 分好组的版块
+ */
+- (void)setWithData:(NSMutableArray *)moduleBeanArray;
 @end

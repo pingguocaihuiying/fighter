@@ -77,6 +77,10 @@
     _titleTrailing.constant *= SCALE;
 }
 
-
+- (void)setWithBean:(FTModuleBean *)bean{
+    _titleLabel.text = bean.name;
+    _subTitleLabel.text = bean.desc;
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:bean.pict]placeholderImage:[UIImage imageNamed:@"小占位图"]];
+}
 
 @end

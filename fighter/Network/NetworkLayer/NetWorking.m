@@ -1889,7 +1889,6 @@
 //    checkSign = [MD5 md5:checkSign];
     
     
-    
     //md5前的checkSign字典
     NSMutableDictionary *dicBeforeMD5 = [[NSMutableDictionary alloc]initWithDictionary:@{
                                                                                          @"userId":userId,
@@ -1923,9 +1922,6 @@
         option(NO);
         NSLog(@"收藏 failure ：%@", error);
     }];
-    
-
-    
 }
 
 #pragma mark - 充值购买
@@ -2278,7 +2274,7 @@
 }
 
 + (NSString *)getTimeStamp13{
-    return [NSString stringWithFormat:@"%lf", [[NSDate date] timeIntervalSince1970] * 1000];
+    return [NSString stringWithFormat:@"%.0lf", [[NSDate date] timeIntervalSince1970] * 1000];
 }
 
 //约课
@@ -2386,5 +2382,55 @@
         option(nil);
     }];
     
+}
+
+#pragma mark - 拳吧
+
+/**
+ 获取模块信息
+
+ @param option 回调的字典
+ */
++ (void)getBoxingBarSectionsWithOption:(void (^)(NSDictionary *dic)) option{
+    NSMutableDictionary *paramDic = [NSMutableDictionary new];
+    NSString *url = [FTNetConfig host:Domain path:BoxingBarSectionURL];
+    FTUserBean *localUser = [FTUserTools getLocalUser];
+    if (localUser.olduserid) {
+        [paramDic setValue:localUser.olduserid forKey:@"userId"];
+    }
+    [self postRequestWithUrl:url parameters:paramDic option:option];
+}
+
++ (void)changeModuleFollowStatusWithModuleBean:(FTModuleBean *)moduleBean andBlock:(void (^)(NSDictionary *))block andIsFollow:(BOOL)isFollow  andFollowId:(NSString *)followId{
+    NSMutableDictionary *paramDic = [NSMutableDictionary new];
+    NSString *url = [FTNetConfig host:Domain path:isFollow ? FollowModuleURL : UnFollowModuleURL];
+    FTUserBean *localUser = [FTUserTools getLocalUser];
+    if (localUser.olduserid) {
+        [paramDic setValue:localUser.olduserid forKey:@"userId"];
+        [paramDic setValue:localUser.token forKey:@"loginToken"];
+    }
+    [paramDic setValue:[self getTimeStamp13] forKey:@"ts"];
+    
+    if (isFollow) {
+        [paramDic setValue:[NSString stringWithFormat:@"%ld", moduleBean.id] forKey:@"plateId"];
+        [paramDic setValue:moduleBean.name forKey:@"name"];
+    } else {
+        [paramDic setValue:followId forKey:@"id"];
+    }
+    
+    NSString *checkSign = [FTTools md5Dictionary:paramDic withCheckKey:isFollow ? FollowModuleCheckSign : UnFollowModuleCheckSign];
+    [paramDic setValue:checkSign forKey:@"checkSign"];
+    [self postRequestWithUrl:url parameters:paramDic option:block];
+}
+
++ (void)userWhetherFollowModule:(FTModuleBean *)moduleBean withBlock:(void (^)(NSDictionary *dic)) block{
+    NSMutableDictionary *paramDic = [NSMutableDictionary new];
+    NSString *url = [FTNetConfig host:Domain path:UserWhetherFollowModuleURL];
+    FTUserBean *localUser = [FTUserTools getLocalUser];
+    if (localUser.olduserid) {
+        [paramDic setValue:localUser.olduserid forKey:@"userId"];
+    }
+    [paramDic setValue:moduleBean.name forKey:@"name"];
+    [self postRequestWithUrl:url parameters:paramDic option:block];
 }
 @end

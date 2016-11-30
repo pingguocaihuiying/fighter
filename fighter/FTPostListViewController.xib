@@ -51,6 +51,9 @@
                             </constraints>
                             <state key="normal" image="加关注"/>
                             <state key="selected" image="加关注pre"/>
+                            <connections>
+                                <action selector="followButtonClicked:" destination="-1" eventType="touchUpInside" id="xjn-9W-Sgk"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1988年出生于德莱家族，塞恩·图哈特，2012年CWFC轻量级双料冠军。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGb-CL-Deb">
                             <rect key="frame" x="15" y="48" width="206" height="45"/>
