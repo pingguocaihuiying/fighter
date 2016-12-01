@@ -19,22 +19,26 @@
 #import "NSDate+TaskDate.h"
 #import "FTPracticeViewController.h"
 #import "FTCoachSelfCourseViewController.h"
+#import "FTFightingViewController.h"
 
 @interface FTBaseTabBarViewController () <UITabBarControllerDelegate>
 
-@property (nonatomic, strong) UIButton *avatarBtn;
+@property (nonatomic, strong) UIButton *avatarButton;
 
-@property (nonatomic, strong) UIButton *messageBtn;
+@property (nonatomic, strong) UIButton *taskButton;
 
-@property (nonatomic, strong) UIButton *searchBtn;
+@property (nonatomic, strong) UIBarButtonItem *avatarButtonItem;
 
-@property (nonatomic, strong) UIButton *taskBtn;
+@property (nonatomic, strong) UIBarButtonItem *messageButtonItem;
 
-@property (nonatomic, strong) UIBarButtonItem *shopBtnItem;
+@property (nonatomic, strong) UIBarButtonItem *searchButtonItem;
+
+@property (nonatomic, strong) UIBarButtonItem *taskButtonItem;
+
+@property (nonatomic, strong) UIBarButtonItem *shopButtonItem;
 
 @property (nonatomic, strong) UILabel *titleLabel;
 
-@property (nonatomic, strong) UIButton *rankBtn;
 
 @end
 
@@ -48,12 +52,6 @@
     [self setNavigationbar];
 
     self.delegate = self;
-    
-    
-//    //  导航栏半透明属性设置为NO,阻止导航栏遮挡view
-//    self.navigationController.navigationBar.translucent = NO;
-//    UINavigationController *navigationVC = self.navigationController;
-    
 }
 
 
@@ -63,9 +61,8 @@
     
     if (self.selectedIndex == 1) {
         
-//         [self showRankButton];
+         [self showRankButton];
     }
-    
     
     // 个人主页隐藏导航栏
     if (self.selectedIndex == 4) {
@@ -73,9 +70,8 @@
     }else {
         [self.navigationController setNavigationBarHidden:NO];
     }
-
-    
 }
+
 
 - (void) viewWillDisappear:(BOOL)animated {
     
@@ -109,88 +105,14 @@
 #pragma mark - 设置导航栏
 - (void) setNavigationbar {
     
-    //导航栏头像按钮
-    FTUserBean *localUser = [FTUserBean loginUser];
     
-    self.avatarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.avatarBtn.frame = CGRectMake(0, 0, 34, 34);
-    [self.avatarBtn addTarget:self action:@selector(avatarBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItems  = [[NSArray alloc]initWithObjects:self.avatarButtonItem, nil];
     
-    
-    [self.avatarBtn.layer setMasksToBounds:YES];
-    self.avatarBtn.layer.cornerRadius = 17.0;
-    [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
-                              forState:UIControlStateNormal
-                      placeholderImage:[UIImage imageNamed:@"头像-空"]];
-    
-    UIBarButtonItem *avatarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.avatarBtn];
-    self.navigationItem.leftBarButtonItems  = [[NSArray alloc]initWithObjects:avatarButtonItem, nil];
-    
-    // 商城按钮
-//    UIBarButtonItem *
-    self.shopBtnItem = [[UIBarButtonItem alloc] initWithTitle:@"商城" style:UIBarButtonItemStyleDone target:self action:@selector(shopBtnAction:)];
-    [self.shopBtnItem setTintColor:[UIColor colorWithHex:0x848484]];
-//   self.shopBtnItem = [[UIBarButtonItem alloc]
-//                                   initWithImage:[[UIImage imageNamed:@"右上角商城"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-//                                   style:UIBarButtonItemStyleDone
-//                                   target:self
-//                                   action:@selector(shopBtnAction:)];
-    
-    self.navigationItem.rightBarButtonItem = self.shopBtnItem;
-    
-    {
-//    // 头部消息按钮
-//    self.messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    self.messageBtn.frame = CGRectMake(0, 0, 24, 24);
-//    [self.messageBtn addTarget:self action:@selector(messageBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息"] forState:UIControlStateNormal];
-//    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
-//    
-//    UIBarButtonItem *messageBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.messageBtn];
-//
-//    // 头部搜索按钮
-//    self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    self.searchBtn.frame = CGRectMake(0, 0, 24, 24);
-//    [self.searchBtn addTarget:self action:@selector(searchBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索"] forState:UIControlStateNormal];
-//    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索pre"] forState:UIControlStateHighlighted];
-//    
-//    
-//    UIBarButtonItem *searchBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.searchBtn];
-    
-//    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:messageBtnItem, searchBtnItem,nil];
-   
-//    // 头部任务按钮
-//    self.taskBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    self.taskBtn.frame = CGRectMake(0, 0, 24, 24);
-//    [self.taskBtn addTarget:self action:@selector(taskBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    // 获取上次做任务的时间记录
-//    NSDate * recordDate = [[NSUserDefaults standardUserDefaults]objectForKey:@"FinishDate"];
-//    
-//    NSDate *taskDate = [NSDate taskDate];
-//    
-//    if ([recordDate timeIntervalSince1970] < [taskDate timeIntervalSince1970]) {
-//        
-//        [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务-新任务"] forState:UIControlStateNormal];
-//    }else {
-//        [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务"] forState:UIControlStateNormal];
-//    }
-//    
-//
-//    
-//    
-//    UIBarButtonItem *taskBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.taskBtn];
-//    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:taskBtnItem,nil];
-    
-    }
+    self.navigationItem.rightBarButtonItem = self.shopButtonItem;
     
     
     // title View
     self.navigationItem.titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 22)];
-    
     
     // title image
     UIImageView *titleImageView = [[UIImageView alloc]init];
@@ -205,7 +127,6 @@
     dotView.backgroundColor = [UIColor whiteColor];
     [self.navigationItem.titleView addSubview:dotView];
     
-    
     // title label
     self.titleLabel = [[UILabel alloc]init];
     self.titleLabel.frame = CGRectMake(93, 0, 72, 22);
@@ -215,37 +136,159 @@
     
 }
 
-#pragma mark - 排行榜按钮
-/**
- 显示排行榜按钮
- */
-- (void) showRankButton {
+#pragma mark - 导航栏按钮
 
-    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    UINavigationBar *navigationbar = self.navigationController.navigationBar;
-    [keyWindow insertSubview:self.rankBtn aboveSubview:navigationbar];
+
+/**
+ avatar button item
+
+ @return
+ */
+- (UIBarButtonItem *) avatarButtonItem {
+    
+    if (!_avatarButtonItem) {
+        _avatarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.avatarButton];
+    }
+   
+    return _avatarButtonItem;
 }
 
-- (void) hideRankButton {
+- (UIButton *) avatarButton {
     
-    [self.rankBtn removeFromSuperview];
-}
-/**
- 设置排行榜按钮
-
- @return 排行榜按钮
- */
-- (UIButton *) rankBtn {
-    
-    if (!_rankBtn) {
-        _rankBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _rankBtn.frame = CGRectMake(SCREEN_WIDTH - 94 - 15, 61, 94, 30);
-        [_rankBtn addTarget:self action:@selector(rankListBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-        [_rankBtn setImage:[UIImage imageNamed:@"右上排行榜"] forState:UIControlStateNormal];
-//        self.rankBtn.hidden = YES;
+    if (!_avatarButton) {
+        //导航栏头像按钮
+        FTUserBean *localUser = [FTUserBean loginUser];
+        
+        _avatarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _avatarButton.frame = CGRectMake(0, 0, 34, 34);
+        [_avatarButton addTarget:self action:@selector(avatarBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        [_avatarButton.layer setMasksToBounds:YES];
+        _avatarButton.layer.cornerRadius = 17.0;
+        [_avatarButton sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
+                                  forState:UIControlStateNormal
+                          placeholderImage:[UIImage imageNamed:@"头像-空"]];
     }
     
-    return _rankBtn;
+    return _avatarButton;
+}
+
+/**
+ shop button item
+ */
+- (UIBarButtonItem *) shopButtonItem {
+
+    if (!_shopButtonItem) {
+        // 商城按钮
+        //    UIBarButtonItem *
+        _shopButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"商城" style:UIBarButtonItemStyleDone target:self action:@selector(shopBtnAction:)];
+        [_shopButtonItem setTintColor:[UIColor colorWithHex:0x848484]];
+        //   _shopButtonItem = [[UIBarButtonItem alloc]
+        //                                   initWithImage:[[UIImage imageNamed:@"右上角商城"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+        //                                   style:UIBarButtonItemStyleDone
+        //                                   target:self
+        //                                   action:@selector(shopBtnAction:)];
+    }
+    
+    return _shopButtonItem;
+}
+
+
+
+/**
+ message button item
+ */
+- (UIBarButtonItem *) messageButtonItem {
+    
+    if (!_messageButtonItem) {
+        
+        _messageButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-消息"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                              style:UIBarButtonItemStyleDone
+                                                              target:self
+                                                              action:@selector(messageBtnAction:)];
+    }
+    
+    return _messageButtonItem;
+    
+}
+
+
+/**
+ search button item
+ */
+- (UIBarButtonItem *) searchButtonItem {
+    
+    if (!_searchButtonItem) {
+        _searchButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-搜索"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                               style:UIBarButtonItemStyleDone
+                                                              target:self
+                                                              action:@selector(searchBtnAction:)];
+    }
+    
+    return _searchButtonItem;
+}
+
+
+/**
+ task button item
+ */
+- (UIBarButtonItem *) taskButtonItem {
+
+    if (!_taskButtonItem) {
+        
+        _searchButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.taskButton];
+    }
+    return _taskButtonItem;
+}
+
+/**
+ daily task button
+ */
+- (UIButton *) taskButton {
+
+    if (!_taskButton) {
+        
+        // 头部任务按钮
+        _taskButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _taskButton.frame = CGRectMake(0, 0, 24, 24);
+        [_taskButton addTarget:self action:@selector(taskBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        // 获取上次做任务的时间记录
+        NSDate * recordDate = [[NSUserDefaults standardUserDefaults]objectForKey:@"FinishDate"];
+        
+        NSDate *taskDate = [NSDate taskDate];
+        
+        if ([recordDate timeIntervalSince1970] < [taskDate timeIntervalSince1970]) {
+            
+            [_taskButton setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务-新任务"] forState:UIControlStateNormal];
+        }else {
+            [_taskButton setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务"] forState:UIControlStateNormal];
+        }
+    }
+    return _taskButton;
+}
+
+
+
+#pragma mark - show and hide rank Button
+/**
+ show fighting view controller rank button
+ */
+- (void) showRankButton {
+    
+    FTFightingViewController *fightingVC = [self.viewControllers objectAtIndex:1];
+    [fightingVC showRankButton];
+}
+
+/**
+ hide fighting view controller rank button
+ */
+- (void) hideRankButton {
+    
+    FTFightingViewController *fightingVC = [self.viewControllers objectAtIndex:1];
+    [fightingVC hideRankButton];
+    
 }
 
 
@@ -258,12 +301,12 @@
     NSDictionary *userInfo = noti.userInfo;
     if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
         
-        [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
+        [self.avatarButton sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
                                   forState:UIControlStateNormal
                           placeholderImage:[UIImage imageNamed:@"头像-空"]];
     }else {
     
-        [self.avatarBtn setImage:[UIImage imageNamed:@"头像-空"] forState:UIControlStateNormal];
+        [self.avatarButton setImage:[UIImage imageNamed:@"头像-空"] forState:UIControlStateNormal];
     }
     
 }
@@ -323,9 +366,9 @@
         return;
     }
     
-    [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务"] forState:UIControlStateNormal];
+    [self.taskButton setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务"] forState:UIControlStateNormal];
     
-    [self.taskBtn hideMiniBadge];
+    [self.taskButton hideMiniBadge];
 
     // 获取上次做任务的时间记录
     NSDate * recordDate = [[NSUserDefaults standardUserDefaults]objectForKey:@"FinishDate"];
@@ -350,7 +393,6 @@
         FTFinishedTaskViewController *finishTaskVC = [FTFinishedTaskViewController new];
         [self.navigationController  pushViewController:finishTaskVC animated:YES];
     }
-    
 }
 
 

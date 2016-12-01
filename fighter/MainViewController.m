@@ -12,7 +12,7 @@
 
 @interface MainViewController ()
 
-
+@property (nonatomic, copy) RankButtonBlock ranckButtonBlock;
 
 @end
 
@@ -34,6 +34,13 @@ FTDrawerViewController *drawerVC;
     
     [drawerVC setNoti];
 
+    __weak typeof(self) weakself = self;
+    drawerVC.ranckButtonBlock = ^(UIButton *rankButton){
+    
+        [weakself updateRankButtonFrame:rankButton];
+        
+    };
+    
 }
 
 

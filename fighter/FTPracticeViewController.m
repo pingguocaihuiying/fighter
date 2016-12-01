@@ -45,6 +45,18 @@
 
 - (void)viewWillAppear:(BOOL)animated{
    
+    FTUserBean *loginUser = [FTUserBean loginUser];
+    if (loginUser.isGymUser.count > 0) {
+        
+    }else {
+        
+    }
+    
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 - (void) dealloc {
@@ -60,37 +72,10 @@
     
 }
 
+#pragma mark  - setup
 
 - (void) initSubviews {
 
-//    _pageControl.layer.borderWidth = 0.0;
-    
-    
-    
-    
-//    NSArray *items = @[[[FTSegmentItem alloc] initWithTitle:@"教学" selectImg:@"三标签-左-选中" normalImg:@"三标签-左-空"],
-//                        [[FTSegmentItem alloc] initWithTitle:@"教练" selectImg:@"三标签-中-选中"  normalImg:@"三标签-中-空"],
-//                        [[FTSegmentItem alloc] initWithTitle:@"拳馆" selectImg:@"三标签-中-选中" normalImg:@"三标签-右-空"]];
-//    FTSegmentedControl *segmented=[[FTSegmentedControl alloc] initWithFrame:CGRectMake(6, 64, SCREEN_WIDTH-12, 35)
-//                                                                                 items:items
-//                                                                          iconPosition:IconPositionRight
-//                                                                     andSelectionBlock:^(NSUInteger segmentIndex) { }
-//                                                                        iconSeparation:5];
-//    segmented.color=[UIColor clearColor];
-//    segmented.borderWidth=0.0;
-////    segmented.selectedColor=[UIColor colorWithRed:244.0f/255.0 green:67.0f/255.0 blue:60.0f/255.0 alpha:1];
-//    segmented.textAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:14],
-//                                NSForegroundColorAttributeName:[UIColor whiteColor]};
-//    segmented.selectedTextAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:14],
-//                                        NSForegroundColorAttributeName:[UIColor redColor]};
-//    [self.view addSubview:segmented];
-    
-    
-   
-    
-    [_teachBtn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
-    [_teachBtn setBackgroundImage:[UIImage imageNamed:@"三标签-左-选中"] forState:UIControlStateSelected];
-    
     [self setsubViewsState];
 }
 
@@ -134,6 +119,10 @@
     
 }
 
+
+/**
+ 我的拳馆
+ */
 - (void) initMembershipGymView {
     
     if (!_membershipGymView) {
@@ -222,7 +211,6 @@
 }
 
 
-
 // 登录响应
 - (void) loginCallBack:(NSNotification *)noti {
     
@@ -230,7 +218,70 @@
     if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
         [self setsubViewsState];
     }
+}
+
+
+#pragma mark - get data from web
+
+// 获取tableView 数据
+- (void) getmembershipGymsFromWeb {
     
+    NSString *showType  = [FTNetConfig showType];
+    
+    NSString *gymTag = @"1";
+    NSString *gymType = @"ALL";
+    NSString *gymCurrId = @"-1";
+    NSString *getType = @"new";
+    
+    NSMutableDictionary *dic = [NSMutableDictionary new];
+    [dic setObject:gymType forKey:@"gymType"];
+    [dic setObject:gymCurrId forKey:@"gymCurrId"];
+    [dic setObject:gymTag forKey:@"gymTag"];
+    [dic setObject:getType forKey:@"getType"];
+    [dic setObject:showType forKey:@"showType"];
+    
+    NSString *userId = [FTUserBean loginUser].olduserid;
+    [dic setObject:userId forKey:@"userId"];
+    
+    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@",gymType,gymCurrId,gymTag, getType, ts, @"quanjijia222222"]];
+    
+    [dic setObject:ts forKey:@"ts"];
+    [dic setObject:checkSign forKey:@"checkSign"];
+    
+    [NetWorking getMemberGymsByDic:dic option:^(NSDictionary *dict) {
+        
+        SLog(@"table dic:%@",dict);
+        SLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+        if (dict == nil) {
+            return ;
+        }
+        
+        if ([dict[@"status"] isEqualToString:@"error"]) {
+            return ;
+        }
+        
+        NSArray *tempArray = dict[@"data"];
+        if (tempArray.count > 0) {
+            FTUserBean *loginuser = [FTUserBean loginUser];
+            self.coachBtnWidthConstraint.constant = 100;
+            
+            for (int i = 0; i < tempArray.count ; i++) {
+                
+                NSNumber *memberShipGymId = [NSNumber numberWithInteger:[dict[@"corporationid"] integerValue]];
+                
+                if (![loginuser.isGymUser containsObject:memberShipGymId]) {
+                    [loginuser.isGymUser arrayByAddingObject:memberShipGymId];
+                }
+                
+                //将用户信息保存在本地
+                NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:loginuser];
+                [[NSUserDefaults standardUserDefaults]setObject:userData forKey:@"loginUser"];
+                [[NSUserDefaults standardUserDefaults]synchronize];
+            }
+        }
+        
+    }];
 }
 
 #pragma mark - 推送方法
@@ -238,24 +289,7 @@
 #pragma mark push响应方法
 - (void) pushToDetailController:(NSDictionary *)dic {
     
-    
 }
 
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

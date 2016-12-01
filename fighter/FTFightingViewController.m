@@ -59,7 +59,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *abountToStartButton;
 @property (weak, nonatomic) IBOutlet UIButton *matchedButton;
 
-@property (nonatomic, strong) UIButton *rankBtn;
+
 
 //当前选中的筛选条件：0、1、2，默认为0
 @property (nonatomic, assign)int conditionOffset;
@@ -749,17 +749,12 @@
  显示排行榜按钮
  */
 - (void) showRankButton {
-    
-//    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-//    UINavigationBar *navigationbar = self.navigationController.navigationBar;
-//    [keyWindow insertSubview:self.rankBtn aboveSubview:navigationbar];
     [self.rankBtn setHidden:NO];
 }
 
+
 - (void) hideRankButton {
-    
-//    [self.rankBtn removeFromSuperview];
-    [self.rankBtn setHidden:NO];
+    [self.rankBtn setHidden:YES];
 }
 
 /**
@@ -775,6 +770,10 @@
         [_rankBtn addTarget:self action:@selector(rankListBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         [_rankBtn setImage:[UIImage imageNamed:@"右上排行榜"] forState:UIControlStateNormal];
         //        self.rankBtn.hidden = YES;
+        
+        if (self.ranckButtonBlock) {
+            _ranckButtonBlock(_rankBtn);
+        }
     }
     
     return _rankBtn;
