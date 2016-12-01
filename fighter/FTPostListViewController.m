@@ -48,8 +48,10 @@
     [self initBaseConfig];
     [self setSubViews];
     
-    [self getFollowStatus];//获取关注状态
-    
+    //如果已经登录，再去获取关注状态
+    if ([FTUserTools getLocalUser]) {
+        [self getFollowStatus];//获取关注状态
+    }
     
     [self initPageController];//初始化tableview
     
@@ -319,14 +321,14 @@
             if ([status isEqualToString:@"success"]) {
                 _isFollowed = !_isFollowed;
                 _followButton.selected = _isFollowed;
-                [[[UIApplication sharedApplication]keyWindow] showHUDWithMessage:dic[@"message"]];
+                [self.view showMessage:[NSString stringWithFormat:@"%@", dic[@"message"]]];
                 if (_isFollowed) {//如果关注成功，保存followId
                     _followId = [NSString stringWithFormat:@"%@", dic[@"data"]];
                 }
             } else if ([status isEqualToString:@"error"]) {
                 _isFollowed = NO;
                 _followButton.selected = NO;
-                [[[UIApplication sharedApplication]keyWindow] showHUDWithMessage:dic[@"message"]];
+                [self.view showMessage:[NSString stringWithFormat:@"%@", dic[@"message"]]];
             }
         } andIsFollow:!_isFollowed andFollowId:_followId];
     }

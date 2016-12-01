@@ -18,6 +18,8 @@
     _name = dic[@"name"];
     _category = dic[@"category"];
     
+    _pict = dic[@"pict"];
+    
     NSString *desc = dic[@"descr"];
     if (!desc) {
         desc = @"还没有添加描述信息";
