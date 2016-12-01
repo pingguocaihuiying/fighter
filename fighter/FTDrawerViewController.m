@@ -63,7 +63,7 @@
 
 @property (nonatomic, strong) FTBaseTabBarViewController *tabBarVC;
 @property (nonatomic, strong) FTInformationViewController *infoVC;
-@property (nonatomic, strong) FTFightingViewController *fightingVC;
+//@property (nonatomic, strong) FTFightingViewController *fightingVC;
 @property (nonatomic, strong) FTCoachSelfCourseViewController *coachSelfCourseVC;
 @property (nonatomic, strong) FTPracticeViewController *practiceVC;
 //@property (nonatomic, strong) FTRankViewController *rankHomeVC;
@@ -795,6 +795,8 @@ static NSString *const tableCellId = @"tableCellId";
         [_fightingVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                         Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
                                                         nil] forState:UIControlStateSelected];
+        
+        _fightingVC.ranckButtonBlock = self.ranckButtonBlock;
         _fightingVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳馆"];
         _fightingVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     }

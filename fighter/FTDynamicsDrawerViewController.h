@@ -64,6 +64,10 @@ typedef void (^DrawerActionBlock)(FTDynamicsDrawerDirection maskedValue);
 - (CGFloat)revealWidthForDirection:(FTDynamicsDrawerDirection)direction;
 - (void)addStylersFromArray:(NSArray *)stylers forDirection:(FTDynamicsDrawerDirection)direction;
 
+
+#pragma mark - 设置导航栏按钮动态frame
+- (void) updateRankButtonFrame:(UIButton *) ranckButton;
+
 @end
 
 
