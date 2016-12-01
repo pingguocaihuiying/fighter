@@ -47,10 +47,10 @@
 
 @implementation FTBoxingBarMainViewController
 
-- (void)viewWillAppear:(BOOL)animated{
-    [self leftButtonClicked];
-}
 
+- (void)viewDidAppear:(BOOL)animated{
+    [self loadModuleDataFromServer];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initBaseConfig];//初始化一些基本配置
@@ -273,7 +273,7 @@
 //    _postListTableView.hidden = YES;//隐藏帖子列表
     self.tableViewController.tableView.hidden = YES;
     
-    [self loadDataFromServer];
+    [self loadModuleDataFromServer];
 }
 
 - (void)rightButtonClicked{
@@ -285,7 +285,7 @@
 }
 
 #pragma mark 加载数据
-- (void)loadDataFromServer{
+- (void)loadModuleDataFromServer{
     [NetWorking getBoxingBarSectionsWithOption:^(NSDictionary *dic) {
         if ([dic[@"status"] isEqualToString:@"success"]) {
             [self handleResponseArray:dic[@"data"]];
