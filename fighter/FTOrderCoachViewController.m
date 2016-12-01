@@ -91,6 +91,10 @@
     _nameLabel.text = _coachBean.name;
     _genderLabel.text = _coachBean.sex;
     _ageLabel.text = [NSString stringWithFormat:@"%@岁", _coachBean.age];
+    
+    //如果年龄为0，数据一定有误，那么不显示年龄
+    _ageLabel.text = @"";
+    
     _achievementLabel.text = _coachBean.brief;
     _yuanPerClassLabel.text = [NSString stringWithFormat:@"%d元", [_coachBean.price intValue] / 100 ];
     [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_coachBean.headUrl] placeholderImage:[UIImage imageNamed:@"头像-空"]];
