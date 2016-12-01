@@ -386,6 +386,14 @@
 #pragma mark - delegate
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
 
+    NSInteger index = [tabBarController.viewControllers indexOfObject:viewController];
+    if (index == 4) {
+        FTUserBean *loginuser = [FTUserBean loginUser];
+        if (!loginuser) {
+            [self login];
+            return NO;
+        }
+    }
     return YES;
         
 }
@@ -400,6 +408,14 @@
         [self hideRankButton];
     }
     self.titleLabel.text = viewController.title;
+    
+    
+    // 个人主页隐藏导航栏
+    if (tabBarController.selectedIndex == 4) {
+        [self.navigationController setNavigationBarHidden:YES];
+    }else {
+        [self.navigationController setNavigationBarHidden:NO];
+    }
     
 }
 

@@ -14,7 +14,6 @@
                 <outlet property="bottomCommentViewHeight" destination="WaA-Kr-Ngm" id="uMm-Ov-pMu"/>
                 <outlet property="commentContentView" destination="YwF-7F-KSV" id="g4L-g6-Fpz"/>
                 <outlet property="tableView" destination="IBg-b0-Pdv" id="Iwb-rO-Ldh"/>
-                <outlet property="tableViewHeight" destination="vVS-yS-qqM" id="2tN-pN-r2a"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -24,14 +23,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IBg-b0-Pdv">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="320"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" priority="250" constant="320" id="vVS-yS-qqM"/>
-                    </constraints>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YwF-7F-KSV">
-                    <rect key="frame" x="0.0" y="320" width="375" height="347"/>
+                    <rect key="frame" x="0.0" y="667" width="375" height="347"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="347" id="WaA-Kr-Ngm"/>
@@ -40,13 +36,13 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="YwF-7F-KSV" secondAttribute="trailing" id="0nb-9f-zna"/>
+                <constraint firstItem="YwF-7F-KSV" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="0nb-9f-zna"/>
                 <constraint firstItem="YwF-7F-KSV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="0wT-S4-7QY"/>
                 <constraint firstItem="YwF-7F-KSV" firstAttribute="top" secondItem="IBg-b0-Pdv" secondAttribute="bottom" id="ALV-L4-esx"/>
                 <constraint firstItem="IBg-b0-Pdv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="DiL-ic-2wM"/>
-                <constraint firstAttribute="bottom" secondItem="YwF-7F-KSV" secondAttribute="bottom" id="Tk4-1Q-Ol1"/>
                 <constraint firstItem="IBg-b0-Pdv" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ggu-5Z-1aU"/>
-                <constraint firstAttribute="trailing" secondItem="IBg-b0-Pdv" secondAttribute="trailing" id="kKl-EE-UFW"/>
+                <constraint firstItem="IBg-b0-Pdv" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="kKl-EE-UFW"/>
+                <constraint firstItem="IBg-b0-Pdv" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="wnM-2y-FkL"/>
             </constraints>
         </view>
     </objects>

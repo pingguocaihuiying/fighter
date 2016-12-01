@@ -149,8 +149,10 @@
             
             
             //根据教练评论的技能详情，设置tableView的高度、显示内容，以及评论内容
-            _tableViewHeight.constant = 45 * _skillScoreArray.count + 76;// 45为cell高度，76为headerView高度
-            
+//            _tableViewHeight.constant = 45 * _skillScoreArray.count + 76 +_bottomCommentViewHeight.constant;// 45为cell高度，76为headerView高度
+//            if (_tableViewHeight.constant > self.view.frame.size.height) {
+//                _tableViewHeight.constant = self.view.frame.size.height;
+//            }
             [_tableView reloadData];
             
             //评论内容
@@ -265,6 +267,7 @@
  显示教练评论学员内容，以及学员评价课程按钮
  */
 - (void)setBottomCommentContentView{
+    
     _commentView = [[[NSBundle mainBundle]loadNibNamed:@"FTCoachCommentBottomView" owner:self options:nil]firstObject];//加载底部评论内容view
     _commentView.frame = _commentContentView.bounds;
     [_commentView.commentButton setHidden:YES];
@@ -272,7 +275,9 @@
     [_commentView.ratingBar setHidden:YES];
     
     [_commentView.commentButton addTarget:self action:@selector(commentButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [_commentContentView addSubview:_commentView];
+//    [_commentContentView addSubview:_commentView];
+    
+    self.tableView.tableFooterView = _commentView;
 }
     
 - (void) setTableView {

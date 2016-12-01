@@ -99,8 +99,9 @@
 
 #pragma mark - 上下拉刷新
 - (void)setMJRefresh{
+    
     //设置下拉刷新
-    __weak typeof(self) weakSelf = self;
+    __unsafe_unretained typeof(self) weakSelf = self;
     // 下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [weakSelf.tableView.mj_header setHidden:NO];
@@ -110,11 +111,11 @@
         weakSelf.getType = @"new";
         weakSelf.gymCurrId = @"-1";
         
-        [weakSelf.tableView.mj_header beginRefreshing];
         [weakSelf getTableViewDataFromWeb];
         
     }];
     
+//    [weakSelf.tableView.mj_header beginRefreshing];
     
     
     // 上拉刷新

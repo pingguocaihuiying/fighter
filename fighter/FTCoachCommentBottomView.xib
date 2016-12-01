@@ -55,7 +55,6 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="qZ6-Qh-AoD" firstAttribute="trailing" secondItem="rQd-ba-boq" secondAttribute="leading" id="Hjp-I8-iUJ"/>
                         <constraint firstItem="M24-oK-yaz" firstAttribute="top" secondItem="kMc-ma-3Sd" secondAttribute="top" id="Vuq-NU-YuB"/>
                         <constraint firstItem="qZ6-Qh-AoD" firstAttribute="leading" secondItem="kMc-ma-3Sd" secondAttribute="leading" id="aiJ-hV-nap"/>
                         <constraint firstItem="M24-oK-yaz" firstAttribute="trailing" secondItem="kMc-ma-3Sd" secondAttribute="trailing" id="cit-lA-fXs"/>
@@ -64,6 +63,7 @@
                         <constraint firstItem="qZ6-Qh-AoD" firstAttribute="centerY" secondItem="rQd-ba-boq" secondAttribute="centerY" id="lAJ-2n-yH9"/>
                         <constraint firstItem="M24-oK-yaz" firstAttribute="centerY" secondItem="mtn-nW-W49" secondAttribute="centerY" id="s7b-0u-4xN"/>
                         <constraint firstItem="M24-oK-yaz" firstAttribute="centerX" secondItem="mtn-nW-W49" secondAttribute="centerX" id="voX-AM-e6R"/>
+                        <constraint firstItem="rQd-ba-boq" firstAttribute="centerX" secondItem="kMc-ma-3Sd" secondAttribute="centerX" id="x1S-5k-i6Z"/>
                     </constraints>
                 </view>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="头像-空" translatesAutoresizingMaskIntoConstraints="NO" id="Qnp-ST-zGQ" userLabel="headerImg">
@@ -159,7 +159,7 @@
                 <outlet property="hasCommentedLabel" destination="mtn-nW-W49" id="Mz8-zG-zKr"/>
                 <outlet property="ratingBar" destination="rQd-ba-boq" id="inz-g7-z70"/>
             </connections>
-            <point key="canvasLocation" x="19.5" y="-178.5"/>
+            <point key="canvasLocation" x="-507" y="-216"/>
         </view>
     </objects>
     <resources>

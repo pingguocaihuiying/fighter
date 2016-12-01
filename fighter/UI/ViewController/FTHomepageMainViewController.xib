@@ -510,7 +510,7 @@
                         <constraint firstItem="s7d-h9-jeL" firstAttribute="leading" secondItem="5VW-nc-uEB" secondAttribute="leading" id="qRE-kR-1ez"/>
                     </constraints>
                 </scrollView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rir-at-xpf" userLabel="发新动态view">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rir-at-xpf" userLabel="发新动态view">
                     <rect key="frame" x="0.0" y="618" width="375" height="49"/>
                     <subviews>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpa-Sb-Qcx" userLabel="发新动态">
