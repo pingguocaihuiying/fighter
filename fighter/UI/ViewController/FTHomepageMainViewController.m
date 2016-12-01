@@ -111,6 +111,7 @@
 @property (nonatomic, strong) NSMutableArray *childSkillArray;//技能子项
 @property (nonatomic, assign) BOOL hasNewVersion;//是否有新版本（暂无用处，只是用来标记。。）
 @property (nonatomic, strong) NSMutableDictionary *fatherSkillVersionsDic;//用于记录那些父项有更新.key为技能id，value为0或1:0为没有更新，1为有更新
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *mainScrollViewBottomSpacing;
 
 @end
 
@@ -231,36 +232,12 @@
         }
         NSLog(@"_userIdentity : %@", _userIdentity);
         
+        /*
+            2016年12月1日修改：无论是什么身份，都显示三栏：技术数据、课程记录、动态信息
+         */
+        
         if ([_userIdentity isEqualToString:@"0"]) {//普通用户
-            //不显示战绩、视频项
-            self.secondButton.hidden = YES;//是否显示战绩按钮
-            self.thirdButton.hidden = YES;//是否显示视频按钮
-            
-             _userBgImageView.backgroundColor = [UIColor blackColor];
-            
-            
-            
-            /* 
-             2016年11月新改动：普通用户除了“动态”，新增了两项数据：“课程记录“和”技术数据“。
-             思路：修改原有的后边俩按钮的文本，以及点击事件
-             
-             2016年11月16日新增加：如果是在看其他人的主页，则不显示后两个按钮
-             */
-            
-            if ([self isSelfHomepage]) {
-                _firstButton.hidden = NO;//显示第一个按钮
-                self.secondButton.hidden = NO;//显示第二个按钮
-                self.thirdButton.hidden = NO;//显示第三个按钮
-                
-                [self.firstButton setTitle:@"技术数据" forState:UIControlStateNormal];//修改第三个按钮的名字
-                [self.secondButton setTitle:@"课程记录" forState:UIControlStateNormal];//修改第二个按钮的名字
-                
-                
-                [self getCourseHistoryFromServer];
-                [self getSkillsFromServer];
-            }
-            
-            
+            _userBgImageView.backgroundColor = [UIColor blackColor];//普通用户黑背景
         }else if ([_userIdentity isEqualToString:@"1"]) {//拳手
             
             //设置拳手个人资料的背景图片
@@ -272,16 +249,10 @@
                 _userBgImageView.backgroundColor = [UIColor blackColor];
             }
 
-            //显示战绩、视频项
-            self.secondButton.hidden = NO;//是否显示战绩按钮
-            self.thirdButton.hidden = NO;//是否显示视频按钮
+
             self.identityImageView1.hidden = NO;
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-拳"];
         }else if ([_userIdentity isEqualToString:@"2"]){//教练
-            
-            //显示视频，不显示战绩
-            self.secondButton.hidden = YES;//是否显示战绩按钮
-            self.thirdButton.hidden = NO;//是否显示视频按钮
             self.identityImageView1.hidden = NO;
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-教"];
         }else if ([_userIdentity isEqualToString:@"1,2"]){//拳手、教练
@@ -291,19 +262,30 @@
             self.identityImageView2.image = [UIImage imageNamed:@"身份圆形-拳"];
         }
         
-        _followTableName = @"f-user";
-        
-        [self getFollowInfo];//获取关注信息
-        
-        //处理右上角的“转发”或“修改”：如果是自己的主页，则是“修改”，如果是别人的，则显示转发
-        if ([self isSelfHomepage]) {//如果是自己的主页
+        //如果是自己看自己的个人主页，显示三栏，如果是看别人的，显示技术数据和动态信息两栏，不显示上课记录
+        if ([self isSelfHomepage]) {
+            _firstButton.hidden = NO;//显示第一个按钮
+            self.secondButton.hidden = NO;//显示第二个按钮
+            self.thirdButton.hidden = NO;//显示第三个按钮
+
+            [self getCourseHistoryFromServer];
+                //处理右上角的“转发”或“修改”：如果是自己的主页，则是“修改”，如果是别人的，则显示转发
             _shareAndModifyProfileButton.hidden = NO;
             [_shareAndModifyProfileButton setTitle:@"修改" forState:UIControlStateNormal];
             [_shareAndModifyProfileButton addTarget:self action:@selector(modifyProfile) forControlEvents:UIControlEventTouchUpInside];
             //显示“发新动态”，隐藏关注等
             _bottomNewPostsView.hidden = NO;
             _bottomFollowView.hidden = YES;
+            _mainScrollViewBottomSpacing.constant = 0;//没有了发动态view，把主内容view下移到底部
+            self.bottomGradualChangeView.hidden = YES;
+            
         }else{//如果是别人的主页
+            //只显示一三：技术数据、动态
+            _firstButton.hidden = NO;//显示第一个按钮
+            self.secondButton.hidden = YES;//显示第二个按钮
+            self.thirdButton.hidden = NO;//显示第三个按钮
+
+            
             _shareAndModifyProfileButton.hidden = NO;
             [_shareAndModifyProfileButton setTitle:@"转发" forState:UIControlStateNormal];
             [_shareAndModifyProfileButton addTarget:self action:@selector(shareUserInfo) forControlEvents:UIControlEventTouchUpInside];
@@ -312,6 +294,13 @@
             _bottomFollowView.hidden = NO;
         }
         
+        //默认总是加载技术数据和动态（帖子）
+        [self getDataFromWeb];
+        [self getSkillsFromServer];
+        
+        //获取关注信息
+        [self getFollowInfo];
+        _followTableName = @"f-user";
         //拳手战绩
         _boxerRankDataArray = [[NSMutableArray alloc]initWithArray:userBean.boxerRaceInfos];
             //添加一条空数据
@@ -319,8 +308,7 @@
         
         //拳手战绩概括
         _standings = userBean.standings;
-        
-         [self getDataFromWeb];//初次加载帖子数据
+
     }];
 }
 
@@ -476,7 +464,8 @@
             _recordRankTableView.hidden = YES;
             _recordListTableView.hidden = YES;
             
-            if ([_userIdentity isEqualToString:@"0"]) {//如果是普通用户，展示技能列表
+//            if ([_userIdentity isEqualToString:@"0"]) {//如果是普通用户，展示技能列表
+            if (true) {//如果是普通用户，展示技能列表 /* 2016年12月1日修改，所有用户都显示技能列表 */
                 _skillsTableView.hidden = NO;
                 _courseHistoryTableView.hidden = YES;//隐藏历史课程tableview
                 [self displaySkillsTableView];
@@ -513,7 +502,7 @@
             }
             
             break;
-        case FTHomepageTableViewTypeThird://格斗场列表
+        case FTHomepageTableViewTypeThird://帖子列表
             
             
             //如果没有格斗场数据，则显示空图片
@@ -683,6 +672,7 @@
             _childSkillArray = [self getLocalSkillArrayWithKey:CHILD_SKILLS_ARRAY];
         }
         [_skillsTableView reloadData];//刷新课程表
+        [self refreshButtonsIndex ];//加载完技术数据后，刷新按钮、对应tableView的显示
     }];
 }
 
@@ -938,7 +928,7 @@
         if (responseDic != nil) {
             NSString *status = responseDic[@"status"];
             if ([status isEqualToString:@"success"]) {
-                [self refreshButtonsIndex ];
+                
                 NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
                 
                 //把获取的字典转换为bean，再存入数组
@@ -981,13 +971,15 @@
                 [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
                 [self.tableViewController.tableView footerEndRefreshing];
             }else {
-                [self getDataFromDB];
-                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
-                [self.tableViewController.tableView footerEndRefreshing];
+                //不用缓存，如果用缓存，会有个bug：看别人（小明）的主页，显示的是非小明的动态
+//                [self getDataFromDB];
+//                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+//                [self.tableViewController.tableView footerEndRefreshing];
             }
             
         }else {
-            [self getDataFromDB];
+            //不用缓存，如果用缓存，会有个bug：看别人（小明）的主页，显示的是非小明的动态
+//            [self getDataFromDB];
         }
     }];
 }

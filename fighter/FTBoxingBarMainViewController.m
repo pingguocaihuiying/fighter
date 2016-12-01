@@ -293,7 +293,8 @@
             [_moduleCollectionView setWithData:_moduleBeanArray];
             [_moduleCollectionView.collectionView reloadData];
         }else{
-            [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:[NSString stringWithFormat:@"%@", dic[@"message"]]];
+//            [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:[NSString stringWithFormat:@"%@", dic[@"message"]]];
+            [self.view showMessage:dic[@"message"]];
         }
     }];
 }
