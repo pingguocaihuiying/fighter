@@ -56,33 +56,41 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:LoginNoti object:nil userInfo:userinfo];
 }
 
-//- (void) setNotification {
-//
-//    //注册通知，接收登录成功的消息
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
-//}
-//
-//// 登录响应
-//- (void) loginCallBack:(NSNotification *)noti {
-//    
-//    NSDictionary *userInfo = noti.userInfo;
-//    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
-//        
-//    }
-//    
-//}
+- (void) setNotification {
 
-//// 登录响应
-//- (void) loginCallBack:(NSNotification *)noti {
-//    
-//    NSDictionary *userInfo = noti.userInfo;
-//    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
-//        [self.view showMessage:@"微信登录成功，可以评论或点赞了"];
-//    }else {
-//        [self.view showMessage:@"登录登录失败"];
-//    }
-//    
-//}
+    //注册通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(hideNavigationBar:) name:HideHomePageNavNoti object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showNavigationBar:) name:ShowHomePageNavNoti object:nil];
+}
+
+
+- (void) hideNavigationBar:(NSNotification *)noti {
+    
+}
+
+- (void) showNavigationBar:(NSNotification *)noti {
+    
+}
+
+
+#pragma mark - 个人主页导航栏通知
+
+/**
+ 隐藏个人主页导航栏
+ */
++ (void) postHideHomepageNavigationBarNoti {
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:HideHomePageNavNoti object:nil];
+}
+
+
+/**
+ 显示个人主页导航栏
+ */
++ (void) postShowHomepageNavigationbarNoti {
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:ShowHomePageNavNoti object:nil];
+}
 
 
 

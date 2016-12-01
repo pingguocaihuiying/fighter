@@ -340,6 +340,7 @@ typedef void (^ViewActionBlock)(UIView *view);
     }
 }
 
+
 //设置paneViewcontroller
 - (void)setPaneViewController:(UIViewController *)paneViewController animated:(BOOL)animated completion:(void (^)(void))completion;
 {

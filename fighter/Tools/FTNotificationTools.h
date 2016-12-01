@@ -21,6 +21,8 @@
 #define QQShareResponse @"addShareResponse"
 #define TaskNotification @"taskNotification"
 #define EditNotification @"editNotification"
+#define HideHomePageNavNoti @"HideHomePageNavNoti"
+#define ShowHomePageNavNoti @"ShowHomePageNavNoti"
 
 
 /**
@@ -54,4 +56,9 @@ typedef NS_ENUM(NSInteger, FTLoginType) {
 + (void) postLoginErrorNoti:(FTLoginType) loginType;
 
 
+#pragma mark - 个人主页导航栏通知
+
++ (void) postHideHomepageNavigationBarNoti;
+
++ (void) postShowHomepageNavigationbarNoti;
 @end

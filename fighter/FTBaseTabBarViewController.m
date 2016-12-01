@@ -63,11 +63,17 @@
     
     if (self.selectedIndex == 1) {
         
-         [self showRankButton];
+//         [self showRankButton];
     }
     
-   
     
+    // 个人主页隐藏导航栏
+    if (self.selectedIndex == 4) {
+        [self.navigationController setNavigationBarHidden:YES];
+    }else {
+        [self.navigationController setNavigationBarHidden:NO];
+    }
+
     
 }
 
@@ -79,6 +85,8 @@
         
         [self hideRankButton];
     }
+    
+    [self.navigationController setNavigationBarHidden:NO];
 }
 
 
@@ -207,7 +215,7 @@
     
 }
 
-
+#pragma mark - 排行榜按钮
 /**
  显示排行榜按钮
  */
