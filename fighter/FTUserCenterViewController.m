@@ -54,32 +54,44 @@
     
     // Do any additional setup after loading the view from its nib.
     
+    [self setNotification];
     [self initSubviews];
 }
 
-- (void) viewDidAppear:(BOOL)animated {
-    
-    //添加监听器，监听login
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateResponse:) name:@"loginAction" object:nil];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+- (void) dealloc {
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - 初始化
+
+- (void) setNotification {
+
+    //添加监听器，监听login
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateResponse:) name:@"loginAction" object:nil];
+    
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showNavigationBar:) name:ShowHomePageNavNoti object:nil];
+}
+
 
 - (void) initSubviews {
     
-    [self initPushNavigationBar];
+    [self initNavigationBar];
     
     [self initTableView];
     
 }
 
-- (void) initPushNavigationBar {
+- (void) initNavigationBar {
 
+    [self.navigationController setNavigationBarHidden:NO];
+    
     if ([_navigationSkipType isEqualToString:@"PRESENT"]) {
         //设置左侧按钮
         UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
@@ -328,6 +340,12 @@
     
     [self.tableView reloadData];
 }
+
+//- (void) showNavigationBar:(NSNotification *)noti {
+//    
+//    [self.navigationController.navigationBar setHidden:NO];
+//}
+
 
 
 - (void)avatarBtnAction:(id)sender {

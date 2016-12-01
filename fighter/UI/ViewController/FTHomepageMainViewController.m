@@ -133,7 +133,6 @@
     
     [self initSubviews];
     
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -299,14 +298,14 @@
         if ([self isSelfHomepage]) {//如果是自己的主页
             _shareAndModifyProfileButton.hidden = NO;
             [_shareAndModifyProfileButton setTitle:@"修改" forState:UIControlStateNormal];
-            [_shareAndModifyProfileButton addTarget:self action:@selector(modifyProfile) forControlEvents:UIControlEventTouchUpInside];
+            [_shareAndModifyProfileButton addTarget:self action:@selector(modifyProfileButtonAction:) forControlEvents:UIControlEventTouchUpInside];
             //显示“发新动态”，隐藏关注等
             _bottomNewPostsView.hidden = NO;
             _bottomFollowView.hidden = YES;
         }else{//如果是别人的主页
             _shareAndModifyProfileButton.hidden = NO;
             [_shareAndModifyProfileButton setTitle:@"转发" forState:UIControlStateNormal];
-            [_shareAndModifyProfileButton addTarget:self action:@selector(shareUserInfo) forControlEvents:UIControlEventTouchUpInside];
+            [_shareAndModifyProfileButton addTarget:self action:@selector(shareUserInfoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
             //隐藏“发新动态”，显示关注等
             _bottomNewPostsView.hidden = YES;
             _bottomFollowView.hidden = NO;
@@ -347,15 +346,17 @@
 }
 
 #pragma mark 修改个人资料
-- (void)modifyProfile{
+- (void)modifyProfileButtonAction:(id) sender {
     NSLog(@"修改资料");
     FTUserCenterViewController *userCenter = [[FTUserCenterViewController alloc]init];
     userCenter.title = @"个人资料";
     [self.navigationController pushViewController:userCenter animated:YES];
+    
 }
 
 #pragma mark 转发
-- (void)shareUserInfo{
+- (void)shareUserInfoButtonAction:(id) sender {
+    
     [MobClick event:@"rankingPage_HomePage_ShareUp"];
     NSLog(@"转发");
         //友盟分享事件统计
@@ -1801,6 +1802,9 @@
 
 - (void) setNotification {
     
+    //注册通知
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(hideNavigationBar:) name:HideHomePageNavNoti object:nil];
+    
     if (self.isCurrentUser) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
     }
@@ -1812,47 +1816,41 @@
  */
 - (void) setNavigationbar {
     
-//    if ([_navigationSkipType isEqualToString:@"PRESENT"]) {
-//        //设置左侧按钮
-//        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
-//                                       initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-取消"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-//                                       style:UIBarButtonItemStyleDone
-//                                       target:self
-//                                       action:@selector(dismissBtnAction:)];
-//        //把左边的返回按钮左移
-//        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
-//        self.navigationItem.leftBarButtonItem = leftButton;
-//    }else {
-//        //设置左侧按钮
-//        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
-//                                       initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-//                                       style:UIBarButtonItemStyleDone
-//                                       target:self
-//                                       action:@selector(popBtnAction:)];
-//        //把左边的返回按钮左移
-//        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
-//        self.navigationItem.leftBarButtonItem = leftButton;
-//    }
+//    self.navigationController.navigationBar.hidden = YES;
+    [self.tabBarController.navigationController.navigationBar setHidden:YES];
     
-//    if ([_navigationSkipType isEqualToString:@"TABBAR"]) {
+    if ([_navigationSkipType isEqualToString:@"PRESENT"]) {
+        //设置左侧按钮
+        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
+                                       initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-取消"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                       style:UIBarButtonItemStyleDone
+                                       target:self
+                                       action:@selector(dismissBtnAction:)];
+        //把左边的返回按钮左移
+        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+        self.navigationItem.leftBarButtonItem = leftButton;
+    }else if ([_navigationSkipType isEqualToString:@"TABBAR"]){
+        // hide left navigation button
+    }else {
+        
+        //设置左侧按钮
+        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
+                                       initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                       style:UIBarButtonItemStyleDone
+                                       target:self
+                                       action:@selector(popBtnAction:)];
+        //把左边的返回按钮左移
+        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+        self.navigationItem.leftBarButtonItem = leftButton;
+    }
+
+}
+
+
+//- (void) viewDidAppear:(BOOL)animated {
 //    
-//        self.navigationController.navigationBar.hidden = NO;
-//        
-//    }else {
-//        
-//        self.navigationController.navigationBar.hidden = YES;
-//        
-//        [self setBackButton];
-//    }
-    
-    self.navigationController.navigationBar.hidden = YES;
-}
-
-
-- (void) viewDidAppear:(BOOL)animated {
-    
-    self.navigationController.navigationBar.hidden = YES;
-}
+//    self.navigationController.navigationBar.hidden = YES;
+//}
 
 /**
  设置view上的返回按钮，非导航栏返回按钮
@@ -1905,6 +1903,12 @@
     }
 }
 
+
+//- (void) hideNavigationBar:(NSNotification *) noti {
+//
+////    [self.navigationController.navigationBar setHidden:YES];
+//    [self.tabBarController.navigationController.navigationBar setHidden:YES];
+//}
 
 
 @end

@@ -236,6 +236,7 @@
  */
 - (void) setNavigationbar {
     
+    [self.navigationController setNavigationBarHidden:NO];
     /*
      直接复制小强的代码，这里并不需要右上角的按钮，暂时把有按钮文本置空，设为不可用
      */

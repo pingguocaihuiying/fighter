@@ -59,7 +59,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *abountToStartButton;
 @property (weak, nonatomic) IBOutlet UIButton *matchedButton;
 
-
+@property (nonatomic, strong) UIButton *rankBtn;
 
 //当前选中的筛选条件：0、1、2，默认为0
 @property (nonatomic, assign)int conditionOffset;
@@ -76,7 +76,7 @@
     [super viewDidLoad];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-//    [self setNavigationbar];
+    [self setNavigationbar];
     [self initBaseData];
     [self initSubViews];
     [self getMatchList];//初次加载数据
@@ -734,5 +734,64 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+#pragma mark  - 导航栏按钮
+/**
+ 设置导航栏
+ */
+- (void) setNavigationbar {
+    
+    [self.navigationController.navigationBar addSubview:self.rankBtn];
+}
+
+/**
+ 显示排行榜按钮
+ */
+- (void) showRankButton {
+    
+//    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+//    UINavigationBar *navigationbar = self.navigationController.navigationBar;
+//    [keyWindow insertSubview:self.rankBtn aboveSubview:navigationbar];
+    [self.rankBtn setHidden:NO];
+}
+
+- (void) hideRankButton {
+    
+//    [self.rankBtn removeFromSuperview];
+    [self.rankBtn setHidden:NO];
+}
+
+/**
+ 设置排行榜按钮
+ 
+ @return 排行榜按钮
+ */
+- (UIButton *) rankBtn {
+    
+    if (!_rankBtn) {
+        _rankBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _rankBtn.frame = CGRectMake(SCREEN_WIDTH - 94 - 15, 41, 94, 30);
+        [_rankBtn addTarget:self action:@selector(rankListBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_rankBtn setImage:[UIImage imageNamed:@"右上排行榜"] forState:UIControlStateNormal];
+        //        self.rankBtn.hidden = YES;
+    }
+    
+    return _rankBtn;
+}
+
+/**
+ 排行榜按钮点击事件,跳转排行榜页面
+ 
+ @param sender 排行榜按钮
+ */
+
+- (void)rankListBtnAction:(id)sender {
+    
+    FTRankViewController *rankHomeVC = [FTRankViewController new];
+    rankHomeVC.title = @"排行榜";
+    [self.navigationController pushViewController:rankHomeVC animated:YES];
+}
+
 
 @end

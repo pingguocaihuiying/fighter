@@ -52,7 +52,7 @@
 //        NSLog(@"拳讯 view的宽度：%f,高度：%f",self.view.frame.size.width, self.view.frame.size.height);
     [super viewDidLoad];
     
-   
+    [self setNavigationBar];
     
     [self initTypeArray];//初始化标签数据
     
@@ -66,8 +66,6 @@
     
     [self.bottomGradualChangeView setHidden:YES];
     
-    //  导航栏半透明属性设置为NO,阻止导航栏遮挡view
-    self.navigationController.navigationBar.translucent = NO;
     
     NSLog(@"infomation view did load");
 }
@@ -78,17 +76,19 @@
     
     [MobClick event:@"mainPage_BoxingNews"];
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    //  导航栏半透明属性设置为NO,阻止导航栏遮挡view
-    self.navigationController.navigationBar.translucent = NO;
-    
     NSLog(@"infomation view will appear");
     
 }
 
 
+- (void) setNavigationBar {
 
+    self.navigationController.navigationBarHidden = NO;
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    //  导航栏半透明属性设置为NO,阻止导航栏遮挡view
+    self.navigationController.navigationBar.translucent = NO;
+}
 
 - (void)initTypeArray{
     
@@ -181,6 +181,8 @@
     }
     [self saveCache];
 }
+
+
 - (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)newsCurrId{
     NSString *urlString = [FTNetConfig host:Domain path:GetNewsURL];
 //    NSString *newsType = [self getNewstype];
