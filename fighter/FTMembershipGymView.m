@@ -35,7 +35,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         
+        
         [self initialization];
+        
+        [self initSubviews];
         [self setNotification];
         
         [self setBackgroundColor:[UIColor clearColor]];
@@ -60,6 +63,7 @@
     _gymCurrId = @"-1";
     _getType = @"new";
     
+    
     [self getTableViewDataFromWeb];
     
 }
@@ -73,7 +77,6 @@
 
 - (void) initSubviews {
     
-    
     [self initTableView];
     
 }
@@ -81,7 +84,7 @@
 - (void) initTableView {
     
     
-    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(6, 0, self.frame.size.width-12, self.frame.size.height)];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [_tableView setBackgroundColor:[UIColor clearColor]];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -96,10 +99,11 @@
 
 #pragma mark - 上下拉刷新
 - (void)setMJRefresh{
+    
     //设置下拉刷新
-    __weak typeof(self) weakSelf = self;
+    __unsafe_unretained typeof(self) weakSelf = self;
     // 下拉刷新
-    self.tableView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [weakSelf.tableView.mj_header setHidden:NO];
         
         NSLog(@"触发下拉刷新headerView");
@@ -108,9 +112,11 @@
         weakSelf.gymCurrId = @"-1";
         
         [weakSelf getTableViewDataFromWeb];
+        
     }];
     
-    [self.tableView.mj_header beginRefreshing];
+//    [weakSelf.tableView.mj_header beginRefreshing];
+    
     
     // 上拉刷新
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -124,6 +130,7 @@
             NSDictionary *dic = [weakSelf.dataSourceArray lastObject];
             weakSelf.gymCurrId = dic[@"gymId"];
         }
+        [weakSelf.tableView.mj_footer beginRefreshing];
         [weakSelf getTableViewDataFromWeb];
     }];
 
@@ -221,7 +228,7 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-   return 400;
+   return 410;
 }
 
 
@@ -254,7 +261,7 @@
     
     FTGymDetailBean *detailBean = [FTGymDetailBean new];
     detailBean.gym_name = bean.gymName;
-    detailBean.corporationid = [bean.corporationid intValue];
+    detailBean.corporationid = bean.corporationid;
     
     FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
     gymDetailWebViewController.gymBean = bean;
@@ -277,7 +284,7 @@
     FTGymSourceViewController2 *gymSourceViewController = [FTGymSourceViewController2 new];
     FTGymDetailBean *detailBean = [FTGymDetailBean new];
     detailBean.gym_name = bean.gymName;
-    detailBean.corporationid = [bean.corporationid intValue];
+    detailBean.corporationid = bean.corporationid ;
     gymSourceViewController.gymDetailBean = detailBean;
     
     

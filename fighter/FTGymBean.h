@@ -30,8 +30,9 @@
      viewCount：         观看数
      gym_from：         拳馆来源 0 system后台创建  1 Crm创建
  **/
-@property (nonatomic,copy) NSString *gymId;//用于个人主页关注、取消关注
-@property (nonatomic,copy) NSString *corporationid;//用于格斗场发起比赛、选择拳馆的时间段
+@property (nonatomic,assign) NSInteger gymId;//用于个人主页关注、取消关注
+@property (nonatomic,assign) NSInteger corporationid;//用于格斗场发起比赛、选择拳馆的时间段
+
 @property (nonatomic,copy) NSString *gymType;
 @property (nonatomic,copy) NSString *gymOpenTime;
 @property (nonatomic,copy) NSString *city;

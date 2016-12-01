@@ -143,6 +143,7 @@ static DBManager * _sharedDBManager = nil;
         BOOL res = [_dataBase executeUpdate:sql];
         if (!res) {
            NSLog(@"数据库%@表创建失败",tableName);
+            
         } else {
            
             NSLog(@"数据库%@表创建成功",tableName);

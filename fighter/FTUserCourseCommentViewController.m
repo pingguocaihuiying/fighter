@@ -19,8 +19,9 @@
 #import "UILabel+FTLYZLabel.h"
 #import "FTTraineeSkillCell.h"
 #import "FTTraineeFeedbackView.h"
+#import "NSDate+Tool.h"
 
-@interface FTUserCourseCommentViewController ()<UITableViewDelegate,UITableViewDataSource,RatingBarDelegate>
+@interface FTUserCourseCommentViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) NSArray *dataArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *commentContentView;
@@ -45,7 +46,7 @@
 @property (nonatomic, copy) NSString *courseOnceId;
 @property (nonatomic, copy) NSString *courseDate;
 @property (nonatomic, copy) NSString *courseTimeSection;
-@property (nonatomic, assign) float rating;
+@property (nonatomic, assign) int rating;
 @end
 
 @implementation FTUserCourseCommentViewController
@@ -118,6 +119,9 @@
 - (void)loadDataFromServer {
     
     [NetWorking getUserSkillsByVersion:_courseRecordVersion andOption:^(NSDictionary *dic) {
+        
+        SLog(@"dict:%@",dic);
+        
         BOOL status = [dic[@"status"] isEqualToString:@"success"];
         if (status) {
             NSArray *skillScroeArray = dic[@"data"][@"skills"];
@@ -140,16 +144,18 @@
             _coachAvatarUrl =  dic[@"data"][@"headUrl"];
             
             _courseOnceId =  dic[@"data"][@"courseOnceId"];
-            _courseDate =  dic[@"data"][@"date"];
+            _courseDate =  [NSDate recordDateString:[dic[@"data"][@"date"] doubleValue]];
             _courseTimeSection =  dic[@"data"][@"timeSection"];
             
             
             //根据教练评论的技能详情，设置tableView的高度、显示内容，以及评论内容
-            _tableViewHeight.constant = 45 * _skillScoreArray.count + 76;// 45为cell高度，76为headerView高度
-            
+//            _tableViewHeight.constant = 45 * _skillScoreArray.count + 76 +_bottomCommentViewHeight.constant;// 45为cell高度，76为headerView高度
+//            if (_tableViewHeight.constant > self.view.frame.size.height) {
+//                _tableViewHeight.constant = self.view.frame.size.height;
+//            }
             [_tableView reloadData];
             
-                //评论内容
+            //评论内容
             if (commentContent) {
                 _commentView.commentContentLabel.text = commentContent;    
             }
@@ -184,8 +190,8 @@
         SLog(@"dict:%@",dict);
         BOOL status = [dict[@"status"] isEqualToString:@"success"];
         if (status) {
-            NSString *commentCoachId = dict[@"data"][@"id"];
-            if (commentCoachId && commentCoachId.length > 0) {
+            NSInteger commentCoachId = [dict[@"data"][@"id"] integerValue];
+            if (commentCoachId > 0) {
                 [_commentView.commentButton setHidden:YES];
                 
                 _rating = [dict[@"data"][@"score"] floatValue];
@@ -261,6 +267,7 @@
  显示教练评论学员内容，以及学员评价课程按钮
  */
 - (void)setBottomCommentContentView{
+    
     _commentView = [[[NSBundle mainBundle]loadNibNamed:@"FTCoachCommentBottomView" owner:self options:nil]firstObject];//加载底部评论内容view
     _commentView.frame = _commentContentView.bounds;
     [_commentView.commentButton setHidden:YES];
@@ -268,7 +275,9 @@
     [_commentView.ratingBar setHidden:YES];
     
     [_commentView.commentButton addTarget:self action:@selector(commentButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [_commentContentView addSubview:_commentView];
+//    [_commentContentView addSubview:_commentView];
+    
+    self.tableView.tableFooterView = _commentView;
 }
     
 - (void) setTableView {
@@ -466,12 +475,13 @@
     feedBackView.coachAvatarUrl = self.coachAvatarUrl;
     feedBackView.coachUserId = self.coachUserId;
     
+    feedBackView.courseName = self.courseName;
     feedBackView.courseDate = self.courseDate;
     feedBackView.courseTimeSection = self.courseTimeSection;
     feedBackView.courseOnceId = self.courseOnceId;
     
     __weak typeof(self) weakself = self;
-    feedBackView.bloack = ^(float rating){
+    feedBackView.bloack = ^(int rating){
         weakself.rating = rating;
         [weakself.commentView.ratingBar setHidden:NO];
         [weakself.commentView.ratingBar displayRating:rating];

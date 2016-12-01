@@ -529,10 +529,11 @@
     FTGymBean *bean = [FTGymBean new];
     [bean setValuesWithDic:newsDic];
     
+    
 
     FTGymDetailBean *detailBean = [FTGymDetailBean new];
     detailBean.gym_name = bean.gymName;
-    detailBean.corporationid = [bean.corporationid intValue];
+    detailBean.corporationid = bean.corporationid;
     
     FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
     gymDetailWebViewController.gymBean = bean;
@@ -652,9 +653,8 @@
     FTGymSourceViewController2 *gymSourceViewController = [FTGymSourceViewController2 new];
     FTGymDetailBean *detailBean = [FTGymDetailBean new];
     detailBean.gym_name = bean.gymName;
-    detailBean.corporationid = [bean.corporationid intValue];
+    detailBean.corporationid = bean.corporationid;
     gymSourceViewController.gymDetailBean = detailBean;
-    
     
     
     if ([self.delegate respondsToSelector:@selector(pushToController:)]) {

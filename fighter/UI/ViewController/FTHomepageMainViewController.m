@@ -1383,6 +1383,7 @@
         
         FTUserCourseCommentViewController * userCourseCommentViewController = [FTUserCourseCommentViewController new];
         userCourseCommentViewController.courseRecordVersion = version;
+        userCourseCommentViewController.courseName = courseBean.courseName;
         [self.navigationController pushViewController:userCourseCommentViewController animated:YES];
 
         if (version) {
@@ -1833,18 +1834,25 @@
 //        self.navigationItem.leftBarButtonItem = leftButton;
 //    }
     
-    if ([_navigationSkipType isEqualToString:@"TABBAR"]) {
+//    if ([_navigationSkipType isEqualToString:@"TABBAR"]) {
+//    
+//        self.navigationController.navigationBar.hidden = NO;
+//        
+//    }else {
+//        
+//        self.navigationController.navigationBar.hidden = YES;
+//        
+//        [self setBackButton];
+//    }
     
-        self.navigationController.navigationBar.hidden = NO;
-        
-    }else {
-        
-        self.navigationController.navigationBar.hidden = YES;
-        
-        [self setBackButton];
-    }
+    self.navigationController.navigationBar.hidden = YES;
 }
 
+
+- (void) viewDidAppear:(BOOL)animated {
+    
+    self.navigationController.navigationBar.hidden = YES;
+}
 
 /**
  设置view上的返回按钮，非导航栏返回按钮
@@ -1885,13 +1893,15 @@
 - (void) loginCallBack:(NSNotification *) noti {
 
     NSDictionary *userInfo = noti.userInfo;
-    if ([userInfo[@"Result"] isEqualToString:@"SUCCESS"]) {
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
         
         FTUserBean *loginUser = [FTUserBean loginUser];
-        if (loginUser) {
-            self.olduserid = loginUser.olduserid;
-            [self getHomepageUserInfo];
-        }
+//        if (loginUser) {
+//            self.olduserid = loginUser.olduserid;
+//            [self getHomepageUserInfo];
+//        }
+        self.olduserid = loginUser.olduserid;
+        [self getHomepageUserInfo];
     }
 }
 

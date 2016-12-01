@@ -145,7 +145,7 @@ static NSString *const tableCellId = @"tableCellId";
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeCallback:) name:RechargeResultNoti object:nil];
     
     //添加监听器，充值购买
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(phoneLoginedCallback:) name:EditNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:EditNotification object:nil];
 }
 
 // 设置显示版本号
@@ -277,8 +277,11 @@ static NSString *const tableCellId = @"tableCellId";
         
         // 更新用户信息
         [self tableViewAdapter];
-    } else {
+    }else if ([userInfo[@"result"] isEqualToString:@"ERROR"]){
         [[UIApplication sharedApplication].keyWindow showMessage:@"登录失败"];
+    }else {
+        // 更新用户信息
+        [self tableViewAdapter];
     }
     
     [self settabBarChildViewControllers];

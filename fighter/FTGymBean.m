@@ -36,8 +36,8 @@
 
 - (void)setValuesWithDic:(NSDictionary *)dic{
     
-    self.gymId = dic[@"gymId"];
-    self.corporationid = dic[@"corporationid"];
+    self.gymId = [dic[@"gymId"] integerValue];
+    self.corporationid = [dic[@"corporationid"] integerValue];
     self.gymType = dic[@"gymType"];
     self.gymOpenTime = dic[@"gymOpenTime"];
     self.city = dic[@"city"];
@@ -61,12 +61,21 @@
     
     self.isGymUser =  [dic[@"isGymUser"] boolValue];
     
-    self.surplusCourse = [NSString stringWithFormat:@"%d",[dic[@"remainTime"] intValue]];
+    self.surplusCourse = dic[@"remainTime"];
+//    if (remainTime && remainTime.length >0) {
+//        self.surplusCourse = [NSString stringWithFormat:@"%d",[dic[@"remainTime"] intValue]];
+//    }
+    
     self.userMoney = [NSString stringWithFormat:@"%.2f",[dic[@"userMoney"] floatValue]/100];
     self.deadline = [NSDate changeUnderlineDateToWordDate:dic[@"expireTime"]];
     
-
-    self.courseDate = [NSDate changeUnderlineDateToWordDate:dic[@"dateNext"]];
+    NSString *dateNext = dic[@"dateNext"];
+    
+    if ([dateNext isKindOfClass:[NSNull class]]) {
+        self.courseDate = [NSDate changeUnderlineDateToWordDate:nil];
+    }else {
+        self.courseDate = [NSDate changeUnderlineDateToWordDate:dateNext];
+    }
     self.courseTime = dic[@"timeSectionNext"];
     self.course = dic[@"labelNext"];
     

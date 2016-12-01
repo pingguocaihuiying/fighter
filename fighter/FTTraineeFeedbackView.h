@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^FeedBackViewBloack)(float);
+typedef void(^FeedBackViewBloack)(int rate);
 
 @interface FTTraineeFeedbackView : UIView
 
@@ -22,6 +22,6 @@ typedef void(^FeedBackViewBloack)(float);
 @property (nonatomic, copy) NSString *coachUserId;
 @property (nonatomic, copy) NSString *courseOnceId;
 
-@property (nonatomic,assign) FeedBackViewBloack bloack;
+@property (nonatomic, copy) FeedBackViewBloack bloack;
 
 @end

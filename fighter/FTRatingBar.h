@@ -13,6 +13,7 @@
  */
 @protocol RatingBarDelegate <NSObject>
 
+@optional
 /**
  *  评分改变
  *

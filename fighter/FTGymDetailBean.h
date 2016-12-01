@@ -13,7 +13,7 @@
 @property (nonatomic, assign) int id;
 @property (nonatomic, assign) int commentcount;//评论数
 @property (nonatomic, assign) int gym_corporationid;
-@property (nonatomic, assign) int corporationid;
+@property (nonatomic, assign) NSInteger corporationid;
 @property (nonatomic, assign) float grade;//评级
 @property (nonatomic, assign) int pictureCount;///图片数量统计
 @property (nonatomic, assign) int videoCount;//视频数量统计
