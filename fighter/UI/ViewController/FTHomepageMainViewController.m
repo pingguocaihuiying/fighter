@@ -111,6 +111,7 @@
 @property (nonatomic, strong) NSMutableArray *childSkillArray;//技能子项
 @property (nonatomic, assign) BOOL hasNewVersion;//是否有新版本（暂无用处，只是用来标记。。）
 @property (nonatomic, strong) NSMutableDictionary *fatherSkillVersionsDic;//用于记录那些父项有更新.key为技能id，value为0或1:0为没有更新，1为有更新
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *mainScrollViewBottomSpacing;
 
 @end
 
@@ -125,17 +126,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self initBaseData];//默认配置
     [self setNotification];
     [self setNavigationbar];
-    [self initBaseData];//默认配置
     [self getHomepageUserInfo];
-    
     [self initSubviews];
     
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated{
     
     if ([_userIdentity isEqualToString:@"0"]){//如果是普通用户
         //更新“历史课程”、“技能”按钮右边的红点显示与否
@@ -161,11 +160,6 @@
 
     [[NSNotificationCenter defaultCenter] removeObserver:self ];
 }
-
-
-#pragma -mark *** 16年11月新需求 普通用户格斗属性和课程记录的入口 ***
-
-
 
 #pragma mark 获取用户的基本信息
 - (void)getHomepageUserInfo{
@@ -230,36 +224,12 @@
         }
         NSLog(@"_userIdentity : %@", _userIdentity);
         
+        /*
+            2016年12月1日修改：无论是什么身份，都显示三栏：技术数据、课程记录、动态信息
+         */
+        
         if ([_userIdentity isEqualToString:@"0"]) {//普通用户
-            //不显示战绩、视频项
-            self.secondButton.hidden = YES;//是否显示战绩按钮
-            self.thirdButton.hidden = YES;//是否显示视频按钮
-            
-             _userBgImageView.backgroundColor = [UIColor blackColor];
-            
-            
-            
-            /* 
-             2016年11月新改动：普通用户除了“动态”，新增了两项数据：“课程记录“和”技术数据“。
-             思路：修改原有的后边俩按钮的文本，以及点击事件
-             
-             2016年11月16日新增加：如果是在看其他人的主页，则不显示后两个按钮
-             */
-            
-            if ([self isSelfHomepage]) {
-                _firstButton.hidden = NO;//显示第一个按钮
-                self.secondButton.hidden = NO;//显示第二个按钮
-                self.thirdButton.hidden = NO;//显示第三个按钮
-                
-                [self.firstButton setTitle:@"技术数据" forState:UIControlStateNormal];//修改第三个按钮的名字
-                [self.secondButton setTitle:@"课程记录" forState:UIControlStateNormal];//修改第二个按钮的名字
-                
-                
-                [self getCourseHistoryFromServer];
-                [self getSkillsFromServer];
-            }
-            
-            
+            _userBgImageView.backgroundColor = [UIColor blackColor];//普通用户黑背景
         }else if ([_userIdentity isEqualToString:@"1"]) {//拳手
             
             //设置拳手个人资料的背景图片
@@ -271,16 +241,10 @@
                 _userBgImageView.backgroundColor = [UIColor blackColor];
             }
 
-            //显示战绩、视频项
-            self.secondButton.hidden = NO;//是否显示战绩按钮
-            self.thirdButton.hidden = NO;//是否显示视频按钮
+
             self.identityImageView1.hidden = NO;
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-拳"];
         }else if ([_userIdentity isEqualToString:@"2"]){//教练
-            
-            //显示视频，不显示战绩
-            self.secondButton.hidden = YES;//是否显示战绩按钮
-            self.thirdButton.hidden = NO;//是否显示视频按钮
             self.identityImageView1.hidden = NO;
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-教"];
         }else if ([_userIdentity isEqualToString:@"1,2"]){//拳手、教练
@@ -290,19 +254,31 @@
             self.identityImageView2.image = [UIImage imageNamed:@"身份圆形-拳"];
         }
         
-        _followTableName = @"f-user";
-        
-        [self getFollowInfo];//获取关注信息
-        
-        //处理右上角的“转发”或“修改”：如果是自己的主页，则是“修改”，如果是别人的，则显示转发
-        if ([self isSelfHomepage]) {//如果是自己的主页
+        //如果是自己看自己的个人主页，显示三栏，如果是看别人的，显示技术数据和动态信息两栏，不显示上课记录
+        if ([self isSelfHomepage]) {
+            _firstButton.hidden = NO;//显示第一个按钮
+            self.secondButton.hidden = NO;//显示第二个按钮
+            self.thirdButton.hidden = NO;//显示第三个按钮
+
+            [self getCourseHistoryFromServer];
+                //处理右上角的“转发”或“修改”：如果是自己的主页，则是“修改”，如果是别人的，则显示转发
             _shareAndModifyProfileButton.hidden = NO;
             [_shareAndModifyProfileButton setTitle:@"修改" forState:UIControlStateNormal];
+            [_shareAndModifyProfileButton removeTarget:self action:@selector(shareUserInfoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
             [_shareAndModifyProfileButton addTarget:self action:@selector(modifyProfileButtonAction:) forControlEvents:UIControlEventTouchUpInside];
             //显示“发新动态”，隐藏关注等
             _bottomNewPostsView.hidden = NO;
             _bottomFollowView.hidden = YES;
+            _mainScrollViewBottomSpacing.constant = 0;//没有了发动态view，把主内容view下移到底部
+            self.bottomGradualChangeView.hidden = YES;
+            
         }else{//如果是别人的主页
+            //只显示一三：技术数据、动态
+            _firstButton.hidden = NO;//显示第一个按钮
+            self.secondButton.hidden = YES;//显示第二个按钮
+            self.thirdButton.hidden = NO;//显示第三个按钮
+
+            
             _shareAndModifyProfileButton.hidden = NO;
             [_shareAndModifyProfileButton setTitle:@"转发" forState:UIControlStateNormal];
             [_shareAndModifyProfileButton addTarget:self action:@selector(shareUserInfoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -311,6 +287,13 @@
             _bottomFollowView.hidden = NO;
         }
         
+        //默认总是加载技术数据和动态（帖子）
+        [self getDataFromWeb];
+        [self getSkillsFromServer];
+        
+        //获取关注信息
+        [self getFollowInfo];
+        
         //拳手战绩
         _boxerRankDataArray = [[NSMutableArray alloc]initWithArray:userBean.boxerRaceInfos];
             //添加一条空数据
@@ -318,8 +301,7 @@
         
         //拳手战绩概括
         _standings = userBean.standings;
-        
-         [self getDataFromWeb];//初次加载帖子数据
+
     }];
 }
 
@@ -356,7 +338,7 @@
 
 #pragma mark 转发
 - (void)shareUserInfoButtonAction:(id) sender {
-    
+    NSLog(@"转发");
     [MobClick event:@"rankingPage_HomePage_ShareUp"];
     NSLog(@"转发");
         //友盟分享事件统计
@@ -405,6 +387,8 @@
     _pageSize = @"100";
     _labels = @"";
     _hasInitRecordRank = false;
+    
+    _followTableName = @"f-user";
 }
 
 - (void)initSubviews{
@@ -477,7 +461,8 @@
             _recordRankTableView.hidden = YES;
             _recordListTableView.hidden = YES;
             
-            if ([_userIdentity isEqualToString:@"0"]) {//如果是普通用户，展示技能列表
+//            if ([_userIdentity isEqualToString:@"0"]) {//如果是普通用户，展示技能列表
+            if (true) {//如果是普通用户，展示技能列表 /* 2016年12月1日修改，所有用户都显示技能列表 */
                 _skillsTableView.hidden = NO;
                 _courseHistoryTableView.hidden = YES;//隐藏历史课程tableview
                 [self displaySkillsTableView];
@@ -514,7 +499,7 @@
             }
             
             break;
-        case FTHomepageTableViewTypeThird://格斗场列表
+        case FTHomepageTableViewTypeThird://帖子列表
             
             
             //如果没有格斗场数据，则显示空图片
@@ -573,14 +558,19 @@
 #pragma mark -获取用户技能点
 - (void) getSkillsFromServer {
     
-    NSString *localSkillVersion = [[NSUserDefaults standardUserDefaults]valueForKey:SKILL_VERSION];
+    
+    NSString *localSkillVersion;
+    if ([self isSelfHomepage]) {//如果是自己看自己的，才传技能版本号
+        localSkillVersion = [[NSUserDefaults standardUserDefaults]valueForKey:SKILL_VERSION];
+    }
+    
     
     /*
         开发阶段，暂时把local version设为nil
      */
 //    localSkillVersion = nil;
     
-    [NetWorking getUserSkillsWithCorporationid:nil andMemberUserId:[FTUserBean loginUser].olduserid andVersion:localSkillVersion andParent:nil andOption:^(NSDictionary *dict) {
+    [NetWorking getUserSkillsWithCorporationid:nil andMemberUserId:_olduserid andVersion:localSkillVersion andParent:nil andOption:^(NSDictionary *dict) {
         
         SLog(@"history dict:%@",dict);
         BOOL status = [dict[@"status"] isEqualToString:@"success"];
@@ -608,70 +598,77 @@
                 
             }
             
-            NSString *version = dict[@"data"][@"versions"];//从服务器获取的版本号
-            
-            if (version && (version != [NSNull null])) {//如果有版本号，说明有更新
-
-                _hasNewVersion = YES;
+            /*
+                如果是自己的主页，再处理版本数据
+             */
+            if ([self isSelfHomepage]) {
+                NSString *version = dict[@"data"][@"versions"];//从服务器获取的版本号
                 
-                [[NSUserDefaults standardUserDefaults]setValue:version forKey:SKILL_VERSION];
-                [[NSUserDefaults standardUserDefaults]synchronize];
-                
-                /*
-                 有更新的话，要处理红点的逻辑，把之前存储的技能信息拿出来做一下对比，确定哪些母项有更新
-                 */
-                NSArray *fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
-                NSArray *childSkillArrayOld;
-                if (!fatherSkillArrayOld || fatherSkillArrayOld.count < 1) {//如果本地没有缓存，则把新数据缓存入本地
-                    fatherSkillArrayOld = _fatherSkillArray;
-                     childSkillArrayOld = _childSkillArray;
-                    [self saveSkillArray:_fatherSkillArray WithKey:FATHER_SKILLS_ARRAY];
-                    [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
-                }
-                
-                if (!childSkillArrayOld || childSkillArrayOld.count < 1) {//如果本地没有缓存，则把新数据缓存入本地
-                    childSkillArrayOld = _childSkillArray;
-                    [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
-                }
-                
-                fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
-                //遍历，查看母项的更新情况
-                for (FTUserSkillBean *newSkillBean in _fatherSkillArray){
-                    FTUserSkillBean *oldSkillBean;
+                if (version && (version != [NSNull null])) {//如果有版本号，说明有更新
                     
+                    _hasNewVersion = YES;
+                    
+                    [[NSUserDefaults standardUserDefaults]setValue:version forKey:SKILL_VERSION];
+                    [[NSUserDefaults standardUserDefaults]synchronize];
+                    
+                    /*
+                     有更新的话，要处理红点的逻辑，把之前存储的技能信息拿出来做一下对比，确定哪些母项有更新
+                     */
+                    NSArray *fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
+                    NSArray *childSkillArrayOld;
+                    if (!fatherSkillArrayOld || fatherSkillArrayOld.count < 1) {//如果本地没有缓存，则把新数据缓存入本地
+                        fatherSkillArrayOld = _fatherSkillArray;
+                        childSkillArrayOld = _childSkillArray;
+                        [self saveSkillArray:_fatherSkillArray WithKey:FATHER_SKILLS_ARRAY];
+                        [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
+                    }
+                    
+                    if (!childSkillArrayOld || childSkillArrayOld.count < 1) {//如果本地没有缓存，则把新数据缓存入本地
+                        childSkillArrayOld = _childSkillArray;
+                        [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
+                    }
+                    
+                    fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
+                    //遍历，查看母项的更新情况
+                    for (FTUserSkillBean *newSkillBean in _fatherSkillArray){
+                        FTUserSkillBean *oldSkillBean;
+                        
                         /*
                          遍历本地存储的技能，对比score是否有更新
                          */
-                    for(FTUserSkillBean *oldSkillBeanItem in fatherSkillArrayOld){
-                        if (newSkillBean.id == oldSkillBeanItem.id){
-                            oldSkillBean = oldSkillBeanItem;
-                            
-                            break;//退出内层循环
+                        for(FTUserSkillBean *oldSkillBeanItem in fatherSkillArrayOld){
+                            if (newSkillBean.id == oldSkillBeanItem.id){
+                                oldSkillBean = oldSkillBeanItem;
+                                
+                                break;//退出内层循环
+                            }
                         }
+                        
+                        if (oldSkillBean) {//如果oldSkillBean找到了，对比score
+                            if (oldSkillBean.score != newSkillBean.score) {
+                                //如果score不等，说明有更新，记录下来
+                                newSkillBean.hasNewVersion = YES;//
+                                [_fatherSkillVersionsDic setValue:@"1" forKey:[NSString stringWithFormat:@"%d", oldSkillBean.id]];
+                            }
+                        }
+                        
                     }
                     
-                    if (oldSkillBean) {//如果oldSkillBean找到了，对比score
-                        if (oldSkillBean.score != newSkillBean.score) {
-                            //如果score不等，说明有更新，记录下来
-                            newSkillBean.hasNewVersion = YES;//
-                            [_fatherSkillVersionsDic setValue:@"1" forKey:[NSString stringWithFormat:@"%d", oldSkillBean.id]];
-                        }
-                    }
-
-                }
-                
-                //刷新技能按钮右边红点的显示
-                [self updateSkillButtonRightRedPointDisplay];
-                
-            } else {//如果服务器返回的version为空，说明没有版本（即第一次访问）
-                _hasNewVersion = NO;
-                
-                //把获取的技能信息存在本地
+                    //刷新技能按钮右边红点的显示
+                    [self updateSkillButtonRightRedPointDisplay];
+                    
+                } else {//如果服务器返回的version为空，说明没有版本（即第一次访问）
+                    _hasNewVersion = NO;
+                    
+                    //把获取的技能信息存在本地
                     //先把skillBean转换成data存入数组，再存入本地
-                [self saveSkillArray:_fatherSkillArray WithKey:FATHER_SKILLS_ARRAY];
-                [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
+                    [self saveSkillArray:_fatherSkillArray WithKey:FATHER_SKILLS_ARRAY];
+                    [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
+                }
+ 
             }
-        }else{
+            
+                    }else{
             /*
              没有新版本
              */
@@ -684,6 +681,7 @@
             _childSkillArray = [self getLocalSkillArrayWithKey:CHILD_SKILLS_ARRAY];
         }
         [_skillsTableView reloadData];//刷新课程表
+        [self refreshButtonsIndex ];//加载完技术数据后，刷新按钮、对应tableView的显示
     }];
 }
 
@@ -939,7 +937,7 @@
         if (responseDic != nil) {
             NSString *status = responseDic[@"status"];
             if ([status isEqualToString:@"success"]) {
-                [self refreshButtonsIndex ];
+                
                 NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
                 
                 //把获取的字典转换为bean，再存入数组
@@ -982,13 +980,15 @@
                 [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
                 [self.tableViewController.tableView footerEndRefreshing];
             }else {
-                [self getDataFromDB];
-                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
-                [self.tableViewController.tableView footerEndRefreshing];
+                //不用缓存，如果用缓存，会有个bug：看别人（小明）的主页，显示的是非小明的动态
+//                [self getDataFromDB];
+//                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+//                [self.tableViewController.tableView footerEndRefreshing];
             }
             
         }else {
-            [self getDataFromDB];
+            //不用缓存，如果用缓存，会有个bug：看别人（小明）的主页，显示的是非小明的动态
+//            [self getDataFromDB];
         }
     }];
 }
@@ -1416,7 +1416,7 @@
         //把筛选出来的该母项下所有的子项传值给下个vc
         userCourseCommentViewController.skillArray = [self getChildrenSkillArrayWithParentID:fatherSkillBean.id fromSkillArray:_childSkillArray];
         
-        if (fatherSkillBean.hasNewVersion) {
+        if ([self isSelfHomepage] && fatherSkillBean.hasNewVersion) {//如果有是自己的主页，并且有更新
             //把历史该母项的所有子项历史记录也传给下个vc
             NSArray *childSkillArrayOld = [self getLocalSkillArrayWithKey:CHILD_SKILLS_ARRAY];
             userCourseCommentViewController.skillArrayOld = [self getChildrenSkillArrayWithParentID:fatherSkillBean.id fromSkillArray:childSkillArrayOld];
@@ -1726,8 +1726,8 @@
 #pragma mark 从服务器获取是否已经关注
 - (void)getFollowInfo{
     
-    
     FTUserBean *user = [FTUserBean loginUser];
+    if(!user) return;//如果没有登录，则直接返回
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
     NSString *userId = user.olduserid;
@@ -1780,6 +1780,11 @@
     [self.navigationController pushViewController:newPostViewController animated:YES];
 }
 - (IBAction)commentButtonClicked:(id)sender {
+    
+    if (![self isLogined]) {
+        return;
+    };
+    
     [MobClick event:@"rankingPage_HomePage_Message"];
     FTHomepageCommentListViewController *commentListViewController = [FTHomepageCommentListViewController new];
     if (_boxerId) {

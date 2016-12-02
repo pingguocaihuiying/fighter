@@ -215,7 +215,7 @@ NSString * const NewPostCheckKey =  @"gedoujia1gdshjjgfkd52261225550";
 #pragma mark - 学拳
 
 NSString *const GetUserCourseHistoryURL = @"/api/skillversions/getUserCourseRecord.do";
-NSString *const GetUserSkillsURL = @"/api/gradedetail/get$Versions.do";
+NSString *const GetUserSkillsURL = @"/api/gradedetail/getVersions.do";
 NSString *const GetUserSkillsCheckSign = @"gedoujihtgfsyh543";
 // coach
 NSString * const GetCoachListURL = @"/api/coach/list.do";

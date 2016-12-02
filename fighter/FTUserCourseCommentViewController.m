@@ -422,13 +422,16 @@
         FTUserSkillBean *beanNew = _skillArray[indexPath.row];
         FTUserSkillBean *beanOld = _skillArrayOld[indexPath.row];
         
-//#warning 给 beanOld 赋值，测试用
+//#warning 给 beanOld、beanNew 赋值，测试用
 //        beanOld = [FTUserSkillBean new];
-//        beanOld.score = 0;
+//        beanOld.score = 44;
 //        beanOld.name = @"fua";
+//        
+//        beanNew.score = 20;
+//#warning 测试---end----
         
         cell.rightArrowWidth.constant = 0;//隐藏右箭头
-        if (beanOld) {
+        if (beanOld && beanNew.score != beanOld.score ) {//如果旧数据存在，而且分数差额 !> 0，再显示动画，否则直接显示最新的
             [cell setWithSkillNewBean:beanNew andSkillOldBean:beanOld];
         } else {
             [cell setWithSkillBean:beanNew];

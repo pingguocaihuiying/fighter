@@ -47,16 +47,16 @@
 
 @implementation FTBoxingBarMainViewController
 
-- (void)viewWillAppear:(BOOL)animated{
-    [self leftButtonClicked];
-}
 
+- (void)viewDidAppear:(BOOL)animated{
+    [self loadModuleDataFromServer];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initBaseConfig];//初始化一些基本配置
     [self setSubViews];//设置子view
-    //默认显示模块列表
-    [self leftButtonClicked];
+    
+    [self leftButtonClicked];//默认显示模块列表，点击按钮后，请求数据
 
     
     [self initBaseConfig];
@@ -270,22 +270,20 @@
 
 - (void)leftButtonClicked{
     _moduleCollectionView.hidden = NO;//显示模块列表
-//    _postListTableView.hidden = YES;//隐藏帖子列表
     self.tableViewController.tableView.hidden = YES;
     
-    [self loadDataFromServer];
+    [self loadModuleDataFromServer];
 }
 
 - (void)rightButtonClicked{
     _moduleCollectionView.hidden = YES;//隐藏模块列表
-//    _postListTableView.hidden = NO;//显示帖子列表
     self.tableViewController.tableView.hidden = NO;
     
     [self.tableViewController.tableView reloadData];
 }
 
 #pragma mark 加载数据
-- (void)loadDataFromServer{
+- (void)loadModuleDataFromServer{
     [NetWorking getBoxingBarSectionsWithOption:^(NSDictionary *dic) {
         if ([dic[@"status"] isEqualToString:@"success"]) {
             [self handleResponseArray:dic[@"data"]];
@@ -293,7 +291,8 @@
             [_moduleCollectionView setWithData:_moduleBeanArray];
             [_moduleCollectionView.collectionView reloadData];
         }else{
-            [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:[NSString stringWithFormat:@"%@", dic[@"message"]]];
+//            [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:[NSString stringWithFormat:@"%@", dic[@"message"]]];
+            [self.view showMessage:dic[@"message"]];
         }
     }];
 }
@@ -356,8 +355,28 @@
         }
     }
     
+    
+    followedModuleArray = [self removeMutiFollowModule:followedModuleArray];//把我关注的去重
+     [_followedModuleDic setObject:followedModuleArray forKey:FOLLOWED_MODULE];
     //把我关注的插入第一个
     [_moduleBeanArray insertObject:_followedModuleDic atIndex:0];
+}
+
+- (NSMutableArray *)removeMutiFollowModule:(NSMutableArray *)followedModuleArray{
+    NSMutableArray *arrayTemp = [NSMutableArray new];
+
+    NSMutableSet *setTemp = [NSMutableSet new];
+    
+    for(FTModuleBean *bean in followedModuleArray){
+        NSString *beanId = [NSString stringWithFormat:@"%ld", bean.id];
+        if ([setTemp containsObject:beanId]) {
+            continue;
+        } else {
+            [arrayTemp addObject:bean];
+            [setTemp addObject:beanId];
+        }
+    }
+    return arrayTemp;
 }
 
 #pragma mark 显示模块的collectionView
