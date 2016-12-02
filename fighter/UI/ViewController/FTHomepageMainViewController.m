@@ -136,7 +136,7 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     
-    if ([_userIdentity isEqualToString:@"0"]){//如果是普通用户
+    if (true){//如果是普通用户
         //更新“历史课程”、“技能”按钮右边的红点显示与否
         [self updateButtonRightRedPointDisplay];
         
@@ -486,7 +486,7 @@
             _infoTableView.hidden = YES;
             _videoCollectionView.hidden = YES;
             
-            if ([_userIdentity isEqualToString:@"0"]) {//如果是普通用户，需要展示历史课程
+            if (true) {//如果是普通用户，需要展示历史课程
                 _courseHistoryTableView.hidden = NO;//显示历史课程tableview
                 _skillsTableView.hidden = YES;//隐藏技能列表
                 [self displayCourseHistoryTableView];
