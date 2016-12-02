@@ -15,6 +15,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    _kindLabel.font = [UIFont systemFontOfSize:14 * SCALE];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -59,8 +60,8 @@
     
 //    NSLog(@"label : %@", bean.labels);
     //根据newsType去设置类型图片
-    self.typeImageView.image = [UIImage imageNamed:[FTTools getChLabelNameWithEnLabelName:bean.labels]];
-    
+//    self.typeImageView.image = [UIImage imageNamed:[FTTools getChLabelNameWithEnLabelName:bean.labels]];
+    _kindLabel.text = [FTTools getChNameWithEnLabelName:bean.labels];
 
 }
 

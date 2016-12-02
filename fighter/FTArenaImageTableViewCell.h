@@ -25,5 +25,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *theImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *playVideoImageview;
 @property (weak, nonatomic) IBOutlet UIImageView *placeHoldImageView;
+@property (strong, nonatomic) IBOutlet UILabel *labelLabel;
 
 @end

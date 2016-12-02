@@ -263,7 +263,7 @@
     self.navigationItem.rightBarButtonItem = newPostButton;
     
     //设置默认标题
-    self.navigationItem.title = _moduleBean.name;
+    self.navigationItem.title = _moduleBean.category;
 }
 
 /**
