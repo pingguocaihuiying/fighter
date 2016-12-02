@@ -20,6 +20,7 @@
 #import "FTPracticeViewController.h"
 #import "FTCoachSelfCourseViewController.h"
 #import "FTFightingViewController.h"
+#import "FTNavigationBar.h"
 
 @interface FTBaseTabBarViewController () <UITabBarControllerDelegate>
 
@@ -110,7 +111,6 @@
 
 #pragma mark - 设置导航栏
 - (void) setNavigationbar {
-    
     
     self.navigationItem.leftBarButtonItems  = [[NSArray alloc]initWithObjects:self.avatarButtonItem, nil];
     

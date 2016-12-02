@@ -147,9 +147,7 @@
         if (_skillsTableView) {
             [_skillsTableView reloadData];
         }
-        
     }
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
