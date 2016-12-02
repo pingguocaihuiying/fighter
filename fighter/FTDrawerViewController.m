@@ -573,8 +573,9 @@ static NSString *const tableCellId = @"tableCellId";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
-    return 4;
+    
+    return 1;
+//    return 4;
 //    return 5;
     
 }
@@ -620,13 +621,13 @@ static NSString *const tableCellId = @"tableCellId";
         
         FTDrawerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCellId"];
         
-        if (indexPath.row == 2) {
+        if (indexPath.row == 1) {
             cell.cellTitle.text = @"我的关注";
             [cell.subtitle setHidden:YES];
-        }else if (indexPath.row == 3) {
+        }else if (indexPath.row == 2) {
             cell.cellTitle.text = @"我的收藏";
             [cell.subtitle setHidden:YES];
-        }else if (indexPath.row == 4) {
+        }else if (indexPath.row == 3) {
             cell.cellTitle.text = @"比赛信息";
             [cell.subtitle setHidden:YES];
         }
