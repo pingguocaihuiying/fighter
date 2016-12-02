@@ -113,7 +113,7 @@
                                         </view>
                                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gi7-qG-aYf">
                                             <rect key="frame" x="157" y="0.0" width="62" height="40"/>
-                                            <state key="normal" title="拳手战绩">
+                                            <state key="normal" title="课程记录">
                                                 <color key="titleColor" red="0.43493384122848511" green="0.43402445316314697" blue="0.45596396923065186" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <connections>
