@@ -625,7 +625,7 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         
         if ([dict[@"status"] isEqualToString:@"success"]) {
-            
+            [_delegate postSuccess];
             NSLog(@"帖子发成功了");
             [self showHUDWithMessage:@"发布成功"isPop:YES];
         }else{

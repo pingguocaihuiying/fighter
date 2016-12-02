@@ -230,6 +230,10 @@
         
         if ([_userIdentity isEqualToString:@"0"]) {//普通用户
             _userBgImageView.backgroundColor = [UIColor blackColor];//普通用户黑背景
+            
+            //隐藏所有身份图标
+            self.identityImageView1.hidden = YES;
+            self.identityImageView2.hidden = YES;
         }else if ([_userIdentity isEqualToString:@"1"]) {//拳手
             
             //设置拳手个人资料的背景图片
@@ -241,13 +245,20 @@
                 _userBgImageView.backgroundColor = [UIColor blackColor];
             }
 
-
+            //显示拳手身份
             self.identityImageView1.hidden = NO;
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-拳"];
+            //隐藏其他身份
+            self.identityImageView2.hidden = YES;
         }else if ([_userIdentity isEqualToString:@"2"]){//教练
+            //显示教练身份
             self.identityImageView1.hidden = NO;
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-教"];
+            
+            //隐藏其他身份图片
+            self.identityImageView2.hidden = YES;
         }else if ([_userIdentity isEqualToString:@"1,2"]){//拳手、教练
+            //显示两个身份图片
             self.identityImageView1.hidden = NO;
             self.identityImageView2.hidden = NO;
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-教"];
