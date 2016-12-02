@@ -323,11 +323,31 @@ static DBManager * _sharedDBManager = nil;
  */
 - (void) createNewsTable {
     
+    
+    
     NSString * sql = @"CREATE TABLE 'news' ('newsId' INTEGER PRIMARY KEY NOT NULL UNIQUE, 'author' TEXT, 'commentCount' INTEGER DEFAULT 0, 'img_big' TEXT, 'img_small_one' TEXT, 'img_small_three' TEXT, 'img_small_two' TEXT, 'layout' INTEGER, 'newsTime' TEXT,'onlineTime' TIMESTAMP, 'newsType' TEXT, 'summary' TEXT, 'title' TEXT, 'url' TEXT, 'voteCount' TEXT DEFAULT 0, 'isReader' BOOLEAN);";
     
     [self createTable:@"news" sql:sql];
 }
 
+
+/**
+ 更新news表，添加onlineTime字段
+ */
+- (void) alterNewsTable {
+    
+    // after version 1.9.0 add onlineTime column
+    NSString * sql = @"ALTER TABLE news  ADD COLUMN onlineTime  TEXT;";
+    FMResultSet * set = [_dataBase executeQuery:sql];
+    [set next];
+    NSInteger count = [set intForColumnIndex:0];
+    
+    if (!!count) {
+        NSLog(@"news表ALTER失败");
+    } else {
+        NSLog(@"news表ALTER成功");
+    }
+}
 
 /**
  * @brief 清除news表数据

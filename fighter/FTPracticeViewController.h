@@ -19,6 +19,8 @@
 @interface FTPracticeViewController : FTBaseViewController <ViewControllerTransitionDelegate>
 
 
+- (void) getMembershipGymsFromWeb;
+
 #pragma mark push响应方法
 - (void) pushToDetailController:(NSDictionary *)dic;
 

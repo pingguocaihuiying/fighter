@@ -70,6 +70,12 @@
     }else {
         [self.navigationController setNavigationBarHidden:NO];
     }
+    
+    // 显示会员拳馆
+    if (self.selectedIndex == 2) {
+        [FTNotificationTools postShowMembershipGymsNoti];
+    }
+    
 }
 
 
@@ -444,14 +450,14 @@
             return NO;
         }
     }
+    
     return YES;
-        
 }
 
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
     
-    NSLog(@"select index:%ld",tabBarController.selectedIndex);
+//    NSLog(@"select index:%ld",tabBarController.selectedIndex);
     if (tabBarController.selectedIndex == 1) {
         [self showRankButton];
     }else {
@@ -465,6 +471,11 @@
         [self.navigationController setNavigationBarHidden:YES];
     }else {
         [self.navigationController setNavigationBarHidden:NO];
+    }
+    
+    // 显示会员拳馆
+    if (tabBarController.selectedIndex == 2) {
+        [FTNotificationTools postShowMembershipGymsNoti];
     }
     
 }

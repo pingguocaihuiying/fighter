@@ -40,17 +40,11 @@
     [self initSubviews];
     [self setNotification];
     
-     self.navigationController.navigationBarHidden = NO;
+    self.navigationController.navigationBarHidden = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
    
-    FTUserBean *loginUser = [FTUserBean loginUser];
-    if (loginUser.isGymUser.count > 0) {
-        
-    }else {
-        
-    }
     
 }
 
@@ -69,6 +63,7 @@
     //注册通知，接收登录成功的消息
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMemberGyms:) name:ShowMemberShipGymsNavNoti object:nil];
     
 }
 
@@ -223,8 +218,19 @@
 
 #pragma mark - get data from web
 
+- (void) showMemberGyms:(NSNotification *) noti {
+
+    FTUserBean *loginUser = [FTUserBean loginUser];
+    if (loginUser.isGymUser.count > 0) {
+        
+    }else {
+        
+        [self getMembershipGymsFromWeb];
+    }
+}
+
 // 获取tableView 数据
-- (void) getmembershipGymsFromWeb {
+- (void) getMembershipGymsFromWeb {
     
     NSString *showType  = [FTNetConfig showType];
     

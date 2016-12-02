@@ -44,6 +44,7 @@
     NSLog(@"已切换版本，当前showType:%@", [FTNetConfig showType]);
 }
 
+
 /** 可用的后台地址 **/
 NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin";//生产环境
 //NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin_test";//测试环境

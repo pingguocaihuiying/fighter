@@ -73,6 +73,9 @@
     
     //注册通知，接收登录成功的消息
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMemberGyms:) name:ShowMemberShipGymsNavNoti object:nil];
+    
 }
 
 - (void) initSubviews {
@@ -101,11 +104,11 @@
 - (void)setMJRefresh{
     
     //设置下拉刷新
-    __unsafe_unretained typeof(self) weakSelf = self;
+    __weak typeof(self) weakSelf = self;
     // 下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [weakSelf.tableView.mj_header setHidden:NO];
-        
+//        [weakSelf.tableView.mj_header setHidden:NO];
+        [weakSelf.tableView.mj_header beginRefreshing];
         NSLog(@"触发下拉刷新headerView");
         weakSelf.currentPage = 1;
         weakSelf.getType = @"new";
@@ -115,24 +118,24 @@
         
     }];
     
-//    [weakSelf.tableView.mj_header beginRefreshing];
+//    // 上拉刷新
+//    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+//        weakSelf.tableView.mj_footer.hidden = NO;
+//        [weakSelf.tableView.mj_footer beginRefreshing];
+//        
+//        NSLog(@"触发上拉刷新headerView");
+//        weakSelf.currentPage ++;
+//        weakSelf.getType = @"old";
+//        
+//        if (weakSelf.dataSourceArray && weakSelf.dataSourceArray.count > 0) {
+//            NSDictionary *dic = [weakSelf.dataSourceArray lastObject];
+//            weakSelf.gymCurrId = dic[@"gymId"];
+//        }
+//        
+//        [weakSelf getTableViewDataFromWeb];
+//    }];
     
     
-    // 上拉刷新
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        weakSelf.tableView.mj_footer.hidden = NO;
-        
-        NSLog(@"触发上拉刷新headerView");
-        weakSelf.currentPage ++;
-        weakSelf.getType = @"old";
-        
-        if (weakSelf.dataSourceArray && weakSelf.dataSourceArray.count > 0) {
-            NSDictionary *dic = [weakSelf.dataSourceArray lastObject];
-            weakSelf.gymCurrId = dic[@"gymId"];
-        }
-        [weakSelf.tableView.mj_footer beginRefreshing];
-        [weakSelf getTableViewDataFromWeb];
-    }];
 
 }
 
@@ -162,8 +165,11 @@
     NSString *urlString = [NSString stringWithFormat:@"gymType=%@&gymCurrId=%@&gymTag=%@&getType=%@&ts=%@&checkSign=%@",_gymType,_gymCurrId,_gymTag,_getType, ts,checkSign];
     NSLog(@"urlstring:%@",urlString);
     [NetWorking getMemberGymsByDic:dic option:^(NSDictionary *dict) {
-        self.tableView.mj_footer.hidden = YES;
-        self.tableView.mj_header.hidden = YES;
+//        [self.tableView.mj_footer endRefreshing];
+        [self.tableView.mj_header endRefreshing];
+        
+//        [self.tableView.mj_header setHidden:YES];
+//        [self.tableView.mj_footer setHidden:YES];
         
         SLog(@"table dic:%@",dict);
         
@@ -310,6 +316,20 @@
         [self getTableViewDataFromWeb];
     }
     
+}
+
+
+- (void) showMemberGyms:(NSNotification *) noti {
+    
+    FTUserBean *loginUser = [FTUserBean loginUser];
+    if (loginUser) {
+        
+        self.currentPage = 1;
+        self.getType = @"new";
+        self.gymCurrId = @"-1";
+        [self getTableViewDataFromWeb];
+        
+    }
 }
 
 

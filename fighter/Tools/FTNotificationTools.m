@@ -92,6 +92,15 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:ShowHomePageNavNoti object:nil];
 }
 
+#pragma mark - 
 
+
+/**
+ 显示会员拳馆
+ */
++ (void) postShowMembershipGymsNoti {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:ShowMemberShipGymsNavNoti object:nil];
+}
 
 @end
