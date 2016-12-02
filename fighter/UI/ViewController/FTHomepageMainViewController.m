@@ -781,7 +781,7 @@
 
         if (!_courseHistoryArray) {
             _courseHistoryArray = [[NSMutableArray alloc]init];
-        
+        }else{
             [_courseHistoryArray removeAllObjects];
         }
     
