@@ -38,6 +38,7 @@
 #import "FTPayViewController.h"
 #import "FTHomepageMainViewController.h"
 #import "FTPaySingleton.h"
+#import "FTNavigationBar.h"
 
 /**
  *  数据结构思路22：
@@ -59,7 +60,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *abountToStartButton;
 @property (weak, nonatomic) IBOutlet UIButton *matchedButton;
 
-
+@property (nonatomic, strong) FTNavigationBar *navigationBar;
 
 //当前选中的筛选条件：0、1、2，默认为0
 @property (nonatomic, assign)int conditionOffset;
@@ -742,7 +743,16 @@
  */
 - (void) setNavigationbar {
     
-    [self.navigationController.navigationBar addSubview:self.rankBtn];
+//    [self.navigationController.navigationBar addSubview:self.rankBtn];
+    
+//    [[UIApplication sharedApplication].keyWindow insertSubview:self.rankBtn aboveSubview:self.navigationController.navigationBar];
+    
+    [self.view insertSubview:self.rankBtn aboveSubview:self.navigationController.navigationBar];
+    
+//    [self.navigationController.navigationBar setNavigationBarRankButton:self.rankBtn];
+//    FTNavigationBar *navigationBar = (FTNavigationBar *)self.navigationController.navigationBar;
+//    [self.navigationBar setRankButton:self.rankBtn];
+    
 }
 
 /**
@@ -757,6 +767,16 @@
     [self.rankBtn setHidden:YES];
 }
 
+
+- (FTNavigationBar *) navigationBar {
+
+    if (!_navigationBar) {
+        _navigationBar = (FTNavigationBar *)self.navigationController.navigationBar;
+    }
+    
+    return _navigationBar;
+}
+
 /**
  设置排行榜按钮
  
@@ -766,14 +786,12 @@
     
     if (!_rankBtn) {
         _rankBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _rankBtn.frame = CGRectMake(SCREEN_WIDTH - 94 - 15, 41, 94, 30);
+        _rankBtn.frame = CGRectMake(SCREEN_WIDTH - 94 - 15, 0, 94, 30);
         [_rankBtn addTarget:self action:@selector(rankListBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         [_rankBtn setImage:[UIImage imageNamed:@"右上排行榜"] forState:UIControlStateNormal];
-        //        self.rankBtn.hidden = YES;
-        
-        if (self.ranckButtonBlock) {
-            _ranckButtonBlock(_rankBtn);
-        }
+//        if (self.ranckButtonBlock) {
+//            _ranckButtonBlock(_rankBtn);
+//        }
     }
     
     return _rankBtn;
@@ -792,5 +810,19 @@
     [self.navigationController pushViewController:rankHomeVC animated:YES];
 }
 
+
+//- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+//{
+//    // 当前坐标系上的点转换到按钮上的点
+//    CGRect rect = [self.view convertRect:self.rankBtn.frame toView:self.view];
+//    CGRectContainsPoint(rect, point);
+//    // 判断点在不在按钮上
+//    if (CGRectContainsPoint(rect, point)) {
+//        // 点在按钮上
+//        return self.rankBtn;
+//    }else{
+//        return [self.view.superview hitTest:point withEvent:event];
+//    }
+//}
 
 @end

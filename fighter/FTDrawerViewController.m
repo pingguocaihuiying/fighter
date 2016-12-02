@@ -277,6 +277,8 @@ static NSString *const tableCellId = @"tableCellId";
         
         // 更新用户信息
         [self tableViewAdapter];
+        
+        self.homepageVC.olduserid = [FTUserBean loginUser].olduserid;
     }else if ([userInfo[@"result"] isEqualToString:@"ERROR"]){
         [[UIApplication sharedApplication].keyWindow showMessage:@"登录失败"];
     }else {
