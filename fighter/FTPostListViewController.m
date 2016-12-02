@@ -57,6 +57,17 @@
     
     [self getDataFromDB];//加载缓存
     [self getDataFromWeb];//初次加载数据
+    [self regisetLoginNoti];//注册登录成功的通知，登录成功后，刷新挂住状态
+}
+
+- (void)regisetLoginNoti{
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginSucess:) name:LoginNoti object:nil];
+}
+- (void)loginSucess:(NSNotification *)noti{
+    NSDictionary *userInfoDic = [noti userInfo];
+    if([userInfoDic[@"result"] isEqualToString:@"SUCCESS"]){
+        [self getFollowStatus];
+    }
 }
 
 /**

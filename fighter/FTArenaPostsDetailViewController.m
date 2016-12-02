@@ -290,7 +290,7 @@
 - (void)shareButtonClicked{
     
     NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=%@",_arenaBean.postsId,@"damageblog"];
-    _webUrlString = [@"http://www.gogogofight.com/page/wrestle_news_page.html?" stringByAppendingString:str];
+    _webUrlString = [@"http://www.gogogofight.com/page/v2/wrestle_news_page.html?" stringByAppendingString:str];
     
     FTShareView *shareView = [FTShareView new];
     
