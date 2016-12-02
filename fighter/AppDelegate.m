@@ -135,9 +135,20 @@
             }
         }];
 
+    }else {
+        
+        BOOL isAlter = [[[NSUserDefaults standardUserDefaults] objectForKey:@"alter_news_after_version_1.9.0"] boolValue];
+        if (!isAlter) {
+            // version 1.9.1 修改news结构，添加onlineTIme 字段
+            DBManager *dbManager = [DBManager shareDBManager];
+            [dbManager connect];
+            [dbManager alterNewsTable];
+            [dbManager close];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"alter_news_after_version_1.9.0"];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+        }
     }
-    
-    
 }
 
 

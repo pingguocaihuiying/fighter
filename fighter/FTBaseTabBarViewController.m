@@ -457,7 +457,7 @@
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
     
-    NSLog(@"select index:%ld",tabBarController.selectedIndex);
+//    NSLog(@"select index:%ld",tabBarController.selectedIndex);
     if (tabBarController.selectedIndex == 1) {
         [self showRankButton];
     }else {

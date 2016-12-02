@@ -1906,6 +1906,10 @@
         self.olduserid = loginUser.olduserid;
         [self getHomepageUserInfo];
     }
+    
+    if ([userInfo[@"type"] isEqualToString:@"Logout"]) {
+        self.tabBarController.selectedIndex = 0;
+    }
 }
 
 

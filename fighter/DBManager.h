@@ -73,6 +73,11 @@
 - (void) createNewsTable;
 
 /**
+ * @brief 修改news表，添加onlineTime字段
+ */
+- (void) alterNewsTable;
+
+/**
  * @brief 清除news表数据
  */
 - (void) cleanNewsTable;
