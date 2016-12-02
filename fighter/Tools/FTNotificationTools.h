@@ -23,7 +23,7 @@
 #define EditNotification @"editNotification"
 #define HideHomePageNavNoti @"HideHomePageNavNoti"
 #define ShowHomePageNavNoti @"ShowHomePageNavNoti"
-
+#define ShowMemberShipGymsNavNoti @"ShowMemberShipGymsNavNoti"
 
 /**
  登录通知类型枚举
@@ -61,4 +61,10 @@ typedef NS_ENUM(NSInteger, FTLoginType) {
 + (void) postHideHomepageNavigationBarNoti;
 
 + (void) postShowHomepageNavigationbarNoti;
+
+#pragma mark -
+/**
+ 显示会员拳馆
+ */
++ (void) postShowMembershipGymsNoti;
 @end

@@ -70,6 +70,12 @@
     }else {
         [self.navigationController setNavigationBarHidden:NO];
     }
+    
+    // 显示会员拳馆
+    if (self.selectedIndex == 2) {
+        [FTNotificationTools postShowMembershipGymsNoti];
+    }
+    
 }
 
 
@@ -444,8 +450,8 @@
             return NO;
         }
     }
+    
     return YES;
-        
 }
 
 
@@ -465,6 +471,11 @@
         [self.navigationController setNavigationBarHidden:YES];
     }else {
         [self.navigationController setNavigationBarHidden:NO];
+    }
+    
+    // 显示会员拳馆
+    if (tabBarController.selectedIndex == 2) {
+        [FTNotificationTools postShowMembershipGymsNoti];
     }
     
 }

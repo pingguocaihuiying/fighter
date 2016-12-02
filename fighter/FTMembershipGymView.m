@@ -73,6 +73,9 @@
     
     //注册通知，接收登录成功的消息
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMemberGyms:) name:ShowMemberShipGymsNavNoti object:nil];
+    
 }
 
 - (void) initSubviews {
@@ -310,6 +313,20 @@
         [self getTableViewDataFromWeb];
     }
     
+}
+
+
+- (void) showMemberGyms:(NSNotification *) noti {
+    
+    FTUserBean *loginUser = [FTUserBean loginUser];
+    if (loginUser) {
+        
+        self.currentPage = 1;
+        self.getType = @"new";
+        self.gymCurrId = @"-1";
+        [self getTableViewDataFromWeb];
+        
+    }
 }
 
 
