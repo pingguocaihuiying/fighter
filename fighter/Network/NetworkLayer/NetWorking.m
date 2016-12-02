@@ -1108,12 +1108,13 @@
 
     
     FTUserBean *loginuser = [FTUserBean loginUser];
-    
+    if (!loginuser) return;
     NSString *userId = loginuser.olduserid;
     NSString *token = loginuser.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];// 时间戳
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    
     [dic setObject:userId forKey:@"userId"];
     [dic setObject:token forKey:@"loginToken"];
     [dic setObject:ts forKey:@"ts"];
