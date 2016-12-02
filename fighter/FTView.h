@@ -1,5 +1,5 @@
 //
-//  FTNavigationBar.h
+//  FTView.h
 //  fighter
 //
 //  Created by kang on 2016/12/2.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FTNavigationBar : UINavigationBar
+@interface FTView : UIView
 
 @end
