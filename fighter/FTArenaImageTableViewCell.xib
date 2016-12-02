@@ -32,7 +32,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(0)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AtB-Fj-5ws" userLabel="comment数量">
-                        <rect key="frame" x="303" y="182" width="14" height="10"/>
+                        <rect key="frame" x="303" y="181" width="14" height="10"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="Myl-W7-2kQ"/>
                             <constraint firstAttribute="height" constant="10" id="PQm-IX-sbB"/>
@@ -47,7 +47,7 @@
                         </variation>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="54G-Ph-JwO" userLabel="赞Button">
-                        <rect key="frame" x="231" y="176" width="22" height="22"/>
+                        <rect key="frame" x="231" y="175" width="22" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="22" id="t7M-nu-q16"/>
                             <constraint firstAttribute="height" constant="22" id="w9I-dH-9LP"/>
@@ -73,7 +73,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pYp-mf-lmb" userLabel="comment">
-                        <rect key="frame" x="281" y="176" width="22" height="22"/>
+                        <rect key="frame" x="281" y="175" width="22" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="22" id="HUH-Ol-AqA"/>
                             <constraint firstAttribute="height" constant="22" id="hr4-Be-cxe"/>
@@ -81,7 +81,7 @@
                         <state key="normal" backgroundImage="评-改"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(0)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mgv-S9-cNo" userLabel="赞数量">
-                        <rect key="frame" x="253" y="182" width="14" height="10"/>
+                        <rect key="frame" x="253" y="181" width="14" height="10"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="25" id="TLo-N0-JAi"/>
                             <constraint firstAttribute="height" constant="10" id="wgO-z4-A1F"/>
@@ -124,13 +124,6 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="15" id="Oq2-p8-CZ0"/>
                             <constraint firstAttribute="height" constant="15" id="mDa-UE-Wwg"/>
-                        </constraints>
-                    </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="格斗标签-综合格斗" translatesAutoresizingMaskIntoConstraints="NO" id="NOA-75-P4H">
-                        <rect key="frame" x="259" y="160" width="68" height="14"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="14" id="AHg-5e-RYl"/>
-                            <constraint firstAttribute="width" constant="68" id="rjm-yV-M9k"/>
                         </constraints>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aGM-Lu-yUN">
@@ -176,38 +169,54 @@
                             <constraint firstItem="YpN-VV-Azu" firstAttribute="top" secondItem="aGM-Lu-yUN" secondAttribute="top" id="wwj-mE-1Gy"/>
                         </constraints>
                     </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="分类标签" translatesAutoresizingMaskIntoConstraints="NO" id="UnV-eg-OuS">
+                        <rect key="frame" x="286.5" y="159" width="50.5" height="14"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WlE-gc-DMf">
+                        <rect key="frame" x="291.5" y="159" width="35.5" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="14" id="7q5-xv-47u"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="YNe-Cc-9Cp" firstAttribute="leading" secondItem="I4f-fZ-TTv" secondAttribute="trailing" constant="8" id="1ar-FJ-A9a"/>
                     <constraint firstAttribute="bottom" secondItem="MAF-s2-avg" secondAttribute="bottom" constant="5" id="4UB-lh-PwY"/>
                     <constraint firstItem="N3P-eC-yh8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="5TN-j8-Oai"/>
-                    <constraint firstItem="AtB-Fj-5ws" firstAttribute="top" secondItem="NOA-75-P4H" secondAttribute="bottom" constant="8" id="7cd-zg-iE3"/>
                     <constraint firstItem="MAF-s2-avg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="7hA-Ws-lO8"/>
                     <constraint firstItem="Mgv-S9-cNo" firstAttribute="leading" secondItem="54G-Ph-JwO" secondAttribute="trailing" id="9DM-hn-jYl"/>
                     <constraint firstItem="54G-Ph-JwO" firstAttribute="centerY" secondItem="Mgv-S9-cNo" secondAttribute="centerY" id="9X1-sY-2TQ"/>
                     <constraint firstItem="MAF-s2-avg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Bbz-2p-4Js"/>
                     <constraint firstItem="I4f-fZ-TTv" firstAttribute="top" secondItem="aGM-Lu-yUN" secondAttribute="bottom" constant="20" id="Bu7-7I-KJn"/>
+                    <constraint firstItem="UnV-eg-OuS" firstAttribute="trailing" secondItem="WlE-gc-DMf" secondAttribute="trailing" constant="10" id="CHq-51-gd3"/>
                     <constraint firstItem="I4f-fZ-TTv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="ETO-KY-ARv"/>
                     <constraint firstItem="pYp-mf-lmb" firstAttribute="centerY" secondItem="AtB-Fj-5ws" secondAttribute="centerY" id="FXb-di-L7R"/>
                     <constraint firstItem="YNe-Cc-9Cp" firstAttribute="bottom" secondItem="I4f-fZ-TTv" secondAttribute="bottom" id="H8d-fb-9ia"/>
                     <constraint firstAttribute="trailing" secondItem="MAF-s2-avg" secondAttribute="trailing" id="HpM-6m-olc"/>
                     <constraint firstItem="aGM-Lu-yUN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="HwJ-kf-P65"/>
+                    <constraint firstItem="AtB-Fj-5ws" firstAttribute="top" secondItem="WlE-gc-DMf" secondAttribute="bottom" constant="8" id="JWJ-d1-dWP"/>
                     <constraint firstItem="AtB-Fj-5ws" firstAttribute="leading" secondItem="pYp-mf-lmb" secondAttribute="trailing" id="MPz-bY-Zpk"/>
                     <constraint firstItem="3Td-rY-PwG" firstAttribute="centerY" secondItem="I4f-fZ-TTv" secondAttribute="centerY" id="MZp-6S-FpD"/>
                     <constraint firstItem="S98-3P-Dd6" firstAttribute="leading" secondItem="z0a-sI-49I" secondAttribute="trailing" constant="8" id="OIq-wr-eku"/>
                     <constraint firstItem="z0a-sI-49I" firstAttribute="leading" secondItem="I4f-fZ-TTv" secondAttribute="trailing" constant="8" id="QhF-oT-8dQ"/>
                     <constraint firstItem="S98-3P-Dd6" firstAttribute="top" secondItem="z0a-sI-49I" secondAttribute="top" id="RAJ-Zt-qhO"/>
-                    <constraint firstItem="NOA-75-P4H" firstAttribute="centerY" secondItem="S98-3P-Dd6" secondAttribute="centerY" id="UyW-SW-Eqa"/>
+                    <constraint firstItem="UnV-eg-OuS" firstAttribute="bottom" secondItem="WlE-gc-DMf" secondAttribute="bottom" id="UGq-JQ-kuj"/>
                     <constraint firstItem="aGM-Lu-yUN" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="W6q-QQ-RBc"/>
+                    <constraint firstItem="UnV-eg-OuS" firstAttribute="top" secondItem="WlE-gc-DMf" secondAttribute="top" id="WsA-6V-YRW"/>
                     <constraint firstItem="pYp-mf-lmb" firstAttribute="leading" secondItem="Mgv-S9-cNo" secondAttribute="trailing" constant="14" id="X0f-yD-qtb"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="NOA-75-P4H" secondAttribute="trailing" constant="7" id="aPR-ie-3xp"/>
+                    <constraint firstItem="UnV-eg-OuS" firstAttribute="leading" secondItem="WlE-gc-DMf" secondAttribute="leading" constant="-5" id="ZK4-m2-s6v"/>
                     <constraint firstItem="Mgv-S9-cNo" firstAttribute="centerY" secondItem="pYp-mf-lmb" secondAttribute="centerY" id="aRX-r9-Y1p"/>
                     <constraint firstAttribute="trailing" secondItem="AtB-Fj-5ws" secondAttribute="trailing" constant="25" id="ctp-6c-gRn"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="WlE-gc-DMf" secondAttribute="trailing" constant="7" id="fTZ-Ib-5ba"/>
                     <constraint firstItem="z0a-sI-49I" firstAttribute="top" secondItem="I4f-fZ-TTv" secondAttribute="top" id="fdO-6t-pvA"/>
                     <constraint firstItem="S98-3P-Dd6" firstAttribute="centerY" secondItem="z0a-sI-49I" secondAttribute="centerY" id="jVO-Kj-ZBz"/>
                     <constraint firstAttribute="trailing" secondItem="N3P-eC-yh8" secondAttribute="trailing" constant="19" id="l8K-x7-wjI"/>
                     <constraint firstItem="N3P-eC-yh8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="17" id="mp4-0q-iFv"/>
                     <constraint firstItem="3Td-rY-PwG" firstAttribute="centerX" secondItem="I4f-fZ-TTv" secondAttribute="centerX" id="nGq-dn-k6t"/>
+                    <constraint firstItem="WlE-gc-DMf" firstAttribute="centerY" secondItem="z0a-sI-49I" secondAttribute="centerY" id="rOI-e2-uFq"/>
                     <constraint firstItem="aGM-Lu-yUN" firstAttribute="top" secondItem="N3P-eC-yh8" secondAttribute="bottom" constant="15" id="vDY-ab-okd"/>
                 </constraints>
                 <variation key="default">
@@ -224,19 +233,19 @@
                 <outlet property="headImageView" destination="3Td-rY-PwG" id="eMn-Qh-LiJ"/>
                 <outlet property="imageViewHeight" destination="KWM-iU-Y0d" id="CdX-at-ZCR"/>
                 <outlet property="imageViewWidth" destination="WcO-RF-4Kl" id="ohe-iQ-UrJ"/>
+                <outlet property="labelLabel" destination="WlE-gc-DMf" id="Ed9-8h-nge"/>
                 <outlet property="likeCountLabel" destination="Mgv-S9-cNo" id="fWs-Jc-jZR"/>
                 <outlet property="placeHoldImageView" destination="OfI-Xn-SBo" id="h8J-RF-PPu"/>
                 <outlet property="playVideoImageview" destination="sN9-Oc-dd4" id="ED9-Ra-1hR"/>
                 <outlet property="theImageView" destination="EhW-gj-RR4" id="nIF-PC-LBI"/>
                 <outlet property="theTitle" destination="N3P-eC-yh8" id="dBP-Ip-3B4"/>
                 <outlet property="timeLabel" destination="YNe-Cc-9Cp" id="5UH-Cu-EO7"/>
-                <outlet property="typeImageView" destination="NOA-75-P4H" id="oQQ-kh-4bX"/>
             </connections>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="分类标签" width="43" height="14"/>
         <image name="格斗场专用小头像64-头像外圈" width="32" height="32"/>
-        <image name="格斗标签-综合格斗" width="68" height="14"/>
         <image name="空图标小" width="70" height="16"/>
         <image name="视频集锦用-小播放按钮" width="28" height="28"/>
         <image name="评-改" width="22" height="22"/>

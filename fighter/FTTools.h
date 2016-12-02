@@ -10,6 +10,8 @@
 
 @interface FTTools : NSObject
 
++ (NSString *)getChNameWithEnLabelName:(NSString *)labelNameEn;
+
 + (NSString *)getChLabelNameWithEnLabelName:(NSString *)labelNameEn;
 
 /**
