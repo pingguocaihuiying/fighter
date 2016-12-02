@@ -221,11 +221,12 @@
 - (void) showMemberGyms:(NSNotification *) noti {
 
     FTUserBean *loginUser = [FTUserBean loginUser];
-    if (loginUser.isGymUser.count > 0) {
+    
+    if (loginUser) {
         
-    }else {
-        
-        [self getMembershipGymsFromWeb];
+        if (loginUser.isGymUser == nil || loginUser.isGymUser.count == 0) {
+            [self getMembershipGymsFromWeb];
+        }
     }
 }
 
@@ -277,7 +278,7 @@
                 NSNumber *memberShipGymId = [NSNumber numberWithInteger:[dict[@"corporationid"] integerValue]];
                 
                 if (![loginuser.isGymUser containsObject:memberShipGymId]) {
-                    [loginuser.isGymUser arrayByAddingObject:memberShipGymId];
+                   loginuser.isGymUser=  [NSArray arrayWithObject:memberShipGymId];
                 }
                 
                 //将用户信息保存在本地
