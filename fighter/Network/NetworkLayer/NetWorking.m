@@ -1108,6 +1108,7 @@
 
     
     FTUserBean *loginuser = [FTUserBean loginUser];
+    
     NSString *userId = loginuser.olduserid;
     NSString *token = loginuser.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];// 时间戳
@@ -1375,6 +1376,8 @@
         NSArray *array = responseDic[@"data"];
         if (array && array != (id)[NSNull null]) {
             option(array);
+        }else{
+            option(nil);
         }
     } failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
         option(nil);

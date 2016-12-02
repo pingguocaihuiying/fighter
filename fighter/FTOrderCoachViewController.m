@@ -398,10 +398,11 @@
                 }
                 [mArray addObject:dic];
             }
-            //获取场地使用信息后，刷新UI
-            _gymSourceView.placesUsingInfoDic = _placesUsingInfoDic;
-            [_gymSourceView reloadTableViews];
         }
+        //获取场地使用信息后，刷新UI
+        _gymSourceView.placesUsingInfoDic = _placesUsingInfoDic;
+        [_gymSourceView reloadTableViews];
+
     }];
 }
 

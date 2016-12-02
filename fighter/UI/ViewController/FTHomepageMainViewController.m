@@ -630,6 +630,8 @@
                     
                     fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
                     //遍历，查看母项的更新情况
+                    //初始化_fatherSkillVersionsDic
+                    _fatherSkillVersionsDic = [NSMutableDictionary new];
                     for (FTUserSkillBean *newSkillBean in _fatherSkillArray){
                         FTUserSkillBean *oldSkillBean;
                         
@@ -1417,6 +1419,9 @@
         userCourseCommentViewController.skillArray = [self getChildrenSkillArrayWithParentID:fatherSkillBean.id fromSkillArray:_childSkillArray];
         
         if ([self isSelfHomepage] && fatherSkillBean.hasNewVersion) {//如果有是自己的主页，并且有更新
+            //点击后，将该母项设为没有更新
+            fatherSkillBean.hasNewVersion = NO;
+            
             //把历史该母项的所有子项历史记录也传给下个vc
             NSArray *childSkillArrayOld = [self getLocalSkillArrayWithKey:CHILD_SKILLS_ARRAY];
             userCourseCommentViewController.skillArrayOld = [self getChildrenSkillArrayWithParentID:fatherSkillBean.id fromSkillArray:childSkillArrayOld];
