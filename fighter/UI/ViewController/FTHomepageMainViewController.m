@@ -126,12 +126,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self initBaseData];//默认配置
     [self setNotification];
     [self setNavigationbar];
-    [self initBaseData];//默认配置
     [self getHomepageUserInfo];
-    
     [self initSubviews];
     
 }
@@ -162,11 +160,6 @@
 
     [[NSNotificationCenter defaultCenter] removeObserver:self ];
 }
-
-
-#pragma -mark *** 16年11月新需求 普通用户格斗属性和课程记录的入口 ***
-
-
 
 #pragma mark 获取用户的基本信息
 - (void)getHomepageUserInfo{
@@ -271,6 +264,7 @@
                 //处理右上角的“转发”或“修改”：如果是自己的主页，则是“修改”，如果是别人的，则显示转发
             _shareAndModifyProfileButton.hidden = NO;
             [_shareAndModifyProfileButton setTitle:@"修改" forState:UIControlStateNormal];
+            [_shareAndModifyProfileButton removeTarget:self action:@selector(shareUserInfoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
             [_shareAndModifyProfileButton addTarget:self action:@selector(modifyProfileButtonAction:) forControlEvents:UIControlEventTouchUpInside];
             //显示“发新动态”，隐藏关注等
             _bottomNewPostsView.hidden = NO;
@@ -299,7 +293,7 @@
         
         //获取关注信息
         [self getFollowInfo];
-        _followTableName = @"f-user";
+        
         //拳手战绩
         _boxerRankDataArray = [[NSMutableArray alloc]initWithArray:userBean.boxerRaceInfos];
             //添加一条空数据
@@ -344,7 +338,7 @@
 
 #pragma mark 转发
 - (void)shareUserInfoButtonAction:(id) sender {
-    
+    NSLog(@"转发");
     [MobClick event:@"rankingPage_HomePage_ShareUp"];
     NSLog(@"转发");
         //友盟分享事件统计
@@ -393,6 +387,8 @@
     _pageSize = @"100";
     _labels = @"";
     _hasInitRecordRank = false;
+    
+    _followTableName = @"f-user";
 }
 
 - (void)initSubviews{
@@ -562,14 +558,19 @@
 #pragma mark -获取用户技能点
 - (void) getSkillsFromServer {
     
-    NSString *localSkillVersion = [[NSUserDefaults standardUserDefaults]valueForKey:SKILL_VERSION];
+    
+    NSString *localSkillVersion;
+    if ([self isSelfHomepage]) {//如果是自己看自己的，才传技能版本号
+        localSkillVersion = [[NSUserDefaults standardUserDefaults]valueForKey:SKILL_VERSION];
+    }
+    
     
     /*
         开发阶段，暂时把local version设为nil
      */
 //    localSkillVersion = nil;
     
-    [NetWorking getUserSkillsWithCorporationid:nil andMemberUserId:[FTUserBean loginUser].olduserid andVersion:localSkillVersion andParent:nil andOption:^(NSDictionary *dict) {
+    [NetWorking getUserSkillsWithCorporationid:nil andMemberUserId:_olduserid andVersion:localSkillVersion andParent:nil andOption:^(NSDictionary *dict) {
         
         SLog(@"history dict:%@",dict);
         BOOL status = [dict[@"status"] isEqualToString:@"success"];
@@ -597,70 +598,77 @@
                 
             }
             
-            NSString *version = dict[@"data"][@"versions"];//从服务器获取的版本号
-            
-            if (version && (version != [NSNull null])) {//如果有版本号，说明有更新
-
-                _hasNewVersion = YES;
+            /*
+                如果是自己的主页，再处理版本数据
+             */
+            if ([self isSelfHomepage]) {
+                NSString *version = dict[@"data"][@"versions"];//从服务器获取的版本号
                 
-                [[NSUserDefaults standardUserDefaults]setValue:version forKey:SKILL_VERSION];
-                [[NSUserDefaults standardUserDefaults]synchronize];
-                
-                /*
-                 有更新的话，要处理红点的逻辑，把之前存储的技能信息拿出来做一下对比，确定哪些母项有更新
-                 */
-                NSArray *fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
-                NSArray *childSkillArrayOld;
-                if (!fatherSkillArrayOld || fatherSkillArrayOld.count < 1) {//如果本地没有缓存，则把新数据缓存入本地
-                    fatherSkillArrayOld = _fatherSkillArray;
-                     childSkillArrayOld = _childSkillArray;
-                    [self saveSkillArray:_fatherSkillArray WithKey:FATHER_SKILLS_ARRAY];
-                    [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
-                }
-                
-                if (!childSkillArrayOld || childSkillArrayOld.count < 1) {//如果本地没有缓存，则把新数据缓存入本地
-                    childSkillArrayOld = _childSkillArray;
-                    [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
-                }
-                
-                fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
-                //遍历，查看母项的更新情况
-                for (FTUserSkillBean *newSkillBean in _fatherSkillArray){
-                    FTUserSkillBean *oldSkillBean;
+                if (version && (version != [NSNull null])) {//如果有版本号，说明有更新
                     
+                    _hasNewVersion = YES;
+                    
+                    [[NSUserDefaults standardUserDefaults]setValue:version forKey:SKILL_VERSION];
+                    [[NSUserDefaults standardUserDefaults]synchronize];
+                    
+                    /*
+                     有更新的话，要处理红点的逻辑，把之前存储的技能信息拿出来做一下对比，确定哪些母项有更新
+                     */
+                    NSArray *fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
+                    NSArray *childSkillArrayOld;
+                    if (!fatherSkillArrayOld || fatherSkillArrayOld.count < 1) {//如果本地没有缓存，则把新数据缓存入本地
+                        fatherSkillArrayOld = _fatherSkillArray;
+                        childSkillArrayOld = _childSkillArray;
+                        [self saveSkillArray:_fatherSkillArray WithKey:FATHER_SKILLS_ARRAY];
+                        [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
+                    }
+                    
+                    if (!childSkillArrayOld || childSkillArrayOld.count < 1) {//如果本地没有缓存，则把新数据缓存入本地
+                        childSkillArrayOld = _childSkillArray;
+                        [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
+                    }
+                    
+                    fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
+                    //遍历，查看母项的更新情况
+                    for (FTUserSkillBean *newSkillBean in _fatherSkillArray){
+                        FTUserSkillBean *oldSkillBean;
+                        
                         /*
                          遍历本地存储的技能，对比score是否有更新
                          */
-                    for(FTUserSkillBean *oldSkillBeanItem in fatherSkillArrayOld){
-                        if (newSkillBean.id == oldSkillBeanItem.id){
-                            oldSkillBean = oldSkillBeanItem;
-                            
-                            break;//退出内层循环
+                        for(FTUserSkillBean *oldSkillBeanItem in fatherSkillArrayOld){
+                            if (newSkillBean.id == oldSkillBeanItem.id){
+                                oldSkillBean = oldSkillBeanItem;
+                                
+                                break;//退出内层循环
+                            }
                         }
+                        
+                        if (oldSkillBean) {//如果oldSkillBean找到了，对比score
+                            if (oldSkillBean.score != newSkillBean.score) {
+                                //如果score不等，说明有更新，记录下来
+                                newSkillBean.hasNewVersion = YES;//
+                                [_fatherSkillVersionsDic setValue:@"1" forKey:[NSString stringWithFormat:@"%d", oldSkillBean.id]];
+                            }
+                        }
+                        
                     }
                     
-                    if (oldSkillBean) {//如果oldSkillBean找到了，对比score
-                        if (oldSkillBean.score != newSkillBean.score) {
-                            //如果score不等，说明有更新，记录下来
-                            newSkillBean.hasNewVersion = YES;//
-                            [_fatherSkillVersionsDic setValue:@"1" forKey:[NSString stringWithFormat:@"%d", oldSkillBean.id]];
-                        }
-                    }
-
-                }
-                
-                //刷新技能按钮右边红点的显示
-                [self updateSkillButtonRightRedPointDisplay];
-                
-            } else {//如果服务器返回的version为空，说明没有版本（即第一次访问）
-                _hasNewVersion = NO;
-                
-                //把获取的技能信息存在本地
+                    //刷新技能按钮右边红点的显示
+                    [self updateSkillButtonRightRedPointDisplay];
+                    
+                } else {//如果服务器返回的version为空，说明没有版本（即第一次访问）
+                    _hasNewVersion = NO;
+                    
+                    //把获取的技能信息存在本地
                     //先把skillBean转换成data存入数组，再存入本地
-                [self saveSkillArray:_fatherSkillArray WithKey:FATHER_SKILLS_ARRAY];
-                [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
+                    [self saveSkillArray:_fatherSkillArray WithKey:FATHER_SKILLS_ARRAY];
+                    [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
+                }
+ 
             }
-        }else{
+            
+                    }else{
             /*
              没有新版本
              */
@@ -1408,7 +1416,7 @@
         //把筛选出来的该母项下所有的子项传值给下个vc
         userCourseCommentViewController.skillArray = [self getChildrenSkillArrayWithParentID:fatherSkillBean.id fromSkillArray:_childSkillArray];
         
-        if (fatherSkillBean.hasNewVersion) {
+        if ([self isSelfHomepage] && fatherSkillBean.hasNewVersion) {//如果有是自己的主页，并且有更新
             //把历史该母项的所有子项历史记录也传给下个vc
             NSArray *childSkillArrayOld = [self getLocalSkillArrayWithKey:CHILD_SKILLS_ARRAY];
             userCourseCommentViewController.skillArrayOld = [self getChildrenSkillArrayWithParentID:fatherSkillBean.id fromSkillArray:childSkillArrayOld];
@@ -1718,8 +1726,8 @@
 #pragma mark 从服务器获取是否已经关注
 - (void)getFollowInfo{
     
-    
     FTUserBean *user = [FTUserBean loginUser];
+    if(!user) return;//如果没有登录，则直接返回
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
     NSString *userId = user.olduserid;
@@ -1772,6 +1780,11 @@
     [self.navigationController pushViewController:newPostViewController animated:YES];
 }
 - (IBAction)commentButtonClicked:(id)sender {
+    
+    if (![self isLogined]) {
+        return;
+    };
+    
     [MobClick event:@"rankingPage_HomePage_Message"];
     FTHomepageCommentListViewController *commentListViewController = [FTHomepageCommentListViewController new];
     if (_boxerId) {

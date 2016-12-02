@@ -1171,17 +1171,20 @@
 + (void)getUserSkillsWithCorporationid:(NSString *)corporationid andMemberUserId:(NSString *)memberUserId andVersion:(NSString *)version andParent:(NSString *)parent andOption:(void (^)(NSDictionary *dic)) option{
     NSString *urlString = [FTNetConfig host:Domain path:GetUserSkillsURL];
     
-    FTUserBean *loginedUser = [FTUserBean loginUser];
-    if (!loginedUser) {
-        [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"userId为空，请先登录"];
-    }
+
     NSMutableDictionary *dic = [NSMutableDictionary new];
     
     //通用的字段
-    [dic setValue:loginedUser.olduserid forKey:@"userId"];//当前用户的id
-    [dic setValue:loginedUser.token forKey:@"loginToken"];
+
     [dic setValue:[self getTimeStamp13] forKey:@"ts"];
-    
+    FTUserBean *loginedUser = [FTUserBean loginUser];
+    if (!loginedUser) {
+//        [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"userId为空，请先登录"];
+        [dic setValue:memberUserId forKey:@"userId"];//当前用户的id
+    }else{
+        [dic setValue:loginedUser.olduserid forKey:@"userId"];//当前用户的id
+        [dic setValue:loginedUser.token forKey:@"loginToken"];
+    }
     
     //个性化字段
     [dic setValue:memberUserId forKey:@"memberUserId"];
