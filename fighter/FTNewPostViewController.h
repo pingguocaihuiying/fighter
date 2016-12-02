@@ -6,10 +6,20 @@
 //  Copyright © 2016 Mapbar. All rights reserved.
 //
 
+//发帖成功后的回调（供刷新帖子列表界面等使用）
+@protocol FTNewPostSuccessDelegate <NSObject>
+
+- (void)postSuccess;
+
+@end
+
 #import "FTBaseViewController.h"
 #import "FTModuleBean.h"
 
 @interface FTNewPostViewController : FTBaseViewController
+
+@property (nonatomic, weak) id<FTNewPostSuccessDelegate> delegate;
+
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextView *contentTextView;
 @property (weak, nonatomic) IBOutlet UIView *contentTextViewContainer;

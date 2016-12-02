@@ -17,7 +17,7 @@
 #import "DBManager.h"
 #import "FTArenaPostsDetailViewController.h"
 
-@interface FTPostListViewController ()<FTTableViewdelegate, FTArenaDetailDelegate>
+@interface FTPostListViewController ()<FTTableViewdelegate, FTArenaDetailDelegate, FTNewPostSuccessDelegate>
 
 @property (nonatomic, strong) FTPostListTableView *postListTableView;
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
@@ -284,6 +284,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)postSuccess{
+    [self getDataFromWeb];
+}
+
 - (IBAction)newPostButtonClicked {
     //测试
 //    FTArenaViewController *arenaViewController = [FTArenaViewController new];
@@ -299,6 +303,7 @@
         [FTTools loginwithVC:self];
     }else{
         FTNewPostViewController *newPostViewController = [FTNewPostViewController new];
+        newPostViewController.delegate = self;
         newPostViewController.title = @"发新帖";
         newPostViewController.moduleBean = _moduleBean;
         [self.navigationController pushViewController:newPostViewController animated:YES];
