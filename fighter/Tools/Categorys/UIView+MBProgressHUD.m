@@ -113,11 +113,91 @@
     [self addSubview:imageView];
     [imageView addSubview:detailsLabel];
     
+    [self addLabelConstraint:detailsLabel toItem:imageView];
+    [self addImageViewConstraint:imageView];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,  2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         
         [imageView removeFromSuperview];
         
     });
+}
+
+
+
+
+- (void) addImageViewConstraint:(UIImageView *) imageView {
+    
+    [imageView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSLayoutConstraint *centerXConstraint = [NSLayoutConstraint constraintWithItem:imageView
+                                                                         attribute:NSLayoutAttributeCenterX
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:self
+                                                                         attribute:NSLayoutAttributeCenterX
+                                                                        multiplier:1.0
+                                                                          constant:0];
+    
+    NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint constraintWithItem:imageView
+                                                                          attribute:NSLayoutAttributeCenterY
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:self
+                                                                          attribute:NSLayoutAttributeCenterY
+                                                                         multiplier:1.0
+                                                                           constant:0];
+    
+
+    NSLayoutConstraint *widthtConstraint = [NSLayoutConstraint constraintWithItem:imageView
+                                                                        attribute:NSLayoutAttributeWidth
+                                                                        relatedBy:NSLayoutRelationLessThanOrEqual
+                                                                           toItem:nil
+                                                                        attribute:NSLayoutAttributeNotAnAttribute
+                                                                       multiplier:1.0
+                                                                         constant:SCREEN_WIDTH - 60*SCALE];
+    
+    [self addConstraint:centerXConstraint];
+    [self addConstraint:centerYConstraint];
+    [self addConstraint:widthtConstraint];
+    
+}
+
+- (void) addLabelConstraint:(UILabel *) label toItem:(UIView *) itemView {
+    
+    [label setTranslatesAutoresizingMaskIntoConstraints:NO];
+    NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:label
+                                                                     attribute:NSLayoutAttributeTop
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:itemView
+                                                                     attribute:NSLayoutAttributeTop
+                                                                    multiplier:1.0
+                                                                      constant:15];
+    
+    NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:label
+                                                                      attribute:NSLayoutAttributeLeft
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:itemView
+                                                                      attribute:NSLayoutAttributeLeft
+                                                                     multiplier:1.0
+                                                                       constant:15];
+    
+    NSLayoutConstraint *rightConstraint = [NSLayoutConstraint constraintWithItem:label
+                                                                       attribute:NSLayoutAttributeRight
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:itemView
+                                                                       attribute:NSLayoutAttributeRight
+                                                                      multiplier:1.0
+                                                                        constant:-15];
+    
+    NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:label
+                                                                       attribute:NSLayoutAttributeBottom
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:itemView
+                                                                       attribute:NSLayoutAttributeBottom
+                                                                      multiplier:1.0
+                                                                        constant:-15];
+    
+    [self addConstraint:topConstraint];
+    [self addConstraint:leftConstraint];
+    [self addConstraint:rightConstraint];
+    [self addConstraint:bottomConstraint];
 }
 
 @end

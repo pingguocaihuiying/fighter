@@ -103,9 +103,9 @@
             
             //当前的滑动距离 + 因为导航栏产生的偏移量，默认为64（如果app需求不同，需自己设置）
             //20 因为header的距离不对
-            CGFloat offset = self.collectionView.contentOffset.y + _naviHeight-40 ;
+            CGFloat offset = self.collectionView.contentOffset.y + _naviHeight - 64 ;
             //第一个cell的y值 - 当前header的高度 - 可能存在的sectionInset的top
-            CGFloat headerY = firstItemAttributes.frame.origin.y - rect.size.height - self.sectionInset.top;
+            CGFloat headerY = firstItemAttributes.frame.origin.y - rect.size.height - self.sectionInset.top -20;
             
             //哪个大取哪个，保证header悬停
             //针对当前header基本上都是offset更加大，针对下一个header则会是headerY大，各自处理

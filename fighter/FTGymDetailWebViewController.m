@@ -6,6 +6,13 @@
 //  Copyright © 2016年 Mapbar. All rights reserved.
 //
 
+#define itemsPerLine 5 //定义collectionView每行的个数
+#define itemWidth 56    //collection cell宽度
+#define itemHeight 78 //collection cell高度
+#define minLineSpacing 15//最小行距
+#define minInteritemSpacing 19.5//最小列间距
+
+
 #import "FTGymDetailWebViewController.h"
 #import "FTCommentViewController.h"
 #import "MBProgressHUD.h"
@@ -21,14 +28,23 @@
 #import "FTGymDetailBean.h"
 #import "FTGymCommentsViewController.h"
 #import "FTCoachSelfCourseViewController.h"
+#import "FTGymCourceViewNew.h"//新课程表
+#import "FTGymOrderCourseView.h"
+#import "FTOrderCoachViewController.h"
 
-@interface FTGymDetailWebViewController ()<UIWebViewDelegate, CommentSuccessDelegate, UICollectionViewDelegate, UICollectionViewDataSource, FTLoginViewControllerDelegate>
+@interface FTGymDetailWebViewController ()<UIWebViewDelegate, CommentSuccessDelegate, UICollectionViewDelegate, UICollectionViewDataSource, FTLoginViewControllerDelegate, FTGymOrderCourseViewDelegate, FTGymCourseTableViewDelegate, FTScrollViewScollToBottomDelegate>
 {
     UIWebView *_webView;
     UIImageView *_loadingImageView;
     UIImageView *_loadingBgImageView;
     
 }
+
+@property (strong, nonatomic) IBOutlet UIScrollView *mainScrollView;
+
+@property (strong, nonatomic) IBOutlet UILabel *telLabel;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *bottomViewHeight;
+
 
 @property (nonatomic, copy)NSString *webUrlString;
 @property (strong, nonatomic) IBOutlet UILabel *gymAdressLabel;//地址label
@@ -42,12 +58,18 @@
 @property (strong, nonatomic) IBOutlet UIView *seperatorView5;
 @property (strong, nonatomic) IBOutlet UIView *seperatorView6;
 
+@property (strong, nonatomic) IBOutlet UIView *seperatorView7;
+@property (strong, nonatomic) IBOutlet UIView *seperatorView8;
+
+@property (nonatomic, strong) UIBarButtonItem *joinVIPButton;
+
 //评分view
 @property (strong, nonatomic) IBOutlet UIView *scoreView;
 
 
 //展示拳手的collectionView
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) IBOutlet UIImageView *isVIPImage;
 
 //collectionView左右离父视图的距离
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *collectionViewPaddingLeft;//左
@@ -64,11 +86,12 @@
 
 @property (nonatomic, assign) BOOL displayAllVIP;//是否展示所有会员
 
-@property (nonatomic, strong) NSMutableArray *vipArray;
+@property (nonatomic, strong) NSMutableArray *coachArray;
 
-@property (nonatomic, strong) FTGymDetailBean *gymDetailBean;//拳馆详情bean
-
-
+@property (nonatomic, strong) FTGymCourceViewNew *gymSourceView;//课程表
+@property (strong, nonatomic) IBOutlet UIView *gymSourceViewContainerView;//课程表view的父view
+@property (nonatomic, strong) NSArray *timeSectionsArray;//拳馆的固定时间段
+@property (nonatomic, strong) NSMutableDictionary *placesUsingInfoDic;//场地、时间段的占用情况
 
 @end
 
@@ -79,6 +102,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initBaseData];
+    [self registNoti];
     [self getVIPInfo];
     [self loadGymDataFromServer];
     [self setNavigationSytle];
@@ -88,6 +112,9 @@
     // 获取收藏信息
     [self getAttentionInfo];
     
+    [self getTimeSection];//获取拳馆时间段配置
+    
+    
 }
 
 
@@ -96,8 +123,22 @@
     _gymVIPType = FTGymVIPTypeNope;
 }
 
+
+/**
+ 注册登录的通知
+ */
+- (void)registNoti{
+    
+    //注册通知，接收登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
+    
+}
+
 - (void)getVIPInfo{
-    [NetWorking getVIPInfoWithGymId:_gymBean.corporationid andOption:^(NSDictionary *dic) {
+    
+    NSString *corporationId = [NSString stringWithFormat:@"%ld",_gymBean.corporationid];
+    
+    [NetWorking getVIPInfoWithGymId:corporationId andOption:^(NSDictionary *dic) {
         
         //无数据：非会员
         //"type"为会员类型： 0准会员 1会员 2往期会员
@@ -108,21 +149,61 @@
             NSString *type = dic[@"data"][@"type"];
             _gymVIPType = [type integerValue];//
             if (_gymVIPType == FTGymVIPTypeYep) {
-                [_becomeVIPButton setTitle:@"已经是会员" forState:UIControlStateNormal];
+//                [_becomeVIPButton setTitle:@"已经是会员" forState:UIControlStateNormal];
+//                _becomeVIPButton.enabled = NO;
+                
+                //右上角的“成为会员”
+                _joinVIPButton.enabled = NO;
+                _joinVIPButton.title = @"";
+                
+                //“我的拳馆”标识
+                _isVIPImage.hidden = NO;
+                
                 [_becomeVIPButton setTitleColor:[UIColor colorWithHex:0xb4b4b4] forState:UIControlStateNormal];
-            }else if (_gymVIPType == FTGymVIPTypeApplying){
-                _becomeVIPButton.enabled = YES;
+            }else {
+//                _becomeVIPButton.enabled = YES;
+                
+                //右上角的“成为会员”
+                _joinVIPButton.enabled = YES;
+                _joinVIPButton.title = @"成为会员";
+                
+                //“我的拳馆”标识
+                _isVIPImage.hidden = YES;
             }
-        }else{
+        }else{//如果从接口读取失败，则默认按非会员处理
             _gymVIPType = FTGymVIPTypeNope;
-            _becomeVIPButton.enabled = YES;
+//            _becomeVIPButton.enabled = YES;
+            
+            //右上角的“成为会员”
+            _joinVIPButton.enabled = YES;
+            _joinVIPButton.title = @"成为会员";
+            
+            //“我的拳馆”标识
+            _isVIPImage.hidden = YES;
         }
     }];
 }
 
+
+// 登录响应
+- (void) loginCallBack:(NSNotification *)noti {
+    
+    NSDictionary *userInfo = noti.userInfo;
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
+        [self getVIPInfo];
+        [self gettimeSectionsUsingInfo];
+    }
+    
+}
+
+
+
 - (void)loadGymDataFromServer{
     //获取拳馆的一些基本信息：视频、照片、地址等
-    [NetWorking getGymForGymDetailWithGymId:_gymBean.gymId andOption:^(NSDictionary *dic) {
+    
+    NSString *gymId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
+    
+    [NetWorking getGymForGymDetailWithGymId:gymId andOption:^(NSDictionary *dic) {
 //        NSLog(@"dic : %@", dic);
         _gymDetailBean = [FTGymDetailBean new];
 //        [_gymDetailBean setValuesWithDic:dic];
@@ -131,15 +212,23 @@
     }];
     
     //获取拳馆的教练列表
-    [NetWorking getCoachesWithCorporationid:_gymBean.corporationid andOption:^(NSArray *array) {
-        _vipArray = [NSMutableArray arrayWithArray:array];
-        NSDictionary *dic = [_vipArray firstObject];
-        NSLog(@"%@", dic[@"headUrl"]);
-        for(NSString *key in [dic allKeys]){
-            NSLog(@"key %@ : %@", key, dic[key]);
+//    [NetWorking getCoachesWithCorporationid:_gymBean.corporationid andOption:^(NSArray *array) {
+//        _coachArray = [NSMutableArray arrayWithArray:array];
+//        NSDictionary *dic = [_coachArray firstObject];
+//        NSLog(@"%@", dic[@"headUrl"]);
+//        for(NSString *key in [dic allKeys]){
+//            NSLog(@"key %@ : %@", key, dic[key]);
+//        }
+////        [_collectionView reloadData];
+//        [self updateCollectionView];
+//    }];
+    
+    [NetWorking getCoachesWithCorporationid:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSArray *array) {
+        if (array && array.count > 0) {
+            _coachArray = [NSMutableArray arrayWithArray:array];
+//            [self setCollectionView];//设置教练模块的view
+            [self updateCollectionView];
         }
-//        [_collectionView reloadData];
-        [self updateCollectionView];
     }];
 }
 
@@ -155,7 +244,16 @@
     }
     
     //更新展示照片
-    NSString *imageUrl = [NSString stringWithFormat:@"http://%@/%@", _gymDetailBean.urlprefix, _gymDetailBean.gym_show_img];
+    NSArray *imageArray = _gymDetailBean.gymImgs;
+    NSString *imageURLString;
+    for(NSString *imageURL in imageArray){
+        imageURLString = imageURL;
+        if (imageURLString && imageURLString.length > 0) {
+            break;
+        }
+    }
+    
+    NSString *imageUrl = [NSString stringWithFormat:@"http://%@/%@", _gymDetailBean.urlprefix, imageURLString];
     [_gymShowImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl]];
     
     //更新照片、视频个数
@@ -166,7 +264,9 @@
     
     //更新地址
     _gymAdressLabel.text = _gymDetailBean.gym_location;
+    NSLog(@"行数 ：%ld", _gymAdressLabel.numberOfLines);
     
+//    _bottomViewHeight.constant = 165;
     //更新评论数
     _commentCountLabel.text = [NSString stringWithFormat:@"%d人评价", _gymDetailBean.commentcount];
 }
@@ -203,13 +303,14 @@
     
     //设置返回按钮
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(backBtnAction:)];
-    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 0)];
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
     // 导航栏转发按钮
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithTitle:@"分享" style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonAction:)];
-//    self.navigationItem.rightBarButtonItem = shareButton;
-    //因为拳馆详情的web页还没做，先隐藏掉分享功能
+    _joinVIPButton = [[UIBarButtonItem alloc]initWithTitle:@"成为会员" style:UIBarButtonItemStylePlain target:self action:@selector(becomeVIPButtonClicked:)];
+    _joinVIPButton.enabled = NO;
+    self.navigationItem.rightBarButtonItem = _joinVIPButton;
+    //因为拳馆详情的web页还没做，先隐藏掉分享功能 || 10月25日改为 成为会员
     
 }
 
@@ -219,9 +320,16 @@
 //    [self setWebView];
     
 //    [self setLoadingImageView];
+    
     [self subViewFormat];//设置分割线颜色、label行间距等
     [self setCollectionView];//设置拳馆教练头像显示
+    [self setGymSourceView];//设置课程表
     
+    //电话
+    _telLabel.text = [NSString stringWithFormat:@"%@", _gymBean.gymTel];
+    _telLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dialButtonAction:)];
+    [_telLabel addGestureRecognizer:tap];
 }
 
 - (void)subViewFormat{
@@ -234,51 +342,66 @@
     _seperatorView5.backgroundColor = Cell_Space_Color;
     _seperatorView6.backgroundColor = Cell_Space_Color;
     
-    _gymAdressLabel.text = @"东直门东直门东直门东直门东直门东直门东直门东直门";
+    _seperatorView7.backgroundColor = Cell_Space_Color;
+    _seperatorView8.backgroundColor = Cell_Space_Color;
+    
     [UILabel setRowGapOfLabel:_gymAdressLabel withValue:6];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (_vipArray.count > 6 && _displayAllVIP) {
-        if (indexPath.row == _vipArray.count) {
+    if (_coachArray.count > itemsPerLine && _displayAllVIP) {
+        if (indexPath.row == _coachArray.count) {
             _displayAllVIP = !_displayAllVIP;
             [self updateCollectionView];
             NSLog(@"收起");
         } else {
-            NSDictionary *vipDic = _vipArray[indexPath.row];
+            NSDictionary *vipDic = _coachArray[indexPath.row];
             NSLog(@"vipName : %@", vipDic[@"name"]);
+            [self pushToCoachVCWithDic:vipDic];
         }
     } else {
-        if (_vipArray.count > 6 && indexPath.row == 5) {
+        if (_coachArray.count > itemsPerLine && indexPath.row == itemsPerLine - 1) {
             _displayAllVIP = !_displayAllVIP;
             [self updateCollectionView];
             NSLog(@"展开");
         } else {
-            NSDictionary *vipDic = _vipArray[indexPath.row];
+            NSDictionary *vipDic = _coachArray[indexPath.row];
             NSLog(@"vipName : %@", vipDic[@"name"]);
+            [self pushToCoachVCWithDic:vipDic];
         }
     }
+}
+
+- (void)pushToCoachVCWithDic:(NSDictionary *)coachDic{
+    FTCoachBean *coachBean = [FTCoachBean new];
+    [coachBean setWithDic:coachDic];
+    
+    FTOrderCoachViewController *orderCoachViewController = [FTOrderCoachViewController new];
+    orderCoachViewController.gymDetailBean = _gymDetailBean;
+    orderCoachViewController.coachBean = coachBean;
+    [self.navigationController pushViewController:orderCoachViewController animated:YES];
 }
 
 - (void)setCollectionView{
     
     //创建flowLayout
     UICollectionViewFlowLayout *flowLayout = [UICollectionViewFlowLayout new];
-    flowLayout.minimumLineSpacing = 15;//最小行间距
-    flowLayout.minimumInteritemSpacing = 20;//最小列间距
-    flowLayout.itemSize = CGSizeMake(40, 60);
+    flowLayout.minimumLineSpacing = minLineSpacing;//最小行间距
+    flowLayout.minimumInteritemSpacing = minInteritemSpacing;//最小列间距
+//    flowLayout.itemSize = CGSizeMake(40, 60);
+    flowLayout.itemSize = CGSizeMake(itemWidth, itemHeight);
     flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     _collectionView.collectionViewLayout = flowLayout;
     
-    //针对6以下进行适配
+    //针对320屏进行适配
     if (SCREEN_WIDTH == 320) {
         NSLog(@"苹果6以下");
         _collectionViewPaddingLeft.constant *= SCALE;
         _collectionViewPaddingRight.constant *= SCALE;
         
-        flowLayout.minimumLineSpacing = 15 * SCALE;//最小行间距
-        flowLayout.minimumInteritemSpacing = 20 * SCALE;//最小列间距
-        flowLayout.itemSize = CGSizeMake(40 * SCALE, 60 * SCALE);
+        flowLayout.minimumLineSpacing  *= SCALE;//最小行间距
+        flowLayout.minimumInteritemSpacing *= SCALE;//最小列间距
+        flowLayout.itemSize = CGSizeMake(itemWidth * SCALE, itemHeight * SCALE);
         flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
         _collectionView.collectionViewLayout = flowLayout;
     }
@@ -296,14 +419,24 @@
     
 }
 
+- (void)setGymSourceView{
+    _gymSourceView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymCourceViewNew" owner:nil options:nil]firstObject];
+    _gymSourceView.courseType = FTGymPublicCourseTypeForUser;
+    _gymSourceView.frame = _gymSourceViewContainerView.bounds;
+    _gymSourceView.delegate = self;
+    _gymSourceView.scrollDelegate = self;
+    [_gymSourceViewContainerView addSubview:_gymSourceView];
+    
+}
+
 - (void)updateCollectionView{
     
-    if (_vipArray.count > 6  && _displayAllVIP) {
+    if (_coachArray.count > itemsPerLine  && _displayAllVIP) {
         NSInteger line;
-        if ((_vipArray.count + 1) % 6 == 0) {//如果刚好被整出
-                line = (_vipArray.count + 1) / 6;//行数
+        if ((_coachArray.count + 1) % itemsPerLine == 0) {//如果刚好被整除
+                line = (_coachArray.count + 1) / itemsPerLine;//行数
         }else{//如果没有被整出
-            line = (_vipArray.count + 1) / 6 + 1;//行数
+            line = (_coachArray.count + 1) / itemsPerLine + 1;//行数
         }
         
         NSLog(@"line : %ld", (long)line);
@@ -311,9 +444,9 @@
         
         if (SCREEN_WIDTH == 320) {
             NSLog(@"SCREEN_WIDTH == 320");
-            _collectionContainerViewHeight.constant = 30 + 60 * line * SCALE + 15 * (line - 1) * SCALE;
+            _collectionContainerViewHeight.constant = 10 + 15 + itemHeight * line * SCALE + 15 * (line - 1) * SCALE;
         }else{
-            _collectionContainerViewHeight.constant = 30 + 60 * line + 15 * (line - 1);
+            _collectionContainerViewHeight.constant = 10 + 15 + itemHeight * line + 15 * (line - 1);
         }
         
         
@@ -321,9 +454,9 @@
         
         if (SCREEN_WIDTH == 320) {
             NSLog(@"SCREEN_WIDTH == 320");
-            _collectionContainerViewHeight.constant = 30 + 60 * SCALE;
+            _collectionContainerViewHeight.constant = 10 + 15 + itemHeight * SCALE;
         }else{
-            _collectionContainerViewHeight.constant = 90;
+            _collectionContainerViewHeight.constant = 10 + 15 +itemHeight;
         }
     }
     [_collectionView reloadData];
@@ -336,12 +469,12 @@
 
 //某组多少行
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    if (_vipArray) {
-        if(_vipArray.count > 6){
-            //如果源数据vip数量大于6，需要分行显示，则显示『更多』、『收起』项
-            return _vipArray.count + 1;
+    if (_coachArray) {
+        if(_coachArray.count > itemsPerLine){
+            //如果源数据vip数量大于itemsPerLine，需要分行显示，则显示『更多』、『收起』项
+            return _coachArray.count + 1;
         }else{
-            return _vipArray.count;
+            return _coachArray.count;
         }
     }else{
         return 0;
@@ -355,13 +488,13 @@
 //    NSLog(@"indexPath.row : %ld ", indexPath.row);
     
     if (_displayAllVIP) {//展示所有
-        if (_vipArray.count > 6 && indexPath.row == _vipArray.count) {//『收起』
+        if (_coachArray.count > itemsPerLine && indexPath.row == _coachArray.count) {//『收起』
             cell.headerImageView.image = [UIImage imageNamed:@"学员列表-收起"];
             cell.vipNameLabel.text = @"收起";
         }else{
-            NSDictionary *vipDic = _vipArray[indexPath.row];
+            NSDictionary *vipDic = _coachArray[indexPath.row];
 //            cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
-            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]];
+            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]placeholderImage:[UIImage imageNamed:@"头像-空"]];
             
             NSString *name = vipDic[@"name"];
             cell.vipNameLabel.text = name;
@@ -369,22 +502,22 @@
         
     } else {//只展示第一行
         
-        if (indexPath.row >= 5) {
-            if (_vipArray.count > 6) {
-                if (indexPath.row == 5) {
+        if (indexPath.row >= itemsPerLine - 1) {
+            if (_coachArray.count > itemsPerLine) {
+                if (indexPath.row == itemsPerLine - 1) {
                     cell.headerImageView.image = [UIImage imageNamed:@"学员列表-更多"];
                     cell.vipNameLabel.text = @"更多";
                 }
             }else{
-                NSDictionary *vipDic = _vipArray[indexPath.row];
+                NSDictionary *vipDic = _coachArray[indexPath.row];
 //                cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
-                [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]];
+                [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]placeholderImage:[UIImage imageNamed:@"头像-空"]];
                 cell.vipNameLabel.text = vipDic[@"name"];
             }
         }else{
-            NSDictionary *vipDic = _vipArray[indexPath.row];
+            NSDictionary *vipDic = _coachArray[indexPath.row];
 //            cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
-            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]];
+            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]placeholderImage:[UIImage imageNamed:@"头像-空"]];
             cell.vipNameLabel.text = vipDic[@"name"];
         }
 
@@ -394,24 +527,7 @@
     return cell;
 }
 
-// 设置webView
-- (void)setWebView{
-    
-    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49 - 64)];
-    _webView.delegate = self;
-    _webView.backgroundColor = [UIColor clearColor];
-    _webView.opaque = NO;
-    [self.view addSubview:_webView];
-    
-    _webUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/m/hall.html?gymId=%@",self.gymBean.gymId];
-    
-    NSLog(@"webview url：%@", _webUrlString);
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webUrlString]]];
-    [self.view sendSubviewToBack:_webView];
-    
-    [self startLoadingAnimation];
-    
-}
+
 
 #pragma mark - button response
 
@@ -419,10 +535,17 @@
 
     //    NSLog(@"查看更多评论");
     @try {
-    
+        
         FTGymCommentsViewController *gymCommentsVC = [[FTGymCommentsViewController alloc]init];
-        gymCommentsVC.title = @"评论列表";
-        gymCommentsVC.objId = self.gymBean.gymId;
+        gymCommentsVC.title = self.gymBean.gymName;//@"评论列表";
+        gymCommentsVC.objId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
+        
+        __weak typeof(self) weakself = self;
+        gymCommentsVC.freshBlock = ^(){
+            //更新评论数
+            weakself.commentCountLabel.text = [NSString stringWithFormat:@"%d人评价", ++weakself.gymDetailBean.commentcount];
+            [weakself loadGymDataFromServer];
+        };
         [self.navigationController pushViewController:gymCommentsVC animated:YES];
     
     } @catch (NSException *exception) {
@@ -463,7 +586,7 @@
 - (IBAction)shareButtonAction:(id)sender {
     FTCoachSelfCourseViewController *coachSelfCourseViewController = [FTCoachSelfCourseViewController new];
     [self.navigationController pushViewController:coachSelfCourseViewController animated:YES];
-    return;
+//    return;
     
     [MobClick event:@"videoPage_DetailPage_shareUp"];
     
@@ -563,8 +686,14 @@
 //    [self.navigationController pushViewController:commentVC animated:YES];
     
     FTGymCommentViewController *commentVC = [ FTGymCommentViewController new];
-    commentVC.objId = self.gymBean.gymId;
+    commentVC.objId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
     commentVC.title = self.gymBean.gymName;
+    
+    __weak typeof(self) weakself = self;
+    commentVC.freshBlock = ^(){
+        //更新评论数
+        weakself.commentCountLabel.text = [NSString stringWithFormat:@"%d人评价", ++weakself.gymDetailBean.commentcount];
+    };
 //    commentVC.delegate = self;
 //    commentVC.gymBean = self.gymBean;
     [self.navigationController pushViewController:commentVC animated:YES];
@@ -580,7 +709,7 @@
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
     NSString *userId = user.olduserid;
-    NSString *objId = _gymBean.gymId;
+    NSString *objId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = @"f-gym";
@@ -600,7 +729,49 @@
     }];
 }
 
+/**
+ *  获取时间段信息
+ */
+- (void)getTimeSection{
+    [NetWorking getGymTimeSlotsById:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSArray *array) {
+        _timeSectionsArray = array;
+        if (_timeSectionsArray && _timeSectionsArray.count > 0) {
+            //获取时间段信息后，根据内容多少设置tableviews的高度，再刷新一次tableview
+            _gymSourceView.timeSectionsArray = _timeSectionsArray;
+            _gymSourceView.tableViewsHeight.constant = 42 * _timeSectionsArray.count;
+            [self gettimeSectionsUsingInfo];
+        }
+        
+    }];
+}
 
+//获取场地使用信息
+- (void)gettimeSectionsUsingInfo{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *timestampString = [NSString stringWithFormat:@"%.0f", [[NSDate date]timeIntervalSince1970]];
+    
+    [NetWorking getGymSourceInfoById:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid]  andTimestamp:timestampString  andOption:^(NSArray *array) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        _placesUsingInfoDic = [NSMutableDictionary new];
+        if (array) {
+            for(NSDictionary *dic in array){
+                NSString *theDate = [NSString stringWithFormat:@"%@", dic[@"theDate"]];//周几
+                NSMutableArray *mArray = _placesUsingInfoDic[theDate];
+                if(!mArray){
+                    mArray = [NSMutableArray new];
+                    [_placesUsingInfoDic setValue:mArray forKey:theDate];
+                }
+                [mArray addObject:dic];
+            }
+            //获取场地使用信息后，刷新UI
+            _gymSourceView.placesUsingInfoDic = _placesUsingInfoDic;
+            [_gymSourceView reloadTableViews];
+        }else{
+//            [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"没有查询到"];
+            NSLog(@"没有获取到数据");
+        }
+    }];
+}
 
 //把点赞信息更新至服务器
 - (void)uploadVoteStatusToServer{
@@ -611,7 +782,7 @@
     NSString *urlString = [FTNetConfig host:Domain path:_hasVote ? AddVoteURL : DeleteVoteURL];
     
     NSString *userId = user.olduserid;
-    NSString *objId = self.gymBean.gymId;
+    NSString *objId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = @"v-gym";
@@ -658,7 +829,7 @@
     NSString *urlString = [FTNetConfig host:Domain path:self.hasAttention ? AddFollowURL : DeleteFollowURL];
     
     NSString *userId = user.olduserid;
-    NSString *objId = self.gymBean.gymId;;
+    NSString *objId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = @"f-gym";
@@ -778,6 +949,82 @@
     //设置循环次数。0表示不限制
     _loadingImageView.animationRepeatCount = 0;
     [_loadingImageView startAnimating];
+}
+
+- (void)courseClickedWithCell:(FTGymSourceTableViewCell *)courseCell andDay:(NSInteger)day andTimeSection:(NSString *) timeSection andDateString:(NSString *) dateString andTimeStamp:(NSString *)timeStamp{
+    NSLog(@"day : %ld, timeSection : %@ dateString : %@", day, timeSection, dateString);
+    
+    if (![FTUserTools getLocalUser]) {
+        NSLog(@"没有登录");
+        [self login];
+        return;
+    }
+    
+    if(_gymVIPType != FTGymVIPTypeYep){
+        FTPayForGymVIPViewController *payForGymVIPViewController = [[FTPayForGymVIPViewController alloc]init];
+        payForGymVIPViewController.gymDetailBean = _gymDetailBean;
+        payForGymVIPViewController.gymVIPType = _gymVIPType;
+        [self.navigationController pushViewController:payForGymVIPViewController animated:YES];
+        return;
+    }
+    
+    FTGymOrderCourseView *gymOrderCourseView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCourseView" owner:nil options:nil] firstObject];
+    gymOrderCourseView.courseType = FTOrderCourseTypeGym;
+    gymOrderCourseView.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
+    gymOrderCourseView.dateString = dateString;
+    gymOrderCourseView.dateTimeStamp = timeStamp;
+    
+    NSDictionary *courseDic = courseCell.courserCellDic;
+    NSString *webViewURL = courseDic[@"url"];
+    gymOrderCourseView.webViewURL = webViewURL;
+    
+    if (courseCell.hasOrder) {
+        NSLog(@"已经预约");
+        
+        NSDictionary *courseCellDic = courseCell.courserCellDic;
+        gymOrderCourseView.courserCellDic = courseCellDic;
+        
+        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+        gymOrderCourseView.delegate = self;
+        gymOrderCourseView.status = FTGymCourseStatusHasOrder;
+        [self.view addSubview:gymOrderCourseView];
+        
+    } else if (courseCell.canOrder) {
+        
+        
+        NSDictionary *courseCellDic = courseCell.courserCellDic;
+        gymOrderCourseView.courserCellDic = courseCellDic;
+        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+        gymOrderCourseView.delegate = self;
+        gymOrderCourseView.status = FTGymCourseStatusCanOrder;
+        [self.view addSubview:gymOrderCourseView];
+        NSLog(@"可以预约");
+        
+        
+    }else if (courseCell.isFull) {
+        
+        
+        NSDictionary *courseCellDic = courseCell.courserCellDic;
+        gymOrderCourseView.courserCellDic = courseCellDic;
+        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+        gymOrderCourseView.delegate = self;
+        gymOrderCourseView.status = FTGymCourseStatusIsFull;
+        [self.view addSubview:gymOrderCourseView];
+        NSLog(@"满员");
+    }else{
+        //不能预约（可能因为数据无效等原因）
+    }
+}
+
+-(void)scrollToBottom{
+//    UIView animation
+    _mainScrollView.contentOffset = CGPointMake(0, _mainScrollView.contentSize.height - _mainScrollView.height);
+}
+
+- (void)bookSuccess{
+    //预订成功后，刷新课程预订信息
+    [self gettimeSectionsUsingInfo];
+    [self getVIPInfo];
 }
 
 - (void)startLoadingAnimation{

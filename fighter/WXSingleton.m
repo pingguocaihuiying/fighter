@@ -134,10 +134,7 @@ static WXSingleton * wxSingleton = nil;
                     [NetWorking requestWeixinUserInfoWithToken:tokenDic[@"access_token"] openId:tokenDic[@"openid"] option:^(NSDictionary *userDict) {
                         
                         //从本地读取存储的用户信息
-                        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-                        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-                        
-                        
+                        FTUserBean *localUser = [FTUserBean loginUser];
                         localUser.wxopenId = userDict[@"openid"];
                         localUser.wxHeaderPic = userDict[@"headimgurl"];
                         localUser.wxName = userDict[@"nickname"];
@@ -176,22 +173,26 @@ static WXSingleton * wxSingleton = nil;
                                     NSString *message = (NSString *)(NSDictionary *)dict[@"message"];
                                     if (status == false) {
                                         NSLog(@"微信注册失败,message:%@", message);
-                                        //发送通知，告诉评论页面微信登录失败
-                                        [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"ERROR"];
+                                        // 发送微信登录失败通知
+                                        [FTNotificationTools postLoginErrorNoti:FTLoginTypeWeiXin];
+
                                         return ;
                                     }
                                     
                                     
                                     NSLog(@"微信注册成功,message:%@", message);
-                                    NSLog(@"dict:%@", dict);
+                                    SLog(@"dict:%@", dict);
 //                                    NSLog(@"微信登录信息:%@",dict[@"data"][@"user"]);
                                     NSDictionary *userDic = dict[@"data"][@"user"];
                                     FTUserBean *user = [FTUserBean new];
                                     [user setValuesForKeysWithDictionary:userDic];
                                     
-                                    user.corporationid = dict[@"data"][@"corporationid"];
+                                    if ([dict[@"data"][@"corporationid"] integerValue] > 0) {
+                                        user.corporationid = [NSString stringWithFormat:@"%ld",[dict[@"data"][@"corporationid"] integerValue]];
+                                    }
                                     user.identity = dict[@"data"][@"identity"];
                                     user.interestList = dict[@"data"][@"interestList"];
+                                    user.isGymUser = dict[@"data"][@"isGymUser"];
                                     
                                     NSString *corporationid =  [[NSString stringWithFormat:@"%ld",[dict[@"data"][@"corporationid"] integerValue]] copy];
                                     NSLog(@"corporationid:%@",corporationid);
@@ -224,11 +225,14 @@ static WXSingleton * wxSingleton = nil;
                                     [[NSUserDefaults standardUserDefaults]synchronize];
                                     
                                     //发送通知，告诉评论页面微信登录成功
-                                    [[NSNotificationCenter defaultCenter] postNotificationName:WXLoginResultNoti object:@"SUCESS"];
-                                    //                            [[NSNotificationCenter defaultCenter] postNotificationName:@"loginAction" object:nil];
+//                                    [[NSNotificationCenter defaultCenter] postNotificationName:WXLoginResultNoti object:@"SUCESS"];
+                                    [FTNotificationTools postLoginNoti:FTLoginTypeWeiXin];
+                                    return ;
                                 }else {
                                     
-                                    [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"ERROR"];
+                                    // 发送微信登录失败通知
+                                    [FTNotificationTools postLoginErrorNoti:FTLoginTypeWeiXin];
+//                                    [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"ERROR"];
                                     return ;
                                 }
                                 

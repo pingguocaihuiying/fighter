@@ -10,7 +10,6 @@
 
 #import <UIKit/UIKit.h>
 #import "FTBaseTableViewCell.h"
-#import "FTGymSourceView.h"
 
 @interface FTGymSourceTableViewCell : FTBaseTableViewCell
 

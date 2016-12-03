@@ -25,7 +25,12 @@
     
     _brief = [NSString stringWithFormat:@"%@", dic[@"brief"]];
     
-    _price = [NSString stringWithFormat:@"%@", dic[@"price"]];
+    if (dic[@"price"]) {
+        _price = [NSString stringWithFormat:@"%@", dic[@"price"]];
+    }else{
+        _price = @"0";
+    }
+    
     
     NSString *timeStampString = [NSString stringWithFormat:@"%@", dic[@"birthday"]];
     

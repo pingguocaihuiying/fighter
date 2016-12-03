@@ -240,7 +240,7 @@
     //设置返回按钮
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(popVC)];
     //把左边的返回按钮左移
-    //    [leftButton setImageInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
     UIBarButtonItem *confirmButton = [[UIBarButtonItem alloc]initWithTitle:@"确认合作" style:UIBarButtonItemStylePlain target:self action:@selector(confirmButtonClicked)];
@@ -264,7 +264,7 @@
     _selectedTimeSectionString = @"-1";
     
     _gymName = _gymBean.gymName;
-    _corporationid = _gymBean.corporationid;
+    _corporationid = [NSString stringWithFormat:@"%ld",_gymBean.corporationid];
     _gymServicePrice = @"998";
 }
 
@@ -272,7 +272,9 @@
  *  获取时间段信息
  */
 - (void)getTimeSlots{
-    [NetWorking getGymTimeSlotsById:_gymBean.corporationid andOption:^(NSArray *array) {
+    
+    NSString *corporationId = [NSString stringWithFormat:@"%ld",_gymBean.corporationid];
+    [NetWorking getGymTimeSlotsById:corporationId andOption:^(NSArray *array) {
         _timeSectionsArray = array;
         if (_timeSectionsArray && _timeSectionsArray.count > 0) {
             //获取时间段信息后，根据内容多少设置tableviews的高度，再刷新一次tableview
@@ -291,7 +293,9 @@
  *  获取拳馆信息
  */
 - (void)getGymInfo{
-    [NetWorking getGymInfoById:_gymBean.corporationid andOption:^(NSDictionary *dic) {
+    
+    NSString *corporationId = [NSString stringWithFormat:@"%ld",_gymBean.corporationid];
+    [NetWorking getGymInfoById:corporationId andOption:^(NSDictionary *dic) {
         _gymInfoDic = dic;
         if (_gymInfoDic && _gymInfoDic.count > 0) {
             [self setGymInfo];
@@ -304,7 +308,8 @@
 - (void)gettimeSectionsUsingInfo{
     _todayWeekday = [FTTools getWeekdayOfToday];//每次请求可用时间段时，也刷新今天是周几，避免跨天操作时出现选中日期的计算错误
     NSString *timestampString = [NSString stringWithFormat:@"%.0f", [[NSDate date]timeIntervalSince1970] + (_curWeekOffset * (7 * 24 * 60 * 60)) * 1000];
-    [NetWorking getGymPlaceUsingInfoById:_gymBean.corporationid andTimestamp:timestampString  andOption:^(NSArray *array) {
+    NSString *corporationId = [NSString stringWithFormat:@"%ld",_gymBean.corporationid];
+    [NetWorking getGymPlaceUsingInfoById:corporationId andTimestamp:timestampString  andOption:^(NSArray *array) {
         _placesUsingInfoDic = [NSMutableDictionary new];
         if (array) {
             for(NSDictionary *dic in array){

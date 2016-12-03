@@ -9,28 +9,29 @@
 #import <Foundation/Foundation.h>
 #import "FTMatchDetailBean.h"
 #import "FTMatchBean.h"
+#import "FTModuleBean.h"
 
 @interface NetWorking : NSObject
 
 #pragma mark - 封装请求  成员方法
 /*****************************      封装请求      ********************************/
 
-//get请求
-+ (void) getRequestWithUrl:(NSString *)urlString
-                parameters:(NSDictionary *)dic
-                    option:(void (^)(NSDictionary *dict))option;
-
-//post请求
-+ (void) postRequestWithUrl:(NSString *)urlString
-                 parameters:(NSDictionary *)dic
-                     option:(void (^)(NSDictionary *dict))option;
-
-
-//post请求上传二进制数据
-+ (void) postUploadDataWithURL:(NSString *)urlString
-                    parameters:(NSDictionary *)dic
-              appendParameters:(NSDictionary *)appendDic
-                        option:(void (^)(NSDictionary *dict))option;
+////get请求
+//+ (void) getRequestWithUrl:(NSString *)urlString
+//                parameters:(NSDictionary *)dic
+//                    option:(void (^)(NSDictionary *dict))option;
+//
+////post请求
+//+ (void) postRequestWithUrl:(NSString *)urlString
+//                 parameters:(NSDictionary *)dic
+//                     option:(void (^)(NSDictionary *dict))option;
+//
+//
+////post请求上传二进制数据
+//+ (void) postUploadDataWithURL:(NSString *)urlString
+//                    parameters:(NSDictionary *)dic
+//              appendParameters:(NSDictionary *)appendDic
+//                        option:(void (^)(NSDictionary *dict))option;
 
 #pragma mark - 封装请求  类方法
 //post请求
@@ -183,7 +184,7 @@
 //获取排行榜标签
 + (void) getRankLabels:(void (^)(NSDictionary *dict))option;
 
-#pragma mark - 视频
+#pragma mark - 个人主页
 //获取排行榜标签
 + (void) getVideos:(NSString *) urlString  option:(void (^)(NSDictionary *dict))option;
 
@@ -202,6 +203,15 @@
 //获取单个视频信息
 + (void)getVideoById:(NSString *)videoId andOption:(void (^)(NSArray *array))option;
 
+/**
+ 评价教练
+ */
++ (void) commentCoachByParamDic:(NSDictionary *) params option:(void (^)(NSDictionary *dict))option;
+
+/**
+ 查看教练是否已经被评价
+ */
++ (void) checkIsCommentCoachByCoachUserId:(NSString *) coachUserId  courseOnceId:(NSString *) courseOnceId option:(void (^)(NSDictionary *dict))option ;
 
 #pragma mark - 学拳
 // Get Coach List
@@ -209,6 +219,9 @@
 
 // Get Gym List
 + (void) getGymsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option;
+
+// Get Member Gym List
++ (void) getMemberGymsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option;
 
 // Get Gym Comment List
 + (void) getGymComments:(NSString *)objectId option:(void (^)(NSDictionary *dict))option;
@@ -234,7 +247,76 @@
  @param corporationid 拳馆id
  @param option  +记录json字典
  */
-+ (void) getCoachTeachRecordWithCorporationid:(NSString*)corporationid option:(void (^)(NSDictionary *dict))option;
++ (void) getCoachTeachRecordWithCorporationid:(NSString*)corporationid andCourseType:(NSString *)courseType option:(void (^)(NSDictionary *dict))option;
+
+
+
+#pragma mark - 训练
+/**
+ 查看教练授课记录
+ 
+ @param corporationid 拳馆id
+ @param option  授课记录json字典
+ @param courseType  课程类型，0：团课 2:私教
+ */
++ (void) getTraineeListWith:(NSDictionary *)dict  option:(void (^)(NSDictionary *dict))option;
+
+
+/**
+ 获取教练评论的内容，以及技能点信息
+
+ @param version 课程版本
+ @param option block
+ */
++ (void)getCourseCommentWithVersion:(NSString *)version andOption:(void (^)(NSDictionary *dic)) option;
+
+/**
+ 获取学员上课的历史记录
+
+ @param option 返回的json字典
+ */
++ (void)getUserCourseHistoryWithOption:(void (^)(NSDictionary *dic)) option;
+
+
+/**
+ 根据评论的版本号获取教练对用户的评分（及评论）
+ 
+ @param version 评论版本
+ @param option block
+ */
++ (void)getUserSkillsByVersion:(NSString *)version andOption:(void (^)(NSDictionary *dic)) option;
+
+
+/**
+ 个人主页 或 教练给学员评分 用到的
+ 获取用户技能属性的接口
+
+ @param corporationid 拳馆id
+ @param memberUserId 要获取的用户的id（oldUserId)
+ @param version 选填：技能版本
+ @param parent 选填：技能的parentid
+ @param option block
+ */
+
++ (void)getUserSkillsWithCorporationid:(NSString *)corporationid andMemberUserId:(NSString *)memberUserId andVersion:(NSString *)version andParent:(NSString *)parent andOption:(void (^)(NSDictionary *dic)) option;
+
+
+/**
+ 获取拳馆评分项子项最大数目限制
+ 
+ @param corporationId 拳馆id
+ @param option        返参数block
+ */
++ (void) getShouldEditSkillNumber:(NSString *)corporationId option:(void (^)(NSDictionary *dic)) option;
+
+
+/**
+ 上课评分
+ 
+ @param paramDic 评分参数
+ @param option   返参数block
+ */
++ (void) saveSkillVersion:(NSDictionary *)paramDic option:(void (^)(NSDictionary *dic)) option;
 
 #pragma mark - 约课
 //约课
@@ -363,4 +445,29 @@
 //查询当前用户是否是指定拳馆的会员
 + (void)getVIPInfoWithGymId:(NSString *) corporationID andOption:(void (^)(NSDictionary *dic))option;
 
+#pragma mark - 拳吧
+/**
+ 获取模块信息
+ 
+ @param option 回调的字典
+ */
++ (void)getBoxingBarSectionsWithOption:(void (^)(NSDictionary *dic)) option;
+
+
+/**
+ 关注、取消关注版块
+
+ @param moduleBean 版块bean
+ @param option 回调block
+ @param isFollow 关注（yes）、取消（no）
+ */
++ (void)changeModuleFollowStatusWithModuleBean:(FTModuleBean *)moduleBean andBlock:(void (^)(NSDictionary *dic))block andIsFollow:(BOOL) isFollow  andFollowId:(NSString *)followId;
+
+/**
+ 用户是否关注版块
+
+ @param moduleBean 版块
+ @param block block
+ */
++ (void)userWhetherFollowModule:(FTModuleBean *)moduleBean withBlock:(void (^)(NSDictionary *dic)) block;
 @end

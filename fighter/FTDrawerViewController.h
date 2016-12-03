@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "FTDynamicsDrawerViewController.h"
+#import "FTFightingViewController.h"
 
 @interface FTDrawerViewController : UIViewController < FTDynamicsTransDelegate >
 @property (nonatomic, weak) FTDynamicsDrawerViewController *dynamicsDrawerViewController;
@@ -51,6 +52,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *weichatLoginBtn;
 @property (weak, nonatomic) IBOutlet UILabel *tipLabel;
 
+@property (nonatomic, strong) FTFightingViewController *fightingVC;
+@property (nonatomic, copy) RankButtonBlock ranckButtonBlock;
 
 - (void) setHomeViewController ;
 

@@ -38,6 +38,11 @@
 #define Custom_Red [UIColor colorWithHex:0xbe1e1e]
 #define Custom_Red_Value 0xbe1e1e
 
+    //课程表”不可约“文字颜色
+#define Custom_Gray_Color [UIColor colorWithHex:0x505050]
+    //拳吧-版块列表，副标题颜色
+#define Sub_Title_Color [UIColor colorWithHex:0x8c8c8c]
+
 //导入一些工具类
 #import "UIColor+YBColorCategory.h"
 #import "MD5.h"
@@ -53,7 +58,7 @@
 #import "UIWindow+MBProgressHUD.h"
 #import "FTUserTools.h"//获取本地用户信息
 #import "RealReachability-umbrella.h"
-
+#import "FTNotificationTools.h" // 通知
 //导入配置信息类
 #import "FTNetConfig.h"
 #import "FTUserConfig.h"
@@ -86,7 +91,7 @@
 
 //已登陆的用户信息
 #define LoginUser @"loginUser"
-//showType区分正式版，和编辑预览版的字断
+//showType区分正式版，和编辑预览版的字段
 #define SHOWTYPE @"showType"
 
 //类别（综合格斗、拳击、散打等等
@@ -99,19 +104,19 @@
 #define WX_App_Secret @"cadaab54424da8be313935d91f8fbbf4"
 #define WXLoginSecret_Key @"quanjijia123456"
 
-// 通知
-#define WXPayResultNoti @"WXPayResultNoti"
-#define WXLoginResultNoti @"WXLoginResutlNoti"
-#define WXShareResultNoti @"WXShareResultNoti"
-#define QQShareResultNoti @"QQShareResultNoti"
-#define RechargeResultNoti @"RechargeOrCharge"
-#define RechargeMoneytNoti @"RechargeMoneytNoti"
-#define BookCoachSuccessNotification @"RechargeMoneytNoti"
-
-#define LoginNoti @"LoginNotifacation"
-#define QQShareResponse @"addShareResponse"
-#define TaskNotification @"taskNotification"
-#define EditNotification @"editNotification"
+//// 通知
+//#define WXPayResultNoti @"WXPayResultNoti"
+//#define WXLoginResultNoti @"WXLoginResutlNoti"
+//#define WXShareResultNoti @"WXShareResultNoti"
+//#define QQShareResultNoti @"QQShareResultNoti"
+//#define RechargeResultNoti @"RechargeOrCharge"
+//#define RechargeMoneytNoti @"RechargeMoneytNoti"
+//#define BookCoachSuccessNotification @"RechargeMoneytNoti"
+//
+//#define LoginNoti @"LoginNotifacation"
+//#define QQShareResponse @"addShareResponse"
+//#define TaskNotification @"taskNotification"
+//#define EditNotification @"editNotification"
 
 //微博相关
 #define WB_App_ID @"3097376602"
@@ -135,11 +140,20 @@
 //#define ShowType @"showType"
 
 typedef NS_ENUM(NSInteger, FTGymVIPType){
-    FTGymVIPTypeNope = -1,
-    FTGymVIPTypeApplying = 0,
-    FTGymVIPTypeYep = 1,
-    FTGymVIPTypeBefore = 2
+    FTGymVIPTypeNope = -1,//非会员
+    FTGymVIPTypeApplying = 0,//申请中
+    FTGymVIPTypeYep = 1,//是会员
+    FTGymVIPTypeBefore = 2//过期会员
 };
+
+
+#define COURSE_VERSION @"CourseVersion"//学员本地存储的历史课程版本号
+#define SKILL_VERSION @"SkillVersion"//本地的学员技能版本
+#define FATHER_SKILLS_ARRAY @"FatherSkillsArray"//用户母项技能列表
+#define CHILD_SKILLS_ARRAY @"ChildSkillsArray"//用户子项技能列表
+
+#define READ @"read"//已读
+#define UNREAD @"unread"//未读
 
 #endif /* PrefixHeader_pch */
 

@@ -143,6 +143,7 @@ static DBManager * _sharedDBManager = nil;
         BOOL res = [_dataBase executeUpdate:sql];
         if (!res) {
            NSLog(@"数据库%@表创建失败",tableName);
+            
         } else {
            
             NSLog(@"数据库%@表创建成功",tableName);
@@ -211,7 +212,7 @@ static DBManager * _sharedDBManager = nil;
 - (void) createLabelsTable {
     
     
-     NSString * sql = @"CREATE TABLE 'labels' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, 'item' TEXT, 'label' TEXT, 'type' INTEGER)";
+     NSString * sql = @"CREATE TABLE 'labels' ('id' INTEGER PRIMARY KEY  NOT NULL UNIQUE, 'item' TEXT, 'label' TEXT, 'type' INTEGER)";
     
     [self createTable:@"labels" sql:sql];
 }
@@ -262,7 +263,7 @@ static DBManager * _sharedDBManager = nil;
  */
 -(NSMutableArray *) searchLabel {
 
-    NSString *querySQL = @" SELECT distinct label  FROM labels";
+    NSString *querySQL = @" SELECT distinct label  FROM labels ORDER BY id";
     FMResultSet * rs = [_dataBase executeQuery:querySQL];
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:[rs columnCount]];
     
@@ -322,11 +323,31 @@ static DBManager * _sharedDBManager = nil;
  */
 - (void) createNewsTable {
     
-    NSString * sql = @"CREATE TABLE 'news' ('newsId' INTEGER PRIMARY KEY NOT NULL UNIQUE, 'author' TEXT, 'commentCount' INTEGER DEFAULT 0, 'img_big' TEXT, 'img_small_one' TEXT, 'img_small_three' TEXT, 'img_small_two' TEXT, 'layout' INTEGER, 'newsTime' TEXT, 'newsType' TEXT, 'summary' TEXT, 'title' TEXT, 'url' TEXT, 'voteCount' TEXT DEFAULT 0, 'isReader' BOOLEAN);";
+    
+    
+    NSString * sql = @"CREATE TABLE 'news' ('newsId' INTEGER PRIMARY KEY NOT NULL UNIQUE, 'author' TEXT, 'commentCount' INTEGER DEFAULT 0, 'img_big' TEXT, 'img_small_one' TEXT, 'img_small_three' TEXT, 'img_small_two' TEXT, 'layout' INTEGER, 'newsTime' TEXT,'onlineTime' TIMESTAMP, 'newsType' TEXT, 'summary' TEXT, 'title' TEXT, 'url' TEXT, 'voteCount' TEXT DEFAULT 0, 'isReader' BOOLEAN);";
     
     [self createTable:@"news" sql:sql];
 }
 
+
+/**
+ 更新news表，添加onlineTime字段
+ */
+- (void) alterNewsTable {
+    
+    // after version 1.9.0 add onlineTime column
+    NSString * sql = @"ALTER TABLE news  ADD COLUMN onlineTime  TEXT;";
+    FMResultSet * set = [_dataBase executeQuery:sql];
+    [set next];
+    NSInteger count = [set intForColumnIndex:0];
+    
+    if (!!count) {
+        NSLog(@"news表ALTER失败");
+    } else {
+        NSLog(@"news表ALTER成功");
+    }
+}
 
 /**
  * @brief 清除news表数据
@@ -366,7 +387,7 @@ static DBManager * _sharedDBManager = nil;
     NSNumber *voteCount = [NSNumber numberWithInteger:[dic[@"voteCount"] integerValue]];
     NSNumber *layout = [NSNumber numberWithInteger:[dic[@"layout"] integerValue]];
     NSString *newsTime = dic[@"newsTime"];
-    
+    NSNumber *onlineTime = [NSNumber numberWithInteger:[dic[@"onlineTime"] doubleValue]];
     
     //1.判断数据是否已读
     FMResultSet * set = [_dataBase executeQuery:@"select objId from readCashe where objId = ?  and type = 'news' ",idNum];
@@ -375,7 +396,7 @@ static DBManager * _sharedDBManager = nil;
     BOOL exist = [set intForColumnIndex:0] >0 ?YES:NO;;
     NSNumber *isReader = [NSNumber numberWithBool:exist];
     
-    [_dataBase executeUpdate:@"INSERT INTO news (newsId, author,img_big, img_small_one ,img_small_three,img_small_two, newsType,summary,url ,title ,commentCount , voteCount ,layout ,newsTime,isReader) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+    [_dataBase executeUpdate:@"INSERT INTO news (newsId, author,img_big, img_small_one ,img_small_three,img_small_two, newsType,summary,url ,title ,commentCount , voteCount ,layout ,newsTime,onlineTime,isReader) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
      idNum,
      author,
      img_big,
@@ -390,6 +411,7 @@ static DBManager * _sharedDBManager = nil;
      voteCount ,
      layout ,
      newsTime,
+     onlineTime,
      isReader
      ];
     
@@ -454,9 +476,9 @@ static DBManager * _sharedDBManager = nil;
     NSNumber *pageNum = [NSNumber numberWithInteger:currentPage*20];
     FMResultSet * rs;
     if (type == nil || [type isEqualToString:@"All"]  || [type isEqualToString:@"old"]) {
-        rs = [_dataBase executeQuery:@"SELECT *  FROM news where newsType != 'Hot'  ORDER BY newsId DESC limit ?,20 ;",pageNum];
+        rs = [_dataBase executeQuery:@"SELECT *  FROM news where newsType != 'Hot'  ORDER BY onlineTime DESC limit ?,20 ;",pageNum];
     }else {
-         rs = [_dataBase executeQuery:@" SELECT *  FROM news where newsType = ? ORDER BY newsId DESC limit ?,20 ;",type,pageNum];
+         rs = [_dataBase executeQuery:@" SELECT *  FROM news where newsType = ? ORDER BY onlineTime DESC limit ?,20 ;",type,pageNum];
     }
     
     
@@ -495,10 +517,10 @@ static DBManager * _sharedDBManager = nil;
     
     FMResultSet * rs;
     if (type == nil || [type isEqualToString:@"All"]  || [type isEqualToString:@"old"]) {
-        rs = [_dataBase executeQuery:@"SELECT *  FROM news where newsType != 'Hot'   ORDER BY newsId DESC;"];
+        rs = [_dataBase executeQuery:@"SELECT *  FROM news where newsType != 'Hot'   ORDER BY onlineTime DESC;"];
         
     }else {
-        rs = [_dataBase executeQuery:@" SELECT *  FROM news where newsType= ? ORDER BY newsId DESC;",type];
+        rs = [_dataBase executeQuery:@" SELECT *  FROM news where newsType= ? ORDER BY onlineTime DESC;",type];
     }
     
     
@@ -733,7 +755,7 @@ static DBManager * _sharedDBManager = nil;
  *
  */
 -(NSMutableArray *) searchArenasWithLabel:(NSString *) label  hotTag:(NSString *)hotTag {
-    
+    label = [label stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     FMResultSet * rs;
     
     if ([self isHot:hotTag]) {

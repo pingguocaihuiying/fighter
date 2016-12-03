@@ -81,6 +81,43 @@
     
     return labelNameCh;
 }
+
+
++ (NSString *)getChNameWithEnLabelName:(NSString *)labelNameEn{
+    NSString *labelNameCh = @"";
+    if ([labelNameEn isEqualToString:@"Boxing"]) {
+        labelNameCh = @"拳击";
+    }else if ([labelNameEn isEqualToString:@"MMA"]) {
+        labelNameCh = @"综合格斗";
+    }else if ([labelNameEn isEqualToString:@"ThaiBoxing"]) {
+        labelNameCh = @"泰拳";
+    }else if ([labelNameEn isEqualToString:@"Taekwondo"]) {
+        labelNameCh = @"跆拳道";
+    }else if ([labelNameEn isEqualToString:@"Judo"]) {
+        labelNameCh = @"柔道";
+    }else if ([labelNameEn isEqualToString:@"Wrestling"]) {
+        labelNameCh = @"摔跤";
+    }else if ([labelNameEn isEqualToString:@"Sumo"]) {
+        labelNameCh = @"相扑";
+    }else if ([labelNameEn isEqualToString:@"FemaleWrestling"]) {
+        labelNameCh = @"女子格斗";
+    }else if([labelNameEn isEqualToString:@"StreetFight"]){
+        labelNameCh = @"街斗";
+    }else if([labelNameEn isEqualToString:@"Others"]){
+        labelNameCh = @"其他";
+    }else if([labelNameEn isEqualToString:@"Train"]){
+        labelNameCh = @"训练";
+    }else if([labelNameEn isEqualToString:@"Match"]){
+        labelNameCh = @"比赛";
+    }else if([labelNameEn isEqualToString:@"News"]){
+        labelNameCh = @"新闻";
+    }else{
+        labelNameCh = labelNameEn;//如果没找到匹配的，原样返回
+    }
+    
+    return labelNameCh;
+}
+
 + (NSString *)fixStringForDate:(NSString *)timestampString{
     timestampString = [timestampString substringToIndex:timestampString.length - 3];
     NSTimeInterval timeInterval = [timestampString doubleValue];
@@ -384,6 +421,7 @@
     return result;
 }
 
+
 + (void)loginwithVC:(UIViewController *) vc{
     FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
     loginVC.title = @"登录";
@@ -449,8 +487,8 @@
 
 +(BOOL)hasLoginWithViewController:(UIViewController *) vc{
     BOOL hasLogin = NO;
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    FTUserBean *user = [FTUserBean loginUser];
     if (user) {
         hasLogin = YES;
     }else{

@@ -23,7 +23,7 @@
         image = [UIImage imageNamed:@"格斗标签-跆拳道"];
     }else if ([label isEqualToString:@"柔道"]) {
         image = [UIImage imageNamed:@"格斗标签-柔道"];
-    }else if ([label isEqualToString:@"摔跤(WWE)"]) {
+    }else if ([label isEqualToString:@"摔跤"]) {
         image = [UIImage imageNamed:@"格斗标签-摔跤"];
     }else if ([label isEqualToString:@"相扑"]) {
         image = [UIImage imageNamed:@"格斗标签-相扑"];
@@ -38,13 +38,15 @@
     }
     return image;
 }
+
+
 + (UIImage *) imageForENLabel:(NSString *)label {
     
     UIImage *image;
     if ([label isEqualToString:@"Boxing"]) {
         image = [UIImage imageNamed:@"格斗标签-拳击"];
     }else if ([label isEqualToString:@"MMA"]) {
-        image = [UIImage imageNamed:@"ThaiBoxing"];
+        image = [UIImage imageNamed:@"格斗标签-综合格斗"];
     }else if ([label isEqualToString:@"泰拳"]) {
         image = [UIImage imageNamed:@"格斗标签-泰拳"];
     }else if ([label isEqualToString:@"Taekwondo"]) {

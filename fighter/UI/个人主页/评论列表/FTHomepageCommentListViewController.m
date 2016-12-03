@@ -38,6 +38,9 @@
 }
 
 - (void)setSubviews{
+    
+    [self.navigationController setNavigationBarHidden:NO];
+    
     //设置返回按钮
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(popVC)];
     self.navigationItem.leftBarButtonItem = leftButton;
@@ -95,8 +98,8 @@
     NSLog(@"commentViewClicke");
     
     //要先登录才能操作
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+   
+    FTUserBean *localUser = [FTUserBean loginUser];
     if (!localUser) {
         [self login];
     }else{

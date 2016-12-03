@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTPostListViewController">
+            <connections>
+                <outlet property="followButton" destination="c5k-Lp-0Dh" id="nWJ-1q-Xor"/>
+                <outlet property="imageView" destination="UxD-co-xVm" id="qYU-KI-XPz"/>
+                <outlet property="mainView" destination="TOf-sP-hrV" id="Q4t-hm-Ct1"/>
+                <outlet property="sectionDescLabel" destination="ZGb-CL-Deb" id="O0q-Jd-7Xu"/>
+                <outlet property="sectionNameLabel" destination="gJp-rB-JOQ" id="TF2-Ux-5pA"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fc8-vu-OBi">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="144"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="小占位图" translatesAutoresizingMaskIntoConstraints="NO" id="UxD-co-xVm">
+                            <rect key="frame" x="231" y="0.0" width="144" height="144"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="144" id="Ltb-aB-vhL"/>
+                                <constraint firstAttribute="height" constant="144" id="gLE-qV-IeV"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="康纳·麦格雷戈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJp-rB-JOQ">
+                            <rect key="frame" x="15" y="20" width="206" height="18"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="18" id="mOj-iE-R2t"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c5k-Lp-0Dh">
+                            <rect key="frame" x="15" y="105" width="80" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="24" id="Hes-ct-G97"/>
+                                <constraint firstAttribute="width" constant="80" id="buh-nv-6jy"/>
+                            </constraints>
+                            <state key="normal" image="加关注"/>
+                            <state key="selected" image="加关注pre"/>
+                            <connections>
+                                <action selector="followButtonClicked:" destination="-1" eventType="touchUpInside" id="xjn-9W-Sgk"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1988年出生于德莱家族，塞恩·图哈特，2012年CWFC轻量级双料冠军。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGb-CL-Deb">
+                            <rect key="frame" x="15" y="48" width="206" height="45"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="c5k-Lp-0Dh" firstAttribute="top" secondItem="ZGb-CL-Deb" secondAttribute="bottom" constant="12" id="7uW-0s-WDf"/>
+                        <constraint firstItem="c5k-Lp-0Dh" firstAttribute="leading" secondItem="fc8-vu-OBi" secondAttribute="leading" constant="15" id="BrB-8e-xCQ"/>
+                        <constraint firstItem="UxD-co-xVm" firstAttribute="leading" secondItem="gJp-rB-JOQ" secondAttribute="trailing" constant="10" id="Jan-V1-lV3"/>
+                        <constraint firstItem="UxD-co-xVm" firstAttribute="leading" secondItem="ZGb-CL-Deb" secondAttribute="trailing" constant="10" id="MKe-6h-lzg"/>
+                        <constraint firstItem="ZGb-CL-Deb" firstAttribute="top" secondItem="gJp-rB-JOQ" secondAttribute="bottom" constant="10" id="UBF-BX-AyG"/>
+                        <constraint firstAttribute="height" constant="144" id="VAi-hv-CGB"/>
+                        <constraint firstAttribute="trailing" secondItem="UxD-co-xVm" secondAttribute="trailing" id="YFf-ur-p5R"/>
+                        <constraint firstItem="gJp-rB-JOQ" firstAttribute="leading" secondItem="fc8-vu-OBi" secondAttribute="leading" constant="15" id="gab-Sx-tAS"/>
+                        <constraint firstItem="gJp-rB-JOQ" firstAttribute="top" secondItem="fc8-vu-OBi" secondAttribute="top" constant="20" id="oFB-SL-cEu"/>
+                        <constraint firstItem="UxD-co-xVm" firstAttribute="top" secondItem="fc8-vu-OBi" secondAttribute="top" id="odJ-qo-3cx"/>
+                        <constraint firstAttribute="bottom" secondItem="c5k-Lp-0Dh" secondAttribute="bottom" constant="15" id="rxl-1B-bFg"/>
+                        <constraint firstItem="ZGb-CL-Deb" firstAttribute="leading" secondItem="fc8-vu-OBi" secondAttribute="leading" constant="15" id="wPn-oa-IMe"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TOf-sP-hrV" userLabel="mainView">
+                    <rect key="frame" x="0.0" y="154" width="375" height="513"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fc8-vu-OBi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ELz-LV-WMZ"/>
+                <constraint firstItem="fc8-vu-OBi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="MaZ-Ab-QCu"/>
+                <constraint firstAttribute="trailing" secondItem="fc8-vu-OBi" secondAttribute="trailing" id="VLq-ki-Pmd"/>
+                <constraint firstItem="TOf-sP-hrV" firstAttribute="top" secondItem="fc8-vu-OBi" secondAttribute="bottom" constant="10" id="hTp-ft-6l8"/>
+                <constraint firstItem="TOf-sP-hrV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="sHt-6P-Vuo"/>
+                <constraint firstAttribute="bottom" secondItem="TOf-sP-hrV" secondAttribute="bottom" id="wou-wz-dk3"/>
+                <constraint firstAttribute="trailing" secondItem="TOf-sP-hrV" secondAttribute="trailing" id="yAR-g3-azY"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="加关注" width="80" height="24"/>
+        <image name="加关注pre" width="80" height="24"/>
+        <image name="小占位图" width="40" height="40"/>
+    </resources>
+</document>

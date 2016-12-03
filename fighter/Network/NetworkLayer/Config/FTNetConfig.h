@@ -145,6 +145,8 @@ extern NSString *const AddArenaViewCountCountURL;
 //获取个人主页用户信息
 extern NSString *const GetHomepageUserInfo;
 
+extern NSString *const GetUserSkillsByVersion;//api/skillversions/getUserSkillVersions.do
+
 
 //收藏
 extern NSString * const AddStarCheckKey;
@@ -173,6 +175,12 @@ extern NSString * const GetVideoByIdURL;
 
 
 #pragma mark - 学拳
+
+//获取用户历史课程
+extern NSString *const GetUserCourseHistoryURL;
+extern NSString *const GetUserSkillsURL;
+extern NSString *const GetUserSkillsCheckSign;
+
 // coach 教练
 extern NSString * const GetCoachListURL;
 extern NSString * const GetCoachByIdURL;
@@ -180,11 +188,18 @@ extern NSString * const ValidCheckCode ;
 
 // gym 拳馆
 extern NSString * const GetGymListURL;
+extern NSString * const GetMemberGymURL;
 extern NSString * const GetGymListForArenaURL;
 extern NSString * const GetGymByIdURL;
 extern NSString * const GetGymPhotosByUsers;//获取用户拍摄的拳馆照片
 extern NSString * const BecomeGymMenberShipURL;
 extern NSString * const GetCoachTeachRecord;
+
+#pragma mark - 训练
+extern NSString * const GetTraineeListURL; //获取课程学员列表
+extern NSString * const GetTraineeGradeVersionURL;
+extern NSString * const GetTraineeShouldGradeNumberURL;
+extern NSString * const SaveSkillVersionURL;
 
 #pragma mark - 新格斗场
 extern NSString *const SaveCourseBookCheckSign;//约课ChangeCourseStatusCheckSign
@@ -230,6 +245,12 @@ extern NSString *const FollowURL;
 //取消关注
 extern NSString *const CancelFollowURL;
 
+#pragma mark - 个人主页
+// 个人主页评价教练接口
+extern NSString *const CommentCoachURL;
+// 查看教练是否评价接口
+extern NSString *const CheckIsCommentCoachURL;
+
 #pragma mark - 充值、购买、积分
 // 查询余额接口
 extern NSString * const QueryMoneyURL;
@@ -260,8 +281,32 @@ extern NSString * const DuiBaChargeURL ;
 // 兑吧确定扣除积分接口
 extern NSString * const DuiBaCheckCharegeURL ;
 
-// 商城首页
+// 商城首页-已登录
 extern NSString * const ShopURL;
+// 商城首页-未登录
+extern NSString * const ShopNewURL;
 // 订单页
 extern NSString * const ShopOrderURL;
 
+#pragma mark 拳吧
+
+/*
+ * url
+ */
+
+//获取版块
+extern NSString *const BoxingBarSectionURL;
+//查询用户是否关注某个版块
+extern NSString *const UserWhetherFollowModuleURL;
+//关注版块
+extern NSString *const FollowModuleURL;
+//取消关注版块
+extern NSString *const UnFollowModuleURL;
+
+/*
+ * checkSign
+ */
+//关注版块校验码
+extern NSString *const FollowModuleCheckSign;
+//取消关注版块校验码
+extern NSString *const UnFollowModuleCheckSign;

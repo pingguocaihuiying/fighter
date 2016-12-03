@@ -24,7 +24,7 @@ PODS:
   - HappyDNS (0.3.5)
   - Masonry (1.0.1)
   - MBProgressHUD (0.9.2)
-  - MJRefresh (3.1.0)
+  - MJRefresh (3.1.12)
   - OpenSSL-for-iOS (1.0.2.d.1)
   - pili-librtmp (1.0.2)
   - PLCameraStreamingKit (1.7.1):
@@ -67,7 +67,7 @@ DEPENDENCIES:
   - GTMBase64 (~> 1.0.0)
   - Masonry (~> 1.0.1)
   - MBProgressHUD (~> 0.9.2)
-  - MJRefresh (~> 3.1.0)
+  - MJRefresh (~> 3.1.12)
   - OpenSSL-for-iOS (~> 1.0.2.d.1)
   - PLCameraStreamingKit (~> 1.7.1)
   - PPiAwesomeButton (~> 1.5.2)
@@ -99,7 +99,7 @@ SPEC CHECKSUMS:
   HappyDNS: 6f8cf46fa7c0b98a6591fe8ecb2e08d9907a6e8b
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
-  MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   OpenSSL-for-iOS: d7a30add88a1969b052135adbe48452af231ed32
   pili-librtmp: 97dc6774ac4ebb9935f04d5f35f3f6d8c4a4f37c
   PLCameraStreamingKit: e67cc80087af50278ce9af3ae93fc54466fe71e0
@@ -114,6 +114,6 @@ SPEC CHECKSUMS:
   WeiboSDK: bceab625ec59b7039ba721cc4ba9f5868804f63e
   Weixin: 032f4b1def7c7c3d7535809ba25107d5cdc9fccd
 
-PODFILE CHECKSUM: fea4b9137a94ee716004791ba43cbe6b38cad2c8
+PODFILE CHECKSUM: 0920bed19427286524c46b140fa4ff49e6557c62
 
 COCOAPODS: 1.0.1

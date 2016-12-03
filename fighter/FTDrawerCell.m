@@ -11,6 +11,7 @@
 @implementation FTDrawerCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     [self setBackgroundColor:[UIColor clearColor]];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.cellTitle.textColor = [UIColor whiteColor];

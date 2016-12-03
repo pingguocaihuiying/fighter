@@ -54,21 +54,31 @@
     
     // Do any additional setup after loading the view from its nib.
     
+    [self setNotification];
     [self initSubviews];
 }
 
-- (void) viewDidAppear:(BOOL)animated {
-    
-    //添加监听器，监听login
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateResponse:) name:@"loginAction" object:nil];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+- (void) dealloc {
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - 初始化
+
+- (void) setNotification {
+
+    //添加监听器，监听login
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateResponse:) name:@"loginAction" object:nil];
+    
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showNavigationBar:) name:ShowHomePageNavNoti object:nil];
+}
+
 
 - (void) initSubviews {
     
@@ -79,35 +89,48 @@
 }
 
 - (void) initNavigationBar {
-    
-    //设置左侧按钮
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
-                                   initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                   style:UIBarButtonItemStyleDone
-                                   target:self
-                                   action:@selector(backBtnAction:)];
-    //把左边的返回按钮左移
-    [leftButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    self.navigationItem.leftBarButtonItem = leftButton;
 
+    [self.navigationController setNavigationBarHidden:NO];
+    
+    if ([_navigationSkipType isEqualToString:@"PRESENT"]) {
+        //设置左侧按钮
+        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
+                                       initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-取消"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                       style:UIBarButtonItemStyleDone
+                                       target:self
+                                       action:@selector(dismissBtnAction:)];
+        //把左边的返回按钮左移
+        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+        self.navigationItem.leftBarButtonItem = leftButton;
+    }else {
+        //设置左侧按钮
+        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
+                                       initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                       style:UIBarButtonItemStyleDone
+                                       target:self
+                                       action:@selector(popBtnAction:)];
+        //把左边的返回按钮左移
+        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+        self.navigationItem.leftBarButtonItem = leftButton;
+    }
+    
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     if (localUser.tel.length > 0) {
         return ;
     }
-
+    
     //导航栏右侧按钮,绑定手机号
     UIButton *bindingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [bindingBtn setTitle:@"确定" forState:UIControlStateNormal];
     [bindingBtn setBounds:CGRectMake(0, 0, 50, 14)];
     [bindingBtn setTitleColor:[UIColor colorWithHex:0xb4b4b4] forState:UIControlStateNormal];
     [bindingBtn addTarget:self action:@selector(bindingPhone:) forControlEvents:UIControlEventTouchUpInside];
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:bindingBtn];
     
 }
+
 
 - (void) initTableView {
 
@@ -171,8 +194,7 @@
                                  [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"绑定手机成功"];
                                  
                                  //从本地读取存储的用户信息
-                                 NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-                                 FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+                                 FTUserBean *localUser = [FTUserBean loginUser];
                                  localUser.tel = cell.phoneTextField.text;
                                  
                                  //更新本地数据
@@ -284,7 +306,6 @@
 }
 
 #pragma mark - 认证拳手
-
 - (void) authenticationBtn:(id) sender {
 
     FTAuthenticationView *authenticationView = [[FTAuthenticationView alloc] init];
@@ -295,22 +316,37 @@
 
 #pragma mark - response
 
-//监听器事件
-- (void) updateResponse:(id) sender {
+- (void) popBtnAction:(id) sender {
     
-    [self.tableView reloadData];
+    [[NSNotificationCenter defaultCenter] postNotificationName:EditNotification object:nil];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
-- (void) backBtnAction:(id) sender {
-
+- (void) dismissBtnAction:(id) sender {
+    
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         
         [[NSNotificationCenter defaultCenter] postNotificationName:EditNotification object:nil];
         
     }];
     
-    
 }
+
+
+//监听器事件
+- (void) updateResponse:(id) sender {
+    
+    [self.tableView reloadData];
+}
+
+//- (void) showNavigationBar:(NSNotification *)noti {
+//    
+//    [self.navigationController.navigationBar setHidden:NO];
+//}
+
+
 
 - (void)avatarBtnAction:(id)sender {
     
@@ -385,8 +421,7 @@
 - (void) tapAction:(UIGestureRecognizer *)recognizer {
 
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     if (localUser.tel.length == 0) {
         NSIndexPath *textFieldIndexPath = [NSIndexPath indexPathForRow:0 inSection:3];
@@ -442,8 +477,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     if (localUser.tel.length > 0) {
         return 4;
     }
@@ -545,8 +579,7 @@
 //    }
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     if (indexPath.section == 0) {
         FTAvatarCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AvatarCell"];
@@ -688,10 +721,8 @@
     NSLog(@"1234567890");
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
 
-    
     if (localUser.tel.length == 0) {
         NSIndexPath *textFieldIndexPath = [NSIndexPath indexPathForRow:0 inSection:3];
         __weak FTPhoneCheckCell *textFieldCell = [self.tableView cellForRowAtIndexPath:textFieldIndexPath];
@@ -977,8 +1008,7 @@
                                   
                                   
                                   //从本地读取存储的用户信息
-                                  NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-                                  FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+                                  FTUserBean *localUser = [FTUserBean loginUser];
                                   localUser.headpic = dict[@"data"];
                                   
                                   //将用户信息保存在本地

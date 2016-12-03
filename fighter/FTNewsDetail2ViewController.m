@@ -50,8 +50,9 @@
     self.navigationController.navigationBarHidden = NO;
 //    self.navigationController.tabBarController.tabBar.hidden = YES;
     
-    //注册通知，接收微信登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginResponse:) name:WXLoginResultNoti object:nil];
+    //注册通知，接收登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -112,7 +113,7 @@
     //设置返回按钮
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(popVC)];
     //把左边的返回按钮左移
-//    [leftButton setImageInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithTitle:@"转发" style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonClicked)];
@@ -205,9 +206,8 @@
     //友盟分享事件统计
     [MobClick event:@"newsPage_DetailPage_share"];
    
-    
     NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-news",_newsBean.newsId];
-    _webUrlString = [@"http://www.gogogofight.com/page/news_page.html?" stringByAppendingString:str];
+    _webUrlString = [@"http://www.gogogofight.com/page/v2/news_page.html?" stringByAppendingString:str];
     
     FTShareView *shareView = [FTShareView new];
     [shareView setUrl:_webUrlString];
@@ -385,14 +385,18 @@
     return outputStr;
 }
 
-- (void)wxLoginResponse:(NSNotification *)noti{
-    NSString *msg = [noti object];
-    if ([msg isEqualToString:@"SUCESS"]) {
-        [self showHUDWithMessage:@"微信登录成功，可以评论或点赞了"];
-    }else if ([msg isEqualToString:@"ERROR"]){
-        [self showHUDWithMessage:@"微信登录失败"];
+
+// 登录响应
+- (void) loginCallBack:(NSNotification *)noti {
+    
+    NSDictionary *userInfo = noti.userInfo;
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
+         [self.view showMessage:@"微信登录成功，可以评论或点赞了"];
+    }else {
+        [self.view showMessage:@"登录失败"];
     }
 }
+
 
 - (void)pushToCommentVC{
     

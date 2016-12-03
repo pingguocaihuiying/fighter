@@ -10,10 +10,12 @@
 
 #import "FTBaseViewController.h"
 #import "FTGymBean.h"
+#import "FTGymDetailBean.h"
 
 @interface FTGymDetailWebViewController : FTBaseViewController
 
 @property (nonatomic ,strong) FTGymBean *gymBean;
+@property (nonatomic, strong) FTGymDetailBean *gymDetailBean;//拳馆详情bean
 
 // bottom view
 @property (weak, nonatomic) IBOutlet UIView *focusView; //关注

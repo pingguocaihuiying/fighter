@@ -20,5 +20,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *authorIdentifierImageView;
 @property (weak, nonatomic) IBOutlet UILabel *likeCountLabel;
+@property (strong, nonatomic) IBOutlet UILabel *kindLabel;
 
 @end

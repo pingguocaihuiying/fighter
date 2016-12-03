@@ -47,8 +47,7 @@
     [self.phoneLabel setTextColor:[UIColor colorWithHex:0xb4b4b4]];
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     if (localUser.tel.length > 0) {
         [self.phoneLabel setText:localUser.tel];
@@ -70,8 +69,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //1.首先验证是否已经绑定过手机
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     if (localUser.tel.length > 0) {//2.1 已经绑定过手机的用户：直接修改绑定手机
         

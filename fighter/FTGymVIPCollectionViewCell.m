@@ -32,7 +32,6 @@
         _headerBGWidth.constant *= SCALE;
         _nameLabelTopHeight.constant *= SCALE;
         
-        _headerImageView.layer.cornerRadius = 19 * SCALE;
     }
 }
 

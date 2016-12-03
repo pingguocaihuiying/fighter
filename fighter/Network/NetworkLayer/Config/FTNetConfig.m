@@ -29,6 +29,7 @@
     return showType;
 }
 
+
 + (void)changePreviewVersion{
     
     NSString *showType = [FTNetConfig showType];
@@ -42,17 +43,13 @@
     [[NSUserDefaults standardUserDefaults]synchronize];
     NSLog(@"已切换版本，当前showType:%@", [FTNetConfig showType]);
 }
-@end
 
-
-/** 废弃的后台地址 **/
-//NSString * const Domain = @"http://www.loufang.studio/pugilist_adminTest";//测试环境
-//NSString * const Domain = @"http://www.loufang.studio/pugilist_admin";//生产环境
-//  http://www.gogogofight.com/
 
 /** 可用的后台地址 **/
 NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin";//生产环境
+//NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin_test";//测试环境
 //NSString * const Domain = @"http://192.168.85.45/pugilist_admin";//内网测试环境
+
 //NSString * const Domain = @"http://10.11.1.117/pugilist_admin";//何后台开发环境
 //NSString * const Domain = @"http://10.11.1.49/pugilist_admin";//余彧后台开发环境
 //获取新闻192.168.85.45
@@ -181,7 +178,7 @@ NSString * const IsValidatePhone =  @"/api/newuser/validatePhone.do";
 NSString * const GetRankListURL = @"/api/ranking/list.do";//排行榜
 NSString * const GetRankSearchItemURL = @"/api/ranking/getRankSearchItems.do";//排行帅选项
 NSString * const GetHomepageUserInfo = @"/api/user/read.do";
-
+NSString *const GetUserSkillsByVersion = @"/api/skillversions/getUserSkillVersions.do";
 
 //获取评论
 NSString * const GetCommentsURL =  @"/api/comment/listComment.do";
@@ -216,6 +213,10 @@ NSString * const DeleteStarCheckKey =  @"gedoujia1ggghfdjskfgl1250";
 NSString * const NewPostCheckKey =  @"gedoujia1gdshjjgfkd52261225550";
 
 #pragma mark - 学拳
+
+NSString *const GetUserCourseHistoryURL = @"/api/skillversions/getUserCourseRecord.do";
+NSString *const GetUserSkillsURL = @"/api/gradedetail/getVersions.do";
+NSString *const GetUserSkillsCheckSign = @"gedoujihtgfsyh543";
 // coach
 NSString * const GetCoachListURL = @"/api/coach/list.do";
 NSString * const GetCoachByIdURL = @"/api/coach/{id}.do";
@@ -223,13 +224,19 @@ NSString * const ValidCheckCode = @"/api/user/save$checkPhoneCode.do";
 
 // gym 拳馆
 NSString * const GetGymListURL = @"/api/gym/getGym.do";
+NSString * const GetMemberGymURL = @"/api/gym/getGymByMember.do"; // 获取会员拳馆
 NSString * const GetGymListForArenaURL = @"/api/match/getGyms.do";
 NSString * const GetGymByIdURL = @"/api/gym/getVideosById.do";
 NSString * const GetGymPhotosByUsers = @"/api/gym/commentAttach.do";//获取用户拍摄的拳馆照片
 NSString * const BecomeGymMenberShipURL = @"/api/gymmenbership/save$GymMenberShip.do";
 
-
 NSString * const GetCoachTeachRecord = @"/api/coursebook/get$CourseHistory.do";
+
+#pragma mark - 训练
+NSString * const GetTraineeListURL = @"/api/coursebook/findCourseMember.do"; //获取课程学员列表
+NSString * const GetTraineeGradeVersionURL = @"/api/gradedetail/get$Versions.do"; //获取学员技能点最新版本
+NSString * const GetTraineeShouldGradeNumberURL = @"/api/base/readField.do";//获取当前课程可评价子项数目
+NSString * const SaveSkillVersionURL = @"/api/skillversions/save$SkillVersions.do";// 上课评分
 #pragma mark - 新格斗场
 NSString * const GetGymTimeSlotsByIdURL = @"/api/place/listTime.do";
 NSString *const GetGymVIPInfoURL = @"/api/gymmenbership/find.do";//
@@ -249,6 +256,7 @@ NSString *const SaveCourseBookCheckSign = @"gedoujiaghdrfskflges2gfd";
 NSString *const ChangeCourseStatusCheckSign = @"gedoujiajhgfdsh5826fds";
 NSString *const DeleteCourseBookCheckSign = @"gedoujiajhjgfdlh25gfd";
 
+
 //迎战or拒战
 NSString *const ResponseToMatchURL = @"/api/match/save$mc.do";
 //微信支付
@@ -257,6 +265,12 @@ NSString *const WXPayURL = @"/api/pl/add$pl.do";
 NSString *const GetWXPayStatus = @"/api/pl/get$WxPaySta.do";
 //拳馆详细信息
 NSString *const GetGymDetailURL = @"/api/match/%@.do";
+
+#pragma mark - 个人主页
+// 个人主页评价教练接口
+NSString *const CommentCoachURL = @"/api/coacheval/save$CoachEval.do";
+// 查看教练是否评价接口
+NSString *const CheckIsCommentCoachURL = @"/api/coacheval/find.do";
 
 #pragma mark - 充值、购买、积分
 // 查询余额接口
@@ -289,6 +303,19 @@ NSString * const DuiBaChargeURL = @"/api/duiba/exchangeShop.do";
 NSString * const DuiBaCheckCharegeURL = @"/api/duiba/exchangeShopStates.do";
 
 NSString * const ShopURL = @"/shop/index.html";
+NSString * const ShopNewURL = @"/shopNew/index.html";
 NSString * const ShopOrderURL = @"/shop/order.html";
 
+#pragma mark 拳吧
+// URL
+NSString *const BoxingBarSectionURL = @"/api/damageplate/list.do";
+NSString *const UserWhetherFollowModuleURL = @"/api/damageplatefollow/find.do";
+NSString *const FollowModuleURL = @"/api/damageplatefollow/save$DamagePlateFollow.do";
+NSString *const UnFollowModuleURL = @"/api/damageplatefollow/delete$DamagePlateFollow.do";
+
+//校验码
+NSString *const FollowModuleCheckSign = @"gedoujihgf226g66";
+NSString *const UnFollowModuleCheckSign = @"gedoujihghdtfsh254";
+
+@end
 

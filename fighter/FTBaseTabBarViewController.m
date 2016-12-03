@@ -19,17 +19,27 @@
 #import "NSDate+TaskDate.h"
 #import "FTPracticeViewController.h"
 #import "FTCoachSelfCourseViewController.h"
+#import "FTFightingViewController.h"
+#import "FTNavigationBar.h"
+
 @interface FTBaseTabBarViewController () <UITabBarControllerDelegate>
 
-@property (nonatomic, strong) UIButton *avatarBtn;
+@property (nonatomic, strong) UIButton *avatarButton;
 
-@property (nonatomic, strong) UIButton *messageBtn;
+@property (nonatomic, strong) UIButton *taskButton;
 
-@property (nonatomic, strong) UIButton *searchBtn;
+@property (nonatomic, strong) UIBarButtonItem *avatarButtonItem;
 
-@property (nonatomic, strong) UIButton *taskBtn;
+@property (nonatomic, strong) UIBarButtonItem *messageButtonItem;
+
+@property (nonatomic, strong) UIBarButtonItem *searchButtonItem;
+
+@property (nonatomic, strong) UIBarButtonItem *taskButtonItem;
+
+@property (nonatomic, strong) UIBarButtonItem *shopButtonItem;
 
 @property (nonatomic, strong) UILabel *titleLabel;
+
 
 @end
 
@@ -41,28 +51,45 @@
     [self setNotification];
     
     [self setNavigationbar];
-    
-//    [self loadAvatar];
-    
-    
+
     self.delegate = self;
-    
-    
-//    //  导航栏半透明属性设置为NO,阻止导航栏遮挡view
-//    self.navigationController.navigationBar.translucent = NO;
-//    UINavigationController *navigationVC = self.navigationController;
-    
 }
 
 
 - (void) viewWillAppear:(BOOL)animated {
 
     [self.openSliderDelegate openSlider];
+    
+    if (self.selectedIndex == 1) {
+        
+         [self showRankButton];
+    }
+    
+    // 个人主页隐藏导航栏
+    if (self.selectedIndex == 4) {
+        [self.navigationController setNavigationBarHidden:YES];
+    }else {
+        [self.navigationController setNavigationBarHidden:NO];
+    }
+    
+    // 显示会员拳馆
+    if (self.selectedIndex == 2) {
+        [FTNotificationTools postShowMembershipGymsNoti];
+    }
+    
 }
+
 
 - (void) viewWillDisappear:(BOOL)animated {
     
     [self.openSliderDelegate closeSlider];
+    
+    if (self.selectedIndex == 1) {
+        
+        [self hideRankButton];
+    }
+    
+    [self.navigationController setNavigationBarHidden:NO];
 }
 
 
@@ -75,11 +102,8 @@
 
 - (void) setNotification {
 
-    //注册通知，接收微信登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateAvatar:) name:WXLoginResultNoti object:nil];
-    
-    //添加监听器，监听login
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateAvatar:) name:LoginNoti object:nil];
+    //注册通知，接收登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
     
     //添加监听器，东西任务
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(remindDailyTask:) name:TaskNotification object:nil];
@@ -88,78 +112,13 @@
 #pragma mark - 设置导航栏
 - (void) setNavigationbar {
     
-
+    self.navigationItem.leftBarButtonItems  = [[NSArray alloc]initWithObjects:self.avatarButtonItem, nil];
     
-    //导航栏头像按钮
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-    
-    self.avatarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.avatarBtn.frame = CGRectMake(0, 0, 34, 34);
-    [self.avatarBtn addTarget:self action:@selector(avatarBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    [self.avatarBtn.layer setMasksToBounds:YES];
-    self.avatarBtn.layer.cornerRadius = 17.0;
-    [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
-                              forState:UIControlStateNormal
-                      placeholderImage:[UIImage imageNamed:@"头像-空"]];
-    
-    UIBarButtonItem *avatarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.avatarBtn];
-    self.navigationItem.leftBarButtonItems  = [[NSArray alloc]initWithObjects:avatarButtonItem, nil];
-    
-    
-    
-//    // 头部消息按钮
-//    self.messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    self.messageBtn.frame = CGRectMake(0, 0, 24, 24);
-//    [self.messageBtn addTarget:self action:@selector(messageBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息"] forState:UIControlStateNormal];
-//    [self.messageBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-消息pre"] forState:UIControlStateHighlighted];
-//    
-//    UIBarButtonItem *messageBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.messageBtn];
-//    
-//    // 头部搜索按钮
-//    self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    self.searchBtn.frame = CGRectMake(0, 0, 24, 24);
-//    [self.searchBtn addTarget:self action:@selector(searchBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索"] forState:UIControlStateNormal];
-//    [self.searchBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-搜索pre"] forState:UIControlStateHighlighted];
-//    
-//    
-//    UIBarButtonItem *searchBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.searchBtn];
-    
-//    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:messageBtnItem, searchBtnItem,nil];
-   
-    // 头部任务按钮
-    self.taskBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.taskBtn.frame = CGRectMake(0, 0, 24, 24);
-    [self.taskBtn addTarget:self action:@selector(taskBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    // 获取上次做任务的时间记录
-    NSDate * recordDate = [[NSUserDefaults standardUserDefaults]objectForKey:@"FinishDate"];
-    
-    NSDate *taskDate = [NSDate taskDate];
-    
-    if ([recordDate timeIntervalSince1970] < [taskDate timeIntervalSince1970]) {
-        
-        [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务-新任务"] forState:UIControlStateNormal];
-    }else {
-        [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务"] forState:UIControlStateNormal];
-    }
-    
-
-    
-    
-    UIBarButtonItem *taskBtnItem = [[UIBarButtonItem alloc]initWithCustomView:self.taskBtn];
-    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:taskBtnItem,nil];
+    self.navigationItem.rightBarButtonItem = self.shopButtonItem;
     
     
     // title View
     self.navigationItem.titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 22)];
-    
     
     // title image
     UIImageView *titleImageView = [[UIImageView alloc]init];
@@ -174,7 +133,6 @@
     dotView.backgroundColor = [UIColor whiteColor];
     [self.navigationItem.titleView addSubview:dotView];
     
-    
     // title label
     self.titleLabel = [[UILabel alloc]init];
     self.titleLabel.frame = CGRectMake(93, 0, 72, 22);
@@ -182,39 +140,179 @@
     self.titleLabel.textColor = [UIColor whiteColor];
     [self.navigationItem.titleView addSubview:self.titleLabel];
     
-//    self.navigationItem.rightBarButtonItem = messageBtnItem;
+}
+
+#pragma mark - 导航栏按钮
+
+
+/**
+ avatar button item
+
+ @return
+ */
+- (UIBarButtonItem *) avatarButtonItem {
+    
+    if (!_avatarButtonItem) {
+        _avatarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.avatarButton];
+    }
+   
+    return _avatarButtonItem;
+}
+
+- (UIButton *) avatarButton {
+    
+    if (!_avatarButton) {
+        //导航栏头像按钮
+        FTUserBean *localUser = [FTUserBean loginUser];
+        
+        _avatarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _avatarButton.frame = CGRectMake(0, 0, 34, 34);
+        [_avatarButton addTarget:self action:@selector(avatarBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        [_avatarButton.layer setMasksToBounds:YES];
+        _avatarButton.layer.cornerRadius = 17.0;
+        [_avatarButton sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
+                                  forState:UIControlStateNormal
+                          placeholderImage:[UIImage imageNamed:@"头像-空"]];
+    }
+    
+    return _avatarButton;
+}
+
+/**
+ shop button item
+ */
+- (UIBarButtonItem *) shopButtonItem {
+
+    if (!_shopButtonItem) {
+        // 商城按钮
+        //    UIBarButtonItem *
+        _shopButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"商城" style:UIBarButtonItemStyleDone target:self action:@selector(shopBtnAction:)];
+        [_shopButtonItem setTintColor:[UIColor colorWithHex:0x848484]];
+        //   _shopButtonItem = [[UIBarButtonItem alloc]
+        //                                   initWithImage:[[UIImage imageNamed:@"右上角商城"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+        //                                   style:UIBarButtonItemStyleDone
+        //                                   target:self
+        //                                   action:@selector(shopBtnAction:)];
+    }
+    
+    return _shopButtonItem;
+}
+
+
+
+/**
+ message button item
+ */
+- (UIBarButtonItem *) messageButtonItem {
+    
+    if (!_messageButtonItem) {
+        
+        _messageButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-消息"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                              style:UIBarButtonItemStyleDone
+                                                              target:self
+                                                              action:@selector(messageBtnAction:)];
+    }
+    
+    return _messageButtonItem;
     
 }
 
 
-//- (void) loadAvatar {
-//
-//    if ([self.drawerDelegate respondsToSelector:@selector(addButtonToArray:)]) {
-//        
-//        [self.drawerDelegate addButtonToArray:self.avatarBtn];
-//    }
-//
-//}
+/**
+ search button item
+ */
+- (UIBarButtonItem *) searchButtonItem {
+    
+    if (!_searchButtonItem) {
+        _searchButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-搜索"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                               style:UIBarButtonItemStyleDone
+                                                              target:self
+                                                              action:@selector(searchBtnAction:)];
+    }
+    
+    return _searchButtonItem;
+}
+
+
+/**
+ task button item
+ */
+- (UIBarButtonItem *) taskButtonItem {
+
+    if (!_taskButtonItem) {
+        
+        _searchButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.taskButton];
+    }
+    return _taskButtonItem;
+}
+
+/**
+ daily task button
+ */
+- (UIButton *) taskButton {
+
+    if (!_taskButton) {
+        
+        // 头部任务按钮
+        _taskButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _taskButton.frame = CGRectMake(0, 0, 24, 24);
+        [_taskButton addTarget:self action:@selector(taskBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        // 获取上次做任务的时间记录
+        NSDate * recordDate = [[NSUserDefaults standardUserDefaults]objectForKey:@"FinishDate"];
+        
+        NSDate *taskDate = [NSDate taskDate];
+        
+        if ([recordDate timeIntervalSince1970] < [taskDate timeIntervalSince1970]) {
+            
+            [_taskButton setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务-新任务"] forState:UIControlStateNormal];
+        }else {
+            [_taskButton setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务"] forState:UIControlStateNormal];
+        }
+    }
+    return _taskButton;
+}
+
+
+
+#pragma mark - show and hide rank Button
+/**
+ show fighting view controller rank button
+ */
+- (void) showRankButton {
+    
+    FTFightingViewController *fightingVC = [self.viewControllers objectAtIndex:1];
+    [fightingVC showRankButton];
+}
+
+/**
+ hide fighting view controller rank button
+ */
+- (void) hideRankButton {
+    
+    FTFightingViewController *fightingVC = [self.viewControllers objectAtIndex:1];
+    [fightingVC hideRankButton];
+    
+}
+
 
 #pragma mark - 监听器响应
 
-- (void) updateAvatar:(NSNotification *) noti {
-
-    //导航栏头像按钮
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+// 登录响应
+- (void) loginCallBack:(NSNotification *)noti {
     
-    
-    NSString *msg = [noti object];
-    if ([msg isEqualToString:@"LOGOUT"] || [msg isEqualToString:@"ERROR"]) {
+    FTUserBean *localUser = [FTUserBean loginUser];
+    NSDictionary *userInfo = noti.userInfo;
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
         
-        [self.avatarBtn setImage:[UIImage imageNamed:@"头像-空"] forState:UIControlStateNormal];
-        
-    }else {
-        
-        [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
+        [self.avatarButton sd_setImageWithURL:[NSURL URLWithString:localUser.headpic]
                                   forState:UIControlStateNormal
                           placeholderImage:[UIImage imageNamed:@"头像-空"]];
+    }else {
+    
+        [self.avatarButton setImage:[UIImage imageNamed:@"头像-空"] forState:UIControlStateNormal];
     }
     
 }
@@ -222,14 +320,15 @@
 
 - (void) remindDailyTask:(NSNotification *) noti {
     
-    NSLog(@"remindDailyTask");
-    
-    [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务-新任务"] forState:UIControlStateNormal];
-    
-    [self.taskBtn showMiniBadge];
-    
-    
-    [self shakingAnimation:self.taskBtn];
+    // 日常任务按钮，暂时隐藏
+//    NSLog(@"remindDailyTask");
+//    
+//    [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务-新任务"] forState:UIControlStateNormal];
+//    
+//    [self.taskBtn showMiniBadge];
+//    
+//    
+//    [self shakingAnimation:self.taskBtn];
 }
 
 #pragma mark - button response
@@ -259,9 +358,9 @@
 
 }
 
-// 任务按钮点击事件
+// 任务按钮点击事件, 暂时注销
 - (void)taskBtnAction:(id)sender {
-    
+
     NSLog(@"task button clicked");
     
     //获取登录信息，如果没有登录不能做任务，直接跳转登录页面
@@ -273,9 +372,9 @@
         return;
     }
     
-    [self.taskBtn setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务"] forState:UIControlStateNormal];
+    [self.taskButton setImage:[UIImage imageNamed:@"头部48按钮一堆-日常任务"] forState:UIControlStateNormal];
     
-    [self.taskBtn hideMiniBadge];
+    [self.taskButton hideMiniBadge];
 
     // 获取上次做任务的时间记录
     NSDate * recordDate = [[NSUserDefaults standardUserDefaults]objectForKey:@"FinishDate"];
@@ -300,7 +399,33 @@
         FTFinishedTaskViewController *finishTaskVC = [FTFinishedTaskViewController new];
         [self.navigationController  pushViewController:finishTaskVC animated:YES];
     }
+}
+
+
+/**
+ 商城按钮点击事件
+
+ @param sender 商城按钮
+ */
+- (void) shopBtnAction:(id) sender {
+
+    FTShopViewController *shopVC = [FTShopViewController new];
+    shopVC.title = @"格斗商城";
+    [self.navigationController  pushViewController:shopVC animated:YES];
+}
+
+
+/**
+ 排行榜按钮点击事件,跳转排行榜页面
+ 
+ @param sender 排行榜按钮
+ */
+
+- (void)rankListBtnAction:(id)sender {
     
+    FTRankViewController *rankHomeVC = [FTRankViewController new];
+    rankHomeVC.title = @"排行榜";
+    [self.navigationController pushViewController:rankHomeVC animated:YES];
 }
 
 #pragma mark  - login
@@ -317,109 +442,44 @@
 #pragma mark - delegate
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
 
-    
-    // 判断商城是否登录
-    if (tabBarController.selectedIndex != 4 && [viewController isKindOfClass:[FTShopViewController class]]) {
-        
-        //从本地读取存储的用户信息
-        FTUserBean *localUser = [FTUserBean loginUser];
-        
-        if ( !localUser) {
-            
-            FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
-            loginVC.title = @"登录";
-            FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
-            [self.navigationController presentViewController:nav animated:YES completion:nil];
-            
-            [[UIApplication sharedApplication].keyWindow addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:3];
-            
+    NSInteger index = [tabBarController.viewControllers indexOfObject:viewController];
+    if (index == 4) {
+        FTUserBean *loginuser = [FTUserBean loginUser];
+        if (!loginuser) {
+            [self login];
             return NO;
         }
-        
     }
     
-    
-    
-        
-   
-//    if (tabBarController.selectedIndex != 2 && [viewController isKindOfClass:[FTPracticeViewController class]]) {
-//    
-//        FTCoachSelfCourseViewController *coachSelfCourseVC = [FTCoachSelfCourseViewController new];
-//        coachSelfCourseVC.title = @"学拳";
-//        coachSelfCourseVC.tabBarItem.title = @"学拳";
-//        [coachSelfCourseVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-//                                                       Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
-//                                                       nil] forState:UIControlStateSelected];
-//        coachSelfCourseVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-教练"];
-//        coachSelfCourseVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-教练pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//        
-//        NSMutableArray *mutabelItems = [[NSMutableArray alloc]initWithArray:tabBarController.viewControllers];
-////        [mutabelItems addObject:coachSelfCourseVC];
-//        [mutabelItems replaceObjectAtIndex:2 withObject:coachSelfCourseVC];
-//        NSArray *items = [[NSArray alloc]initWithArray:mutabelItems];
-//        tabBarController.viewControllers = items;
-//        
-////        NSMutableArray * tempVCs = [tabBarController.viewControllers mutableCopy];
-//////        [tempVCs removeObjectAtIndex:2];
-//////        [tempVCs insertObject:coachSelfCourseVC atIndex:2];
-////        NSLog(@"tabBarController.viewControllers.count:%ld",tabBarController.viewControllers.count);
-////        
-////        tabBarController.viewControllers = [tempVCs copy];
-//        
-//
-//    }
-    
-   
     return YES;
-        
 }
 
-//- (void)tabBarController:(UITabBarController *)tabBarController willBeginCustomizingViewControllers:(NSArray<__kindof UIViewController *> *)viewControllers {
-//
-//    FTCoachSelfCourseViewController *coachSelfCourseVC = [FTCoachSelfCourseViewController new];
-//    coachSelfCourseVC.title = @"学拳";
-//    coachSelfCourseVC.tabBarItem.title = @"学拳";
-//    [coachSelfCourseVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-//                                                          Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
-//                                                          nil] forState:UIControlStateSelected];
-//    coachSelfCourseVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-教练"];
-//    coachSelfCourseVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-教练pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    
-//    NSMutableArray *mutabelItems = [[NSMutableArray alloc]initWithArray:viewControllers];
-//    //        [mutabelItems addObject:coachSelfCourseVC];
-//    [mutabelItems replaceObjectAtIndex:2 withObject:coachSelfCourseVC];
-//    NSArray *items = [[NSArray alloc]initWithArray:mutabelItems];
-//    tabBarController.viewControllers = items;
-//    
-//}
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-
+    
+//    NSLog(@"select index:%ld",tabBarController.selectedIndex);
+    if (tabBarController.selectedIndex == 1) {
+        [self showRankButton];
+    }else {
+        [self hideRankButton];
+    }
     self.titleLabel.text = viewController.title;
     
     
-//    if (tabBarController.selectedIndex != 3) {
-//        return;
-//    }
-//    //从本地读取存储的用户信息
-//    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-//    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-//    
-//    if (localUser) {
-//        return;
-//    }
-//    
-//    if ( [viewController isKindOfClass:[FTStoreViewController class]]) {
-//        
-//        FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
-//        loginVC.title = @"登录";
-//        FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
-//        [self.navigationController presentViewController:nav animated:YES completion:nil];
-//        
-//        [[UIApplication sharedApplication].keyWindow addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:3];
-//    }
+    // 个人主页隐藏导航栏
+    if (tabBarController.selectedIndex == 4) {
+        [self.navigationController setNavigationBarHidden:YES];
+    }else {
+        [self.navigationController setNavigationBarHidden:NO];
+    }
+    
+    // 显示会员拳馆
+    if (tabBarController.selectedIndex == 2) {
+        [FTNotificationTools postShowMembershipGymsNoti];
+    }
     
 }
+
 
 
 #pragma mark - 抖动动画

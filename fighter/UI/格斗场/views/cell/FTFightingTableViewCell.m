@@ -82,12 +82,12 @@
     
     //头像
     if (matchBean.headUrl1) {
-            [_headerImage1 sd_setImageWithURL:[NSURL URLWithString:matchBean.headUrl1]];//设置头像
-        _header1OutCircle.image = [UIImage imageNamed:@"主页大头像-灰圈"];//把红圈改为灰圈
+            [_headerImage1 sd_setImageWithURL:[NSURL URLWithString:matchBean.headUrl1] placeholderImage:[UIImage imageNamed:@"对战空头像"]];//设置头像
+        
     }
     if (matchBean.headUrl2) {
-        [_headerImage2 sd_setImageWithURL:[NSURL URLWithString:matchBean.headUrl2]];
-        _header2OutCircle.image = [UIImage imageNamed:@"主页大头像-灰圈"];
+        [_headerImage2 sd_setImageWithURL:[NSURL URLWithString:matchBean.headUrl2] placeholderImage:[UIImage imageNamed:@"对战空头像"]];
+        
     }
     
     //名字
@@ -126,9 +126,12 @@
         _betButton.hidden = YES;
         _followButton.hidden = YES;
     }else{
+        /* 李懿哲 10月27日 修改 ，一直隐藏下注按钮*/
+        
         _stateLabelCenter.text = @"尚未开赛";
         _goToWatchButton.hidden = YES;
-        _betButton.hidden = NO;
+//        _betButton.hidden = NO;
+        _betButton.hidden = YES;
         _followButton.hidden = NO;
     }
     

@@ -86,8 +86,8 @@
     self.navigationController.navigationBarHidden = NO;
     //    self.navigationController.tabBarController.tabBar.hidden = YES;
     
-    //注册通知，接收微信登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginResponseInLoginView:) name:WXLoginResultNoti object:nil];
+    //注册通知，接收登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -139,7 +139,7 @@
     
     if ([password isEqualToString:@""] || [username isEqualToString:@""]) {
         NSLog(@"用户名 密码必须全部填写");
-        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"用户名 密码必须全部填写"];
+        [[UIApplication sharedApplication].keyWindow showMessage:@"用户名 密码必须全部填写"];
         return;
     }
     
@@ -156,7 +156,7 @@
                      password:self.passwordTextField.text
                        option:^(NSDictionary *dict) {
                                  [MBProgressHUD hideHUDForView:self.view animated:YES];
-                                NSLog(@"dict:%@",dict);
+                                SLog(@"dict:%@",dict);
                                 if (dict != nil) {
                                     
                                     bool status = [dict[@"status"] boolValue];
@@ -164,7 +164,7 @@
                                     
                                     if (status == true) {
                                         
-                                        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                        [[UIApplication sharedApplication].keyWindow showMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                                         
                                         NSDictionary *userDataDic = dict[@"data"];
                                         NSDictionary *userDic = userDataDic[@"user"];
@@ -172,9 +172,13 @@
                                         FTUserBean *user = [FTUserBean new];
                                         [user setValuesForKeysWithDictionary:userDic];
                                         
-                                        user.corporationid = [NSString stringWithFormat:@"%ld",[dict[@"data"][@"corporationid"] integerValue]];
+                                        if ([dict[@"data"][@"corporationid"] integerValue] > 0) {
+                                            user.corporationid = [NSString stringWithFormat:@"%ld",[dict[@"data"][@"corporationid"] integerValue]];
+                                        }
+                                        
                                         user.identity = dict[@"data"][@"identity"];
                                         user.interestList = dict[@"data"][@"interestList"];
+                                        user.isGymUser = dict[@"data"][@"isGymUser"];
                                         
                                         NSString *corporationid = dict[@"data"][@"corporationid"];
                                         NSLog(@"corporationid:%@",corporationid);
@@ -188,37 +192,23 @@
                                         
                                         [self.navigationController dismissViewControllerAnimated:YES completion:^{
                                             
-                                             [[NSNotificationCenter defaultCenter] postNotificationName:LoginNoti object:@"LOGIN"];
+                                            [FTNotificationTools postLoginNoti:FTLoginTypePhone];
+                                            
                                         
                                         }];
                                         
                                     }else {
                                         NSLog(@"message : %@", [dict[@"message"] class]);
-                                        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                                        [[UIApplication sharedApplication].keyWindow showMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                                         
                                     }
                                 }else {
-                                    [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"网络错误"];
+                                    [[UIApplication sharedApplication].keyWindow showMessage:@"网络错误"];
                                     
                                 }
                                 
                             }];
 
-}
-
-//微信快捷登录 响应
-- (void)wxLoginResponseInLoginView:(NSNotification *)noti{
-    
-    NSString *msg = [noti object];
-    if ([msg isEqualToString:@"SUCESS"]) {
-        
-        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"微信登录成功"];
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-        
-    }else if ([msg isEqualToString:@"ERROR"]){
-        
-        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"微信登录失败"];
-    }
 }
 
 - (IBAction)weichatBtnAction:(id)sender {
@@ -227,6 +217,20 @@
     [NetWorking weixinRequest];
 
 }
+
+// 登录响应
+- (void) loginCallBack:(NSNotification *)noti {
+    
+    NSDictionary *userInfo = noti.userInfo;
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
+        
+        [[UIApplication sharedApplication].keyWindow showMessage:@"登录成功"];
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }else {
+        [[UIApplication sharedApplication].keyWindow showMessage:@"登录失败"];
+    }
+}
+
 
 #pragma mark - private methods
 

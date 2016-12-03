@@ -26,7 +26,6 @@
 #import "FTNewsBean.h"
 #import "UIButton+LYZTitle.h"
 #import "UIButton+WebCache.h"
-#import "FTRankingListViewController.h"
 #import "FTCache.h"
 #import "FTCacheBean.h"
 #import "FTRankViewController.h"
@@ -75,23 +74,19 @@
     [self getDataFromWeb];//初次加载数据
 //    [self reloadDate];
     
-
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [MobClick event:@"mainPage_BoxingNews"];
-    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
-    //        self.tabBarController.navigationController.navigationBarHidden = NO;
-    //    self.navigationController.navigationBarHidden = NO;
+    
 }
 
 /**
  *  初始化一些默认数据
  */
-
 - (void)initBaseConfig{
     _currentIndexString = @"all";
     _query = @"list-dam-blog-1";
@@ -306,7 +301,6 @@
 }
 
 
-
 #pragma mark -get data
 -(void) getDataFromDB {
     
@@ -346,6 +340,7 @@
     urlString = [NSString stringWithFormat:@"%@?query=%@&labels=%@&pageNum=%@&pageSize=%@&tableName=%@&source=%@", urlString, _query, _labels, _pageNum ,_pageSize, tableName, @"1"];
     
     NSLog(@"arena list urlString:%@",urlString);
+    urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     [NetWorking getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
 //        NSLog(@"responseDic:  %@", responseDic);

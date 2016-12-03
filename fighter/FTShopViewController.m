@@ -43,8 +43,7 @@
 -(id)initWithRequest:(NSURLRequest *)request{
     self=[super init];
     self.request=request;
-    
-    
+
     return self;
 }
 
@@ -53,7 +52,8 @@
     [super viewDidLoad];
    
     [self setNotification];
-    [self initWebview];
+    [self initNavigationBar];
+    [self setWebView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -90,11 +90,8 @@
 
 -  (void) setNotification {
     
-    //注册通知，接收微信登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginCallback:) name:WXLoginResultNoti object:nil];
-    
-    //添加监听器，监听login
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(phoneLoginedCallback:) name:LoginNoti object:nil];
+    //注册通知，接收登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
     
     //添加监听器，充值购买
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeCallback:) name:RechargeResultNoti object:nil];
@@ -103,81 +100,63 @@
 
 #pragma mark - 初始化
 
-- (void) initWebview {
+- (void) initNavigationBar {
     
+    //设置左侧按钮
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
+                                   initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                   style:UIBarButtonItemStyleDone
+                                   target:self
+                                   action:@selector(backBtnAction:)];
+    //把左边的返回按钮左移
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+    self.navigationItem.leftBarButtonItem = leftButton;
+}
+
+
+- (void) setWebView {
     
-    
-        FTUserBean *localUser = [FTUserBean loginUser];
-    //
-    //    if (!localUser) {
-    //
-    ////        [self disableLoadingAnimation];
-    //
-    //        FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
-    //        loginVC.title = @"登录";
-    //        FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
-    //        [self.navigationController presentViewController:nav animated:YES completion:nil];
-    //
-    //        [[UIApplication sharedApplication].keyWindow addLabelWithMessage:@"兄弟，格斗商城只有在登录之后才能进入~" second:3];
-    //
-    //
-    //
-    //    }
-    
-    
-    
-//    
-//    [NetWorking getDuibaUrl:^(NSDictionary *dict) {
-//        
-//        NSLog(@"dict:%@",dict);
-//        if (!dict) {
-//            return ;
-//        }
-//        BOOL status = [dict[@"status"] boolValue];
-//        if (status) {
-//            
-//            self.request=[NSURLRequest requestWithURL:[NSURL URLWithString:dict[@"data"]]];
-//            [self.webView loadRequest:self.request];
-//        }
-//    }];
-//    
-    self.webView.delegate = self;
-    //获取网络请求地址url
-    NSString *indexStr = [FTNetConfig host:Domain path:ShopURL];
-    NSString *urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@",indexStr,localUser.olduserid,localUser.token];
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-//    NSString *body = [NSString stringWithFormat: @"userId=%@&loginToken=%@", localUser.olduserid,localUser.token];
-//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL: url];
-//    [request setHTTPMethod: @"POST"];
-//    [request setHTTPBody: [body dataUsingEncoding: NSUTF8StringEncoding]];
-    
-    [self.webView loadRequest: request];
-    
-    [self setJHRefresh];
+    [self initWebview];
+    [self setMJRefresh];
     
 }
 
-- (void)setJHRefresh{
+- (void) initWebview {
     
-    __unsafe_unretained __typeof(self) weakSelf = self;
+    FTUserBean *localUser = [FTUserBean loginUser];
+    if (localUser) {
+        
+        self.webView.delegate = self;
+        //获取网络请求地址url
+        NSString *indexStr = [FTNetConfig host:Domain path:ShopNewURL];
+        NSString *urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@",indexStr,localUser.olduserid,localUser.token];
+        NSLog(@"shop home urlString:%@",urlString);
+        NSURL *url = [NSURL URLWithString:urlString];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        [self.webView loadRequest: request];
+    }else {
+        
+        self.webView.delegate = self;
+        //获取网络请求地址url
+        NSString *indexStr = [FTNetConfig host:Domain path:ShopNewURL];
+        NSURL *url = [NSURL URLWithString:indexStr];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        [self.webView loadRequest: request];
+        
+    }
+    
+}
+
+- (void)setMJRefresh{
+    
+    __weak __typeof(self) weakSelf = self;
     
     // 下拉刷新
     self.webView.scrollView.mj_header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
-        FTUserBean *localUser = [FTUserBean loginUser];
-        //获取网络请求地址url
-        NSString *indexStr = [FTNetConfig host:Domain path:ShopURL];
-        NSString *urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@",indexStr,localUser.olduserid,localUser.token];
-        NSURL *url = [NSURL URLWithString:urlString];
-        NSURLRequest *request = [NSURLRequest requestWithURL:url];
-        [weakSelf.webView loadRequest: request];
-
+        [weakSelf initWebview];
         [weakSelf.webView.scrollView.mj_header beginRefreshing];
     }];
-    
-    
     
 }
 
@@ -198,6 +177,21 @@
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     
     NSMutableString *url=[[NSMutableString alloc]initWithString:[request.URL absoluteString]];
+    
+    // 检测登录
+    if([url rangeOfString:@"toLogin=1"].location!=NSNotFound){
+        
+        if ([self isLogined]) {
+            
+            FTUserBean *localUser = [FTUserBean loginUser];
+            NSString *urlString = [NSString stringWithFormat: @"userId=%@&loginToken=%@",localUser.olduserid,localUser.token];
+            [url replaceCharactersInRange:[url rangeOfString:@"toLogin=1"] withString:urlString];
+            
+        }else {
+            
+            return NO;
+        }
+    }
     
     if([url rangeOfString:@"js-call:userId="].location!= NSNotFound &&
        [url rangeOfString:@"&orderNo="].location!= NSNotFound &&
@@ -224,27 +218,28 @@
 }
 
 
-#pragma mark - 通知事件
+#pragma mark - response
+- (void) backBtnAction:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
 
-// 微信登录响应
-- (void) wxLoginCallback:(NSNotification *)noti{
-    NSString *msg = [noti object];
-    if ([msg isEqualToString:@"SUCESS"]) {
-        
-        [self initWebview];
+#pragma mark - 通知事件
+// 登录响应
+- (void) loginCallBack:(NSNotification *)noti{
+    
+    NSDictionary *userInfo = noti.userInfo;
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
+        [self setWebView];
     }
 }
 
-// 微信登录响应
-- (void) phoneLoginedCallback:(NSNotification *)noti {
-    
-    [self initWebview];
-}
 
 // 充值后刷新界面
 - (void) rechargeCallback:(NSNotification *)noti {
     
-    [self initWebview];
+    [self setWebView];
 }
 
 

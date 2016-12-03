@@ -42,6 +42,7 @@
 
 #import "SectionHeader.h"
 #import "FTCollectionFowLaytout.h"
+#import "FTTraineeCollectionFowLaytout.h"
 
 @interface FTTeachVideoController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FTVideoDetailDelegate,FTSelectCellDelegate, UIAlertViewDelegate> {
 
@@ -142,11 +143,8 @@
 // 监听通知
 - (void) setNotifacation {
     
-    //注册通知，接收微信登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginAction:) name:WXLoginResultNoti object:nil];
-    
-    //添加监听器，监听login
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginAction:) name:LoginNoti object:nil];
+    //注册通知，接收登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
     
 }
 
@@ -161,7 +159,7 @@
                                    target:self
                                    action:@selector(backBtnAction:)];
     // 把左边的返回按钮左移
-    [leftButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
     
@@ -209,9 +207,9 @@
 #pragma -mark - 初始化collectionView
 - (void)initCollectionView{
     
-    FTCollectionFowLaytout *layout = [FTCollectionFowLaytout new];
-    layout.naviHeight = 40;
-    
+//    FTCollectionFowLaytout *layout = [FTCollectionFowLaytout new];
+//    layout.naviHeight = 40;
+    FTTraineeCollectionFowLaytout *layout = [FTTraineeCollectionFowLaytout new];
     self.collectionView.collectionViewLayout =layout;
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
@@ -285,8 +283,7 @@
 
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     if (localUser) {// 已登录
     
         urlString = [NSString stringWithFormat:@"%@?videosType=%@&videosCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&videosTag=%@&otherkey=teach&userId=%@", urlString, _videoType, videoCurrId, getType, ts, checkSign, [FTNetConfig showType], self.videosTag,localUser.olduserid];
@@ -1301,11 +1298,6 @@
 #pragma mark - 通知响应
 // 登录刷新
 - (void) loginAction:(NSNotification *) noti {
-
-//    // 获取余额
-//    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
-//    [self setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
-//    
 
     // 获取余额
     FTPaySingleton *singleton = [FTPaySingleton shareInstance];

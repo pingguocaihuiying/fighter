@@ -6,11 +6,12 @@
 //  Copyright © 2016 Mapbar. All rights reserved.
 //
 
+
+
 #import "FTHomepageMainViewController.h"
 #import "WXApi.h"
 #import "UIImage+FTLYZImage.h"
 #import "FTTableViewController.h"
-#import "FTArenaViewController.h"
 #import "QuartzCore/QuartzCore.h"
 #import "FTNWGetCategory.h"
 #import "FTLabelBean.h"
@@ -30,7 +31,7 @@
 #import "FTNewsBean.h"
 #import "UIButton+LYZTitle.h"
 #import "UIButton+WebCache.h"
-#import "FTRankingListViewController.h"
+
 #import "FTCache.h"
 #import "FTCacheBean.h"
 #import "FTRankViewController.h"
@@ -58,6 +59,13 @@
 #import "FTArenaPostsDetailViewController.h"
 #import "FTUserCenterViewController.h"
 #import "FTShareView.h"
+
+#import "FTTraineeSkillCell.h"//技能列表cell
+#import "FTUserCourseHistoryTableViewCell.h"//学员历史课程
+#import "FTUserCourseHistoryBean.h"//历史课程bean
+#import "NSDate+Tool.h"
+#import "FTUserCourseCommentViewController.h"
+#import "FTUserSkillBean.h"
 
 @interface FTHomepageMainViewController ()<FTArenaDetailDelegate, FTSelectCellDelegate,FTTableViewdelegate, UIScrollViewDelegate, UIScrollViewAccessibilityDelegate, UICollectionViewDelegate, UICollectionViewDataSource, FTVideoDetailDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic)UIScrollView *scrollView;
@@ -89,8 +97,22 @@
 @property (nonatomic, strong)NSMutableArray *boxerRankDataArray;//拳手战绩数据
 @property (nonatomic, strong)NSArray *boxerRaceInfoDataArray;//拳手赛事数据
 @property (nonatomic, copy)NSString *standings;//拳手战况
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *recordRankTableViewHeightConstant;
 @property (nonatomic, strong) FTUserBean *userBean;//获取的用户信息
+
+@property (strong, nonatomic) IBOutlet UIImageView *redPoint1;//课程记录的红点
+@property (strong, nonatomic) IBOutlet UIImageView *redPoint2;//技术数据的红点
+@property (strong, nonatomic) IBOutlet UITableView *courseHistoryTableView;//历史课程tableview
+@property (strong, nonatomic) IBOutlet UITableView *skillsTableView;//技能属性tableview
+
+@property (nonatomic, strong) NSMutableArray *courseHistoryArray;//课程历史数据
+
+@property (nonatomic, strong) NSMutableArray *skillArray;//技能项（包括子项、母项）暂未用到，留备用
+@property (nonatomic, strong) NSMutableArray *fatherSkillArray;//技能母项
+@property (nonatomic, strong) NSMutableArray *childSkillArray;//技能子项
+@property (nonatomic, assign) BOOL hasNewVersion;//是否有新版本（暂无用处，只是用来标记。。）
+@property (nonatomic, strong) NSMutableDictionary *fatherSkillVersionsDic;//用于记录那些父项有更新.key为技能id，value为0或1:0为没有更新，1为有更新
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *mainScrollViewBottomSpacing;
+
 @end
 
 @implementation FTHomepageMainViewController
@@ -104,27 +126,46 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initBaseData];//默认配置
+    [self setNotification];
+    [self setNavigationbar];
     [self getHomepageUserInfo];
-    [self initBaseData];
     [self initSubviews];
+    
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    self.navigationController.navigationBarHidden = YES;
+- (void)viewDidAppear:(BOOL)animated{
+    
+    if (true){//如果是普通用户
+        //更新“历史课程”、“技能”按钮右边的红点显示与否
+        [self updateButtonRightRedPointDisplay];
+        
+        if (_courseHistoryTableView) {
+            [_courseHistoryTableView reloadData];
+        }
+        
+        if (_skillsTableView) {
+            [_skillsTableView reloadData];
+        }
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
-    self.navigationController.navigationBarHidden = NO;
+//    self.navigationController.navigationBarHidden = NO;
+}
+
+- (void) dealloc {
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self ];
 }
 
 #pragma mark 获取用户的基本信息
 - (void)getHomepageUserInfo{
+    
     [NetWorking getHomepageUserInfoWithUserOldid:_olduserid andBoxerId:_boxerId andCoachId:_coachId andCallbackOption:^(FTUserBean *userBean) {
         _userBean = userBean;
         [_headImageView sd_setImageWithURL:[NSURL URLWithString:userBean.headUrl]];
-        
-        
-        
+    
         self.sexLabel.text = userBean.sex;
         self.nameLabel.text = userBean.name;
 
@@ -156,7 +197,7 @@
             
         }
         NSLog(@"ageStr : %@", ageStr);
-//        NSLog(@"ageStr : %@", ageStr);
+
         self.ageLabel.text = [NSString stringWithFormat:@"%@岁", ageStr];
         if (userBean.boxerId) {
             _boxerId = userBean.boxerId;
@@ -181,17 +222,16 @@
         }
         NSLog(@"_userIdentity : %@", _userIdentity);
         
-//        [_userBgImageView sd_setImageWithURL:[NSURL URLWithString:userBean.headUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//            _userBgImageView.image = [UIImage boxblurImage:image withBlurNumber:0.5];
-//            
-//        }];
+        /*
+            2016年12月1日修改：无论是什么身份，都显示三栏：技术数据、课程记录、动态信息
+         */
         
         if ([_userIdentity isEqualToString:@"0"]) {//普通用户
-            //不显示战绩、视频项
-            self.recordButton.hidden = YES;//是否显示战绩按钮
-            self.videoButton.hidden = YES;//是否显示视频按钮
+            _userBgImageView.backgroundColor = [UIColor blackColor];//普通用户黑背景
             
-             _userBgImageView.backgroundColor = [UIColor blackColor];
+            //隐藏所有身份图标
+            self.identityImageView1.hidden = YES;
+            self.identityImageView2.hidden = YES;
         }else if ([_userIdentity isEqualToString:@"1"]) {//拳手
             
             //设置拳手个人资料的背景图片
@@ -203,46 +243,65 @@
                 _userBgImageView.backgroundColor = [UIColor blackColor];
             }
 
-            //显示战绩、视频项
-            self.recordButton.hidden = NO;//是否显示战绩按钮
-            self.videoButton.hidden = NO;//是否显示视频按钮
+            //显示拳手身份
             self.identityImageView1.hidden = NO;
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-拳"];
+            //隐藏其他身份
+            self.identityImageView2.hidden = YES;
         }else if ([_userIdentity isEqualToString:@"2"]){//教练
-            
-            //显示视频，不显示战绩
-            self.recordButton.hidden = YES;//是否显示战绩按钮
-            self.videoButton.hidden = NO;//是否显示视频按钮
+            //显示教练身份
             self.identityImageView1.hidden = NO;
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-教"];
+            
+            //隐藏其他身份图片
+            self.identityImageView2.hidden = YES;
         }else if ([_userIdentity isEqualToString:@"1,2"]){//拳手、教练
+            //显示两个身份图片
             self.identityImageView1.hidden = NO;
             self.identityImageView2.hidden = NO;
             self.identityImageView1.image = [UIImage imageNamed:@"身份圆形-教"];
             self.identityImageView2.image = [UIImage imageNamed:@"身份圆形-拳"];
         }
         
-        _followTableName = @"f-user";
-        
-        [self getFollowInfo];//获取关注信息
-        //处理右上角的“转发”或“修改”：如果是自己的主页，则是“修改”，如果是别人的，则显示转发
-        FTUserBean *localUserBean = [FTUserTools getLocalUser];
-        
-        if (localUserBean && [localUserBean.olduserid isEqualToString:self.olduserid]) {//如果是自己的主页
+        //如果是自己看自己的个人主页，显示三栏，如果是看别人的，显示技术数据和动态信息两栏，不显示上课记录
+        if ([self isSelfHomepage]) {
+            _firstButton.hidden = NO;//显示第一个按钮
+            self.secondButton.hidden = NO;//显示第二个按钮
+            self.thirdButton.hidden = NO;//显示第三个按钮
+
+            [self getCourseHistoryFromServer];
+                //处理右上角的“转发”或“修改”：如果是自己的主页，则是“修改”，如果是别人的，则显示转发
             _shareAndModifyProfileButton.hidden = NO;
             [_shareAndModifyProfileButton setTitle:@"修改" forState:UIControlStateNormal];
-            [_shareAndModifyProfileButton addTarget:self action:@selector(modifyProfile) forControlEvents:UIControlEventTouchUpInside];
+            [_shareAndModifyProfileButton removeTarget:self action:@selector(shareUserInfoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+            [_shareAndModifyProfileButton addTarget:self action:@selector(modifyProfileButtonAction:) forControlEvents:UIControlEventTouchUpInside];
             //显示“发新动态”，隐藏关注等
             _bottomNewPostsView.hidden = NO;
             _bottomFollowView.hidden = YES;
+            _mainScrollViewBottomSpacing.constant = 0;//没有了发动态view，把主内容view下移到底部
+            self.bottomGradualChangeView.hidden = YES;
+            
         }else{//如果是别人的主页
+            //只显示一三：技术数据、动态
+            _firstButton.hidden = NO;//显示第一个按钮
+            self.secondButton.hidden = YES;//显示第二个按钮
+            self.thirdButton.hidden = NO;//显示第三个按钮
+
+            
             _shareAndModifyProfileButton.hidden = NO;
             [_shareAndModifyProfileButton setTitle:@"转发" forState:UIControlStateNormal];
-            [_shareAndModifyProfileButton addTarget:self action:@selector(shareUserInfo) forControlEvents:UIControlEventTouchUpInside];
+            [_shareAndModifyProfileButton addTarget:self action:@selector(shareUserInfoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
             //隐藏“发新动态”，显示关注等
             _bottomNewPostsView.hidden = YES;
             _bottomFollowView.hidden = NO;
         }
+        
+        //默认总是加载技术数据和动态（帖子）
+        [self getDataFromWeb];
+        [self getSkillsFromServer];
+        
+        //获取关注信息
+        [self getFollowInfo];
         
         //拳手战绩
         _boxerRankDataArray = [[NSMutableArray alloc]initWithArray:userBean.boxerRaceInfos];
@@ -251,9 +310,23 @@
         
         //拳手战绩概括
         _standings = userBean.standings;
-        
-         [self getDataFromWeb];//初次加载帖子数据
+
     }];
+}
+
+
+/**
+ 是否是自己的主页
+ */
+- (BOOL)isSelfHomepage{
+    BOOL result = NO;
+    FTUserBean *localUserBean = [FTUserTools getLocalUser];
+    if (localUserBean && [localUserBean.olduserid isEqualToString:self.olduserid]) {//如果是自己的主页
+        result = YES;
+    }else{//如果是别人的主页
+        result = NO;
+    }
+    return result;
 }
 
 - (void)getBoxerRaceInfo{
@@ -264,15 +337,17 @@
 }
 
 #pragma mark 修改个人资料
-- (void)modifyProfile{
+- (void)modifyProfileButtonAction:(id) sender {
     NSLog(@"修改资料");
     FTUserCenterViewController *userCenter = [[FTUserCenterViewController alloc]init];
     userCenter.title = @"个人资料";
     [self.navigationController pushViewController:userCenter animated:YES];
+    
 }
 
 #pragma mark 转发
-- (void)shareUserInfo{
+- (void)shareUserInfoButtonAction:(id) sender {
+    NSLog(@"转发");
     [MobClick event:@"rankingPage_HomePage_ShareUp"];
     NSLog(@"转发");
         //友盟分享事件统计
@@ -314,13 +389,15 @@
  *  初始化一些默认配置
  */
 - (void)initBaseData{
-    _selectedType = FTHomepageDynamicInformation;
+    _selectedType = FTHomepageTableViewTypeFirst;
     _currentIndexString = @"all";
     _query = @"list-dam-blog-1";
     _pageNum = @"1";
     _pageSize = @"100";
     _labels = @"";
     _hasInitRecordRank = false;
+    
+    _followTableName = @"f-user";
 }
 
 - (void)initSubviews{
@@ -329,23 +406,14 @@
     
     //调整行高
     [UILabel setRowGapOfLabel:self.briefIntroductionTextField withValue:6];
-
-    //设置左上角的返回按钮
-    UIButton *leftBackButton = [[UIButton alloc]init];
-//    [leftBackButton setBackgroundImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
-    [leftBackButton setImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
-    [leftBackButton addTarget:self action:@selector(popViewController) forControlEvents:UIControlEventTouchUpInside];
-//    leftBackButton.frame = CGRectMake(10, 30, 22, 22);
-    leftBackButton.frame = CGRectMake(-2, 19, 60, 44);
-    [self.view addSubview:leftBackButton];
-    [self.view bringSubviewToFront:leftBackButton];
     
-
     //设置主scrollView的滚动逻辑
     [self setMainScrollView];
     //设置格斗场的tableview cell
     [self initInfoTableView];
+
 }
+
 
 - (void)addGesture{
     UITapGestureRecognizer *tapOfVoteView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(followViewClicked:)];
@@ -356,14 +424,11 @@
 #pragma -mark 设置mainScrollView
 - (void)setMainScrollView{
     _mainScrollView.delegate = self;
-//    NSLog(@"buttonsView.y : %f", _buttonsContainerView.frame.origin.y);
 }
 #pragma -mark scrollView滚动
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if(scrollView == _mainScrollView){//如果是mainScrollView
     CGFloat offsetY = scrollView.contentOffset.y;
-//    NSLog(@"scrollView offset : %f", offsetY);
-//        NSLog(@"buttonsView.y : %f", _buttonsContainerView.frame.origin.y);
     if (offsetY >= 204 - 24 + 8) {
         _buttonsContainerView.top = 224 + (offsetY - (204 - 24 + 8));
         [[_buttonsContainerView superview] bringSubviewToFront:_buttonsContainerView];
@@ -373,77 +438,464 @@
     }
 }
 #pragma -mark -切换按钮的点击事件
-- (IBAction)dynamicInfomationButtonClicked:(id)sender {
+- (IBAction)firstButtonClicked:(id)sender {
     [MobClick event:@"rankingPage_HomePage_Match"];
-    _selectedType = FTHomepageDynamicInformation;
+    _selectedType = FTHomepageTableViewTypeFirst;
     [self refreshButtonsIndex];
 }
-- (IBAction)recordButtonClicked:(id)sender {
+- (IBAction)secondButtonClicked:(id)sender {
     [MobClick event:@"rankingPage_HomePage_Match"];
-    _selectedType = FTHomepageRecord;
+    _selectedType = FTHomepageTableViewTypeSecond;
     [self refreshButtonsIndex];
 }
-- (IBAction)videoButtonClicked:(id)sender {
+- (IBAction)thirdButtonClicked:(id)sender {
     [MobClick event:@"rankingPage_HomePage_VideoAll"];
-    _selectedType = FTHomepageVideo;
+    _selectedType = FTHomepageTableViewTypeThird;
     [self refreshButtonsIndex];
 }
 #pragma -mark 更新对应的界面显示
 -(void)refreshButtonsIndex{
     switch (_selectedType) {
-        case FTHomepageDynamicInformation://格斗场列表
-            //如果没有格斗场数据，则显示空图片
-            if (self.tableViewDataSourceArray && self.tableViewDataSourceArray.count > 0) {
-                _noDynamicImageView.hidden = YES;
-            }else{
-                _noDynamicImageView.hidden = NO;
-            }
+        case FTHomepageTableViewTypeFirst://视频 或 普通用户的技能属性
+            _noDynamicImageView.hidden = YES;//隐藏“暂无数据”view
+            
             //显示当前下标
             _dynamicInfomationButtonIndexView.hidden = NO;
             _recordButtonIndexView.hidden = YES;
             _videoButtonIndexView.hidden = YES;
+
             
-            //显示格斗场列表，并隐藏其他
-            _infoTableView.hidden = NO;
-            _videoCollectionView.hidden = YES;
+            //隐藏其余tableView，显示collectionView，并设置
+            _infoTableView.hidden = YES;
             _recordRankTableView.hidden = YES;
             _recordListTableView.hidden = YES;
+            
+//            if ([_userIdentity isEqualToString:@"0"]) {//如果是普通用户，展示技能列表
+            if (true) {//如果是普通用户，展示技能列表 /* 2016年12月1日修改，所有用户都显示技能列表 */
+                _skillsTableView.hidden = NO;
+                _courseHistoryTableView.hidden = YES;//隐藏历史课程tableview
+                [self displaySkillsTableView];
+            } else {//
+                _videoCollectionView.hidden = NO;
+                [self initCollectionView];
+            }
+            
+            
             break;
-        case FTHomepageRecord://赛事
+        case FTHomepageTableViewTypeSecond://赛事 或 普通用户的课程记录
+            _noDynamicImageView.hidden = YES;//隐藏“暂无数据”view
+            
             //显示当前下标
-            _noDynamicImageView.hidden = YES;
             _dynamicInfomationButtonIndexView.hidden = YES;
             _recordButtonIndexView.hidden = NO;
             _videoButtonIndexView.hidden = YES;
             
             //显示赛事相关的内容，隐藏其他
             _noDynamicImageView.hidden = YES;
-            _recordRankTableView.hidden = NO;
-            _recordListTableView.hidden = NO;
             _infoTableView.hidden = YES;
             _videoCollectionView.hidden = YES;
             
-            //处理赛事内容显示
-            [self setRecordContent];
+            if (true) {//如果是普通用户，需要展示历史课程
+                _courseHistoryTableView.hidden = NO;//显示历史课程tableview
+                _skillsTableView.hidden = YES;//隐藏技能列表
+                [self displayCourseHistoryTableView];
+            } else {//
+                _recordRankTableView.hidden = NO;
+                _recordListTableView.hidden = NO;
+
+                //处理赛事内容显示
+                [self setRecordContent];
+            }
+            
             break;
-        case FTHomepageVideo://视频
+        case FTHomepageTableViewTypeThird://帖子列表
+            
+            
+            //如果没有格斗场数据，则显示空图片
+            if (self.tableViewDataSourceArray && self.tableViewDataSourceArray.count > 0) {
+                _noDynamicImageView.hidden = YES;
+            }else{
+                _noDynamicImageView.hidden = NO;
+            }
+            
             //显示当前下标
             _dynamicInfomationButtonIndexView.hidden = YES;
             _recordButtonIndexView.hidden = YES;
             _videoButtonIndexView.hidden = NO;
             
-            //隐藏其余tableView，显示collectionView，并设置
-            _infoTableView.hidden = YES;
+            //显示格斗场列表，并隐藏其他
+            _infoTableView.hidden = NO;
+            _videoCollectionView.hidden = YES;
             _recordRankTableView.hidden = YES;
             _recordListTableView.hidden = YES;
-            _videoCollectionView.hidden = NO;
-            
-            [self initCollectionView];
+            _courseHistoryTableView.hidden = YES;//隐藏历史课程
+            _skillsTableView.hidden = YES;//隐藏技能列表
             break;
+            
         default:
             break;
     }
 }
+
+#pragma mark -获取上课记录
+- (void) getCourseHistoryFromServer {
+    
+    [NetWorking getUserCourseHistoryWithOption:^(NSDictionary *dict) {
+        
+        SLog(@"history dict:%@",dict);
+        BOOL status = [dict[@"status"] isEqualToString:@"success"];
+        if (status) {
+            NSArray *arrayTemp = dict[@"data"];
+            
+            //测试用，给array赋值
+//            arrayTemp = [self setTempArray];
+            
+            [self handleCourseVersionWithCourseArray:arrayTemp];
+            
+            [self sortArray:arrayTemp];
+            
+            
+            [self updateCourseHistoryButtonRightRedPointDisplay];//刷新课程按钮右边的红点
+            [_courseHistoryTableView reloadData];//刷新历史课程列表
+            
+        }
+        
+        
+    }];
+}
+
+#pragma mark -获取用户技能点
+- (void) getSkillsFromServer {
+    
+    
+    NSString *localSkillVersion;
+    if ([self isSelfHomepage]) {//如果是自己看自己的，才传技能版本号
+        localSkillVersion = [[NSUserDefaults standardUserDefaults]valueForKey:SKILL_VERSION];
+    }
+    
+    
+    /*
+        开发阶段，暂时把local version设为nil
+     */
+//    localSkillVersion = nil;
+    
+    [NetWorking getUserSkillsWithCorporationid:nil andMemberUserId:_olduserid andVersion:localSkillVersion andParent:nil andOption:^(NSDictionary *dict) {
+        
+        SLog(@"history dict:%@",dict);
+        BOOL status = [dict[@"status"] isEqualToString:@"success"];
+        if (status) {//有新的版本
+            
+            NSArray *arrayTemp = dict[@"data"][@"skills"];
+            
+            /*
+             把从服务器获取的数据存入本地
+             */
+            _skillArray = [NSMutableArray new];//新建数组
+            _fatherSkillArray = [NSMutableArray new];//新建父项数组
+            _childSkillArray = [NSMutableArray new];//新建子项数组
+            
+            for(NSDictionary *skillDic in arrayTemp){
+                FTUserSkillBean *skillBean = [FTUserSkillBean new];
+                [skillBean setValuesWithDic:skillDic];
+                [_skillArray addObject:skillBean];
+                
+                if (skillBean.isParrent) {
+                    [_fatherSkillArray addObject:skillBean];
+                } else {
+                    [_childSkillArray addObject:skillBean];
+                }
+                
+            }
+            
+            /*
+                如果是自己的主页，再处理版本数据
+             */
+            if ([self isSelfHomepage]) {
+                NSString *version = dict[@"data"][@"versions"];//从服务器获取的版本号
+                
+                if (version && (version != [NSNull null])) {//如果有版本号，说明有更新
+                    
+                    _hasNewVersion = YES;
+                    
+                    [[NSUserDefaults standardUserDefaults]setValue:version forKey:SKILL_VERSION];
+                    [[NSUserDefaults standardUserDefaults]synchronize];
+                    
+                    /*
+                     有更新的话，要处理红点的逻辑，把之前存储的技能信息拿出来做一下对比，确定哪些母项有更新
+                     */
+                    NSArray *fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
+                    NSArray *childSkillArrayOld;
+                    if (!fatherSkillArrayOld || fatherSkillArrayOld.count < 1) {//如果本地没有缓存，则把新数据缓存入本地
+                        fatherSkillArrayOld = _fatherSkillArray;
+                        childSkillArrayOld = _childSkillArray;
+                        [self saveSkillArray:_fatherSkillArray WithKey:FATHER_SKILLS_ARRAY];
+                        [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
+                    }
+                    
+                    if (!childSkillArrayOld || childSkillArrayOld.count < 1) {//如果本地没有缓存，则把新数据缓存入本地
+                        childSkillArrayOld = _childSkillArray;
+                        [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
+                    }
+                    
+                    fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
+                    //遍历，查看母项的更新情况
+                    //初始化_fatherSkillVersionsDic
+                    _fatherSkillVersionsDic = [NSMutableDictionary new];
+                    for (FTUserSkillBean *newSkillBean in _fatherSkillArray){
+                        FTUserSkillBean *oldSkillBean;
+                        
+                        /*
+                         遍历本地存储的技能，对比score是否有更新
+                         */
+                        for(FTUserSkillBean *oldSkillBeanItem in fatherSkillArrayOld){
+                            if (newSkillBean.id == oldSkillBeanItem.id){
+                                oldSkillBean = oldSkillBeanItem;
+                                
+                                break;//退出内层循环
+                            }
+                        }
+                        
+                        if (oldSkillBean) {//如果oldSkillBean找到了，对比score
+                            if (oldSkillBean.score != newSkillBean.score) {
+                                //如果score不等，说明有更新，记录下来
+                                newSkillBean.hasNewVersion = YES;//
+                                [_fatherSkillVersionsDic setValue:@"1" forKey:[NSString stringWithFormat:@"%d", oldSkillBean.id]];
+                            }
+                        }
+                        
+                    }
+                    
+                    //刷新技能按钮右边红点的显示
+                    [self updateSkillButtonRightRedPointDisplay];
+                    
+                } else {//如果服务器返回的version为空，说明没有版本（即第一次访问）
+                    _hasNewVersion = NO;
+                    
+                    //把获取的技能信息存在本地
+                    //先把skillBean转换成data存入数组，再存入本地
+                    [self saveSkillArray:_fatherSkillArray WithKey:FATHER_SKILLS_ARRAY];
+                    [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
+                }
+ 
+            }
+            
+                    }else{
+            /*
+             没有新版本
+             */
+            _hasNewVersion = NO;
+            
+            /*
+             从本地读取旧的数据展示
+             */
+            _fatherSkillArray = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
+            _childSkillArray = [self getLocalSkillArrayWithKey:CHILD_SKILLS_ARRAY];
+        }
+        [_skillsTableView reloadData];//刷新课程表
+        [self refreshButtonsIndex ];//加载完技术数据后，刷新按钮、对应tableView的显示
+    }];
+}
+
+- (void)saveSkillArray:(NSArray *)skillArray WithKey:(NSString *)key{
+    NSMutableArray *skillDataArray = [NSMutableArray new];
+    for(FTUserSkillBean *skillBeanItem in skillArray){
+        NSData *skillDataItem = [NSKeyedArchiver archivedDataWithRootObject:skillBeanItem];
+        [skillDataArray addObject:skillDataItem];
+    }
+    [[NSUserDefaults standardUserDefaults]setObject:skillDataArray forKey:key];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+}
+
+/**
+ 根据key从UserDefaults获取skillArray
+
+ @param key key
+ @return 技能数组
+ */
+- (NSMutableArray *)getLocalSkillArrayWithKey:(NSString *)key{
+    NSArray *skillDataArray = [[NSUserDefaults standardUserDefaults]objectForKey:key];
+    NSMutableArray *skillArray = [NSMutableArray new];
+    for (NSData *beanData in skillDataArray){
+        FTUserSkillBean *bean = [NSKeyedUnarchiver unarchiveObjectWithData:beanData];
+        [skillArray addObject:bean];
+    }
+    return skillArray;
+}
+
+
+
+- (void)handleCourseVersionWithCourseArray:(NSArray *)courseArray{
+    
+    if (!courseArray) {
+        NSLog(@"array为空");
+        return;
+    }
+    
+    NSMutableDictionary *versionDic = [[NSMutableDictionary alloc]initWithDictionary:[[NSUserDefaults standardUserDefaults]valueForKey:COURSE_VERSION]];//从本地读取记录版本号已读、未读的字典
+    
+    if (!versionDic) {//如果不存在，说明本地没有课程的版本记录
+        //创建一个新的字典
+        versionDic = [NSMutableDictionary new];
+        
+        //存入版本号，并把值都设为“已读”
+        for ( int i = 0; i < courseArray.count ; i++) {
+            NSDictionary *courseDic = courseArray[i];//一条课程记录
+            if (courseDic) {
+                NSString *version = courseDic[@"versions"];//从字典取出的value实际为int类型
+                if (version) {
+                    version = [NSString stringWithFormat:@"%@", version];
+                    [versionDic setValue:READ forKey:version];
+                }
+            }
+        }
+    } else {//如果存在，说明本地已经有版本数据
+        //把新的课程版本存起来
+        for ( int i = 0; i < courseArray.count ; i++) {
+            NSDictionary *courseDic = courseArray[i];//一条课程记录
+            if (courseDic) {
+                NSString *version = courseDic[@"versions"];//从字典取出的value实际为int类型
+                if (version) {
+                    version = [NSString stringWithFormat:@"%@", version];
+                    if (![self dictionary:versionDic containsKey:version]) {//如果是新的版本号
+                        [versionDic setValue:UNREAD forKey:version];//作为未读存起来
+                    }
+                }
+            }
+        }
+    }
+    
+    [[NSUserDefaults standardUserDefaults]setObject:versionDic forKey:COURSE_VERSION];//把最新的版本信息存入本地
+    [[NSUserDefaults standardUserDefaults]synchronize];//同步
+    
+}
+
+- (BOOL)dictionary:(NSDictionary *)dic containsKey:(NSString *)keyString{
+    for(NSString *key in [dic allKeys]){
+        if([key isEqualToString:keyString]) return true;
+    }
+    return false;
+}
+
+#pragma makr 把从服务器获取的数据按照“yyyy年MM月”分组
+- (void) sortArray:(NSArray *)tempArray {
+
+        if (!_courseHistoryArray) {
+            _courseHistoryArray = [[NSMutableArray alloc]init];
+        }else{
+            [_courseHistoryArray removeAllObjects];
+        }
+    
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+    for (NSDictionary *dic in tempArray) {
+        
+        FTUserCourseHistoryBean *bean = [[FTUserCourseHistoryBean alloc]init];
+        [bean setValuesWithDic:dic];
+        
+        //        NSString *currentYearMonthString = [NSDate currentYearMonthString];
+        //        NSString *dateString = [NSDate yearMonthString:bean.date];
+        NSString *currentYearMonthString = [NSDate currentYearString];
+        NSString *yearString = [NSDate yearString:bean.date];
+        NSString *dateString = [NSDate dateStringWithYearMonth:bean.date];
+        
+        NSLog(@"dateString:%@",dateString);
+        
+        if ([dict.allKeys containsObject:dateString]) {
+            NSMutableArray *array = [dict objectForKey:dateString];
+            [array addObject:bean];
+            
+        }else {
+            NSMutableArray *array = [[NSMutableArray alloc]init];
+            [array addObject:bean];
+            [_courseHistoryArray addObject:array];
+            [dict setObject:array forKey:dateString];
+        }
+    }
+}
+
+
+/**
+ 返回本机测试数据
+
+ @return 上课记录array
+ */
+- (NSArray *)setTempArray{
+    NSDictionary *dic = @{
+                          @"id": @33,
+                          @"name": @"格斗之夜",
+                          @"createName": @"李懿哲",
+                          @"createTime": @1472659200000,
+                          @"updateName": @"李懿哲",
+                          @"updateTime": @1472659200000,
+                          @"createTimeTamp": @"1472659200000",
+                          @"updateTimeTamp": @"1472659200000",
+                          @"courseId": @94,
+                          @"date": @1472659200000,
+                          @"timeId": @44,
+                          @"placeId": @0,
+                          @"coachUserId": @"4c364ca3120d4a01a2766f155c55cc3d",
+                          @"hasOrderCount": @2,
+                          @"topLimit" : @10,
+                          @"hasGradeCount" : @"1",
+                          @"attendCount" : @"2",
+                          @"statu": @1,
+                          @"type": @"0",
+                          @"corporationid": @187,
+                          @"label": @"拳击",
+                          @"coachName": @"张三丰",
+                          @"timeSection": @"11:10~12:00"
+                          };
+    NSDictionary *dic2 = @{
+                           @"id": @33,
+                           @"name": @"格斗入门",
+                           @"createName": @"茂凯",
+                           @"createTime": @1478142181000,
+                           @"updateName": @"李懿哲",
+                           @"updateTime": @1478142181000,
+                           @"createTimeTamp": @"1478142181000",
+                           @"updateTimeTamp": @"1478142181000",
+                           @"courseId": @94,
+                           @"date": @1478142600000,
+                           @"timeId": @44,
+                           @"placeId": @0,
+                           @"coachUserId": @"4c364ca3120d4a01a2766f155c55cc3d",
+                           @"hasOrderCount": @1,
+                           @"statu": @1,
+                           @"type": @"0",
+                           @"corporationid": @187,
+                           @"label": @"拳击",
+                           @"attendCount" : @"1",
+                           @"hasGradeCount" : @1,
+                           @"timeSection": @"11:10~12:00",
+                           @"coachName": @"怀空",
+                           };
+    NSDictionary *dic3 = @{
+                           @"id": @33,
+                           @"name": @"柔术从入门到精通",
+                           @"createName": @"李懿哲",
+                           @"createTime": @1422903722000,
+                           @"updateName": @"李懿哲",
+                           @"updateTime": @1422903722000,
+                           @"createTimeTamp": @"1478142181000",
+                           @"updateTimeTamp": @"1478142181000",
+                           @"courseId": @94,
+                           @"date": @1422903722000,
+                           @"timeId": @44,
+                           @"placeId": @0,
+                           @"coachUserId": @"4c364ca3120d4a01a2766f155c55cc3d",
+                           @"hasOrderCount": @1,
+                           @"statu": @1,
+                           @"type": @"0",
+                           @"corporationid": @187,
+                           @"label": @"拳击",
+                           @"timeSection": @"11:10~12:00",
+                           @"coachName": @"丹伯多",
+                           };
+    
+    NSArray *array = [[NSArray alloc]initWithObjects:dic, dic2, dic3, nil ];
+    
+    return array;
+}
+
 #pragma -mark 格斗场帖子列表
 - (void)initInfoTableView
 {
@@ -465,6 +917,23 @@
     [_infoTableView registerNib:[UINib nibWithNibName:@"FTArenaImageTableViewCell" bundle:nil] forCellReuseIdentifier:@"cellArenaImage"];
 }
 
+- (void)displayCourseHistoryTableView{
+    //历史课程tableview代理设置
+    _courseHistoryTableView.delegate = self;
+    _courseHistoryTableView.dataSource = self;
+    [_courseHistoryTableView registerNib:[UINib nibWithNibName:@"FTUserCourseHistoryTableViewCell" bundle:nil] forCellReuseIdentifier:@"courseHistoryCell"];//加载cell用于复用
+    [_courseHistoryTableView reloadData];//刷新tableview
+}
+
+- (void)displaySkillsTableView{
+    //历史课程tableview代理设置
+    _skillsTableView.delegate = self;
+    _skillsTableView.dataSource = self;
+    [_skillsTableView registerNib:[UINib nibWithNibName:@"FTTraineeSkillCell" bundle:nil] forCellReuseIdentifier:@"skillListCell"];//加载cell用于复用
+    [_skillsTableView reloadData];//刷新tableview
+    
+}
+
 -(void) getDataFromWeb {
     
     NSString *urlString = [FTNetConfig host:Domain path:GetArenaListURL];
@@ -479,7 +948,7 @@
         if (responseDic != nil) {
             NSString *status = responseDic[@"status"];
             if ([status isEqualToString:@"success"]) {
-                [self refreshButtonsIndex ];
+                
                 NSMutableArray *mutableArray = [[NSMutableArray alloc]initWithArray:responseDic[@"data"]];
                 
                 //把获取的字典转换为bean，再存入数组
@@ -518,30 +987,19 @@
                 }
                 
                 [self.tableViewController.tableView reloadData];
-//                //缓存数据到DB
-//                if (mutableArray.count > 0) {
-//                    _noDynamicImageView.hidden = YES;
-//                    DBManager *dbManager = [DBManager shareDBManager];
-//                    [dbManager connect];
-//                    [dbManager cleanArenasTable];
-//                    
-//                    for (NSDictionary *dic in mutableArray)  {
-//                        [dbManager insertDataIntoArenas:dic];
-//                    }
-//                }
-                
-//                [self getDataFromDB];
                 
                 [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
                 [self.tableViewController.tableView footerEndRefreshing];
             }else {
-                [self getDataFromDB];
-                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
-                [self.tableViewController.tableView footerEndRefreshing];
+                //不用缓存，如果用缓存，会有个bug：看别人（小明）的主页，显示的是非小明的动态
+//                [self getDataFromDB];
+//                [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+//                [self.tableViewController.tableView footerEndRefreshing];
             }
             
         }else {
-            [self getDataFromDB];
+            //不用缓存，如果用缓存，会有个bug：看别人（小明）的主页，显示的是非小明的动态
+//            [self getDataFromDB];
         }
     }];
 }
@@ -652,25 +1110,54 @@
     [_recordListTableView registerNib:[UINib nibWithNibName:@"FTHomepageRecordListTableViewCell" bundle:nil] forCellReuseIdentifier:@"recordListCell"];
     [_recordListTableView reloadData];
 }
+
+//多少组
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    //如果是历史课程，返回多组，其他均为1
+    if (tableView == _courseHistoryTableView) {
+        if (_courseHistoryArray) {
+            return _courseHistoryArray.count;
+        }
+        return 1;
+    } else {
+        return 1;
+    }
+}
+
 //cell多少行
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
+    NSInteger number = 0;
     if (tableView == _recordRankTableView) {
         if(_boxerRankDataArray){
-            return _boxerRankDataArray.count;
+            number = _boxerRankDataArray.count;
         }
     }else if(tableView == _recordListTableView){
-        return _boxerRaceInfoDataArray.count;
+        number = _boxerRaceInfoDataArray.count;
+    }else if (tableView == _courseHistoryTableView) {
+        if (_courseHistoryArray) {
+            number = [_courseHistoryArray[section] count];
+        }
+//        number = 10;
+    }else if (tableView == _skillsTableView){
+        if (_fatherSkillArray && _fatherSkillArray.count > 0) {//先加在从服务器获取的最新的技能，没有的话去本地缓存找
+            number = _fatherSkillArray.count;
+        }else{
+            NSArray *localFatherSkillArray = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
+            if (localFatherSkillArray && localFatherSkillArray.count > 0) {
+                number = _fatherSkillArray.count;
+            }
+        }
     }
-    return 0;
+    return number;
 }
 
 //headerView
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *headerView = [UIView new];
-    headerView.frame = CGRectMake(0, 0, tableView.width, 36);
+    
     if (tableView == _recordRankTableView) {
-//        headerView.backgroundColor = [UIColor yellowColor];
+        UIView *headerView = [UIView new];
+        headerView.frame = CGRectMake(0, 0, tableView.width, 36);
         
         //固定文本“战绩”label
         UILabel *standingsTitle = [[UILabel alloc]initWithFrame:CGRectMake(14 + 10, 12, 50, 14)];
@@ -723,21 +1210,87 @@
         UIView *bottomSeparatorView = [[UIView alloc]initWithFrame:CGRectMake(10, headerView.height - 1, headerView.width - 20, 1)];
         bottomSeparatorView.backgroundColor = [UIColor colorWithRed:40 / 255.0 green:40 / 255.0 blue:40 / 255.0 alpha:1];
         [headerView addSubview:bottomSeparatorView];
+        
+        return headerView;
+    }else if (tableView == _courseHistoryTableView){
+        
+        if(!_courseHistoryArray || _courseHistoryArray.count == 0){//如果没有历史课程数据，则不反回headerView
+            return nil;
+        }
+        
+        UIView *headerView = [UIView new];
+        headerView.backgroundColor = [UIColor colorWithHex:0x282828];
+        headerView.frame = CGRectMake(0, 0, tableView.width, 20);
+        
+        FTUserCourseHistoryBean *bean = [_courseHistoryArray[section] firstObject];
+        NSString *currentYearMonthString = [NSDate currentYearMonthString2];
+        NSString *yearMonthString = [NSDate dateStringWithYearMonth:bean.date];
+        
+        NSString *currentMonthString = [NSDate currentMonthString];
+        NSString *monthString = [NSDate monthString:bean.date];
+        
+        NSString *date = @"";
+        UILabel *label1;
+        if ([yearMonthString isEqualToString:currentYearMonthString]) {
+            if ([monthString isEqualToString:currentMonthString]) {
+                date = @"本月完成课程";
+            } else {
+                date = [NSString stringWithFormat:@"%@月完成课程", monthString];
+            }
+            label1 = [[UILabel alloc]initWithFrame:CGRectMake(16, 4, 75, 12)];
+        }else {
+            date = [NSString stringWithFormat:@"%@完成课程", yearMonthString];
+            label1 = [[UILabel alloc]initWithFrame:CGRectMake(16, 4, 120, 12)];
+        }
+        
+        label1.textColor = [UIColor colorWithHex:0xb4b4b4];
+        label1.font = [UIFont systemFontOfSize:12];
+        label1.text = date;
+        [headerView addSubview:label1];
+        
+        UILabel *label2 = [[UILabel alloc]initWithFrame:CGRectMake(label1.frame.origin.x + label1.width, 4, 50, 12)];
+        label2.textColor = [UIColor colorWithHex:0xb4b4b4];
+        label2.text = [NSString stringWithFormat:@"%ld节", [_courseHistoryArray[section] count] ];
+        label2.font = [UIFont systemFontOfSize:12];
+        [headerView addSubview:label2];
+        
+        return headerView;
     }
-    return headerView;
+    return nil;
 }
 
 //headerView height
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (tableView == _recordRankTableView) {
         return 36;
+    }else if (tableView == _courseHistoryTableView){
+        if(!_courseHistoryArray || _courseHistoryArray.count == 0){//如果没有历史课程数据，则不反回headerView
+            return 0;
+        }
+        return 20;
     }
     return 0;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (tableView == _courseHistoryTableView) {
+        return 20;
+    }
+    return 0;
+}
+- (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (tableView == _courseHistoryTableView) {
+        UIView *footerView = [UIView new];
+        footerView.backgroundColor = [UIColor clearColor];
+        footerView.frame = CGRectMake(0, 0, tableView.width, 20);
+        
+        return  footerView;
+    }
+    return nil;
+}
 //cell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    FTBaseTableViewCell *cell;
+    FTBaseTableViewCell *cell = [FTBaseTableViewCell new];
     if (tableView == _recordRankTableView) {//如果是赛事排行榜信息
         
         FTRecordRankTableViewCell *cell1 = (FTRecordRankTableViewCell *)([tableView dequeueReusableCellWithIdentifier:@"recordRankCell"]);
@@ -770,6 +1323,16 @@
         [cell2 setWithDic:_boxerRaceInfoDataArray[indexPath.row]];
         cell2.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell2;
+    }else if(tableView == _courseHistoryTableView){//历史课程
+        FTUserCourseHistoryTableViewCell *courseHistoryCell = [tableView dequeueReusableCellWithIdentifier:@"courseHistoryCell"];
+        FTUserCourseHistoryBean *userCourseHistoryBean = _courseHistoryArray[indexPath.section][indexPath.row];
+        [courseHistoryCell setWithBean:userCourseHistoryBean];
+        return courseHistoryCell;
+    }else if(tableView == _skillsTableView){//技能
+        FTTraineeSkillCell *skillListCell = [tableView dequeueReusableCellWithIdentifier:@"skillListCell"];
+        FTUserSkillBean *bean = _fatherSkillArray[indexPath.row];
+        [skillListCell setWithSkillBean:bean];
+        return skillListCell;
     }
     return cell;
 }
@@ -783,6 +1346,10 @@
         }
     }else if(tableView == _recordListTableView){
         return 74 + 10;
+    }else if(tableView == _courseHistoryTableView){
+        return 50;
+    }else if(tableView == _skillsTableView){
+        return 44;
     }
     return 0;
 }
@@ -808,20 +1375,134 @@
             }];
 
 
-        }else if ([type isEqualToString:@"2"]){//视频
-            NSLog(@"视频");
-            [NetWorking getVideoById:dic[@"urlId"] andOption:^(NSArray *array) {
-                FTVideoBean *videoBean = [FTVideoBean new];
-                [videoBean setValuesWithDic:[array firstObject]];
-                FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
-                videoDetailVC.urlId = dic[@"urlId"];
-                videoDetailVC.videoBean = videoBean;
-                [self.navigationController pushViewController:videoDetailVC animated:YES];
-            }];
-
+        }else if ([type isEqualToString:@"2"]){//视频  注释掉了这一段，不会有视频类型了，全部是news类型
+//            NSLog(@"视频");
+//            [NetWorking getVideoById:dic[@"urlId"] andOption:^(NSArray *array) {
+//                FTVideoBean *videoBean = [FTVideoBean new];
+//                [videoBean setValuesWithDic:[array firstObject]];
+//                FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
+//                videoDetailVC.urlId = dic[@"urlId"];
+////                videoDetailVC.videoBean = videoBean;
+//                [self.navigationController pushViewController:videoDetailVC animated:YES];
+//            }];
+//
         }
+    }else if (tableView == _courseHistoryTableView){
+        NSLog(@"_courseHistoryTableView 被点击");
+        
+        FTUserCourseHistoryBean *courseBean = _courseHistoryArray[indexPath.section][indexPath.row];
+        NSString *version = courseBean.version;
+        
+        FTUserCourseCommentViewController * userCourseCommentViewController = [FTUserCourseCommentViewController new];
+        userCourseCommentViewController.courseRecordVersion = version;
+        userCourseCommentViewController.courseName = courseBean.courseName;
+        [self.navigationController pushViewController:userCourseCommentViewController animated:YES];
+
+        if (version) {
+            NSMutableDictionary *versionDic = [[NSUserDefaults standardUserDefaults]valueForKey:COURSE_VERSION];//从本地读取记录版本号已读、未读的字典/Users/mapbar/code/fighter/fighter/UI/ViewController/FTHomepageMainViewController.m
+            if (versionDic) {
+//                [versionDic setValue:READ forKey:version];
+                
+                NSMutableDictionary *mDicTest = [[NSMutableDictionary alloc]initWithDictionary:versionDic copyItems:YES];
+                
+                [mDicTest setValue:READ forKey:version];
+//                [versionDic setValue:UNREAD forKey:version];
+                [[NSUserDefaults standardUserDefaults]removeObjectForKey:COURSE_VERSION];
+                [[NSUserDefaults standardUserDefaults]setObject:mDicTest forKey:COURSE_VERSION];
+                [[NSUserDefaults standardUserDefaults]synchronize];
+            }
+        }
+        
+    }else if (tableView == _skillsTableView){
+        NSLog(@"_skillsTableView 被点击");
+        FTUserCourseCommentViewController * userCourseCommentViewController = [FTUserCourseCommentViewController new];
+        userCourseCommentViewController.type = FTUserSkillTypeChildSkill;
+        
+        //点击的该母项技能
+        FTUserSkillBean *fatherSkillBean = _fatherSkillArray[indexPath.row];
+        
+        //母项页传递下去
+        userCourseCommentViewController.fatherSkillBean = fatherSkillBean;
+
+        //把筛选出来的该母项下所有的子项传值给下个vc
+        userCourseCommentViewController.skillArray = [self getChildrenSkillArrayWithParentID:fatherSkillBean.id fromSkillArray:_childSkillArray];
+        
+        if ([self isSelfHomepage] && fatherSkillBean.hasNewVersion) {//如果有是自己的主页，并且有更新
+            //点击后，将该母项设为没有更新
+            fatherSkillBean.hasNewVersion = NO;
+            
+            //把历史该母项的所有子项历史记录也传给下个vc
+            NSArray *childSkillArrayOld = [self getLocalSkillArrayWithKey:CHILD_SKILLS_ARRAY];
+            userCourseCommentViewController.skillArrayOld = [self getChildrenSkillArrayWithParentID:fatherSkillBean.id fromSkillArray:childSkillArrayOld];
+            
+            //点击后，把该条设为已读
+            [_fatherSkillVersionsDic setObject:@"0" forKey:[NSString stringWithFormat:@"%d", fatherSkillBean.id]];
+            
+            //并把这条点击过的母项存入本地
+            NSMutableArray *fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
+                //移除旧的母项，添加最新的母项
+            for(FTUserSkillBean *beanItem in fatherSkillArrayOld){
+                if(beanItem.id == fatherSkillBean.id){
+                    [fatherSkillArrayOld removeObject:beanItem];
+                    [fatherSkillArrayOld addObject:fatherSkillBean];
+                    [self saveSkillArray:fatherSkillArrayOld WithKey:FATHER_SKILLS_ARRAY];//存入本地
+                    break;
+                }
+            }
+        }
+
+        
+        [self.navigationController pushViewController:userCourseCommentViewController animated:YES];
     }
 }
+
+
+/**
+ 是否还有未查看的更新（用于判断顶部红点的展示与否）
+
+ @return BOOL
+ */
+- (BOOL)hasAnyUnreadSkillChange{
+    for(NSString *value in [_fatherSkillVersionsDic allValues]){
+        if ([value isEqualToString:@"1"]){
+            /*
+                如果有值为1的，说明有未读的，返回true
+             */
+            return true;
+        }
+    }
+     
+    return false;
+}
+
+- (BOOL)hasAnyUnreadCourseRecord{
+    NSDictionary *versionDic = [[NSUserDefaults standardUserDefaults]valueForKey:COURSE_VERSION];
+    for (NSString *version in [versionDic allKeys]){
+        NSString *hasRead = versionDic[version];
+        if ([hasRead isEqualToString:UNREAD]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+/**
+ 根据parentID筛选出子项skill
+
+ @param parentId 父项id
+ @param skillArray skillArray
+ @return 子项
+ */
+- (NSMutableArray *)getChildrenSkillArrayWithParentID:(int)parentId fromSkillArray:(NSArray *)skillArray{
+    NSMutableArray *childSkillArray = [NSMutableArray new];
+    for(FTUserSkillBean *bean in skillArray){
+        if (bean.parentId == parentId) {
+            [childSkillArray addObject:bean];
+        }
+    }
+    return childSkillArray;
+}
+
 - (void) getDataFromDBWithVideoType:(NSString *)videosType  getType:(NSString *) getType {
     
     //从数据库取数据
@@ -898,6 +1579,35 @@
     }
 }
 
+- (void)updateButtonRightRedPointDisplay{
+    //历史课程的红点
+    [self updateCourseHistoryButtonRightRedPointDisplay];
+    
+    //技能按钮右边的红点
+    [self updateSkillButtonRightRedPointDisplay];
+}
+
+- (void)updateSkillButtonRightRedPointDisplay{
+    if ([self hasAnyUnreadSkillChange]) {
+        //如果有任何未读的记录，显示红点
+        _redPoint2.hidden = NO;
+    } else {
+        _redPoint2.hidden = YES;
+    }
+}
+
+/**
+ 刷新历史课程按钮右边的红点
+ */
+- (void)updateCourseHistoryButtonRightRedPointDisplay{
+    if ([self hasAnyUnreadCourseRecord]) {
+        //如果有任何未读的记录，显示红点
+        _redPoint1.hidden = NO;
+    } else {
+        _redPoint1.hidden = YES;
+    }
+}
+
 //某组有多少行
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.collectionViewDataSourceArray.count;
@@ -943,9 +1653,8 @@
 
 - (IBAction)followViewClicked:(id)sender {
     [MobClick event:@"rankingPage_HomePage_Follow"];
-    //从本地读取存储的用户信息，判断是否登陆。登陆之后才能进行关注操作
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    FTUserBean *localUser = [FTUserBean loginUser];
     if (!localUser) {
         [self login];
     }else{
@@ -976,8 +1685,7 @@
 //把点赞信息更新至服务器
 - (void)uploadVoteStatusToServer{
     
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+   FTUserBean *user = [FTUserBean loginUser];
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:_hasFollow ? AddFollowURL : DeleteFollowURL];
     
@@ -1031,8 +1739,9 @@
 }
 #pragma mark 从服务器获取是否已经关注
 - (void)getFollowInfo{
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    
+    FTUserBean *user = [FTUserBean loginUser];
+    if(!user) return;//如果没有登录，则直接返回
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
     NSString *userId = user.olduserid;
@@ -1085,6 +1794,11 @@
     [self.navigationController pushViewController:newPostViewController animated:YES];
 }
 - (IBAction)commentButtonClicked:(id)sender {
+    
+    if (![self isLogined]) {
+        return;
+    };
+    
     [MobClick event:@"rankingPage_HomePage_Message"];
     FTHomepageCommentListViewController *commentListViewController = [FTHomepageCommentListViewController new];
     if (_boxerId) {
@@ -1101,8 +1815,123 @@
     [self.navigationController pushViewController:commentListViewController animated:YES];
 }
 
-- (void)popViewController{
-    [self.navigationController popViewControllerAnimated:YES];
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+
+/************************************   code by kangxq   *************************************************/
+#pragma mark - notification 
+
+- (void) setNotification {
+    
+    //注册通知
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(hideNavigationBar:) name:HideHomePageNavNoti object:nil];
+    
+    if (self.isCurrentUser) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
+    }
 }
+#pragma mark - 设置界面
+
+/**
+ 设置导航栏样式
+ */
+- (void) setNavigationbar {
+    
+//    self.navigationController.navigationBar.hidden = YES;
+    [self.tabBarController.navigationController.navigationBar setHidden:YES];
+    
+    if ([_navigationSkipType isEqualToString:@"PRESENT"]) {
+        //设置左侧按钮
+        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
+                                       initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-取消"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                       style:UIBarButtonItemStyleDone
+                                       target:self
+                                       action:@selector(dismissBtnAction:)];
+        //把左边的返回按钮左移
+        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+        self.navigationItem.leftBarButtonItem = leftButton;
+    }else if ([_navigationSkipType isEqualToString:@"TABBAR"]){
+        // hide left navigation button
+    }else {
+        
+        //设置左侧按钮
+        UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
+                                       initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                       style:UIBarButtonItemStyleDone
+                                       target:self
+                                       action:@selector(popBtnAction:)];
+        //把左边的返回按钮左移
+        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+        self.navigationItem.leftBarButtonItem = leftButton;
+    }
+
+}
+
+
+//- (void) viewDidAppear:(BOOL)animated {
+//    
+//    self.navigationController.navigationBar.hidden = YES;
+//}
+
+/**
+ 设置view上的返回按钮，非导航栏返回按钮
+ */
+- (void) setBackButton {
+    
+    //设置左上角的返回按钮
+    UIButton *leftBackButton = [[UIButton alloc]init];
+    leftBackButton.frame = CGRectMake(-2, 19, 60, 44);
+    [self.view addSubview:leftBackButton];
+    [self.view bringSubviewToFront:leftBackButton];
+    
+    if ([_navigationSkipType isEqualToString:@"PRESENT"]) {
+        [leftBackButton setImage:[UIImage imageNamed:@"头部48按钮一堆-取消"] forState:UIControlStateNormal];
+        [leftBackButton addTarget:self action:@selector(dismissBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    }else {
+        [leftBackButton setImage:[UIImage imageNamed:@"头部48按钮一堆-返回"] forState:UIControlStateNormal];
+        [leftBackButton addTarget:self action:@selector(popBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+
+}
+
+
+#pragma mark - response
+
+- (void) popBtnAction:(id) sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
+- (void) dismissBtnAction:(id) sender {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+- (void) loginCallBack:(NSNotification *) noti {
+
+    NSDictionary *userInfo = noti.userInfo;
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
+        
+        FTUserBean *loginUser = [FTUserBean loginUser];
+//        if (loginUser) {
+//            self.olduserid = loginUser.olduserid;
+//            [self getHomepageUserInfo];
+//        }
+        self.olduserid = loginUser.olduserid;
+        [self getHomepageUserInfo];
+    }
+    
+    if ([userInfo[@"type"] isEqualToString:@"Logout"]) {
+        self.tabBarController.selectedIndex = 0;
+    }
+}
+
+
+//- (void) hideNavigationBar:(NSNotification *) noti {
+//
+////    [self.navigationController.navigationBar setHidden:YES];
+//    [self.tabBarController.navigationController.navigationBar setHidden:YES];
+//}
+
+
 @end

@@ -138,6 +138,17 @@
     return year;
 }
 
++ (NSString *) currentYearMonthString2 {
+    
+    NSDate *date = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
+    [dateFormatter setDateFormat:@"yyyy年MM月"];
+    NSString *yearMonth = [dateFormatter stringFromDate:date];
+    
+    return yearMonth;
+}
+
 + (NSString *) yearString:(NSString *)timestamp {
     
     NSDate *date = [self dateWithTimestamp:timestamp];
@@ -246,6 +257,17 @@
     
     return dateString;
 }
++ (NSString *) dateStringWithYearMonth:(NSString *) timestamp {
+    
+    NSDate *date = [self dateWithTimestamp:timestamp];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
+    [dateFormatter setDateFormat:@"yyyy年MM月"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    
+    return dateString;
+}
 
 /**
  根据时间戳生成日期字符串，格式：2016_10_10
@@ -341,10 +363,10 @@
     NSDate *currentDate = [NSDate date];
     NSDate *targetDate = [self dateWithTimestamp:timestamp];
     
-    NSInteger dateNum = [[self stringOfDate:currentDate formatter:@"YYYYMMdd"] integerValue];
-    NSInteger dateNum2  = [[self stringOfDate:targetDate formatter:@"YYYYMMdd"] integerValue];
+    long long  dateNum = [[self stringOfDate:currentDate formatter:@"YYYYMMdd"] longLongValue];
+    long long dateNum2  = [[self stringOfDate:targetDate formatter:@"YYYYMMdd"] longLongValue];
     
-    NSLog(@"dateNUm2:%ld",dateNum2);
+    NSLog(@"dateNUm2:%lld",dateNum2);
     NSLog(@"currentDate:%@",[self stringOfDate:currentDate formatter:@"YYYY-MM-dd HH:mm:ss"] );
     NSLog(@"targetDate:%@",[self stringOfDate:targetDate formatter:@"YYYY-MM-dd HH:mm:ss"] );
     
@@ -368,9 +390,9 @@
         if (interval < 60) {
             dateTimeString = @"刚刚";
         }else if (interval < 60 *60) {
-            dateTimeString = [NSString stringWithFormat:@"%ld分钟前",interval/60];
+            dateTimeString = [NSString stringWithFormat:@"%d分钟前",interval/60];
         }else {
-            dateTimeString = [NSString stringWithFormat:@"%ld小时前",interval/60/60];
+            dateTimeString = [NSString stringWithFormat:@"%d小时前",interval/60/60];
         }
         
 //        if (timeNum == stampNum) {
@@ -387,5 +409,30 @@
     return dateTimeString;
 }
 
+
+#pragma mark -
+
+/**
+ 根据时间戳返回正确的时间字符串格式
+ 如果是该年的日期择返回 月日格式
+ 如果不是该年则返回年月日格式
+
+ @param timestamp 时间戳
+ @return
+ */
++ (NSString *) recordDateString:(NSTimeInterval) timestamp {
+
+    NSString *currentYearMonthString = [self currentYearString];
+    
+    NSString *date = [NSString stringWithFormat:@"%.0f",timestamp];
+    
+    NSString *yearString = [NSDate yearString:date];
+    
+    if ([yearString isEqualToString:currentYearMonthString]) {
+        return  [NSDate monthDayStringWithWordSpace:date];
+    }else {
+        return [NSDate dateStringWithWordSpace:date];
+    }
+}
 
 @end

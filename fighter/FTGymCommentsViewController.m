@@ -21,6 +21,7 @@
     BOOL thumbState;
     BOOL hasGetThumbState;
 }
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIView *leftView;
@@ -68,7 +69,7 @@
                                    target:self
                                    action:@selector(backBtnAction:)];
     //把左边的返回按钮左移
-    [leftButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
     self.navigationItem.leftBarButtonItem = leftButton;
 
 }
@@ -127,6 +128,7 @@
         BOOL status = [dict[@"status"] isEqualToString:@"success"];
         if (status) {
             NSArray *tempArray = dict[@"data"];
+            [self.dataArray removeAllObjects];
             for (NSDictionary *dic in tempArray) {
                 NSLog(@"dic:%@",dic);
                 FTGymCommentBean *bean = [[FTGymCommentBean alloc]init];
@@ -160,10 +162,10 @@
 }
 
 #pragma mark - response
-//- (void) backBtnAction:(id) sender {
-//    
-//    [self.navigationController popViewControllerAnimated:YES];
-//}
+- (void) backBtnAction:(id) sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 
 /**
@@ -223,6 +225,14 @@
     FTGymCommentViewController *commentVC = [ FTGymCommentViewController new];
     commentVC.objId = self.objId;
     commentVC.title = self.title;
+    __weak typeof(self) weakself = self;
+    commentVC.freshBlock = ^(){
+        [weakself getDataArrayFromWeb];
+        if (weakself.freshBlock) {
+            weakself.freshBlock();
+        }
+    };
+    
     [self.navigationController pushViewController:commentVC animated:YES];
     
 }
@@ -328,6 +338,13 @@
     FTGymCommentViewController *commentVC = [ FTGymCommentViewController new];
     commentVC.objId = self.objId;
     commentVC.title = self.title;
+    __weak typeof(self) weakself = self;
+    commentVC.freshBlock = ^(){
+        [weakself getDataArrayFromWeb];
+        if (weakself.freshBlock) {
+            weakself.freshBlock();
+        }
+    };
     [self.navigationController pushViewController:commentVC animated:YES];
     
     return NO;

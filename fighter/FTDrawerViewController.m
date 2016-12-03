@@ -24,6 +24,7 @@
 
 #import "FTInformationViewController.h"
 #import "FTVideoViewController.h"
+#import "FTHomepageMainViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "FTBaseTabBarViewController.h"
 
@@ -37,8 +38,8 @@
 
 #import "FTSettingViewController.h"
 #import "NetWorking.h"
-#import "FTArenaViewController.h"
-#import "FTHomepageMainViewController.h"
+#import "FTBoxingBarMainViewController.h"
+
 #import "FTFightingViewController.h"
 #import "FTPracticeViewController.h"
 #import "FTPayViewController.h"
@@ -51,6 +52,7 @@
 #import "FTCoachSelfCourseViewController.h"
 
 
+
 @interface FTDrawerViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
 {
     // 商城配置
@@ -61,12 +63,13 @@
 
 @property (nonatomic, strong) FTBaseTabBarViewController *tabBarVC;
 @property (nonatomic, strong) FTInformationViewController *infoVC;
-@property (nonatomic, strong) FTFightingViewController *fightingVC;
+//@property (nonatomic, strong) FTFightingViewController *fightingVC;
 @property (nonatomic, strong) FTCoachSelfCourseViewController *coachSelfCourseVC;
 @property (nonatomic, strong) FTPracticeViewController *practiceVC;
-@property (nonatomic, strong) FTRankViewController *rankHomeVC;
-@property (nonatomic, strong) FTShopViewController *shopVC;
-
+//@property (nonatomic, strong) FTRankViewController *rankHomeVC;
+//@property (nonatomic, strong) FTShopViewController *shopVC;
+@property (nonatomic, strong) FTBoxingBarMainViewController *boxingBarVC;
+@property (nonatomic, strong) FTHomepageMainViewController *homepageVC;
 @property (nonatomic, strong) NSArray *labelArray; //标签数组
 
 
@@ -128,17 +131,21 @@ static NSString *const tableCellId = @"tableCellId";
 // 设置监听器
 - (void) setNoti {
     
-    //注册通知，接收微信登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginCallback:) name:WXLoginResultNoti object:nil];
     
-    //添加监听器，监听login
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(phoneLoginedCallback:) name:LoginNoti object:nil];
+    //注册通知，接收登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
+    
+//    //注册通知，接收微信登录成功的消息
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginCallback:) name:WXLoginResultNoti object:nil];
+//    
+//    //添加监听器，监听login
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(phoneLoginedCallback:) name:LoginNoti object:nil];
     
     //添加监听器，充值购买
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeCallback:) name:RechargeResultNoti object:nil];
     
     //添加监听器，充值购买
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(phoneLoginedCallback:) name:EditNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:EditNotification object:nil];
 }
 
 // 设置显示版本号
@@ -245,53 +252,44 @@ static NSString *const tableCellId = @"tableCellId";
 }
 
 #pragma mark - 登录回调
-// 登陆后更新用户中心数据
-- (void) phoneLoginedCallback:(NSNotification *)noti {
+
+
+// 登录响应
+- (void) loginCallBack:(NSNotification *)noti {
     
-    NSString *msg = [noti object];
-    if ([msg isEqualToString:@"LOGOUT"]) {//退出登录
-        
+    NSDictionary *userInfo = noti.userInfo;
+    
+    
+    if ([userInfo[@"type"] isEqualToString:@"Logout"]) {
         NSLog(@"执行退出登录");
         [self.loginView setHidden:NO];//显示登录页面
+    }else if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
         
-        
-    }else {
-        
-        // 获取余额
-        FTPaySingleton *singleton = [FTPaySingleton shareInstance];
-        [singleton fetchBalanceFromWeb:^{
-        
-            [self refreshBalanceCell];
-        }];
-        
-        // 更新用户信息
-        [self tableViewAdapter];
-    }
-    
-    [self settabBarChildViewControllers];
-}
-
-
-// 微信登录响应
-- (void) wxLoginCallback:(NSNotification *)noti{
-    NSString *msg = [noti object];
-    if ([msg isEqualToString:@"SUCESS"]) {
-        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"微信登录成功"];
+        [[UIApplication sharedApplication].keyWindow showMessage:@"登录成功"];
         
         // 获取余额
         FTPaySingleton *singleton = [FTPaySingleton shareInstance];
         [singleton fetchBalanceFromWeb:^{
             
-            [self refreshBalanceCell];
+            // 更新余额，暂时隐藏
+            //            [self refreshBalanceCell];
         }];
         
+        // 更新用户信息
         [self tableViewAdapter];
         
-    }else if ([msg isEqualToString:@"ERROR"]){
-        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"微信登录失败"];
+        self.homepageVC.olduserid = [FTUserBean loginUser].olduserid;
+    }else if ([userInfo[@"result"] isEqualToString:@"ERROR"]){
+        [[UIApplication sharedApplication].keyWindow showMessage:@"登录失败"];
+    }else {
+        // 更新用户信息
+        [self tableViewAdapter];
     }
+    
     [self settabBarChildViewControllers];
+    
 }
+
 
 #pragma mark - 充值回调
 - (void) rechargeCallback:(NSNotification *)noti {
@@ -300,7 +298,8 @@ static NSString *const tableCellId = @"tableCellId";
     FTPaySingleton *singleton = [FTPaySingleton shareInstance];
     [singleton fetchBalanceFromWeb:^{
         
-        [self refreshBalanceCell];
+        // 更新余额，暂时隐藏
+//        [self refreshBalanceCell];
     }];
 }
 
@@ -447,9 +446,9 @@ static NSString *const tableCellId = @"tableCellId";
     
     FTUserCenterViewController *userCenter = [[FTUserCenterViewController alloc]init];
     userCenter.title = @"个人资料";
+    userCenter.navigationSkipType = @"PRESENT";
     FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:userCenter];
     baseNav.navigationBarHidden = NO;
-//    baseNav.navigationBar.barTintColor = [UIColor blackColor];
     [self presentViewController:baseNav animated:YES completion:nil];
 }
 
@@ -574,9 +573,10 @@ static NSString *const tableCellId = @"tableCellId";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    
+    return 1;
 //    return 4;
-    return 5;
+//    return 5;
     
 }
 
@@ -585,10 +585,11 @@ static NSString *const tableCellId = @"tableCellId";
     if (indexPath.row == 0) {
         return 65;
     }
-    
-    if (indexPath.row == 1) {
-        return 85;
-    }
+   
+    // 余额 cell 暂时隐藏
+//    if (indexPath.row == 1) {
+//        return 85;
+//    }
     
 //    if (indexPath.row == 0) {
 //        return 85;
@@ -615,35 +616,18 @@ static NSString *const tableCellId = @"tableCellId";
         }
         return cell;
         
-    }else if (indexPath.row == 1) {
-        
-        FTDrawerPayCell *cell = [tableView dequeueReusableCellWithIdentifier:@"payCellId"];
-        cell.cellTitle.text = @"账户余额:";
-        cell.subtitle.text = @"0P";
-        
-        [cell.payBtn addTarget:self action:@selector(payBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-        
-        //从本地读取存储的用户信息
-        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-        if (localUserData == nil) {
-            return cell;
-        }
-        
-        FTPaySingleton *singleton = [FTPaySingleton shareInstance];
-        [cell setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
-        
-        return cell;
-    }else {
+    }
+    else {
         
         FTDrawerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCellId"];
         
-        if (indexPath.row == 2) {
+        if (indexPath.row == 1) {
             cell.cellTitle.text = @"我的关注";
             [cell.subtitle setHidden:YES];
-        }else if (indexPath.row == 3) {
+        }else if (indexPath.row == 2) {
             cell.cellTitle.text = @"我的收藏";
             [cell.subtitle setHidden:YES];
-        }else if (indexPath.row == 4) {
+        }else if (indexPath.row == 3) {
             cell.cellTitle.text = @"比赛信息";
             [cell.subtitle setHidden:YES];
         }
@@ -651,18 +635,40 @@ static NSString *const tableCellId = @"tableCellId";
          return cell;
     }
     
+    // 余额cell 暂时被隐藏
+//    if (indexPath.row == 1) {
+//        
+//        FTDrawerPayCell *cell = [tableView dequeueReusableCellWithIdentifier:@"payCellId"];
+//        cell.cellTitle.text = @"账户余额:";
+//        cell.subtitle.text = @"0P";
+//        
+//        [cell.payBtn addTarget:self action:@selector(payBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+//        
+//        //从本地读取存储的用户信息
+//        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
+//        if (localUserData == nil) {
+//            return cell;
+//        }
+//        
+//        FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+//        [cell setBalanceText:[NSString stringWithFormat:@"%ld",singleton.balance]];
+//        
+//        return cell;
+//    }
+    
 }
+
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    NSLog(@"cell did select");
-    if (indexPath.row == 1) {
-        FTPayViewController *payVC = [[FTPayViewController alloc]init];
-        FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:payVC];
-        baseNav.navigationBarHidden = NO;
-        [self presentViewController:baseNav animated:YES completion:nil];
-        
-    }
+//    NSLog(@"cell did select");
+//    if (indexPath.row == 1) {
+//        FTPayViewController *payVC = [[FTPayViewController alloc]init];
+//        FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:payVC];
+//        baseNav.navigationBarHidden = NO;
+//        [self presentViewController:baseNav animated:YES completion:nil];
+//        
+//    }
 }
 
 #pragma  mark - FTDynamicsDelegate
@@ -697,23 +703,23 @@ static NSString *const tableCellId = @"tableCellId";
 #pragma mark 个人主页入口
 - (void)gotoHomepageWithUseroldid:(NSString *)olduserid{
     
-    if (!olduserid) {
-        //从本地读取存储的用户信息
-        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-        olduserid = localUser.olduserid;
-        
+    NSString *userId = olduserid;
+    if (!userId || userId.length == 0) {
+        userId = [FTUserBean userId];
     }
     
-    FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
-    homepageViewController.olduserid = olduserid;
+    if (userId) {
+        FTHomepageMainViewController *homepageViewController = [FTHomepageMainViewController new];
+        homepageViewController.olduserid = userId;
+        homepageViewController.navigationSkipType = @"PRESENT";
+        FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:homepageViewController];
+        baseNav.navigationBarHidden = NO;
+        [self presentViewController:baseNav animated:YES completion:nil];
+    }
     
-    
-    FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:homepageViewController];
-    baseNav.navigationBarHidden = NO;
-    
-    [self presentViewController:baseNav animated:YES completion:nil];
 }
+
+
 
 #pragma mark - 设置tabbar
 
@@ -732,23 +738,40 @@ static NSString *const tableCellId = @"tableCellId";
         //    videoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-视频"];
         //    videoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-视频pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         //    videoVC.drawerDelegate = self;
-        
-        
-        
-        //    //拳吧
-        //    FTArenaViewController *arenaVC = [FTArenaViewController new];
-        //    arenaVC.tabBarItem.title = @"拳吧";
-        //    [arenaVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-        //                                                     Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
-        //                                                     nil] forState:UIControlStateSelected];
-        //
-        //    arenaVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳吧"];
-        //    arenaVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳吧pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        //    arenaVC.drawerDelegate = self;
-        
-        
+
         //    infoVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳讯"];
         //    infoVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳讯pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        
+        
+//        // 商城
+//        if (_shopVC == nil) {
+//            
+//            _shopVC = [FTShopViewController new];
+//            _shopVC.title = @"格斗商城";
+//            _shopVC.tabBarItem.title = @"格斗商城";
+//            [_shopVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+//                                                        Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
+//                                                        nil] forState:UIControlStateSelected];
+//            
+//            _shopVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-商城"];
+//            _shopVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-商城pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//        }
+        
+//        // 排行榜
+//        if (_rankHomeVC == nil) {
+//            
+//            _rankHomeVC = [FTRankViewController new];
+//            _rankHomeVC.title = @"排行榜";
+//            _rankHomeVC.tabBarItem.title = @"排行榜";
+//            [_rankHomeVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+//                                                            Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
+//                                                            nil] forState:UIControlStateSelected];
+//            _rankHomeVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-底部排行榜"];
+//            _rankHomeVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-底部排行榜pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//            
+//            
+//        }
+
     }
     
     
@@ -775,6 +798,8 @@ static NSString *const tableCellId = @"tableCellId";
         [_fightingVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                         Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
                                                         nil] forState:UIControlStateSelected];
+        
+        _fightingVC.ranckButtonBlock = self.ranckButtonBlock;
         _fightingVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳馆"];
         _fightingVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳馆pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     }
@@ -796,7 +821,7 @@ static NSString *const tableCellId = @"tableCellId";
     
     
     
-    // 教练查看自己课程
+    // 教练课程
     if (_coachSelfCourseVC == nil) {
         
         _coachSelfCourseVC = [FTCoachSelfCourseViewController new];
@@ -811,33 +836,35 @@ static NSString *const tableCellId = @"tableCellId";
 
     }
     
-    // 排行榜
-    if (_rankHomeVC == nil) {
+    
+    //拳吧
+    if (_boxingBarVC == nil) {
         
-        _rankHomeVC = [FTRankViewController new];
-        _rankHomeVC.title = @"排行榜";
-        _rankHomeVC.tabBarItem.title = @"排行榜";
-        [_rankHomeVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                        Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
-                                                        nil] forState:UIControlStateSelected];
-        _rankHomeVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-底部排行榜"];
-        _rankHomeVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-底部排行榜pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        _boxingBarVC = [FTBoxingBarMainViewController new];
+        _boxingBarVC.title = @"拳吧";
+        _boxingBarVC.tabBarItem.title = @"拳吧";
+        [_boxingBarVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                         Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
+                                                         nil] forState:UIControlStateSelected];
         
-
+        _boxingBarVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-拳吧"];
+        _boxingBarVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-拳吧pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     }
     
-    // 自定义H5页面商城
-    if (_shopVC == nil) {
+    //个人主页
+    if (_homepageVC == nil) {
         
-        _shopVC = [FTShopViewController new];
-        _shopVC.title = @"格斗商城";
-        _shopVC.tabBarItem.title = @"格斗商城";
-        [_shopVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                    Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
-                                                    nil] forState:UIControlStateSelected];
-        
-        _shopVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-商城"];
-        _shopVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-商城pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        _homepageVC = [FTHomepageMainViewController new];
+        _homepageVC.title = @"我是拳手";
+        _homepageVC.tabBarItem.title = @"我是拳手";
+        [_homepageVC.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                         Bar_Item_Select_Title_Color, NSForegroundColorAttributeName,
+                                                         nil] forState:UIControlStateSelected];
+        _homepageVC.isCurrentUser = YES;
+        _homepageVC.navigationSkipType = @"TABBAR";
+        _homepageVC.olduserid = [FTUserBean userId];
+        _homepageVC.tabBarItem.image = [UIImage imageNamed:@"底部导航-我是拳手"];
+        _homepageVC.tabBarItem.selectedImage = [[UIImage imageNamed:@"底部导航-我是拳手pre"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     }
     
 }
@@ -849,14 +876,12 @@ static NSString *const tableCellId = @"tableCellId";
     if (_tabBarVC == nil) {
         
         _tabBarVC = [FTBaseTabBarViewController new];
-        
         _tabBarVC.tabBar.barTintColor = [UIColor blackColor];
         _tabBarVC.tabBar.translucent = NO;
         _tabBarVC.navigationController.navigationBar.translucent = NO;
         _tabBarVC.drawerDelegate = self;
         _tabBarVC.openSliderDelegate = self.dynamicsDrawerViewController;
     }
-    
 }
 
 
@@ -876,25 +901,30 @@ static NSString *const tableCellId = @"tableCellId";
             }
         }
     }
+    NSInteger selectIndex = _tabBarVC.selectedIndex;
     
     if (isCoach && loginUser.corporationid) {
         
         _coachSelfCourseVC.corporationid = loginUser.corporationid;
-        _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_coachSelfCourseVC,_rankHomeVC];
-        
+
+        _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_coachSelfCourseVC,_boxingBarVC,_homepageVC];
     }else {
         
-        _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_practiceVC,_rankHomeVC];
-    }
-    
-    // 设置格斗商城
-    [self getShopConfigInfo:^{
+        _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_practiceVC,_boxingBarVC,_homepageVC];
         
-        if (_shopConfig == 0) {
-            
-            [self addTabBarVC:_shopVC];
-        }
-    }];
+    }
+    _tabBarVC.selectedIndex = selectIndex;
+    
+    
+    
+//    // 设置格斗商城
+//    [self getShopConfigInfo:^{
+//        
+//        if (_shopConfig == 0) {
+//            
+//            [self addTabBarVC:_shopVC];
+//        }
+//    }];
 }
 
 
@@ -910,26 +940,34 @@ static NSString *const tableCellId = @"tableCellId";
     [self settabBarChildViewControllers];
     
     
-    
     // 推送
     [self checkPush];
-    
     
     FTBaseNavigationViewController *navi = [[FTBaseNavigationViewController alloc]initWithRootViewController:_tabBarVC];
     [self.dynamicsDrawerViewController  setPaneViewController:navi];
 }
 
 
-- (void) addTabBarVC:(UIViewController *)viewController {
-
-    NSMutableArray *mutabelItems = [[NSMutableArray alloc]initWithArray:self.tabBarVC.viewControllers];
-    if (![mutabelItems containsObject:_shopVC]) {
-        [mutabelItems addObject:_shopVC];
-    }
-    NSArray *items = [[NSArray alloc]initWithArray:mutabelItems];
-    
-    self.tabBarVC.viewControllers = items;
-}
+//- (void) addTabBarVC:(UIViewController *)viewController {
+//
+//    NSMutableArray *mutabelItems = [[NSMutableArray alloc]initWithArray:self.tabBarVC.viewControllers];
+//    if (![mutabelItems containsObject:_shopVC]) {
+//        [mutabelItems addObject:_shopVC];
+//    }
+//    NSArray *items = [[NSArray alloc]initWithArray:mutabelItems];
+//    
+//    self.tabBarVC.viewControllers = items;
+//}
+//
+//
+//- (BOOL) isContainShopVC {
+//
+//    NSMutableArray *mutabelItems = [[NSMutableArray alloc]initWithArray:self.tabBarVC.viewControllers];
+//    if (![mutabelItems containsObject:_shopVC]) {
+//        return NO;
+//    }
+//    return YES;
+//}
 
 
 #pragma mark - 推送
@@ -949,44 +987,48 @@ static NSString *const tableCellId = @"tableCellId";
 //推送响应方法
 - (void) push:(NSDictionary *)dic {
 
-    FTBaseNavigationViewController *navi = (FTBaseNavigationViewController *)self.dynamicsDrawerViewController.paneViewController;
+//    FTBaseNavigationViewController *navi = (FTBaseNavigationViewController *)self.dynamicsDrawerViewController.paneViewController;
     
-    FTBaseTabBarViewController *tabBartVC = [navi.viewControllers firstObject];
     
     if ([dic[@"urlType"] isEqualToString:@"news"]) {
-        [tabBartVC setSelectedIndex:0];
+        [_tabBarVC setSelectedIndex:0];
+        [_infoVC pushToDetailController:dic];
         
-        FTInformationViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:0];
-        [infoVC pushToDetailController:dic];
-        
-    }else if ([dic[@"urlType"] isEqualToString:@"video"]) {
-        [tabBartVC setSelectedIndex:7];
-        
-        FTVideoViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:1];
-        [infoVC pushToDetailController:dic];
-        
-    }else if ([dic[@"urlType"] isEqualToString:@"arenas"]) {
-        [tabBartVC setSelectedIndex:6];
-        
-        FTArenaViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:2];
-        [infoVC pushToDetailController:dic];
-    }else if ([dic[@"urlType"] isEqualToString:@"teach"]) {
-        [tabBartVC setSelectedIndex:2];
-        
-        FTPracticeViewController *vc = [tabBartVC.viewControllers objectAtIndex:2];
-        [vc pushToDetailController:dic];
+    }
+
+    else if ([dic[@"urlType"] isEqualToString:@"teach"]) { // 教学
+        [_tabBarVC setSelectedIndex:2];
+        [_practiceVC pushToDetailController:dic];
     }else if ([dic[@"urlType"] isEqualToString:@"match"]) {//比赛
-        [tabBartVC setSelectedIndex:1];
-        FTFightingViewController *vc = [tabBartVC.viewControllers objectAtIndex:1];
-        [vc pushToDetailController:dic];
+        [_tabBarVC setSelectedIndex:1];
+        [_fightingVC pushToDetailController:dic];
     }
     
+    //    else if ([dic[@"urlType"] isEqualToString:@"video"]) {
+    //        [_tabBarVC setSelectedIndex:7];
+    //
+    //        FTVideoViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:1];
+    //        [_videoVC pushToDetailController:dic];
+    //
+    //    }
+    //    else if ([dic[@"urlType"] isEqualToString:@"arenas"]) {
+    //        [_tabBarVC setSelectedIndex:6];
+    //
+    //        FTArenaViewController *infoVC = [tabBartVC.viewControllers objectAtIndex:2];
+    //        [infoVC pushToDetailController:dic];
+    //    }
     
+    //教练评分通知，跳转个人主页显示
+    if ([dic[@"type"] isEqualToString:@"g-coursec"]) {
+        [self gotoHomepageWithUseroldid:nil];
+    }
+    
+    // 每日任务
     if([dic[@"taskLocalNotification"] isEqualToString:@"taskLocalNotification"]) {
     
         [self.tabBarVC taskBtnAction:nil];
     }
-    
+
 }
 
 
@@ -1013,4 +1055,6 @@ static NSString *const tableCellId = @"tableCellId";
         
     }];
 }
+
+
 @end

@@ -28,6 +28,8 @@
 @property (nonatomic, strong)FTArenaChooseLabelView *chooseLabelView;
 @property (nonatomic, strong)NSString *typeOfLabel;//选择的标签
 @property (nonatomic, assign) BOOL isSyncToArena;
+@property (strong, nonatomic) IBOutlet UIView *labelTypeView;
+
 @end
 
 @implementation FTNewPostViewController
@@ -87,6 +89,11 @@
 }
 
 - (void)setSubViews{
+    if (_moduleBean) {
+        _labelTypeView.hidden = YES;
+        _typeOfLabel = _moduleBean.name;
+    }
+    
     //去掉底部的遮罩层
     self.bottomGradualChangeView.hidden = YES;
     //设置顶部的按钮
@@ -426,14 +433,14 @@
     NSLog(@"键盘弹出");
     if ([self.contentTextView isFirstResponder]) {
         CGRect rOfView = self.view.frame;
-        rOfView.origin.y = -200;
+        rOfView.origin.y = -136;
         self.view.frame = rOfView;
     }
 }
 - (void)keyBoardHide{
     NSLog(@"键盘收回");
     CGRect rOfView = self.view.frame;
-    rOfView.origin.y = 0;
+    rOfView.origin.y = 64;
     self.view.frame = rOfView;
 }
 
@@ -442,7 +449,7 @@
     //设置返回按钮
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(popVC)];
     //把左边的返回按钮左移
-        [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 0)];
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
     //设置发布按钮
@@ -548,7 +555,7 @@
 - (NSString *)fixStringForDate:(NSDate *)date
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateStyle:kCFDateFormatterFullStyle];
+    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
     [dateFormatter setDateFormat:@"yyyy-MM-dd_HH:mm:ss"];
     NSString *fixString = [dateFormatter stringFromDate:date];
     return fixString;
@@ -618,7 +625,7 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         
         if ([dict[@"status"] isEqualToString:@"success"]) {
-            
+            [_delegate postSuccess];
             NSLog(@"帖子发成功了");
             [self showHUDWithMessage:@"发布成功"isPop:YES];
         }else{

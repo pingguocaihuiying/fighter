@@ -16,6 +16,7 @@
     NSString *_orderNo;
     NSString *_tradeNO;
     BOOL _isAppeared;
+
 }
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
@@ -47,15 +48,13 @@
     
     [super viewDidLoad];
    
+    [self setNotifications];
+    
     [self initNavigationBar];
     
     [self initWebView];
     
-    [self setNotifications];
-    
 }
-
-
 
 - (void) viewDidAppear:(BOOL)animated {
     
@@ -67,12 +66,16 @@
         self.needRefreshUrl=nil;
         
     }else {
-        if (_isAppeared ) {
+        if (_isAppeared) {
             
             _isAppeared = NO;
+            NSLog(@"reloadSource excute");
             [self.webView stringByEvaluatingJavaScriptFromString:@"reloadSource()"];
         }
     }
+    
+    NSMutableString *url=[[NSMutableString alloc]initWithString:[self.request.URL absoluteString]];
+    NSLog(@"url:%@",url);
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
@@ -97,6 +100,10 @@
 #pragma mark - 初始化
 - (void) setNotifications {
 
+   
+    //添加监听器，监听登录通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallback:) name:LoginNoti object:nil];
+    
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(shouldBackRefresh:) name:@"dbbackrefresh" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(shouldBackRoot:) name:@"dbbackroot" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(shouldBackRootRefresh:) name:@"dbbackrootrefresh" object:nil];
@@ -113,7 +120,7 @@
                                    target:self
                                    action:@selector(backBtnAction:)];
     //把左边的返回按钮左移
-    [leftButton setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
     self.navigationItem.leftBarButtonItem = leftButton;
 }
 
@@ -121,11 +128,50 @@
     
     [self.webView loadRequest:self.request];
     self.webView.delegate = self;
+}
+
+- (void) loginRefresh {
+   
+    NSMutableString *url=[[NSMutableString alloc]initWithString:[self.request.URL absoluteString]];
+    FTUserBean *localUser = [FTUserBean loginUser];
+    if (localUser) {
+        
+        // 商品详情页登录后刷新
+        if([url rangeOfString:@"loginState=false"].location!=NSNotFound ){
+            
+            NSString *urlString = [NSString stringWithFormat: @"userId=%@&loginToken=%@",localUser.olduserid,localUser.token];
+//            [url replaceCharactersInRange:[url rangeOfString:@"shopNew"] withString:@"shop"];
+            [url replaceCharactersInRange:[url rangeOfString:@"loginState=false"] withString:@"loginState=true"];
+            [url replaceCharactersInRange:[url rangeOfString:@"userId=?&loginToken=?"] withString:urlString];
+            
+            self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+            [self.webView loadRequest:self.request];
+        }
+        
+        // 兑换记录页登陆后刷新
+        if ([url rangeOfString:@"toLogin=1"].location!=NSNotFound) {
+        
+            NSString *urlString = [NSString stringWithFormat: @"userId=%@&loginToken=%@",localUser.olduserid,localUser.token];
+//            [url replaceCharactersInRange:[url rangeOfString:@"shopNew"] withString:@"shop"];
+            [url replaceCharactersInRange:[url rangeOfString:@"toLogin=1"] withString:@"none=1"];
+            [url replaceCharactersInRange:[url rangeOfString:@"userId=?&loginToken=?"] withString:urlString];
+            
+            self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+            [self.webView loadRequest:self.request];
+        }else if ([url rangeOfString:@"userId=?&loginToken=?"].location!=NSNotFound) {
+        
+            NSString *urlString = [NSString stringWithFormat:@"userId=%@&loginToken=%@",localUser.olduserid,localUser.token];
+            [url replaceCharactersInRange:[url rangeOfString:@"userId=?&loginToken=?"] withString:urlString];
+            
+            self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+            [self.webView loadRequest:self.request];
+        }
+        
+    }
     
 }
 
 #pragma mark - response
-
 - (void) backBtnAction:(id)sender {
     
     [self.navigationController popViewControllerAnimated:YES];
@@ -156,6 +202,25 @@
     
     NSLog(@"url:%@",url);
     
+    
+    // 检测登录
+    if([url rangeOfString:@"toLogin=1"].location!=NSNotFound){
+        
+         if ([self isLogined]) {
+             
+            FTUserBean *localUser = [FTUserBean loginUser];
+            NSString *urlString = [NSString stringWithFormat: @"userId=%@&loginToken=%@",localUser.olduserid,localUser.token];
+            [url replaceCharactersInRange:[url rangeOfString:@"toLogin=1"] withString:urlString];
+            
+         }else {
+             
+             return NO;
+         }
+    }
+
+
+    
+    
     NSRange userIdRange = [url rangeOfString:@"js-call:userId="];
     NSRange orderNORange = [url rangeOfString:@"&orderNo="];
     NSRange priceRange = [url rangeOfString:@"&price="];
@@ -173,8 +238,7 @@
         
         _orderNo = orderNo;
         //从本地读取存储的用户信息
-        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+         FTUserBean *localUser = [FTUserBean loginUser];
         
         NSString *userId = localUser.olduserid;//发起人id
         NSLog(@"userId = %@ ",userId);
@@ -332,6 +396,18 @@
 //    FTPaySingleton *singleton = [FTPaySingleton shareInstance];
 //    [singleton fetchBalanceFromWeb:^{}];
 //}
+
+#pragma mark - 通知事件
+// 登录响应
+- (void) loginCallback:(NSNotification *)noti {
+    
+    NSDictionary *userInfo = noti.userInfo;
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
+        [self loginRefresh];
+    }
+    
+}
+
 
 
 - (void) wxPayCallback:(NSNotification *) noti {

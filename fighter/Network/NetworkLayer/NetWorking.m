@@ -39,8 +39,7 @@
     NSString *urlString = [FTNetConfig host:Domain path:SendSMSByTypeURL];
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     
@@ -59,8 +58,7 @@
     NSString *urlString = [FTNetConfig host:Domain path:SendSMSByTypeURL];
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     
@@ -156,10 +154,12 @@
     NSString *username = phoneNum;
     NSString *appendedPassword = [NSString stringWithFormat:@"%@%@", password, @"**#qwe"];
     NSString *md5String = [MD5 md5:appendedPassword];
-    
+    //设备独立的token
+    NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"];
     NSDictionary *dic = @{@"phone" : username,
                           @"password" : md5String,
                           @"city" : @"-1",
+                          @"token":deviceToken
                           };
     
     [self postRequestWithUrl:loginURLString parameters:dic option:option];
@@ -171,8 +171,7 @@
 + (void) loginOut:(void (^)(NSDictionary *dict))option {
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     NSString *token = localUser.token;
@@ -232,8 +231,7 @@
                       option:(void (^)(NSDictionary *dict))option{
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     [dic setObject:localUser.olduserid forKey:@"userid" ];
@@ -260,8 +258,7 @@
                       Key:(NSString *)key  option:(void (^)(NSDictionary *dict))option {
 
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     [dic setObject:localUser.olduserid forKey:@"userid" ];
@@ -298,8 +295,7 @@
     NSString *passNew=  [MD5 md5:newpossword];
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSDictionary *dic = @{@"oldpassword" : passOld,
                           @"newpossword" : passNew,
@@ -321,8 +317,7 @@
     
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     NSString *olduserid = localUser.olduserid;
@@ -347,8 +342,7 @@
     
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     
@@ -411,8 +405,7 @@
     
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     
@@ -448,8 +441,7 @@
     
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     
@@ -514,31 +506,56 @@
 + (void) requestWeixinUser:(NSDictionary *)wxInfoDic
                     option:(void (^)(NSDictionary *dict))option{
     
-    for(NSString *key in [wxInfoDic allKeys]){
-        NSLog(@"key:%@", key);
-    }
-    
+//    for(NSString *key in [wxInfoDic allKeys]){
+//        NSLog(@"key:%@", key);
+//    }
     NSString *openId = wxInfoDic[@"openid"];
     NSString *unionId = wxInfoDic[@"unionid"];
     NSString *timestampString = [NSString stringWithFormat:@"%.0lf",[[NSDate date] timeIntervalSince1970]];
     NSString *imei = [UUID getUUID];
     NSString *username = wxInfoDic[@"nickname"];
+    NSLog(@"username : %@", username);
     NSString *keyToken = [NSString stringWithFormat:@"%@%@", WXLoginSecret_Key, timestampString];
     NSString *keyTokenMD5 = [MD5 md5:keyToken];
     NSString *province = wxInfoDic[@"province"];
     NSString *headpic = wxInfoDic[@"headimgurl"];
     headpic = [FTEncoderAndDecoder encodeToPercentEscapeString:headpic];
-    NSString *stemfrom = @"weixin";
-    username = [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    NSString *stemfrom = @"iOS-weixin";
+    
+    // 用户名转码  ISO 8859-1
+    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingISOLatin1);
+    const  char *cString = [username UTF8String];;
+    NSString *encodeUsername = [NSString  stringWithCString:cString encoding:enc];
+    
+//    username = [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    //设备独立的token
+    NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"];
     
     NSString *wxLoginURLString = [FTNetConfig host:Domain path:UserWXLoginURL];
-    wxLoginURLString = [NSString stringWithFormat:@"%@?openId=%@&unionId=%@&timestamp=%@&imei=%@&username=%@&keyToken=%@&city=%@&headpic=%@&stemfrom=%@", wxLoginURLString, openId, unionId, timestampString, imei, username, keyTokenMD5, province, headpic, stemfrom];
-
+//    wxLoginURLString = [NSString stringWithFormat:@"%@?openId=%@&unionId=%@&timestamp=%@&imei=%@&username=%@&keyToken=%@&city=%@&headpic=%@&stemfrom=%@&token=%@", wxLoginURLString, openId, unionId, timestampString, imei, encodeUsername, keyTokenMD5, province, headpic, stemfrom,deviceToken];
     
-    [self getRequestWithUrl:wxLoginURLString parameters:nil option:option];
+//    // get 请求
+//    [self getRequestWithUrl:wxLoginURLString parameters:nil option:option];
+    
+    
+    NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] init];
+    [paramDic setObject:openId forKey:@"openId"];
+    [paramDic setObject:unionId forKey:@"unionId"];
+    [paramDic setObject:timestampString forKey:@"timestamp"];
+    [paramDic setObject:imei forKey:@"imei"];
+    [paramDic setObject:encodeUsername forKey:@"username"];
+    [paramDic setObject:keyTokenMD5 forKey:@"keyToken"];
+    [paramDic setObject:province forKey:@"city"];
+    [paramDic setObject:headpic forKey:@"headpic"];
+    [paramDic setObject:stemfrom forKey:@"stemfrom"];
+    [paramDic setObject:deviceToken forKey:@"token"];
+    
+    // post请求
+    [self postRequestWithUrl:wxLoginURLString parameters:paramDic option:option];
+    
 }
-
-
 
 
 #pragma mark - 排行榜
@@ -603,8 +620,7 @@
 + (NSString *) userId {
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     return localUser.olduserid;
 }
@@ -613,8 +629,7 @@
 + (NSDictionary *) setJsonDataWithKey:(NSString*)key   value:(NSString *)value {
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     
@@ -793,6 +808,17 @@
         
     }];
 }
+#pragma mark 获取某节课教练的评价内容和
++ (void)getUserCourseHistoryWithOption:(void (^)(NSDictionary *dic)) option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetUserCourseHistoryURL];
+    
+    FTUserBean *loginedUser = [FTUserBean loginUser];
+    if (!loginedUser) {
+        [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"userId为空，请先登录"];
+    }
+    NSDictionary *dic = @{@"userId":loginedUser.olduserid};
+    [NetWorking postRequestWithUrl:urlString parameters:dic option:option];
+}
 
 + (void)getCommentsWithObjId:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^)(NSArray *))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetCommentsURL];
@@ -889,6 +915,64 @@
 }
 
 
+/**
+ 评价教练
+
+ @param params
+ @param option
+ */
++ (void) commentCoachByParamDic:(NSDictionary *) params option:(void (^)(NSDictionary *dict))option {
+
+    FTUserBean *loginuser = [FTUserBean loginUser];
+    NSString *userId = loginuser.olduserid;
+    NSString *token = loginuser.token;
+    NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];// 时间戳
+    
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:userId forKey:@"userId"];
+    [dic setObject:token forKey:@"loginToken"];
+    [dic setObject:ts forKey:@"ts"];
+    
+    [dic addEntriesFromDictionary:params];
+    
+    NSString *checkSign = [FTTools md5Dictionary:dic withCheckKey:@"gedoujihgfdsg256"];
+    [dic setObject:checkSign forKey:@"checkSign"];
+
+    
+    NSString *urlString = [FTNetConfig host:Domain path:CommentCoachURL];
+    NSLog(@"dic:%@",dic);
+    NSLog(@"urlString:%@",urlString);
+    [self postRequestWithUrl:urlString parameters:dic option:option];
+}
+
+
+
+
+/**
+ 查看教练是否已经被评价
+
+ @param coachUserId 授课教练Id
+ @param courseOnceId 课程id
+ @param option
+ */
++ (void) checkIsCommentCoachByCoachUserId:(NSString *) coachUserId  courseOnceId:(NSString *) courseOnceId option:(void (^)(NSDictionary *dict))option {
+
+    
+    FTUserBean *loginuser = [FTUserBean loginUser];
+    NSString *userId = loginuser.olduserid;
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:userId forKey:@"userId"];
+    [dic setObject:coachUserId forKey:@"coachUserId"];
+    [dic setObject:courseOnceId forKey:@"courseOnceId"];
+    
+    NSString *urlString = [FTNetConfig host:Domain path:CheckIsCommentCoachURL];
+    NSLog(@"dic:%@",dic);
+    NSLog(@"urlString:%@",urlString);
+    [self postRequestWithUrl:urlString parameters:dic option:option];
+}
+
 #pragma mark - 学拳
 // Get Coach List
 + (void) getCoachsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option  {
@@ -907,6 +991,16 @@
     NSLog(@"dic = %@",dic);
     [self getRequestWithUrl:urlString parameters:dic option:option];
 }
+
+// Get Gym List
++ (void) getMemberGymsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option  {
+    
+    NSString *urlString = [FTNetConfig host:Domain path:GetMemberGymURL];
+    NSLog(@"urlString=%@",urlString);
+    NSLog(@"dic = %@",dic);
+    [self getRequestWithUrl:urlString parameters:dic option:option];
+}
+
 
 + (void) getGymsForArenaByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option  {
     
@@ -1005,23 +1099,26 @@
 
  @param corporationid 拳馆id
  @param option  授课记录json字典
+ @param courseType  课程类型，0：团课 2:私教
  */
-+ (void) getCoachTeachRecordWithCorporationid:(NSString*)corporationid option:(void (^)(NSDictionary *dict))option {
++ (void) getCoachTeachRecordWithCorporationid:(NSString*)corporationid andCourseType:(NSString *)courseType option:(void (^)(NSDictionary *dict))option {
 
     NSString *urlString = [FTNetConfig host:Domain path:GetCoachTeachRecord];
     NSLog(@"urlString=%@",urlString);
 
     
     FTUserBean *loginuser = [FTUserBean loginUser];
+    if (!loginuser) return;
     NSString *userId = loginuser.olduserid;
     NSString *token = loginuser.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];// 时间戳
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    
     [dic setObject:userId forKey:@"userId"];
     [dic setObject:token forKey:@"loginToken"];
     [dic setObject:ts forKey:@"ts"];
-    [dic setObject:@"2" forKey:@"type"];
+    [dic setObject:courseType forKey:@"type"];
     [dic setObject:corporationid forKey:@"corporationid"];
     
     NSString *checkSign = [FTTools md5Dictionary:dic withCheckKey:@"gedoujiahtdfh3gf24"];
@@ -1029,6 +1126,140 @@
 
     
     [self postRequestWithUrl:urlString parameters:dic option:option];
+}
+
+
+
+#pragma mark - 训练
+/**
+ 查看教练授课记录
+ 
+ @param corporationid 拳馆id
+ @param option  授课记录json字典
+ @param courseType  课程类型，0：团课 2:私教
+ */
++ (void) getTraineeListWith:(NSDictionary *)dict  option:(void (^)(NSDictionary *dict))option {
+    
+    NSString *urlString = [FTNetConfig host:Domain path:GetTraineeListURL];
+    NSLog(@"urlString=%@",urlString);
+    
+    [self postRequestWithUrl:urlString parameters:dict option:option];
+    
+}
+
+
++ (void)getCourseCommentWithVersion:(NSString *)version andOption:(void (^)(NSDictionary *dic)) option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetUserCourseHistoryURL];
+    
+    FTUserBean *loginedUser = [FTUserBean loginUser];
+    if (!loginedUser) {
+        [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"userId为空，请先登录"];
+    }
+    NSDictionary *dic = @{@"userId":loginedUser.olduserid, @"versions":version};
+    [NetWorking postRequestWithUrl:urlString parameters:dic option:option];
+}
+
++ (void)getUserSkillsByVersion:(NSString *)version andOption:(void (^)(NSDictionary *dic)) option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetUserSkillsByVersion];
+    
+    FTUserBean *loginedUser = [FTUserBean loginUser];
+    if (!loginedUser) {
+        [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"userId为空，请先登录"];
+    }
+    NSDictionary *dic = @{@"userId":loginedUser.olduserid, @"versions":version};
+    [NetWorking postRequestWithUrl:urlString parameters:dic option:option];
+}
+
++ (void)getUserSkillsWithCorporationid:(NSString *)corporationid andMemberUserId:(NSString *)memberUserId andVersion:(NSString *)version andParent:(NSString *)parent andOption:(void (^)(NSDictionary *dic)) option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetUserSkillsURL];
+    
+
+    NSMutableDictionary *dic = [NSMutableDictionary new];
+    
+    //通用的字段
+
+    [dic setValue:[self getTimeStamp13] forKey:@"ts"];
+    FTUserBean *loginedUser = [FTUserBean loginUser];
+    if (!loginedUser) {
+//        [[[UIApplication sharedApplication] keyWindow] showHUDWithMessage:@"userId为空，请先登录"];
+        [dic setValue:memberUserId forKey:@"userId"];//当前用户的id
+    }else{
+        [dic setValue:loginedUser.olduserid forKey:@"userId"];//当前用户的id
+        [dic setValue:loginedUser.token forKey:@"loginToken"];
+    }
+    
+    //个性化字段
+    [dic setValue:memberUserId forKey:@"memberUserId"];
+    
+    if (corporationid) {
+        [dic setValue:corporationid forKey:@"corporationid"];
+    }
+    if (version) {
+        [dic setValue:version forKey:@"versions"];
+    }
+    if (parent) {
+        [dic setValue:corporationid forKey:@"parent"];
+    }
+    
+    NSString *checkSign = [FTTools md5Dictionary:dic withCheckKey:GetUserSkillsCheckSign];
+    
+    [dic setValue:checkSign forKey:@"checkSign"];
+    
+    [NetWorking postRequestWithUrl:urlString parameters:dic option:option];
+}
+
+
+/**
+ 获取拳馆评分项子项最大数目限制
+
+ @param corporationId 拳馆id
+ @param option        返参数block
+ */
++ (void) getShouldEditSkillNumber:(NSString *)corporationId option:(void (^)(NSDictionary *dic)) option{
+    
+    NSString *w = [@"gym_corporationid=" stringByAppendingString:corporationId];
+    
+    NSDictionary *dic = @{@"t":@"gym",
+                          @"q":@"max_grade_skill",
+                          @"w":w
+                          };
+    SLog(@"\n dic:%@",dic);
+    
+    NSString *url = [FTNetConfig host:Domain path:GetTraineeShouldGradeNumberURL];
+    
+    [NetWorking postRequestWithUrl:url parameters:dic option:option];
+}
+
+
+/**
+ 上课评分
+
+ @param paramDic 评分参数
+ @param option   返参数block
+ */
++ (void) saveSkillVersion:(NSDictionary *)paramDic option:(void (^)(NSDictionary *dic)) option {
+
+    NSString *checkSignKey = @"gedoujiahfd4mgf5233";
+    
+    FTUserBean *loginuser = [FTUserBean loginUser];
+    NSString *userId = loginuser.olduserid;
+    NSString *token = loginuser.token;
+    NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];// 时间戳
+    
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:userId forKey:@"userId"];
+    [dic setObject:token forKey:@"loginToken"];
+    [dic setObject:ts forKey:@"ts"];
+    
+    [dic addEntriesFromDictionary:paramDic];
+    
+    NSString *checkSign = [FTTools md5Dictionary:dic withCheckKey:checkSignKey];
+    [dic setObject:checkSign forKey:@"checkSign"];
+    SLog(@"saveSkillVersion dic:%@",dic);
+    
+    NSString *url = [FTNetConfig host:Domain path:SaveSkillVersionURL];
+    [NetWorking postRequestWithUrl:url parameters:dic option:option];
 }
 
 #pragma mark - 赛事
@@ -1045,9 +1276,16 @@
         //        [ZJModelTool createModelWithDictionary:responseObject modelName:nil];
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"message : %@", responseDic[@"message"]);
+        NSString *status = responseDic[@"status"];
         NSArray *array = responseDic[@"data"];
-        if (array && array != (id)[NSNull null]) {
-            option(array);
+        if ([status isEqualToString:@"success"]) {
+            if (array && array != (id)[NSNull null]) {
+                option(array);
+            }else{
+                option(nil);
+            }
+        }else{
+            option(nil);
         }
     } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         option(nil);
@@ -1114,6 +1352,8 @@
         NSArray *array = responseDic[@"data"];
         if (array && array != (id)[NSNull null]) {
             option(array);
+        }else{
+            option(nil);
         }
     } failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
         option(nil);
@@ -1137,6 +1377,8 @@
         NSArray *array = responseDic[@"data"];
         if (array && array != (id)[NSNull null]) {
             option(array);
+        }else{
+            option(nil);
         }
     } failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
         option(nil);
@@ -1522,8 +1764,7 @@
 //点赞
 + (void)addVoteWithObjid:(NSString *)objId isAdd:(BOOL)isAdd andTableName:(NSString *)tableName andOption:(void (^)(BOOL result))option{
     
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *user = [FTUserBean loginUser];
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:isAdd ? AddVoteURL : DeleteVoteURL];
     
@@ -1641,8 +1882,7 @@
 + (void)followObjWithObjId:(NSString *)objId anIsFollow:(BOOL)isFollow andTableName:(NSString *)tableName andOption:(void (^)(BOOL result))option{
     
     
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *user = [FTUserBean loginUser];
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:isFollow ? FollowURL : CancelFollowURL];
     
@@ -1654,7 +1894,6 @@
 //    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", deviceToken, loginToken, objId, tableName, ts, userId, isFollow ? FollowCheckKey: CancelFollowCheckKey];
 //    NSLog(@"check sign : %@", checkSign);
 //    checkSign = [MD5 md5:checkSign];
-    
     
     
     //md5前的checkSign字典
@@ -1690,9 +1929,6 @@
         option(NO);
         NSLog(@"收藏 failure ：%@", error);
     }];
-    
-
-    
 }
 
 #pragma mark - 充值购买
@@ -1705,8 +1941,7 @@
     // 时间戳
     NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@",localUser.olduserid, localUser.token, ts,@"quanjijia222222"]];
     
@@ -1730,8 +1965,7 @@
     // 时间戳
     NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",localUser.olduserid, localUser.token,platform,ts,@"quanjijia222222"]];
     
@@ -1756,8 +1990,7 @@
     // 时间戳
     NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",localUser.olduserid, localUser.token,videoId,ts,@"quanjijia222222"]];
     
@@ -1781,8 +2014,7 @@
     // 时间戳
     NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",localUser.olduserid, localUser.token,videoId,ts,@"quanjijia222222"]];
     
@@ -1808,8 +2040,7 @@
     // 时间戳
     NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",localUser.olduserid, localUser.token,videoId,ts,@"quanjijia222222"]];
     
@@ -1838,8 +2069,7 @@
     // 时间戳
     NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@%@",localUser.olduserid, localUser.token,orderNO,transactionId,receipt,ts,@"quanjijia222222"]];
     
@@ -1879,8 +2109,7 @@
     NSDecimalNumber *fee = goodsBean.power; // 商品对应Power币
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@",localUser.olduserid, localUser.token,imei,body,detail,fee,goodsTag,ts,@"quanjijia222222"]];
     
@@ -1982,8 +2211,7 @@
     NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];;
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     
     if (!localUser) {
         return;
@@ -2053,7 +2281,7 @@
 }
 
 + (NSString *)getTimeStamp13{
-    return [NSString stringWithFormat:@"%lf", [[NSDate date] timeIntervalSince1970] * 1000];
+    return [NSString stringWithFormat:@"%.0lf", [[NSDate date] timeIntervalSince1970] * 1000];
 }
 
 //约课
@@ -2161,5 +2389,55 @@
         option(nil);
     }];
     
+}
+
+#pragma mark - 拳吧
+
+/**
+ 获取模块信息
+
+ @param option 回调的字典
+ */
++ (void)getBoxingBarSectionsWithOption:(void (^)(NSDictionary *dic)) option{
+    NSMutableDictionary *paramDic = [NSMutableDictionary new];
+    NSString *url = [FTNetConfig host:Domain path:BoxingBarSectionURL];
+    FTUserBean *localUser = [FTUserTools getLocalUser];
+    if (localUser.olduserid) {
+        [paramDic setValue:localUser.olduserid forKey:@"userId"];
+    }
+    [self postRequestWithUrl:url parameters:paramDic option:option];
+}
+
++ (void)changeModuleFollowStatusWithModuleBean:(FTModuleBean *)moduleBean andBlock:(void (^)(NSDictionary *))block andIsFollow:(BOOL)isFollow  andFollowId:(NSString *)followId{
+    NSMutableDictionary *paramDic = [NSMutableDictionary new];
+    NSString *url = [FTNetConfig host:Domain path:isFollow ? FollowModuleURL : UnFollowModuleURL];
+    FTUserBean *localUser = [FTUserTools getLocalUser];
+    if (localUser.olduserid) {
+        [paramDic setValue:localUser.olduserid forKey:@"userId"];
+        [paramDic setValue:localUser.token forKey:@"loginToken"];
+    }
+    [paramDic setValue:[self getTimeStamp13] forKey:@"ts"];
+    
+    if (isFollow) {
+        [paramDic setValue:[NSString stringWithFormat:@"%ld", moduleBean.id] forKey:@"plateId"];
+        [paramDic setValue:moduleBean.name forKey:@"name"];
+    } else {
+        [paramDic setValue:followId forKey:@"id"];
+    }
+    
+    NSString *checkSign = [FTTools md5Dictionary:paramDic withCheckKey:isFollow ? FollowModuleCheckSign : UnFollowModuleCheckSign];
+    [paramDic setValue:checkSign forKey:@"checkSign"];
+    [self postRequestWithUrl:url parameters:paramDic option:block];
+}
+
++ (void)userWhetherFollowModule:(FTModuleBean *)moduleBean withBlock:(void (^)(NSDictionary *dic)) block{
+    NSMutableDictionary *paramDic = [NSMutableDictionary new];
+    NSString *url = [FTNetConfig host:Domain path:UserWhetherFollowModuleURL];
+    FTUserBean *localUser = [FTUserTools getLocalUser];
+    if (localUser.olduserid) {
+        [paramDic setValue:localUser.olduserid forKey:@"userId"];
+    }
+    [paramDic setValue:moduleBean.name forKey:@"name"];
+    [self postRequestWithUrl:url parameters:paramDic option:block];
 }
 @end

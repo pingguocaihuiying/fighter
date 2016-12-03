@@ -32,6 +32,8 @@
     self.voteCount = dic[@"voteCount"];
     self.layout = dic[@"layout"];
     self.newsId = dic[@"newsId"];
+    
+    self.viewCount = dic[@"viewCount"];
 }
 
 @end

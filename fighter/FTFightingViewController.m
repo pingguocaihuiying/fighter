@@ -19,7 +19,6 @@
 #import "FTNewsBean.h"
 #import "UIButton+LYZTitle.h"
 #import "UIButton+WebCache.h"
-#import "FTRankingListViewController.h"
 #import "FTRankViewController.h"
 #import "NetWorking.h"
 #import "FTLYZButton.h"
@@ -39,6 +38,7 @@
 #import "FTPayViewController.h"
 #import "FTHomepageMainViewController.h"
 #import "FTPaySingleton.h"
+#import "FTNavigationBar.h"
 
 /**
  *  数据结构思路22：
@@ -60,6 +60,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *abountToStartButton;
 @property (weak, nonatomic) IBOutlet UIButton *matchedButton;
 
+@property (nonatomic, strong) FTNavigationBar *navigationBar;
+
 //当前选中的筛选条件：0、1、2，默认为0
 @property (nonatomic, assign)int conditionOffset;
 
@@ -74,6 +76,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    [self setNavigationbar];
     [self initBaseData];
     [self initSubViews];
     [self getMatchList];//初次加载数据
@@ -81,6 +85,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [MobClick event:@"mainPage_BoxingNews"];
+    
 }
 
 
@@ -102,7 +107,6 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setTableView];//设置tableview
 }
-
 
 
 #pragma mark - 筛选按钮的点击事件
@@ -345,17 +349,18 @@
         //判断是咨询还是视频
         NSArray *typeStrArray= [url componentsSeparatedByString:@"&type="];
         NSString *typeStr = [typeStrArray lastObject];
-        if ([typeStr isEqualToString:@"1"]) {//咨询
+        if ([typeStr isEqualToString:@"1"]) {//资讯
             videoDetailVC.detailType = FTDetailTypeNews;
         } else if ([typeStr isEqualToString:@"2"]) {//视频
             videoDetailVC.detailType = FTDetailTypeVideo;
         }
         
         if (matchBean.urlRes) {
-            FTVideoBean *videoBean = [FTVideoBean new];
-            videoBean.videosId = objId;
+            FTNewsBean *newsBean = [FTNewsBean new];
+            newsBean.newsId = objId;
             videoDetailVC.urlId = objId;
-            videoDetailVC.videoBean = videoBean;
+//            videoDetailVC.videoBean = videoBean; // *  没有视频了 2016-11-21 by lyz */
+            videoDetailVC.newsBean = newsBean;
         }
         
 
@@ -476,10 +481,10 @@
             FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
             
             if (matchBean.urlRes) {
-                FTVideoBean *videoBean = [FTVideoBean new];
-                videoBean.videosId = objId;
+                FTNewsBean *newsBean = [FTNewsBean new];
+                newsBean.newsId = objId;
                 videoDetailVC.urlId = objId;
-                videoDetailVC.videoBean = videoBean;
+                videoDetailVC.newsBean = newsBean;
             }
             
             
@@ -683,11 +688,13 @@
     }];
 }
 
+
+
+#pragma mark - 参赛
+
 /**
  *  参赛按钮被点击
- *
  */
-#pragma mark - 参赛
 - (IBAction)entryButtonClicked:(id)sender {
     NSLog(@"参赛");
     FTLaunchNewMatchViewController *launchNewMatchViewController = [FTLaunchNewMatchViewController new];
@@ -722,9 +729,100 @@
     //刷新下注数
 //    [self getMatchDetailFromServer];
 }
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+#pragma mark  - 导航栏按钮
+/**
+ 设置导航栏
+ */
+- (void) setNavigationbar {
+    
+//    [self.navigationController.navigationBar addSubview:self.rankBtn];
+    
+//    [[UIApplication sharedApplication].keyWindow insertSubview:self.rankBtn aboveSubview:self.navigationController.navigationBar];
+    
+    [self.view insertSubview:self.rankBtn aboveSubview:self.navigationController.navigationBar];
+    
+//    [self.navigationController.navigationBar setNavigationBarRankButton:self.rankBtn];
+//    FTNavigationBar *navigationBar = (FTNavigationBar *)self.navigationController.navigationBar;
+//    [self.navigationBar setRankButton:self.rankBtn];
+    
+}
+
+/**
+ 显示排行榜按钮
+ */
+- (void) showRankButton {
+    [self.rankBtn setHidden:NO];
+}
+
+
+- (void) hideRankButton {
+    [self.rankBtn setHidden:YES];
+}
+
+
+- (FTNavigationBar *) navigationBar {
+
+    if (!_navigationBar) {
+        _navigationBar = (FTNavigationBar *)self.navigationController.navigationBar;
+    }
+    
+    return _navigationBar;
+}
+
+/**
+ 设置排行榜按钮
+ 
+ @return 排行榜按钮
+ */
+- (UIButton *) rankBtn {
+    
+    if (!_rankBtn) {
+        _rankBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _rankBtn.frame = CGRectMake(SCREEN_WIDTH - 94 - 15, 0, 94, 30);
+        [_rankBtn addTarget:self action:@selector(rankListBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_rankBtn setImage:[UIImage imageNamed:@"右上排行榜"] forState:UIControlStateNormal];
+//        if (self.ranckButtonBlock) {
+//            _ranckButtonBlock(_rankBtn);
+//        }
+    }
+    
+    return _rankBtn;
+}
+
+/**
+ 排行榜按钮点击事件,跳转排行榜页面
+ 
+ @param sender 排行榜按钮
+ */
+
+- (void)rankListBtnAction:(id)sender {
+    
+    FTRankViewController *rankHomeVC = [FTRankViewController new];
+    rankHomeVC.title = @"排行榜";
+    [self.navigationController pushViewController:rankHomeVC animated:YES];
+}
+
+
+//- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+//{
+//    // 当前坐标系上的点转换到按钮上的点
+//    CGRect rect = [self.view convertRect:self.rankBtn.frame toView:self.view];
+//    CGRectContainsPoint(rect, point);
+//    // 判断点在不在按钮上
+//    if (CGRectContainsPoint(rect, point)) {
+//        // 点在按钮上
+//        return self.rankBtn;
+//    }else{
+//        return [self.view.superview hitTest:point withEvent:event];
+//    }
+//}
 
 @end

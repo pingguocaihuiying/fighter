@@ -340,6 +340,7 @@ typedef void (^ViewActionBlock)(UIView *view);
     }
 }
 
+
 //设置paneViewcontroller
 - (void)setPaneViewController:(UIViewController *)paneViewController animated:(BOOL)animated completion:(void (^)(void))completion;
 {
@@ -512,7 +513,16 @@ allowUserInterruption:(BOOL)allowUserInterruption
     }
     
     [self updateStylers];
+    
 }
+
+#pragma mark - 设置导航栏按钮动态frame
+- (void) updateRankButtonFrame:(UIButton *) ranckButton {
+
+    ranckButton.transform = CGAffineTransformMakeTranslation(self.paneView.frame.origin.x + (SCREEN_WIDTH - 15 - 94), 41);
+}
+
+
 
 #pragma mark Closed Fraction
 - (CGFloat)paneViewClosedFraction

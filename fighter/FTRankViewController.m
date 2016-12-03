@@ -133,35 +133,37 @@
                       pageNum:_pageNum
                        option:^(NSDictionary *dict) {
                            
-                           [self checkNetWokingStatus];
-                           if (dict != nil) {
-                               
-                               if ([dict[@"status"] isEqualToString:@"success"]) {
-                                   
-                                   if (_pageNum == 0|| _pageNum == 1) {
-                                       _dataArray = dict[@"data"];
-                                   }else {
-                                       [_dataArray addObjectsFromArray:dict[@"data"]];
-                                   }
-                                   
-                                   [self fixViewSize];
-                                   
-                                   [self.scrollView headerEndRefreshingWithResult:JHRefreshResultSuccess];
-                                   [self.scrollView  footerEndRefreshing];
-                               }else {
-                               
-                                   [self.scrollView headerEndRefreshingWithResult:JHRefreshResultSuccess];
-                                   [self.scrollView  footerEndRefreshing];
-                                   
-                               }
-                           }else {
+                           [self.scrollView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+                           [self.scrollView  footerEndRefreshing];
                            
-                               [self.scrollView headerEndRefreshingWithResult:JHRefreshResultSuccess];
-                               [self.scrollView  footerEndRefreshing];
-                               
+                           [self checkNetWokingStatus];
+                           
+                           if (dict == nil) {
+                               return ;
                            }
                            
-        
+                           if ([dict[@"status"] isEqualToString:@"success"]) {
+                               
+                               if (_pageNum == 0|| _pageNum == 1) {
+                                   
+                                   NSArray *tempArray = dict[@"data"];
+                                   _dataArray = (NSMutableArray *)tempArray;
+                                   
+                                   
+                               }else {
+                                   [_dataArray addObjectsFromArray:dict[@"data"]];
+                               }
+                               
+                               [self fixViewSize];
+                               
+                           }else {
+                           
+                               if (_pageNum == 0|| _pageNum == 1) {
+                                   [_dataArray removeAllObjects];
+                               }
+                               [self fixViewSize];
+                           }
+                           
                        }];
 }
 

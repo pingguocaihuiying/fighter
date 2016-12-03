@@ -8,6 +8,8 @@
 
 #import "FTBaseViewController.h"
 
+typedef void(^RankButtonBlock)(UIButton *rankButton);
+
 @interface FTFightingViewController : FTBaseViewController
 
 @property (weak, nonatomic) IBOutlet UIScrollView *currentScrollView;
@@ -18,4 +20,20 @@
 
 #pragma mark push响应方法
 - (void) pushToDetailController:(NSDictionary *)dic;
+
+@property (nonatomic, copy) RankButtonBlock ranckButtonBlock;
+@property (nonatomic, strong) UIButton *rankBtn;
+
+
+
+/**
+ show rank button
+ */
+- (void) showRankButton;
+
+
+/**
+ hide rank button 
+ */
+- (void) hideRankButton;
 @end

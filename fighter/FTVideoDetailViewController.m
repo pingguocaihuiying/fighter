@@ -50,8 +50,8 @@
     self.navigationController.navigationBarHidden = NO;
     //    self.navigationController.tabBarController.tabBar.hidden = YES;
     
-    //注册通知，接收微信登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxLoginResponse:) name:WXLoginResultNoti object:nil];
+    //注册通知，接收登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -61,25 +61,25 @@
 
 
 - (void)initBaseData{
-    if (!_videoBean.title) {
+    if (!_newsBean.title) {
         NSLog(@"没有标题");
-        [NetWorking getVideoById:[NSString stringWithFormat:@"%@", _videoBean.videosId] andOption:^(NSArray *array) {
-            FTVideoBean *videoBean = [FTVideoBean new];
-            [videoBean setValuesWithDic:[array firstObject]];
+//        [NetWorking getVideoById:[NSString stringWithFormat:@"%@", _newsBean.newsId] andOption:^(NSArray *array) {
+                [NetWorking getNewsById:[NSString stringWithFormat:@"%@", _newsBean.newsId] andOption:^(NSArray *array) {
+            FTNewsBean *newsBean = [FTNewsBean new];
+            [newsBean setValuesWithDic:[array firstObject]];
             NSLog(@"加载完成");
-            _videoBean = videoBean;
+            _newsBean = newsBean;
         }];
     }
 }
 
 - (void)getVoteInfo{
     
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *user = [FTUserBean loginUser];
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
     NSString *userId = user.olduserid;
-    NSString *objId = _videoBean.videosId;
+    NSString *objId = _newsBean.newsId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = _detailType == FTDetailTypeNews ? @"v-news" : @"v-video";
@@ -113,12 +113,11 @@
 
 - (void)getStarInfo{
     
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *user = [FTUserBean loginUser];
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
     NSString *userId = user.olduserid;
-    NSString *objId = _videoBean.videosId;
+    NSString *objId = _newsBean.newsId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = _detailType == FTDetailTypeNews ? @"col-news" : @"col-video";//@"v-video";
@@ -157,7 +156,7 @@
     //设置返回按钮
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(popVC)];
     //把左边的返回按钮左移
-    //    [leftButton setImageInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
     //设置分享按钮
@@ -219,21 +218,21 @@
     
     if(self.webUrlString == nil || self.webUrlString.length <= 0) {
         NSString *url = @"";
-        if (_videoBean) {
-                url = _videoBean.url;
+        if (_newsBean) {
+                url = _newsBean.url;
         }else{
             
         }
         
         NSLog(@"视频url：%@", url);
         url = [self encodeToPercentEscapeString:url];
-    //    _videoBean.viewCount = @"100";
+    //    _newsBean.viewCount = @"100";
         
         NSString *objId = @"";
         if (_urlId) {
             objId = _urlId;
-        }else if(_videoBean){
-            objId = _videoBean.videosId;
+        }else if(_newsBean){
+            objId = _newsBean.newsId;
         }
         
         NSString *urlPrefix = _detailType == FTDetailTypeNews ? @"http://www.gogogofight.com/page/v2/news_page.html?objId=" : @"http://www.gogogofight.com/page/v2/video_page.html?objId=";
@@ -258,7 +257,7 @@
 
 - (void)popVC{
     
-    [self.delegate updateCountWithVideoBean:_videoBean indexPath:self.indexPath];
+    [self.delegate updateCountWithVideoBean:_newsBean indexPath:self.indexPath];
 
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -266,8 +265,7 @@
 - (IBAction)commentButtonClicked:(id)sender {
         [MobClick event:@"videoPage_DetailPage_Comment"];
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     if (!localUser) {
         [self login];
     }else{
@@ -300,16 +298,24 @@
 
 - (void)shareButtonClicked{
     
-    NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-videos",_videoBean.videosId];
-    _webUrlString = [@"http://www.gogogofight.com/page/video_page.html?" stringByAppendingString:str];
+    NSString *str = [NSString stringWithFormat:@"objId=%@",_newsBean.newsId];
+    _webUrlString = [@"http://www.gogogofight.com/page/v2/news_page.html?" stringByAppendingString:str];
     
     FTShareView *shareView = [FTShareView new];
     [shareView setUrl:_webUrlString];
-    [shareView setTitle:_videoBean.title];
-    [shareView setSummary:_videoBean.summary];
+    [shareView setTitle:_newsBean.title];
+    [shareView setSummary:_newsBean.summary];
     [shareView setImage:@"微信用@200"];
 //    [shareView setImageUrl:@"http://www.gogogofight.com/page/images/wechat_share.jpg"];
-    [shareView setImageUrl:_videoBean.img];
+    
+    if ([_newsBean.layout isEqualToString:@"1"]) {//大图
+        [shareView setImageUrl:_newsBean.img_big];
+    }else if ([_newsBean.layout isEqualToString:@"2"]) {//图
+        [shareView setImageUrl:_newsBean.img_small_one];
+    }else if ([_newsBean.layout isEqualToString:@"3"]) {//3图
+        [shareView setImageUrl:_newsBean.img_small_one];
+    }
+    
     [self.view addSubview:shareView];
     
 }
@@ -366,8 +372,7 @@
 - (IBAction)thumbButtonClicked:(id)sender {
     [MobClick event:@"videoPage_DetailPage_Zambia"];
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     if (!localUser) {
         [self login];
     }else{
@@ -382,8 +387,7 @@
 - (IBAction)favourateButtonClicked:(id)sender {
     [MobClick event:@"videoPage_DetailPage_Collection"];
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+   FTUserBean *localUser = [FTUserBean loginUser];
     if (!localUser) {
         [self login];
     }else{
@@ -416,13 +420,12 @@
 //把点赞信息更新至服务器
 - (void)uploadVoteStatusToServer{
     
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *user = [FTUserBean loginUser];
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:_hasVote ? AddVoteURL : DeleteVoteURL];
     
     NSString *userId = user.olduserid;
-    NSString *objId = _videoBean.videosId;
+    NSString *objId = _newsBean.newsId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = _detailType == FTDetailTypeNews ? @"v-news" : @"v-video";
@@ -441,7 +444,7 @@
         NSLog(@"vote status : %@", responseDic[@"status"]);
         self.voteView.userInteractionEnabled = YES;
         if ([responseDic[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
-            int voteCount = [_videoBean.voteCount intValue];
+            int voteCount = [_newsBean.voteCount intValue];
             NSString *changeVoteCount = @"0";
             if (self.hasVote) {
                 voteCount++;
@@ -452,7 +455,7 @@
                     changeVoteCount = @"-1";
                 }
             }
-            _videoBean.voteCount = [NSString stringWithFormat:@"%d", voteCount];
+            _newsBean.voteCount = [NSString stringWithFormat:@"%d", voteCount];
             NSString *jsMethodString = [NSString stringWithFormat:@"updateLike(%@)", changeVoteCount];
             NSLog(@"js method : %@", jsMethodString);
             [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
@@ -469,13 +472,12 @@
 #pragma -mark 更新收藏信息至服务器
 - (void)uploadStarStatusToServer{
     
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *user = [FTUserBean loginUser];
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:self.hasStar ? AddStarURL : DeleteStarURL];
     
     NSString *userId = user.olduserid;
-    NSString *objId = _videoBean.videosId;
+    NSString *objId = _newsBean.newsId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = _detailType == FTDetailTypeNews ? @"col-news" : @"col-video";
@@ -556,12 +558,14 @@
     return outputStr;
 }
 
-- (void)wxLoginResponse:(NSNotification *)noti{
-    NSString *msg = [noti object];
-    if ([msg isEqualToString:@"SUCESS"]) {
-        [self showHUDWithMessage:@"微信登录成功，可以评论或点赞了"];
-    }else if ([msg isEqualToString:@"ERROR"]){
-        [self showHUDWithMessage:@"微信登录失败"];
+- (void)loginCallBack:(NSNotification *)noti{
+   
+    NSDictionary *userInfo = noti.userInfo;
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
+        
+        [self.view showMessage:@"微信登录成功，可以评论或点赞了"];
+    }else {
+        [self.view showMessage:@"微信登录失败"];
     }
 }
 
@@ -571,21 +575,21 @@
     commentVC.delegate = self;
     if (_detailType == FTDetailTypeNews) {//拳讯
         FTNewsBean *newsBean = [FTNewsBean new];
-        newsBean.newsId = _videoBean.videosId;
+        newsBean.newsId = _newsBean.newsId;
         commentVC.newsBean = newsBean;
     } else if (_detailType == FTDetailTypeVideo){//视频
-        commentVC.videoBean = self.videoBean;
+        commentVC.newsBean = _newsBean;
     }
     
     [self.navigationController pushViewController:commentVC animated:YES];
 }
 
 - (void)commentSuccess{
-    int commentCount = [_videoBean.commentCount intValue];
+    int commentCount = [_newsBean.commentCount intValue];
     commentCount++;
     NSString *jsMethodString = [NSString stringWithFormat:@"updateComment(%d)", 1];
     NSLog(@"js method : %@", jsMethodString);
-    _videoBean.commentCount = [NSString stringWithFormat:@"%d", commentCount];
+    _newsBean.commentCount = [NSString stringWithFormat:@"%d", commentCount];
     [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
 }
 
@@ -597,12 +601,12 @@
     //获取网络请求地址url
     NSString *addViewCountUrlString = [FTNetConfig host:Domain path:AddViewCountURL];
 
-    NSString *videosId = _videoBean.videosId;
+    NSString *newsId = _newsBean.newsId;
     NSString *ts = [NSString stringWithFormat:@"%.3f", [[NSDate date] timeIntervalSince1970]];
     ts = [ts stringByReplacingOccurrencesOfString:@"." withString:@""];
     
-    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@", videosId, ts, UpVideoViewNCheckKey]];
-    addViewCountUrlString = [NSString stringWithFormat:@"%@?&videosId=%@&ts=%@&checkSign=%@", addViewCountUrlString, videosId, ts, checkSign];
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@", newsId, ts, UpVideoViewNCheckKey]];
+    addViewCountUrlString = [NSString stringWithFormat:@"%@?&newsId=%@&ts=%@&checkSign=%@", addViewCountUrlString, newsId, ts, checkSign];
         NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);
     //创建AAFNetWorKing管理者
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -616,9 +620,9 @@
         //
         if ([responseDic[@"status"] isEqualToString:@"success"]) {
             NSLog(@"%@, %@", responseDic[@"status"], responseDic[@"message"]);
-            int viewCount = [_videoBean.viewCount intValue];
+            int viewCount = [_newsBean.viewCount intValue];
             viewCount++;
-            _videoBean.viewCount = [NSString stringWithFormat:@"%d", viewCount];
+            _newsBean.viewCount = [NSString stringWithFormat:@"%d", viewCount];
         }else{
             NSLog(@"%@, %@", responseDic[@"status"], responseDic[@"message"]);
         }

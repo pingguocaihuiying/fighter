@@ -178,8 +178,7 @@
                             [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"绑定手机成功"];
                             
                             //从本地读取存储的用户信息
-                            NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-                            FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+                            FTUserBean *localUser = [FTUserBean loginUser];
                             localUser.tel = self.phoneNum;
                             
 //                            //解析返回json

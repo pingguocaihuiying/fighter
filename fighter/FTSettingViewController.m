@@ -61,8 +61,7 @@
     
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     if (!localUser) {
         [self.logoutBtn setEnabled:NO];
     }
@@ -73,8 +72,7 @@
 - (void) viewWillAppear:(BOOL)animated {
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     if (!localUser) {
         [self.logoutBtn setHidden:YES];
     }else {
@@ -117,16 +115,18 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:LoginUser];
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:COURSE_VERSION];//清除本地的历史课程版本信息 16-11-9 by lyz
         [[NSUserDefaults standardUserDefaults] synchronize];
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:LoginNoti object:@"LOGOUT"];
+        
+        [FTNotificationTools postLoginNoti:FTLoginTypeLogout];
         
         NSLog(@"dict:%@",dict);
         NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
         
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         
-        [[UIApplication sharedApplication].keyWindow showHUDWithMessage:@"退出成功"];
+        [[UIApplication sharedApplication].keyWindow showMessage:@"退出成功"];
     }];
 }
 
@@ -208,8 +208,7 @@
     
     if(indexPath.row == 0) {
         //从本地读取存储的用户信息
-        NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-        FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+        FTUserBean *localUser = [FTUserBean loginUser];
         if (localUser) {
             FTManagerAccountViewController *managerVC = [[FTManagerAccountViewController alloc]init];
             managerVC.title = @"账号管理";

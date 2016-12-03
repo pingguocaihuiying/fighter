@@ -69,12 +69,13 @@
     self.window.rootViewController=_mainVC;
     
     
-    //推送消息
+    
     NSDictionary *dic = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    //推送消息
     if (dic != nil) {
         
         NSLog(@"push info:%@",dic);
-
+        
         [[NSUserDefaults standardUserDefaults] setObject:dic[@"extra"][@"click_param"] forKey:@"pushMessageDic"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
@@ -134,9 +135,20 @@
             }
         }];
 
+    }else {
+        
+        BOOL isAlter = [[[NSUserDefaults standardUserDefaults] objectForKey:@"alter_news_after_version_1.9.0"] boolValue];
+        if (!isAlter) {
+            // version 1.9.1 修改news结构，添加onlineTIme 字段
+            DBManager *dbManager = [DBManager shareDBManager];
+            [dbManager connect];
+            [dbManager alterNewsTable];
+            [dbManager close];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"alter_news_after_version_1.9.0"];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+        }
     }
-    
-    
 }
 
 
@@ -185,9 +197,9 @@
 }
 
 
-
 #pragma mark 设置爱心推
 - (void)  setIXPushWithApplication:(UIApplication *)application options:(NSDictionary *)launchOptions {
+    
     //设置爱心推
 #ifdef __IPHONE_8_0
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0){
@@ -302,7 +314,7 @@
 - (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken
 {
 //    NSLog(@"deviceToken:%@",deviceToken);
-    
+    NSLog(@"deviceToken:%@",deviceToken);
     //将deviceToken保存在本地
     if (deviceToken) {
         NSString *token = [NSString stringWithFormat:@"%@", deviceToken];

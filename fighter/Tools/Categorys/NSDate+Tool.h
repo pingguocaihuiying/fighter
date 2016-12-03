@@ -86,6 +86,10 @@
 
 + (NSString *) yearString:(NSString *)timestamp ;
 
++ (NSString *) dateStringWithYearMonth:(NSString *) timestamp;
+
++ (NSString *) currentYearMonthString2;
+
 + (NSString *) currentMonthString ;
 
 + (NSString *) monthString:(NSString *) timestamp ;
@@ -104,4 +108,15 @@
 + (NSString *) dateStringWithWordSpace:(NSString *) timestamp;
 
 + (NSString *) monthDayStringWithWordSpace:(NSString *) timestamp;
+
+#pragma mark -
+/**
+ 根据时间戳返回正确的时间字符串格式
+ 如果是该年的日期择返回 月日格式
+ 如果不是该年则返回年月日格式
+ 
+ @param timestamp 时间戳
+ @return
+ */
++ (NSString *) recordDateString:(NSTimeInterval) timestamp;
 @end
