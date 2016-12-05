@@ -109,6 +109,12 @@
     
     _skillLabel.text = skillBeanOld.name;
 
+    
+    /*
+      2016年12月5日备注
+     *接下来设置score的老版本的值，但不知道什么原因，传过来的skillBeanOld的值是0，暂时先取了skillBeanNew的increase字段做显示
+     */
+    _gradeLabel.text = [NSString stringWithFormat:@"%.0f", skillBeanNew.increase];
     if (skillBeanOld.score >= 0 ) {
         _gradeLabel.text = [NSString stringWithFormat:@"%.0f",skillBeanOld.score];
     }else {
