@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+
+
+/**
+排行榜冠军cell
+ */
 @interface FTRankHeaderCell : UITableViewCell
 
 
@@ -20,6 +25,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *weightLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *briefLabel;
+
+// 胜 负 平 KO
+@property (weak, nonatomic) IBOutlet UILabel *winLabel;
+@property (weak, nonatomic) IBOutlet UILabel *loseLabel;
+@property (weak, nonatomic) IBOutlet UILabel *tieLabel;
+@property (weak, nonatomic) IBOutlet UILabel *KOLabel;
 
 
 - (void) setBriefLabelText:(NSString *)text;

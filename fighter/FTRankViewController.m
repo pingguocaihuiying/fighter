@@ -122,7 +122,6 @@
     }else {
         _selectLevel = @"级别";
     }
-
 }
 
 -(void) getContentDataFromWeb {
@@ -136,6 +135,7 @@
                            [self.scrollView headerEndRefreshingWithResult:JHRefreshResultSuccess];
                            [self.scrollView  footerEndRefreshing];
                            
+                           SLog(@"Labels:%@",dict);
                            [self checkNetWokingStatus];
                            
                            if (dict == nil) {
@@ -402,7 +402,7 @@
 - (void) getRankListLabelArray {
     
     [NetWorking getRankLabels:^(NSDictionary *dict) {
-        //NSLog(@"Labels:%@",dict);
+//        SLog(@"Labels:%@",dict);
         if (dict != nil) {
 //             NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
             if ([dict[@"status"] isEqualToString:@"success"]) {
@@ -417,7 +417,7 @@
 //                    NSLog(@"label:%@",[dic[@"label"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
 //                    NSLog(@"label:%@",[dic[@"label"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
                     
-                    NSLog(@"dic:%@",dic);
+//                    NSLog(@"dic:%@",dic);
                     [dbManager insertDataIntoLabels:dic];
                     
                 }
