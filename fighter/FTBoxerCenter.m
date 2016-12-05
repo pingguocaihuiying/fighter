@@ -7,7 +7,6 @@
 //
 
 #import "FTBoxerCenter.h"
-#import "FTBoxerHeaderView.h"
 #import "BoxerInfoController.h"
 #import "BoxerMatchController.h"
 #import "BoxerVideoController.h"
