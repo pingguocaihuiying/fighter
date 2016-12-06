@@ -19,4 +19,11 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *rankLabel;
 
+
+// 胜 负 平 KO
+@property (weak, nonatomic) IBOutlet UILabel *winLabel;
+@property (weak, nonatomic) IBOutlet UILabel *loseLabel;
+@property (weak, nonatomic) IBOutlet UILabel *tieLabel;
+@property (weak, nonatomic) IBOutlet UILabel *KOLabel;
+
 @end
