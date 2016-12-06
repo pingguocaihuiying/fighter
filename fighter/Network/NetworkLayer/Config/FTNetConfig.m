@@ -46,11 +46,12 @@
 
 
 /** 可用的后台地址 **/
-NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin";//生产环境
-//NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin_test";//测试环境
+//NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin";//生产环境
+NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin_test";//测试环境
 //NSString * const Domain = @"http://192.168.85.45/pugilist_admin";//内网测试环境
 
-//NSString * const Domain = @"http://10.11.1.117/pugilist_admin";//何后台开发环境
+//NSString * const Domain = @"http://10.11.1.117/pugilist_admin";//何后台开发环境1
+//NSString * const Domain = @"10.11.1.117:8080/pugilist_admin";//何后台开发环境2
 //NSString * const Domain = @"http://10.11.1.49/pugilist_admin";//余彧后台开发环境
 //获取新闻192.168.85.45
 NSString * const GetNewsURL = @"/api/news/getNews.do";
