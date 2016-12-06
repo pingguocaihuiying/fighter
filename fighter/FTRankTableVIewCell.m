@@ -8,11 +8,38 @@
 
 #import "FTRankTableVIewCell.h"
 
+
 @implementation FTRankTableVIewCell
 
 - (void)awakeFromNib {
      [super awakeFromNib];
     // Initialization code
+    self.avatarLeadingConstraint.constant = 19 *SCALE;
+    self.avatarWidthConstraint.constant = 40 *SCALE;
+    self.avatarHeightConstraint.constant = 40 *SCALE;
+    
+    self.avatarMaskWidthConstraint.constant = 41 *SCALE;
+    self.avatarMaskHeightConstraint.constant = 41 *SCALE;
+    
+    self.loseLeadingConstraint.constant = 37 *SCALE;
+    self.tieLeadingConstraint.constant = 37 *SCALE;
+    self.KOLeadingConstraint.constant = 37 *SCALE;
+    self.KOTrailingConstraint.constant = -14 *SCALE;
+    self.NOLeadingConstraint.constant = -60 *SCALE;
+    
+    self.weightLabel.font = [UIFont systemFontOfSize:11 *SCALE];
+    self.heightLabel.font = [UIFont systemFontOfSize:11 *SCALE];
+    self.winLabel.font = [UIFont systemFontOfSize:11 *SCALE];
+    self.winTextLabel.font = [UIFont systemFontOfSize:11 *SCALE];
+    self.loseLabel.font = [UIFont systemFontOfSize:11 *SCALE];
+    self.loseTextLabel.font = [UIFont systemFontOfSize:11 *SCALE];
+    self.tieLabel.font = [UIFont systemFontOfSize:11 *SCALE];
+    self.tieTextLabel.font = [UIFont systemFontOfSize:11 *SCALE];
+    self.KOLabel.font = [UIFont systemFontOfSize:11 *SCALE];
+    self.KOTextLabel.font = [UIFont systemFontOfSize:11 *SCALE];
+    self.NOLabel.font = [UIFont systemFontOfSize:14 *SCALE];
+    self.rankLabel.font = [UIFont systemFontOfSize:18 *SCALE];
+    
 }
 
 
@@ -35,14 +62,6 @@
     aView.backgroundColor = [UIColor colorWithHex:0x191919];
     self.selectedBackgroundView = aView;
     
-//    NSString *statement = @"NO.2";
-//    NSInteger len = statement.length;
-//    NSMutableAttributedString *stateAttr = [[NSMutableAttributedString alloc] initWithString:statement];
-//    
-//    [stateAttr addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Arial-BoldItalicMT" size:8] range:NSMakeRange(0, 3)];
-//    [stateAttr addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:18] range:NSMakeRange(3, len-3)];
-//    
-//    self.rankLabel.text = statement;
 }
 
 
@@ -60,7 +79,7 @@
     CGContextFillRect(context, rect);
     
     CGContextSetStrokeColorWithColor(context, Cell_Space_Color.CGColor);
-    CGContextStrokeRect(context, CGRectMake(69, rect.size.height - 0.25, rect.size.width-77, 0.25));
+    CGContextStrokeRect(context, CGRectMake(69 *SCALE, rect.size.height - 0.25, rect.size.width-77, 0.25));
     
 }
 

@@ -22,7 +22,7 @@
 #import "FTFightingViewController.h"
 #import "FTNavigationBar.h"
 
-@interface FTBaseTabBarViewController () <UITabBarControllerDelegate>
+@interface FTBaseTabBarViewController () <UITabBarControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UIButton *avatarButton;
 
@@ -111,6 +111,8 @@
 
 #pragma mark - 设置导航栏
 - (void) setNavigationbar {
+    
+    self.navigationController.delegate = self;
     
     self.navigationItem.leftBarButtonItems  = [[NSArray alloc]initWithObjects:self.avatarButtonItem, nil];
     
@@ -480,6 +482,25 @@
     
 }
 
+#pragma mark - Navigation delegate
+
+- (nullable id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                            animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                         fromViewController:(UIViewController *)fromVC
+                                                           toViewController:(UIViewController *)toVC {
+    
+    if ([toVC isKindOfClass:[FTFightingViewController class]] && operation == UINavigationControllerOperationPop) {
+        //custom handle
+       
+    }
+    
+    
+    
+    return [self.navigationController.delegate navigationController:navigationController
+                                    animationControllerForOperation:operation
+                                                 fromViewController:fromVC
+                                                   toViewController:toVC];
+}
 
 
 #pragma mark - 抖动动画

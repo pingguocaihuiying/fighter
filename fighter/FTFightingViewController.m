@@ -39,6 +39,7 @@
 #import "FTHomepageMainViewController.h"
 #import "FTPaySingleton.h"
 #import "FTNavigationBar.h"
+#import "FTView.h"
 
 /**
  *  数据结构思路22：
@@ -46,7 +47,7 @@
  再用array顺序存放字典的key值（即日期），校正数据的顺序
  */
 
-@interface FTFightingViewController ()<UITableViewDelegate, UITableViewDataSource, FTFightingTableViewCellButtonsClickedDelegate, FTBetViewDelegate0, FTBetViewDelegate>
+@interface FTFightingViewController ()<UITableViewDelegate, UITableViewDataSource, FTFightingTableViewCellButtonsClickedDelegate, FTBetViewDelegate0, FTBetViewDelegate,UINavigationControllerDelegate>
 
 
 @property (nonatomic, strong)NSMutableArray *dateArray;//
@@ -743,15 +744,9 @@
  */
 - (void) setNavigationbar {
     
-//    [self.navigationController.navigationBar addSubview:self.rankBtn];
-    
-//    [[UIApplication sharedApplication].keyWindow insertSubview:self.rankBtn aboveSubview:self.navigationController.navigationBar];
-    
-    [self.view insertSubview:self.rankBtn aboveSubview:self.navigationController.navigationBar];
-    
-//    [self.navigationController.navigationBar setNavigationBarRankButton:self.rankBtn];
-//    FTNavigationBar *navigationBar = (FTNavigationBar *)self.navigationController.navigationBar;
-//    [self.navigationBar setRankButton:self.rankBtn];
+    [self.navigationController.navigationBar addSubview:self.rankBtn];
+    [self.view addSubview:[self buttonFrameView]];
+//    [self.view insertSubview:self.rankBtn aboveSubview:self.navigationController.navigationBar];
     
 }
 
@@ -777,6 +772,17 @@
     return _navigationBar;
 }
 
+
+- (FTView *) buttonFrameView {
+    
+    FTView *buttonFrameView = [[FTView alloc]initWithFrame:CGRectMake(self.view.frame.size.width - 94 - 15, -3, 94, 30)];
+    buttonFrameView.backgroundColor = [UIColor clearColor];
+    [buttonFrameView  setRankButton:self.rankBtn];
+    
+    return buttonFrameView;
+}
+
+
 /**
  设置排行榜按钮
  
@@ -786,12 +792,12 @@
     
     if (!_rankBtn) {
         _rankBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _rankBtn.frame = CGRectMake(SCREEN_WIDTH - 94 - 15, 0, 94, 30);
+        _rankBtn.frame = CGRectMake(SCREEN_WIDTH - 94 - 15, 41, 94, 30);
         [_rankBtn addTarget:self action:@selector(rankListBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         [_rankBtn setImage:[UIImage imageNamed:@"右上排行榜"] forState:UIControlStateNormal];
-//        if (self.ranckButtonBlock) {
-//            _ranckButtonBlock(_rankBtn);
-//        }
+        if (self.ranckButtonBlock) {
+            _ranckButtonBlock(_rankBtn);
+        }
     }
     
     return _rankBtn;
@@ -824,5 +830,6 @@
 //        return [self.view.superview hitTest:point withEvent:event];
 //    }
 //}
+
 
 @end
