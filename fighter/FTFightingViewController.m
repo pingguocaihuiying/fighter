@@ -74,7 +74,9 @@
 
 @implementation FTFightingViewController
 
+
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
@@ -84,9 +86,9 @@
     [self getMatchList];//初次加载数据
 }
 
+
 - (void)viewWillAppear:(BOOL)animated{
     [MobClick event:@"mainPage_BoxingNews"];
-    
 }
 
 
@@ -744,6 +746,7 @@
  */
 - (void) setNavigationbar {
     
+    self.navigationController.delegate = self;
     [self.navigationController.navigationBar addSubview:self.rankBtn];
     [self.view addSubview:[self buttonFrameView]];
 //    [self.view insertSubview:self.rankBtn aboveSubview:self.navigationController.navigationBar];
@@ -830,6 +833,23 @@
 //        return [self.view.superview hitTest:point withEvent:event];
 //    }
 //}
+
+#pragma mark - Navigation delegate
+
+- (void) navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+
+    if (viewController == self.tabBarController && self.tabBarController.selectedIndex == 1 && animated) {
+        _rankBtn.alpha = 0.2;
+        _rankBtn.frame = CGRectMake(SCREEN_WIDTH - 94 - 15 - 94, 41, 94, 30);
+        
+        [UIView animateWithDuration:0.18 animations:^{
+            _rankBtn.alpha = 1.0;
+            _rankBtn.frame = CGRectMake(SCREEN_WIDTH - 94 - 15, 41, 94, 30);
+        }];
+    }
+}
+
+
 
 
 @end
