@@ -156,6 +156,15 @@
     NSString *md5String = [MD5 md5:appendedPassword];
     //设备独立的token
     NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"];
+    
+    /*
+        2016年12月6日 李懿哲添加：模拟器上登录时，deviceToken为nil，给字典传值会报错。
+        增加一个判断，如果为nil，给一个默认值
+     */
+    if (!deviceToken) {
+        deviceToken = @"deviceToken is nil, maybe login by iPhone simulator.";
+    }
+    
     NSDictionary *dic = @{@"phone" : username,
                           @"password" : md5String,
                           @"city" : @"-1",
