@@ -984,7 +984,7 @@
         NSDictionary *courseCellDic = courseCell.courserCellDic;
         gymOrderCourseView.courserCellDic = courseCellDic;
         
-        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
         gymOrderCourseView.delegate = self;
         gymOrderCourseView.status = FTGymCourseStatusHasOrder;
         [self.view addSubview:gymOrderCourseView];
@@ -994,7 +994,7 @@
         
         NSDictionary *courseCellDic = courseCell.courserCellDic;
         gymOrderCourseView.courserCellDic = courseCellDic;
-        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
         gymOrderCourseView.delegate = self;
         gymOrderCourseView.status = FTGymCourseStatusCanOrder;
         [self.view addSubview:gymOrderCourseView];

@@ -431,7 +431,7 @@
 //#warning 测试---end----
         
         cell.rightArrowWidth.constant = 0;//隐藏右箭头
-        if (beanOld && beanNew.score != beanOld.score ) {//如果旧数据存在，而且分数差额 !> 0，再显示动画，否则直接显示最新的
+        if (beanOld && beanNew.score != beanOld.score ) {//如果旧数据存在，而且分数差额 != 0，再显示动画，否则直接显示最新的
             [cell setWithSkillNewBean:beanNew andSkillOldBean:beanOld];
         } else {
             [cell setWithSkillBean:beanNew];

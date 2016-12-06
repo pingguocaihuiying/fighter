@@ -45,6 +45,16 @@
         _score = scoreFloat;
     }
     
+    //是否有新版本
+    
+    //分数值
+    NSString *increase = dic[@"increase"];
+    if (increase) {
+        _increase = [increase floatValue];
+    }else{
+        _increase = 0;
+    }
+    
     //技能名字
     NSString *name = dic[@"name"];
     if (name) {
@@ -62,6 +72,8 @@
     [aCoder encodeObject:[NSString stringWithFormat:@"%f", _score] forKey:@"score"];
     [aCoder encodeObject:[NSString stringWithFormat:@"%d", _parentId] forKey:@"parentId"];
     [aCoder encodeObject:[NSString stringWithFormat:@"%d", _isParrent] forKey:@"isParrent"];
+    [aCoder encodeObject:[NSString stringWithFormat:@"%f", _increase] forKey:@"increase"];
+    
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
@@ -71,6 +83,7 @@
         self.name = [aDecoder decodeObjectForKey:@"name"];
         self.subNumber = [[aDecoder decodeObjectForKey:@"subNumber"] intValue];
         self.score = [[aDecoder decodeObjectForKey:@"score"] floatValue];
+        self.increase = [[aDecoder decodeObjectForKey:@"increase"] floatValue];
         self.parentId = [[aDecoder decodeObjectForKey:@"parentId"] intValue];
         self.isParrent = [[aDecoder decodeObjectForKey:@"subNumber"] boolValue];
     }

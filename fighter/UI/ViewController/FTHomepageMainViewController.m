@@ -110,8 +110,9 @@
 @property (nonatomic, strong) NSMutableArray *fatherSkillArray;//技能母项
 @property (nonatomic, strong) NSMutableArray *childSkillArray;//技能子项
 @property (nonatomic, assign) BOOL hasNewVersion;//是否有新版本（暂无用处，只是用来标记。。）
-@property (nonatomic, strong) NSMutableDictionary *fatherSkillVersionsDic;//用于记录那些父项有更新.key为技能id，value为0或1:0为没有更新，1为有更新
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *mainScrollViewBottomSpacing;
+
+@property (nonatomic, copy) NSString *versionFromServer;//从服务器获取的最新版本
 
 @end
 
@@ -138,7 +139,11 @@
     
     if (true){//如果是普通用户
         //更新“历史课程”、“技能”按钮右边的红点显示与否
-        [self updateButtonRightRedPointDisplay];
+            //如果是自己的主页
+        if ([self isSelfHomepage]) {
+            [self updateButtonRightRedPointDisplay];
+        }
+        
         
         if (_courseHistoryTableView) {
             [_courseHistoryTableView reloadData];
@@ -546,44 +551,27 @@
         BOOL status = [dict[@"status"] isEqualToString:@"success"];
         if (status) {
             NSArray *arrayTemp = dict[@"data"];
-            
-            //测试用，给array赋值
-//            arrayTemp = [self setTempArray];
-            
-            [self handleCourseVersionWithCourseArray:arrayTemp];
-            
+            [self handleCourseVersionWithCourseArray:arrayTemp];//处理获取的数据
             [self sortArray:arrayTemp];
-            
-            
             [self updateCourseHistoryButtonRightRedPointDisplay];//刷新课程按钮右边的红点
             [_courseHistoryTableView reloadData];//刷新历史课程列表
-            
         }
-        
-        
     }];
 }
 
 #pragma mark -获取用户技能点
 - (void) getSkillsFromServer {
     
-    
     NSString *localSkillVersion;
     if ([self isSelfHomepage]) {//如果是自己看自己的，才传技能版本号
         localSkillVersion = [[NSUserDefaults standardUserDefaults]valueForKey:SKILL_VERSION];
     }
     
-    
-    /*
-        开发阶段，暂时把local version设为nil
-     */
-//    localSkillVersion = nil;
-    
     [NetWorking getUserSkillsWithCorporationid:nil andMemberUserId:_olduserid andVersion:localSkillVersion andParent:nil andOption:^(NSDictionary *dict) {
         
         SLog(@"history dict:%@",dict);
         BOOL status = [dict[@"status"] isEqualToString:@"success"];
-        if (status) {//有新的版本
+        if (status) {//获取到了技能数据，但有两种情况：1⃣️，版本号为null，没有过评分记录；2⃣️版本号不为空，此时为有更新
             
             NSArray *arrayTemp = dict[@"data"][@"skills"];
             
@@ -611,36 +599,40 @@
                 如果是自己的主页，再处理版本数据
              */
             if ([self isSelfHomepage]) {
-                NSString *version = dict[@"data"][@"versions"];//从服务器获取的版本号
+                id version = dict[@"data"][@"versions"];//从服务器获取的版本号
                 
-                if (version && (version != [NSNull null])) {//如果有版本号，说明有更新
+                if (version && (version != [NSNull null])) {//如果有版本号，说明有过评分记录
                     
-                    _hasNewVersion = YES;
-                    
-                    [[NSUserDefaults standardUserDefaults]setValue:version forKey:SKILL_VERSION];
-                    [[NSUserDefaults standardUserDefaults]synchronize];
+                    _versionFromServer = version;
                     
                     /*
-                     有更新的话，要处理红点的逻辑，把之前存储的技能信息拿出来做一下对比，确定哪些母项有更新
+                        版本号存在有两种情况：一，该用户有评分记录，而且是第一次访问；二：该用户有评分记录，是有技能更新
                      */
-                    NSArray *fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
-                    NSArray *childSkillArrayOld;
-                    if (!fatherSkillArrayOld || fatherSkillArrayOld.count < 1) {//如果本地没有缓存，则把新数据缓存入本地
-                        fatherSkillArrayOld = _fatherSkillArray;
-                        childSkillArrayOld = _childSkillArray;
+                    NSString *localVersion = [[NSUserDefaults standardUserDefaults]valueForKey:SKILL_VERSION];
+                    if (!localVersion) {//如果是第一种，直接保存版本号，把数据存入本地
+                        [[NSUserDefaults standardUserDefaults]setValue:version forKey:SKILL_VERSION];
+                        [[NSUserDefaults standardUserDefaults]synchronize];
+
                         [self saveSkillArray:_fatherSkillArray WithKey:FATHER_SKILLS_ARRAY];
                         [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
                     }
                     
-                    if (!childSkillArrayOld || childSkillArrayOld.count < 1) {//如果本地没有缓存，则把新数据缓存入本地
-                        childSkillArrayOld = _childSkillArray;
-                        [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
+                    /*
+                     有更新的话，要处理红点的逻辑，把之前存储的技能信息拿出来做一下对比，确定哪些母项有更新
+                     */
+                    
+                    //处理获取的数据
+                    NSArray *fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
+                    //遍历，查看母项的更新情况
+                    //如果不存在，初始化fatherSkillVersionsDic
+                    NSMutableDictionary *fatherSkillVersionsDic = [[NSUserDefaults standardUserDefaults]valueForKey:FATHER_SKILL_VERSION_DIC];
+                    
+                    if (!fatherSkillVersionsDic) {
+                        fatherSkillVersionsDic = [NSMutableDictionary new];
+                    }else{
+                        fatherSkillVersionsDic = [[NSMutableDictionary alloc]initWithDictionary:fatherSkillVersionsDic];
                     }
                     
-                    fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
-                    //遍历，查看母项的更新情况
-                    //初始化_fatherSkillVersionsDic
-                    _fatherSkillVersionsDic = [NSMutableDictionary new];
                     for (FTUserSkillBean *newSkillBean in _fatherSkillArray){
                         FTUserSkillBean *oldSkillBean;
                         
@@ -658,18 +650,24 @@
                         if (oldSkillBean) {//如果oldSkillBean找到了，对比score
                             if (oldSkillBean.score != newSkillBean.score) {
                                 //如果score不等，说明有更新，记录下来
-                                newSkillBean.hasNewVersion = YES;//
-                                [_fatherSkillVersionsDic setValue:@"1" forKey:[NSString stringWithFormat:@"%d", oldSkillBean.id]];
+                                newSkillBean.hasNewVersion = YES;
+                                [fatherSkillVersionsDic setValue:@"1" forKey:[NSString stringWithFormat:@"%d", oldSkillBean.id]];
+                                
                             }
                         }
+                    }
+                    
+                    //把技能已读未读的信息存入本地
+                    if (fatherSkillVersionsDic) {
+                        [[NSUserDefaults standardUserDefaults]setValue:fatherSkillVersionsDic forKey:FATHER_SKILL_VERSION_DIC];
+                        [[NSUserDefaults standardUserDefaults] synchronize];
                         
                     }
                     
                     //刷新技能按钮右边红点的显示
                     [self updateSkillButtonRightRedPointDisplay];
                     
-                } else {//如果服务器返回的version为空，说明没有版本（即第一次访问）
-                    _hasNewVersion = NO;
+                } else {//如果返回有默认的技能数据返回，但版本号却不存在，说明没有进行过评分
                     
                     //把获取的技能信息存在本地
                     //先把skillBean转换成data存入数组，再存入本地
@@ -679,12 +677,7 @@
  
             }
             
-                    }else{
-            /*
-             没有新版本
-             */
-            _hasNewVersion = NO;
-            
+                    }else{//如果status为error，说明服务器无最新版本，本地的已经是最新版本，直接拿本地的显示
             /*
              从本地读取旧的数据展示
              */
@@ -766,7 +759,6 @@
     
     [[NSUserDefaults standardUserDefaults]setObject:versionDic forKey:COURSE_VERSION];//把最新的版本信息存入本地
     [[NSUserDefaults standardUserDefaults]synchronize];//同步
-    
 }
 
 - (BOOL)dictionary:(NSDictionary *)dic containsKey:(NSString *)keyString{
@@ -791,10 +783,6 @@
         FTUserCourseHistoryBean *bean = [[FTUserCourseHistoryBean alloc]init];
         [bean setValuesWithDic:dic];
         
-        //        NSString *currentYearMonthString = [NSDate currentYearMonthString];
-        //        NSString *dateString = [NSDate yearMonthString:bean.date];
-        NSString *currentYearMonthString = [NSDate currentYearString];
-        NSString *yearString = [NSDate yearString:bean.date];
         NSString *dateString = [NSDate dateStringWithYearMonth:bean.date];
         
         NSLog(@"dateString:%@",dateString);
@@ -810,90 +798,6 @@
             [dict setObject:array forKey:dateString];
         }
     }
-}
-
-
-/**
- 返回本机测试数据
-
- @return 上课记录array
- */
-- (NSArray *)setTempArray{
-    NSDictionary *dic = @{
-                          @"id": @33,
-                          @"name": @"格斗之夜",
-                          @"createName": @"李懿哲",
-                          @"createTime": @1472659200000,
-                          @"updateName": @"李懿哲",
-                          @"updateTime": @1472659200000,
-                          @"createTimeTamp": @"1472659200000",
-                          @"updateTimeTamp": @"1472659200000",
-                          @"courseId": @94,
-                          @"date": @1472659200000,
-                          @"timeId": @44,
-                          @"placeId": @0,
-                          @"coachUserId": @"4c364ca3120d4a01a2766f155c55cc3d",
-                          @"hasOrderCount": @2,
-                          @"topLimit" : @10,
-                          @"hasGradeCount" : @"1",
-                          @"attendCount" : @"2",
-                          @"statu": @1,
-                          @"type": @"0",
-                          @"corporationid": @187,
-                          @"label": @"拳击",
-                          @"coachName": @"张三丰",
-                          @"timeSection": @"11:10~12:00"
-                          };
-    NSDictionary *dic2 = @{
-                           @"id": @33,
-                           @"name": @"格斗入门",
-                           @"createName": @"茂凯",
-                           @"createTime": @1478142181000,
-                           @"updateName": @"李懿哲",
-                           @"updateTime": @1478142181000,
-                           @"createTimeTamp": @"1478142181000",
-                           @"updateTimeTamp": @"1478142181000",
-                           @"courseId": @94,
-                           @"date": @1478142600000,
-                           @"timeId": @44,
-                           @"placeId": @0,
-                           @"coachUserId": @"4c364ca3120d4a01a2766f155c55cc3d",
-                           @"hasOrderCount": @1,
-                           @"statu": @1,
-                           @"type": @"0",
-                           @"corporationid": @187,
-                           @"label": @"拳击",
-                           @"attendCount" : @"1",
-                           @"hasGradeCount" : @1,
-                           @"timeSection": @"11:10~12:00",
-                           @"coachName": @"怀空",
-                           };
-    NSDictionary *dic3 = @{
-                           @"id": @33,
-                           @"name": @"柔术从入门到精通",
-                           @"createName": @"李懿哲",
-                           @"createTime": @1422903722000,
-                           @"updateName": @"李懿哲",
-                           @"updateTime": @1422903722000,
-                           @"createTimeTamp": @"1478142181000",
-                           @"updateTimeTamp": @"1478142181000",
-                           @"courseId": @94,
-                           @"date": @1422903722000,
-                           @"timeId": @44,
-                           @"placeId": @0,
-                           @"coachUserId": @"4c364ca3120d4a01a2766f155c55cc3d",
-                           @"hasOrderCount": @1,
-                           @"statu": @1,
-                           @"type": @"0",
-                           @"corporationid": @187,
-                           @"label": @"拳击",
-                           @"timeSection": @"11:10~12:00",
-                           @"coachName": @"丹伯多",
-                           };
-    
-    NSArray *array = [[NSArray alloc]initWithObjects:dic, dic2, dic3, nil ];
-    
-    return array;
 }
 
 #pragma -mark 格斗场帖子列表
@@ -1298,7 +1202,6 @@
             cell1.competitionNameLabel.textColor = [UIColor colorWithHex:0x646464];
             cell1.curRankLabel.textColor = [UIColor colorWithHex:0x646464];
             cell1.bestRankLabel.textColor = [UIColor colorWithHex:0x646464];
-//            cell1.backgroundColor = [UIColor colorWithHex:0x191919];
             //增加背景色
             NSLog(@"cell1 width : %f", cell1.width);
             UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(11, 0, SCREEN_WIDTH - 32, 22)];
@@ -1376,16 +1279,7 @@
 
 
         }else if ([type isEqualToString:@"2"]){//视频  注释掉了这一段，不会有视频类型了，全部是news类型
-//            NSLog(@"视频");
-//            [NetWorking getVideoById:dic[@"urlId"] andOption:^(NSArray *array) {
-//                FTVideoBean *videoBean = [FTVideoBean new];
-//                [videoBean setValuesWithDic:[array firstObject]];
-//                FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
-//                videoDetailVC.urlId = dic[@"urlId"];
-////                videoDetailVC.videoBean = videoBean;
-//                [self.navigationController pushViewController:videoDetailVC animated:YES];
-//            }];
-//
+            
         }
     }else if (tableView == _courseHistoryTableView){
         NSLog(@"_courseHistoryTableView 被点击");
@@ -1399,14 +1293,11 @@
         [self.navigationController pushViewController:userCourseCommentViewController animated:YES];
 
         if (version) {
-            NSMutableDictionary *versionDic = [[NSUserDefaults standardUserDefaults]valueForKey:COURSE_VERSION];//从本地读取记录版本号已读、未读的字典/Users/mapbar/code/fighter/fighter/UI/ViewController/FTHomepageMainViewController.m
+            NSMutableDictionary *versionDic = [[NSUserDefaults standardUserDefaults]valueForKey:COURSE_VERSION];//从本地读取记录版本号已读、未读的字典
             if (versionDic) {
-//                [versionDic setValue:READ forKey:version];
-                
                 NSMutableDictionary *mDicTest = [[NSMutableDictionary alloc]initWithDictionary:versionDic copyItems:YES];
                 
                 [mDicTest setValue:READ forKey:version];
-//                [versionDic setValue:UNREAD forKey:version];
                 [[NSUserDefaults standardUserDefaults]removeObjectForKey:COURSE_VERSION];
                 [[NSUserDefaults standardUserDefaults]setObject:mDicTest forKey:COURSE_VERSION];
                 [[NSUserDefaults standardUserDefaults]synchronize];
@@ -1427,16 +1318,27 @@
         //把筛选出来的该母项下所有的子项传值给下个vc
         userCourseCommentViewController.skillArray = [self getChildrenSkillArrayWithParentID:fatherSkillBean.id fromSkillArray:_childSkillArray];
         
-        if ([self isSelfHomepage] && fatherSkillBean.hasNewVersion) {//如果有是自己的主页，并且有更新
+        if ([self isSelfHomepage] && fatherSkillBean.hasNewVersion) {//如果是自己的主页，并且有更新
             //点击后，将该母项设为没有更新
             fatherSkillBean.hasNewVersion = NO;
             
             //把历史该母项的所有子项历史记录也传给下个vc
             NSArray *childSkillArrayOld = [self getLocalSkillArrayWithKey:CHILD_SKILLS_ARRAY];
+            
+            
             userCourseCommentViewController.skillArrayOld = [self getChildrenSkillArrayWithParentID:fatherSkillBean.id fromSkillArray:childSkillArrayOld];
             
             //点击后，把该条设为已读
-            [_fatherSkillVersionsDic setObject:@"0" forKey:[NSString stringWithFormat:@"%d", fatherSkillBean.id]];
+            NSMutableDictionary *fatherSkillVersionsDic = [[NSUserDefaults standardUserDefaults]valueForKey:FATHER_SKILL_VERSION_DIC];
+            if (!fatherSkillVersionsDic) {
+                fatherSkillVersionsDic = [NSMutableDictionary new];
+            }else{
+                fatherSkillVersionsDic = [[NSMutableDictionary alloc]initWithDictionary:fatherSkillVersionsDic];
+            }
+            [fatherSkillVersionsDic setObject:@"0" forKey:[NSString stringWithFormat:@"%d", fatherSkillBean.id]];
+            //把技能已读未读的信息存入本地
+            [[NSUserDefaults standardUserDefaults]setValue:fatherSkillVersionsDic forKey:FATHER_SKILL_VERSION_DIC];
+            [[NSUserDefaults standardUserDefaults] synchronize];
             
             //并把这条点击过的母项存入本地
             NSMutableArray *fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
@@ -1450,20 +1352,19 @@
                 }
             }
         }
-
-        
         [self.navigationController pushViewController:userCourseCommentViewController animated:YES];
     }
 }
 
 
 /**
- 是否还有未查看的更新（用于判断顶部红点的展示与否）
+ 是否还有未查看的技能更新（用于判断顶部红点的展示与否）
 
  @return BOOL
  */
 - (BOOL)hasAnyUnreadSkillChange{
-    for(NSString *value in [_fatherSkillVersionsDic allValues]){
+    NSDictionary *fatherSkillVersionsDic = [[NSUserDefaults standardUserDefaults]objectForKey:FATHER_SKILL_VERSION_DIC];
+    for(NSString *value in [fatherSkillVersionsDic allValues]){
         if ([value isEqualToString:@"1"]){
             /*
                 如果有值为1的，说明有未读的，返回true
@@ -1471,7 +1372,14 @@
             return true;
         }
     }
-     
+    
+    //如果全部已读，则把最新的版本号存入本地，下次再加载时，以这个版本号作为参数传给服务器
+    if (_versionFromServer) {
+        [[NSUserDefaults standardUserDefaults]setValue:_versionFromServer forKey:SKILL_VERSION];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+        
+    }
+    
     return false;
 }
 
@@ -1483,6 +1391,7 @@
             return YES;
         }
     }
+
     return NO;
 }
 
