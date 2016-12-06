@@ -45,5 +45,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "fighter/UI/ViewController/FTHomepageMainViewController.m"
+            timestampString = "502699153.854911"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1367"
+            endingLineNumber = "1367"
+            landmarkName = "-hasAnyUnreadSkillChange"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[FTHomepageMainViewController hasAnyUnreadSkillChange]"
+                  moduleName = "fighter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mapbar/code/fighter/fighter/UI/ViewController/FTHomepageMainViewController.m"
+                  timestampString = "502688366.383427"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1364"
+                  endingLineNumber = "1364"
+                  offsetFromSymbolStart = "176">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[FTHomepageMainViewController hasAnyUnreadSkillChange]"
+                  moduleName = "fighter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mapbar/code/fighter/fighter/UI/ViewController/FTHomepageMainViewController.m"
+                  timestampString = "502688366.386152"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1364"
+                  endingLineNumber = "1364"
+                  offsetFromSymbolStart = "192">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

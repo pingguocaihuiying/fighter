@@ -151,7 +151,7 @@ typedef NS_ENUM(NSInteger, FTGymVIPType){
 #define SKILL_VERSION @"SkillVersion"//本地的学员技能版本
 #define FATHER_SKILLS_ARRAY @"FatherSkillsArray"//用户母项技能列表
 #define CHILD_SKILLS_ARRAY @"ChildSkillsArray"//用户子项技能列表
-#define SKILL_VERSION_DIC @"SkillVersionDic"//用户个人中心，技能的已读未读字典，key为技能id，value为已读（0）未读（1）
+#define FATHER_SKILL_VERSION_DIC @"SkillVersionDic"//用户个人中心，技能的已读未读字典，key为技能id，value为已读（0）未读（1）
 
 #define READ @"read"//已读
 #define UNREAD @"unread"//未读

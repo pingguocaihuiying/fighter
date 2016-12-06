@@ -110,7 +110,6 @@
 @property (nonatomic, strong) NSMutableArray *fatherSkillArray;//技能母项
 @property (nonatomic, strong) NSMutableArray *childSkillArray;//技能子项
 @property (nonatomic, assign) BOOL hasNewVersion;//是否有新版本（暂无用处，只是用来标记。。）
-@property (nonatomic, strong) NSMutableDictionary *fatherSkillVersionsDic;//用于记录那些父项有更新.key为技能id，value为0或1:0为没有更新，1为有更新
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *mainScrollViewBottomSpacing;
 
 @property (nonatomic, copy) NSString *versionFromServer;//从服务器获取的最新版本
@@ -610,10 +609,10 @@
                         版本号存在有两种情况：一，该用户有评分记录，而且是第一次访问；二：该用户有评分记录，是有技能更新
                      */
                     NSString *localVersion = [[NSUserDefaults standardUserDefaults]valueForKey:SKILL_VERSION];
-                    if (localVersion) {//如果是第一种，直接保存版本号，把数据存入本地
+                    if (!localVersion) {//如果是第一种，直接保存版本号，把数据存入本地
                         [[NSUserDefaults standardUserDefaults]setValue:version forKey:SKILL_VERSION];
                         [[NSUserDefaults standardUserDefaults]synchronize];
-                        
+
                         [self saveSkillArray:_fatherSkillArray WithKey:FATHER_SKILLS_ARRAY];
                         [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
                     }
@@ -625,12 +624,13 @@
                     //处理获取的数据
                     NSArray *fatherSkillArrayOld = [self getLocalSkillArrayWithKey:FATHER_SKILLS_ARRAY];
                     //遍历，查看母项的更新情况
-                    //如果不存在，初始化_fatherSkillVersionsDic
-                    NSMutableDictionary *fatherSkillVersionsDic = [[NSUserDefaults standardUserDefaults]valueForKey:SKILL_VERSION_DIC];
-                    if (!fatherSkillArrayOld) {
-                        _fatherSkillVersionsDic = [NSMutableDictionary new];
+                    //如果不存在，初始化fatherSkillVersionsDic
+                    NSMutableDictionary *fatherSkillVersionsDic = [[NSUserDefaults standardUserDefaults]valueForKey:FATHER_SKILL_VERSION_DIC];
+                    
+                    if (!fatherSkillVersionsDic) {
+                        fatherSkillVersionsDic = [NSMutableDictionary new];
                     }else{
-                        _fatherSkillVersionsDic = fatherSkillVersionsDic;
+                        fatherSkillVersionsDic = [[NSMutableDictionary alloc]initWithDictionary:fatherSkillVersionsDic];
                     }
                     
                     for (FTUserSkillBean *newSkillBean in _fatherSkillArray){
@@ -651,15 +651,15 @@
                             if (oldSkillBean.score != newSkillBean.score) {
                                 //如果score不等，说明有更新，记录下来
                                 newSkillBean.hasNewVersion = YES;
-                                [_fatherSkillVersionsDic setValue:@"1" forKey:[NSString stringWithFormat:@"%d", oldSkillBean.id]];
+                                [fatherSkillVersionsDic setValue:@"1" forKey:[NSString stringWithFormat:@"%d", oldSkillBean.id]];
                                 
                             }
                         }
                     }
                     
                     //把技能已读未读的信息存入本地
-                    if (_fatherSkillArray) {
-                        [[NSUserDefaults standardUserDefaults]setValue:_fatherSkillVersionsDic forKey:SKILL_VERSION_DIC];
+                    if (fatherSkillVersionsDic) {
+                        [[NSUserDefaults standardUserDefaults]setValue:fatherSkillVersionsDic forKey:FATHER_SKILL_VERSION_DIC];
                         [[NSUserDefaults standardUserDefaults] synchronize];
                         
                     }
@@ -673,10 +673,6 @@
                     //先把skillBean转换成data存入数组，再存入本地
                     [self saveSkillArray:_fatherSkillArray WithKey:FATHER_SKILLS_ARRAY];
                     [self saveSkillArray:_childSkillArray WithKey:CHILD_SKILLS_ARRAY];
-                    NSArray *tempTestArray = [self getLocalSkillArrayWithKey:CHILD_SKILLS_ARRAY];
-                    for (FTUserSkillBean *bean in tempTestArray){
-                        
-                    }
                 }
  
             }
@@ -1283,7 +1279,7 @@
 
 
         }else if ([type isEqualToString:@"2"]){//视频  注释掉了这一段，不会有视频类型了，全部是news类型
-
+            
         }
     }else if (tableView == _courseHistoryTableView){
         NSLog(@"_courseHistoryTableView 被点击");
@@ -1333,10 +1329,15 @@
             userCourseCommentViewController.skillArrayOld = [self getChildrenSkillArrayWithParentID:fatherSkillBean.id fromSkillArray:childSkillArrayOld];
             
             //点击后，把该条设为已读
-            [_fatherSkillVersionsDic setObject:@"0" forKey:[NSString stringWithFormat:@"%d", fatherSkillBean.id]];
-            
+            NSMutableDictionary *fatherSkillVersionsDic = [[NSUserDefaults standardUserDefaults]valueForKey:FATHER_SKILL_VERSION_DIC];
+            if (!fatherSkillVersionsDic) {
+                fatherSkillVersionsDic = [NSMutableDictionary new];
+            }else{
+                fatherSkillVersionsDic = [[NSMutableDictionary alloc]initWithDictionary:fatherSkillVersionsDic];
+            }
+            [fatherSkillVersionsDic setObject:@"0" forKey:[NSString stringWithFormat:@"%d", fatherSkillBean.id]];
             //把技能已读未读的信息存入本地
-            [[NSUserDefaults standardUserDefaults]setValue:_fatherSkillVersionsDic forKey:SKILL_VERSION_DIC];
+            [[NSUserDefaults standardUserDefaults]setValue:fatherSkillVersionsDic forKey:FATHER_SKILL_VERSION_DIC];
             [[NSUserDefaults standardUserDefaults] synchronize];
             
             //并把这条点击过的母项存入本地
@@ -1351,20 +1352,19 @@
                 }
             }
         }
-
-        
         [self.navigationController pushViewController:userCourseCommentViewController animated:YES];
     }
 }
 
 
 /**
- 是否还有未查看的更新（用于判断顶部红点的展示与否）
+ 是否还有未查看的技能更新（用于判断顶部红点的展示与否）
 
  @return BOOL
  */
 - (BOOL)hasAnyUnreadSkillChange{
-    for(NSString *value in [_fatherSkillVersionsDic allValues]){
+    NSDictionary *fatherSkillVersionsDic = [[NSUserDefaults standardUserDefaults]objectForKey:FATHER_SKILL_VERSION_DIC];
+    for(NSString *value in [fatherSkillVersionsDic allValues]){
         if ([value isEqualToString:@"1"]){
             /*
                 如果有值为1的，说明有未读的，返回true
@@ -1372,7 +1372,14 @@
             return true;
         }
     }
-     
+    
+    //如果全部已读，则把最新的版本号存入本地，下次再加载时，以这个版本号作为参数传给服务器
+    if (_versionFromServer) {
+        [[NSUserDefaults standardUserDefaults]setValue:_versionFromServer forKey:SKILL_VERSION];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+        
+    }
+    
     return false;
 }
 
@@ -1384,11 +1391,7 @@
             return YES;
         }
     }
-    if (_versionFromServer) {
-        [[NSUserDefaults standardUserDefaults]setValue:_versionFromServer forKey:SKILL_VERSION];
-        [[NSUserDefaults standardUserDefaults]synchronize];
-        
-    }
+
     return NO;
 }
 

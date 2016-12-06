@@ -49,7 +49,8 @@
     [UILabel setRowGapOfLabel:_subTitleLabel withValue:5];//设置副标题行间距
     _subTitleLabel.textColor = Sub_Title_Color;//副标题颜色
     
-    if(SCREEN_WIDTH == 320) [self adapte320];//适配320宽的设备
+//    if(SCREEN_WIDTH == 320) [self adapte320];//适配320宽的设备
+    [self adapte320];
 }
 
 - (void)setDividingLineColor{
