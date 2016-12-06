@@ -16,7 +16,7 @@ static char RankButtonKey;
 - (void) setRankButton:(UIButton *) rankButton {
     
     objc_setAssociatedObject(self, &RankButtonKey, rankButton, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    [self addSubview:rankButton];
+
 }
 
 

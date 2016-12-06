@@ -522,8 +522,6 @@ allowUserInterruption:(BOOL)allowUserInterruption
     ranckButton.transform = CGAffineTransformMakeTranslation(self.paneView.frame.origin.x + (SCREEN_WIDTH - 15 - 94), 41);
 }
 
-
-
 #pragma mark Closed Fraction
 - (CGFloat)paneViewClosedFraction
 {

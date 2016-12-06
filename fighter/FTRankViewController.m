@@ -699,7 +699,6 @@
 }
 
 
-
 #pragma mark - private methods
 - (NSArray *) fetchLabelsFromDatabase {
     
