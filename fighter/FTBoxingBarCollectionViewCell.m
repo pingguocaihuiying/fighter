@@ -82,6 +82,18 @@
     _titleLabel.text = bean.name;
     _subTitleLabel.text = bean.desc;
     [_imageView sd_setImageWithURL:[NSURL URLWithString:bean.pict]placeholderImage:[UIImage imageNamed:@"小占位图"]];
+    
+    CGFloat labelHeight = [_titleLabel sizeThatFits:CGSizeMake(_titleLabel.frame.size.width, MAXFLOAT)].height;
+    NSNumber *count = @((labelHeight) / _titleLabel.font.lineHeight);
+    NSInteger linecount = [count integerValue];
+    NSLog(@"共 %td 行", [count integerValue]);
+    if (linecount == 1) {
+        _subTitleLabel.numberOfLines = 2;
+    }else if (linecount == 2){
+        _subTitleLabel.numberOfLines = 1;
+    }else if (linecount == 3){
+        _subTitleLabel.numberOfLines = 0;
+    }
 }
 
 @end
