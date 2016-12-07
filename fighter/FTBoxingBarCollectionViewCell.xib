@@ -25,7 +25,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="麦格雷戈麦麦格雷戈麦格雷戈格雷戈麦格雷戈麦格雷戈" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eIT-zt-Nq6">
-                        <rect key="frame" x="10" y="42" width="78" height="13.5"/>
+                        <rect key="frame" x="10" y="37" width="78" height="26.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -82,7 +82,7 @@
                 <constraint firstAttribute="trailing" secondItem="BGw-Xm-OEr" secondAttribute="trailing" id="ILT-VS-gWU"/>
                 <constraint firstAttribute="bottom" secondItem="OWL-5z-4iX" secondAttribute="bottom" id="K9n-pf-PYC"/>
                 <constraint firstAttribute="trailing" secondItem="2BC-GK-wLd" secondAttribute="trailing" id="QbN-ag-qYd"/>
-                <constraint firstItem="eIT-zt-Nq6" firstAttribute="top" secondItem="BUt-Rv-Pf4" secondAttribute="bottom" constant="11" id="Syf-V3-6md"/>
+                <constraint firstItem="eIT-zt-Nq6" firstAttribute="top" secondItem="BUt-Rv-Pf4" secondAttribute="bottom" constant="6" id="Syf-V3-6md"/>
                 <constraint firstItem="Wy8-Hj-GbR" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="XsB-4K-KUa"/>
                 <constraint firstItem="2BC-GK-wLd" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="YM5-Ym-QFA"/>
                 <constraint firstItem="2BC-GK-wLd" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Zec-BI-57Z"/>

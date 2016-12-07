@@ -36,6 +36,7 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *imageWidth;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *imageHeight;
 
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *titleLabelHeight;//单行15，行间距1，双行31，三行47
 
 
 @end
@@ -46,11 +47,11 @@
     [super awakeFromNib];
     [self setDividingLineColor];//设置边框颜色
     
-    [UILabel setRowGapOfLabel:_subTitleLabel withValue:5];//设置副标题行间距
+    
     _subTitleLabel.textColor = Sub_Title_Color;//副标题颜色
     
-//    if(SCREEN_WIDTH == 320) [self adapte320];//适配320宽的设备
-    [self adapte320];
+    if(SCREEN_WIDTH == 320) [self adapte320];//适配320宽的设备
+//    [self adapte320];
 }
 
 - (void)setDividingLineColor{
@@ -81,14 +82,15 @@
 - (void)setWithBean:(FTModuleBean *)bean{
     _titleLabel.text = bean.name;
     _subTitleLabel.text = bean.desc;
+    [_subTitleLabel setLineSpacing:2];
     [_imageView sd_setImageWithURL:[NSURL URLWithString:bean.pict]placeholderImage:[UIImage imageNamed:@"小占位图"]];
     
     CGFloat labelHeight = [_titleLabel sizeThatFits:CGSizeMake(_titleLabel.frame.size.width, MAXFLOAT)].height;
     NSNumber *count = @((labelHeight) / _titleLabel.font.lineHeight);
     NSInteger linecount = [count integerValue];
-    NSLog(@"共 %td 行", [count integerValue]);
     if (linecount == 1) {
         _subTitleLabel.numberOfLines = 2;
+        
     }else if (linecount == 2){
         _subTitleLabel.numberOfLines = 1;
     }else if (linecount == 3){

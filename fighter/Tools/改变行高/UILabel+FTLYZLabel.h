@@ -10,4 +10,6 @@
 
 @interface UILabel (FTLYZLabel)
 + (void)setRowGapOfLabel:(UILabel *)label withValue:(int )value;
+- (void)setLineSpacing:(int )value;
+- (void)setTopMargin:(int )value;
 @end

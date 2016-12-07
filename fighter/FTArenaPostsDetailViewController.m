@@ -297,7 +297,7 @@
     [shareView setUrl:_webUrlString];
     [shareView setTitle:_arenaBean.title];
 //    [shareView setSummary:_arenaBean.summary];
-    [shareView setImage:@"微信用@200"];
+    [shareView setImage:@"G格斗家logo改进@200"];
     
     
     if (_arenaBean.videoUrlNames && ![_arenaBean.videoUrlNames isEqualToString:@""]) {//如果有视频图片，优先显示视频图片

@@ -305,7 +305,7 @@
     [shareView setUrl:_webUrlString];
     [shareView setTitle:_newsBean.title];
     [shareView setSummary:_newsBean.summary];
-    [shareView setImage:@"微信用@200"];
+    [shareView setImage:@"G格斗家logo改进@200"];
 //    [shareView setImageUrl:@"http://www.gogogofight.com/page/images/wechat_share.jpg"];
     
     if ([_newsBean.layout isEqualToString:@"1"]) {//大图

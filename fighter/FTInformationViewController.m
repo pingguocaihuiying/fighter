@@ -606,7 +606,7 @@
         [shareView setUrl:webUrl];
         [shareView setTitle:bean.title];
         [shareView setSummary:bean.summary];
-        [shareView setImage:@"微信用@200"];
+        [shareView setImage:@"G格斗家logo改进@200"];
         
         if ([bean.layout isEqualToString:@"1"]) {//大图
             [shareView setImageUrl:bean.img_big];
