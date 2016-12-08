@@ -112,6 +112,10 @@
 #pragma mark - 设置导航栏
 - (void) setNavigationbar {
     
+//    self.navigationController.navigationBar.delegate = self;
+    
+//    self.transitioningDelegate = self;
+    
     self.navigationItem.leftBarButtonItems  = [[NSArray alloc]initWithObjects:self.avatarButtonItem, nil];
     
     self.navigationItem.rightBarButtonItem = self.shopButtonItem;
@@ -139,7 +143,6 @@
     self.titleLabel.text = @"拳讯";
     self.titleLabel.textColor = [UIColor whiteColor];
     [self.navigationItem.titleView addSubview:self.titleLabel];
-    
 }
 
 #pragma mark - 导航栏按钮
@@ -477,8 +480,8 @@
     if (tabBarController.selectedIndex == 2) {
         [FTNotificationTools postShowMembershipGymsNoti];
     }
-    
 }
+
 
 
 

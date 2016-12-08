@@ -10,4 +10,6 @@
 
 @interface FTView : UIView
 
+- (void) setRankButton:(UIButton *) rankButton;
+
 @end
