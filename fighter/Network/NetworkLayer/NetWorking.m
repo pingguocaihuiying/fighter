@@ -2446,7 +2446,7 @@
     if (localUser.olduserid) {
         [paramDic setValue:localUser.olduserid forKey:@"userId"];
     }
-    [paramDic setValue:moduleBean.name forKey:@"name"];
+    [paramDic setValue:[NSString stringWithFormat:@"%ld", moduleBean.id] forKey:@"plateId"];
     [self postRequestWithUrl:url parameters:paramDic option:block];
 }
 @end
