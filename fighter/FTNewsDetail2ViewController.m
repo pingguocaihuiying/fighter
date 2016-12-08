@@ -213,7 +213,7 @@
     [shareView setUrl:_webUrlString];
     [shareView setTitle:_newsBean.title];
     [shareView setSummary:_newsBean.summary];
-    [shareView setImage:@"微信用@200"];
+    [shareView setImage:@"G格斗家logo改进@200"];
     
     if ([_newsBean.layout isEqualToString:@"1"]) {//大图
         [shareView setImageUrl:_newsBean.img_big];
@@ -224,9 +224,7 @@
     }
     
     [self.view addSubview:shareView];
-
 }
-
 
 #pragma -mark 设置loading图
 -(void)setLoadingImageView{

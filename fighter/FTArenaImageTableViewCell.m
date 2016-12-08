@@ -16,7 +16,7 @@
     [super awakeFromNib];
     self.imageViewWidth.constant *= SCALE;
     self.imageViewHeight.constant *= SCALE;
-    _labelLabel.font = [UIFont systemFontOfSize:14 * SCALE];
+//    _labelLabel.font = [UIFont systemFontOfSize:14 * SCALE];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

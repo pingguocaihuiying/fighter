@@ -79,7 +79,7 @@
     NSData *data = UIImageJPEGRepresentation(image, 1);
     
     if (data == nil || data.length == 0) {
-        UIImage *iconImg = [UIImage imageNamed:@"微信用@200"];
+        UIImage *iconImg = [UIImage imageNamed:@"G格斗家logo改进@200"];
         data = UIImageJPEGRepresentation(iconImg, 1);
         
         int i = 1;
