@@ -43,6 +43,10 @@
     //拳吧-版块列表，副标题颜色
 #define Sub_Title_Color [UIColor colorWithHex:0x8c8c8c]
 
+#define NewPostSuccessNoti @"NewPostSuccessNoti"
+
+
+
 //导入一些工具类
 #import "UIColor+YBColorCategory.h"
 #import "MD5.h"
@@ -155,6 +159,8 @@ typedef NS_ENUM(NSInteger, FTGymVIPType){
 
 #define READ @"read"//已读
 #define UNREAD @"unread"//未读
+
+
 
 #endif /* PrefixHeader_pch */
 
