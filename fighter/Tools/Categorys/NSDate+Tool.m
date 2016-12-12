@@ -14,7 +14,7 @@
 /**
  生成日期时间字符串，用下划线间隔日期和时间
  
- @return 日期字符串
+ @return 日期字符串 精确到秒
  */
 + (NSString *) dateTimeStringWithUnderlineSpace
 {
@@ -26,6 +26,21 @@
     return dateStr;
 }
 
+
+/**
+ 生成日期时间字符串，用下划线间隔日期和时间
+ 
+ @return 日期字符串 精确到毫秒
+ */
++ (NSString *) dateTimeStringAccurateToMillisecondWithUnderlineSpace
+{
+    NSDate *date = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd_HH:mm:ss:SSS"];
+    NSString *dateStr = [dateFormatter stringFromDate:date];
+    return dateStr;
+}
 
 /**
  生成日期时间字符串，用空格间隔日期和时间

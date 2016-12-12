@@ -38,7 +38,6 @@
 #import "FTPayViewController.h"
 #import "FTHomepageMainViewController.h"
 #import "FTPaySingleton.h"
-#import "FTNavigationBar.h"
 #import "FTView.h"
 
 /**
@@ -60,8 +59,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *allMatchesButton;
 @property (weak, nonatomic) IBOutlet UIButton *abountToStartButton;
 @property (weak, nonatomic) IBOutlet UIButton *matchedButton;
-
-@property (nonatomic, strong) FTNavigationBar *navigationBar;
 
 //当前选中的筛选条件：0、1、2，默认为0
 @property (nonatomic, assign)int conditionOffset;
@@ -764,17 +761,6 @@
 - (void) hideRankButton {
     [self.rankBtn setHidden:YES];
 }
-
-
-- (FTNavigationBar *) navigationBar {
-
-    if (!_navigationBar) {
-        _navigationBar = (FTNavigationBar *)self.navigationController.navigationBar;
-    }
-    
-    return _navigationBar;
-}
-
 
 - (FTView *) buttonFrameView {
     

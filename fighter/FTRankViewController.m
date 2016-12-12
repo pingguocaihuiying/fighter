@@ -334,8 +334,8 @@
         NSInteger count = self.dataArray.count;
         if (count > 0) {
             self.headerTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 180);
-            self.tableImageView.frame  = CGRectMake(0, 180, SCREEN_WIDTH, 56*(count-1)+5);
-            self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 56*(count-1));
+            self.tableImageView.frame  = CGRectMake(0, 180, SCREEN_WIDTH, 56*(count-1)+5 +20);
+            self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 56*(count-1) +20);
             
             CGFloat h = 180+56*count;
             
@@ -346,10 +346,8 @@
             
             [self.headerTableView reloadData];
             [self.tableView reloadData];
-//            [self.scrollView setHidden:NO];
+
             [self.placeholderImageView setHidden:YES];
-//            [self.headerTableView setHidden:NO];
-//            [self.tableView setHidden:NO];
             [self.shadow setHidden:NO];
 
         }else {
@@ -624,6 +622,34 @@
         return 180;
     }
 
+}
+
+
+- (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+
+    if (tableView == self.tableView) {
+        return 15;
+    }
+    
+    return 0;
+}
+
+- (CGFloat) tableView:(UITableView *) tableView heightForHeaderInSection:(NSInteger)section {
+    
+    if (tableView == self.tableView) {
+        return 5;
+    }
+    return 0;
+}
+
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    return [[UIView alloc]init];
+}
+
+- (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    return [[UIView alloc]init];
 }
 
 

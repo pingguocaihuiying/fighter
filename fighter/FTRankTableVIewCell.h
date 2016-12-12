@@ -42,9 +42,10 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *avatarMaskHeightConstraint;
 
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *loseLeadingConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tieLeadingConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *KOLeadingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *winTextTrailingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *loseTextTrailingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tieTextTrailingConstraint;
+
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *KOTrailingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *NOLeadingConstraint;

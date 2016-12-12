@@ -20,6 +20,14 @@
 
 
 /**
+ 生成日期时间字符串，用下划线间隔日期和时间
+ 
+ @return 日期字符串 精确到毫秒
+ */
++ (NSString *) dateTimeStringAccurateToMillisecondWithUnderlineSpace;
+
+
+/**
   生成日期时间字符串，用空格间隔日期和时间
 
  @return 日期字符串
