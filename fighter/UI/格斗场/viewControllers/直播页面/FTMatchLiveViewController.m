@@ -353,7 +353,7 @@
 
     [shareView setTitle:title];
     [shareView setSummary:summaryString];
-            [shareView setImage:@"微信用@200"];
+            [shareView setImage:@"G格斗家logo改进@200"];
     [shareView setImageUrl:@""];
     
     [shareView setUrl:webUrlString];

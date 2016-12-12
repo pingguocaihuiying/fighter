@@ -192,7 +192,7 @@
 
 - (void)setWebView{
     
-    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49)];
+    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 49)];//高度：屏幕高度 - 上方导航栏高度 - 底部view的高度
     _webView.delegate = self;
     
     //设置webview的背景色
@@ -297,7 +297,7 @@
     [shareView setUrl:_webUrlString];
     [shareView setTitle:_arenaBean.title];
 //    [shareView setSummary:_arenaBean.summary];
-    [shareView setImage:@"微信用@200"];
+    [shareView setImage:@"G格斗家logo改进@200"];
     
     
     if (_arenaBean.videoUrlNames && ![_arenaBean.videoUrlNames isEqualToString:@""]) {//如果有视频图片，优先显示视频图片

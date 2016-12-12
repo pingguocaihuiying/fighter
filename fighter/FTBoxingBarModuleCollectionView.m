@@ -40,13 +40,13 @@
      */
         //设置collectionView的flowlayout
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
-    if (true) {//SCREEN_WIDTH == 320
+    if (SCREEN_WIDTH == 320) {//
         flowLayout.itemSize = CGSizeMake(176 * SCALE, 80 * SCALE);
         flowLayout.sectionInset = UIEdgeInsetsMake(10 * SCALE, 8 * SCALE, 10 * SCALE, 8 * SCALE);
-        flowLayout.minimumInteritemSpacing = 0 * SCALE;
+        flowLayout.minimumInteritemSpacing = 7 * SCALE;
         flowLayout.minimumLineSpacing = 10 * SCALE;
-    } else {
-        flowLayout.itemSize = CGSizeMake(176, 80);
+    } else {//item高度固定，宽度 = （屏幕宽度 - 左右边距 - 中间边距） ／ 2
+        flowLayout.itemSize = CGSizeMake((SCREEN_WIDTH - 8 * 3) / 2, 80);
         flowLayout.sectionInset = UIEdgeInsetsMake(10, 8, 10, 8);
         flowLayout.minimumInteritemSpacing = 7;
         flowLayout.minimumLineSpacing = 10;

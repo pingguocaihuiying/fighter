@@ -513,12 +513,13 @@
         NSLog(@"type : %@", type);
         //视频的key值要加上mp4作为后缀
 
-        NSString *timeString = [self fixStringForDate:[NSDate date]];
+        NSString *timeString = [self fixStringToMSForDate:[NSDate date]];
+        int randomInt = [FTTools getRandomNumber:100 to:1000];
         if([type isEqualToString:@"image"]){
-                        key = [NSString stringWithFormat:@"%@_%@",timeString, userId];//key值取userId＋时间戳
+                        key = [NSString stringWithFormat:@"%@_%d_%@",timeString, randomInt, userId];//key值取userId＋时间戳
         }else if([type isEqualToString:@"video"]){
 //            key = [NSString stringWithFormat:@"%@%@mp4", userId, ts];//key值取userId＋时间戳+mp4
-            key = [NSString stringWithFormat:@"%@_%@mp4",timeString, userId];//key值取userId＋时间戳+mp4
+            key = [NSString stringWithFormat:@"%@_%d_%@mp4",timeString, randomInt, userId];//key值取userId＋时间戳+mp4
         }
         
         if([type isEqualToString:@"image"]){
@@ -557,6 +558,14 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateStyle:NSDateFormatterFullStyle];
     [dateFormatter setDateFormat:@"yyyy-MM-dd_HH:mm:ss"];
+    NSString *fixString = [dateFormatter stringFromDate:date];
+    return fixString;
+}
+- (NSString *)fixStringToMSForDate:(NSDate *)date
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd_HH:mm:ss:SSS"];
     NSString *fixString = [dateFormatter stringFromDate:date];
     return fixString;
 }
@@ -627,12 +636,18 @@
         if ([dict[@"status"] isEqualToString:@"success"]) {
             [_delegate postSuccess];
             NSLog(@"帖子发成功了");
+            [self sendNotiNewPostSuccess];
             [self showHUDWithMessage:@"发布成功"isPop:YES];
         }else{
             [self showHUDWithMessage:dict[@"message"]isPop:NO];
         }
     }];
 }
+
+- (void)sendNotiNewPostSuccess{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NewPostSuccessNoti object:nil];
+}
+
 //[self showHUDWithMessage:@"视频不能超过2个" isPop:NO withImagePickerController:picker isDismiss:YES];
 - (void)showHUDWithMessage:(NSString *)message withImagePickerController:(UIImagePickerController *)picker isDismiss:(BOOL)isDismiss{
     if (isDismiss) {
