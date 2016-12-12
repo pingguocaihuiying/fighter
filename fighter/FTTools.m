@@ -523,4 +523,9 @@
     age = [NSString stringWithFormat:@"%d", ageInt];
     return age;
 }
+
++(int)getRandomNumber:(int)from to:(int)to{
+    return (int)(from + (arc4random() % (to - from + 1)));
+    //                  (arc4random() % x) + 1; 
+}
 @end
