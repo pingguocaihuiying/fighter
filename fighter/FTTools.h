@@ -148,4 +148,14 @@
  @return 年龄
  */
 + (NSString *)getAgeWithTimeStamp:(NSString *)timeStampString;
+
+
+/**
+ 获取一个随机数[from, to)
+
+ @param from from
+ @param to to
+ @return random int limited
+ */
++(int)getRandomNumber:(int)from to:(int)to;
 @end
