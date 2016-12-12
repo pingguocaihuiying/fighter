@@ -636,12 +636,18 @@
         if ([dict[@"status"] isEqualToString:@"success"]) {
             [_delegate postSuccess];
             NSLog(@"帖子发成功了");
+            [self sendNotiNewPostSuccess];
             [self showHUDWithMessage:@"发布成功"isPop:YES];
         }else{
             [self showHUDWithMessage:dict[@"message"]isPop:NO];
         }
     }];
 }
+
+- (void)sendNotiNewPostSuccess{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NewPostSuccessNoti object:nil];
+}
+
 //[self showHUDWithMessage:@"视频不能超过2个" isPop:NO withImagePickerController:picker isDismiss:YES];
 - (void)showHUDWithMessage:(NSString *)message withImagePickerController:(UIImagePickerController *)picker isDismiss:(BOOL)isDismiss{
     if (isDismiss) {

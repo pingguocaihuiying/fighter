@@ -1735,6 +1735,7 @@
     
     if (self.isCurrentUser) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newPostSuccess) name:NewPostSuccessNoti object:nil];
     }
 }
 #pragma mark - 设置界面
@@ -1814,6 +1815,11 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
     
+}
+
+//拳吧发了新帖子后，刷新动态列表
+- (void)newPostSuccess{
+    [self getDataFromWeb];
 }
 
 - (void) loginCallBack:(NSNotification *) noti {
