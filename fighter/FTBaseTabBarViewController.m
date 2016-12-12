@@ -20,7 +20,7 @@
 #import "FTPracticeViewController.h"
 #import "FTCoachSelfCourseViewController.h"
 #import "FTFightingViewController.h"
-#import "FTNavigationBar.h"
+
 
 @interface FTBaseTabBarViewController () <UITabBarControllerDelegate>
 

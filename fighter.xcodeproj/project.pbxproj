@@ -194,7 +194,6 @@
 		3D9666CD1D9AAE2100E90DA5 /* FTGymOrderCoachView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D9666CC1D9AAE2100E90DA5 /* FTGymOrderCoachView.xib */; };
 		3D9666D31D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9666D11D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.m */; };
 		3D9666D41D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D9666D21D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.xib */; };
-		3D96EF0A1DF1908600FFDB8D /* FTNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D96EF091DF1908600FFDB8D /* FTNavigationBar.m */; };
 		3D96EF0E1DF1A29600FFDB8D /* FTView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D96EF0D1DF1A29600FFDB8D /* FTView.m */; };
 		3D9CA4041D5F0AE800B9622B /* UIView+MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CA4031D5F0AE800B9622B /* UIView+MBProgressHUD.m */; };
 		3D9D92E41D337100006C42F0 /* FTPayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9D92E21D337100006C42F0 /* FTPayCell.m */; };
@@ -816,8 +815,6 @@
 		3D9666D01D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTGymVIPCellTableViewCell.h; sourceTree = "<group>"; };
 		3D9666D11D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTGymVIPCellTableViewCell.m; sourceTree = "<group>"; };
 		3D9666D21D9B542F00E90DA5 /* FTGymVIPCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTGymVIPCellTableViewCell.xib; sourceTree = "<group>"; };
-		3D96EF081DF1908600FFDB8D /* FTNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNavigationBar.h; sourceTree = "<group>"; };
-		3D96EF091DF1908600FFDB8D /* FTNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNavigationBar.m; sourceTree = "<group>"; };
 		3D96EF0C1DF1A29600FFDB8D /* FTView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTView.h; sourceTree = "<group>"; };
 		3D96EF0D1DF1A29600FFDB8D /* FTView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTView.m; sourceTree = "<group>"; };
 		3D9CA4021D5F0AE800B9622B /* UIView+MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MBProgressHUD.h"; sourceTree = "<group>"; };
@@ -2363,22 +2360,13 @@
 			name = "非会员cell";
 			sourceTree = "<group>";
 		};
-		3D96EF071DF1902700FFDB8D /* NavigaitonBar */ = {
-			isa = PBXGroup;
-			children = (
-				3D96EF081DF1908600FFDB8D /* FTNavigationBar.h */,
-				3D96EF091DF1908600FFDB8D /* FTNavigationBar.m */,
-			);
-			name = NavigaitonBar;
-			sourceTree = "<group>";
-		};
-		3D96EF0B1DF1A26D00FFDB8D /* FTView */ = {
+		3D96EF0B1DF1A26D00FFDB8D /* RankButtonFrameView */ = {
 			isa = PBXGroup;
 			children = (
 				3D96EF0C1DF1A29600FFDB8D /* FTView.h */,
 				3D96EF0D1DF1A29600FFDB8D /* FTView.m */,
 			);
-			name = FTView;
+			name = RankButtonFrameView;
 			sourceTree = "<group>";
 		};
 		3D96EF4E1DF5654000FFDB8D /* cell */ = {
@@ -3128,6 +3116,7 @@
 		E659F36D1D12A65C00B41129 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				3D96EF0B1DF1A26D00FFDB8D /* RankButtonFrameView */,
 				9210FE6B1D582C4B00D147B4 /* 下注弹出框 */,
 				E62BA9951D4B382700CB21FF /* 拳馆列表 */,
 				E67096841D2F99EF00DB9F53 /* 显示时间段的tableview */,
@@ -3781,8 +3770,6 @@
 		E6B458941CB755CF00FB4261 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				3D96EF0B1DF1A26D00FFDB8D /* FTView */,
-				3D96EF071DF1902700FFDB8D /* NavigaitonBar */,
 				E6C5F4D61D6EF41600F15AA3 /* loading图 */,
 				3DB65F791D391BBF00E04D62 /* 分享 */,
 				E6B458951CB7560400FB4261 /* FTBaseNavigationViewController.h */,
@@ -5167,7 +5154,6 @@
 				3DC412211CD0B94A0030C229 /* FTDrawerCollectionCell.m in Sources */,
 				3D41221B1D4F1EDA007EB996 /* FTAvatarCell.m in Sources */,
 				3D7B98A91CE048F200B80B8D /* FTManagerAccountViewController.m in Sources */,
-				3D96EF0A1DF1908600FFDB8D /* FTNavigationBar.m in Sources */,
 				3D5FB4851CDC1F1D00FC1809 /* FTPhotoPickerView.m in Sources */,
 				3D5FB4B51CDC3AF300FC1809 /* FTImagPickerNavigationController.m in Sources */,
 				3D13FB221D1A70FC0060B9B4 /* FTAwesomeButton.m in Sources */,

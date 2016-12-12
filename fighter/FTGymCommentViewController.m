@@ -308,7 +308,7 @@
     FTGymPhotoCell *cell = (FTGymPhotoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] ];
     
     NSString *userId = [FTUserBean loginUser].olduserid;
-    NSString *timeString = [NSDate dateTimeStringWithUnderlineSpace];
+    NSString *timeString = [NSDate dateTimeStringAccurateToMillisecondWithUnderlineSpace];
     NSString *key;
     
     if ([lastChosenMediaType isEqualToString:(NSString *)kUTTypeImage]) {
@@ -328,7 +328,7 @@
         [_photos addObject:dic];
         [cell addPhotoToContainer:img type:FTMediaTypeImage];
         
-        key = [NSString stringWithFormat:@"%@_%@.png",timeString, userId];
+        key = [NSString stringWithFormat:@"%@_%@_%@.png",timeString,[self getRandomNumber], userId];
         [_urls addObject:key];
         
     }else if([lastChosenMediaType isEqualToString:(NSString *)kUTTypeMovie]){
@@ -345,11 +345,18 @@
         [_photos addObject:dic];
         [cell addPhotoToContainer:img type:FTMediaTypeVedio];
         
-        key = [NSString stringWithFormat:@"%@_%@.mp4",timeString, userId];//key值取userId＋时间戳+mp4
+        key = [NSString stringWithFormat:@"%@_%@_%@.mp4",timeString,[self getRandomNumber], userId];//key值取userId＋时间戳+mp4
         [_urls addObject:key];
     }
 }
 
+
+- (NSString *) getRandomNumber
+{
+    int randomNum = arc4random() % 1000;
+    NSString *string = [NSString stringWithFormat:@"%03d", randomNum];
+    return string;
+}
 
 /**
  获取本地视频缩略图

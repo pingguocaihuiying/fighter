@@ -70,7 +70,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D2n-gI-wvB" userLabel="Game Result View">
-                        <rect key="frame" x="104" y="28" width="142" height="14"/>
+                        <rect key="frame" x="108" y="28" width="138" height="14"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="88" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="834-vG-adn" userLabel="win">
                                 <rect key="frame" x="0.0" y="0.0" width="15" height="14"/>
@@ -109,13 +109,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="88" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gxt-I9-weP" userLabel="KO">
-                                <rect key="frame" x="111" y="0.0" width="15" height="14"/>
+                                <rect key="frame" x="107" y="0.0" width="15" height="14"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="textColor" red="0.51007646322250366" green="0.50987964868545532" blue="0.53046542406082153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Tj-SK-2Iw" userLabel="KO Text Label">
-                                <rect key="frame" x="126" y="0.0" width="16" height="14"/>
+                                <rect key="frame" x="122" y="0.0" width="16" height="14"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="textColor" red="0.51007646322250366" green="0.50987964868545532" blue="0.53046542406082153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -123,13 +123,13 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Bqg-bQ-pgq" firstAttribute="leading" secondItem="hgb-2m-qRy" secondAttribute="leading" constant="37" id="0ew-EJ-tBr"/>
-                            <constraint firstItem="hgb-2m-qRy" firstAttribute="leading" secondItem="834-vG-adn" secondAttribute="leading" constant="37" id="6hH-oG-5hS"/>
                             <constraint firstItem="834-vG-adn" firstAttribute="leading" secondItem="D2n-gI-wvB" secondAttribute="leading" id="Bl4-bY-1Iy"/>
+                            <constraint firstItem="FXP-kF-10D" firstAttribute="trailing" secondItem="D2n-gI-wvB" secondAttribute="trailing" constant="-37" id="Chk-Y2-U15"/>
                             <constraint firstItem="kJh-cn-GxM" firstAttribute="leading" secondItem="hgb-2m-qRy" secondAttribute="trailing" id="GE7-wP-kO9"/>
+                            <constraint firstItem="a4K-vF-DTe" firstAttribute="trailing" secondItem="D2n-gI-wvB" secondAttribute="trailing" constant="-111" id="Rta-u2-09z"/>
                             <constraint firstItem="a4K-vF-DTe" firstAttribute="centerY" secondItem="834-vG-adn" secondAttribute="centerY" id="S3M-kC-1BA"/>
+                            <constraint firstItem="kJh-cn-GxM" firstAttribute="trailing" secondItem="D2n-gI-wvB" secondAttribute="trailing" constant="-74" id="SmA-lD-YRV"/>
                             <constraint firstItem="kJh-cn-GxM" firstAttribute="centerY" secondItem="D2n-gI-wvB" secondAttribute="centerY" id="SrB-6i-n0I"/>
-                            <constraint firstItem="Gxt-I9-weP" firstAttribute="leading" secondItem="Bqg-bQ-pgq" secondAttribute="leading" constant="37" id="Ycd-Vh-35u"/>
                             <constraint firstItem="FXP-kF-10D" firstAttribute="leading" secondItem="Bqg-bQ-pgq" secondAttribute="trailing" id="YnR-HT-uQY"/>
                             <constraint firstItem="a4K-vF-DTe" firstAttribute="leading" secondItem="834-vG-adn" secondAttribute="trailing" id="aON-gx-kZF"/>
                             <constraint firstItem="Gxt-I9-weP" firstAttribute="centerY" secondItem="D2n-gI-wvB" secondAttribute="centerY" id="b3S-2p-FSG"/>
@@ -175,7 +175,6 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="KOLabel" destination="Gxt-I9-weP" id="KiI-y6-aFg"/>
-                <outlet property="KOLeadingConstraint" destination="Ycd-Vh-35u" id="IMT-hk-fwa"/>
                 <outlet property="KOTextLabel" destination="2Tj-SK-2Iw" id="6RF-17-bLz"/>
                 <outlet property="KOTrailingConstraint" destination="Jfa-7c-pMk" id="4QX-8P-iyb"/>
                 <outlet property="NOLabel" destination="dhp-e5-JNU" id="2ad-97-q7F"/>
@@ -188,16 +187,17 @@
                 <outlet property="avatarWidthConstraint" destination="1pF-Ep-h27" id="l8K-mO-DId"/>
                 <outlet property="heightLabel" destination="BlM-Gw-i6E" id="i4B-EK-fyz"/>
                 <outlet property="loseLabel" destination="hgb-2m-qRy" id="4zp-rc-Zl6"/>
-                <outlet property="loseLeadingConstraint" destination="6hH-oG-5hS" id="Hvu-i2-UvP"/>
                 <outlet property="loseTextLabel" destination="kJh-cn-GxM" id="YMY-Ls-D1s"/>
+                <outlet property="loseTextTrailingConstraint" destination="SmA-lD-YRV" id="Ay5-pk-sHV"/>
                 <outlet property="nameLabel" destination="qsM-5Y-l3S" id="LDH-or-YDh"/>
                 <outlet property="rankLabel" destination="FPR-9x-LXX" id="Oz7-G8-hpn"/>
                 <outlet property="tieLabel" destination="Bqg-bQ-pgq" id="IjI-nH-osp"/>
-                <outlet property="tieLeadingConstraint" destination="0ew-EJ-tBr" id="yGu-D1-woD"/>
                 <outlet property="tieTextLabel" destination="FXP-kF-10D" id="FJk-6y-frF"/>
+                <outlet property="tieTextTrailingConstraint" destination="Chk-Y2-U15" id="Lqv-0D-ImT"/>
                 <outlet property="weightLabel" destination="qX0-s1-1n9" id="9ek-QX-7PQ"/>
                 <outlet property="winLabel" destination="834-vG-adn" id="Gv6-yh-zkL"/>
                 <outlet property="winTextLabel" destination="a4K-vF-DTe" id="kai-oo-FII"/>
+                <outlet property="winTextTrailingConstraint" destination="Rta-u2-09z" id="2iX-4j-mJD"/>
             </connections>
             <point key="canvasLocation" x="34" y="173"/>
         </tableViewCell>

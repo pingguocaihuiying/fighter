@@ -21,9 +21,10 @@
     self.avatarMaskWidthConstraint.constant = 41 *SCALE;
     self.avatarMaskHeightConstraint.constant = 41 *SCALE;
     
-    self.loseLeadingConstraint.constant = 37 *SCALE;
-    self.tieLeadingConstraint.constant = 37 *SCALE;
-    self.KOLeadingConstraint.constant = 37 *SCALE;
+    self.winTextTrailingConstraint.constant = -37 *3 *SCALE;
+    self.loseTextTrailingConstraint.constant = -37 *2 *SCALE;
+    self.tieTextTrailingConstraint.constant = -37 *SCALE;
+
     self.KOTrailingConstraint.constant = -14 *SCALE;
     self.NOLeadingConstraint.constant = -60 *SCALE;
     
