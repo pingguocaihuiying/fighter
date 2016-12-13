@@ -1833,7 +1833,8 @@
 //            [self getHomepageUserInfo];
 //        }
         self.olduserid = loginUser.olduserid;
-        [self getHomepageUserInfo];
+        [self clearCache];
+        [self getHomepageUserInfo];//请求数据
     }
     
     if ([userInfo[@"type"] isEqualToString:@"Logout"]) {
@@ -1841,6 +1842,27 @@
     }
 }
 
+- (void)clearCache{
+    //清除本地存储的上课记录
+    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:COURSE_VERSION];
+    
+    //清除技能数据
+    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:SKILL_VERSION];
+    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:FATHER_SKILLS_ARRAY];
+    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:CHILD_SKILLS_ARRAY];
+    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:FATHER_SKILL_VERSION_DIC];
+    
+    //同步
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    
+    //清除动态信息
+    _tableViewController.sourceArray = nil;
+    _tableViewDataSourceArray = nil;
+    [_tableViewController.tableView reloadData];
+    
+    
+    
+}
 
 //- (void) hideNavigationBar:(NSNotification *) noti {
 //
