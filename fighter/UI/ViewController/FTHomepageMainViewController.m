@@ -180,7 +180,7 @@
         if (!userBean.address) {
             userBean.address = @"";
         }
-        self.addressLabel.text = [NSString stringWithFormat:@"%@", userBean.address];
+        self.addressLabel.text = [userBean.address stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         self.briefIntroductionTextField.text = userBean.brief;
         
         //设置年龄
@@ -1846,7 +1846,7 @@
     //清除本地存储的上课记录
     [[NSUserDefaults standardUserDefaults]setObject:nil forKey:COURSE_VERSION];
     
-    //清除技能数据
+    //清除本地的技能数据
     [[NSUserDefaults standardUserDefaults]setObject:nil forKey:SKILL_VERSION];
     [[NSUserDefaults standardUserDefaults]setObject:nil forKey:FATHER_SKILLS_ARRAY];
     [[NSUserDefaults standardUserDefaults]setObject:nil forKey:CHILD_SKILLS_ARRAY];
@@ -1855,13 +1855,19 @@
     //同步
     [[NSUserDefaults standardUserDefaults]synchronize];
     
-    //清除动态信息
+    //清除内存中的动态信息，并刷tableView
     _tableViewController.sourceArray = nil;
     _tableViewDataSourceArray = nil;
     [_tableViewController.tableView reloadData];
     
+    //清除内存中的历史课程，并刷tableView
+    _courseHistoryArray = nil;
+    [_courseHistoryTableView reloadData];
     
-    
+    //清除内存中的动态信息，并刷tableView
+    _fatherSkillArray = nil;
+    _childSkillArray = nil;
+    [_skillsTableView reloadData];
 }
 
 //- (void) hideNavigationBar:(NSNotification *) noti {
