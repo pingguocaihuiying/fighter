@@ -273,7 +273,7 @@
         }
     }
     
-    _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180 * SCREEN_WIDTH / 375 +15)];
+    _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180 * SCREEN_WIDTH / 375)];
     [_headerView setBackgroundColor:[UIColor clearColor]];
     
     
@@ -287,7 +287,7 @@
     
     _cycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
     _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点pre"];
-    _cycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播点"];
+    _cycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播白点"];
     _cycleScrollView.imageURLStringsGroup = imagesURLStrings;
 
     [_headerView addSubview:_cycleScrollView];

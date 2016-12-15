@@ -22,6 +22,8 @@
  // Only override drawRect: if you perform custom drawing.
  // An empty implementation adversely affects performance during animation.
  */
+#pragma mark - init
+
 
 + (instancetype) buttonWithType:(UIButtonType)buttonType option:(void(^)(FTButton *button))option {
 
@@ -85,6 +87,8 @@
 }
 
 
+
+#pragma mark - set
 
 - (void) setImageAndText:(void(^)(FTButton *button))option {
 
