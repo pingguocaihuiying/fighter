@@ -26,7 +26,6 @@
 #import "ZJModelTool.h"
 #import "AFNetworking.h"
 #import "JHRefresh.h"
-#import "FTNewsDetail2ViewController.h"
 #import "FTFilterTableViewController.h"
 #import "FTNewsBean.h"
 #import "UIButton+LYZTitle.h"
@@ -1268,8 +1267,8 @@
             NSLog(@"拳讯");
             [NetWorking getNewsById:dic[@"urlId"] andOption:^(NSArray *array) {
                 if (dic[@"urlId"]) {
-                    FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
-                    newsDetailVC.urlId = dic[@"urlId"];
+                    FTVideoDetailViewController *newsDetailVC = [FTVideoDetailViewController new];
+                    newsDetailVC.objId = [NSString stringWithFormat:@"%@", dic[@"urlId"]];
                     FTNewsBean *newsBean = [FTNewsBean new];
                     [newsBean setValuesWithDic:[array firstObject]];
                     newsDetailVC.newsBean = newsBean;

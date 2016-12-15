@@ -14,7 +14,6 @@
 #import "ZJModelTool.h"
 #import "AFNetworking.h"
 #import "JHRefresh.h"
-#import "FTNewsDetail2ViewController.h"
 #import "FTFilterTableViewController.h"
 #import "FTNewsBean.h"
 #import "UIButton+LYZTitle.h"
@@ -346,24 +345,10 @@
         
         FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
         
-        //判断是咨询还是视频
-        NSArray *typeStrArray= [url componentsSeparatedByString:@"&type="];
-        NSString *typeStr = [typeStrArray lastObject];
-        if ([typeStr isEqualToString:@"1"]) {//资讯
+        //判断是咨询还是视频 (lyz 12月14日 现在统一为资讯)
             videoDetailVC.detailType = FTDetailTypeNews;
-        } else if ([typeStr isEqualToString:@"2"]) {//视频
-            videoDetailVC.detailType = FTDetailTypeVideo;
-        }
-        
-        if (matchBean.urlRes) {
-            FTNewsBean *newsBean = [FTNewsBean new];
-            newsBean.newsId = objId;
-            videoDetailVC.urlId = objId;
-//            videoDetailVC.videoBean = videoBean; // *  没有视频了 2016-11-21 by lyz */
-            videoDetailVC.newsBean = newsBean;
-        }
-        
 
+        videoDetailVC.objId = objId;
         
         [self.navigationController pushViewController:videoDetailVC animated:YES];
     }else{
@@ -480,14 +465,7 @@
             
             FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
             
-            if (matchBean.urlRes) {
-                FTNewsBean *newsBean = [FTNewsBean new];
-                newsBean.newsId = objId;
-                videoDetailVC.urlId = objId;
-                videoDetailVC.newsBean = newsBean;
-            }
-            
-            
+            videoDetailVC.objId = objId;
             
             [self.navigationController pushViewController:videoDetailVC animated:YES];
         }

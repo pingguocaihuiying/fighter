@@ -160,7 +160,7 @@
         url = [self encodeToPercentEscapeString:url];
         NSString *title = _newsBean.title;
         title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        _webViewUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/news_page.html?objId=%@", objId];
+        _webViewUrlString = [NSString stringWithFormat:@"%@?objId=%@", WebViewURL, objId];
     }else {
     
         _webViewUrlString = _webUrlString;
@@ -205,9 +205,7 @@
 - (void)shareButtonClicked{
     //友盟分享事件统计
     [MobClick event:@"newsPage_DetailPage_share"];
-   
-    NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-news",_newsBean.newsId];
-    _webUrlString = [@"http://www.gogogofight.com/page/v2/news_page.html?" stringByAppendingString:str];
+    _webUrlString = [NSString stringWithFormat:@"%@?objId=%@", WebViewURL, _newsBean.newsId];;//备注：12月14日 lyz修改：去掉了webView后面的tableName参数，只传了objId
     
     FTShareView *shareView = [FTShareView new];
     [shareView setUrl:_webUrlString];

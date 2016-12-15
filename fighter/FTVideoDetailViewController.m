@@ -25,13 +25,15 @@
     UIImageView *_loadingImageView;
     UIImageView *_loadingBgImageView;
 }
+
 @end
 
 @implementation FTVideoDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initBaseData];
+    
+    [self checkNewsBean];//1.检查是否有传bean过来，如果没有，则根据objId去获取 2.如果bean存在，则把bean的id赋值给属性_objId，类中所有用到objId的，都用_objId
     [self setSubViews];
     [self setWebView];
     [self getVoteInfo];
@@ -60,17 +62,19 @@
 }
 
 
-- (void)initBaseData{
-    if (!_newsBean.title) {
-        NSLog(@"没有标题");
-//        [NetWorking getVideoById:[NSString stringWithFormat:@"%@", _newsBean.newsId] andOption:^(NSArray *array) {
-                [NetWorking getNewsById:[NSString stringWithFormat:@"%@", _newsBean.newsId] andOption:^(NSArray *array) {
+- (void)checkNewsBean{
+    if (!_newsBean) {//如果bean不存在
+        NSLog(@"没有newsbean或newsbean没有标题，正在从服务器获取...");
+            [NetWorking getNewsById:[NSString stringWithFormat:@"%@", _objId] andOption:^(NSArray *array) {
             FTNewsBean *newsBean = [FTNewsBean new];
             [newsBean setValuesWithDic:[array firstObject]];
-            NSLog(@"加载完成");
             _newsBean = newsBean;
         }];
+    }else{        //如果bean存在，则复制给_objId
+        _objId = _newsBean.newsId;
+        
     }
+    
 }
 
 - (void)getVoteInfo{
@@ -79,10 +83,10 @@
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
     NSString *userId = user.olduserid;
-    NSString *objId = _newsBean.newsId;
+    NSString *objId = _objId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = _detailType == FTDetailTypeNews ? @"v-news" : @"v-video";
+    NSString *tableName = @"v-news";
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, GetStatusCheckKey]];
     
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
@@ -117,10 +121,10 @@
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
     NSString *userId = user.olduserid;
-    NSString *objId = _newsBean.newsId;
+    NSString *objId = _objId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = _detailType == FTDetailTypeNews ? @"col-news" : @"col-video";//@"v-video";
+    NSString *tableName = @"col-news";
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, GetStatusCheckKey]];
     
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
@@ -208,45 +212,11 @@
     _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49 - 64)];
     _webView.delegate = self;
     
-    //设置webview的背景色
-    //    webView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"底纹"]];
-    
     _webView.backgroundColor = [UIColor clearColor];
     _webView.opaque = NO;
-    
     [self.view addSubview:_webView];
-    
-    if(self.webUrlString == nil || self.webUrlString.length <= 0) {
-        NSString *url = @"";
-        if (_newsBean) {
-                url = _newsBean.url;
-        }else{
-            
-        }
-        
-        NSLog(@"视频url：%@", url);
-        url = [self encodeToPercentEscapeString:url];
-    //    _newsBean.viewCount = @"100";
-        
-        NSString *objId = @"";
-        if (_urlId) {
-            objId = _urlId;
-        }else if(_newsBean){
-            objId = _newsBean.newsId;
-        }
-        
-        NSString *urlPrefix = _detailType == FTDetailTypeNews ? @"http://www.gogogofight.com/page/v2/news_page.html?objId=" : @"http://www.gogogofight.com/page/v2/video_page.html?objId=";
-        _webViewUrlString = [NSString stringWithFormat:@"%@%@", urlPrefix, objId];
-        NSLog(@"webview url：%@", _webViewUrlString);
-        
-    }else {
-        
-        _webViewUrlString = _webUrlString;
-        NSLog(@"webview url：%@", _webViewUrlString);
-
-    }
-   
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webViewUrlString]]];
+    NSString  *webViewUrlString = [NSString stringWithFormat:@"%@?objId=%@", WebViewURL, _objId];//12月31日 lyz修改 把webView地址统一了，不管是咨询还是视频
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:webViewUrlString]]];
     [self.view sendSubviewToBack:_webView];
 }
 
@@ -264,6 +234,7 @@
 
 - (IBAction)commentButtonClicked:(id)sender {
         [MobClick event:@"videoPage_DetailPage_Comment"];
+    
     //从本地读取存储的用户信息
     FTUserBean *localUser = [FTUserBean loginUser];
     if (!localUser) {
@@ -297,16 +268,13 @@
 }
 
 - (void)shareButtonClicked{
-    
-    NSString *str = [NSString stringWithFormat:@"objId=%@",_newsBean.newsId];
-    _webUrlString = [@"http://www.gogogofight.com/page/v2/news_page.html?" stringByAppendingString:str];
+    NSString  *webUrlString = [NSString stringWithFormat:@"%@?objId=%@", WebViewURL, _objId];
     
     FTShareView *shareView = [FTShareView new];
-    [shareView setUrl:_webUrlString];
+    [shareView setUrl:webUrlString];
     [shareView setTitle:_newsBean.title];
     [shareView setSummary:_newsBean.summary];
     [shareView setImage:@"G格斗家logo改进@200"];
-//    [shareView setImageUrl:@"http://www.gogogofight.com/page/images/wechat_share.jpg"];
     
     if ([_newsBean.layout isEqualToString:@"1"]) {//大图
         [shareView setImageUrl:_newsBean.img_big];
@@ -425,10 +393,10 @@
     NSString *urlString = [FTNetConfig host:Domain path:_hasVote ? AddVoteURL : DeleteVoteURL];
     
     NSString *userId = user.olduserid;
-    NSString *objId = _newsBean.newsId;
+    NSString *objId = _objId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = _detailType == FTDetailTypeNews ? @"v-news" : @"v-video";
+    NSString *tableName = @"v-news";
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, self.hasVote ? AddVoteCheckKey: DeleteVoteCheckKey]];
     
     
@@ -477,10 +445,10 @@
     NSString *urlString = [FTNetConfig host:Domain path:self.hasStar ? AddStarURL : DeleteStarURL];
     
     NSString *userId = user.olduserid;
-    NSString *objId = _newsBean.newsId;
+    NSString *objId = _objId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = _detailType == FTDetailTypeNews ? @"col-news" : @"col-video";
+    NSString *tableName =  @"col-news";
     NSString *query = @"delete-col";
 //    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, self.hasStar ?  @"" : query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
         NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
@@ -573,13 +541,10 @@
     
     FTCommentViewController *commentVC = [ FTCommentViewController new];
     commentVC.delegate = self;
-    if (_detailType == FTDetailTypeNews) {//拳讯
         FTNewsBean *newsBean = [FTNewsBean new];
-        newsBean.newsId = _newsBean.newsId;
+        newsBean.newsId = _objId;
         commentVC.newsBean = newsBean;
-    } else if (_detailType == FTDetailTypeVideo){//视频
-        commentVC.newsBean = _newsBean;
-    }
+
     
     [self.navigationController pushViewController:commentVC animated:YES];
 }
@@ -601,7 +566,7 @@
     //获取网络请求地址url
     NSString *addViewCountUrlString = [FTNetConfig host:Domain path:AddViewCountURL];
 
-    NSString *newsId = _newsBean.newsId;
+    NSString *newsId = _objId;
     NSString *ts = [NSString stringWithFormat:@"%.3f", [[NSDate date] timeIntervalSince1970]];
     ts = [ts stringByReplacingOccurrencesOfString:@"." withString:@""];
     

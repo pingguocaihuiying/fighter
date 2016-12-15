@@ -169,6 +169,9 @@ extern NSString * const GetBoxerRaceInfoURL;
 // 获取单个拳讯信息
 extern NSString * const GetNewsByIdURL;
 
+//类拳讯详情页的webView地址
+extern NSString * const WebViewURL;
+
 // 获取单个视频信息
 extern NSString * const GetVideoByIdURL;
 
