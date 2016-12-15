@@ -26,18 +26,19 @@
     UIImageView *_loadingBgImageView;
 }
 
+@property (nonatomic, strong) UIBarButtonItem *commentButton;
+
 @end
 
 @implementation FTVideoDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self initSubViews];
     [self checkNewsBean];//1.检查是否有传bean过来，如果没有，则根据objId去获取 2.如果bean存在，则把bean的id赋值给属性_objId，类中所有用到objId的，都用_objId
-    [self setSubViews];
+    
     [self setWebView];
     [self getVoteInfo];
-    [self getStarInfo];
     [self setLoadingImageView];
     
     //如果是视频，再增加观看数
@@ -50,7 +51,6 @@
 - (void)viewWillAppear:(BOOL)animated{
     
     self.navigationController.navigationBarHidden = NO;
-    //    self.navigationController.tabBarController.tabBar.hidden = YES;
     
     //注册通知，接收登录成功的消息
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
@@ -63,18 +63,31 @@
 
 
 - (void)checkNewsBean{
-    if (!_newsBean) {//如果bean不存在
+    if (_newsBean) {//如果bean存在，则赋值给_objId
+        _objId = _newsBean.newsId;
+        
+        //更新评论数
+        [self updateCommentCount];
+    }else{        //如果bean不存在，从服务器获取
         NSLog(@"没有newsbean或newsbean没有标题，正在从服务器获取...");
-            [NetWorking getNewsById:[NSString stringWithFormat:@"%@", _objId] andOption:^(NSArray *array) {
+        [NetWorking getNewsById:[NSString stringWithFormat:@"%@", _objId] andOption:^(NSArray *array) {
             FTNewsBean *newsBean = [FTNewsBean new];
             [newsBean setValuesWithDic:[array firstObject]];
             _newsBean = newsBean;
+            
+            //更新评论数
+            [self updateCommentCount];
         }];
-    }else{        //如果bean存在，则复制给_objId
-        _objId = _newsBean.newsId;
-        
     }
     
+}
+
+
+/**
+ 更新评论数，包括右上角和底部
+ */
+- (void)updateCommentCount{
+    [self setRightButtonItemWithText:_newsBean.commentCount];
 }
 
 - (void)getVoteInfo{
@@ -151,48 +164,44 @@
     }];
 }
 
-- (void)setSubViews{
+- (void)initSubViews{
     
     [self setEvnetListenerOfBottomViews];
     
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     
     //设置返回按钮
+    
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(popVC)];
-    //把左边的返回按钮左移
-    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];//把左边的返回按钮左移
     self.navigationItem.leftBarButtonItem = leftButton;
     
-    //设置分享按钮
-    //        UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-分享"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(shareButtonClicked)];
-    //    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-分享"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(shareButtonClicked)];
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithTitle:@"转发" style:UIBarButtonItemStylePlain target:self action:@selector(topShareButtonClicked)];
+
     
+    //标题
     self.navigationController.navigationBar.tintColor = [UIColor colorWithHex:0x828287];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont systemFontOfSize:16]}];
-    
     NSDictionary* textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [UIFont systemFontOfSize:14],NSFontAttributeName,
                                     nil];
-    
     [[UIBarButtonItem appearance] setTitleTextAttributes:textAttributes forState:0];
     
-    //    [shareButton setImageInsets:UIEdgeInsetsMake(0, -20, 0, 20)];
-    //如果用户安装了微信，再显示转发按钮
-    if([WXApi isWXAppInstalled]){
-        self.navigationItem.rightBarButtonItem = shareButton;
-    }
+
     
     
     //设置默认标题
     self.navigationItem.title = _detailType == FTDetailTypeNews ? @"拳讯" : @"视频";
 }
 
+- (void)setRightButtonItemWithText:(NSString *)text{
+    //右上角按钮
+    _commentButton = [[UIBarButtonItem alloc]initWithTitle:[NSString stringWithFormat:@"%@ 评论", text] style:UIBarButtonItemStylePlain target:self action:@selector(commentButtonClicked:)];
+    _commentButton.tintColor = [UIColor colorWithHex:0xb4b4b4];
+    self.navigationItem.rightBarButtonItem = _commentButton;
+}
+
 - (void)setEvnetListenerOfBottomViews{
     //设置点赞view的事件监听
-    UITapGestureRecognizer *tapOfVoteView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(thumbButtonClicked:)];
-    [self.voteView addGestureRecognizer:tapOfVoteView];
-    self.voteView.userInteractionEnabled = YES;
     
     //收藏
     UITapGestureRecognizer *tapOfFavourateView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(favourateButtonClicked:)];
@@ -368,10 +377,10 @@
 
 - (void)updateVoteImageView{
     if (self.hasVote) {
-        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-赞pre"] forState:UIControlStateNormal];
+        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"列表页-赞二态"] forState:UIControlStateNormal];
         
     }else{
-        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-赞"] forState:UIControlStateNormal];
+        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"列表页-赞"] forState:UIControlStateNormal];
     }
 }
 
@@ -556,6 +565,8 @@
     NSLog(@"js method : %@", jsMethodString);
     _newsBean.commentCount = [NSString stringWithFormat:@"%d", commentCount];
     [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
+    
+    
 }
 
 
