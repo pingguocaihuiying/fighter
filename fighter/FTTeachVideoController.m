@@ -8,7 +8,6 @@
 
 #import "FTTeachVideoController.h"
 #import "FTVideoCollectionViewCell.h"
-//#import "FTVideoDetailViewController.h"
 #import "FTTeachVideoDetailController.h"
 #import "FTLoginViewController.h"
 

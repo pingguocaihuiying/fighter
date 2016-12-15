@@ -34,11 +34,9 @@ typedef NS_ENUM(NSInteger, FTDetailType) {
 
 @interface FTVideoDetailViewController : FTBaseViewController
 
-@property (nonatomic, assign) FTDetailType detailType;
+@property (nonatomic, assign) FTDetailType detailType;//类型：视频或咨询（虽然现在webview不区分，但有时候还是要区分：比如，如果是视频，进来之后会增加观看数）
 
 @property (nonatomic, weak)id<FTVideoDetailDelegate> delegate;
-
-@property (nonatomic ,copy)NSString *webViewUrlString;
 @property (nonatomic ,copy)NSString *newsTitle;
 @property (nonatomic, strong) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UIButton *thumbsUpButton;
@@ -53,6 +51,6 @@ typedef NS_ENUM(NSInteger, FTDetailType) {
 @property (weak, nonatomic) IBOutlet UIButton *starButton;
 
 @property (nonatomic, strong)NSIndexPath *indexPath;
-@property (nonatomic, strong)NSString *webUrlString;
-@property (nonatomic ,copy)NSString *urlId;//从个人主页跳转过来用到的拳讯或视频id
+//@property (nonatomic, strong)NSString *webUrlString;
+@property (nonatomic ,copy)NSString *objId;//有些界面没有bean，只有objId，则传objId。viewDidLoad后，检查bean，如果不存在，则拿objId去重新加载
 @end

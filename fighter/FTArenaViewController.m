@@ -21,7 +21,6 @@
 #import "ZJModelTool.h"
 #import "AFNetworking.h"
 #import "JHRefresh.h"
-#import "FTNewsDetail2ViewController.h"
 #import "FTFilterTableViewController.h"
 #import "FTNewsBean.h"
 #import "UIButton+LYZTitle.h"

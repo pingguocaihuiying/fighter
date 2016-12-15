@@ -190,6 +190,9 @@ NSString * const GetBoxerRaceInfoURL =  @"/api/boxer/getBoxerRaceDynamic.do";
 // 获取单个拳讯信息
 NSString * const GetNewsByIdURL =  @"/api/news/getNewsById.do";
 
+//类拳讯详情页的webView地址
+NSString * const WebViewURL =  @"http://www.gogogofight.com/page/v2/news_page.html";
+
 // 获取单个视频信息
 NSString * const GetVideoByIdURL =  @"/api/videos/getVideosById.do";
 
