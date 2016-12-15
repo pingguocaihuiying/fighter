@@ -27,6 +27,7 @@
 }
 
 @property (nonatomic, strong) UIBarButtonItem *commentButton;
+@property (strong, nonatomic) IBOutlet UILabel *bottomCommentLabel;
 
 @end
 
@@ -70,24 +71,28 @@
         [self updateCommentCount];
     }else{        //如果bean不存在，从服务器获取
         NSLog(@"没有newsbean或newsbean没有标题，正在从服务器获取...");
-        [NetWorking getNewsById:[NSString stringWithFormat:@"%@", _objId] andOption:^(NSArray *array) {
-            FTNewsBean *newsBean = [FTNewsBean new];
-            [newsBean setValuesWithDic:[array firstObject]];
-            _newsBean = newsBean;
-            
-            //更新评论数
-            [self updateCommentCount];
-        }];
+        [self getNewsBeanFromServerById];
     }
     
 }
 
+- (void)getNewsBeanFromServerById{
+    [NetWorking getNewsById:[NSString stringWithFormat:@"%@", _objId] andOption:^(NSArray *array) {
+        FTNewsBean *newsBean = [FTNewsBean new];
+        [newsBean setValuesWithDic:[array firstObject]];
+        _newsBean = newsBean;
+        
+        //更新评论数
+        [self updateCommentCount];
+    }];
+}
 
 /**
  更新评论数，包括右上角和底部
  */
 - (void)updateCommentCount{
     [self setRightButtonItemWithText:_newsBean.commentCount];
+    [self updateBottomCommentCount];
 }
 
 - (void)getVoteInfo{
@@ -186,11 +191,11 @@
                                     nil];
     [[UIBarButtonItem appearance] setTitleTextAttributes:textAttributes forState:0];
     
-
-    
-    
     //设置默认标题
     self.navigationItem.title = _detailType == FTDetailTypeNews ? @"拳讯" : @"视频";
+    
+    //底部评论数的颜色
+    _bottomCommentLabel.textColor = Custom_Red;
 }
 
 - (void)setRightButtonItemWithText:(NSString *)text{
@@ -199,7 +204,13 @@
     _commentButton.tintColor = [UIColor colorWithHex:0xb4b4b4];
     self.navigationItem.rightBarButtonItem = _commentButton;
 }
-
+- (void)updateBottomCommentCount{
+    NSString *commentCount = [NSString stringWithFormat:@"%@", _newsBean.commentCount];
+    if([commentCount integerValue] > 999){//如果评论数大于999，只显示999+
+        commentCount = @"999+";
+    }
+    _bottomCommentLabel.text = commentCount;
+}
 - (void)setEvnetListenerOfBottomViews{
     //设置点赞view的事件监听
     
@@ -566,7 +577,8 @@
     _newsBean.commentCount = [NSString stringWithFormat:@"%d", commentCount];
     [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
     
-    
+    //评论成功后，从服务器获取最新的数据（包括评论数）
+    [self getNewsBeanFromServerById];
 }
 
 

@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTVideoDetailViewController">
             <connections>
+                <outlet property="bottomCommentLabel" destination="nzu-iW-QnD" id="auq-v8-M8O"/>
                 <outlet property="commentView" destination="2UW-LG-R9Q" id="tj3-R8-WrV"/>
                 <outlet property="favourateView" destination="GBB-BU-XZz" id="Mpg-5m-9hv"/>
                 <outlet property="shareView" destination="Tbp-Dn-wuo" id="DOr-IQ-I5N"/>
@@ -185,7 +186,7 @@
                                 <action selector="thumbButtonClicked:" destination="-1" eventType="touchUpInside" id="eBa-lY-L99"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Puq-qI-qWX" userLabel="评论数">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Puq-qI-qWX" userLabel="评论">
                             <rect key="frame" x="237" y="14" width="22" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="22" id="4Xa-T6-S0r"/>
@@ -193,7 +194,21 @@
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <state key="normal" backgroundImage="列表页-评论数"/>
+                            <connections>
+                                <action selector="commentButtonClicked:" destination="-1" eventType="touchUpInside" id="abt-0R-5sD"/>
+                            </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzu-iW-QnD">
+                            <rect key="frame" x="251" y="15" width="10" height="10"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="10" id="4kC-Vg-02M"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="ca7-R6-fP5"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6aX-Eo-coP">
                             <rect key="frame" x="15" y="8" width="198" height="32"/>
                             <constraints>
@@ -214,7 +229,9 @@
                         <constraint firstItem="fRp-Cl-WIk" firstAttribute="centerY" secondItem="oW9-hO-4WD" secondAttribute="centerY" id="3Zh-Uj-lp3"/>
                         <constraint firstItem="Puq-qI-qWX" firstAttribute="centerY" secondItem="fRp-Cl-WIk" secondAttribute="centerY" id="7PH-pg-R05"/>
                         <constraint firstItem="fRp-Cl-WIk" firstAttribute="leading" secondItem="xpl-9x-l8x" secondAttribute="trailing" constant="24" id="83w-J1-fKD"/>
+                        <constraint firstItem="nzu-iW-QnD" firstAttribute="leading" secondItem="Puq-qI-qWX" secondAttribute="trailing" constant="-8" id="Cwe-8R-jTB"/>
                         <constraint firstItem="6aX-Eo-coP" firstAttribute="centerY" secondItem="oW9-hO-4WD" secondAttribute="centerY" id="FzF-oh-961"/>
+                        <constraint firstItem="nzu-iW-QnD" firstAttribute="centerY" secondItem="Puq-qI-qWX" secondAttribute="centerY" constant="-5" id="GVv-U3-KSb"/>
                         <constraint firstItem="xpl-9x-l8x" firstAttribute="leading" secondItem="Puq-qI-qWX" secondAttribute="trailing" constant="24" id="SVW-D1-eaO"/>
                         <constraint firstAttribute="trailing" secondItem="fRp-Cl-WIk" secondAttribute="trailing" constant="24" id="T5E-Wz-pHQ"/>
                         <constraint firstItem="Puq-qI-qWX" firstAttribute="leading" secondItem="6aX-Eo-coP" secondAttribute="trailing" constant="24" id="bL4-9x-VDv"/>
