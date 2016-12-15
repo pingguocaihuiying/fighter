@@ -23,11 +23,15 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *fromLabel;
 
-@property (weak, nonatomic) IBOutlet UIButton *thumbButton;
+//@property (weak, nonatomic) IBOutlet UIButton *thumbButton;
+//
+//@property (weak, nonatomic) IBOutlet UIButton *comentButton;
 
-@property (weak, nonatomic) IBOutlet UIButton *comentButton;
+// comment number label
+@property (weak, nonatomic) IBOutlet UILabel *commentLabel;
+// favor number label
+@property (weak, nonatomic) IBOutlet UILabel *favorLabel;
 
-@property (weak, nonatomic) IBOutlet UIButton *shareButton;
 
 @property (strong, nonatomic)NSIndexPath *indexPath;
 

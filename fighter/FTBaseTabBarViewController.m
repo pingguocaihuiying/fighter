@@ -192,7 +192,8 @@
         // 商城按钮
         //    UIBarButtonItem *
         _shopButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"商城" style:UIBarButtonItemStyleDone target:self action:@selector(shopBtnAction:)];
-        [_shopButtonItem setTintColor:[UIColor colorWithHex:0x848484]];
+        [_shopButtonItem setTintColor:[UIColor whiteColor]];
+        
         //   _shopButtonItem = [[UIBarButtonItem alloc]
         //                                   initWithImage:[[UIImage imageNamed:@"右上角商城"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
         //                                   style:UIBarButtonItemStyleDone

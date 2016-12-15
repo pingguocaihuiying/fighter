@@ -21,7 +21,8 @@
     self.selectedBackgroundView = aView;
     self.imageHeightConstraint.constant = 210 * SCALE;
     
-    // Initialization code
+    [self.commentLabel setTextColor:Secondary_Text_Color];
+    [self.favorLabel setTextColor:Secondary_Text_Color];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -52,13 +53,9 @@
     self.newsTitleLabel.text = bean.title;
     [self.newsImageView sd_setImageWithURL:[NSURL URLWithString:bean.img_small_one] placeholderImage:[UIImage imageNamed:@"轮播大图-空"]];
     
-    
     //设置评论数、点赞数
-    [self.thumbButton setTitleColor:Secondary_Text_Color forState:UIControlStateNormal];
-    [self.thumbButton setTitle:bean.voteCount forState:UIControlStateNormal];
-    
-    [self.comentButton setTitleColor:Secondary_Text_Color forState:UIControlStateNormal];
-    [self.comentButton setTitle: bean.commentCount forState:UIControlStateNormal];
+    [self.favorLabel setText:bean.voteCount];
+    [self .commentLabel setText: bean.commentCount];
     
 //    NSString *commentCount = [NSString stringWithFormat:@"(%@)", bean.commentCount];
 //    NSString *voteCount = [NSString stringWithFormat:@"(%@)", bean.voteCount];
@@ -83,19 +80,22 @@
     }
 }
 
-- (IBAction)thumbButtonAction:(id)sender {
-//    if([self.clickedDelegate respondsToSelector:@selector(clickedWithIndex:)]){
-//        [self.clickedDelegate clickedWithIndex:indexPath];
+
+
+//- (IBAction)thumbButtonAction:(id)sender {
+////    if([self.clickedDelegate respondsToSelector:@selector(clickedWithIndex:)]){
+////        [self.clickedDelegate clickedWithIndex:indexPath];
+////    }
+//}
+//- (IBAction)comentButtonAction:(id)sender {
+////    if([self.clickedDelegate respondsToSelector:@selector(clickedWithIndex:)]){
+////        [self.clickedDelegate clickedWithIndex:indexPath];
+////    }
+//}
+
+//- (IBAction)shareButtonAction:(id)sender {
+//    if([self.clickedDelegate respondsToSelector:@selector(clickedShareButton:)]){
+//        [self.clickedDelegate clickedShareButton:self.indexPath];
 //    }
-}
-- (IBAction)comentButtonAction:(id)sender {
-//    if([self.clickedDelegate respondsToSelector:@selector(clickedWithIndex:)]){
-//        [self.clickedDelegate clickedWithIndex:indexPath];
-//    }
-}
-- (IBAction)shareButtonAction:(id)sender {
-    if([self.clickedDelegate respondsToSelector:@selector(clickedShareButton:)]){
-        [self.clickedDelegate clickedShareButton:self.indexPath];
-    }
-}
+//}
 @end
