@@ -61,7 +61,7 @@
     
     self.isGymUser =  [dic[@"isGymUser"] boolValue];
     
-    self.surplusCourse = dic[@"remainTime"];
+    self.surplusCourse = [dic[@"remainTime"] integerValue];
 //    if (remainTime && remainTime.length >0) {
 //        self.surplusCourse = [NSString stringWithFormat:@"%d",[dic[@"remainTime"] intValue]];
 //    }

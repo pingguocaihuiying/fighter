@@ -44,8 +44,8 @@
 
     self.bean = bean;
     
-    if (bean.surplusCourse.length > 0) {
-        self.surplusCourse.text = bean.surplusCourse;
+    if (bean.surplusCourse> 0) {
+        self.surplusCourse.text = [NSString stringWithFormat:@"%ld",bean.surplusCourse];
     }else {
         self.surplusCourse.text = @"0";
     }
