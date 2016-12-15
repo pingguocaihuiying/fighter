@@ -191,8 +191,15 @@
     if (!_shopButtonItem) {
         // 商城按钮
         //    UIBarButtonItem *
-        _shopButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"商城" style:UIBarButtonItemStyleDone target:self action:@selector(shopBtnAction:)];
-        [_shopButtonItem setTintColor:[UIColor whiteColor]];
+        UIButton *shopButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        shopButton.frame = CGRectMake(0, 0, 34, 34);
+        [shopButton addTarget:self action:@selector(shopBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        [shopButton setTitle:@"商城" forState:UIControlStateNormal];
+        [shopButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [shopButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        _shopButtonItem = [[UIBarButtonItem alloc] initWithCustomView:shopButton];
+//        _shopButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"商城" style:UIBarButtonItemStyleDone target:self action:@selector(shopBtnAction:)];
+//        [_shopButtonItem setTintColor:[UIColor whiteColor]];
         
         //   _shopButtonItem = [[UIBarButtonItem alloc]
         //                                   initWithImage:[[UIImage imageNamed:@"右上角商城"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]

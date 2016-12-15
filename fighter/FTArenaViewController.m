@@ -70,7 +70,7 @@
     [self initBaseConfig];
     [self initPageController];
     
-    [self getDataFromDB];
+//    [self getDataFromDB];
     [self getDataFromWeb];//初次加载数据
 //    [self reloadDate];
     
@@ -322,6 +322,29 @@
     
     self.tableViewController.sourceArray = self.tableViewDataSourceArray;
     
+    [self.tableViewController.tableView reloadData];
+    
+    [self saveCache];
+    //隐藏infoLabel
+    if (self.infoLabel.isHidden == NO) {
+        self.infoLabel.hidden = YES;
+    }
+}
+
+
+
+- (void) insertNewData:(NSMutableArray *)newDataArray {
+
+    if (self.tableViewDataSourceArray == nil) {
+        self.tableViewDataSourceArray = [[NSMutableArray alloc]init];
+    }
+    if ([_pageNum isEqualToString:@"1"]) {//如果是第一页数据，直接替换，不然追加
+        self.tableViewDataSourceArray = newDataArray;
+    }else{
+        [self.tableViewDataSourceArray addObjectsFromArray:newDataArray];
+    }
+    
+    self.tableViewController.sourceArray = self.tableViewDataSourceArray;
     
     [self.tableViewController.tableView reloadData];
     
@@ -352,22 +375,26 @@
                 
                 //缓存数据到DB
                 if (mutableArray.count > 0) {
-                    DBManager *dbManager = [DBManager shareDBManager];
-                    [dbManager connect];
-                    [dbManager cleanArenasTable];
+//                    DBManager *dbManager = [DBManager shareDBManager];
+//                    [dbManager connect];
+//                    [dbManager cleanArenasTable];
                     
-                    for (NSDictionary *dic in mutableArray)  {
-                        [dbManager insertDataIntoArenas:dic];
+                    NSMutableArray *tempArray = [[NSMutableArray alloc]init];
+                    for ( int i = 0; i< mutableArray.count; i++)  {
+//                        [dbManager insertDataIntoArenas:dic];
+                        NSDictionary *dic = mutableArray[i];
+                        FTArenaBean *bean = [[FTArenaBean alloc]init];
+                        [bean setValuesWithDic:dic];
+                        [tempArray addObject:bean];
                     }
                     
-                    [self getDataFromDB];
+                    [self insertNewData:tempArray];
+//                    [self getDataFromDB];
                 }else if (mutableArray.count == 0){//如果返回一个空的数组，说明没有数据
                     [self.tableViewDataSourceArray removeAllObjects];
                     self.tableViewController.sourceArray = self.tableViewDataSourceArray;
                     [self.tableViewController.tableView reloadData];
                 }
-                
-                
                 
                 [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
                 [self.tableViewController.tableView footerEndRefreshing];
@@ -375,6 +402,7 @@
 //                [self getDataFromDB];
                 [self.tableViewController.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
                 [self.tableViewController.tableView footerEndRefreshing];
+                [self.tableViewController.tableView reloadData];
             }
 
         }else {
@@ -384,6 +412,7 @@
         }
     }];
 }
+
 
 - (void)reloadDate{
     
