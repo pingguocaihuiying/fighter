@@ -15,6 +15,7 @@
 #import "FTHomepageMainViewController.h"
 #import "FTEncoderAndDecoder.h"
 #import "NetWorking.h"
+#import "FTShareView.h"
 
 @interface FTTeachVideoDetailController ()<UIWebViewDelegate, CommentSuccessDelegate>
 {
@@ -42,25 +43,25 @@
     // 获取收藏信息
     [self getStarInfo];
     
-    [self setNai];
+    [self setNotification];
 
 }
 
 - (void) viewWillAppear:(BOOL)animated {
     
-    // 注册通知，分享到微信成功
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToWeiXin:) name:WXShareResultNoti object:nil];
-    
-    // 注册通知，分享到qq成功
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToQQ:) name:QQShareResultNoti object:nil];
+//    // 注册通知，分享到微信成功
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToWeiXin:) name:WXShareResultNoti object:nil];
+//    
+//    // 注册通知，分享到qq成功
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(callbackShareToQQ:) name:QQShareResultNoti object:nil];
 }
 
 
 - (void) viewDidDisappear:(BOOL)animated {
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self  name:WXShareResultNoti object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self  name:QQShareResultNoti object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self  name:WXShareResultNoti object:nil];
+//    
+//    [[NSNotificationCenter defaultCenter] removeObserver:self  name:QQShareResultNoti object:nil];
 }
 
 
@@ -78,7 +79,7 @@
 #pragma mark - set subViews 
 
 // 监听通知
-- (void) setNai {
+- (void) setNotification {
 
     
 }
@@ -184,15 +185,25 @@
 - (IBAction)shareButtonAction:(id)sender {
     [MobClick event:@"videoPage_DetailPage_shareUp"];
 
+    
     NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-videos",_videoBean.videosId];
     _webUrlString = [@"http://www.gogogofight.com/page/v2/video_paid_wechat_page.html?" stringByAppendingString:str];
     
-    FTShareView2 *shareView = [FTShareView2 new];
+//    FTShareView2 *shareView = [FTShareView2 new];
+//    [shareView setUrl:_webUrlString];
+//    [shareView setTitle:[NSString stringWithFormat:@"我在“格斗东西”学习%@，Fighting！",_label]];
+//    [shareView setSummary:@"格斗技术为强身健体自卫防身，格斗东西团队不支持不赞成任何暴力行为。"];
+//    [shareView setImageUrl:self.labelImage];
+//    [self.view addSubview:shareView];
+    
+    FTShareView *shareView = [FTShareView new];
+    shareView.type = FTShareViewTypeVideo;
     [shareView setUrl:_webUrlString];
     [shareView setTitle:[NSString stringWithFormat:@"我在“格斗东西”学习%@，Fighting！",_label]];
     [shareView setSummary:@"格斗技术为强身健体自卫防身，格斗东西团队不支持不赞成任何暴力行为。"];
     [shareView setImageUrl:self.labelImage];
     [self.view addSubview:shareView];
+    
 }
 
 

@@ -194,39 +194,7 @@
 - (void) displayPanelViewAnimation {
     
     [self layoutIfNeeded];
-    
-//    //设定剧本
-//    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-//    scaleAnimation.fromValue = [NSNumber numberWithFloat:0.5];
-//    scaleAnimation.toValue = [NSNumber numberWithFloat:1.0];
-//    scaleAnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
-//    scaleAnimation.removedOnCompletion = NO;
-//    //    scaleAnimation.autoreverses = YES;
-//    //    scaleAnimation.repeatCount = MAXFLOAT;
-//    scaleAnimation.duration = 0.2;
-//    
-//    //设定剧本
-//    CABasicAnimation *positionAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
-//    positionAnimation.fromValue = [NSValue valueWithCGPoint:CGPointMake(_panelView.layer.position.x, _panelView.layer.position.y + _panelView.layer.frame.size.height)];
-//    positionAnimation.toValue = [NSValue valueWithCGPoint:_panelView.layer.position];
-//    positionAnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
-//    positionAnimation.removedOnCompletion = NO;
-//    //    scaleAnimation.autoreverses = YES;
-//    //    scaleAnimation.repeatCount = MAXFLOAT;
-//    positionAnimation.duration = 0.2;
-//    
-//    
-//    CAAnimationGroup *groupAnnimation = [CAAnimationGroup animation];
-//    groupAnnimation.duration =  0.2;
-//    //    groupAnnimation.autoreverses = YES;
-//    groupAnnimation.fillMode=kCAFillModeForwards ;//保持动画玩后的状态
-//    groupAnnimation.removedOnCompletion = NO;
-////    groupAnnimation.animations = @[scaleAnimation];
-//    groupAnnimation.animations = @[scaleAnimation,positionAnimation];
-//    //    groupAnnimation.repeatCount = MAXFLOAT;
-//    //开演
-//    [_panelView.layer addAnimation:groupAnnimation forKey:@"groupAnnimation"];
-    
+
     
     CGRect pframe = _panelView.frame;
     CGPoint pCenter = _panelView.center;
@@ -557,8 +525,14 @@
 //获取SDWebImage缓存图片
 - (NSData *) getImageDataForSDWebImageCachedKey {
     
-    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:_imageUrl]];
-    UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
+    UIImage *image;
+    if (self.type == FTShareViewTypeVideo) {
+        image = [UIImage imageNamed:_imageUrl];
+    }else {
+        NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:_imageUrl]];
+        image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
+    }
+   
     NSData *data = UIImageJPEGRepresentation(image, 1);
    
     if (data == nil || data.length == 0) {

@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, FTShareViewType) {
+    FTShareViewTypeNormal, //团课
+    FTShareViewTypeVideo //私课
+};
+
 @interface FTShareView : UIView
 
 @property (nonatomic ,strong) UILabel *hintLabel;
@@ -22,5 +27,5 @@
 @property (nonatomic, strong) NSString *summary;
 @property (nonatomic, strong) NSString *image;
 @property (nonatomic, strong) NSString *imageUrl;
-
+@property (nonatomic, assign) FTShareViewType type;
 @end
