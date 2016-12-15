@@ -56,7 +56,7 @@
 
 @property (nonatomic, assign) BOOL isGymUser;//当前用户是否是该拳馆的会员
 
-@property (nonatomic,copy) NSString *surplusCourse;
+@property (nonatomic,assign) NSInteger surplusCourse;
 @property (nonatomic,copy) NSString *deadline;
 @property (nonatomic,copy) NSString *userMoney;
 
