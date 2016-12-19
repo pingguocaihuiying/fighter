@@ -208,9 +208,19 @@
 
     
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",newsType, newsCurrId, getType, ts, @"quanjijia222222"]];
     
-    urlString = [NSString stringWithFormat:@"%@?newsType=%@&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@", urlString, newsType, newsCurrId, getType, ts, checkSign, [FTNetConfig showType]];
+    NSString *checkSign;
+    FTUserBean *loginUser = [FTUserTools getLocalUser];
+    if (loginUser) {
+            checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@",newsType, newsCurrId, getType, loginUser.olduserid, ts , @"quanjijia222222"]];
+        urlString = [NSString stringWithFormat:@"%@?newsType=%@&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&userId=%@", urlString, newsType, newsCurrId, getType, ts, checkSign, [FTNetConfig showType], loginUser.olduserid];
+
+    }else{
+        checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",newsType, newsCurrId, getType, ts, @"quanjijia222222"]];
+        urlString = [NSString stringWithFormat:@"%@?newsType=%@&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@", urlString, newsType, newsCurrId, getType, ts, checkSign, [FTNetConfig showType]];
+
+    }
+    
     NSLog(@"获取资讯 url ： %@", urlString);
     
     [NetWorking getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {

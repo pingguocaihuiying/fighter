@@ -74,6 +74,11 @@
     _seperatorView5.backgroundColor = Cell_Space_Color;
     _seperatorView6.backgroundColor = Cell_Space_Color;
     _seperatorView7.backgroundColor = Cell_Space_Color;
+    
+    _yuanPerClassLabel.textColor = Custom_Red;
+    _perClassLabel.textColor = Custom_Red;
+    _yuanLabel.textColor = Custom_Red;
+    _balanceLabel.textColor = Custom_Red;
 }
 
 - (void)setDateLabels{

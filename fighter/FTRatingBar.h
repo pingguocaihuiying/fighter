@@ -51,4 +51,7 @@
  */
 @property (nonatomic,assign) BOOL isIndicator;
 
+
+//附带间距的初始化方法
+- (instancetype)initWithSpacing:(float)spacing;
 @end

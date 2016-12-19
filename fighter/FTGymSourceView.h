@@ -46,5 +46,11 @@ typedef NS_ENUM(NSInteger, FTOrderCourseType) {
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *tableViewsHeight;//tableViews的高度
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
+@property (strong, nonatomic) IBOutlet UILabel *yuanPerClassLabel;
+@property (strong, nonatomic) IBOutlet UILabel *perClassLabel;
+@property (strong, nonatomic) IBOutlet UILabel *yuanLabel;
+@property (strong, nonatomic) IBOutlet UILabel *balanceLabel;
+@property (strong, nonatomic) IBOutlet UILabel *yueLabel;
+
 - (void)reloadTableViews;//刷新tableView
 @end

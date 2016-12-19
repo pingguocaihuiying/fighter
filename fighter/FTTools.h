@@ -158,4 +158,10 @@
  @return random int limited
  */
 +(int)getRandomNumber:(int)from to:(int)to;
+
+
+/**
+ 退出后清除缓存、配置
+ */
++ (void)clearCacheWhenLogout;
 @end

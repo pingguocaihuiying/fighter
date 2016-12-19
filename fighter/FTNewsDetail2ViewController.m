@@ -168,7 +168,7 @@
    
     
     
-//    NSLog(@"webString:%@",_webViewUrlString);
+    NSLog(@"foo webString:%@",_webViewUrlString);
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webViewUrlString]]];
     [self.view sendSubviewToBack:_webView];
 }
@@ -353,7 +353,7 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     NSString *requestURL = [NSString stringWithFormat:@"%@", request.URL];
-    NSLog(@"requestURL : %@", requestURL);
+    NSLog(@"requestURL 000 : %@", requestURL);
     
     if ([requestURL isEqualToString:@"js-call:onload"]) {
         [self disableLoadingAnimation];

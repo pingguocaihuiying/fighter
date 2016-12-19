@@ -59,6 +59,17 @@
     return self;
 }
 
+- (instancetype)initWithSpacing:(float)spacing{
+    
+    self = [super init];
+    if (self) {
+        [self setSubViewsWithSpacint:spacing];
+        [self sizeToFitImageViewFrame];
+    }
+    
+    return self;
+}
+
 - (void) setSubViews {
     height = 28;
     width = 21;
@@ -78,6 +89,27 @@
     
     [self addImageConstraints];
 }
+
+- (void) setSubViewsWithSpacint:(float) spacing{
+    height = 28;
+    width = 21;
+    space = spacing;
+    
+    _s1 = [[UIImageView alloc] initWithImage:_unSelectedImage];
+    _s2 = [[UIImageView alloc] initWithImage:_unSelectedImage];
+    _s3 = [[UIImageView alloc] initWithImage:_unSelectedImage];
+    _s4 = [[UIImageView alloc] initWithImage:_unSelectedImage];
+    _s5 = [[UIImageView alloc] initWithImage:_unSelectedImage];
+    
+    [self addSubview:_s1];
+    [self addSubview:_s2];
+    [self addSubview:_s3];
+    [self addSubview:_s4];
+    [self addSubview:_s5];
+    
+    [self addImageConstraints];
+}
+
 
 - (void) addImageConstraints {
     

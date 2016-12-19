@@ -49,6 +49,7 @@
 @property (nonatomic, copy)NSString *webUrlString;
 @property (strong, nonatomic) IBOutlet UILabel *gymAdressLabel;//地址label
 @property (strong, nonatomic) IBOutlet UIView *addressSeperatorView;//地址view中右边的分割线
+@property (strong, nonatomic) IBOutlet UIButton *tipButton;
 
 //顶部和底部的分割线
 @property (strong, nonatomic) IBOutlet UIView *seperatorView1;
@@ -101,12 +102,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setTips];//控制tips是否显示
     [self initBaseData];
     [self registNoti];
     [self getVIPInfo];
     [self loadGymDataFromServer];
     [self setNavigationSytle];
-//
     [self setSubViews];
     
     // 获取收藏信息
@@ -117,7 +118,11 @@
     
 }
 
-
+- (void)setTips{
+    //如果读过，则不显示
+    id readMark = [[NSUserDefaults standardUserDefaults]valueForKey:TIPS_GYM_COURSE];
+    [_tipButton setHidden: readMark ? YES : NO];
+}
 
 - (void)initBaseData{
     _gymVIPType = FTGymVIPTypeNope;
@@ -379,6 +384,7 @@
     FTOrderCoachViewController *orderCoachViewController = [FTOrderCoachViewController new];
     orderCoachViewController.gymDetailBean = _gymDetailBean;
     orderCoachViewController.coachBean = coachBean;
+    orderCoachViewController.gymName = self.gymBean.gymName;
     [self.navigationController pushViewController:orderCoachViewController animated:YES];
 }
 
@@ -1006,7 +1012,7 @@
         
         NSDictionary *courseCellDic = courseCell.courserCellDic;
         gymOrderCourseView.courserCellDic = courseCellDic;
-        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
         gymOrderCourseView.delegate = self;
         gymOrderCourseView.status = FTGymCourseStatusIsFull;
         [self.view addSubview:gymOrderCourseView];
@@ -1040,6 +1046,12 @@
     _loadingImageView = nil;
     [_loadingBgImageView removeFromSuperview];
     _loadingBgImageView = nil;
+}
+- (IBAction)tipButtonClicked:(id)sender {
+    _tipButton.hidden = YES;
+    //已经读过，存入本地
+    [[NSUserDefaults standardUserDefaults] setValue:@"read" forKey:TIPS_GYM_COURSE];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 

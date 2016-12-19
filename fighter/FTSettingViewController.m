@@ -114,10 +114,8 @@
         
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:LoginUser];
-        [[NSUserDefaults standardUserDefaults]removeObjectForKey:COURSE_VERSION];//清除本地的历史课程版本信息 16-11-9 by lyz
-        [[NSUserDefaults standardUserDefaults] synchronize];
-
+        //点击退出后，清除一些缓存或配置
+        [FTTools clearCacheWhenLogout];
         
         [FTNotificationTools postLoginNoti:FTLoginTypeLogout];
         

@@ -46,8 +46,8 @@
 
 
 /** 可用的后台地址 **/
-//NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin";//生产环境
-NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin_test";//测试环境
+NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin";//生产环境
+//NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin_test";//测试环境
 //NSString * const Domain = @"http://192.168.85.45/pugilist_admin";//内网测试环境
 
 //NSString * const Domain = @"http://10.11.1.117/pugilist_admin";//何后台开发环境1
@@ -276,6 +276,13 @@ NSString *const CommentCoachURL = @"/api/coacheval/save$CoachEval.do";
 // 查看教练是否评价接口
 NSString *const CheckIsCommentCoachURL = @"/api/coacheval/find.do";
 
+//个人主页webView地址
+//普通
+NSString *const HomepageGeneralWebViewURL = @"http://www.gogogofight.com/page/v2/user_general.html";
+//拳手
+NSString *const HomepageBoxerWebViewURL = @"http://www.gogogofight.com/page/v2/user_boxer.html";
+//教练
+NSString *const HomepageCoachWebViewURL = @"http://www.gogogofight.com/page/v2/user_coach.html";
 #pragma mark - 充值、购买、积分
 // 查询余额接口
 NSString * const QueryMoneyURL = @"/api/cumulation/queryMoney.do";
