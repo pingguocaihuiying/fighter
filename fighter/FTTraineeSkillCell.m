@@ -9,6 +9,8 @@
 #import "FTTraineeSkillCell.h"
 #import "FTUserSkillBean.h"
 
+#define RatingBarLeadingSpacingIn320 85
+
 @implementation FTTraineeSkillCell
 
 - (void)awakeFromNib {
@@ -33,7 +35,6 @@
     r.origin.x += 23.5;
     
     _increaseLabel = [[UILabel alloc]initWithFrame:r];
-//    _increaseLabel.text = @"5";
     _increaseLabel.textColor = [UIColor redColor];
     _increaseLabel.hidden = YES;
     [self addSubview:_increaseLabel];
@@ -48,8 +49,7 @@
 - (NSInteger) levelOfGrade:(NSInteger) grade {
 
     NSInteger level = 0;
-    
-    if (grade <20) {
+    if(grade <20) {
         level = 1;
     }else if (grade < 40) {
         level = 2;
@@ -78,17 +78,30 @@
     
    [self.ratingBar displayRating:[self levelOfGrade:bean.score / bean.subNumber]];
     
+    NSLog(@"paaaaaa : %ld", bean.parent);
+    
+    /*
+     如果是320的屏幕，把火苗往左移动一些
+     */
+    if (SCREEN_WIDTH == 320 && (bean.parent == 0) ){
+        _ratingBarLeadingspacing.constant = RatingBarLeadingSpacingIn320;
+    }
 }
 
 - (void)setWithSkillBean:(FTUserSkillBean *)skillBean{
     
     _skillLabel.text = skillBean.name;
     if (skillBean.score >= 0 ) {
-        _gradeLabel.text = [NSString stringWithFormat:@"%.0f",skillBean.score];
+        if (skillBean.score >= 99 && !skillBean.isParrent)  {//如果大于99 而且是子项，只显示99
+            _gradeLabel.text = @"99";
+        }else{
+            _gradeLabel.text = [NSString stringWithFormat:@"%.0f",skillBean.score];
+        }
+        
     }else {
         _gradeLabel.text = @"-";
     }
-    [self.ratingBar displayRating:[self levelOfGrade:skillBean.score]];
+    
     
     /*
      如果是父项，判断是否显示小红点
@@ -97,8 +110,21 @@
         _redPoint.hidden = NO;
     }else{
         _redPoint.hidden = YES;
+        
+    }
+    //设置星的个数
+    if (skillBean.isParrent) {
+        [self.ratingBar displayRating:[self levelOfGrade:skillBean.score / skillBean.subNumber]];//如果是母项，分数要除以子项个数再计算星级
+    } else {
+        [self.ratingBar displayRating:[self levelOfGrade:skillBean.score]];
     }
     
+    /*
+     如果是320的屏幕，把火苗往左移动一些
+     */
+    if (SCREEN_WIDTH == 320 && skillBean.isParrent) {
+        _ratingBarLeadingspacing.constant = RatingBarLeadingSpacingIn320;
+    }
 }
 
 - (void)setWithSkillNewBean:(FTUserSkillBean *)skillBeanNew andSkillOldBean:(FTUserSkillBean *)skillBeanOld{
@@ -116,8 +142,13 @@
      */
     _gradeLabel.text = [NSString stringWithFormat:@"%.0f", skillBeanNew.increase];
     if (skillBeanOld.score >= 0 ) {
-        _gradeLabel.text = [NSString stringWithFormat:@"%.0f",skillBeanOld.score];
-    }else {
+        if (skillBeanOld.score >= 99 ){
+            _gradeLabel.text = @"99";
+        }else{
+            _gradeLabel.text = [NSString stringWithFormat:@"%.0f",skillBeanOld.score];
+        }
+        
+    }else{
         _gradeLabel.text = @"-";
     }
 
@@ -156,15 +187,14 @@
 - (void)animationStop{
     NSInteger scoreNew = _skillBean.score ;
     
-    if (scoreNew <= 0) {
-        scoreNew = 100;//如果新分数<=0,说明数据有异常，设为100，引起注意：这是个bug
+    if (scoreNew >= 99) {//如果大于99，只显示99
+        scoreNew = 99;
     }
     //移除的变化label
-    
-        _increaseLabel.hidden = YES;//隐藏变化值label
+    _increaseLabel.hidden = YES;//隐藏变化值label
         
-        //显示最新score
-        _gradeLabel.text = [NSString stringWithFormat:@"%ld", scoreNew];
+    //显示最新score
+    _gradeLabel.text = [NSString stringWithFormat:@"%ld", scoreNew];
     
 #warning 测试
     

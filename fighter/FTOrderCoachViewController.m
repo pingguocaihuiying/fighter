@@ -16,6 +16,8 @@
 #import "FTBaseNavigationViewController.h"
 #import "FTPayForGymVIPViewController.h"
 
+#import "FTShareView.h"
+
 @interface FTOrderCoachViewController ()<FTGymCourseTableViewDelegate, FTCoachOrderCourseViewDelegate, FTGymOrderCourseViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
@@ -104,7 +106,7 @@
  */
 - (void)getVIPInfo{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSDictionary *dic) {
+    [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid] andOption:^(NSDictionary *dic) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         
         //无数据：非会员
@@ -202,7 +204,7 @@
     [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
-    UIBarButtonItem *gymDetailButton = [[UIBarButtonItem alloc]initWithTitle:@"个人主页" style:UIBarButtonItemStylePlain target:self action:@selector(gotoCoachHomepage)];
+    UIBarButtonItem *gymDetailButton = [[UIBarButtonItem alloc]initWithTitle:@"分享出去" style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonClicked)];
     self.navigationItem.rightBarButtonItem = gymDetailButton;
 }
 
@@ -286,7 +288,7 @@
             gymOrderCoachView.timeSection = _timeSectionsArray[timeSectionIndex][@"timeSection"];
             gymOrderCoachView.timeSectionId = _timeSectionsArray[timeSectionIndex][@"id"];
             gymOrderCoachView.balance = _balance;
-            gymOrderCoachView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+            gymOrderCoachView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
             gymOrderCoachView.coachUserId = _coachBean.userId;
             
             [gymOrderCoachView setDisplay];
@@ -315,7 +317,7 @@
                     gymOrderCourseView.timeSection = _timeSectionsArray[timeSectionIndex][@"timeSection"];
                     gymOrderCourseView.timeSectionId = _timeSectionsArray[timeSectionIndex][@"id"];
                     gymOrderCourseView.balance = _balance;
-                    gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+                    gymOrderCourseView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
                     gymOrderCourseView.coachUserId = _coachBean.userId;
                     
                     NSLog(@"已经预约");
@@ -323,7 +325,7 @@
                     NSDictionary *courseCellDic = courseCell.courserCellDic;
                     gymOrderCourseView.courserCellDic = courseCellDic;
                     
-                    gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+                    gymOrderCourseView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
                     gymOrderCourseView.delegate = self;
                     gymOrderCourseView.status = FTGymCourseStatusHasOrder;
                     [self.view addSubview:gymOrderCourseView];
@@ -341,7 +343,7 @@
                     gymOrderCoachView.timeSection = _timeSectionsArray[timeSectionIndex][@"timeSection"];
                     gymOrderCoachView.timeSectionId = _timeSectionsArray[timeSectionIndex][@"id"];
                     gymOrderCoachView.balance = _balance;
-                    gymOrderCoachView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+                    gymOrderCoachView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
                     gymOrderCoachView.coachUserId = _coachBean.userId;
                     
                     [gymOrderCoachView setDisplayWithInfo];
@@ -437,6 +439,23 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)shareButtonClicked{
+    FTShareView *shareView = [FTShareView new];
+    
+    //分享标题: “教练名 - 拳馆名“
+    NSString *title = [NSString stringWithFormat:@"%@ - %@", _coachBean.name, _gymName];
+    
+    NSString *_webUrlString = [NSString stringWithFormat:@"%@?userId=%@", HomepageCoachWebViewURL, _coachBean.userId];//链接地址
+    
+    //分享简述
+    [shareView setTitle:title];
+    [shareView setSummary:_coachBean.brief];
+    [shareView setImageUrl:_coachBean.headUrl];
+    [shareView setUrl:_webUrlString];
+    
+    [self.view addSubview:shareView];
+}
+
 - (void)gotoCoachHomepage{
     NSLog(@"去个人主页");
     FTHomepageMainViewController *homepageMainViewController = [FTHomepageMainViewController new];
@@ -444,20 +463,5 @@
     homepageMainViewController.olduserid = _coachBean.userId;
     [self.navigationController pushViewController:homepageMainViewController animated:YES];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -254,6 +254,13 @@ extern NSString *const CommentCoachURL;
 // 查看教练是否评价接口
 extern NSString *const CheckIsCommentCoachURL;
 
+//个人主页webView地址
+    //普通
+extern NSString *const HomepageGeneralWebViewURL;
+    //拳手
+extern NSString *const HomepageBoxerWebViewURL;
+    //教练
+extern NSString *const HomepageCoachWebViewURL;
 #pragma mark - 充值、购买、积分
 // 查询余额接口
 extern NSString * const QueryMoneyURL;

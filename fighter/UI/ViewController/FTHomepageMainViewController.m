@@ -364,12 +364,16 @@
     
     //分享标题
     NSString *title = _userBean.name;
-        //如果是拳手，再加上“［格斗东西］认证拳手，webview的url也改为拳手对应的
-    if(_userBean.query && [_userBean.query isEqualToString:@"1"]){//1：拳手，2:教练，普通用户为空（nil）
+    
+    //如果是拳手，再加上“［格斗东西］认证拳手，webview的url也改为拳手对应的
+    //1：拳手，2:教练，普通用户为空（nil）
+    if(_userBean.query && [_userBean.query isEqualToString:@"1"]){//拳手
         title = [NSString stringWithFormat:@"%@%@", title, @" - 认证拳手 [格斗东西]"];
-        _webUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/user_boxer.html?userId=%@", _olduserid];
-    }else {
-        _webUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/user_general.html?userId=%@", _olduserid];
+        _webUrlString = [NSString stringWithFormat:@"%@?userId=%@",HomepageBoxerWebViewURL, _olduserid];
+    }else if(_userBean.query && [_userBean.query isEqualToString:@"2"]){//教练
+        _webUrlString = [NSString stringWithFormat:@"%@?userId=%@",HomepageCoachWebViewURL, _olduserid];
+    }else{//普通用户
+        _webUrlString = [NSString stringWithFormat:@"%@?userId=%@",HomepageGeneralWebViewURL, _olduserid];
     }
     
     //分享简述
@@ -382,9 +386,7 @@
     }
         [shareView setTitle:title];
         [shareView setSummary:summaryString];
-//        [shareView setImage:@"微信用@200"];
     [shareView setImageUrl:_userBean.headUrl];
-//
             [shareView setUrl:_webUrlString];
     
         [self.view addSubview:shareView];
@@ -402,6 +404,7 @@
     _hasInitRecordRank = false;
     
     _followTableName = @"f-user";
+    
 }
 
 - (void)initSubviews{
