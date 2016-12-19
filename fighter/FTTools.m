@@ -526,6 +526,15 @@
 
 +(int)getRandomNumber:(int)from to:(int)to{
     return (int)(from + (arc4random() % (to - from + 1)));
-    //                  (arc4random() % x) + 1; 
+}
+/**
+ 退出后清除缓存、配置
+ */
++ (void)clearCacheWhenLogout{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:LoginUser];//清除用户的登录信息
+    [[NSUserDefaults standardUserDefaults]removeObjectForKey:COURSE_VERSION];//清除本地的历史课程版本信息 16-11-9 by lyz
+    [[NSUserDefaults standardUserDefaults]removeObjectForKey:TIPS_GYM_COURSE];//清除拳馆课程的tip
+    [[NSUserDefaults standardUserDefaults]removeObjectForKey:TIPS_COACH_COURSE];//清除预约私教课程的tip
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 @end

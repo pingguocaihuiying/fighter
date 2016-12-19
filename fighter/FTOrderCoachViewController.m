@@ -15,6 +15,8 @@
 #import "FTLoginViewController.h"
 #import "FTBaseNavigationViewController.h"
 #import "FTPayForGymVIPViewController.h"
+#import "UILabel+FTLYZLabel.h"
+#import "FTRatingBar.h"
 
 #import "FTShareView.h"
 
@@ -27,15 +29,18 @@
 @property (strong, nonatomic) IBOutlet UILabel *achievementLabel;//成就
 @property (strong, nonatomic) IBOutlet UIView *labelView;
 @property (strong, nonatomic) IBOutlet UIView *dividingLineView;
-@property (strong, nonatomic) IBOutlet UIView *dividingLineView2;
 @property (strong, nonatomic) IBOutlet UILabel *yuanPerClassLabel;
 @property (strong, nonatomic) IBOutlet UILabel *perClassLabel;
 @property (strong, nonatomic) IBOutlet UILabel *yuanLabel;
 @property (strong, nonatomic) IBOutlet UILabel *balanceLabel;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *labelViewHeight;
+@property (strong, nonatomic) IBOutlet UIButton *tipButton;
 
 @property (nonatomic, strong) FTGymSourceView *gymSourceView;//课程表
 @property (strong, nonatomic) IBOutlet UIView *gymSourceViewContainerView;//课程表view的父view
+@property (strong, nonatomic) IBOutlet UIView *imagesView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *imagesViewHeight;
+
 @property (nonatomic, strong) NSArray *timeSectionsArray;//拳馆的固定时间段
 @property (nonatomic, strong) NSMutableDictionary *placesUsingInfoDic;//场地、时间段的占用情况
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *topMainViewHeight;
@@ -45,6 +50,9 @@
 
 @property (nonatomic, assign)FTGymVIPType gymVIPType;//会员类型
 
+@property (nonatomic, strong)NSMutableArray *coachImagesArray;
+@property (strong, nonatomic) IBOutlet UIView *topMainView;
+@property (nonatomic, strong) FTRatingBar *ratingBar;
 @end
 
 @implementation FTOrderCoachViewController
@@ -58,6 +66,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setTips];
     [self initBaseData];
     [self setSubViews];
     
@@ -69,6 +78,11 @@
     [self getTimeSection];//获取时间段信息
 }
 
+- (void)setTips{
+    //如果读过，则不显示
+    id readMark = [[NSUserDefaults standardUserDefaults]valueForKey:TIPS_COACH_COURSE];
+    [_tipButton setHidden: readMark ? YES : NO];
+}
 
 /**
  初始化基本配置
@@ -76,7 +90,15 @@
 - (void)initBaseData{
     _gymVIPType = FTGymVIPTypeNope;//默认非会员
     
-
+    /*
+     测试数据
+     */
+    _coachImagesArray = [NSMutableArray new];
+    for (int i = 0; i < 10; i++) {
+        NSString *imageURL = @"https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1482147761&di=add7610d65cd18f82e43ea2918e11496&src=http://www.duotegame.com/picfile/NewsA/2013/02/27/image034_wm.jpg";
+        [_coachImagesArray addObject:imageURL];
+    }
+    
 }
 
 - (void)setSubViews{
@@ -84,7 +106,8 @@
     [self setNaviView];//设置导航栏
     [self setCoachCourceView];//设置教练课程表
     [self setCoachInfo];//设置教练信息
-    
+    [self setImagesView];//设置教练的相册
+    [self setRatingBar];//应该在
 }
 
 
@@ -98,9 +121,95 @@
     _ageLabel.text = @"";
     
     _achievementLabel.text = _coachBean.brief;
+    
     _yuanPerClassLabel.text = [NSString stringWithFormat:@"%d元", [_coachBean.price intValue] / 100 ];
+    _gymSourceView.yuanPerClassLabel.text = [NSString stringWithFormat:@"%d元", [_coachBean.price intValue] / 100 ];
+    _gymSourceView.yuanPerClassLabel.hidden = NO;
+    _gymSourceView.perClassLabel.hidden = NO;
     [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:_coachBean.headUrl] placeholderImage:[UIImage imageNamed:@"头像-空"]];
 }
+
+#pragma mark 设置教练的相册
+/**
+ 设置教练的相册
+ */
+- (void)setImagesView{
+    NSInteger num = _coachImagesArray.count;//图片数量
+//    num = 0;
+    if (num > 0) {
+        _dividingLineView.hidden = NO;
+        _imagesViewHeight.constant = 126;
+        _topMainViewHeight.constant += _imagesViewHeight.constant;
+        
+        //增加点击事件
+        UITapGestureRecognizer *imagesViewTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imagesViewTap)];
+        [_imagesView addGestureRecognizer:imagesViewTap];
+        
+        UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 15, SCREEN_WIDTH - 15, 80)];
+        scrollView.contentSize = CGSizeMake(80 * num + 5 * (num - 1), 80);
+        
+        //设置图片
+        for (int i = 0; i < num; i++) {
+            UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake( (80 + 5) * i, 0, 80, 80)];
+            [imageView sd_setImageWithURL:[NSURL URLWithString:_coachImagesArray[i]] placeholderImage:[UIImage imageNamed:@"小占位图"]];
+            [scrollView addSubview:imageView];
+            
+            //添加点击事件
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageTap:)];
+            imageView.tag = 1000 + i;
+            [imageView addGestureRecognizer:tap];
+            imageView.userInteractionEnabled = YES;
+        }
+        
+        [_imagesView addSubview:scrollView];
+        
+        //右下角部分
+        //查看更多
+        UILabel *moreLabel = [UILabel new];
+        moreLabel.text = @"查看更多";
+        moreLabel.textAlignment = NSTextAlignmentRight;
+        moreLabel.font = [UIFont systemFontOfSize:12];
+        moreLabel.textColor = [UIColor whiteColor];
+        moreLabel.frame = CGRectMake(SCREEN_WIDTH - 15 - 15 - 8 - 5 - 100, scrollView.frame.origin.y + scrollView.height + 10 , 100, 12);
+        [_imagesView addSubview:moreLabel];
+        //右箭头
+        UIImageView *moreImageView = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 15 - 15 - 8, moreLabel.frame.origin.y - 10 + (32 - 9) / 2, 8, 9)];
+        moreImageView.image = [UIImage imageNamed:@"右双箭头"];
+        [_imagesView addSubview:moreImageView];
+    }
+
+}
+#pragma mark 初始化评分控件
+/**
+ 初始化评分控件
+ */
+- (void)setRatingBar{
+    if (!_ratingBar) {
+        _ratingBar = [[FTRatingBar alloc]initWithSpacing:5];
+        float ratingBarWidth = 21 * 5 + 5 * 4;
+        _ratingBar.frame = CGRectMake(SCREEN_WIDTH - 15 - ratingBarWidth, 15, ratingBarWidth, 28);
+        _ratingBar.backgroundColor = [UIColor blueColor];
+        [_topMainView addSubview:_ratingBar];
+        self.ratingBar.fullSelectedImage = [UIImage imageNamed:@"火苗-红"];
+        self.ratingBar.unSelectedImage = [UIImage imageNamed:@"火苗-灰"];
+        self.ratingBar.isIndicator = YES;//指示器，就不能滑动了，只显示评分结果
+        [self.ratingBar displayRating:4.0f];
+        
+    }
+}
+
+- (void)imagesViewTap{
+    NSLog(@"imagesViewTap executed.");
+}
+
+- (void)imageTap:(id)sender{
+    UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
+    UIView *imageView = tap.view;
+    NSInteger imageIndex = imageView.tag - 1000;
+    
+    NSLog(@"tap with index : %ld", imageIndex);
+}
+
 /**
  获取会员信息
  */
@@ -164,6 +273,10 @@
     balance = [NSString stringWithFormat:@"%.0lf", [balance doubleValue] / 100];
     
     _balanceLabel.text = balance;
+    _gymSourceView.balanceLabel.text = balance;
+    _gymSourceView.balanceLabel.hidden = NO;
+    _gymSourceView.yueLabel.hidden = NO;
+    _gymSourceView.yuanLabel.hidden = NO;
 }
 
 - (void)initSomeViewsBaseProperties{
@@ -175,10 +288,6 @@
     _yuanLabel.textColor = Custom_Red;
     _balanceLabel.textColor = Custom_Red;
     _dividingLineView.backgroundColor = Cell_Space_Color;
-        _dividingLineView2.backgroundColor = Cell_Space_Color;
-    [UILabel setRowGapOfLabel:_achievementLabel withValue:8];
-    
-    
 }
 
 - (void)setNaviView{
@@ -213,26 +322,42 @@
     if (!labelsString ||labelsString.length == 0)
         return;
     
-    CGFloat width = SCREEN_WIDTH - 124;
+    CGFloat width = SCREEN_WIDTH - 30;
     CGFloat w=0;
     CGFloat h=14;
     CGFloat x=0;
     CGFloat y=0;
     
     NSArray *labels = [labelsString componentsSeparatedByString:@","];
-    
-    for (NSString *label in labels) {
-        UIImageView *labelView = [[UIImageView alloc]initWithImage:[UIImage imageForENLabel:label]];
+//    labels = @[@"从前",@"有座山",@"山上有座庙",@"庙",@"里",@"住着一个",@"老和尚",@"和一个小和尚",@"小和尚",@"不满意",@"在这里",@"的", @"日子"];
+    for (NSString *labelStr in labels) {
+        NSString *labelCh = [FTTools getChNameWithEnLabelName:labelStr];
+        UIView *labelView = [UIView new];
+        CGSize labelSize = [labelCh sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(MAXFLOAT, 30)];
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(5, 1, 5 * 2 + labelSize.width, 12)];
+        label.text = labelCh;
+        label.font = [UIFont systemFontOfSize:12];
+        label.textColor = [UIColor whiteColor];
+        labelView.frame = CGRectMake(0, 0, labelSize.width + 5 * 2, 14);
+        
+        //添加背景图片
+        UIImageView *bgImageView = [[UIImageView alloc]initWithFrame:labelView.bounds];
+        bgImageView.image = [UIImage imageNamed:@"拳种标签"];
+        [labelView addSubview:bgImageView];
+        [labelView sendSubviewToBack:bgImageView];
+        
+        [labelView addSubview:label];
+//        UIImageView *labelView = [[UIImageView alloc]initWithImage:[UIImage imageForENLabel:label]];
         w = labelView.frame.size.width;
         h = labelView.frame.size.height;
         if (x + w <= width) {
             labelView.frame = CGRectMake(x, y, w, h);
-            x = x + w + 8;
+            x = x + w;
         }else {
             x = 0;
             y = y + h + 6;
             labelView.frame = CGRectMake(x, y, w, h);
-            x = x + w + 8;
+            x = x + w;
         }
         
         [self.labelView addSubview:labelView];
@@ -245,7 +370,7 @@
 
 - (void)setCoachCourceView{
     _gymSourceView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymSourceView" owner:nil options:nil]firstObject];
-    _gymSourceView.titleLabel.text = @"预约私教";
+    _gymSourceView.titleLabel.text = @"时间表";
     _gymSourceView.frame = _gymSourceViewContainerView.bounds;
     _gymSourceView.courseType = FTOrderCourseTypeCoach;
     _gymSourceView.delegate = self;
@@ -463,5 +588,10 @@
     homepageMainViewController.olduserid = _coachBean.userId;
     [self.navigationController pushViewController:homepageMainViewController animated:YES];
 }
-
+- (IBAction)tipButtonClicked:(id)sender {
+    _tipButton.hidden = YES;
+    //已经读过，存入本地
+    [[NSUserDefaults standardUserDefaults] setValue:@"read" forKey:TIPS_COACH_COURSE];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 @end

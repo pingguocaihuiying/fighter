@@ -156,7 +156,9 @@ typedef NS_ENUM(NSInteger, FTGymVIPType){
 #define FATHER_SKILLS_ARRAY @"FatherSkillsArray"//用户母项技能列表
 #define CHILD_SKILLS_ARRAY @"ChildSkillsArray"//用户子项技能列表
 #define FATHER_SKILL_VERSION_DIC @"SkillVersionDic"//用户个人中心，技能的已读未读字典，key为技能id，value为已读（0）未读（1）
-
+#define TIPS @"Tips"//某些界面上的提示，如：课程表界面，上滚查看更多
+    #define TIPS_GYM_COURSE @"Tips_Gym_Course"//拳馆课程表的提示
+    #define TIPS_COACH_COURSE @"Tips_Coach_Course"//私教课程表的提示
 #define READ @"read"//已读
 #define UNREAD @"unread"//未读
 
