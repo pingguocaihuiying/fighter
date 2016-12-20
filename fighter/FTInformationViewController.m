@@ -744,8 +744,8 @@
 - (void) switchDetailAction:(NSNotification *)noti {
 
     if (self.tableViewDataSourceArray) {
-        
-        FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
+    
+        FTVideoDetailViewController *newsDetailVC = [FTVideoDetailViewController new];
         FTNewsBean *bean = self.tableViewDataSourceArray[0];
         //标记已读
         if (![bean.isReader isEqualToString:@"YES"]) {
