@@ -169,6 +169,9 @@ extern NSString * const GetBoxerRaceInfoURL;
 // 获取单个拳讯信息
 extern NSString * const GetNewsByIdURL;
 
+//类拳讯详情页的webView地址
+extern NSString * const WebViewURL;
+
 // 获取单个视频信息
 extern NSString * const GetVideoByIdURL;
 
@@ -185,6 +188,7 @@ extern NSString *const GetUserSkillsCheckSign;
 extern NSString * const GetCoachListURL;
 extern NSString * const GetCoachByIdURL;
 extern NSString * const ValidCheckCode ;
+extern NSString *const GetCoachRatingURLString;//获取教练的星级
 
 // gym 拳馆
 extern NSString * const GetGymListURL;
@@ -194,6 +198,7 @@ extern NSString * const GetGymByIdURL;
 extern NSString * const GetGymPhotosByUsers;//获取用户拍摄的拳馆照片
 extern NSString * const BecomeGymMenberShipURL;
 extern NSString * const GetCoachTeachRecord;
+
 
 #pragma mark - 训练
 extern NSString * const GetTraineeListURL; //获取课程学员列表
@@ -251,6 +256,13 @@ extern NSString *const CommentCoachURL;
 // 查看教练是否评价接口
 extern NSString *const CheckIsCommentCoachURL;
 
+//个人主页webView地址
+    //普通
+extern NSString *const HomepageGeneralWebViewURL;
+    //拳手
+extern NSString *const HomepageBoxerWebViewURL;
+    //教练
+extern NSString *const HomepageCoachWebViewURL;
 #pragma mark - 充值、购买、积分
 // 查询余额接口
 extern NSString * const QueryMoneyURL;
@@ -288,7 +300,7 @@ extern NSString * const ShopNewURL;
 // 订单页
 extern NSString * const ShopOrderURL;
 
-#pragma mark 拳吧
+#pragma mark - 拳吧
 
 /*
  * url

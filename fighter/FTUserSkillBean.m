@@ -38,10 +38,7 @@
         
         if(scoreFloat < 0){
             scoreFloat = 0;
-        }else if (scoreFloat > 99){
-            scoreFloat = 99;
         }
-        
         _score = scoreFloat;
     }
     

@@ -12,12 +12,12 @@
           "width" : 1
         },
         "cap-insets" : {
-          "right" : 31,
-          "left" : 31
+          "right" : 12,
+          "left" : 17
         }
       },
       "idiom" : "universal",
-      "filename" : "评论输入框@2x.png",
+      "filename" : "拳种标签@2x.png",
       "scale" : "2x"
     },
     {
@@ -28,12 +28,12 @@
           "width" : 1
         },
         "cap-insets" : {
-          "right" : 47,
-          "left" : 47
+          "right" : 18,
+          "left" : 23
         }
       },
       "idiom" : "universal",
-      "filename" : "评论输入框@3x.png",
+      "filename" : "拳种标签@3x.png",
       "scale" : "3x"
     }
   ],

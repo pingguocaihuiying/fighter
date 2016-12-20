@@ -14,7 +14,6 @@
 #import "ZJModelTool.h"
 #import "AFNetworking.h"
 #import "JHRefresh.h"
-#import "FTNewsDetail2ViewController.h"
 #import "FTFilterTableViewController.h"
 #import "FTNewsBean.h"
 #import "UIButton+LYZTitle.h"
@@ -27,8 +26,9 @@
 #import "FTLYZButton.h"
 #import "FTHomepageMainViewController.h"
 #import "FTShareView.h"
+#import "FTVideoDetailViewController.h"
 
-@interface FTInformationViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTnewsDetailDelegate,FTTableViewdelegate>
+@interface FTInformationViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate,SDCycleScrollViewDelegate, FTFilterDelegate, FTVideoDetailDelegate,FTTableViewdelegate>
 
 @property(nonatomic,strong) NSArray *sourceArry;     //数据源
 @property(nonatomic,strong) UIPageViewController *pageViewController;   //翻页控制器
@@ -213,9 +213,19 @@
 
     
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",newsType, newsCurrId, getType, ts, @"quanjijia222222"]];
     
-    urlString = [NSString stringWithFormat:@"%@?newsType=%@&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@", urlString, newsType, newsCurrId, getType, ts, checkSign, [FTNetConfig showType]];
+    NSString *checkSign;
+    FTUserBean *loginUser = [FTUserTools getLocalUser];
+    if (loginUser) {
+            checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@",newsType, newsCurrId, getType, loginUser.olduserid, ts , @"quanjijia222222"]];
+        urlString = [NSString stringWithFormat:@"%@?newsType=%@&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@&userId=%@", urlString, newsType, newsCurrId, getType, ts, checkSign, [FTNetConfig showType], loginUser.olduserid];
+
+    }else{
+        checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",newsType, newsCurrId, getType, ts, @"quanjijia222222"]];
+        urlString = [NSString stringWithFormat:@"%@?newsType=%@&newsCurrId=%@&getType=%@&ts=%@&checkSign=%@&showType=%@", urlString, newsType, newsCurrId, getType, ts, checkSign, [FTNetConfig showType]];
+
+    }
+    
     NSLog(@"获取资讯 url ： %@", urlString);
     
     [NetWorking getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *responseDic) {
@@ -588,7 +598,8 @@
     //    NSLog(@"第%ld个cell被点击了。", indexPath.row);
     if (self.tableViewDataSourceArray) {
         
-        FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
+        FTVideoDetailViewController *newsDetailVC = [FTVideoDetailViewController new];
+        
         //获取对应的bean，传递给下个vc
         //        NSDictionary *newsDic = tableView.sourceArray[indexPath.row];
         //        FTNewsBean *bean = [FTNewsBean new];
@@ -609,7 +620,7 @@
         newsDetailVC.delegate = self;
         newsDetailVC.indexPath = indexPath;
         
-        [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+        [self.navigationController pushViewController:newsDetailVC animated:YES];
     }
 }
 
@@ -659,7 +670,7 @@
 {
 //    NSLog(@"---点击了第%ld张图片", (long)index);
     
-    FTNewsDetail2ViewController *newsDetailViewController = [FTNewsDetail2ViewController new];
+    FTVideoDetailViewController *newsDetailViewController = [FTVideoDetailViewController new];
 
     //获取对应的bean，传递给下个vc
     NSDictionary *newsDic = self.cycleDataSourceArray[index];
@@ -677,11 +688,11 @@
 #pragma mark push响应方法
 - (void) pushToDetailController:(NSDictionary *)dic {
 
-    FTNewsDetail2ViewController *newsDetailVC = [FTNewsDetail2ViewController new];
-    NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-news",dic[@"objId"]];
+    FTVideoDetailViewController *newsDetailVC = [FTVideoDetailViewController new];
     
-    newsDetailVC.webUrlString = [@"http://www.gogogofight.com/page/news_page.html?" stringByAppendingString:str];
-    [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+    newsDetailVC.objId = [NSString stringWithFormat:@"%@", dic[@"objId"]];//备注：12月14日 lyz修改：去掉了webView后面的tableName参数，只传了objId
+    
+    [self.navigationController pushViewController:newsDetailVC animated:YES];
 
 }
 
@@ -702,7 +713,7 @@
     [self initSubViews];
 }
 
-- (void)updateCountWithNewsBean:(FTNewsBean *)newsBean indexPath:(NSIndexPath *)indexPath{
+- (void)updateCountWithVideoBean:(FTNewsBean *)newsBean indexPath:(NSIndexPath *)indexPath{
     
 //    NSDictionary *dic = self.tableViewController.sourceArray[indexPath.row];
 //    [dic setValue:[NSString stringWithFormat:@"%@", newsBean.voteCount] forKey:@"voteCount"];

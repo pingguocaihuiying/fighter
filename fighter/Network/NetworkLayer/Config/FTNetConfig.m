@@ -190,6 +190,9 @@ NSString * const GetBoxerRaceInfoURL =  @"/api/boxer/getBoxerRaceDynamic.do";
 // 获取单个拳讯信息
 NSString * const GetNewsByIdURL =  @"/api/news/getNewsById.do";
 
+//类拳讯详情页的webView地址
+NSString * const WebViewURL =  @"http://www.gogogofight.com/page/v2/news_page.html";
+
 // 获取单个视频信息
 NSString * const GetVideoByIdURL =  @"/api/videos/getVideosById.do";
 
@@ -222,6 +225,7 @@ NSString *const GetUserSkillsCheckSign = @"gedoujihtgfsyh543";
 NSString * const GetCoachListURL = @"/api/coach/list.do";
 NSString * const GetCoachByIdURL = @"/api/coach/{id}.do";
 NSString * const ValidCheckCode = @"/api/user/save$checkPhoneCode.do";
+NSString * const GetCoachRatingURLString = @"/api/coacheval/getStar.do";
 
 // gym 拳馆
 NSString * const GetGymListURL = @"/api/gym/getGym.do";
@@ -230,8 +234,8 @@ NSString * const GetGymListForArenaURL = @"/api/match/getGyms.do";
 NSString * const GetGymByIdURL = @"/api/gym/getVideosById.do";
 NSString * const GetGymPhotosByUsers = @"/api/gym/commentAttach.do";//获取用户拍摄的拳馆照片
 NSString * const BecomeGymMenberShipURL = @"/api/gymmenbership/save$GymMenberShip.do";
-
 NSString * const GetCoachTeachRecord = @"/api/coursebook/get$CourseHistory.do";
+
 
 #pragma mark - 训练
 NSString * const GetTraineeListURL = @"/api/coursebook/findCourseMember.do"; //获取课程学员列表
@@ -273,6 +277,13 @@ NSString *const CommentCoachURL = @"/api/coacheval/save$CoachEval.do";
 // 查看教练是否评价接口
 NSString *const CheckIsCommentCoachURL = @"/api/coacheval/find.do";
 
+//个人主页webView地址
+//普通
+NSString *const HomepageGeneralWebViewURL = @"http://www.gogogofight.com/page/v2/user_general.html";
+//拳手
+NSString *const HomepageBoxerWebViewURL = @"http://www.gogogofight.com/page/v2/user_boxer.html";
+//教练
+NSString *const HomepageCoachWebViewURL = @"http://www.gogogofight.com/page/v2/user_coach.html";
 #pragma mark - 充值、购买、积分
 // 查询余额接口
 NSString * const QueryMoneyURL = @"/api/cumulation/queryMoney.do";

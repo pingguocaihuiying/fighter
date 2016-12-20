@@ -27,6 +27,7 @@
 @property (nonatomic, strong) FTUserSkillBean *skillBean;
 @property (nonatomic, strong) FTUserSkillBean *skillBeanOld;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *rightArrowWidth;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *ratingBarLeadingspacing;//ratingBar离左边的距离（用到的地方：在320左移）
 
 - (void)setWithBean:(FTTraineeSkillBean *)bean;
 - (void)setWithSkillBean:(FTUserSkillBean *) skillBean;

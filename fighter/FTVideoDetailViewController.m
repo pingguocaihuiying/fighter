@@ -25,17 +25,21 @@
     UIImageView *_loadingImageView;
     UIImageView *_loadingBgImageView;
 }
+
+@property (nonatomic, strong) UIBarButtonItem *commentButton;
+@property (strong, nonatomic) IBOutlet UILabel *bottomCommentLabel;
+
 @end
 
 @implementation FTVideoDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initBaseData];
-    [self setSubViews];
+    [self initSubViews];
+    [self checkNewsBean];//1.检查是否有传bean过来，如果没有，则根据objId去获取 2.如果bean存在，则把bean的id赋值给属性_objId，类中所有用到objId的，都用_objId
+    
     [self setWebView];
     [self getVoteInfo];
-    [self getStarInfo];
     [self setLoadingImageView];
     
     //如果是视频，再增加观看数
@@ -48,7 +52,6 @@
 - (void)viewWillAppear:(BOOL)animated{
     
     self.navigationController.navigationBarHidden = NO;
-    //    self.navigationController.tabBarController.tabBar.hidden = YES;
     
     //注册通知，接收登录成功的消息
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
@@ -60,17 +63,36 @@
 }
 
 
-- (void)initBaseData{
-    if (!_newsBean.title) {
-        NSLog(@"没有标题");
-//        [NetWorking getVideoById:[NSString stringWithFormat:@"%@", _newsBean.newsId] andOption:^(NSArray *array) {
-                [NetWorking getNewsById:[NSString stringWithFormat:@"%@", _newsBean.newsId] andOption:^(NSArray *array) {
-            FTNewsBean *newsBean = [FTNewsBean new];
-            [newsBean setValuesWithDic:[array firstObject]];
-            NSLog(@"加载完成");
-            _newsBean = newsBean;
-        }];
+- (void)checkNewsBean{
+    if (_newsBean) {//如果bean存在，则赋值给_objId
+        _objId = _newsBean.newsId;
+        
+        //更新评论数
+        [self updateCommentCount];
+    }else{        //如果bean不存在，从服务器获取
+        NSLog(@"没有newsbean或newsbean没有标题，正在从服务器获取...");
+        [self getNewsBeanFromServerById];
     }
+    
+}
+
+- (void)getNewsBeanFromServerById{
+    [NetWorking getNewsById:[NSString stringWithFormat:@"%@", _objId] andOption:^(NSArray *array) {
+        FTNewsBean *newsBean = [FTNewsBean new];
+        [newsBean setValuesWithDic:[array firstObject]];
+        _newsBean = newsBean;
+        
+        //更新评论数
+        [self updateCommentCount];
+    }];
+}
+
+/**
+ 更新评论数，包括右上角和底部
+ */
+- (void)updateCommentCount{
+    [self setRightButtonItemWithText:_newsBean.commentCount];
+    [self updateBottomCommentCount];
 }
 
 - (void)getVoteInfo{
@@ -79,10 +101,10 @@
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
     NSString *userId = user.olduserid;
-    NSString *objId = _newsBean.newsId;
+    NSString *objId = _objId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = _detailType == FTDetailTypeNews ? @"v-news" : @"v-video";
+    NSString *tableName = @"v-news";
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, GetStatusCheckKey]];
     
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
@@ -117,10 +139,10 @@
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
     NSString *userId = user.olduserid;
-    NSString *objId = _newsBean.newsId;
+    NSString *objId = _objId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = _detailType == FTDetailTypeNews ? @"col-news" : @"col-video";//@"v-video";
+    NSString *tableName = @"col-news";
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, GetStatusCheckKey]];
     
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
@@ -147,48 +169,50 @@
     }];
 }
 
-- (void)setSubViews{
+- (void)initSubViews{
     
     [self setEvnetListenerOfBottomViews];
     
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     
     //设置返回按钮
+    
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(popVC)];
-    //把左边的返回按钮左移
-    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];//把左边的返回按钮左移
     self.navigationItem.leftBarButtonItem = leftButton;
     
-    //设置分享按钮
-    //        UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-分享"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(shareButtonClicked)];
-    //    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-分享"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(shareButtonClicked)];
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithTitle:@"转发" style:UIBarButtonItemStylePlain target:self action:@selector(topShareButtonClicked)];
+
     
+    //标题
     self.navigationController.navigationBar.tintColor = [UIColor colorWithHex:0x828287];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont systemFontOfSize:16]}];
-    
     NSDictionary* textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [UIFont systemFontOfSize:14],NSFontAttributeName,
                                     nil];
-    
     [[UIBarButtonItem appearance] setTitleTextAttributes:textAttributes forState:0];
-    
-    //    [shareButton setImageInsets:UIEdgeInsetsMake(0, -20, 0, 20)];
-    //如果用户安装了微信，再显示转发按钮
-    if([WXApi isWXAppInstalled]){
-        self.navigationItem.rightBarButtonItem = shareButton;
-    }
-    
     
     //设置默认标题
     self.navigationItem.title = _detailType == FTDetailTypeNews ? @"拳讯" : @"视频";
+    
+    //底部评论数的颜色
+    _bottomCommentLabel.textColor = Custom_Red;
 }
 
+- (void)setRightButtonItemWithText:(NSString *)text{
+    //右上角按钮
+    _commentButton = [[UIBarButtonItem alloc]initWithTitle:[NSString stringWithFormat:@"%@ 评论", text] style:UIBarButtonItemStylePlain target:self action:@selector(commentButtonClicked:)];
+    _commentButton.tintColor = [UIColor colorWithHex:0xb4b4b4];
+    self.navigationItem.rightBarButtonItem = _commentButton;
+}
+- (void)updateBottomCommentCount{
+    NSString *commentCount = [NSString stringWithFormat:@"%@", _newsBean.commentCount];
+    if([commentCount integerValue] > 999){//如果评论数大于999，只显示999+
+        commentCount = @"999+";
+    }
+    _bottomCommentLabel.text = commentCount;
+}
 - (void)setEvnetListenerOfBottomViews{
     //设置点赞view的事件监听
-    UITapGestureRecognizer *tapOfVoteView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(thumbButtonClicked:)];
-    [self.voteView addGestureRecognizer:tapOfVoteView];
-    self.voteView.userInteractionEnabled = YES;
     
     //收藏
     UITapGestureRecognizer *tapOfFavourateView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(favourateButtonClicked:)];
@@ -208,45 +232,12 @@
     _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49 - 64)];
     _webView.delegate = self;
     
-    //设置webview的背景色
-    //    webView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"底纹"]];
-    
     _webView.backgroundColor = [UIColor clearColor];
     _webView.opaque = NO;
-    
     [self.view addSubview:_webView];
-    
-    if(self.webUrlString == nil || self.webUrlString.length <= 0) {
-        NSString *url = @"";
-        if (_newsBean) {
-                url = _newsBean.url;
-        }else{
-            
-        }
-        
-        NSLog(@"视频url：%@", url);
-        url = [self encodeToPercentEscapeString:url];
-    //    _newsBean.viewCount = @"100";
-        
-        NSString *objId = @"";
-        if (_urlId) {
-            objId = _urlId;
-        }else if(_newsBean){
-            objId = _newsBean.newsId;
-        }
-        
-        NSString *urlPrefix = _detailType == FTDetailTypeNews ? @"http://www.gogogofight.com/page/v2/news_page.html?objId=" : @"http://www.gogogofight.com/page/v2/video_page.html?objId=";
-        _webViewUrlString = [NSString stringWithFormat:@"%@%@", urlPrefix, objId];
-        NSLog(@"webview url：%@", _webViewUrlString);
-        
-    }else {
-        
-        _webViewUrlString = _webUrlString;
-        NSLog(@"webview url：%@", _webViewUrlString);
-
-    }
-   
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webViewUrlString]]];
+    NSString  *webViewUrlString = [NSString stringWithFormat:@"%@?objId=%@", WebViewURL, _objId];//12月31日 lyz修改 把webView地址统一了，不管是咨询还是视频
+    NSLog(@"webViewUrlString : %@", webViewUrlString);
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:webViewUrlString]]];
     [self.view sendSubviewToBack:_webView];
 }
 
@@ -264,6 +255,7 @@
 
 - (IBAction)commentButtonClicked:(id)sender {
         [MobClick event:@"videoPage_DetailPage_Comment"];
+    
     //从本地读取存储的用户信息
     FTUserBean *localUser = [FTUserBean loginUser];
     if (!localUser) {
@@ -297,16 +289,13 @@
 }
 
 - (void)shareButtonClicked{
-    
-    NSString *str = [NSString stringWithFormat:@"objId=%@",_newsBean.newsId];
-    _webUrlString = [@"http://www.gogogofight.com/page/v2/news_page.html?" stringByAppendingString:str];
+    NSString  *webUrlString = [NSString stringWithFormat:@"%@?objId=%@", WebViewURL, _objId];
     
     FTShareView *shareView = [FTShareView new];
-    [shareView setUrl:_webUrlString];
+    [shareView setUrl:webUrlString];
     [shareView setTitle:_newsBean.title];
     [shareView setSummary:_newsBean.summary];
     [shareView setImage:@"G格斗家logo改进@200"];
-//    [shareView setImageUrl:@"http://www.gogogofight.com/page/images/wechat_share.jpg"];
     
     if ([_newsBean.layout isEqualToString:@"1"]) {//大图
         [shareView setImageUrl:_newsBean.img_big];
@@ -400,10 +389,10 @@
 
 - (void)updateVoteImageView{
     if (self.hasVote) {
-        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-赞pre"] forState:UIControlStateNormal];
+        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"列表页-赞二态"] forState:UIControlStateNormal];
         
     }else{
-        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-赞"] forState:UIControlStateNormal];
+        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"列表页-赞"] forState:UIControlStateNormal];
     }
 }
 
@@ -425,10 +414,10 @@
     NSString *urlString = [FTNetConfig host:Domain path:_hasVote ? AddVoteURL : DeleteVoteURL];
     
     NSString *userId = user.olduserid;
-    NSString *objId = _newsBean.newsId;
+    NSString *objId = _objId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = _detailType == FTDetailTypeNews ? @"v-news" : @"v-video";
+    NSString *tableName = @"v-news";
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, self.hasVote ? AddVoteCheckKey: DeleteVoteCheckKey]];
     
     
@@ -477,10 +466,10 @@
     NSString *urlString = [FTNetConfig host:Domain path:self.hasStar ? AddStarURL : DeleteStarURL];
     
     NSString *userId = user.olduserid;
-    NSString *objId = _newsBean.newsId;
+    NSString *objId = _objId;
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = _detailType == FTDetailTypeNews ? @"col-news" : @"col-video";
+    NSString *tableName =  @"col-news";
     NSString *query = @"delete-col";
 //    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, self.hasStar ?  @"" : query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
         NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
@@ -573,13 +562,10 @@
     
     FTCommentViewController *commentVC = [ FTCommentViewController new];
     commentVC.delegate = self;
-    if (_detailType == FTDetailTypeNews) {//拳讯
         FTNewsBean *newsBean = [FTNewsBean new];
-        newsBean.newsId = _newsBean.newsId;
+        newsBean.newsId = _objId;
         commentVC.newsBean = newsBean;
-    } else if (_detailType == FTDetailTypeVideo){//视频
-        commentVC.newsBean = _newsBean;
-    }
+
     
     [self.navigationController pushViewController:commentVC animated:YES];
 }
@@ -591,6 +577,9 @@
     NSLog(@"js method : %@", jsMethodString);
     _newsBean.commentCount = [NSString stringWithFormat:@"%d", commentCount];
     [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
+    
+    //评论成功后，从服务器获取最新的数据（包括评论数）
+    [self getNewsBeanFromServerById];
 }
 
 
@@ -601,7 +590,7 @@
     //获取网络请求地址url
     NSString *addViewCountUrlString = [FTNetConfig host:Domain path:AddViewCountURL];
 
-    NSString *newsId = _newsBean.newsId;
+    NSString *newsId = _objId;
     NSString *ts = [NSString stringWithFormat:@"%.3f", [[NSDate date] timeIntervalSince1970]];
     ts = [ts stringByReplacingOccurrencesOfString:@"." withString:@""];
     

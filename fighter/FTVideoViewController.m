@@ -530,13 +530,9 @@
 
 #pragma mark push响应方法
 - (void) pushToDetailController:(NSDictionary *)dic {
-    
     FTVideoDetailViewController *videoDetailVC = [FTVideoDetailViewController new];
-    NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=c-videos",dic[@"objId"]];
-    
-    videoDetailVC.webUrlString = [@"http://www.gogogofight.com/page/video_page.html?" stringByAppendingString:str];
-    [self.navigationController pushViewController:videoDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
-    
+    videoDetailVC.objId = [NSString stringWithFormat:@"%@",dic[@"objId"]];
+    [self.navigationController pushViewController:videoDetailVC animated:YES];
 }
 
 - (void)updateCountWithVideoBean:(FTVideoBean *)videoBean indexPath:(NSIndexPath *)indexPath{

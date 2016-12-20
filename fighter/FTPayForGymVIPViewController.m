@@ -66,7 +66,7 @@
 }
 - (void)getVIPInfo{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSDictionary *dic) {
+    [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid] andOption:^(NSDictionary *dic) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         //无数据：非会员
         //"type"为会员类型： 0准会员 1会员 2往期会员
@@ -324,7 +324,7 @@
         
         if ([status isEqualToString:@"success"]) {
             NSLog(@"验证码正确");
-                [NetWorking requestToBeVIPWithCorporationid:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andPhoneNum:phoneNum andCheckCode:_checkCodeTextField.text andOption:^(NSDictionary *dic) {
+                [NetWorking requestToBeVIPWithCorporationid:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid] andPhoneNum:phoneNum andCheckCode:_checkCodeTextField.text andOption:^(NSDictionary *dic) {
                     NSString *status = dic[@"status"];
                     NSString *message = dic[@"message"];
                     NSLog(@"status : %@\n message : %@", dic[@"status"], dic[@"message"]);
@@ -398,7 +398,7 @@
 - (IBAction)refreshButtonClicked:(id)sender {
     _stopAnimation = NO;
     [self startAnimation];
-    [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSDictionary *dic) {
+    [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid] andOption:^(NSDictionary *dic) {
         
         //从服务器获取数据后，停止动画
         _stopAnimation = YES;
