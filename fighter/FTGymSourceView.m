@@ -51,6 +51,7 @@
     [self initSubViews];
     
     _t0.backgroundColor = [UIColor clearColor];
+
 }
 
 - (void)initSubViews{
@@ -76,9 +77,10 @@
     _seperatorView7.backgroundColor = Cell_Space_Color;
     
     _yuanPerClassLabel.textColor = Custom_Red;
-    _perClassLabel.textColor = Custom_Red;
-    _yuanLabel.textColor = Custom_Red;
+    _perClassLabel.textColor = [UIColor whiteColor];;
+
     _balanceLabel.textColor = Custom_Red;
+    _yuanLabel.textColor = Custom_Red;
 }
 
 - (void)setDateLabels{
