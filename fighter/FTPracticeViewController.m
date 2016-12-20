@@ -65,6 +65,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMemberGyms:) name:ShowMemberShipGymsNavNoti object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchDetailAction:) name:SwitchPracticeDetailNoti object:nil];
+    
 }
 
 #pragma mark  - setup
@@ -295,6 +297,12 @@
 
 #pragma mark push响应方法
 - (void) pushToDetailController:(NSDictionary *)dic {
+    
+}
+
+#pragma mark - 通知
+- (void) switchDetailAction:(NSNotification *) noti {
+    
     
 }
 

@@ -103,4 +103,39 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:ShowMemberShipGymsNavNoti object:nil];
 }
 
+
+#pragma mark - 应用内跳转通知
+
++ (void) postTabBarIndex:(NSInteger) index dic:(NSDictionary *) dic {
+
+    NSNumber *obj = [NSNumber numberWithInteger:index];
+    [[NSNotificationCenter defaultCenter] postNotificationName:InAPPSwitchControllerNoti object:obj userInfo:dic];
+    
+}
+
++ (void) postSwitchNewsDetailControllerWithDic:(NSDictionary *) dic {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:SwitchNewsDetailNoti object:nil userInfo:dic];
+}
+
++ (void) postSwitchFightingDetailControllerWithDic:(NSDictionary *) dic {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:SwitchFightingDetailNoti object:nil userInfo:dic];
+}
+
++ (void) postSwitchPracticeDetailControllerWithDic:(NSDictionary *) dic {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:SwitchPracticeDetailNoti object:nil userInfo:dic];
+}
+
++ (void) postSwitchBoxingDetailControllerWithDic:(NSDictionary *) dic {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:SwitchBoxingBarDetailNoti object:nil userInfo:dic];
+}
+
++ (void) postSwitchShopDetailControllerWithDic:(NSDictionary *) dic {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:SwitchShopDetailNoti object:nil userInfo:dic];
+}
+
 @end

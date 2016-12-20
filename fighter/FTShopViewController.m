@@ -96,7 +96,9 @@
     //添加监听器，充值购买
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeCallback:) name:RechargeResultNoti object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchDetailAction:) name:SwitchShopDetailNoti object:nil];
 }
+
 
 #pragma mark - 初始化
 
@@ -242,6 +244,17 @@
     [self setWebView];
 }
 
+
+
+/**
+ 应用内跳转，跳转到商品详情页
+
+ @param noti
+ */
+- (void) switchDetailAction:(NSNotification *) noti {
+    
+    
+}
 
 #pragma mark - loading动画
 

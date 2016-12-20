@@ -52,6 +52,8 @@
 		3D322AC91CEB171200039E2C /* FTRankHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D322AC71CEB171200039E2C /* FTRankHeaderCell.m */; };
 		3D322ACA1CEB171200039E2C /* FTRankHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D322AC81CEB171200039E2C /* FTRankHeaderCell.xib */; };
 		3D344FE51D5B048300786FD4 /* FTDuiBaWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D344FE41D5B048300786FD4 /* FTDuiBaWebView.m */; };
+		3D35B7E71E08E0D100C048D1 /* FTInvitationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D35B7E51E08E0D100C048D1 /* FTInvitationCodeViewController.m */; };
+		3D35B7E81E08E0D100C048D1 /* FTInvitationCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D35B7E61E08E0D100C048D1 /* FTInvitationCodeViewController.xib */; };
 		3D3EC7181DE444C400C4A595 /* FTTraineeFeedbackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3EC7171DE444C400C4A595 /* FTTraineeFeedbackView.m */; };
 		3D41221B1D4F1EDA007EB996 /* FTAvatarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4122191D4F1EDA007EB996 /* FTAvatarCell.m */; };
 		3D41221C1D4F1EDA007EB996 /* FTAvatarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D41221A1D4F1EDA007EB996 /* FTAvatarCell.xib */; };
@@ -581,6 +583,9 @@
 		3D322AC81CEB171200039E2C /* FTRankHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTRankHeaderCell.xib; sourceTree = "<group>"; };
 		3D344FE31D5B048300786FD4 /* FTDuiBaWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTDuiBaWebView.h; sourceTree = "<group>"; };
 		3D344FE41D5B048300786FD4 /* FTDuiBaWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTDuiBaWebView.m; sourceTree = "<group>"; };
+		3D35B7E41E08E0D100C048D1 /* FTInvitationCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTInvitationCodeViewController.h; sourceTree = "<group>"; };
+		3D35B7E51E08E0D100C048D1 /* FTInvitationCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTInvitationCodeViewController.m; sourceTree = "<group>"; };
+		3D35B7E61E08E0D100C048D1 /* FTInvitationCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTInvitationCodeViewController.xib; sourceTree = "<group>"; };
 		3D3EC7161DE444C400C4A595 /* FTTraineeFeedbackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeFeedbackView.h; sourceTree = "<group>"; };
 		3D3EC7171DE444C400C4A595 /* FTTraineeFeedbackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeFeedbackView.m; sourceTree = "<group>"; };
 		3D4122181D4F1EDA007EB996 /* FTAvatarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTAvatarCell.h; sourceTree = "<group>"; };
@@ -1597,6 +1602,16 @@
 			name = customView;
 			sourceTree = "<group>";
 		};
+		3D35B7E31E08E06A00C048D1 /* invitationCodeController */ = {
+			isa = PBXGroup;
+			children = (
+				3D35B7E41E08E0D100C048D1 /* FTInvitationCodeViewController.h */,
+				3D35B7E51E08E0D100C048D1 /* FTInvitationCodeViewController.m */,
+				3D35B7E61E08E0D100C048D1 /* FTInvitationCodeViewController.xib */,
+			);
+			name = invitationCodeController;
+			sourceTree = "<group>";
+		};
 		3D3EC7141DE4445300C4A595 /* view */ = {
 			isa = PBXGroup;
 			children = (
@@ -2102,6 +2117,7 @@
 				3D6947111CE3375000989440 /* base */,
 				3D4B18E71CD8BC010022DFB0 /* userSetting */,
 				3DE95BA91CD86FB6005BF85C /* login */,
+				3D35B7E31E08E06A00C048D1 /* invitationCodeController */,
 				3DC411E81CCF734A0030C229 /* drawer */,
 			);
 			name = "用户中心";
@@ -4612,6 +4628,7 @@
 				3D7B98A51CE0190600B80B8D /* FTAbountUsViewController.xib in Resources */,
 				E66BC00C1D9A67C700B492D3 /* FTCoachSelfCourseViewController.xib in Resources */,
 				3D7C6B821CF2A26D0088400D /* BoxerMatchController.xib in Resources */,
+				3D35B7E81E08E0D100C048D1 /* FTInvitationCodeViewController.xib in Resources */,
 				E6FEFA461DD4280C00CEF6E3 /* FTUserCourseCommentHeaderView.xib in Resources */,
 				E65D08C81CBCC83A00651B19 /* FTThreeImageInfoTableViewCell.xib in Resources */,
 				3D484D7A1DC87F4300E2EC8C /* FTTraineeGradeViewController.xib in Resources */,
@@ -4890,6 +4907,7 @@
 				E6E580B31CBE523B00272242 /* FTBaseTableViewCell.m in Sources */,
 				3DA6D1C91D20D94E0049CD4A /* FTCycleScrollViewCell2.m in Sources */,
 				3D5E809C1DD328E100D0F250 /* FTTraineeBean.m in Sources */,
+				3D35B7E71E08E0D100C048D1 /* FTInvitationCodeViewController.m in Sources */,
 				3DDE29BD1D2BB39F00876B30 /* FTPayViewController.m in Sources */,
 				E672C1621DEC54FA00934206 /* FTModuleBean.m in Sources */,
 				3D4B19661CDB6CF80022DFB0 /* FTWeightPickerView.m in Sources */,

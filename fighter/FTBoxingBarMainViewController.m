@@ -53,6 +53,9 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setNotification];
+    
     [self initBaseConfig];//初始化一些基本配置
     [self setSubViews];//设置子view
     
@@ -64,6 +67,12 @@
     
     [self getDataFromDB];
     [self getDataFromWeb];//初次加载数据
+}
+
+
+- (void) dealloc {
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -411,4 +420,17 @@
     self.tableViewController.sourceArray[indexPath.row] = dic;
     [self.tableViewController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
 }
+
+#pragma mark - 通知
+- (void) setNotification {
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchDetailAction:) name:SwitchBoxingBarDetailNoti object:nil];
+}
+
+
+- (void) switchDetailAction:(NSNotification *) noti {
+    
+    
+}
+
 @end
