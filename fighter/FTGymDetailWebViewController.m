@@ -314,7 +314,9 @@
     // 导航栏转发按钮
     _joinVIPButton = [[UIBarButtonItem alloc]initWithTitle:@"成为会员" style:UIBarButtonItemStylePlain target:self action:@selector(becomeVIPButtonClicked:)];
     _joinVIPButton.enabled = NO;
+    _joinVIPButton.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = _joinVIPButton;
+    
     //因为拳馆详情的web页还没做，先隐藏掉分享功能 || 10月25日改为 成为会员
     
 }

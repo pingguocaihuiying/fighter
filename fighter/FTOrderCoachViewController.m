@@ -200,7 +200,8 @@
         self.ratingBar.fullSelectedImage = [UIImage imageNamed:@"火苗-红"];
         self.ratingBar.unSelectedImage = [UIImage imageNamed:@"火苗-灰"];
         self.ratingBar.isIndicator = YES;//指示器，就不能滑动了，只显示评分结果
-        [self.ratingBar setRating:4.0f];
+//        [self.ratingBar setRating:4.0f];
+        [self.ratingBar displayRating:4.0f];
     }
 }
 
@@ -328,6 +329,7 @@
     self.navigationItem.leftBarButtonItem = leftButton;
     
     UIBarButtonItem *gymDetailButton = [[UIBarButtonItem alloc]initWithTitle:@"分享出去" style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonClicked)];
+    gymDetailButton.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = gymDetailButton;
 }
 
@@ -338,25 +340,28 @@
     
     CGFloat width = SCREEN_WIDTH - 30;
     CGFloat w=0;
-    CGFloat h=14;
+    CGFloat h=21;
     CGFloat x=0;
     CGFloat y=0;
     
+    CGFloat fontSize = 12;
+    
     NSArray *labels = [labelsString componentsSeparatedByString:@","];
-//    labels = @[@"从前",@"有座山",@"山上有座庙",@"庙",@"里",@"住着一个",@"老和尚",@"和一个小和尚",@"小和尚",@"不满意",@"在这里",@"的", @"日子"];
+//    labels = @[@"如来神掌",@"化骨绵掌",@"降龙十八掌",@"狮子吼",@"形意拳",@"太极拳",@"跆拳道",@"械斗",@"散打",@"泰拳", @"综合格斗"];
+    float spacing = 10;
     for (NSString *labelStr in labels) {
         NSString *labelCh = [FTTools getChNameWithEnLabelName:labelStr];
         UIView *labelView = [UIView new];
-        CGSize labelSize = [labelCh sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(MAXFLOAT, 30)];
-        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(5, 1, 5 * 2 + labelSize.width, 12)];
+        CGSize labelSize = [labelCh sizeWithFont:[UIFont systemFontOfSize:fontSize] constrainedToSize:CGSizeMake(MAXFLOAT, 30)];
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(spacing, (h - fontSize) / 2, spacing * 2 + labelSize.width, fontSize)];
         label.text = labelCh;
-        label.font = [UIFont systemFontOfSize:12];
+        label.font = [UIFont systemFontOfSize:fontSize];
         label.textColor = [UIColor whiteColor];
-        labelView.frame = CGRectMake(0, 0, labelSize.width + 5 * 2, 14);
+        labelView.frame = CGRectMake(0, 0, labelSize.width + spacing * 2, h);
         
         //添加背景图片
-        UIImageView *bgImageView = [[UIImageView alloc]initWithFrame:labelView.bounds];
-        bgImageView.image = [UIImage imageNamed:@"拳种标签"];
+        UIImageView *bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(spacing / 2, 0, labelView.width - spacing, labelView.height)];
+        bgImageView.image = [UIImage imageNamed:@"拳种标签2"];
         [labelView addSubview:bgImageView];
         [labelView sendSubviewToBack:bgImageView];
         
@@ -509,7 +514,7 @@
         NSString *status = dic[@"status"];
         if ([status isEqualToString:@"success"]) {
             float score = [dic[@"data"] floatValue];
-            [self.ratingBar displayRating:score];
+            
         }
     }];
 }

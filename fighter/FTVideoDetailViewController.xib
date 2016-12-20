@@ -160,10 +160,10 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oW9-hO-4WD" userLabel="bottomViewNew">
-                    <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                    <rect key="frame" x="0.0" y="632" width="375" height="35"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fRp-Cl-WIk" userLabel="分享">
-                            <rect key="frame" x="329" y="14" width="22" height="22"/>
+                            <rect key="frame" x="329" y="7" width="22" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="22" id="IG6-aY-mk7"/>
                                 <constraint firstAttribute="height" constant="22" id="z4Y-hY-GIM"/>
@@ -175,7 +175,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xpl-9x-l8x" userLabel="点赞">
-                            <rect key="frame" x="283" y="14" width="22" height="22"/>
+                            <rect key="frame" x="292" y="7" width="22" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="22" id="Agr-2i-ZTR"/>
                                 <constraint firstAttribute="height" constant="22" id="IuO-rK-UCB"/>
@@ -187,7 +187,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Puq-qI-qWX" userLabel="评论">
-                            <rect key="frame" x="237" y="14" width="22" height="22"/>
+                            <rect key="frame" x="255" y="7" width="22" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="22" id="4Xa-T6-S0r"/>
                                 <constraint firstAttribute="height" constant="22" id="gU1-ea-GMi"/>
@@ -199,24 +199,24 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzu-iW-QnD">
-                            <rect key="frame" x="251" y="15" width="10" height="10"/>
+                            <rect key="frame" x="269" y="8" width="10" height="10"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="10" id="4kC-Vg-02M"/>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="ca7-R6-fP5"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6aX-Eo-coP">
-                            <rect key="frame" x="15" y="8" width="198" height="32"/>
+                            <rect key="frame" x="15" y="6" width="216" height="22"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="32" id="hSE-2x-Lmy"/>
+                                <constraint firstAttribute="height" constant="22" id="hSE-2x-Lmy"/>
                             </constraints>
                             <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="12"/>
-                            <state key="normal" title="    说点什么..." backgroundImage="评论输入框">
-                                <color key="titleColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="    说点什么..." backgroundImage="输入框">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="commentButtonClicked:" destination="-1" eventType="touchUpInside" id="uMk-V2-0H0"/>
@@ -228,14 +228,14 @@
                         <constraint firstItem="6aX-Eo-coP" firstAttribute="leading" secondItem="oW9-hO-4WD" secondAttribute="leading" constant="15" id="11h-iO-diW"/>
                         <constraint firstItem="fRp-Cl-WIk" firstAttribute="centerY" secondItem="oW9-hO-4WD" secondAttribute="centerY" id="3Zh-Uj-lp3"/>
                         <constraint firstItem="Puq-qI-qWX" firstAttribute="centerY" secondItem="fRp-Cl-WIk" secondAttribute="centerY" id="7PH-pg-R05"/>
-                        <constraint firstItem="fRp-Cl-WIk" firstAttribute="leading" secondItem="xpl-9x-l8x" secondAttribute="trailing" constant="24" id="83w-J1-fKD"/>
+                        <constraint firstItem="fRp-Cl-WIk" firstAttribute="leading" secondItem="xpl-9x-l8x" secondAttribute="trailing" constant="15" id="83w-J1-fKD"/>
                         <constraint firstItem="nzu-iW-QnD" firstAttribute="leading" secondItem="Puq-qI-qWX" secondAttribute="trailing" constant="-8" id="Cwe-8R-jTB"/>
                         <constraint firstItem="6aX-Eo-coP" firstAttribute="centerY" secondItem="oW9-hO-4WD" secondAttribute="centerY" id="FzF-oh-961"/>
                         <constraint firstItem="nzu-iW-QnD" firstAttribute="centerY" secondItem="Puq-qI-qWX" secondAttribute="centerY" constant="-5" id="GVv-U3-KSb"/>
-                        <constraint firstItem="xpl-9x-l8x" firstAttribute="leading" secondItem="Puq-qI-qWX" secondAttribute="trailing" constant="24" id="SVW-D1-eaO"/>
+                        <constraint firstItem="xpl-9x-l8x" firstAttribute="leading" secondItem="Puq-qI-qWX" secondAttribute="trailing" constant="15" id="SVW-D1-eaO"/>
                         <constraint firstAttribute="trailing" secondItem="fRp-Cl-WIk" secondAttribute="trailing" constant="24" id="T5E-Wz-pHQ"/>
                         <constraint firstItem="Puq-qI-qWX" firstAttribute="leading" secondItem="6aX-Eo-coP" secondAttribute="trailing" constant="24" id="bL4-9x-VDv"/>
-                        <constraint firstAttribute="height" constant="49" id="lDc-Tt-3Pj"/>
+                        <constraint firstAttribute="height" constant="35" id="lDc-Tt-3Pj"/>
                         <constraint firstItem="xpl-9x-l8x" firstAttribute="centerY" secondItem="fRp-Cl-WIk" secondAttribute="centerY" id="on7-fj-myX"/>
                     </constraints>
                 </view>
@@ -257,11 +257,11 @@
         <image name="列表页-评论数" width="22" height="22"/>
         <image name="列表页-赞" width="22" height="22"/>
         <image name="斜线分割" width="12" height="24"/>
-        <image name="评论输入框" width="31" height="32"/>
         <image name="详情页底部按钮一堆-分享" width="24" height="24"/>
         <image name="详情页底部按钮一堆-收藏" width="24" height="24"/>
         <image name="详情页底部按钮一堆-评论" width="24" height="24"/>
         <image name="详情页底部按钮一堆-赞" width="24" height="24"/>
+        <image name="输入框" width="42" height="34"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

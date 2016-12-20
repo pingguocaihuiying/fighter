@@ -195,7 +195,7 @@
     self.navigationItem.title = _detailType == FTDetailTypeNews ? @"拳讯" : @"视频";
     
     //底部评论数的颜色
-    _bottomCommentLabel.textColor = Custom_Red;
+    _bottomCommentLabel.textColor = [UIColor whiteColor];
 }
 
 - (void)setRightButtonItemWithText:(NSString *)text{
