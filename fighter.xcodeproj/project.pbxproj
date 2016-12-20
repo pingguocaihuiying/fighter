@@ -54,6 +54,7 @@
 		3D344FE51D5B048300786FD4 /* FTDuiBaWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D344FE41D5B048300786FD4 /* FTDuiBaWebView.m */; };
 		3D35B7E71E08E0D100C048D1 /* FTInvitationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D35B7E51E08E0D100C048D1 /* FTInvitationCodeViewController.m */; };
 		3D35B7E81E08E0D100C048D1 /* FTInvitationCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D35B7E61E08E0D100C048D1 /* FTInvitationCodeViewController.xib */; };
+		3D35B7EF1E08FA7A00C048D1 /* FTInvitationCodePopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D35B7EE1E08FA7A00C048D1 /* FTInvitationCodePopUpView.m */; };
 		3D3EC7181DE444C400C4A595 /* FTTraineeFeedbackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3EC7171DE444C400C4A595 /* FTTraineeFeedbackView.m */; };
 		3D41221B1D4F1EDA007EB996 /* FTAvatarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4122191D4F1EDA007EB996 /* FTAvatarCell.m */; };
 		3D41221C1D4F1EDA007EB996 /* FTAvatarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D41221A1D4F1EDA007EB996 /* FTAvatarCell.xib */; };
@@ -586,6 +587,8 @@
 		3D35B7E41E08E0D100C048D1 /* FTInvitationCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTInvitationCodeViewController.h; sourceTree = "<group>"; };
 		3D35B7E51E08E0D100C048D1 /* FTInvitationCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTInvitationCodeViewController.m; sourceTree = "<group>"; };
 		3D35B7E61E08E0D100C048D1 /* FTInvitationCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTInvitationCodeViewController.xib; sourceTree = "<group>"; };
+		3D35B7ED1E08FA7A00C048D1 /* FTInvitationCodePopUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTInvitationCodePopUpView.h; sourceTree = "<group>"; };
+		3D35B7EE1E08FA7A00C048D1 /* FTInvitationCodePopUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTInvitationCodePopUpView.m; sourceTree = "<group>"; };
 		3D3EC7161DE444C400C4A595 /* FTTraineeFeedbackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeFeedbackView.h; sourceTree = "<group>"; };
 		3D3EC7171DE444C400C4A595 /* FTTraineeFeedbackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeFeedbackView.m; sourceTree = "<group>"; };
 		3D4122181D4F1EDA007EB996 /* FTAvatarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTAvatarCell.h; sourceTree = "<group>"; };
@@ -1612,6 +1615,40 @@
 			name = invitationCodeController;
 			sourceTree = "<group>";
 		};
+		3D35B7E91E08F9D800C048D1 /* 邀请码 */ = {
+			isa = PBXGroup;
+			children = (
+				3D35B7EB1E08FA0000C048D1 /* controller */,
+				3D35B7EA1E08F9F500C048D1 /* view */,
+			);
+			name = "邀请码";
+			sourceTree = "<group>";
+		};
+		3D35B7EA1E08F9F500C048D1 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				3D35B7EC1E08FA1900C048D1 /* 弹出框 */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		3D35B7EB1E08FA0000C048D1 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				3D35B7E31E08E06A00C048D1 /* invitationCodeController */,
+			);
+			name = controller;
+			sourceTree = "<group>";
+		};
+		3D35B7EC1E08FA1900C048D1 /* 弹出框 */ = {
+			isa = PBXGroup;
+			children = (
+				3D35B7ED1E08FA7A00C048D1 /* FTInvitationCodePopUpView.h */,
+				3D35B7EE1E08FA7A00C048D1 /* FTInvitationCodePopUpView.m */,
+			);
+			name = "弹出框";
+			sourceTree = "<group>";
+		};
 		3D3EC7141DE4445300C4A595 /* view */ = {
 			isa = PBXGroup;
 			children = (
@@ -2117,7 +2154,7 @@
 				3D6947111CE3375000989440 /* base */,
 				3D4B18E71CD8BC010022DFB0 /* userSetting */,
 				3DE95BA91CD86FB6005BF85C /* login */,
-				3D35B7E31E08E06A00C048D1 /* invitationCodeController */,
+				3D35B7E91E08F9D800C048D1 /* 邀请码 */,
 				3DC411E81CCF734A0030C229 /* drawer */,
 			);
 			name = "用户中心";
@@ -5112,6 +5149,7 @@
 				3D06154E1D35E17B00FDA86F /* FTPhoneCell.m in Sources */,
 				E6A9DDBA1CD99E7700CB9518 /* FTBaseBean.m in Sources */,
 				3D20194B1D5831CF009E80B1 /* CreditWebViewController.m in Sources */,
+				3D35B7EF1E08FA7A00C048D1 /* FTInvitationCodePopUpView.m in Sources */,
 				E6FEFA3E1DD4218800CEF6E3 /* FTUserSkillGradeTableViewCell.m in Sources */,
 				3D41222A1D4F3A6B007EB996 /* FTAuthenticationCell.m in Sources */,
 				E6EFDC8B1D421CD7004C98D2 /* FTGymListViewController.m in Sources */,

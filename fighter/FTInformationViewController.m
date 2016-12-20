@@ -369,11 +369,12 @@
         bt.indexView.tag = 1000 + i;
         bt.indexView.hidden = YES;
         if ([bt.itemValueEn isEqualToString:@"All"]) {
-                bt.indexView.hidden = NO;
+            bt.indexView.hidden = NO;
+            [bt setTitleColor: [UIColor redColor] forState:UIControlStateNormal];
         }
         [bt addSubview:bt.indexView];
         
-       
+        
         if (i != titlesArray.count - 1) {
             curContentWidth += buttonSize.width + 35;
         }else{
@@ -521,15 +522,18 @@
 #pragma mark -  设置当前的按钮颜色
 
 - (void)updateButtonsIndex{
+    
     for(UIView *subview in[_currentScrollView subviews]){
         if ([subview isKindOfClass:[FTLYZButton class]]) {
             FTLYZButton *button = (FTLYZButton *)subview;
             if ([button.itemValueEn isEqualToString:_currentItemValueEn]) {
                 button.indexView.hidden = NO;
+                [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
             }else{
                 if (button.indexView.isHidden == NO) {
                     button.indexView.hidden = YES;
                 }
+                [button setTitleColor:Main_Text_Color forState:UIControlStateNormal];
             }
         }
     }

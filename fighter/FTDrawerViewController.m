@@ -319,17 +319,24 @@ static NSString *const tableCellId = @"tableCellId";
 - (void) tableViewAdapter {
     
     //从本地读取存储的用户信息
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
+    FTUserBean *localUser = [FTUserBean loginUser];
     if (localUser) {
         
         [self setTableHeader:localUser];
         _labelArray = localUser.interestList;
         
-        [self.tableView reloadData];
+        if (localUser.tel.length > 0) {
+            [self.invitationCodeButton setHidden:NO];
+        }else {
+            [self.invitationCodeButton setHidden:YES];
+        }
         
+        [self.tableView reloadData];
         [self.loginView setHidden:YES];//显示登录页面
+        
     }else {
+        
+        [self.invitationCodeButton setHidden:YES];
         [self.loginView setHidden:NO];//隐藏登录页面
     }
     
