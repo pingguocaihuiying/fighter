@@ -25,6 +25,13 @@
 #define ShowHomePageNavNoti @"ShowHomePageNavNoti"
 #define ShowMemberShipGymsNavNoti @"ShowMemberShipGymsNavNoti"
 
+#define InAPPSwitchControllerNoti @"InAPPSwitchControllerNoti"
+#define SwitchNewsDetailNoti @"SwitchNewsDetailNoti"
+#define SwitchFightingDetailNoti @"SwitchFightingDetailNoti"
+#define SwitchPracticeDetailNoti @"SwitchPracticeDetailNoti"
+#define SwitchBoxingBarDetailNoti @"SwitchBoxingBarDetailNoti"
+#define SwitchShopDetailNoti @"SwitchShopDetailNoti"
+
 /**
  登录通知类型枚举
 
@@ -67,4 +74,10 @@ typedef NS_ENUM(NSInteger, FTLoginType) {
  显示会员拳馆
  */
 + (void) postShowMembershipGymsNoti;
+
+#pragma mark - 应用内跳转通知
+
++ (void) postTabBarIndex:(NSInteger) index dic:(NSDictionary *) dic;
+
++ (void) postSwitchNewsDetailControllerWithDic:(NSDictionary *) dic;
 @end

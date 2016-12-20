@@ -87,6 +87,17 @@
     [MobClick event:@"mainPage_BoxingNews"];
 }
 
+- (void) dealloc {
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - set
+
+- (void) setNotification {
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchDetailAction:) name:SwitchFightingDetailNoti object:nil];
+}
 
 - (void)initBaseData{
     _pageNum = 1;
@@ -97,7 +108,6 @@
     
     _todayDateString = [FTTools getDateStringWith:[[NSDate date] timeIntervalSince1970]];//根据当前时间戳获取当天日期,格式“2017-7-26"
     _tomorrowDateString = [FTTools getDateStringWith:[[NSDate date] timeIntervalSince1970] + 24 * 60 * 60];//根据(当前时间戳+1天的秒数)获取明天日期,格式“2017-7-26"
-    
 }
 
 
@@ -347,10 +357,24 @@
         
         //判断是咨询还是视频 (lyz 12月14日 现在统一为资讯)
             videoDetailVC.detailType = FTDetailTypeNews;
+//        } else if ([typeStr isEqualToString:@"2"]) {//视频
+//            videoDetailVC.detailType = FTDetailTypeVideo;
+//        }
+//        
+//        if (matchBean.urlRes) {
+//            FTNewsBean *newsBean = [FTNewsBean new];
+//            newsBean.newsId = objId;
+//            videoDetailVC.urlId = objId;
+////            videoDetailVC.videoBean = videoBean; // *  没有视频了 2016-11-21 by lyz */
+//            videoDetailVC.newsBean = newsBean;
+//        }
+
 
         videoDetailVC.objId = objId;
+
         
         [self.navigationController pushViewController:videoDetailVC animated:YES];
+        
     }else{
         NSLog(@"尚未开赛");
         NSLog(@"url : %@", matchBean.urlPre);
@@ -814,6 +838,11 @@
 }
 
 
+#pragma mark - 通知
+- (void) switchDetailAction:(NSNotification *) noti {
+
+    
+}
 
 
 @end
