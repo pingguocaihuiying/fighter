@@ -52,6 +52,8 @@
 //        NSLog(@"拳讯 view的宽度：%f,高度：%f",self.view.frame.size.width, self.view.frame.size.height);
     [super viewDidLoad];
     
+    [self setNotification];
+    
     [self setNavigationBar];
     
     [self initTypeArray];//初始化标签数据
@@ -79,6 +81,22 @@
     NSLog(@"infomation view will appear");
     
 }
+
+
+- (void) dealloc {
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+- (void) setNotification {
+    
+    //注册通知，接收登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
+    
+    
+}
+
 
 
 - (void) setNavigationBar {
@@ -186,11 +204,9 @@
 - (void)getDataWithGetType:(NSString *)getType andCurrId:(NSString *)newsCurrId{
     NSString *urlString = [FTNetConfig host:Domain path:GetNewsURL];
 //    NSString *newsType = [self getNewstype];
-        NSString *newsType = _currentItemValueEn;
+    NSString *newsType = _currentItemValueEn;
 
     
-//    NSString *newsCurrId = @"-1";
-//    NSString *getType = @"new";
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     
     NSString *checkSign;
@@ -264,7 +280,6 @@
 
 - (void)setTypeNaviScrollView{
     
-    
     [self initNewsTypeScrollView];
     
     [self initPageController];
@@ -296,8 +311,8 @@
     _cycleScrollView.titlesGroup = titlesArray;
     
     _cycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
-    _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点pre"];
-    _cycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播白点"];
+    _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点-红"];
+    _cycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播点-白"];
     _cycleScrollView.imageURLStringsGroup = imagesURLStrings;
 
     [_headerView addSubview:_cycleScrollView];
@@ -704,4 +719,20 @@
     [self.tableViewController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:NO];
     
 }
+
+#pragma mark - 通知响应
+// 登录响应
+- (void) loginCallBack:(NSNotification *)noti {
+    
+    NSDictionary *userInfo = noti.userInfo;
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
+        NSLog(@"触发登录刷新headerView");
+        self.currentPage = 0;
+        [self getDataWithGetType:@"new" andCurrId:@"-1"];
+        if ([self.currentItemValueEn isEqualToString:@"All"]) {//如果是“全部”标签，再刷新轮播图
+            [self getCycleData];
+        }
+    }
+}
+
 @end
