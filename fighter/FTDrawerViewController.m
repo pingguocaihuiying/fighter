@@ -254,7 +254,6 @@ static NSString *const tableCellId = @"tableCellId";
 
 #pragma mark - 登录回调
 
-
 // 登录响应
 - (void) loginCallBack:(NSNotification *)noti {
     
