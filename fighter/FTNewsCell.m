@@ -53,7 +53,6 @@
     self.newsTitleLabel.text = bean.title;
     
     NSString *imageURLString;
-    NSLog(@"small : %@", bean.img_small_one);
     if (bean.img_small_one && [bean.img_small_one length] > 0) {
         imageURLString = bean.img_small_one;
     }else if (bean.img_big && [bean.img_big length] > 0){

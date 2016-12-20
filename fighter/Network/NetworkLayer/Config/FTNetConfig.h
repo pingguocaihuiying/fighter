@@ -188,6 +188,7 @@ extern NSString *const GetUserSkillsCheckSign;
 extern NSString * const GetCoachListURL;
 extern NSString * const GetCoachByIdURL;
 extern NSString * const ValidCheckCode ;
+extern NSString *const GetCoachRatingURLString;//获取教练的星级
 
 // gym 拳馆
 extern NSString * const GetGymListURL;
@@ -197,6 +198,7 @@ extern NSString * const GetGymByIdURL;
 extern NSString * const GetGymPhotosByUsers;//获取用户拍摄的拳馆照片
 extern NSString * const BecomeGymMenberShipURL;
 extern NSString * const GetCoachTeachRecord;
+
 
 #pragma mark - 训练
 extern NSString * const GetTraineeListURL; //获取课程学员列表
@@ -298,7 +300,7 @@ extern NSString * const ShopNewURL;
 // 订单页
 extern NSString * const ShopOrderURL;
 
-#pragma mark 拳吧
+#pragma mark - 拳吧
 
 /*
  * url

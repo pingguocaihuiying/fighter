@@ -225,6 +225,7 @@ NSString *const GetUserSkillsCheckSign = @"gedoujihtgfsyh543";
 NSString * const GetCoachListURL = @"/api/coach/list.do";
 NSString * const GetCoachByIdURL = @"/api/coach/{id}.do";
 NSString * const ValidCheckCode = @"/api/user/save$checkPhoneCode.do";
+NSString * const GetCoachRatingURLString = @"/api/coacheval/getStar.do";
 
 // gym 拳馆
 NSString * const GetGymListURL = @"/api/gym/getGym.do";
@@ -233,8 +234,8 @@ NSString * const GetGymListForArenaURL = @"/api/match/getGyms.do";
 NSString * const GetGymByIdURL = @"/api/gym/getVideosById.do";
 NSString * const GetGymPhotosByUsers = @"/api/gym/commentAttach.do";//获取用户拍摄的拳馆照片
 NSString * const BecomeGymMenberShipURL = @"/api/gymmenbership/save$GymMenberShip.do";
-
 NSString * const GetCoachTeachRecord = @"/api/coursebook/get$CourseHistory.do";
+
 
 #pragma mark - 训练
 NSString * const GetTraineeListURL = @"/api/coursebook/findCourseMember.do"; //获取课程学员列表

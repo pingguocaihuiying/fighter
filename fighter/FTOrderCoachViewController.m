@@ -75,6 +75,8 @@
         [self getVIPInfo];//获取余额等会员信息
     }
     
+    //网络数据加载
+    [self getCoachRating];
     [self getTimeSection];//获取时间段信息
 }
 
@@ -107,7 +109,7 @@
     [self setCoachCourceView];//设置教练课程表
     [self setCoachInfo];//设置教练信息
     [self setImagesView];//设置教练的相册
-    [self setRatingBar];//应该在
+    [self setRatingBar];//设置教练的评分星级
 }
 
 
@@ -188,14 +190,26 @@
         _ratingBar = [[FTRatingBar alloc]initWithSpacing:5];
         float ratingBarWidth = 21 * 5 + 5 * 4;
         _ratingBar.frame = CGRectMake(SCREEN_WIDTH - 15 - ratingBarWidth, 15, ratingBarWidth, 28);
-        _ratingBar.backgroundColor = [UIColor blueColor];
         [_topMainView addSubview:_ratingBar];
+        
+        //增加点击事件
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(ratingBarTap)];
+        [_ratingBar addGestureRecognizer:tap];
+        _ratingBar.userInteractionEnabled = YES;
+        
         self.ratingBar.fullSelectedImage = [UIImage imageNamed:@"火苗-红"];
         self.ratingBar.unSelectedImage = [UIImage imageNamed:@"火苗-灰"];
         self.ratingBar.isIndicator = YES;//指示器，就不能滑动了，只显示评分结果
-        [self.ratingBar displayRating:4.0f];
-        
+        [self.ratingBar setRating:4.0f];
     }
+}
+
+
+/**
+ 评分框被点击
+ */
+- (void)ratingBarTap{
+    NSLog(@"ratingBar clicked");
 }
 
 - (void)imagesViewTap{
@@ -485,6 +499,21 @@
     }
 
 }
+
+
+/**
+ 获取教练评分
+ */
+- (void)getCoachRating{
+    [NetWorking getCoachRatingByID:_coachBean.userId withBlock:^(NSDictionary *dic) {
+        NSString *status = dic[@"status"];
+        if ([status isEqualToString:@"success"]) {
+            float score = [dic[@"data"] floatValue];
+            [self.ratingBar displayRating:score];
+        }
+    }];
+}
+
 /**
  *  获取时间段信息
  */

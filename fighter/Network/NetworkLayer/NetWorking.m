@@ -1101,6 +1101,10 @@
     [self getRequestWithUrl:urlString parameters:dic option:option];
     
 }
+//获取教练的星级
++ (void)getCoachRatingByID:(NSString *)coachId withBlock:(void (^) (NSDictionary *dic)) block{
+    [self postRequestWithUrl:GetCoachRatingURLString parameters:@{@"coachUserId":coachId} option:block];
+};
 
 
 /**
