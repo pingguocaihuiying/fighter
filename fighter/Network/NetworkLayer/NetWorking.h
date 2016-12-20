@@ -241,6 +241,9 @@
 //请求加入会员
 + (void)requestToBeVIPWithCorporationid:(NSString *)corporationid andPhoneNum:(NSString *) phoneNum andCheckCode:(NSString *)checkCode andOption:(void (^)(NSDictionary *dic))option;
 
+//获取教练的星级
++ (void)getCoachRatingByID:(NSString *)coachId withBlock:(void (^) (NSDictionary *dic)) block;
+
 /**
  查看教练授课记录
  

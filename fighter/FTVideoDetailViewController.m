@@ -236,6 +236,7 @@
     _webView.opaque = NO;
     [self.view addSubview:_webView];
     NSString  *webViewUrlString = [NSString stringWithFormat:@"%@?objId=%@", WebViewURL, _objId];//12月31日 lyz修改 把webView地址统一了，不管是咨询还是视频
+    NSLog(@"webViewUrlString : %@", webViewUrlString);
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:webViewUrlString]]];
     [self.view sendSubviewToBack:_webView];
 }
