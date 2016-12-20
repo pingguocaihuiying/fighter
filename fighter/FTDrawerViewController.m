@@ -50,7 +50,7 @@
 
 #import "FTFightingViewController.h"
 #import "FTCoachSelfCourseViewController.h"
-
+#import "FTInvitationCodeViewController.h"
 
 
 @interface FTDrawerViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDataSource, UITableViewDelegate>
@@ -72,6 +72,7 @@
 @property (nonatomic, strong) FTHomepageMainViewController *homepageVC;
 @property (nonatomic, strong) NSArray *labelArray; //标签数组
 
+@property (weak, nonatomic) IBOutlet UIButton *invitationCodeButton;
 
 @end
 
@@ -253,7 +254,6 @@ static NSString *const tableCellId = @"tableCellId";
 
 #pragma mark - 登录回调
 
-
 // 登录响应
 - (void) loginCallBack:(NSNotification *)noti {
     
@@ -263,27 +263,31 @@ static NSString *const tableCellId = @"tableCellId";
     if ([userInfo[@"type"] isEqualToString:@"Logout"]) {
         NSLog(@"执行退出登录");
         [self.loginView setHidden:NO];//显示登录页面
-    }else if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
-        
-        [[UIApplication sharedApplication].keyWindow showMessage:@"登录成功"];
-        
-        // 获取余额
-        FTPaySingleton *singleton = [FTPaySingleton shareInstance];
-        [singleton fetchBalanceFromWeb:^{
-            
-            // 更新余额，暂时隐藏
-            //            [self refreshBalanceCell];
-        }];
-        
-        // 更新用户信息
-        [self tableViewAdapter];
-        
-        self.homepageVC.olduserid = [FTUserBean loginUser].olduserid;
-    }else if ([userInfo[@"result"] isEqualToString:@"ERROR"]){
-        [[UIApplication sharedApplication].keyWindow showMessage:@"登录失败"];
     }else {
-        // 更新用户信息
-        [self tableViewAdapter];
+    
+        if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
+            
+            [[UIApplication sharedApplication].keyWindow showMessage:@"登录成功"];
+            
+            // 获取余额
+            FTPaySingleton *singleton = [FTPaySingleton shareInstance];
+            [singleton fetchBalanceFromWeb:^{
+                
+                // 更新余额，暂时隐藏
+                //            [self refreshBalanceCell];
+            }];
+            
+            // 更新用户信息
+            [self tableViewAdapter];
+            self.homepageVC.olduserid = [FTUserBean loginUser].olduserid;
+            
+        }else if ([userInfo[@"result"] isEqualToString:@"ERROR"]){
+            [[UIApplication sharedApplication].keyWindow showMessage:@"登录失败"];
+            
+        }else {
+            // 更新用户信息
+            [self tableViewAdapter];
+        }
     }
     
     [self settabBarChildViewControllers];
@@ -574,7 +578,7 @@ static NSString *const tableCellId = @"tableCellId";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 1;
+    return 0;
 //    return 4;
 //    return 5;
     
@@ -718,6 +722,17 @@ static NSString *const tableCellId = @"tableCellId";
     }
     
 }
+
+
+
+#pragma mark 邀请码入口
+- (IBAction)goInvitationCodeController:(id)sender {
+    FTInvitationCodeViewController *invitationCodeControllerf = [[FTInvitationCodeViewController alloc] init];
+    FTBaseNavigationViewController *baseNav = [[FTBaseNavigationViewController alloc]initWithRootViewController:invitationCodeControllerf];
+    baseNav.navigationBarHidden = NO;
+    [self presentViewController:baseNav animated:YES completion:nil];
+}
+
 
 
 

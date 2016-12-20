@@ -98,6 +98,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void) dealloc {
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+}
+
 #pragma mark - 监听器
 
 - (void) setNotification {
@@ -107,6 +114,9 @@
     
     //添加监听器，东西任务
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(remindDailyTask:) name:TaskNotification object:nil];
+    
+    //添加监听器，东西任务
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(switchControllerAction:) name:InAPPSwitchControllerNoti object:nil];
 }
 
 #pragma mark - 设置导航栏
@@ -340,6 +350,18 @@
 //    
 //    
 //    [self shakingAnimation:self.taskBtn];
+}
+
+- (void) switchControllerAction:(NSNotification *) noti {
+
+    NSNumber *obj = noti.object;
+    NSInteger index = obj.integerValue;
+    
+    if (index < self.viewControllers.count) {
+        self.selectedIndex = index;
+        [FTNotificationTools postSwitchNewsDetailControllerWithDic:nil];
+    }
+    
 }
 
 #pragma mark - button response

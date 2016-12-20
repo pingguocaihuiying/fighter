@@ -48,6 +48,8 @@
 
 @implementation FTInformationViewController
 
+#pragma mark - life cycle
+
 - (void)viewDidLoad {
 //        NSLog(@"拳讯 view的宽度：%f,高度：%f",self.view.frame.size.width, self.view.frame.size.height);
     [super viewDidLoad];
@@ -89,11 +91,14 @@
 }
 
 
+#pragma mark - set
+
 - (void) setNotification {
     
     //注册通知，接收登录成功的消息
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchDetailAction:) name:SwitchNewsDetailNoti object:nil];
     
 }
 
@@ -734,5 +739,30 @@
         }
     }
 }
+
+
+- (void) switchDetailAction:(NSNotification *)noti {
+
+    if (self.tableViewDataSourceArray) {
+    
+        FTVideoDetailViewController *newsDetailVC = [FTVideoDetailViewController new];
+        FTNewsBean *bean = self.tableViewDataSourceArray[0];
+        //标记已读
+        if (![bean.isReader isEqualToString:@"YES"]) {
+            bean.isReader = @"YES";
+            //从数据库取数据
+            DBManager *dbManager = [DBManager shareDBManager];
+            [dbManager connect];
+            [dbManager updateNewsById:bean.newsId isReader:YES];
+            [dbManager close];
+        }
+        newsDetailVC.newsBean = bean;
+        newsDetailVC.delegate = self;
+        newsDetailVC.indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        
+        [self.navigationController pushViewController:newsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+    }
+}
+
 
 @end
