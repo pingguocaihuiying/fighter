@@ -33,6 +33,9 @@
 
 @implementation FTVideoDetailViewController
 
+
+#pragma mark - life cycle 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initSubViews];
@@ -63,6 +66,13 @@
 }
 
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+
+#pragma mark -  abount server
+
 - (void)checkNewsBean{
     if (_newsBean) {//如果bean存在，则赋值给_objId
         _objId = _newsBean.newsId;
@@ -86,6 +96,7 @@
         [self updateCommentCount];
     }];
 }
+
 
 /**
  更新评论数，包括右上角和底部
@@ -169,6 +180,145 @@
     }];
 }
 
+
+
+/**
+ 把点赞信息更新至服务器
+ */
+- (void)uploadVoteStatusToServer{
+    
+    FTUserBean *user = [FTUserBean loginUser];
+    //获取网络请求地址url
+    NSString *urlString = [FTNetConfig host:Domain path:_hasVote ? AddVoteURL : DeleteVoteURL];
+    
+    NSString *userId = user.olduserid;
+    NSString *objId = _objId;
+    NSString *loginToken = user.token;
+    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
+    NSString *tableName = @"v-news";
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, self.hasVote ? AddVoteCheckKey: DeleteVoteCheckKey]];
+    
+    
+    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
+    //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
+    //创建AAFNetWorKing管理者
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask *_Nonnull task, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"vote status : %@", responseDic[@"status"]);
+        self.voteView.userInteractionEnabled = YES;
+        if ([responseDic[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
+            int voteCount = [_newsBean.voteCount intValue];
+            NSString *changeVoteCount = @"0";
+            if (self.hasVote) {
+                voteCount++;
+                changeVoteCount = @"1";
+            }else{
+                if (voteCount > 0) {
+                    voteCount--;
+                    changeVoteCount = @"-1";
+                }
+            }
+            _newsBean.voteCount = [NSString stringWithFormat:@"%d", voteCount];
+            NSString *jsMethodString = [NSString stringWithFormat:@"updateLike(%@)", changeVoteCount];
+            NSLog(@"js method : %@", jsMethodString);
+            [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
+        }
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
+        //failure
+        self.voteView.userInteractionEnabled = YES;
+        NSLog(@"vote failure ：%@", error);
+    }];
+    
+}
+
+
+/**
+ 更新收藏信息至服务器
+ */
+- (void)uploadStarStatusToServer{
+    
+    FTUserBean *user = [FTUserBean loginUser];
+    //获取网络请求地址url
+    NSString *urlString = [FTNetConfig host:Domain path:self.hasStar ? AddStarURL : DeleteStarURL];
+    
+    NSString *userId = user.olduserid;
+    NSString *objId = _objId;
+    NSString *loginToken = user.token;
+    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
+    NSString *tableName =  @"col-news";
+    NSString *query = @"delete-col";
+    //    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, self.hasStar ?  @"" : query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
+    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
+    NSLog(@"check sign : %@", checkSign);
+    checkSign = [MD5 md5:checkSign];
+    
+    
+    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@&query=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName, query];
+    //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
+    //创建AAFNetWorKing管理者
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask *_Nonnull task, id  _Nonnull responseObject)  {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"收藏状态 status : %@, message : %@", responseDic[@"status"], responseDic[@"message"]);
+        self.favourateView.userInteractionEnabled = YES;
+        if ([responseDic[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
+        }
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
+        //failure
+        self.voteView.userInteractionEnabled = YES;
+        NSLog(@"收藏 failure ：%@", error);
+    }];
+    
+}
+
+/**
+ *  增加视频的播放数
+ */
+- (void)addViewCount{
+    //获取网络请求地址url
+    NSString *addViewCountUrlString = [FTNetConfig host:Domain path:AddViewCountURL];
+    
+    NSString *newsId = _objId;
+    NSString *ts = [NSString stringWithFormat:@"%.3f", [[NSDate date] timeIntervalSince1970]];
+    ts = [ts stringByReplacingOccurrencesOfString:@"." withString:@""];
+    
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@", newsId, ts, UpVideoViewNCheckKey]];
+    addViewCountUrlString = [NSString stringWithFormat:@"%@?&newsId=%@&ts=%@&checkSign=%@", addViewCountUrlString, newsId, ts, checkSign];
+    NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);
+    //创建AAFNetWorKing管理者
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);
+    [manager GET:addViewCountUrlString parameters:nil progress:nil  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        //success
+        //        NSLog(@"get vote info sucess. vote status : %@", responseDic[@"message"]);
+        //
+        if ([responseDic[@"status"] isEqualToString:@"success"]) {
+            NSLog(@"%@, %@", responseDic[@"status"], responseDic[@"message"]);
+            int viewCount = [_newsBean.viewCount intValue];
+            viewCount++;
+            _newsBean.viewCount = [NSString stringWithFormat:@"%d", viewCount];
+        }else{
+            NSLog(@"%@, %@", responseDic[@"status"], responseDic[@"message"]);
+        }
+        
+        [self updateVoteImageView];
+    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+        NSLog(@"向服务器增加视频数失败，error：%@", error);
+    }];
+}
+
+#pragma mark -  init view 
+
 - (void)initSubViews{
     
     [self setEvnetListenerOfBottomViews];
@@ -241,10 +391,7 @@
     [self.view sendSubviewToBack:_webView];
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
+#pragma mark - action
 
 - (void)popVC{
     
@@ -253,20 +400,54 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)commentButtonClicked:(id)sender {
-        [MobClick event:@"videoPage_DetailPage_Comment"];
+
+- (void)loginCallBack:(NSNotification *)noti{
     
-    //从本地读取存储的用户信息
-    FTUserBean *localUser = [FTUserBean loginUser];
-    if (!localUser) {
-        [self login];
-    }else{
-        [self pushToCommentVC];
+    NSDictionary *userInfo = noti.userInfo;
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
+        
+        [self.view showMessage:@"微信登录成功，可以评论或点赞了"];
+    }else {
+        [self.view showMessage:@"微信登录失败"];
     }
-    
 }
 
-#pragma -mark 分享事件
+- (void)pushToCommentVC{
+    
+    FTCommentViewController *commentVC = [ FTCommentViewController new];
+    commentVC.delegate = self;
+    FTNewsBean *newsBean = [FTNewsBean new];
+    newsBean.newsId = _objId;
+    commentVC.newsBean = newsBean;
+    
+    
+    [self.navigationController pushViewController:commentVC animated:YES];
+}
+
+- (void)commentSuccess{
+    int commentCount = [_newsBean.commentCount intValue];
+    commentCount++;
+    NSString *jsMethodString = [NSString stringWithFormat:@"updateComment(%d)", 1];
+    NSLog(@"js method : %@", jsMethodString);
+    _newsBean.commentCount = [NSString stringWithFormat:@"%d", commentCount];
+    [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
+    
+    //评论成功后，从服务器获取最新的数据（包括评论数）
+    [self getNewsBeanFromServerById];
+}
+
+
+
+
+- (void)login{
+    FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
+    loginVC.title = @"登录";
+    FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+
+
+#pragma mark - 分享事件
 
 - (IBAction)bottomShareButtonClicked:(id)sender {
     [self bottomShareButtonClicked];
@@ -309,7 +490,160 @@
     
 }
 
-#pragma -mark 设置loading图
+
+
+
+
+/**
+ 取消分享按钮 事件
+
+ @param sender
+ */
+- (IBAction)cancelShareButtonClicked:(id)sender {
+    self.bgView.hidden = YES;
+}
+
+#pragma mark -
+
+/**
+ 评论按钮response action
+
+ @param sender
+ */
+- (IBAction)commentButtonClicked:(id)sender {
+    [MobClick event:@"videoPage_DetailPage_Comment"];
+    
+    //从本地读取存储的用户信息
+    FTUserBean *localUser = [FTUserBean loginUser];
+    if (!localUser) {
+        [self login];
+    }else{
+        [self pushToCommentVC];
+    }
+    
+}
+
+
+
+/**
+ 点赞按钮response action
+
+ @param sender
+ */
+- (IBAction)thumbButtonClicked:(id)sender {
+    [MobClick event:@"videoPage_DetailPage_Zambia"];
+    //从本地读取存储的用户信息
+    FTUserBean *localUser = [FTUserBean loginUser];
+    if (!localUser) {
+        [self login];
+    }else{
+        self.hasVote = !self.hasVote;
+        [self updateVoteImageView];
+        self.voteView.userInteractionEnabled = NO;
+        [self uploadVoteStatusToServer];
+    }
+}
+
+
+/**
+ 收藏按钮response action
+
+ @param sender
+ */
+- (IBAction)favourateButtonClicked:(id)sender {
+    [MobClick event:@"videoPage_DetailPage_Collection"];
+    //从本地读取存储的用户信息
+   FTUserBean *localUser = [FTUserBean loginUser];
+    if (!localUser) {
+        [self login];
+    }else{
+        self.hasStar = !self.hasStar;
+        [self updateStarImageView];
+        self.favourateView.userInteractionEnabled = NO;
+        [self uploadStarStatusToServer];
+    }
+}
+
+- (void)updateVoteImageView{
+    if (self.hasVote) {
+        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"列表页-赞二态"] forState:UIControlStateNormal];
+        
+    }else{
+        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"列表页-赞"] forState:UIControlStateNormal];
+    }
+}
+
+- (void)updateStarImageView{
+    if (self.hasStar) {
+        [self.starButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-收藏pre"] forState:UIControlStateNormal];
+        
+    }else{
+        [self.starButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-收藏"] forState:UIControlStateNormal];
+    }
+}
+
+
+
+
+
+#pragma mark - webView delegate
+
+//webView加载完成
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    
+    NSLog(@"webViewDidFinishLoad ****************");
+    
+    [self disableLoadingAnimation];
+}
+
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    
+    NSString *requestURL = [NSString stringWithFormat:@"%@", request.URL];
+        NSLog(@"requestURL : %@", requestURL);
+    
+   if ([requestURL isEqualToString:@"js-call:onload"]) {
+        
+        [self disableLoadingAnimation];
+    }else if ([requestURL hasPrefix:@"js-call:userId="]) {
+        
+        NSString *userId = [requestURL stringByReplacingOccurrencesOfString:@"js-call:userId=" withString:@""];
+        //        NSLog(@"userId : %@", userId);
+        FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
+        homepageMainVC.olduserid = userId;
+        [self.navigationController pushViewController:homepageMainVC animated:YES];
+        
+    }else  if ([requestURL hasPrefix:@"s-call:goGym?id="]) {
+        NSString *gymId = [requestURL stringByReplacingOccurrencesOfString:@"s-call:goGym?id=" withString:@""];
+        [self.navigationController popToRootViewControllerAnimated:NO];
+        NSDictionary *dic = @{@"type":@"gym",
+                              @"gymId":gymId
+                              };
+        [FTNotificationTools postTabBarIndex:2 dic:dic];
+    }else  if ([requestURL hasPrefix:@"js-call:goCoach?gymId="]) {
+        
+        NSArray *array = [requestURL componentsSeparatedByString:@"&"];
+        NSString *gymId = [array[0] stringByReplacingOccurrencesOfString:@"js-call:goCoach?gymId=" withString:@""];
+        NSString *coachId = [array[1] stringByReplacingOccurrencesOfString:@"coachId=" withString:@""];
+        
+        NSDictionary *dic = @{@"type":@"coach",
+                              @"gymId":gymId,
+                              @"coachId":coachId
+                              };
+        [self.navigationController popToRootViewControllerAnimated:NO];
+        [FTNotificationTools postTabBarIndex:2 dic:dic];
+    }else  if ([requestURL isEqualToString:@"js-call:goShop"]) {
+        
+        [self.navigationController popToRootViewControllerAnimated:NO];
+        [FTNotificationTools postSwitchShopHomeNoti];
+    }
+    
+    return YES;
+}
+
+
+
+#pragma  mark - 设置loading图
 -(void)setLoadingImageView{
     //背景框imageview
     _loadingBgImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"loading背景"]];
@@ -355,294 +689,5 @@
     [_loadingBgImageView removeFromSuperview];
     _loadingBgImageView = nil;
 }
-
-#pragma -mark 点赞按钮被点击
-
-- (IBAction)thumbButtonClicked:(id)sender {
-    [MobClick event:@"videoPage_DetailPage_Zambia"];
-    //从本地读取存储的用户信息
-    FTUserBean *localUser = [FTUserBean loginUser];
-    if (!localUser) {
-        [self login];
-    }else{
-        self.hasVote = !self.hasVote;
-        [self updateVoteImageView];
-        self.voteView.userInteractionEnabled = NO;
-        [self uploadVoteStatusToServer];
-    }
-}
-
-#pragma -mark 收藏按钮被点击
-- (IBAction)favourateButtonClicked:(id)sender {
-    [MobClick event:@"videoPage_DetailPage_Collection"];
-    //从本地读取存储的用户信息
-   FTUserBean *localUser = [FTUserBean loginUser];
-    if (!localUser) {
-        [self login];
-    }else{
-        self.hasStar = !self.hasStar;
-        [self updateStarImageView];
-        self.favourateView.userInteractionEnabled = NO;
-        [self uploadStarStatusToServer];
-    }
-}
-
-- (void)updateVoteImageView{
-    if (self.hasVote) {
-        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"列表页-赞二态"] forState:UIControlStateNormal];
-        
-    }else{
-        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"列表页-赞"] forState:UIControlStateNormal];
-    }
-}
-
-- (void)updateStarImageView{
-    if (self.hasStar) {
-        [self.starButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-收藏pre"] forState:UIControlStateNormal];
-        
-    }else{
-        [self.starButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-收藏"] forState:UIControlStateNormal];
-    }
-}
-
-
-//把点赞信息更新至服务器
-- (void)uploadVoteStatusToServer{
-    
-    FTUserBean *user = [FTUserBean loginUser];
-    //获取网络请求地址url
-    NSString *urlString = [FTNetConfig host:Domain path:_hasVote ? AddVoteURL : DeleteVoteURL];
-    
-    NSString *userId = user.olduserid;
-    NSString *objId = _objId;
-    NSString *loginToken = user.token;
-    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = @"v-news";
-    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, self.hasVote ? AddVoteCheckKey: DeleteVoteCheckKey]];
-    
-    
-    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
-    //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
-    //创建AAFNetWorKing管理者
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask *_Nonnull task, id  _Nonnull responseObject) {
-        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"vote status : %@", responseDic[@"status"]);
-        self.voteView.userInteractionEnabled = YES;
-        if ([responseDic[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
-            int voteCount = [_newsBean.voteCount intValue];
-            NSString *changeVoteCount = @"0";
-            if (self.hasVote) {
-                voteCount++;
-                changeVoteCount = @"1";
-            }else{
-                if (voteCount > 0) {
-                    voteCount--;
-                    changeVoteCount = @"-1";
-                }
-            }
-            _newsBean.voteCount = [NSString stringWithFormat:@"%d", voteCount];
-            NSString *jsMethodString = [NSString stringWithFormat:@"updateLike(%@)", changeVoteCount];
-            NSLog(@"js method : %@", jsMethodString);
-            [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
-        }
-    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
-        //failure
-        self.voteView.userInteractionEnabled = YES;
-        NSLog(@"vote failure ：%@", error);
-    }];
-    
-}
-
-//把收藏信息更新至服务器
-#pragma -mark 更新收藏信息至服务器
-- (void)uploadStarStatusToServer{
-    
-    FTUserBean *user = [FTUserBean loginUser];
-    //获取网络请求地址url
-    NSString *urlString = [FTNetConfig host:Domain path:self.hasStar ? AddStarURL : DeleteStarURL];
-    
-    NSString *userId = user.olduserid;
-    NSString *objId = _objId;
-    NSString *loginToken = user.token;
-    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName =  @"col-news";
-    NSString *query = @"delete-col";
-//    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, self.hasStar ?  @"" : query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
-        NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", loginToken, objId, query, tableName, ts, userId, self.hasStar ? AddStarCheckKey: DeleteStarCheckKey];
-    NSLog(@"check sign : %@", checkSign);
-    checkSign = [MD5 md5:checkSign];
-    
-    
-    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@&query=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName, query];
-    //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
-    //创建AAFNetWorKing管理者
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask *_Nonnull task, id  _Nonnull responseObject)  {
-        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"收藏状态 status : %@, message : %@", responseDic[@"status"], responseDic[@"message"]);
-        self.favourateView.userInteractionEnabled = YES;
-        if ([responseDic[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
-        }
-    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
-        //failure
-        self.voteView.userInteractionEnabled = YES;
-        NSLog(@"收藏 failure ：%@", error);
-    }];
-    
-}
-
-
-#pragma mark - webView delegate
-
-//webView加载完成
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
-    
-    NSLog(@"webViewDidFinishLoad ****************");
-    
-    [self disableLoadingAnimation];
-}
-
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    
-    NSString *requestURL = [NSString stringWithFormat:@"%@", request.URL];
-        NSLog(@"requestURL : %@", requestURL);
-    
-   if ([requestURL isEqualToString:@"js-call:onload"]) {
-        
-        [self disableLoadingAnimation];
-    }else if ([requestURL hasPrefix:@"js-call:userId="]) {
-        
-        NSString *userId = [requestURL stringByReplacingOccurrencesOfString:@"js-call:userId=" withString:@""];
-        //        NSLog(@"userId : %@", userId);
-        FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
-        homepageMainVC.olduserid = userId;
-        [self.navigationController pushViewController:homepageMainVC animated:YES];
-    }
-    return YES;
-}
-
-
-#pragma mark -
-
-- (IBAction)cancelShareButtonClicked:(id)sender {
-    self.bgView.hidden = YES;
-}
-
-- (NSString *)encodeToPercentEscapeString: (NSString *) input
-{
-    NSString *outputStr = (NSString *)
-    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                              (CFStringRef)input,
-                                                              NULL,
-                                                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                                              kCFStringEncodingUTF8));
-    return outputStr;
-}
-
-- (void)loginCallBack:(NSNotification *)noti{
-   
-    NSDictionary *userInfo = noti.userInfo;
-    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
-        
-        [self.view showMessage:@"微信登录成功，可以评论或点赞了"];
-    }else {
-        [self.view showMessage:@"微信登录失败"];
-    }
-}
-
-- (void)pushToCommentVC{
-    
-    FTCommentViewController *commentVC = [ FTCommentViewController new];
-    commentVC.delegate = self;
-        FTNewsBean *newsBean = [FTNewsBean new];
-        newsBean.newsId = _objId;
-        commentVC.newsBean = newsBean;
-
-    
-    [self.navigationController pushViewController:commentVC animated:YES];
-}
-
-- (void)commentSuccess{
-    int commentCount = [_newsBean.commentCount intValue];
-    commentCount++;
-    NSString *jsMethodString = [NSString stringWithFormat:@"updateComment(%d)", 1];
-    NSLog(@"js method : %@", jsMethodString);
-    _newsBean.commentCount = [NSString stringWithFormat:@"%d", commentCount];
-    [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
-    
-    //评论成功后，从服务器获取最新的数据（包括评论数）
-    [self getNewsBeanFromServerById];
-}
-
-
-/**
- *  增加视频的播放数
- */
-- (void)addViewCount{
-    //获取网络请求地址url
-    NSString *addViewCountUrlString = [FTNetConfig host:Domain path:AddViewCountURL];
-
-    NSString *newsId = _objId;
-    NSString *ts = [NSString stringWithFormat:@"%.3f", [[NSDate date] timeIntervalSince1970]];
-    ts = [ts stringByReplacingOccurrencesOfString:@"." withString:@""];
-    
-    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@", newsId, ts, UpVideoViewNCheckKey]];
-    addViewCountUrlString = [NSString stringWithFormat:@"%@?&newsId=%@&ts=%@&checkSign=%@", addViewCountUrlString, newsId, ts, checkSign];
-        NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);
-    //创建AAFNetWorKing管理者
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);
-    [manager GET:addViewCountUrlString parameters:nil progress:nil  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
-        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        //success
-        //        NSLog(@"get vote info sucess. vote status : %@", responseDic[@"message"]);
-        //
-        if ([responseDic[@"status"] isEqualToString:@"success"]) {
-            NSLog(@"%@, %@", responseDic[@"status"], responseDic[@"message"]);
-            int viewCount = [_newsBean.viewCount intValue];
-            viewCount++;
-            _newsBean.viewCount = [NSString stringWithFormat:@"%d", viewCount];
-        }else{
-            NSLog(@"%@, %@", responseDic[@"status"], responseDic[@"message"]);
-        }
-        
-        [self updateVoteImageView];
-    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
-        NSLog(@"向服务器增加视频数失败，error：%@", error);
-    }];
-}
-
-- (void)login{
-    FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
-    loginVC.title = @"登录";
-    FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
-    [self.navigationController presentViewController:nav animated:YES completion:nil];
-}
-
-- (void)showHUDWithMessage:(NSString *)message{
-    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:HUD];
-    HUD.labelText = message;
-    HUD.mode = MBProgressHUDModeCustomView;
-    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]];
-    [HUD showAnimated:YES whileExecutingBlock:^{
-        sleep(2);
-    } completionBlock:^{
-        [HUD removeFromSuperview];
-        //        HUD = nil;
-    }];
-}
-
-
 
 @end

@@ -115,8 +115,12 @@
     //添加监听器，东西任务
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(remindDailyTask:) name:TaskNotification object:nil];
     
-    //添加监听器，东西任务
+    //添加监听器，tabbar 切换 controller
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(switchControllerAction:) name:InAPPSwitchControllerNoti object:nil];
+    
+    //添加监听器，跳转商城首页
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(goShopHomeViewController:) name:SwitchShopHomeNoti object:nil];
+    
 }
 
 #pragma mark - 设置导航栏
@@ -356,12 +360,32 @@
 
     NSNumber *obj = noti.object;
     NSInteger index = obj.integerValue;
-    
+    NSDictionary *dic = noti.userInfo;
     if (index < self.viewControllers.count) {
         self.selectedIndex = index;
-        [FTNotificationTools postSwitchNewsDetailControllerWithDic:nil];
+        
+        if (index == 0) { // news notification
+            
+            [FTNotificationTools postSwitchNewsDetailControllerWithDic:dic];
+        }else if (index == 1) { // fighting notification
+            
+            [FTNotificationTools postSwitchFightingDetailControllerWithDic:dic];
+        }else if (index == 2) { // practicce notification
+            
+            [FTNotificationTools postSwitchPracticeDetailControllerWithDic:dic];
+        }else if (index == 3) { // boxingBar notification
+            
+            [FTNotificationTools postSwitchBoxingBarDetailControllerWithDic:dic];
+        }else if (index == 4) { // shop notification
+            
+            [FTNotificationTools postSwitchShopDetailControllerWithDic:dic];
+        }
     }
-    
+}
+
+- (void) goShopHomeViewController:(NSNotification *)noti {
+
+    [self shopBtnAction:nil];
 }
 
 #pragma mark - button response

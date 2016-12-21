@@ -230,7 +230,7 @@
         [_submitButton setTitle:@"立即约课" forState:UIControlStateNormal];
         [_submitButton setBackgroundImage:[UIImage imageNamed:@"课程详情"] forState:UIControlStateNormal];
         [_submitButton setBackgroundImage:[UIImage imageNamed:@"课程详情pre"] forState:UIControlStateHighlighted];
-        [_submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_submitButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
         [_submitButton.titleLabel setFont:[UIFont systemFontOfSize:16]];
         [_submitButton addTarget:self action:@selector(submitButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -386,6 +386,7 @@
 }
 
 
+
 - (void) addDetailLabelConstraint {
     
     [self.detailLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -522,8 +523,13 @@
 }
 
 - (void) submitButtonAction:(id) sender {
-
-
+    
+    [FTNotificationTools postCloseDrawerNoti];
+    [FTNotificationTools postTabBarIndex:2 dic:nil];
+    [self removeFromSuperview];
+    if (self.dismissBlock) {
+        _dismissBlock ();
+    }
 }
 
 
