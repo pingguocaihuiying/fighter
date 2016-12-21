@@ -76,7 +76,10 @@
 - (void) popUpView {
 
     FTInvitationCodePopUpView * popUpView = [[FTInvitationCodePopUpView alloc] initWithFrame:self.view.bounds];
-    
+    popUpView.dismissBlock = ^{
+        
+        [self dismissViewControllerAnimated:NO completion:nil];
+    };
     [self.view addSubview:popUpView];
 }
 

@@ -16,6 +16,9 @@ typedef NS_ENUM(NSInteger, FTMemberType) {
     FTMemberTypeDate     // 日期会员
 };
 
+
+typedef void(^DismissSuperControllerBlock)();
+
 /**
  邀请码弹出框
  */
@@ -32,4 +35,5 @@ typedef NS_ENUM(NSInteger, FTMemberType) {
 
 @property (nonatomic, strong) NSMutableDictionary *notificationDic;
 
+@property (nonatomic, copy) DismissSuperControllerBlock dismissBlock;
 @end

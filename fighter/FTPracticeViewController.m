@@ -13,6 +13,8 @@
 #import "FTGymView.h"
 #import "FTMembershipGymView.h"
 #import "FTRankViewController.h"
+#import "FTGymDetailWebViewController.h"
+#import "FTOrderCoachViewController.h"
 
 @interface FTPracticeViewController ()
 
@@ -303,8 +305,55 @@
 #pragma mark - 通知
 - (void) switchDetailAction:(NSNotification *) noti {
     
-    
+    NSDictionary *dic = noti.userInfo;
+    if (dic != nil) {
+        NSString *type = dic[@"type"];
+        if ([type isEqualToString:@"gym"]){
+            
+            NSInteger gymId = [dic[@"gymId"] integerValue];
+            FTGymBean *bean = [FTGymBean new];
+            bean.gymId = gymId;
+            
+            FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
+            gymDetailWebViewController.gymBean = bean;
+            [self pushToController:gymDetailWebViewController];
+        }else if([type isEqualToString:@"coach"]){
+            
+            NSInteger gymId = [dic[@"gymId"] integerValue];
+            NSString *coachId = dic[@"coachId"];
+            FTGymBean *bean = [FTGymBean new];
+            bean.gymId = gymId;
+            
+            FTCoachBean *coachBean = [FTCoachBean new];
+            coachBean.userId = coachId;
+            
+            FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
+            gymDetailWebViewController.gymBean = bean;
+            [self pushToController:gymDetailWebViewController];
+            
+            FTOrderCoachViewController *orderCoachViewController = [FTOrderCoachViewController new];
+//            orderCoachViewController.gymDetailBean = _gymDetailBean;
+            orderCoachViewController.coachBean = coachBean;
+//            orderCoachViewController.gymName = self.gymBean.gymName;
+            [self.navigationController pushViewController:orderCoachViewController animated:NO];
+            
+        }else if ([type isEqualToString:@"video"]){
+            
+        }
+    }
 }
+
+
+//- (void) test {
+//    
+//    FTGymBean *bean = [FTGymBean new];
+//    bean.gymId = 33;
+//    bean.corporationid = 187;
+//    FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
+//    gymDetailWebViewController.gymBean = bean;
+//    [self pushToController:gymDetailWebViewController];
+//}
+
 
 
 @end

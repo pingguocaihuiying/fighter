@@ -115,7 +115,6 @@
     
     [self getTimeSection];//获取拳馆时间段配置
     
-    
 }
 
 - (void)setTips{

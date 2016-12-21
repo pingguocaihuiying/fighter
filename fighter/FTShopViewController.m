@@ -253,6 +253,9 @@
  */
 - (void) switchDetailAction:(NSNotification *) noti {
     
+    if (noti.userInfo != nil) {
+    
+    }
     
 }
 

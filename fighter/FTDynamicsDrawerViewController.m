@@ -142,7 +142,7 @@ typedef void (^ViewActionBlock)(UIView *view);
 @dynamic paneViewController ;
 @dynamic paneState;
 
-#pragma mark - NSObject
+#pragma mark - life cycle
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     if (self = [super initWithCoder:aDecoder]) {
@@ -150,21 +150,6 @@ typedef void (^ViewActionBlock)(UIView *view);
     }
     return self;
 }
-
-- (void)dealloc
-{
-    [self.paneView removeObserver:self forKeyPath:@"frame"];
-}
-
-#pragma mark - UIViewController
-//- (instancetype)init
-//{
-//    self = [super init];
-//    if (self) {
-//        [self initialize];
-//    }
-//    return self;
-//}
 
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -174,12 +159,56 @@ typedef void (^ViewActionBlock)(UIView *view);
     }
     return self;
 }
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self.view addSubview:self.drawerView];
+    [self.view addSubview:self.paneView];
+    
+    self.drawerView.frame = (CGRect){CGPointZero, self.view.frame.size};
+    self.paneView.frame = (CGRect){CGPointZero, self.view.frame.size};
+    
+    self.view.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+    [self.paneView addObserver:self forKeyPath:@"frame" options:0 context:NULL];
+    
+    self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    self.dynamicAnimator.delegate = self;
+    self.paneBoundaryCollisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[self.paneView]];
+    self.paneGravityBehavior = [[UIGravityBehavior alloc] initWithItems:@[self.paneView]];
+    self.panePushBehavior = [[UIPushBehavior alloc] initWithItems:@[self.paneView] mode:UIPushBehaviorModeInstantaneous];
+    self.paneElasticityBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self.paneView]];
+    
+    __weak typeof(self) weakSelf = self;
+    self.paneGravityBehavior.action = ^{
+        [weakSelf paneViewDidUpdateFrame];
+    };
+    
+    //注册通知
+    [self setNotification];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc
+{
+    //注销通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [self.paneView removeObserver:self forKeyPath:@"frame"];
+}
+
+#pragma mark - init property
 - (void)initialize
 {
     
     // 响应用户中心的主界面区域宽度
     self.openSlideWidth = SCREEN_WIDTH *0.3;
-//    self.openSlideWidth = 0;
+    //    self.openSlideWidth = 0;
     
     _paneState = FTDynamicsDrawerPaneStateClosed;
     _currentLeftMenuDirection = FTDynamicsDrawerDirectionNone;
@@ -237,37 +266,9 @@ typedef void (^ViewActionBlock)(UIView *view);
 #endif
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    [self.view addSubview:self.drawerView];
-    [self.view addSubview:self.paneView];
-    
-    self.drawerView.frame = (CGRect){CGPointZero, self.view.frame.size};
-    self.paneView.frame = (CGRect){CGPointZero, self.view.frame.size};
-    
-    self.view.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-    [self.paneView addObserver:self forKeyPath:@"frame" options:0 context:NULL];
-    
-    self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
-    self.dynamicAnimator.delegate = self;
-    self.paneBoundaryCollisionBehavior = [[UICollisionBehavior alloc] initWithItems:@[self.paneView]];
-    self.paneGravityBehavior = [[UIGravityBehavior alloc] initWithItems:@[self.paneView]];
-    self.panePushBehavior = [[UIPushBehavior alloc] initWithItems:@[self.paneView] mode:UIPushBehaviorModeInstantaneous];
-    self.paneElasticityBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self.paneView]];
-    
-    __weak typeof(self) weakSelf = self;
-    self.paneGravityBehavior.action = ^{
-        [weakSelf paneViewDidUpdateFrame];
-    };
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - 自定义setter 和 getter 方法
+
 - (FTDynamicsDrawerPaneState)paneState
 {
     return _paneState;
@@ -811,6 +812,7 @@ allowUserInterruption:(BOOL)allowUserInterruption
         NSLog(@"paneTapped self.currentLeftMenuDirection = %ld ",(long)self.currentLeftMenuDirection);
         NSAssert(LeftMenuDirectionIsCardinal(self.currentLeftMenuDirection), @"Invalid state, must be opened to close");
         NSLog(@"bool = %d ",[self paneTapToCloseEnabledForDirection:self.currentLeftMenuDirection]?YES:NO);
+        
         if ([self paneTapToCloseEnabledForDirection:self.currentLeftMenuDirection]) {
             if ([[[UIDevice currentDevice] systemVersion] floatValue] >=7.0) {
                 [self addDynamicsBehaviorsToCreatePaneState:FTDynamicsDrawerPaneStateClosed];
@@ -1404,5 +1406,18 @@ allowUserInterruption:(BOOL)allowUserInterruption
             [self paneViewDidUpdateFrame];
         }
     }
+}
+
+#pragma mark - 通知
+
+- (void) setNotification {
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeDrawerAction:) name:CloseDrawerNoti object:nil];
+    
+}
+
+- (void) closeDrawerAction:(NSNotification *) noti {
+
+    [self addDynamicsBehaviorsToCreatePaneState:FTDynamicsDrawerPaneStateClosed];
 }
 @end

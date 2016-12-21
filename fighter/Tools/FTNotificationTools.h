@@ -31,7 +31,9 @@
 #define SwitchPracticeDetailNoti @"SwitchPracticeDetailNoti"
 #define SwitchBoxingBarDetailNoti @"SwitchBoxingBarDetailNoti"
 #define SwitchShopDetailNoti @"SwitchShopDetailNoti"
+#define SwitchShopHomeNoti @"SwitchShopHomeNoti"
 
+#define CloseDrawerNoti @"CloseDrawerNoti"
 /**
  登录通知类型枚举
 
@@ -80,4 +82,18 @@ typedef NS_ENUM(NSInteger, FTLoginType) {
 + (void) postTabBarIndex:(NSInteger) index dic:(NSDictionary *) dic;
 
 + (void) postSwitchNewsDetailControllerWithDic:(NSDictionary *) dic;
+
++ (void) postSwitchFightingDetailControllerWithDic:(NSDictionary *) dic;
+
++ (void) postSwitchPracticeDetailControllerWithDic:(NSDictionary *) dic;
+
++ (void) postSwitchBoxingBarDetailControllerWithDic:(NSDictionary *) dic;
+
++ (void) postSwitchShopDetailControllerWithDic:(NSDictionary *) dic;
+
++ (void) postSwitchShopHomeNoti;
+
+#pragma mark - 侧滑栏通知
+
++ (void) postCloseDrawerNoti;
 @end

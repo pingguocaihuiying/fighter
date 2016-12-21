@@ -105,6 +105,12 @@
 
 #pragma mark - 应用内跳转通知
 
+/**
+ 跳转root navigationBarController（即tabBar controller），在由root分发跳转通知
+
+ @param index tabBarcontroller will selected index
+ @param dic
+ */
 + (void) postTabBarIndex:(NSInteger) index dic:(NSDictionary *) dic {
 
     NSNumber *obj = [NSNumber numberWithInteger:index];
@@ -112,29 +118,81 @@
     
 }
 
+
+/**
+ 跳转拳讯通知
+
+ @param dic
+ */
 + (void) postSwitchNewsDetailControllerWithDic:(NSDictionary *) dic {
     
     [[NSNotificationCenter defaultCenter] postNotificationName:SwitchNewsDetailNoti object:nil userInfo:dic];
 }
 
+
+/**
+ 跳转格斗场通知
+
+ @param dic
+ */
 + (void) postSwitchFightingDetailControllerWithDic:(NSDictionary *) dic {
     
     [[NSNotificationCenter defaultCenter] postNotificationName:SwitchFightingDetailNoti object:nil userInfo:dic];
 }
 
+
+/**
+ 跳转学拳通知
+
+ @param dic
+ */
 + (void) postSwitchPracticeDetailControllerWithDic:(NSDictionary *) dic {
     
     [[NSNotificationCenter defaultCenter] postNotificationName:SwitchPracticeDetailNoti object:nil userInfo:dic];
 }
 
-+ (void) postSwitchBoxingDetailControllerWithDic:(NSDictionary *) dic {
+
+/**
+ 跳转拳吧通知
+
+ @param dic
+ */
++ (void) postSwitchBoxingBarDetailControllerWithDic:(NSDictionary *) dic {
     
     [[NSNotificationCenter defaultCenter] postNotificationName:SwitchBoxingBarDetailNoti object:nil userInfo:dic];
 }
 
+
+/**
+ 跳转商城通知
+
+ @param dic
+ */
 + (void) postSwitchShopDetailControllerWithDic:(NSDictionary *) dic {
     
     [[NSNotificationCenter defaultCenter] postNotificationName:SwitchShopDetailNoti object:nil userInfo:dic];
 }
+
+
+/**
+ 跳转商城首页
+ */
++ (void) postSwitchShopHomeNoti {
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:SwitchShopHomeNoti object:nil];
+}
+
+
+#pragma mark - 侧滑栏通知
+
+
+/**
+ 关闭侧滑栏通知
+ */
++ (void) postCloseDrawerNoti {
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:CloseDrawerNoti object:nil];
+}
+
 
 @end
