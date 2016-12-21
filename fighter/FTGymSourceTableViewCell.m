@@ -6,6 +6,8 @@
 //  Copyright © 2016 Mapbar. All rights reserved.
 //
 
+#define CanOrderText @"预约"
+
 #import "FTGymSourceTableViewCell.h"
 
 @implementation FTGymSourceTableViewCell
@@ -90,7 +92,7 @@
     } else {
         if (_isEmpty) {//如果是空闲的
             _orderStatusLabel.textColor = [UIColor colorWithHex:0x24b33c];
-            _orderStatusLabel.text = @"可预约";
+            _orderStatusLabel.text = CanOrderText;
             _selectionImage.hidden = YES;
         } else {
             
@@ -133,7 +135,7 @@
     } else {
         if (_isEmpty) {//如果是空闲的
             _orderStatusLabel.textColor = [UIColor colorWithHex:0x24b33c];
-            _orderStatusLabel.text = @"可预约";
+            _orderStatusLabel.text = CanOrderText;
             _selectionImage.hidden = YES;
         } else {
             
