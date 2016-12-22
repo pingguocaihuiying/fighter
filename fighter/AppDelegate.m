@@ -32,12 +32,39 @@
 }
 
 @property (nonatomic, strong) MainViewController *mainVC;
+@property (strong, nonatomic) UIView *launchView;
 
 @end
 
 @implementation AppDelegate
+@synthesize launchView;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    
+    
+//    UIViewController *viewController = [[UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil] instantiateViewControllerWithIdentifier:@"LaunchScreen"];
+//    launchView = viewController.view;
+//    
+//    UIImageView *imageView  = [[UIImageView alloc]initWithFrame:CGRectMake(100, 100, 100, 100)];
+//    [imageView setImage:[UIImage imageNamed:@"比赛状态@ios"]];
+//    [launchView addSubview:imageView];
+//    
+//    [self.window addSubview:launchView];
+//    [self.window makeKeyAndVisible];
+    
+//    [self.window bringSubviewToFront:launchView];
+    
+//    [NSThread sleepForTimeInterval:1000];
+    
+//    [UIView animateWithDuration:100.f delay:0.5f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+//        launchView.alpha = 0.0f;
+//        launchView.layer.transform = CATransform3DScale(CATransform3DIdentity, 1.5f, 1.5f, 1.0f);
+//    } completion:^(BOOL finished) {
+//        [launchView removeFromSuperview];
+//    }];
+    
+    
     //更改webview的useragent
     [self setWebviewUserAgent];
     
@@ -63,13 +90,17 @@
     //设置直播环境
     [PLStreamingEnv initEnv];
     
-   
+//    if (0) {
+//        //启动个人中心的功能
+//        _mainVC = [[MainViewController alloc]init];
+//        self.window.rootViewController=_mainVC;
+//    
+//    }
+    
     //启动个人中心的功能
     _mainVC = [[MainViewController alloc]init];
     self.window.rootViewController=_mainVC;
-    
-    
-    
+
     NSDictionary *dic = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     //推送消息
     if (dic != nil) {

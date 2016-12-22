@@ -16,6 +16,13 @@
     // Initialization code
 //    self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    
+    // 设置ratingbar
+    self.ratingBar.fullSelectedImage = [UIImage imageNamed:@"火苗-红"];
+    self.ratingBar.unSelectedImage = [UIImage imageNamed:@"火苗-灰"];
+    self.ratingBar.isIndicator = YES;//指示器，就不能滑动了，只显示评分结果
+    [self.ratingBar displayRating:5.0f];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
