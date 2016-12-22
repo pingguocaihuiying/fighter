@@ -243,7 +243,10 @@
 
 //获取教练的星级
 + (void)getCoachRatingByID:(NSString *)coachId withBlock:(void (^) (NSDictionary *dic)) block;
-
+//获取教练的照片
++ (void)getCoachPhotosByID:(NSString *)coachId andGymId:(NSString *) gymId withBlock:(void (^) (NSDictionary *dic)) block;
+//获取学员对教练的评论
++ (void)getCoachCommentsByUserPhotosByID:(NSString *)coachId andPageNum:(NSString *) pageNum withBlock:(void (^) (NSDictionary *dic)) block;
 /**
  查看教练授课记录
  

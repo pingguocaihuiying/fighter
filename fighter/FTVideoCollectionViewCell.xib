@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -12,6 +16,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="164" height="143"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="paz-m6-cBk" userLabel="placeholdBgView">
                         <rect key="frame" x="0.0" y="0.0" width="164" height="92"/>
@@ -25,14 +30,14 @@
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="asI-zq-Syd">
                                 <rect key="frame" x="0.0" y="0.0" width="164" height="92"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7qN-4h-i8Q" userLabel="labelViewContainer">
                                 <rect key="frame" x="0.0" y="76" width="164" height="16"/>
                                 <subviews>
                                     <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b7t-J0-HyZ">
                                         <rect key="frame" x="0.0" y="0.0" width="164" height="16"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1:14:40" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mf9-6R-Vsz" userLabel="视频时长">
                                         <rect key="frame" x="0.0" y="2" width="54" height="12"/>
@@ -41,7 +46,7 @@
                                             <constraint firstAttribute="width" constant="54" id="oHo-Ua-pH8"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="格斗标签-综合格斗" translatesAutoresizingMaskIntoConstraints="NO" id="jL4-Ah-9o3">
@@ -52,7 +57,7 @@
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="b7t-J0-HyZ" secondAttribute="bottom" id="2w0-gC-3GP"/>
                                     <constraint firstItem="b7t-J0-HyZ" firstAttribute="top" secondItem="7qN-4h-i8Q" secondAttribute="top" id="52G-AB-0KP"/>
@@ -66,7 +71,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="92" id="6aB-1h-LBq"/>
                             <constraint firstAttribute="bottom" secondItem="asI-zq-Syd" secondAttribute="bottom" id="AR7-wK-ENb"/>
@@ -83,14 +88,21 @@
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="丹-亨德森合同即将打满，期待继续留在UFC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbQ-ip-ekX">
                         <rect key="frame" x="0.0" y="100" width="156" height="13"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="13" id="v8J-4U-5Sv"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="列表用视频播放" translatesAutoresizingMaskIntoConstraints="NO" id="Mq3-p1-7PN" userLabel="videoMarkImageView">
+                        <rect key="frame" x="60" y="28" width="45" height="36"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="3GM-PJ-SOn"/>
+                            <constraint firstAttribute="height" constant="36" id="uQ0-hD-gwV"/>
+                        </constraints>
+                    </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MKy-4H-xKg" userLabel="bottomContainerView">
                         <rect key="frame" x="0.0" y="118" width="164" height="22"/>
                         <subviews>
@@ -109,7 +121,7 @@
                                     <constraint firstAttribute="width" constant="30" id="dj3-Db-U0I"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" red="0.50980392159999999" green="0.50980392159999999" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.50980392159999999" green="0.50980392159999999" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rya-FK-vtZ" userLabel="赞containerView">
@@ -130,11 +142,11 @@
                                             <constraint firstAttribute="width" constant="25" id="fMP-1o-kDy"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <color key="textColor" red="0.50980392159999999" green="0.50980392159999999" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.50980392159999999" green="0.50980392159999999" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="qdU-m7-EMg" firstAttribute="leading" secondItem="Rya-FK-vtZ" secondAttribute="leading" id="8Ja-Zk-eYD"/>
                                     <constraint firstAttribute="width" constant="50" id="MyK-Z6-BJD"/>
@@ -168,11 +180,11 @@
                                     <constraint firstAttribute="height" constant="21" id="ht1-ow-TQd"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" red="0.50980392159999999" green="0.50980392159999999" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.50980392159999999" green="0.50980392159999999" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="8W7-bq-zGv" firstAttribute="leading" secondItem="ea6-ol-QhO" secondAttribute="trailing" id="0Ug-i0-Bfh"/>
                             <constraint firstAttribute="height" constant="22" id="7of-xV-hFl"/>
@@ -188,28 +200,35 @@
                         </constraints>
                     </view>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
+                <constraint firstItem="Mq3-p1-7PN" firstAttribute="centerY" secondItem="paz-m6-cBk" secondAttribute="centerY" id="77r-97-NZJ"/>
                 <constraint firstItem="bbQ-ip-ekX" firstAttribute="top" secondItem="paz-m6-cBk" secondAttribute="bottom" constant="8" id="7Hc-U6-68a"/>
                 <constraint firstAttribute="trailing" secondItem="MKy-4H-xKg" secondAttribute="trailing" id="B9h-iH-hPG"/>
                 <constraint firstAttribute="trailing" secondItem="bbQ-ip-ekX" secondAttribute="trailing" constant="8" id="LPc-iy-b9e"/>
                 <constraint firstItem="paz-m6-cBk" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="TC3-Rq-wCh"/>
                 <constraint firstItem="bbQ-ip-ekX" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="V1c-Se-pX1"/>
+                <constraint firstItem="Mq3-p1-7PN" firstAttribute="centerX" secondItem="paz-m6-cBk" secondAttribute="centerX" id="hVN-ut-ddz"/>
                 <constraint firstItem="paz-m6-cBk" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="odp-L6-trN"/>
                 <constraint firstItem="MKy-4H-xKg" firstAttribute="top" secondItem="bbQ-ip-ekX" secondAttribute="bottom" constant="5" id="sl7-yB-IYm"/>
                 <constraint firstItem="MKy-4H-xKg" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="yCo-kM-6Lw"/>
             </constraints>
             <connections>
+                <outlet property="bottomCoontainerView" destination="MKy-4H-xKg" id="d2k-8j-yIP"/>
                 <outlet property="cellHeightConstraint" destination="6aB-1h-LBq" id="M8m-52-vwy"/>
                 <outlet property="cellWidthConstraint" destination="H97-fD-0bz" id="fEB-FD-WXr"/>
                 <outlet property="comentCountLabel" destination="8W7-bq-zGv" id="Hl4-dO-fbl"/>
+                <outlet property="commentButton" destination="ea6-ol-QhO" id="vpb-QU-mnn"/>
+                <outlet property="labelViewContainer" destination="7qN-4h-i8Q" id="XnF-IN-mHr"/>
                 <outlet property="myImageView" destination="asI-zq-Syd" id="LsT-5r-FLB"/>
                 <outlet property="myTitleLabel" destination="bbQ-ip-ekX" id="T2o-eg-tA6"/>
                 <outlet property="titleLabelTopConstraint" destination="7Hc-U6-68a" id="n2m-iL-OFj"/>
                 <outlet property="videoLengthLabel" destination="Mf9-6R-Vsz" id="rhI-j4-Y0Y"/>
+                <outlet property="videoMarkImageView" destination="Mq3-p1-7PN" id="QA7-o4-bPy"/>
                 <outlet property="videoTypeImageView" destination="jL4-Ah-9o3" id="quP-cI-hBo"/>
+                <outlet property="viewButton" destination="fID-YL-9aK" id="E4N-s3-0uj"/>
                 <outlet property="viewCountlabel" destination="gf7-ke-2ek" id="txC-MZ-DzS"/>
+                <outlet property="voteButton" destination="eth-N1-bHQ" id="DtO-pd-HpT"/>
                 <outlet property="voteCount" destination="qdU-m7-EMg" id="aTO-II-acX"/>
             </connections>
             <point key="canvasLocation" x="648" y="377.5"/>
@@ -217,9 +236,15 @@
     </objects>
     <resources>
         <image name="列表用-观看人数" width="22" height="22"/>
+        <image name="列表用视频播放" width="40" height="40"/>
         <image name="格斗标签-综合格斗" width="68" height="14"/>
         <image name="空图标小" width="70" height="16"/>
         <image name="评-改" width="22" height="22"/>
         <image name="赞-改" width="22" height="22"/>
     </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
+    </simulatedMetricsContainer>
 </document>
