@@ -189,6 +189,8 @@ extern NSString * const GetCoachListURL;
 extern NSString * const GetCoachByIdURL;
 extern NSString * const ValidCheckCode ;
 extern NSString *const GetCoachRatingURLString;//获取教练的星级
+extern NSString * const GetCoachPhotosURLString;//获取教练的照片
+extern NSString * const GetCoachCommentsByUserURLString;//获取教练收到的用户评论
 
 // gym 拳馆
 extern NSString * const GetGymListURL;

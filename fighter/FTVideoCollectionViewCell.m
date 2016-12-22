@@ -114,7 +114,32 @@
     
     //根据newsType去设置类型图片
     self.videoTypeImageView.image = [UIImage imageNamed:[FTTools getChLabelNameWithEnLabelName:bean.labels]];
+}
 
+- (void)setWithCoachPhotoBean:(FTCoachPhotoBean *)bean{
+    [_myImageView sd_setImageWithURL:[NSURL URLWithString:bean.url]];
+    
+    _myTitleLabel.text = bean.title;
+    
+    
+    if (bean.type == 0) {
+        _videoMarkImageView.hidden = YES;
+    } else if (bean.type == 1) {
+        _videoMarkImageView.hidden = NO;
+    }
+    
+    _viewCountlabel.hidden = YES;
+    _voteCount.hidden = YES;
+    _comentCountLabel.hidden = YES;
+    _videoLengthLabel.hidden = YES;
+    _videoTypeImageView.hidden = YES;
+    
+    _viewButton.hidden = YES;
+    _voteButton.hidden = YES;
+    _commentButton.hidden = YES;
+    _labelViewContainer.hidden = YES;
+    _bottomCoontainerView.hidden = YES;
+    
 }
 
 @end

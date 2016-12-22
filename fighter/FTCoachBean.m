@@ -33,8 +33,10 @@
     
     
     NSString *timeStampString = [NSString stringWithFormat:@"%@", dic[@"birthday"]];
+    if (timeStampString && timeStampString.length > 0) {
+        _age = [FTTools getAgeWithTimeStamp:timeStampString];    
+    }
     
-    _age = [FTTools getAgeWithTimeStamp:timeStampString];
     
     _headUrl = [NSString stringWithFormat:@"%@", dic[@"headUrl"]];
     
