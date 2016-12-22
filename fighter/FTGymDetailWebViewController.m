@@ -105,7 +105,7 @@
     [self setTips];//控制tips是否显示
     [self initBaseData];
     [self registNoti];
-    [self getVIPInfo];
+    [self getVIPInfo];//获取当前用户的会员信息
     [self loadGymDataFromServer];
     [self setNavigationSytle];
     [self setSubViews];
@@ -153,9 +153,6 @@
             NSString *type = dic[@"data"][@"type"];
             _gymVIPType = [type integerValue];//
             if (_gymVIPType == FTGymVIPTypeYep) {
-//                [_becomeVIPButton setTitle:@"已经是会员" forState:UIControlStateNormal];
-//                _becomeVIPButton.enabled = NO;
-                
                 //右上角的“成为会员”
                 _joinVIPButton.enabled = NO;
                 _joinVIPButton.title = @"";
@@ -165,8 +162,6 @@
                 
                 [_becomeVIPButton setTitleColor:[UIColor colorWithHex:0xb4b4b4] forState:UIControlStateNormal];
             }else {
-//                _becomeVIPButton.enabled = YES;
-                
                 //右上角的“成为会员”
                 _joinVIPButton.enabled = YES;
                 _joinVIPButton.title = @"成为会员";
@@ -176,7 +171,6 @@
             }
         }else{//如果从接口读取失败，则默认按非会员处理
             _gymVIPType = FTGymVIPTypeNope;
-//            _becomeVIPButton.enabled = YES;
             
             //右上角的“成为会员”
             _joinVIPButton.enabled = YES;
@@ -204,33 +198,17 @@
 
 - (void)loadGymDataFromServer{
     //获取拳馆的一些基本信息：视频、照片、地址等
-    
     NSString *gymId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
-    
     [NetWorking getGymForGymDetailWithGymId:gymId andOption:^(NSDictionary *dic) {
-//        NSLog(@"dic : %@", dic);
         _gymDetailBean = [FTGymDetailBean new];
-//        [_gymDetailBean setValuesWithDic:dic];
         [_gymDetailBean setValuesForKeysWithDictionary:dic];
         [self updateGymBaseInfo];
     }];
     
     //获取拳馆的教练列表
-//    [NetWorking getCoachesWithCorporationid:_gymBean.corporationid andOption:^(NSArray *array) {
-//        _coachArray = [NSMutableArray arrayWithArray:array];
-//        NSDictionary *dic = [_coachArray firstObject];
-//        NSLog(@"%@", dic[@"headUrl"]);
-//        for(NSString *key in [dic allKeys]){
-//            NSLog(@"key %@ : %@", key, dic[key]);
-//        }
-////        [_collectionView reloadData];
-//        [self updateCollectionView];
-//    }];
-    
-    [NetWorking getCoachesWithCorporationid:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSArray *array) {
+    [NetWorking getCoachesWithCorporationid:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid] andOption:^(NSArray *array) {
         if (array && array.count > 0) {
             _coachArray = [NSMutableArray arrayWithArray:array];
-//            [self setCollectionView];//设置教练模块的view
             [self updateCollectionView];
         }
     }];
@@ -593,7 +571,6 @@
 - (IBAction)shareButtonAction:(id)sender {
     FTCoachSelfCourseViewController *coachSelfCourseViewController = [FTCoachSelfCourseViewController new];
     [self.navigationController pushViewController:coachSelfCourseViewController animated:YES];
-//    return;
     
     [MobClick event:@"videoPage_DetailPage_shareUp"];
     

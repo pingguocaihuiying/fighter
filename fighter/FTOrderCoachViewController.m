@@ -93,16 +93,6 @@
  */
 - (void)initBaseData{
     _gymVIPType = FTGymVIPTypeNope;//默认非会员
-    
-    /*
-     测试数据
-     */
-//    _coachImagesArray = [NSMutableArray new];
-//    for (int i = 0; i < 10; i++) {
-//        NSString *imageURL = @"https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1482147761&di=add7610d65cd18f82e43ea2918e11496&src=http://www.duotegame.com/picfile/NewsA/2013/02/27/image034_wm.jpg";
-//        [_coachImagesArray addObject:imageURL];
-//    }
-    
 }
 
 - (void)setSubViews{
@@ -575,34 +565,6 @@
             
             [self setImagesView];//设置教练的相册
         }else{
-            //用于测试，
-//            _coachImagesArray = [NSMutableArray new];
-//            
-//                FTCoachPhotoBean *coachPhotoBean = [FTCoachPhotoBean new];
-//                coachPhotoBean.title = @"比赛";
-//                coachPhotoBean.url = @"https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1482147761&di=add7610d65cd18f82e43ea2918e11496&src=http://www.duotegame.com/picfile/NewsA/2013/02/27/image034_wm.jpg";
-//                coachPhotoBean.type = 0;
-//                [_coachImagesArray addObject:coachPhotoBean];
-//            
-//            FTCoachPhotoBean *coachPhotoBean2 = [FTCoachPhotoBean new];
-//            coachPhotoBean2.title = @"训练";
-//            coachPhotoBean2.url = @"https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1482147761&di=add7610d65cd18f82e43ea2918e11496&src=http://www.duotegame.com/picfile/NewsA/2013/02/27/image034_wm.jpg";
-//            coachPhotoBean2.type = 0;
-//            [_coachImagesArray addObject:coachPhotoBean2];
-//            
-//            FTCoachPhotoBean *coachPhotoBean3 = [FTCoachPhotoBean new];
-//            coachPhotoBean3.title = @"比赛视频";
-//            coachPhotoBean3.url = @"http://www.gogogofight.com/page/v2/news_page.html?objId=715";
-//            coachPhotoBean3.type = 1;
-//            [_coachImagesArray addObject:coachPhotoBean3];
-//            
-//            FTCoachPhotoBean *coachPhotoBean4 = [FTCoachPhotoBean new];
-//            coachPhotoBean4.title = @"比赛视频";
-//            coachPhotoBean4.url = @"http://www.gogogofight.com/page/v2/news_page.html?objId=716";
-//            coachPhotoBean4.type = 1;
-//            [_coachImagesArray addObject:coachPhotoBean4];
-//            
-//            [self setImagesView];//设置教练的相册
         }
     }];
 }
