@@ -43,7 +43,7 @@
 - (void) setNavigationSytle {
     [UILabel new].textColor = [UIColor colorWithHex:Custom_Red_Value];
     //设置默认标题
-    self.navigationItem.title = _gymDetailBean.gym_name;
+    self.navigationItem.title = _coachBean.gym_name;
     
     // 导航栏字体和背景
     self.navigationController.navigationBar.tintColor = [UIColor colorWithHex:0x828287];
@@ -66,7 +66,7 @@
 }
 - (void)getVIPInfo{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid] andOption:^(NSDictionary *dic) {
+    [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%@", _coachBean.corporationid] andOption:^(NSDictionary *dic) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         //无数据：非会员
         //"type"为会员类型： 0准会员 1会员 2往期会员
@@ -117,7 +117,7 @@
     //成为会员成功提示start
     FTJoinGymSuccessAlertView *joinGynSuccessAlertView = [[[NSBundle mainBundle]loadNibNamed:@"FTJoinGymSuccessAlertView" owner:nil options:nil] firstObject];
     joinGynSuccessAlertView.delegate = self;
-    joinGynSuccessAlertView.gymNameLabel.text = _gymDetailBean.gym_name;
+    joinGynSuccessAlertView.gymNameLabel.text = _coachBean.gym_name;
     joinGynSuccessAlertView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     [self.view addSubview:joinGynSuccessAlertView];
     //成为会员成功提示end
@@ -324,7 +324,7 @@
         
         if ([status isEqualToString:@"success"]) {
             NSLog(@"验证码正确");
-                [NetWorking requestToBeVIPWithCorporationid:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid] andPhoneNum:phoneNum andCheckCode:_checkCodeTextField.text andOption:^(NSDictionary *dic) {
+                [NetWorking requestToBeVIPWithCorporationid:[NSString stringWithFormat:@"%@", _coachBean.corporationid] andPhoneNum:phoneNum andCheckCode:_checkCodeTextField.text andOption:^(NSDictionary *dic) {
                     NSString *status = dic[@"status"];
                     NSString *message = dic[@"message"];
                     NSLog(@"status : %@\n message : %@", dic[@"status"], dic[@"message"]);
@@ -370,12 +370,7 @@
     }];
 }
 
-- (void)enterGymButtonClicked{
-//    NSLog(@"进入拳馆预约课程");
-//    FTGymSourceViewController2 *gymSourceViewController = [FTGymSourceViewController2 new];
-//    gymSourceViewController.gymDetailBean = _gymDetailBean;
-//    [self.navigationController pushViewController:gymSourceViewController animated:YES];
-    
+- (void)enterGymButtonClicked{  
     /*
      改版之后，返回拳馆详情页 10-21
      */
@@ -398,7 +393,7 @@
 - (IBAction)refreshButtonClicked:(id)sender {
     _stopAnimation = NO;
     [self startAnimation];
-    [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid] andOption:^(NSDictionary *dic) {
+    [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%@", _coachBean.corporationid] andOption:^(NSDictionary *dic) {
         
         //从服务器获取数据后，停止动画
         _stopAnimation = YES;

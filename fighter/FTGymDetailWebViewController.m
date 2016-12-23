@@ -39,7 +39,7 @@
     UIImageView *_loadingBgImageView;
     
 }
-
+@property (nonatomic, strong) FTGymDetailBean *gymDetailBean;//拳馆详情bean
 @property (strong, nonatomic) IBOutlet UIScrollView *mainScrollView;
 
 @property (strong, nonatomic) IBOutlet UILabel *telLabel;
@@ -103,18 +103,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setTips];//控制tips是否显示
-    [self initBaseData];
-    [self registNoti];
-    [self getVIPInfo];//获取当前用户的会员信息
-    [self loadGymDataFromServer];
-    [self setNavigationSytle];
-    [self setSubViews];
-    
-    // 获取收藏信息
-    [self getAttentionInfo];
-    
-    [self getTimeSection];//获取拳馆时间段配置
-    
+    [self initBaseData];//初始化默认数据
+    [self registNoti];//注册通知
+    [self getGymDetailInfoFromServer];//获取拳馆详情
 }
 
 - (void)setTips{
@@ -132,15 +123,13 @@
  注册登录的通知
  */
 - (void)registNoti{
-    
     //注册通知，接收登录成功的消息
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
-    
 }
 
 - (void)getVIPInfo{
     
-    NSString *corporationId = [NSString stringWithFormat:@"%ld",_gymBean.corporationid];
+    NSString *corporationId = [NSString stringWithFormat:@"%ld",_gymDetailBean.corporationid];
     
     [NetWorking getVIPInfoWithGymId:corporationId andOption:^(NSDictionary *dic) {
         
@@ -195,16 +184,31 @@
 }
 
 
-
-- (void)loadGymDataFromServer{
-    //获取拳馆的一些基本信息：视频、照片、地址等
+/**
+ //获取拳馆的详细信息
+ */
+- (void)getGymDetailInfoFromServer{
     NSString *gymId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
     [NetWorking getGymForGymDetailWithGymId:gymId andOption:^(NSDictionary *dic) {
         _gymDetailBean = [FTGymDetailBean new];
         [_gymDetailBean setValuesForKeysWithDictionary:dic];
-        [self updateGymBaseInfo];
+        [self doOtherThingWithGymDetailBean];
     }];
+}
+
+- (void)doOtherThingWithGymDetailBean{
+    [self updateGymBaseInfo];
+    [self getVIPInfo];//获取当前用户的会员信息
+    [self loadGymDataFromServer];
+    [self setNavigationSytle];
+    [self setSubViews];
     
+    // 获取收藏信息
+    [self getAttentionInfo];
+    [self getTimeSection];//获取拳馆时间段配置
+}
+
+- (void)loadGymDataFromServer{
     //获取拳馆的教练列表
     [NetWorking getCoachesWithCorporationid:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid] andOption:^(NSArray *array) {
         if (array && array.count > 0) {
@@ -269,7 +273,7 @@
 - (void) setNavigationSytle {
     
     //设置默认标题
-    self.navigationItem.title = self.gymBean.gymName;
+    self.navigationItem.title = self.gymDetailBean.gym_name;
     
     // 导航栏字体和背景
     self.navigationController.navigationBar.tintColor = [UIColor colorWithHex:0x828287];
@@ -310,7 +314,7 @@
     [self setGymSourceView];//设置课程表
     
     //电话
-    _telLabel.text = [NSString stringWithFormat:@"%@", _gymBean.gymTel];
+    _telLabel.text = [NSString stringWithFormat:@"%@", _gymDetailBean.gym_tel];
     _telLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dialButtonAction:)];
     [_telLabel addGestureRecognizer:tap];
@@ -361,9 +365,8 @@
     [coachBean setWithDic:coachDic];
     
     FTOrderCoachViewController *orderCoachViewController = [FTOrderCoachViewController new];
-    orderCoachViewController.gymDetailBean = _gymDetailBean;
+//    orderCoachViewController.gymDetailBean = _gymDetailBean;
     orderCoachViewController.coachBean = coachBean;
-    orderCoachViewController.gymName = self.gymBean.gymName;
     [self.navigationController pushViewController:orderCoachViewController animated:YES];
 }
 
@@ -522,8 +525,8 @@
     @try {
         
         FTGymCommentsViewController *gymCommentsVC = [[FTGymCommentsViewController alloc]init];
-        gymCommentsVC.title = self.gymBean.gymName;//@"评论列表";
-        gymCommentsVC.objId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
+        gymCommentsVC.title = self.gymDetailBean.gym_tel;//@"评论列表";
+        gymCommentsVC.objId = [NSString stringWithFormat:@"%d",_gymDetailBean.id];
         
         __weak typeof(self) weakself = self;
         gymCommentsVC.freshBlock = ^(){
@@ -574,20 +577,20 @@
     
     [MobClick event:@"videoPage_DetailPage_shareUp"];
     
-    NSString *str = [NSString stringWithFormat:@"gymId=%@",_gymBean.gymId];
+    NSString *str = [NSString stringWithFormat:@"gymId=%d",_gymDetailBean.id];
     _webUrlString = [@"http://www.gogogofight.com/m/hall.html?" stringByAppendingString:str];
     
-    NSString *imgStr = _gymBean.gymShowImg;
+    NSString *imgStr = _gymDetailBean.gym_show_img;
     NSString *urlStr = nil;
     if (imgStr && imgStr.length > 0) {
         NSArray *tempArray = [imgStr componentsSeparatedByString:@","];
-        urlStr = [NSString stringWithFormat:@"http://%@/%@",_gymBean.urlPrefix,[tempArray objectAtIndex:0]];
+        urlStr = [NSString stringWithFormat:@"http://%@/%@",_gymDetailBean.urlprefix,[tempArray objectAtIndex:0]];
     }
     
     FTShareView *shareView = [FTShareView new];
     [shareView setUrl:_webUrlString];
-    [shareView setTitle:_gymBean.gymName];
-    [shareView setSummary:_gymBean.gymLocation];
+    [shareView setTitle:_gymDetailBean.gym_name];
+    [shareView setSummary:_gymDetailBean.gym_location];
     [shareView setImageUrl:urlStr];
     
     [self.view addSubview:shareView];
@@ -613,7 +616,7 @@
 // 点赞按钮点击事件
 - (IBAction)dialButtonAction:(id)sender {
     
-    NSString *urlStr = self.gymBean.gymTel;
+    NSString *urlStr = self.gymDetailBean.gym_tel;
     if (urlStr.length > 0) {
         UIAlertView *alertView =  [[UIAlertView alloc] initWithTitle:@""
                                                             message:urlStr
@@ -643,7 +646,10 @@
     if ([FTTools hasLoginWithViewController:self]) {
         NSLog(@"成为会员");
         FTPayForGymVIPViewController *payForGymVIPViewController = [[FTPayForGymVIPViewController alloc]init];
-        payForGymVIPViewController.gymDetailBean = _gymDetailBean;
+//        payForGymVIPViewController.gymDetailBean = _gymDetailBean;
+        FTCoachBean *firstCoach = [FTCoachBean new];
+        [firstCoach setWithDic:[_coachArray firstObject]];
+        payForGymVIPViewController.coachBean = firstCoach;
         payForGymVIPViewController.gymVIPType = _gymVIPType;
         [self.navigationController pushViewController:payForGymVIPViewController animated:YES];
     } 
@@ -664,22 +670,15 @@
 // 跳转评论页面
 - (void)pushToCommentVC{
     
-//    FTCommentViewController *commentVC = [ FTCommentViewController new];
-//    commentVC.delegate = self;
-//    commentVC.gymBean = self.gymBean;
-//    [self.navigationController pushViewController:commentVC animated:YES];
-    
     FTGymCommentViewController *commentVC = [ FTGymCommentViewController new];
-    commentVC.objId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
-    commentVC.title = self.gymBean.gymName;
+    commentVC.objId = [NSString stringWithFormat:@"%d",_gymDetailBean.id];
+    commentVC.title = self.gymDetailBean.gym_name;
     
     __weak typeof(self) weakself = self;
     commentVC.freshBlock = ^(){
         //更新评论数
         weakself.commentCountLabel.text = [NSString stringWithFormat:@"%d人评价", ++weakself.gymDetailBean.commentcount];
     };
-//    commentVC.delegate = self;
-//    commentVC.gymBean = self.gymBean;
     [self.navigationController pushViewController:commentVC animated:YES];
 
 }
@@ -693,7 +692,7 @@
     //获取网络请求地址url
     NSString *urlString = [FTNetConfig host:Domain path:GetStateURL];
     NSString *userId = user.olduserid;
-    NSString *objId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
+    NSString *objId = [NSString stringWithFormat:@"%d",_gymDetailBean.id];
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = @"f-gym";
@@ -717,7 +716,7 @@
  *  获取时间段信息
  */
 - (void)getTimeSection{
-    [NetWorking getGymTimeSlotsById:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSArray *array) {
+    [NetWorking getGymTimeSlotsById:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid] andOption:^(NSArray *array) {
         _timeSectionsArray = array;
         if (_timeSectionsArray && _timeSectionsArray.count > 0) {
             //获取时间段信息后，根据内容多少设置tableviews的高度，再刷新一次tableview
@@ -734,7 +733,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *timestampString = [NSString stringWithFormat:@"%.0f", [[NSDate date]timeIntervalSince1970]];
     
-    [NetWorking getGymSourceInfoById:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid]  andTimestamp:timestampString  andOption:^(NSArray *array) {
+    [NetWorking getGymSourceInfoById:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid]  andTimestamp:timestampString  andOption:^(NSArray *array) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         _placesUsingInfoDic = [NSMutableDictionary new];
         if (array) {
@@ -757,52 +756,6 @@
     }];
 }
 
-//把点赞信息更新至服务器
-- (void)uploadVoteStatusToServer{
-    
-    NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
-    FTUserBean *user = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
-    //获取网络请求地址url
-    NSString *urlString = [FTNetConfig host:Domain path:_hasVote ? AddVoteURL : DeleteVoteURL];
-    
-    NSString *userId = user.olduserid;
-    NSString *objId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
-    NSString *loginToken = user.token;
-    NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
-    NSString *tableName = @"v-gym";
-    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@%@", loginToken, objId, tableName, ts, userId, self.hasVote ? AddVoteCheckKey: DeleteVoteCheckKey]];
-    
-    
-    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
-    
-    [NetWorking getRequestWithUrl:urlString parameters:nil option:^(NSDictionary *dict) {
-        
-        self.voteView.userInteractionEnabled = YES;
-        if (dict) {
-            NSLog(@"点赞状态 status : %@, message : %@", dict[@"status"], dict[@"message"]);
-            if ([dict[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
-                if ([dict[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
-                    int voteCount = [self.gymBean.voteCount intValue];
-                    NSString *changeVoteCount = @"0";
-                    if (self.hasVote) {
-                        voteCount++;
-                        changeVoteCount = @"1";
-                    }else{
-                        if (voteCount > 0) {
-                            voteCount--;
-                            changeVoteCount = @"-1";
-                        }
-                    }
-                    self.gymBean.voteCount = [NSString stringWithFormat:@"%d", voteCount];
-                    NSString *jsMethodString = [NSString stringWithFormat:@"updateLike(%@)", changeVoteCount];
-                    NSLog(@"js method : %@", jsMethodString);
-                    [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
-                }
-                
-            }
-        }
-    }];
-}
 
 //把收藏信息更新至服务器
 - (void)uploadStarStatusToServer{
@@ -813,7 +766,7 @@
     NSString *urlString = [FTNetConfig host:Domain path:self.hasAttention ? AddFollowURL : DeleteFollowURL];
     
     NSString *userId = user.olduserid;
-    NSString *objId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
+    NSString *objId = [NSString stringWithFormat:@"%d",_gymDetailBean.id];
     NSString *loginToken = user.token;
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *tableName = @"f-gym";
@@ -873,11 +826,11 @@
 
 #pragma mark  CommentSuccessDelegate
 - (void)commentSuccess{
-    int commentCount = [self.gymBean.commentCount intValue];
+    int commentCount = _gymDetailBean.commentcount;
     commentCount++;
     NSString *jsMethodString = [NSString stringWithFormat:@"updateComment(%d)", 1];
     NSLog(@"js method : %@", jsMethodString);
-    self.gymBean.commentCount = [NSString stringWithFormat:@"%d", commentCount];
+    _gymDetailBean.commentcount = commentCount;
     [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
 }
 
@@ -889,7 +842,7 @@
         
         if (buttonIndex == 1) {
             
-            NSString *urlStr = self.gymBean.gymTel;
+            NSString *urlStr = _gymDetailBean.gym_tel;
             //获取目标号码字符串
             urlStr = [NSString stringWithFormat:@"tel://%@",urlStr];
             //转换成URL
@@ -946,7 +899,10 @@
     
     if(_gymVIPType != FTGymVIPTypeYep){
         FTPayForGymVIPViewController *payForGymVIPViewController = [[FTPayForGymVIPViewController alloc]init];
-        payForGymVIPViewController.gymDetailBean = _gymDetailBean;
+//        payForGymVIPViewController.gymDetailBean = _gymDetailBean;
+        FTCoachBean *firstCoach = [FTCoachBean new];
+        [firstCoach setWithDic:[_coachArray firstObject]];
+        payForGymVIPViewController.coachBean = firstCoach;
         payForGymVIPViewController.gymVIPType = _gymVIPType;
         [self.navigationController pushViewController:payForGymVIPViewController animated:YES];
         return;

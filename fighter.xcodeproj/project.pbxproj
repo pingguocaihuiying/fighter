@@ -2822,7 +2822,7 @@
 			isa = PBXGroup;
 			children = (
 				E60218DE1E0A61EA0048DB57 /* 视频播放页 */,
-				E60218DD1E0A61E00048DB57 /* 相册、视频 */,
+				E60218DD1E0A61E00048DB57 /* main */,
 			);
 			name = vc;
 			sourceTree = "<group>";
@@ -2835,14 +2835,14 @@
 			name = views;
 			sourceTree = "<group>";
 		};
-		E60218DD1E0A61E00048DB57 /* 相册、视频 */ = {
+		E60218DD1E0A61E00048DB57 /* main */ = {
 			isa = PBXGroup;
 			children = (
 				E60218D11E093F200048DB57 /* FTCoachPhotosDetailViewController.h */,
 				E60218D21E093F200048DB57 /* FTCoachPhotosDetailViewController.m */,
 				E60218D31E093F200048DB57 /* FTCoachPhotosDetailViewController.xib */,
 			);
-			name = "相册、视频";
+			name = main;
 			sourceTree = "<group>";
 		};
 		E60218DE1E0A61EA0048DB57 /* 视频播放页 */ = {

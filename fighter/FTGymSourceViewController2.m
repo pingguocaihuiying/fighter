@@ -158,7 +158,7 @@
 
 
 - (void)getCoachesOfGymFromServer{
-    [NetWorking getCoachesWithCorporationid:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSArray *array) {
+    [NetWorking getCoachesWithCorporationid:[NSString stringWithFormat:@"%ld", _gymBean.corporationid] andOption:^(NSArray *array) {
         if (array && array.count > 0) {
             _coachArray = array;
             [self setCollectionView];//设置教练模块的view
@@ -212,7 +212,6 @@
     [coachBean setWithDic:coachDic];
     
     FTOrderCoachViewController *orderCoachViewController = [FTOrderCoachViewController new];
-    orderCoachViewController.gymDetailBean = _gymDetailBean;
     orderCoachViewController.coachBean = coachBean;
     [self.navigationController pushViewController:orderCoachViewController animated:YES];
 }

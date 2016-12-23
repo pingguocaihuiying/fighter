@@ -69,17 +69,7 @@
     [super viewDidLoad];
     [self setTips];
     [self initBaseData];
-    [self setSubViews];
-    
-    FTUserBean *localUser = [FTUserTools getLocalUser];
-    if (localUser) {
-        [self getVIPInfo];//获取余额等会员信息
-    }
-    
-    //网络数据加载
-    [self getCoachRatingFromServer];//获取评分信息
-    [self getCoachPhotosFromServer];//获取教练照片
-    [self getTimeSection];//获取时间段信息
+    [self getCoachDetailFromServer];//根据id获取教练的详细信息后，再进行其他操作
 }
 
 - (void)setTips{
@@ -93,6 +83,33 @@
  */
 - (void)initBaseData{
     _gymVIPType = FTGymVIPTypeNope;//默认非会员
+}
+
+- (void)getCoachDetailFromServer{
+    [NetWorking getCoachById:_coachBean.id option:^(NSDictionary *dict) {
+        NSString *status = dict[@"status"];
+        if([status isEqualToString:@"success"]){
+            _coachBean = [FTCoachBean new];
+            [_coachBean setWithDic:dict[@"data"]];
+            [self doOtherThingsWithCoachBean];
+        }else{
+            [self.view showMessage:dict[@"message"]];
+        }
+    }];
+}
+
+- (void)doOtherThingsWithCoachBean{
+    [self setSubViews];
+    
+    FTUserBean *localUser = [FTUserTools getLocalUser];
+    if (localUser) {
+        [self getVIPInfo];//获取余额等会员信息
+    }
+    
+    //网络数据加载
+    [self getCoachRatingFromServer];//获取评分信息
+    [self getCoachPhotosFromServer];//获取教练照片
+    [self getTimeSection];//获取时间段信息
 }
 
 - (void)setSubViews{
@@ -253,7 +270,7 @@
     vc.photoArray = imageArray;
     vc.videoArray = videoArray;
     vc.coachBean = _coachBean;
-    vc.gymName = _gymName;
+    vc.gymName = _coachBean.gym_name;
 }
 
 /**
@@ -261,7 +278,7 @@
  */
 - (void)getVIPInfo{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid] andOption:^(NSDictionary *dic) {
+    [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%@", _coachBean.corporationid] andOption:^(NSDictionary *dic) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         
         //无数据：非会员
@@ -339,7 +356,6 @@
 - (void)setNaviView{
     
     //设置默认标题
-//    self.navigationItem.title = _gymDetailBean.gym_name;
     self.navigationItem.title = _coachBean.name;
     
     // 导航栏字体和背景
@@ -444,7 +460,7 @@
         
         if(_gymVIPType != FTGymVIPTypeYep){
             FTPayForGymVIPViewController *payForGymVIPViewController = [[FTPayForGymVIPViewController alloc]init];
-            payForGymVIPViewController.gymDetailBean = _gymDetailBean;
+            payForGymVIPViewController.coachBean = _coachBean;
             payForGymVIPViewController.gymVIPType = _gymVIPType;
             [self.navigationController pushViewController:payForGymVIPViewController animated:YES];
             return;
@@ -463,7 +479,7 @@
             gymOrderCoachView.timeSection = _timeSectionsArray[timeSectionIndex][@"timeSection"];
             gymOrderCoachView.timeSectionId = _timeSectionsArray[timeSectionIndex][@"id"];
             gymOrderCoachView.balance = _balance;
-            gymOrderCoachView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
+            gymOrderCoachView.gymId = [NSString stringWithFormat:@"%@", _coachBean.corporationid];
             gymOrderCoachView.coachUserId = _coachBean.userId;
             
             [gymOrderCoachView setDisplay];
@@ -492,7 +508,7 @@
                     gymOrderCourseView.timeSection = _timeSectionsArray[timeSectionIndex][@"timeSection"];
                     gymOrderCourseView.timeSectionId = _timeSectionsArray[timeSectionIndex][@"id"];
                     gymOrderCourseView.balance = _balance;
-                    gymOrderCourseView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
+                    gymOrderCourseView.gymId = [NSString stringWithFormat:@"%@", _coachBean.corporationid];
                     gymOrderCourseView.coachUserId = _coachBean.userId;
                     
                     NSLog(@"已经预约");
@@ -500,7 +516,7 @@
                     NSDictionary *courseCellDic = courseCell.courserCellDic;
                     gymOrderCourseView.courserCellDic = courseCellDic;
                     
-                    gymOrderCourseView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
+                    gymOrderCourseView.gymId = [NSString stringWithFormat:@"%@", _coachBean.corporationid];
                     gymOrderCourseView.delegate = self;
                     gymOrderCourseView.status = FTGymCourseStatusHasOrder;
                     [self.view addSubview:gymOrderCourseView];
@@ -518,7 +534,7 @@
                     gymOrderCoachView.timeSection = _timeSectionsArray[timeSectionIndex][@"timeSection"];
                     gymOrderCoachView.timeSectionId = _timeSectionsArray[timeSectionIndex][@"id"];
                     gymOrderCoachView.balance = _balance;
-                    gymOrderCoachView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
+                    gymOrderCoachView.gymId = [NSString stringWithFormat:@"%@", _coachBean.corporationid];
                     gymOrderCoachView.coachUserId = _coachBean.userId;
                     
                     [gymOrderCoachView setDisplayWithInfo];
@@ -651,7 +667,7 @@
     FTShareView *shareView = [FTShareView new];
     
     //分享标题: “教练名 - 拳馆名“
-    NSString *title = [NSString stringWithFormat:@"%@ - %@", _coachBean.name, _gymName];
+    NSString *title = [NSString stringWithFormat:@"%@ - %@", _coachBean.name, _coachBean.gym_name];
     
     NSString *_webUrlString = [NSString stringWithFormat:@"%@?userId=%@", HomepageCoachWebViewURL, _coachBean.userId];//链接地址
     

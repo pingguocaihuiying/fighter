@@ -217,6 +217,9 @@
 // Get Coach List
 + (void) getCoachsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option;
 
+// get coach detail by id
++ (void) getCoachById:(NSString *)coachId option:(void (^)(NSDictionary *dict))block;
+
 // Get Gym List
 + (void) getGymsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option;
 

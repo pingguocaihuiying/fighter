@@ -14,8 +14,7 @@
 
 @interface FTGymDetailWebViewController : FTBaseViewController
 
-@property (nonatomic ,strong) FTGymBean *gymBean;
-@property (nonatomic, strong) FTGymDetailBean *gymDetailBean;//拳馆详情bean
+@property (nonatomic ,strong) FTGymBean *gymBean;//该字段目前只作为传gymID用，拿到id之后，会再次加载一下详细信息，存储在gynDetailBean中
 
 // bottom view
 @property (weak, nonatomic) IBOutlet UIView *focusView; //关注

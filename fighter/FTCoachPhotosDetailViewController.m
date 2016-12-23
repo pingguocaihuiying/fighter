@@ -265,19 +265,6 @@
     return _commentsBeanArray.count;
 }
 
-//-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    FTCoachsCommentByUserBean *bean = _commentsBeanArray[indexPath.row];
-//    NSString *str = bean.evaluation;
-//    
-//    
-//    UILabel *label = [UILabel new];
-//    CGFloat labelHeight = [label sizeThatFits:CGSizeMake(label.frame.size.width, MAXFLOAT)].height;
-//    NSNumber *count = @((labelHeight) / _titleLabel.font.lineHeight);
-//    NSInteger linecount = [count integerValue];
-//    NSLog(@"共 %td 行", [count integerValue]);
-//
-//}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     FTUserCommentOfCoachTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     

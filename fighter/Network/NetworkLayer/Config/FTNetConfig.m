@@ -223,7 +223,7 @@ NSString *const GetUserSkillsURL = @"/api/gradedetail/getVersions.do";
 NSString *const GetUserSkillsCheckSign = @"gedoujihtgfsyh543";
 // coach
 NSString * const GetCoachListURL = @"/api/coach/list.do";
-NSString * const GetCoachByIdURL = @"/api/coach/{id}.do";
+NSString * const GetCoachByIdURL = @"/api/coach/";
 NSString * const ValidCheckCode = @"/api/user/save$checkPhoneCode.do";
 NSString * const GetCoachRatingURLString = @"/api/coacheval/getStar.do";
 NSString * const GetCoachPhotosURLString = @"/api/coachattach/list.do";
