@@ -8,27 +8,59 @@
 
 #import "FTLabelView.h"
 
+@interface FTLabelView ()
+{
+    CGFloat w;
+    CGFloat h;
+    CGFloat fontSize;
+    float space;
+}
+
+@property (nonatomic,copy) NSString *labelString;
+
+
+@end
+
 @implementation FTLabelView
 
+- (id) initWithString:(NSString *)labelString {
+
+    self = [super init];
+    if (self) {
+        self.labelString = labelString;
+        [self initProperty];
+        [self setSubview];
+    }
+    
+    return self ;
+}
+
+- (void) initProperty {
+
+    w=0;
+    h=16;
+    fontSize = 10;
+    space = 8;
+}
 
 - (void) setSubview {
 
-//    UIView *labelView = [UIView new];
-//    CGSize labelSize = [labelstring sizeWithFont:[UIFont systemFontOfSize:fontSize] constrainedToSize:CGSizeMake(MAXFLOAT, 30)];
-//    //
-//    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(spacing, (h - fontSize) / 2, spacing * 2 + labelSize.width, fontSize)];
-//    label.text = labelstring;
-//    label.font = [UIFont systemFontOfSize:fontSize];
-//    label.textColor = [UIColor whiteColor];
-//    labelView.frame = CGRectMake(0, 0, labelSize.width + spacing * 2, h);
-//    
-//    //添加背景图片
-//    UIImageView *bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(spacing / 2, 0, labelView.width - spacing, labelView.height)];
-//    bgImageView.image = [UIImage imageNamed:@"拳种标签2"];
-//    [labelView addSubview:bgImageView];
-//    [labelView sendSubviewToBack:bgImageView];
-//    
-//    [labelView addSubview:label];
+    CGSize labelSize = [self.labelString sizeWithFont:[UIFont systemFontOfSize:fontSize] constrainedToSize:CGSizeMake(MAXFLOAT, 30)];
+
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(space, (h - labelSize.height)/2 - 1, labelSize.width, labelSize.height)];
+    label.text = self.labelString;
+    label.font = [UIFont systemFontOfSize:fontSize];
+    label.textColor = [UIColor whiteColor];
+    self.frame = CGRectMake(0, 0, labelSize.width + space * 2, h);
+    w = CGRectGetWidth(self.frame);
+    
+    //添加背景图片
+    UIImageView *bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, w , h)];
+    bgImageView.image = [UIImage imageNamed:@"拳种标签2"];
+    
+    [self addSubview:bgImageView];
+    [self sendSubviewToBack:bgImageView];
+    [self addSubview:label];
     
 }
 

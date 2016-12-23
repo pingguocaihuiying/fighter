@@ -197,17 +197,14 @@
 //    [shareView setImageUrl:self.labelImage];
 //    [self.view addSubview:shareView];
     
-//    FTShareView *shareView = [FTShareView new];
-//    shareView.type = FTShareViewTypeVideo;
-//    [shareView setUrl:_webUrlString];
-//    [shareView setTitle:[NSString stringWithFormat:@"我在“格斗东西”学习%@，Fighting！",_label]];
-//    [shareView setSummary:@"格斗技术为强身健体自卫防身，格斗东西团队不支持不赞成任何暴力行为。"];
-//    [shareView setImageUrl:self.labelImage];
-//    [self.view addSubview:shareView];
-    
-    [self.navigationController popToRootViewControllerAnimated:NO];
-    [FTNotificationTools postTabBarIndex:0 dic:nil];
-    
+    FTShareView *shareView = [FTShareView new];
+    shareView.type = FTShareViewTypeVideo;
+    [shareView setUrl:_webUrlString];
+    [shareView setTitle:[NSString stringWithFormat:@"我在“格斗东西”学习%@，Fighting！",_label]];
+    [shareView setSummary:@"格斗技术为强身健体自卫防身，格斗东西团队不支持不赞成任何暴力行为。"];
+    [shareView setImageUrl:self.labelImage];
+    [self.view addSubview:shareView];
+
 }
 
 

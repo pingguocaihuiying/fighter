@@ -14,4 +14,6 @@
  */
 @interface FTLabelView : UIView
 
+- (id) initWithString:(NSString *)labelString;
+
 @end
