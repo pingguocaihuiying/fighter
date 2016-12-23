@@ -322,6 +322,7 @@
     
 }
 
+
 #pragma mark - 通知
 - (void) switchDetailAction:(NSNotification *) noti {
     
@@ -339,17 +340,17 @@
             [self.navigationController pushViewController:gymDetailWebViewController animated:YES];
         }else if([type isEqualToString:@"coach"]){
             
-            NSInteger gymId = [dic[@"gymId"] integerValue];
+//            NSInteger gymId = [dic[@"gymId"] integerValue];
             NSString *coachId = dic[@"coachId"];
-            FTGymBean *bean = [FTGymBean new];
-            bean.gymId = gymId;
+//            FTGymBean *bean = [FTGymBean new];
+//            bean.gymId = gymId;
             
             FTCoachBean *coachBean = [FTCoachBean new];
             coachBean.userId = coachId;
             
-            FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
-            gymDetailWebViewController.gymBean = bean;
-            [self.navigationController pushViewController:gymDetailWebViewController animated:NO];
+//            FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
+//            gymDetailWebViewController.gymBean = bean;
+//            [self.navigationController pushViewController:gymDetailWebViewController animated:NO];
             
             FTOrderCoachViewController *orderCoachViewController = [FTOrderCoachViewController new];
             orderCoachViewController.coachBean = coachBean;
@@ -360,18 +361,5 @@
         }
     }
 }
-
-
-//- (void) test {
-//    
-//    FTGymBean *bean = [FTGymBean new];
-//    bean.gymId = 33;
-//    bean.corporationid = 187;
-//    FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
-//    gymDetailWebViewController.gymBean = bean;
-//    [self pushToController:gymDetailWebViewController];
-//}
-
-
 
 @end
