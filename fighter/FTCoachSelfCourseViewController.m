@@ -190,11 +190,27 @@
 
     NSDictionary *dic = noti.userInfo;
     if (dic != nil) {
-        NSString *type = dic[@"type"];
-        if ([type isEqualToString:@"gym"] || [type isEqualToString:@"coach"]){
-            
-            [[UIApplication sharedApplication].keyWindow showMessage:@"您已经是教练身份，不能约课哟"];
+        FTUserBean *loginUser = [FTUserBean loginUser];
+        BOOL isCoach = NO;
+        if (loginUser) {
+            for (NSDictionary *dic in loginUser.identity) {
+                if ([dic[@"itemValueEn"] isEqualToString:@"coach"]) {
+                    if (isCoach && loginUser.corporationid) {
+                        isCoach = YES;
+                    }
+                    break;
+                }
+            }
         }
+        if (isCoach) {
+            NSString *type = dic[@"type"];
+            if ([type isEqualToString:@"gym"] || [type isEqualToString:@"coach"]){
+                
+                [[UIApplication sharedApplication].keyWindow showMessage:@"您已经是教练身份，不能约课哟"];
+            }
+        }
+        
+        
     }
 
 
