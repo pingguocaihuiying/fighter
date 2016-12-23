@@ -23,7 +23,7 @@
     
     _labels = [NSString stringWithFormat:@"%@", dic[@"labels"]];
     
-    _brief = [NSString stringWithFormat:@"%@", dic[@"brief"]];
+    _brief = [NSString stringWithFormat:@"%@", dic[@"brief"] == nil ? @"" :dic[@"brief"]];
     
     if (dic[@"price"]) {
         _price = [NSString stringWithFormat:@"%@", dic[@"price"]];
@@ -43,6 +43,8 @@
     _corporationid = [NSString stringWithFormat:@"%@", dic[@"corporationid"]];
     
     _userId = dic[@"userId"];
+    
+    _gym_name = dic[@"gym_name"];
 }
 
 

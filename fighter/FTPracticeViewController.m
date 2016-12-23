@@ -352,9 +352,7 @@
             [self pushToController:gymDetailWebViewController];
             
             FTOrderCoachViewController *orderCoachViewController = [FTOrderCoachViewController new];
-//            orderCoachViewController.gymDetailBean = _gymDetailBean;
             orderCoachViewController.coachBean = coachBean;
-//            orderCoachViewController.gymName = self.gymBean.gymName;
             [self.navigationController pushViewController:orderCoachViewController animated:NO];
             
         }else if ([type isEqualToString:@"video"]){

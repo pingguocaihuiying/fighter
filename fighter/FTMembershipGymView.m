@@ -271,7 +271,7 @@
     
     FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
     gymDetailWebViewController.gymBean = bean;
-    gymDetailWebViewController.gymDetailBean = detailBean;
+//    gymDetailWebViewController.gymDetailBean = detailBean;
     
     if ([self.delegate respondsToSelector:@selector(pushToController:)]) {
         [self.delegate pushToController:gymDetailWebViewController];

@@ -11,8 +11,5 @@
 #import "FTCoachBean.h"
 
 @interface FTOrderCoachViewController : FTBaseViewController
-
-@property (nonatomic, strong) FTGymDetailBean *gymDetailBean;
 @property (nonatomic, strong) FTCoachBean *coachBean;
-@property (nonatomic, copy) NSString *gymName;//拳馆名字
 @end

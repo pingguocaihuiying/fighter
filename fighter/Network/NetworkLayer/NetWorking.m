@@ -992,6 +992,13 @@
     [self postRequestWithUrl:urlString parameters:dic option:option];
 }
 
+// get coach detail by id
++ (void) getCoachById:(NSString *)coachId option:(void (^)(NSDictionary *dict))block{
+    NSString *urlString = [FTNetConfig host:Domain path:GetCoachByIdURL];
+    urlString = [NSString stringWithFormat:@"%@%@.do", urlString, coachId];
+    [self postRequestWithUrl:urlString parameters:nil option:block];
+}
+
 // Get Gym List
 + (void) getGymsByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option  {
     
