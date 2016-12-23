@@ -346,7 +346,7 @@
 //            bean.gymId = gymId;
             
             FTCoachBean *coachBean = [FTCoachBean new];
-            coachBean.userId = coachId;
+            coachBean.id = coachId;
             
 //            FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
 //            gymDetailWebViewController.gymBean = bean;
