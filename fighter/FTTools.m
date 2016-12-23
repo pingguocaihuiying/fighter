@@ -84,6 +84,7 @@
 
 
 + (NSString *)getChNameWithEnLabelName:(NSString *)labelNameEn{
+    labelNameEn = [labelNameEn stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSString *labelNameCh = @"";
     if ([labelNameEn isEqualToString:@"Boxing"]) {
         labelNameCh = @"拳击";

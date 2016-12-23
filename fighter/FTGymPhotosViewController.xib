@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,11 +23,14 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tnO-rf-BWe" userLabel="containerViewOf最热和最新">
-                    <frame key="frameInset" minX="146" minY="10" width="308" height="35"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnO-rf-BWe" userLabel="containerViewOf最热和最新">
+                    <rect key="frame" x="33.5" y="10" width="308" height="35"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="二标签-左选中" translatesAutoresizingMaskIntoConstraints="NO" id="2bv-hB-84t"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="二标签-左选中" translatesAutoresizingMaskIntoConstraints="NO" id="2bv-hB-84t">
+                            <rect key="frame" x="0.0" y="0.0" width="308" height="35"/>
+                        </imageView>
                         <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6k-dB-Vfx">
+                            <rect key="frame" x="0.0" y="0.0" width="152" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="152" id="Xwx-Cq-7UQ"/>
                                 <constraint firstAttribute="height" constant="35" id="Z4k-JA-MLw"/>
@@ -42,6 +48,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6dC-yu-dLi">
+                            <rect key="frame" x="152" y="0.0" width="152" height="35"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="35" id="j1p-pD-Jj5"/>
                                 <constraint firstAttribute="width" constant="152" id="t2G-WL-V4a"/>
@@ -73,8 +80,8 @@
                         <constraint firstAttribute="width" constant="308" id="zm8-Ze-hDe"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9bF-h1-bv5">
-                    <frame key="frameInset" minY="50" width="600" height="550"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9bF-h1-bv5">
+                    <rect key="frame" x="0.0" y="50" width="375" height="617"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
             </subviews>

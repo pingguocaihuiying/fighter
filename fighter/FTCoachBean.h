@@ -18,7 +18,7 @@
 @property (nonatomic, copy) NSString *price;//预约价格
 @property (nonatomic, copy) NSString *age;//预约价格 
 @property (nonatomic, copy) NSString *headUrl;//头像
-@property (nonatomic, copy) NSString *corporationid;//所在拳馆id userId
+@property (nonatomic, copy) NSString *corporationid;//所在拳馆id
 @property (nonatomic, copy) NSString *userId;//olduserId
 - (void)setWithDic:(NSDictionary *)dic;
 

@@ -1103,8 +1103,21 @@
 }
 //获取教练的星级
 + (void)getCoachRatingByID:(NSString *)coachId withBlock:(void (^) (NSDictionary *dic)) block{
-    [self postRequestWithUrl:GetCoachRatingURLString parameters:@{@"coachUserId":coachId} option:block];
+    [self postRequestWithUrl:[FTNetConfig host:Domain path:GetCoachRatingURLString] parameters:@{@"coachUserId":coachId} option:block];
 };
+
+//获取教练的照片
++ (void)getCoachPhotosByID:(NSString *)coachId andGymId:(NSString *) gymId withBlock:(void (^) (NSDictionary *dic)) block{
+    NSLog(@"gymId : %@", gymId);
+    [self postRequestWithUrl:[FTNetConfig host:Domain path:GetCoachPhotosURLString] parameters:@{@"coachId":coachId, @"corporationid":gymId} option:block];
+};
+
+//获取学员对教练的评论
++ (void)getCoachCommentsByUserPhotosByID:(NSString *)coachId andPageNum:(NSString *) pageNum withBlock:(void (^) (NSDictionary *dic)) block{
+    //没有做分页，pageNum就没有传
+    [self postRequestWithUrl:[FTNetConfig host:Domain path:GetCoachCommentsByUserURLString] parameters:@{@"coachUserId":coachId} option:block];
+};
+
 
 
 /**

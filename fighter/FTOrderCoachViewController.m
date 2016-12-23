@@ -17,8 +17,9 @@
 #import "FTPayForGymVIPViewController.h"
 #import "UILabel+FTLYZLabel.h"
 #import "FTRatingBar.h"
-
 #import "FTShareView.h"
+#import "FTCoachPhotoBean.h"
+#import "FTCoachPhotosDetailViewController.h"
 
 @interface FTOrderCoachViewController ()<FTGymCourseTableViewDelegate, FTCoachOrderCourseViewDelegate, FTGymOrderCourseViewDelegate>
 
@@ -76,7 +77,8 @@
     }
     
     //网络数据加载
-    [self getCoachRating];
+    [self getCoachRatingFromServer];//获取评分信息
+    [self getCoachPhotosFromServer];//获取教练照片
     [self getTimeSection];//获取时间段信息
 }
 
@@ -91,16 +93,6 @@
  */
 - (void)initBaseData{
     _gymVIPType = FTGymVIPTypeNope;//默认非会员
-    
-    /*
-     测试数据
-     */
-    _coachImagesArray = [NSMutableArray new];
-    for (int i = 0; i < 10; i++) {
-        NSString *imageURL = @"https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1482147761&di=add7610d65cd18f82e43ea2918e11496&src=http://www.duotegame.com/picfile/NewsA/2013/02/27/image034_wm.jpg";
-        [_coachImagesArray addObject:imageURL];
-    }
-    
 }
 
 - (void)setSubViews{
@@ -108,7 +100,6 @@
     [self setNaviView];//设置导航栏
     [self setCoachCourceView];//设置教练课程表
     [self setCoachInfo];//设置教练信息
-    [self setImagesView];//设置教练的相册
     [self setRatingBar];//设置教练的评分星级
 }
 
@@ -153,8 +144,17 @@
         //设置图片
         for (int i = 0; i < num; i++) {
             UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake( (80 + 5) * i, 0, 80, 80)];
-            [imageView sd_setImageWithURL:[NSURL URLWithString:_coachImagesArray[i]] placeholderImage:[UIImage imageNamed:@"小占位图"]];
+            imageView.contentMode = kCAGravityResizeAspectFill;
+            FTCoachPhotoBean *bean = _coachImagesArray[i];
+            [imageView sd_setImageWithURL:[NSURL URLWithString:bean.url] placeholderImage:[UIImage imageNamed:@"小占位图"]];
             [scrollView addSubview:imageView];
+            
+            if (bean.type == 1) {//如果是视频，添加视频标记
+                UIImageView *videoMark = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"列表用视频播放"]];
+                videoMark.frame = CGRectMake(0, 0, 25, 25);
+                videoMark.center = imageView.center;
+                [scrollView addSubview:videoMark];
+            }
             
             //添加点击事件
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageTap:)];
@@ -200,8 +200,7 @@
         self.ratingBar.fullSelectedImage = [UIImage imageNamed:@"火苗-红"];
         self.ratingBar.unSelectedImage = [UIImage imageNamed:@"火苗-灰"];
         self.ratingBar.isIndicator = YES;//指示器，就不能滑动了，只显示评分结果
-//        [self.ratingBar setRating:4.0f];
-        [self.ratingBar displayRating:4.0f];
+        [self.ratingBar displayRating:0.0f];
     }
 }
 
@@ -211,18 +210,50 @@
  */
 - (void)ratingBarTap{
     NSLog(@"ratingBar clicked");
+    FTCoachPhotosDetailViewController *coachPhotosDetailViewController = [FTCoachPhotosDetailViewController new];
+    [self.navigationController pushViewController:coachPhotosDetailViewController animated:YES];
+    coachPhotosDetailViewController.index = 2;
+    [self setBeansToVC:coachPhotosDetailViewController];
 }
 
 - (void)imagesViewTap{
     NSLog(@"imagesViewTap executed.");
+    FTCoachPhotosDetailViewController *coachPhotosDetailViewController = [FTCoachPhotosDetailViewController new];
+    [self.navigationController pushViewController:coachPhotosDetailViewController animated:YES];
+    [self setBeansToVC:coachPhotosDetailViewController];
 }
 
 - (void)imageTap:(id)sender{
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
     UIView *imageView = tap.view;
     NSInteger imageIndex = imageView.tag - 1000;
-    
     NSLog(@"tap with index : %ld", imageIndex);
+
+    FTCoachPhotosDetailViewController *coachPhotosDetailViewController = [FTCoachPhotosDetailViewController new];
+    FTCoachPhotoBean *curBean = _coachImagesArray[imageIndex];
+    if (curBean.type == 0) {//图片
+        coachPhotosDetailViewController.index = 0;
+    }else if(curBean.type == 1){//视频
+        coachPhotosDetailViewController.index = 1;
+    }
+    [self.navigationController pushViewController:coachPhotosDetailViewController animated:YES];
+    [self setBeansToVC:coachPhotosDetailViewController];
+}
+
+- (void)setBeansToVC:(FTCoachPhotosDetailViewController *)vc{
+    NSMutableArray<FTCoachPhotoBean *> *imageArray = [NSMutableArray new];
+    NSMutableArray<FTCoachPhotoBean *> *videoArray = [NSMutableArray new];
+    for (FTCoachPhotoBean *bean in _coachImagesArray){
+        if (bean.type == 0) {//图片
+            [imageArray addObject:bean];
+        }else if(bean.type == 1){//视频
+            [videoArray addObject:bean];
+        }
+    }
+    vc.photoArray = imageArray;
+    vc.videoArray = videoArray;
+    vc.coachBean = _coachBean;
+    vc.gymName = _gymName;
 }
 
 /**
@@ -509,12 +540,31 @@
 /**
  获取教练评分
  */
-- (void)getCoachRating{
+- (void)getCoachRatingFromServer{
     [NetWorking getCoachRatingByID:_coachBean.userId withBlock:^(NSDictionary *dic) {
         NSString *status = dic[@"status"];
         if ([status isEqualToString:@"success"]) {
             float score = [dic[@"data"] floatValue];
+                    [self.ratingBar displayRating:score];
+        }
+    }];
+}
+
+- (void)getCoachPhotosFromServer{
+    [NetWorking getCoachPhotosByID:_coachBean.id andGymId:[NSString stringWithFormat: @"%@", _coachBean.corporationid] withBlock:^(NSDictionary *dic) {
+        NSString *status = dic[@"status"];
+        if ([status isEqualToString:@"success"]) {
+            NSArray *coachPhotoArray = dic[@"data"];
+            _coachImagesArray = [NSMutableArray new];
             
+            for (NSDictionary *photoDic in coachPhotoArray){
+                FTCoachPhotoBean *coachPhotoBean = [FTCoachPhotoBean new];
+                [coachPhotoBean setValuesWithDic:photoDic];
+                [_coachImagesArray addObject:coachPhotoBean];
+            }
+            
+            [self setImagesView];//设置教练的相册
+        }else{
         }
     }];
 }
@@ -531,7 +581,6 @@
             _gymSourceView.tableViewsHeight.constant = 42 * _timeSectionsArray.count;
             [self gettimeSectionsUsingInfo];
         }
-        
     }];
 }
 
