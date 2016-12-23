@@ -1012,19 +1012,53 @@ static NSString *const tableCellId = @"tableCellId";
 //    FTBaseNavigationViewController *navi = (FTBaseNavigationViewController *)self.dynamicsDrawerViewController.paneViewController;
     
     
-    if ([dic[@"urlType"] isEqualToString:@"news"]) {
+    if ([dic[@"urlType"] isEqualToString:@"news"]) { //拳讯
         [_tabBarVC setSelectedIndex:0];
         [_infoVC pushToDetailController:dic];
-        
-    }
-
-    else if ([dic[@"urlType"] isEqualToString:@"teach"]) { // 教学
+    }else if ([dic[@"urlType"] isEqualToString:@"teach"]) { // 教学
         [_tabBarVC setSelectedIndex:2];
         [_practiceVC pushToDetailController:dic];
     }else if ([dic[@"urlType"] isEqualToString:@"match"]) {//比赛
         [_tabBarVC setSelectedIndex:1];
         [_fightingVC pushToDetailController:dic];
+    }else if ([dic[@"urlType"] isEqualToString:@"crmpush-1"]) { // 跳转拳馆详情界面，预约团课
+        
+        NSString *gymId = dic[@"objId"];
+        NSString *corporationid = dic[@"corporationid"];
+        
+        NSDictionary *dic = @{@"type":@"gym",
+                              @"gymId":gymId,
+                              @"corporationid":corporationid
+                              };
+        [FTNotificationTools postTabBarIndex:2 dic:dic];
+        
+    }else if ([dic[@"urlType"] isEqualToString:@"crmpush-2"]) { // 跳转拳馆教练详情界面，预约教练私课
+        
+        NSString *gymId = dic[@"objId"];
+        NSString *corporationid = dic[@"corporationid"];
+        NSString *coachId = dic[@"coachId"];
+        
+        NSDictionary *dic = @{@"type":@"coach",
+                              @"gymId":gymId,
+                              @"coachId":coachId,
+                              @"corporationid":corporationid
+                              };
+        [FTNotificationTools postTabBarIndex:2 dic:dic];
+    }else if ([dic[@"urlType"] isEqualToString:@"crmpush-3"]) { // 跳转商城商品详情页，购买商品
+        
+        NSString *gymId = dic[@"objId"];
+        NSString *corporationid = dic[@"corporationid"];
+        
+        NSDictionary *dic = @{
+                              @"gymId":gymId,
+                              @"corporationid":corporationid
+                              };
+        [FTNotificationTools postTabBarIndex:2 dic:dic];
     }
+    
+    
+    
+    
     
     //    else if ([dic[@"urlType"] isEqualToString:@"video"]) {
     //        [_tabBarVC setSelectedIndex:7];

@@ -358,6 +358,8 @@
 
 - (void) switchControllerAction:(NSNotification *) noti {
 
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    
     NSNumber *obj = noti.object;
     NSInteger index = obj.integerValue;
     NSDictionary *dic = noti.userInfo;
