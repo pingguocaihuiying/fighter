@@ -325,7 +325,6 @@
     
 }
 
-
 #pragma mark - 通知
 - (void) switchDetailAction:(NSNotification *) noti {
     
@@ -336,9 +335,9 @@
         FTUserBean *loginUser = [FTUserBean loginUser];
         BOOL isCoach = NO;
         if (loginUser) {
-            for (NSDictionary *dic in loginUser.identity) {
-                if ([dic[@"itemValueEn"] isEqualToString:@"coach"]) {
-                    if (isCoach && loginUser.corporationid) {
+            for (NSDictionary *identityDic in loginUser.identity) {
+                if ([identityDic[@"itemValueEn"] isEqualToString:@"coach"]) {
+                    if (loginUser.corporationid) {
                         isCoach = YES;
                     }
                     break;
@@ -356,8 +355,6 @@
                 FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
                 gymDetailWebViewController.gymBean = bean;
                 [self.navigationController pushViewController:gymDetailWebViewController animated:YES];
-            }else {
-                [[UIApplication sharedApplication].keyWindow showMessage:@"您已经是教练身份，不能约课哟"];
             }
             
         }else if([type isEqualToString:@"coach"]){
@@ -372,8 +369,6 @@
                 FTOrderCoachViewController *orderCoachViewController = [FTOrderCoachViewController new];
                 orderCoachViewController.coachBean = coachBean;
                 [self.navigationController pushViewController:orderCoachViewController animated:YES];
-            }else {
-                [[UIApplication sharedApplication].keyWindow showMessage:@"您已经是教练身份，不能约课哟"];
             }
             
         }else if ([type isEqualToString:@"video"]){

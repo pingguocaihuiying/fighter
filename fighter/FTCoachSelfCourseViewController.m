@@ -193,9 +193,9 @@
         FTUserBean *loginUser = [FTUserBean loginUser];
         BOOL isCoach = NO;
         if (loginUser) {
-            for (NSDictionary *dic in loginUser.identity) {
-                if ([dic[@"itemValueEn"] isEqualToString:@"coach"]) {
-                    if (isCoach && loginUser.corporationid) {
+            for (NSDictionary *identityDic in loginUser.identity) {
+                if ([identityDic[@"itemValueEn"] isEqualToString:@"coach"]) {
+                    if (loginUser.corporationid) {
                         isCoach = YES;
                     }
                     break;
@@ -209,7 +209,6 @@
                 [[UIApplication sharedApplication].keyWindow showMessage:@"您已经是教练身份，不能约课哟"];
             }
         }
-        
         
     }
 
