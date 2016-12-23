@@ -115,7 +115,6 @@
 
 - (void) initTableView {
     
-    
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(6, 0, self.frame.size.width-12, self.frame.size.height)];
     [_tableView setBackgroundColor:[UIColor clearColor]];
     _tableView.delegate = self;
@@ -127,6 +126,7 @@
     //    _tableView.tableHeaderView = _cycleScrollView;
     _tableView.tableHeaderView = _gymCycleScrollView;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.estimatedRowHeight = 120;
     [self addSubview:_tableView];
     
     [self setJHRefresh];
@@ -414,25 +414,25 @@
     return _dataSourceArray.count;
 }
 
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSDictionary *dic = [_dataSourceArray objectAtIndex:indexPath.row];
-    
-        
-    static FTGymCell * cell =nil;
-    static dispatch_once_t tonceToken;
-    dispatch_once(&tonceToken, ^{
-        cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
-    });
-    
-    CGFloat labelView_H = [cell caculateHeight:dic[@"gymType"]];
-
-    if (labelView_H == 0) {
-        return 88;
-    }
-    return 88 + labelView_H;
-    
-}
+//- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//    NSDictionary *dic = [_dataSourceArray objectAtIndex:indexPath.row];
+//    
+//        
+//    static FTGymCell * cell =nil;
+//    static dispatch_once_t tonceToken;
+//    dispatch_once(&tonceToken, ^{
+//        cell = [tableView dequeueReusableCellWithIdentifier:@"gymCell"];
+//    });
+//    
+//    CGFloat labelView_H = [cell caculateHeight:dic[@"gymType"]];
+//
+//    if (labelView_H == 0) {
+//        return 88;
+//    }
+//    return 88 + labelView_H;
+//    
+//}
 
 //headerView高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectio{

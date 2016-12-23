@@ -505,8 +505,6 @@
                                                                       multiplier:1.0
                                                                         constant:35];
     
-    
-    
     [self addConstraint:centerXCnstraint];
     [self addConstraint:centerYCnstraint];
     [self addConstraint:widthConstraint];
