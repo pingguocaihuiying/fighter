@@ -177,14 +177,14 @@
 /**
  跳转商城首页
  */
-+ (void) postSwitchShopHomeNoti {
++ (void) postSwitchShopHomeNotiWithDic:(NSDictionary *) dic {
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:SwitchShopHomeNoti object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:SwitchShopHomeNoti object:nil userInfo:dic];
 }
 
 
-#pragma mark - 侧滑栏通知
 
+#pragma mark - 侧滑栏通知
 
 /**
  关闭侧滑栏通知

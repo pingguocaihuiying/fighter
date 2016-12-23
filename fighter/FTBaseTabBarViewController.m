@@ -20,7 +20,7 @@
 #import "FTPracticeViewController.h"
 #import "FTCoachSelfCourseViewController.h"
 #import "FTFightingViewController.h"
-
+#import "FTShopNewViewController.h"
 
 @interface FTBaseTabBarViewController () <UITabBarControllerDelegate>
 
@@ -120,6 +120,9 @@
     
     //添加监听器，跳转商城首页
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(goShopHomeViewController:) name:SwitchShopHomeNoti object:nil];
+    
+    //添加监听器，跳转商城详情
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(goShopDetailViewController:) name:SwitchShopDetailNoti object:nil];
     
 }
 
@@ -385,9 +388,52 @@
     }
 }
 
+
 - (void) goShopHomeViewController:(NSNotification *)noti {
 
-    [self shopBtnAction:nil];
+    [self goShopHomeWidic:noti.userInfo animated:YES];
+}
+
+- (void) goShopHomeWidic:(NSDictionary *)dic  animated:(BOOL) animated {
+
+    FTShopViewController *shopVC = [FTShopViewController new];
+    shopVC.title = @"格斗商城";
+    
+    if (dic) {
+        NSString *corId =dic[@"corporationId"];
+        if (corId) {
+            shopVC.corporationId = corId;
+        }
+    }
+    
+    [self.navigationController  pushViewController:shopVC animated:YES];
+}
+
+- (void) goShopDetailViewController:(NSNotification *)noti {
+
+    if (noti.userInfo) {
+        
+        [self goShopHomeWidic:noti.userInfo animated:NO];
+        
+        NSString *goodId = noti.userInfo[@"goodId"];
+        //获取网络请求地址url
+        NSString *indexStr = [FTNetConfig host:Domain path:ShopNewURL];
+        NSString *urlString;
+        
+        FTUserBean *loginUser = [FTUserBean loginUser];
+        if (loginUser) {
+            urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@&goodId=%@",indexStr,loginUser.olduserid,loginUser.token,goodId];
+        }else {
+            urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@&goodId=%@",indexStr,loginUser.olduserid,loginUser.token,goodId];
+        }
+        
+        NSURL *url = [NSURL URLWithString:urlString];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        FTShopNewViewController *newvc = [[FTShopNewViewController alloc] initWithRequest:request];
+        [self.navigationController pushViewController:newvc animated:YES];
+    }else {
+        [self goShopHomeWidic:noti.userInfo animated:YES];
+    }
 }
 
 #pragma mark - button response
