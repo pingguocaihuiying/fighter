@@ -316,8 +316,8 @@
     _cycleScrollView.titlesGroup = titlesArray;
     
     _cycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
-    _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播点-红"];
-    _cycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播点-白"];
+    _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"方型轮播点-红"];
+    _cycleScrollView.pageDotImage = [UIImage imageNamed:@"方型轮播点-白"];
     _cycleScrollView.imageURLStringsGroup = imagesURLStrings;
 
     [_headerView addSubview:_cycleScrollView];

@@ -1053,7 +1053,7 @@ static NSString *const tableCellId = @"tableCellId";
                               @"gymId":gymId,
                               @"corporationid":corporationid
                               };
-        [FTNotificationTools postTabBarIndex:2 dic:dic];
+        [FTNotificationTools postSwitchShopHomeNoti];
     }
     
     
