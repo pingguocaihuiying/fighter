@@ -613,12 +613,13 @@
         homepageMainVC.olduserid = userId;
         [self.navigationController pushViewController:homepageMainVC animated:YES];
         
-    }else  if ([requestURL hasPrefix:@"s-call:goGym?id="]) {
+    }else  if ([requestURL hasPrefix:@"js-call:goGym?id="]) {
+        
         NSString *gymId = [requestURL stringByReplacingOccurrencesOfString:@"s-call:goGym?id=" withString:@""];
-        [self.navigationController popToRootViewControllerAnimated:NO];
         NSDictionary *dic = @{@"type":@"gym",
                               @"gymId":gymId
                               };
+//        [self.navigationController popToRootViewControllerAnimated:NO];
         [FTNotificationTools postTabBarIndex:2 dic:dic];
     }else  if ([requestURL hasPrefix:@"js-call:goCoach?gymId="]) {
         
@@ -630,11 +631,11 @@
                               @"gymId":gymId,
                               @"coachId":coachId
                               };
-        [self.navigationController popToRootViewControllerAnimated:NO];
+//        [self.navigationController popToRootViewControllerAnimated:NO];
         [FTNotificationTools postTabBarIndex:2 dic:dic];
     }else  if ([requestURL isEqualToString:@"js-call:goShop"]) {
         
-        [self.navigationController popToRootViewControllerAnimated:NO];
+//        [self.navigationController popToRootViewControllerAnimated:NO];
         [FTNotificationTools postSwitchShopHomeNoti];
     }
     

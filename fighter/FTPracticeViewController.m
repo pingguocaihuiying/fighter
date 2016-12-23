@@ -82,10 +82,18 @@
     
     FTUserBean *loginUser = [FTUserBean loginUser];
     if (loginUser.isGymUser.count > 0) {
-        self.coachBtnWidthConstraint.constant = 100;
-        [self coachBtnAction:nil];
+        
+//        self.coachBtnWidthConstraint.constant = 0;
+//        [self coachBtnAction:nil];
+        
+        [self.gymBtn setTitle:@"我的拳馆" forState:UIControlStateNormal];
+        [self.gymBtn setTitle:@"我的拳馆" forState:UIControlStateSelected];
+        [self gymBtnAction:nil];
     }else {
-        self.coachBtnWidthConstraint.constant = -1;
+        [self.gymBtn setTitle:@"拳馆列表" forState:UIControlStateNormal];
+        [self.gymBtn setTitle:@"拳馆列表" forState:UIControlStateSelected];
+        
+        self.coachBtnWidthConstraint.constant = 0;
         [self teachBtnAction:nil];
     }
 }
@@ -203,10 +211,22 @@
     _gymBtn.selected = YES;
 //    _gymBtn.enabled = NO;
     
-    [self initGymView];
+    FTUserBean *loginUser = [FTUserBean loginUser];
+    if (loginUser.isGymUser.count > 0) {
+        [self initMembershipGymView];
+        
+        [_practiceView removeFromSuperview];
+        [_gymView removeFromSuperview];
+        
+    }else {
+        [self initGymView];
+        
+        [_practiceView removeFromSuperview];
+        [_membershipGymView removeFromSuperview];
+    }
 
-    [_practiceView removeFromSuperview];
-    [_membershipGymView removeFromSuperview];
+
+    
 }
 
 
