@@ -115,15 +115,17 @@
         }
         if (_canOrder) {
             _orderStatusLabel.textColor = [UIColor colorWithHex:0x24b33c];
-            [_statusButton setBackgroundImage:[UIImage imageNamed:@"拳馆详情新课表-可用"] forState:UIControlStateNormal];
-            [_statusButton setBackgroundImage:[UIImage imageNamed:@"拳馆详情新课表-可用"] forState:UIControlStateDisabled];
+//            [_statusButton setBackgroundImage:[UIImage imageNamed:@"拳馆详情新课表-可用"] forState:UIControlStateNormal];
+//            [_statusButton setBackgroundImage:[UIImage imageNamed:@"拳馆详情新课表-可用"] forState:UIControlStateDisabled];
             [_statusButton setTitle:@"预约" forState:UIControlStateNormal];
+            [_statusButton setTitleColor:[UIColor colorWithHex:0x23b33c] forState:UIControlStateNormal];//把背景图去掉了，修改字体的颜色 12月23日 lyz
         } else {
         
             _orderStatusLabel.textColor = [UIColor colorWithHex:0xbe1e1e];
-            [_statusButton setBackgroundImage:[UIImage imageNamed:@"拳馆详情新课表-不可用"] forState:UIControlStateNormal];
-            [_statusButton setBackgroundImage:[UIImage imageNamed:@"拳馆详情新课表-不可用"] forState:UIControlStateDisabled];
+//            [_statusButton setBackgroundImage:[UIImage imageNamed:@"拳馆详情新课表-不可用"] forState:UIControlStateNormal];
+//            [_statusButton setBackgroundImage:[UIImage imageNamed:@"拳馆详情新课表-不可用"] forState:UIControlStateDisabled];
             [_statusButton setTitle:@"已满" forState:UIControlStateNormal];
+            [_statusButton setTitleColor:[UIColor colorWithHex:0x505050] forState:UIControlStateNormal];
         }
     }
     
