@@ -367,7 +367,7 @@
                 
                 NSString *coachId = dic[@"coachId"];
                 FTCoachBean *coachBean = [FTCoachBean new];
-                coachBean.userId = coachId;
+                coachBean.id = coachId;
                 
                 FTOrderCoachViewController *orderCoachViewController = [FTOrderCoachViewController new];
                 orderCoachViewController.coachBean = coachBean;
