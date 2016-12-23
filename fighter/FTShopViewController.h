@@ -10,8 +10,9 @@
 
 @interface FTShopViewController : FTBaseViewController
 
-@property(nonatomic,strong) NSString *needRefreshUrl;
+@property(nonatomic,copy) NSString *needRefreshUrl;
 @property(nonatomic,strong) NSURLRequest *request;
+@property(nonatomic,copy) NSString *corporationId;
 
 -(id)initWithUrl:(NSString*)url;
 -(id)initWithRequest:(NSURLRequest*)request;

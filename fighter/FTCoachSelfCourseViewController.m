@@ -161,8 +161,10 @@
  初始化默认配置：默认展示团课（或私课）
  */
 - (void)initDefaultConfig{
+    
     _courseType = FTCourseTypePublic;//默认左侧按钮被点击，显示公开课
 //        _coachCourseType = FTCoachCourseTypePersonal;
+    
 }
 
 #pragma mark - 通知响应
@@ -209,10 +211,7 @@
                 [[UIApplication sharedApplication].keyWindow showMessage:@"您已经是教练身份，不能约课哟"];
             }
         }
-        
     }
-
-
 }
 
 #pragma mark - response

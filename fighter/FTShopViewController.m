@@ -125,27 +125,30 @@
 
 - (void) initWebview {
     
+   
+    self.webView.delegate = self;
+    //获取网络请求地址url
+    NSString *urlString = [FTNetConfig host:Domain path:ShopNewURL];
+    
     FTUserBean *localUser = [FTUserBean loginUser];
     if (localUser) {
-        
-        self.webView.delegate = self;
-        //获取网络请求地址url
-        NSString *indexStr = [FTNetConfig host:Domain path:ShopNewURL];
-        NSString *urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@",indexStr,localUser.olduserid,localUser.token];
-        NSLog(@"shop home urlString:%@",urlString);
-        NSURL *url = [NSURL URLWithString:urlString];
-        NSURLRequest *request = [NSURLRequest requestWithURL:url];
-        [self.webView loadRequest: request];
+       
+        if (_corporationId) {
+            urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@&corId=%@",urlString,localUser.olduserid,localUser.token,_corporationId];
+        }else {
+            urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@",urlString,localUser.olduserid,localUser.token];
+        }
     }else {
         
-        self.webView.delegate = self;
-        //获取网络请求地址url
-        NSString *indexStr = [FTNetConfig host:Domain path:ShopNewURL];
-        NSURL *url = [NSURL URLWithString:indexStr];
-        NSURLRequest *request = [NSURLRequest requestWithURL:url];
-        [self.webView loadRequest: request];
-        
+        if (_corporationId) {
+            urlString = [NSString stringWithFormat: @"%@?corId=%@",urlString,_corporationId];
+        }
     }
+    
+    NSLog(@"shop home urlString:%@",urlString);
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [self.webView loadRequest: request];
     
 }
 
@@ -254,9 +257,23 @@
 - (void) switchDetailAction:(NSNotification *) noti {
     
     if (noti.userInfo != nil) {
-    
+        NSString *goodId = noti.userInfo[@"goodId"];
+        //获取网络请求地址url
+        NSString *indexStr = [FTNetConfig host:Domain path:ShopNewURL];
+        NSString *urlString;
+        
+        FTUserBean *loginUser = [FTUserBean loginUser];
+        if (loginUser) {
+            urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@&goodId=%@",indexStr,loginUser.olduserid,loginUser.token,goodId];
+        }else {
+            urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@&goodId=%@",indexStr,loginUser.olduserid,loginUser.token,goodId];
+        }
+        
+        NSURL *url = [NSURL URLWithString:urlString];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        FTShopNewViewController *newvc = [[FTShopNewViewController alloc] initWithRequest:request];
+        [self.navigationController pushViewController:newvc animated:NO];
     }
-    
 }
 
 #pragma mark - loading动画

@@ -635,14 +635,11 @@
         [FTNotificationTools postTabBarIndex:2 dic:dic];
     }else  if ([requestURL isEqualToString:@"js-call:goShop"]) {
         
-//        [self.navigationController popToRootViewControllerAnimated:NO];
-        [FTNotificationTools postSwitchShopHomeNoti];
+        [FTNotificationTools postSwitchShopHomeNotiWithDic:nil];
     }
     
     return YES;
 }
-
-
 
 #pragma  mark - 设置loading图
 -(void)setLoadingImageView{

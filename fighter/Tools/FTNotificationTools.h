@@ -91,7 +91,7 @@ typedef NS_ENUM(NSInteger, FTLoginType) {
 
 + (void) postSwitchShopDetailControllerWithDic:(NSDictionary *) dic;
 
-+ (void) postSwitchShopHomeNoti;
++ (void) postSwitchShopHomeNotiWithDic:(NSDictionary *)dic;
 
 #pragma mark - 侧滑栏通知
 
