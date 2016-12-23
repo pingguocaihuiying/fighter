@@ -63,14 +63,22 @@
     
     self = [super init];
     if (self) {
-        [self setSubViewsWithSpacint:spacing];
+        [self setSubViews];
+        [self setSpaceW:spacing];
         [self sizeToFitImageViewFrame];
     }
     
     return self;
 }
 
+
+- (void) layoutSubviews {
+
+    [self addImageConstraints];
+}
+
 - (void) setSubViews {
+    
     height = 28;
     width = 21;
     space = 10;
@@ -87,31 +95,83 @@
     [self addSubview:_s4];
     [self addSubview:_s5];
     
-    [self addImageConstraints];
+//    [self addImageConstraints];
 }
 
-- (void) setSubViewsWithSpacint:(float) spacing{
-    height = 28;
-    width = 21;
-    space = spacing;
-    
-    _s1 = [[UIImageView alloc] initWithImage:_unSelectedImage];
-    _s2 = [[UIImageView alloc] initWithImage:_unSelectedImage];
-    _s3 = [[UIImageView alloc] initWithImage:_unSelectedImage];
-    _s4 = [[UIImageView alloc] initWithImage:_unSelectedImage];
-    _s5 = [[UIImageView alloc] initWithImage:_unSelectedImage];
-    
-    [self addSubview:_s1];
-    [self addSubview:_s2];
-    [self addSubview:_s3];
-    [self addSubview:_s4];
-    [self addSubview:_s5];
-    
-    [self addImageConstraints];
+
+
+#pragma mark - setter
+
+- (void) setSpaceW:(CGFloat)spaceW{
+   
+    _spaceW = spaceW;
+//    [self addImageConstraints];
 }
 
+- (void) setImageH:(CGFloat)imageH {
+    if (_imageH != imageH) {
+        _imageH = imageH;
+        [self setImageViewsHeight:imageH];
+    }
+}
+
+- (void) setImageW:(CGFloat)imageW {
+
+    if (_imageW != imageW) {
+        _imageW = imageW;
+        [self setImageViewsWidth:imageW];
+    }
+}
+
+
+- (void) setImageViewsHeight:(CGFloat) imageViewH {
+
+    [self setImageViewH:imageViewH imageView:_s1];
+    [self setImageViewH:imageViewH imageView:_s2];
+    [self setImageViewH:imageViewH imageView:_s3];
+    [self setImageViewH:imageViewH imageView:_s4];
+    [self setImageViewH:imageViewH imageView:_s5];
+}
+
+- (void) setImageViewsWidth:(CGFloat) imageViewW {
+
+    [self setImageViewW:imageViewW imageView:_s1];
+    [self setImageViewW:imageViewW imageView:_s2];
+    [self setImageViewW:imageViewW imageView:_s3];
+    [self setImageViewW:imageViewW imageView:_s4];
+    [self setImageViewW:imageViewW imageView:_s5];
+}
+
+- (void) setImageViewH:(CGFloat) imageH  imageView:(UIImageView *) imageView {
+    CGRect frame = imageView.frame;
+    frame.size.height = imageH;
+    imageView.frame = frame;
+}
+
+- (void) setImageViewW:(CGFloat) imageW  imageView:(UIImageView *) imageView {
+    CGRect frame = imageView.frame;
+    frame.size.width = imageW;
+    imageView.frame = frame;
+}
+
+
+
+
+#pragma mark - constraint
 
 - (void) addImageConstraints {
+    
+    if (_imageH > 0) {
+        height = _imageH;
+    }
+    
+    if (_imageW > 0) {
+        width = _imageW;
+    }
+    
+    if (_spaceW > 0) {
+        space = _spaceW;
+    }
     
     [self addImageViewConstraint:_s1 index:0];
     [self addImageViewConstraint:_s2 index:1];
@@ -127,6 +187,7 @@
     frame.size.height = height;
     [self setFrame:frame];
 }
+
 
 - (void) addImageViewConstraint:(UIImageView *)imageview index:(NSInteger) index{
 
@@ -198,6 +259,8 @@
 
 
 
+#pragma mark - rating
+
 
 /**
  *  设置评分值
@@ -258,7 +321,7 @@
  *
  *  @return 评分值
  */
--(float) rating{
+-(CGFloat) rating{
     return _rating;
 }
 

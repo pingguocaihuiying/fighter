@@ -51,6 +51,9 @@
  */
 @property (nonatomic,assign) BOOL isIndicator;
 
+@property (nonatomic,assign) CGFloat imageH;
+@property (nonatomic,assign) CGFloat imageW;
+@property (nonatomic,assign) CGFloat spaceW;
 
 //附带间距的初始化方法
 - (instancetype)initWithSpacing:(float)spacing;

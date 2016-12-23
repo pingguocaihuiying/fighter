@@ -37,6 +37,8 @@
  */
 @property (weak, nonatomic) IBOutlet UILabel *memberLabel;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelViewHeightConstriant;
+
 - (void) labelsViewAdapter:(NSString *) labelsString;
 
 - (CGFloat) caculateHeight:(NSString *) labelsString;
