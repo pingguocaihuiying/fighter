@@ -47,7 +47,7 @@
 
     CGSize labelSize = [self.labelString sizeWithFont:[UIFont systemFontOfSize:fontSize] constrainedToSize:CGSizeMake(MAXFLOAT, 30)];
 
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(space, (h - labelSize.height)/2 - 1, labelSize.width, labelSize.height)];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(space, (h - labelSize.height)/2 - 0.5, labelSize.width, labelSize.height)];
     label.text = self.labelString;
     label.font = [UIFont systemFontOfSize:fontSize];
     label.textColor = [UIColor whiteColor];
