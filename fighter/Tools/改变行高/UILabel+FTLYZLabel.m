@@ -11,6 +11,11 @@
 @implementation UILabel (FTLYZLabel)
 + (void)setRowGapOfLabel:(UILabel *)label withValue:(int )value{
     //调整行间距
+    
+    if (!label.text) {
+        return;
+    }
+    
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:label.text];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:value];//调整行间距

@@ -190,9 +190,11 @@
 - (void)getGymDetailInfoFromServer{
     NSString *gymId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
     [NetWorking getGymForGymDetailWithGymId:gymId andOption:^(NSDictionary *dic) {
-        _gymDetailBean = [FTGymDetailBean new];
-        [_gymDetailBean setValuesForKeysWithDictionary:dic];
-        [self doOtherThingWithGymDetailBean];
+        if (dic) {
+            _gymDetailBean = [FTGymDetailBean new];
+            [_gymDetailBean setValuesForKeysWithDictionary:dic];
+            [self doOtherThingWithGymDetailBean];
+        }
     }];
 }
 
