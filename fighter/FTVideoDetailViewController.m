@@ -615,7 +615,7 @@
         
     }else  if ([requestURL hasPrefix:@"js-call:goGym?id="]) {
         
-        NSString *gymId = [requestURL stringByReplacingOccurrencesOfString:@"s-call:goGym?id=" withString:@""];
+        NSString *gymId = [requestURL stringByReplacingOccurrencesOfString:@"js-call:goGym?id=" withString:@""];
         NSDictionary *dic = @{@"type":@"gym",
                               @"gymId":gymId
                               };
