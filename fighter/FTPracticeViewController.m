@@ -336,7 +336,7 @@
             
             FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
             gymDetailWebViewController.gymBean = bean;
-            [self pushToController:gymDetailWebViewController];
+            [self.navigationController pushViewController:gymDetailWebViewController animated:YES];
         }else if([type isEqualToString:@"coach"]){
             
             NSInteger gymId = [dic[@"gymId"] integerValue];
@@ -349,11 +349,11 @@
             
             FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
             gymDetailWebViewController.gymBean = bean;
-            [self pushToController:gymDetailWebViewController];
+            [self.navigationController pushViewController:gymDetailWebViewController animated:NO];
             
             FTOrderCoachViewController *orderCoachViewController = [FTOrderCoachViewController new];
             orderCoachViewController.coachBean = coachBean;
-            [self.navigationController pushViewController:orderCoachViewController animated:NO];
+            [self.navigationController pushViewController:orderCoachViewController animated:YES];
             
         }else if ([type isEqualToString:@"video"]){
             

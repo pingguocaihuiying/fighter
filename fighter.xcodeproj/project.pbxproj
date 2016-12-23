@@ -24,6 +24,7 @@
 		3D1189FB1D5B20860083B568 /* FTDBRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1189F91D5B20860083B568 /* FTDBRecordViewController.m */; };
 		3D1189FC1D5B20860083B568 /* FTDBRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D1189FA1D5B20860083B568 /* FTDBRecordViewController.xib */; };
 		3D11B2741D744C5400B4C838 /* UIImage+LabelImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D11B2731D744C5400B4C838 /* UIImage+LabelImage.m */; };
+		3D13BC871E0CF32600BD5534 /* FTLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BC861E0CF32600BD5534 /* FTLabelView.m */; };
 		3D13FB0C1D193A5A0060B9B4 /* fighter.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 3D13FB0B1D193A5A0060B9B4 /* fighter.entitlements */; };
 		3D13FB101D193BB80060B9B4 /* FTFightingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D13FB0E1D193BB80060B9B4 /* FTFightingViewController.m */; };
 		3D13FB111D193BB80060B9B4 /* FTFightingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D13FB0F1D193BB80060B9B4 /* FTFightingViewController.xib */; };
@@ -543,6 +544,8 @@
 		3D1189FA1D5B20860083B568 /* FTDBRecordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTDBRecordViewController.xib; sourceTree = "<group>"; };
 		3D11B2721D744C5400B4C838 /* UIImage+LabelImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+LabelImage.h"; sourceTree = "<group>"; };
 		3D11B2731D744C5400B4C838 /* UIImage+LabelImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+LabelImage.m"; sourceTree = "<group>"; };
+		3D13BC851E0CF32600BD5534 /* FTLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTLabelView.h; sourceTree = "<group>"; };
+		3D13BC861E0CF32600BD5534 /* FTLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTLabelView.m; sourceTree = "<group>"; };
 		3D13FB0B1D193A5A0060B9B4 /* fighter.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fighter.entitlements; sourceTree = "<group>"; };
 		3D13FB0D1D193BB80060B9B4 /* FTFightingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTFightingViewController.h; sourceTree = "<group>"; };
 		3D13FB0E1D193BB80060B9B4 /* FTFightingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTFightingViewController.m; sourceTree = "<group>"; };
@@ -1452,6 +1455,15 @@
 				3D1189FA1D5B20860083B568 /* FTDBRecordViewController.xib */,
 			);
 			name = "兑换跳转页";
+			sourceTree = "<group>";
+		};
+		3D13BC841E0CF29C00BD5534 /* 拳馆标签View  */ = {
+			isa = PBXGroup;
+			children = (
+				3D13BC851E0CF32600BD5534 /* FTLabelView.h */,
+				3D13BC861E0CF32600BD5534 /* FTLabelView.m */,
+			);
+			name = "拳馆标签View ";
 			sourceTree = "<group>";
 		};
 		3D13FB121D1A1A2C0060B9B4 /* 学拳 */ = {
@@ -3226,6 +3238,7 @@
 		E6555ACD1D7FF5D000748E66 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				3D13BC841E0CF29C00BD5534 /* 拳馆标签View  */,
 				E65E2CFD1D8FE77200D19B96 /* 成为会员成功的弹出提示 */,
 				3D4C6EE81D87D27100881208 /* cameraAndalbum */,
 				E6555ACE1D7FF69500748E66 /* 拳馆列表 */,
@@ -5258,6 +5271,7 @@
 				3DFC414F1D083A3F0067AC72 /* TAAnimatedDotView.m in Sources */,
 				E6C4D7F11CEC5FCE00D73BFC /* FTArenaNetwork.m in Sources */,
 				E6089B331DD46091006496B0 /* FTUserSkillScore.m in Sources */,
+				3D13BC871E0CF32600BD5534 /* FTLabelView.m in Sources */,
 				3DC4121D1CD060190030C229 /* FTDrawerViewController.m in Sources */,
 				E6D74A4C1CB7B7EE00854337 /* HUD.m in Sources */,
 				E63061C41DE6DC4500F43D15 /* FTSegmentButtonView.m in Sources */,
