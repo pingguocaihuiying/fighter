@@ -85,6 +85,8 @@
     
     //注册通知，接收登录成功的消息
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchDetailAction:) name:SwitchPracticeDetailNoti object:nil];
 }
 
 
@@ -181,6 +183,21 @@
         
         [self.historyOrderTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     }
+}
+
+#pragma mark - 通知
+- (void) switchDetailAction:(NSNotification *) noti {
+
+    NSDictionary *dic = noti.userInfo;
+    if (dic != nil) {
+        NSString *type = dic[@"type"];
+        if ([type isEqualToString:@"gym"] || [type isEqualToString:@"coach"]){
+            
+            [[UIApplication sharedApplication].keyWindow showMessage:@"您已经是教练身份，不能约课哟"];
+        }
+    }
+
+
 }
 
 #pragma mark - response

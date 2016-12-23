@@ -60,6 +60,10 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+
+
+#pragma mark  - setup
+
 - (void) setNotification {
     
     //注册通知，接收登录成功的消息
@@ -70,8 +74,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchDetailAction:) name:SwitchPracticeDetailNoti object:nil];
     
 }
-
-#pragma mark  - setup
 
 - (void) initSubviews {
 
@@ -329,32 +331,49 @@
     NSDictionary *dic = noti.userInfo;
     if (dic != nil) {
         NSString *type = dic[@"type"];
+        
+        FTUserBean *loginUser = [FTUserBean loginUser];
+        BOOL isCoach = NO;
+        if (loginUser) {
+            for (NSDictionary *dic in loginUser.identity) {
+                if ([dic[@"itemValueEn"] isEqualToString:@"coach"]) {
+                    if (isCoach && loginUser.corporationid) {
+                        isCoach = YES;
+                    }
+                    break;
+                }
+            }
+        }
+        
         if ([type isEqualToString:@"gym"]){
+             // 如果不是教练身份才跳转到拳馆详情界面
+            if (!isCoach) {
+                NSInteger gymId = [dic[@"gymId"] integerValue];
+                FTGymBean *bean = [FTGymBean new];
+                bean.gymId = gymId;
+                
+                FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
+                gymDetailWebViewController.gymBean = bean;
+                [self.navigationController pushViewController:gymDetailWebViewController animated:YES];
+            }else {
+                [[UIApplication sharedApplication].keyWindow showMessage:@"您已经是教练身份，不能约课哟"];
+            }
             
-            NSInteger gymId = [dic[@"gymId"] integerValue];
-            FTGymBean *bean = [FTGymBean new];
-            bean.gymId = gymId;
-            
-            FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
-            gymDetailWebViewController.gymBean = bean;
-            [self.navigationController pushViewController:gymDetailWebViewController animated:YES];
         }else if([type isEqualToString:@"coach"]){
             
-//            NSInteger gymId = [dic[@"gymId"] integerValue];
-            NSString *coachId = dic[@"coachId"];
-//            FTGymBean *bean = [FTGymBean new];
-//            bean.gymId = gymId;
-            
-            FTCoachBean *coachBean = [FTCoachBean new];
-            coachBean.userId = coachId;
-            
-//            FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
-//            gymDetailWebViewController.gymBean = bean;
-//            [self.navigationController pushViewController:gymDetailWebViewController animated:NO];
-            
-            FTOrderCoachViewController *orderCoachViewController = [FTOrderCoachViewController new];
-            orderCoachViewController.coachBean = coachBean;
-            [self.navigationController pushViewController:orderCoachViewController animated:YES];
+            // 如果不是教练身份才跳转到教练约课界面
+            if (!isCoach) {
+                
+                NSString *coachId = dic[@"coachId"];
+                FTCoachBean *coachBean = [FTCoachBean new];
+                coachBean.userId = coachId;
+                
+                FTOrderCoachViewController *orderCoachViewController = [FTOrderCoachViewController new];
+                orderCoachViewController.coachBean = coachBean;
+                [self.navigationController pushViewController:orderCoachViewController animated:YES];
+            }else {
+                [[UIApplication sharedApplication].keyWindow showMessage:@"您已经是教练身份，不能约课哟"];
+            }
             
         }else if ([type isEqualToString:@"video"]){
             
