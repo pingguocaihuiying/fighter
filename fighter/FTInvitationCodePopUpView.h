@@ -24,9 +24,11 @@ typedef void(^DismissSuperControllerBlock)();
  */
 @interface FTInvitationCodePopUpView : UIView
 
+
 @property (nonatomic, copy) NSString *gymName;
 @property (nonatomic, copy) NSString *detail;
 
+@property (nonatomic, copy) NSString *corporationid;//邀请码所属拳馆
 @property (nonatomic, copy) NSString *times;    //次卡会员剩余次数
 @property (nonatomic, copy) NSString *deadline; // 日期会员截止日期
 @property (nonatomic, copy) NSString *balance;  // 余额会员的余额

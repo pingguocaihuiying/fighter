@@ -250,7 +250,6 @@
     FTUserBean *loginUser = [FTUserBean loginUser];
     
     if (loginUser) {
-        
         if (loginUser.isGymUser == nil || loginUser.isGymUser.count == 0) {
             [self getMembershipGymsFromWeb];
         }
@@ -298,7 +297,7 @@
         NSArray *tempArray = dict[@"data"];
         if (tempArray.count > 0) {
             FTUserBean *loginuser = [FTUserBean loginUser];
-            self.coachBtnWidthConstraint.constant = 100;
+            self.coachBtnWidthConstraint.constant = 0;
             
             for (int i = 0; i < tempArray.count ; i++) {
                 
@@ -306,6 +305,9 @@
                 
                 if (![loginuser.isGymUser containsObject:memberShipGymId]) {
                    loginuser.isGymUser=  [NSArray arrayWithObject:memberShipGymId];
+//                    NSMutableArray *memberArray = [[NSMutableArray alloc]initWithArray:loginuser.isGymUser];
+//                    [memberArray addObject:memberShipGymId];
+//                    loginuser.isGymUser = memberArray;
                 }
                 
                 //将用户信息保存在本地

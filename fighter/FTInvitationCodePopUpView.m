@@ -523,7 +523,12 @@
 - (void) submitButtonAction:(id) sender {
     
     [FTNotificationTools postCloseDrawerNoti];
-    [FTNotificationTools postTabBarIndex:2 dic:nil];
+    
+    NSDictionary *dic = @{@"type":@"gym",
+                          @"corporationid":_corporationid
+                          };
+    [FTNotificationTools postTabBarIndex:2 dic:dic];
+    
     [self removeFromSuperview];
     if (self.dismissBlock) {
         _dismissBlock ();

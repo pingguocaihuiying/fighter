@@ -444,10 +444,10 @@ NSString * const ID = @"cycleCell";
     CGSize size = CGSizeZero;
     if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
         TAPageControl *pageControl = (TAPageControl *)_pageControl;
-        pageControl.spacingBetweenDots = 15;
+        pageControl.spacingBetweenDots = 8;
         size = [pageControl sizeForNumberOfPages:self.imagePathsGroup.count];
     } else {
-        size = CGSizeMake(self.imagePathsGroup.count * (self.pageControlDotSize.width + 15) - 15, self.pageControlDotSize.height);
+        size = CGSizeMake(self.imagePathsGroup.count * (self.pageControlDotSize.width + 8) - 8, self.pageControlDotSize.height);
     }
     CGFloat x = (self.sd_width - size.width) * 0.5;
     if (self.pageControlAliment == SDCycleScrollViewPageContolAlimentRight) {

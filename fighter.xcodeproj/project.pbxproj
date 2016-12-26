@@ -1649,26 +1649,27 @@
 		3D35B7E91E08F9D800C048D1 /* 邀请码 */ = {
 			isa = PBXGroup;
 			children = (
-				3D35B7EB1E08FA0000C048D1 /* controller */,
-				3D35B7EA1E08F9F500C048D1 /* view */,
+				3D4B618A1E11209D00F364BB /* Model */,
+				3D35B7EB1E08FA0000C048D1 /* Controller */,
+				3D35B7EA1E08F9F500C048D1 /* View */,
 			);
 			name = "邀请码";
 			sourceTree = "<group>";
 		};
-		3D35B7EA1E08F9F500C048D1 /* view */ = {
+		3D35B7EA1E08F9F500C048D1 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				3D35B7EC1E08FA1900C048D1 /* 弹出框 */,
 			);
-			name = view;
+			name = View;
 			sourceTree = "<group>";
 		};
-		3D35B7EB1E08FA0000C048D1 /* controller */ = {
+		3D35B7EB1E08FA0000C048D1 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				3D35B7E31E08E06A00C048D1 /* invitationCodeController */,
 			);
-			name = controller;
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		3D35B7EC1E08FA1900C048D1 /* 弹出框 */ = {
@@ -2037,6 +2038,13 @@
 				3D5FB48E1CDC30C700FC1809 /* imagePicker */,
 			);
 			name = picker;
+			sourceTree = "<group>";
+		};
+		3D4B618A1E11209D00F364BB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		3D4C6ED41D86583300881208 /* 拳馆照片cell */ = {

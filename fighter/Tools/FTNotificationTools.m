@@ -92,7 +92,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:ShowHomePageNavNoti object:nil];
 }
 
-#pragma mark - 
+#pragma mark - 拳馆
 
 /**
  显示会员拳馆

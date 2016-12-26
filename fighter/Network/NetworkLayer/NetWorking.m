@@ -2521,10 +2521,12 @@
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     [dic setObject:userId forKey:@"userId"];
     [dic setObject:token forKey:@"loginToken"];
-    [dic setObject:ts forKey:@"ts"];
     [dic setObject:code forKey:@"code"];
+    [dic setObject:ts forKey:@"ts"];
     
-    NSString *checkSign = [FTTools md5Dictionary:dic withCheckKey:@"gedoudongxi123789"];
+    
+//    NSString *checkSign = [FTTools md5Dictionary:dic withCheckKey:@"gedoudongxi123789"];
+    NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@%@%@",userId,token,code,ts,@"gedoudongxi123789"]];
     [dic setObject:checkSign forKey:@"checkSign"];
     
     NSString *url = [FTNetConfig host:Domain path:UseInvitationCodeInfo];
