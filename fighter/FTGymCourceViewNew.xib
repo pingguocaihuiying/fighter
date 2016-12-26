@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -30,7 +30,7 @@
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="拳馆课程表" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E1b-Y0-90c">
-                            <rect key="frame" x="152" y="10" width="71.5" height="14"/>
+                            <rect key="frame" x="152" y="10" width="72" height="14"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="14" id="86i-K9-J7Q"/>
                             </constraints>
@@ -83,7 +83,7 @@
                             <rect key="frame" x="0.0" y="350" width="375" height="50"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无课程" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QnK-1I-CUx">
-                                    <rect key="frame" x="163" y="18" width="49.5" height="14.5"/>
+                                    <rect key="frame" x="163" y="18" width="50" height="15"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -95,10 +95,38 @@
                                 <constraint firstItem="QnK-1I-CUx" firstAttribute="centerY" secondItem="mBD-IB-V84" secondAttribute="centerY" id="s7o-Qh-nh7"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="845-gD-pIt">
+                            <rect key="frame" x="0.0" y="1" width="44" height="33"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="44" id="wt8-NG-QCl"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="-7.5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" image="课程表-左箭头"/>
+                            <state key="disabled" image="课程表-左箭头-不可用"/>
+                            <state key="highlighted" image="课程表-左箭头-pre"/>
+                            <connections>
+                                <action selector="prePlaceButtonClicked:" destination="adx-Xa-rE6" eventType="touchUpInside" id="ziE-t5-fcg"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WN2-9e-sNM">
+                            <rect key="frame" x="331" y="0.0" width="44" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="44" id="nGm-YO-7Ft"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" image="课程表-右箭头"/>
+                            <state key="disabled" image="课程表-右箭头-不可用"/>
+                            <state key="highlighted" image="课程表-右箭头-pre"/>
+                            <connections>
+                                <action selector="nextButtonClicked:" destination="adx-Xa-rE6" eventType="touchUpInside" id="Ik8-bb-YRf"/>
+                                <action selector="prePlaceButtonClicked:" destination="adx-Xa-rE6" eventType="touchUpInside" id="QRS-Pi-Fah"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="E1b-Y0-90c" firstAttribute="top" secondItem="Bg9-QH-mtN" secondAttribute="top" constant="10" id="3EG-eL-wKU"/>
+                        <constraint firstItem="5gK-Qs-FUz" firstAttribute="top" secondItem="WN2-9e-sNM" secondAttribute="bottom" id="62T-VX-P4g"/>
                         <constraint firstItem="5gK-Qs-FUz" firstAttribute="leading" secondItem="Bg9-QH-mtN" secondAttribute="leading" id="7c6-Tl-4Si"/>
                         <constraint firstItem="Nb4-mZ-rsF" firstAttribute="top" secondItem="amp-lI-Mtg" secondAttribute="bottom" id="AS4-dh-wcP"/>
                         <constraint firstItem="xIF-FW-z2l" firstAttribute="top" secondItem="Bg9-QH-mtN" secondAttribute="top" id="ATN-D6-eRh"/>
@@ -106,11 +134,16 @@
                         <constraint firstAttribute="trailing" secondItem="5gK-Qs-FUz" secondAttribute="trailing" id="Ix0-Ym-iv5"/>
                         <constraint firstItem="E1b-Y0-90c" firstAttribute="centerX" secondItem="Bg9-QH-mtN" secondAttribute="centerX" id="LGj-rf-Qj7"/>
                         <constraint firstItem="Nb4-mZ-rsF" firstAttribute="leading" secondItem="Bg9-QH-mtN" secondAttribute="leading" id="OkY-N5-LNR"/>
+                        <constraint firstItem="845-gD-pIt" firstAttribute="leading" secondItem="Bg9-QH-mtN" secondAttribute="leading" id="Q3A-w2-Ktk"/>
+                        <constraint firstItem="845-gD-pIt" firstAttribute="top" secondItem="xIF-FW-z2l" secondAttribute="bottom" id="V9v-yb-6Cx"/>
                         <constraint firstItem="xIF-FW-z2l" firstAttribute="leading" secondItem="Bg9-QH-mtN" secondAttribute="leading" id="W6x-c6-yDu"/>
                         <constraint firstAttribute="trailing" secondItem="amp-lI-Mtg" secondAttribute="trailing" id="XLs-aO-kKr"/>
                         <constraint firstAttribute="trailing" secondItem="Nb4-mZ-rsF" secondAttribute="trailing" id="Xtv-uQ-9FW"/>
+                        <constraint firstAttribute="trailing" secondItem="WN2-9e-sNM" secondAttribute="trailing" id="Y8e-PA-r9k"/>
                         <constraint firstAttribute="trailing" secondItem="xIF-FW-z2l" secondAttribute="trailing" id="ac6-2x-ZTE"/>
                         <constraint firstItem="mBD-IB-V84" firstAttribute="top" secondItem="Nb4-mZ-rsF" secondAttribute="bottom" id="cF2-NG-9gF"/>
+                        <constraint firstItem="WN2-9e-sNM" firstAttribute="top" secondItem="Bg9-QH-mtN" secondAttribute="top" id="du6-ig-c0q"/>
+                        <constraint firstItem="5gK-Qs-FUz" firstAttribute="top" secondItem="845-gD-pIt" secondAttribute="bottom" id="o2t-SP-AcX"/>
                         <constraint firstItem="amp-lI-Mtg" firstAttribute="top" secondItem="5gK-Qs-FUz" secondAttribute="bottom" id="oBn-sv-rW7"/>
                         <constraint firstAttribute="trailing" secondItem="mBD-IB-V84" secondAttribute="trailing" id="rd6-hd-K3e"/>
                         <constraint firstItem="mBD-IB-V84" firstAttribute="leading" secondItem="Bg9-QH-mtN" secondAttribute="leading" id="tGa-lq-EUs"/>
@@ -134,15 +167,25 @@
             <connections>
                 <outlet property="blankInfoLabel" destination="QnK-1I-CUx" id="Gqb-t7-UbM"/>
                 <outlet property="dateView" destination="ts7-Uv-hWa" id="uGT-OG-jtP"/>
+                <outlet property="nextPlaceButton" destination="WN2-9e-sNM" id="r9j-IX-bBO"/>
                 <outlet property="noCourserInfoView" destination="mBD-IB-V84" id="Cbf-69-t4j"/>
                 <outlet property="noCourserInfoViewHeight" destination="HQ4-Yf-BEw" id="786-h6-JDz"/>
+                <outlet property="prePlaceButton" destination="845-gD-pIt" id="CWB-qb-XbZ"/>
                 <outlet property="seperatorView1" destination="xIF-FW-z2l" id="o3r-sa-rYz"/>
                 <outlet property="seperatorView2" destination="5gK-Qs-FUz" id="8B4-yH-lKP"/>
                 <outlet property="t1" destination="xrD-mv-qTA" id="ktw-vY-0tN"/>
                 <outlet property="tableViewsHeight" destination="elT-SF-Ljd" id="FEt-F9-BHc"/>
                 <outlet property="titleLabel" destination="E1b-Y0-90c" id="Mq2-rt-iPs"/>
             </connections>
-            <point key="canvasLocation" x="3.5" y="56"/>
+            <point key="canvasLocation" x="-28" y="62"/>
         </view>
     </objects>
+    <resources>
+        <image name="课程表-右箭头" width="14" height="14"/>
+        <image name="课程表-右箭头-pre" width="14" height="14"/>
+        <image name="课程表-右箭头-不可用" width="14" height="14"/>
+        <image name="课程表-左箭头" width="14" height="14"/>
+        <image name="课程表-左箭头-pre" width="14" height="14"/>
+        <image name="课程表-左箭头-不可用" width="14" height="14"/>
+    </resources>
 </document>
