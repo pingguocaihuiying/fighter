@@ -319,7 +319,7 @@ NSString * const ShopURL = @"/shop/index.html";
 NSString * const ShopNewURL = @"/shopNew/index.html";
 NSString * const ShopOrderURL = @"/shop/order.html";
 
-#pragma mark 拳吧
+#pragma mark - 拳吧
 // URL
 NSString *const BoxingBarSectionURL = @"/api/damageplate/list.do";
 NSString *const UserWhetherFollowModuleURL = @"/api/damageplatefollow/find.do";
@@ -329,6 +329,13 @@ NSString *const UnFollowModuleURL = @"/api/damageplatefollow/delete$DamagePlateF
 //校验码
 NSString *const FollowModuleCheckSign = @"gedoujihgf226g66";
 NSString *const UnFollowModuleCheckSign = @"gedoujihghdtfsh254";
+
+#pragma mark - 邀请码
+//查询邀请码信息
+NSString *const GetInvitationCodeInfo = @"/api/ivCode/getCodeInfo.do";
+//使用邀请码
+NSString *const UseInvitationCodeInfo = @"/api/ivCode/useCode.do";
+
 
 @end
 

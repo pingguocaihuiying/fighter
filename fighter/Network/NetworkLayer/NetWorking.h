@@ -479,4 +479,11 @@
  @param block block
  */
 + (void)userWhetherFollowModule:(FTModuleBean *)moduleBean withBlock:(void (^)(NSDictionary *dic)) block;
+
+#pragma mark - 邀请码
+
++ (void) getInvitationCodeInfo:(NSString *)code option:(void (^)(NSDictionary *dic)) option;
+
++ (void) useInvitationCode:(NSString *)code option:(void (^)(NSDictionary *dic)) option;
+
 @end
