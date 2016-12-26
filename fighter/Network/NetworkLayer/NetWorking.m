@@ -1581,7 +1581,7 @@
     if (gymBean.gymId) {
         urlString = [NSString stringWithFormat:@"%@/api/gym/%ld.do", Domain, gymBean.gymId];
     }else if(gymBean.corporationid){
-        urlString = [NSString stringWithFormat:@"%@/api/gym/%ld.doc-%ld", Domain, gymBean.corporationid, gymBean.corporationid];
+        urlString = [NSString stringWithFormat:@"%@/api/gym/c-%ld.do", Domain, gymBean.corporationid];
     }
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //设置请求返回的数据类型为默认类型（NSData类型)
