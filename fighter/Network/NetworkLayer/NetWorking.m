@@ -2478,4 +2478,59 @@
     [paramDic setValue:[NSString stringWithFormat:@"%ld", moduleBean.id] forKey:@"plateId"];
     [self postRequestWithUrl:url parameters:paramDic option:block];
 }
+
+#pragma mark - 邀请码
+
+
+/**
+ 查询邀请码信息
+
+ @param code 邀请码（20位）
+ @param option 返回信息block
+ */
++ (void) getInvitationCodeInfo:(NSString *)code option:(void (^)(NSDictionary *dic)) option{
+    
+    NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];// 时间戳
+    
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:ts forKey:@"ts"];
+    [dic setObject:code forKey:@"code"];
+    
+    NSString *checkSign = [FTTools md5Dictionary:dic withCheckKey:@"gedoudongxi123789"];
+    [dic setObject:checkSign forKey:@"checkSign"];
+    
+    NSString *url = [FTNetConfig host:Domain path:GetInvitationCodeInfo];
+    [self postRequestWithUrl:url parameters:dic option:option];
+}
+
+
+/**
+ 使用邀请码
+
+ @param code 邀请码（20位）
+ @param option 返回信息block
+ */
++ (void) useInvitationCode:(NSString *)code option:(void (^)(NSDictionary *dic)) option{
+    
+    FTUserBean *loginuser = [FTUserBean loginUser];
+    NSString *userId = loginuser.olduserid;
+    NSString *token = loginuser.token;
+    NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];// 时间戳
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:userId forKey:@"userId"];
+    [dic setObject:token forKey:@"loginToken"];
+    [dic setObject:ts forKey:@"ts"];
+    [dic setObject:code forKey:@"code"];
+    
+    NSString *checkSign = [FTTools md5Dictionary:dic withCheckKey:@"gedoudongxi123789"];
+    [dic setObject:checkSign forKey:@"checkSign"];
+    
+    NSString *url = [FTNetConfig host:Domain path:UseInvitationCodeInfo];
+    [self postRequestWithUrl:url parameters:dic option:option];
+    
+}
+
+
 @end

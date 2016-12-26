@@ -324,3 +324,10 @@ extern NSString *const UnFollowModuleURL;
 extern NSString *const FollowModuleCheckSign;
 //取消关注版块校验码
 extern NSString *const UnFollowModuleCheckSign;
+
+#pragma mark - 邀请码
+//查询邀请码信息
+extern NSString *const GetInvitationCodeInfo;
+//使用邀请码
+extern NSString *const UseInvitationCodeInfo;
+

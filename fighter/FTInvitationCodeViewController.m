@@ -69,7 +69,29 @@
 
 - (IBAction)submitButton:(id)sender {
     
-    [self popUpView];
+    if (self.invitationCodeTextField.text.length == 0) {
+        [self.view showMessage:@"请输入邀请码"];
+    }
+    
+    
+    
+}
+
+
+- (void) getInvigationCodeInfo {
+    
+    
+    [NetWorking getInvitationCodeInfo:self.invitationCodeTextField.text option:^(NSDictionary *dic) {
+        
+        
+    }];
+}
+
+- (void) userInvitationCode {
+    
+    [NetWorking useInvitationCode:self.invitationCodeTextField.text option:^(NSDictionary *dic) {
+        
+    }];
 }
 
 

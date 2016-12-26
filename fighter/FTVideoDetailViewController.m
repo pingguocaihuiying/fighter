@@ -613,29 +613,43 @@
         homepageMainVC.olduserid = userId;
         [self.navigationController pushViewController:homepageMainVC animated:YES];
         
-    }else  if ([requestURL hasPrefix:@"js-call:goGym?id="]) {
+    }else  if ([requestURL hasPrefix:@"js-call:goGym?corId="]) {
         
-        NSString *gymId = [requestURL stringByReplacingOccurrencesOfString:@"js-call:goGym?id=" withString:@""];
+        NSString *corId = [requestURL stringByReplacingOccurrencesOfString:@"js-call:goGym?corId=" withString:@""];
         NSDictionary *dic = @{@"type":@"gym",
-                              @"gymId":gymId
+                              @"corporationid":corId
                               };
-//        [self.navigationController popToRootViewControllerAnimated:NO];
         [FTNotificationTools postTabBarIndex:2 dic:dic];
-    }else  if ([requestURL hasPrefix:@"js-call:goCoach?gymId="]) {
+    }else  if ([requestURL hasPrefix:@"js-call:goCoach?corId="]) {
         
         NSArray *array = [requestURL componentsSeparatedByString:@"&"];
-        NSString *gymId = [array[0] stringByReplacingOccurrencesOfString:@"js-call:goCoach?gymId=" withString:@""];
+        NSString *corId = [array[0] stringByReplacingOccurrencesOfString:@"js-call:goCoach?corId=" withString:@""];
         NSString *coachId = [array[1] stringByReplacingOccurrencesOfString:@"coachId=" withString:@""];
         
         NSDictionary *dic = @{@"type":@"coach",
-                              @"gymId":gymId,
+                              @"corporationid":corId,
                               @"coachId":coachId
                               };
-//        [self.navigationController popToRootViewControllerAnimated:NO];
         [FTNotificationTools postTabBarIndex:2 dic:dic];
-    }else  if ([requestURL isEqualToString:@"js-call:goShop"]) {
+    }else  if ([requestURL hasPrefix:@"js-call:goShop?"]) {
         
-        [FTNotificationTools postSwitchShopHomeNotiWithDic:nil];
+        NSArray *array = [requestURL componentsSeparatedByString:@"&"];
+        NSString *goodId = [array[0] stringByReplacingOccurrencesOfString:@"js-call:goShop?goodId=" withString:@""];
+        NSString *corporationId = [array[1] stringByReplacingOccurrencesOfString:@"corId=" withString:@""];
+        
+        if ([goodId isEqualToString:@"0"]) {
+            NSDictionary *dic = @{@"type":@"home",
+                                  @"goodId":goodId,
+                                  @"corporationid":corporationId
+                                  };
+            [FTNotificationTools postSwitchShopHomeNotiWithDic:dic];
+        }else {
+            NSDictionary *dic = @{@"type":@"detail",
+                                  @"goodId":goodId,
+                                  @"corporationid":corporationId
+                                  };
+            [FTNotificationTools postSwitchShopDetailControllerWithDic:dic];
+        }
     }
     
     return YES;

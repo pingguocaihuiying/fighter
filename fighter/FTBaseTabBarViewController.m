@@ -396,11 +396,13 @@
 
 - (void) goShopHomeWidic:(NSDictionary *)dic  animated:(BOOL) animated {
 
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    
     FTShopViewController *shopVC = [FTShopViewController new];
     shopVC.title = @"格斗商城";
     
     if (dic) {
-        NSString *corId =dic[@"corporationId"];
+        NSString *corId =dic[@"corporationid"];
         if (corId) {
             shopVC.corporationId = corId;
         }

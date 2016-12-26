@@ -348,9 +348,9 @@
         if ([type isEqualToString:@"gym"]){
              // 如果不是教练身份才跳转到拳馆详情界面
             if (!isCoach) {
-                NSInteger gymId = [dic[@"gymId"] integerValue];
+                NSInteger corporationid = [dic[@"corporationid"] integerValue];
                 FTGymBean *bean = [FTGymBean new];
-                bean.gymId = gymId;
+                bean.corporationid = corporationid;
                 
                 FTGymDetailWebViewController *gymDetailWebViewController = [FTGymDetailWebViewController new];
                 gymDetailWebViewController.gymBean = bean;

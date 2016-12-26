@@ -1056,10 +1056,6 @@ static NSString *const tableCellId = @"tableCellId";
         [FTNotificationTools postSwitchShopHomeNotiWithDic:dic];
     }
     
-    
-    
-    
-    
     //    else if ([dic[@"urlType"] isEqualToString:@"video"]) {
     //        [_tabBarVC setSelectedIndex:7];
     //
@@ -1084,7 +1080,6 @@ static NSString *const tableCellId = @"tableCellId";
     
         [self.tabBarVC taskBtnAction:nil];
     }
-
 }
 
 
