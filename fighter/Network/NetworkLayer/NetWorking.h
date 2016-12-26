@@ -10,6 +10,7 @@
 #import "FTMatchDetailBean.h"
 #import "FTMatchBean.h"
 #import "FTModuleBean.h"
+#import "FTGymBean.h"
 
 @interface NetWorking : NSObject
 
@@ -360,11 +361,11 @@
 + (void)getGymInfoById:(NSString *)gymId andOption:(void (^)(NSDictionary *dic))option;
 
 //获取拳馆详细信息（学拳模块的拳馆 ）
-+ (void)getGymForGymDetailWithGymId:(NSString *)gymId andOption:(void (^)(NSDictionary *dic))option;
++ (void)getGymForGymDetailWithGymBean:(FTGymBean *)gymBean andOption:(void (^)(NSDictionary *dic))option;
 
-//根绝拳馆id获取拳馆的所有教练(拳馆模块)
+//根据拳馆id获取拳馆的所有教练(拳馆模块)
 + (void)getCoachesWithCorporationid:(NSString *)corporationid andOption:(void (^)(NSArray *array))option;
-//根绝拳馆id获取拳馆的所有照片（用户上传的）
+//根据拳馆id获取拳馆的所有照片（用户上传的）
 + (void)getPhotosByUsersWithCorporationid:(NSString *)corporationid andOption:(void (^)(NSArray *array))option;
 
 //获取拳手信息

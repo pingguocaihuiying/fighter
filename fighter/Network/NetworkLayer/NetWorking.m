@@ -1576,8 +1576,13 @@
     }];
 }
 //获取拳馆详细信息（学拳模块的拳馆 ）
-+ (void)getGymForGymDetailWithGymId:(NSString *)gymId andOption:(void (^)(NSDictionary *dic))option{
-    NSString *urlString = [NSString stringWithFormat:@"%@/api/gym/%@.do", Domain, gymId];
++ (void)getGymForGymDetailWithGymBean:(FTGymBean *)gymBean andOption:(void (^)(NSDictionary *dic))option{
+    NSString *urlString = [NSString stringWithFormat:@"%@/api/gym/%ld.do", Domain, gymBean.gymId];
+    if (gymBean.gymId) {
+        urlString = [NSString stringWithFormat:@"%@/api/gym/%ld.do", Domain, gymBean.gymId];
+    }else if(gymBean.corporationid){
+        urlString = [NSString stringWithFormat:@"%@/api/gym/%ld.doc-%ld", Domain, gymBean.corporationid, gymBean.corporationid];
+    }
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //设置请求返回的数据类型为默认类型（NSData类型)
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];

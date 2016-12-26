@@ -196,12 +196,13 @@
  //获取拳馆的详细信息
  */
 - (void)getGymDetailInfoFromServer{
-    NSString *gymId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
-    [NetWorking getGymForGymDetailWithGymId:gymId andOption:^(NSDictionary *dic) {
+    [NetWorking getGymForGymDetailWithGymBean:_gymBean andOption:^(NSDictionary *dic) {
         if (dic) {
             _gymDetailBean = [FTGymDetailBean new];
             [_gymDetailBean setValuesForKeysWithDictionary:dic];
             [self doOtherThingWithGymDetailBean];
+        }else{
+            [self.view showMessage:@"没有获取到拳馆信息"];
         }
     }];
 }
@@ -739,7 +740,6 @@
 - (void)gettimeSectionsUsingInfo{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *timestampString = [NSString stringWithFormat:@"%.0f", [[NSDate date]timeIntervalSince1970]];
-    
     [NetWorking getGymSourceInfoById:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid]  andTimestamp:timestampString  andOption:^(NSArray *array) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         _placesUsingInfoDic = [NSMutableDictionary new];
