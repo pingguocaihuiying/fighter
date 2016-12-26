@@ -105,6 +105,7 @@
     [self setTips];//控制tips是否显示
     [self initBaseData];//初始化默认数据
     [self registNoti];//注册通知
+    [self setBackButtonStyle];//设置返回按钮的样式
     [self getGymDetailInfoFromServer];//获取拳馆详情
 }
 
@@ -125,6 +126,13 @@
 - (void)registNoti{
     //注册通知，接收登录成功的消息
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
+}
+
+- (void)setBackButtonStyle{
+    //设置返回按钮
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(backBtnAction:)];
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+    self.navigationItem.leftBarButtonItem = leftButton;
 }
 
 - (void)getVIPInfo{
@@ -188,12 +196,13 @@
  //获取拳馆的详细信息
  */
 - (void)getGymDetailInfoFromServer{
-    NSString *gymId = [NSString stringWithFormat:@"%ld",_gymBean.gymId];
-    [NetWorking getGymForGymDetailWithGymId:gymId andOption:^(NSDictionary *dic) {
+    [NetWorking getGymForGymDetailWithGymBean:_gymBean andOption:^(NSDictionary *dic) {
         if (dic) {
             _gymDetailBean = [FTGymDetailBean new];
             [_gymDetailBean setValuesForKeysWithDictionary:dic];
             [self doOtherThingWithGymDetailBean];
+        }else{
+            [self.view showMessage:@"没有获取到拳馆信息"];
         }
     }];
 }
@@ -289,10 +298,7 @@
     
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     
-    //设置返回按钮
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(backBtnAction:)];
-    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
-    self.navigationItem.leftBarButtonItem = leftButton;
+
     
     // 导航栏转发按钮
     _joinVIPButton = [[UIBarButtonItem alloc]initWithTitle:@"成为会员" style:UIBarButtonItemStylePlain target:self action:@selector(becomeVIPButtonClicked:)];
@@ -734,7 +740,6 @@
 - (void)gettimeSectionsUsingInfo{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *timestampString = [NSString stringWithFormat:@"%.0f", [[NSDate date]timeIntervalSince1970]];
-    
     [NetWorking getGymSourceInfoById:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid]  andTimestamp:timestampString  andOption:^(NSArray *array) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         _placesUsingInfoDic = [NSMutableDictionary new];

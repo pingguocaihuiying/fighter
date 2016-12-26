@@ -69,8 +69,10 @@
     [super viewDidLoad];
     [self setTips];
     [self initBaseData];
+    [self setLeftBackButton];//设置返回按钮的样式
     [self getCoachDetailFromServer];//根据id获取教练的详细信息后，再进行其他操作
 }
+
 
 - (void)setTips{
     //如果读过，则不显示
@@ -83,6 +85,13 @@
  */
 - (void)initBaseData{
     _gymVIPType = FTGymVIPTypeNope;//默认非会员
+}
+
+- (void)setLeftBackButton{
+    //设置返回按钮
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(backBtnAction)];
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+    self.navigationItem.leftBarButtonItem = leftButton;
 }
 
 - (void)getCoachDetailFromServer{
@@ -370,10 +379,7 @@
     
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     
-    //设置返回按钮
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(backBtnAction)];
-    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
-    self.navigationItem.leftBarButtonItem = leftButton;
+
     
     UIBarButtonItem *gymDetailButton = [[UIBarButtonItem alloc]initWithTitle:@"分享出去" style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonClicked)];
     gymDetailButton.tintColor = [UIColor whiteColor];

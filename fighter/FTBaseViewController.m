@@ -46,6 +46,9 @@
     _bottomGradualChangeView.bounds = CGRectMake(0,SCREEN_HEIGHT - 52, SCREEN_WIDTH, 52);
     _bottomGradualChangeView.image = [UIImage imageNamed:@"评赞底部按钮-渐变遮罩"];
     [self.view addSubview:_bottomGradualChangeView];
+    
+    //设置naviVc右滑返回的代理为自己
+    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
 }
 
 
