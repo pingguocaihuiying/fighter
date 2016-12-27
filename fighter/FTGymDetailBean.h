@@ -27,5 +27,6 @@
 @property (nonatomic, copy) NSString *urlprefix;//图片、视频地址前缀  coachs
 @property (nonatomic, strong) NSArray *coachs;//拳馆的所有教练
 @property (nonatomic, copy) NSString *gym_tel;//拳馆电话
-
+@property (nonatomic, copy) NSString *gym_remark;//拳馆电话
+@property (nonatomic, assign) int openItem;//课程开关 0（默认）-都开启；1-只开团课；2-只开私课
 @end

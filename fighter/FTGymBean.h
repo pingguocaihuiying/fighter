@@ -73,4 +73,6 @@
 @property (nonatomic, assign) CLLocationDegrees latitude;//纬度
 @property (nonatomic, assign) NSInteger distance;//距离，单位：米
 @property (nonatomic, assign) int memberCount;//会员人数
+@property (nonatomic, copy) NSString *gymRemark;//简介
+@property (nonatomic, assign) float gradeCount;//评分
 @end
