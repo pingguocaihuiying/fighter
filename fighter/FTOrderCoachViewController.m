@@ -67,7 +67,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setTips];
     [self initBaseData];
     [self setLeftBackButton];//设置返回按钮的样式
     [self getCoachDetailFromServer];//根据id获取教练的详细信息后，再进行其他操作
@@ -118,13 +117,22 @@
     //网络数据加载
     [self getCoachRatingFromServer];//获取评分信息
     [self getCoachPhotosFromServer];//获取教练照片
-    [self getTimeSection];//获取时间段信息
+    
+    /*
+     如果openItem为nil、0、或2，才显示教练课表
+     */
+    BOOL hasPublicCourse = _gymOpenItem == 0 || _gymOpenItem == 2;
+//        hasPublicCourse = false;
+    if (hasPublicCourse) {//如果有团课
+        [self setCoachCourceView];//设置教练课程表
+        [self getTimeSection];//获取拳馆时间段配置
+        [self setTips];//控制tips是否显示
+    }
 }
 
 - (void)setSubViews{
     [self initSomeViewsBaseProperties];//初始化一些label颜色、分割线颜色等
     [self setNaviView];//设置导航栏
-    [self setCoachCourceView];//设置教练课程表
     [self setCoachInfo];//设置教练信息
     [self setRatingBar];//设置教练的评分星级
 }

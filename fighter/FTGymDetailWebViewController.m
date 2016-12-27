@@ -102,7 +102,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setTips];//控制tips是否显示
     [self initBaseData];//初始化默认数据
     [self registNoti];//注册通知
     [self setBackButtonStyle];//设置返回按钮的样式
@@ -210,16 +209,26 @@
 - (void)doOtherThingWithGymDetailBean{
     [self updateGymBaseInfo];
     [self getVIPInfo];//获取当前用户的会员信息
-    [self loadGymDataFromServer];
+    [self loadGymCoachDataFromServer];
     [self setNavigationSytle];
     [self setSubViews];
     
     // 获取收藏信息
     [self getAttentionInfo];
-    [self getTimeSection];//获取拳馆时间段配置
+    
+    /*
+        如果openItem为nil、0、或1，才显示团课表
+     */
+    BOOL hasPublicCourse = _gymDetailBean.openItem == 0 || _gymDetailBean.openItem == 1;
+//    hasPublicCourse = false;
+    if (hasPublicCourse) {//如果有团课
+        [self setGymSourceView];//设置课程表
+        [self getTimeSection];//获取拳馆时间段配置
+        [self setTips];//控制tips是否显示
+    }
 }
 
-- (void)loadGymDataFromServer{
+- (void)loadGymCoachDataFromServer{
     //获取拳馆的教练列表
     [NetWorking getCoachesWithCorporationid:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid] andOption:^(NSArray *array) {
         if (array && array.count > 0) {
@@ -319,7 +328,6 @@
     
     [self subViewFormat];//设置分割线颜色、label行间距等
     [self setCollectionView];//设置拳馆教练头像显示
-    [self setGymSourceView];//设置课程表
     
     //电话
     _telLabel.text = [NSString stringWithFormat:@"%@", _gymDetailBean.gym_tel];
@@ -373,7 +381,7 @@
     [coachBean setWithDic:coachDic];
     
     FTOrderCoachViewController *orderCoachViewController = [FTOrderCoachViewController new];
-//    orderCoachViewController.gymDetailBean = _gymDetailBean;
+    orderCoachViewController.gymOpenItem = _gymDetailBean.openItem;
     orderCoachViewController.coachBean = coachBean;
     [self.navigationController pushViewController:orderCoachViewController animated:YES];
 }
@@ -540,7 +548,7 @@
         gymCommentsVC.freshBlock = ^(){
             //更新评论数
             weakself.commentCountLabel.text = [NSString stringWithFormat:@"%d人评价", ++weakself.gymDetailBean.commentcount];
-            [weakself loadGymDataFromServer];
+            [weakself loadGymCoachDataFromServer];
         };
         [self.navigationController pushViewController:gymCommentsVC animated:YES];
     

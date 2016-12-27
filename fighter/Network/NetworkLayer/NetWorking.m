@@ -41,7 +41,13 @@
     return securityPolicy;
 }
 
-#pragma mark -
+#pragma mark - 获取自定义的AFHTTPSessionManager
++ (AFHTTPSessionManager *)getAFHTTPSessionManager{
+    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    [manager setSecurityPolicy:[self customSecurityPolicy]];
+    return manager;
+}
 
 #pragma mark - 验证码
 //获取短信验证码
@@ -685,9 +691,7 @@
                  parameters:(NSDictionary *)dic
                      option:(void (^)(NSDictionary *dict))option {
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     //    NSLog(@"RegisterUserURL url : %@", urlString);
     [manager POST:urlString
        parameters:dic
@@ -718,9 +722,7 @@
                         option:(void (^)(NSDictionary *dict))option {
     
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     
     [manager POST:urlString
        parameters:dic
@@ -756,9 +758,7 @@
                 parameters:(NSDictionary *)dic
                     option:(void (^)(NSDictionary *dict))option {
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     //    NSLog(@"RegisterUserURL url : %@", urlString);
     [manager GET:urlString
       parameters:dic
@@ -785,9 +785,7 @@
 
 + (void)getHomepageUserInfoWithUserOldid:(NSString *)userOldid andBoxerId:(NSString *)boxerId andCoachId:(NSString *)coachId andCallbackOption:(void (^)(FTUserBean *userBean))userBeanOption{
     NSString *urlString = [FTNetConfig host:Domain path:GetHomepageUserInfo];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
 //    assert(userOldid);
 //    NSString *query = @"";
 //    if (boxerId) {//如果boxerId和coachId都存在，
@@ -856,10 +854,7 @@
 
 + (void)getCommentsWithObjId:(NSString *)objId andTableName:(NSString *)tableName andOption:(void (^)(NSArray *))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetCommentsURL];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    assert(objId);
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
     urlString = [NSString stringWithFormat:@"%@?objId=%@&tableName=%@", urlString, objId, tableName];
     //    NSLog(@"urlString : %@", urlString);
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
@@ -878,9 +873,7 @@
 }
 + (void)getBoxerRaceInfoWithBoxerId:(NSString *)boxerId andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetBoxerRaceInfoURL];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     assert(boxerId);
     urlString = [NSString stringWithFormat:@"%@?boxerId=%@", urlString, boxerId];
     //    NSLog(@"urlString : %@", urlString);
@@ -901,11 +894,7 @@
 //获取单个拳讯信息
 + (void)getNewsById:(NSString *)newsId andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetNewsByIdURL];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    assert(newsId);
-    
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@", newsId, ts, @"quanjijia222222"]];
     urlString = [NSString stringWithFormat:@"%@?newsId=%@&ts=%@&checkSign=%@", urlString, newsId, ts, checkSign];
@@ -926,10 +915,7 @@
 //获取单个视频信息
 + (void)getVideoById:(NSString *)videoId andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetVideoByIdURL];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    assert(videoId);
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
     NSString *ts = [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]];
     NSString *checkSign = [MD5 md5:[NSString stringWithFormat:@"%@%@%@", videoId, ts, @"quanjijia222222"]];
     urlString = [NSString stringWithFormat:@"%@?videosId=%@&ts=%@&checkSign=%@", urlString, videoId, ts, checkSign];
@@ -1323,9 +1309,7 @@
 #pragma mark - 赛事
 + (void)getGymTimeSlotsById:(NSString *) corporationID andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymTimeSlotsByIdURL];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
 //    assert(corporationID);
     
     urlString = [NSString stringWithFormat:@"%@?corporationid=%@", urlString, corporationID];
@@ -1352,9 +1336,7 @@
 //获取场地配置
 + (void)getGymPlaceInfoById:(NSString *)gymId andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymPlacesByIdURL];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     assert(gymId);
     
     urlString = [NSString stringWithFormat:@"%@?corporationid=%@", urlString, gymId];
@@ -1378,9 +1360,7 @@
 //获取场地的使用信息
 + (void)getGymPlaceUsingInfoById:(NSString *)gymId andTimestamp:(NSString *)timestamp andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymPlacesUsingInfoByIdURL];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     assert(gymId);
     
     urlString = [NSString stringWithFormat:@"%@?corporationid=%@&date=%@", urlString, gymId, timestamp];
@@ -1399,9 +1379,7 @@
 }
 + (void)getGymSourceInfoById:(NSString *)gymId andTimestamp:(NSString *)timestamp andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymSourceInfoByIdURL];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     assert(gymId);
     FTUserBean *localUserBean = [FTUserTools getLocalUser];
     urlString = [NSString stringWithFormat:@"%@?corporationid=%@&userId=%@", urlString, gymId, localUserBean.olduserid];
@@ -1424,9 +1402,7 @@
 //获取教练课程信息
 + (void)getCoachCourceInfoByCoachId:(NSString *)coachId andGymId:(NSString *)gymId andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetCoachCourceInfoByIdURL];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     assert(gymId);
     FTUserBean *localUserBean = [FTUserTools getLocalUser];
     urlString = [NSString stringWithFormat:@"%@?corporationid=%@&userId=%@&coachUserId=%@", urlString, gymId, localUserBean.olduserid, coachId];
@@ -1449,9 +1425,7 @@
 //获取拳馆信息
 + (void)getGymInfoById:(NSString *)corporationID andOption:(void (^)(NSDictionary *dic))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymInfoByIdURL];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
 //    assert(corporationID);
     urlString = [NSString stringWithFormat:@"%@?corporationid=%@", urlString, corporationID];
     
@@ -1473,9 +1447,7 @@
 //获取拳手列表
 + (void)getBoxerListByWeight:(NSString *)weight andOverWeightLevel: (NSString *) overWeightLevel andPageSize:(NSString *)pageSize andPageNum:(int)pageNum andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetBoxerListURL];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     assert(weight);
     urlString = [NSString stringWithFormat:@"%@?weight=%@&weightLevel=%@&pageSize=%@&pageNum=%d", urlString, weight, overWeightLevel, pageSize, pageNum];
     
@@ -1495,9 +1467,7 @@
 //添加赛事
 + (void)addMatchWithParams:(NSDictionary *)dic andOption:(void (^)(BOOL result))option{
     NSString *urlString = [FTNetConfig host:Domain path:AddMatchURL];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     
     //    NSLog(@"getGymInfoById %@", urlString);
     [manager POST:urlString parameters:dic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
@@ -1517,9 +1487,7 @@
 //添加赛事
 + (void)responseToMatchWithParamDic:(NSDictionary *)dic andOption:(void (^)(BOOL result))option{
     NSString *urlString = [FTNetConfig host:Domain path:ResponseToMatchURL];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     
     //    NSLog(@"getGymInfoById %@", urlString);
     [manager POST:urlString parameters:dic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
@@ -1539,9 +1507,7 @@
 + (void)WXpayWithParamDic:(NSDictionary *)dic andOption:(void (^)(NSDictionary *dic))option{
     NSString *urlString = [FTNetConfig host:Domain path:WXPayURL];
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     
     //    NSLog(@"getGymInfoById %@", urlString);
     [manager POST:urlString parameters:dic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
@@ -1562,9 +1528,7 @@
 
 + (void)getMatchListWithPageNum:(int)pageNum andPageSize:(NSString *)pageSize andStatus:(NSString *)status andPayStatus:(NSString *)payStatus andLabel:(NSString *)label andAgainstId:(NSString *)againstId andWeight:(NSString *)weight andUserId:(NSString *)userId andOption:(void(^) (NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetMatchListURL];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     urlString = [NSString stringWithFormat:@"%@?pageNum=%d&pageSize=%@&statu=%@&payStatu=%@&label=%@&againstId=%@&weight1=%@&currentUserId=%@", urlString, pageNum, pageSize, status, payStatus, label, againstId, weight, userId];
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -1582,9 +1546,7 @@
 //获取拳馆详细信息(比赛模块用到的拳馆)
 + (void)getGymDetailWithGymId:(NSString *)gymId andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [NSString stringWithFormat:@"%@/api/match/%@.do", Domain, gymId];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -1611,9 +1573,7 @@
     }else if(gymBean.corporationid){
         urlString = [NSString stringWithFormat:@"%@/api/gym/c-%ld.do", Domain, gymBean.corporationid];
     }
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -1636,11 +1596,8 @@
 //根绝拳馆id获取拳馆的所有教练
 + (void)getCoachesWithCorporationid:(NSString *)corporationid andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetCoachListURL];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
     urlString = [NSString stringWithFormat:@"%@?corporationid=%@", urlString, corporationid];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"message : %@", responseDic[@"message"]);
@@ -1661,8 +1618,7 @@
 //验证验证码是否正确（请求加入会员部分）
 + (void)validCheckCodeWithPhoneNum:(NSString *) phoneNum andCheckCode:(NSString *)checkCode andOption:(void (^)(NSDictionary *dic))option{
     NSString *urlString = [FTNetConfig host:Domain path:ValidCheckCode];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
     //获取当前登录用户的信息
     FTUserBean *userBean = [FTUserTools getLocalUser];
     NSString *userId = userBean.olduserid;//当前用户id
@@ -1681,8 +1637,6 @@
     [dicBeforeMD5 setValue:checkSign forKey:@"checkSign"];
     NSDictionary *parmamDic = dicBeforeMD5;
     
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
     [manager POST:urlString parameters:parmamDic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"message : %@", responseDic[@"message"]);
@@ -1697,7 +1651,7 @@
 //请求加入会员
 + (void)requestToBeVIPWithCorporationid:(NSString *)corporationid andPhoneNum:(NSString *) phoneNum andCheckCode:(NSString *)checkCode andOption:(void (^)(NSDictionary *dic))option{
     NSString *urlString = [FTNetConfig host:Domain path:BecomeGymMenberShipURL];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
     //设置请求返回的数据类型为默认类型（NSData类型)
     //获取当前登录用户的信息
     FTUserBean *userBean = [FTUserTools getLocalUser];
@@ -1714,9 +1668,6 @@
     NSString *checkSign = [FTTools md5Dictionary:dicBeforeMD5 withCheckKey:@"gedoujiahtfht2g2rd"];
     [dicBeforeMD5 setValue:checkSign forKey:@"checkSign"];
     NSDictionary *parmamDic = dicBeforeMD5;
-    
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
     [manager POST:urlString parameters:parmamDic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"message : %@", responseDic[@"message"]);
@@ -1734,9 +1685,6 @@
     NSString *urlString = [FTNetConfig host:Domain path:GetGymPhotosByUsers];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     urlString = [NSString stringWithFormat:@"%@?objId=%@", urlString, corporationid];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"message : %@", responseDic[@"message"]);
@@ -1763,8 +1711,6 @@
     NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);
     //创建AAFNetWorKing管理者
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);
     [manager GET:addViewCountUrlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -1787,8 +1733,6 @@
     NSLog(@"addViewCountUrlString : %@", getViewCountUrlString);
     //创建AAFNetWorKing管理者
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSLog(@"addViewCountUrlString : %@", getViewCountUrlString);
     [manager GET:getViewCountUrlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -1811,8 +1755,6 @@
     NSLog(@"addViewCountUrlString : %@", getViewCountUrlString);
     //创建AAFNetWorKing管理者
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSLog(@"addViewCountUrlString : %@", getViewCountUrlString);
     [manager GET:getViewCountUrlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -1847,9 +1789,6 @@
     //创建AAFNetWorKing管理者
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"vote status : %@", responseDic[@"status"]);
@@ -1883,9 +1822,6 @@
     //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
     //创建AAFNetWorKing管理者
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -1978,9 +1914,6 @@
     //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
     //创建AAFNetWorKing管理者
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSLog(@"收藏url：%@", urlString);
     [manager POST:urlString parameters:parmamDic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -2202,9 +2135,7 @@
 + (void)wxPayWithParamDic:(NSDictionary *)dic andOption:(void (^)(NSDictionary *dic))option {
     NSString *urlString = [FTNetConfig host:Domain path:WXPayURL];//GetWXPayStatus
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     
     //    NSLog(@"getGymInfoById %@", urlString);
     [manager POST:urlString parameters:dic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
@@ -2317,9 +2248,7 @@
 
 + (void)getVIPInfoWithGymId:(NSString *) corporationID andOption:(void (^)(NSDictionary *dic))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymVIPInfoURL];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     
     urlString = [NSString stringWithFormat:@"%@?corporationid=%@&userId=%@&", urlString, corporationID, [FTUserTools getLocalUser].olduserid];
     NSLog(@"getGymTimeSlotsById urlString : %@", urlString);
@@ -2363,9 +2292,7 @@
         checkKey = DeleteCourseBookCheckSign;
     }
     NSString *urlString = [FTNetConfig host:Domain path:path];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     
     //md5前的checkSign字典
     NSMutableDictionary *dicBeforeMD5 = [[NSMutableDictionary alloc]initWithDictionary:@{
@@ -2424,9 +2351,7 @@
         checkKey = ChangeCourseStatusCheckSign;
     
     NSString *urlString = [FTNetConfig host:Domain path:path];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //设置请求返回的数据类型为默认类型（NSData类型)
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     
     //md5前的checkSign字典
     NSMutableDictionary *dicBeforeMD5 = [[NSMutableDictionary alloc]initWithDictionary:@{

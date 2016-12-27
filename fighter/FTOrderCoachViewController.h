@@ -12,4 +12,5 @@
 
 @interface FTOrderCoachViewController : FTBaseViewController
 @property (nonatomic, strong) FTCoachBean *coachBean;
+@property (nonatomic, assign) int gymOpenItem;
 @end
