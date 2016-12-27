@@ -19,8 +19,9 @@
 #import "FTGymDetailBean.h"
 #import "FTGymSourceViewController2.h"
 #import "NSString+Tool.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface FTGymView () <UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, FTCycleScrollViewDelegate,FTSelectCellDelegate>
+@interface FTGymView () <UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, FTCycleScrollViewDelegate,FTSelectCellDelegate, CLLocationManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong)FTCycleScrollView *gymCycleScrollView;
 //@property (nonatomic, strong)TestCycleView *coachCycleScrollView;
@@ -37,7 +38,10 @@
 
 @property (nonatomic, copy) NSString * gymCurrId;
 @property (nonatomic, copy) NSString * getType;
-
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, assign) CLLocationDegrees longitude;
+@property (nonatomic, assign) CLLocationDegrees latitude;
+@property (nonatomic, assign) BOOL firstUpdateLocation;//在第一次位置更新后自动加载拳馆数据,默认为yes，向服务器请求过一次拳馆信息后，置为false
 
 @end
 
@@ -48,14 +52,17 @@
     
     self = [super initWithFrame:frame];
     if (self) {
-        
-        [self initialization];
+        [self initBaseConfig];
         [self setNotification];
-        
         [self setBackgroundColor:[UIColor clearColor]];
+        [self initLocation];//设置位置服务
     }
     
     return self;
+}
+
+- (void)initBaseConfig{
+    _firstUpdateLocation = YES;
 }
 
 - (void) dealloc {
@@ -185,6 +192,17 @@
     [dic setObject:_gymTag forKey:@"gymTag"];
     [dic setObject:_getType forKey:@"getType"];
     [dic setObject:showType forKey:@"showType"];
+    
+    BOOL getLocationInfoSuccess = NO;//如果有获取到位置信息，暂时设为yes
+    if (_longitude > 0 && _latitude > 0) {
+        getLocationInfoSuccess = YES;
+    }
+    
+    if (getLocationInfoSuccess) {
+        [dic setObject:[NSString stringWithFormat:@"%lf", _longitude] forKey:@"longitude"];
+        [dic setObject:[NSString stringWithFormat:@"%lf", _latitude] forKey:@"latitude"];
+    }
+    
     
     NSString *userId = [FTUserBean loginUser].olduserid;
     // 判断用户登录
@@ -517,6 +535,18 @@
     
     [cell labelsViewAdapter:dic[@"gymType"]];
     
+    cell.memberLabel.text = [NSString stringWithFormat:@"%d位会员", bean.memberCount];//会员数
+    
+    //距离
+    if (bean.distance >= 0) {
+        cell.distanceLabel.text = [NSString stringWithFormat:@"%ld米", bean.distance];
+    }
+    
+    //评论数
+    if (bean.commentCount > 0) {
+        cell.commentLabel.text = [NSString stringWithFormat:@"%ld评论过", bean.commentCount];
+    }
+    
     return cell;
     
 }
@@ -688,6 +718,31 @@
     
 }
 
+#pragma mark - 初始化location
+- (void)initLocation{
+    _locationManager = [CLLocationManager new];
+    _locationManager.delegate = self;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [_locationManager requestWhenInUseAuthorization];
+    [_locationManager startUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+    CLLocation *location = [locations lastObject];
+    NSLog(@"当前坐标：%lf,%lf",location.coordinate.longitude, location.coordinate.latitude);
+    
+    //服务器目前只处理正的经纬度信息,所以app也抛弃了负的坐标
+    if (location.coordinate.longitude <= 0 || location.coordinate.latitude <= 0) {
+        return;
+    }
+    
+    _longitude = location.coordinate.longitude;
+    _latitude = location.coordinate.latitude;
+    if (_firstUpdateLocation) {
+        [self initialization];
+        _firstUpdateLocation = NO;
+    }
+}
 
 #pragma mark  - private
 
