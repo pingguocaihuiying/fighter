@@ -54,7 +54,7 @@
     self.updatetime = dic[@"updatetime"];
     
     self.voteCount = dic[@"voteCount"];
-    self.commentCount = dic[@"commentCount"];
+    self.commentCount =  [dic[@"commentCount"] integerValue];
     self.viewCount = dic[@"viewCount"];
     
     self.gymFrom = dic[@"gymFrom"];
@@ -82,7 +82,13 @@
     self.orderDate = [NSDate changeUnderlineDateToWordDate:dic[@"datePrev"]];
     self.orderTime = dic[@"timeSectionPrev"];
     self.order = dic[@"labelPrev"];
-
+    
+    //经纬度
+    _longitude = [dic[@"longitude"] doubleValue];
+    _latitude = [dic[@"latitude"] doubleValue];
+    
+    _distance = [dic[@"distance"] integerValue];
+    _memberCount = [dic[@"memberCount"] intValue];
 }
 
 

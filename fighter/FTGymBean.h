@@ -7,6 +7,7 @@
 //
 
 #import "FTBaseBean.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface FTGymBean : FTBaseBean
 /**
@@ -48,7 +49,7 @@
 @property (nonatomic,copy) NSString *createtime;
 
 @property (nonatomic,copy) NSString *updatetime;
-@property (nonatomic,copy) NSString *commentCount;
+@property (nonatomic,assign) NSInteger commentCount;//评论数
 
 @property (nonatomic,copy) NSString *voteCount;
 @property (nonatomic,copy) NSString *viewCount;
@@ -68,6 +69,8 @@
 @property (nonatomic,copy) NSString *orderTime;
 @property (nonatomic,copy) NSString *order;
 
-
-
+@property (nonatomic, assign) CLLocationDegrees longitude;//经度
+@property (nonatomic, assign) CLLocationDegrees latitude;//纬度
+@property (nonatomic, assign) NSInteger distance;//距离，单位：米
+@property (nonatomic, assign) int memberCount;//会员人数
 @end
