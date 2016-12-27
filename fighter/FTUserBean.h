@@ -102,8 +102,11 @@
 
 /**
  返回用户userId
- 
- @return userId
  */
 + (NSString *) userId;
+
+/**
+ 判断用户是否是教练
+ */
++ (BOOL) isCoach;
 @end

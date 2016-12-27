@@ -665,6 +665,11 @@
         NSString *rank  = [NSString stringWithFormat:@"%@",dic[@"ranking"]] ;
         NSString *height = dic[@"height"];
         NSString *weight = dic[@"weight"];
+        NSString *win = [NSString stringWithFormat:@"%ld",[dic[@"win"] integerValue]];
+        NSString *fail = [NSString stringWithFormat:@"%ld",[dic[@"fail"]integerValue]];
+        NSString *draw = [NSString stringWithFormat:@"%ld",[dic[@"draw"]integerValue]];
+        NSString *knockout = [NSString stringWithFormat:@"%ld",[dic[@"knockout"] integerValue]];
+        
 //        NSLog(@"cell");
         FTRankTableVIewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
         [cell.avatarImageView  sd_setImageWithURL:[NSURL URLWithString:headUrl] placeholderImage:[UIImage imageNamed:@"头像-空"]];
@@ -672,6 +677,10 @@
         [cell.rankLabel setText:rank];
         [cell.heightLabel setText:[height stringByAppendingString:@"cm"]];
         [cell.weightLabel setText:[weight stringByAppendingString:@"kg"]];
+        [cell.winLabel setText:win];
+        [cell.loseLabel setText:fail];
+        [cell.tieLabel setText:draw];
+        [cell.KOLabel setText:knockout];
         return cell;
     }else {
         NSDictionary *dic = [self.dataArray objectAtIndex:indexPath.row];
@@ -680,6 +689,10 @@
         NSString *brief = dic[@"brief"];
         NSString *height = dic[@"height"];
         NSString *weight = dic[@"weight"];
+        NSString *win = [NSString stringWithFormat:@"%ld",[dic[@"win"] integerValue]];
+        NSString *fail = [NSString stringWithFormat:@"%ld",[dic[@"fail"]integerValue]];
+        NSString *draw = [NSString stringWithFormat:@"%ld",[dic[@"draw"]integerValue]];
+        NSString *knockout = [NSString stringWithFormat:@"%ld",[dic[@"knockout"] integerValue]];
         
         FTRankHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
         if (brief != nil) {
@@ -690,6 +703,10 @@
         [cell.nameLabel setText:name];
         [cell.heightLabel setText:[height stringByAppendingString:@"cm"]];
         [cell.weightLabel setText:[weight stringByAppendingString:@"kg"]];
+        [cell.winLabel setText:win];
+        [cell.loseLabel setText:fail];
+        [cell.tieLabel setText:draw];
+        [cell.KOLabel setText:knockout];
         return cell;
     }
 }

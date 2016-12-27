@@ -448,7 +448,6 @@
     //暂时用更新用户接口
     NSString *bindingURLString = [FTNetConfig host:Domain path:UpdateUserURL];
     
-    
     //从本地读取存储的用户信息
     FTUserBean *localUser = [FTUserBean loginUser];
     
