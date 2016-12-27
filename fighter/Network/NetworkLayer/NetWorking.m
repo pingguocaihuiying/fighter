@@ -441,7 +441,7 @@
 
 
 //绑定微信号
-+ (void) bindingWeixin:(NSString *)openId
++ (void) bindingWeixin:(NSDictionary *)weixinInfo
 //                  checkCode:(NSString *)checkcode
                 option:(void (^)(NSDictionary *dict))option {
 
@@ -455,7 +455,11 @@
     
     NSString *olduserid = localUser.olduserid;
     NSString *token = localUser.token;
-    NSString *unionId = localUser.unionId;
+    NSString *unionId = weixinInfo[@"unionid"];
+    NSString *openId = weixinInfo[@"openid"];
+    NSString *wxHeaderPic = weixinInfo[@"headimgurl"];
+    NSString *wxName = weixinInfo[@"nickname"];
+    
     //必选字段
     [dic setObject:token forKey:@"token"];
     [dic setObject:olduserid forKey:@"userid" ];

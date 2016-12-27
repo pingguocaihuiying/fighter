@@ -9,20 +9,11 @@
 #import "WXSingleton.h"
 
 
-//微信请求类型
-typedef NS_ENUM(NSInteger, WXRequestType) {
-    WXRequestTypeNone = 0,   //
-    WXRequestTypeLogin,                 //微信跨界登录
-    WXRequestTypeHeader,                //请求微信头像
-    WXRequestTypeName,                  //请求微信昵称
-    WXRequestTypeNameAndHeader,         //请求微信昵称和头像
-    WXRequestTypeAll,                   //请求所有数据
-};
 
 
 @interface WXSingleton ()
 {
-    WXRequestType wxRequestType;
+    
 }
 @end
 
@@ -61,54 +52,13 @@ static WXSingleton * wxSingleton = nil;
 #pragma mark - 微信回调方法
 - (void)onResp:(BaseResp *)resp {
     
-    //微信share callback
+    
     NSLog(@"resp.type:%d",resp.type);
-    if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
-        
-        switch (resp.errCode) {
-            case WXSuccess:
-            {
-                NSLog(@"微信分享回调成功");
-                //发送通知，告诉评论页面微信登录成功
-                [[NSNotificationCenter defaultCenter] postNotificationName:WXShareResultNoti object:@"SUCESS"];
-            }
-                break;
-            case WXErrCodeCommon:
-            {
-                NSLog(@"微信分享回调普通错误类型");
-            }
-                break;
-            case WXErrCodeUserCancel:
-            {
-                NSLog(@"微信分享回调取消");
-            }
-                break;
-            case WXErrCodeSentFail:
-            {
-                
-            }
-                break;
-            case WXErrCodeAuthDeny:
-            {
-                NSLog(@"微信分享回调授权失败");
-            }
-                break;
-            case WXErrCodeUnsupport:
-            {
-                NSLog(@"微信分享回调 微信不支持");
-            }
-                break;
-                
-            default:
-                break;
-        };
-        
-        return;
-    }
     
+    if ([resp isKindOfClass:[SendMessageToWXResp class]]) { // 微信share callback
+        [self weiXinShareResponse:resp];
+    }else if ([resp isKindOfClass:[SendAuthResp class]]) {  // 向微信请求授权后,得到响应结果
     
-    // 向微信请求授权后,得到响应结果
-    if ([resp isKindOfClass:[SendAuthResp class]]) {
         SendAuthResp *temp = (SendAuthResp *)resp;
         
         //如果
@@ -116,139 +66,11 @@ static WXSingleton * wxSingleton = nil;
         if (temp.errCode != 0) {
             return;
         }
+        // 向微信服务器请求数据
+        [self requestWeiXinAccessTokenAndOpenId:temp];
         
-        //请求头像和昵称
-        if (wxRequestType == WXRequestTypeNameAndHeader) {
-            
-            
-            // 1.请求access_token openId
-            [NetWorking requestWeixinTokenAdnOpenId:temp.code option:^(NSDictionary *tokenDic) {
-                
-                if (tokenDic) {
-                    
-                    //存储token openid
-                    [[NSUserDefaults standardUserDefaults] setObject:tokenDic[@"access_token"] forKey:@"wxToken"];
-                    [[NSUserDefaults standardUserDefaults] setObject:tokenDic[@"openid"] forKey:@"wxOpenId"];
-                    [[NSUserDefaults standardUserDefaults]synchronize];
-                    //2.请求微信用户信息
-                    [NetWorking requestWeixinUserInfoWithToken:tokenDic[@"access_token"] openId:tokenDic[@"openid"] option:^(NSDictionary *userDict) {
-                        
-                        //从本地读取存储的用户信息
-                        FTUserBean *localUser = [FTUserBean loginUser];
-                        localUser.wxopenId = userDict[@"openid"];
-                        localUser.wxHeaderPic = userDict[@"headimgurl"];
-                        localUser.wxName = userDict[@"nickname"];
-                        
-                        //存储数据
-                        NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
-                        [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
-                        [[NSUserDefaults standardUserDefaults]synchronize];
-                        
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"WeiXinNameAndHeader" object:nil];
-                    }];
-                    
-                }
-                
-            }];
-            
-        }else {//请求所有数据
-            
-           
-            // 1.请求access_token openId
-            [NetWorking requestWeixinTokenAdnOpenId:temp.code option:^(NSDictionary *tokenDic) {
-                
-                if (tokenDic) {
-                    
-                    
-                    //2.请求微信用户信息
-                    [NetWorking requestWeixinUserInfoWithToken:tokenDic[@"access_token"] openId:tokenDic[@"openid"] option:^(NSDictionary *userDict) {
-                        
-                        if (userDict) {
-                            
-                            //3.向格斗家服务器注册
-                            [NetWorking requestWeixinUser:userDict option:^(NSDictionary *dict) {
-                                
-                                if (dict) {
-                                    bool status = [dict[@"status"] boolValue];
-                                    NSString *message = (NSString *)(NSDictionary *)dict[@"message"];
-                                    if (status == false) {
-                                        NSLog(@"微信注册失败,message:%@", message);
-                                        // 发送微信登录失败通知
-                                        [FTNotificationTools postLoginErrorNoti:FTLoginTypeWeiXin];
-
-                                        return ;
-                                    }
-                                    
-                                    
-                                    NSLog(@"微信注册成功,message:%@", message);
-                                    SLog(@"dict:%@", dict);
-//                                    NSLog(@"微信登录信息:%@",dict[@"data"][@"user"]);
-                                    NSDictionary *userDic = dict[@"data"][@"user"];
-                                    FTUserBean *user = [FTUserBean new];
-                                    [user setValuesForKeysWithDictionary:userDic];
-                                    
-                                    if ([dict[@"data"][@"corporationid"] integerValue] > 0) {
-                                        user.corporationid = [NSString stringWithFormat:@"%ld",[dict[@"data"][@"corporationid"] integerValue]];
-                                    }
-                                    user.identity = dict[@"data"][@"identity"];
-                                    user.interestList = dict[@"data"][@"interestList"];
-                                    user.isGymUser = dict[@"data"][@"isGymUser"];
-                                    
-                                    NSString *corporationid =  [[NSString stringWithFormat:@"%ld",[dict[@"data"][@"corporationid"] integerValue]] copy];
-                                    NSLog(@"corporationid:%@",corporationid);
-                                    NSLog(@"user.corporationid:%@",[user.corporationid copy]);
-                                    
-                                    //从本地读取存储的用户信息
-                                    FTUserBean *localUser = [FTUserBean loginUser];
-                                    
-                                    //存储token openid
-                                    [[NSUserDefaults standardUserDefaults] setObject:user.openId forKey:@"wxopenId"];
-                                    [[NSUserDefaults standardUserDefaults] setObject:user.username forKey:@"wxName"];
-                                    [[NSUserDefaults standardUserDefaults] setObject:user.headpic forKey:@"wxHeaderPic"];
-                                    [[NSUserDefaults standardUserDefaults]synchronize];
-                                    
-                                    if (localUser) {//手机已经登录
-                                        localUser.openId = user.openId;
-                                        localUser.unionId = user.unionId;
-                                        localUser.wxName = user.username;
-                                        localUser.wxHeaderPic = user.headpic;
-                                    }else {
-                                        localUser = user;
-                                        localUser.wxopenId = user.openId;
-                                        localUser.unionId = user.unionId;
-                                        localUser.wxName = user.username;
-                                        localUser.wxHeaderPic = user.headpic;
-                                    }
-                                    
-                                    NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
-                                    [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
-                                    [[NSUserDefaults standardUserDefaults]synchronize];
-                                    
-                                    //发送通知，告诉评论页面微信登录成功
-//                                    [[NSNotificationCenter defaultCenter] postNotificationName:WXLoginResultNoti object:@"SUCESS"];
-                                    [FTNotificationTools postLoginNoti:FTLoginTypeWeiXin];
-                                    return ;
-                                }else {
-                                    
-                                    // 发送微信登录失败通知
-                                    [FTNotificationTools postLoginErrorNoti:FTLoginTypeWeiXin];
-//                                    [[NSNotificationCenter defaultCenter]postNotificationName:WXLoginResultNoti object:@"ERROR"];
-                                    return ;
-                                }
-                                
-                            }];
-                            
-                        }
-                    }];
-                }
-                
-            }];
-        }
-        
-    }
+    }else if ([resp isKindOfClass:[PayResp class]]){ //支付回掉
     
-    //支付回掉
-    if ([resp isKindOfClass:[PayResp class]]){
         PayResp*response=(PayResp*)resp;
         switch(response.errCode){
             case WXSuccess:
@@ -264,5 +86,183 @@ static WXSingleton * wxSingleton = nil;
     }
 }
 
+
+
+
+/**
+ 想微信服务器请求access_token 和openId
+ @param temp
+ */
+- (void) requestWeiXinAccessTokenAndOpenId:(SendAuthResp *) temp{
+
+    // 1.请求access_token openId
+    [NetWorking requestWeixinTokenAdnOpenId:temp.code option:^(NSDictionary *tokenDic) {
+        
+        if (tokenDic) {
+            
+//            //存储token openid
+//            [[NSUserDefaults standardUserDefaults] setObject:tokenDic[@"access_token"] forKey:@"wxToken"];
+//            [[NSUserDefaults standardUserDefaults] setObject:tokenDic[@"openid"] forKey:@"wxOpenId"];
+//            [[NSUserDefaults standardUserDefaults]synchronize];
+            
+            [self requestWeiXinUserInfo:tokenDic];
+        }
+    }];
+}
+
+
+/**
+ 向微信服务器请求微信用户数据
+
+ @param tokenDic
+ */
+- (void) requestWeiXinUserInfo:(NSDictionary *)tokenDic {
+
+    [NetWorking requestWeixinUserInfoWithToken:tokenDic[@"access_token"] openId:tokenDic[@"openid"] option:^(NSDictionary *userDict) {
+        
+        if (userDict) {
+            
+            if (_wxRequestType == WXRequestTypeNameAndHeader) { //请求头像和昵称
+                [self requestWeiXinNameAndHeader:userDict];
+            }else if (_wxRequestType == WXRequestTypeLogin) {  // 微信登录
+                [self registWinXinUser:userDict];
+            }
+        }
+        
+    }];
+}
+
+/**
+ 向服务器注册微信用户
+
+ @param userDict
+ */
+- (void) registWinXinUser:(NSDictionary *)userDict  {
+    
+    //3.向格斗家服务器注册
+    [NetWorking requestWeixinUser:userDict option:^(NSDictionary *dict) {
+        
+        if (dict) {
+            bool status = [dict[@"status"] boolValue];
+            NSString *message = dict[@"message"];
+            if (status == false) {
+                NSLog(@"微信注册失败,message:%@", message);
+                // 发送微信登录失败通知
+                [FTNotificationTools postLoginErrorNoti:FTLoginTypeWeiXin];
+                return ;
+            }
+            
+            NSLog(@"微信注册成功,message:%@", message);
+            SLog(@"dict:%@", dict);
+            //NSLog(@"微信登录信息:%@",dict[@"data"][@"user"]);
+            NSDictionary *userDic = dict[@"data"][@"user"];
+            FTUserBean *user = [FTUserBean new];
+            [user setValuesForKeysWithDictionary:userDic];
+            
+            if ([dict[@"data"][@"corporationid"] integerValue] > 0) {
+                user.corporationid = [NSString stringWithFormat:@"%ld",[dict[@"data"][@"corporationid"] integerValue]];
+            }
+            user.identity = dict[@"data"][@"identity"];
+            user.interestList = dict[@"data"][@"interestList"];
+            user.isGymUser = dict[@"data"][@"isGymUser"];
+            
+            //更新本地数据
+            user.wxopenId = userDict[@"openid"];
+            user.wxHeaderPic = userDict[@"headimgurl"];
+            user.wxName = userDict[@"nickname"];
+            user.unionId = userDict[@"unionid"];
+            
+//            //存储token openid
+//            [[NSUserDefaults standardUserDefaults] setObject:user.openId forKey:@"wxopenId"];
+//            [[NSUserDefaults standardUserDefaults] setObject:user.username forKey:@"wxName"];
+//            [[NSUserDefaults standardUserDefaults] setObject:user.headpic forKey:@"wxHeaderPic"];
+//            [[NSUserDefaults standardUserDefaults]synchronize];
+            
+            NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
+            [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            
+            //发送通知，告诉评论页面微信登录成功
+            [FTNotificationTools postLoginNoti:FTLoginTypeWeiXin];
+            return ;
+        }else {
+            // 发送微信登录失败通知
+            [FTNotificationTools postLoginErrorNoti:FTLoginTypeWeiXin];
+            return ;
+        }
+    }];
+    
+}
+
+/**
+ 存储微信头像和微信名到当前用户
+ @param temp
+ */
+- (void) requestWeiXinNameAndHeader:(NSDictionary *) userDict{
+    
+//    //从本地读取存储的用户信息
+//    FTUserBean *localUser = [FTUserBean loginUser];
+//    localUser.wxopenId = userDict[@"openid"];
+//    localUser.wxHeaderPic = userDict[@"headimgurl"];
+//    localUser.wxName = userDict[@"nickname"];
+//    localUser.unionId = userDict[@"unionid"];
+//    
+//    //存储数据
+//    NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
+//    [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
+//    [[NSUserDefaults standardUserDefaults]synchronize];
+    
+    [FTNotificationTools postBindWeiXinNotiWithDic:userDict];
+    
+}
+
+
+/**
+ 微信分享响应
+
+ @param resp
+ */
+- (void) weiXinShareResponse:(BaseResp *)resp {
+
+    switch (resp.errCode) {
+        case WXSuccess:
+        {
+            NSLog(@"微信分享回调成功");
+            //发送通知，告诉评论页面微信登录成功
+            [[NSNotificationCenter defaultCenter] postNotificationName:WXShareResultNoti object:@"SUCESS"];
+        }
+            break;
+        case WXErrCodeCommon:
+        {
+            NSLog(@"微信分享回调普通错误类型");
+        }
+            break;
+        case WXErrCodeUserCancel:
+        {
+            NSLog(@"微信分享回调取消");
+        }
+            break;
+        case WXErrCodeSentFail:
+        {
+            
+        }
+            break;
+        case WXErrCodeAuthDeny:
+        {
+            NSLog(@"微信分享回调授权失败");
+        }
+            break;
+        case WXErrCodeUnsupport:
+        {
+            NSLog(@"微信分享回调 微信不支持");
+        }
+            break;
+            
+        default:
+            break;
+    };
+    
+    return;
+}
 
 @end

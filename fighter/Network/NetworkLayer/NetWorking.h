@@ -128,7 +128,7 @@
 #pragma mark -  微信
 /*****************************    微信   ******************************/
 //绑定微信号
-+ (void) bindingWeixin:(NSString *)openId
++ (void) bindingWeixin:(NSDictionary *)weixinInfo
 //                  checkCode:(NSString *)checkcode
                      option:(void (^)(NSDictionary *dict))option;
 
