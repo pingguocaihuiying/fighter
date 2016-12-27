@@ -80,10 +80,12 @@
 
 - (IBAction)submitButton:(id)sender {
     
+    [self.invitationCodeTextField resignFirstResponder];
     // test code
 //    self.invitationCodeTextField.text = @"YQMBA24160E0A1D47FDA";
     if (self.invitationCodeTextField.text.length == 0) {
         [self.view showMessage:@"请输入邀请码"];
+        return;
     }
     
     [self userInvitationCode];
