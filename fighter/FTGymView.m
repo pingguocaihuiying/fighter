@@ -538,8 +538,16 @@
     cell.memberLabel.text = [NSString stringWithFormat:@"%d位会员", bean.memberCount];//会员数
     
     //距离
-    if (bean.distance >= 0) {
-        cell.distanceLabel.text = [NSString stringWithFormat:@"%ld米", bean.distance];
+    if (bean.distance >= 0) {//如果距离不为负，视为有效信息
+        NSString *distanceText;
+        if (bean.distance < 1000) {
+            distanceText = [NSString stringWithFormat:@"%ld米", bean.distance];
+        }else{
+            distanceText = [NSString stringWithFormat:@"%.1f千米", bean.distance / 1000.0];
+        }
+        
+        
+        cell.distanceLabel.text = distanceText;
     }
     
     //评论数
