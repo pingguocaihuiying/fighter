@@ -43,7 +43,7 @@
 
 #pragma mark - 获取自定义的AFHTTPSessionManager
 + (AFHTTPSessionManager *)getAFHTTPSessionManager{
-    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 //    [manager setSecurityPolicy:[self customSecurityPolicy]];
     return manager;
@@ -1315,9 +1315,7 @@
 #pragma mark - 赛事
 + (void)getGymTimeSlotsById:(NSString *) corporationID andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymTimeSlotsByIdURL];
-    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
-//    assert(corporationID);
-    
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
     urlString = [NSString stringWithFormat:@"%@?corporationid=%@", urlString, corporationID];
     NSLog(@"getGymTimeSlotsById urlString : %@", urlString);
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
@@ -1686,10 +1684,10 @@
     }];
 }
 
-//根绝拳馆id获取拳馆的所有照片（用户上传的）
+//根据拳馆id获取拳馆的所有照片（用户上传的）
 + (void)getPhotosByUsersWithCorporationid:(NSString *)corporationid andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymPhotosByUsers];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
     urlString = [NSString stringWithFormat:@"%@?objId=%@", urlString, corporationid];
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -1716,7 +1714,7 @@
     addViewCountUrlString = [NSString stringWithFormat:@"%@?&objId=%@&tableName=%@", addViewCountUrlString, objId, tableName];
     NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);
     //创建AAFNetWorKing管理者
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
     NSLog(@"addViewCountUrlString : %@", addViewCountUrlString);
     [manager GET:addViewCountUrlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -1738,7 +1736,7 @@
     getViewCountUrlString = [NSString stringWithFormat:@"%@?&objId=%@&tableName=%@", getViewCountUrlString, objId, tableName];
     NSLog(@"addViewCountUrlString : %@", getViewCountUrlString);
     //创建AAFNetWorKing管理者
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
     NSLog(@"addViewCountUrlString : %@", getViewCountUrlString);
     [manager GET:getViewCountUrlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -1760,7 +1758,7 @@
     getViewCountUrlString = [NSString stringWithFormat:@"%@?objId=%@&tableName=%@", getViewCountUrlString, objId, tableName];
     NSLog(@"addViewCountUrlString : %@", getViewCountUrlString);
     //创建AAFNetWorKing管理者
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
     NSLog(@"addViewCountUrlString : %@", getViewCountUrlString);
     [manager GET:getViewCountUrlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -1793,7 +1791,7 @@
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
     //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
     //创建AAFNetWorKing管理者
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
     
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -1827,7 +1825,7 @@
     urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName];
     //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
     //创建AAFNetWorKing管理者
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
     
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -1919,7 +1917,7 @@
 //    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&tableName=%@&token=%@", urlString, userId, objId, loginToken, ts, checkSign, tableName, deviceToken];
     //    NSLog(@"%@ : %@", self.hasVote ? @"增加" : @"删除", urlString);
     //创建AAFNetWorKing管理者
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
     NSLog(@"收藏url：%@", urlString);
     [manager POST:urlString parameters:parmamDic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
