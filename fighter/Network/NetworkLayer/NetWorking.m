@@ -43,7 +43,7 @@
 
 #pragma mark - 获取自定义的AFHTTPSessionManager
 + (AFHTTPSessionManager *)getAFHTTPSessionManager{
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 //    [manager setSecurityPolicy:[self customSecurityPolicy]];
     return manager;
@@ -1315,7 +1315,9 @@
 #pragma mark - 赛事
 + (void)getGymTimeSlotsById:(NSString *) corporationID andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymTimeSlotsByIdURL];
-    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
+//    assert(corporationID);
+    
     urlString = [NSString stringWithFormat:@"%@?corporationid=%@", urlString, corporationID];
     NSLog(@"getGymTimeSlotsById urlString : %@", urlString);
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {

@@ -32,13 +32,8 @@
 #import "FTGymOrderCourseView.h"
 #import "FTOrderCoachViewController.h"
 
-@interface FTGymDetailWebViewController ()<UIWebViewDelegate, CommentSuccessDelegate, UICollectionViewDelegate, UICollectionViewDataSource, FTLoginViewControllerDelegate, FTGymOrderCourseViewDelegate, FTGymCourseTableViewDelegate, FTScrollViewScollToBottomDelegate>
-{
-    UIWebView *_webView;
-    UIImageView *_loadingImageView;
-    UIImageView *_loadingBgImageView;
-    
-}
+@interface FTGymDetailWebViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, FTLoginViewControllerDelegate, FTGymOrderCourseViewDelegate, FTGymCourseTableViewDelegate, FTScrollViewScollToBottomDelegate>
+
 @property (nonatomic, strong) FTGymDetailBean *gymDetailBean;//拳馆详情bean
 @property (strong, nonatomic) IBOutlet UIScrollView *mainScrollView;
 
@@ -108,6 +103,18 @@
     [self getGymDetailInfoFromServer];//获取拳馆详情
 }
 
+- (void) dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+
+#pragma mark - init data
+
 - (void)setTips{
     //如果读过，则不显示
     id readMark = [[NSUserDefaults standardUserDefaults]valueForKey:TIPS_GYM_COURSE];
@@ -116,22 +123,6 @@
 
 - (void)initBaseData{
     _gymVIPType = FTGymVIPTypeNope;
-}
-
-
-/**
- 注册登录的通知
- */
-- (void)registNoti{
-    //注册通知，接收登录成功的消息
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
-}
-
-- (void)setBackButtonStyle{
-    //设置返回按钮
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(backBtnAction:)];
-    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
-    self.navigationItem.leftBarButtonItem = leftButton;
 }
 
 - (void)getVIPInfo{
@@ -176,18 +167,6 @@
             _isVIPImage.hidden = YES;
         }
     }];
-}
-
-
-// 登录响应
-- (void) loginCallBack:(NSNotification *)noti {
-    
-    NSDictionary *userInfo = noti.userInfo;
-    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
-        [self getVIPInfo];
-        [self gettimeSectionsUsingInfo];
-    }
-    
 }
 
 
@@ -277,17 +256,25 @@
     _commentCountLabel.text = [NSString stringWithFormat:@"%d人评价", _gymDetailBean.commentcount];
 }
 
-- (void) dealloc {
-    
-    
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
 
 
 #pragma mark - 初始化
+
+/**
+ 注册登录的通知
+ */
+- (void)registNoti{
+    //注册通知，接收登录成功的消息
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
+}
+
+- (void)setBackButtonStyle{
+    //设置返回按钮
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(backBtnAction:)];
+    [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
+    self.navigationItem.leftBarButtonItem = leftButton;
+}
+
 
 // 设置导航栏
 - (void) setNavigationSytle {
@@ -532,35 +519,18 @@
 
 
 
-#pragma mark - button response
 
-- (IBAction)viewMoreCommentButtonClicked:(id)sender {
+#pragma mark -  response
 
-    //    NSLog(@"查看更多评论");
-    @try {
-        
-        FTGymCommentsViewController *gymCommentsVC = [[FTGymCommentsViewController alloc]init];
-        gymCommentsVC.title = self.gymDetailBean.gym_name;//@"评论列表";
-        gymCommentsVC.objId = [NSString stringWithFormat:@"%d",_gymDetailBean.id];
-        
-        __weak typeof(self) weakself = self;
-        gymCommentsVC.freshBlock = ^(){
-            //更新评论数
-            weakself.commentCountLabel.text = [NSString stringWithFormat:@"%d人评价", ++weakself.gymDetailBean.commentcount];
-            [weakself loadGymCoachDataFromServer];
-        };
-        [self.navigationController pushViewController:gymCommentsVC animated:YES];
-    
-    } @catch (NSException *exception) {
-        
-        NSLog(@"exception:%@",exception);
-    } @finally {
-        
-    }
+#pragma mark 点击头部图片
+
+- (IBAction)topImageClicked:(id)sender {
+    NSLog(@"进入图集");
+    FTGymPhotosViewController *photoViewController = [FTGymPhotosViewController new];
+    photoViewController.gymDetailBean = _gymDetailBean;
+    [self.navigationController pushViewController:photoViewController animated:YES];
 }
 
-
-#pragma mark - bottom button response
 // 关注按钮点击事件
 - (IBAction)focusButtonAction:(id)sender {
     
@@ -575,15 +545,6 @@
         self.focusView.userInteractionEnabled = NO;
         [self uploadStarStatusToServer];
     }
-}
-
-#pragma -mark - 点击头部图片
-
-- (IBAction)topImageClicked:(id)sender {
-    NSLog(@"进入图集");
-    FTGymPhotosViewController *photoViewController = [FTGymPhotosViewController new];
-    photoViewController.gymDetailBean = _gymDetailBean;
-    [self.navigationController pushViewController:photoViewController animated:YES];
 }
 
 // 分享按钮点击事件
@@ -671,13 +632,45 @@
         payForGymVIPViewController.coachBean = firstCoach;
         payForGymVIPViewController.gymVIPType = _gymVIPType;
         [self.navigationController pushViewController:payForGymVIPViewController animated:YES];
-    } 
-
-
+    }
 }
 
-#pragma mark - private method
+- (IBAction)tipButtonClicked:(id)sender {
+    _tipButton.hidden = YES;
+    //已经读过，存入本地
+    [[NSUserDefaults standardUserDefaults] setValue:@"read" forKey:TIPS_GYM_COURSE];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 
+#pragma mark 拳馆列表入口
+- (IBAction)viewMoreCommentButtonClicked:(id)sender {
+    
+    FTGymCommentsViewController *gymCommentsVC = [[FTGymCommentsViewController alloc]init];
+    gymCommentsVC.title = self.gymDetailBean.gym_name;//@"评论列表";
+    gymCommentsVC.objId = [NSString stringWithFormat:@"%d",_gymDetailBean.id];
+    
+    __weak typeof(self) weakself = self;
+    gymCommentsVC.freshBlock = ^(){
+        //更新评论数
+        weakself.commentCountLabel.text = [NSString stringWithFormat:@"%d人评价", ++weakself.gymDetailBean.commentcount];
+        [weakself loadGymCoachDataFromServer];
+    };
+    [self.navigationController pushViewController:gymCommentsVC animated:YES];
+}
+
+// 登录响应
+- (void) loginCallBack:(NSNotification *)noti {
+    
+    NSDictionary *userInfo = noti.userInfo;
+    if ([userInfo[@"result"] isEqualToString:@"SUCCESS"]) {
+        [self getVIPInfo];
+        [self gettimeSectionsUsingInfo];
+    }
+    
+}
+
+
+#pragma mark - private method
 // 跳转登录界面方法
 - (void)login{
     FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
@@ -685,6 +678,7 @@
     FTBaseNavigationViewController *nav = [[FTBaseNavigationViewController alloc]initWithRootViewController:loginVC];
     [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
+
 
 // 跳转评论页面
 - (void)pushToCommentVC{
@@ -806,7 +800,6 @@
             }
         }
     }];
-    
 }
 
 #pragma mark - webView response
@@ -822,35 +815,15 @@
 }
 
 #pragma mark - delegate
-#pragma mark  webView delegate
-
-//webView加载完成
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
-    
-    [self disableLoadingAnimation];
-}
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    
-    NSString *requestURL = [NSString stringWithFormat:@"%@", request.URL];
-    NSLog(@"requestURL : %@", requestURL);
-    
-    if ([requestURL isEqualToString:@"js-call:onload"]) {
-        
-        [self disableLoadingAnimation];
-    }
-    return YES;
-}
-
-#pragma mark  CommentSuccessDelegate
-- (void)commentSuccess{
-    int commentCount = _gymDetailBean.commentcount;
-    commentCount++;
-    NSString *jsMethodString = [NSString stringWithFormat:@"updateComment(%d)", 1];
-    NSLog(@"js method : %@", jsMethodString);
-    _gymDetailBean.commentcount = commentCount;
-    [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
-}
+//#pragma mark  CommentSuccessDelegate
+//- (void)commentSuccess{
+//    int commentCount = _gymDetailBean.commentcount;
+//    commentCount++;
+//    NSString *jsMethodString = [NSString stringWithFormat:@"updateComment(%d)", 1];
+//    NSLog(@"js method : %@", jsMethodString);
+//    _gymDetailBean.commentcount = commentCount;
+//    [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
+//}
 
 
 #pragma mark - alertDelegate
@@ -870,41 +843,7 @@
         }
     }
 }
-#pragma mark - loading动画
 
--(void)setLoadingImageView{
-    
-    //背景框imageview
-    _loadingBgImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"loading背景"]];
-    _loadingBgImageView.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-    [self.view addSubview:_loadingBgImageView];
-    
-    //声明数组，用来存储所有动画图片
-    _loadingImageView = [UIImageView new];
-    _loadingImageView.frame = CGRectMake(10, 10, 80, 80);
-    
-    [_loadingBgImageView addSubview:_loadingImageView];//把用于显示动画的imageview放入背景框中
-    //初始化数组
-    NSMutableArray *photoArray = [NSMutableArray new];
-    for (int i = 1; i <= 8; i++) {
-        //获取图片名称
-        NSString *photoName = [NSString stringWithFormat:@"格斗家-loading2000%d", i];
-        //获取UIImage
-        UIImage *image = [UIImage imageNamed:photoName];
-        //把图片加载到数组中
-        [photoArray addObject:image];
-    }
-    
-    //给动画数组赋值
-    _loadingImageView.animationImages = photoArray;
-    
-    //一组动画使用的总时间长度
-    _loadingImageView.animationDuration = 1;
-    
-    //设置循环次数。0表示不限制
-    _loadingImageView.animationRepeatCount = 0;
-    [_loadingImageView startAnimating];
-}
 
 - (void)courseClickedWithCell:(FTGymSourceTableViewCell *)courseCell andDay:(NSInteger)day andTimeSection:(NSString *) timeSection andDateString:(NSString *) dateString andTimeStamp:(NSString *)timeStamp{
     NSLog(@"day : %ld, timeSection : %@ dateString : %@", day, timeSection, dateString);
@@ -961,7 +900,6 @@
         
     }else if (courseCell.isFull) {
         
-        
         NSDictionary *courseCellDic = courseCell.courserCellDic;
         gymOrderCourseView.courserCellDic = courseCellDic;
         gymOrderCourseView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
@@ -985,31 +923,10 @@
     [self getVIPInfo];
 }
 
-- (void)startLoadingAnimation{
-    //启动动画
-    [_loadingImageView startAnimating];
-    
-}
-
-- (void)disableLoadingAnimation {
-    //停止动画，移除动画imageview
-    [_loadingImageView stopAnimating];
-    [_loadingImageView removeFromSuperview];
-    _loadingImageView = nil;
-    [_loadingBgImageView removeFromSuperview];
-    _loadingBgImageView = nil;
-}
-- (IBAction)tipButtonClicked:(id)sender {
-    _tipButton.hidden = YES;
-    //已经读过，存入本地
-    [[NSUserDefaults standardUserDefaults] setValue:@"read" forKey:TIPS_GYM_COURSE];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-
 
 
 #pragma mark - code by kangxq
+
 
 
 
