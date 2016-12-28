@@ -472,13 +472,12 @@
 
 
 //绑定微信号
-+ (void) bindingWeixin:(NSString *)openId
++ (void) bindingWeixin:(NSDictionary *)weixinInfo
 //                  checkCode:(NSString *)checkcode
                 option:(void (^)(NSDictionary *dict))option {
 
     //暂时用更新用户接口
     NSString *bindingURLString = [FTNetConfig host:Domain path:UpdateUserURL];
-    
     
     //从本地读取存储的用户信息
     FTUserBean *localUser = [FTUserBean loginUser];
@@ -487,7 +486,11 @@
     
     NSString *olduserid = localUser.olduserid;
     NSString *token = localUser.token;
-    NSString *unionId = localUser.unionId;
+    NSString *unionId = weixinInfo[@"unionid"];
+    NSString *openId = weixinInfo[@"openid"];
+    NSString *wxHeaderPic = weixinInfo[@"headimgurl"];
+    NSString *wxName = weixinInfo[@"nickname"];
+    
     //必选字段
     [dic setObject:token forKey:@"token"];
     [dic setObject:olduserid forKey:@"userid" ];

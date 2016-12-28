@@ -114,7 +114,7 @@
     
 }
 
-- (void) setdeadline:(NSString *)deadline {
+- (void) setDeadline:(NSString *)deadline {
     
     if (![_deadline isEqualToString:deadline]) {
         _deadline = deadline;
@@ -199,7 +199,7 @@
         [_typeLabel sizeToFit];
         
         // test words
-        _typeLabel.text = @"会员种类";
+        _typeLabel.text = @"的会员";
     }
     
     return _typeLabel;
@@ -329,7 +329,7 @@
                                                                         toItem:self.titleLabel
                                                                      attribute:NSLayoutAttributeBottom
                                                                     multiplier:1.0
-                                                                      constant:15];
+                                                                      constant:14];
     
     NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:self.gymLabel
                                                                       attribute:NSLayoutAttributeLeft
@@ -362,7 +362,7 @@
                                                                         toItem:self.gymLabel
                                                                      attribute:NSLayoutAttributeBottom
                                                                     multiplier:1.0
-                                                                      constant:6];
+                                                                      constant:4];
     
     NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:self.typeLabel
                                                                       attribute:NSLayoutAttributeLeft
@@ -396,7 +396,7 @@
                                                                         toItem:self.typeLabel
                                                                      attribute:NSLayoutAttributeBottom
                                                                     multiplier:1.0
-                                                                      constant:18];
+                                                                      constant:15];
     
     NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:self.detailLabel
                                                                       attribute:NSLayoutAttributeLeft

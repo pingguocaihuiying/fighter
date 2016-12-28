@@ -325,7 +325,7 @@ static NSString *const tableCellId = @"tableCellId";
         [self setTableHeader:localUser];
         _labelArray = localUser.interestList;
         
-        if (localUser.tel.length > 0) {
+        if (localUser.tel.length > 0 && [FTUserBean isCoach] == NO) {
             [self.invitationCodeButton setHidden:NO];
         }else {
             [self.invitationCodeButton setHidden:YES];
@@ -339,7 +339,6 @@ static NSString *const tableCellId = @"tableCellId";
         [self.invitationCodeButton setHidden:YES];
         [self.loginView setHidden:NO];//隐藏登录页面
     }
-    
 }
 
 
@@ -347,8 +346,6 @@ static NSString *const tableCellId = @"tableCellId";
 - (void) setTableHeader:(FTUserBean *)localUser {
 
     if (localUser) {
-        
-        
         [self loadAvatarWithString:localUser.headpic];
         [self setNameLabelText:[localUser.username stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 //        [self setNameLabelText:localUser.username ];
@@ -907,33 +904,19 @@ static NSString *const tableCellId = @"tableCellId";
 }
 
 
+
+
 - (void) settabBarChildViewControllers {
     
-    FTUserBean *loginUser = [FTUserBean loginUser];
-    BOOL isCoach = NO;
-    
-    if (loginUser) {
-        
-        for (NSDictionary *dic in loginUser.identity) {
-            
-            if ([dic[@"itemValueEn"] isEqualToString:@"coach"]) {
-                
-                isCoach = YES;
-                break;
-            }
-        }
-    }
     NSInteger selectIndex = _tabBarVC.selectedIndex;
     
-    if (isCoach && loginUser.corporationid) {
+    if ([FTUserBean isCoach]) {
         
-        _coachSelfCourseVC.corporationid = loginUser.corporationid;
-
+        _coachSelfCourseVC.corporationid = [FTUserBean loginUser].corporationid;
         _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_coachSelfCourseVC,_boxingBarVC,_homepageVC];
     }else {
         
         _tabBarVC.viewControllers = @[_infoVC,_fightingVC,_practiceVC,_boxingBarVC,_homepageVC];
-        
     }
     _tabBarVC.selectedIndex = selectIndex;
     

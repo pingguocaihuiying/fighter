@@ -56,20 +56,14 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:LoginNoti object:nil userInfo:userinfo];
 }
 
-- (void) setNotification {
 
-    //注册通知
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(hideNavigationBar:) name:HideHomePageNavNoti object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showNavigationBar:) name:ShowHomePageNavNoti object:nil];
-}
+/**
+ 绑定微信通知
+ @param dic 从微信服务器请求的用户数据
+ */
++ (void) postBindWeiXinNotiWithDic:(NSDictionary *)dic {
 
-
-- (void) hideNavigationBar:(NSNotification *)noti {
-    
-}
-
-- (void) showNavigationBar:(NSNotification *)noti {
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:WeiXinNameAndHeader object:nil userInfo:dic];
 }
 
 

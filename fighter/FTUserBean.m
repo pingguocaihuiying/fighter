@@ -184,6 +184,14 @@
     
 }
 
+
+
+
+/**
+ 获取登录用户数据bean
+
+ @return
+ */
 + (FTUserBean *) loginUser {
 
     //从本地读取存储的用户信息
@@ -197,6 +205,27 @@
     return nil;
 }
 
+
+/**
+ 判断用户是否是教练
+
+ @return
+ */
++ (BOOL) isCoach {
+    
+    FTUserBean *loginUser = [FTUserBean loginUser];
+    if (loginUser) {
+        for (NSDictionary *dic in loginUser.identity) {
+            if ([dic[@"itemValueEn"] isEqualToString:@"coach"] ) {
+                if (loginUser.corporationid) {
+                    return YES;
+                    break;
+                }
+            }
+        }
+    }
+    return NO;
+}
 
 
 /**

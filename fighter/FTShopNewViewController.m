@@ -218,9 +218,6 @@
          }
     }
 
-
-    
-    
     NSRange userIdRange = [url rangeOfString:@"js-call:userId="];
     NSRange orderNORange = [url rangeOfString:@"&orderNo="];
     NSRange priceRange = [url rangeOfString:@"&price="];

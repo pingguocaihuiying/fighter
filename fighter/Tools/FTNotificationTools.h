@@ -12,6 +12,7 @@
 // 通知
 #define WXPayResultNoti @"WXPayResultNoti"
 #define WXShareResultNoti @"WXShareResultNoti"
+#define WeiXinNameAndHeader @"WeiXinNameAndHeader"
 #define QQShareResultNoti @"QQShareResultNoti"
 #define RechargeResultNoti @"RechargeOrCharge"
 #define RechargeMoneytNoti @"RechargeMoneytNoti"
@@ -64,6 +65,11 @@ typedef NS_ENUM(NSInteger, FTLoginType) {
  */
 + (void) postLoginErrorNoti:(FTLoginType) loginType;
 
+
+/**
+ 绑定微信通知
+ */
++ (void) postBindWeiXinNotiWithDic:(NSDictionary *)dic;
 
 #pragma mark - 个人主页导航栏通知
 

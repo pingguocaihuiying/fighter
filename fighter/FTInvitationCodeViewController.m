@@ -80,10 +80,12 @@
 
 - (IBAction)submitButton:(id)sender {
     
+    [self.invitationCodeTextField resignFirstResponder];
     // test code
-//    self.invitationCodeTextField.text = @"YQMBA24160E0A1D47FDA";
+//    self.invitationCodeTextField.text = @"YQM85463A65337049E59";
     if (self.invitationCodeTextField.text.length == 0) {
         [self.view showMessage:@"请输入邀请码"];
+        return;
     }
     
     [self userInvitationCode];
@@ -137,6 +139,7 @@
             type = [dic[@"data"][@"type"] integerValue] +1;
             corporationId = [dic[@"data"][@"corporationId"] integerValue];
             [self getVIPInfo];
+            [self addLocationMemberCorporation];
         }else {
             [self.view showMessage:[dic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         }
@@ -184,9 +187,9 @@
         if ([dic[@"status"] isEqualToString:@"success"]) {
             
             money = [dic[@"data"][@"money"] integerValue];
-            remainTimes = [dic[@"data"][@"remainType"] integerValue];
+            remainTimes = [dic[@"data"][@"remainTime"] integerValue];
             deadline = [dic[@"data"][@"expireTime"] doubleValue];
-            gymName = dic[@"gym_name"];
+            gymName = dic[@"data"][@"gym_name"];
             
             [self popUpView];
         }
@@ -206,14 +209,14 @@
     
     if (type == 1) { // time car code
         popUpView.memberType = FTMemberTypeDate;
-        NSString *expireTime = [NSDate dateStringWithWordSpace:[NSString stringWithFormat:@"%f",deadline]];
+        NSString *expireTime = [NSDate dateStringWithWordSpace:[NSString stringWithFormat:@"%.0f",deadline]];
         popUpView.deadline = expireTime;
     }else if (type == 2) {// times car code
         popUpView.memberType = FTMemberTypeTimes;
         popUpView.times = [NSString stringWithFormat:@"%ld",remainTimes];
     }else if (type == 3) {//charge car code
         popUpView.memberType = FTMemberTypeMoney;
-        popUpView.balance = [NSString stringWithFormat:@"%ld",money];
+        popUpView.balance = [NSString stringWithFormat:@"%ld",money/100];
     }
     popUpView.dismissBlock = ^{
         [self dismissViewControllerAnimated:NO completion:nil];

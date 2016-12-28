@@ -79,6 +79,10 @@
 #import "FTNWGetCategory.h"
 #import "NetWorking.h"
 
+#import "QQSingleton.h"
+#import "WXSingleton.h"
+#import "WBSingleton.h"
+
 // 支付单例
 #import "FTPaySingleton.h"
 
@@ -107,6 +111,8 @@
 #define WX_App_ID @"wxe69b91d3503144ca"
 #define WX_App_Secret @"cadaab54424da8be313935d91f8fbbf4"
 #define WXLoginSecret_Key @"quanjijia123456"
+
+
 
 //// 通知
 //#define WXPayResultNoti @"WXPayResultNoti"
