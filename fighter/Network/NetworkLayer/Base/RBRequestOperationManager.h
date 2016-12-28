@@ -6,7 +6,6 @@
 //  Copyright © 2016年 Liuonion. All rights reserved.
 //
 
-//#import "AFHTTPRequestOperationManager.h"
 
 @interface RBRequestOperationManager : AFHTTPSessionManager
 

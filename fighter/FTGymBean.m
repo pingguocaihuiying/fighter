@@ -89,6 +89,16 @@
     
     _distance = [dic[@"distance"] integerValue];
     _memberCount = [dic[@"memberCount"] intValue];
+    
+    //简介
+    if (dic[@"gymRemark"]) {
+        _gymRemark = dic[@"gymRemark"];
+    }else{
+        _gymRemark = @"";
+    }
+    
+    //评分
+    _gradeCount = [dic[@"gradeCount"] floatValue];
 }
 
 

@@ -13,6 +13,7 @@
 #import "FTCycleScrollViewCell2.h"
 #import "FTRankTableView.h"
 #import "JHRefresh.h"
+#import <MJRefresh/MJRefresh.h>
 #import "FTGymDetailWebViewController.h"
 #import "FTGymBean.h"
 #import "FTGymVIPCellTableViewCell.h"
@@ -55,7 +56,16 @@
         [self initBaseConfig];
         [self setNotification];
         [self setBackgroundColor:[UIColor clearColor]];
+        [self initSubviews];
+        
+        ////如果没有权限获取位置，给出提示
+        CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
+        if (authorizationStatus == kCLAuthorizationStatusDenied) {
+            [self showMessage:@"位置信息已被禁用，无法获取距离拳馆的距离"];
+            [self getTableViewDataFromWeb];//加载拳馆数据
+        }
         [self initLocation];//设置位置服务
+        
     }
     
     return self;
@@ -63,6 +73,14 @@
 
 - (void)initBaseConfig{
     _firstUpdateLocation = YES;
+    
+    _currentPage = 1;
+    _gymTag = @"1";
+    _gymType = @"ALL";
+    _gymType_ZH = @"全部";
+    _gymCurrId = @"-1";
+    _getType = @"new";
+
 }
 
 - (void) dealloc {
@@ -80,25 +98,10 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getTableViewDataFromWeb) name:USER_SIGN_OUT object:nil];
 }
 
-- (void) initialization {
-    
-    _currentPage = 1;
-    _gymTag = @"1";
-    _gymType = @"ALL";
-    _gymType_ZH = @"全部";
-    _gymCurrId = @"-1";
-    _getType = @"new";
-    
-    [self getCycleScrollViewDataFromWeb];
-    [self getTableViewDataFromWeb];
-    
-}
 
 - (void) initSubviews {
-    
-    [self initCycleScrollView];
+//    [self initCycleScrollView];
     [self initTableView];
-    
 }
 
 - (void)initCycleScrollView{
@@ -136,7 +139,7 @@
     _tableView.estimatedRowHeight = 120;
     [self addSubview:_tableView];
     
-    [self setJHRefresh];
+    [self setMJRefresh];
 }
 
 #pragma mark - get data from web
@@ -224,8 +227,8 @@
 //        NSLog(@"table dict:%@",dict);
         SLog(@"table dic:%@",dict);
         
-//        NSLog(@"message:%@",[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-        if (dict != nil) {
+        NSString *status = dict[@"status"];
+        if ([status isEqualToString:@"success"]) {
             
             NSArray *tempArray = dict[@"data"];
             SLog(@"gymType：%@",[tempArray[0][@"gymType"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
@@ -237,12 +240,16 @@
                 [_dataSourceArray addObjectsFromArray:tempArray];
             }
             
-            [self.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+//            [self.tableView headerEndRefreshingWithResult:JHRefreshResultSuccess];
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
 //            [self sortArray];
             [_tableView reloadData];
             
-        }else {
-             [self.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+        }else if ([status isEqualToString:@"error"]){
+//             [self.tableView headerEndRefreshingWithResult:JHRefreshResultFailure];
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
         }
         
     }];
@@ -318,6 +325,44 @@
     }];
 }
 
+#pragma mark - 上下拉刷新
+- (void)setMJRefresh{
+    
+    //设置下拉刷新
+    __weak typeof(self) weakSelf = self;
+    // 下拉刷新
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        //        [weakSelf.tableView.mj_header setHidden:NO];
+        [weakSelf.tableView.mj_header beginRefreshing];
+        NSLog(@"触发下拉刷新headerView");
+        weakSelf.currentPage = 1;
+        weakSelf.getType = @"new";
+        weakSelf.gymCurrId = @"-1";
+        
+        [weakSelf getTableViewDataFromWeb];
+        
+    }];
+    
+        // 上拉刷新
+        self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            weakSelf.tableView.mj_footer.hidden = NO;
+            [weakSelf.tableView.mj_footer beginRefreshing];
+    
+            NSLog(@"触发上拉刷新headerView");
+            weakSelf.currentPage ++;
+            weakSelf.getType = @"old";
+    
+            if (weakSelf.dataSourceArray && weakSelf.dataSourceArray.count > 0) {
+                NSDictionary *dic = [weakSelf.dataSourceArray lastObject];
+                weakSelf.gymCurrId = dic[@"gymId"];
+            }
+    
+            [weakSelf getTableViewDataFromWeb];
+        }];
+    
+    
+    
+}
 
 #pragma mark - delegates
 
@@ -337,6 +382,7 @@
     
     [cell.title setText:dic[@"gymName"]];
     [cell.subtitle setText:dic[@"gymLocation"]];
+    
 
     NSString *imgStr = dic[@"gymShowImg"];
     if (imgStr && imgStr.length > 0) {
@@ -519,7 +565,7 @@
     
     
     [cell.title setText:dic[@"gymName"]];
-    [cell.subtitle setText:dic[@"gymLocation"]];
+    cell.subtitle.text = bean.gymRemark;
     
     NSString *imgStr = dic[@"gymShowImg"];
     if (imgStr && imgStr.length > 0) {
@@ -538,14 +584,32 @@
     cell.memberLabel.text = [NSString stringWithFormat:@"%d位会员", bean.memberCount];//会员数
     
     //距离
-    if (bean.distance >= 0) {
-        cell.distanceLabel.text = [NSString stringWithFormat:@"%ld米", bean.distance];
+    if (bean.distance > 0) {//如果距离不为负，视为有效信息
+        NSString *distanceText;
+        
+        if(bean.distance >= 100000){//如果距离大于100公里
+            
+        }else if (bean.distance < 1000) {
+            distanceText = [NSString stringWithFormat:@"%ld米", bean.distance];
+        }else{
+            distanceText = [NSString stringWithFormat:@"%.1f千米", bean.distance / 1000.0];
+        }
+        
+        
+        cell.distanceLabel.text = distanceText;
     }
     
     //评论数
     if (bean.commentCount > 0) {
-        cell.commentLabel.text = [NSString stringWithFormat:@"%ld评论过", bean.commentCount];
+        if (SCREEN_WIDTH == 320) {
+            cell.commentLabel.text = [NSString stringWithFormat:@"%ld评论", bean.commentCount];
+        } else {
+            cell.commentLabel.text = [NSString stringWithFormat:@"%ld个人评论过", bean.commentCount];
+        }
+        
     }
+    //评分
+    [cell.ratingBar displayRating:bean.gradeCount];
     
     return cell;
     
@@ -739,7 +803,7 @@
     _longitude = location.coordinate.longitude;
     _latitude = location.coordinate.latitude;
     if (_firstUpdateLocation) {
-        [self initialization];
+        [self getTableViewDataFromWeb];
         _firstUpdateLocation = NO;
     }
 }
