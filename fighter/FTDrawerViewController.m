@@ -424,6 +424,7 @@ static NSString *const tableCellId = @"tableCellId";
 //微信快捷登录按钮
 - (IBAction)weichatBtnAction:(id)sender {
     
+    [WXSingleton shareInstance].wxRequestType =WXRequestTypeLogin;
     [NetWorking weixinRequest];
     
     NSLog(@"微信快捷按钮");

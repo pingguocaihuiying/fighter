@@ -70,7 +70,6 @@
 
 #pragma mark - response
 
-
 - (void) backBtnAction:(id) sender {
 
     [self.invitationCodeTextField resignFirstResponder];

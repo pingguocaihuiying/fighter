@@ -470,10 +470,13 @@
 }
 
 
+/**
+ 绑定微信号，绑定微信账号其实就是修改手机用户的openId和unionId字段，账户token不发生变化
 
-//绑定微信号
+ @param weixinInfo 微信用户数据
+ @param option 返回值block
+ */
 + (void) bindingWeixin:(NSDictionary *)weixinInfo
-//                  checkCode:(NSString *)checkcode
                 option:(void (^)(NSDictionary *dict))option {
 
     //暂时用更新用户接口
