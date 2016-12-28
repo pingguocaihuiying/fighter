@@ -82,7 +82,7 @@
     
     [self.invitationCodeTextField resignFirstResponder];
     // test code
-    self.invitationCodeTextField.text = @"YQM85463A65337049E59";
+//    self.invitationCodeTextField.text = @"YQM85463A65337049E59";
     if (self.invitationCodeTextField.text.length == 0) {
         [self.view showMessage:@"请输入邀请码"];
         return;
