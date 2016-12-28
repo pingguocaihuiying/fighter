@@ -541,7 +541,7 @@
     @try {
         
         FTGymCommentsViewController *gymCommentsVC = [[FTGymCommentsViewController alloc]init];
-        gymCommentsVC.title = self.gymDetailBean.gym_tel;//@"评论列表";
+        gymCommentsVC.title = self.gymDetailBean.gym_name;//@"评论列表";
         gymCommentsVC.objId = [NSString stringWithFormat:@"%d",_gymDetailBean.id];
         
         __weak typeof(self) weakself = self;
