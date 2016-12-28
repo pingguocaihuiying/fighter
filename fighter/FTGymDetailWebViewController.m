@@ -323,7 +323,6 @@
 - (void)setSubViews{
     
 //    [self setWebView];
-    
 //    [self setLoadingImageView];
     
     [self subViewFormat];//设置分割线颜色、label行间距等
@@ -579,6 +578,7 @@
 }
 
 #pragma -mark - 点击头部图片
+
 - (IBAction)topImageClicked:(id)sender {
     NSLog(@"进入图集");
     FTGymPhotosViewController *photoViewController = [FTGymPhotosViewController new];
@@ -657,6 +657,9 @@
     
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+
+
 - (IBAction)becomeVIPButtonClicked:(id)sender {
     
     if ([FTTools hasLoginWithViewController:self]) {
@@ -1002,6 +1005,13 @@
     [[NSUserDefaults standardUserDefaults] setValue:@"read" forKey:TIPS_GYM_COURSE];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
+
+
+
+
+#pragma mark - code by kangxq
+
+
 
 
 @end
