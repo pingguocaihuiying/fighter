@@ -96,7 +96,7 @@
     //添加监听器，充值购买
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rechargeCallback:) name:RechargeResultNoti object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchDetailAction:) name:SwitchShopDetailNoti object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchDetailAction:) name:SwitchShopDetailNoti object:nil];
 }
 
 
@@ -257,16 +257,16 @@
 - (void) switchDetailAction:(NSNotification *) noti {
     
     if (noti.userInfo != nil) {
-        NSString *goodId = noti.userInfo[@"goodId"];
+        NSString *goodsId = noti.userInfo[@"goodsId"];
         //获取网络请求地址url
-        NSString *indexStr = [FTNetConfig host:Domain path:ShopNewURL];
+        NSString *indexStr = [FTNetConfig host:Domain path:ShopDetailURL];
         NSString *urlString;
         
         FTUserBean *loginUser = [FTUserBean loginUser];
         if (loginUser) {
-            urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@&goodId=%@",indexStr,loginUser.olduserid,loginUser.token,goodId];
+            urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@&goodId=%@",indexStr,loginUser.olduserid,loginUser.token,goodsId];
         }else {
-            urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@&goodId=%@",indexStr,loginUser.olduserid,loginUser.token,goodId];
+            urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@&goodId=%@",indexStr,loginUser.olduserid,loginUser.token,goodsId];
         }
         
         NSURL *url = [NSURL URLWithString:urlString];

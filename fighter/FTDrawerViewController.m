@@ -1042,12 +1042,12 @@ static NSString *const tableCellId = @"tableCellId";
         
         NSString *gymId = dic[@"objId"];
         NSString *corporationid = dic[@"corporationid"];
-        NSString *goodId = dic[@"goodId"];
+        NSString *goodsId = dic[@"goodsId"];
         
         NSDictionary *dic = @{
                               @"gymId":gymId,
                               @"corporationid":corporationid,
-                              @"goodId":goodId
+                              @"goodsId":goodsId
                               };
         [FTNotificationTools postSwitchShopDetailControllerWithDic:dic];
     }

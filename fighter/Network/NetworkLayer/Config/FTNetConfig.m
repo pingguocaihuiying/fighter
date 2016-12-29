@@ -318,7 +318,7 @@ NSString * const DuiBaCheckCharegeURL = @"/api/duiba/exchangeShopStates.do";
 NSString * const ShopURL = @"/shop/index.html";
 NSString * const ShopNewURL = @"/shopNew/index.html";
 NSString * const ShopOrderURL = @"/shop/order.html";
-
+NSString * const ShopDetailURL = @"shopNew/detail.html";
 #pragma mark - 拳吧
 // URL
 NSString *const BoxingBarSectionURL = @"/api/damageplate/list.do";
