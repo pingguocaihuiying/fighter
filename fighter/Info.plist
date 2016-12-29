@@ -138,7 +138,7 @@
 		<string>weibosdk2.5</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
-	<true/>
+	<false/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

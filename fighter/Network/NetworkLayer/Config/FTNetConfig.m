@@ -46,7 +46,8 @@
 
 
 /** 可用的后台地址 **/
-NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin";//生产环境
+//NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin";//生产环境
+NSString * const Domain = @"https://www.gogogofight.com:8443/pugilist_admin";//生产环境https
 //NSString * const Domain = @"http://www.gogogofight.com/pugilist_admin_test";//测试环境
 //NSString * const Domain = @"http://192.168.85.45/pugilist_admin";//内网测试环境
 

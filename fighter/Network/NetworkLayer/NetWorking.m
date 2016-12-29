@@ -5,6 +5,7 @@
 //  Created by Liyz on 4/13/16.
 //  Copyright © 2016 Mapbar. All rights reserved.
 //
+#define _AFNETWORKING_ALLOW_INVALID_SSL_CERTIFICATES_
 
 #import "NetWorking.h"
 #import "UUID.h"
@@ -20,7 +21,7 @@
 + (AFSecurityPolicy*)customSecurityPolicy
 {
     // /先导入证书
-    NSString *cerPath = [[NSBundle mainBundle] pathForResource:@"hgcang" ofType:@"cer"];//证书的路径
+    NSString *cerPath = [[NSBundle mainBundle] pathForResource:@"Certificates" ofType:@"cer"];//证书的路径
     NSData *certData = [NSData dataWithContentsOfFile:cerPath];
     
     // AFSSLPinningModeCertificate 使用证书验证模式
@@ -45,7 +46,7 @@
 + (AFHTTPSessionManager *)getAFHTTPSessionManager{
     AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    [manager setSecurityPolicy:[self customSecurityPolicy]];
+    [manager setSecurityPolicy:[self customSecurityPolicy]];
     return manager;
 }
 

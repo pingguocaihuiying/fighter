@@ -10,7 +10,8 @@
 
 @interface FTCoachPhotoBean : FTBaseBean
 
-@property (nonatomic, copy) NSString *url;//图片地址
+@property (nonatomic, copy) NSString *url;//照片图片地址
+@property (nonatomic, copy) NSString *videoImageURL;//照片图片地址
 @property (nonatomic, assign) int type;//类型，0-图片，1-视频
 @property (nonatomic, copy) NSString *title;//标题
 
