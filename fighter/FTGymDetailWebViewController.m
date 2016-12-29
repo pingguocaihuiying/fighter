@@ -510,9 +510,7 @@
             [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]placeholderImage:[UIImage imageNamed:@"头像-空"]];
             cell.vipNameLabel.text = vipDic[@"name"];
         }
-
     }
-
     
     return cell;
 }
