@@ -301,7 +301,8 @@ extern NSString * const ShopURL;
 extern NSString * const ShopNewURL;
 // 订单页
 extern NSString * const ShopOrderURL;
-
+// 商品详情页
+extern NSString * const ShopDetailURL;
 #pragma mark - 拳吧
 
 /*

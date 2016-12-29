@@ -96,51 +96,31 @@
             if (status == true) {
                 
                 [[UIApplication sharedApplication].keyWindow showMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                
-                
-                NSDictionary *userDataDic = dict[@"data"];
-                NSDictionary *userDic = userDataDic[@"user"];
-                FTUserBean *user = [FTUserBean new];
-                [user setValuesForKeysWithDictionary:userDic];
-                
+                FTUserBean *loginUser = [FTUserBean loginUser];
                 //更新本地数据
-                user.wxopenId = wxOpenId;
-                user.wxHeaderPic = wxHeaderPic;
-                user.wxName = wxName;
-                user.unionId = unionId;
+                loginUser.openId = wxOpenId;
+                loginUser.wxopenId = wxOpenId;
+                loginUser.wxHeaderPic = wxHeaderPic;
+                loginUser.wxName = wxName;
+                loginUser.unionId = unionId;
                 
-                NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
+                NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:loginUser];
                 [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
                 [[NSUserDefaults standardUserDefaults]synchronize];
                 
                 [self.tableView reloadData];
                 FTWeixinInfoVC *wxVC = [[FTWeixinInfoVC alloc]init];
-                //    wxVC.headerUrl = localUser.wxHeaderPic;
-                //    wxVC.username = localUser.wxName;
                 wxVC.title = @"绑定微信";
                 [self.navigationController pushViewController:wxVC animated:YES];
+                
             }else {
                 NSLog(@"message : %@", [dict[@"message"] class]);
                 [[UIApplication sharedApplication].keyWindow showMessage:[dict[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                
-//                //从本地读取存储的用户信息
-//                FTUserBean *localUser = [FTUserBean loginUser];
-//                localUser.openId = nil;
-//                localUser.wxopenId = nil;
-//                localUser.wxHeaderPic = nil;
-//                localUser.wxName = nil;
-//                
-//                //将用户信息保存在本地
-//                NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:localUser];
-//                [[NSUserDefaults standardUserDefaults]setObject:userData forKey:@"loginUser"];
-//                [[NSUserDefaults standardUserDefaults]synchronize];
             }
         }else {
             [[UIApplication sharedApplication].keyWindow showMessage:@" 绑定微信失败"];
-            
         }
     }];
-    
 }
 
 
@@ -170,9 +150,12 @@
     
     if (indexPath.row == 0) {
         cell.titleLabel.text = @"微信账号：";
-        
         if (localUser.openId.length > 0) { //微信登录
-            cell.remarkLabel.text = localUser.username;
+            if (localUser.wxName.length > 0) {
+                cell.remarkLabel.text = localUser.wxName;
+            }else {
+                cell.remarkLabel.text = localUser.username;
+            }
         }else {
             cell.remarkLabel.text = @"未绑定";
         }

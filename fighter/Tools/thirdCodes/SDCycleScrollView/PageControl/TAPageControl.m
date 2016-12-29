@@ -184,7 +184,6 @@ static CGSize const kDefaultDotSize = {8, 8};
     [self resetDotViews];
 }
 
-
 /**
  *  Update the frame of a specific dot at a specific index
  *
@@ -202,7 +201,6 @@ static CGSize const kDefaultDotSize = {8, 8};
 
 
 #pragma mark - Utils
-
 
 /**
  *  Generate a dot view and add it to the collection

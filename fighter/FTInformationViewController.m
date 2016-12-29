@@ -314,7 +314,7 @@
 
 #pragma -mark -暂时隐藏轮播图的标题（没有给轮播图传title的值）
     _cycleScrollView.titlesGroup = titlesArray;
-    
+    _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
     _cycleScrollView.currentPageDotColor = [UIColor redColor]; // 自定义分页控件小圆标颜色
     _cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"方型轮播点-红"];
     _cycleScrollView.pageDotImage = [UIImage imageNamed:@"方型轮播点-白"];

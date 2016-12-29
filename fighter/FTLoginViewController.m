@@ -213,9 +213,9 @@
 
 - (IBAction)weichatBtnAction:(id)sender {
     
+    [WXSingleton shareInstance].wxRequestType =WXRequestTypeLogin;
     //请求微信登录
     [NetWorking weixinRequest];
-
 }
 
 // 登录响应

@@ -424,6 +424,7 @@ static NSString *const tableCellId = @"tableCellId";
 //微信快捷登录按钮
 - (IBAction)weichatBtnAction:(id)sender {
     
+    [WXSingleton shareInstance].wxRequestType =WXRequestTypeLogin;
     [NetWorking weixinRequest];
     
     NSLog(@"微信快捷按钮");
@@ -1027,7 +1028,7 @@ static NSString *const tableCellId = @"tableCellId";
                               @"corporationid":corporationid
                               };
         [FTNotificationTools postTabBarIndex:2 dic:dic];
-    }else if ([dic[@"urlType"] isEqualToString:@"crmpush-3"]) { // 跳转商城商品详情页，购买商品
+    }else if ([dic[@"urlType"] isEqualToString:@"crmpush-3"]) { // 跳转商城首页，购买商品
         
         NSString *gymId = dic[@"objId"];
         NSString *corporationid = dic[@"corporationid"];
@@ -1037,7 +1038,20 @@ static NSString *const tableCellId = @"tableCellId";
                               @"corporationid":corporationid
                               };
         [FTNotificationTools postSwitchShopHomeNotiWithDic:dic];
+    }else if ([dic[@"urlType"] isEqualToString:@"crmpush-5"]) { // 跳转商城商品详情页，购买商品
+        
+        NSString *gymId = dic[@"objId"];
+        NSString *corporationid = dic[@"corporationid"];
+        NSString *goodsId = dic[@"goodsId"];
+        
+        NSDictionary *dic = @{
+                              @"gymId":gymId,
+                              @"corporationid":corporationid,
+                              @"goodsId":goodsId
+                              };
+        [FTNotificationTools postSwitchShopDetailControllerWithDic:dic];
     }
+    
     
     //    else if ([dic[@"urlType"] isEqualToString:@"video"]) {
     //        [_tabBarVC setSelectedIndex:7];

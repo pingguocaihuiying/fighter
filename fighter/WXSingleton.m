@@ -95,6 +95,7 @@ static WXSingleton * wxSingleton = nil;
  */
 - (void) requestWeiXinAccessTokenAndOpenId:(SendAuthResp *) temp{
 
+     NSLog(@"temp code: %@", temp.code);
     // 1.请求access_token openId
     [NetWorking requestWeixinTokenAdnOpenId:temp.code option:^(NSDictionary *tokenDic) {
         
@@ -104,7 +105,6 @@ static WXSingleton * wxSingleton = nil;
 //            [[NSUserDefaults standardUserDefaults] setObject:tokenDic[@"access_token"] forKey:@"wxToken"];
 //            [[NSUserDefaults standardUserDefaults] setObject:tokenDic[@"openid"] forKey:@"wxOpenId"];
 //            [[NSUserDefaults standardUserDefaults]synchronize];
-            
             [self requestWeiXinUserInfo:tokenDic];
         }
     }];
@@ -123,7 +123,8 @@ static WXSingleton * wxSingleton = nil;
         if (userDict) {
             
             if (_wxRequestType == WXRequestTypeNameAndHeader) { //请求头像和昵称
-                [self requestWeiXinNameAndHeader:userDict];
+//                [self requestWeiXinNameAndHeader:userDict];
+                [FTNotificationTools postBindWeiXinNotiWithDic:userDict];
             }else if (_wxRequestType == WXRequestTypeLogin) {  // 微信登录
                 [self registWinXinUser:userDict];
             }
@@ -167,17 +168,13 @@ static WXSingleton * wxSingleton = nil;
             user.isGymUser = dict[@"data"][@"isGymUser"];
             
             //更新本地数据
+            user.openId = userDict[@"openid"];
             user.wxopenId = userDict[@"openid"];
             user.wxHeaderPic = userDict[@"headimgurl"];
             user.wxName = userDict[@"nickname"];
             user.unionId = userDict[@"unionid"];
             
-//            //存储token openid
-//            [[NSUserDefaults standardUserDefaults] setObject:user.openId forKey:@"wxopenId"];
-//            [[NSUserDefaults standardUserDefaults] setObject:user.username forKey:@"wxName"];
-//            [[NSUserDefaults standardUserDefaults] setObject:user.headpic forKey:@"wxHeaderPic"];
-//            [[NSUserDefaults standardUserDefaults]synchronize];
-            
+
             NSData *userData = [NSKeyedArchiver archivedDataWithRootObject:user];
             [[NSUserDefaults standardUserDefaults]setObject:userData forKey:LoginUser];
             [[NSUserDefaults standardUserDefaults]synchronize];
@@ -191,7 +188,6 @@ static WXSingleton * wxSingleton = nil;
             return ;
         }
     }];
-    
 }
 
 /**
