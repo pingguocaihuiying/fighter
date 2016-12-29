@@ -14,6 +14,9 @@
     _url = dic[@"url"];
     _type = [dic[@"type"] intValue];
     _title = [NSString stringWithFormat:@"%@", dic[@"title"]];
+    if (dic[@"thumb"]) {
+        _videoImageURL = dic[@"thumb"];
+    }
 }
 
 @end

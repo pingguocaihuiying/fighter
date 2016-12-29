@@ -410,6 +410,7 @@
 		E68E6B661D655EAE00553F31 /* FTMatchPreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68E6B651D655EAE00553F31 /* FTMatchPreViewController.m */; };
 		E68EC50B1CC4B85D00A338C8 /* FTFilterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68EC5091CC4B85D00A338C8 /* FTFilterTableViewController.m */; };
 		E68EC50C1CC4B85D00A338C8 /* FTFilterTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E68EC50A1CC4B85D00A338C8 /* FTFilterTableViewController.xib */; };
+		E69380761E14D7BF00F655AF /* Certificates.cer in Resources */ = {isa = PBXBuildFile; fileRef = E69380751E14D7BF00F655AF /* Certificates.cer */; };
 		E6956EA61CBE21A1008DEEDB /* FTNewsBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6956EA51CBE21A1008DEEDB /* FTNewsBean.m */; };
 		E696E4E01D2A39F800A89B60 /* FTOpponentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E696E4DE1D2A39F800A89B60 /* FTOpponentCell.m */; };
 		E696E4E11D2A39F800A89B60 /* FTOpponentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E696E4DF1D2A39F800A89B60 /* FTOpponentCell.xib */; };
@@ -1191,6 +1192,7 @@
 		E68EC5091CC4B85D00A338C8 /* FTFilterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTFilterTableViewController.m; sourceTree = "<group>"; };
 		E68EC50A1CC4B85D00A338C8 /* FTFilterTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTFilterTableViewController.xib; sourceTree = "<group>"; };
 		E68EC50E1CC4CBCA00A338C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		E69380751E14D7BF00F655AF /* Certificates.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = Certificates.cer; sourceTree = "<group>"; };
 		E6956EA41CBE21A1008DEEDB /* FTNewsBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNewsBean.h; sourceTree = "<group>"; };
 		E6956EA51CBE21A1008DEEDB /* FTNewsBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNewsBean.m; sourceTree = "<group>"; };
 		E696E4DD1D2A39F800A89B60 /* FTOpponentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTOpponentCell.h; path = "UI/格斗场/views/cell/对手/FTOpponentCell.h"; sourceTree = "<group>"; };
@@ -3502,6 +3504,7 @@
 		E66D6EF31CBCE81C008B015A /* NetworkLayer */ = {
 			isa = PBXGroup;
 			children = (
+				E69380751E14D7BF00F655AF /* Certificates.cer */,
 				E6D2F8DE1CE98A6200160788 /* 分类标签 */,
 				E66D6EF41CBCE81C008B015A /* Base */,
 				E66D6EF71CBCE81C008B015A /* Config */,
@@ -4832,6 +4835,7 @@
 				E60DFB871D98C3EF009A864B /* FTGymSourceView.xib in Resources */,
 				E6B458D31CB75DA200FB4261 /* FTInformationViewController.xib in Resources */,
 				3D484D611DC7349B00E2EC8C /* FTTraineeCell.xib in Resources */,
+				E69380761E14D7BF00F655AF /* Certificates.cer in Resources */,
 				3D7C6B871CF2A2990088400D /* BoxerInfoController.xib in Resources */,
 				3D6ABC831D66DAE700CD37C8 /* Assets.xcassets in Resources */,
 				E6089B3A1DD55845006496B0 /* FTUserChildSkillTopInfoView.xib in Resources */,

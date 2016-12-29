@@ -117,15 +117,20 @@
 }
 
 - (void)setWithCoachPhotoBean:(FTCoachPhotoBean *)bean{
-    [_myImageView sd_setImageWithURL:[NSURL URLWithString:bean.url]];
+    
     
     _myTitleLabel.text = bean.title;
     
     
-    if (bean.type == 0) {
+    if (bean.type == 0) {//照片
         _videoMarkImageView.hidden = YES;
-    } else if (bean.type == 1) {
+        [_myImageView sd_setImageWithURL:[NSURL URLWithString:bean.url]];
+    } else if (bean.type == 1) {//视频
         _videoMarkImageView.hidden = NO;
+        if (bean.videoImageURL) {
+            [_myImageView sd_setImageWithURL:[NSURL URLWithString:bean.videoImageURL]];    
+        }
+        
     }
     
     _viewCountlabel.hidden = YES;
