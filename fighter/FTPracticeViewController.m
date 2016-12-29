@@ -250,6 +250,9 @@
     FTUserBean *loginUser = [FTUserBean loginUser];
     
     if (loginUser) {
+        
+        [self setsubViewsState];
+        
         if (loginUser.isGymUser == nil || loginUser.isGymUser.count == 0) {
             [self getMembershipGymsFromWeb];
         }

@@ -139,6 +139,7 @@
             corporationId = [dic[@"data"][@"corporationId"] integerValue];
             [self getVIPInfo];
             [self addLocationMemberCorporation];
+            
         }else {
             [self.view showMessage:[dic[@"message"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         }

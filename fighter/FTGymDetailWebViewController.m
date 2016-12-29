@@ -518,8 +518,6 @@
 }
 
 
-
-
 #pragma mark -  response
 
 #pragma mark 点击头部图片
