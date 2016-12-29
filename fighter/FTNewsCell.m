@@ -58,7 +58,10 @@
     }else if (bean.img_big && [bean.img_big length] > 0){
         imageURLString = bean.img_big;
     }
+    
+    imageURLString = [FTTools replaceImageURLToHttpsDomain:imageURLString];
     [self.newsImageView sd_setImageWithURL:[NSURL URLWithString:imageURLString] placeholderImage:[UIImage imageNamed:@"轮播大图-空"]];
+//    [self.newsImageView sd_setImageWithURL:[NSURL URLWithString:imageURLString] placeholderImage:[UIImage imageNamed:@"轮播大图-空"] options:SDWebImageAllowInvalidSSLCertificates];
     
     //设置评论数、点赞数
     [self.favorLabel setText:bean.voteCount];

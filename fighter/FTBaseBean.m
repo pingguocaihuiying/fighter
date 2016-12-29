@@ -12,4 +12,7 @@
 - (void)setValuesWithDic:(NSDictionary *)dic{
     
 }
+- (NSString *)replaceImageURLToHttpsDomain:(NSString *)urlOriginal{
+    return [FTTools replaceImageURLToHttpsDomain:urlOriginal];
+}
 @end

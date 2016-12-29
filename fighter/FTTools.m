@@ -485,4 +485,10 @@
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:TIPS_COACH_COURSE];//清除预约私教课程的tip
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
++ (NSString *)replaceImageURLToHttpsDomain:(NSString *)urlOriginal{
+    urlOriginal = [urlOriginal stringByReplacingOccurrencesOfString:@"http://go.gogogofight.com" withString:@"https://www.gogogofight.com:8443"];
+    urlOriginal = [urlOriginal stringByReplacingOccurrencesOfString:@"http://www.gogogofight.com" withString:@"https://www.gogogofight.com:8443"];
+    urlOriginal = [urlOriginal stringByReplacingOccurrencesOfString:@"http://crm.gogogofight.com" withString:@"https://www.gogogofight.com:8443"];
+    return urlOriginal;
+}
 @end

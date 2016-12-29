@@ -90,6 +90,8 @@
         
     }
     
+    NSLog(@"头像1:%@，头像2:%@",matchBean.headUrl1, matchBean.headUrl2);
+    
     //名字
     _nameLabel1.text = matchBean.userName;
     _nameLabel2.text = matchBean.against;

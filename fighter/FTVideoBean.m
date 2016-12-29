@@ -15,6 +15,7 @@
     self.summary = dic[@"summary"];
     self.author = dic[@"author"];
     self.img = dic[@"img"];
+    _img = [FTTools replaceImageURLToHttpsDomain:_img];
     self.url = dic[@"url"];
     self.videosTime = dic[@"videosTime"];
     self.title = dic[@"title"];

@@ -19,7 +19,7 @@
     _category = dic[@"category"];
     
     _pict = dic[@"pict"];
-    
+    _pict = [FTTools replaceImageURLToHttpsDomain:_pict];
     NSString *desc = dic[@"descr"];
     if (!desc) {
         desc = @"还没有添加描述信息";

@@ -25,6 +25,7 @@
     self.createName = dic[@"createName"];
     self.createTime = [NSString stringWithFormat:@"%@",dic[@"createTime"]];
     self.headUrl = dic[@"headUrl"];
+    _headUrl = [FTTools replaceImageURLToHttpsDomain:_headUrl];
     self.userId = dic[@"userId"];
     self.objId = dic[@"objId"];
     self.urls = dic[@"urls"];

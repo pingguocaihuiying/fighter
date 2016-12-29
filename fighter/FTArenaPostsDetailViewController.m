@@ -213,7 +213,7 @@
         NSString *title = _arenaBean.title;
         title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
-        _webViewUrlString = [NSString stringWithFormat:@"http://www.gogogofight.com/page/v2/wrestle_news_page.html?id=%@&type=%@&tableName=damageblog", _arenaBean.postsId, [_arenaBean.labels stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        _webViewUrlString = [NSString stringWithFormat:@"https://www.gogogofight.com:8443/page/v2/wrestle_news_page.html?id=%@&type=%@&tableName=damageblog", _arenaBean.postsId, [_arenaBean.labels stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         NSLog(@"webview url：%@", _webViewUrlString);
     }else {
         

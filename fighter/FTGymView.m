@@ -570,9 +570,10 @@
     NSString *imgStr = dic[@"gymShowImg"];
     if (imgStr && imgStr.length > 0) {
         NSArray *tempArray = [imgStr componentsSeparatedByString:@","];
-        NSString *urlStr = [NSString stringWithFormat:@"http://%@/%@",dic[@"urlPrefix"],[tempArray objectAtIndex:0]];
+        NSString *urlStr = [NSString stringWithFormat:@"https://%@/%@",dic[@"urlPrefix"],[tempArray objectAtIndex:0]];
+        NSURL *url = [NSURL URLWithString:urlStr];
+        [cell.avatarImageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"拳馆占位图"]];
         
-        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"拳馆占位图"]];
     }else {
         
         [cell.avatarImageView setImage:[UIImage imageNamed:@"拳馆占位图"]];

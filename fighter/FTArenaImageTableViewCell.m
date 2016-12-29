@@ -60,12 +60,10 @@
         NSString *firstVideoUrlString = [[bean.videoUrlNames componentsSeparatedByString:@","]firstObject];
 
         firstVideoUrlString = [NSString stringWithFormat:@"%@?vframe/png/offset/0/w/200/h/100", firstVideoUrlString];
-        NSString *videoUrlString = [NSString stringWithFormat:@"%@/%@", bean.urlPrefix, firstVideoUrlString];
-        if (![videoUrlString hasPrefix:@"http://"]) {
-            videoUrlString = [NSString stringWithFormat:@"http://%@", videoUrlString];
-        }
+        NSString *videoUrlString = [NSString stringWithFormat:@"https://%@/%@", bean.urlPrefix, firstVideoUrlString];
+
         NSLog(@"videoUrlString : %@", videoUrlString);
-        [self.theImageView sd_setImageWithURL:[NSURL URLWithString:videoUrlString] placeholderImage:nil options:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [self.theImageView sd_setImageWithURL:[NSURL URLWithString:videoUrlString] placeholderImage:[UIImage imageNamed:@"占位图小"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             _placeHoldImageView.hidden = YES;
             self.playVideoImageview.hidden = NO;
         }];
@@ -74,24 +72,16 @@
     }else if(bean.pictureUrlNames && ![bean.pictureUrlNames isEqualToString:@""]){//如果没有视频，再去找图片的缩略图
 //        NSLog(@"显示图片缩略图");
         NSString *firstImageUrlString = [[bean.pictureUrlNames componentsSeparatedByString:@","]firstObject];
-//        firstImageUrlString = [NSString stringWithFormat:@"%@?vframe/png/offset/0/w/200/h/100", firstImageUrlString];
         firstImageUrlString = [NSString stringWithFormat:@"%@?imageView2/2/w/200", firstImageUrlString];
-        NSString *imageUrlString = [NSString stringWithFormat:@"%@/%@", bean.urlPrefix, firstImageUrlString];
-        if (![imageUrlString hasPrefix:@"http://"]) {
-        imageUrlString = [NSString stringWithFormat:@"http://%@", imageUrlString];
-        }
+        NSString *imageUrlString = [NSString stringWithFormat:@"https://%@/%@", bean.urlPrefix, firstImageUrlString];
+
         
-        [self.theImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:nil options:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [self.theImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:[UIImage imageNamed:@"占位图小"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             _placeHoldImageView.hidden = YES;
         }];
-        
-//        NSLog(@"imageUrlString : %@", imageUrlString);
-//        [self.theImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:[UIImage imageNamed:@"空图标小"]];
         self.playVideoImageview.hidden = YES;
     }
     //根据newsType去设置类型图片
-//        NSLog(@"label : %@", bean.labels);
-//    self.typeImageView.image = [UIImage imageNamed:[FTTools getChLabelNameWithEnLabelName:bean.labels]];
     _labelLabel.text = [FTTools getChNameWithEnLabelName:bean.labels];
     
 }

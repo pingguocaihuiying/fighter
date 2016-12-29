@@ -105,7 +105,6 @@ NSString *const GetCategoryURL = @"/api/category/findCategoryByName.do";
 //获取格斗场内容list
 NSString *const GetArenaListURL = @"/api/damblog/list.do";
 //NSString *const GetArenaListURL = @"/api/base/listBase.do";
-//http://www.gogogofight.com/pugilist_admin/api/base/listBase.do?tableName=damageblog&query=list-dam-blog-1
 
 //格斗场发新帖//接口地址: 域名/api/base/save$Base.do
 NSString *const NewPostURL = @"/api/base/save$Base.do";
@@ -120,7 +119,6 @@ NSString *const FollowCheckKey = @"gedoujia11fdsafsag21254";
 //取消关注
 NSString *const CancelFollowCheckKey = @"gedoujia11fgfdghdfrdsafsag21254";
 
-//NSString * const UserInterfaceHost = @"http://121.42.44.216/integral_adminTest";
 NSString * const UserInterfaceHost = @"http://192.168.85.45/integral_adminTest";  //测试注册用，不能用于微信登录、微信支付
 
 //
@@ -192,7 +190,7 @@ NSString * const GetBoxerRaceInfoURL =  @"/api/boxer/getBoxerRaceDynamic.do";
 NSString * const GetNewsByIdURL =  @"/api/news/getNewsById.do";
 
 //类拳讯详情页的webView地址
-NSString * const WebViewURL =  @"http://www.gogogofight.com/page/v2/news_page.html";
+NSString * const WebViewURL =  @"https://www.gogogofight.com:8443/page/v2/news_page.html";
 
 // 获取单个视频信息
 NSString * const GetVideoByIdURL =  @"/api/videos/getVideosById.do";

@@ -17,6 +17,7 @@
     _coachId = dic[@"coachUserId"];
     _evaluation = dic[@"evaluation"];
     _headUrl = dic[@"headUrl"];
+    _headUrl = [FTTools replaceImageURLToHttpsDomain:_headUrl];
     _type = dic[@"type"];
     _score = [dic[@"score"] floatValue];
     NSTimeInterval ts = [dic[@"createTimeTamp"] doubleValue];
