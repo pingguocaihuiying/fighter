@@ -426,7 +426,7 @@
         if (loginUser) {
             urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@&goodsId=%@",indexStr,loginUser.olduserid,loginUser.token,goodsId];
         }else {
-            urlString = [NSString stringWithFormat: @"%@?userId=%@&loginToken=%@&goodsId=%@",indexStr,loginUser.olduserid,loginUser.token,goodsId];
+            urlString = [NSString stringWithFormat: @"%@?goodsId=%@",indexStr,goodsId];
         }
         
         NSURL *url = [NSURL URLWithString:urlString];
