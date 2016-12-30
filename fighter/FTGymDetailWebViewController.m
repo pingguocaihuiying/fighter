@@ -276,7 +276,7 @@
         }
     }
     
-    NSString *imageUrl = [NSString stringWithFormat:@"https://%@/%@", _gymDetailBean.urlprefix, imageURLString];
+    NSString *imageUrl = [NSString stringWithFormat:@"%@/%@", QiniuDomain, imageURLString];
     [_gymShowImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl]];
     
     //更新照片、视频个数

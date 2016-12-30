@@ -179,6 +179,7 @@
         for (int i = 0; i < num; i++) {
             UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake( (80 + 5) * i, 0, 80, 80)];
             imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.clipsToBounds = YES;
             FTCoachPhotoBean *bean = _coachImagesArray[i];
             [scrollView addSubview:imageView];
             if (bean.type == 1) {//如果是视频

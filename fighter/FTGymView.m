@@ -570,7 +570,7 @@
     NSString *imgStr = dic[@"gymShowImg"];
     if (imgStr && imgStr.length > 0) {
         NSArray *tempArray = [imgStr componentsSeparatedByString:@","];
-        NSString *urlStr = [NSString stringWithFormat:@"https://%@/%@",dic[@"urlPrefix"],[tempArray objectAtIndex:0]];
+        NSString *urlStr = [NSString stringWithFormat:@"%@/%@",QiniuDomain,[tempArray objectAtIndex:0]];
         NSURL *url = [NSURL URLWithString:urlStr];
         [cell.avatarImageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"拳馆占位图"]];
         

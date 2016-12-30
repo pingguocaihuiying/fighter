@@ -69,7 +69,7 @@
     NSString *imgStr = bean.gymShowImg;// dic[@"gymShowImg"];
     if (imgStr && imgStr.length > 0) {
         NSArray *tempArray = [imgStr componentsSeparatedByString:@","];
-        NSString *urlStr = [NSString stringWithFormat:@"http://%@/%@",bean.urlPrefix,[tempArray objectAtIndex:0]];
+        NSString *urlStr = [NSString stringWithFormat:@"%@/%@",QiniuDomain,[tempArray objectAtIndex:0]];
         
         [self.gymImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"拳馆占位图"]];
     }else {

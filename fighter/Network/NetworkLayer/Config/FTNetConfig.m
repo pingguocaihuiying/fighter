@@ -335,6 +335,9 @@ NSString *const GetInvitationCodeInfo = @"/api/ivCode/getCodeInfo.do";
 //使用邀请码
 NSString *const UseInvitationCodeInfo = @"/api/ivCode/useCode.do";
 
+#pragma mark - 适配https
+//七牛云域名
+NSString *const QiniuDomain = @"https://fightermedia.gogogofight.com";
 
 @end
 

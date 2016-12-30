@@ -332,3 +332,6 @@ extern NSString *const GetInvitationCodeInfo;
 //使用邀请码
 extern NSString *const UseInvitationCodeInfo;
 
+#pragma mark - 适配https
+//七牛云域名
+extern NSString *const QiniuDomain;
