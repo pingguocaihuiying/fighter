@@ -768,7 +768,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     //设备独立的token
     NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"];
     
-    NSString *wxLoginURLString = [FTNetConfig host:Domain path:UserWXLoginURL];
+    
 //    wxLoginURLString = [NSString stringWithFormat:@"%@?openId=%@&unionId=%@&timestamp=%@&imei=%@&username=%@&keyToken=%@&city=%@&headpic=%@&stemfrom=%@&token=%@", wxLoginURLString, openId, unionId, timestampString, imei, encodeUsername, keyTokenMD5, province, headpic, stemfrom,deviceToken];
     
 //    // get 请求
@@ -787,6 +787,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     [paramDic setObject:stemfrom forKey:@"stemfrom"];
     [paramDic setObject:deviceToken forKey:@"token"];
     
+    NSString *wxLoginURLString = [FTNetConfig host:Domain path:UserWXLoginURL];
     // post请求
     [self postRequestWithUrl:wxLoginURLString parameters:paramDic option:option];
     
