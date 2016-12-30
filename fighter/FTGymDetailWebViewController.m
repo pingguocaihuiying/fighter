@@ -473,7 +473,11 @@
     [self updateChangeCourseTableButtons];//刷新显示
     [self getTimeSection];
     
+    [self disablePreAndNextButton];//点击后暂时禁用，加载数据成功后在启用
 }
+
+
+
 - (IBAction)nextButtonClicked:(id)sender {
     NSLog(@"下一个场地");
     if (_curPlaceSerial < _gymDetailBean.placeBeans.count) {
@@ -482,6 +486,18 @@
     
     [self updateChangeCourseTableButtons];//刷新显示
     [self getTimeSection];
+    
+    [self disablePreAndNextButton];//点击后暂时禁用，加载数据成功后在启用
+}
+
+- (void)disablePreAndNextButton{
+    _gymSourceView.prePlaceButton.enabled = NO;
+    _gymSourceView.nextPlaceButton.enabled = NO;
+}
+
+- (void)enablePreAndNextButton{
+    _gymSourceView.prePlaceButton.enabled = YES;
+    _gymSourceView.nextPlaceButton.enabled = YES;
 }
 
 - (void)updateCollectionView{
@@ -808,6 +824,7 @@
     NSString *timestampString = [NSString stringWithFormat:@"%.0f", [[NSDate date]timeIntervalSince1970]];
     [NetWorking getGymCourceInfoWithGymDetailBean:_gymDetailBean placeSerialId:_curPlaceSerial andTimestamp:timestampString  andOption:^(NSArray *array) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self enablePreAndNextButton];
         _placesUsingInfoDic = [NSMutableDictionary new];
         if (array) {
             for(NSDictionary *dic in array){
