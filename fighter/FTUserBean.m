@@ -242,4 +242,12 @@
         return nil;
     }
 }
+
+- (void)setValuesForKeysWithDictionary:(NSDictionary<NSString *,id> *)keyedValues{
+    [super setValuesForKeysWithDictionary:keyedValues];
+    _headUrl = [FTTools replaceImageURLToHttpsDomain:_headUrl];
+    _headpic = [FTTools replaceImageURLToHttpsDomain:_headpic];
+    _wxHeaderPic = [FTTools replaceImageURLToHttpsDomain:_wxHeaderPic];
+}
+
 @end

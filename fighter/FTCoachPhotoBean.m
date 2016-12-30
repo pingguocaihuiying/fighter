@@ -16,6 +16,10 @@
     _title = [NSString stringWithFormat:@"%@", dic[@"title"]];
     if (dic[@"thumb"]) {
         _videoImageURL = dic[@"thumb"];
+        _videoImageURL = [FTTools replaceImageURLToHttpsDomain:_videoImageURL];
+    }
+    if (_type == 0 && _url) {
+        _url = [FTTools replaceImageURLToHttpsDomain:_url];
     }
 }
 

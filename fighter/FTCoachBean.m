@@ -39,6 +39,7 @@
     
     
     _headUrl = [NSString stringWithFormat:@"%@", dic[@"headUrl"]];
+    _headUrl = [FTTools replaceImageURLToHttpsDomain:_headUrl];
     
     _corporationid = [NSString stringWithFormat:@"%@", dic[@"corporationid"]];
     

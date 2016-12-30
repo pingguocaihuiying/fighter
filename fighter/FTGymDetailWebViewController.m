@@ -238,7 +238,7 @@
         }
     }
     
-    NSString *imageUrl = [NSString stringWithFormat:@"http://%@/%@", _gymDetailBean.urlprefix, imageURLString];
+    NSString *imageUrl = [NSString stringWithFormat:@"https://%@/%@", _gymDetailBean.urlprefix, imageURLString];
     [_gymShowImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl]];
     
     //更新照片、视频个数
@@ -475,16 +475,18 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     FTGymVIPCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
-//    NSLog(@"indexPath.row : %ld ", indexPath.row);
+
+    NSDictionary *vipDic = _coachArray[indexPath.row];
+    NSString *imageURLString = vipDic[@"headUrl"];
+    imageURLString = [FTTools replaceImageURLToHttpsDomain:imageURLString];
     
     if (_displayAllVIP) {//展示所有
         if (_coachArray.count > itemsPerLine && indexPath.row == _coachArray.count) {//『收起』
             cell.headerImageView.image = [UIImage imageNamed:@"学员列表-收起"];
             cell.vipNameLabel.text = @"收起";
         }else{
-            NSDictionary *vipDic = _coachArray[indexPath.row];
-//            cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
-            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]placeholderImage:[UIImage imageNamed:@"头像-空"]];
+            
+            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:imageURLString]placeholderImage:[UIImage imageNamed:@"头像-空"]];
             
             NSString *name = vipDic[@"name"];
             cell.vipNameLabel.text = name;
@@ -499,15 +501,13 @@
                     cell.vipNameLabel.text = @"更多";
                 }
             }else{
-                NSDictionary *vipDic = _coachArray[indexPath.row];
-//                cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
-                [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]placeholderImage:[UIImage imageNamed:@"头像-空"]];
+//                NSDictionary *vipDic = _coachArray[indexPath.row];
+                [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:imageURLString]placeholderImage:[UIImage imageNamed:@"头像-空"]];
                 cell.vipNameLabel.text = vipDic[@"name"];
             }
         }else{
-            NSDictionary *vipDic = _coachArray[indexPath.row];
-//            cell.headerImageView.image = [UIImage imageNamed:vipDic[@"image"]];
-            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:vipDic[@"headUrl"]]placeholderImage:[UIImage imageNamed:@"头像-空"]];
+//            NSDictionary *vipDic = _coachArray[indexPath.row];
+            [cell.headerImageView sd_setImageWithURL:[NSURL URLWithString:imageURLString]placeholderImage:[UIImage imageNamed:@"头像-空"]];
             cell.vipNameLabel.text = vipDic[@"name"];
         }
     }

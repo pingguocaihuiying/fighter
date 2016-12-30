@@ -10,4 +10,5 @@
 
 @interface FTBaseBean : NSObject
 - (void)setValuesWithDic:(NSDictionary *)dic;
+- (NSString *)replaceImageURLToHttpsDomain:(NSString *)urlOriginal;
 @end

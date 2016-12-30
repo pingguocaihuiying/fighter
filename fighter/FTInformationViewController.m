@@ -297,7 +297,9 @@
     NSMutableArray *titlesArray = [NSMutableArray new];
     if (self.cycleDataSourceArray) {
         for(NSDictionary *dic in self.cycleDataSourceArray){
-            [imagesURLStrings addObject:dic[@"img_big"]];
+            NSString *imgURLString = dic[@"img_big"];
+            imgURLString = [FTTools replaceImageURLToHttpsDomain:imgURLString];
+            if(imgURLString)[imagesURLStrings addObject:imgURLString];
             [titlesArray addObject:dic[@"title"]];
             NSLog(@"title : %@", dic[@"title"]);
         }

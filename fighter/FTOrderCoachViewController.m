@@ -178,16 +178,20 @@
         //设置图片
         for (int i = 0; i < num; i++) {
             UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake( (80 + 5) * i, 0, 80, 80)];
-            imageView.contentMode = kCAGravityResizeAspectFill;
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
             FTCoachPhotoBean *bean = _coachImagesArray[i];
-            [imageView sd_setImageWithURL:[NSURL URLWithString:bean.url] placeholderImage:[UIImage imageNamed:@"小占位图"]];
             [scrollView addSubview:imageView];
-            
-            if (bean.type == 1) {//如果是视频，添加视频标记
+            if (bean.type == 1) {//如果是视频
+                //添加视频标记
                 UIImageView *videoMark = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"列表用视频播放"]];
                 videoMark.frame = CGRectMake(0, 0, 25, 25);
                 videoMark.center = imageView.center;
                 [scrollView addSubview:videoMark];
+                
+                //设置图片
+                [imageView sd_setImageWithURL:[NSURL URLWithString:bean.url] placeholderImage:[UIImage imageNamed:@"小占位图"]];
+            }if (bean.type == 0){//图片
+                [imageView sd_setImageWithURL:[NSURL URLWithString:bean.url] placeholderImage:[UIImage imageNamed:@"小占位图"]];
             }
             
             //添加点击事件

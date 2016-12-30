@@ -36,6 +36,10 @@
     }
 
     [super setValuesForKeysWithDictionary:keyedValues];
+    
+    //替换头像为https
+    _headUrl1 = [FTTools replaceImageURLToHttpsDomain:_headUrl1];
+    _headUrl2 = [FTTools replaceImageURLToHttpsDomain:_headUrl2];
 }
 
 //- (void)setValuesForKeysWithDictionary:(NSDictionary<NSString *,id> *)keyedValues{

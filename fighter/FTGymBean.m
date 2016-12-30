@@ -35,6 +35,8 @@
  **/
 
 - (void)setValuesWithDic:(NSDictionary *)dic{
+    NSLog(@"%@",dic);
+    
     
     self.gymId = [dic[@"gymId"] integerValue];
     self.corporationid = [dic[@"corporationid"] integerValue];
@@ -62,9 +64,6 @@
     self.isGymUser =  [dic[@"isGymUser"] boolValue];
     
     self.surplusCourse = [dic[@"remainTime"] integerValue];
-//    if (remainTime && remainTime.length >0) {
-//        self.surplusCourse = [NSString stringWithFormat:@"%d",[dic[@"remainTime"] intValue]];
-//    }
     
     self.userMoney = [NSString stringWithFormat:@"%.2f",[dic[@"userMoney"] floatValue]/100];
     self.deadline = [NSDate changeUnderlineDateToWordDate:dic[@"expireTime"]];

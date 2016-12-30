@@ -322,6 +322,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     FTFightingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"matchCell"];
+    
     cell.buttonsClickedDelegate = self;
     NSString *dateString = _dateArray[indexPath.section];
     NSArray *beansArray = _matchesDic[dateString];

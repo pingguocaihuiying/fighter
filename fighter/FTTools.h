@@ -164,4 +164,8 @@
  退出后清除缓存、配置
  */
 + (void)clearCacheWhenLogout;
+
+
+//替换url中的http为https
++ (NSString *)replaceImageURLToHttpsDomain:(NSString *)urlOriginal;
 @end
