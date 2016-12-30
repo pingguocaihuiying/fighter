@@ -43,10 +43,10 @@
             _courseStatusLabel.text = @"进行中";
             _courseStatusLabel.hidden = NO;
             
-            _courseNameLabel.textColor = [UIColor colorWithHex:0x5a5a5a];
-            _courseStatusLabel.textColor = [UIColor colorWithHex:0x505050];
-            _courseTimeSectionLabel.textColor = [UIColor colorWithHex:0x505050];
-            _coachNameLabel.textColor = [UIColor colorWithHex:0x505050];
+            _courseNameLabel.textColor = [UIColor whiteColor];
+            _courseStatusLabel.textColor = Custom_Green_Color;
+            _courseTimeSectionLabel.textColor = [UIColor whiteColor];
+            _coachNameLabel.textColor = [UIColor whiteColor];
             
             _hasOrderImageView.hidden = YES;
             _orderStatusLabel.hidden = YES;
