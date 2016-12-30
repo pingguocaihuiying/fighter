@@ -569,7 +569,7 @@
         [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"列表页-赞二态"] forState:UIControlStateNormal];
         
     }else{
-        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"列表页-赞"] forState:UIControlStateNormal];
+        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"文章详情页-底部-赞"] forState:UIControlStateNormal];
     }
 }
 
