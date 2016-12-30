@@ -50,6 +50,194 @@
     return manager;
 }
 
+
+#pragma mark - 封装请求---类方法 httpS 请求
+//post请求
++ (void) postRequestWithUrl:(NSString *)urlString
+                 parameters:(NSDictionary *)dic
+                     option:(void (^)(NSDictionary *dict))option {
+    
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
+//    NSLog(@"RegisterUserURL url : %@", urlString);
+    [manager POST:urlString
+       parameters:dic
+         progress:nil
+          success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+              NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+              //              NSLog(@"responsedic:%@",responseDic);
+              
+              if (option) {
+                  option(responseDic);
+              }
+          }
+          failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
+              NSLog(@"error:%@",error);
+              if (option) {
+                  option(nil);
+              }
+              
+          }];
+}
+
+
+
+//post  请求上传二进制数据
++ (void) postUploadDataWithURL:(NSString *)urlString
+                    parameters:(NSDictionary *)dic
+              appendParameters:(NSDictionary *)appendDic
+                        option:(void (^)(NSDictionary *dict))option {
+    
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
+    [manager POST:urlString
+       parameters:dic
+constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    
+    for (NSString *key in [appendDic allKeys] ) {
+        
+        [formData appendPartWithFileURL:appendDic[key] name:key error:nil];
+    }
+    
+}
+         progress:nil
+          success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+              
+              NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+              //              NSLog(@"responsedic:%@",responseDic);
+              
+              if (option) {
+                  option(responseDic);
+              }
+          }
+          failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
+              
+              if (option) {
+                  option(nil);
+              }
+          }];
+}
+
+
+//get请求
++ (void) getRequestWithUrl:(NSString *)urlString
+                parameters:(NSDictionary *)dic
+                    option:(void (^)(NSDictionary *dict))option {
+    
+    
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
+    //    NSLog(@"RegisterUserURL url : %@", urlString);
+    [manager GET:urlString
+      parameters:dic
+        progress:nil
+         success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+             NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+             //             NSLog(@"responsedic:%@",responseDic);
+             
+             if (option) {
+                 option(responseDic);
+             }
+         }
+         failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"error:%@",error);
+             if (option) {
+                 option(nil);
+             }
+         }];
+}
+
+#pragma mark - 封装请求---类方法 http请求
+//post请求
++ (void) httpPostRequestWithUrl:(NSString *)urlString
+                 parameters:(NSDictionary *)dic
+                     option:(void (^)(NSDictionary *dict))option {
+    
+    AFHTTPSessionManager*manager =[AFHTTPSessionManager manager];
+    manager.responseSerializer =[AFHTTPResponseSerializer serializer];
+    [manager POST:urlString
+       parameters:dic
+         progress:nil
+          success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+              NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+              //              NSLog(@"responsedic:%@",responseDic);
+              
+              if (option) {
+                  option(responseDic);
+              }
+          }
+          failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
+              NSLog(@"error:%@",error);
+              if (option) {
+                  option(nil);
+              }
+              
+          }];
+}
+
+
+
+//post  请求上传二进制数据
++ (void) httpPostUploadDataWithURL:(NSString *)urlString
+                    parameters:(NSDictionary *)dic
+              appendParameters:(NSDictionary *)appendDic
+                        option:(void (^)(NSDictionary *dict))option {
+    
+    AFHTTPSessionManager*manager =[AFHTTPSessionManager manager];
+    manager.responseSerializer =[AFHTTPResponseSerializer serializer];
+    [manager POST:urlString
+       parameters:dic
+constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    
+    for (NSString *key in [appendDic allKeys] ) {
+        
+        [formData appendPartWithFileURL:appendDic[key] name:key error:nil];
+    }
+    
+}
+         progress:nil
+          success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+              
+              NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+              //              NSLog(@"responsedic:%@",responseDic);
+              
+              if (option) {
+                  option(responseDic);
+              }
+          }
+          failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
+              
+              if (option) {
+                  option(nil);
+              }
+          }];
+}
+
+
+//get请求
++ (void) httpGetRequestWithUrl:(NSString *)urlString
+                parameters:(NSDictionary *)dic
+                    option:(void (^)(NSDictionary *dict))option {
+    
+    AFHTTPSessionManager*manager =[AFHTTPSessionManager manager];
+    manager.responseSerializer =[AFHTTPResponseSerializer serializer];
+    [manager GET:urlString
+      parameters:dic
+        progress:nil
+         success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+             NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+             //             NSLog(@"responsedic:%@",responseDic);
+             
+             if (option) {
+                 option(responseDic);
+             }
+         }
+         failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"error:%@",error);
+             if (option) {
+                 option(nil);
+             }
+         }];
+}
+
+
 #pragma mark - 验证码
 //获取短信验证码
 + (void) getCheckCodeWithPhoneNumber:(NSString *)phoneNum option:(void (^)(NSDictionary *dict))option{
@@ -534,7 +722,7 @@
 
     NSString *accessUrlStr = [NSString stringWithFormat:@"%@/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code", WX_BASE_URL, WX_App_ID, WX_App_Secret, code];
     
-    [self getRequestWithUrl:accessUrlStr parameters:nil option:option];
+    [self httpGetRequestWithUrl:accessUrlStr parameters:nil option:option];
 }
 
 
@@ -544,7 +732,7 @@
                                  option:(void(^)(NSDictionary *dict)) option {
     NSString *userinfoURL = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@", token, openId];
 
-    [self getRequestWithUrl:userinfoURL parameters:nil option:option];
+    [self httpGetRequestWithUrl:userinfoURL parameters:nil option:option];
 }
 
 
@@ -692,99 +880,6 @@
     return dic;
 }
 
-#pragma mark - 封装请求---类方法
-//post请求
-+ (void) postRequestWithUrl:(NSString *)urlString
-                 parameters:(NSDictionary *)dic
-                     option:(void (^)(NSDictionary *dict))option {
-    
-    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
-    //    NSLog(@"RegisterUserURL url : %@", urlString);
-    [manager POST:urlString
-       parameters:dic
-         progress:nil
-          success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
-              NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-              //              NSLog(@"responsedic:%@",responseDic);
-              
-              if (option) {
-                  option(responseDic);
-              }
-          }
-          failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
-              NSLog(@"error:%@",error);
-              if (option) {
-                  option(nil);
-              }
-              
-          }];
-}
-
-
-
-//post  请求上传二进制数据
-+ (void) postUploadDataWithURL:(NSString *)urlString
-                    parameters:(NSDictionary *)dic
-              appendParameters:(NSDictionary *)appendDic
-                        option:(void (^)(NSDictionary *dict))option {
-    
-    
-    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
-    
-    [manager POST:urlString
-       parameters:dic
-       constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-                
-                for (NSString *key in [appendDic allKeys] ) {
-                    
-                    [formData appendPartWithFileURL:appendDic[key] name:key error:nil];
-                }
-                
-            }
-         progress:nil
-          success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
-              
-              NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-              //              NSLog(@"responsedic:%@",responseDic);
-              
-              if (option) {
-                  option(responseDic);
-              }
-          }
-          failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
-              
-              if (option) {
-                  option(nil);
-              }
-          }];
-}
-
-
-//get请求
-+ (void) getRequestWithUrl:(NSString *)urlString
-                parameters:(NSDictionary *)dic
-                    option:(void (^)(NSDictionary *dict))option {
-    
-    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
-    //    NSLog(@"RegisterUserURL url : %@", urlString);
-    [manager GET:urlString
-      parameters:dic
-        progress:nil
-         success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
-             NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-             //             NSLog(@"responsedic:%@",responseDic);
-             
-             if (option) {
-                 option(responseDic);
-             }
-         }
-         failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
-             NSLog(@"error:%@",error);
-             if (option) {
-                 option(nil);
-             }
-         }];
-}
 
 
 
