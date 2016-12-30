@@ -125,7 +125,7 @@
 
 - (void) initTableView {
     
-    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(6, 0, self.frame.size.width-12, self.frame.size.height)];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [_tableView setBackgroundColor:[UIColor clearColor]];
     _tableView.delegate = self;
     _tableView.dataSource = self;

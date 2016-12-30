@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -169,7 +169,8 @@
                                 <constraint firstAttribute="height" constant="22" id="z4Y-hY-GIM"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <state key="normal" backgroundImage="列表页-分享"/>
+                            <state key="normal" backgroundImage="文章详情页-底部-分享"/>
+                            <state key="highlighted" backgroundImage="文章详情页-底部-分享pre"/>
                             <connections>
                                 <action selector="bottomShareButtonClicked:" destination="-1" eventType="touchUpInside" id="9PM-pg-hJo"/>
                             </connections>
@@ -181,7 +182,7 @@
                                 <constraint firstAttribute="height" constant="22" id="IuO-rK-UCB"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <state key="normal" backgroundImage="列表页-赞"/>
+                            <state key="normal" backgroundImage="文章详情页-底部-赞"/>
                             <connections>
                                 <action selector="thumbButtonClicked:" destination="-1" eventType="touchUpInside" id="eBa-lY-L99"/>
                             </connections>
@@ -193,7 +194,7 @@
                                 <constraint firstAttribute="height" constant="22" id="gU1-ea-GMi"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <state key="normal" backgroundImage="列表页-评论数"/>
+                            <state key="normal" backgroundImage="文章详情页-底部-评论"/>
                             <connections>
                                 <action selector="commentButtonClicked:" destination="-1" eventType="touchUpInside" id="abt-0R-5sD"/>
                             </connections>
@@ -253,15 +254,16 @@
         </view>
     </objects>
     <resources>
-        <image name="列表页-分享" width="22" height="22"/>
-        <image name="列表页-评论数" width="22" height="22"/>
-        <image name="列表页-赞" width="22" height="22"/>
+        <image name="文章详情页-底部-分享" width="22" height="22"/>
+        <image name="文章详情页-底部-分享pre" width="22" height="22"/>
+        <image name="文章详情页-底部-评论" width="22" height="22"/>
+        <image name="文章详情页-底部-赞" width="22" height="22"/>
         <image name="斜线分割" width="12" height="24"/>
         <image name="详情页底部按钮一堆-分享" width="24" height="24"/>
         <image name="详情页底部按钮一堆-收藏" width="24" height="24"/>
         <image name="详情页底部按钮一堆-评论" width="24" height="24"/>
         <image name="详情页底部按钮一堆-赞" width="24" height="24"/>
-        <image name="输入框" width="42" height="34"/>
+        <image name="输入框" width="20" height="18"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
