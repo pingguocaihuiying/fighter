@@ -145,7 +145,6 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
             NSLog(@"videoUrl : %@", videoUrl);
         }
         [_photoArrayByUser addObject:dic];
-
     }
     [_photoCollectionViewRight reloadData];
 }
@@ -338,7 +337,7 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell2" forIndexPath:indexPath];
         NSDictionary *dic = _photoArrayByUser[indexPath.row];
         NSString *imgURLString = dic[@"imageurl"];
-        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"imageurl"]] placeholderImage:[UIImage imageNamed:@"小占位图"]];
+        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:imgURLString] placeholderImage:[UIImage imageNamed:@"小占位图"]];
         if ([dic[@"type"] isEqualToString:@"video"]) {
             cell.isVideoView.hidden = NO;
         } else {
