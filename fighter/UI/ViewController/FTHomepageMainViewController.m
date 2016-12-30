@@ -240,6 +240,8 @@
         }else if ([_userIdentity isEqualToString:@"1"]) {//拳手
             
             _fightRecord.text = [NSString stringWithFormat:@"%@胜 - %@负 - %@平 - %@KO", userBean.win, userBean.fail, userBean.draw, userBean.knockout];
+            _fightRecordHeight.constant = 14;
+            _topViewHeight.constant = 233;
             
             //设置拳手个人资料的背景图片
             if (userBean.background != nil && ![userBean.background isEqualToString:@""]) {//如果有背景图
