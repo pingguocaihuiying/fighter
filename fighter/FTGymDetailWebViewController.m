@@ -474,9 +474,15 @@
     [self getTimeSection];
     
     [self disablePreAndNextButton];//点击后暂时禁用，加载数据成功后在启用
+    
+    [self cleanCourseTableData];
 }
 
-
+- (void)cleanCourseTableData{
+    //获取场地使用信息后，刷新UI
+    _gymSourceView.placesUsingInfoDic = nil;
+    [_gymSourceView reloadTableViews];
+}
 
 - (IBAction)nextButtonClicked:(id)sender {
     NSLog(@"下一个场地");
@@ -488,6 +494,7 @@
     [self getTimeSection];
     
     [self disablePreAndNextButton];//点击后暂时禁用，加载数据成功后在启用
+    [self cleanCourseTableData];
 }
 
 - (void)disablePreAndNextButton{
