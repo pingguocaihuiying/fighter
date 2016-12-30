@@ -48,8 +48,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *blankInfoLabel;
 
 @property (nonatomic, copy) NSString *userId;
-@property (strong, nonatomic) IBOutlet UIButton *prePlaceButton;//上一个场地
-@property (strong, nonatomic) IBOutlet UIButton *nextPlaceButton;//下一个场地
 
 @end
 
@@ -450,12 +448,7 @@
     }
     
 }
-- (IBAction)prePlaceButtonClicked:(id)sender {
-    NSLog(@"上一个场地");
-}
-- (IBAction)nextButtonClicked:(id)sender {
-    NSLog(@"下一个场地");
-}
+
 
 
 

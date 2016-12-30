@@ -88,7 +88,7 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
             NSLog(@"imagesArrayLeft %d : %@", i, imagesArrayLeft[i]);
             NSMutableDictionary *dic = [NSMutableDictionary new];
             [dic setValue:@"image" forKey:@"type"];
-            NSString *imageUrl = [NSString stringWithFormat:@"http://%@/%@", _gymDetailBean.urlprefix, imagesArrayLeft[i]];
+            NSString *imageUrl = [NSString stringWithFormat:@"%@/%@", QiniuDomain, imagesArrayLeft[i]];
             [dic setValue:imageUrl forKey:@"imageurl"];
             NSLog(@"left imageUrl : %@", imageUrl);
             [_photoArrayByGym addObject:dic];
@@ -101,7 +101,7 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
         for (int i = 0; i < videoArrayLeft.count; i++) {
             NSMutableDictionary *dic = [NSMutableDictionary new];
             [dic setValue:@"video" forKey:@"type"];//类型
-            NSString *videoUrl = [NSString stringWithFormat:@"http://%@/%@", _gymDetailBean.urlprefix, videoArrayLeft[i]];
+            NSString *videoUrl = [NSString stringWithFormat:@"%@/%@", QiniuDomain, videoArrayLeft[i]];
             NSString *imageUrl = [NSString stringWithFormat:@"%@?vframe/png/offset/0", videoUrl];
             [dic setValue:imageUrl forKey:@"imageurl"];//图片地址
             
@@ -129,14 +129,14 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
             
             NSLog(@"url:%@",dicSrc[@"url"]);
             [dic setValue:@"image" forKey:@"type"];//类型
-            NSString *imageUrl = [NSString stringWithFormat:@"http://%@/%@", _gymDetailBean.urlprefix, dicSrc[@"url"]];
+            NSString *imageUrl = [NSString stringWithFormat:@"%@/%@", QiniuDomain, dicSrc[@"url"]];
             
             imageUrl = [imageUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             NSLog(@"imageUrl : %@", imageUrl);
             [dic setValue:imageUrl forKey:@"imageurl"];//图片地址
         } else if ([dicSrc[@"suffix"] isEqualToString:@"1"]) {
             [dic setValue:@"video" forKey:@"type"];//类型
-            NSString *videoUrl = [NSString stringWithFormat:@"http://%@/%@", _gymDetailBean.urlprefix, dicSrc[@"url"]];
+            NSString *videoUrl = [NSString stringWithFormat:@"%@/%@", QiniuDomain, dicSrc[@"url"]];
             NSString *imageUrl = [NSString stringWithFormat:@"%@?vframe/png/offset/0", videoUrl];
             imageUrl = [imageUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             [dic setValue:imageUrl forKey:@"imageurl"];//图片地址
@@ -324,8 +324,8 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell1" forIndexPath:indexPath];
 
         NSDictionary *dic = _photoArrayByGym[indexPath.row];
-        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"imageurl"]]];
-        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"imageurl"]] placeholderImage:[UIImage imageNamed:@"小占位图"]];
+        NSString *imgURLString = dic[@"imageurl"];
+        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:imgURLString] placeholderImage:[UIImage imageNamed:@"小占位图"]];
         if ([dic[@"type"] isEqualToString:@"video"]) {
             cell.isVideoView.hidden = NO;
         } else {
@@ -334,7 +334,7 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
     }else if (collectionView == _photoCollectionViewRight){
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell2" forIndexPath:indexPath];
         NSDictionary *dic = _photoArrayByUser[indexPath.row];
-//        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"imageurl"]]];
+        NSString *imgURLString = dic[@"imageurl"];
         [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"imageurl"]] placeholderImage:[UIImage imageNamed:@"小占位图"]];
         if ([dic[@"type"] isEqualToString:@"video"]) {
             cell.isVideoView.hidden = NO;

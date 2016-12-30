@@ -124,12 +124,12 @@
     
     if (bean.type == 0) {//照片
         _videoMarkImageView.hidden = YES;
-        [_myImageView sd_setImageWithURL:[NSURL URLWithString:bean.url]];
+        [_myImageView sd_setImageWithURL:[NSURL URLWithString:bean.url] placeholderImage:[UIImage imageNamed:@"小占位图"]];
     } else if (bean.type == 1) {//视频
         _videoMarkImageView.hidden = NO;
-        if (bean.videoImageURL) {
-            [_myImageView sd_setImageWithURL:[NSURL URLWithString:bean.videoImageURL]];    
-        }
+//        if (bean.videoImageURL) {
+            [_myImageView sd_setImageWithURL:[NSURL URLWithString:bean.videoImageURL] placeholderImage:[UIImage imageNamed:@"小占位图"]];
+//        }
         
     }
     

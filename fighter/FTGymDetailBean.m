@@ -7,12 +7,29 @@
 //
 
 #import "FTGymDetailBean.h"
+#import "FTPlaceBean.h"
 
 @implementation FTGymDetailBean
 
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
-//    NSLog(@"key : %@, value : %@", key, value);
+    if ([key isEqualToString:@"placeBeans"]) {
+        
+    }
+}
+
+- (void)setValuesForKeysWithDictionary:(NSDictionary<NSString *,id> *)keyedValues{
+    [super setValuesForKeysWithDictionary:keyedValues];
+    NSArray *placeArray = keyedValues[@"placeBeans"];
+    if (placeArray) {
+        NSMutableArray *placeBeanArray = [NSMutableArray new];
+        for(NSDictionary *placeDic in placeArray){
+            FTPlaceBean *placeBean = [FTPlaceBean new];
+            [placeBean setValuesWithDic:placeDic];
+            [placeBeanArray addObject:placeBean];
+        }
+        _placeBeans = placeBeanArray;        
+    }
 }
 
 @end

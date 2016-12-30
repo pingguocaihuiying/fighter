@@ -45,8 +45,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self setDividingLineColor];//设置边框颜色
-    
+//    [self setDividingLineColor];//设置边框颜色
     
     _subTitleLabel.textColor = Sub_Title_Color;//副标题颜色
     

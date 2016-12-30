@@ -18,7 +18,6 @@
 
 // bottom view
 @property (weak, nonatomic) IBOutlet UIView *focusView; //关注
-//@property (weak, nonatomic) IBOutlet UIView *shareView; // 分享（9月1日 如掉了底部的分享功能）
 @property (weak, nonatomic) IBOutlet UIView *commentView; // 评论
 @property (weak, nonatomic) IBOutlet UIView *voteView; //拨号
 

@@ -60,7 +60,7 @@
         NSString *firstVideoUrlString = [[bean.videoUrlNames componentsSeparatedByString:@","]firstObject];
 
         firstVideoUrlString = [NSString stringWithFormat:@"%@?vframe/png/offset/0/w/200/h/100", firstVideoUrlString];
-        NSString *videoUrlString = [NSString stringWithFormat:@"https://%@/%@", bean.urlPrefix, firstVideoUrlString];
+        NSString *videoUrlString = [NSString stringWithFormat:@"%@/%@", QiniuDomain, firstVideoUrlString];
 
         NSLog(@"videoUrlString : %@", videoUrlString);
         [self.theImageView sd_setImageWithURL:[NSURL URLWithString:videoUrlString] placeholderImage:[UIImage imageNamed:@"占位图小"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -73,7 +73,7 @@
 //        NSLog(@"显示图片缩略图");
         NSString *firstImageUrlString = [[bean.pictureUrlNames componentsSeparatedByString:@","]firstObject];
         firstImageUrlString = [NSString stringWithFormat:@"%@?imageView2/2/w/200", firstImageUrlString];
-        NSString *imageUrlString = [NSString stringWithFormat:@"https://%@/%@", bean.urlPrefix, firstImageUrlString];
+        NSString *imageUrlString = [NSString stringWithFormat:@"%@/%@", QiniuDomain, firstImageUrlString];
 
         
         [self.theImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:[UIImage imageNamed:@"占位图小"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {

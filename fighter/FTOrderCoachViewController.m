@@ -179,6 +179,7 @@
         for (int i = 0; i < num; i++) {
             UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake( (80 + 5) * i, 0, 80, 80)];
             imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.clipsToBounds = YES;
             FTCoachPhotoBean *bean = _coachImagesArray[i];
             [scrollView addSubview:imageView];
             if (bean.type == 1) {//如果是视频
@@ -189,7 +190,7 @@
                 [scrollView addSubview:videoMark];
                 
                 //设置图片
-                [imageView sd_setImageWithURL:[NSURL URLWithString:bean.url] placeholderImage:[UIImage imageNamed:@"小占位图"]];
+                [imageView sd_setImageWithURL:[NSURL URLWithString:bean.videoImageURL] placeholderImage:[UIImage imageNamed:@"小占位图"]];
             }if (bean.type == 0){//图片
                 [imageView sd_setImageWithURL:[NSURL URLWithString:bean.url] placeholderImage:[UIImage imageNamed:@"小占位图"]];
             }

@@ -29,6 +29,7 @@ typedef NS_ENUM(NSInteger, FTGymCourseStatus) {
 
 #import <UIKit/UIKit.h>
 #import "FTGymSourceView.h"
+#import "FTPlaceBean.h"
 
 @interface FTGymOrderCourseView : UIView
 
@@ -43,6 +44,7 @@ typedef NS_ENUM(NSInteger, FTGymCourseStatus) {
 @property (nonatomic, copy) NSString *dateTimeStamp;//课程那一天的时间戳
 @property (nonatomic, copy) NSString *dateString;//课程那一天的日期，eg：7月8日
 @property (nonatomic, copy) NSString *gymId;//拳馆id
+@property (nonatomic, strong) FTPlaceBean *placeBean;
 @property (nonatomic, weak) id<FTGymOrderCourseViewDelegate> delegate;
 
 @property (nonatomic, copy) NSString *webViewURL;//webview url

@@ -15,6 +15,7 @@
 #import "FTUserBean.h"
 #import "FTEncoderAndDecoder.h"
 #import "FTMatchDetailBean.h"
+#import "FTPlaceBean.h"
 
 @implementation NetWorking
 
@@ -1410,32 +1411,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 }
 
 #pragma mark - 赛事
-+ (void)getGymTimeSlotsById:(NSString *) corporationID andOption:(void (^)(NSArray *array))option{
-    NSString *urlString = [FTNetConfig host:Domain path:GetGymTimeSlotsByIdURL];
-    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
-//    assert(corporationID);
-    
-    urlString = [NSString stringWithFormat:@"%@?corporationid=%@", urlString, corporationID];
-    NSLog(@"getGymTimeSlotsById urlString : %@", urlString);
-    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
-        //        [ZJModelTool createModelWithDictionary:responseObject modelName:nil];
-        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"message : %@", responseDic[@"message"]);
-        NSString *status = responseDic[@"status"];
-        NSArray *array = responseDic[@"data"];
-        if ([status isEqualToString:@"success"]) {
-            if (array && array != (id)[NSNull null]) {
-                option(array);
-            }else{
-                option(nil);
-            }
-        }else{
-            option(nil);
-        }
-    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
-        option(nil);
-    }];
-}
+
 //获取场地配置
 + (void)getGymPlaceInfoById:(NSString *)gymId andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymPlacesByIdURL];
@@ -1463,9 +1439,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //获取场地的使用信息
 + (void)getGymPlaceUsingInfoById:(NSString *)gymId andTimestamp:(NSString *)timestamp andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymPlacesUsingInfoByIdURL];
-    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
-    assert(gymId);
-    
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
     urlString = [NSString stringWithFormat:@"%@?corporationid=%@&date=%@", urlString, gymId, timestamp];
     
     NSLog(@"getGymPlaceUsingInfoById %@", urlString);
@@ -1480,12 +1454,101 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         option(nil);
     }];
 }
+
+
+//获取拳馆时间段信息(无场地id)
++ (void)getGymTimeSlotsById:(NSString *) corporationID andOption:(void (^)(NSArray *array))option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetGymTimeSlotsByIdURL];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
+    //    assert(corporationID);
+    
+    urlString = [NSString stringWithFormat:@"%@?corporationid=%@", urlString, corporationID];
+    NSLog(@"getGymTimeSlotsById urlString : %@", urlString);
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+        //        [ZJModelTool createModelWithDictionary:responseObject modelName:nil];
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"message : %@", responseDic[@"message"]);
+        NSString *status = responseDic[@"status"];
+        NSArray *array = responseDic[@"data"];
+        if ([status isEqualToString:@"success"]) {
+            if (array && array != (id)[NSNull null]) {
+                option(array);
+            }else{
+                option(nil);
+            }
+        }else{
+            option(nil);
+        }
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
+        option(nil);
+    }];
+}
+
+//获取拳馆时间段信息（有场地id）
++ (void)getGymTimeSlotsWithGymDetailBean:(FTGymDetailBean *) gymDetailBean serialId:(NSInteger)serialId andOption:(void (^)(NSArray *array))option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetGymTimeSlotsByIdURL];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
+    urlString = [NSString stringWithFormat:@"%@?corporationid=%ld", urlString, gymDetailBean.corporationid];
+    //场地传参数
+    if (serialId > 0) {//serialId默认为0，当场地数>1时，serialId会大于0；为0时，不传该参数
+        FTPlaceBean *placeBean = gymDetailBean.placeBeans[serialId - 1];
+        NSInteger placeId = placeBean.placeId;
+        urlString = [NSString stringWithFormat:@"%@&placeId=%ld", urlString, placeId];
+    }
+    NSLog(@"getGymTimeSlotsById urlString : %@", urlString);
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+        //        [ZJModelTool createModelWithDictionary:responseObject modelName:nil];
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"message : %@", responseDic[@"message"]);
+        NSString *status = responseDic[@"status"];
+        NSArray *array = responseDic[@"data"];
+        if ([status isEqualToString:@"success"]) {
+            if (array && array != (id)[NSNull null]) {
+                option(array);
+            }else{
+                option(nil);
+            }
+        }else{
+            option(nil);
+        }
+    } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
+        option(nil);
+    }];
+}
+//获取拳馆课程表（时间段）占用信息（无场地id）
 + (void)getGymSourceInfoById:(NSString *)gymId andTimestamp:(NSString *)timestamp andOption:(void (^)(NSArray *array))option{
     NSString *urlString = [FTNetConfig host:Domain path:GetGymSourceInfoByIdURL];
-    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
     assert(gymId);
     FTUserBean *localUserBean = [FTUserTools getLocalUser];
     urlString = [NSString stringWithFormat:@"%@?corporationid=%@&userId=%@", urlString, gymId, localUserBean.olduserid];
+    
+    NSLog(@"getGymPlaceUsingInfoById %@", urlString);
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"message : %@", responseDic[@"message"]);
+        NSArray *array = responseDic[@"data"];
+        if (array && array != (id)[NSNull null]) {
+            option(array);
+        }else{
+            option(nil);
+        }
+    } failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
+        option(nil);
+    }];
+}
+//获取拳馆课程表（时间段）占用信息（有场地id）
++ (void)getGymCourceInfoWithGymDetailBean:(FTGymDetailBean *)gymDetailBean placeSerialId:(NSInteger)placeSerialId andTimestamp:(NSString *)timestamp andOption:(void (^)(NSArray *array))option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetGymSourceInfoByIdURL];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
+    FTUserBean *localUserBean = [FTUserTools getLocalUser];
+    urlString = [NSString stringWithFormat:@"%@?corporationid=%ld&userId=%@", urlString, gymDetailBean.corporationid, localUserBean.olduserid];
+    
+    if (placeSerialId > 0) {//serialId默认为0，当场地数>1时，serialId会大于0；为0时，不传该参数
+        FTPlaceBean *placeBean = gymDetailBean.placeBeans[placeSerialId - 1];
+        NSInteger placeId = placeBean.placeId;
+        urlString = [NSString stringWithFormat:@"%@&placeId=%ld", urlString, placeId];
+    }
     
     NSLog(@"getGymPlaceUsingInfoById %@", urlString);
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
@@ -1671,6 +1734,11 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //获取拳馆详细信息（学拳模块的拳馆 ）
 + (void)getGymForGymDetailWithGymBean:(FTGymBean *)gymBean andOption:(void (^)(NSDictionary *dic))option{
     NSString *urlString = [NSString stringWithFormat:@"%@/api/gym/%ld.do", Domain, gymBean.gymId];
+    
+    //调试
+    gymBean.gymId = 0;
+    gymBean.corporationid = 187;
+    
     if (gymBean.gymId) {
         urlString = [NSString stringWithFormat:@"%@/api/gym/%ld.do", Domain, gymBean.gymId];
     }else if(gymBean.corporationid){

@@ -88,6 +88,7 @@
 @property (strong, nonatomic) IBOutlet UIView *gymSourceViewContainerView;//课程表view的父view
 @property (nonatomic, strong) NSArray *timeSectionsArray;//拳馆的固定时间段
 @property (nonatomic, strong) NSMutableDictionary *placesUsingInfoDic;//场地、时间段的占用情况
+@property (nonatomic, assign) NSInteger curPlaceSerial;//当前场地的序列号，如果有多个，其值为1，2.。。；如果只有一个，值为0
 
 @end
 
@@ -178,11 +179,48 @@
         if (dic) {
             _gymDetailBean = [FTGymDetailBean new];
             [_gymDetailBean setValuesForKeysWithDictionary:dic];
+            
+            //如果有多个场地，再显示多课表
+            if (_gymDetailBean.placeBeans && _gymDetailBean.placeBeans.count > 0) [self setMutiCourseTable];
+            
             [self doOtherThingWithGymDetailBean];
         }else{
             [self.view showMessage:@"没有获取到拳馆信息"];
         }
     }];
+}
+
+
+/**
+ 设置多课表
+ */
+- (void)setMutiCourseTable{
+    _curPlaceSerial = 1;
+}
+
+
+/**
+ 更新课表左右两边的按钮显示状态
+ */
+- (void)updateChangeCourseTableButtons{
+    if (_gymDetailBean.placeBeans.count > 1) {//多课表才显示翻页按钮
+        if (_curPlaceSerial == 1) {//如果当前页为1，
+            _gymSourceView.prePlaceButton.hidden = YES;//不能往前翻，隐藏掉往前翻的按钮
+            _gymSourceView.nextPlaceButton.hidden = NO;//当前为1，场地数>1,一定能往后翻
+        } else {
+            _gymSourceView.prePlaceButton.hidden = NO;//如果不是第一页，一定要可以往前翻，显示pre按钮
+            
+            if (_curPlaceSerial == _gymDetailBean.placeBeans.count) {//如果已经是最后一页，则隐藏next按钮
+                _gymSourceView.nextPlaceButton.hidden = YES;
+            } else {//如果不是最后一页，显示next按钮
+                _gymSourceView.nextPlaceButton.hidden = NO;
+            }
+            
+        }
+    } else {//否则不显示翻页按钮
+        _gymSourceView.prePlaceButton.hidden = YES;
+        _gymSourceView.nextPlaceButton.hidden = YES;
+    }
 }
 
 - (void)doOtherThingWithGymDetailBean{
@@ -238,7 +276,7 @@
         }
     }
     
-    NSString *imageUrl = [NSString stringWithFormat:@"https://%@/%@", _gymDetailBean.urlprefix, imageURLString];
+    NSString *imageUrl = [NSString stringWithFormat:@"%@/%@", QiniuDomain, imageURLString];
     [_gymShowImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl]];
     
     //更新照片、视频个数
@@ -415,8 +453,30 @@
     _gymSourceView.frame = _gymSourceViewContainerView.bounds;
     _gymSourceView.delegate = self;
     _gymSourceView.scrollDelegate = self;
+    [_gymSourceView.prePlaceButton addTarget:self action:@selector(prePlaceButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [_gymSourceView.nextPlaceButton addTarget:self action:@selector(nextButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [_gymSourceViewContainerView addSubview:_gymSourceView];
+    [self updateChangeCourseTableButtons];//课表初始化后，更新翻页显示
+}
+
+- (IBAction)prePlaceButtonClicked:(id)sender {
+    NSLog(@"上一个场地");
+    if (_curPlaceSerial > 1) {
+        _curPlaceSerial--;
+    }
     
+    [self updateChangeCourseTableButtons];//刷新显示
+    [self getTimeSection];
+    
+}
+- (IBAction)nextButtonClicked:(id)sender {
+    NSLog(@"下一个场地");
+    if (_curPlaceSerial < _gymDetailBean.placeBeans.count) {
+        _curPlaceSerial++;
+    }
+    
+    [self updateChangeCourseTableButtons];//刷新显示
+    [self getTimeSection];
 }
 
 - (void)updateCollectionView{
@@ -725,7 +785,7 @@
  *  获取时间段信息
  */
 - (void)getTimeSection{
-    [NetWorking getGymTimeSlotsById:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid] andOption:^(NSArray *array) {
+    [NetWorking getGymTimeSlotsWithGymDetailBean:_gymDetailBean serialId:_curPlaceSerial andOption:^(NSArray *array) {
         _timeSectionsArray = array;
         if (_timeSectionsArray && _timeSectionsArray.count > 0) {
             //获取时间段信息后，根据内容多少设置tableviews的高度，再刷新一次tableview
@@ -741,7 +801,7 @@
 - (void)gettimeSectionsUsingInfo{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *timestampString = [NSString stringWithFormat:@"%.0f", [[NSDate date]timeIntervalSince1970]];
-    [NetWorking getGymSourceInfoById:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid]  andTimestamp:timestampString  andOption:^(NSArray *array) {
+    [NetWorking getGymCourceInfoWithGymDetailBean:_gymDetailBean placeSerialId:_curPlaceSerial andTimestamp:timestampString  andOption:^(NSArray *array) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         _placesUsingInfoDic = [NSMutableDictionary new];
         if (array) {
@@ -862,6 +922,17 @@
     }
     
     FTGymOrderCourseView *gymOrderCourseView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCourseView" owner:nil options:nil] firstObject];
+    
+    //传递场地信息
+    if (_gymDetailBean.placeBeans.count > 1) {//当场地数大于1时，才传递场地信息，否则（服务器）用默认的
+        if (_curPlaceSerial > 0 && _curPlaceSerial <= _gymDetailBean.placeBeans.count) {
+            FTPlaceBean *curBean = _gymDetailBean.placeBeans[_curPlaceSerial - 1];
+            if (curBean) {
+                gymOrderCourseView.placeBean = curBean;
+            }
+        }
+    }
+    
     gymOrderCourseView.courseType = FTOrderCourseTypeGym;
     gymOrderCourseView.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
     gymOrderCourseView.dateString = dateString;

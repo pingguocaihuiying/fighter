@@ -257,7 +257,7 @@
             NSDictionary *courseCellDic = courseCell.courserCellDic;
             gymOrderCourseView.courserCellDic = courseCellDic;
             
-            gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+            gymOrderCourseView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
             gymOrderCourseView.delegate = self;
             gymOrderCourseView.status = FTGymCourseStatusHasOrder;
             [self.view addSubview:gymOrderCourseView];
@@ -267,7 +267,7 @@
             
             NSDictionary *courseCellDic = courseCell.courserCellDic;
             gymOrderCourseView.courserCellDic = courseCellDic;
-            gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+            gymOrderCourseView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
             gymOrderCourseView.delegate = self;
             gymOrderCourseView.status = FTGymCourseStatusCanOrder;
             [self.view addSubview:gymOrderCourseView];
@@ -279,7 +279,7 @@
             
             NSDictionary *courseCellDic = courseCell.courserCellDic;
             gymOrderCourseView.courserCellDic = courseCellDic;
-            gymOrderCourseView.gymId = [NSString stringWithFormat:@"%d", _gymDetailBean.corporationid];
+            gymOrderCourseView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
             gymOrderCourseView.delegate = self;
             gymOrderCourseView.status = FTGymCourseStatusIsFull;
             [self.view addSubview:gymOrderCourseView];
@@ -301,7 +301,7 @@
  */
 - (void)getVIPInfo{
     
-    [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSDictionary *dic) {
+    [NetWorking getVIPInfoWithGymId:[NSString stringWithFormat:@"%ld", (long)_gymDetailBean.corporationid] andOption:^(NSDictionary *dic) {
         
         //无数据：非会员
         //"type"为会员类型： 0准会员 1会员 2往期会员
@@ -367,7 +367,7 @@
  *  获取时间段信息
  */
 - (void)getTimeSection{
-    [NetWorking getGymTimeSlotsById:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid] andOption:^(NSArray *array) {
+    [NetWorking getGymTimeSlotsWithGymDetailBean:_gymDetailBean serialId:0 andOption:^(NSArray *array) {
         _timeSectionsArray = array;
         if (_timeSectionsArray && _timeSectionsArray.count > 0) {
             //获取时间段信息后，根据内容多少设置tableviews的高度，再刷新一次tableview
@@ -385,7 +385,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *timestampString = [NSString stringWithFormat:@"%.0f", [[NSDate date]timeIntervalSince1970]];
     
-    [NetWorking getGymSourceInfoById:[NSString stringWithFormat:@"%d", _gymDetailBean.corporationid]  andTimestamp:timestampString  andOption:^(NSArray *array) {
+    [NetWorking getGymSourceInfoById:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid]  andTimestamp:timestampString  andOption:^(NSArray *array) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         _placesUsingInfoDic = [NSMutableDictionary new];
         if (array) {

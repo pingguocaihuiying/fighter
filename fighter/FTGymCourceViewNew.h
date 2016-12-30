@@ -56,5 +56,7 @@ typedef void(^PushBlock)(FTSchedulePublicBean *bean);
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *tableViewsHeight;//tableViews的高度
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (nonatomic, copy) PushBlock pushblock;
+@property (strong, nonatomic) IBOutlet UIButton *prePlaceButton;//上一个场地
+@property (strong, nonatomic) IBOutlet UIButton *nextPlaceButton;//下一个场地
 - (void)reloadTableViews;//刷新tableView
 @end

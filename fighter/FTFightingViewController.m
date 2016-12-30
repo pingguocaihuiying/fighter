@@ -274,7 +274,7 @@
 //header
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 10)];
-    view.backgroundColor = [UIColor blackColor];
+    view.backgroundColor = Cell_Space_Color;
     
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(4, 10, 100, 14)];
     NSString *dateString = _dateArray[section];

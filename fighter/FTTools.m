@@ -489,6 +489,8 @@
     urlOriginal = [urlOriginal stringByReplacingOccurrencesOfString:@"http://go.gogogofight.com" withString:@"https://www.gogogofight.com:8443"];
     urlOriginal = [urlOriginal stringByReplacingOccurrencesOfString:@"http://www.gogogofight.com" withString:@"https://www.gogogofight.com:8443"];
     urlOriginal = [urlOriginal stringByReplacingOccurrencesOfString:@"http://crm.gogogofight.com" withString:@"https://www.gogogofight.com:8443"];
+    urlOriginal = [urlOriginal stringByReplacingOccurrencesOfString:@"http://7xtvwy.com1.z0.glb.clouddn.com" withString:@"https://fightermedia.gogogofight.com"];
+    urlOriginal = [urlOriginal stringByReplacingOccurrencesOfString:@"http://fightermedia.gogogofight.com" withString:@"https://fightermedia.gogogofight.com"];
     return urlOriginal;
 }
 @end

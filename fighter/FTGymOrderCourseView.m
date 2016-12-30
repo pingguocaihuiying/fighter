@@ -53,7 +53,9 @@
         [dic setObject:@"0" forKey:@"type"];
         [dic setObject:@"save" forKey:@"bookType"];
         [dic setObject:_courserCellDic[@"timeSection"] forKey:@"timeSection"];
-        
+        if (_placeBean) {
+            [dic setObject:[NSString stringWithFormat:@"%ld", _placeBean.placeId] forKey:@"placeId"];
+        }
         [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
        [NetWorking orderCourseWithParamsDic:(NSMutableDictionary *)dic andOption:^(NSDictionary *dic) {
            [MBProgressHUD hideHUDForView:[[UIApplication sharedApplication] keyWindow] animated:YES];
@@ -87,6 +89,9 @@
             [dic setObject:@"0" forKey:@"type"];
             [dic setObject:@"delete" forKey:@"bookType"];
             [dic setObject:_courserCellDic[@"timeSection"] forKey:@"timeSection"];
+            if (_placeBean) {
+                [dic setObject:[NSString stringWithFormat:@"%ld", _placeBean.placeId] forKey:@"placeId"];
+            }
             
             [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
             [NetWorking orderCourseWithParamsDic:(NSMutableDictionary *)dic andOption:^(NSDictionary *dic) {
@@ -118,8 +123,6 @@
             
             //    NSString *fenString = [NSString stringWithFormat:@"%.0lf", [_price doubleValue] * 100];
             [dic setObject:_price forKey:@"price"];
-            
-            
             [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
             [NetWorking orderCourseWithParamsDic:(NSMutableDictionary *)dic andOption:^(NSDictionary *dic) {
                 [MBProgressHUD hideHUDForView:[[UIApplication sharedApplication] keyWindow] animated:YES];
