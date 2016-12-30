@@ -2487,6 +2487,12 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         [dicBeforeMD5 setObject:fenString forKey:@"price"];
     }
     
+    //场地id
+    NSString *placeId = dic[@"placeId"];
+    if (placeId) {
+        [dicBeforeMD5 setObject:placeId forKey:@"placeId"];
+    }
+    
     NSString *checkSign = [FTTools md5Dictionary:dicBeforeMD5 withCheckKey:checkKey];
     [dicBeforeMD5 setValue:checkSign forKey:@"checkSign"];
     NSDictionary *parmamDic = dicBeforeMD5;

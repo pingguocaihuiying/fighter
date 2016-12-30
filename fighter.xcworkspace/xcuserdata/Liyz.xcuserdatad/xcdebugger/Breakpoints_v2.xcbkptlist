@@ -32,32 +32,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "fighter/FTGymDetailWebViewController.m"
-            timestampString = "504789279.39605"
+            filePath = "fighter/FTGymOrderCourseView.m"
+            timestampString = "504790388.596279"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "957"
-            endingLineNumber = "957"
-            landmarkName = "-courseClickedWithCell:andDay:andTimeSection:andDateString:andTimeStamp:"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "-confirmButtonClicked:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "fighter/FTGymDetailWebViewController.m"
-            timestampString = "504789388.609136"
+            filePath = "fighter/FTGymOrderCourseView.m"
+            timestampString = "504790392.578742"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "958"
-            endingLineNumber = "958"
-            landmarkName = "-courseClickedWithCell:andDay:andTimeSection:andDateString:andTimeStamp:"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "-confirmButtonClicked:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
