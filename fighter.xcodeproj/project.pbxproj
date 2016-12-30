@@ -411,6 +411,7 @@
 		E68EC50B1CC4B85D00A338C8 /* FTFilterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68EC5091CC4B85D00A338C8 /* FTFilterTableViewController.m */; };
 		E68EC50C1CC4B85D00A338C8 /* FTFilterTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E68EC50A1CC4B85D00A338C8 /* FTFilterTableViewController.xib */; };
 		E69380761E14D7BF00F655AF /* Certificates.cer in Resources */ = {isa = PBXBuildFile; fileRef = E69380751E14D7BF00F655AF /* Certificates.cer */; };
+		E693807E1E1604BF00F655AF /* FTPlaceBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E693807D1E1604BF00F655AF /* FTPlaceBean.m */; };
 		E6956EA61CBE21A1008DEEDB /* FTNewsBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6956EA51CBE21A1008DEEDB /* FTNewsBean.m */; };
 		E696E4E01D2A39F800A89B60 /* FTOpponentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E696E4DE1D2A39F800A89B60 /* FTOpponentCell.m */; };
 		E696E4E11D2A39F800A89B60 /* FTOpponentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E696E4DF1D2A39F800A89B60 /* FTOpponentCell.xib */; };
@@ -1193,6 +1194,8 @@
 		E68EC50A1CC4B85D00A338C8 /* FTFilterTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTFilterTableViewController.xib; sourceTree = "<group>"; };
 		E68EC50E1CC4CBCA00A338C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		E69380751E14D7BF00F655AF /* Certificates.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = Certificates.cer; sourceTree = "<group>"; };
+		E693807C1E1604BF00F655AF /* FTPlaceBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPlaceBean.h; sourceTree = "<group>"; };
+		E693807D1E1604BF00F655AF /* FTPlaceBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPlaceBean.m; sourceTree = "<group>"; };
 		E6956EA41CBE21A1008DEEDB /* FTNewsBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTNewsBean.h; sourceTree = "<group>"; };
 		E6956EA51CBE21A1008DEEDB /* FTNewsBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTNewsBean.m; sourceTree = "<group>"; };
 		E696E4DD1D2A39F800A89B60 /* FTOpponentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTOpponentCell.h; path = "UI/格斗场/views/cell/对手/FTOpponentCell.h"; sourceTree = "<group>"; };
@@ -3828,6 +3831,15 @@
 			name = filter;
 			sourceTree = "<group>";
 		};
+		E693807B1E16049700F655AF /* 场地bean */ = {
+			isa = PBXGroup;
+			children = (
+				E693807C1E1604BF00F655AF /* FTPlaceBean.h */,
+				E693807D1E1604BF00F655AF /* FTPlaceBean.m */,
+			);
+			name = "场地bean";
+			sourceTree = "<group>";
+		};
 		E696E4DC1D2A399D00A89B60 /* 对手 */ = {
 			isa = PBXGroup;
 			children = (
@@ -4421,6 +4433,7 @@
 		E6F46C6C1D893FB9001387E2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E693807B1E16049700F655AF /* 场地bean */,
 				E60218E91E0A9DAB0048DB57 /* 学员对教练的评价bean */,
 				E60218CC1E092FC00048DB57 /* 教练图片bean */,
 				3DEBD4671D8E892000FF7335 /* protocol */,
@@ -5325,6 +5338,7 @@
 				E6D74A4D1CB7B7EE00854337 /* KeyChainStore.m in Sources */,
 				3DE1DEF61D3F472500511E92 /* FTPaySingleton.m in Sources */,
 				3DDE29B81D2BAA8200876B30 /* FTDrawerPayCell.m in Sources */,
+				E693807E1E1604BF00F655AF /* FTPlaceBean.m in Sources */,
 				3D7B98C31CE08DEE00B80B8D /* FTNewPasswordVC.m in Sources */,
 				E6035EBE1CC0C39500B10D36 /* FTCommentViewController.m in Sources */,
 				3DFC41501D083A3F0067AC72 /* TADotView.m in Sources */,

@@ -11,6 +11,7 @@
 #import "FTMatchBean.h"
 #import "FTModuleBean.h"
 #import "FTGymBean.h"
+#import "FTGymDetailBean.h"
 
 @interface NetWorking : NSObject
 
@@ -342,17 +343,20 @@
 + (void)changeCourseStatusWithParamsDic:(NSMutableDictionary *)dic andOption:(void (^)(NSDictionary *dic))option;
 
 #pragma mark - 新格斗场
-//获取拳馆固定的时间段
+
 // Get Gym List for arena
 + (void) getGymsForArenaByDic:(NSDictionary *)dic option:(void (^)(NSDictionary *dict))option;
-
-+ (void)getGymTimeSlotsById:(NSString *) gymId andOption:(void (^)(NSArray *array))option;
+//获取拳馆固定的时间段
++ (void)getGymTimeSlotsById:(NSString *) corporationID andOption:(void (^)(NSArray *array))option;
++ (void)getGymTimeSlotsWithGymDetailBean:(FTGymDetailBean *) gymDetailBean serialId:(NSInteger)serialId andOption:(void (^)(NSArray *array))option;
 
 //获取场地配置
 + (void)getGymPlaceInfoById:(NSString *)gymId andOption:(void (^)(NSArray *array))option;
 
 //获取场地的使用信息
 + (void)getGymPlaceUsingInfoById:(NSString *)gymId andTimestamp:(NSString *)timestamp andOption:(void (^)(NSArray *array))option;
+//获取拳馆课程表（时间段）占用信息（有场地id）
++ (void)getGymCourceInfoWithGymDetailBean:(FTGymDetailBean *)gymDetailBean placeSerialId:(NSInteger)placeSerialId andTimestamp:(NSString *)timestamp andOption:(void (^)(NSArray *array))option;
 //获取拳馆课程预约信息
 + (void)getGymSourceInfoById:(NSString *)gymId andTimestamp:(NSString *)timestamp andOption:(void (^)(NSArray *array))option;
 //获取教练课程信息
