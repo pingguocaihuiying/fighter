@@ -95,7 +95,7 @@
                                 <constraint firstItem="QnK-1I-CUx" firstAttribute="centerY" secondItem="mBD-IB-V84" secondAttribute="centerY" id="s7o-Qh-nh7"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="845-gD-pIt">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="845-gD-pIt">
                             <rect key="frame" x="0.0" y="1" width="44" height="33"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="44" id="wt8-NG-QCl"/>
@@ -105,7 +105,7 @@
                             <state key="disabled" image="课程表-左箭头-不可用"/>
                             <state key="highlighted" image="课程表-左箭头-pre"/>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WN2-9e-sNM">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WN2-9e-sNM">
                             <rect key="frame" x="331" y="0.0" width="44" height="34"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="44" id="nGm-YO-7Ft"/>
