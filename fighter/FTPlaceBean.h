@@ -12,5 +12,6 @@
 
 @property (nonatomic, assign) NSInteger placeId;
 @property (nonatomic, assign) NSInteger serialId;
+@property (nonatomic, copy) NSString *name;
 
 @end
