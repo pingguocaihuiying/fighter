@@ -1042,7 +1042,7 @@ static NSString *const tableCellId = @"tableCellId";
         
         NSString *gymId = dic[@"objId"];
         NSString *corporationid = dic[@"corporationid"];
-        NSString *goodsId = dic[@"goodsId"];
+        NSString *goodsId = dic[@"goodId"];
         
         NSDictionary *dic = @{
                               @"gymId":gymId,
