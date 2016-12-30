@@ -1735,14 +1735,10 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 + (void)getGymForGymDetailWithGymBean:(FTGymBean *)gymBean andOption:(void (^)(NSDictionary *dic))option{
     NSString *urlString = [NSString stringWithFormat:@"%@/api/gym/%ld.do", Domain, gymBean.gymId];
     
-    //调试
-    gymBean.gymId = 0;
-    gymBean.corporationid = 187;
-    
-    if (gymBean.gymId) {
-        urlString = [NSString stringWithFormat:@"%@/api/gym/%ld.do", Domain, gymBean.gymId];
-    }else if(gymBean.corporationid){
+    if (gymBean.corporationid) {
         urlString = [NSString stringWithFormat:@"%@/api/gym/c-%ld.do", Domain, gymBean.corporationid];
+    }else if(gymBean.gymId){
+        urlString = [NSString stringWithFormat:@"%@/api/gym/%ld.do", Domain, gymBean.gymId];
     }
     AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     

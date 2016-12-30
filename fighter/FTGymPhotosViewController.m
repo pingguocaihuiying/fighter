@@ -196,9 +196,12 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
 - (void)setCollectionViews{
     //flowlayout
     UICollectionViewFlowLayout *flow = [[UICollectionViewFlowLayout alloc]init];
+    
+//    float itemWidth = 
+    
     flow.itemSize = CGSizeMake(80 * SCALE, 80 * SCALE);//cell大小
     flow.minimumLineSpacing = 15 * SCALE;//行最小间距
-    flow.minimumInteritemSpacing = 5 * SCALE;//列最小间距
+    flow.minimumInteritemSpacing = 0;//列最小间距
     
     //left
     _photoCollectionViewLeft = [[UICollectionView alloc]initWithFrame:CGRectMake(20 * SCALE, 0, _scrollViewContentWidth - 20 * 2 *SCALE, _scrollViewContentHeight)collectionViewLayout:flow];
@@ -213,7 +216,7 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
     UICollectionViewFlowLayout *flow2 = [[UICollectionViewFlowLayout alloc]init];
     flow2.itemSize = CGSizeMake(80 * SCALE, 80 * SCALE);//cell大小
     flow2.minimumLineSpacing = 15 * SCALE;//行最小间距
-    flow2.minimumInteritemSpacing = 5 * SCALE;//列最小间距
+    flow2.minimumInteritemSpacing = 0;//列最小间距
     _photoCollectionViewRight = [[UICollectionView alloc]initWithFrame:CGRectMake(_scrollViewContentWidth + 20 * SCALE, 0, _scrollViewContentWidth - 20 * 2 *SCALE, _scrollViewContentHeight)collectionViewLayout:flow2];
     [_photoCollectionViewRight registerNib:[UINib nibWithNibName:@"FTGymPhotoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell2"];
 
