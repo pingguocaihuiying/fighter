@@ -13,6 +13,7 @@
 - (void)setValuesWithDic:(NSDictionary *)dic{
     _placeId = [dic[@"id"] integerValue];
     _serialId = [dic[@"serial"] integerValue];
+    _name = dic[@"name"];
 }
 
 @end

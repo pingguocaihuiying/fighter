@@ -200,27 +200,32 @@
 
 
 /**
- 更新课表左右两边的按钮显示状态
+ 更新课表左右两边的按钮显示状态，以及课表名字
  */
 - (void)updateChangeCourseTableButtons{
+    
     if (_gymDetailBean.placeBeans.count > 1) {//多课表才显示翻页按钮
+        //翻页按钮的显示与否
         if (_curPlaceSerial == 1) {//如果当前页为1，
             _gymSourceView.prePlaceButton.hidden = YES;//不能往前翻，隐藏掉往前翻的按钮
             _gymSourceView.nextPlaceButton.hidden = NO;//当前为1，场地数>1,一定能往后翻
         } else {
             _gymSourceView.prePlaceButton.hidden = NO;//如果不是第一页，一定要可以往前翻，显示pre按钮
-            
             if (_curPlaceSerial == _gymDetailBean.placeBeans.count) {//如果已经是最后一页，则隐藏next按钮
                 _gymSourceView.nextPlaceButton.hidden = YES;
             } else {//如果不是最后一页，显示next按钮
                 _gymSourceView.nextPlaceButton.hidden = NO;
             }
-            
         }
+        
+        //课表名字
+        FTPlaceBean *curPlaceBean = _gymDetailBean.placeBeans[_curPlaceSerial - 1];
+        _gymSourceView.titleLabel.text = curPlaceBean.name;
     } else {//否则不显示翻页按钮
         _gymSourceView.prePlaceButton.hidden = YES;
         _gymSourceView.nextPlaceButton.hidden = YES;
     }
+    
 }
 
 - (void)doOtherThingWithGymDetailBean{
