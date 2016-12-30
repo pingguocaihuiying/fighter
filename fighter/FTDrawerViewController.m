@@ -1039,10 +1039,10 @@ static NSString *const tableCellId = @"tableCellId";
                               };
         [FTNotificationTools postSwitchShopHomeNotiWithDic:dic];
     }else if ([dic[@"urlType"] isEqualToString:@"crmpush-5"]) { // 跳转商城商品详情页，购买商品
-        
+        NSLog(@"dicfoo : %@", dic);
         NSString *gymId = dic[@"objId"];
         NSString *corporationid = dic[@"corporationid"];
-        NSString *goodsId = dic[@"goodsId"];
+        NSString *goodsId = dic[@"goodId"];
         
         NSDictionary *dic = @{
                               @"gymId":gymId,

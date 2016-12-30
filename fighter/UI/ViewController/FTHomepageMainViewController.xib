@@ -538,10 +538,10 @@
                     <rect key="frame" x="0.0" y="618" width="375" height="49"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wKk-6g-7Nm" userLabel="关注view">
-                            <rect key="frame" x="0.0" y="0.0" width="120" height="49"/>
+                            <rect key="frame" x="0.0" y="0.0" width="187.5" height="49"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="关注" translatesAutoresizingMaskIntoConstraints="NO" id="ZPe-p6-tQk">
-                                    <rect key="frame" x="23" y="13" width="74" height="24"/>
+                                    <rect key="frame" x="57" y="13" width="74" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="24" id="DQ5-Rd-0l0"/>
                                         <constraint firstAttribute="width" constant="74" id="qwt-Ga-f2e"/>
@@ -555,17 +555,17 @@
                             </constraints>
                         </view>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="斜线分割" translatesAutoresizingMaskIntoConstraints="NO" id="49a-Dd-ae5" userLabel="分割线1">
-                            <rect key="frame" x="120" y="13" width="12" height="24"/>
+                            <rect key="frame" x="187.5" y="13" width="12" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="12" id="Klf-oN-ACH"/>
                                 <constraint firstAttribute="height" constant="24" id="hrk-4Q-ReS"/>
                             </constraints>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tht-ZE-6Yx" userLabel="评论view">
-                            <rect key="frame" x="132" y="0.0" width="120" height="49"/>
+                            <rect key="frame" x="199.5" y="0.0" width="187.5" height="49"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Str-fl-LGL" userLabel="评">
-                                    <rect key="frame" x="48" y="13" width="24" height="24"/>
+                                    <rect key="frame" x="82" y="13" width="24" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="24" id="OlA-bM-5pG"/>
                                         <constraint firstAttribute="width" constant="24" id="PeE-7s-dbo"/>
@@ -583,17 +583,17 @@
                             </constraints>
                         </view>
                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="斜线分割" translatesAutoresizingMaskIntoConstraints="NO" id="5Xe-zZ-Od0" userLabel="分割线2">
-                            <rect key="frame" x="252" y="13" width="12" height="24"/>
+                            <rect key="frame" x="387" y="13" width="12" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="24" id="2E5-zc-V1w"/>
                                 <constraint firstAttribute="width" constant="12" id="Knd-m5-9iK"/>
                             </constraints>
                         </imageView>
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="68B-Qe-ePc" userLabel="私信view">
-                            <rect key="frame" x="264" y="0.0" width="120" height="49"/>
+                            <rect key="frame" x="399" y="0.0" width="0.0" height="49"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eiR-WY-z9P" userLabel="评">
-                                    <rect key="frame" x="48" y="13" width="24" height="24"/>
+                                    <rect key="frame" x="-12" y="13" width="24" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="24" id="PzT-y2-zbH"/>
                                         <constraint firstAttribute="height" constant="24" id="w1p-np-Ezv"/>
@@ -605,6 +605,7 @@
                             <constraints>
                                 <constraint firstItem="eiR-WY-z9P" firstAttribute="centerY" secondItem="68B-Qe-ePc" secondAttribute="centerY" id="Sim-65-rtP"/>
                                 <constraint firstItem="eiR-WY-z9P" firstAttribute="centerX" secondItem="68B-Qe-ePc" secondAttribute="centerX" id="ulI-MV-ytZ"/>
+                                <constraint firstAttribute="width" id="umA-fz-kYC"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vxn-g2-Qlk" userLabel="voteView">
@@ -625,7 +626,7 @@
                         <constraint firstItem="5Xe-zZ-Od0" firstAttribute="centerY" secondItem="GEL-Wu-8qg" secondAttribute="centerY" id="37g-38-faK"/>
                         <constraint firstItem="49a-Dd-ae5" firstAttribute="leading" secondItem="wKk-6g-7Nm" secondAttribute="trailing" id="DHW-F6-14n"/>
                         <constraint firstAttribute="bottom" secondItem="68B-Qe-ePc" secondAttribute="bottom" id="EOg-i6-SBN"/>
-                        <constraint firstItem="wKk-6g-7Nm" firstAttribute="width" secondItem="GEL-Wu-8qg" secondAttribute="width" multiplier="0.32" id="GFg-sp-A1j"/>
+                        <constraint firstItem="wKk-6g-7Nm" firstAttribute="width" secondItem="GEL-Wu-8qg" secondAttribute="width" multiplier="0.5" id="GFg-sp-A1j"/>
                         <constraint firstItem="68B-Qe-ePc" firstAttribute="top" secondItem="GEL-Wu-8qg" secondAttribute="top" id="OWN-35-Wn9"/>
                         <constraint firstItem="Tht-ZE-6Yx" firstAttribute="leading" secondItem="49a-Dd-ae5" secondAttribute="trailing" id="QKX-fo-fOY"/>
                         <constraint firstAttribute="bottom" secondItem="wKk-6g-7Nm" secondAttribute="bottom" id="Th1-c1-Iw2"/>
@@ -636,7 +637,6 @@
                         <constraint firstItem="68B-Qe-ePc" firstAttribute="leading" secondItem="5Xe-zZ-Od0" secondAttribute="trailing" id="oVi-Ly-PqO"/>
                         <constraint firstAttribute="bottom" secondItem="Tht-ZE-6Yx" secondAttribute="bottom" id="q3X-P4-jZc"/>
                         <constraint firstItem="wKk-6g-7Nm" firstAttribute="leading" secondItem="GEL-Wu-8qg" secondAttribute="leading" id="qRM-pg-swy"/>
-                        <constraint firstItem="68B-Qe-ePc" firstAttribute="width" secondItem="wKk-6g-7Nm" secondAttribute="width" id="sMK-1D-lxA"/>
                         <constraint firstItem="Tht-ZE-6Yx" firstAttribute="width" secondItem="wKk-6g-7Nm" secondAttribute="width" id="t2M-Dr-ArG"/>
                         <constraint firstAttribute="height" constant="49" id="x9o-vD-fGs"/>
                     </constraints>

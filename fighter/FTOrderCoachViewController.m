@@ -190,7 +190,7 @@
                 [scrollView addSubview:videoMark];
                 
                 //设置图片
-                [imageView sd_setImageWithURL:[NSURL URLWithString:bean.url] placeholderImage:[UIImage imageNamed:@"小占位图"]];
+                [imageView sd_setImageWithURL:[NSURL URLWithString:bean.videoImageURL] placeholderImage:[UIImage imageNamed:@"小占位图"]];
             }if (bean.type == 0){//图片
                 [imageView sd_setImageWithURL:[NSURL URLWithString:bean.url] placeholderImage:[UIImage imageNamed:@"小占位图"]];
             }
