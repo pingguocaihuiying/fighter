@@ -496,7 +496,7 @@
             [_dataArray removeObject:dic];
         }
     }
-    
+    QNUploadManager *upManager = [FTQiniuNetwork getQNUploadManager];
     for(NSDictionary *dic in _dataArray){
         if (!_imageURLArray) {
             _imageURLArray = [[NSMutableArray alloc]initWithCapacity:10];
@@ -516,7 +516,7 @@
         NSString *timeString = [self fixStringToMSForDate:[NSDate date]];
         int randomInt = [FTTools getRandomNumber:100 to:1000];
         if([type isEqualToString:@"image"]){
-                        key = [NSString stringWithFormat:@"%@_%d_%@",timeString, randomInt, userId];//key值取userId＋时间戳
+            key = [NSString stringWithFormat:@"%@_%d_%@",timeString, randomInt, userId];//key值取userId＋时间戳
         }else if([type isEqualToString:@"video"]){
 //            key = [NSString stringWithFormat:@"%@%@mp4", userId, ts];//key值取userId＋时间戳+mp4
             key = [NSString stringWithFormat:@"%@_%d_%@mp4",timeString, randomInt, userId];//key值取userId＋时间戳+mp4
@@ -527,26 +527,18 @@
         }else if([type isEqualToString:@"video"]){
             [_videoURLArray addObject:key];
         }
-        
         [FTQiniuNetwork getQiniuTokenWithMediaType:dic[@"type"] andKey:key andOption:^(NSString *token) {//***获取token
         NSLog(@"token : %@", token);
         
-        QNUploadManager *upManager = [[QNUploadManager alloc] init];
-
-
-
-//            NSDictionary *optionDic = @{@"persistentOps":@"avthumb/mp4"};
-//            QNUploadOption *option = [[QNUploadOption alloc]initWithMime:nil progressHandler:nil params:nil checkCrc:NO cancellationSignal:nil];
-            
-            [upManager putData:mediaData key:key token:token
-                      complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                          NSLog(@"info : %@", info);
-                          NSString *status = [NSString stringWithFormat:@"%d", info.statusCode];
-                          NSLog(@"info status : %@", status);
-                          NSLog(@"resp : %@", resp);
-                          NSLog(@"key : %@", key);
-                          
-                      } option:nil];
+        [upManager putData:mediaData key:key token:token
+                  complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                      NSLog(@"info : %@", info);
+                      NSString *status = [NSString stringWithFormat:@"%d", info.statusCode];
+                      NSLog(@"info status : %@", status);
+                      NSLog(@"resp : %@", resp);
+                      NSLog(@"key : %@", key);
+                      
+                  } option:nil];
 
     }];//***获取token block回调结束
     }

@@ -58,4 +58,15 @@
     }];
     return qiniuToken;
 }
+
++ (QNUploadManager *)getQNUploadManager{
+    //国内https上传
+    BOOL isHttps = TRUE;
+    QNZone * httpsZone = [[QNAutoZone alloc] initWithHttps:isHttps dns:nil];
+    QNConfiguration *config = [QNConfiguration build:^(QNConfigurationBuilder *builder) {
+        builder.zone = httpsZone;
+    }];
+    QNUploadManager *upManager = [[QNUploadManager alloc] initWithConfiguration:config];
+    return upManager;
+}
 @end

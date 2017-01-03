@@ -10,8 +10,7 @@ pod "FMDB", "~> 2.6.2"
 pod "RealReachability", "~> 1.1.7"
 pod "Masonry", "~> 1.0.1"
 pod "MBProgressHUD", "~> 0.9.2"
-pod "Qiniu", "~> 7.1.0.1"
-
+pod "Qiniu", "~> 7.1.5"
 #友盟统计
 pod "UMengAnalytics", "~> 4.0.4"
 #友盟分享
