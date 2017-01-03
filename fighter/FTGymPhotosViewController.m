@@ -9,13 +9,14 @@
 #import "FTGymPhotosViewController.h"
 #import "FTGymPhotoCollectionViewCell.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "FTSegmentButtonView.h"
 
 typedef NS_ENUM(int, FTGymPhotoIndex){
     FTGymPhotoIndexByGym = 0,
     FTGymPhotoIndexByUser
 };
 
-@interface FTGymPhotosViewController ()<UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate>
+@interface FTGymPhotosViewController ()<UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate, FTSegmentButtonViewDelegate>
 
 //头部二选标签
 @property (strong, nonatomic) IBOutlet UIButton *gymPhotosButton;//左
@@ -44,6 +45,8 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
 
 @property (nonatomic, strong)MPMoviePlayerController *moviePlayer;//播放器
 
+@property (strong, nonatomic) IBOutlet UIView *segButtonViewContainer;//二选按钮容器view
+@property (nonatomic, strong) FTSegmentButtonView *segButtonView;//二选按钮
 @end
 
 @implementation FTGymPhotosViewController
@@ -115,6 +118,7 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
 - (void)setSubViews{
     [self setNavigationSytle];
     [self.bottomGradualChangeView removeFromSuperview];//移除底部的遮罩
+    [self initSegmentButtonView];//初始化二选按钮
     [self setPhotoScrollView];//设置放collectionView的scrollview
     [self setCollectionViews];//设置显示照片的两个collectionView
     [self setFullScreenScrollView];//设置全屏显示照片和视频的collectionView
@@ -178,7 +182,19 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
     
     
 }
-
+#pragma mark 初始化二选按钮
+- (void)initSegmentButtonView{
+    _segButtonView = [[[NSBundle mainBundle]loadNibNamed:@"FTSegmentButtonView" owner:self options:nil] firstObject];
+    _segButtonView.frame = _segButtonViewContainer.bounds;
+    
+    //设置按钮title
+    [_segButtonView.buttonLeft setTitle:@"版块分类" forState:UIControlStateNormal];
+    [_segButtonView.buttonRight setTitle:@"最新最热" forState:UIControlStateNormal];
+    
+    _segButtonView.delegate = self;//设置代理
+    
+    [_segButtonViewContainer addSubview:_segButtonView];
+}
 #pragma mark - 初始化scrollView
 - (void)setPhotoScrollView{
     
@@ -431,23 +447,37 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
     [self setFullScreenScrollViewContents];
     }
 }
+- (void)leftButtonClicked{
+    if (_photoIndex != FTGymPhotoIndexByGym) {
+        _photoIndex = FTGymPhotoIndexByGym;
+        [self updatePhotoIndexButtons];
+        [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        [self setFullScreenScrollViewContents];
+    }
+}
 
+- (void)rightButtonClicked{
+    if (_photoIndex != FTGymPhotoIndexByUser) {
+        _photoIndex = FTGymPhotoIndexByUser;
+        [self updatePhotoIndexButtons];
+        [_scrollView setContentOffset:CGPointMake(_scrollViewContentWidth, 0) animated:YES];
+        [self setFullScreenScrollViewContents];
+    }
+}
 #pragma mark - 更新上方筛选按钮的显示
 - (void)updatePhotoIndexButtons{
     
     switch (_photoIndex) {
         case FTGymPhotoIndexByGym:
             {
-                _gymPhotosButton.selected = YES;
-                _PhotosByUsersButton.selected = NO;
-                _bgImageView.image = [UIImage imageNamed:@"二标签-左选中"];
+                _segButtonView.buttonLeft.selected = YES;
+                _segButtonView.buttonRight.selected = NO;
             }
             break;
         case FTGymPhotoIndexByUser:
         {
-            _gymPhotosButton.selected = NO;
-            _PhotosByUsersButton.selected = YES;
-            _bgImageView.image = [UIImage imageNamed:@"二标签-右选中"];
+            _segButtonView.buttonLeft.selected = NO;
+            _segButtonView.buttonRight.selected = YES;
         }
             break;
         default:
