@@ -8,7 +8,7 @@
 
 #import "FTVideoDetailViewController.h"
 #import "FTCommentViewController.h"
-//#import "UMSocial.h"
+#import <objc/runtime.h>
 #import "WXApi.h"
 #import "FTUserBean.h"
 #import "MBProgressHUD.h"
@@ -412,14 +412,25 @@
     }
 }
 
-- (void)pushToCommentVC{
+- (void)pushToCommentVCWithUserId:(NSString *)userId andUserName:(NSString *)userName{
+    
+    unsigned int count = 0;
+    Ivar *ivars = class_copyIvarList([UITextView class], &count);
+    
+    for (int i = 0; i < count; i++) {
+        Ivar ivar = ivars[i];
+        const char *name = ivar_getName(ivar);
+        NSString *objcName = [NSString stringWithUTF8String:name];
+        NSLog(@"%d : %@",i,objcName);
+    }
     
     FTCommentViewController *commentVC = [ FTCommentViewController new];
     commentVC.delegate = self;
     FTNewsBean *newsBean = [FTNewsBean new];
     newsBean.newsId = _objId;
     commentVC.newsBean = newsBean;
-    
+    commentVC.userId = userId;
+    commentVC.userName = userName;
     
     [self.navigationController pushViewController:commentVC animated:YES];
 }
@@ -431,7 +442,6 @@
     NSLog(@"js method : %@", jsMethodString);
     _newsBean.commentCount = [NSString stringWithFormat:@"%d", commentCount];
     [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
-    
     //评论成功后，从服务器获取最新的数据（包括评论数）
     [self getNewsBeanFromServerById];
 }
@@ -518,7 +528,7 @@
     if (!localUser) {
         [self login];
     }else{
-        [self pushToCommentVC];
+        [self pushToCommentVCWithUserId:nil andUserName:nil];
     }
     
 }
@@ -602,25 +612,23 @@
     NSString *requestURL = [NSString stringWithFormat:@"%@", request.URL];
         NSLog(@"requestURL : %@", requestURL);
     
-   if ([requestURL isEqualToString:@"js-call:onload"]) {
+   if ([requestURL isEqualToString:@"js-call:onload"]) {//加载完成
         
-        [self disableLoadingAnimation];
-    }else if ([requestURL hasPrefix:@"js-call:userId="]) {
+        [self disableLoadingAnimation];//停止loading动画
+    }else if ([requestURL hasPrefix:@"js-call:userId="]) {//用户头像
         
         NSString *userId = [requestURL stringByReplacingOccurrencesOfString:@"js-call:userId=" withString:@""];
         //        NSLog(@"userId : %@", userId);
         FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
         homepageMainVC.olduserid = userId;
         [self.navigationController pushViewController:homepageMainVC animated:YES];
-        
-    }else  if ([requestURL hasPrefix:@"js-call:goGym?corId="]) {
-        
+    }else  if ([requestURL hasPrefix:@"js-call:goGym?corId="]) {//拳馆
         NSString *corId = [requestURL stringByReplacingOccurrencesOfString:@"js-call:goGym?corId=" withString:@""];
         NSDictionary *dic = @{@"type":@"gym",
                               @"corporationid":corId
                               };
         [FTNotificationTools postTabBarIndex:2 dic:dic];
-    }else  if ([requestURL hasPrefix:@"js-call:goCoach?corId="]) {
+    }else  if ([requestURL hasPrefix:@"js-call:goCoach?corId="]) {//预约私教
         
         NSArray *array = [requestURL componentsSeparatedByString:@"&"];
         NSString *corId = [array[0] stringByReplacingOccurrencesOfString:@"js-call:goCoach?corId=" withString:@""];
@@ -631,7 +639,7 @@
                               @"coachId":coachId
                               };
         [FTNotificationTools postTabBarIndex:2 dic:dic];
-    }else  if ([requestURL hasPrefix:@"js-call:goShop?"]) {
+    }else  if ([requestURL hasPrefix:@"js-call:goShop?"]) {//商城
         
         NSArray *array = [requestURL componentsSeparatedByString:@"&"];
         NSString *goodId = [array[0] stringByReplacingOccurrencesOfString:@"js-call:goShop?goodId=" withString:@""];
@@ -650,6 +658,12 @@
                                   };
             [FTNotificationTools postSwitchShopDetailControllerWithDic:dic];
         }
+    }else  if ([requestURL hasPrefix:@"js-call:reComment="]) {//评论
+        NSArray *array = [requestURL componentsSeparatedByString:@"&"];
+        NSString *userId = [array[1] stringByReplacingOccurrencesOfString:@"userId=" withString:@""];
+        NSString *userName = [array[2] stringByReplacingOccurrencesOfString:@"userName=" withString:@""];
+        NSLog(@"userId:%@,userName:%@", userId, userName);
+        [self pushToCommentVCWithUserId:userId andUserName:userName];
     }
     
     return YES;

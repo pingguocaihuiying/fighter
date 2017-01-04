@@ -30,4 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
 @property (nonatomic, weak)id<CommentSuccessDelegate> delegate;
 
+@property (nonatomic, copy) NSString *userId;
+@property (nonatomic, copy) NSString *userName;
+
 @end
