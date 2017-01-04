@@ -25,6 +25,17 @@
     UIImageView *_loadingImageView;
     UIImageView *_loadingBgImageView;
 }
+@property (nonatomic, strong) IBOutlet UIView *bgView;
+@property (weak, nonatomic) IBOutlet UIButton *thumbsUpButton;
+@property (weak, nonatomic) IBOutlet UILabel *commentLabel;
+@property (weak, nonatomic) IBOutlet UIView *favourateView;
+@property (weak, nonatomic) IBOutlet UIView *shareView;
+@property (weak, nonatomic) IBOutlet UIView *commentView;
+@property (weak, nonatomic) IBOutlet UIView *voteView;
+@property (weak, nonatomic) IBOutlet UIButton *starButton;
+@property (nonatomic, assign)BOOL hasVote;
+@property (nonatomic, assign)BOOL hasStar;
+
 @end
 
 @implementation FTArenaPostsDetailViewController
@@ -203,26 +214,24 @@
     
     [self.view addSubview:_webView];
     
-    
+    NSString *webViewUrlString;
     if(self.webUrlString == nil || self.webUrlString.length <= 0) {
         
         NSString *url = _arenaBean.videoUrlNames;
         NSLog(@"视频url：%@", url);
         url = [self encodeToPercentEscapeString:url];
         //    _videoBean.viewCount = @"100";
-        NSString *title = _arenaBean.title;
-        title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
-        _webViewUrlString = [NSString stringWithFormat:@"https://www.gogogofight.com:8443/page/v2/wrestle_news_page.html?id=%@&type=%@&tableName=damageblog", _arenaBean.postsId, [_arenaBean.labels stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        NSLog(@"webview url：%@", _webViewUrlString);
+        webViewUrlString = [NSString stringWithFormat:@"https://www.gogogofight.com:8443/page/v2/wrestle_news_page.html?id=%@&type=%@&tableName=damageblog", _arenaBean.postsId, [_arenaBean.labels stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        NSLog(@"webview url：%@", webViewUrlString);
     }else {
         
-        _webViewUrlString = _webUrlString;
+        webViewUrlString = _webUrlString;
     }
     
     
     
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webViewUrlString]]];
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:webViewUrlString]]];
     [self.view sendSubviewToBack:_webView];
 }
 
