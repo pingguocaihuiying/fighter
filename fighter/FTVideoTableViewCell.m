@@ -71,7 +71,7 @@
     self.numOfWatch.text = [NSString stringWithFormat:@"(%@)", bean.viewCount];
     self.durationOfVideoLabel.text = [NSString stringWithFormat:@"%@", bean.videoLength];
     
-//    根据Type去设置类型图片
+    //根据Type去设置类型图片
     if ([bean.videosType isEqualToString:@"Boxing"]) {
         self.videoTypeImageView.image = [UIImage imageNamed:@"格斗标签-拳击"];
     }else if ([bean.videosType isEqualToString:@"MMA"]) {
