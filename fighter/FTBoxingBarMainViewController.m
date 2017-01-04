@@ -243,7 +243,7 @@
         postsDetailVC.indexPath = indexPath;
         
         
-        [self.navigationController pushViewController:postsDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+        [self.navigationController pushViewController:postsDetailVC animated:YES];
     }
 }
 

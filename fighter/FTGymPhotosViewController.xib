@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11762"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTGymPhotosViewController">
             <connections>
-                <outlet property="PhotosByUsersButton" destination="6dC-yu-dLi" id="abe-8q-frP"/>
-                <outlet property="bgImageView" destination="2bv-hB-84t" id="YXP-wB-2YR"/>
-                <outlet property="gymPhotosButton" destination="r6k-dB-Vfx" id="h29-Ku-H8Y"/>
                 <outlet property="mainView" destination="9bF-h1-bv5" id="duq-rC-FSE"/>
+                <outlet property="segButtonViewContainer" destination="tnO-rf-BWe" id="OUR-d0-0hI"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -24,60 +22,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tnO-rf-BWe" userLabel="containerViewOf最热和最新">
-                    <rect key="frame" x="33.5" y="10" width="308" height="35"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="二标签-左选中" translatesAutoresizingMaskIntoConstraints="NO" id="2bv-hB-84t">
-                            <rect key="frame" x="0.0" y="0.0" width="308" height="35"/>
-                        </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6k-dB-Vfx">
-                            <rect key="frame" x="0.0" y="0.0" width="152" height="35"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="152" id="Xwx-Cq-7UQ"/>
-                                <constraint firstAttribute="height" constant="35" id="Z4k-JA-MLw"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <inset key="titleEdgeInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="拳馆拍照">
-                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <state key="selected" title="拳馆拍照">
-                                <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="gymPhotosButtonClicked:" destination="-1" eventType="touchUpInside" id="16n-iw-rXk"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6dC-yu-dLi">
-                            <rect key="frame" x="152" y="0.0" width="152" height="35"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="35" id="j1p-pD-Jj5"/>
-                                <constraint firstAttribute="width" constant="152" id="t2G-WL-V4a"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <inset key="titleEdgeInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="网友拍照">
-                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <state key="selected" title="网友拍照">
-                                <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="userPhotosButtonClicked:" destination="-1" eventType="touchUpInside" id="G8r-Ow-cdX"/>
-                            </connections>
-                        </button>
-                    </subviews>
+                    <rect key="frame" x="87.5" y="10" width="200" height="35"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="6dC-yu-dLi" firstAttribute="top" secondItem="tnO-rf-BWe" secondAttribute="top" id="1fh-aJ-9Xu"/>
-                        <constraint firstAttribute="bottom" secondItem="2bv-hB-84t" secondAttribute="bottom" id="EL5-Rb-brJ"/>
-                        <constraint firstItem="r6k-dB-Vfx" firstAttribute="leading" secondItem="tnO-rf-BWe" secondAttribute="leading" id="Kjp-WW-Utk"/>
-                        <constraint firstItem="r6k-dB-Vfx" firstAttribute="top" secondItem="tnO-rf-BWe" secondAttribute="top" id="hJw-vU-rUY"/>
-                        <constraint firstItem="6dC-yu-dLi" firstAttribute="leading" secondItem="r6k-dB-Vfx" secondAttribute="trailing" id="mUy-Ei-kqo"/>
                         <constraint firstAttribute="height" constant="35" id="xad-IA-lGV"/>
-                        <constraint firstAttribute="trailing" secondItem="2bv-hB-84t" secondAttribute="trailing" id="xdt-Qg-0V8"/>
-                        <constraint firstItem="2bv-hB-84t" firstAttribute="leading" secondItem="tnO-rf-BWe" secondAttribute="leading" id="xor-yM-EXT"/>
-                        <constraint firstItem="2bv-hB-84t" firstAttribute="top" secondItem="tnO-rf-BWe" secondAttribute="top" id="ypw-ZL-L7l"/>
-                        <constraint firstAttribute="width" constant="308" id="zm8-Ze-hDe"/>
+                        <constraint firstAttribute="width" constant="200" id="zm8-Ze-hDe"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9bF-h1-bv5">
@@ -96,7 +45,4 @@
             </constraints>
         </view>
     </objects>
-    <resources>
-        <image name="二标签-左选中" width="308" height="35"/>
-    </resources>
 </document>

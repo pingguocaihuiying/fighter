@@ -9,13 +9,14 @@
 #import "FTGymPhotosViewController.h"
 #import "FTGymPhotoCollectionViewCell.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "FTSegmentButtonView.h"
 
 typedef NS_ENUM(int, FTGymPhotoIndex){
     FTGymPhotoIndexByGym = 0,
     FTGymPhotoIndexByUser
 };
 
-@interface FTGymPhotosViewController ()<UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate>
+@interface FTGymPhotosViewController ()<UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate, FTSegmentButtonViewDelegate>
 
 //头部二选标签
 @property (strong, nonatomic) IBOutlet UIButton *gymPhotosButton;//左
@@ -44,6 +45,8 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
 
 @property (nonatomic, strong)MPMoviePlayerController *moviePlayer;//播放器
 
+@property (strong, nonatomic) IBOutlet UIView *segButtonViewContainer;//二选按钮容器view
+@property (nonatomic, strong) FTSegmentButtonView *segButtonView;//二选按钮
 @end
 
 @implementation FTGymPhotosViewController
@@ -115,6 +118,7 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
 - (void)setSubViews{
     [self setNavigationSytle];
     [self.bottomGradualChangeView removeFromSuperview];//移除底部的遮罩
+    [self initSegmentButtonView];//初始化二选按钮
     [self setPhotoScrollView];//设置放collectionView的scrollview
     [self setCollectionViews];//设置显示照片的两个collectionView
     [self setFullScreenScrollView];//设置全屏显示照片和视频的collectionView
@@ -145,7 +149,6 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
             NSLog(@"videoUrl : %@", videoUrl);
         }
         [_photoArrayByUser addObject:dic];
-
     }
     [_photoCollectionViewRight reloadData];
 }
@@ -179,7 +182,19 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
     
     
 }
-
+#pragma mark 初始化二选按钮
+- (void)initSegmentButtonView{
+    _segButtonView = [[[NSBundle mainBundle]loadNibNamed:@"FTSegmentButtonView" owner:self options:nil] firstObject];
+    _segButtonView.frame = _segButtonViewContainer.bounds;
+    
+    //设置按钮title
+    [_segButtonView.buttonLeft setTitle:@"版块分类" forState:UIControlStateNormal];
+    [_segButtonView.buttonRight setTitle:@"最新最热" forState:UIControlStateNormal];
+    
+    _segButtonView.delegate = self;//设置代理
+    
+    [_segButtonViewContainer addSubview:_segButtonView];
+}
 #pragma mark - 初始化scrollView
 - (void)setPhotoScrollView{
     
@@ -196,9 +211,12 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
 - (void)setCollectionViews{
     //flowlayout
     UICollectionViewFlowLayout *flow = [[UICollectionViewFlowLayout alloc]init];
+    
+//    float itemWidth = 
+    
     flow.itemSize = CGSizeMake(80 * SCALE, 80 * SCALE);//cell大小
     flow.minimumLineSpacing = 15 * SCALE;//行最小间距
-    flow.minimumInteritemSpacing = 5 * SCALE;//列最小间距
+    flow.minimumInteritemSpacing = 0;//列最小间距
     
     //left
     _photoCollectionViewLeft = [[UICollectionView alloc]initWithFrame:CGRectMake(20 * SCALE, 0, _scrollViewContentWidth - 20 * 2 *SCALE, _scrollViewContentHeight)collectionViewLayout:flow];
@@ -213,7 +231,7 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
     UICollectionViewFlowLayout *flow2 = [[UICollectionViewFlowLayout alloc]init];
     flow2.itemSize = CGSizeMake(80 * SCALE, 80 * SCALE);//cell大小
     flow2.minimumLineSpacing = 15 * SCALE;//行最小间距
-    flow2.minimumInteritemSpacing = 5 * SCALE;//列最小间距
+    flow2.minimumInteritemSpacing = 0;//列最小间距
     _photoCollectionViewRight = [[UICollectionView alloc]initWithFrame:CGRectMake(_scrollViewContentWidth + 20 * SCALE, 0, _scrollViewContentWidth - 20 * 2 *SCALE, _scrollViewContentHeight)collectionViewLayout:flow2];
     [_photoCollectionViewRight registerNib:[UINib nibWithNibName:@"FTGymPhotoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell2"];
 
@@ -335,7 +353,7 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell2" forIndexPath:indexPath];
         NSDictionary *dic = _photoArrayByUser[indexPath.row];
         NSString *imgURLString = dic[@"imageurl"];
-        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"imageurl"]] placeholderImage:[UIImage imageNamed:@"小占位图"]];
+        [cell.photoImageView sd_setImageWithURL:[NSURL URLWithString:imgURLString] placeholderImage:[UIImage imageNamed:@"小占位图"]];
         if ([dic[@"type"] isEqualToString:@"video"]) {
             cell.isVideoView.hidden = NO;
         } else {
@@ -429,23 +447,37 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
     [self setFullScreenScrollViewContents];
     }
 }
+- (void)leftButtonClicked{
+    if (_photoIndex != FTGymPhotoIndexByGym) {
+        _photoIndex = FTGymPhotoIndexByGym;
+        [self updatePhotoIndexButtons];
+        [_scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        [self setFullScreenScrollViewContents];
+    }
+}
 
+- (void)rightButtonClicked{
+    if (_photoIndex != FTGymPhotoIndexByUser) {
+        _photoIndex = FTGymPhotoIndexByUser;
+        [self updatePhotoIndexButtons];
+        [_scrollView setContentOffset:CGPointMake(_scrollViewContentWidth, 0) animated:YES];
+        [self setFullScreenScrollViewContents];
+    }
+}
 #pragma mark - 更新上方筛选按钮的显示
 - (void)updatePhotoIndexButtons{
     
     switch (_photoIndex) {
         case FTGymPhotoIndexByGym:
             {
-                _gymPhotosButton.selected = YES;
-                _PhotosByUsersButton.selected = NO;
-                _bgImageView.image = [UIImage imageNamed:@"二标签-左选中"];
+                _segButtonView.buttonLeft.selected = YES;
+                _segButtonView.buttonRight.selected = NO;
             }
             break;
         case FTGymPhotoIndexByUser:
         {
-            _gymPhotosButton.selected = NO;
-            _PhotosByUsersButton.selected = YES;
-            _bgImageView.image = [UIImage imageNamed:@"二标签-右选中"];
+            _segButtonView.buttonLeft.selected = NO;
+            _segButtonView.buttonRight.selected = YES;
         }
             break;
         default:

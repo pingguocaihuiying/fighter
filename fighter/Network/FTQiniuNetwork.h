@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "QiniuSDK.h"
 
 @interface FTQiniuNetwork : NSObject
 + (NSString *)getQiniuTokenWithMediaType:(NSString *)mediaType andKey:(NSString *)key andOption:(void (^)(NSString *token))option;
+
+//获取一个自定义的上传管理者
++ (QNUploadManager *)getQNUploadManager;
 @end

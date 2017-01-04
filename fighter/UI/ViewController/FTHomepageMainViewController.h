@@ -63,6 +63,8 @@ typedef NS_ENUM(NSInteger, FTHomepageSelectedType) {
 @property (weak, nonatomic) IBOutlet UIView *commentView;
 @property (weak, nonatomic) IBOutlet UIButton *bottomNewPostsView;
 @property (weak, nonatomic) IBOutlet UIView *bottomFollowView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *fightRecordHeight;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *topViewHeight;
 
 
 

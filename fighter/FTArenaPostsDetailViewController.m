@@ -25,6 +25,17 @@
     UIImageView *_loadingImageView;
     UIImageView *_loadingBgImageView;
 }
+@property (nonatomic, strong) IBOutlet UIView *bgView;
+@property (weak, nonatomic) IBOutlet UIButton *thumbsUpButton;
+@property (weak, nonatomic) IBOutlet UILabel *commentLabel;
+@property (weak, nonatomic) IBOutlet UIView *favourateView;
+@property (weak, nonatomic) IBOutlet UIView *shareView;
+@property (weak, nonatomic) IBOutlet UIView *commentView;
+@property (weak, nonatomic) IBOutlet UIView *voteView;
+@property (weak, nonatomic) IBOutlet UIButton *starButton;
+@property (nonatomic, assign)BOOL hasVote;
+@property (nonatomic, assign)BOOL hasStar;
+
 @end
 
 @implementation FTArenaPostsDetailViewController
@@ -203,26 +214,19 @@
     
     [self.view addSubview:_webView];
     
-    
-    if(self.webUrlString == nil || self.webUrlString.length <= 0) {
-        
+    NSString *webViewUrlString;
         NSString *url = _arenaBean.videoUrlNames;
         NSLog(@"视频url：%@", url);
         url = [self encodeToPercentEscapeString:url];
         //    _videoBean.viewCount = @"100";
-        NSString *title = _arenaBean.title;
-        title = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
-        _webViewUrlString = [NSString stringWithFormat:@"https://www.gogogofight.com:8443/page/v2/wrestle_news_page.html?id=%@&type=%@&tableName=damageblog", _arenaBean.postsId, [_arenaBean.labels stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        NSLog(@"webview url：%@", _webViewUrlString);
-    }else {
-        
-        _webViewUrlString = _webUrlString;
-    }
+        webViewUrlString = [NSString stringWithFormat:@"%@?id=%@&type=%@&tableName=damageblog", BoxingBarWebViewURLString, _arenaBean.postsId, [_arenaBean.labels stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        NSLog(@"webview url：%@", webViewUrlString);
+
     
     
     
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_webViewUrlString]]];
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:webViewUrlString]]];
     [self.view sendSubviewToBack:_webView];
 }
 
@@ -288,17 +292,13 @@
 }
 
 - (void)shareButtonClicked{
-    
     NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=%@",_arenaBean.postsId,@"damageblog"];
-    _webUrlString = [@"http://www.gogogofight.com/page/v2/wrestle_news_page.html?" stringByAppendingString:str];
-    
+    NSString *webUrlString = [NSString stringWithFormat:@"%@?%@", BoxingBarWebViewURLString, str];
     FTShareView *shareView = [FTShareView new];
     
-    [shareView setUrl:_webUrlString];
+    [shareView setUrl:webUrlString];
     [shareView setTitle:_arenaBean.title];
-//    [shareView setSummary:_arenaBean.summary];
     [shareView setImage:@"G格斗家logo改进@200"];
-    
     
     if (_arenaBean.videoUrlNames && ![_arenaBean.videoUrlNames isEqualToString:@""]) {//如果有视频图片，优先显示视频图片
         NSLog(@"显示视频");

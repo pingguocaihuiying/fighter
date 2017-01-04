@@ -55,7 +55,6 @@
 #import "FTUserBean.h"
 #import "FTHomepageCommentListViewController.h"
 #import "FTArenaBean.h"
-#import "FTArenaPostsDetailViewController.h"
 #import "FTUserCenterViewController.h"
 #import "FTShareView.h"
 
@@ -112,6 +111,7 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *mainScrollViewBottomSpacing;
 
 @property (nonatomic, copy) NSString *versionFromServer;//从服务器获取的最新版本
+@property (strong, nonatomic) IBOutlet UILabel *fightRecord;//只有拳手有战绩
 
 @end
 
@@ -169,7 +169,7 @@
     [NetWorking getHomepageUserInfoWithUserOldid:_olduserid andBoxerId:_boxerId andCoachId:_coachId andCallbackOption:^(FTUserBean *userBean) {
         _userBean = userBean;
         [_headImageView sd_setImageWithURL:[NSURL URLWithString:userBean.headUrl]];
-    
+        
         self.sexLabel.text = userBean.sex;
         self.nameLabel.text = userBean.name;
 
@@ -237,6 +237,10 @@
             self.identityImageView1.hidden = YES;
             self.identityImageView2.hidden = YES;
         }else if ([_userIdentity isEqualToString:@"1"]) {//拳手
+            
+            _fightRecord.text = [NSString stringWithFormat:@"%@胜 - %@负 - %@平 - %@KO", userBean.win, userBean.fail, userBean.draw, userBean.knockout];
+            _fightRecordHeight.constant = 14;
+            _topViewHeight.constant = 233;
             
             //设置拳手个人资料的背景图片
             if (userBean.background != nil && ![userBean.background isEqualToString:@""]) {//如果有背景图

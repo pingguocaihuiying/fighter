@@ -40,10 +40,14 @@
 
     //课程表”不可约“文字颜色
 #define Custom_Gray_Color [UIColor colorWithHex:0x505050]
+//自定义的绿色，在课表那儿用到很多
+#define Custom_Green_Color [UIColor colorWithHex:0x23b33c]
     //拳吧-版块列表，副标题颜色
 #define Sub_Title_Color [UIColor colorWithHex:0x8c8c8c]
 
 #define NewPostSuccessNoti @"NewPostSuccessNoti"
+#
+
 
 
 

@@ -1735,14 +1735,10 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 + (void)getGymForGymDetailWithGymBean:(FTGymBean *)gymBean andOption:(void (^)(NSDictionary *dic))option{
     NSString *urlString = [NSString stringWithFormat:@"%@/api/gym/%ld.do", Domain, gymBean.gymId];
     
-    //调试
-    gymBean.gymId = 0;
-    gymBean.corporationid = 187;
-    
-    if (gymBean.gymId) {
-        urlString = [NSString stringWithFormat:@"%@/api/gym/%ld.do", Domain, gymBean.gymId];
-    }else if(gymBean.corporationid){
+    if (gymBean.corporationid) {
         urlString = [NSString stringWithFormat:@"%@/api/gym/c-%ld.do", Domain, gymBean.corporationid];
+    }else if(gymBean.gymId){
+        urlString = [NSString stringWithFormat:@"%@/api/gym/%ld.do", Domain, gymBean.gymId];
     }
     AFHTTPSessionManager *manager = [self getAFHTTPSessionManager]; 
     
@@ -2489,6 +2485,12 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     NSString *fenString = dic[@"price"];//教练id，私教课必填
     if(fenString){
         [dicBeforeMD5 setObject:fenString forKey:@"price"];
+    }
+    
+    //场地id
+    NSString *placeId = dic[@"placeId"];
+    if (placeId) {
+        [dicBeforeMD5 setObject:placeId forKey:@"placeId"];
     }
     
     NSString *checkSign = [FTTools md5Dictionary:dicBeforeMD5 withCheckKey:checkKey];

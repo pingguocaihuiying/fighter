@@ -558,9 +558,9 @@
     FTArenaPostsDetailViewController *postDetailVC = [FTArenaPostsDetailViewController new];
    
     NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=%@",dic[@"objId"],@"damageblog"];
-    
-    postDetailVC.webUrlString = [@"http://www.gogogofight.com/page/wrestle_news_page.html?" stringByAppendingString:str];
-    [self.navigationController pushViewController:postDetailVC animated:YES];//因为rootVC没有用tabbar，暂时改变跳转时vc
+    FTArenaBean *arenaBean = [FTArenaBean new];
+    arenaBean.postsId = [NSString stringWithFormat:@"%@", dic[@"objId"]];
+    [self.navigationController pushViewController:postDetailVC animated:YES];
     
 }
 

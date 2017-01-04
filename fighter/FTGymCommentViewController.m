@@ -234,6 +234,7 @@
 //    NSString *userId = [FTUserBean loginUser].olduserid;
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    QNUploadManager *upManager = [FTQiniuNetwork getQNUploadManager];
     for ( int i = 0; i < _photos.count; i++ ) {
         
         NSDictionary *dic = [_photos objectAtIndex:i];
@@ -242,9 +243,6 @@
         
         [FTQiniuNetwork getQiniuTokenWithMediaType:dic[@"type"] andKey:key andOption:^(NSString *token) {//***获取token
             NSLog(@"token : %@", token);
-            
-            QNUploadManager *upManager = [[QNUploadManager alloc] init];
-            
             [upManager putData:mediaData key:key token:token
                       complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                           NSLog(@"info : %@", info);

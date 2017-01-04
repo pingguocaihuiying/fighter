@@ -190,7 +190,7 @@ NSString * const GetBoxerRaceInfoURL =  @"/api/boxer/getBoxerRaceDynamic.do";
 NSString * const GetNewsByIdURL =  @"/api/news/getNewsById.do";
 
 //类拳讯详情页的webView地址
-NSString * const WebViewURL =  @"https://www.gogogofight.com:8443/page/v2/news_page.html";
+NSString * const WebViewURL =  @"http://www.gogogofight.com/page/v2/news_page.html";
 
 // 获取单个视频信息
 NSString * const GetVideoByIdURL =  @"/api/videos/getVideosById.do";
@@ -324,6 +324,7 @@ NSString *const BoxingBarSectionURL = @"/api/damageplate/list.do";
 NSString *const UserWhetherFollowModuleURL = @"/api/damageplatefollow/find.do";
 NSString *const FollowModuleURL = @"/api/damageplatefollow/save$DamagePlateFollow.do";
 NSString *const UnFollowModuleURL = @"/api/damageplatefollow/delete$DamagePlateFollow.do";
+NSString *const BoxingBarWebViewURLString = @"http://www.gogogofight.com/page/v2/wrestle_news_page.html";
 
 //校验码
 NSString *const FollowModuleCheckSign = @"gedoujihgf226g66";
