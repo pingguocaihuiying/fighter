@@ -317,6 +317,8 @@ extern NSString *const UserWhetherFollowModuleURL;
 extern NSString *const FollowModuleURL;
 //取消关注版块
 extern NSString *const UnFollowModuleURL;
+//详情页webView URL 地址
+extern NSString *const BoxingBarWebViewURLString;
 
 /*
  * checkSign

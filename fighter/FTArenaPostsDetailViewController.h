@@ -20,6 +20,4 @@
 @property (nonatomic, weak)id<FTArenaDetailDelegate> delegate;
 @property (nonatomic, strong)FTArenaBean *arenaBean;
 @property (nonatomic, strong)NSIndexPath *indexPath;
-@property (nonatomic, strong)NSString *webUrlString;
-
 @end

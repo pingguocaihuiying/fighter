@@ -324,6 +324,7 @@ NSString *const BoxingBarSectionURL = @"/api/damageplate/list.do";
 NSString *const UserWhetherFollowModuleURL = @"/api/damageplatefollow/find.do";
 NSString *const FollowModuleURL = @"/api/damageplatefollow/save$DamagePlateFollow.do";
 NSString *const UnFollowModuleURL = @"/api/damageplatefollow/delete$DamagePlateFollow.do";
+NSString *const BoxingBarWebViewURLString = @"http://www.gogogofight.com/page/v2/wrestle_news_page.html";
 
 //校验码
 NSString *const FollowModuleCheckSign = @"gedoujihgf226g66";

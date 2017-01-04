@@ -558,8 +558,8 @@
     FTArenaPostsDetailViewController *postDetailVC = [FTArenaPostsDetailViewController new];
    
     NSString *str = [NSString stringWithFormat:@"objId=%@&tableName=%@",dic[@"objId"],@"damageblog"];
-    
-    postDetailVC.webUrlString = [@"http://www.gogogofight.com/page/wrestle_news_page.html?" stringByAppendingString:str];
+    FTArenaBean *arenaBean = [FTArenaBean new];
+    arenaBean.postsId = [NSString stringWithFormat:@"%@", dic[@"objId"]];
     [self.navigationController pushViewController:postDetailVC animated:YES];
     
 }
