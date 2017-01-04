@@ -81,6 +81,10 @@
 
 - (void) showMessage:(NSString *)message {
     
+    //如果message为nik或空，return，这样就不会显示无意义的小黑圈了。 add by lyz 2017.1.4 11:07 AM
+    if (!message || [message isEqualToString:@""]) {
+        return;
+    }
     CGFloat width = SCREEN_WIDTH - 80*SCALE;
     
     UILabel *detailsLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, SCREEN_HEIGHT/2 + 100, SCREEN_WIDTH-120, SCREEN_HEIGHT/4)];

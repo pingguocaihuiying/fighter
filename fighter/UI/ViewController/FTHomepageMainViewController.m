@@ -55,7 +55,6 @@
 #import "FTUserBean.h"
 #import "FTHomepageCommentListViewController.h"
 #import "FTArenaBean.h"
-#import "FTArenaPostsDetailViewController.h"
 #import "FTUserCenterViewController.h"
 #import "FTShareView.h"
 

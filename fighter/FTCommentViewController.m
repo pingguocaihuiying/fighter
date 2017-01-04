@@ -123,7 +123,7 @@
         tableName = @"c-video";
         objId= [NSString stringWithFormat:@"%@", _videoBean.videosId];
     }else if(self.gymBean){
-        objId= [NSString stringWithFormat:@"%@", _gymBean.gymId];
+        objId= [NSString stringWithFormat:@"%ld", _gymBean.gymId];
         tableName = @"c-gym";
     }else if(self.arenaBean){
         objId= [NSString stringWithFormat:@"%@", _arenaBean.postsId];
