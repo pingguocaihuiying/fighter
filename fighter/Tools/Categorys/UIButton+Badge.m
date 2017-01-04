@@ -323,5 +323,24 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
     [self.badgeLayer removeFromSuperlayer];
 }
 
+//
+-(void) showMessageBadge {
+    
+    [self miniBadgeInit];
+    self.badgeLayer = [CALayer layer];
+    self.badgeLayer.frame = CGRectMake(self.badgeOriginX -2 , self.badgeOriginY +2, 8, 8);
+    self.badgeLayer.cornerRadius = 4;
+    self.badgeLayer.borderWidth = 1.5;
+    self.badgeLayer.borderColor = [UIColor blackColor].CGColor;
+    self.badgeLayer.backgroundColor = self.badgeBGColor.CGColor;
+    
+    [self.layer addSublayer:self.badgeLayer];
+}
+
+-(void) hideMessageBadge {
+    
+    [self.badgeLayer removeFromSuperlayer];
+}
+
 
 @end

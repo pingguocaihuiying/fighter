@@ -36,4 +36,7 @@
 
 -(void) showMiniBadge;
 -(void) hideMiniBadge;
+
+- (void) showMessageBadge;
+- (void) hideMessageBadge;
 @end

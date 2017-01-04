@@ -120,6 +120,8 @@
 		3D5A3CBD1CFD1E1000FDB3C4 /* FTShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */; };
 		3D5E809C1DD328E100D0F250 /* FTTraineeBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5E809B1DD328E100D0F250 /* FTTraineeBean.m */; };
 		3D5E80A11DD4116600D0F250 /* FTTraineeSkillBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5E80A01DD4116600D0F250 /* FTTraineeSkillBean.m */; };
+		3D5EB4EC1E1CD9A8002B79FF /* FTMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5EB4EA1E1CD9A8002B79FF /* FTMessagesViewController.m */; };
+		3D5EB4ED1E1CD9A8002B79FF /* FTMessagesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D5EB4EB1E1CD9A8002B79FF /* FTMessagesViewController.xib */; };
 		3D5FB4851CDC1F1D00FC1809 /* FTPhotoPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4841CDC1F1D00FC1809 /* FTPhotoPickerView.m */; };
 		3D5FB4881CDC251B00FC1809 /* FTCityPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4871CDC251B00FC1809 /* FTCityPickerView.m */; };
 		3D5FB4921CDC311400FC1809 /* FTAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5FB4901CDC311400FC1809 /* FTAssetsViewController.m */; };
@@ -712,6 +714,9 @@
 		3D5E809B1DD328E100D0F250 /* FTTraineeBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeBean.m; sourceTree = "<group>"; };
 		3D5E809F1DD4116600D0F250 /* FTTraineeSkillBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTTraineeSkillBean.h; sourceTree = "<group>"; };
 		3D5E80A01DD4116600D0F250 /* FTTraineeSkillBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTTraineeSkillBean.m; sourceTree = "<group>"; };
+		3D5EB4E91E1CD9A8002B79FF /* FTMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTMessagesViewController.h; sourceTree = "<group>"; };
+		3D5EB4EA1E1CD9A8002B79FF /* FTMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTMessagesViewController.m; sourceTree = "<group>"; };
+		3D5EB4EB1E1CD9A8002B79FF /* FTMessagesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTMessagesViewController.xib; sourceTree = "<group>"; };
 		3D5FB4831CDC1F1D00FC1809 /* FTPhotoPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPhotoPickerView.h; sourceTree = "<group>"; };
 		3D5FB4841CDC1F1D00FC1809 /* FTPhotoPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPhotoPickerView.m; sourceTree = "<group>"; };
 		3D5FB4861CDC251B00FC1809 /* FTCityPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTCityPickerView.h; sourceTree = "<group>"; };
@@ -2143,6 +2148,16 @@
 				3D5E80A01DD4116600D0F250 /* FTTraineeSkillBean.m */,
 			);
 			name = skillBean;
+			sourceTree = "<group>";
+		};
+		3D5EB4E81E1CD981002B79FF /* 消息 */ = {
+			isa = PBXGroup;
+			children = (
+				3D5EB4E91E1CD9A8002B79FF /* FTMessagesViewController.h */,
+				3D5EB4EA1E1CD9A8002B79FF /* FTMessagesViewController.m */,
+				3D5EB4EB1E1CD9A8002B79FF /* FTMessagesViewController.xib */,
+			);
+			path = "消息";
 			sourceTree = "<group>";
 		};
 		3D5FB48E1CDC30C700FC1809 /* imagePicker */ = {
@@ -3955,6 +3970,7 @@
 		E6B458921CB7554F00FB4261 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				3D5EB4E81E1CD981002B79FF /* 消息 */,
 				3DF06C681D7E99F900623E45 /* 商城 */,
 				3D6ABC841D66E39200CD37C8 /* 日常任务 */,
 				3D20193B1D582F2D009E80B1 /* 兑吧 */,
@@ -4784,6 +4800,7 @@
 				3DE95BAE1CD8A042005BF85C /* FTRegistViewController.xib in Resources */,
 				E6A9DDB71CD9833200CB9518 /* FTVideoTableViewCell.xib in Resources */,
 				E64EF1191CB6614000CAE340 /* LaunchScreen.storyboard in Resources */,
+				3D5EB4ED1E1CD9A8002B79FF /* FTMessagesViewController.xib in Resources */,
 				3D4122261D4F28BC007EB996 /* FTPhoneCheckCell.xib in Resources */,
 				3D4122321D4F3F0E007EB996 /* FTAuthenticationView.xib in Resources */,
 				E627EE621D25122C00B424F5 /* FTChooseGymOrOpponentListViewController.xib in Resources */,
@@ -5267,6 +5284,7 @@
 				E672C1661DED301200934206 /* UIViewController+FTLoginCheck.m in Sources */,
 				E66EAEA21CF8217F006CD6CE /* FTArenaTextTableViewCell.m in Sources */,
 				E60218E71E0A836F0048DB57 /* FTUserCommentOfCoachTableViewCell.m in Sources */,
+				3D5EB4EC1E1CD9A8002B79FF /* FTMessagesViewController.m in Sources */,
 				E672C15D1DEC081A00934206 /* FTPostListTableView.m in Sources */,
 				3D11B2741D744C5400B4C838 /* UIImage+LabelImage.m in Sources */,
 				E66F49451D93F3DF005B39D1 /* FTGymSourceTableViewCell.m in Sources */,

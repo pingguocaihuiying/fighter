@@ -379,6 +379,7 @@
 }
 
 - (void)setWebView{
+    
     _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49 - 64)];
     _webView.delegate = self;
     
@@ -389,6 +390,7 @@
     NSLog(@"webViewUrlString : %@", webViewUrlString);
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:webViewUrlString]]];
     [self.view sendSubviewToBack:_webView];
+    
 }
 
 #pragma mark - action
