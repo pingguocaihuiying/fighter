@@ -264,7 +264,7 @@
         //            [self showHUDWithMessage:@"目前只支持微信登录，请安装微信"];
         //        }
     }else{
-        [self pushToCommentVC];
+        [self pushToCommentVCWithUserId:nil andUserName:nil];
     }
     
 }
@@ -543,6 +543,13 @@
         homepageMainVC.olduserid = userId;
         
         [self.navigationController pushViewController:homepageMainVC animated:YES];
+    }else  if ([requestURL hasPrefix:@"js-call:reComment="]) {//评论评论
+        NSArray *array = [requestURL componentsSeparatedByString:@"&"];
+        NSString *userId = [array[1] stringByReplacingOccurrencesOfString:@"userId=" withString:@""];
+        NSString *userName = [array[2] stringByReplacingOccurrencesOfString:@"userName=" withString:@""];
+        NSString *parentId = [array[3] stringByReplacingOccurrencesOfString:@"parentId=" withString:@""];//留着扩展用
+        NSLog(@"userId:%@,userName:%@", userId, userName);
+        [self pushToCommentVCWithUserId:userId andUserName:userName];
     }
     return YES;
 }
@@ -571,11 +578,13 @@
     }
 }
 
-- (void)pushToCommentVC{
+- (void)pushToCommentVCWithUserId:(NSString *)userId andUserName:(NSString *)userName{
     
     FTCommentViewController *commentVC = [ FTCommentViewController new];
     commentVC.delegate = self;
     commentVC.arenaBean = self.arenaBean;
+    commentVC.userName = userName;
+    commentVC.userId = userId;
     [self.navigationController pushViewController:commentVC animated:YES];
 }
 

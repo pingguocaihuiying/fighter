@@ -611,7 +611,6 @@
         //        FTNewsBean *bean = [FTNewsBean new];
         //        [bean setValuesWithDic:newsDic];
         
-        
         FTNewsBean *bean = tableView.sourceArray[indexPath.row];
         //标记已读
         if (![bean.isReader isEqualToString:@"YES"]) {

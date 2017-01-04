@@ -8,7 +8,6 @@
 
 #import "FTVideoDetailViewController.h"
 #import "FTCommentViewController.h"
-#import <objc/runtime.h>
 #import "WXApi.h"
 #import "FTUserBean.h"
 #import "MBProgressHUD.h"
@@ -414,16 +413,6 @@
 
 - (void)pushToCommentVCWithUserId:(NSString *)userId andUserName:(NSString *)userName{
     
-    unsigned int count = 0;
-    Ivar *ivars = class_copyIvarList([UITextView class], &count);
-    
-    for (int i = 0; i < count; i++) {
-        Ivar ivar = ivars[i];
-        const char *name = ivar_getName(ivar);
-        NSString *objcName = [NSString stringWithUTF8String:name];
-        NSLog(@"%d : %@",i,objcName);
-    }
-    
     FTCommentViewController *commentVC = [ FTCommentViewController new];
     commentVC.delegate = self;
     FTNewsBean *newsBean = [FTNewsBean new];
@@ -658,11 +647,12 @@
                                   };
             [FTNotificationTools postSwitchShopDetailControllerWithDic:dic];
         }
-    }else  if ([requestURL hasPrefix:@"js-call:reComment="]) {//评论
+    }else  if ([requestURL hasPrefix:@"js-call:reComment="]) {//评论评论
         NSArray *array = [requestURL componentsSeparatedByString:@"&"];
         NSString *userId = [array[1] stringByReplacingOccurrencesOfString:@"userId=" withString:@""];
         NSString *userName = [array[2] stringByReplacingOccurrencesOfString:@"userName=" withString:@""];
-        NSLog(@"userId:%@,userName:%@", userId, userName);
+        NSString *parentId = [array[3] stringByReplacingOccurrencesOfString:@"parentId=" withString:@""];//留着扩展用
+        NSLog(@"userId:%@,userName:%@, parentId:%@", userId, userName, parentId);
         [self pushToCommentVCWithUserId:userId andUserName:userName];
     }
     

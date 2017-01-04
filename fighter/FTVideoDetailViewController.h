@@ -29,6 +29,7 @@ typedef NS_ENUM(NSInteger, FTDetailType) {
 
 - (void)updateCountWithVideoBean:(FTNewsBean *)videoBean indexPath:(NSIndexPath *)indexPath;
 
+
 @end
 
 
