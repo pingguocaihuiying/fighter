@@ -16,6 +16,7 @@
 #import "FTEncoderAndDecoder.h"
 #import "NetWorking.h"
 #import "FTShareView.h"
+#import "FTWebViewRequestURLManager.h"
 
 @interface FTTeachVideoDetailController ()<UIWebViewDelegate, CommentSuccessDelegate>
 {
@@ -253,68 +254,13 @@
 
 //webView加载完成
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
-    
     [self disableLoadingAnimation];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    
-    NSString *requestURL = [NSString stringWithFormat:@"%@", request.URL];
-    NSLog(@"requestURL : %@", requestURL);
-    
-    if ([requestURL isEqualToString:@"js-call:setVideoUrl"]) {//付费视频传url
-        [self setWebViewUrl];
-        
-    }else if ([requestURL isEqualToString:@"js-call:onload"]) {
-        
-        [self disableLoadingAnimation];
-    }else if ([requestURL hasPrefix:@"js-call:userId="]) {
-        
-        NSString *userId = [requestURL stringByReplacingOccurrencesOfString:@"js-call:userId=" withString:@""];
-        FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
-        homepageMainVC.olduserid = userId;
-        [self.navigationController pushViewController:homepageMainVC animated:YES];
-    }else  if ([requestURL hasPrefix:@"js-call:goGym?corId="]) {
-        
-        NSString *corId = [requestURL stringByReplacingOccurrencesOfString:@"js-call:goGym?corId=" withString:@""];
-        NSDictionary *dic = @{@"type":@"gym",
-                              @"corporationid":corId
-                              };
-        [FTNotificationTools postTabBarIndex:2 dic:dic];
-    }else  if ([requestURL hasPrefix:@"js-call:goCoach?corId="]) {
-        
-        NSArray *array = [requestURL componentsSeparatedByString:@"&"];
-        NSString *corId = [array[0] stringByReplacingOccurrencesOfString:@"js-call:goCoach?corId=" withString:@""];
-        NSString *coachId = [array[1] stringByReplacingOccurrencesOfString:@"coachId=" withString:@""];
-        
-        NSDictionary *dic = @{@"type":@"coach",
-                              @"corporationid":corId,
-                              @"coachId":coachId
-                              };
-        [FTNotificationTools postTabBarIndex:2 dic:dic];
-    }else  if ([requestURL hasPrefix:@"js-call:goShop?"]) {
-        
-        NSArray *array = [requestURL componentsSeparatedByString:@"&"];
-        NSString *goodId = [array[0] stringByReplacingOccurrencesOfString:@"js-call:goShop?goodId=" withString:@""];
-        NSString *corporationId = [array[1] stringByReplacingOccurrencesOfString:@"corId=" withString:@""];
-        
-        if ([goodId isEqualToString:@"0"]) {
-            NSDictionary *dic = @{@"type":@"home",
-                                  @"goodId":goodId,
-                                  @"corporationid":corporationId
-                                  };
-            [FTNotificationTools postSwitchShopHomeNotiWithDic:dic];
-        }else {
-            NSDictionary *dic = @{@"type":@"detail",
-                                  @"goodId":goodId,
-                                  @"corporationid":corporationId
-                                  };
-            [FTNotificationTools postSwitchShopDetailControllerWithDic:dic];
-        }
-    }
+    [FTWebViewRequestURLManager managerURLRequest:request withViewController:self];
     return YES;
 }
-
 
 #pragma mark  CommentSuccessDelegate
 - (void)commentSuccess{
@@ -325,7 +271,6 @@
     _videoBean.commentCount = [NSString stringWithFormat:@"%d", commentCount];
     [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
 }
-
 
 #pragma mark - webView 交互
 

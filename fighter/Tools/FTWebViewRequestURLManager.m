@@ -19,8 +19,11 @@
         if ([viewController respondsToSelector:@selector(disableLoadingAnimation)]) {
             [viewController performSelector:@selector(disableLoadingAnimation)];
         }
+    }else if ([requestURL isEqualToString:@"js-call:setVideoUrl"]) {//付费视频传url
+        if ([viewController respondsToSelector:@selector(setWebViewUrl)]) {
+            [viewController performSelector:@selector(setWebViewUrl)];
+        }
     }else if ([requestURL hasPrefix:@"js-call:userId="]) {//用户头像
-        
         NSString *userId = [requestURL stringByReplacingOccurrencesOfString:@"js-call:userId=" withString:@""];
         //        NSLog(@"userId : %@", userId);
         FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
