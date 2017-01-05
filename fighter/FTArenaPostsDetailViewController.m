@@ -18,6 +18,7 @@
 #import "FTPhotoPickerView.h"
 #import "FTShareView.h"
 #import "FTHomepageMainViewController.h"
+#import "FTWebViewRequestURLManager.h"
 
 @interface FTArenaPostsDetailViewController ()<UIWebViewDelegate, CommentSuccessDelegate>
 {
@@ -532,29 +533,9 @@
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    NSString *requestURL = [NSString stringWithFormat:@"%@", request.URL];
-        NSLog(@"requestURL : %@", requestURL);
-    if ([requestURL isEqualToString:@"js-call:onload"]) {
-        [self disableLoadingAnimation];
-    }else     if ([requestURL hasPrefix:@"js-call:userId="]) {
-        NSString *userId = [requestURL stringByReplacingOccurrencesOfString:@"js-call:userId=" withString:@""];
-        //        NSLog(@"userId : %@", userId);
-        FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
-        homepageMainVC.olduserid = userId;
-        
-        [self.navigationController pushViewController:homepageMainVC animated:YES];
-    }else  if ([requestURL hasPrefix:@"js-call:reComment="]) {//评论评论
-        NSArray *array = [requestURL componentsSeparatedByString:@"&"];
-        NSString *userId = [array[1] stringByReplacingOccurrencesOfString:@"userId=" withString:@""];
-        NSString *userName = [array[2] stringByReplacingOccurrencesOfString:@"userName=" withString:@""];
-        NSString *parentId = [array[3] stringByReplacingOccurrencesOfString:@"parentId=" withString:@""];//留着扩展用
-        NSLog(@"userId:%@,userName:%@", userId, userName);
-        [self pushToCommentVCWithUserId:userId andUserName:userName];
-    }
+    [FTWebViewRequestURLManager managerURLRequest:request withViewController:self];
     return YES;
 }
-
-
 
 - (NSString *)encodeToPercentEscapeString: (NSString *) input
 {
@@ -566,7 +547,6 @@
                                                               kCFStringEncodingUTF8));
     return outputStr;
 }
-
 
 - (void) loginCallBack:(NSNotification *)noti{
     
