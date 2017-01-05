@@ -18,7 +18,7 @@
                 <outlet property="collectionViewPaddingLeft" destination="e34-IC-c8z" id="gXf-lf-y1B"/>
                 <outlet property="collectionViewPaddingRight" destination="jYv-86-8Vf" id="rAg-PE-vQn"/>
                 <outlet property="commentCountLabel" destination="5Hh-jo-dcd" id="BMN-lL-Cly"/>
-                <outlet property="gymAdressLabel" destination="KcQ-bT-zHM" id="tMC-bZ-4GV"/>
+                <outlet property="gymAddressLabel" destination="KcQ-bT-zHM" id="XGP-NA-xr4"/>
                 <outlet property="gymShowImageView" destination="TEO-cZ-MR7" id="PLc-cD-5Vi"/>
                 <outlet property="gymSourceViewContainerView" destination="3on-4R-rDq" id="pLV-kz-zQe"/>
                 <outlet property="haveVideoButton" destination="wXL-Dy-ssq" id="5jl-1w-6sp"/>

@@ -342,6 +342,8 @@
 		E636B1B31D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E636B1B11D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.m */; };
 		E636B1B41D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E636B1B21D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.xib */; };
 		E638811E1E1DCF8200732CFB /* FTWebViewRequestURLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E638811D1E1DCF8200732CFB /* FTWebViewRequestURLManager.m */; };
+		E63881231E1DE2E800732CFB /* FTWebViewDetailBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = E63881221E1DE2E800732CFB /* FTWebViewDetailBottomView.m */; };
+		E63881251E1DE2F700732CFB /* FTWebViewDetailBottomView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E63881241E1DE2F700732CFB /* FTWebViewDetailBottomView.xib */; };
 		E6433FEC1DCB3F8A0062EF70 /* FTPublicHistoryCourseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6433FEA1DCB3F8A0062EF70 /* FTPublicHistoryCourseTableViewCell.m */; };
 		E6433FED1DCB3F8A0062EF70 /* FTPublicHistoryCourseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6433FEB1DCB3F8A0062EF70 /* FTPublicHistoryCourseTableViewCell.xib */; };
 		E644E77E1D0123F700F39E45 /* FTHomepageUserBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E644E77D1D0123F700F39E45 /* FTHomepageUserBean.m */; };
@@ -1073,6 +1075,9 @@
 		E636B1B21D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTGymSupportItemsCollectionViewCell.xib; path = UI/FTGymSupportItemsCollectionViewCell.xib; sourceTree = "<group>"; };
 		E638811C1E1DCF8200732CFB /* FTWebViewRequestURLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTWebViewRequestURLManager.h; sourceTree = "<group>"; };
 		E638811D1E1DCF8200732CFB /* FTWebViewRequestURLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTWebViewRequestURLManager.m; sourceTree = "<group>"; };
+		E63881211E1DE2E800732CFB /* FTWebViewDetailBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTWebViewDetailBottomView.h; sourceTree = "<group>"; };
+		E63881221E1DE2E800732CFB /* FTWebViewDetailBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTWebViewDetailBottomView.m; sourceTree = "<group>"; };
+		E63881241E1DE2F700732CFB /* FTWebViewDetailBottomView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTWebViewDetailBottomView.xib; sourceTree = "<group>"; };
 		E6433FE91DCB3F8A0062EF70 /* FTPublicHistoryCourseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPublicHistoryCourseTableViewCell.h; sourceTree = "<group>"; };
 		E6433FEA1DCB3F8A0062EF70 /* FTPublicHistoryCourseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPublicHistoryCourseTableViewCell.m; sourceTree = "<group>"; };
 		E6433FEB1DCB3F8A0062EF70 /* FTPublicHistoryCourseTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTPublicHistoryCourseTableViewCell.xib; sourceTree = "<group>"; };
@@ -3151,6 +3156,25 @@
 			name = "处理webView请求";
 			sourceTree = "<group>";
 		};
+		E638811F1E1DE26000732CFB /* view */ = {
+			isa = PBXGroup;
+			children = (
+				E63881201E1DE26C00732CFB /* 底部的view */,
+				E6A9DDAD1CD8A0D200CB9518 /* cell */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		E63881201E1DE26C00732CFB /* 底部的view */ = {
+			isa = PBXGroup;
+			children = (
+				E63881211E1DE2E800732CFB /* FTWebViewDetailBottomView.h */,
+				E63881221E1DE2E800732CFB /* FTWebViewDetailBottomView.m */,
+				E63881241E1DE2F700732CFB /* FTWebViewDetailBottomView.xib */,
+			);
+			name = "底部的view";
+			sourceTree = "<group>";
+		};
 		E6433FE81DCB3F300062EF70 /* 团课历史课程cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -4354,8 +4378,8 @@
 		E6DCE7271CD849060082831D /* 视频 */ = {
 			isa = PBXGroup;
 			children = (
+				E638811F1E1DE26000732CFB /* view */,
 				E6DCE72D1CD84F7C0082831D /* main */,
-				E6A9DDAD1CD8A0D200CB9518 /* cell */,
 				E6A9DDBB1CD9C85F00CB9518 /* 详情 */,
 			);
 			name = "视频";
@@ -4797,6 +4821,7 @@
 				3D9666C71D9A98A000E90DA5 /* FTGymRechargeViewController.xib in Resources */,
 				E6DB76141CBB9B430034253C /* FTOneImageInfoTableViewCell.xib in Resources */,
 				3D7B98BA1CE078D600B80B8D /* FTInputCheckCodeViewController.xib in Resources */,
+				E63881251E1DE2F700732CFB /* FTWebViewDetailBottomView.xib in Resources */,
 				3D8D73C31CE9DEFE009E2320 /* FTRankTableVIewCell.xib in Resources */,
 				3D4B19541CDAEF840022DFB0 /* FTTableViewCell4.xib in Resources */,
 				3D6ABC9A1D66ECC700CD37C8 /* FTTaskShareCell.xib in Resources */,
@@ -5143,6 +5168,7 @@
 				3D13FB1C1D1A3FFB0060B9B4 /* FTSegmentedControl.m in Sources */,
 				E6B7D2001CF6A750004191A3 /* FTArenaViewController.m in Sources */,
 				E6D74A4E1CB7B7EE00854337 /* MD5.m in Sources */,
+				E63881231E1DE2E800732CFB /* FTWebViewDetailBottomView.m in Sources */,
 				E6FEFA391DD411D300CEF6E3 /* FTUserCourseCommentViewController.m in Sources */,
 				E6F46C6B1D8936C1001387E2 /* FTGymPhotoCollectionViewCell.m in Sources */,
 				E6E688E81D002FB700708C24 /* FTHomepageRecordListTableViewCell.m in Sources */,

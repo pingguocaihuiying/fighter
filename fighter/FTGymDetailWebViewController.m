@@ -42,7 +42,7 @@
 
 
 @property (nonatomic, copy)NSString *webUrlString;
-@property (strong, nonatomic) IBOutlet UILabel *gymAdressLabel;//地址label
+@property (strong, nonatomic) IBOutlet UILabel *gymAddressLabel;//地址label
 @property (strong, nonatomic) IBOutlet UIView *addressSeperatorView;//地址view中右边的分割线
 @property (strong, nonatomic) IBOutlet UIButton *tipButton;
 
@@ -291,8 +291,8 @@
     [FTTools updateScoreView:_scoreView withScore:_gymDetailBean.grade];
     
     //更新地址
-    _gymAdressLabel.text = _gymDetailBean.gym_location;
-    NSLog(@"行数 ：%ld", _gymAdressLabel.numberOfLines);
+    _gymAddressLabel.text = _gymDetailBean.gym_location;
+    NSLog(@"行数 ：%ld", _gymAddressLabel.numberOfLines);
     
 //    _bottomViewHeight.constant = 165;
     //更新评论数
@@ -378,7 +378,7 @@
     _seperatorView7.backgroundColor = Cell_Space_Color;
     _seperatorView8.backgroundColor = Cell_Space_Color;
     
-    [UILabel setRowGapOfLabel:_gymAdressLabel withValue:6];
+//    [UILabel setRowGapOfLabel:_gymAddressLabel withValue:6];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{

@@ -18,17 +18,18 @@
 #import "FTShareView.h"
 #import "FTHomepageMainViewController.h"
 #import "FTWebViewRequestURLManager.h"//webView请求的通用处理类
+#import "FTWebViewDetailBottomView.h"
 
-@interface FTVideoDetailViewController ()<UIWebViewDelegate, CommentSuccessDelegate>
+@interface FTVideoDetailViewController ()<UIWebViewDelegate, CommentSuccessDelegate, FTWebViewDetailBottomViewDelegate>
 {
     UIWebView *_webView;
     UIImageView *_loadingImageView;
     UIImageView *_loadingBgImageView;
 }
 
-@property (nonatomic, strong) UIBarButtonItem *commentButton;
-@property (strong, nonatomic) IBOutlet UILabel *bottomCommentLabel;
-
+@property (nonatomic, strong) UIBarButtonItem *rightTopButton;
+@property (strong, nonatomic) IBOutlet UIView *bottomViewContainer;
+@property (nonatomic, strong) FTWebViewDetailBottomView *bottomView;//底部的view
 @end
 
 @implementation FTVideoDetailViewController
@@ -209,7 +210,7 @@
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask *_Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"vote status : %@", responseDic[@"status"]);
-        self.voteView.userInteractionEnabled = YES;
+//        self.voteView.userInteractionEnabled = YES;
         if ([responseDic[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
             int voteCount = [_newsBean.voteCount intValue];
             NSString *changeVoteCount = @"0";
@@ -229,7 +230,7 @@
         }
     } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         //failure
-        self.voteView.userInteractionEnabled = YES;
+//        self.voteView.userInteractionEnabled = YES;
         NSLog(@"vote failure ：%@", error);
     }];
     
@@ -267,12 +268,12 @@
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask *_Nonnull task, id  _Nonnull responseObject)  {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"收藏状态 status : %@, message : %@", responseDic[@"status"], responseDic[@"message"]);
-        self.favourateView.userInteractionEnabled = YES;
+//        self.favourateView.userInteractionEnabled = YES;
         if ([responseDic[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
         }
     } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         //failure
-        self.voteView.userInteractionEnabled = YES;
+//        self.voteView.userInteractionEnabled = YES;
         NSLog(@"收藏 failure ：%@", error);
     }];
     
@@ -320,18 +321,12 @@
 #pragma mark -  init view 
 
 - (void)initSubViews{
-    
-    [self setEvnetListenerOfBottomViews];
-    
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     
     //设置返回按钮
-    
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(popVC)];
     [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];//把左边的返回按钮左移
     self.navigationItem.leftBarButtonItem = leftButton;
-    
-
     
     //标题
     self.navigationController.navigationBar.tintColor = [UIColor colorWithHex:0x828287];
@@ -344,38 +339,25 @@
     //设置默认标题
     self.navigationItem.title = _detailType == FTDetailTypeNews ? @"拳讯" : @"视频";
     
-    //底部评论数的颜色
-    _bottomCommentLabel.textColor = [UIColor whiteColor];
+    [self initBottomView];
+}
+
+- (void)initBottomView{
+    _bottomView = [[[NSBundle mainBundle]loadNibNamed:@"FTWebViewDetailBottomView" owner:nil options:nil] firstObject];
+    _bottomView.frame = _bottomViewContainer.bounds;
+    [_bottomViewContainer addSubview:_bottomView];
+    _bottomView.delegate = self;
 }
 
 - (void)setRightButtonItemWithText:(NSString *)text{
     //右上角按钮
-    _commentButton = [[UIBarButtonItem alloc]initWithTitle:[NSString stringWithFormat:@"%@ 评论", text] style:UIBarButtonItemStylePlain target:self action:@selector(commentButtonClicked:)];
-    _commentButton.tintColor = [UIColor colorWithHex:0xb4b4b4];
-    self.navigationItem.rightBarButtonItem = _commentButton;
+    _rightTopButton = [[UIBarButtonItem alloc]initWithTitle:[NSString stringWithFormat:@"%@ 评论", text] style:UIBarButtonItemStylePlain target:self action:@selector(commentButtonClicked)];
+    _rightTopButton.tintColor = [UIColor colorWithHex:0xb4b4b4];
+    self.navigationItem.rightBarButtonItem = _rightTopButton;
 }
 - (void)updateBottomCommentCount{
     NSString *commentCount = [NSString stringWithFormat:@"%@", _newsBean.commentCount];
-    if([commentCount integerValue] > 999){//如果评论数大于999，只显示999+
-        commentCount = @"999+";
-    }
-    _bottomCommentLabel.text = commentCount;
-}
-- (void)setEvnetListenerOfBottomViews{
-    //设置点赞view的事件监听
-    
-    //收藏
-    UITapGestureRecognizer *tapOfFavourateView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(favourateButtonClicked:)];
-    [self.favourateView addGestureRecognizer:tapOfFavourateView];
-    self.favourateView.userInteractionEnabled = YES;
-    
-    //分享
-    UITapGestureRecognizer *tapOfShareView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(bottomShareButtonClicked)];
-    [self.shareView addGestureRecognizer:tapOfShareView];
-    
-    //评论
-    UITapGestureRecognizer *tapOfCommentView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(commentButtonClicked:)];
-    [self.commentView addGestureRecognizer:tapOfCommentView];
+    [_bottomView updateCommentCountWith:[commentCount integerValue]];
 }
 
 - (void)setWebView{
@@ -467,7 +449,7 @@
     [self shareButtonClicked];
 }
 
-- (void)shareButtonClicked{
+- (void)shareButtonClicked{//bottomView的分享回掉方法
     NSString  *webUrlString = [NSString stringWithFormat:@"%@?objId=%@", WebViewURL, _objId];
     
     FTShareView *shareView = [FTShareView new];
@@ -488,15 +470,6 @@
     
 }
 
-/**
- 取消分享按钮 事件
-
- @param sender
- */
-- (IBAction)cancelShareButtonClicked:(id)sender {
-    self.bgView.hidden = YES;
-}
-
 #pragma mark -
 
 /**
@@ -504,9 +477,8 @@
 
  @param sender
  */
-- (IBAction)commentButtonClicked:(id)sender {
+- (void)commentButtonClicked{
     [MobClick event:@"videoPage_DetailPage_Comment"];
-    
     //从本地读取存储的用户信息
     FTUserBean *localUser = [FTUserBean loginUser];
     if (!localUser) {
@@ -524,7 +496,8 @@
 
  @param sender
  */
-- (IBAction)thumbButtonClicked:(id)sender {
+
+- (void)likeButtonClicked{
     [MobClick event:@"videoPage_DetailPage_Zambia"];
     //从本地读取存储的用户信息
     FTUserBean *localUser = [FTUserBean loginUser];
@@ -533,11 +506,9 @@
     }else{
         self.hasVote = !self.hasVote;
         [self updateVoteImageView];
-        self.voteView.userInteractionEnabled = NO;
         [self uploadVoteStatusToServer];
     }
 }
-
 
 /**
  收藏按钮response action
@@ -553,31 +524,26 @@
     }else{
         self.hasStar = !self.hasStar;
         [self updateStarImageView];
-        self.favourateView.userInteractionEnabled = NO;
         [self uploadStarStatusToServer];
     }
 }
 
 - (void)updateVoteImageView{
-    if (self.hasVote) {
-        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"列表页-赞二态"] forState:UIControlStateNormal];
-        
-    }else{
-        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"文章详情页-底部-赞"] forState:UIControlStateNormal];
-    }
+    [_bottomView isLike:_hasVote];
 }
 
 - (void)updateStarImageView{
+    /*
+     这一块接口通了，但业务需求还没要求，留备用
+    */
     if (self.hasStar) {
-        [self.starButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-收藏pre"] forState:UIControlStateNormal];
-        
+//        [self.starButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-收藏pre"] forState:UIControlStateNormal];
+        NSLog(@"已经收藏");
     }else{
-        [self.starButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-收藏"] forState:UIControlStateNormal];
+//        [self.starButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-收藏"] forState:UIControlStateNormal];
+        NSLog(@"没有收藏");
     }
 }
-
-
-
 
 
 #pragma mark - webView delegate
