@@ -484,7 +484,8 @@
  @param block block
  */
 + (void)userWhetherFollowModule:(FTModuleBean *)moduleBean withBlock:(void (^)(NSDictionary *dic)) block;
-
+//获取单个帖子信息
++ (void)getBoxingBarPostById:(NSString *)postId andOption:(void (^)(NSDictionary  *dic))option;
 #pragma mark - 邀请码
 
 + (void) getInvitationCodeInfo:(NSString *)code option:(void (^)(NSDictionary *dic)) option;

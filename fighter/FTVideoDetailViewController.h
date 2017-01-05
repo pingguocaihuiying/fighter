@@ -45,6 +45,5 @@ typedef NS_ENUM(NSInteger, FTDetailType) {
 @property (nonatomic, strong) FTArenaBean *arenaBean;
 
 @property (nonatomic, strong)NSIndexPath *indexPath;
-//@property (nonatomic, strong)NSString *webUrlString;
 @property (nonatomic ,copy)NSString *objId;//有些界面没有bean，只有objId，则传objId。viewDidLoad后，检查bean，如果不存在，则拿objId去重新加载
 @end

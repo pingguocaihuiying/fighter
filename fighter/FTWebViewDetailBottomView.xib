@@ -19,7 +19,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="35"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YDa-lY-zDo" userLabel="分享">
-                            <rect key="frame" x="329" y="6.5" width="22" height="22"/>
+                            <rect key="frame" x="329" y="7" width="22" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="22" id="FhF-Ge-wNh"/>
                                 <constraint firstAttribute="height" constant="22" id="qxR-Eg-HuD"/>
@@ -32,7 +32,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yBp-Y0-N0M" userLabel="点赞">
-                            <rect key="frame" x="292" y="6.5" width="22" height="22"/>
+                            <rect key="frame" x="292" y="7" width="22" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="22" id="Uxj-5M-Nq5"/>
                                 <constraint firstAttribute="height" constant="22" id="xA7-5U-3iD"/>
@@ -44,7 +44,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vg1-Ke-Znf" userLabel="评论">
-                            <rect key="frame" x="255" y="6.5" width="22" height="22"/>
+                            <rect key="frame" x="255" y="7" width="22" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="22" id="CmW-R4-Uo1"/>
                                 <constraint firstAttribute="width" constant="22" id="wLv-A9-zEr"/>
@@ -56,7 +56,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lWl-7y-3DF">
-                            <rect key="frame" x="269" y="7.5" width="10" height="10"/>
+                            <rect key="frame" x="269" y="8" width="10" height="10"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="Zwt-38-yNy"/>
@@ -67,7 +67,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5lV-3t-ApB">
-                            <rect key="frame" x="15" y="6.5" width="216" height="22"/>
+                            <rect key="frame" x="15" y="7" width="216" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="22" id="a48-t0-7v1"/>
                             </constraints>
@@ -106,7 +106,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="commentCountLabel" destination="lWl-7y-3DF" id="3ga-EE-j7O"/>
-                <outlet property="likeButton" destination="yBp-Y0-N0M" id="T7o-aM-CDx"/>
+                <outlet property="likeButton" destination="yBp-Y0-N0M" id="S2K-Ry-JS7"/>
             </connections>
         </view>
     </objects>

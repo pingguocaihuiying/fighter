@@ -16,6 +16,7 @@
 
 @interface FTWebViewDetailBottomView : UIView
 @property (nonatomic, weak)id<FTWebViewDetailBottomViewDelegate> delegate;
+@property (strong, nonatomic) IBOutlet UIButton *likeButton;
 
 - (void)isLike:(BOOL)like;//更新点赞
 - (void)updateCommentCountWith:(NSInteger)commentCount;//更新评论数

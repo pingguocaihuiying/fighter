@@ -319,7 +319,7 @@ extern NSString *const FollowModuleURL;
 extern NSString *const UnFollowModuleURL;
 //详情页webView URL 地址
 extern NSString *const BoxingBarWebViewURLString;
-
+extern NSString * const GetBoxingBarPostByIdURL;
 /*
  * checkSign
  */

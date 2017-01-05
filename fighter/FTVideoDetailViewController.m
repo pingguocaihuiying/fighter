@@ -28,7 +28,7 @@
 }
 
 @property (nonatomic, strong) UIBarButtonItem *rightTopButton;
-@property (strong, nonatomic) IBOutlet UIView *bottomViewContainer;
+@property (strong, nonatomic) IBOutlet UIView *bottomViewContainer;//底部view的父view
 @property (nonatomic, strong) FTWebViewDetailBottomView *bottomView;//底部的view
 @end
 
@@ -40,7 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initSubViews];
-    [self checkNewsBean];//1.检查是否有传bean过来，如果没有，则根据objId去获取 2.如果bean存在，则把bean的id赋值给属性_objId，类中所有用到objId的，都用_objId
+    [self checkBean];//1.检查是否有传bean过来，如果没有，则根据objId去获取 2.如果bean存在，则把bean的id赋值给属性_objId，类中所有用到objId的，都用_objId
     
     [self setWebView];
     [self getVoteInfo];
@@ -67,27 +67,20 @@
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-
 #pragma mark -  abount server
 
-- (void)checkNewsBean{
+- (void)checkBean{
     if (_newsBean) {//如果bean存在，则赋值给_objId
         _objId = _newsBean.newsId;
-        
         //更新评论数
         [self updateCommentCount];
     }else{        //如果bean不存在，从服务器获取
         NSLog(@"没有newsbean或newsbean没有标题，正在从服务器获取...");
-        [self getNewsBeanFromServerById];
+        [self getBeanFromServerById];
     }
-    
 }
 
-- (void)getNewsBeanFromServerById{
+- (void)getBeanFromServerById{
     [NetWorking getNewsById:[NSString stringWithFormat:@"%@", _objId] andOption:^(NSArray *array) {
         FTNewsBean *newsBean = [FTNewsBean new];
         [newsBean setValuesWithDic:[array firstObject]];
@@ -417,7 +410,7 @@
     _newsBean.commentCount = [NSString stringWithFormat:@"%d", commentCount];
     [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
     //评论成功后，从服务器获取最新的数据（包括评论数）
-    [self getNewsBeanFromServerById];
+    [self getBeanFromServerById];
 }
 - (void)login{
     FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];

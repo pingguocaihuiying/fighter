@@ -544,6 +544,8 @@
             
         }
         postsDetailVC.arenaBean = bean;
+        
+
         postsDetailVC.delegate = self;
         postsDetailVC.indexPath = indexPath;
         

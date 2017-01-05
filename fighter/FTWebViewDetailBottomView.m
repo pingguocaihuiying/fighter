@@ -10,7 +10,6 @@
 
 @interface FTWebViewDetailBottomView()
 @property (strong, nonatomic) IBOutlet UILabel *commentCountLabel;
-@property (strong, nonatomic) IBOutlet UIButton *likeButton;
 @end
 
 @implementation FTWebViewDetailBottomView

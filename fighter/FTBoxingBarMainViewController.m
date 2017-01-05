@@ -241,8 +241,6 @@
         postsDetailVC.arenaBean = bean;
         postsDetailVC.delegate = self;
         postsDetailVC.indexPath = indexPath;
-        
-        
         [self.navigationController pushViewController:postsDetailVC animated:YES];
     }
 }
