@@ -242,8 +242,10 @@
 }
 
 - (void)popVC{
+    if ([_delegate respondsToSelector:@selector(updateCountWithArenaBean:indexPath:)]) {
+        [self.delegate updateCountWithArenaBean:_arenaBean indexPath:self.indexPath];
+    }
     
-    [self.delegate updateCountWithArenaBean:_arenaBean indexPath:self.indexPath];
     
     [self.navigationController popViewControllerAnimated:YES];
 }
