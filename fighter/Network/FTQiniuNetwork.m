@@ -44,7 +44,7 @@
     }
     
     
-        NSLog(@"getQiniuTokenUrlString : %@", getQiniuTokenUrlString);
+    NSLog(@"getQiniuTokenUrlString : %@", getQiniuTokenUrlString);
     
     [manager GET:getQiniuTokenUrlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];

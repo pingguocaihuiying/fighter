@@ -70,6 +70,7 @@
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -273,6 +274,43 @@
         FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
         homepageMainVC.olduserid = userId;
         [self.navigationController pushViewController:homepageMainVC animated:YES];
+    }else  if ([requestURL hasPrefix:@"js-call:goGym?corId="]) {
+        
+        NSString *corId = [requestURL stringByReplacingOccurrencesOfString:@"js-call:goGym?corId=" withString:@""];
+        NSDictionary *dic = @{@"type":@"gym",
+                              @"corporationid":corId
+                              };
+        [FTNotificationTools postTabBarIndex:2 dic:dic];
+    }else  if ([requestURL hasPrefix:@"js-call:goCoach?corId="]) {
+        
+        NSArray *array = [requestURL componentsSeparatedByString:@"&"];
+        NSString *corId = [array[0] stringByReplacingOccurrencesOfString:@"js-call:goCoach?corId=" withString:@""];
+        NSString *coachId = [array[1] stringByReplacingOccurrencesOfString:@"coachId=" withString:@""];
+        
+        NSDictionary *dic = @{@"type":@"coach",
+                              @"corporationid":corId,
+                              @"coachId":coachId
+                              };
+        [FTNotificationTools postTabBarIndex:2 dic:dic];
+    }else  if ([requestURL hasPrefix:@"js-call:goShop?"]) {
+        
+        NSArray *array = [requestURL componentsSeparatedByString:@"&"];
+        NSString *goodId = [array[0] stringByReplacingOccurrencesOfString:@"js-call:goShop?goodId=" withString:@""];
+        NSString *corporationId = [array[1] stringByReplacingOccurrencesOfString:@"corId=" withString:@""];
+        
+        if ([goodId isEqualToString:@"0"]) {
+            NSDictionary *dic = @{@"type":@"home",
+                                  @"goodId":goodId,
+                                  @"corporationid":corporationId
+                                  };
+            [FTNotificationTools postSwitchShopHomeNotiWithDic:dic];
+        }else {
+            NSDictionary *dic = @{@"type":@"detail",
+                                  @"goodId":goodId,
+                                  @"corporationid":corporationId
+                                  };
+            [FTNotificationTools postSwitchShopDetailControllerWithDic:dic];
+        }
     }
     return YES;
 }

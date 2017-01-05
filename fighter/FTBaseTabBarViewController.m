@@ -21,12 +21,15 @@
 #import "FTCoachSelfCourseViewController.h"
 #import "FTFightingViewController.h"
 #import "FTShopNewViewController.h"
+#import "FTMessagesViewController.h"
 
 @interface FTBaseTabBarViewController () <UITabBarControllerDelegate>
 
 @property (nonatomic, strong) UIButton *avatarButton;
 
 @property (nonatomic, strong) UIButton *taskButton;
+
+@property (nonatomic, strong) UIButton *messageButton;
 
 @property (nonatomic, strong) UIBarButtonItem *avatarButtonItem;
 
@@ -134,8 +137,8 @@
 //    self.transitioningDelegate = self;
     
     self.navigationItem.leftBarButtonItems  = [[NSArray alloc]initWithObjects:self.avatarButtonItem, nil];
-    
-    self.navigationItem.rightBarButtonItem = self.shopButtonItem;
+    self.navigationItem.rightBarButtonItems  = [[NSArray alloc]initWithObjects:self.messageButtonItem,self.shopButtonItem, nil];
+//    self.navigationItem.rightBarButtonItem = self.shopButtonItem;
     
     
     // title View
@@ -229,6 +232,23 @@
 }
 
 
+/**
+ message button
+ */
+- (UIButton *) messageButton {
+    
+    if (!_messageButton) {
+        
+        // 头部消息
+        _messageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _messageButton.frame = CGRectMake(0, 0, 24, 24);
+        [_messageButton addTarget:self action:@selector(taskBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_messageButton setImage:[UIImage imageNamed:@"消息盒子"] forState:UIControlStateNormal];
+        [_messageButton showMessageBadge];
+    }
+    return _messageButton;
+}
+
 
 /**
  message button item
@@ -237,14 +257,16 @@
     
     if (!_messageButtonItem) {
         
-        _messageButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-消息"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                                              style:UIBarButtonItemStyleDone
-                                                              target:self
-                                                              action:@selector(messageBtnAction:)];
+        // 头部任务按钮
+//        _messageButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"消息盒子"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+//                                                              style:UIBarButtonItemStyleDone
+//                                                              target:self
+//                                                              action:@selector(messageBtnAction:)];
+
+        _messageButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.messageButton];
     }
     
     return _messageButtonItem;
-    
 }
 
 
@@ -461,8 +483,10 @@
 // 消息按钮点击事件
 - (void)messageBtnAction:(id)sender {
     
+    FTMessagesViewController *messageVC = [[FTMessagesViewController alloc] init];
+    [self.navigationController pushViewController:messageVC animated:YES];
+    
     NSLog(@"message button clicked");
-
 }
 
 // 任务按钮点击事件, 暂时注销
