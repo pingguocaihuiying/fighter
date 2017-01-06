@@ -257,7 +257,7 @@
     if (!localUser) {
         [self login];
     }else{
-        [self pushToCommentVCWithUserId:nil andUserName:nil];
+        [self pushToCommentVCWithObject:nil];
     }
 }
 
@@ -537,13 +537,21 @@
     }
 }
 
-- (void)pushToCommentVCWithUserId:(NSString *)userId andUserName:(NSString *)userName{
+- (void)pushToCommentVCWithObject:(id)object{
     
     FTCommentViewController *commentVC = [ FTCommentViewController new];
     commentVC.delegate = self;
-    commentVC.arenaBean = self.arenaBean;
-    commentVC.userName = userName;
-    commentVC.userId = userId;
+    FTNewsBean *newsBean = [FTNewsBean new];
+    newsBean.newsId = _objId;
+    commentVC.newsBean = newsBean;
+    
+    if (object) {
+        NSDictionary *paramDic = object;
+        commentVC.userId = paramDic[@"userId"];
+        commentVC.userName = paramDic[@"userName"];;
+        commentVC.parentCommentId = paramDic[@"parentId"];;        
+    }
+    
     [self.navigationController pushViewController:commentVC animated:YES];
 }
 

@@ -91,7 +91,6 @@
 }
 - (void)popVC{
     if ([self.delegate respondsToSelector:@selector(updateCountWithVideoBean: indexPath:)] ){
-        
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -146,12 +145,15 @@
         NSLog(@"error : 没有找到bean");
     }
     
+    //二次评论增加的
+    if (!_parentCommentId) {
+        _parentCommentId = @"";
+    }
     
-    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@",comment, loginToken, objId, tableName, ts, userId, @"gedoujia12555521254"];
+    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@",comment, loginToken, objId, _parentCommentId, tableName, ts, userId, @"gedoujia12555521254"];
     
     checkSign = [MD5 md5:checkSign];
     comment = [comment stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&comment=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, comment, tableName];
     NSLog(@"评论url：%@", urlString);
     
     //创建AAFNetWorKing管理者
@@ -166,7 +168,8 @@
                           @"ts" : ts,
                           @"checkSign" : checkSign,
                           @"comment" : comment,
-                          @"tableName" : tableName
+                          @"tableName" : tableName,
+                          @"parentId" : _parentCommentId
                           };
     
     [manager POST:urlString parameters:dic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {

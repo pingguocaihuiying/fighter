@@ -65,14 +65,15 @@
                                   };
             [FTNotificationTools postSwitchShopDetailControllerWithDic:dic];
         }
-    }else  if ([requestURL hasPrefix:@"js-call:reComment="]) {//评论评论
+    }else  if ([requestURL hasPrefix:@"js-call:reComment="]) {//对评论进行评论
         NSArray *array = [requestURL componentsSeparatedByString:@"&"];
         NSString *userId = [array[1] stringByReplacingOccurrencesOfString:@"userId=" withString:@""];
         NSString *userName = [array[2] stringByReplacingOccurrencesOfString:@"userName=" withString:@""];
-        NSString *parentId = [array[3] stringByReplacingOccurrencesOfString:@"parentId=" withString:@""];//留着扩展用
+        NSString *parentId = [array[3] stringByReplacingOccurrencesOfString:@"parentId=" withString:@""];
+        NSDictionary *paramDic = @{@"userId":userId, @"userName":userName, @"parentId":parentId};
         NSLog(@"userId:%@,userName:%@, parentId:%@", userId, userName, parentId);
-        if ([viewController respondsToSelector:@selector(pushToCommentVCWithUserId:andUserName:)]) {
-            [viewController performSelector:@selector(pushToCommentVCWithUserId:andUserName:) withObject:userId withObject:userName];
+        if ([viewController respondsToSelector:@selector(pushToCommentVCWithObject:)]) {
+            [viewController performSelector:@selector(pushToCommentVCWithObject:) withObject:paramDic];
         }
     }
 
