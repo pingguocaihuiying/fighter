@@ -18,24 +18,20 @@
 #import "FTPhotoPickerView.h"
 #import "FTShareView.h"
 #import "FTHomepageMainViewController.h"
+#import "FTWebViewRequestURLManager.h"//webView请求处理
+#import "FTWebViewDetailBottomView.h"//底部view
 
-@interface FTArenaPostsDetailViewController ()<UIWebViewDelegate, CommentSuccessDelegate>
+@interface FTArenaPostsDetailViewController ()<UIWebViewDelegate, CommentSuccessDelegate, FTWebViewDetailBottomViewDelegate>
 {
     UIWebView *_webView;
     UIImageView *_loadingImageView;
     UIImageView *_loadingBgImageView;
 }
-@property (nonatomic, strong) IBOutlet UIView *bgView;
-@property (weak, nonatomic) IBOutlet UIButton *thumbsUpButton;
-@property (weak, nonatomic) IBOutlet UILabel *commentLabel;
-@property (weak, nonatomic) IBOutlet UIView *favourateView;
-@property (weak, nonatomic) IBOutlet UIView *shareView;
-@property (weak, nonatomic) IBOutlet UIView *commentView;
-@property (weak, nonatomic) IBOutlet UIView *voteView;
-@property (weak, nonatomic) IBOutlet UIButton *starButton;
+
 @property (nonatomic, assign)BOOL hasVote;
 @property (nonatomic, assign)BOOL hasStar;
-
+@property (strong, nonatomic) IBOutlet UIView *bottomViewContainer;
+@property (nonatomic, strong) FTWebViewDetailBottomView *bottomView;//底部的view
 @end
 
 @implementation FTArenaPostsDetailViewController
@@ -44,18 +40,15 @@
     [super viewDidLoad];
     
     [self setSubViews];
-    [self setWebView];
     [self getVoteInfo];
-    [self getStarInfo];
+//    [self getStarInfo];//暂时没有收藏的需求
     [self setLoadingImageView];
     [self addViewCount];
+    [self checkBean];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    
     self.navigationController.navigationBarHidden = NO;
-    //    self.navigationController.tabBarController.tabBar.hidden = YES;
-    
     //注册通知，接收登录成功的消息
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginCallBack:) name:LoginNoti object:nil];
     
@@ -64,6 +57,34 @@
 - (void)viewWillDisappear:(BOOL)animated{
     //销毁通知
     [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+- (void)checkBean{
+    if (_arenaBean) {//如果bean存在，则赋值给_objId
+        _objId = _arenaBean.postsId;
+        //更新评论数
+        [self updateCommentCount];
+        [self setWebView];
+    }else{        //如果bean不存在，从服务器获取
+        NSLog(@"没有newsbean或newsbean没有标题，正在从服务器获取...");
+        [self getBeanFromServerById];
+    }
+}
+
+- (void)getBeanFromServerById{
+    [NetWorking getBoxingBarPostById:[NSString stringWithFormat:@"%@", _objId] andOption:^(NSDictionary *dic) {
+        FTArenaBean *bean = [FTArenaBean new];
+        [bean setValuesWithDic:dic];
+        _arenaBean = bean;
+        
+        //更新评论数
+        [self updateCommentCount];
+        [self setWebView];
+    }];
+}
+
+- (void)updateCommentCount{
+    [_bottomView updateCommentCountWith:[_arenaBean.commentCount integerValue]];
 }
 
 - (void)getVoteInfo{
@@ -141,13 +162,7 @@
 }
 
 - (void)setSubViews{
-    //给“我要评论”label增加监听事件
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(commentButtonClicked:)];
-    [self.commentLabel addGestureRecognizer:tap];
-    self.commentLabel.userInteractionEnabled = YES;
-    
-    [self setEvnetListenerOfBottomViews];
-    
+    [self initBottomView];
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     
     //设置返回按钮
@@ -181,24 +196,11 @@
     self.navigationItem.title = @"格斗场";
 }
 
-- (void)setEvnetListenerOfBottomViews{
-    //设置点赞view的事件监听
-    UITapGestureRecognizer *tapOfVoteView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(thumbButtonClicked:)];
-    [self.voteView addGestureRecognizer:tapOfVoteView];
-    self.voteView.userInteractionEnabled = YES;
-    
-    //收藏
-    UITapGestureRecognizer *tapOfFavourateView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(favourateButtonClicked:)];
-    [self.favourateView addGestureRecognizer:tapOfFavourateView];
-    self.favourateView.userInteractionEnabled = YES;
-    
-    //分享
-    UITapGestureRecognizer *tapOfShareView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(bottomShareButtonClicked)];
-    [self.shareView addGestureRecognizer:tapOfShareView];
-    
-    //评论
-    UITapGestureRecognizer *tapOfCommentView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(commentButtonClicked:)];
-    [self.commentView addGestureRecognizer:tapOfCommentView];
+- (void)initBottomView{
+    _bottomView = [[[NSBundle mainBundle]loadNibNamed:@"FTWebViewDetailBottomView" owner:nil options:nil] firstObject];
+    _bottomView.frame = _bottomViewContainer.bounds;
+    [_bottomViewContainer addSubview:_bottomView];
+    _bottomView.delegate = self;
 }
 
 - (void)setWebView{
@@ -240,33 +242,23 @@
 }
 
 - (void)popVC{
+    if ([_delegate respondsToSelector:@selector(updateCountWithArenaBean:indexPath:)]) {
+        [self.delegate updateCountWithArenaBean:_arenaBean indexPath:self.indexPath];
+    }
     
-    [self.delegate updateCountWithArenaBean:_arenaBean indexPath:self.indexPath];
     
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)commentButtonClicked:(id)sender {
+- (void)commentButtonClicked {
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
     if (!localUser) {
         [self login];
-        //        NSLog(@"微信登录");
-        //        if ([WXApi isWXAppInstalled] ) {
-        //            SendAuthReq *req = [[SendAuthReq alloc] init];
-        //            req.scope = @"snsapi_userinfo";
-        //            req.state = @"fighter";
-        //            [WXApi sendReq:req];
-        //
-        //        }else{
-        //            NSLog(@"目前只支持微信登录，请安装微信");
-        //            [self showHUDWithMessage:@"目前只支持微信登录，请安装微信"];
-        //        }
     }else{
-        [self pushToCommentVC];
+        [self pushToCommentVCWithObject:nil];
     }
-    
 }
 
 #pragma -mark 分享事件
@@ -380,10 +372,7 @@
 }
 
 #pragma -mark 点赞按钮被点击
-
-
-- (IBAction)thumbButtonClicked:(id)sender {
-    
+- (void)likeButtonClicked{
     [MobClick event:@"videoPage_DetailPage_Zambia"];
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
@@ -393,13 +382,12 @@
     }else{
         self.hasVote = !self.hasVote;
         [self updateVoteImageView];
-        self.voteView.userInteractionEnabled = NO;
+//        self.voteView.userInteractionEnabled = NO;
         [self uploadVoteStatusToServer];
     }
 }
-
 #pragma -mark 收藏按钮被点击
-
+    //功能已经完成，暂无需求
 - (IBAction)favourateButtonClicked:(id)sender {
     [MobClick event:@"videoPage_DetailPage_Collection"];
     //从本地读取存储的用户信息
@@ -410,26 +398,20 @@
     }else{
         self.hasStar = !self.hasStar;
         [self updateStarImageView];
-        self.favourateView.userInteractionEnabled = NO;
+//        self.favourateView.userInteractionEnabled = NO;
         [self uploadStarStatusToServer];
     }
 }
 
 - (void)updateVoteImageView{
-    if (self.hasVote) {
-        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-赞pre"] forState:UIControlStateNormal];
-        
-    }else{
-        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-赞"] forState:UIControlStateNormal];
-    }
+    [_bottomView isLike:_hasVote];
 }
 
 - (void)updateStarImageView{
     if (self.hasStar) {
-        [self.starButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-收藏pre"] forState:UIControlStateNormal];
-        
+        NSLog(@"已经收藏");
     }else{
-        [self.starButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-收藏"] forState:UIControlStateNormal];
+        NSLog(@"没有收藏");
     }
 }
 
@@ -461,7 +443,6 @@
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"vote status : %@", responseDic[@"status"]);
-        self.voteView.userInteractionEnabled = YES;
         if ([responseDic[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
             int voteCount = [_arenaBean.voteCount intValue];
             NSString *changeVoteCount = @"0";
@@ -481,7 +462,7 @@
         }
     } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         //failure
-        self.voteView.userInteractionEnabled = YES;
+        _bottomView.likeButton.enabled = YES;
         NSLog(@"vote failure ：%@", error);
     }];
 }
@@ -520,34 +501,20 @@
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"收藏状态 status : %@, message : %@", responseDic[@"status"], responseDic[@"message"]);
-        self.favourateView.userInteractionEnabled = YES;
         if ([responseDic[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
         }
     } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         //failure
-        self.voteView.userInteractionEnabled = YES;
+        _bottomView.likeButton.enabled = YES;
         NSLog(@"收藏 failure ：%@", error);
     }];
     
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    NSString *requestURL = [NSString stringWithFormat:@"%@", request.URL];
-        NSLog(@"requestURL : %@", requestURL);
-    if ([requestURL isEqualToString:@"js-call:onload"]) {
-        [self disableLoadingAnimation];
-    }else     if ([requestURL hasPrefix:@"js-call:userId="]) {
-        NSString *userId = [requestURL stringByReplacingOccurrencesOfString:@"js-call:userId=" withString:@""];
-        //        NSLog(@"userId : %@", userId);
-        FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
-        homepageMainVC.olduserid = userId;
-        
-        [self.navigationController pushViewController:homepageMainVC animated:YES];
-    }
+    [FTWebViewRequestURLManager managerURLRequest:request withViewController:self];
     return YES;
 }
-
-
 
 - (NSString *)encodeToPercentEscapeString: (NSString *) input
 {
@@ -560,7 +527,6 @@
     return outputStr;
 }
 
-
 - (void) loginCallBack:(NSNotification *)noti{
     
     NSDictionary *userInfo = noti.userInfo;
@@ -571,24 +537,34 @@
     }
 }
 
-- (void)pushToCommentVC{
+- (void)pushToCommentVCWithObject:(id)object{
     
     FTCommentViewController *commentVC = [ FTCommentViewController new];
     commentVC.delegate = self;
-    commentVC.arenaBean = self.arenaBean;
+    FTNewsBean *newsBean = [FTNewsBean new];
+    newsBean.newsId = _objId;
+    commentVC.newsBean = newsBean;
+    
+    if (object) {
+        NSDictionary *paramDic = object;
+        commentVC.userId = paramDic[@"userId"];
+        commentVC.userName = paramDic[@"userName"];;
+        commentVC.parentCommentId = paramDic[@"parentId"];;        
+    }
+    
     [self.navigationController pushViewController:commentVC animated:YES];
 }
 
 - (void)commentSuccess{
     int commentCount = [_arenaBean.commentCount intValue];
     commentCount++;
-//    NSString *jsMethodString = [NSString stringWithFormat:@"updateComment(%d)", commentCount];
     //评论成功后，参数传1
-        NSString *jsMethodString = [NSString stringWithFormat:@"updateComment(1)"];
+    NSString *jsMethodString = [NSString stringWithFormat:@"updateComment(1)"];
+    [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
     NSLog(@"js method : %@", jsMethodString);
     _arenaBean.commentCount = [NSString stringWithFormat:@"%d", commentCount];
+    [self updateCommentCount];
     
-    [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
 }
 /**
  *  增加视频的播放数

@@ -8,7 +8,6 @@
 
 #import "FTVideoDetailViewController.h"
 #import "FTCommentViewController.h"
-//#import "UMSocial.h"
 #import "WXApi.h"
 #import "FTUserBean.h"
 #import "MBProgressHUD.h"
@@ -18,17 +17,19 @@
 #import "FTPhotoPickerView.h"
 #import "FTShareView.h"
 #import "FTHomepageMainViewController.h"
+#import "FTWebViewRequestURLManager.h"//webView请求的通用处理类
+#import "FTWebViewDetailBottomView.h"
 
-@interface FTVideoDetailViewController ()<UIWebViewDelegate, CommentSuccessDelegate>
+@interface FTVideoDetailViewController ()<UIWebViewDelegate, CommentSuccessDelegate, FTWebViewDetailBottomViewDelegate>
 {
     UIWebView *_webView;
     UIImageView *_loadingImageView;
     UIImageView *_loadingBgImageView;
 }
 
-@property (nonatomic, strong) UIBarButtonItem *commentButton;
-@property (strong, nonatomic) IBOutlet UILabel *bottomCommentLabel;
-
+@property (nonatomic, strong) UIBarButtonItem *rightTopButton;
+@property (strong, nonatomic) IBOutlet UIView *bottomViewContainer;//底部view的父view
+@property (nonatomic, strong) FTWebViewDetailBottomView *bottomView;//底部的view
 @end
 
 @implementation FTVideoDetailViewController
@@ -39,7 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initSubViews];
-    [self checkNewsBean];//1.检查是否有传bean过来，如果没有，则根据objId去获取 2.如果bean存在，则把bean的id赋值给属性_objId，类中所有用到objId的，都用_objId
+    [self checkBean];//1.检查是否有传bean过来，如果没有，则根据objId去获取 2.如果bean存在，则把bean的id赋值给属性_objId，类中所有用到objId的，都用_objId
     
     [self setWebView];
     [self getVoteInfo];
@@ -66,27 +67,20 @@
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-
 #pragma mark -  abount server
 
-- (void)checkNewsBean{
+- (void)checkBean{
     if (_newsBean) {//如果bean存在，则赋值给_objId
         _objId = _newsBean.newsId;
-        
         //更新评论数
         [self updateCommentCount];
     }else{        //如果bean不存在，从服务器获取
         NSLog(@"没有newsbean或newsbean没有标题，正在从服务器获取...");
-        [self getNewsBeanFromServerById];
+        [self getBeanFromServerById];
     }
-    
 }
 
-- (void)getNewsBeanFromServerById{
+- (void)getBeanFromServerById{
     [NetWorking getNewsById:[NSString stringWithFormat:@"%@", _objId] andOption:^(NSArray *array) {
         FTNewsBean *newsBean = [FTNewsBean new];
         [newsBean setValuesWithDic:[array firstObject]];
@@ -209,7 +203,7 @@
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask *_Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"vote status : %@", responseDic[@"status"]);
-        self.voteView.userInteractionEnabled = YES;
+//        self.voteView.userInteractionEnabled = YES;
         if ([responseDic[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
             int voteCount = [_newsBean.voteCount intValue];
             NSString *changeVoteCount = @"0";
@@ -229,7 +223,7 @@
         }
     } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         //failure
-        self.voteView.userInteractionEnabled = YES;
+//        self.voteView.userInteractionEnabled = YES;
         NSLog(@"vote failure ：%@", error);
     }];
     
@@ -267,12 +261,12 @@
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask *_Nonnull task, id  _Nonnull responseObject)  {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSLog(@"收藏状态 status : %@, message : %@", responseDic[@"status"], responseDic[@"message"]);
-        self.favourateView.userInteractionEnabled = YES;
+//        self.favourateView.userInteractionEnabled = YES;
         if ([responseDic[@"status"] isEqualToString:@"success"]) {//如果点赞信息更新成功后，处理本地的赞数，并更新webview
         }
     } failure:^(NSURLSessionTask * _Nonnull task, NSError * _Nonnull error) {
         //failure
-        self.voteView.userInteractionEnabled = YES;
+//        self.voteView.userInteractionEnabled = YES;
         NSLog(@"收藏 failure ：%@", error);
     }];
     
@@ -320,18 +314,12 @@
 #pragma mark -  init view 
 
 - (void)initSubViews{
-    
-    [self setEvnetListenerOfBottomViews];
-    
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     
     //设置返回按钮
-    
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(popVC)];
     [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];//把左边的返回按钮左移
     self.navigationItem.leftBarButtonItem = leftButton;
-    
-
     
     //标题
     self.navigationController.navigationBar.tintColor = [UIColor colorWithHex:0x828287];
@@ -344,38 +332,25 @@
     //设置默认标题
     self.navigationItem.title = _detailType == FTDetailTypeNews ? @"拳讯" : @"视频";
     
-    //底部评论数的颜色
-    _bottomCommentLabel.textColor = [UIColor whiteColor];
+    [self initBottomView];
+}
+
+- (void)initBottomView{
+    _bottomView = [[[NSBundle mainBundle]loadNibNamed:@"FTWebViewDetailBottomView" owner:nil options:nil] firstObject];
+    _bottomView.frame = _bottomViewContainer.bounds;
+    [_bottomViewContainer addSubview:_bottomView];
+    _bottomView.delegate = self;
 }
 
 - (void)setRightButtonItemWithText:(NSString *)text{
     //右上角按钮
-    _commentButton = [[UIBarButtonItem alloc]initWithTitle:[NSString stringWithFormat:@"%@ 评论", text] style:UIBarButtonItemStylePlain target:self action:@selector(commentButtonClicked:)];
-    _commentButton.tintColor = [UIColor colorWithHex:0xb4b4b4];
-    self.navigationItem.rightBarButtonItem = _commentButton;
+    _rightTopButton = [[UIBarButtonItem alloc]initWithTitle:[NSString stringWithFormat:@"%@ 评论", text] style:UIBarButtonItemStylePlain target:self action:@selector(commentButtonClicked)];
+    _rightTopButton.tintColor = [UIColor colorWithHex:0xb4b4b4];
+    self.navigationItem.rightBarButtonItem = _rightTopButton;
 }
 - (void)updateBottomCommentCount{
     NSString *commentCount = [NSString stringWithFormat:@"%@", _newsBean.commentCount];
-    if([commentCount integerValue] > 999){//如果评论数大于999，只显示999+
-        commentCount = @"999+";
-    }
-    _bottomCommentLabel.text = commentCount;
-}
-- (void)setEvnetListenerOfBottomViews{
-    //设置点赞view的事件监听
-    
-    //收藏
-    UITapGestureRecognizer *tapOfFavourateView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(favourateButtonClicked:)];
-    [self.favourateView addGestureRecognizer:tapOfFavourateView];
-    self.favourateView.userInteractionEnabled = YES;
-    
-    //分享
-    UITapGestureRecognizer *tapOfShareView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(bottomShareButtonClicked)];
-    [self.shareView addGestureRecognizer:tapOfShareView];
-    
-    //评论
-    UITapGestureRecognizer *tapOfCommentView = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(commentButtonClicked:)];
-    [self.commentView addGestureRecognizer:tapOfCommentView];
+    [_bottomView updateCommentCountWith:[commentCount integerValue]];
 }
 
 - (void)setWebView{
@@ -414,18 +389,21 @@
     }
 }
 
-- (void)pushToCommentVC{
-    
+- (void)pushToCommentVCWithObject:(id)object{
     FTCommentViewController *commentVC = [ FTCommentViewController new];
     commentVC.delegate = self;
     FTNewsBean *newsBean = [FTNewsBean new];
     newsBean.newsId = _objId;
     commentVC.newsBean = newsBean;
-    
+    if (object) {
+        NSDictionary *paramDic = object;
+        commentVC.userId = paramDic[@"userId"];
+        commentVC.userName = paramDic[@"userName"];;
+        commentVC.parentCommentId = paramDic[@"parentId"];;
+    }
     
     [self.navigationController pushViewController:commentVC animated:YES];
 }
-
 - (void)commentSuccess{
     int commentCount = [_newsBean.commentCount intValue];
     commentCount++;
@@ -433,14 +411,9 @@
     NSLog(@"js method : %@", jsMethodString);
     _newsBean.commentCount = [NSString stringWithFormat:@"%d", commentCount];
     [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
-    
     //评论成功后，从服务器获取最新的数据（包括评论数）
-    [self getNewsBeanFromServerById];
+    [self getBeanFromServerById];
 }
-
-
-
-
 - (void)login{
     FTLoginViewController *loginVC = [[FTLoginViewController alloc]init];
     loginVC.title = @"登录";
@@ -471,7 +444,7 @@
     [self shareButtonClicked];
 }
 
-- (void)shareButtonClicked{
+- (void)shareButtonClicked{//bottomView的分享回掉方法
     NSString  *webUrlString = [NSString stringWithFormat:@"%@?objId=%@", WebViewURL, _objId];
     
     FTShareView *shareView = [FTShareView new];
@@ -492,19 +465,6 @@
     
 }
 
-
-
-
-
-/**
- 取消分享按钮 事件
-
- @param sender
- */
-- (IBAction)cancelShareButtonClicked:(id)sender {
-    self.bgView.hidden = YES;
-}
-
 #pragma mark -
 
 /**
@@ -512,17 +472,15 @@
 
  @param sender
  */
-- (IBAction)commentButtonClicked:(id)sender {
+- (void)commentButtonClicked{
     [MobClick event:@"videoPage_DetailPage_Comment"];
-    
     //从本地读取存储的用户信息
     FTUserBean *localUser = [FTUserBean loginUser];
     if (!localUser) {
         [self login];
     }else{
-        [self pushToCommentVC];
+        [self pushToCommentVCWithObject:nil];
     }
-    
 }
 
 
@@ -532,7 +490,8 @@
 
  @param sender
  */
-- (IBAction)thumbButtonClicked:(id)sender {
+
+- (void)likeButtonClicked{
     [MobClick event:@"videoPage_DetailPage_Zambia"];
     //从本地读取存储的用户信息
     FTUserBean *localUser = [FTUserBean loginUser];
@@ -541,11 +500,9 @@
     }else{
         self.hasVote = !self.hasVote;
         [self updateVoteImageView];
-        self.voteView.userInteractionEnabled = NO;
         [self uploadVoteStatusToServer];
     }
 }
-
 
 /**
  收藏按钮response action
@@ -561,31 +518,26 @@
     }else{
         self.hasStar = !self.hasStar;
         [self updateStarImageView];
-        self.favourateView.userInteractionEnabled = NO;
         [self uploadStarStatusToServer];
     }
 }
 
 - (void)updateVoteImageView{
-    if (self.hasVote) {
-        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"列表页-赞二态"] forState:UIControlStateNormal];
-        
-    }else{
-        [self.thumbsUpButton setBackgroundImage:[UIImage imageNamed:@"文章详情页-底部-赞"] forState:UIControlStateNormal];
-    }
+    [_bottomView isLike:_hasVote];
 }
 
 - (void)updateStarImageView{
+    /*
+     这一块接口通了，但业务需求还没要求，留备用
+    */
     if (self.hasStar) {
-        [self.starButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-收藏pre"] forState:UIControlStateNormal];
-        
+//        [self.starButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-收藏pre"] forState:UIControlStateNormal];
+        NSLog(@"已经收藏");
     }else{
-        [self.starButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-收藏"] forState:UIControlStateNormal];
+//        [self.starButton setBackgroundImage:[UIImage imageNamed:@"详情页底部按钮一堆-收藏"] forState:UIControlStateNormal];
+        NSLog(@"没有收藏");
     }
 }
-
-
-
 
 
 #pragma mark - webView delegate
@@ -600,60 +552,7 @@
 
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    
-    NSString *requestURL = [NSString stringWithFormat:@"%@", request.URL];
-        NSLog(@"requestURL : %@", requestURL);
-    
-   if ([requestURL isEqualToString:@"js-call:onload"]) {
-        
-        [self disableLoadingAnimation];
-    }else if ([requestURL hasPrefix:@"js-call:userId="]) {
-        
-        NSString *userId = [requestURL stringByReplacingOccurrencesOfString:@"js-call:userId=" withString:@""];
-        //        NSLog(@"userId : %@", userId);
-        FTHomepageMainViewController *homepageMainVC = [FTHomepageMainViewController new];
-        homepageMainVC.olduserid = userId;
-        [self.navigationController pushViewController:homepageMainVC animated:YES];
-        
-    }else  if ([requestURL hasPrefix:@"js-call:goGym?corId="]) {
-        
-        NSString *corId = [requestURL stringByReplacingOccurrencesOfString:@"js-call:goGym?corId=" withString:@""];
-        NSDictionary *dic = @{@"type":@"gym",
-                              @"corporationid":corId
-                              };
-        [FTNotificationTools postTabBarIndex:2 dic:dic];
-    }else  if ([requestURL hasPrefix:@"js-call:goCoach?corId="]) {
-        
-        NSArray *array = [requestURL componentsSeparatedByString:@"&"];
-        NSString *corId = [array[0] stringByReplacingOccurrencesOfString:@"js-call:goCoach?corId=" withString:@""];
-        NSString *coachId = [array[1] stringByReplacingOccurrencesOfString:@"coachId=" withString:@""];
-        
-        NSDictionary *dic = @{@"type":@"coach",
-                              @"corporationid":corId,
-                              @"coachId":coachId
-                              };
-        [FTNotificationTools postTabBarIndex:2 dic:dic];
-    }else  if ([requestURL hasPrefix:@"js-call:goShop?"]) {
-        
-        NSArray *array = [requestURL componentsSeparatedByString:@"&"];
-        NSString *goodId = [array[0] stringByReplacingOccurrencesOfString:@"js-call:goShop?goodId=" withString:@""];
-        NSString *corporationId = [array[1] stringByReplacingOccurrencesOfString:@"corId=" withString:@""];
-        
-        if ([goodId isEqualToString:@"0"]) {
-            NSDictionary *dic = @{@"type":@"home",
-                                  @"goodId":goodId,
-                                  @"corporationid":corporationId
-                                  };
-            [FTNotificationTools postSwitchShopHomeNotiWithDic:dic];
-        }else {
-            NSDictionary *dic = @{@"type":@"detail",
-                                  @"goodId":goodId,
-                                  @"corporationid":corporationId
-                                  };
-            [FTNotificationTools postSwitchShopDetailControllerWithDic:dic];
-        }
-    }
-    
+    [FTWebViewRequestURLManager managerURLRequest:request withViewController:self];
     return YES;
 }
 

@@ -2579,6 +2579,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     [self postRequestWithUrl:url parameters:paramDic option:option];
 }
 
+//用户（取消）关注某版块
 + (void)changeModuleFollowStatusWithModuleBean:(FTModuleBean *)moduleBean andBlock:(void (^)(NSDictionary *))block andIsFollow:(BOOL)isFollow  andFollowId:(NSString *)followId{
     NSMutableDictionary *paramDic = [NSMutableDictionary new];
     NSString *url = [FTNetConfig host:Domain path:isFollow ? FollowModuleURL : UnFollowModuleURL];
@@ -2601,6 +2602,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     [self postRequestWithUrl:url parameters:paramDic option:block];
 }
 
+//获取用户是否关注某版块
 + (void)userWhetherFollowModule:(FTModuleBean *)moduleBean withBlock:(void (^)(NSDictionary *dic)) block{
     NSMutableDictionary *paramDic = [NSMutableDictionary new];
     NSString *url = [FTNetConfig host:Domain path:UserWhetherFollowModuleURL];
@@ -2610,6 +2612,23 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     }
     [paramDic setValue:[NSString stringWithFormat:@"%ld", moduleBean.id] forKey:@"plateId"];
     [self postRequestWithUrl:url parameters:paramDic option:block];
+}
+//获取单个帖子信息
++ (void)getBoxingBarPostById:(NSString *)postId andOption:(void (^)(NSDictionary  *dic))option{
+    NSString *urlString = [FTNetConfig host:Domain path:GetBoxingBarPostByIdURL];
+    urlString = [NSString stringWithFormat:@"%@%@.do", urlString, postId];
+    AFHTTPSessionManager *manager = [self getAFHTTPSessionManager];
+    NSLog(@"get post by id urlString : %@", urlString);
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+        NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"message : %@", responseDic[@"message"]);
+        NSDictionary *dic = responseDic[@"data"];
+        if (dic && dic != (id)[NSNull null]) {
+            option(dic);
+        }
+    } failure:^(NSURLSessionTask * _Nullable task, NSError * _Nonnull error) {
+        option(nil);
+    }];
 }
 
 #pragma mark - 邀请码

@@ -12,13 +12,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTGymDetailWebViewController">
             <connections>
+                <outlet property="addressButton" destination="Ga3-xT-tkP" id="cVQ-UD-VWU"/>
                 <outlet property="addressSeperatorView" destination="cqx-Nu-UFK" id="jz3-nt-qkj"/>
                 <outlet property="collectionContainerViewHeight" destination="ScA-LL-Y6k" id="yEt-fB-VaG"/>
                 <outlet property="collectionView" destination="frn-jt-43p" id="jdF-mM-kcl"/>
                 <outlet property="collectionViewPaddingLeft" destination="e34-IC-c8z" id="gXf-lf-y1B"/>
                 <outlet property="collectionViewPaddingRight" destination="jYv-86-8Vf" id="rAg-PE-vQn"/>
                 <outlet property="commentCountLabel" destination="5Hh-jo-dcd" id="BMN-lL-Cly"/>
-                <outlet property="gymAdressLabel" destination="KcQ-bT-zHM" id="tMC-bZ-4GV"/>
+                <outlet property="gymAddressLabel" destination="KcQ-bT-zHM" id="XGP-NA-xr4"/>
                 <outlet property="gymShowImageView" destination="TEO-cZ-MR7" id="PLc-cD-5Vi"/>
                 <outlet property="gymSourceViewContainerView" destination="3on-4R-rDq" id="pLV-kz-zQe"/>
                 <outlet property="haveVideoButton" destination="wXL-Dy-ssq" id="5jl-1w-6sp"/>
@@ -386,7 +387,7 @@
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KcQ-bT-zHM">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KcQ-bT-zHM">
                                     <rect key="frame" x="67" y="16.5" width="241" height="0.0"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <color key="textColor" red="0.70588235290000001" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -406,7 +407,6 @@
                                         <constraint firstAttribute="width" constant="46" id="hT2-JG-ggM"/>
                                     </constraints>
                                     <inset key="imageEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" image="地点 (2)"/>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DOS-yX-5FD" userLabel="seperatorView6">
                                     <rect key="frame" x="0.0" y="32" width="375" height="1"/>
@@ -473,7 +473,6 @@
     <resources>
         <image name="上拉提示" width="280" height="75"/>
         <image name="右箭头" width="7" height="14"/>
-        <image name="地点 (2)" width="14" height="19"/>
         <image name="我的拳馆" width="73" height="73"/>
         <image name="火苗-红" width="21" height="25"/>
         <image name="详情用视频播放" width="60" height="60"/>

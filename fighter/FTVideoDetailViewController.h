@@ -29,6 +29,7 @@ typedef NS_ENUM(NSInteger, FTDetailType) {
 
 - (void)updateCountWithVideoBean:(FTNewsBean *)videoBean indexPath:(NSIndexPath *)indexPath;
 
+
 @end
 
 
@@ -38,19 +39,11 @@ typedef NS_ENUM(NSInteger, FTDetailType) {
 
 @property (nonatomic, weak)id<FTVideoDetailDelegate> delegate;
 @property (nonatomic ,copy)NSString *newsTitle;
-@property (nonatomic, strong) IBOutlet UIView *bgView;
-@property (weak, nonatomic) IBOutlet UIButton *thumbsUpButton;
 @property (nonatomic, assign)BOOL hasVote;
 @property (nonatomic, assign)BOOL hasStar;
 @property (nonatomic, strong)FTNewsBean *newsBean;
 @property (nonatomic, strong) FTArenaBean *arenaBean;
-@property (weak, nonatomic) IBOutlet UIView *favourateView;
-@property (weak, nonatomic) IBOutlet UIView *shareView;
-@property (weak, nonatomic) IBOutlet UIView *commentView;
-@property (weak, nonatomic) IBOutlet UIView *voteView;
-@property (weak, nonatomic) IBOutlet UIButton *starButton;
 
 @property (nonatomic, strong)NSIndexPath *indexPath;
-//@property (nonatomic, strong)NSString *webUrlString;
 @property (nonatomic ,copy)NSString *objId;//有些界面没有bean，只有objId，则传objId。viewDidLoad后，检查bean，如果不存在，则拿objId去重新加载
 @end

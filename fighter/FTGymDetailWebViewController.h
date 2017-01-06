@@ -27,7 +27,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *commentBtn; //评论按钮
 @property (weak, nonatomic) IBOutlet UIButton *shareBtn;// 分享按钮
 @property (weak, nonatomic) IBOutlet UIButton *dialBtn; // 点赞按钮
-@property (strong, nonatomic) IBOutlet UIButton *becomeVIPButton;
 
 
 @property (nonatomic, assign)BOOL hasVote;

@@ -30,5 +30,5 @@
 @property (nonatomic, copy) NSString *gym_tel;//拳馆电话
 @property (nonatomic, copy) NSString *gym_remark;//拳馆电话
 @property (nonatomic, assign) int openItem;//课程开关 0（默认）-都开启；1-只开团课；2-只开私课
-
+@property (nonatomic, assign) BOOL is_cooperate;//是否是合作拳馆
 @end

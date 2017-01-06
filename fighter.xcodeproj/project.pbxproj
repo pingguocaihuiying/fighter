@@ -341,6 +341,9 @@
 		E636B1AE1D2646840065C9C1 /* FTGymDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E636B1AC1D2646840065C9C1 /* FTGymDetailViewController.xib */; };
 		E636B1B31D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E636B1B11D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.m */; };
 		E636B1B41D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E636B1B21D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.xib */; };
+		E638811E1E1DCF8200732CFB /* FTWebViewRequestURLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E638811D1E1DCF8200732CFB /* FTWebViewRequestURLManager.m */; };
+		E63881231E1DE2E800732CFB /* FTWebViewDetailBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = E63881221E1DE2E800732CFB /* FTWebViewDetailBottomView.m */; };
+		E63881251E1DE2F700732CFB /* FTWebViewDetailBottomView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E63881241E1DE2F700732CFB /* FTWebViewDetailBottomView.xib */; };
 		E6433FEC1DCB3F8A0062EF70 /* FTPublicHistoryCourseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E6433FEA1DCB3F8A0062EF70 /* FTPublicHistoryCourseTableViewCell.m */; };
 		E6433FED1DCB3F8A0062EF70 /* FTPublicHistoryCourseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6433FEB1DCB3F8A0062EF70 /* FTPublicHistoryCourseTableViewCell.xib */; };
 		E644E77E1D0123F700F39E45 /* FTHomepageUserBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E644E77D1D0123F700F39E45 /* FTHomepageUserBean.m */; };
@@ -412,6 +415,10 @@
 		E68E6B661D655EAE00553F31 /* FTMatchPreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68E6B651D655EAE00553F31 /* FTMatchPreViewController.m */; };
 		E68EC50B1CC4B85D00A338C8 /* FTFilterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E68EC5091CC4B85D00A338C8 /* FTFilterTableViewController.m */; };
 		E68EC50C1CC4B85D00A338C8 /* FTFilterTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E68EC50A1CC4B85D00A338C8 /* FTFilterTableViewController.xib */; };
+		E6934CC41E1F2DB5002E5E93 /* FTJoinGymVIPTipViewIsCoorView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6934CC31E1F2DB5002E5E93 /* FTJoinGymVIPTipViewIsCoorView.m */; };
+		E6934CC61E1F2DC5002E5E93 /* FTJoinGymVIPTipViewIsCoorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6934CC51E1F2DC5002E5E93 /* FTJoinGymVIPTipViewIsCoorView.xib */; };
+		E6934CC91E1F49AA002E5E93 /* FTJoinGymVIPTipViewNotCoorerativeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6934CC81E1F49AA002E5E93 /* FTJoinGymVIPTipViewNotCoorerativeView.m */; };
+		E6934CCB1E1F49B6002E5E93 /* FTJoinGymVIPTipViewNotCoorerativeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6934CCA1E1F49B6002E5E93 /* FTJoinGymVIPTipViewNotCoorerativeView.xib */; };
 		E69380761E14D7BF00F655AF /* Certificates.cer in Resources */ = {isa = PBXBuildFile; fileRef = E69380751E14D7BF00F655AF /* Certificates.cer */; };
 		E693807E1E1604BF00F655AF /* FTPlaceBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E693807D1E1604BF00F655AF /* FTPlaceBean.m */; };
 		E6956EA61CBE21A1008DEEDB /* FTNewsBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6956EA51CBE21A1008DEEDB /* FTNewsBean.m */; };
@@ -1070,6 +1077,11 @@
 		E636B1B01D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FTGymSupportItemsCollectionViewCell.h; path = UI/FTGymSupportItemsCollectionViewCell.h; sourceTree = "<group>"; };
 		E636B1B11D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FTGymSupportItemsCollectionViewCell.m; path = UI/FTGymSupportItemsCollectionViewCell.m; sourceTree = "<group>"; };
 		E636B1B21D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FTGymSupportItemsCollectionViewCell.xib; path = UI/FTGymSupportItemsCollectionViewCell.xib; sourceTree = "<group>"; };
+		E638811C1E1DCF8200732CFB /* FTWebViewRequestURLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTWebViewRequestURLManager.h; sourceTree = "<group>"; };
+		E638811D1E1DCF8200732CFB /* FTWebViewRequestURLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTWebViewRequestURLManager.m; sourceTree = "<group>"; };
+		E63881211E1DE2E800732CFB /* FTWebViewDetailBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTWebViewDetailBottomView.h; sourceTree = "<group>"; };
+		E63881221E1DE2E800732CFB /* FTWebViewDetailBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTWebViewDetailBottomView.m; sourceTree = "<group>"; };
+		E63881241E1DE2F700732CFB /* FTWebViewDetailBottomView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTWebViewDetailBottomView.xib; sourceTree = "<group>"; };
 		E6433FE91DCB3F8A0062EF70 /* FTPublicHistoryCourseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPublicHistoryCourseTableViewCell.h; sourceTree = "<group>"; };
 		E6433FEA1DCB3F8A0062EF70 /* FTPublicHistoryCourseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPublicHistoryCourseTableViewCell.m; sourceTree = "<group>"; };
 		E6433FEB1DCB3F8A0062EF70 /* FTPublicHistoryCourseTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTPublicHistoryCourseTableViewCell.xib; sourceTree = "<group>"; };
@@ -1198,6 +1210,12 @@
 		E68EC5091CC4B85D00A338C8 /* FTFilterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTFilterTableViewController.m; sourceTree = "<group>"; };
 		E68EC50A1CC4B85D00A338C8 /* FTFilterTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTFilterTableViewController.xib; sourceTree = "<group>"; };
 		E68EC50E1CC4CBCA00A338C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		E6934CC21E1F2DB5002E5E93 /* FTJoinGymVIPTipViewIsCoorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTJoinGymVIPTipViewIsCoorView.h; sourceTree = "<group>"; };
+		E6934CC31E1F2DB5002E5E93 /* FTJoinGymVIPTipViewIsCoorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTJoinGymVIPTipViewIsCoorView.m; sourceTree = "<group>"; };
+		E6934CC51E1F2DC5002E5E93 /* FTJoinGymVIPTipViewIsCoorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTJoinGymVIPTipViewIsCoorView.xib; sourceTree = "<group>"; };
+		E6934CC71E1F49AA002E5E93 /* FTJoinGymVIPTipViewNotCoorerativeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTJoinGymVIPTipViewNotCoorerativeView.h; sourceTree = "<group>"; };
+		E6934CC81E1F49AA002E5E93 /* FTJoinGymVIPTipViewNotCoorerativeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTJoinGymVIPTipViewNotCoorerativeView.m; sourceTree = "<group>"; };
+		E6934CCA1E1F49B6002E5E93 /* FTJoinGymVIPTipViewNotCoorerativeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTJoinGymVIPTipViewNotCoorerativeView.xib; sourceTree = "<group>"; };
 		E69380751E14D7BF00F655AF /* Certificates.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = Certificates.cer; sourceTree = "<group>"; };
 		E693807C1E1604BF00F655AF /* FTPlaceBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPlaceBean.h; sourceTree = "<group>"; };
 		E693807D1E1604BF00F655AF /* FTPlaceBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPlaceBean.m; sourceTree = "<group>"; };
@@ -2635,9 +2653,8 @@
 		3DE1DEE71D3F05DB00511E92 /* detail */ = {
 			isa = PBXGroup;
 			children = (
-				3DE1DEE81D3F071600511E92 /* FTGymDetailWebViewController.h */,
-				3DE1DEE91D3F071600511E92 /* FTGymDetailWebViewController.m */,
-				3DE1DEEA1D3F071600511E92 /* FTGymDetailWebViewController.xib */,
+				E6934CBE1E1F2B95002E5E93 /* views */,
+				E6934CBD1E1F2B87002E5E93 /* viewController */,
 			);
 			name = detail;
 			sourceTree = "<group>";
@@ -3137,6 +3154,34 @@
 				E636B1B21D265B110065C9C1 /* FTGymSupportItemsCollectionViewCell.xib */,
 			);
 			name = "支持设施";
+			sourceTree = "<group>";
+		};
+		E638811B1E1DCE3000732CFB /* 处理webView请求 */ = {
+			isa = PBXGroup;
+			children = (
+				E638811C1E1DCF8200732CFB /* FTWebViewRequestURLManager.h */,
+				E638811D1E1DCF8200732CFB /* FTWebViewRequestURLManager.m */,
+			);
+			name = "处理webView请求";
+			sourceTree = "<group>";
+		};
+		E638811F1E1DE26000732CFB /* view */ = {
+			isa = PBXGroup;
+			children = (
+				E63881201E1DE26C00732CFB /* 底部的view */,
+				E6A9DDAD1CD8A0D200CB9518 /* cell */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		E63881201E1DE26C00732CFB /* 底部的view */ = {
+			isa = PBXGroup;
+			children = (
+				E63881211E1DE2E800732CFB /* FTWebViewDetailBottomView.h */,
+				E63881221E1DE2E800732CFB /* FTWebViewDetailBottomView.m */,
+				E63881241E1DE2F700732CFB /* FTWebViewDetailBottomView.xib */,
+			);
+			name = "底部的view";
 			sourceTree = "<group>";
 		};
 		E6433FE81DCB3F300062EF70 /* 团课历史课程cell */ = {
@@ -3846,6 +3891,61 @@
 			name = filter;
 			sourceTree = "<group>";
 		};
+		E6934CBD1E1F2B87002E5E93 /* viewController */ = {
+			isa = PBXGroup;
+			children = (
+				3DE1DEE81D3F071600511E92 /* FTGymDetailWebViewController.h */,
+				3DE1DEE91D3F071600511E92 /* FTGymDetailWebViewController.m */,
+				3DE1DEEA1D3F071600511E92 /* FTGymDetailWebViewController.xib */,
+			);
+			name = viewController;
+			sourceTree = "<group>";
+		};
+		E6934CBE1E1F2B95002E5E93 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				E6934CCC1E1F6809002E5E93 /* 退出拳馆弹出框 */,
+				E6934CBF1E1F2BBF002E5E93 /* 成为会员提示弹出框 */,
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
+		E6934CBF1E1F2BBF002E5E93 /* 成为会员提示弹出框 */ = {
+			isa = PBXGroup;
+			children = (
+				E6934CC11E1F2BEC002E5E93 /* 合作拳馆 */,
+				E6934CC01E1F2BE5002E5E93 /* 非合作拳馆 */,
+			);
+			name = "成为会员提示弹出框";
+			sourceTree = "<group>";
+		};
+		E6934CC01E1F2BE5002E5E93 /* 非合作拳馆 */ = {
+			isa = PBXGroup;
+			children = (
+				E6934CC71E1F49AA002E5E93 /* FTJoinGymVIPTipViewNotCoorerativeView.h */,
+				E6934CC81E1F49AA002E5E93 /* FTJoinGymVIPTipViewNotCoorerativeView.m */,
+				E6934CCA1E1F49B6002E5E93 /* FTJoinGymVIPTipViewNotCoorerativeView.xib */,
+			);
+			name = "非合作拳馆";
+			sourceTree = "<group>";
+		};
+		E6934CC11E1F2BEC002E5E93 /* 合作拳馆 */ = {
+			isa = PBXGroup;
+			children = (
+				E6934CC21E1F2DB5002E5E93 /* FTJoinGymVIPTipViewIsCoorView.h */,
+				E6934CC31E1F2DB5002E5E93 /* FTJoinGymVIPTipViewIsCoorView.m */,
+				E6934CC51E1F2DC5002E5E93 /* FTJoinGymVIPTipViewIsCoorView.xib */,
+			);
+			name = "合作拳馆";
+			sourceTree = "<group>";
+		};
+		E6934CCC1E1F6809002E5E93 /* 退出拳馆弹出框 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "退出拳馆弹出框";
+			sourceTree = "<group>";
+		};
 		E693807B1E16049700F655AF /* 场地bean */ = {
 			isa = PBXGroup;
 			children = (
@@ -4248,6 +4348,7 @@
 		E6D74A301CB7B7EE00854337 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				E638811B1E1DCE3000732CFB /* 处理webView请求 */,
 				3D43C5F21DEC0A7E0067B0DB /* NotificationTools */,
 				3D43C5EF1DE816190067B0DB /* GlobalProtocol */,
 				3D4301FD1DE5447500582499 /* ConstraintTool */,
@@ -4341,8 +4442,8 @@
 		E6DCE7271CD849060082831D /* 视频 */ = {
 			isa = PBXGroup;
 			children = (
+				E638811F1E1DE26000732CFB /* view */,
 				E6DCE72D1CD84F7C0082831D /* main */,
-				E6A9DDAD1CD8A0D200CB9518 /* cell */,
 				E6A9DDBB1CD9C85F00CB9518 /* 详情 */,
 			);
 			name = "视频";
@@ -4723,6 +4824,7 @@
 				3D7C6B7D1CF2A2380088400D /* BoxerVideoController.xib in Resources */,
 				3D6ABC8E1D66E68A00CD37C8 /* FTFinishedTaskViewController.xib in Resources */,
 				3DE0C9F01D1BABB000C6ABE2 /* FTTeachVideoController.xib in Resources */,
+				E6934CC61E1F2DC5002E5E93 /* FTJoinGymVIPTipViewIsCoorView.xib in Resources */,
 				3D755D431D2F833300C95BA1 /* FTLabelsCell.xib in Resources */,
 				3D13FB111D193BB80060B9B4 /* FTFightingViewController.xib in Resources */,
 				3D8771271D9118CA0001DB78 /* FTGymCommentsViewController.xib in Resources */,
@@ -4764,6 +4866,7 @@
 				E66F49461D93F3DF005B39D1 /* FTGymSourceTableViewCell.xib in Resources */,
 				E60218D51E093F200048DB57 /* FTCoachPhotosDetailViewController.xib in Resources */,
 				E6F46C091D8164AE001387E2 /* FTGymVIPCollectionViewCell.xib in Resources */,
+				E6934CCB1E1F49B6002E5E93 /* FTJoinGymVIPTipViewNotCoorerativeView.xib in Resources */,
 				3D13FB0C1D193A5A0060B9B4 /* fighter.entitlements in Resources */,
 				E636B1AE1D2646840065C9C1 /* FTGymDetailViewController.xib in Resources */,
 				3DD2FC031D2A6AC50015F7AA /* FTTeachVideoCell.xib in Resources */,
@@ -4784,6 +4887,7 @@
 				3D9666C71D9A98A000E90DA5 /* FTGymRechargeViewController.xib in Resources */,
 				E6DB76141CBB9B430034253C /* FTOneImageInfoTableViewCell.xib in Resources */,
 				3D7B98BA1CE078D600B80B8D /* FTInputCheckCodeViewController.xib in Resources */,
+				E63881251E1DE2F700732CFB /* FTWebViewDetailBottomView.xib in Resources */,
 				3D8D73C31CE9DEFE009E2320 /* FTRankTableVIewCell.xib in Resources */,
 				3D4B19541CDAEF840022DFB0 /* FTTableViewCell4.xib in Resources */,
 				3D6ABC9A1D66ECC700CD37C8 /* FTTaskShareCell.xib in Resources */,
@@ -5130,6 +5234,7 @@
 				3D13FB1C1D1A3FFB0060B9B4 /* FTSegmentedControl.m in Sources */,
 				E6B7D2001CF6A750004191A3 /* FTArenaViewController.m in Sources */,
 				E6D74A4E1CB7B7EE00854337 /* MD5.m in Sources */,
+				E63881231E1DE2E800732CFB /* FTWebViewDetailBottomView.m in Sources */,
 				E6FEFA391DD411D300CEF6E3 /* FTUserCourseCommentViewController.m in Sources */,
 				E6F46C6B1D8936C1001387E2 /* FTGymPhotoCollectionViewCell.m in Sources */,
 				E6E688E81D002FB700708C24 /* FTHomepageRecordListTableViewCell.m in Sources */,
@@ -5184,6 +5289,7 @@
 				E60DFB861D98C3EF009A864B /* FTGymSourceView.m in Sources */,
 				E67926741D17B68F00AF30B3 /* FTFightingTableViewCell.m in Sources */,
 				3D57D0501CEC0E7F0082BF24 /* DBManager.m in Sources */,
+				E6934CC91E1F49AA002E5E93 /* FTJoinGymVIPTipViewNotCoorerativeView.m in Sources */,
 				3D4B19581CDB0CD90022DFB0 /* FTPropertySetingViewController.m in Sources */,
 				3D484D601DC7349B00E2EC8C /* FTTraineeCell.m in Sources */,
 				3D5FB4B91CDC41A500FC1809 /* FTAlbumsViewController.m in Sources */,
@@ -5336,6 +5442,7 @@
 				E68050B81CBF919A00678905 /* JHRefreshAniBaseView.m in Sources */,
 				3D7C6B731CF29DDD0088400D /* FTSlideTabBar.m in Sources */,
 				E68D16131CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m in Sources */,
+				E638811E1E1DCF8200732CFB /* FTWebViewRequestURLManager.m in Sources */,
 				E636B1AD1D2646840065C9C1 /* FTGymDetailViewController.m in Sources */,
 				3D6ABC991D66ECC700CD37C8 /* FTTaskShareCell.m in Sources */,
 				E68050C01CBF919A00678905 /* UIScrollView+JHRefresh.m in Sources */,
@@ -5386,6 +5493,7 @@
 				3DC412211CD0B94A0030C229 /* FTDrawerCollectionCell.m in Sources */,
 				3D41221B1D4F1EDA007EB996 /* FTAvatarCell.m in Sources */,
 				3D7B98A91CE048F200B80B8D /* FTManagerAccountViewController.m in Sources */,
+				E6934CC41E1F2DB5002E5E93 /* FTJoinGymVIPTipViewIsCoorView.m in Sources */,
 				3D5FB4851CDC1F1D00FC1809 /* FTPhotoPickerView.m in Sources */,
 				3D5FB4B51CDC3AF300FC1809 /* FTImagPickerNavigationController.m in Sources */,
 				3D13FB221D1A70FC0060B9B4 /* FTAwesomeButton.m in Sources */,

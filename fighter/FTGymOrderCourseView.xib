@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,21 +16,29 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FAo-vj-PwY" userLabel="黑色半透明view">
+                    <rect key="frame" x="0.0" y="0.0" width="400" height="460"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yN6-gm-axh" userLabel="主内容View">
+                    <rect key="frame" x="60" y="14.5" width="280" height="431.5"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2VR-ai-Wf9" userLabel="上方内容View">
+                            <rect key="frame" x="0.0" y="0.0" width="280" height="374.5"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="弹出框背景" translatesAutoresizingMaskIntoConstraints="NO" id="DWp-GB-CtO"/>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="弹出框背景" translatesAutoresizingMaskIntoConstraints="NO" id="DWp-GB-CtO">
+                                    <rect key="frame" x="0.0" y="0.0" width="280" height="374.5"/>
+                                </imageView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qL1-NR-KMZ" userLabel="上半部通用View">
+                                    <rect key="frame" x="0.0" y="0.0" width="280" height="143.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="预约" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yCY-DP-jmd">
+                                            <rect key="frame" x="123.5" y="18" width="33" height="19.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9月4日 15：00~16：30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wfS-5H-O0U">
+                                            <rect key="frame" x="44" y="52.5" width="192" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="18" id="FY7-Wz-lmh"/>
                                             </constraints>
@@ -36,6 +47,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="综合格斗课程" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dT4-Tp-rNN">
+                                            <rect key="frame" x="91" y="80.5" width="98" height="16"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="16" id="EQC-ws-LkN"/>
                                             </constraints>
@@ -44,6 +56,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9 / 15 可预约" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fq-W6-txs">
+                                            <rect key="frame" x="104" y="111.5" width="72" height="12"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="12" id="mIy-fK-EKm"/>
                                             </constraints>
@@ -66,8 +79,10 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7dF-Re-DD4" userLabel="下半部通用View1">
+                                    <rect key="frame" x="0.0" y="143.5" width="280" height="88"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xb6-0l-9E5">
+                                            <rect key="frame" x="16" y="0.0" width="248" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="D9h-Jc-dsC"/>
                                             </constraints>
@@ -81,6 +96,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f58-3I-kpK">
+                                            <rect key="frame" x="16" y="40" width="248" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="5gW-i6-h5N"/>
                                             </constraints>
@@ -107,8 +123,10 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sKY-TN-bkP" userLabel="下半部通用View2">
+                                    <rect key="frame" x="0.0" y="231.5" width="280" height="143"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epD-LC-ODg">
+                                            <rect key="frame" x="22" y="0.0" width="173.5" height="12"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="12" id="DIr-wf-rq0"/>
                                             </constraints>
@@ -131,6 +149,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZOM-Hk-a6X">
+                                            <rect key="frame" x="22" y="19" width="236.5" height="12"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="12" id="ftw-bY-dkx"/>
                                             </constraints>
@@ -153,6 +172,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZzU-BJ-eEL">
+                                            <rect key="frame" x="88" y="43" width="104" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="4aO-qO-gMN"/>
                                                 <constraint firstAttribute="width" constant="104" id="ho2-eH-HLO"/>
@@ -167,14 +187,17 @@
                                             </connections>
                                         </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e3n-pq-oN7" userLabel="分割线View">
+                                            <rect key="frame" x="0.0" y="93" width="280" height="1"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="1" id="HIU-Fj-9RK"/>
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vbg-xK-Jeg">
+                                            <rect key="frame" x="0.0" y="94" width="280" height="49"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NnI-vA-1HN">
+                                                    <rect key="frame" x="16" y="9.5" width="248" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="fjR-A6-Upj"/>
                                                     </constraints>
@@ -235,6 +258,7 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qq3-WC-Cs2" userLabel="取消Button">
+                            <rect key="frame" x="124" y="399.5" width="32" height="32"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="32" id="WIz-0m-TFe"/>
                                 <constraint firstAttribute="height" constant="32" id="lbx-nz-VlN"/>

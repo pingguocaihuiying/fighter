@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11762"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTArenaPostsDetailViewController">
             <connections>
-                <outlet property="commentView" destination="r9e-hc-zc8" id="svD-6o-1iT"/>
-                <outlet property="favourateView" destination="Rzr-Bx-a04" id="tUr-pd-9iA"/>
-                <outlet property="shareView" destination="2KM-AH-8Gz" id="V2y-pP-wXl"/>
-                <outlet property="starButton" destination="BaI-iB-tvu" id="VIk-l8-Cif"/>
-                <outlet property="thumbsUpButton" destination="Rij-MN-6N8" id="Sfu-Pc-nNS"/>
+                <outlet property="bottomViewContainer" destination="2ni-n2-iJE" id="cOJ-pa-fmR"/>
                 <outlet property="view" destination="ERc-Cb-vg2" id="UHN-cv-ot7"/>
-                <outlet property="voteView" destination="7eu-jo-L3b" id="mUp-RT-cI9"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -27,151 +21,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ni-n2-iJE" userLabel="bottomView">
-                    <rect key="frame" x="0.0" y="618" width="375" height="49"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rzr-Bx-a04" userLabel="收藏view">
-                            <rect key="frame" x="0.0" y="0.0" width="82.5" height="49"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BaI-iB-tvu" userLabel="收藏">
-                                    <rect key="frame" x="29.5" y="13" width="24" height="24"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="24" id="6KU-bX-fZx"/>
-                                        <constraint firstAttribute="width" constant="24" id="qKX-hu-L4l"/>
-                                    </constraints>
-                                    <state key="normal" backgroundImage="详情页底部按钮一堆-收藏"/>
-                                    <connections>
-                                        <action selector="favourateButtonClicked:" destination="-1" eventType="touchUpInside" id="JVK-nI-eDk"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstItem="BaI-iB-tvu" firstAttribute="centerX" secondItem="Rzr-Bx-a04" secondAttribute="centerX" id="aMo-c2-sms"/>
-                                <constraint firstItem="BaI-iB-tvu" firstAttribute="centerY" secondItem="Rzr-Bx-a04" secondAttribute="centerY" id="s1e-X2-bPU"/>
-                            </constraints>
-                        </view>
-                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="斜线分割" translatesAutoresizingMaskIntoConstraints="NO" id="1t7-YD-5nx" userLabel="分割线1">
-                            <rect key="frame" x="82.5" y="13" width="12" height="24"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="12" id="cky-oq-I9k"/>
-                                <constraint firstAttribute="height" constant="24" id="fY7-uB-hyZ"/>
-                            </constraints>
-                        </imageView>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2KM-AH-8Gz" userLabel="分享view">
-                            <rect key="frame" x="94.5" y="0.0" width="82.5" height="49"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tUI-fu-XXM" userLabel="分享">
-                                    <rect key="frame" x="29.5" y="13" width="24" height="24"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="24" id="Eo8-DN-mhl"/>
-                                        <constraint firstAttribute="width" constant="24" id="Nxn-Id-G4u"/>
-                                    </constraints>
-                                    <state key="normal" backgroundImage="详情页底部按钮一堆-分享"/>
-                                    <connections>
-                                        <action selector="bottomShareButtonClicked:" destination="-1" eventType="touchUpInside" id="VJg-ft-mRZ"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstItem="tUI-fu-XXM" firstAttribute="centerX" secondItem="2KM-AH-8Gz" secondAttribute="centerX" id="Yox-kz-L9V"/>
-                                <constraint firstItem="tUI-fu-XXM" firstAttribute="centerY" secondItem="2KM-AH-8Gz" secondAttribute="centerY" id="p9R-l8-iHx"/>
-                            </constraints>
-                        </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="斜线分割" translatesAutoresizingMaskIntoConstraints="NO" id="NSB-bH-cGe" userLabel="分割线2">
-                            <rect key="frame" x="177" y="13" width="12" height="24"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="24" id="fiM-I3-r3n"/>
-                                <constraint firstAttribute="width" constant="12" id="oJf-e5-Vko"/>
-                            </constraints>
-                        </imageView>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r9e-hc-zc8" userLabel="评论view">
-                            <rect key="frame" x="189" y="0.0" width="82.5" height="49"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="itD-2d-KeH" userLabel="评">
-                                    <rect key="frame" x="29.5" y="13" width="24" height="24"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="24" id="0Rm-gl-l5z"/>
-                                        <constraint firstAttribute="width" constant="24" id="zWg-h1-wwe"/>
-                                    </constraints>
-                                    <state key="normal" backgroundImage="详情页底部按钮一堆-评论"/>
-                                    <connections>
-                                        <action selector="commentButtonClicked:" destination="-1" eventType="touchUpInside" id="Z2o-Zn-xn4"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstItem="itD-2d-KeH" firstAttribute="centerY" secondItem="r9e-hc-zc8" secondAttribute="centerY" id="HUg-tS-i9Q"/>
-                                <constraint firstItem="itD-2d-KeH" firstAttribute="centerX" secondItem="r9e-hc-zc8" secondAttribute="centerX" id="vHw-6Z-Iys"/>
-                            </constraints>
-                        </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="斜线分割" translatesAutoresizingMaskIntoConstraints="NO" id="2sE-AN-cCA" userLabel="分割线3">
-                            <rect key="frame" x="271.5" y="13" width="12" height="24"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="12" id="5Yx-PE-6M7"/>
-                                <constraint firstAttribute="height" constant="24" id="QI1-WS-7Rx"/>
-                            </constraints>
-                        </imageView>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7eu-jo-L3b" userLabel="点赞view">
-                            <rect key="frame" x="283.5" y="0.0" width="82.5" height="49"/>
-                            <subviews>
-                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rij-MN-6N8" userLabel="赞">
-                                    <rect key="frame" x="29.5" y="13" width="24" height="24"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="24" id="MC2-Ps-mPM"/>
-                                        <constraint firstAttribute="height" constant="24" id="bKp-9Y-AsD"/>
-                                    </constraints>
-                                    <state key="normal" backgroundImage="详情页底部按钮一堆-赞"/>
-                                    <connections>
-                                        <action selector="thumbButtonClicked:" destination="-1" eventType="touchUpInside" id="zHo-6e-uNa"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstItem="Rij-MN-6N8" firstAttribute="centerX" secondItem="7eu-jo-L3b" secondAttribute="centerX" id="XtO-KJ-Pdw"/>
-                                <constraint firstItem="Rij-MN-6N8" firstAttribute="centerY" secondItem="7eu-jo-L3b" secondAttribute="centerY" id="xiV-hY-kOg"/>
-                            </constraints>
-                        </view>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JY6-2J-QUF" userLabel="voteView">
-                            <rect key="frame" x="-12" y="72" width="10" height="1"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                        </view>
-                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="我要评论" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hh9-jj-mlP">
-                            <rect key="frame" x="60" y="16" width="80" height="18"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
+                    <rect key="frame" x="0.0" y="632" width="375" height="35"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="1t7-YD-5nx" firstAttribute="centerY" secondItem="2ni-n2-iJE" secondAttribute="centerY" id="1B8-o8-0mP"/>
-                        <constraint firstAttribute="height" constant="49" id="1Y4-aE-PjM"/>
-                        <constraint firstItem="2KM-AH-8Gz" firstAttribute="top" secondItem="2ni-n2-iJE" secondAttribute="top" id="51d-F5-sqn"/>
-                        <constraint firstAttribute="bottom" secondItem="Rzr-Bx-a04" secondAttribute="bottom" id="5hJ-IY-FpT"/>
-                        <constraint firstItem="7eu-jo-L3b" firstAttribute="width" secondItem="Rzr-Bx-a04" secondAttribute="width" id="6Pa-bq-wwK"/>
-                        <constraint firstItem="NSB-bH-cGe" firstAttribute="leading" secondItem="2KM-AH-8Gz" secondAttribute="trailing" id="9tn-XM-Nnk"/>
-                        <constraint firstItem="Rzr-Bx-a04" firstAttribute="leading" secondItem="2ni-n2-iJE" secondAttribute="leading" id="A5d-Qa-AKv"/>
-                        <constraint firstAttribute="bottom" secondItem="7eu-jo-L3b" secondAttribute="bottom" id="Cpa-Ei-AaJ"/>
-                        <constraint firstItem="2KM-AH-8Gz" firstAttribute="width" secondItem="Rzr-Bx-a04" secondAttribute="width" id="Ftb-qE-Fqv"/>
-                        <constraint firstItem="7eu-jo-L3b" firstAttribute="top" secondItem="2ni-n2-iJE" secondAttribute="top" id="IiJ-26-pg5"/>
-                        <constraint firstItem="2KM-AH-8Gz" firstAttribute="leading" secondItem="1t7-YD-5nx" secondAttribute="trailing" id="Jxi-7s-btY"/>
-                        <constraint firstItem="2sE-AN-cCA" firstAttribute="centerY" secondItem="2ni-n2-iJE" secondAttribute="centerY" id="NZ6-TS-kTO"/>
-                        <constraint firstItem="r9e-hc-zc8" firstAttribute="top" secondItem="2ni-n2-iJE" secondAttribute="top" id="Qg1-Jo-74s"/>
-                        <constraint firstAttribute="bottom" secondItem="r9e-hc-zc8" secondAttribute="bottom" id="S4u-kf-ntS"/>
-                        <constraint firstItem="2sE-AN-cCA" firstAttribute="leading" secondItem="r9e-hc-zc8" secondAttribute="trailing" id="TN7-nc-E7M"/>
-                        <constraint firstItem="1t7-YD-5nx" firstAttribute="leading" secondItem="Rzr-Bx-a04" secondAttribute="trailing" id="XlG-M1-Q57"/>
-                        <constraint firstItem="Rzr-Bx-a04" firstAttribute="width" secondItem="2ni-n2-iJE" secondAttribute="width" multiplier="0.22" id="a50-gg-EO8"/>
-                        <constraint firstItem="NSB-bH-cGe" firstAttribute="centerY" secondItem="2ni-n2-iJE" secondAttribute="centerY" id="cJ0-rZ-zWf"/>
-                        <constraint firstItem="r9e-hc-zc8" firstAttribute="leading" secondItem="NSB-bH-cGe" secondAttribute="trailing" id="cur-pX-prW"/>
-                        <constraint firstItem="r9e-hc-zc8" firstAttribute="width" secondItem="Rzr-Bx-a04" secondAttribute="width" id="e2F-E6-ce1"/>
-                        <constraint firstItem="Rzr-Bx-a04" firstAttribute="top" secondItem="2ni-n2-iJE" secondAttribute="top" id="oH2-at-wqv"/>
-                        <constraint firstItem="7eu-jo-L3b" firstAttribute="leading" secondItem="2sE-AN-cCA" secondAttribute="trailing" id="z8U-T4-iqH"/>
-                        <constraint firstAttribute="bottom" secondItem="2KM-AH-8Gz" secondAttribute="bottom" id="zS2-e5-TlH"/>
+                        <constraint firstAttribute="height" constant="35" id="1Y4-aE-PjM"/>
                     </constraints>
                 </view>
             </subviews>
@@ -184,11 +37,4 @@
             <point key="canvasLocation" x="439" y="382"/>
         </view>
     </objects>
-    <resources>
-        <image name="斜线分割" width="12" height="24"/>
-        <image name="详情页底部按钮一堆-分享" width="24" height="24"/>
-        <image name="详情页底部按钮一堆-收藏" width="24" height="24"/>
-        <image name="详情页底部按钮一堆-评论" width="24" height="24"/>
-        <image name="详情页底部按钮一堆-赞" width="24" height="24"/>
-    </resources>
 </document>

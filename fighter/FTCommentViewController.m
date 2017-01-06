@@ -23,14 +23,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setSubViews];
-
 }
 
 - (void)setSubViews{
     //设置textView的代理
 //    self.textView.delegate = self;
     [self setLeftAndRightButtons];
-    [self setBgOfTextView];
+    [self setTextView];
     //自动弹出键盘
     [_commentTextView becomeFirstResponder];
 }
@@ -39,9 +38,7 @@
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     
     //设置返回按钮
-    //设置返回按钮
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-取消"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(popVC)];
-//    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"头部48按钮一堆-取消"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(popVC)];
     //把左边的返回按钮左移
      [leftButton setImageInsets:UIEdgeInsetsMake(0, -10, 0, 10)];
     self.navigationItem.leftBarButtonItem = leftButton;
@@ -57,7 +54,7 @@
     self.navigationItem.title = @"发表评论";
 }
 
-- (void)setBgOfTextView{
+- (void)setTextView{
     CGRect textViewFrame = CGRectMake(6 + 15, 64 + 14 + 15, SCREEN_WIDTH - (6 + 15) * 2,300);
     
     _textView = [[UITextView alloc] initWithFrame:textViewFrame];
@@ -70,11 +67,22 @@
     imageView.image = [UIImage imageNamed:@"金属边框-改进ios"];
     _textView.textColor = [UIColor colorWithHex:0xb4b4b4];
     _textView.font = [UIFont systemFontOfSize:14];
-//    [textView addSubview:imageView];
     [self.view addSubview:imageView];
     
     [_textView sendSubviewToBack:imageView];
     [self.view addSubview:_textView];
+    
+    //在评论资讯的基础上，增加对评论进行评论的逻辑
+    if (_userId && ![_userId isEqualToString:@""]) {
+        UILabel *placeLabel = [UILabel new];
+        NSString *placeHoldText = [NSString stringWithFormat:@"@%@", [_userName stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        placeLabel.text = placeHoldText;
+//        placeLabel.text = @"@ asdfasdf6as5d4g354";
+        placeLabel.textColor = [UIColor lightGrayColor];
+        placeLabel.font = [UIFont systemFontOfSize:14];
+        [_textView addSubview:placeLabel];
+        [_textView setValue:placeLabel forKey:@"_placeholderLabel"];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -83,7 +91,6 @@
 }
 - (void)popVC{
     if ([self.delegate respondsToSelector:@selector(updateCountWithVideoBean: indexPath:)] ){
-        
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -138,12 +145,15 @@
         NSLog(@"error : 没有找到bean");
     }
     
+    //二次评论增加的
+    if (!_parentCommentId) {
+        _parentCommentId = @"";
+    }
     
-    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@",comment, loginToken, objId, tableName, ts, userId, @"gedoujia12555521254"];
+    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@",comment, loginToken, objId, _parentCommentId, tableName, ts, userId, @"gedoujia12555521254"];
     
     checkSign = [MD5 md5:checkSign];
     comment = [comment stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//    urlString = [NSString stringWithFormat:@"%@?userId=%@&objId=%@&loginToken=%@&ts=%@&checkSign=%@&comment=%@&tableName=%@", urlString, userId, objId, loginToken, ts, checkSign, comment, tableName];
     NSLog(@"评论url：%@", urlString);
     
     //创建AAFNetWorKing管理者
@@ -158,7 +168,8 @@
                           @"ts" : ts,
                           @"checkSign" : checkSign,
                           @"comment" : comment,
-                          @"tableName" : tableName
+                          @"tableName" : tableName,
+                          @"parentId" : _parentCommentId
                           };
     
     [manager POST:urlString parameters:dic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
