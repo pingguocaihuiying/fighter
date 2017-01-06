@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FTGymDetailWebViewController">
             <connections>
+                <outlet property="addressButton" destination="Ga3-xT-tkP" id="cVQ-UD-VWU"/>
                 <outlet property="addressSeperatorView" destination="cqx-Nu-UFK" id="jz3-nt-qkj"/>
                 <outlet property="collectionContainerViewHeight" destination="ScA-LL-Y6k" id="yEt-fB-VaG"/>
                 <outlet property="collectionView" destination="frn-jt-43p" id="jdF-mM-kcl"/>
@@ -406,7 +407,6 @@
                                         <constraint firstAttribute="width" constant="46" id="hT2-JG-ggM"/>
                                     </constraints>
                                     <inset key="imageEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" image="地点 (2)"/>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DOS-yX-5FD" userLabel="seperatorView6">
                                     <rect key="frame" x="0.0" y="32" width="375" height="1"/>
@@ -473,7 +473,6 @@
     <resources>
         <image name="上拉提示" width="280" height="75"/>
         <image name="右箭头" width="7" height="14"/>
-        <image name="地点 (2)" width="14" height="19"/>
         <image name="我的拳馆" width="73" height="73"/>
         <image name="火苗-红" width="21" height="25"/>
         <image name="详情用视频播放" width="60" height="60"/>

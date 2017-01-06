@@ -3904,6 +3904,7 @@
 		E6934CBE1E1F2B95002E5E93 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				E6934CCC1E1F6809002E5E93 /* 退出拳馆弹出框 */,
 				E6934CBF1E1F2BBF002E5E93 /* 成为会员提示弹出框 */,
 			);
 			name = views;
@@ -3936,6 +3937,13 @@
 				E6934CC51E1F2DC5002E5E93 /* FTJoinGymVIPTipViewIsCoorView.xib */,
 			);
 			name = "合作拳馆";
+			sourceTree = "<group>";
+		};
+		E6934CCC1E1F6809002E5E93 /* 退出拳馆弹出框 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "退出拳馆弹出框";
 			sourceTree = "<group>";
 		};
 		E693807B1E16049700F655AF /* 场地bean */ = {

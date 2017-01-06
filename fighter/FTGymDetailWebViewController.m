@@ -91,6 +91,7 @@
 @property (nonatomic, strong) NSArray *timeSectionsArray;//拳馆的固定时间段
 @property (nonatomic, strong) NSMutableDictionary *placesUsingInfoDic;//场地、时间段的占用情况
 @property (nonatomic, assign) NSInteger curPlaceSerial;//当前场地的序列号，如果有多个，其值为1，2.。。；如果只有一个，值为0
+@property (strong, nonatomic) IBOutlet UIButton *addressButton;
 
 @end
 
@@ -129,49 +130,64 @@
 }
 
 - (void)getVIPInfo{
-    
     NSString *corporationId = [NSString stringWithFormat:@"%ld",_gymDetailBean.corporationid];
-    
     [NetWorking getVIPInfoWithGymId:corporationId andOption:^(NSDictionary *dic) {
-        
         //无数据：非会员
         //"type"为会员类型： 0准会员 1会员 2往期会员
-        
         NSString *status = dic[@"status"];
         NSLog(@"status : %@", status);
         if ([status isEqualToString:@"success"]) {
             NSString *type = dic[@"data"][@"type"];
             _gymVIPType = [type integerValue];//
             if (_gymVIPType == FTGymVIPTypeYep) {
-                //右上角的“成为会员”
-                _joinVIPButton.enabled = NO;
-                _joinVIPButton.title = @"";
-                
-                //“我的拳馆”标识
-                _isVIPImage.hidden = NO;
-                
-                [_becomeVIPButton setTitleColor:[UIColor colorWithHex:0xb4b4b4] forState:UIControlStateNormal];
+                [self setToVIP];
             }else {
-                //右上角的“成为会员”
-                _joinVIPButton.enabled = YES;
-                _joinVIPButton.title = @"成为会员";
-                
-                //“我的拳馆”标识
-                _isVIPImage.hidden = YES;
+                [self setToNotVIP];
             }
         }else{//如果从接口读取失败，则默认按非会员处理
             _gymVIPType = FTGymVIPTypeNope;
-            
-            //右上角的“成为会员”
-            _joinVIPButton.enabled = YES;
-            _joinVIPButton.title = @"成为会员";
-            
-            //“我的拳馆”标识
-            _isVIPImage.hidden = YES;
+            [self setToNotVIP];
         }
     }];
 }
 
+/**
+ 设置为VIP的UI
+ */
+- (void)setToVIP{
+    //“隐藏”右上角的“成为会员”
+    _joinVIPButton.enabled = NO;
+    _joinVIPButton.title = @"";
+    
+    _isVIPImage.hidden = NO;//显示“我的拳馆”标识
+    
+    //地址栏后显示退出图标
+    [_addressButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    [_addressButton addTarget:self action:@selector(quitGymVIP) forControlEvents:UIControlEventTouchUpInside];
+}
+
+/**
+ 设置为非VIP的显示
+ */
+- (void)setToNotVIP{
+    //右上角的“成为会员”
+    _joinVIPButton.enabled = YES;
+    _joinVIPButton.title = @"成为会员";
+    
+    //“我的拳馆”标识
+    _isVIPImage.hidden = YES;
+    
+    //地址栏后显示地址图标
+    [_addressButton setImage:[UIImage imageNamed:@"地点 (2)"] forState:UIControlStateDisabled];
+    _addressButton.enabled = NO;
+}
+
+/**
+ 退出拳馆
+ */
+- (void)quitGymVIP{
+    NSLog(@"退出拳馆");
+}
 
 /**
  //获取拳馆的详细信息
@@ -181,7 +197,6 @@
         if (dic) {
             _gymDetailBean = [FTGymDetailBean new];
             [_gymDetailBean setValuesForKeysWithDictionary:dic];
-            
             //如果有多个场地，再显示多课表
             if (_gymDetailBean.placeBeans && _gymDetailBean.placeBeans.count > 0) [self setMutiCourseTable];
             
@@ -199,7 +214,6 @@
 - (void)setMutiCourseTable{
     _curPlaceSerial = 1;
 }
-
 
 /**
  更新课表左右两边的按钮显示状态，以及课表名字
@@ -605,9 +619,6 @@
     return cell;
 }
 
-
-#pragma mark -  response
-
 #pragma mark 点击头部图片
 
 - (IBAction)topImageClicked:(id)sender {
@@ -619,7 +630,6 @@
 
 // 关注按钮点击事件
 - (IBAction)focusButtonAction:(id)sender {
-    
     //从本地读取存储的用户信息
     NSData *localUserData = [[NSUserDefaults standardUserDefaults]objectForKey:LoginUser];
     FTUserBean *localUser = [NSKeyedUnarchiver unarchiveObjectWithData:localUserData];
@@ -701,11 +711,8 @@
 }
 
 - (void)backBtnAction:(id)sender {
-    
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-
 
 /**
  成为会员被点击
@@ -714,38 +721,47 @@
  */
 - (IBAction)becomeVIPButtonClicked:(id)sender {
     
-//    if ([FTTools hasLoginWithViewController:self]) {
-    if (1) {
+    if ([FTTools hasLoginWithViewController:self]) {
         NSLog(@"成为会员");
         [self showJoinVIPTips];
     }
 }
-
 
 /**
  成为会员弹出框
  */
 - (void)showJoinVIPTips{
     if (_gymDetailBean.is_cooperate) {//如果是合作拳馆
-        //请用户二次确认
-        FTJoinGymVIPTipViewIsCoorView *joinGymVIPTipViewIsCoorView = [[[NSBundle mainBundle] loadNibNamed:@"FTJoinGymVIPTipViewIsCoorView" owner:nil options:nil] firstObject];
-        joinGymVIPTipViewIsCoorView.frame = [[UIApplication sharedApplication] keyWindow].bounds;
-        joinGymVIPTipViewIsCoorView.gymNameLabel.text = _gymDetailBean.gym_name;
-        [joinGymVIPTipViewIsCoorView.gymTelButton setTitle:_gymDetailBean.gym_tel forState:UIControlStateNormal];
-        [joinGymVIPTipViewIsCoorView.gymTelButton addTarget:self action:@selector(dialButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [joinGymVIPTipViewIsCoorView.confirmButton addTarget:self action:@selector(confirmJoinVIP) forControlEvents:UIControlEventTouchUpInside];
-        [[[UIApplication sharedApplication] keyWindow] addSubview:joinGymVIPTipViewIsCoorView];
+        [self showJoinGymVIPTipViewIsCoorView];//请用户二次确认
     }else{//如果不是合作拳馆
-        //弹出非合作会员的提示
-        //
-        FTJoinGymVIPTipViewNotCoorerativeView *joinGymVIPTipViewNotCoorerativeView = [[[NSBundle mainBundle] loadNibNamed:@"FTJoinGymVIPTipViewNotCoorerativeView" owner:nil options:nil] firstObject];
-        joinGymVIPTipViewNotCoorerativeView.frame = [[UIApplication sharedApplication] keyWindow].bounds;
-        [joinGymVIPTipViewNotCoorerativeView.gymTelButton setTitle:_gymDetailBean.gym_tel forState:UIControlStateNormal];
-        [joinGymVIPTipViewNotCoorerativeView.gymTelButton addTarget:self action:@selector(dialButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [[[UIApplication sharedApplication] keyWindow] addSubview:joinGymVIPTipViewNotCoorerativeView];
+        [self showJoinGymVIPTipViewIsNotCoorView]; //弹出非合作拳馆的提示
     }
 }
 
+/**
+ 弹出加入VIP确认的提示框(已合作)
+ */
+- (void)showJoinGymVIPTipViewIsCoorView{
+    FTJoinGymVIPTipViewIsCoorView *joinGymVIPTipViewIsCoorView = [[[NSBundle mainBundle] loadNibNamed:@"FTJoinGymVIPTipViewIsCoorView" owner:nil options:nil] firstObject];
+    joinGymVIPTipViewIsCoorView.frame = [[UIApplication sharedApplication] keyWindow].bounds;
+    joinGymVIPTipViewIsCoorView.gymNameLabel.text = _gymDetailBean.gym_name;
+    [joinGymVIPTipViewIsCoorView.gymTelButton setTitle:_gymDetailBean.gym_tel forState:UIControlStateNormal];
+    [joinGymVIPTipViewIsCoorView.gymTelButton addTarget:self action:@selector(dialButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [joinGymVIPTipViewIsCoorView.confirmButton addTarget:self action:@selector(confirmJoinVIP) forControlEvents:UIControlEventTouchUpInside];
+    [[[UIApplication sharedApplication] keyWindow] addSubview:joinGymVIPTipViewIsCoorView];
+}
+
+/**
+  弹出加入VIP确认的提示框(未合作)
+ */
+- (void)showJoinGymVIPTipViewIsNotCoorView{
+    FTJoinGymVIPTipViewNotCoorerativeView *joinGymVIPTipViewNotCoorerativeView = [[[NSBundle mainBundle] loadNibNamed:@"FTJoinGymVIPTipViewNotCoorerativeView" owner:nil options:nil] firstObject];
+    joinGymVIPTipViewNotCoorerativeView.frame = [[UIApplication sharedApplication] keyWindow].bounds;
+    [joinGymVIPTipViewNotCoorerativeView.gymTelButton setTitle:_gymDetailBean.gym_tel forState:UIControlStateNormal];
+    [joinGymVIPTipViewNotCoorerativeView.gymTelButton addTarget:self action:@selector(dialButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [[[UIApplication sharedApplication] keyWindow] addSubview:joinGymVIPTipViewNotCoorerativeView];
+    
+}
 
 /**
  确定加入按钮被点击
@@ -947,18 +963,6 @@
     }
 }
 
-#pragma mark - delegate
-//#pragma mark  CommentSuccessDelegate
-//- (void)commentSuccess{
-//    int commentCount = _gymDetailBean.commentcount;
-//    commentCount++;
-//    NSString *jsMethodString = [NSString stringWithFormat:@"updateComment(%d)", 1];
-//    NSLog(@"js method : %@", jsMethodString);
-//    _gymDetailBean.commentcount = commentCount;
-//    [_webView stringByEvaluatingJavaScriptFromString:jsMethodString];
-//}
-
-
 #pragma mark - alertDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
@@ -1040,8 +1044,6 @@
         gymOrderCourseView.status = FTGymCourseStatusCanOrder;
         [self.view addSubview:gymOrderCourseView];
         NSLog(@"可以预约");
-        
-        
     }else if (courseCell.isFull) {
         
         NSDictionary *courseCellDic = courseCell.courserCellDic;
@@ -1066,13 +1068,5 @@
     [self gettimeSectionsUsingInfo];
     [self getVIPInfo];
 }
-
-
-
-#pragma mark - code by kangxq
-
-
-
-
 
 @end
