@@ -2358,7 +2358,14 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 
     NSString *getCategoryUrlString = [FTNetConfig host:Domain path:GetCategoryURL];
     NSLog(@"getCategoryUrlString : %@", getCategoryUrlString);
-    NSDictionary *dic = @{@"nameEn": @"teachVideo"};
+    NSDictionary *dic;
+    FTUserBean *loginUser = [FTUserBean loginUser];
+    if (loginUser) {
+        dic = @{@"nameEn": @"teachVideo",
+                @"userId": loginUser.olduserid};
+    }else {
+        dic = @{@"nameEn": @"teachVideo"};
+    }
     
     [self postRequestWithUrl:getCategoryUrlString parameters:dic option:option];
 

@@ -75,10 +75,10 @@
         [self.navigationController setNavigationBarHidden:NO];
     }
     
-    // 显示会员拳馆
-    if (self.selectedIndex == 2) {
-        [FTNotificationTools postShowMembershipGymsNoti];
-    }
+//    // 显示会员拳馆
+//    if (self.selectedIndex == 2) {
+//        [FTNotificationTools postShowMembershipGymsNoti];
+//    }
     
 }
 
