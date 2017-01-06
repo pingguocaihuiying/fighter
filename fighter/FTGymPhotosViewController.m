@@ -188,8 +188,8 @@ typedef NS_ENUM(int, FTGymPhotoIndex){
     _segButtonView.frame = _segButtonViewContainer.bounds;
     
     //设置按钮title
-    [_segButtonView.buttonLeft setTitle:@"版块分类" forState:UIControlStateNormal];
-    [_segButtonView.buttonRight setTitle:@"最新最热" forState:UIControlStateNormal];
+    [_segButtonView.buttonLeft setTitle:@"拳馆照片" forState:UIControlStateNormal];
+    [_segButtonView.buttonRight setTitle:@"用户上传" forState:UIControlStateNormal];
     
     _segButtonView.delegate = self;//设置代理
     

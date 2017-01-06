@@ -31,6 +31,8 @@
 #import "FTGymCourceViewNew.h"//新课程表
 #import "FTGymOrderCourseView.h"
 #import "FTOrderCoachViewController.h"
+#import "FTJoinGymVIPTipViewIsCoorView.h"//成为会员弹出框
+#import "FTJoinGymVIPTipViewNotCoorerativeView.h"
 
 @interface FTGymDetailWebViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, FTLoginViewControllerDelegate, FTGymOrderCourseViewDelegate, FTGymCourseTableViewDelegate, FTScrollViewScollToBottomDelegate>
 
@@ -674,7 +676,7 @@
     
 }
 
-// 点赞按钮点击事件
+// 拨号点击事件
 - (IBAction)dialButtonAction:(id)sender {
     
     NSString *urlStr = self.gymDetailBean.gym_tel;
@@ -705,18 +707,64 @@
 
 
 
+/**
+ 成为会员被点击
+ 
+ @param sender 右上角的按钮
+ */
 - (IBAction)becomeVIPButtonClicked:(id)sender {
     
-    if ([FTTools hasLoginWithViewController:self]) {
+//    if ([FTTools hasLoginWithViewController:self]) {
+    if (1) {
         NSLog(@"成为会员");
-        FTPayForGymVIPViewController *payForGymVIPViewController = [[FTPayForGymVIPViewController alloc]init];
-//        payForGymVIPViewController.gymDetailBean = _gymDetailBean;
-        FTCoachBean *firstCoach = [FTCoachBean new];
-        [firstCoach setWithDic:[_coachArray firstObject]];
-        payForGymVIPViewController.coachBean = firstCoach;
-        payForGymVIPViewController.gymVIPType = _gymVIPType;
-        [self.navigationController pushViewController:payForGymVIPViewController animated:YES];
+        [self showJoinVIPTips];
     }
+}
+
+
+/**
+ 成为会员弹出框
+ */
+- (void)showJoinVIPTips{
+    if (_gymDetailBean.is_cooperate) {//如果是合作拳馆
+        //请用户二次确认
+        FTJoinGymVIPTipViewIsCoorView *joinGymVIPTipViewIsCoorView = [[[NSBundle mainBundle] loadNibNamed:@"FTJoinGymVIPTipViewIsCoorView" owner:nil options:nil] firstObject];
+        joinGymVIPTipViewIsCoorView.frame = [[UIApplication sharedApplication] keyWindow].bounds;
+        joinGymVIPTipViewIsCoorView.gymNameLabel.text = _gymDetailBean.gym_name;
+        [joinGymVIPTipViewIsCoorView.gymTelButton setTitle:_gymDetailBean.gym_tel forState:UIControlStateNormal];
+        [joinGymVIPTipViewIsCoorView.gymTelButton addTarget:self action:@selector(dialButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [joinGymVIPTipViewIsCoorView.confirmButton addTarget:self action:@selector(confirmJoinVIP) forControlEvents:UIControlEventTouchUpInside];
+        [[[UIApplication sharedApplication] keyWindow] addSubview:joinGymVIPTipViewIsCoorView];
+    }else{//如果不是合作拳馆
+        //弹出非合作会员的提示
+        //
+        FTJoinGymVIPTipViewNotCoorerativeView *joinGymVIPTipViewNotCoorerativeView = [[[NSBundle mainBundle] loadNibNamed:@"FTJoinGymVIPTipViewNotCoorerativeView" owner:nil options:nil] firstObject];
+        joinGymVIPTipViewNotCoorerativeView.frame = [[UIApplication sharedApplication] keyWindow].bounds;
+        [joinGymVIPTipViewNotCoorerativeView.gymTelButton setTitle:_gymDetailBean.gym_tel forState:UIControlStateNormal];
+        [joinGymVIPTipViewNotCoorerativeView.gymTelButton addTarget:self action:@selector(dialButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [[[UIApplication sharedApplication] keyWindow] addSubview:joinGymVIPTipViewNotCoorerativeView];
+    }
+}
+
+
+/**
+ 确定加入按钮被点击
+ */
+- (void)confirmJoinVIP{
+    [self pushToPayForGymVIPViewController];
+}
+
+/**
+ 跳转到申请会员vc
+ */
+- (void)pushToPayForGymVIPViewController{
+    FTPayForGymVIPViewController *payForGymVIPViewController = [[FTPayForGymVIPViewController alloc]init];
+    FTCoachBean *firstCoach = [FTCoachBean new];
+    [firstCoach setWithDic:[_coachArray firstObject]];
+    payForGymVIPViewController.coachBean = firstCoach;
+    payForGymVIPViewController.gymVIPType = _gymVIPType;
+    [self.navigationController pushViewController:payForGymVIPViewController animated:YES];
+
 }
 
 - (IBAction)tipButtonClicked:(id)sender {
