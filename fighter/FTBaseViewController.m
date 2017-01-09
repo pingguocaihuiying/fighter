@@ -24,7 +24,6 @@
     
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
-    
     self.navigationController.navigationBarHidden = NO;
     
     //  导航栏半透明属性设置为NO,阻止导航栏遮挡view

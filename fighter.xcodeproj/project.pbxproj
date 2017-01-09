@@ -116,6 +116,8 @@
 		3D500DE91D6AFE1900ACBD0D /* UIView+UIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D500DE81D6AFE1900ACBD0D /* UIView+UIViewController.m */; };
 		3D500DEC1D6C460600ACBD0D /* NSDate+TaskDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D500DEB1D6C460600ACBD0D /* NSDate+TaskDate.m */; };
 		3D500DF01D6D4AEE00ACBD0D /* FTLocalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D500DEF1D6D4AEE00ACBD0D /* FTLocalNotification.m */; };
+		3D5766F11E2329DE00EDEA39 /* FTMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5766EF1E2329DE00EDEA39 /* FTMessageCell.m */; };
+		3D5766F21E2329DE00EDEA39 /* FTMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D5766F01E2329DE00EDEA39 /* FTMessageCell.xib */; };
 		3D57D0501CEC0E7F0082BF24 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D57D04F1CEC0E7F0082BF24 /* DBManager.m */; };
 		3D5A3CBD1CFD1E1000FDB3C4 /* FTShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A3CBC1CFD1E1000FDB3C4 /* FTShareView.m */; };
 		3D5E809C1DD328E100D0F250 /* FTTraineeBean.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5E809B1DD328E100D0F250 /* FTTraineeBean.m */; };
@@ -713,6 +715,9 @@
 		3D500DEB1D6C460600ACBD0D /* NSDate+TaskDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TaskDate.m"; sourceTree = "<group>"; };
 		3D500DEE1D6D4AEE00ACBD0D /* FTLocalNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTLocalNotification.h; sourceTree = "<group>"; };
 		3D500DEF1D6D4AEE00ACBD0D /* FTLocalNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTLocalNotification.m; sourceTree = "<group>"; };
+		3D5766EE1E2329DE00EDEA39 /* FTMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTMessageCell.h; sourceTree = "<group>"; };
+		3D5766EF1E2329DE00EDEA39 /* FTMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTMessageCell.m; sourceTree = "<group>"; };
+		3D5766F01E2329DE00EDEA39 /* FTMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTMessageCell.xib; sourceTree = "<group>"; };
 		3D57D04E1CEC0E7F0082BF24 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		3D57D04F1CEC0E7F0082BF24 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
 		3D5A3CBB1CFD1E1000FDB3C4 /* FTShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTShareView.h; sourceTree = "<group>"; };
@@ -2141,6 +2146,33 @@
 			name = model;
 			sourceTree = "<group>";
 		};
+		3D5766EB1E23295200EDEA39 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3D5EB4E91E1CD9A8002B79FF /* FTMessagesViewController.h */,
+				3D5EB4EA1E1CD9A8002B79FF /* FTMessagesViewController.m */,
+				3D5EB4EB1E1CD9A8002B79FF /* FTMessagesViewController.xib */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		3D5766EC1E23297000EDEA39 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3D5766EE1E2329DE00EDEA39 /* FTMessageCell.h */,
+				3D5766EF1E2329DE00EDEA39 /* FTMessageCell.m */,
+				3D5766F01E2329DE00EDEA39 /* FTMessageCell.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		3D5766ED1E23297A00EDEA39 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		3D57D04A1CEC0BC30082BF24 /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
@@ -2171,9 +2203,9 @@
 		3D5EB4E81E1CD981002B79FF /* 消息 */ = {
 			isa = PBXGroup;
 			children = (
-				3D5EB4E91E1CD9A8002B79FF /* FTMessagesViewController.h */,
-				3D5EB4EA1E1CD9A8002B79FF /* FTMessagesViewController.m */,
-				3D5EB4EB1E1CD9A8002B79FF /* FTMessagesViewController.xib */,
+				3D5766EB1E23295200EDEA39 /* Controller */,
+				3D5766EC1E23297000EDEA39 /* View */,
+				3D5766ED1E23297A00EDEA39 /* Model */,
 			);
 			path = "消息";
 			sourceTree = "<group>";
@@ -4930,6 +4962,7 @@
 				3D13FB311D1A96490060B9B4 /* FTPracticeCell.xib in Resources */,
 				3D4122371D506A4B007EB996 /* FTPropertyCell.xib in Resources */,
 				3D15E4B91D9518D10078F9E7 /* FTGymCommentDetailCell.xib in Resources */,
+				3D5766F21E2329DE00EDEA39 /* FTMessageCell.xib in Resources */,
 				E68D160E1CFD31F100AB5A8C /* FTHomepageMainViewController.xib in Resources */,
 				3D7B98BF1CE0898400B80B8D /* FTOldPasswordVC.xib in Resources */,
 				3D2019401D583030009E80B1 /* FTStoreViewController.xib in Resources */,
@@ -5358,6 +5391,7 @@
 				3D4C6EEB1D87D43400881208 /* FTCameraAndAlbum.m in Sources */,
 				3D87712B1D9133D00001DB78 /* FTGymCommentTableViewCell.m in Sources */,
 				3D0B446D1D45A4D400EE08B3 /* WBSingleton.m in Sources */,
+				3D5766F11E2329DE00EDEA39 /* FTMessageCell.m in Sources */,
 				3D10DDEA1D4753C300E2D776 /* FTCollectionFowLaytout.m in Sources */,
 				3D7B98BE1CE0898400B80B8D /* FTOldPasswordVC.m in Sources */,
 				3D484D721DC8772F00E2EC8C /* FTTraineeSkillViewController.m in Sources */,
