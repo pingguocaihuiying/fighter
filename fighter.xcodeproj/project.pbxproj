@@ -419,6 +419,8 @@
 		E6934CC61E1F2DC5002E5E93 /* FTJoinGymVIPTipViewIsCoorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6934CC51E1F2DC5002E5E93 /* FTJoinGymVIPTipViewIsCoorView.xib */; };
 		E6934CC91E1F49AA002E5E93 /* FTJoinGymVIPTipViewNotCoorerativeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6934CC81E1F49AA002E5E93 /* FTJoinGymVIPTipViewNotCoorerativeView.m */; };
 		E6934CCB1E1F49B6002E5E93 /* FTJoinGymVIPTipViewNotCoorerativeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6934CCA1E1F49B6002E5E93 /* FTJoinGymVIPTipViewNotCoorerativeView.xib */; };
+		E6934CCF1E1F9A5D002E5E93 /* FTQuitGymViewAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6934CCE1E1F9A5D002E5E93 /* FTQuitGymViewAlertView.m */; };
+		E6934CD11E1F9A69002E5E93 /* FTQuitGymViewAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6934CD01E1F9A69002E5E93 /* FTQuitGymViewAlertView.xib */; };
 		E69380761E14D7BF00F655AF /* Certificates.cer in Resources */ = {isa = PBXBuildFile; fileRef = E69380751E14D7BF00F655AF /* Certificates.cer */; };
 		E693807E1E1604BF00F655AF /* FTPlaceBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E693807D1E1604BF00F655AF /* FTPlaceBean.m */; };
 		E6956EA61CBE21A1008DEEDB /* FTNewsBean.m in Sources */ = {isa = PBXBuildFile; fileRef = E6956EA51CBE21A1008DEEDB /* FTNewsBean.m */; };
@@ -1216,6 +1218,9 @@
 		E6934CC71E1F49AA002E5E93 /* FTJoinGymVIPTipViewNotCoorerativeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTJoinGymVIPTipViewNotCoorerativeView.h; sourceTree = "<group>"; };
 		E6934CC81E1F49AA002E5E93 /* FTJoinGymVIPTipViewNotCoorerativeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTJoinGymVIPTipViewNotCoorerativeView.m; sourceTree = "<group>"; };
 		E6934CCA1E1F49B6002E5E93 /* FTJoinGymVIPTipViewNotCoorerativeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTJoinGymVIPTipViewNotCoorerativeView.xib; sourceTree = "<group>"; };
+		E6934CCD1E1F9A5D002E5E93 /* FTQuitGymViewAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTQuitGymViewAlertView.h; sourceTree = "<group>"; };
+		E6934CCE1E1F9A5D002E5E93 /* FTQuitGymViewAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTQuitGymViewAlertView.m; sourceTree = "<group>"; };
+		E6934CD01E1F9A69002E5E93 /* FTQuitGymViewAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTQuitGymViewAlertView.xib; sourceTree = "<group>"; };
 		E69380751E14D7BF00F655AF /* Certificates.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = Certificates.cer; sourceTree = "<group>"; };
 		E693807C1E1604BF00F655AF /* FTPlaceBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPlaceBean.h; sourceTree = "<group>"; };
 		E693807D1E1604BF00F655AF /* FTPlaceBean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPlaceBean.m; sourceTree = "<group>"; };
@@ -3942,6 +3947,9 @@
 		E6934CCC1E1F6809002E5E93 /* 退出拳馆弹出框 */ = {
 			isa = PBXGroup;
 			children = (
+				E6934CCD1E1F9A5D002E5E93 /* FTQuitGymViewAlertView.h */,
+				E6934CCE1E1F9A5D002E5E93 /* FTQuitGymViewAlertView.m */,
+				E6934CD01E1F9A69002E5E93 /* FTQuitGymViewAlertView.xib */,
 			);
 			name = "退出拳馆弹出框";
 			sourceTree = "<group>";
@@ -4948,6 +4956,7 @@
 				3D5FB4931CDC311400FC1809 /* FTAssetsViewController.xib in Resources */,
 				3D7B98C41CE08DEE00B80B8D /* FTNewPasswordVC.xib in Resources */,
 				E696E4E11D2A39F800A89B60 /* FTOpponentCell.xib in Resources */,
+				E6934CD11E1F9A69002E5E93 /* FTQuitGymViewAlertView.xib in Resources */,
 				3D4C6ED31D864FCF00881208 /* FTGymCommentCell.xib in Resources */,
 				E6035EBF1CC0C39500B10D36 /* FTCommentViewController.xib in Resources */,
 				3D6ABC951D66EC8B00CD37C8 /* FTTaskRemindCell.xib in Resources */,
@@ -5439,6 +5448,7 @@
 				E668BBBE1CE4523600071998 /* FTCacheBean.m in Sources */,
 				3D06155B1D36302600FDA86F /* NSData+CommonCrypto.m in Sources */,
 				3D3EC7181DE444C400C4A595 /* FTTraineeFeedbackView.m in Sources */,
+				E6934CCF1E1F9A5D002E5E93 /* FTQuitGymViewAlertView.m in Sources */,
 				E68050B81CBF919A00678905 /* JHRefreshAniBaseView.m in Sources */,
 				3D7C6B731CF29DDD0088400D /* FTSlideTabBar.m in Sources */,
 				E68D16131CFD7CFD00AB5A8C /* UILabel+FTLYZLabel.m in Sources */,

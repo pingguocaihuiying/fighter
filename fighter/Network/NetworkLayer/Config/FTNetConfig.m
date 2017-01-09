@@ -235,7 +235,7 @@ NSString * const GetGymByIdURL = @"/api/gym/getVideosById.do";
 NSString * const GetGymPhotosByUsers = @"/api/gym/commentAttach.do";//获取用户拍摄的拳馆照片
 NSString * const BecomeGymMenberShipURL = @"/api/gymmenbership/save$GymMenberShip.do";
 NSString * const GetCoachTeachRecord = @"/api/coursebook/get$CourseHistory.do";
-
+NSString * const QuitGymVIP = @"/api/gymmenbership/delete$GymMenberShip.do";
 
 #pragma mark - 训练
 NSString * const GetTraineeListURL = @"/api/coursebook/findCourseMember.do"; //获取课程学员列表

@@ -16,16 +16,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "fighter/FTArenaPostsDetailViewController.m"
-            timestampString = "505301077.29745"
+            filePath = "fighter/FTPayViewController.m"
+            timestampString = "505622458.043918"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "-checkBean"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
+            landmarkName = "-backBtnAction:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

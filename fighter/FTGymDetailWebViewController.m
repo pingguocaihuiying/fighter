@@ -31,8 +31,9 @@
 #import "FTGymCourceViewNew.h"//新课程表
 #import "FTGymOrderCourseView.h"
 #import "FTOrderCoachViewController.h"
-#import "FTJoinGymVIPTipViewIsCoorView.h"//成为会员弹出框
-#import "FTJoinGymVIPTipViewNotCoorerativeView.h"
+#import "FTJoinGymVIPTipViewIsCoorView.h"//成为会员弹出框（合作拳馆）
+#import "FTJoinGymVIPTipViewNotCoorerativeView.h"//成为会员弹出框（非合作拳馆）
+#import "FTQuitGymViewAlertView.h"//退出弹出框
 
 @interface FTGymDetailWebViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, FTLoginViewControllerDelegate, FTGymOrderCourseViewDelegate, FTGymCourseTableViewDelegate, FTScrollViewScollToBottomDelegate>
 
@@ -162,7 +163,7 @@
     _isVIPImage.hidden = NO;//显示“我的拳馆”标识
     
     //地址栏后显示退出图标
-    [_addressButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    [_addressButton setImage:[UIImage imageNamed:@"退出拳馆28x38px"] forState:UIControlStateNormal];
     [_addressButton addTarget:self action:@selector(quitGymVIP) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -186,7 +187,37 @@
  退出拳馆
  */
 - (void)quitGymVIP{
+    [self alertQuitGymConfirmView];
+}
+
+//弹出退出拳馆确认框
+- (void)alertQuitGymConfirmView{
+    FTQuitGymViewAlertView *quitGymViewAlertView = [[[NSBundle mainBundle] loadNibNamed:@"FTQuitGymViewAlertView" owner:nil options:nil] firstObject];
+    [quitGymViewAlertView.confirmButton addTarget:self action:@selector(confirmQuitGym) forControlEvents:UIControlEventTouchUpInside];
+    quitGymViewAlertView.frame = [[[UIApplication sharedApplication] keyWindow] bounds];
+    [[[UIApplication sharedApplication] keyWindow] addSubview:quitGymViewAlertView];
+}
+
+- (void)confirmQuitGym{
+    [self sendQuitGymVIPToServer];
+}
+
+- (void)sendQuitGymVIPToServer{
     NSLog(@"退出拳馆");
+    return;
+    [NetWorking userQuitGymVIPGymCorporationId:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid]withBlock:^(NSDictionary *dic) {
+        if (dic) {
+            NSString *status = dic[@"status"];
+            if ([status isEqualToString:@"success"]) {
+                NSLog(@"退出成功");
+                [self getVIPInfo];//更新VIP信息
+                [FTNotificationTools postShowMembershipGymsNoti];//发送通知，刷新外部“学拳”界面
+            }else{
+                NSString *message = dic[@"message"];
+                NSLog(@"message : %@", message);
+            }
+        }
+    }];
 }
 
 /**
