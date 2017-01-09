@@ -342,6 +342,14 @@
  */
 + (void)changeCourseStatusWithParamsDic:(NSMutableDictionary *)dic andOption:(void (^)(NSDictionary *dic))option;
 
+/**
+ 拳馆会员退出拳馆
+
+ @param corporationId corporationId
+ @param block 回掉
+ */
++ (void)userQuitGymVIPGymCorporationId:(NSString *)corporationId withBlock:(void(^)(NSDictionary *dic))block;
+
 #pragma mark - 新格斗场
 
 // Get Gym List for arena

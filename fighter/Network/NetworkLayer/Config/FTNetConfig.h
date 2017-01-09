@@ -200,7 +200,7 @@ extern NSString * const GetGymByIdURL;
 extern NSString * const GetGymPhotosByUsers;//获取用户拍摄的拳馆照片
 extern NSString * const BecomeGymMenberShipURL;
 extern NSString * const GetCoachTeachRecord;
-
+extern NSString * const QuitGymVIP;
 
 #pragma mark - 训练
 extern NSString * const GetTraineeListURL; //获取课程学员列表

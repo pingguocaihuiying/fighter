@@ -145,12 +145,13 @@
         NSLog(@"error : 没有找到bean");
     }
     
-    //二次评论增加的
-    if (!_parentCommentId) {
-        _parentCommentId = @"";
+    NSString *checkSign;
+    if (_parentCommentId) {//如果parentId不为空，是二次评论
+        checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@",comment, loginToken, objId, _parentCommentId, tableName, ts, userId, @"gedoujia12555521254"];
+    } else {
+        checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@",comment, loginToken, objId, tableName, ts, userId, @"gedoujia12555521254"];
     }
-    
-    NSString *checkSign = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@",comment, loginToken, objId, _parentCommentId, tableName, ts, userId, @"gedoujia12555521254"];
+
     
     checkSign = [MD5 md5:checkSign];
     comment = [comment stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -159,9 +160,6 @@
     //创建AAFNetWorKing管理者
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    NSLog(@"userId : %@, objId : %@, loginToken : %@, ts : %@, checkSign : %@, comment : %@, tableName : %@, ", userId ,objId , loginToken,ts ,checkSign ,comment,tableName);
-    
     NSDictionary *dic = @{@"userId" : userId,
                           @"objId" : objId,
                           @"loginToken" : loginToken,
@@ -169,10 +167,12 @@
                           @"checkSign" : checkSign,
                           @"comment" : comment,
                           @"tableName" : tableName,
-                          @"parentId" : _parentCommentId
                           };
-    
-    [manager POST:urlString parameters:dic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
+    NSMutableDictionary *mParamDic = [[NSMutableDictionary alloc]initWithDictionary:dic];
+    if (_parentCommentId) {
+        [mParamDic setValue:_parentCommentId forKey:@"parentId"];
+    }
+    [manager POST:urlString parameters:mParamDic progress:nil success:^(NSURLSessionTask * _Nonnull task, id  _Nonnull responseObject) {
         NSDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
 
         if ([responseDic[@"status"] isEqualToString:@"success"]) {

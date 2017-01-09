@@ -224,10 +224,6 @@
         
         webViewUrlString = [NSString stringWithFormat:@"%@?id=%@&type=%@&tableName=damageblog", BoxingBarWebViewURLString, _arenaBean.postsId, [_arenaBean.labels stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         NSLog(@"webview url：%@", webViewUrlString);
-
-    
-    
-    
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:webViewUrlString]]];
     [self.view sendSubviewToBack:_webView];
 }
@@ -541,9 +537,9 @@
     
     FTCommentViewController *commentVC = [ FTCommentViewController new];
     commentVC.delegate = self;
-    FTNewsBean *newsBean = [FTNewsBean new];
-    newsBean.newsId = _objId;
-    commentVC.newsBean = newsBean;
+    FTArenaBean *arenaBean = [FTArenaBean new];
+    arenaBean.postsId = _objId;
+    commentVC.arenaBean = arenaBean;
     
     if (object) {
         NSDictionary *paramDic = object;

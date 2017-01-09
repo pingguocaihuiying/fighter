@@ -1276,7 +1276,31 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     [self postRequestWithUrl:urlString parameters:dic option:option];
 }
 
-
++ (void)userQuitGymVIPGymCorporationId:(NSString *)corporationId withBlock:(void(^)(NSDictionary *dic))block{
+    
+    NSString *urlString = [FTNetConfig host:Domain path:QuitGymVIP];
+    NSLog(@"urlString=%@",urlString);
+    FTUserBean *loginuser = [FTUserBean loginUser];
+    if (!loginuser) return;
+    NSString *userId = loginuser.olduserid;
+    NSString *token = loginuser.token;
+    NSString *ts = [NSString stringWithFormat:@"%.0f",([[NSDate date] timeIntervalSince1970]*1000.0f)];// 时间戳
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    
+    [dic setObject:userId forKey:@"userId"];
+    [dic setObject:token forKey:@"loginToken"];
+    [dic setObject:ts forKey:@"ts"];
+    [dic setObject:corporationId forKey:@"corporationid"];
+//    [dic setObject:@"000" forKey:@"id"];
+//    [dic setObject:@"110" forKey:@"tel"];
+    
+    NSString *checkSign = [FTTools md5Dictionary:dic withCheckKey:@"gedoujiahtfht2g2rd"];
+    [dic setObject:checkSign forKey:@"checkSign"];
+    
+    
+    [self postRequestWithUrl:urlString parameters:dic option:block];
+}
 
 #pragma mark - 训练
 /**
