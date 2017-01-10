@@ -43,7 +43,7 @@
 - (void) setNavigationSytle {
     [UILabel new].textColor = [UIColor colorWithHex:Custom_Red_Value];
     //设置默认标题
-    self.navigationItem.title = _coachBean.gym_name;
+    self.navigationItem.title = _gymName ? _gymName : @"";
     
     // 导航栏字体和背景
     self.navigationController.navigationBar.tintColor = [UIColor colorWithHex:0x828287];
@@ -116,7 +116,7 @@
     //成为会员成功提示start
     FTJoinGymSuccessAlertView *joinGynSuccessAlertView = [[[NSBundle mainBundle]loadNibNamed:@"FTJoinGymSuccessAlertView" owner:nil options:nil] firstObject];
     joinGynSuccessAlertView.delegate = self;
-    joinGynSuccessAlertView.gymNameLabel.text = _coachBean.gym_name;
+    joinGynSuccessAlertView.gymNameLabel.text = _gymName ? _gymName : @"";
     joinGynSuccessAlertView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     [self.view addSubview:joinGynSuccessAlertView];
     //成为会员成功提示end

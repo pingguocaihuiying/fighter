@@ -35,5 +35,5 @@
 @property (nonatomic, strong) FTCoachBean *coachBean;//用到了教练所在拳馆的信息
 
 @property (nonatomic, assign) FTGymVIPType gymVIPType;//当前用户是否是当前拳馆的会员
-
+@property (nonatomic, copy) NSString *gymName;//拳馆名字，之前从教练bean里边读取，现在接口没有返回拳馆名字，就加了这个属性用来传值 17-1-10 lyz
 @end

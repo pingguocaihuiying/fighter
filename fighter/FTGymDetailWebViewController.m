@@ -809,6 +809,7 @@
     [firstCoach setWithDic:[_coachArray firstObject]];
     payForGymVIPViewController.coachBean = firstCoach;
     payForGymVIPViewController.gymVIPType = _gymVIPType;
+    payForGymVIPViewController.gymName = _gymDetailBean.gym_name;
     [self.navigationController pushViewController:payForGymVIPViewController animated:YES];
 
 }
