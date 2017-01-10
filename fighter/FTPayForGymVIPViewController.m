@@ -89,8 +89,7 @@
     }];
 }
 - (void)setSubViews{
-    //设置label等控件的颜色
-    [self setSubViewsColor];
+    [self setSubViewsColor];//设置label等控件的颜色
     [self addGestureToView];//给self.view添加单点事件，点击后收起键盘
     [self setPhoneNumViews];
 }

@@ -87,22 +87,22 @@ PLStreamingSendingBufferDelegate
                                                                                averageVideoBitRate:800 * 1000
                                                                                  videoProfileLevel:AVVideoProfileLevelH264Baseline31],
                                           ];
-    self.videoCaptureConfigurations = @[
-                                        [[PLVideoCaptureConfiguration alloc] initWithVideoFrameRate:15
-                                                                                      sessionPreset:AVCaptureSessionPresetiFrame960x540
-                                                                horizontallyMirrorFrontFacingCamera:YES
-                                                                 horizontallyMirrorRearFacingCamera:NO],
-                                        
-                                        [[PLVideoCaptureConfiguration alloc] initWithVideoFrameRate:24
-                                                                                      sessionPreset:AVCaptureSessionPresetiFrame960x540
-                                                                horizontallyMirrorFrontFacingCamera:YES
-                                                                 horizontallyMirrorRearFacingCamera:NO],
-                                        
-                                        [[PLVideoCaptureConfiguration alloc] initWithVideoFrameRate:30
-                                                                                      sessionPreset:AVCaptureSessionPresetiFrame960x540
-                                                                horizontallyMirrorFrontFacingCamera:YES
-                                                                 horizontallyMirrorRearFacingCamera:NO]
-                                        ];
+//    self.videoCaptureConfigurations = @[
+//                                        [[PLVideoCaptureConfiguration alloc] initWithVideoFrameRate:15
+//                                                                                      sessionPreset:AVCaptureSessionPresetiFrame960x540
+//                                                                horizontallyMirrorFrontFacingCamera:YES
+//                                                                 horizontallyMirrorRearFacingCamera:NO],
+//                                        
+//                                        [[PLVideoCaptureConfiguration alloc] initWithVideoFrameRate:24
+//                                                                                      sessionPreset:AVCaptureSessionPresetiFrame960x540
+//                                                                horizontallyMirrorFrontFacingCamera:YES
+//                                                                 horizontallyMirrorRearFacingCamera:NO],
+//                                        
+//                                        [[PLVideoCaptureConfiguration alloc] initWithVideoFrameRate:30
+//                                                                                      sessionPreset:AVCaptureSessionPresetiFrame960x540
+//                                                                horizontallyMirrorFrontFacingCamera:YES
+//                                                                 horizontallyMirrorRearFacingCamera:NO]
+//                                        ];
     self.sessionQueue = dispatch_queue_create("pili.queue.streaming", DISPATCH_QUEUE_SERIAL);
     
     

@@ -204,7 +204,6 @@
 
 - (void)sendQuitGymVIPToServer{
     NSLog(@"退出拳馆");
-    return;
     [NetWorking userQuitGymVIPGymCorporationId:[NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid]withBlock:^(NSDictionary *dic) {
         if (dic) {
             NSString *status = dic[@"status"];
@@ -1022,70 +1021,66 @@
         return;
     }
     
-    if(_gymVIPType != FTGymVIPTypeYep){
-        FTPayForGymVIPViewController *payForGymVIPViewController = [[FTPayForGymVIPViewController alloc]init];
-//        payForGymVIPViewController.gymDetailBean = _gymDetailBean;
-        FTCoachBean *firstCoach = [FTCoachBean new];
-        [firstCoach setWithDic:[_coachArray firstObject]];
-        payForGymVIPViewController.coachBean = firstCoach;
-        payForGymVIPViewController.gymVIPType = _gymVIPType;
-        [self.navigationController pushViewController:payForGymVIPViewController animated:YES];
-        return;
-    }
-    
-    FTGymOrderCourseView *gymOrderCourseView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCourseView" owner:nil options:nil] firstObject];
-    
-    //传递场地信息
-    if (_gymDetailBean.placeBeans.count > 1) {//当场地数大于1时，才传递场地信息，否则（服务器）用默认的
-        if (_curPlaceSerial > 0 && _curPlaceSerial <= _gymDetailBean.placeBeans.count) {
-            FTPlaceBean *curBean = _gymDetailBean.placeBeans[_curPlaceSerial - 1];
-            if (curBean) {
-                gymOrderCourseView.placeBean = curBean;
+    if(_gymVIPType != FTGymVIPTypeYep){//如果非会员
+        if (_gymDetailBean.is_cooperate) {//如果是合作拳馆
+            [self showJoinGymVIPTipViewIsCoorView];
+        } else {//如果是非合作拳馆
+            [self showJoinGymVIPTipViewIsNotCoorView];
+        }
+    }else{//如果是会员
+        FTGymOrderCourseView *gymOrderCourseView = [[[NSBundle mainBundle]loadNibNamed:@"FTGymOrderCourseView" owner:nil options:nil] firstObject];
+        //传递场地信息
+        if (_gymDetailBean.placeBeans.count > 1) {//当场地数大于1时，才传递场地信息，否则（服务器）用默认的
+            if (_curPlaceSerial > 0 && _curPlaceSerial <= _gymDetailBean.placeBeans.count) {
+                FTPlaceBean *curBean = _gymDetailBean.placeBeans[_curPlaceSerial - 1];
+                if (curBean) {
+                    gymOrderCourseView.placeBean = curBean;
+                }
             }
         }
-    }
-    
-    gymOrderCourseView.courseType = FTOrderCourseTypeGym;
-    gymOrderCourseView.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
-    gymOrderCourseView.dateString = dateString;
-    gymOrderCourseView.dateTimeStamp = timeStamp;
-    
-    NSDictionary *courseDic = courseCell.courserCellDic;
-    NSString *webViewURL = courseDic[@"url"];
-    gymOrderCourseView.webViewURL = webViewURL;
-    
-    if (courseCell.hasOrder) {
-        NSLog(@"已经预约");
         
-        NSDictionary *courseCellDic = courseCell.courserCellDic;
-        gymOrderCourseView.courserCellDic = courseCellDic;
+        gymOrderCourseView.courseType = FTOrderCourseTypeGym;
+        gymOrderCourseView.frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT);
+        gymOrderCourseView.dateString = dateString;
+        gymOrderCourseView.dateTimeStamp = timeStamp;
         
-        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
-        gymOrderCourseView.delegate = self;
-        gymOrderCourseView.status = FTGymCourseStatusHasOrder;
-        [self.view addSubview:gymOrderCourseView];
+        NSDictionary *courseDic = courseCell.courserCellDic;
+        NSString *webViewURL = courseDic[@"url"];
+        gymOrderCourseView.webViewURL = webViewURL;
         
-    } else if (courseCell.canOrder) {
-        
-        
-        NSDictionary *courseCellDic = courseCell.courserCellDic;
-        gymOrderCourseView.courserCellDic = courseCellDic;
-        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
-        gymOrderCourseView.delegate = self;
-        gymOrderCourseView.status = FTGymCourseStatusCanOrder;
-        [self.view addSubview:gymOrderCourseView];
-        NSLog(@"可以预约");
-    }else if (courseCell.isFull) {
-        
-        NSDictionary *courseCellDic = courseCell.courserCellDic;
-        gymOrderCourseView.courserCellDic = courseCellDic;
-        gymOrderCourseView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
-        gymOrderCourseView.delegate = self;
-        gymOrderCourseView.status = FTGymCourseStatusIsFull;
-        [self.view addSubview:gymOrderCourseView];
-        NSLog(@"满员");
-    }else{
-        //不能预约（可能因为数据无效等原因）
+        if (courseCell.hasOrder) {
+            NSLog(@"已经预约");
+            
+            NSDictionary *courseCellDic = courseCell.courserCellDic;
+            gymOrderCourseView.courserCellDic = courseCellDic;
+            
+            gymOrderCourseView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
+            gymOrderCourseView.delegate = self;
+            gymOrderCourseView.status = FTGymCourseStatusHasOrder;
+            [self.view addSubview:gymOrderCourseView];
+            
+        } else if (courseCell.canOrder) {
+            
+            
+            NSDictionary *courseCellDic = courseCell.courserCellDic;
+            gymOrderCourseView.courserCellDic = courseCellDic;
+            gymOrderCourseView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
+            gymOrderCourseView.delegate = self;
+            gymOrderCourseView.status = FTGymCourseStatusCanOrder;
+            [self.view addSubview:gymOrderCourseView];
+            NSLog(@"可以预约");
+        }else if (courseCell.isFull) {
+            
+            NSDictionary *courseCellDic = courseCell.courserCellDic;
+            gymOrderCourseView.courserCellDic = courseCellDic;
+            gymOrderCourseView.gymId = [NSString stringWithFormat:@"%ld", _gymDetailBean.corporationid];
+            gymOrderCourseView.delegate = self;
+            gymOrderCourseView.status = FTGymCourseStatusIsFull;
+            [self.view addSubview:gymOrderCourseView];
+            NSLog(@"满员");
+        }else{
+            //不能预约（可能因为数据无效等原因）
+        }
     }
 }
 
