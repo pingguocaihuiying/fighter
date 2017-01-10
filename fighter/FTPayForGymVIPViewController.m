@@ -413,6 +413,9 @@
                 //显示进入约客提示框
                 [self showEnterGymCourseView];
                 
+                //发送通知，刷新拳馆列表的显示
+                [FTNotificationTools postShowMembershipGymsNoti];
+                
             }else if (_gymVIPType == FTGymVIPTypeApplying){
                 
             }
